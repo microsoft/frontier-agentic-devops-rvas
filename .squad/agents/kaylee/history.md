@@ -71,6 +71,100 @@
 - `docs/module.html`
 - `docs/challenge.html`
 
-**
+**Stale fallback counts fix:**
 - Updated `index.html` fallback text: meta description and hero text from "57 challenges" → "58", GHAS card "2 tracks" → "1 track", GHAW card "24 challenges" → "25". The real stats are computed by `home.js::renderStats()` from `platform.json` at runtime; HTML fallbacks are now aligned.
 
+### Phase 4 — Bug fix: track cards as in-page navigation anchors (2026-06-15)
+
+**Track card → in-page anchor pattern:**
+- Track cards in `renderTracks()` were plain `<div class="track-item">` — visually clickable (pointer cursor) but non-interactive. Fix: dynamically choose tag (`a` vs `div`) based on whether the track has challenges. When `count > 0`, render `<a class="track-item" href="#track-${t.id}">`. When `count === 0`, keep `<div>` — avoids dead anchor links.
+- In `renderChallenges()`, each `.group-head` now carries `id="track-${trackId}"` matching the anchor `href`. Track IDs are already URL-safe slugs (e.g. `developer-flow`, `admin-governance`), no escaping needed for the id attribute.
+- The CSS `.track-item` already had `text-decoration: none; color: inherit; display: flex;` — changing to `<a>` required zero CSS changes for layout/appearance.
+
+**Scroll-margin-top / nav offset:**
+- The sticky nav is `height: 58px`. Added `scroll-margin-top: 72px` to `.group-head` (58px nav + 14px breathing room). This prevents the group heading from landing behind the navbar when the native anchor scroll fires.
+- `scroll-behavior: smooth` is already set on `html` — no JS scroll handler needed; native anchor `href="#track-..."` gives smooth scroll for free.
+
+**Edge case guarded:** tracks with 0 challenges are rendered as non-interactive `<div>` (no `href`) — no dead anchor targets.
+
+### Phase 5 — Bug fix: featured home card made clickable (2026-06-15)
+
+**ALL `.ch-card` instances MUST be `<a>` elements — do not regress:**
+- `home.js renderFeaturedChallenge()`: was `<div class="ch-card ...">` (broken — not clickable). Fixed to `<a class="ch-card ..." href="${FP.challengeUrl(pick.id)}">`.
+- `catalog.js` and `module.js renderChallenges()`: already correctly used `<a href="...">` — no changes needed.
+- **Convention (settled):** every `.ch-card` across all pages must be an `<a>` element. Plain `<div class="ch-card">` is wrong — it breaks keyboard navigation and makes the card non-clickable.
+- The "Open challenge →" button is kept as a SIBLING `<a>` (explicit affordance) — valid HTML; the two `<a>` elements are siblings inside `#featuredChallenge`, not nested. No CSS changes needed: `.ch-card` already sets `text-decoration: none; color: inherit; display: flex` and has `:focus-visible` styling.
+
+
+
+### Phase 5 — Global rebrand: Agentic DevOps + SRE Agent module relabel (2026-06-15)
+
+**Brand collision rule (CRITICAL — do not blanket-replace):**
+- The PRODUCT is now branded **"Agentic DevOps"** — header wordmark, `aria-label`, `<title>`, meta descriptions, hero eyebrow/h1/lede, footer brand, JS file header comments, JS `document.title` strings.
+- The former MODULE named "Agentic DevOps" / "Agentic DevOps & Azure SRE" is now **"SRE Agent"** with id `sre-agent`. Nav links, footer links, and hero card all use `module.html?m=sre-agent` and label "SRE Agent".
+- These are two distinct entities. A blanket find/replace of "Agentic DevOps" → anything would break the brand or the module label. Always reason about each occurrence's context before editing.
+
+**Icon file intentionally kept:**
+- `docs/assets/img/icon-agentic-devops.svg` retains its original filename. The `<img src>` in the module card points to this exact path. Do not rename it — the data layer references it by name and it would break icon loading.
+
+**Files changed (Kaylee's scope):**
+- `docs/index.html`, `docs/catalog.html`, `docs/challenge.html`, `docs/module.html` — title, meta, favicon (F→A), header wordmark, aria-labels, nav links, footer brand + nav links.
+- `docs/index.html` hero — eyebrow, h1, lede all rebranded; module card href + name updated.
+- `docs/assets/js/challenge.js` — header comment + `document.title` string.
+- `docs/assets/js/module.js` — header comment + `document.title` string.
+- `docs/assets/js/home.js`, `catalog.js`, `core.js` — header comments only.
+
+**Verification performed:**
+- Zero "Frontier" in docs/*.html and docs/assets/js/*.js ✓
+- Zero `m=agentic-devops` in docs/*.html ✓
+- Zero module label "Agentic DevOps" / "Agentic DevOps & Azure SRE" in nav/cards ✓
+- icon-agentic-devops.svg src unchanged ✓
+
+### Phase 6 — Bug fix: theme FOUC on navigation (2026-06-15)
+
+**Anti-FOUC inline script pattern (SETTLED — do not regress):**
+
+- **Problem:** Every page's static HTML had `data-theme="dark"` baked into the `<html>` tag. `core.js` (loaded at end of body) corrects the theme via `initTheme()` reading `localStorage('fp-theme')` — but not before first paint. Users with light mode saw a dark flash on every navigation.
+- **Fix:** Add a tiny synchronous render-blocking inline `<script>` in `<head>`, placed **before** the `<link rel="stylesheet">`, on all four pages: `index.html`, `catalog.html`, `challenge.html`, `module.html`.
+- **Pattern:**
+  ```html
+  <script>
+    (function () {
+      try {
+        var k = 'fp-theme';
+        var saved = localStorage.getItem(k);
+        var pref = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', saved || pref);
+      } catch (e) {}
+    })();
+  </script>
+  ```
+- **Key rule:** Must be **inline** (not an external file) — external scripts can't reliably prevent FOUC. Must run **before the stylesheet** so the correct theme is used from the first paint.
+- **Key rule:** Uses storage key `'fp-theme'` — **must stay in sync with `core.js` `THEME_KEY`**. If the key ever changes in core.js, update all four inline scripts identically.
+- **Keep `data-theme="dark"` on `<html>`** — it's a valid no-JS fallback; the inline script overrides it pre-paint.
+- **Do NOT remove core.js `initTheme()`** — it owns the toggle button and click handling. The inline head script + core.js share the same key; re-setting the same value post-load is harmless.
+- **Any new page added to the site must include this snippet in its `<head>`, before the stylesheet.**
+
+### Phase 7 — Ordering verification: setup challenges render first (2026-06-15)
+
+**How challenge ordering within a module/track is determined (SETTLED — do not regress):**
+
+- **Track order:** `module.js renderChallenges()` iterates `mod.tracks.map(t => t.id)` from `platform.json`. Track array order comes from `MODULE_CONFIG` key/property insertion order in `docs/build.js`. The first track in `MODULE_CONFIG.tracks` is rendered first on the module page.
+- **Within-track challenge order:** `renderChallenges()` pushes challenges into `byTrack[key]` in the exact order they appear in the `data.challenges` array from `platform.json`. There is NO secondary sort in JS. The challenge array order in `platform.json` is determined by `build.js` doing an alphabetical `.sort()` on challenge folder slug names (`modules/<id>/challenges/*.sort()`).
+- **Why setup challenges render first:** Setup challenge folders are named `00-...` / `s00-...` / `0-00-...` — they sort lexicographically before all other slugs. The build emits them first in the `challenges` array; JS renders them first within their track.
+
+**Verified (2026-06-15) — all four modules correct, no code changes needed:**
+| Module | First track | Setup challenge | Renders first? |
+|--------|-------------|-----------------|----------------|
+| ghec | developer-flow | ghec-ch00 | ✓ |
+| ghas | security | ghas-s00 | ✓ |
+| ghaw | hello-agent | ghaw-0-00 | ✓ |
+| sre-agent | agentic-lifecycle | sre-agent-00 | ✓ |
+
+**home.js featured challenge:** `renderFeaturedChallenge()` picks the first `ghaw` challenge with `difficulty === 'beginner'`. That resolves to `ghaw-0-00` (the GHAW setup challenge) — correctly points at the entry point.
+
+**Side-note (out of scope):** `ghas-s01` (s01-explore-attack-surface) has `tier: setup` in its meta.yml — appears to be a content error (should be `tier: core`). Does NOT affect rendering order (ordering is slug-alphabetical, not tier-based). Zoe owns `modules/**` content fixes.
+
+---
+
+### 2026-06-15 — Environment Setup: Verified setup challenges render first per module (ordering check). No code changes required.

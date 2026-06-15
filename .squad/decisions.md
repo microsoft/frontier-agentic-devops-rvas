@@ -303,6 +303,134 @@ Typography adjustments:
 
 ---
 
+### frontier-ghplatform-hackathon: Shared "Environment Setup" Challenge Template (2026-06-15)
+
+**Date:** 2026-06-15  
+**Author:** Mal (Lead / Architect)  
+**Status:** APPROVED — Zoe executes  
+**Requested by:** Marco (@olivomarco)
+
+**Summary:** Defines a unified contract for all module "Environment Setup" challenges (tier: setup, first challenge of each module). Specifies locked meta.yml fields, README skeleton, COACH skeleton, and independence rules. Four setup challenges follow this template: GHEC ch00 (new), GHAS s00 (new after renumber), GHAW 0-00 (refreshed), SRE Agent 00 (refreshed).
+
+**Key decisions:**
+- All setup challenges: `tier: setup`, `prerequisites: []`, `difficulty: beginner`, `emu_compatible: true`
+- Success criteria must be shell-command verifiable (not subjective observations)
+- First real challenge of each module (`ghec-ch01`, `ghas-s01`, `ghaw-1-01`, `sre-agent-01`) retains `prerequisites: []` — setup is not a hard blocker; it's a resource enabler documented via `prerequisite_capabilities`
+- README sections: Objectives → Prerequisites → Option A Codespaces → Option B Dev Container → Authenticate CLI → Verify Setup → Next Step
+- COACH sections: Objectives → Facilitation Hints → Common Blockers & Fixes table → Success Check list → Access-Blocked Fallback
+
+**Files:** Specifications in `mal-setup-challenge-template.md`; implementations follow in Zoe's four separate decisions.
+
+---
+
+### frontier-ghplatform-hackathon: GHEC ch00 Environment Setup Challenge Created (2026-06-15)
+
+**Date:** 2026-06-15  
+**Author:** Zoe (Content / Curriculum Engineer)  
+**Status:** ✅ DONE  
+**Requested by:** Marco (@olivomarco)
+
+**Summary:** Created `modules/ghec/challenges/ch00-environment-setup/` (three files: meta.yml, README.md, COACH.md). Follows Mal's shared template contract. Challenge ID: `ghec-ch00`, title: "Environment Setup", track: `developer-flow`, `prerequisites: []`.
+
+**Content sources:** `frontier-ghec-hackathon/scripts/setup.sh` (provisioning CLI commands, tool versions), `frontier-ghec-hackathon/README.md` (setup narrative).
+
+**Key fields:** `tier: setup`, `duration_minutes: 25`, `difficulty: beginner`, `min_environment: org`, `app_dependency: none`, `emu_compatible: true`.
+
+**Verification:** `ghec-ch01` retains `prerequisites: []` — ch00 is not a hard blocker (participant with existing environment can skip). Build-ready; `node docs/build.js` not executed by Zoe (separate shared step).
+
+---
+
+### frontier-ghplatform-hackathon: GHAS Renumber (s00..s05 → s01..s06) + New ghas-s00 Environment Setup (2026-06-15)
+
+**Date:** 2026-06-15  
+**Author:** Zoe (Content / Curriculum Engineer)  
+**Status:** ✅ Implemented  
+**Requested by:** Marco (@olivomarco)
+
+**Summary:** Part 1 — renamed all 6 existing GHAS challenges (s00→s01, s01→s02, ..., s05→s06) to free up position s00 for the new setup challenge. Updated all `id:` fields and `prerequisites:` cross-refs in meta.yml files. Part 2 — created new `modules/ghas/challenges/s00-environment-setup/` with meta.yml, README.md, COACH.md. Challenge ID: `ghas-s00`, `prerequisites: []`.
+
+**Prerequisite decisions:** `ghas-s01` (formerly s00, "Explore the Attack Surface") retains `prerequisites: []` — it was the original entry point. `ghas-s02` through `ghas-s06` updated to list `ghas-s01` (not the old s00).
+
+**Content sources:** `frontier-ghas-hackathon/docs/getting-started.html`, `frontier-ghas-hackathon/docs/prerequisites.html`, `frontier-ghas-hackathon/Student/README.md`.
+
+**Key fields:** `tier: setup`, `duration_minutes: 25`, `app_dependency: juice-shop`, `min_environment: org`.
+
+**Challenge count impact:** GHAS 6 → 7 (net +1 new setup). Global 57 → 58.
+
+---
+
+### frontier-ghplatform-hackathon: Refresh ghaw-0-00 to Shared Setup Template (2026-06-15)
+
+**Date:** 2026-06-15  
+**Author:** Zoe (Content / Curriculum Engineer)  
+**Status:** ✅ Done  
+**Requested by:** Marco (@olivomarco)
+
+**Summary:** Refreshed existing `modules/ghaw/challenges/0-00-setup/` (no rename; id `ghaw-0-00` unchanged). Applied Mal's template contract to meta.yml, README, and COACH.md. Upgraded `success_criteria` from mixed soft items to 5 verifiable shell commands: `gh auth status`, `gh --version`, `gh aw --version`, `gh aw run examples/hello-world.md --dry-run`, `gh repo view microsoft/frontier-ghaw-hackathon`.
+
+**Title decision:** Kept as `Challenge 00 — Environment Setup` (existing value, matches template for GHAW continuity).
+
+**Prerequisite integrity:** All 24 non-setup GHAW challenges retain `ghaw-0-00` in prerequisites — correct because `gh-aw` CLI is a hard dependency installed by setup.
+
+---
+
+### frontier-ghplatform-hackathon: sre-agent-00 Refreshed to Environment Setup Template (2026-06-15)
+
+**Date:** 2026-06-15  
+**Author:** Zoe (Content / Curriculum Engineer)  
+**Status:** ✅ DONE  
+**Requested by:** Marco (@olivomarco)
+
+**Summary:** Refreshed `modules/sre-agent/challenges/00-setup/` (no rename; id `sre-agent-00` unchanged). Changed title from "Setup and Team Launch" to "Environment Setup". Restructured README to lead with environment setup (6 explicit shell checks), then present team-launch content as a clearly-labelled second section (Contoso Claims scenario, roles, working agreements preserved). Updated `app_dependency: contoso-app` → `contoso-claims` per template. Added `tags: [setup, devcontainer, sre-agent]`. Aligned COACH.md to full skeleton.
+
+**Independence ruling:** `sre-agent-01` retains `prerequisites: []` — Challenge 01 (GitHub SDLC Baseline) does not technically require Azure subscription from ch00.
+
+**Files changed:** meta.yml (title, app_dependency, tags, success_criteria, prerequisite_capabilities), README.md (full restructure: env lead, Team Launch §2), COACH.md (skeleton sections).
+
+---
+
+### frontier-ghplatform-hackathon: README/CONTRIBUTING Tables Updated to 59 Challenges (2026-06-15)
+
+**Date:** 2026-06-15  
+**Author:** Zoe (Content / Curriculum Engineer)  
+**Status:** ✅ Implemented  
+**Requested by:** Marco (@olivomarco)
+
+**Summary:** Updated challenge inventory counts in README.md and CONTRIBUTING.md to reflect final state after setup challenge work. Old counts: 57 total, GHEC 20, GHAS 6, GHAW 24. New counts: 59 total, GHEC 21 (+1 ch00), GHAS 7 (+1 s00), GHAW 25 (+1 refresh), SRE Agent 6 (unchanged).
+
+**Changes:** README.md tagline "57 challenges" → "59 challenges"; module table rows updated. CONTRIBUTING.md no changes required (existing `ghas-s00` example now refers to setup challenge, which is canonical).
+
+**Verification:** Source of truth `docs/assets/data/platform.json`: 4 modules, 59 challenges (ghec 21, ghas 7, ghaw 25, sre-agent 6).
+
+---
+
+### frontier-ghplatform-hackathon: Environment Setup Challenges — Build QA Report (2026-06-15)
+
+**Date:** 2026-06-15T17:57:52Z  
+**QA By:** Simon  
+**Requested by:** Marco (@olivomarco)
+
+**Status:** ✅ RESOLVED — Coordinator fix applied
+
+**Summary:** QA verified all setup challenge work (Mal's template, 4 module implementations, Zoe's 7 decisions, doc updates). Build exits clean: 59 challenges, 4 modules, 36 prerequisite edges. All four setup challenges present with correct tier, prerequisites, and track position. Dependency integrity clean. One defect found and fixed by Coordinator: `sre-agent-01` initially had `prerequisites: [sre-agent-00]`; updated to `prerequisites: []` per independence rule. Stale data dirs (ghaw-ch01, ghaw-ch10) removed as cleanup.
+
+**Checks passed:**
+- ✅ Build 0 exit code, 59 challenges
+- ✅ Per-module counts (ghec 21, ghas 7, ghaw 25, sre-agent 6)
+- ✅ All 4 setup challenges (tier, prereqs, track position)
+- ✅ Dependency integrity (no dangling edges, renumber clean)
+- ✅ Independence rule (ch01/s01/sre-01 all have `prerequisites: []`)
+- ✅ Setup guide files (all 4 have README.md + COACH.md)
+- ✅ Next-step links in setup READMEs all valid
+
+**Defect (RESOLVED):** `sre-agent-01` independence rule violation → Coordinator fixed in meta.yml.
+
+**Cleanup:** Stale `docs/assets/data/challenges/ghaw-ch01/`, `ghaw-ch10/` dirs removed.
+
+**Final verdict:** SHIP-READY. 59 challenges, 4 tier:setup, all first-real-challenges have `prerequisites: []`.
+
+---
+
 ## Governance
 
 - All meaningful changes require team consensus
