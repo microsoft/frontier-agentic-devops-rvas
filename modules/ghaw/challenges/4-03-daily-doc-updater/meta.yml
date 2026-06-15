@@ -1,0 +1,35 @@
+id: ghaw-4-03
+title: Daily Doc Updater
+module: ghaw
+track: production-patterns
+difficulty: advanced
+duration_minutes: 30
+prerequisites:
+  - ghaw-0-00
+prerequisite_capabilities:
+  - GitHub Actions basics
+  - YAML syntax
+  - gh-aw CLI installed — see ghaw-0-00
+description: Your docs rot silently while your code evolves. Fix that with a scheduled workflow that reviews docs against code and proposes PRs — achieving a 96% merge rate in production.
+success_criteria:
+  - `.github/workflows/daily-doc-updater.md` exists with valid gh-aw frontmatter
+  - Trigger is `schedule: cron` (valid cron expression)
+  - Target doc directory is configured to something real in your repo
+  - `safe-outputs: create-pr` is declared
+  - `.github/workflows/daily-doc-updater.lock.yml` compiles without errors
+  - Dry-run produces at least one proposed doc change
+  - A manually triggered run opens a real PR with a focused, accurate diff
+tags:
+  - documentation
+  - schedule
+  - create-pr
+  - drift-detection
+  - production
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+tier: stretch
+source_repo: microsoft/frontier-ghaw-hackathon
+source_path: _challenges/4-03-daily-doc-updater.md
+license: MIT
+references: []

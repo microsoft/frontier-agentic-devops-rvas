@@ -1,0 +1,43 @@
+id: ghec-ch09
+title: Audit Log & Streaming
+module: ghec
+track: admin-governance
+difficulty: advanced
+duration_minutes: 300
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+description: By the end of this challenge you can investigate what happened in an organization using the **org audit log** UI, the **audit-log search syntax**, and the **audit-log REST API** — generating real events, querying them precisely, and building a lightweight "export" pipeline — all from an org and an org-owner token.
+success_criteria:
+- You can pull recent org audit events from the **API** (`gh api /orgs/<org>/audit-log` returns events with `action`/`actor`/`created_at`).
+- A **known event set** was generated in Part B and **every** action is findable via search or API.
+- At least **three distinct search filters** (`action:`, `actor:`, `repo:`, or `created:`) were used and produced correct results.
+- A **combined, time-bounded API query** returns a sensible count for today's events.
+- An **export script** committed to the repo pulls a time-bounded slice to JSON and the output contains your events.
+- A **`FINDINGS.md`** answers three investigative questions with the exact filter used.
+tags:
+- audit-log
+- api
+- streaming
+- investigation
+- governance
+app_dependency: none
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo wth-ch09-audit-target (populated main, safe object for auditable actions)
+- team wth-ch09-auditors (for membership/permission-change events)
+- printed sample of recent org audit events from the API
+tier: core
+source_repo: microsoft/frontier-ghec-hackathon
+source_path: challenges/ch09-audit-log-streaming/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization
+- https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/audit-log-events-for-your-organization
+- https://docs.github.com/en/enterprise-cloud@latest/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization#using-the-audit-log-api
+- https://docs.github.com/en/enterprise-cloud@latest/rest/orgs/orgs#get-the-audit-log-for-an-organization
+- https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise

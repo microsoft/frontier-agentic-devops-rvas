@@ -1,0 +1,46 @@
+id: ghec-ch18
+title: Self-Hosted & Larger Runners
+module: ghec
+track: automation-ai
+difficulty: advanced
+duration_minutes: 300
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+- Repository provisioned via challenge setup script
+description: By the end of this challenge you can register, harden, and target a self-hosted runner through an **organization runner group**, route jobs to it with labels, and reason about scaling and isolation — all from an org and an org-owner token.
+success_criteria:
+- An **org runner group** `wth-ch18-group` exists, scoped to **selected repos** (only `wth-ch18-self-hosted-runners`).
+- A **self-hosted runner** is registered to that group with custom **labels** and shows **Idle/online**.
+- '`self-hosted.yml` ran **on your runner** (runner name confirmed) while `hosted.yml` ran on a hosted runner.'
+- A **mis-labeled** job stays **queued**, proving label routing.
+- The runner runs under a **least-privilege account** and you demonstrated an **ephemeral** registration.
+- You documented the **fork-PR risk** and a **GitHub-hosted vs larger vs self-hosted** decision matrix, plus the **org-vs-enterprise runner group** note.
+tags:
+- actions
+- self-hosted-runners
+- runner-groups
+- hardening
+- larger-runners
+app_dependency: seed
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo wth-ch18-self-hosted-runners (seeded build)
+- hosted.yml (ubuntu-latest) + self-hosted.yml (label-targeted, queued until runner exists)
+- RUNNER-SETUP.md registration + hardening walkthrough (Linux/macOS/Windows)
+- HARDENING.md checklist (service account, ephemeral, fork-PR risk, egress)
+tier: core
+source_repo: microsoft/frontier-ghec-hackathon
+source_path: challenges/ch18-self-hosted-runners/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners
+- https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/adding-self-hosted-runners
+- https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/managing-access-to-self-hosted-runners-using-groups
+- https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions
+- https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/autoscaling-with-self-hosted-runners
+- https://docs.github.com/en/actions/using-github-hosted-runners/using-larger-runners/about-larger-runners

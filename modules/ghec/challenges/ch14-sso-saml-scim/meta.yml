@@ -1,0 +1,43 @@
+id: ghec-ch14
+title: SSO, SAML & SCIM Identity
+module: ghec
+track: security
+difficulty: advanced
+duration_minutes: 300
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+description: By the end of this challenge you can configure SAML single sign-on for an organization, connect a real identity provider in test mode, provision and de-provision members automatically with SCIM, and audit who is linked to which external identity — all org-scoped, with the enterprise-level model as an awareness callout.
+success_criteria:
+- The runbook explains the **three auth models** and records your IdP app's SAML settings.
+- '**SAML SSO is configured** for the org and **validated in test mode** (test round-trip succeeded before enforcement).'
+- A **token is SSO-authorized** and works against org resources under SAML (`gh api orgs/<org>/members` succeeds).
+- '**SCIM provisioning is enabled** and you demonstrated a **join** (user created via SCIM) and a **leave** (user suspended via SCIM), verifiable via the SCIM API.'
+- You produced an **external-identity audit** listing GitHub logins ↔ IdP identities.
+- '**SAML SSO is enforced** on the org (and you documented a tested rollback).'
+tags:
+- sso
+- saml
+- scim
+- identity
+- iam
+app_dependency: none
+emu_compatible: false
+min_environment: org
+provision_creates:
+- repo wth-ch14-identity-runbook (runbook for IdP SAML app settings, SCIM rollout checklist, join/leave test script)
+- staged org-scoped identity settings reference (Authentication security page URL + SCIM API base) — SSO is NOT auto-enabled (that is the learning)
+tier: core
+source_repo: microsoft/frontier-ghec-hackathon
+source_path: challenges/ch14-sso-saml-scim/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/understanding-iam-for-enterprises/about-identity-and-access-management
+- https://docs.github.com/en/organizations/managing-saml-single-sign-on-for-your-organization/about-identity-and-access-management-with-saml-single-sign-on
+- https://docs.github.com/en/organizations/managing-saml-single-sign-on-for-your-organization/connecting-your-identity-provider-to-your-organization
+- https://docs.github.com/en/organizations/managing-saml-single-sign-on-for-your-organization/about-scim-for-organizations
+- https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/understanding-iam-for-enterprises/about-enterprise-managed-users
+- https://docs.github.com/en/rest/scim/scim

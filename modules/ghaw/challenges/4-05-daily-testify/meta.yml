@@ -1,0 +1,35 @@
+id: ghaw-4-05
+title: The Uber Expert (Daily Testify)
+module: ghaw
+track: production-patterns
+difficulty: advanced
+duration_minutes: 30
+prerequisites:
+  - ghaw-0-00
+prerequisite_capabilities:
+  - GitHub Actions basics
+  - YAML syntax
+  - gh-aw CLI installed — see ghaw-0-00
+description: Embed deep testing expertise in a workflow that analyses test quality daily and creates actionable issues. The first half of a causal chain that drove 13 merged PRs from 19 issues.
+success_criteria:
+  - `.github/workflows/daily-testify-uber-super-expert.md` exists with valid frontmatter
+  - `schedule: cron` trigger is set
+  - Expert persona is established in the body (specific, not generic)
+  - `safe-outputs: create-issue` is declared — **no** `create-pr` here
+  - `.lock.yml` compiles without errors
+  - Manually triggered run creates at least one actionable issue
+  - Issue body is specific: names a file, a function, or a concrete gap — not "add more tests"
+tags:
+  - testing
+  - issue-creation
+  - causal-chain
+  - expertise
+  - production
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+tier: stretch
+source_repo: microsoft/frontier-ghaw-hackathon
+source_path: _challenges/4-05-daily-testify.md
+license: MIT
+references: []

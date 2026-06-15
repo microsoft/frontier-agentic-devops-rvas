@@ -1,0 +1,37 @@
+id: ghaw-4-06
+title: The Test Improver
+module: ghaw
+track: production-patterns
+difficulty: advanced
+duration_minutes: 30
+prerequisites:
+  - ghaw-0-00
+  - ghaw-4-05
+prerequisite_capabilities:
+  - GitHub Actions basics
+  - YAML syntax
+  - gh-aw CLI installed — see ghaw-0-00
+description: The consumer half of the causal chain — a daily workflow that finds coverage gaps and writes the actual tests, turning Testify's issues into merged PRs automatically.
+success_criteria:
+  - `.github/workflows/daily-test-improver.md` exists with valid frontmatter
+  - `schedule: cron` trigger is set
+  - Test framework and language are specified in the body
+  - Coverage gap detection logic is in the body (not just "write more tests")
+  - `safe-outputs: create-pr` is declared
+  - `.lock.yml` compiles without errors
+  - Dry-run produces at least one new test file or function
+  - Proposed test is syntactically valid for your framework
+tags:
+  - testing
+  - coverage
+  - create-pr
+  - causal-chain
+  - production
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+tier: stretch
+source_repo: microsoft/frontier-ghaw-hackathon
+source_path: _challenges/4-06-test-improver.md
+license: MIT
+references: []

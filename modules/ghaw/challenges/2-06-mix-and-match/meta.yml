@@ -1,0 +1,38 @@
+id: ghaw-2-06
+title: Mix & Match
+module: ghaw
+track: repo-concierge
+difficulty: intermediate
+duration_minutes: 30
+prerequisites:
+  - ghaw-0-00
+prerequisite_capabilities:
+  - GitHub Actions basics
+  - YAML syntax
+  - gh-aw CLI installed — see ghaw-0-00
+description: Stop copy-pasting. Use imports: to compose reusable workflow snippets and create-discussion to post async digests instead of noisy issues.
+success_criteria:
+  - `lib/repo-stats-helper.md` exists and contains meaningful formatting instructions
+  - `.github/workflows/2-06-mix-and-match.md` has `imports: [./lib/repo-stats-helper.md]` in frontmatter
+  - Trigger is `on: schedule:` (weekly)
+  - `safe-outputs: create-discussion: category: "General"` is declared
+  - `permissions: discussions: write` is set
+  - Compiled `.lock.yml` exists without errors
+  - Running the workflow creates a Discussion post, not an issue
+  - The Discussion content matches the format defined in your helper
+tags:
+  - imports
+  - workflow-composition
+  - create-discussion
+  - code-reuse
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+tier: stretch
+source_repo: microsoft/frontier-ghaw-hackathon
+source_path: _challenges/2-06-mix-and-match.md
+license: MIT
+references:
+  - https://github.github.com/gh-aw/reference/frontmatter/#imports
+  - https://github.github.com/gh-aw/reference/safe-outputs/#create-discussion
+  - https://docs.github.com/en/discussions

@@ -1,0 +1,43 @@
+id: ghaw-3-01
+title: The Relay
+module: ghaw
+track: continuous-intelligence
+difficulty: advanced
+duration_minutes: 30
+prerequisites:
+  - ghaw-0-00
+prerequisite_capabilities:
+  - GitHub Actions basics
+  - YAML syntax
+  - gh-aw CLI installed — see ghaw-0-00
+description: Unlock workflow chaining — build a producer that writes structured data to repo-memory and a consumer that reads it, demonstrating how independent agents pass state to each other.
+success_criteria:
+  - Daily trigger works (`on: schedule:`)
+  - JSON file written to `repo-memory/metrics/{date}.json` with correct structure
+  - Workflow runs without errors (check Actions logs)
+  - `safe-outputs: noop` is called
+  - Weekly trigger works
+  - Reads from `repo-memory` using `file-glob: metrics/**/*.json`
+  - Discussion created with trend analysis
+  - Workflow correctly interprets the JSON from the producer
+  - Producer runs, data appears in `repo-memory/`
+  - Consumer reads that data and creates a discussion referencing the metrics
+  - The two workflows are not directly coupled (consumer doesn't know producer's name)
+tags:
+  - workflow-chaining
+  - repo-memory
+  - producer-consumer
+  - state-persistence
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+tier: core
+source_repo: microsoft/frontier-ghaw-hackathon
+source_path: _challenges/3-01-the-relay.md
+license: MIT
+references:
+  - https://github.github.com/gh-aw/reference/repo-memory/
+  - https://github.com/github/gh-aw/blob/main/.github/workflows/metrics-collector.md
+  - https://github.com/github/gh-aw/blob/main/.github/workflows/agent-performance-analyzer.md
+  - https://github.github.com/gh-aw/reference/safe-outputs/
+  - https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onschedule

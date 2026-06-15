@@ -1,0 +1,45 @@
+id: ghas-s01
+title: Fix Injection Vulnerabilities
+module: ghas
+track: security
+difficulty: intermediate
+duration_minutes: 90
+prerequisites:
+  - ghas-s00
+prerequisite_capabilities:
+  - Juice Shop instance running (see modules/ghas/setup.md)
+  - GitHub Advanced Security enabled on the shared org repo
+  - GitHub Copilot license assigned
+  - Basic familiarity with Node.js/Express and SQL queries
+  - Completed S00 (attack surface overview) recommended
+description: Fix real SQL injection and NoSQL injection vulnerabilities in Juice Shop backend routes identified by CodeQL, using parameterized queries and ORM-safe patterns; open pull requests and verify fixes via PR code scanning checks.
+success_criteria:
+  - At least 2 injection vulnerabilities fixed in the code
+  - Fixes use parameterized queries or equivalent safe patterns — not input sanitization alone
+  - Pull requests to main opened with clear descriptions of the vulnerability and remediation
+  - Copilot Autofix tried on at least one alert (click "Generate fix" in the Security tab)
+  - PR CodeQL/code scanning checks reviewed, with no remaining annotations for the fixed patterns
+tags:
+  - ghas
+  - codeql
+  - injection
+  - sql-injection
+  - parameterized-queries
+  - juice-shop
+  - autofix
+  - copilot
+app_dependency: juice-shop
+emu_compatible: true
+min_environment: org
+provision_creates:
+  - Shared org repo with Juice Shop (OWASP Juice Shop v20+) — provisioned by organizer setup
+  - CodeQL scanning active with injection-class alerts pre-populated on default branch
+tier: core
+source_repo: microsoft/frontier-ghas-hackathon
+source_path: Student/Challenge-S01.md
+license: MIT
+references:
+  - https://owasp.org/www-community/attacks/SQL_Injection
+  - https://docs.github.com/en/code-security/code-scanning/managing-code-scanning-alerts/about-autofix-for-codeql-code-scanning
+  - https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html
+  - https://docs.github.com/en/code-security/code-scanning/managing-code-scanning-alerts/managing-code-scanning-alerts-for-your-repository

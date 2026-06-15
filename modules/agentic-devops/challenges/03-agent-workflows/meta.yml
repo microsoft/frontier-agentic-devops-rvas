@@ -1,0 +1,31 @@
+id: agentic-devops-03
+title: Coordinate Agent Workflows
+module: agentic-devops
+track: agentic-arc
+difficulty: intermediate
+duration_minutes: 60
+prerequisites:
+  - agentic-devops-01
+  - agentic-devops-02
+prerequisite_capabilities:
+  - GitHub Copilot access
+  - Basic Git workflow
+  - Azure CLI basics
+description: The team is moving faster, but coordination is getting harder. Issues, pull requests, review comments, generated suggestions, and deployment tasks are spread across tools and conversations.
+success_criteria:
+  - Work is decomposed into small, visible units.
+  - Each unit has an owner, acceptance criteria, and validation expectation.
+  - Starter repo instrumentation exists as versioned or issue-linked artifacts.
+  - Agent-assisted output is attached to the workflow where reviewers can inspect it.
+  - Review feedback produces an observable change, clarification, or follow-up issue.
+  - The team can explain which parts were delegated to AI assistance and which remained human decisions.
+  - The team can explain how primitives are loaded and how they would troubleshoot a missing instruction.
+tags: []
+app_dependency: contoso-app
+emu_compatible: true
+min_environment: org
+tier: core
+source_repo: microsoft/frontier-agentic-devops-hackathon
+source_path: Student/Challenge-03-Agent-Workflows.md
+license: MIT
+references: []

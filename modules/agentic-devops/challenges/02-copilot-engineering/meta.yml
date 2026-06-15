@@ -1,0 +1,30 @@
+id: agentic-devops-02
+title: Build with GitHub Copilot
+module: agentic-devops
+track: agentic-arc
+difficulty: beginner
+duration_minutes: 60
+prerequisites:
+  - agentic-devops-00
+prerequisite_capabilities:
+  - GitHub Copilot access
+  - Basic Git workflow
+  - Azure CLI basics
+description: Now that the team has a basic SDLC path, the product owner asks for a small behavior improvement in Contoso Claims. The code is unfamiliar. You need to understand the relevant files, propose a focused change, add validation, and prepare it for review.
+success_criteria:
+  - The team can point to the prompt context used to guide Copilot.
+  - Prompts show PROSE discipline: scoped context, clear hierarchy, safety boundaries, and staged composition.
+  - The resulting change maps to the issue acceptance criteria.
+  - Tests or validation steps cover the intended behavior and at least one edge case.
+  - The pull request makes clear what Copilot helped with and what humans verified.
+  - Reviewers can understand the change without trusting AI output blindly.
+  - One convention or domain rule has been externalized for future agent use.
+tags: []
+app_dependency: contoso-app
+emu_compatible: true
+min_environment: org
+tier: core
+source_repo: microsoft/frontier-agentic-devops-hackathon
+source_path: Student/Challenge-02-Copilot-Engineering.md
+license: MIT
+references: []

@@ -1,0 +1,35 @@
+id: ghaw-4-01
+title: Issue Triage Agent
+module: ghaw
+track: production-patterns
+difficulty: advanced
+duration_minutes: 30
+prerequisites:
+  - ghaw-0-00
+prerequisite_capabilities:
+  - GitHub Actions basics
+  - YAML syntax
+  - gh-aw CLI installed — see ghaw-0-00
+description: Deploy the 'hello world' of agentic workflows — the same issue-triage pattern used as the starter example in Claude Code. Label, categorise, and respond to new issues automatically.
+success_criteria:
+  - `.github/workflows/issue-triage-agent.md` exists and has valid gh-aw frontmatter
+  - Trigger is `on: issues: types: [opened, reopened]`
+  - `tools: github: toolsets: [issues, labels]` is present
+  - `safe-outputs` includes `add-labels` and `add-comment`
+  - Allowlist contains only labels that exist in your repo
+  - `.github/workflows/issue-triage-agent.lock.yml` compiles without errors
+  - Dry-run completes and shows expected label assignments in output
+  - Live test: open a new issue and verify labels + comment appear
+tags:
+  - issues
+  - triage
+  - labels
+  - production
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+tier: core
+source_repo: microsoft/frontier-ghaw-hackathon
+source_path: _challenges/4-01-issue-triage-agent.md
+license: MIT
+references: []

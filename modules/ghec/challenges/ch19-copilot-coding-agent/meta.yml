@@ -1,0 +1,45 @@
+id: ghec-ch19
+title: Copilot Cloud Agent
+module: ghec
+track: automation-ai
+difficulty: advanced
+duration_minutes: 240
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner rights
+- GitHub Copilot license (Business or Enterprise) assigned
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+- Repository provisioned via challenge setup script
+description: By the end of this challenge you can delegate a real bug to the GitHub Copilot cloud agent — assign it an issue, watch it open a draft pull request, and review, steer, and merge its work — on a small seeded repo using an org and an org-owner token.
+success_criteria:
+- You confirmed the **Copilot cloud agent is enabled** and the repo is **eligible (non-EMU)**.
+- You **assigned the seeded issue to Copilot** and it opened a **draft pull request**.
+- You read the agent's **session log** and **reviewed its diff** against the acceptance criteria.
+- You **steered the agent** with at least one review comment and it pushed **new commits** in response.
+- The **failing test is green** in the PR and the PR was **approved and merged** to `main`.
+- You captured a short **reflection** on where the agent fits (and where human review stays essential).
+tags:
+- copilot
+- cloud-agent
+- ai-assisted-development
+- pull-requests
+- automation
+app_dependency: seed
+emu_compatible: false
+min_environment: org
+provision_creates:
+- repo wth-ch19-copilot-coding-agent (small seeded buggy repo, NOT Juice Shop — short/gradable agent runs)
+- a failing test that pins a single clear bug + CI workflow to verify the fix
+- a well-framed seeded issue (repro + acceptance criteria) ready to assign to Copilot
+tier: core
+source_repo: microsoft/frontier-ghec-hackathon
+source_path: challenges/ch19-copilot-coding-agent/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent
+- https://docs.github.com/en/copilot/concepts/agents/cloud-agent/access-management
+- https://docs.github.com/en/copilot/using-github-copilot/coding-agent/using-copilot-to-work-on-an-issue
+- https://docs.github.com/en/copilot/how-tos/agents/coding-agent
+- https://docs.github.com/en/copilot/managing-copilot/managing-github-copilot-in-your-organization/managing-policies-for-copilot-in-your-organization

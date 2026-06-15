@@ -1,0 +1,34 @@
+id: ghaw-4-04
+title: Documentation Unbloat
+module: ghaw
+track: production-patterns
+difficulty: advanced
+duration_minutes: 30
+prerequisites:
+  - ghaw-0-00
+prerequisite_capabilities:
+  - GitHub Actions basics
+  - YAML syntax
+  - gh-aw CLI installed — see ghaw-0-00
+description: Bloated docs scare contributors away. Deploy a workflow that identifies verbose, redundant, or outdated documentation and trims it — 85% of its PRs merge straight to main.
+success_criteria:
+  - `.github/workflows/unbloat-docs.md` exists with valid gh-aw frontmatter
+  - Target document is explicitly named in the workflow body
+  - `safe-outputs: create-pr` is declared
+  - Simplification criteria are specific, not vague ("make it shorter" is too vague — "remove duplicate warnings and shorten code examples to one line" is good)
+  - `.github/workflows/unbloat-docs.lock.yml` compiles without errors
+  - Dry-run proposes at least one real simplification
+  - Proposed PR diff is focused (one file, clean changes)
+tags:
+  - documentation
+  - simplification
+  - create-pr
+  - production
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+tier: stretch
+source_repo: microsoft/frontier-ghaw-hackathon
+source_path: _challenges/4-04-doc-unbloat.md
+license: MIT
+references: []

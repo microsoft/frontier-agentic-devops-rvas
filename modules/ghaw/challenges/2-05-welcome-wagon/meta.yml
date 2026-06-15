@@ -1,0 +1,44 @@
+id: ghaw-2-05
+title: Welcome Wagon
+module: ghaw
+track: repo-concierge
+difficulty: intermediate
+duration_minutes: 30
+prerequisites:
+  - ghaw-0-00
+prerequisite_capabilities:
+  - GitHub Actions basics
+  - YAML syntax
+  - gh-aw CLI installed — see ghaw-0-00
+description: Make first-time contributors feel at home — build a workflow that detects debut pull requests and posts a personalised welcome with links to contribution resources.
+success_criteria:
+  - `.github/workflows/welcome-wagon.md` exists with valid gh-aw frontmatter
+  - Trigger is `on: pull_request: types: [opened]`
+  - Frontmatter includes conditional check (or body checks): only posts for first-time contributors
+  - Safe-outputs includes `add-comment`
+  - `.github/workflows/welcome-wagon.lock.yml` compiles without errors
+  - Manual test: create a test PR from a new user account (or use a test account)
+  - Verify: comment appears ONLY for first-time contributors
+  - Verify: comment does NOT appear if you (repo owner) open a PR
+  - Comment includes:
+  - Warm greeting
+  - Thank you message
+  - At least 2 helpful links or resources
+  - Encouragement
+  - Comment is friendly, not robotic
+tags:
+  - pull-requests
+  - first-time-contributors
+  - community
+  - onboarding
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+tier: stretch
+source_repo: microsoft/frontier-ghaw-hackathon
+source_path: _challenges/2-05-welcome-wagon.md
+license: MIT
+references:
+  - https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
+  - https://github.github.com/gh-aw/reference/safe-outputs/
+  - https://github.github.com/gh-aw/reference/tools/github/

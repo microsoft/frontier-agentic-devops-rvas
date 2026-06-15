@@ -1,0 +1,48 @@
+id: ghec-ch03
+title: Codespaces & Dev Containers
+module: ghec
+track: developer-flow
+difficulty: intermediate
+duration_minutes: 240
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+- Repository provisioned via challenge setup script
+description: By the end of this challenge you can define a reproducible cloud dev environment with `devcontainer.json`, launch and customize Codespaces, forward ports, configure org-level Codespaces policy, and speed everything up with prebuilds — all from an org and an org-owner token.
+success_criteria:
+- '`.devcontainer/devcontainer.json` exists, **pins a base image**, includes **≥2 Features**, and sets `postCreateCommand` + `postStartCommand`.'
+- A Codespace was launched from **both** the UI and the CLI (`gh codespace list` showed it).
+- Inside the Codespace, the pinned **Node version**, the **gh CLI Feature**, and the **post-create install** are all verifiable.
+- The app **runs** and its port is **forwarded + labeled**, with `forwardPorts`/`portsAttributes` committed to config.
+- '`docs/devcontainer-notes.md` explains **dotfiles vs devcontainer.json** precedence.'
+- An **org Codespaces policy** restricts machine types and sets retention.
+- A **prebuild** is configured and a new Codespace reports **prebuilt**.
+- All your Codespaces are **stopped/deleted** at the end.
+tags:
+- codespaces
+- devcontainers
+- cloud-development
+- port-forwarding
+- prebuilds
+app_dependency: seed
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo wth-ch03-codespaces-dev-containers (seeded Node/Express app + package.json)
+- minimal/absent .devcontainer/ (student authors it)
+- README documenting local-run steps (contrast with Codespaces)
+tier: core
+source_repo: microsoft/frontier-ghec-hackathon
+source_path: challenges/ch03-codespaces-dev-containers/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers
+- https://docs.github.com/en/codespaces/overview
+- https://docs.github.com/en/codespaces/developing-in-a-codespace/forwarding-ports-in-your-codespace
+- https://docs.github.com/en/codespaces/prebuilding-your-codespaces/configuring-prebuilds
+- https://docs.github.com/en/codespaces/managing-codespaces-for-your-organization/managing-repository-access-for-your-organizations-codespaces
+- https://docs.github.com/en/codespaces/customizing-your-codespace/personalizing-github-codespaces-for-your-account
+- https://containers.dev/implementors/json_reference/

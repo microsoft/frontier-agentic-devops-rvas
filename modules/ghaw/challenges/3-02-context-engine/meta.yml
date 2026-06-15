@@ -1,0 +1,39 @@
+id: ghaw-3-02
+title: Context Engine
+module: ghaw
+track: continuous-intelligence
+difficulty: advanced
+duration_minutes: 30
+prerequisites:
+  - ghaw-0-00
+prerequisite_capabilities:
+  - GitHub Actions basics
+  - YAML syntax
+  - gh-aw CLI installed — see ghaw-0-00
+description: Supercharge your agent with external context — wire multiple MCP toolsets so it can read live PR diffs, contribution guidelines, and architecture docs before making decisions.
+success_criteria:
+  - Workflow triggers on PR open/push
+  - Agent reads PR diff (GitHub toolset)
+  - Agent reads repo files (CONTRIBUTING.md, ARCHITECTURE.md) to understand repo context
+  - Agent produces a structured comment with context-aware insights
+  - Comment appears on the PR
+  - Comment avoids generic advice—it's specific to *this* repo's standards
+  - `safe-outputs: add-comment` is used correctly
+tags:
+  - mcp-tools
+  - external-context
+  - pr-analysis
+  - context-aware
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+tier: core
+source_repo: microsoft/frontier-ghaw-hackathon
+source_path: _challenges/3-02-context-engine.md
+license: MIT
+references:
+  - https://github.github.com/gh-aw/reference/mcp-tools/
+  - https://github.github.com/gh-aw/reference/mcp-tools/#github
+  - https://github.com/github/gh-aw/blob/main/.github/workflows/issue-triage-agent.md
+  - https://github.github.com/gh-aw/reference/safe-outputs/#add-comment
+  - https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpull_request

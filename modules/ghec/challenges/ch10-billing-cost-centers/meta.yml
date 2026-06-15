@@ -1,0 +1,44 @@
+id: ghec-ch10
+title: Billing, Cost Centers & Usage
+module: ghec
+track: admin-governance
+difficulty: advanced
+duration_minutes: 240
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+description: By the end of this challenge you can read and govern an organization's spend — inspect **Actions/Packages/Storage usage**, set **budgets with alerts** (including budgets that stop spend), pull **billing usage from the API**, and produce a cost report — all from an org and an org-owner token.
+success_criteria:
+- A **before** usage snapshot was captured from the billing **API** (Actions minutes + storage).
+- At least **two Actions runs** were generated and **usage increased** (verifiable via `gh run list` + the billing API delta).
+- A **budget** is configured at the org with at least one **alert threshold** below the cap.
+- You can **reconcile** the API usage total against the UI Usage page and explain the cost model (included vs metered; per-minute price varies by runner OS/SKU).
+- A committed **cost-report script** runs and produces a product/used/included/billable table.
+- A **`COST-REPORT.md`** exists with the before/after delta and a budget recommendation.
+tags:
+- billing
+- usage
+- cost-centers
+- budgets
+- reporting
+app_dependency: none
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo wth-ch10-usage-generator (tiny workflow_dispatch Actions workflow to generate small metered usage)
+- repo wth-ch10-cost-report (holds reconciliation script + final report)
+- printed current usage snapshot (Actions minutes / storage from the API)
+tier: core
+source_repo: microsoft/frontier-ghec-hackathon
+source_path: challenges/ch10-billing-cost-centers/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/billing/get-started/introduction-to-billing
+- https://docs.github.com/en/billing/managing-billing-for-your-products/viewing-your-product-usage
+- https://docs.github.com/en/billing/concepts/budgets-and-alerts
+- https://docs.github.com/en/billing/managing-billing-for-your-products/about-billing-for-github-actions
+- https://docs.github.com/en/rest/billing/usage
+- https://docs.github.com/en/billing/concepts/cost-centers

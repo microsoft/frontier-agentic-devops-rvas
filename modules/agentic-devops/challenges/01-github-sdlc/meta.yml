@@ -1,0 +1,29 @@
+id: agentic-devops-01
+title: Establish the GitHub SDLC
+module: agentic-devops
+track: agentic-arc
+difficulty: beginner
+duration_minutes: 60
+prerequisites:
+  - agentic-devops-00
+prerequisite_capabilities:
+  - GitHub Copilot access
+  - Basic Git workflow
+  - Azure CLI basics
+description: The inherited Contoso Claims service has change requests, but the team cannot reliably answer basic questions: What problem is being solved? Who reviewed it? Which checks ran? What evidence proves it is ready?
+success_criteria:
+  - The issue states the problem, expected outcome, and validation method.
+  - The issue includes boundaries that reduce scope and prevent unrelated changes.
+  - The branch and pull request are linked to the issue.
+  - The pull request has a useful description and visible review activity.
+  - At least one quality signal exists: test output, lint output, workflow run, checklist, or coach-approved manual validation.
+  - The team can trace the change from issue to merged result.
+tags: []
+app_dependency: contoso-app
+emu_compatible: true
+min_environment: org
+tier: core
+source_repo: microsoft/frontier-agentic-devops-hackathon
+source_path: Student/Challenge-01-GitHub-SDLC.md
+license: MIT
+references: []

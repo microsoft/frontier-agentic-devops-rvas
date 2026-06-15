@@ -1,0 +1,35 @@
+id: ghaw-4-07
+title: Security Compliance
+module: ghaw
+track: production-patterns
+difficulty: advanced
+duration_minutes: 30
+prerequisites:
+  - ghaw-0-00
+prerequisite_capabilities:
+  - GitHub Actions basics
+  - YAML syntax
+  - gh-aw CLI installed — see ghaw-0-00
+description: Run vulnerability campaigns on a schedule — tracking CVEs by severity, enforcing SLA windows, and opening deadline-aware issues before vulnerabilities slip through the cracks.
+success_criteria:
+  - `.github/workflows/security-compliance.md` exists with valid frontmatter
+  - `schedule: cron` trigger is set
+  - SLA windows are defined in the body (severity → days)
+  - `safe-outputs: create-issue` is declared
+  - `.lock.yml` compiles without errors
+  - Manually triggered run either: opens issues for real alerts, or reports "no violations found" clearly
+  - Issues (if opened) include: CVE/advisory ID, severity, days remaining, package name
+tags:
+  - security
+  - compliance
+  - schedule
+  - sla
+  - production
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+tier: stretch
+source_repo: microsoft/frontier-ghaw-hackathon
+source_path: _challenges/4-07-security-compliance.md
+license: MIT
+references: []

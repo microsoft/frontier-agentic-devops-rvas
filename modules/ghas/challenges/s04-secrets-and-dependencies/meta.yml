@@ -1,0 +1,45 @@
+id: ghas-s04
+title: Secure Secrets & Dependencies
+module: ghas
+track: security
+difficulty: intermediate
+duration_minutes: 75
+prerequisites:
+  - ghas-s00
+prerequisite_capabilities:
+  - Juice Shop instance running (see modules/ghas/setup.md)
+  - GitHub Advanced Security enabled on the shared org repo
+  - GitHub Copilot license assigned
+  - Familiarity with Node.js environment variables and npm package management
+  - Completed S00 (attack surface overview) recommended
+description: Remove hardcoded secrets from Juice Shop source code (replacing with environment variable references) and review critical Dependabot alerts; validate both through push protection and PR security checks.
+success_criteria:
+  - No hardcoded secrets, passwords, or credentials remain in source code files
+  - Secrets replaced with environment variable references (process.env.VARIABLE_NAME)
+  - At least 2 high or critical Dependabot alerts reviewed and understood
+  - Pull request checks and security annotations reviewed for branch changes
+  - Secret scanning alerts relevant to changes addressed or explained
+  - Application still starts and authenticates correctly after secrets migration
+tags:
+  - ghas
+  - secret-scanning
+  - push-protection
+  - dependabot
+  - dependency-review
+  - juice-shop
+  - secrets-management
+app_dependency: juice-shop
+emu_compatible: true
+min_environment: org
+provision_creates:
+  - Shared org repo with Juice Shop (OWASP Juice Shop v20+) — provisioned by organizer setup
+  - Secret scanning and push protection active; Dependabot alerts pre-populated
+tier: core
+source_repo: microsoft/frontier-ghas-hackathon
+source_path: Student/Challenge-S04.md
+license: MIT
+references:
+  - https://docs.github.com/en/code-security/secret-scanning/introduction/about-secret-scanning
+  - https://docs.github.com/en/code-security/dependabot/dependabot-alerts/viewing-and-updating-dependabot-alerts
+  - https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html
+  - https://docs.github.com/en/code-security/dependabot/working-with-dependabot/managing-pull-requests-for-dependency-updates

@@ -1,0 +1,41 @@
+# === Required ===
+id: REPLACE-module-localid       # Globally unique. Convention: <module>-<local-id>
+                                 # Examples: ghec-ch01, ghas-s00, ghaw-1-01, agentic-devops-00
+title: "REPLACE: Short Challenge Title"
+module: REPLACE                  # One of: ghec | ghas | ghaw | agentic-devops
+track: REPLACE-track-slug        # See CONTRIBUTING.md for the module → track table
+difficulty: beginner             # beginner | intermediate | advanced
+duration_minutes: 60             # Estimated student time in minutes
+
+# === Independence fields ===
+prerequisites:                   # Challenge IDs that must be done first. Empty = none.
+  []
+prerequisite_capabilities:       # Skills a student must KNOW (not challenges to complete).
+  - "GitHub account"
+  - "Basic Git knowledge"
+
+# === Descriptive ===
+description: "REPLACE: One-sentence description shown in the catalog card."
+success_criteria:
+  - "REPLACE: First observable success condition"
+  - "REPLACE: Second observable success condition"
+tags:
+  - REPLACE-tag-1
+  - REPLACE-tag-2
+
+# === Operational ===
+app_dependency: none             # none | juice-shop | contoso-claims | seed-repo
+emu_compatible: true             # Can this run in an EMU-controlled org?
+min_environment: org             # org | repo | codespace
+provision_creates:               # Resources the setup script creates (human-readable).
+  - "REPLACE: describe any repos, boards, or resources created"
+
+# === Attribution ===
+source_repo: microsoft/REPLACE-source-repo
+source_path: REPLACE/path/to/original/file.md
+license: MIT
+
+# === Optional ===
+tier: core                       # core | stretch | bonus | setup
+references:
+  - https://docs.github.com/REPLACE

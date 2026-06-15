@@ -1,0 +1,41 @@
+id: ghas-s00
+title: Explore the Attack Surface
+module: ghas
+track: security
+difficulty: beginner
+duration_minutes: 60
+prerequisites: []
+prerequisite_capabilities:
+  - Juice Shop instance running (see modules/ghas/setup.md)
+  - GitHub Advanced Security enabled on the shared org repo
+  - GitHub Copilot license assigned
+  - Familiarity with GitHub Security tab navigation
+description: 'Reconnaissance phase: navigate GHAS alerts (CodeQL, Dependabot, secret scanning) on the shared Juice Shop org repository, use Copilot Chat to understand each vulnerability, and build a mental model of the attack surface before the fix challenges.'
+success_criteria:
+  - At least 5 code scanning alerts reviewed with alert detail read
+  - 'Each reviewed alert has a Copilot-generated explanation of: what the vulnerability is, what an attacker could do with it, and where in the code it lives'
+  - Alerts grouped by vulnerability class with a fix order documented
+  - Dependabot alerts reviewed — any critical/high severity ones noted
+tags:
+  - ghas
+  - codeql
+  - dependabot
+  - secret-scanning
+  - owasp
+  - juice-shop
+  - reconnaissance
+app_dependency: juice-shop
+emu_compatible: true
+min_environment: org
+provision_creates:
+  - Shared org repo with Juice Shop (OWASP Juice Shop v20+) — provisioned by organizer setup
+  - 'GHAS features enabled: CodeQL scanning, Dependabot alerts, secret scanning'
+tier: setup
+source_repo: microsoft/frontier-ghas-hackathon
+source_path: Student/Challenge-S00.md
+license: MIT
+references:
+  - https://docs.github.com/en/code-security/code-scanning/managing-code-scanning-alerts/managing-code-scanning-alerts-for-your-repository
+  - https://owasp.org/www-project-top-ten/
+  - https://docs.github.com/en/code-security/dependabot/dependabot-alerts/viewing-and-updating-dependabot-alerts
+  - https://codeql.github.com/docs/writing-codeql-queries/about-codeql-queries/

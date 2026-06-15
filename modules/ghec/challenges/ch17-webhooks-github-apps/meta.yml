@@ -1,0 +1,46 @@
+id: ghec-ch17
+title: Webhooks & GitHub Apps
+module: ghec
+track: automation-ai
+difficulty: intermediate
+duration_minutes: 240
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+- Repository provisioned via challenge setup script
+description: By the end of this challenge you can receive GitHub events over webhooks, verify their payloads cryptographically, and register and install a minimal GitHub App that authenticates as an installation — all from an org and an org-owner token.
+success_criteria:
+- A **repository webhook** delivers **Issues** and **Push** events to your receiver (shown in Recent Deliveries).
+- You can identify `X-GitHub-Event`, `X-GitHub-Delivery`, and `X-Hub-Signature-256` on a delivery.
+- Your receiver **verifies the HMAC-SHA256 signature** and **rejects** a tampered/wrong-secret payload (demonstrated).
+- An **organization webhook** exists and a real org event was delivered and verified.
+- A **GitHub App** is registered with scoped permissions + event subscriptions and **installed** on the org.
+- You minted an **installation access token** and the App **posted a comment as a bot identity**.
+tags:
+- webhooks
+- github-apps
+- hmac
+- automation
+- integrations
+app_dependency: seed
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo wth-ch17-webhooks-github-apps (seeded)
+- receiver scaffold (Bash + Node HMAC-verify snippet) + Actions receiver.yml (repository_dispatch path)
+- WEBHOOK-SETUP.md covering smee.io and Actions-receiver options
+- GitHub App manifest app-manifest.json for one-click App registration
+tier: core
+source_repo: microsoft/frontier-ghec-hackathon
+source_path: challenges/ch17-webhooks-github-apps/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/webhooks/about-webhooks
+- https://docs.github.com/en/webhooks/webhook-events-and-payloads
+- https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries
+- https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/about-creating-github-apps
+- https://docs.github.com/en/apps/sharing-github-apps/registering-a-github-app-from-a-manifest
+- https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/authenticating-as-a-github-app-installation

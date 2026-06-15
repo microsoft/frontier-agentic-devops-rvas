@@ -1,0 +1,45 @@
+id: ghas-s03
+title: Fix Broken Access Control
+module: ghas
+track: security
+difficulty: intermediate
+duration_minutes: 90
+prerequisites:
+  - ghas-s00
+prerequisite_capabilities:
+  - Juice Shop instance running (see modules/ghas/setup.md)
+  - GitHub Advanced Security enabled on the shared org repo
+  - GitHub Copilot license assigned
+  - Basic familiarity with Node.js/Express route middleware and authentication patterns
+  - Completed S00 (attack surface overview) recommended
+description: Identify and fix broken access control vulnerabilities (IDOR, missing authorization middleware) in Juice Shop backend routes; enforce server-side ownership checks and role-based authorization in route handlers.
+success_criteria:
+  - At least 2 access control vulnerabilities identified and fixed in route handlers
+  - Fixes enforce authorization server-side, not just through UI restrictions
+  - PR descriptions explain the access control gap and the enforcement logic added
+  - PR CodeQL/code scanning checks reviewed, with no remaining annotations for the fixed patterns where applicable
+  - Application still handles legitimate requests correctly after fixes
+tags:
+  - ghas
+  - codeql
+  - access-control
+  - idor
+  - authorization
+  - middleware
+  - juice-shop
+  - owasp
+app_dependency: juice-shop
+emu_compatible: true
+min_environment: org
+provision_creates:
+  - Shared org repo with Juice Shop (OWASP Juice Shop v20+) — provisioned by organizer setup
+  - CodeQL scanning active with access-control-class alerts on default branch
+tier: core
+source_repo: microsoft/frontier-ghas-hackathon
+source_path: Student/Challenge-S03.md
+license: MIT
+references:
+  - https://owasp.org/Top10/A01_2021-Broken_Access_Control/
+  - https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html
+  - https://cheatsheetseries.owasp.org/cheatsheets/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet.html
+  - https://docs.github.com/en/code-security/code-scanning/managing-code-scanning-alerts/managing-code-scanning-alerts-for-your-repository

@@ -1,0 +1,45 @@
+id: ghaw-2-03
+title: Slash & Burn
+module: ghaw
+track: repo-concierge
+difficulty: intermediate
+duration_minutes: 30
+prerequisites:
+  - ghaw-0-00
+prerequisite_capabilities:
+  - GitHub Actions basics
+  - YAML syntax
+  - gh-aw CLI installed — see ghaw-0-00
+description: Turn issue comments into a command interface — build a workflow that detects a /summarize slash command and posts a concise AI-generated summary of the entire issue thread.
+success_criteria:
+  - `.github/workflows/slash-commands.md` exists with valid gh-aw frontmatter
+  - Frontmatter includes `on: issue_comment:` with `types: [created]` and `lock-for-agent: true`
+  - Body detects slash commands (checks for `/summarize` in comment text)
+  - Workflow only executes for `/summarize` (ignores other comments)
+  - `.github/workflows/slash-commands.lock.yml` compiles without errors
+  - Manual test: post a comment `/summarize` on a test issue
+  - The workflow runs (visible in Actions tab)
+  - A summary comment appears within 30 seconds
+  - Summary includes:
+  - Issue title and current state
+  - At least 2 key points from the discussion
+  - Next steps or recommendation
+  - Only authorized users (repo members) can trigger the command
+tags:
+  - slash-commands
+  - issue-comments
+  - ai-summarization
+  - chatops
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+tier: core
+source_repo: microsoft/frontier-ghaw-hackathon
+source_path: _challenges/2-03-slash-and-burn.md
+license: MIT
+references:
+  - https://github.github.com/gh-aw/reference/tools/github/
+  - https://github.github.com/gh-aw/reference/safe-outputs/
+  - https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-interactive-chatops/
+  - https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
+  - https://github.com/githubnext/agentics/blob/main/workflows/q.md

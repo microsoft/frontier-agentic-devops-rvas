@@ -1,0 +1,40 @@
+id: ghaw-1-01
+title: Morning Briefing
+module: ghaw
+track: hello-agent
+difficulty: beginner
+duration_minutes: 30
+prerequisites:
+  - ghaw-0-00
+prerequisite_capabilities:
+  - GitHub Actions basics
+  - YAML syntax
+  - gh-aw CLI installed — see ghaw-0-00
+description: Build a scheduled workflow that runs every weekday morning and creates a GitHub issue summarizing your repo's last 24 hours of activity.
+success_criteria:
+  - Workflow file `.github/workflows/morning-briefing.md` exists with valid frontmatter
+  - Frontmatter includes `on: schedule:` with a cron expression (e.g., `"0 9 * * 1-5"` for weekdays at 9 AM)
+  - Workflow uses `tools: github: toolsets: [issues, pull_requests]` to access repo data
+  - Safe-outputs includes `create-issue:` with a title prefix like `[Morning Briefing]`
+  - Permissions are scoped to `contents: read` (no write access)
+  - `.github/workflows/morning-briefing.lock.yml` is generated after compiling
+  - At least one issue was created when the workflow ran (or manual trigger via `workflow_dispatch`)
+  - Issue body includes a summary of recent activity (issues opened, PRs, etc.)
+tags:
+  - cron
+  - schedule
+  - issue-creation
+  - ai-summarization
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+tier: core
+source_repo: microsoft/frontier-ghaw-hackathon
+source_path: _challenges/1-01-morning-briefing.md
+license: MIT
+references:
+  - https://github.github.com/gh-aw/reference/triggers/#schedule
+  - https://github.github.com/gh-aw/reference/tools/github/
+  - https://crontab.guru/
+  - https://github.github.com/gh-aw/reference/safe-outputs/#create-issue
+  - https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-metrics-analytics/

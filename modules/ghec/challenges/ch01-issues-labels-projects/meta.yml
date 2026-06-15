@@ -1,0 +1,48 @@
+id: ghec-ch01
+title: Issues, Labels & Project Boards
+module: ghec
+track: developer-flow
+difficulty: beginner
+duration_minutes: 180
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+- Repository provisioned via challenge setup script
+description: By the end of this challenge you can run a real piece of work end-to-end on GitHub — triaged with labels and milestones, tracked on a Projects (v2) board with custom fields, automated workflows, and an insight chart — using nothing but an org and an org-owner token.
+success_criteria:
+- The repo has **two working issue forms** under `.github/ISSUE_TEMPLATE/` and both appear in the New-issue chooser.
+- '**Every** seeded issue carries at least a `type:` and a `priority:` label (verifiable: `gh issue list --json number,labels` shows no issue with fewer than 2 labels).'
+- 'At least **13 distinct labels** exist following the `dimension: value` convention.'
+- '**Two milestones** exist with due dates and a non-zero set of assigned issues each.'
+- The **Projects (v2)** board has the four custom fields, all backlog issues added, and **three saved views** (board / table / roadmap).
+- A **built-in workflow** is enabled and demonstrably moved a closed issue to `Done`.
+- An **Insights chart** grouped by `Priority` is saved on the project.
+tags:
+- issues
+- labels
+- projects-v2
+- milestones
+- triage
+- planning
+app_dependency: seed
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo wth-ch01-issues-labels-projects (seeded README + source tree + .github/ISSUE_TEMPLATE/)
+- ~26 seeded untriaged issues (bugs/features/chores)
+- intentionally messy starter labels (bug, Bug, enhancement, urgent, wontfix, question, backend, frontend)
+- empty Projects (v2) board wth-ch01-board linked to the repo
+tier: core
+source_repo: microsoft/frontier-ghec-hackathon
+source_path: challenges/ch01-issues-labels-projects/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues
+- https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository
+- https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels
+- https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/about-milestones
+- https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects
+- https://docs.github.com/en/issues/planning-and-tracking-with-projects/automating-your-project/using-the-api-to-manage-projects

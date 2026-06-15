@@ -1,0 +1,31 @@
+id: agentic-devops-04
+title: Deploy to Azure with GitHub Actions
+module: agentic-devops
+track: agentic-arc
+difficulty: intermediate
+duration_minutes: 60
+prerequisites:
+  - agentic-devops-03
+prerequisite_capabilities:
+  - GitHub Copilot access
+  - Basic Git workflow
+  - Active Azure subscription (required for deployment target; a fallback evidence packet is provided if unavailable)
+  - Azure CLI basics
+  - GitHub Actions YAML basics
+description: The team has established a GitHub workflow and used Copilot and agents to improve the service. Now stakeholders want proof that changes can move through a repeatable path into an Azure-hosted runtime with appropriate gates.
+success_criteria:
+  - A workflow validates pull requests or the main branch.
+  - Deployment to Azure runs successfully, or the team uses the documented fallback packet when access is blocked.
+  - Secrets or credentials are not exposed in logs or committed files.
+  - Environment controls are visible, even if simplified for the workshop.
+  - The team captures deployment evidence that can be used during incident triage.
+  - The team can explain what an agent is allowed to suggest and what only deterministic gates or humans can authorize.
+tags: []
+app_dependency: contoso-app
+emu_compatible: true
+min_environment: org
+tier: core
+source_repo: microsoft/frontier-agentic-devops-hackathon
+source_path: Student/Challenge-04-Deploy-To-Azure.md
+license: MIT
+references: []

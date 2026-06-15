@@ -1,0 +1,38 @@
+id: ghaw-1-02
+title: Safe & Sound
+module: ghaw
+track: hello-agent
+difficulty: beginner
+duration_minutes: 30
+prerequisites:
+  - ghaw-0-00
+prerequisite_capabilities:
+  - GitHub Actions basics
+  - YAML syntax
+  - gh-aw CLI installed — see ghaw-0-00
+description: Master the safe-outputs gate — write a workflow that conditionally creates an issue or explicitly declares noop, proving that every gh-aw write is intentional and auditable.
+success_criteria:
+  - Workflow file `.github/workflows/safe-sound.md` exists
+  - Frontmatter includes **both** `safe-outputs: create-issue:` **and** `safe-outputs: noop:`
+  - Permissions are set to `contents: read` or a similarly restrictive scope
+  - Workflow body contains natural-language conditional logic (e.g., "If the repo has no TODO comments, call noop. If it has >10 TODOs, create an issue.")
+  - `.github/workflows/safe-sound.lock.yml` exists after compilation
+  - When manually triggered in a state where noop applies, the workflow succeeds but no issue is created
+  - When manually triggered in a state where issue creation applies, an issue is created
+  - Logs show which path (noop or create-issue) the agent chose
+tags:
+  - safe-outputs
+  - noop
+  - permissions
+  - conditional-logic
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+tier: core
+source_repo: microsoft/frontier-ghaw-hackathon
+source_path: _challenges/1-02-safe-and-sound.md
+license: MIT
+references:
+  - https://github.github.com/gh-aw/reference/safe-outputs/
+  - https://github.github.com/gh-aw/reference/permissions/
+  - https://docs.github.com/en/actions/security-guides/automatic-token-authentication

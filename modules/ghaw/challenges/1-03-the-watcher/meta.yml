@@ -1,0 +1,40 @@
+id: ghaw-1-03
+title: The Watcher
+module: ghaw
+track: hello-agent
+difficulty: beginner
+duration_minutes: 30
+prerequisites:
+  - ghaw-0-00
+prerequisite_capabilities:
+  - GitHub Actions basics
+  - YAML syntax
+  - gh-aw CLI installed — see ghaw-0-00
+description: Build an event-driven workflow that fires on push, detects which files changed in a watched directory, and posts a commit comment summarising the modification.
+success_criteria:
+  - Workflow file `.github/workflows/the-watcher.md` exists
+  - Frontmatter includes `on: push: paths: ['docs/**']` (or similar path filter for a meaningful directory)
+  - Permissions are scoped appropriately (read-only for the agent, safe-outputs handles write)
+  - Safe-outputs includes `add-comment:` to post comments on the commit
+  - `.github/workflows/the-watcher.lock.yml` exists after compilation
+  - When you push changes to the watched directory, the workflow runs
+  - A comment appears on the commit summarizing the changes (e.g., "Modified 3 files in docs/")
+  - Logs show the agent detected which files were changed
+tags:
+  - push-events
+  - path-filters
+  - commit-comments
+  - event-driven
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+tier: stretch
+source_repo: microsoft/frontier-ghaw-hackathon
+source_path: _challenges/1-03-the-watcher.md
+license: MIT
+references:
+  - https://github.github.com/gh-aw/reference/triggers/#push
+  - https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpushpullrequestpaths
+  - https://github.github.com/gh-aw/reference/tools/github/#commits
+  - https://github.github.com/gh-aw/reference/safe-outputs/#add-comment
+  - https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-continuous-simplicity/

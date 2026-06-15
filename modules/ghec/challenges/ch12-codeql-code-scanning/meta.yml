@@ -1,0 +1,45 @@
+id: ghec-ch12
+title: Code Scanning with CodeQL & Autofix
+module: ghec
+track: security
+difficulty: intermediate
+duration_minutes: 300
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner rights
+- GitHub Advanced Security license enabled on the org
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+description: By the end of this challenge you can turn on CodeQL code scanning two ways (default setup and an advanced workflow), triage real vulnerability alerts in OWASP Juice Shop, apply Copilot Autofix, and gate pull requests on clean code-scanning results — all org-scoped on a public repo.
+success_criteria:
+- CodeQL is enabled via an **advanced workflow** scanning **`javascript-typescript`** with the `security-extended` suite (visible in `.github/workflows/codeql.yml`).
+- At least one completed **CodeQL analysis** exists (verifiable via the `code-scanning/analyses` API).
+- The repo has **open code-scanning alerts** including at least one injection/XSS finding with a readable data-flow path.
+- You **triaged ≥3 alerts** (one dismissed with a reason via API; others reviewed).
+- You applied **Copilot Autofix** to at least one alert and reviewed the suggested patch.
+- The **code-scanning check is required** on `main`, and the seeded vulnerable PR is **blocked** until the alert is resolved/dismissed.
+tags:
+- ghas
+- codeql
+- code-scanning
+- autofix
+- juice-shop
+app_dependency: juice-shop
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo wth-ch12-juice-shop (public, OWASP Juice Shop imported at v20.0.0, pulled from official source — never vendored)
+- real OWASP Top 10 vulnerabilities (SQLi, XSS, broken auth/JWT, path traversal, SSRF) for CodeQL to detect
+- branch feature/insecure-endpoint carrying a deliberately vulnerable change to open as a PR for required-check gating
+tier: core
+source_repo: microsoft/frontier-ghec-hackathon
+source_path: challenges/ch12-codeql-code-scanning/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/code-security/code-scanning/introduction-to-code-scanning/about-code-scanning
+- https://docs.github.com/en/code-security/code-scanning/enabling-code-scanning/configuring-default-setup-for-code-scanning
+- https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/configuring-advanced-setup-for-code-scanning
+- https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/customizing-your-advanced-setup-for-code-scanning
+- https://docs.github.com/en/code-security/code-scanning/managing-code-scanning-alerts/responsible-use-autofix-code-scanning
+- https://docs.github.com/en/rest/code-scanning/code-scanning

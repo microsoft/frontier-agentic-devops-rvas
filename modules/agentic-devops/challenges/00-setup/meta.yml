@@ -1,0 +1,29 @@
+id: agentic-devops-00
+title: Setup and Team Launch
+module: agentic-devops
+track: agentic-arc
+difficulty: beginner
+duration_minutes: 30
+prerequisites: []
+prerequisite_capabilities:
+  - GitHub account with organization access
+  - Basic Git and CLI usage
+  - Azure subscription (Contributor role)
+description: Your product team has inherited a customer-facing service called Contoso Claims. The service works, but the engineering system around it is uneven: backlog items are vague, pull requests are inconsistent, automation is incomplete, and operational evidence is scattered.
+success_criteria:
+  - Every participant can read the repository and participate in GitHub issues or pull requests.
+  - At least one team member can run the service or baseline checks.
+  - The team has a shared understanding of the service scenario and one-day arc.
+  - The team can identify who is architect, reviewer, escalation handler, and operator for the day.
+  - A starter context note exists in a durable location such as an issue, pull request, project note, or repo file.
+  - Access gaps are documented with an agreed fallback path.
+  - The team can explain which parts of the day are hands-on and which may become coach-led simulation if access is blocked.
+tags: []
+app_dependency: contoso-app
+emu_compatible: true
+min_environment: org
+tier: setup
+source_repo: microsoft/frontier-agentic-devops-hackathon
+source_path: Student/Challenge-00-Setup.md
+license: MIT
+references: []

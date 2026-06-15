@@ -1,0 +1,42 @@
+id: ghas-s05
+title: Security Campaigns (Advanced)
+module: ghas
+track: security
+difficulty: advanced
+duration_minutes: 90
+prerequisites:
+  - ghas-s00
+prerequisite_capabilities:
+  - Juice Shop instance running (see modules/ghas/setup.md)
+  - GitHub Advanced Security enabled at organization level (Team plan or higher with Code Security license)
+  - GitHub Copilot license assigned
+  - Completed at least one of S01–S04 recommended (to have fixed alerts to reference)
+  - Org-level Security Overview access (or ability to write a campaign plan if unavailable)
+description: Design and create a GitHub Security Campaign to coordinate systematic remediation of a vulnerability class at scale; scope alerts, assign to developers, set a deadline, and track progress in the Security Overview dashboard.
+success_criteria:
+  - Campaign scope defined and justified with rationale (risk, volume, effort)
+  - 'Option A: Security campaign created with name, due date, and at least 5 alerts scoped — progress tracked in the campaign view'
+  - 'Option B (no org access): Written campaign plan covering scope, assignees, timeline, and definition of done'
+  - 'Reflection written: what would you prioritize in a real production codebase, and why?'
+tags:
+  - ghas
+  - security-campaigns
+  - security-overview
+  - remediation
+  - org-level
+  - advanced
+app_dependency: juice-shop
+emu_compatible: true
+min_environment: org
+provision_creates:
+  - Shared org repo with Juice Shop (OWASP Juice Shop v20+) — provisioned by organizer setup
+  - Open alert corpus across CodeQL, Dependabot, and secret scanning for campaign scoping
+tier: core
+source_repo: microsoft/frontier-ghas-hackathon
+source_path: Student/Challenge-S05.md
+license: MIT
+references:
+  - https://docs.github.com/en/code-security/securing-your-organization/fixing-security-alerts-at-scale/about-security-campaigns
+  - https://docs.github.com/en/code-security/securing-your-organization/fixing-security-alerts-at-scale/creating-a-security-campaign
+  - https://docs.github.com/en/code-security/securing-your-organization/fixing-security-alerts-at-scale/best-practices-for-fixing-security-alerts-at-scale
+  - https://docs.github.com/en/code-security/security-overview/about-security-overview

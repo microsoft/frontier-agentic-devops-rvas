@@ -1,0 +1,41 @@
+id: ghaw-4-08
+title: Malicious Code Scan
+module: ghaw
+track: production-patterns
+difficulty: advanced
+duration_minutes: 30
+prerequisites:
+  - ghaw-0-00
+prerequisite_capabilities:
+  - GitHub Actions basics
+  - YAML syntax
+  - gh-aw CLI installed — see ghaw-0-00
+description: Supply-chain attacks hide in plain sight. Deploy a daily workflow that reviews recent code changes for suspicious patterns — your automated defence against code-injection campaigns.
+success_criteria:
+  - `.github/workflows/daily-malicious-code-scan.md` exists with valid frontmatter
+  - `schedule: cron` trigger is set
+  - Scan window (days / commits) is defined in the body
+  - At least 3 suspicious pattern categories are named in the body
+  - `safe-outputs: create-issue` is declared
+  - `.lock.yml` compiles without errors
+  - Test pattern (benign flaggable code) causes the scan to open an alert issue
+  - Alert issue contains: file path, commit SHA, line number, and explanation of why it was flagged
+  - Base64/hex encoded strings being evaluated
+  - `fetch`, `http.request`, or `curl` calls to external URLs added in the last week
+  - Access to `process.env` / `os.environ` for keys like `TOKEN`, `SECRET`, `KEY`, `PASSWORD`
+  - Dynamic `require`/`import` with non-string arguments
+  - New files added to `.github/workflows/` that weren't in a PR
+tags:
+  - security
+  - supply-chain
+  - schedule
+  - code-review
+  - production
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+tier: stretch
+source_repo: microsoft/frontier-ghaw-hackathon
+source_path: _challenges/4-08-malicious-code-scan.md
+license: MIT
+references: []

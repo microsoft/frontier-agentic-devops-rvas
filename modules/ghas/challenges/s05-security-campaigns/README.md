@@ -1,0 +1,37 @@
+# Challenge S-05: Security Campaigns (Advanced)
+
+## Description
+
+You've been fixing vulnerabilities one alert at a time. Now zoom out. Security campaigns let you group related alerts across an entire codebase, assign them to developers, set a deadline, and track remediation progress in a dashboard. It's the difference between a developer heroically fixing one SQL injection versus a team systematically eliminating the entire class of injection vulnerabilities in a coordinated sprint.
+
+As the developer who just spent the last few challenges in the code, you're in the best position to scope a campaign: you know which vulnerability classes are most prevalent, which are highest risk, and roughly how much effort each fix takes. Use that knowledge to design a campaign that's actually achievable.
+
+**Important:** Security campaigns require a GitHub Team plan (or higher) with a Code Security license at the **organization** level. If you have access, create a real campaign. If not, design one on paper — the thinking is the same, and the written output is still valuable evidence that you understand the workflow.
+
+## Objectives
+
+- Review the remaining open alerts across all categories from your earlier challenges
+- Decide on a campaign scope: which vulnerability class would you tackle first if you were running this as a real remediation sprint? Justify your choice.
+- If org access is available: navigate to **Security Overview** at the org level, create a campaign, set a name, description, and due date, and add at least 5 relevant alerts to it
+- If org access is unavailable: write a campaign plan document covering: scope (which alert types), assignees (which team roles), timeline, definition of done, and how you'd track progress
+- Track or document progress: which alerts are fixed, which are in progress, which are deferred and why
+
+## Success Criteria
+
+- [ ] Campaign scope defined and justified with rationale (risk, volume, effort)
+- [ ] **Option A:** Security campaign created with name, due date, and at least 5 alerts scoped — progress tracked in the campaign view
+- [ ] **Option B (no org access):** Written campaign plan covering scope, assignees, timeline, and definition of done
+- [ ] Reflection written: what would you prioritize in a real production codebase, and why?
+
+## Copilot Tips
+
+- Paste your list of remaining alerts and ask: *"If I were running a 2-day security sprint, which of these would you prioritize and in what order? Explain your reasoning."*
+- Ask: *"What's a good definition of done for a SQL injection remediation campaign?"*
+- Ask: *"Draft a campaign description I could use for a GitHub Security Campaign targeting injection vulnerabilities in a Node.js/Express application."*
+
+## Learning Resources
+
+- [About security campaigns](https://docs.github.com/en/code-security/securing-your-organization/fixing-security-alerts-at-scale/about-security-campaigns)
+- [Creating a security campaign](https://docs.github.com/en/code-security/securing-your-organization/fixing-security-alerts-at-scale/creating-a-security-campaign)
+- [Best practices for fixing security alerts at scale](https://docs.github.com/en/code-security/securing-your-organization/fixing-security-alerts-at-scale/best-practices-for-fixing-security-alerts-at-scale)
+- [About security overview](https://docs.github.com/en/code-security/security-overview/about-security-overview)

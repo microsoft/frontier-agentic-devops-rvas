@@ -1,0 +1,42 @@
+id: ghaw-3-05
+title: Ship It — Capstone
+module: ghaw
+track: continuous-intelligence
+difficulty: advanced
+duration_minutes: 45
+prerequisites:
+  - ghaw-0-00
+prerequisite_capabilities:
+  - GitHub Actions basics
+  - YAML syntax
+  - gh-aw CLI installed — see ghaw-0-00
+description: Connect everything you've built into a working factory: an end-to-end agentic pipeline that takes an issue from discovery through triage, automated fix, PR creation, and merge.
+success_criteria:
+  - Workflow 1 (Observer) writes data to `repo-memory/observations/` with valid JSON
+  - Workflow 2 (Triage) reads from repo-memory and creates a tracking issue
+  - Workflow 2 includes `lock-for-agent: true` to prevent duplicates
+  - Workflow 3 (ChatOps) correctly handles `/fix` slash command
+  - Workflow 3 uses `assign-to-agent: copilot` (or compatible agent)
+  - All workflows compile and run without errors
+  - **End-to-end test**: Open an issue → Triage workflow creates tracking issue → Comment `/fix` on tracking issue → Copilot creates a PR (or attempts to)
+  - At least one workflow uses `repo-memory` for data passing
+  - At least one workflow uses `assign-to-agent`
+tags:
+  - capstone
+  - end-to-end
+  - orchestration
+  - multi-agent
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+tier: stretch
+source_repo: microsoft/frontier-ghaw-hackathon
+source_path: _challenges/3-05-ship-it.md
+license: MIT
+references:
+  - https://github.github.com/gh-aw/reference/repo-memory/
+  - https://github.github.com/gh-aw/reference/safe-outputs/#assign-to-agent
+  - https://github.github.com/gh-aw/reference/frontmatter/#lock-for-agent
+  - https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-interactive-chatops/
+  - https://github.com/github/gh-aw/blob/main/.github/workflows/workflow-generator.md
+  - https://github.com/github/gh-aw/blob/main/.github/workflows/metrics-collector.md

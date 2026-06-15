@@ -1,0 +1,39 @@
+id: ghaw-3-06
+title: Ground Truth
+module: ghaw
+track: continuous-intelligence
+difficulty: advanced
+duration_minutes: 30
+prerequisites:
+  - ghaw-0-00
+prerequisite_capabilities:
+  - GitHub Actions basics
+  - YAML syntax
+  - gh-aw CLI installed — see ghaw-0-00
+description: Feed your agent real data before it runs. Use pre-agent-steps: to deterministically fetch context, and create-pr to safely propose code changes.
+success_criteria:
+  - `.github/workflows/3-06-ground-truth.md` compiles without errors
+  - `pre-agent-steps:` fetches at least 3 real metrics and writes them to `/tmp/`
+  - Agent body references those `/tmp/` files explicitly
+  - `CONTRIBUTING.md` is updated with a `## Project Health` section containing real numbers
+  - A PR is opened — not a direct commit
+  - PR title matches `title-template`
+  - Numbers in the PR are accurate (match what `gh` CLI would return for the repo)
+  - `permissions: contents: write` and `pull-requests: write` are both declared
+tags:
+  - pre-agent-steps
+  - create-pr
+  - deterministic
+  - context-injection
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+tier: stretch
+source_repo: microsoft/frontier-ghaw-hackathon
+source_path: _challenges/3-06-ground-truth.md
+license: MIT
+references:
+  - https://github.github.com/gh-aw/reference/frontmatter/#pre-agent-steps
+  - https://github.github.com/gh-aw/reference/safe-outputs/#create-pr
+  - https://cli.github.com/manual/gh_api
+  - https://cli.github.com/manual/gh_pr_list

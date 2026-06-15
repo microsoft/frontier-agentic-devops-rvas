@@ -1,0 +1,34 @@
+id: agentic-devops-06
+title: Respond with Azure SRE Agent
+module: agentic-devops
+track: agentic-arc
+difficulty: advanced
+duration_minutes: 90
+prerequisites:
+  - agentic-devops-04
+  - agentic-devops-05
+prerequisite_capabilities:
+  - GitHub Copilot access
+  - Basic Git workflow
+  - Azure CLI basics
+  - GitHub Actions YAML basics
+  - GitHub Agentic Workflows basics (gh-aw CLI)
+  - Azure monitoring basics
+description: Shortly after deployment, support reports elevated failures in Contoso Claims. The team has deployment evidence, source code history, and recent pull requests. Now operations needs a focused investigation that connects production symptoms to likely code causes and drives a fix back through GitHub.
+success_criteria:
+  - The investigation starts from incident evidence and deployment context.
+  - The team produces a To-Do style investigation plan with completed and open items.
+  - Source-code context is connected live or represented through the simulation packet.
+  - The likely cause references specific files, lines, commits, or pull requests when evidence supports it.
+  - A GitHub issue or pull request carries the remediation back into the SDLC.
+  - A human review decision is required before any fix is treated as production-ready.
+  - The team identifies at least one instrumentation artifact that helped the response, or one missing artifact to add after the incident.
+tags: []
+app_dependency: contoso-app
+emu_compatible: true
+min_environment: org
+tier: core
+source_repo: microsoft/frontier-agentic-devops-hackathon
+source_path: Student/Challenge-06-Azure-SRE-Agent.md
+license: MIT
+references: []

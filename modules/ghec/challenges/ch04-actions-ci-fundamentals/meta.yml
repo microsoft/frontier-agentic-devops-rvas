@@ -1,0 +1,48 @@
+id: ghec-ch04
+title: GitHub Actions CI Fundamentals
+module: ghec
+track: developer-flow
+difficulty: intermediate
+duration_minutes: 240
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+- Repository provisioned via challenge setup script
+description: By the end of this challenge you can build a real CI pipeline with GitHub Actions — triggers, jobs, a build matrix, dependency caching, artifacts, environments, and a required status check that gates merges — using an org and an org-owner token.
+success_criteria:
+- '`.github/workflows/ci.yml` triggers on **push and pull_request** and runs lint + test + build as distinct steps.'
+- 'A **matrix** runs across ≥3 Node versions with `fail-fast: false`.'
+- '**Caching** is enabled and a run shows a **cache hit** on the second execution.'
+- A **test-report artifact** is uploaded and downloadable (UI + `gh run download`).
+- A second job uses **`needs`** and a **conditional** so it only runs on `main`.
+- An **environment** `staging` exists with a protection rule and a variable + secret wired into a job.
+- The **`build-test` check is required** on `main`; a red run **blocks merge**, a green run unblocks it.
+tags:
+- github-actions
+- ci
+- build-matrix
+- caching
+- artifacts
+- environments
+app_dependency: seed
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo wth-ch04-actions-ci-fundamentals (seeded Node app)
+- passing test suite + one flag-gated failing test (for red/green gating)
+- package.json with test/build/lint scripts
+- minimal starter workflow .github/workflows/ci.yml (echo only; student replaces)
+tier: core
+source_repo: microsoft/frontier-ghec-hackathon
+source_path: challenges/ch04-actions-ci-fundamentals/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions
+- https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
+- https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
+- https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows
+- https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts
+- https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment

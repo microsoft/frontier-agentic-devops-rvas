@@ -1,0 +1,39 @@
+id: ghaw-3-03
+title: Engine Swap
+module: ghaw
+track: continuous-intelligence
+difficulty: advanced
+duration_minutes: 30
+prerequisites:
+  - ghaw-0-00
+prerequisite_capabilities:
+  - GitHub Actions basics
+  - YAML syntax
+  - gh-aw CLI installed — see ghaw-0-00
+description: Discover how different AI engines produce different results — take one workflow design and adapt it for multiple engines, then compare quality, speed, and cost side by side.
+success_criteria:
+  - Three versions of the workflow exist (one per engine)
+  - All three compile without errors (`gh aw compile` succeeds)
+  - All three run at least once (visible in Actions)
+  - At least one produces output on a real issue/PR/task
+  - You've tested all three and collected observations
+  - `RESULTS.md` documents: speed, quality, cost, and your recommendation
+  - Each engine's prompt is **adapted** to that engine (not copy-paste)
+tags:
+  - multi-engine
+  - prompt-portability
+  - ai-comparison
+  - tradeoffs
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+tier: stretch
+source_repo: microsoft/frontier-ghaw-hackathon
+source_path: _challenges/3-03-engine-swap.md
+license: MIT
+references:
+  - https://github.github.com/gh-aw/reference/engines/
+  - https://github.github.com/gh-aw/reference/engines/comparison/
+  - https://github.github.com/gh-aw/guide/prompt-engineering/
+  - https://github.github.com/gh-aw/guide/copilot-tuning/
+  - https://github.github.com/gh-aw/guide/claude-tuning/

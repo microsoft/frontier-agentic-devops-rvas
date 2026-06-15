@@ -1,0 +1,47 @@
+id: ghec-ch02
+title: Branches, Pull Requests & Code Review
+module: ghec
+track: developer-flow
+difficulty: beginner
+duration_minutes: 180
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+- Repository provisioned via challenge setup script
+description: By the end of this challenge you can drive a professional pull-request lifecycle — feature branches, reviews, `CODEOWNERS`, required reviewers, merge-conflict resolution, and the three merge strategies — entirely from an org-owner token.
+success_criteria:
+- At least **three pull requests** were opened against `main` (CLI or UI), one started as a **draft**.
+- A review contains **line comments, a thread, and a `suggestion` block**; at least one PR shows a **request-changes → fix → resolve** cycle.
+- A valid **`.github/CODEOWNERS`** exists and a PR touching an owned path **auto-requested the owner**.
+- '**`main` is protected**: PR required, ≥1 approval, **require Code Owner review**, no direct pushes.'
+- A **merge conflict was resolved** and that branch merged cleanly afterward.
+- '**All three merge strategies are enabled** and each was used at least once (verifiable from commit history).'
+- '`docs/merge-strategy.md` documents the chosen default.'
+tags:
+- pull-requests
+- code-review
+- codeowners
+- branch-protection
+- merge-conflicts
+app_dependency: seed
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo wth-ch02-pull-requests-code-review (seeded multi-file app on main)
+- two feature branches with open PRs (one clean, one that will conflict)
+- .github/pull_request_template.md placeholder
+- directory layout mapping cleanly to CODEOWNERS paths (no branch protection yet)
+tier: core
+source_repo: microsoft/frontier-ghec-hackathon
+source_path: challenges/ch02-pull-requests-code-review/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests
+- https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+- https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches
+- https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/about-merge-methods-on-github
+- https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews
+- https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-using-the-command-line

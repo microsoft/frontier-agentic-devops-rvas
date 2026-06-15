@@ -1,0 +1,46 @@
+id: ghec-ch20
+title: Automation Capstone
+module: ghec
+track: automation-ai
+difficulty: advanced
+duration_minutes: 480
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+- Repository provisioned via challenge setup script
+description: 'By the end of this challenge you have built one **end-to-end automation** that ties the whole track together: a **GitHub App** authenticates against the **REST and GraphQL APIs**, a **webhook** drives it in real time, and **Actions** runs the glue — all on a self-contained seeded repo using an org and an org-owner token.'
+success_criteria:
+- A **GitHub App** is **registered and installed** on the seeded repo and mints a working **installation token**.
+- Inbound webhooks are **signature-verified** (HMAC-SHA256); bad signatures are rejected.
+- On `issues.opened`, the App **labels + comments** via REST and the action is **idempotent** on redelivery.
+- The issue is **added to `wth-ch20-board`** with a **Status** field set via **GraphQL**, also idempotent.
+- '**Actions** orchestrates the flow and records a **run summary**, with all credentials in **Actions secrets**.'
+- You demonstrated the **full end-to-end loop** from a single fresh issue and documented its **failure modes**.
+tags:
+- github-apps
+- webhooks
+- rest-api
+- graphql
+- actions
+- capstone
+app_dependency: seed
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo wth-ch20-automation-capstone (seeded App handler scaffold + automation.yml + CAPSTONE.md)
+- GitHub App manifest app-manifest.json (manifest registration flow) — supported auth path
+- empty org Projects v2 board wth-ch20-board for the GraphQL step to populate
+tier: core
+source_repo: microsoft/frontier-ghec-hackathon
+source_path: challenges/ch20-automation-capstone/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/rest/quickstart
+- https://docs.github.com/en/graphql/guides/forming-calls-with-graphql
+- https://docs.github.com/en/issues/planning-and-tracking-with-projects/automating-your-project/using-the-api-to-manage-projects
+- https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/authenticating-as-a-github-app-installation
+- https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries
+- https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions

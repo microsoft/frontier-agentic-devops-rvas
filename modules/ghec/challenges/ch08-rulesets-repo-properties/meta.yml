@@ -1,0 +1,47 @@
+id: ghec-ch08
+title: Repository Rulesets & Custom Properties
+module: ghec
+track: admin-governance
+difficulty: intermediate
+duration_minutes: 240
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+- Repository provisioned via challenge setup script
+description: 'By the end of this challenge you can govern many repositories at once: define **custom repository properties**, create **organization rulesets** that **target repos by property**, layer repo-level rules, and verify enforcement from the API — all from an org and an org-owner token.'
+success_criteria:
+- Two **custom properties** exist (`compliance` single-select, `prod` true/false), verifiable via `gh api /orgs/<org>/properties/schema`.
+- The four repos carry **deliberate property values** (two prod repos `compliance = high`), verifiable via `gh api /orgs/<org>/properties/values`.
+- An **organization ruleset** is **Active** and targets repos by **property condition** (`repository_property`, not `repository_name`).
+- The org ruleset governs **both** `high`-compliance repos (proven by a rejected direct push on the second repo).
+- A **repository ruleset** on one prod repo layers a stricter rule (e.g., 2 approvals) on top of the org ruleset.
+- A **`GOVERNANCE.md`** documents the schema, values, and ruleset targeting.
+tags:
+- rulesets
+- custom-properties
+- repository-governance
+- policy
+- compliance
+app_dependency: seed
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo wth-ch08-prod-payments (populated main + CI emitting a build check)
+- repo wth-ch08-prod-identity (populated main + CI emitting a build check)
+- repo wth-ch08-internal-tools (populated main + CI emitting a build check)
+- repo wth-ch08-sandbox (populated main + CI emitting a build check)
+- printed inventory of the four repos (no properties/rulesets yet)
+tier: core
+source_repo: microsoft/frontier-ghec-hackathon
+source_path: challenges/ch08-rulesets-repo-properties/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/organizations/managing-organization-settings/managing-custom-properties-for-repositories-in-your-organization
+- https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets
+- https://docs.github.com/en/organizations/managing-organization-settings/creating-rulesets-for-repositories-in-your-organization
+- https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/managing-rulesets-for-a-repository
+- https://docs.github.com/en/rest/orgs/custom-properties
+- https://docs.github.com/en/rest/repos/rules

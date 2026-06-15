@@ -1,0 +1,45 @@
+id: ghec-ch13
+title: Dependabot & Dependency Review
+module: ghec
+track: security
+difficulty: intermediate
+duration_minutes: 240
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner rights
+- GitHub Advanced Security license enabled on the org
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+description: By the end of this challenge you can enable the dependency graph and Dependabot, triage real vulnerable-dependency alerts on OWASP Juice Shop, take Dependabot security-update PRs, configure scheduled version updates, and block risky dependencies at PR time with dependency review — all org-scoped on a public repo.
+success_criteria:
+- '**Dependency graph** is on and you exported an **SBOM** (verifiable via the `dependency-graph/sbom` API).'
+- '**Dependabot alerts** and **security updates** are enabled and the repo has **open alerts** with severities (verifiable via the `dependabot/alerts` API).'
+- 'You **triaged the backlog**: reviewed an advisory and **dismissed at least one alert** with a reason.'
+- At least one **Dependabot security-update PR** was merged and its alert moved to **fixed**.
+- '`.github/dependabot.yml` configures **scheduled npm version updates** with a limit and a group.'
+- A **dependency-review** workflow exists, is **required** on `main`, and **blocks** the seeded risky PR.
+tags:
+- ghas
+- dependabot
+- dependency-review
+- sbom
+- juice-shop
+app_dependency: juice-shop
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo wth-ch13-juice-shop (public, OWASP Juice Shop imported at v20.0.0, pulled from official source — never vendored)
+- intentionally vulnerable npm dependency tree (old Angular libs, risky ftp package) for genuine Dependabot alerts and security-update PRs
+- branch feature/add-risky-dep adding a known-vulnerable dependency to open as a PR for dependency-review gating
+tier: core
+source_repo: microsoft/frontier-ghec-hackathon
+source_path: challenges/ch13-dependabot-dependency-review/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph
+- https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts
+- https://docs.github.com/en/code-security/dependabot/dependabot-security-updates/configuring-dependabot-security-updates
+- https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuring-dependabot-version-updates
+- https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review
+- https://docs.github.com/en/rest/dependabot/alerts

@@ -1,0 +1,39 @@
+id: ghaw-3-04
+title: The Overseer
+module: ghaw
+track: continuous-intelligence
+difficulty: advanced
+duration_minutes: 30
+prerequisites:
+  - ghaw-0-00
+prerequisite_capabilities:
+  - GitHub Actions basics
+  - YAML syntax
+  - gh-aw CLI installed — see ghaw-0-00
+description: Build a meta-workflow that watches your other workflows — querying run history, calculating failure rates, and creating alert issues when something in your automation system goes wrong.
+success_criteria:
+  - Workflow triggers weekly (`on: schedule:`)
+  - Uses `agentic-workflows` MCP tool to fetch run data
+  - Frontmatter includes `max-effective-tokens: XXXXX` with a comment explaining the value
+  - Analysis identifies: top expensive, top failing, unexpected spikes
+  - Issue created with structured data (table + alerts)
+  - Old issues auto-close (via `close-older-issues: true`)
+  - At least one alert or recommendation is triggered
+tags:
+  - meta-workflows
+  - observability
+  - workflow-monitoring
+  - health-reporting
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+tier: stretch
+source_repo: microsoft/frontier-ghaw-hackathon
+source_path: _challenges/3-04-the-overseer.md
+license: MIT
+references:
+  - https://github.github.com/gh-aw/reference/mcp-tools/#agentic-workflows
+  - https://github.github.com/gh-aw/reference/frontmatter/#max-effective-tokens
+  - https://github.com/github/gh-aw/blob/main/.github/workflows/audit-workflows.md
+  - https://github.com/github/gh-aw/blob/main/.github/workflows/workflow-health-manager.md
+  - https://github.github.com/gh-aw/reference/safe-outputs/#create-issue

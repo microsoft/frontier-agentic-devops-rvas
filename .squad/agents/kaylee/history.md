@@ -49,3 +49,6 @@
 - `docs/assets/data/platform.json` (mock fixture only — Wash owns the real build output)
 - `docs/assets/data/challenges/*/README.md` + `COACH.md` (mock fixtures only)
 
+**D-002 (2026-06-15) — Fixed stale hardcoded counts:**
+- Updated `index.html` fallback text: meta description and hero text from "57 challenges" → "58", GHAS card "2 tracks" → "1 track", GHAW card "24 challenges" → "25". The real stats are computed by `home.js::renderStats()` from `platform.json` at runtime; HTML fallbacks are now aligned.
+

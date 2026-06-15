@@ -1,0 +1,35 @@
+id: ghaw-4-02
+title: CI Doctor
+module: ghaw
+track: production-patterns
+difficulty: advanced
+duration_minutes: 30
+prerequisites:
+  - ghaw-0-00
+prerequisite_capabilities:
+  - GitHub Actions basics
+  - YAML syntax
+  - gh-aw CLI installed — see ghaw-0-00
+description: When CI breaks, this agent investigates automatically. Pull logs, analyse root causes, and open a diagnostic issue — the workflow with a 69% merge rate in github/gh-aw.
+success_criteria:
+  - `.github/workflows/ci-doctor.md` exists with valid gh-aw frontmatter
+  - Trigger is `on: workflow_run` scoped to at least one named workflow
+  - `types: [completed]` is present and the body handles the `conclusion: failure` check
+  - `safe-outputs: create-issue` is declared
+  - `.github/workflows/ci-doctor.lock.yml` compiles without errors
+  - Intentional CI failure causes Doctor to open a diagnostic issue
+  - Issue contains: failure summary, likely root cause, suggested fix
+tags:
+  - ci
+  - workflow-run
+  - logs
+  - diagnostics
+  - production
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+tier: core
+source_repo: microsoft/frontier-ghaw-hackathon
+source_path: _challenges/4-02-ci-doctor.md
+license: MIT
+references: []

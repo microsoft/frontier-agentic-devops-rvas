@@ -1,0 +1,46 @@
+id: ghec-ch16
+title: REST & GraphQL API Automation
+module: ghec
+track: automation-ai
+difficulty: beginner
+duration_minutes: 180
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+- Repository provisioned via challenge setup script
+description: By the end of this challenge you can drive GitHub end-to-end from its APIs — read and mutate with the REST API, run typed GraphQL queries and mutations, page through large result sets, and stay inside rate limits — using an org and an org-owner token.
+success_criteria:
+- You performed both a **REST read** and a **REST write** (label created, issues labeled, comment posted) via `gh api`.
+- You **paged through all seeded issues** with REST `--paginate` and the count matches the seeded total.
+- You ran a **parameterized GraphQL query** with variables and **cursor-paginated** it to completion.
+- You executed at least one **GraphQL mutation** (added issues to `wth-ch16-board` and set their `Status`).
+- You inspected **`rate_limit`** and your reconcile script **backs off** when `remaining` is low.
+- Your reconcile script is **idempotent** — a second run produces **no changes**.
+tags:
+- rest-api
+- graphql
+- automation
+- pagination
+- projects-v2
+app_dependency: seed
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo wth-ch16-rest-graphql-automation (seeded, src/ + docs/ layout)
+- ~60 seeded issues in mixed states (open/closed, many unlabeled) for real pagination
+- starter label set (bug, enhancement, triage, area:backend, area:docs) with deliberate gaps
+- empty org Projects v2 board wth-ch16-board to populate via GraphQL
+tier: core
+source_repo: microsoft/frontier-ghec-hackathon
+source_path: challenges/ch16-rest-graphql-automation/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/rest/about-the-rest-api/about-the-rest-api
+- https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api
+- https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api
+- https://docs.github.com/en/graphql/overview/about-the-graphql-api
+- https://docs.github.com/en/graphql/guides/forming-calls-with-graphql
+- https://docs.github.com/en/issues/planning-and-tracking-with-projects/automating-your-project/using-the-api-to-manage-projects

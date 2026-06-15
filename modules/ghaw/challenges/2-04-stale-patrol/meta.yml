@@ -1,0 +1,43 @@
+id: ghaw-2-04
+title: Stale Patrol
+module: ghaw
+track: repo-concierge
+difficulty: intermediate
+duration_minutes: 30
+prerequisites:
+  - ghaw-0-00
+prerequisite_capabilities:
+  - GitHub Actions basics
+  - YAML syntax
+  - gh-aw CLI installed — see ghaw-0-00
+description: Keep your backlog healthy with a daily scheduled workflow that warns maintainers about inactive issues and closes them automatically after a grace period.
+success_criteria:
+  - `.github/workflows/stale-patrol.md` exists with valid gh-aw frontmatter
+  - Trigger is `on: schedule:` with a cron expression (daily around 9 AM UTC)
+  - Safe-outputs includes `add-comment` and optionally `update-issue` (to close)
+  - `.github/workflows/stale-patrol.lock.yml` compiles without errors
+  - Manual test:
+  - Create a test issue dated 70+ days ago (or mock it in the agent prompt)
+  - Run workflow manually via `workflow_dispatch`
+  - Verify: warning comment appears
+  - Verify: `stale` label is applied
+  - A second run (simulated 3 days later) closes the issue
+  - Issues labeled `keep-alive` are skipped (not closed)
+  - No errors if repo has no stale issues
+tags:
+  - schedule
+  - stale-issues
+  - conditional-logic
+  - maintenance
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+tier: stretch
+source_repo: microsoft/frontier-ghaw-hackathon
+source_path: _challenges/2-04-stale-patrol.md
+license: MIT
+references:
+  - https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
+  - https://github.github.com/gh-aw/reference/tools/github/
+  - https://github.github.com/gh-aw/reference/safe-outputs/
+  - https://github.com/githubnext/agentics/blob/main/workflows/daily-backlog-burner.md

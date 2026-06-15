@@ -1,0 +1,78 @@
+# Squad Decisions
+
+## Active Decisions
+
+### frontier-ghplatform-hackathon: Unified Platform Architecture (2026-06-15)
+
+**Status:** ✅ APPROVED by Marco (2026-06-15)
+
+**Summary:** Four-module information architecture aggregating **58 challenges** (final count after GHAS scoped to security-only S00–S05) from four source hackathons (GHEC 20, GHAS 6, GHAW 25, Agentic DevOps 7). Single metadata contract (`meta.yml`) per challenge; extended GHEC build engine; no heavy assets; all content kept intact (no deduplication). Prerequisite edges: 38 (0 cross-module). Build deterministic; no cycles.
+
+**Owner:** Mal (sign-off), Marco (approval)
+
+**Key trade-offs:**
+- Client-side Markdown rendering (40KB marked.js) vs. build-time HTML generation
+- Exclude Juice Shop (61MB) by reference; students pull from source repo
+- Keep overlapping content across modules (feature, not bug — different audiences, different depth)
+- No Jekyll — full control, zero runtime dependencies, deterministic sub-second builds
+
+**GHAS scope decision (Marco, 2026-06-15):** Only Security track (S00–S05, 6 challenges). Excludes Copilot frontend (F00–F03), backend (B00–B03), and setup (C00) tracks — module is GitHub Advanced Security, not Copilot app-feature work.
+
+**Defects (all resolved):** D-001 (parser regex, fixed by Wash), D-002 (stale counts, fixed by Kaylee), D-003–D-005 (content links/tier, fixed by Zoe).
+
+**Final state:** Build clean. 4 modules, 58 challenges, 38 prerequisite edges, 0 cross-module dependencies, 0 cycles. Ship-ready per Mal.
+
+---
+
+### frontier-ghplatform-hackathon: Design System (2026-06-15)
+
+**Status:** Implemented (Phase 1)
+
+**Summary:** Frontier site uses distinct visual identity (not copying GHEC design). Palette: dark `#03050d`/light `#f2f5fd` canvas; frontier gold `#e8c84a` (compass/navigation); module colors per track (GHEC sky-blue, GHAS security-red, GHAW neural-violet, Agentic operational-orange). Typography: Syne 700–800 display (spaced, technical), DM Sans body (humanist), JetBrains Mono code. Challenge cards: 3px left border in module color via `::before`, hover `translateX(3px)`. Compass rose SVG hero (4 arcs, gold star, 120s slow rotation). Module color applied via `--mod-color` CSS custom property from `.mod-<moduleId>` class.
+
+**Owner:** Kaylee
+
+**Key details:**
+- Marked.js vendored at 35KB, loaded only on challenge.html
+- Icons expected at `assets/img/icon-<moduleId>.svg` (filename in `platform.json`, not path)
+- Challenge paths relative to `docs/` root (e.g., `assets/data/challenges/ghec-ch01/README.md`)
+- All module color rules minimal (one card ruleset, four variants via inheritance)
+
+---
+
+### frontier-ghplatform-hackathon: Phase 2 Content Port (2026-06-15)
+
+**Status:** Complete
+
+**Summary:** GHAW (25 challenges, 4 tracks: hello-agent 5, repo-concierge 6, continuous-intelligence 6, production-patterns 8) and Agentic DevOps (7 challenges, linear arc 00→01,02→03→04,05→06) ported to modules. Prerequisites: GHAW all non-setup challenges require ghaw-0-00; ghaw-4-06 additionally requires ghaw-4-05 (causal consumer). Agentic-DevOps prerequisites justified by content: both SDLC and Copilot experience feed into challenge 03 (coordinate workflows), deployed infra from 04 required for 06 (SRE agent). Resources vendored (212KB). Coach guides derived from source challenge solutions. Tier mapping: source core→core, bonus/extension→stretch.
+
+**Owner:** Zoe
+
+**Flags:**
+- GHAW 3-05 (Ship It) is capstone-style but marked `tier: stretch` (architecture supports future `capstone` tier)
+- Agentic-DevOps 04 (Azure deploy) requires active Azure subscription — accessibility concern for some hackathon environments; fallback evidence packet provided in README
+- GHAW 3-03 (engine swap) may need content refresh as AI engine availability changes (defer to Zoe in 6+ months)
+
+---
+
+### frontier-ghplatform-hackathon: Phase 3 QA & Defect Resolution (2026-06-15)
+
+**Status:** ✅ All defects resolved
+
+**Summary:** QA by Simon identified 5 defects (D-001 P0, D-002–D-005 P1–P2). D-001 (ship blocker): `parseMeta()` regex required leading whitespace (`\s+`), silently dropping zero-indent YAML block sequences (GHAS meta.yml), causing 5 missing prerequisite edges. Fixed by Wash (regex `\s*`) and Zoe (re-indented GHAS items to 2-space). D-002: hardcoded challenge counts in index.html stale (57→58, GHAS tracks 2→1, GHAW 24→25) — fixed by Kaylee. D-003: broken docs links in ghas-s00 (source repo paths) — fixed by Zoe. D-004: broken resource links in agentic-devops (source layout paths) — fixed by Zoe. D-005: ghas-s00 tier `core` not `setup` — fixed by Zoe. Build verified clean: 58 challenges, 38 edges, 0 cross-module, 0 cycles.
+
+**Owner:** Simon (QA), team (fixes)
+
+**Final independence audit:** GHEC (20 independent), GHAS (6, all require s00 on disk after fix), GHAW (24 require setup + 1 causal pair), Agentic-DevOps (7-challenge linear arc). ✅
+
+---
+
+### frontier-ghplatform-hackathon: Design System Implementation Reference
+
+This standalone decision (in `.squad/decisions/wash-build-contract.md`) documents the build engine data contract and module ID scheme. Retained for technical reference; no action required.
+
+## Governance
+
+- All meaningful changes require team consensus
+- Document architectural decisions here
+- Keep history focused on work, decisions focused on direction

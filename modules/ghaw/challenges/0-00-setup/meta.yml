@@ -1,0 +1,31 @@
+id: ghaw-0-00
+title: Challenge 00 — Environment Setup
+module: ghaw
+track: hello-agent
+difficulty: beginner
+duration_minutes: 30
+prerequisites: []
+prerequisite_capabilities:
+  - GitHub account
+  - Git basics
+  - Basic CLI/terminal usage
+description: Get your development environment ready for the hackathon. Install gh-aw, verify your setup, and run your first AI workflow.
+success_criteria:
+  - `gh aw --version` returns a version string
+  - `gh aw run examples/hello-world.md --dry-run` completes without errors
+  - You can see the generated workflow YAML
+  - You have a local or Codespaces environment ready to code
+tags:
+  - setup
+  - gh-aw
+  - devcontainer
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+tier: setup
+source_repo: microsoft/frontier-ghaw-hackathon
+source_path: _challenges/00-setup.md
+license: MIT
+references:
+  - https://github.com/github/gh-aw
+  - https://microsoft.github.io/WhatTheHack/
