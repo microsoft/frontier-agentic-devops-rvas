@@ -101,6 +101,28 @@ Typography adjustments:
 
 **Verification:** platform.json has resolvable icons. No Syne references remain. Chakra Petch loaded on all 4 pages.
 
+---
+
+### frontier-ghplatform-hackathon: Track Cards as In-Page Navigation Anchors (2026-06-15)
+
+**Status:** ✅ Implemented
+
+**Summary:** Module pages "Learning paths" track cards were non-interactive `<div>` elements. Converted to anchor links (`<a href="#track-${id}">`) with smooth in-page navigation to challenge-group sections.
+
+**Implementation:**
+
+- **`docs/assets/js/module.js` — `renderTracks()`:** Tag choice — `<a>` when track has challenges (count > 0), `<div>` when empty (count === 0) to avoid dead anchors. No CSS changes; `.track-item` styling already supports both.
+- **`docs/assets/js/module.js` — `renderChallenges()`:** Added `id="track-${trackId}"` to each `.group-head` div.
+- **`docs/assets/css/styles.css` — `.group-head`:** Added `scroll-margin-top: 72px` (58px navbar + 14px breathing room) to prevent sticky nav overlap. Native `scroll-behavior: smooth` on `html` handles scroll animation.
+
+**Edge cases:** Zero-challenge tracks render as `<div>` (no dangling anchors). Challenge card links (`renderChallenges()`) unaffected. Keyboard accessibility: `<a>` elements natively focusable; `:focus-visible` styling already present.
+
+**Verification:** `node docs/build.js` clean (58 challenges, 4 modules); track navigation tested (GHEC: developer-flow, admin-governance, security, automation-ai all link correctly).
+
+**Owner:** Kaylee
+
+**Files:** `docs/assets/js/module.js`, `docs/assets/css/styles.css`
+
 ## Governance
 
 - All meaningful changes require team consensus
