@@ -197,6 +197,112 @@ Typography adjustments:
 
 ---
 
+### frontier-ghplatform-hackathon: Module Rename agentic-devops → sre-agent + Repo Rebrand (2026-06-15)
+
+**Status:** ✅ Implemented
+
+**Requested by:** Marco (@olivomarco)
+
+**Owner:** Zoe (Content), Kaylee (Frontend)
+
+**Summary:** Two coordinated changes implemented:
+
+**A) Module id rename:** `agentic-devops` → `sre-agent`, display name "Agentic DevOps & Azure SRE" → "SRE Agent".
+
+**B) Repo/product rebrand:** "The Frontier GitHub Platform Hackathon" → **"Agentic DevOps"** (non-HTML/JS by Zoe, HTML/JS brand by Kaylee).
+
+**Motivation:** The module name was confusing with the product brand. Marco decided to give the module a tighter name ("SRE Agent") and reserve "Agentic DevOps" for the product.
+
+**Naming After Change:**
+- Module id: `agentic-devops` → `sre-agent`
+- Module display name: "Agentic DevOps & Azure SRE" → "SRE Agent"
+- Challenge ids: `agentic-devops-NN` → `sre-agent-NN`
+- Product/repo brand: "The Frontier GitHub Platform Hackathon" → **"Agentic DevOps"**
+
+**Collision rule:** "Agentic DevOps" = product brand. "SRE Agent" (id: `sre-agent`) = module. Do not call the module "Agentic DevOps".
+
+**Files Changed (Zoe):**
+- `modules/agentic-devops/` → `modules/sre-agent/`
+- `docs/build.js` — `MODULE_CONFIG` key `'agentic-devops'` → `'sre-agent'`; `name:` → `'SRE Agent'`; top comment rebranded
+- 6× `modules/sre-agent/challenges/*/meta.yml` — id/module/prerequisites updated
+- `README.md` — H1 rebranded; module table updated
+- `CONTRIBUTING.md`, `modules/_TEMPLATE/challenge/meta.yml`, `modules/README.md` — references updated
+- `package.json` — `description` rebranded
+- `docs/assets/data/challenges/agentic-devops-*/` — pruned (6 orphan dirs removed)
+- `docs/assets/data/platform.json`, `dependency-graph.json` — regenerated
+
+**Intentionally Unchanged:**
+- `docs/assets/img/icon-agentic-devops.svg` — asset filename kept (Kaylee coordination deferred)
+- `icon: 'icon-agentic-devops.svg'` in `docs/build.js` — references the asset
+- `source_repo` attribution URLs — pointing to upstream Microsoft repos
+- `.squad/` historical logs
+
+**Files Changed (Kaylee):**
+- All four pages (`index.html`, `catalog.html`, `challenge.html`, `module.html`)
+  - `<title>` elements: "… — Frontier …" → "… — Agentic DevOps"
+  - `<meta name="description">` reworded
+  - Header wordmark: "Frontier · GitHub Platform" → "Agentic DevOps"
+  - Aria labels: "Frontier — Home" → "Agentic DevOps — Home"
+  - Footer brand text
+  - Favicon letter: `F` → `A` (inline SVG data URI)
+  - Hero section (index.html): eyebrow, h1, lede rewritten
+- `docs/assets/js/` — `document.title` strings, file header comments updated
+- Module nav links: `m=agentic-devops` → `m=sre-agent`, label "Agentic DevOps" → "SRE Agent"
+
+**Intentionally NOT Changed (Kaylee):**
+- `docs/assets/img/icon-agentic-devops.svg` — filename and `<img src>` kept
+- CSS classes like `mod-agentic-devops` — cosmetic, safe to defer
+
+**Verification:** Build clean: 4 modules, 57 challenges, 36 edges. platform.json has module `sre-agent` (6 challenges, track agentic-lifecycle). Zero "Frontier" brand in site HTML/JS. Zero stray `agentic-devops` id (only intentional icon filename + upstream URLs remain).
+
+---
+
+### frontier-ghplatform-hackathon: Anti-FOUC Inline Theme Script (2026-06-15)
+
+**Status:** ✅ Implemented
+
+**Author:** Kaylee (Frontend / Site Engineer)
+
+**Requested by:** Marco (@olivomarco)
+
+**Summary:** Fixed Flash of Unstyled Content (FOUC) for theme by adding a tiny synchronous render-blocking inline `<script>` in `<head>` of all four pages, positioned **before** the stylesheet.
+
+**Context:** Light mode users experienced a dark flash on page navigation. Root cause: all pages had `data-theme="dark"` hardcoded; `docs/assets/js/core.js` corrected the theme at the **end of `<body>`**, so the browser painted dark first, then corrected it.
+
+**Solution:**
+
+```html
+<script>
+  (function () {
+    try {
+      var k = 'fp-theme';
+      var saved = localStorage.getItem(k);
+      var pref = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', saved || pref);
+    } catch (e) {}
+  })();
+</script>
+```
+
+**Rationale:**
+- **Inline, not external** — external scripts add a network round-trip and cannot reliably prevent FOUC.
+- **Before the stylesheet** — ensures `data-theme` is set before any theme-dependent CSS is evaluated.
+- **Same key as core.js** — uses `'fp-theme'` matching `core.js THEME_KEY`. If the key changes in core.js, all four inline scripts must be updated identically.
+- **No change to core.js** — core.js owns the theme toggle button. The inline script and core.js share the same key; core.js re-setting the same value post-load is a harmless visual no-op.
+- **`data-theme="dark"` retained on `<html>`** — valid no-JS fallback.
+
+**Files Changed:**
+- `docs/index.html`, `docs/catalog.html`, `docs/challenge.html`, `docs/module.html` — anti-FOUC script inserted after `<meta name="viewport">`, before preconnect links and stylesheet
+
+**Conventions Established:**
+- All pages (current and future) must include the anti-FOUC inline script in `<head>`, before the stylesheet.
+- Script must be **identical** across all pages and **kept in sync with `core.js THEME_KEY`**.
+- Do not move to an external file — that defeats the purpose.
+
+**Verification:** Build clean: 4 modules, 57 challenges, 36 edges. Script present in `<head>` of all 4 pages, before stylesheet. Logic matches core.js. No FOUC observed in light-mode navigation.
+
+---
+
 ## Governance
 
 - All meaningful changes require team consensus
