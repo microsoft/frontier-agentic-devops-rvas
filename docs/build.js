@@ -32,7 +32,7 @@ const MODULE_CONFIG = {
     name: 'GitHub Enterprise Cloud',
     description: 'Master enterprise GitHub: planning, governance, security, and automation across a full SDLC.',
     color: '#0969da',
-    icon: 'cloud',
+    icon: 'icon-ghec.svg',
     tracks: {
       'developer-flow':   { name: 'Developer Flow',       description: 'Issues, pull requests, Codespaces, and developer ergonomics at scale.' },
       'admin-governance': { name: 'Admin & Governance',   description: 'Org structure, policies, SAML/SSO, audit logs, and enterprise compliance.' },
@@ -44,7 +44,7 @@ const MODULE_CONFIG = {
     name: 'GitHub Advanced Security',
     description: 'Deep-dive security: exploit a vulnerable app, then fix it using GHAS tooling.',
     color: '#cf222e',
-    icon: 'shield',
+    icon: 'icon-ghas.svg',
     tracks: {
       'security': { name: 'Security', description: 'SAST, secret scanning, Dependabot, and hands-on Juice Shop exploitation + remediation.' },
     },
@@ -53,7 +53,7 @@ const MODULE_CONFIG = {
     name: 'GitHub Agentic Workflows',
     description: 'Build, compose, and harden AI agent workflows on top of GitHub Actions.',
     color: '#8250df',
-    icon: 'hubot',
+    icon: 'icon-ghaw.svg',
     tracks: {
       'hello-agent':              { name: 'Hello, Agent', description: 'First agents: scheduled briefings, safe outputs, and basic triggers.' },
       'repo-concierge':           { name: 'Repo Concierge', description: 'Event-driven automation: issue triage, PR review, and slash commands.' },
@@ -65,7 +65,7 @@ const MODULE_CONFIG = {
     name: 'Agentic DevOps & Azure SRE',
     description: 'End-to-end agentic pipeline: from issue triage to Azure SRE incident response.',
     color: '#1a7f37',
-    icon: 'gear',
+    icon: 'icon-agentic-devops.svg',
     tracks: {
       'agentic-arc': { name: 'Agentic Arc', description: 'A linear journey through agent-driven DevOps: plan, build, deploy, monitor, and recover.' },
     },

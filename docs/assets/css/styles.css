@@ -1,7 +1,7 @@
 /* =====================================================================
    Frontier GitHub Platform Hackathon
    Visual system: star-chart navigation meets developer terminal.
-   Deep-space canvas, Syne display + DM Sans body, frontier-gold accent,
+   Deep-space canvas, Chakra Petch display + DM Sans body, frontier-gold accent,
    four module spectral colors, light/dark theme.
    Signature: navigation-compass hero backdrop — four radial arcs,
    one per module, suggesting "four directions to explore."
@@ -44,7 +44,7 @@
   --c-advanced: #f87171;
 
   /* Typography */
-  --font-display: 'Syne', 'Space Grotesk', system-ui, sans-serif;
+  --font-display: 'Chakra Petch', 'Space Grotesk', system-ui, sans-serif;
   --font-body: 'DM Sans', 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', monospace;
 
@@ -142,15 +142,15 @@ button { font-family: inherit; cursor: pointer; }
 /* ═══════════════════════════ TYPE SCALE ════════════════════════════ */
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.06;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.01em;
   margin: 0;
 }
 h1 { font-size: clamp(2.2rem, 5vw + 0.5rem, 4.2rem); }
 h2 { font-size: clamp(1.6rem, 3vw + 0.4rem, 2.6rem); }
 h3 { font-size: clamp(1.1rem, 2vw + 0.3rem, 1.5rem); }
-h4 { font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; }
+h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
 
 .mono { font-family: var(--font-mono); }
 
@@ -216,9 +216,9 @@ h4 { font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; }
   align-items: center;
   gap: 10px;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 0.95rem;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   white-space: nowrap;
   color: var(--c-fg);
   flex-shrink: 0;
@@ -378,8 +378,8 @@ h4 { font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; }
 .stat-n {
   font-family: var(--font-display);
   font-size: 1.9rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   color: var(--c-gold);
   line-height: 1;
 }
@@ -514,9 +514,9 @@ h4 { font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; }
 .mod-card-title {
   font-family: var(--font-display);
   font-size: 1rem;
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.2;
-  letter-spacing: -0.018em;
+  letter-spacing: -0.01em;
 }
 .mod-card-id {
   font-family: var(--font-mono);

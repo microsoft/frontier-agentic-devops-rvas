@@ -49,6 +49,28 @@
 - `docs/assets/data/platform.json` (mock fixture only — Wash owns the real build output)
 - `docs/assets/data/challenges/*/README.md` + `COACH.md` (mock fixtures only)
 
-**D-002 (2026-06-15) — Fixed stale hardcoded counts:**
+### Phase 2 — Bug fixes: icon paths + title font (2026-06-15)
+
+**Icon path convention (SETTLED — do not regress):**
+- `MODULE_CONFIG` in `docs/build.js` must set `icon` to the full filename: `icon-<moduleId>.svg`.
+- `docs/assets/data/platform.json` (built) emits this as-is; JS renders `assets/img/${m.icon}`.
+- Physical files live at `docs/assets/img/icon-{ghec,ghas,ghaw,agentic-devops}.svg`.
+- The fallback in `module.js` (`'icon-' + mod.id + '.svg'`) is also correct, but the data should always carry the real filename.
+- Any new module: add `docs/assets/img/icon-<newModuleId>.svg` + set `icon: 'icon-<newModuleId>.svg'` in MODULE_CONFIG.
+
+**Title font: Chakra Petch replaces Syne:**
+- `--font-display: 'Chakra Petch', 'Space Grotesk', system-ui, sans-serif`
+- Heading weight: 700 (was 800 — Chakra Petch 700 reads as strong; 800 was unnecessary)
+- Heading letter-spacing: -0.01em (was -0.025em — Chakra Petch's geometry doesn't need heavy negative tracking)
+- Google Fonts axis: `Chakra+Petch:wght@500;600;700` (Syne dropped entirely)
+- Body (`DM Sans`) and mono (`JetBrains Mono`) unchanged.
+
+**Pages that load fonts (must stay consistent):**
+- `docs/index.html`
+- `docs/catalog.html`
+- `docs/module.html`
+- `docs/challenge.html`
+
+**
 - Updated `index.html` fallback text: meta description and hero text from "57 challenges" → "58", GHAS card "2 tracks" → "1 track", GHAW card "24 challenges" → "25". The real stats are computed by `home.js::renderStats()` from `platform.json` at runtime; HTML fallbacks are now aligned.
 
