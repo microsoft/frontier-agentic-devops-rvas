@@ -168,3 +168,21 @@
 ---
 
 ### 2026-06-15 — Environment Setup: Verified setup challenges render first per module (ordering check). No code changes required.
+
+## Learnings
+
+### 2026-06-15 — Homepage setup-challenges section
+
+**docs/index.html is hand-authored** — `docs/build.js` only writes `docs/assets/data/platform.json` and `docs/assets/data/dependency-graph.json`. Edit `docs/index.html` directly; no rebuild needed.
+
+**Setup-challenge IDs (tier: setup in platform.json):**
+- GHEC: `ghec-ch00` → `challenge.html?id=ghec-ch00` (module color `--c-ghec`)
+- GHAS: `ghas-s00` → `challenge.html?id=ghas-s00` (module color `--c-ghas`)
+- GHAW: `ghaw-0-00` → `challenge.html?id=ghaw-0-00` (module color `--c-ghaw`)
+- SRE Agent: `sre-agent-00` → `challenge.html?id=sre-agent-00` (module color `--c-agentic` — the data module ID is `sre-agent` but the CSS color token is `--c-agentic`; no `.mod-sre-agent` class exists)
+
+**Anchor convention:** All challenge links are real `<a>` elements with `href="challenge.html?id=..."`. Never use clickable divs.
+
+**Badge class pattern:** Difficulty/tier badges use `.badge .badge-difficulty-{level}` (e.g. `badge badge-difficulty-beginner`), not `.diff-badge`.
+
+**ch-card pattern for static markup:** Use `<a class="ch-card" href="..." style="--mod-color:var(--c-{module})">` with `.ch-card-top`, `.ch-mod-dot`, `.ch-module-label`, `.ch-title`, `.ch-desc`, `.ch-footer` children to match the dynamic catalog cards.
