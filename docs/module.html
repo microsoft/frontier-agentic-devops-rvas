@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Module — Frontier Hackathon</title>
+  <meta id="metaDesc" name="description" content="Frontier module detail — tracks and challenges." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23e8c84a'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='14' font-weight='800' text-anchor='middle' fill='%2303050d'%3EF%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+
+  <header class="nav" role="banner">
+    <div class="nav-inner">
+      <a class="brand" href="index.html" aria-label="Frontier — Home">
+        <span class="brand-glyph" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 1L10 6h5L11 9.5l1.5 5L8 12l-4.5 2.5L5 9.5 1 6h5z" fill="#03050d" stroke="#03050d" stroke-width="0.5" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span>Frontier<span class="brand-tag"> · GitHub Platform</span></span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="catalog.html">Catalog</a>
+        <a href="module.html?m=ghec">GHEC</a>
+        <a href="module.html?m=ghas">GHAS</a>
+        <a href="module.html?m=ghaw">GHAW</a>
+        <a href="module.html?m=agentic-devops">Agentic DevOps</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn" id="themeBtn" type="button" aria-label="Toggle theme"></button>
+        <button class="icon-btn nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="mainContent">
+
+    <!-- Module hero -->
+    <section class="module-hero" id="moduleHero" aria-labelledby="modHeading">
+      <div class="wrap module-hero-inner">
+        <div class="breadcrumbs" id="modBreadcrumbs">
+          <a href="index.html">Home</a>
+          <span>›</span>
+          <a href="catalog.html">Catalog</a>
+          <span>›</span>
+          <span class="mono" id="modId">Module</span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:6px">
+          <img id="modIcon" src="" alt="" width="52" height="52" style="flex-shrink:0" />
+          <div>
+            <div id="modAccentBar" class="mod-accent-bar"></div>
+            <h1 id="modHeading" style="margin:0">
+              <span id="modName">Loading…</span>
+            </h1>
+          </div>
+        </div>
+
+        <p class="lede" id="modDesc" style="margin-top:14px;margin-bottom:24px"></p>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <div class="mod-stat">
+            <strong id="modCount">—</strong> challenges
+          </div>
+          <div class="mod-stat">
+            <strong id="modTracks">—</strong> tracks
+          </div>
+          <a class="btn btn-primary btn-sm" href="catalog.html" id="browseBtn"
+             style="margin-left:auto">Browse all challenges →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tracks -->
+    <section class="section-tight" aria-labelledby="tracksHeading">
+      <div class="wrap">
+        <div class="shead">
+          <div>
+            <span class="eyebrow">Tracks</span>
+            <h2 id="tracksHeading" style="margin-top:12px">Learning paths.</h2>
+          </div>
+        </div>
+        <div class="track-list reveal" id="trackList">
+          <div class="empty">Loading tracks…</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Challenges -->
+    <section class="section-tight" id="challengeSection" aria-labelledby="challengesHeading">
+      <div class="wrap">
+        <div class="shead reveal">
+          <div>
+            <span class="eyebrow">Challenges</span>
+            <h2 id="challengesHeading" style="margin-top:12px">The full sequence.</h2>
+            <p>All challenges are independent — run any subset in any order. The track order is a suggested learning path, not a hard dependency.</p>
+          </div>
+          <a class="link" href="catalog.html">View in catalog →</a>
+        </div>
+        <div id="challengeGrid">
+          <div class="empty">Loading challenges…</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Attribution -->
+    <section class="section-tight" style="border-top:1px solid var(--c-line)">
+      <div class="wrap">
+        <p class="attribution" id="modAttribution">
+          Content sourced from Microsoft hackathon repositories under MIT license.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="wrap footer-inner">
+      <a class="brand" href="index.html" aria-label="Frontier — Home">
+        <span class="brand-glyph" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 1L10 6h5L11 9.5l1.5 5L8 12l-4.5 2.5L5 9.5 1 6h5z" fill="#03050d" stroke="#03050d" stroke-width="0.5" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span>Frontier</span>
+      </a>
+      <p>Content sourced from four Microsoft hackathon repositories under MIT license.</p>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="index.html">Home</a>
+        <a href="catalog.html">Catalog</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="assets/js/core.js"></script>
+  <script src="assets/js/module.js"></script>
+</body>
+</html>

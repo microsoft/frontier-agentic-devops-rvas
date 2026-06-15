@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!-- Agentic DevOps: Gear + waveform suggesting operational systems -->
+  <circle cx="24" cy="24" r="22" fill="#fb923c" fill-opacity="0.12" stroke="#fb923c" stroke-width="1.5" stroke-opacity="0.4"/>
+  <!-- Gear outer -->
+  <path d="M24 9l2.5 3.8c.5.7 1.3 1.1 2.2 1l4.4-.7 1.8 4.1-3 2.7c-.6.5-.9 1.3-.8 2.1l.5 4.4-4.2 1.6-2.2-3.8c-.4-.7-1.2-1.2-2.2-1.2s-1.8.5-2.2 1.2L18.6 28l-4.2-1.6.5-4.4c.1-.8-.2-1.6-.8-2.1L11 17.2l1.8-4.1 4.4.7c.9.1 1.7-.3 2.2-1L21.5 9h2.5z" stroke="#fb923c" stroke-width="1.8" stroke-linejoin="round"/>
+  <!-- Center circle of gear -->
+  <circle cx="24" cy="22" r="4" stroke="#fb923c" stroke-width="1.8" fill="none"/>
+  <!-- SRE waveform at bottom -->
+  <polyline points="10,38 14,33 18,38 22,31 26,38 30,34 34,38 38,36" stroke="#fb923c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-opacity="0.8"/>
+</svg>
