@@ -147,6 +147,32 @@ Typography adjustments:
 
 ---
 
+### frontier-ghplatform-hackathon: Remove agentic-devops-02 ("Build with GitHub Copilot") (2026-06-15)
+
+**Status:** ✅ Implemented
+
+**Requested by:** Marco (@olivomarco)
+
+**Owner:** Zoe (content/curriculum)
+
+**Summary:** Removed challenge `agentic-devops-02` ("Build with GitHub Copilot") from the `agentic-devops` module entirely. The challenge was the second in the original linear arc (00 → 01, 02 → 03 → 04, 05 → 06).
+
+**Rationale:** Marco requested removal. The challenge is out of scope for this curriculum pass.
+
+**Blast Radius:** Contained. Only one challenge listed `agentic-devops-02` as a prerequisite: `modules/agentic-devops/challenges/03-agent-workflows/meta.yml` — had `prerequisites: [agentic-devops-01, agentic-devops-02]`. Updated to `prerequisites: [agentic-devops-01]`. Linear chain preserved. No other challenge, README, CONTRIBUTING, or module doc referenced the removed id or folder.
+
+**Files Changed:**
+- **Deleted:** `modules/agentic-devops/challenges/02-copilot-engineering/` (README.md, meta.yml, COACH.md)
+- **Deleted:** `docs/assets/data/challenges/agentic-devops-02/` (stale build copy: README.md, COACH.md)
+- **Edited:** `modules/agentic-devops/challenges/03-agent-workflows/meta.yml` — removed `- agentic-devops-02` from prerequisites
+- **Regenerated:** `docs/assets/data/platform.json` and `docs/assets/data/dependency-graph.json` via `node docs/build.js`
+
+**New Chain:** `00 → 01 → 03 → 04, 05 → 06` (gap at 02 is intentional; ids are stable, not positional)
+
+**Verification:** Build clean: 57 challenges (was 58), 36 edges (was 38). Zero `agentic-devops-02` grep hits (excluding binary `.git/index`). Zero `02-copilot-engineering` grep hits. Zero `Build with GitHub Copilot` grep hits. `agentic-devops-03` prerequisites = `[agentic-devops-01]` in platform.json ✓. No dangling prerequisites across all 57 challenges ✓. No orphan `docs/assets/data/challenges/agentic-devops-02/` directory ✓
+
+---
+
 ## Governance
 
 - All meaningful changes require team consensus
