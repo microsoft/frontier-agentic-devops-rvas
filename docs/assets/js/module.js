@@ -1,4 +1,4 @@
-/* Frontier — module detail page (?m=<moduleId>) */
+/* Agentic DevOps — module detail page (?m=<moduleId>) */
 (function () {
   'use strict';
 
@@ -15,7 +15,7 @@
 
     const challenges = (data.challenges || []).filter((c) => c.module === moduleId);
 
-    document.title = mod.name + ' — Frontier Hackathon';
+    document.title = mod.name + ' — Agentic DevOps';
     updateMeta(mod);
     renderHero(mod, challenges);
     renderTracks(mod, challenges);
@@ -63,15 +63,17 @@
 
     list.innerHTML = mod.tracks.map((t) => {
       const count = challenges.filter((c) => c.track === t.id).length;
+      const tag = count > 0 ? 'a' : 'div';
+      const href = count > 0 ? ` href="#track-${t.id}"` : '';
       return `
-        <div class="track-item" style="--mod-color:${color}">
+        <${tag} class="track-item"${href} style="--mod-color:${color}">
           <div class="track-item-dot"></div>
           <div class="track-item-info">
             <div class="track-item-name">${FP.esc(t.name)}</div>
             ${t.description ? `<div class="track-item-desc">${FP.esc(t.description)}</div>` : ''}
           </div>
           <div class="track-item-count">${count} challenge${count === 1 ? '' : 's'}</div>
-        </div>`;
+        </${tag}>`;
     }).join('');
   }
 
@@ -105,7 +107,7 @@
       const trackName = trackMeta ? trackMeta.name : trackId;
 
       html += `
-        <div class="group-head" style="--mod-color:${color}">
+        <div class="group-head" id="track-${trackId}" style="--mod-color:${color}">
           <span class="group-count" style="color:${color};font-family:var(--font-mono);font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em">${FP.esc(trackId)}</span>
           <h3>${FP.esc(trackName)}</h3>
           <span class="group-count">${items.length} challenge${items.length === 1 ? '' : 's'}</span>

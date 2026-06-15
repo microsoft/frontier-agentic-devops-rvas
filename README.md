@@ -1,17 +1,17 @@
-# The Frontier GitHub Platform Hackathon
+# Agentic DevOps
 
-One repo. One GitHub Pages site. Four hackathon modules, 57 challenges, zero configuration drama.
+One repo. One GitHub Pages site. Four hackathon modules, 59 challenges, zero configuration drama.
 
 ## Modules
 
 | Module ID | Name | Challenges | Tracks |
 |---|---|---|---|
-| `ghec` | GitHub Enterprise Cloud | 20 | Developer Flow, Admin & Governance, Security, Automation & AI |
-| `ghas` | GitHub Advanced Security | 6 | Security Fundamentals |
-| `ghaw` | GitHub Agentic Workflows | 24 | Hello Agent, MCP Integration, Production Patterns, Safe Outputs |
-| `agentic-devops` | Agentic DevOps & Azure SRE | 7 | Agentic Arc |
+| `ghec` | GitHub Enterprise Cloud | 21 | Developer Flow, Admin & Governance, Security, Automation & AI |
+| `ghas` | GitHub Advanced Security | 7 | Security Fundamentals |
+| `ghaw` | GitHub Agentic Workflows | 25 | Hello Agent, MCP Integration, Production Patterns, Safe Outputs |
+| `sre-agent` | SRE Agent | 6 | Agentic Lifecycle |
 
-> **Total:** 57 challenges across 4 modules.
+> **Total:** 59 challenges across 4 modules.
 
 ## Architecture
 

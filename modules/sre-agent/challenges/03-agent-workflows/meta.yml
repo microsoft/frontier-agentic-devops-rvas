@@ -1,12 +1,11 @@
-id: agentic-devops-03
+id: sre-agent-03
 title: Coordinate Agent Workflows
-module: agentic-devops
-track: agentic-arc
+module: sre-agent
+track: agentic-lifecycle
 difficulty: intermediate
 duration_minutes: 60
 prerequisites:
-  - agentic-devops-01
-  - agentic-devops-02
+  - sre-agent-01
 prerequisite_capabilities:
   - GitHub Copilot access
   - Basic Git workflow

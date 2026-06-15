@@ -29,7 +29,7 @@ modules/
 │   ├── ATTRIBUTION.md
 │   └── challenges/
 │
-└── agentic-devops/      ← Agentic DevOps & Azure SRE (7 challenges)
+└── sre-agent/           ← SRE Agent (6 challenges)
     ├── ATTRIBUTION.md
     ├── resources/       ← vendored assets (212 KB)
     └── challenges/

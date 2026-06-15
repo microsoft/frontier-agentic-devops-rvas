@@ -12,6 +12,34 @@
 
 ## Learnings
 
+### 2026-06-15 — Setup Challenge Template Contract
+
+**Setup challenge meta.yml locked fields:**
+- `tier: setup`, `prerequisites: []`, `difficulty: beginner`, `duration_minutes: 20–30`
+- Track = module's FIRST track: ghec→developer-flow, ghas→security, ghaw→hello-agent, sre-agent→agentic-lifecycle
+- `tags` must include `setup` and `devcontainer` + one module-specific tag
+- `emu_compatible: true` for all; `min_environment: org` for GHEC/GHAS/SRE Agent, `repo` for GHAW
+- `app_dependency: none` (GHEC/GHAW), `juice-shop` (GHAS), `contoso-claims` (SRE Agent)
+- `success_criteria`: 4–6 items, each a concrete shell command or unambiguous observable
+
+**ID and title conventions:**
+- GHEC: `ghec-ch00` / "Environment Setup"
+- GHAS: `ghas-s00` / "Environment Setup"
+- GHAW: `ghaw-0-00` / "Challenge 00 — Environment Setup" (keep existing)
+- SRE Agent: `sre-agent-00` / "Environment Setup" (rename from "Setup and Team Launch")
+
+**Ordering / renumber rules:**
+- GHEC: new ch00; ch01–ch20 unchanged; ch01 keeps `prerequisites: []` (no hard dep on ch00)
+- GHAS: rename s00→s01, s01→s02, s02→s03, s03→s04, s04→s05, s05→s06 (folders + ids + all cross-refs); then create new s00. Update prerequisites in s02–s06 to reference new ids. ghas-s01 keeps `prerequisites: []`.
+- GHAW: no rename; refresh meta.yml/README/COACH to template; keep `ghaw-0-00` in all track challenge prerequisites (hard dep — CLI install)
+- SRE Agent: no rename; refactor README to lead with env setup, team-launch becomes clearly-labelled second section; sre-agent-01 keeps `prerequisites: []`
+
+**Independence rule:** List setup challenge in downstream `prerequisites:` only when there is a hard technical artifact that downstream literally cannot proceed without. GHAW: keep (CLI install). GHEC/GHAS/SRE Agent ch01: keep `[]`.
+
+**Final expected counts:** GHEC 21, GHAS 7, GHAW 25, SRE Agent 7 = 60 total.
+
+**Full template spec at:** `.squad/decisions/inbox/mal-setup-challenge-template.md`
+
 ### 2026-06-15 — Phase 0 Architecture Analysis
 
 **Source repo structures discovered:**

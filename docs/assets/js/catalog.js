@@ -1,4 +1,4 @@
-/* Frontier — catalog page: filterable + searchable cross-module grid */
+/* Agentic DevOps — catalog page: filterable + searchable cross-module grid */
 (function () {
   'use strict';
 

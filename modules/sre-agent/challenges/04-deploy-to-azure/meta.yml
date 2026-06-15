@@ -1,11 +1,11 @@
-id: agentic-devops-04
+id: sre-agent-04
 title: Deploy to Azure with GitHub Actions
-module: agentic-devops
-track: agentic-arc
+module: sre-agent
+track: agentic-lifecycle
 difficulty: intermediate
 duration_minutes: 60
 prerequisites:
-  - agentic-devops-03
+  - sre-agent-03
 prerequisite_capabilities:
   - GitHub Copilot access
   - Basic Git workflow

@@ -1,4 +1,4 @@
-/* Frontier — shared helpers: data loading, theme, nav, badges, scroll-reveal. */
+/* Agentic DevOps — shared helpers: data loading, theme, nav, badges, scroll-reveal. */
 (function () {
   'use strict';
 

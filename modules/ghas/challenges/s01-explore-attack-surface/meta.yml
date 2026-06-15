@@ -1,4 +1,4 @@
-id: ghas-s00
+id: ghas-s01
 title: Explore the Attack Surface
 module: ghas
 track: security
@@ -30,7 +30,7 @@ min_environment: org
 provision_creates:
   - Shared org repo with Juice Shop (OWASP Juice Shop v20+) — provisioned by organizer setup
   - 'GHAS features enabled: CodeQL scanning, Dependabot alerts, secret scanning'
-tier: setup
+tier: core
 source_repo: microsoft/frontier-ghas-hackathon
 source_path: Student/Challenge-S00.md
 license: MIT

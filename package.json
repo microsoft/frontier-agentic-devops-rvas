@@ -1,7 +1,7 @@
 {
   "name": "frontier-ghplatform-hackathon",
   "version": "1.0.0",
-  "description": "Frontier GitHub Platform Hackathon — unified site builder",
+  "description": "Agentic DevOps — unified hackathon site builder",
   "scripts": {
     "build": "node docs/build.js"
   },

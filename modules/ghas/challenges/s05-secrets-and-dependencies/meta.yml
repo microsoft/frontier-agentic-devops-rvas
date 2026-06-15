@@ -1,11 +1,11 @@
-id: ghas-s04
+id: ghas-s05
 title: Secure Secrets & Dependencies
 module: ghas
 track: security
 difficulty: intermediate
 duration_minutes: 75
 prerequisites:
-  - ghas-s00
+  - ghas-s01
 prerequisite_capabilities:
   - Juice Shop instance running (see modules/ghas/setup.md)
   - GitHub Advanced Security enabled on the shared org repo

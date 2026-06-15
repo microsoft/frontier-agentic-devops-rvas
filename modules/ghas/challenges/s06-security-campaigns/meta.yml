@@ -1,11 +1,11 @@
-id: ghas-s05
+id: ghas-s06
 title: Security Campaigns (Advanced)
 module: ghas
 track: security
 difficulty: advanced
 duration_minutes: 90
 prerequisites:
-  - ghas-s00
+  - ghas-s01
 prerequisite_capabilities:
   - Juice Shop instance running (see modules/ghas/setup.md)
   - GitHub Advanced Security enabled at organization level (Team plan or higher with Code Security license)

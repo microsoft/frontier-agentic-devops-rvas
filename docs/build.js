@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Frontier GitHub Platform Hackathon — build step (dependency-free, Node core only).
+ * Agentic DevOps — build step (dependency-free, Node core only).
  *
  * Reads every  modules/<moduleId>/challenges/<slug>/meta.yml  as the single
  * source of truth and emits site-consumable data + copied guides under docs/assets/data/.
@@ -61,13 +61,13 @@ const MODULE_CONFIG = {
       'production-patterns':      { name: 'Production Patterns', description: 'Battle-tested agents from the Agent Factory — remix for your repo and ship.' },
     },
   },
-  'agentic-devops': {
-    name: 'Agentic DevOps & Azure SRE',
+  'sre-agent': {
+    name: 'SRE Agent',
     description: 'End-to-end agentic pipeline: from issue triage to Azure SRE incident response.',
     color: '#1a7f37',
     icon: 'icon-agentic-devops.svg',
     tracks: {
-      'agentic-arc': { name: 'Agentic Arc', description: 'A linear journey through agent-driven DevOps: plan, build, deploy, monitor, and recover.' },
+      'agentic-lifecycle': { name: 'Agentic Lifecycle', description: 'A linear journey through agent-driven DevOps: plan, build, deploy, monitor, and recover.' },
     },
   },
 };

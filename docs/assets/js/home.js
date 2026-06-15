@@ -1,4 +1,4 @@
-/* Frontier — home page */
+/* Agentic DevOps — home page */
 (function () {
   'use strict';
 
@@ -68,7 +68,7 @@
       || challenges[0];
 
     el.innerHTML = `
-      <div class="ch-card mod-${FP.esc(pick.module)}" style="--mod-color:${FP.moduleColor(pick.module)};background:var(--c-700)">
+      <a class="ch-card mod-${FP.esc(pick.module)}" href="${FP.challengeUrl(pick.id)}" style="--mod-color:${FP.moduleColor(pick.module)};background:var(--c-700)">
         <div class="ch-card-top">
           <span class="ch-mod-dot"></span>
           <span class="ch-module-label">${FP.esc(pick.module)} · ${FP.esc(pick.track)}</span>
@@ -80,7 +80,7 @@
           ${FP.durBadge(pick.duration_minutes)}
           <div class="ch-tags">${FP.tagBadges(pick.tags, 3)}</div>
         </div>
-      </div>
+      </a>
       <a class="btn btn-ghost btn-sm" href="${FP.challengeUrl(pick.id)}" style="align-self:flex-start">
         Open challenge →
       </a>`;

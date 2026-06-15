@@ -1,4 +1,4 @@
-/* Frontier — challenge detail page (?id=<challengeId>) */
+/* Agentic DevOps — challenge detail page (?id=<challengeId>) */
 (function () {
   'use strict';
 
@@ -16,7 +16,7 @@
     const mod = (data.modules || []).find((m) => m.id === challenge.module);
     const allChallenges = data.challenges || [];
 
-    document.title = challenge.title + ' — Frontier Hackathon';
+    document.title = challenge.title + ' — Agentic DevOps';
     applyModuleColor(challenge.module);
     renderHero(challenge, mod);
     renderFacts(challenge, mod, allChallenges);

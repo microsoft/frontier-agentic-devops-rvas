@@ -3,25 +3,35 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Frontier — GitHub Platform Hackathon</title>
-  <meta name="description" content="One hackathon, four modules, 58 challenges. Explore the GitHub platform frontier — GHEC, GHAS, Agentic Workflows, and Agentic DevOps." />
+  <script>
+    (function () {
+      try {
+        var k = 'fp-theme';
+        var saved = localStorage.getItem(k);
+        var pref = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', saved || pref);
+      } catch (e) {}
+    })();
+  </script>
+  <title>Agentic DevOps — Hackathon</title>
+  <meta name="description" content="One hackathon, four modules, 58 challenges. Build agent-first DevOps skills — GHEC, GHAS, Agentic Workflows, and SRE Agent on the full GitHub platform." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23e8c84a'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='14' font-weight='800' text-anchor='middle' fill='%2303050d'%3EF%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23e8c84a'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='14' font-weight='800' text-anchor='middle' fill='%2303050d'%3EA%3C/text%3E%3C/svg%3E" />
 </head>
 <body>
 
   <header class="nav" role="banner">
     <div class="nav-inner">
-      <a class="brand" href="index.html" aria-label="Frontier — Home">
+      <a class="brand" href="index.html" aria-label="Agentic DevOps — Home">
         <span class="brand-glyph" aria-hidden="true">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M8 1L10 6h5L11 9.5l1.5 5L8 12l-4.5 2.5L5 9.5 1 6h5z" fill="#03050d" stroke="#03050d" stroke-width="0.5" stroke-linejoin="round"/>
           </svg>
         </span>
-        <span>Frontier<span class="brand-tag"> · GitHub Platform</span></span>
+        <span>Agentic DevOps</span>
       </a>
       <nav class="nav-links" aria-label="Primary">
         <a href="index.html" aria-current="page">Home</a>
@@ -29,7 +39,7 @@
         <a href="module.html?m=ghec">GHEC</a>
         <a href="module.html?m=ghas">GHAS</a>
         <a href="module.html?m=ghaw">GHAW</a>
-        <a href="module.html?m=agentic-devops">Agentic DevOps</a>
+        <a href="module.html?m=sre-agent">SRE Agent</a>
         <a class="cta" href="catalog.html">Browse all challenges →</a>
       </nav>
       <div class="nav-actions">
@@ -77,12 +87,12 @@
 
       <div class="wrap hero-grid">
         <div>
-          <span class="eyebrow">GitHub Platform · Frontier Hackathon</span>
-          <h1 id="heroHeading">Map Your<br><span class="accent">Frontier.</span></h1>
+          <span class="eyebrow">GitHub Platform · Agentic DevOps</span>
+          <h1 id="heroHeading">Agent-First<br><span class="accent">DevOps.</span></h1>
           <p class="lede">
             Four modules. Fifty-eight independent challenges. One org to get started.
-            GHEC, GHAS, Agentic Workflows, and Agentic DevOps — the full GitHub platform frontier,
-            yours to explore in any order.
+            GHEC, GHAS, Agentic Workflows, and SRE Agent — the full GitHub platform,
+            built for autonomous operations.
           </p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="catalog.html">
@@ -129,9 +139,9 @@
             <div class="mod-name">GitHub Agentic Workflows</div>
             <div class="mod-count">25 challenges · 4 tracks</div>
           </a>
-          <a href="module.html?m=agentic-devops" class="hero-mod-card" style="--mod-color:var(--c-agentic)">
+          <a href="module.html?m=sre-agent" class="hero-mod-card" style="--mod-color:var(--c-agentic)">
             <img src="assets/img/icon-agentic-devops.svg" class="mod-icon" alt="" aria-hidden="true" />
-            <div class="mod-name">Agentic DevOps &amp; Azure SRE</div>
+            <div class="mod-name">SRE Agent</div>
             <div class="mod-count">7 challenges · 1 arc</div>
           </a>
         </div>
@@ -211,13 +221,13 @@
 
   <footer class="footer" role="contentinfo">
     <div class="wrap footer-inner">
-      <a class="brand" href="index.html" aria-label="Frontier — Home">
+      <a class="brand" href="index.html" aria-label="Agentic DevOps — Home">
         <span class="brand-glyph" aria-hidden="true">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M8 1L10 6h5L11 9.5l1.5 5L8 12l-4.5 2.5L5 9.5 1 6h5z" fill="#03050d" stroke="#03050d" stroke-width="0.5" stroke-linejoin="round"/>
           </svg>
         </span>
-        <span>Frontier</span>
+        <span>Agentic DevOps</span>
       </a>
       <p>Content sourced from four Microsoft hackathon repositories under MIT license.<br>
          Built with a static <span class="mono">build.js → docs/</span> engine. No server required.</p>
@@ -226,7 +236,7 @@
         <a href="module.html?m=ghec">GHEC</a>
         <a href="module.html?m=ghas">GHAS</a>
         <a href="module.html?m=ghaw">GHAW</a>
-        <a href="module.html?m=agentic-devops">Agentic DevOps</a>
+        <a href="module.html?m=sre-agent">SRE Agent</a>
       </nav>
     </div>
   </footer>

@@ -24,9 +24,9 @@ Copy `modules/_TEMPLATE/challenge/` as your starting point.
 ```yaml
 # === Required ===
 id: ghec-ch01                    # Globally unique. Convention: <module>-<local-id>
-                                 # Modules: ghec | ghas | ghaw | agentic-devops
+                                 # Modules: ghec | ghas | ghaw | sre-agent
 title: "Issues, Labels & Project Boards"
-module: ghec                     # One of: ghec | ghas | ghaw | agentic-devops
+module: ghec                     # One of: ghec | ghas | ghaw | sre-agent
 track: developer-flow            # Track slug within the module (see module-track table below)
 difficulty: beginner             # beginner | intermediate | advanced
 duration_minutes: 180            # Estimated student time in minutes
@@ -81,7 +81,7 @@ references:
 | `ghaw` | `mcp-integration` | MCP Integration |
 | `ghaw` | `production-patterns` | Production Patterns |
 | `ghaw` | `safe-outputs` | Safe Outputs |
-| `agentic-devops` | `agentic-arc` | Agentic Arc |
+| `sre-agent` | `agentic-lifecycle` | Agentic Lifecycle |
 
 ---
 
@@ -89,7 +89,7 @@ references:
 
 ### `id`
 - Must be **globally unique** across all modules.
-- Convention: `<module>-<local-id>` — e.g., `ghec-ch01`, `ghas-s00`, `ghaw-1-01`, `agentic-devops-00`.
+- Convention: `<module>-<local-id>` — e.g., `ghec-ch01`, `ghas-s00`, `ghaw-1-01`, `sre-agent-00`.
 - Once published, treat as **immutable** (it is used as a foreign key in `prerequisites` lists).
 
 ### `prerequisites`

@@ -1,0 +1,38 @@
+id: ghec-ch00
+title: Environment Setup
+module: ghec
+track: developer-flow
+difficulty: beginner
+duration_minutes: 25
+prerequisites: []
+prerequisite_capabilities:
+  - GitHub account
+  - Basic Git and CLI usage
+  - GitHub organization with org-owner rights
+  - GitHub CLI (gh >= 2.x) installed or available via Codespaces
+description: >
+  Provision your development environment for the GitHub Enterprise Cloud hackathon.
+  Open the shared org repository in Codespaces (or a local dev container), authenticate
+  the GitHub CLI, and verify you have org-owner rights before Challenge 01.
+success_criteria:
+  - "`gh auth status` exits 0 and shows your username"
+  - "`gh --version` returns gh >= 2.x"
+  - "`gh org list` returns the hackathon organization"
+  - "`gh repo view <org>/<repo>` returns the repository metadata without error"
+  - "The Codespaces or dev container environment is open and the terminal is ready"
+tags:
+  - setup
+  - devcontainer
+  - ghec
+app_dependency: none
+emu_compatible: true
+min_environment: org
+tier: setup
+source_repo: microsoft/frontier-ghec-hackathon
+source_path: scripts/setup.sh
+license: MIT
+references:
+  - https://docs.github.com/en/codespaces/getting-started/quickstart
+  - https://cli.github.com/manual/
+  - https://docs.github.com/en/enterprise-cloud@latest/admin/overview/about-github-enterprise-cloud
+  - https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization

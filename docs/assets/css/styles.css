@@ -794,6 +794,7 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
   display: flex;
   align-items: center;
   gap: 12px;
+  scroll-margin-top: 72px;
 }
 .group-head:first-child { margin-top: 0; border-top: none; }
 .group-head h3 { font-size: 1rem; font-weight: 700; }

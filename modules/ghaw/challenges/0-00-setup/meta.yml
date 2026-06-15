@@ -7,18 +7,22 @@ duration_minutes: 30
 prerequisites: []
 prerequisite_capabilities:
   - GitHub account
-  - Git basics
-  - Basic CLI/terminal usage
-description: Get your development environment ready for the hackathon. Install gh-aw, verify your setup, and run your first AI workflow.
+  - Basic Git and CLI usage
+description: >
+  Provision your development environment for the GitHub Agentic Workflows hackathon.
+  Open the hackathon repository in Codespaces (or a local dev container), authenticate
+  the GitHub CLI, install and verify the gh-aw extension, and run a dry-run smoke test
+  before Challenge 1-01.
 success_criteria:
-  - `gh aw --version` returns a version string
-  - `gh aw run examples/hello-world.md --dry-run` completes without errors
-  - You can see the generated workflow YAML
-  - You have a local or Codespaces environment ready to code
+  - "`gh auth status` exits 0 and shows your username"
+  - "`gh --version` returns gh >= 2.x"
+  - "`gh aw --version` returns a version string"
+  - "`gh aw run examples/hello-world.md --dry-run` completes without errors"
+  - "`gh repo view microsoft/frontier-ghaw-hackathon` returns repository metadata"
 tags:
   - setup
-  - gh-aw
   - devcontainer
+  - gh-aw
 app_dependency: none
 emu_compatible: true
 min_environment: repo
@@ -28,4 +32,5 @@ source_path: _challenges/00-setup.md
 license: MIT
 references:
   - https://github.com/github/gh-aw
-  - https://microsoft.github.io/WhatTheHack/
+  - https://docs.github.com/en/codespaces/getting-started/quickstart
+  - https://cli.github.com/manual/

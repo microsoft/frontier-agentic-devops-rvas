@@ -1,11 +1,11 @@
-id: agentic-devops-05
+id: sre-agent-05
 title: Build GitHub Agentic Workflows and Review Cloud Coding Agents
-module: agentic-devops
-track: agentic-arc
+module: sre-agent
+track: agentic-lifecycle
 difficulty: advanced
 duration_minutes: 90
 prerequisites:
-  - agentic-devops-03
+  - sre-agent-03
 prerequisite_capabilities:
   - GitHub Copilot access
   - Basic Git workflow

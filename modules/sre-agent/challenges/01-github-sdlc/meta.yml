@@ -1,11 +1,10 @@
-id: agentic-devops-01
+id: sre-agent-01
 title: Establish the GitHub SDLC
-module: agentic-devops
-track: agentic-arc
+module: sre-agent
+track: agentic-lifecycle
 difficulty: beginner
 duration_minutes: 60
-prerequisites:
-  - agentic-devops-00
+prerequisites: []
 prerequisite_capabilities:
   - GitHub Copilot access
   - Basic Git workflow

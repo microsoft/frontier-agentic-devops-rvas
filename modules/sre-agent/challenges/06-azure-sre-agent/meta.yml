@@ -1,12 +1,12 @@
-id: agentic-devops-06
+id: sre-agent-06
 title: Respond with Azure SRE Agent
-module: agentic-devops
-track: agentic-arc
+module: sre-agent
+track: agentic-lifecycle
 difficulty: advanced
 duration_minutes: 90
 prerequisites:
-  - agentic-devops-04
-  - agentic-devops-05
+  - sre-agent-04
+  - sre-agent-05
 prerequisite_capabilities:
   - GitHub Copilot access
   - Basic Git workflow
