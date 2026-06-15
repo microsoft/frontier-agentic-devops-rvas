@@ -71,6 +71,36 @@
 
 This standalone decision (in `.squad/decisions/wash-build-contract.md`) documents the build engine data contract and module ID scheme. Retained for technical reference; no action required.
 
+---
+
+### frontier-ghplatform-hackathon: Icon Convention + Title Font (2026-06-15)
+
+**Status:** ✅ Implemented
+
+**Summary:** Two visual refinements to fix bugs and improve readability.
+
+**Icon Convention:** Module icon filenames in `MODULE_CONFIG` (docs/build.js) must be the full filename `icon-<moduleId>.svg`, not bare semantic names. Bare names (`cloud`, `shield`, `hubot`, `gear`) caused 404s in home.js and module.js because the JS renders `assets/img/${m.icon}` directly. The deterministic mapping `icon-${id}.svg` is the single source of truth.
+
+- `MODULE_CONFIG.icon` values in docs/build.js = `icon-<moduleId>.svg`
+- home.js renders `<img src="assets/img/${m.icon}">` ✓
+- module.js fallback: `'assets/img/' + (mod.icon || 'icon-' + mod.id + '.svg')` ✓
+- docs/index.html static fallback = `assets/img/icon-<moduleId>.svg` ✓
+- All new modules: add icon SVG as `docs/assets/img/icon-<newModuleId>.svg`
+
+**Title Font: Chakra Petch replaces Syne** (docs/assets/css/styles.css, all 4 HTML pages).
+
+Rationale: Syne too futuristic and hard to read. Chakra Petch is geometric, technical, legible — matches reference site and "frontier platform" brand.
+
+Typography adjustments:
+- Heading `font-weight`: 800 → 700 (Chakra Petch 700 already strong)
+- Heading `letter-spacing`: -0.025em → -0.01em (geometric forms need less aggressive tracking)
+- Google Fonts: `Chakra+Petch:wght@500;600;700` (replaces `Syne:wght@700;800`)
+- Body (DM Sans) and mono (JetBrains Mono) unchanged
+
+**Owner:** Kaylee
+
+**Verification:** platform.json has resolvable icons. No Syne references remain. Chakra Petch loaded on all 4 pages.
+
 ## Governance
 
 - All meaningful changes require team consensus
