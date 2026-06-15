@@ -48,6 +48,30 @@
 
 **Owner:** Zoe
 
+---
+
+### frontier-ghplatform-hackathon: Featured Home Card Made Clickable (2026-06-15)
+
+**Status:** ✅ Accepted
+
+**Date:** 2026-06-15  
+**Author:** Kaylee (Frontend / Site Engineer)
+
+**Context:** The "A good place to start" featured challenge card on `docs/index.html` was rendered as a plain `<div class="ch-card ...">` — visually indistinguishable from other challenge cards, but clicking the card body did nothing. Only the separate "Open challenge →" button worked. This was inconsistent with every other `.ch-card` instance in the codebase (catalog and module pages both use `<a>` elements).
+
+**Decision:** Change the featured card's outer element from `<div>` to `<a href="${FP.challengeUrl(pick.id)}">` in `docs/assets/js/home.js::renderFeaturedChallenge()`. Keep the "Open challenge →" button as a **sibling** `<a>` for explicit affordance / accessibility — not nested inside (valid HTML, no `<a>` inside `<a>`).
+
+**Rationale:**
+- **Consistency:** Every `.ch-card` in catalog.js and module.js is already an `<a>`. Featured card was the only exception.
+- **UX:** Users expect the full card to be clickable (standard card-link pattern).
+- **Accessibility:** Native `<a>` is keyboard-focusable. `.ch-card:focus-visible` in styles.css provides visible focus ring.
+- **HTML validity:** Sibling anchors are valid; nested anchors are not.
+- **No CSS changes:** `.ch-card` already designed for use as `<a>` (text-decoration:none, color:inherit, display:flex).
+
+**Convention Established:** ALL `.ch-card` instances across the site must be `<a>` elements. A `<div class="ch-card">` is always wrong and should be treated as a bug on sight.
+
+**Files Changed:** `docs/assets/js/home.js` — `renderFeaturedChallenge()`: `<div class="ch-card ...">` → `<a class="ch-card ..." href="...>`
+
 **Flags:**
 - GHAW 3-05 (Ship It) is capstone-style but marked `tier: stretch` (architecture supports future `capstone` tier)
 - Agentic-DevOps 04 (Azure deploy) requires active Azure subscription — accessibility concern for some hackathon environments; fallback evidence packet provided in README
