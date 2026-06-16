@@ -2,6 +2,17 @@
 
 ---
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — what daily status update do you or your team assemble by hand today that this scheduled briefing pattern could replace, and what would you trust it to send unsupervised? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Ask them to name the exact repo, project, or team channel where a status update is assembled by hand today.
+- Probe what could go wrong if the briefing sent the wrong signal unsupervised, and what they'd want it to never include.
+- Have them commit to one briefing they'll automate or pilot next week, and how they'll know it landed.
+
 ## Coaching Philosophy
 
 This challenge introduces **scheduled triggers** and the **GitHub MCP tool** for querying repo data. Your role is to guide squads through the mental model: cron schedules fire at fixed times, the GitHub tool reads data, and the agent synthesizes that into human-friendly output.

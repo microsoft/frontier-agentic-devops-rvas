@@ -1,5 +1,16 @@
 ---
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — if you deployed this proven triage agent on your busiest repo tomorrow, what would you measure to decide whether it is actually saving the team time rather than adding noise? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Ask them to name their busiest repo and the volume of incoming issues there.
+- Probe what 'saving time' versus 'adding noise' would actually look like in that backlog.
+- Have them define the metric and one repo where they'll trial the triage agent next week.
+
 ## What This Challenge Teaches
 
 The fundamentals of production agentic workflows: event-driven triggering on `issues`, constrained tool access via `toolsets`, and safe-outputs that prevent unintended side effects. This is the pattern every other production workflow builds on — participants leave understanding why allowlists matter and how to prevent label hallucination.

@@ -51,6 +51,7 @@ Azure SRE Agent capabilities may vary by environment and availability. The curri
 - A GitHub issue or pull request carries the remediation back into the SDLC.
 - A human review decision is required before any fix is treated as production-ready.
 - The team identifies at least one instrumentation artifact that helped the response, or one missing artifact to add after the incident.
+- Coach conversation — in your last real incident, how long did it take to connect a production symptom to a specific commit or file, and which instrumentation artifact (logs, deployment SHA, PR link, or decision note) was missing or hardest to find? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 ## Hints
 

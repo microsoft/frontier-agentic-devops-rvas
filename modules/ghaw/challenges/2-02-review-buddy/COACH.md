@@ -2,6 +2,17 @@
 
 ---
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — which parts of your code review are mechanical enough to delegate to a first-pass bot, and which judgment calls must always stay with a human reviewer? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Ask them to name a repo where a first-pass review bot would reduce reviewer load.
+- Tease apart which review checks are mechanical versus which judgment calls must stay human there.
+- Get them to pick the specific mechanical checks they'll delegate to a review bot next week.
+
 ## Coaching Philosophy
 
 This challenge deepens the event-driven pattern from 2-01 while teaching **PR-specific context access**. Squads move from issue analysis to pull request diff analysis—a natural progression. Your role: help them see that analyzing *metadata* (file count, line changes) is easier and cheaper than analyzing code semantics.

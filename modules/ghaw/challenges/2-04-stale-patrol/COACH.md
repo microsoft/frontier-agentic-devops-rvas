@@ -2,6 +2,17 @@
 
 ---
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — where would you draw the line between an agent warning about stale work and actually closing it on your behalf, and what grace period earns your trust? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Ask them to describe how their team handles stale issues or PRs today.
+- Probe where they'd set the warn-versus-close line and what an unwanted auto-close would cost.
+- Get them to define the grace period and one backlog they'll pilot stale patrol on next week.
+
 ## Coaching Philosophy
 
 This challenge teaches **scheduled + conditional logic**, the foundation for maintenance automation. Squads encounter real constraints: "Don't close too fast," "Respect exemptions," "Handle edge cases." Your job: help them see that automation with guardrails is safer than chaotic deletion.

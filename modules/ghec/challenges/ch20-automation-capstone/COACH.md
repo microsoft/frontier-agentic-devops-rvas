@@ -2,6 +2,17 @@
 
 > Audience: facilitators and graders. Pair with the student `README.md`. This is the **track capstone** — grade it as integration, not as five separate exercises.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — looking across everything you've automated in this challenge, what is the single workflow in your real org that is still entirely manual and would benefit most from combining the Actions, API, and security layers you just built? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Describe that manual workflow end-to-end — what triggers it, who does each step, and where does it break down?
+- Which of the three layers (Actions orchestration, REST/GraphQL API, security gate) would give the biggest leverage if applied to it?
+- What is the concrete design you'd pitch to your team this week to start automating it?
+
 ## Facilitation notes
 - **Goal in one line:** the student builds **one end-to-end automation** where a **GitHub App** (installation auth) reacts to a **signature-verified webhook**, acts via **REST and GraphQL**, and is orchestrated by **Actions** — idempotently.
 - **Independence matters.** This challenge **must stand alone**. It creates all its own `wth-ch20-*` state and assumes **no other challenge was run**. If a student says "I'll reuse my ch17 App," that's fine conceptually, but grading is against the **ch20 seeded artifacts** — they should provision ch20 fresh.

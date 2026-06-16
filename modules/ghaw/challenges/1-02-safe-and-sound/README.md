@@ -37,6 +37,7 @@ By the end of this challenge, your squad will:
 - [ ] When manually triggered in a state where noop applies, the workflow succeeds but no issue is created
 - [ ] When manually triggered in a state where issue creation applies, an issue is created
 - [ ] Logs show which path (noop or create-issue) the agent chose
+- [ ] Coach conversation — where in your own automation would an explicit safe-outputs gate and a deliberate noop give you the confidence to let an agent write without a human watching every run? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 ---
 

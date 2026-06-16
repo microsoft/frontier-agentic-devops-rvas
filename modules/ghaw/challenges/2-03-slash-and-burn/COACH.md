@@ -2,6 +2,17 @@
 
 ---
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — what context do you and your teammates rebuild by hand by scrolling long threads, and which on-demand slash command would you actually reach for in your daily work? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Ask where they and teammates repeatedly rebuild context by scrolling long threads.
+- Explore which on-demand command they'd genuinely reach for, and the risk of acting on a flawed summary.
+- Have them commit to one slash command they'll build for their own workflow next week.
+
 ## Coaching Philosophy
 
 This is the **ChatOps entry point**—moving from passive (reactions to events) to active (users commanding agents). Squads learn that slash commands transform workflows into tools their team *uses*. Your job: help them see that `/summarize` is genuinely useful and that the pattern generalizes (to `/triage`, `/explain`, etc.).

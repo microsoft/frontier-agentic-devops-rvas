@@ -2,6 +2,17 @@
 
 > Audience: facilitators and coaches. Pair with the student `README.md`.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — if GHAS were scanning your real production repos today the way it scanned Juice Shop, which vulnerability class do you think would have the most open alerts, and how would you even find out? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Which specific repo or service in your work would have the most GHAS alerts today — name it, then describe what kind of code lives there and who owns it.
+- For that repo, which alert category — code scanning, Dependabot, or secret scanning — do you think carries the highest real-world blast radius if an attacker found it first?
+- What one concrete action could you take this week to start reducing the attack surface you just described?
+
 ## Facilitation objectives
 - Reinforce how students navigate CodeQL, Dependabot, and secret scanning alerts in the shared repository.
 - Help students turn alert details into an attack-surface map they can use in later fix challenges.

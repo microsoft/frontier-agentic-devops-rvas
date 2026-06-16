@@ -4,6 +4,17 @@
 
 Teams can show validation and deployment flow through GitHub Actions, or use a fallback packet with the same evidence shape. They can explain the deterministic/probabilistic seam in the pipeline.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — in your real deployment pipeline, where does the deterministic/probabilistic seam sit today: what does automation decide on its own, and what requires a human approval or deterministic gate before reaching production? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Ask them to describe a specific service or pipeline they own — what is the last stage before production, and who (or what) currently owns that gate?
+- Ask what the cost would be if a model-suggested workflow change bypassed their current gate: what is the blast radius, and how would they detect it?
+- Ask them to identify one gate in their real pipeline they would harden or formalize before their team starts letting Copilot propose workflow changes.
+
 ### Strong Evidence
 
 - Workflow stages are understandable.

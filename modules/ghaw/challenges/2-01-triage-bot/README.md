@@ -57,6 +57,7 @@ Create a gh-aw workflow named `triage-bot.md` in `.github/workflows/` that:
 - [ ] The correct label appears on the test issue
 - [ ] A comment is posted with the category and explanation
 - [ ] The comment is friendly and encouraging (not robotic)
+- [ ] Coach conversation — when an agent both labels a new issue and explains its reasoning in a comment, where does that transparency earn enough trust for you to let it triage your real backlog unattended? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 ---
 

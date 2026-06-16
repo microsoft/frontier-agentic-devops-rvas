@@ -2,6 +2,17 @@
 
 > Audience: facilitators and coaches. Pair with the student `README.md`.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — in your own backend services, are there routes that rely on the frontend to hide restricted actions instead of enforcing ownership server-side, and how would you even know if an authenticated user were calling them directly with a crafted request? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Name a specific backend route or endpoint in your system — what ownership or role check happens in the handler itself, not in the UI, a frontend guard, or a client-side permission flag?
+- If an authenticated but unauthorized user called that endpoint directly with a crafted request today, what resource or operation could they access, modify, or delete?
+- What single server-side check would you add next week to close the most obvious authorization gap in that service — and how would you test that it actually blocks the unauthorized path?
+
 ## Facilitation objectives
 - Reinforce that authorization must be enforced server-side on every sensitive route.
 - Help students recognize both missing middleware and flawed ownership checks as access control bugs.

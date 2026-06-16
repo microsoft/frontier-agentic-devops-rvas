@@ -2,6 +2,17 @@
 
 ---
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — who or what watches your automations today, and at what failure rate or cost would you want an overseer agent to alert you before things spiral? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Ask what watches their automations or pipelines today, and how failures surface.
+- Surface the failure rate or cost threshold at which they'd want to be alerted before things spiral.
+- Get them to define one health signal an overseer will monitor for them next week.
+
 ## Coaching Philosophy for This Challenge
 
 This is the **meta-workflow intro**. Squads have built workflows that do things. Now teach them to build workflows that *watch other workflows*.

@@ -2,6 +2,17 @@
 
 > Audience: facilitators and graders. Pair with the student `README.md`.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — what manual GitHub task does someone on your team do by clicking through the UI every week that a twenty-line API script could eliminate, and what is the organizational cost (time, error rate, toil) of not automating it? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Describe the specific manual click-through task — who does it, how often, and how long does it take?
+- What API endpoint (REST or GraphQL) would replace the most time-consuming step?
+- What is the smallest working script you could write and share with your team before next week?
+
 ## Facilitation notes
 - **Goal in one line:** the student drives GitHub entirely from its APIs — REST and GraphQL reads/writes — and ships an **idempotent, rate-limit-aware** reconcile script.
 - **Where students get stuck:**

@@ -20,6 +20,7 @@ success_criteria:
 - At least one sample repo's **visibility was changed** and you can explain public vs internal vs private.
 - Default **Actions workflow permissions** are set to read-only at the org.
 - A **before/after API diff** exists and a **`POLICY.md`/baseline doc** records every setting + rationale.
+- 'Coach conversation — if you were the org owner of your team''s GitHub organization today, what is the first enterprise policy or default repository setting you would change, and what risk or inefficiency is it currently causing? Talk it through with your coach and connect it to a real project, task, or workflow you own.'
 tags:
 - enterprise
 - organization-settings

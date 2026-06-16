@@ -2,6 +2,17 @@
 
 ---
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — which prompt guidance or context do you keep copy-pasting across your automations, and what would change if you maintained it as one shared, imported library? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Ask which prompt guidance, tone, or context they keep copy-pasting across automations.
+- Explore the maintenance cost of that duplication and the benefit of one shared imported library.
+- Get them to pick one snippet they'll extract and import across workflows next week.
+
 ## Coaching Philosophy
 
 This challenge introduces two production-grade concepts in tandem: **workflow composition** (`imports:`) and **async reporting** (`create-discussion`). Neither is hard to use — but neither is obvious if you've only seen basic gh-aw examples.

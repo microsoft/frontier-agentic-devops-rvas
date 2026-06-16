@@ -2,6 +2,17 @@
 
 > Audience: facilitators and graders. Pair with the student `README.md`.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — which external system in your workflow (Jira, Slack, PagerDuty, a deployment dashboard) is updated by hand after a GitHub event, and what webhook payload or GitHub App permission would let you wire it up automatically? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Name the external system and the GitHub event (push, PR merged, release created) that should trigger the update.
+- What is the current human-in-the-loop step that introduces delay or inconsistency?
+- What is the minimal webhook receiver or App you could prototype in a day to prove the integration out?
+
 ## Facilitation notes
 - **Goal in one line:** the student receives real webhook deliveries, **verifies them cryptographically**, and graduates from a passive listener to an installed **GitHub App** that acts back as a bot identity.
 - **Where students get stuck:**

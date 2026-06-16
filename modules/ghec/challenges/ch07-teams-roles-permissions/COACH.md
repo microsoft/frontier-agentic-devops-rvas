@@ -2,6 +2,17 @@
 
 > Audience: facilitators and graders. Pair with the student `README.md`.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — map your real team's structure onto GitHub Teams right now: where do people have more access than they need, and where is the absence of the right permission creating an actual bottleneck for someone? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Name the GitHub teams or individual collaborator grants that exist in your main org — were they designed or just accumulated?
+- Tell me one concrete case where over-permission or under-permission has caused a mistake or a delay in the last year.
+- What specific team permission change will you put in a PR or ticket this week?
+
 ## Facilitation notes
 - **Goal in one line:** the student replaces ad-hoc collaborator adds with a nested team model, grants repo access through teams at the right predefined role, and builds one custom role the built-ins can't express — all verifiable from the API.
 - **Where students get stuck:**

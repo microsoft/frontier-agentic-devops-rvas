@@ -95,6 +95,7 @@ You are done when ALL of the following are true:
 - [ ] A **PR template** pre-fills new PRs; a **draft** PR demonstrably blocks auto-merge/reviewers until marked ready.
 - [ ] **Auto-labeling** assigns `area:` labels by path; an **open-PR comment** workflow fires; a **stale** workflow labels/closes inactive PRs.
 - [ ] An **organization ruleset** targeting `wth-ch05-*` is active and layers with the repo ruleset.
+- [ ] Coach conversation — which repetitive PR task on your current team (auto-labeling, reviewer assignment, size checks, changelog enforcement) costs the most human time per week, and what could a composite action or reusable workflow replace? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 

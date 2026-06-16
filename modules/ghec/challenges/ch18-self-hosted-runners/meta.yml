@@ -19,6 +19,7 @@ success_criteria:
 - A **mis-labeled** job stays **queued**, proving label routing.
 - The runner runs under a **least-privilege account** and you demonstrated an **ephemeral** registration.
 - You documented the **fork-PR risk** and a **GitHub-hosted vs larger vs self-hosted** decision matrix, plus the **org-vs-enterprise runner group** note.
+- 'Coach conversation — what build or test job in your current CI pipeline is bottlenecked on GitHub-hosted runner constraints (network, hardware, compliance, cost), and what would a self-hosted runner in your own infrastructure unlock for that job? Talk it through with your coach and connect it to a real project, task, or workflow you own.'
 tags:
 - actions
 - self-hosted-runners

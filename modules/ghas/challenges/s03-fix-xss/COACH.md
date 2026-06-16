@@ -2,6 +2,17 @@
 
 > Audience: facilitators and coaches. Pair with the student `README.md`.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — which pages or components in your own application render user-supplied content back into the browser, and do you know for certain what encoding is applied before each one hits the DOM? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Name a specific page or component in your application that displays user-generated content — comments, names, messages, search terms — and describe what you actually know about the encoding applied before rendering.
+- If a stored XSS payload were planted in that component today, what could an attacker harvest from your users — session tokens, credentials, actions performed on their behalf?
+- What one change could you make next week to audit or harden the highest-risk rendering path in your codebase — a code review, a CSP header, switching to a safe framework API?
+
 ## Facilitation objectives
 - Reinforce that XSS fixes depend on output context, not generic sanitization slogans.
 - Help students trace full source-to-sink data flows across frontend and backend code.

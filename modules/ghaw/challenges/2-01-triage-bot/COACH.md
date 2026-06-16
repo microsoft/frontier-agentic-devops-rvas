@@ -2,6 +2,17 @@
 
 ---
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — when an agent both labels a new issue and explains its reasoning in a comment, where does that transparency earn enough trust for you to let it triage your real backlog unattended? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Ask which backlog or queue of theirs receives the most unstructured incoming work.
+- Surface where an explained, transparent classification would build (or break) their trust to leave it unattended.
+- Have them choose one triage pass to pilot and the metric they'll watch next week.
+
 ## Coaching Philosophy
 
 This is the **entry point to event-driven automation**. Squads shift from manual triggers (`workflow_dispatch`) to reactive workflows (GitHub events). Your job: help them see that the *compile → run → observe loop* still holds—it just fires automatically now.

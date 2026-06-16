@@ -1,5 +1,16 @@
 ---
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — what would it take for you to rely on a daily agent scanning your code changes for supply-chain red flags, and how would you handle false positives without tuning out the real threats? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Ask which of their repos or dependencies carry real supply-chain exposure.
+- Explore how they'd handle false positives without tuning out genuine threats.
+- Get them to commit to one repo where they'll run a daily change-scan next week.
+
 ## What This Challenge Teaches
 
 Supply-chain threat modelling expressed as an agentic workflow. Participants learn to define threat patterns precisely (not just "look for bad code"), scope reviews to recent changes (not the entire codebase), and structure alerts with enough context for a security reviewer to act immediately. This is the most security-engineering-adjacent challenge in Track 4.

@@ -20,6 +20,7 @@ success_criteria:
   - Pull request checks and security annotations reviewed for branch changes
   - Secret scanning alerts relevant to changes addressed or explained
   - Application still starts and authenticates correctly after secrets migration
+  - 'Coach conversation — if you searched your team''s repos right now, what is the most likely hardcoded credential or critically vulnerable dependency you''d find, and how long do you think it has been sitting there unnoticed? Talk it through with your coach and connect it to a real project, task, or workflow you own.'
 tags:
   - ghas
   - secret-scanning

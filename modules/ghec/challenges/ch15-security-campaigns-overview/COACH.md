@@ -2,6 +2,17 @@
 
 > Audience: facilitators and graders. Pair with the student `README.md`.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — if you ran a security campaign across your org's repos today targeting the most common CWE your stack is exposed to, which three repo owners would you expect to push back hardest on fixing their alerts, and what would make the campaign succeed anyway? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Name the specific CWE category or alert type you'd target first in your org — where is the highest concentration of alerts?
+- Who are the likely resisters — legacy repo owners, under-resourced teams, conflicting roadmaps?
+- What is the campaign message, deadline, and escalation path you'd use to get at least 80% closure?
+
 ## Facilitation notes
 - **Goal in one line:** the student moves from "we have alerts" to "we run a security program" — reading risk/coverage, rolling out GHAS with a configuration, and driving a time-boxed, owned security campaign to measurable burn-down.
 - **Where students get stuck:**

@@ -40,6 +40,7 @@ This is also your first agent-ready specification. Write the issue so an assista
 - The pull request has a useful description and visible review activity.
 - At least one quality signal exists: test output, lint output, workflow run, checklist, or coach-approved manual validation.
 - The team can trace the change from issue to merged result.
+- Coach conversation — if you applied this GitHub SDLC baseline to the next real change request your team receives, which step (issue clarity, branch linking, review evidence, or quality gate) would be most likely to slip, and why? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 ## Hints
 

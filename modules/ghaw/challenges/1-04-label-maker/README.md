@@ -38,6 +38,7 @@ By the end of this challenge, your squad will:
 - [ ] The agent correctly classifies the issue and applies the appropriate label
 - [ ] Multiple issues are tested with different classifications
 - [ ] Logs show the agent's reasoning (e.g., "This is a bug because...")
+- [ ] Coach conversation — how much of your team's issue labelling is guesswork you would hand to an agent, and where would a constrained allowlist stop it from inventing categories you can't trust? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 ---
 

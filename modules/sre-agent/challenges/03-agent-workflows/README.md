@@ -40,6 +40,7 @@ Your mission is to introduce an agentic workflow pattern that keeps intent, owne
 - Review feedback produces an observable change, clarification, or follow-up issue.
 - The team can explain which parts were delegated to AI assistance and which remained human decisions.
 - The team can explain how primitives are loaded and how they would troubleshoot a missing instruction.
+- Coach conversation — looking at your team's current backlog, which coordination task (triage, planning, or review summarization) would you trust a workflow agent to attempt first, and what human checkpoint would you need before any output could affect code or infrastructure? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 ## Hints
 

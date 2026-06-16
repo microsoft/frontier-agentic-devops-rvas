@@ -2,6 +2,17 @@
 
 > Audience: facilitators and graders. Pair with the student `README.md`.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — which of your repos is most likely to accept a direct push to main or merge without a review right now, and what ruleset targeting which repo property would close that gap at scale? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Pick the riskiest repo in your org — what's protecting its default branch today?
+- If rulesets with repo property targeting existed in your org yesterday, which incident or near-miss would they have prevented?
+- What is the smallest ruleset you could define and the property you'd attach it to, to cover your highest-risk repos first?
+
 ## Facilitation notes
 - **Goal in one line:** the student makes governance follow **metadata** instead of repo names — custom properties drive a property-targeted org ruleset that automatically governs any repo tagged for compliance, now or in the future.
 - **Where students get stuck:**

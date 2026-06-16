@@ -107,6 +107,7 @@ You are done when ALL of the following are true:
 - [ ] At least one **Dependabot security-update PR** was merged and its alert moved to **fixed**.
 - [ ] `.github/dependabot.yml` configures **scheduled npm version updates** with a limit and a group.
 - [ ] A **dependency-review** workflow exists, is **required** on `main`, and **blocks** the seeded risky PR.
+- [ ] Coach conversation — scan your real repos in your head: which project is most likely sitting on a critically vulnerable transitive dependency right now, and what would it take to make Dependabot auto-merge safe there? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 

@@ -105,6 +105,7 @@ You are done when ALL of the following are true:
 - [ ] At least **one push-protection bypass** exists with a recorded actor and reason (verifiable via the alerts API).
 - [ ] A **custom secret-scanning pattern** is published and raised at least one alert.
 - [ ] A **triage summary** issue exists on the repo.
+- [ ] Coach conversation — if you turned push protection on across your real org tomorrow, whose workflow breaks first and what secret would it have caught in your last six months of commits? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 

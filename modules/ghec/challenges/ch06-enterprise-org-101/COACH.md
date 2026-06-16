@@ -2,6 +2,17 @@
 
 > Audience: facilitators and graders. Pair with the student `README.md`.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — if you were the org owner of your team's GitHub organization today, what is the first enterprise policy or default repository setting you would change, and what risk or inefficiency is it currently causing? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Describe your current GitHub org structure — how many repos, who are the admins, is there a parent enterprise?
+- What repository default (visibility, merge strategy, Actions permissions) do you know is wrong but haven't had access to fix?
+- What org-level setting change would you propose in writing to your security or platform team this week?
+
 ## Facilitation notes
 - **Goal in one line:** the student turns a wide-open org into a documented, least-privilege baseline and proves every setting from the API rather than from screenshots.
 - **Where students get stuck:**

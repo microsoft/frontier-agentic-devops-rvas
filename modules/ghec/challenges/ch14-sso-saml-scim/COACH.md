@@ -2,6 +2,17 @@
 
 > Audience: facilitators and graders. Pair with the student `README.md`.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — think about your org's identity lifecycle right now: when a developer joins or leaves your company, how many hours does it take for their GitHub access to be correctly provisioned or deprovisioned, and where is the manual step that SCIM would remove? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Walk me through the actual steps today when a new engineer joins — who does what to give them GitHub access?
+- Where has a departed employee or contractor retained access longer than they should have in the last year?
+- What is the one IdP group-to-GitHub-team mapping you would configure first, and who needs to approve it?
+
 ## Facilitation notes
 - **Goal in one line:** the student wires a real IdP to a GitHub org via SAML, proves the SCIM join/leave lifecycle, audits identity links, and enforces SSO with a tested rollback — all at org scope.
 - **Where students get stuck:**

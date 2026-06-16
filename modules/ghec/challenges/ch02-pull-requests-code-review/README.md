@@ -94,6 +94,7 @@ You are done when ALL of the following are true:
 - [ ] A **merge conflict was resolved** and that branch merged cleanly afterward.
 - [ ] **All three merge strategies are enabled** and each was used at least once (verifiable from commit history).
 - [ ] `docs/merge-strategy.md` documents the chosen default.
+- [ ] Coach conversation — think about the last pull request that sat open too long or had a painful review cycle on your team: which of the branch protection rules, required reviewers, or PR templates you just configured would have shortened it, and what's still missing? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 

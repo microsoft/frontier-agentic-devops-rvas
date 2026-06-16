@@ -25,6 +25,7 @@ success_criteria:
   - Access to `process.env` / `os.environ` for keys like `TOKEN`, `SECRET`, `KEY`, `PASSWORD`
   - Dynamic `require`/`import` with non-string arguments
   - New files added to `.github/workflows/` that weren't in a PR
+  - "Coach conversation — what would it take for you to rely on a daily agent scanning your code changes for supply-chain red flags, and how would you handle false positives without tuning out the real threats? Talk it through with your coach and connect it to a real project, task, or workflow you own."
 tags:
   - security
   - supply-chain

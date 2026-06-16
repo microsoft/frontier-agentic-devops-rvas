@@ -93,6 +93,7 @@ You are done when ALL of the following are true:
 - [ ] A **security campaign** exists with a name, a **manager**, a **due date**, and **guidance**, scoped to a finite alert slice.
 - [ ] The campaign shows **remediation burn-down** (open count dropped after you fixed/dismissed targeted alerts).
 - [ ] A **remediation report** issue exists with before/after numbers.
+- [ ] Coach conversation — if you ran a security campaign across your org's repos today targeting the most common CWE your stack is exposed to, which three repo owners would you expect to push back hardest on fixing their alerts, and what would make the campaign succeed anyway? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 

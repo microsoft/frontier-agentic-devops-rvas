@@ -2,6 +2,17 @@
 
 ---
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — what context does an agent on your team need before it can make a decision you would trust, and where today does it fly blind without that data? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Ask them to name an agent or decision in their work that currently lacks context.
+- Probe exactly what data it needs and the cost of it deciding blind today.
+- Get them to identify one context source they'll wire in next week and how they'll verify it helps.
+
 ## Coaching Philosophy for This Challenge
 
 This is the **MCP tools intro**. Squads have used GitHub APIs passively (reading), but now you're teaching them to think about *data sources* and *context injection*.

@@ -2,6 +2,17 @@
 
 ---
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — what complex automation are you tempted to build as one giant agent that would be safer split into a producer and a consumer passing state, and where would you put the checkpoint between them? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Ask them to describe a complex automation they're tempted to build as a single agent.
+- Surface where splitting it into producer and consumer adds safety, and where the state checkpoint belongs.
+- Have them sketch one producer-consumer split they'll prototype for that system next week.
+
 ## Coaching Philosophy for This Challenge
 
 This is the **first Advanced challenge**. Squads coming from Track 2 have seen event triggers, safe-outputs variety, and basic AI integration. Now you're asking them to think in **systems**—multiple workflows talking to each other.

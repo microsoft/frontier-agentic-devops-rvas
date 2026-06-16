@@ -98,6 +98,7 @@ You are done when ALL of the following are true:
 - [ ] You **triaged ≥3 alerts** (one dismissed with a reason via API; others reviewed).
 - [ ] You applied **Copilot Autofix** to at least one alert and reviewed the suggested patch.
 - [ ] The **code-scanning check is required** on `main`, and the seeded vulnerable PR is **blocked** until the alert is resolved/dismissed.
+- [ ] Coach conversation — pick a codebase you own or contribute to: what class of vulnerability (injection, path traversal, auth bypass) do you most fear is hiding there right now, and how would a CodeQL custom query surface it before your next release? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 

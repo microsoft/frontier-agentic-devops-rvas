@@ -88,6 +88,7 @@ You are done when ALL of the following are true:
 - [ ] A second job uses **`needs`** and a **conditional** so it only runs on `main`.
 - [ ] An **environment** `staging` exists with a protection rule and a variable + secret wired into a job.
 - [ ] The **`build-test` check is required** on `main`; a red run **blocks merge**, a green run unblocks it.
+- [ ] Coach conversation — pick one test suite or build process from your actual work that runs manually or inconsistently: what would an always-on, branch-triggered Actions workflow catch in the next two weeks that human discipline alone has missed? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 

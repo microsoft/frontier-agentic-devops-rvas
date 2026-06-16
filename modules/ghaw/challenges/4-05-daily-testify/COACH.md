@@ -1,5 +1,16 @@
 ---
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — what does good test quality really mean for one codebase you own, and which of those judgments would you encode into an agent that files daily testing issues? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Ask them to define what 'good test quality' means for a specific codebase they own.
+- Surface which of those judgments they'd encode into an agent versus keep human.
+- Have them commit to one repo where they'll trial daily test-quality issues next week.
+
 ## What This Challenge Teaches
 
 Two linked concepts: embedding domain expertise in workflow prompts (the "uber expert" pattern), and the causal chain architecture where one workflow creates issues and another acts on them. Participants learn that the quality of an AI agent is largely the quality of its context — and that decoupling analysis from action produces better, more reviewable outcomes.

@@ -2,6 +2,17 @@
 
 > Audience: facilitators and graders. Pair with the student `README.md`.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — which class of GitHub issues in your repos is well-defined enough that the Copilot coding agent could handle it unsupervised, and what review gate would you trust before merging its PR? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Name a specific label or issue template in your repos that tags well-scoped, low-risk tasks — what makes them safe to delegate?
+- What is the review checklist or CI gate that would need to pass before you merged an agent-authored PR without deep inspection?
+- What is the first issue you'd assign to the coding agent this week, and what outcome would make you confident enough to expand its scope?
+
 ## Facilitation notes
 - **Goal in one line:** the student delegates a clear, bounded bug to the **Copilot cloud agent**, then **reviews and steers** it to a merged, correct fix — learning the human-in-the-loop boundary.
 - **⚠️ Eligibility is the gate, not a footnote.** Before anything else, confirm the org has the **Copilot cloud agent policy enabled** and the repo is **non-EMU**. If the enterprise is **GHEMU**, the agent will not run — this challenge is **N/A** and the student should run it on a non-EMU org. `wth doctor ch19` warns, but verify by hand too.

@@ -27,6 +27,7 @@ Both issues have the same root cause: trusting something external without vettin
 - [ ] Pull request checks and security annotations reviewed for your branch changes
 - [ ] Secret scanning alerts relevant to your changes addressed or explained
 - [ ] Application still starts and authenticates correctly after secrets migration
+- [ ] Coach conversation — if you searched your team's repos right now, what is the most likely hardcoded credential or critically vulnerable dependency you'd find, and how long do you think it has been sitting there unnoticed? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 **Push protection:** If a new secret is introduced in your branch, push protection should block it before it lands. Treat that block as part of the validation for this challenge.
 

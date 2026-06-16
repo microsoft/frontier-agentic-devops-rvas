@@ -2,6 +2,17 @@
 
 > Audience: facilitators and graders. Pair with the student `README.md`.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — pick one test suite or build process from your actual work that runs manually or inconsistently: what would an always-on, branch-triggered Actions workflow catch in the next two weeks that human discipline alone has missed? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Name the specific repo and the test or build step you're thinking of — what triggers it today?
+- What has slipped through in the past six months that a CI gate would have caught?
+- What's the smallest workflow YAML you could commit to that repo today to start getting signal?
+
 ## Facilitation notes
 - **Goal in one line:** the student builds a real CI pipeline that runs across a matrix, caches deps, publishes artifacts, and — the key outcome — **blocks merges when CI is red**.
 - **Where students get stuck:**

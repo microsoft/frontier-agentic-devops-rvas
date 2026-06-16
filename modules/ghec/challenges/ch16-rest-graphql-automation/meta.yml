@@ -19,6 +19,7 @@ success_criteria:
 - You executed at least one **GraphQL mutation** (added issues to `wth-ch16-board` and set their `Status`).
 - You inspected **`rate_limit`** and your reconcile script **backs off** when `remaining` is low.
 - Your reconcile script is **idempotent** — a second run produces **no changes**.
+- 'Coach conversation — what manual GitHub task does someone on your team do by clicking through the UI every week that a twenty-line API script could eliminate, and what is the organizational cost (time, error rate, toil) of not automating it? Talk it through with your coach and connect it to a real project, task, or workflow you own.'
 tags:
 - rest-api
 - graphql

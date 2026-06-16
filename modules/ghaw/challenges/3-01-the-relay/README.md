@@ -78,6 +78,7 @@ Use `safe-outputs: create-discussion`.
 - [ ] Producer runs, data appears in `repo-memory/`
 - [ ] Consumer reads that data and creates a discussion referencing the metrics
 - [ ] The two workflows are not directly coupled (consumer doesn't know producer's name)
+- [ ] Coach conversation — what complex automation are you tempted to build as one giant agent that would be safer split into a producer and a consumer passing state, and where would you put the checkpoint between them? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 ---
 

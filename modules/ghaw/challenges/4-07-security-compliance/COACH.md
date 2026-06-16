@@ -1,5 +1,16 @@
 ---
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — how does your team track vulnerabilities and SLA deadlines today, and where would deadline-aware agent-filed issues close a real gap versus create alert fatigue you would regret? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Ask how their team tracks vulnerabilities and SLA deadlines today.
+- Tease apart where deadline-aware agent issues close a real gap versus cause alert fatigue.
+- Have them define the severity-to-SLA mapping they'll pilot on one repo next week.
+
 ## What This Challenge Teaches
 
 Policy-as-code: encoding security SLAs and vulnerability response procedures directly into a workflow. Participants learn to turn a compliance spreadsheet into an automated agent that tracks deadlines, classifies by severity, and escalates before anything slips. The key insight is that "security-as-code" is not just scanning — it's the full loop: detect, classify, track, alert.

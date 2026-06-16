@@ -2,6 +2,17 @@
 
 > Audience: facilitators and graders. Pair with the student `README.md`.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — if your org's GitHub audit log were streaming to your SIEM right now, what is the first alert or anomaly query you would write, and what event from the past six months do you wish you had been alerted to? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- What SIEM or logging system does your team use today, and is GitHub activity visible in it?
+- Walk me through an incident or a policy question in the last year where GitHub audit data would have answered it faster.
+- What is the single jq/Splunk/Sentinel query you'd write first once the stream is live?
+
 ## Facilitation notes
 - **Goal in one line:** the student treats the org audit log as a source of truth — generates a controlled event set, then reconstructs exactly what happened using search syntax and the API, finishing with a repeatable export.
 - **Where students get stuck:**

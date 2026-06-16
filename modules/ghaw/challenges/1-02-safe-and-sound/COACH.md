@@ -2,6 +2,17 @@
 
 ---
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — where in your own automation would an explicit safe-outputs gate and a deliberate noop give you the confidence to let an agent write without a human watching every run? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Ask which of their own repos or pipelines currently lets automation write without an explicit gate.
+- Surface the audit or rollback cost they'd face if a bad write slipped through unnoticed there.
+- Get them to pick one write path to put behind a safe-outputs gate (with a real noop case) next week.
+
 ## Coaching Philosophy
 
 This is the **permission & safety challenge**. It's not about complexity—it's about internalizing two truths:

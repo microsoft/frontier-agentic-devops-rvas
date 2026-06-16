@@ -95,6 +95,7 @@ You are done when ALL of the following are true:
 - [ ] You **steered the agent** with at least one review comment and it pushed **new commits** in response.
 - [ ] The **failing test is green** in the PR and the PR was **approved and merged** to `main`.
 - [ ] You captured a short **reflection** on where the agent fits (and where human review stays essential).
+- [ ] Coach conversation — which class of GitHub issues in your repos is well-defined enough that the Copilot coding agent could handle it unsupervised, and what review gate would you trust before merging its PR? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 

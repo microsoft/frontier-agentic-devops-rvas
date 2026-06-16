@@ -99,6 +99,7 @@ You are done when ALL of the following are true:
 - [ ] **SCIM provisioning is enabled** and you demonstrated a **join** (user created via SCIM) and a **leave** (user suspended via SCIM), verifiable via the SCIM API.
 - [ ] You produced an **external-identity audit** listing GitHub logins ↔ IdP identities.
 - [ ] **SAML SSO is enforced** on the org (and you documented a tested rollback).
+- [ ] Coach conversation — think about your org's identity lifecycle right now: when a developer joins or leaves your company, how many hours does it take for their GitHub access to be correctly provisioned or deprovisioned, and where is the manual step that SCIM would remove? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 

@@ -2,6 +2,17 @@
 
 > Audience: facilitators and coaches. Pair with the student `README.md`.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — where in your own codebase is user-controlled input most likely reaching a database query without parameterization, and what data could an attacker extract or modify if they found that path before your team did? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Name a specific API endpoint or query in your own codebase where dynamic data flows into a database call — how confident are you that it uses parameterization, and when did you last verify it?
+- If a SQL or NoSQL injection were exploited in that endpoint today, what data would be exposed, which users would be affected, and what is the realistic blast radius?
+- What would you do this week to verify that every dynamic query in that service uses a safe pattern — a code search, a CodeQL scan, a PR checklist item?
+
 ## Facilitation objectives
 - Reinforce why parameterized queries and ORM-safe patterns are the real fix for injection flaws.
 - Help students distinguish between attacker-controlled input, query construction, and execution sinks.

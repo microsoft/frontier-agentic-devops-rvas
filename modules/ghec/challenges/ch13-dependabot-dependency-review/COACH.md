@@ -2,6 +2,17 @@
 
 > Audience: facilitators and graders. Pair with the student `README.md`.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — scan your real repos in your head: which project is most likely sitting on a critically vulnerable transitive dependency right now, and what would it take to make Dependabot auto-merge safe there? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Name the repo — what ecosystem (npm, pip, Maven, Go modules) and roughly how many dependencies does it have?
+- What is the test-coverage or CI-gate situation in that repo — what would need to be true before auto-merge is trustworthy?
+- What Dependabot config change (schedule, allow-list, grouping, auto-merge rule) would you commit this week?
+
 ## Facilitation notes
 - **Goal in one line:** the student turns a vulnerable dependency tree into a managed supply chain — alerts triaged, security PRs merged, scheduled updates configured, and a PR-time gate that blocks new risky dependencies.
 - **Where students get stuck:**

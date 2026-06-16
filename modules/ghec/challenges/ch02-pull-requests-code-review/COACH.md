@@ -2,6 +2,17 @@
 
 > Audience: facilitators and graders. Pair with the student `README.md`.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — think about the last pull request that sat open too long or had a painful review cycle on your team: which of the branch protection rules, required reviewers, or PR templates you just configured would have shortened it, and what's still missing? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Describe a recent PR that stalled or caused friction — who was involved and why did it stall?
+- Which protection or template element from this challenge would have caught the problem earlier?
+- What one branch-protection rule or CODEOWNERS entry will you propose to your team this week?
+
 ## Facilitation notes
 - **Goal in one line:** the student establishes a real review culture — branch-per-change, required owner review, clean conflict resolution, and a deliberate merge-strategy choice.
 - **Where students get stuck:**

@@ -1,5 +1,16 @@
 ---
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — would you trust an agent to write and open PRs for your missing tests, and how would you check that those generated tests actually prove something rather than just lifting coverage numbers? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Ask them to name a codebase with real coverage gaps they care about.
+- Explore how they'd verify generated tests prove behaviour rather than just lift coverage numbers.
+- Get them to pick one module they'll let a test-improver open PRs for next week.
+
 ## What This Challenge Teaches
 
 The consumer side of the causal chain pattern — a workflow that translates analysis (issues from Testify) into implementation (PRs with new tests). Participants learn incremental, focused automation: one PR per file, one concern per PR, human review before merge. They also practice framework-specific prompt engineering.

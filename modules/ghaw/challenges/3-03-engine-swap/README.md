@@ -92,6 +92,7 @@ Summarize your findings in a markdown file: `RESULTS.md`
 - [ ] You've tested all three and collected observations
 - [ ] `RESULTS.md` documents: speed, quality, cost, and your recommendation
 - [ ] Each engine's prompt is **adapted** to that engine (not copy-paste)
+- [ ] Coach conversation — for one automation you actually care about, how would you decide which AI engine to trust once you have weighed its quality, speed, and cost tradeoffs side by side? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 ---
 

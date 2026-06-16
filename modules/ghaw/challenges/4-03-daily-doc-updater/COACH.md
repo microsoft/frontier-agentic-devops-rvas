@@ -1,5 +1,16 @@
 ---
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — which docs in your projects silently rot as the code evolves, and what would it take for you to trust an agent's documentation PRs enough to review and merge them regularly? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Ask them to name docs in their projects that silently drift from the code.
+- Explore what would make them trust and actually merge an agent's documentation PRs.
+- Have them choose one doc set they'll put under a daily doc-updater next week.
+
 ## What This Challenge Teaches
 
 Scheduled automation with `create-pr` safe-output. Participants learn to think about docs as a living artefact that drifts from code, how to write prompts that detect drift (not just "review docs"), and how to produce focused, mergeable PRs rather than wholesale rewrites.

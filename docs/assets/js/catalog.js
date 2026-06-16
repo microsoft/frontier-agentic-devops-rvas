@@ -20,7 +20,56 @@
     buildModuleChips();
     buildDiffChips();
     initSearch();
+    applyUrlState();
     render();
+  }
+
+  const DIFFS = ['beginner', 'intermediate', 'advanced'];
+
+  /* Seed filter state from the URL query string (?module=&difficulty=&q=) and
+     reflect it on the chips + search input before the first render. Invalid
+     values are ignored rather than applied. */
+  function applyUrlState() {
+    const mod = FP.qp('module');
+    if (mod && _modules.some((m) => m.id === mod)) _activeModule = mod;
+
+    const diff = FP.qp('difficulty');
+    if (diff && DIFFS.indexOf(diff) !== -1) _activeDiff = diff;
+
+    const q = (FP.qp('q') || '').trim();
+    if (q) {
+      _query = q.toLowerCase();
+      const input = document.getElementById('searchInput');
+      if (input) input.value = q;
+    }
+
+    syncChipState();
+  }
+
+  /* Reflect _activeModule / _activeDiff onto the rendered chips. */
+  function syncChipState() {
+    document.querySelectorAll('#moduleChips .chip').forEach((b) => {
+      const on = b.dataset.module === _activeModule;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+    document.querySelectorAll('#diffChips .chip').forEach((b) => {
+      const on = b.dataset.diff === _activeDiff;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+  }
+
+  /* Keep the address bar in sync with the active filters so the view is
+     shareable. replaceState avoids polluting back/forward history. */
+  function syncUrl() {
+    const q = new URLSearchParams();
+    if (_activeModule) q.set('module', _activeModule);
+    if (_activeDiff) q.set('difficulty', _activeDiff);
+    if (_query) q.set('q', _query);
+    const qs = q.toString();
+    const url = window.location.pathname + (qs ? '?' + qs : '');
+    window.history.replaceState(null, '', url);
   }
 
   function buildModuleChips() {
@@ -43,6 +92,7 @@
           b.classList.toggle('active', b.dataset.module === _activeModule);
           b.setAttribute('aria-pressed', String(b.dataset.module === _activeModule));
         });
+        syncUrl();
         render();
       });
     });
@@ -64,6 +114,7 @@
           b.classList.toggle('active', b.dataset.diff === _activeDiff);
           b.setAttribute('aria-pressed', String(b.dataset.diff === _activeDiff));
         });
+        syncUrl();
         render();
       });
     });
@@ -74,6 +125,7 @@
     if (!input) return;
     input.addEventListener('input', () => {
       _query = input.value.trim().toLowerCase();
+      syncUrl();
       render();
     });
 
@@ -88,6 +140,7 @@
           b.classList.remove('active');
           b.setAttribute('aria-pressed', 'false');
         });
+        syncUrl();
         render();
       });
     }

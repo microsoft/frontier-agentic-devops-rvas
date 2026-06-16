@@ -4,6 +4,17 @@
 
 Teams use incident evidence and source-code context to produce an investigation plan, likely cause, remediation issue or pull request, and human review path. They also evaluate whether earlier repo instrumentation improved incident response.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — in your last real incident, how long did it take to connect a production symptom to a specific commit or file, and which instrumentation artifact (logs, deployment SHA, PR link, or decision note) was missing or hardest to find? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Ask them to describe a real incident or on-call page they personally handled — what was the first signal, and how did they get from that signal to a suspected file or commit?
+- Ask what single artifact, if it had existed, would have cut their investigation time in half — and why it was not there.
+- Ask them to commit to one specific instrumentation improvement (a decision note, a deployment SHA in the alert, a PR link in the runbook) they will add to their service before their next on-call rotation.
+
 ### Strong Evidence
 
 - Investigation starts from symptom, timestamp, deployment SHA, and affected flow.

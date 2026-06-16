@@ -2,6 +2,17 @@
 
 > Audience: facilitators and graders. Pair with the student `README.md`.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — which repetitive PR task on your current team (auto-labeling, reviewer assignment, size checks, changelog enforcement) costs the most human time per week, and what could a composite action or reusable workflow replace? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- List the manual steps that happen every time a PR is opened in your main repo — who does each one?
+- Which of those steps is most error-prone or most often skipped under time pressure?
+- What single Actions workflow file could you open a PR for in the next two days?
+
 ## Facilitation notes
 - **Goal in one line:** the student replaces manual merge babysitting with policy + automation — layered rulesets, auto-merge, and Actions-driven PR housekeeping that runs itself safely.
 - **Where students get stuck:**

@@ -2,6 +2,17 @@
 
 > Audience: facilitators and graders. Pair with the student `README.md`.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — pick a codebase you own or contribute to: what class of vulnerability (injection, path traversal, auth bypass) do you most fear is hiding there right now, and how would a CodeQL custom query surface it before your next release? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Name the specific codebase — what language, how old, and what's your current static analysis story for it?
+- What is the data-flow or taint path you'd want CodeQL to trace in that repo?
+- What is one QL query or built-in suite you could add to that repo's Actions workflow before next week?
+
 ## Facilitation notes
 - **Goal in one line:** the student stands up CodeQL (default *and* advanced), reads real vulnerability findings via their data-flow paths, applies Autofix with judgment, and makes scanning a merge gate.
 - **Where students get stuck:**

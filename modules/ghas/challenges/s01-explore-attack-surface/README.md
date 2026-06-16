@@ -24,6 +24,7 @@ This is your reconnaissance phase. Build a mental model of the vulnerability sur
 - [ ] Each reviewed alert has a Copilot-generated explanation of: what the vulnerability is, what an attacker could do with it, and where in the code it lives
 - [ ] Alerts grouped by vulnerability class with a fix order documented
 - [ ] Dependabot alerts reviewed — any critical/high severity ones noted
+- [ ] Coach conversation — if GHAS were scanning your real production repos today the way it scanned Juice Shop, which vulnerability class do you think would have the most open alerts, and how would you even find out? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 ## Copilot Tips
 

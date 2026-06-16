@@ -86,6 +86,7 @@ You are done when ALL of the following are true:
 - [ ] An **org Codespaces policy** restricts machine types and sets retention.
 - [ ] A **prebuild** is configured and a new Codespace reports **prebuilt**.
 - [ ] All your Codespaces are **stopped/deleted** at the end.
+- [ ] Coach conversation — what is the most painful or inconsistent part of onboarding a new developer (or yourself after a fresh machine) onto your current project, and how would a Codespace with a locked devcontainer.json change that? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 

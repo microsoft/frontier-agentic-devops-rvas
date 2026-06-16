@@ -18,6 +18,7 @@ success_criteria:
   - 'Option A: Security campaign created with name, due date, and at least 5 alerts scoped — progress tracked in the campaign view'
   - 'Option B (no org access): Written campaign plan covering scope, assignees, timeline, and definition of done'
   - 'Reflection written: what would you prioritize in a real production codebase, and why?'
+  - 'Coach conversation — if you had to pitch a security campaign for your own team''s codebase today, which vulnerability class would you tackle first, how would you make the case to your engineering lead, and what would your definition of done actually be? Talk it through with your coach and connect it to a real project, task, or workflow you own.'
 tags:
   - ghas
   - security-campaigns

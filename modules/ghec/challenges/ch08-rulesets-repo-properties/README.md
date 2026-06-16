@@ -94,6 +94,7 @@ You are done when ALL of the following are true:
 - [ ] The org ruleset governs **both** `high`-compliance repos (proven by a rejected direct push on the second repo).
 - [ ] A **repository ruleset** on one prod repo layers a stricter rule (e.g., 2 approvals) on top of the org ruleset.
 - [ ] A **`GOVERNANCE.md`** documents the schema, values, and ruleset targeting.
+- [ ] Coach conversation — which of your repos is most likely to accept a direct push to main or merge without a review right now, and what ruleset targeting which repo property would close that gap at scale? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 

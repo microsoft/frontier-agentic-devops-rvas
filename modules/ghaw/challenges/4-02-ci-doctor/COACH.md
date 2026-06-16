@@ -1,5 +1,16 @@
 ---
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — how much time does your team lose investigating broken CI by hand, and how far would you trust an agent's root-cause diagnosis before a human confirms the fix? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Ask how much time their team currently spends diagnosing broken CI by hand.
+- Surface how far they'd trust an agent's root-cause diagnosis before a human confirms the fix.
+- Get them to pick one flaky or noisy pipeline they'll point a CI doctor at next week.
+
 ## What This Challenge Teaches
 
 The `workflow_run` trigger — one of the most powerful and least-understood triggers in GitHub Actions. Participants learn how to react to another workflow's outcome (not just code events), how to access run logs programmatically, and how to structure a diagnostic issue that's actually useful to a maintainer.

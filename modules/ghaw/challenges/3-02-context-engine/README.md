@@ -74,6 +74,7 @@ Use **`safe-outputs: add-comment`** to post a structured comment on the PR. The 
 - [ ] Comment appears on the PR
 - [ ] Comment avoids generic advice—it's specific to *this* repo's standards
 - [ ] `safe-outputs: add-comment` is used correctly
+- [ ] Coach conversation — what context does an agent on your team need before it can make a decision you would trust, and where today does it fly blind without that data? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 ---
 

@@ -4,6 +4,17 @@
 
 Teams write safe GitHub Agentic Workflows style specs, then review a generated or simulated pull request with human discipline.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — if you assigned your next backlog issue to a cloud coding agent today, what specific context would you need to add so it could work without asking you a single question, and which review step would you be least comfortable skipping? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Ask them to pick an actual open issue from their real backlog and walk through what is missing from it for autonomous execution — files, constraints, validation commands, non-goals.
+- Ask what the worst realistic diff looks like if the agent misunderstands the scope: which files could it touch, what tests could it delete, and would their current PR review catch it?
+- Ask them to define one concrete improvement to their next real issue template or review checklist that would make agent-assisted work safer by next week.
+
 ### Strong Evidence
 
 - Issue has context, constraints, acceptance criteria, and validation commands.

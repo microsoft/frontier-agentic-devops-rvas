@@ -1,5 +1,16 @@
 ---
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — where has documentation bloat in your projects actually pushed contributors away, and how would you keep an agent from cutting something important while it trims the fat? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Ask where documentation bloat has actually pushed contributors away in their world.
+- Probe how they'd stop an agent from cutting something important while trimming the fat.
+- Get them to pick one bloated doc they'll let an unbloat agent propose trims for next week.
+
 ## What This Challenge Teaches
 
 The difference between correctness (what Doc Updater fixes) and quality (what Unbloat improves). Participants learn to write specificity into simplification prompts — "be concise" produces garbage, "remove sentences starting with 'Note that'" produces precise diffs. They also practice PR discipline: one file, one concern, reviewable in under 60 seconds.

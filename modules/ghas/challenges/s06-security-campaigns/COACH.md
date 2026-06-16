@@ -2,6 +2,17 @@
 
 > Audience: facilitators and coaches. Pair with the student `README.md`.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — if you had to pitch a security campaign for your own team's codebase today, which vulnerability class would you tackle first, how would you make the case to your engineering lead, and what would your definition of done actually be? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Name the production codebase or repository you'd target — roughly how many open security alerts does it have today, and are they triaged by severity or just accumulating in a backlog?
+- What is the realistic cost of leaving those alerts unaddressed — breach risk, compliance exposure, developer incident time — and who in your organization feels that cost most directly right now?
+- Define a campaign scope narrow enough to complete in two weeks: which alert class, which repos, which team members, and what is the first concrete signal that it is actually done?
+
 ## Facilitation objectives
 - Reinforce the shift from fixing one alert to planning remediation at vulnerability-class scale.
 - Help students choose scope using risk, alert volume, and delivery capacity rather than intuition alone.

@@ -91,6 +91,7 @@ You are done when ALL of the following are true:
 - [ ] A team holds the **Maintain** predefined role on `wth-ch07-platform`.
 - [ ] A **custom repository role** exists (`gh api /orgs/<org>/custom-repository-roles` lists it) and is **assigned** to a team on a repo.
 - [ ] An **`ACCESS.md`** access matrix exists, generated from the API, and a before/after comparison shows the org is now team-modeled.
+- [ ] Coach conversation — map your real team's structure onto GitHub Teams right now: where do people have more access than they need, and where is the absence of the right permission creating an actual bottleneck for someone? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 

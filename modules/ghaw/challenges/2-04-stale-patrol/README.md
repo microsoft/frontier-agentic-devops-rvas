@@ -58,6 +58,7 @@ Create a gh-aw workflow named `stale-patrol.md` in `.github/workflows/` that:
 - [ ] A second run (simulated 3 days later) closes the issue
 - [ ] Issues labeled `keep-alive` are skipped (not closed)
 - [ ] No errors if repo has no stale issues
+- [ ] Coach conversation — where would you draw the line between an agent warning about stale work and actually closing it on your behalf, and what grace period earns your trust? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 ---
 

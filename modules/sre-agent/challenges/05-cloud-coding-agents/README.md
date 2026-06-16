@@ -53,6 +53,7 @@ Safe workflow specs should be read-first by default. Add write jobs only when pe
 - The review identifies at least one concrete approval reason, risk, or requested change.
 - The team documents whether the task was appropriate for cloud coding agent assistance.
 - Any merged change remains linked to the issue and validation evidence.
+- Coach conversation — if you assigned your next backlog issue to a cloud coding agent today, what specific context would you need to add so it could work without asking you a single question, and which review step would you be least comfortable skipping? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 ## Hints
 

@@ -19,6 +19,7 @@ success_criteria:
   - 'PR descriptions explain the data flow: source (user input), sink (HTML output), and encoding applied'
   - PR CodeQL/code scanning checks reviewed, with no remaining annotations for the fixed patterns
   - Application still renders correctly after the fixes
+  - 'Coach conversation — which pages or components in your own application render user-supplied content back into the browser, and do you know for certain what encoding is applied before each one hits the DOM? Talk it through with your coach and connect it to a real project, task, or workflow you own.'
 tags:
   - ghas
   - codeql

@@ -58,6 +58,7 @@ Create a gh-aw workflow named `welcome-wagon.md` in `.github/workflows/` that:
   - At least 2 helpful links or resources
   - Encouragement
 - [ ] Comment is friendly, not robotic
+- [ ] Coach conversation — what first impression do new contributors get from your project today, and what would you trust an automated welcome to handle versus what should stay a personal touch? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 ---
 

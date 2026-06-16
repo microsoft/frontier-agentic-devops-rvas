@@ -2,6 +2,17 @@
 
 > Audience: facilitators and graders. Pair with the student `README.md`.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — look at your team's actual GitHub usage right now: where is spend invisible or unattributed, and who in your org should own cost accountability for Actions minutes, Codespaces, or storage but currently does not? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Describe who currently reviews your GitHub bill and what detail they can see — down to repo or team level?
+- Which repos or teams are the likely top consumers of Actions minutes or Codespaces in your org?
+- What cost-center mapping or spending limit would you propose to your finance or platform team this week?
+
 ## Facilitation notes
 - **Goal in one line:** the student builds the org's cost-governance baseline — read usage, generate a little real metered usage, wire a budget with alerts, and reconcile the API against the UI in a repeatable report.
 - **Where students get stuck:**

@@ -4,6 +4,17 @@
 
 Teams decompose work, preserve context in GitHub artifacts, make agent-assisted summaries or plans reviewable, and create a starter instrumentation set.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — looking at your team's current backlog, which coordination task (triage, planning, or review summarization) would you trust a workflow agent to attempt first, and what human checkpoint would you need before any output could affect code or infrastructure? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Ask them to name a specific backlog item or recurring coordination task their team handles today — something they own, not a hypothetical.
+- Ask what would go wrong if the agent got it 80% right: who would catch it, where, and how quickly — surfacing the real cost of a missed handoff.
+- Ask them to define the one human checkpoint they would add to make this safe enough to run next week without babysitting it.
+
 ### Strong Evidence
 
 - Work is split into small issues or checklist items.

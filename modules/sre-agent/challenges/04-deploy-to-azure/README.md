@@ -41,6 +41,7 @@ This is where the deterministic/probabilistic seam becomes visible. Agents and C
 - Environment controls are visible, even if simplified for the workshop.
 - The team captures deployment evidence that can be used during incident triage.
 - The team can explain what an agent is allowed to suggest and what only deterministic gates or humans can authorize.
+- Coach conversation — in your real deployment pipeline, where does the deterministic/probabilistic seam sit today: what does automation decide on its own, and what requires a human approval or deterministic gate before reaching production? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 ## Hints
 

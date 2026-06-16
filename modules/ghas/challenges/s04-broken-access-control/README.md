@@ -24,6 +24,7 @@ The fix pattern: for every operation that touches user-owned or role-restricted 
 - [ ] PR descriptions explain the access control gap and the enforcement logic added
 - [ ] PR CodeQL/code scanning checks reviewed, with no remaining annotations for the fixed patterns where applicable
 - [ ] Application still handles legitimate requests correctly after fixes
+- [ ] Coach conversation — in your own backend services, are there routes that rely on the frontend to hide restricted actions instead of enforcing ownership server-side, and how would you even know if an authenticated user were calling them directly with a crafted request? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 ## Copilot Tips
 

@@ -37,6 +37,7 @@ By the end of this challenge, your squad will:
 - [ ] When you push changes to the watched directory, the workflow runs
 - [ ] A comment appears on the commit summarizing the changes (e.g., "Modified 3 files in docs/")
 - [ ] Logs show the agent detected which files were changed
+- [ ] Coach conversation — which repository events do you currently notice only after the fact, and what would change if a push-triggered agent flagged risky file changes the moment they land? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 ---
 

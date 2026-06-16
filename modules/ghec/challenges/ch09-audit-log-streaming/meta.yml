@@ -18,6 +18,7 @@ success_criteria:
 - A **combined, time-bounded API query** returns a sensible count for today's events.
 - An **export script** committed to the repo pulls a time-bounded slice to JSON and the output contains your events.
 - A **`FINDINGS.md`** answers three investigative questions with the exact filter used.
+- 'Coach conversation — if your org''s GitHub audit log were streaming to your SIEM right now, what is the first alert or anomaly query you would write, and what event from the past six months do you wish you had been alerted to? Talk it through with your coach and connect it to a real project, task, or workflow you own.'
 tags:
 - audit-log
 - api

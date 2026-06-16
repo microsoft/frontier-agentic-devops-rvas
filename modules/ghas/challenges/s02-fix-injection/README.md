@@ -23,6 +23,7 @@ You're working as a developer fixing real application code. Not configuring tool
 - [ ] Pull requests to `main` opened with clear descriptions of the vulnerability and remediation
 - [ ] Copilot Autofix tried on at least one alert (click "Generate fix" in the Security tab)
 - [ ] PR CodeQL/code scanning checks reviewed, with no remaining annotations for the fixed patterns
+- [ ] Coach conversation — where in your own codebase is user-controlled input most likely reaching a database query without parameterization, and what data could an attacker extract or modify if they found that path before your team did? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 ## Copilot Tips
 

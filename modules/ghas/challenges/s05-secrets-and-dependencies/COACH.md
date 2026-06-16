@@ -2,6 +2,17 @@
 
 > Audience: facilitators and coaches. Pair with the student `README.md`.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — if you searched your team's repos right now, what is the most likely hardcoded credential or critically vulnerable dependency you'd find, and how long do you think it has been sitting there unnoticed? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Name a real repo your team owns — does it have push protection and Dependabot alerts enabled today, and who is actually reviewing and acting on those alerts?
+- If a hardcoded credential or a critically vulnerable package in that repo were exploited today, what system, customer data, or compliance boundary would be at risk — and what is the realistic recovery path?
+- What one automation or workflow change could you put in place this week to ensure secrets and vulnerable packages are caught before they merge, not discovered months later?
+
 ## Facilitation objectives
 - Reinforce that secrets belong in runtime configuration, not source control.
 - Help students connect secret scanning and Dependabot as two complementary supply-chain/security hygiene workflows.

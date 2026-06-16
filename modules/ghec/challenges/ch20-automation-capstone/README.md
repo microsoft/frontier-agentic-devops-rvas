@@ -93,6 +93,7 @@ You are done when ALL of the following are true:
 - [ ] The issue is **added to `wth-ch20-board`** with a **Status** field set via **GraphQL**, also idempotent.
 - [ ] **Actions** orchestrates the flow and records a **run summary**, with all credentials in **Actions secrets**.
 - [ ] You demonstrated the **full end-to-end loop** from a single fresh issue and documented its **failure modes**.
+- [ ] Coach conversation — looking across everything you've automated in this challenge, what is the single workflow in your real org that is still entirely manual and would benefit most from combining the Actions, API, and security layers you just built? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 

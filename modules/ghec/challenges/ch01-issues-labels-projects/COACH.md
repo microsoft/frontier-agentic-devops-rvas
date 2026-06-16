@@ -2,6 +2,17 @@
 
 > Audience: facilitators and graders. Pair with the student `README.md`.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — what real work item or backlog from your team would you model differently now that you understand GitHub's label taxonomy and Projects v2 automation, and what field or view are you missing today? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Walk me through one specific project or repo your team tracks work in — what labels exist there today?
+- Where does triage break down or slow things down in that project? Could a custom field, saved view, or label rule fix it?
+- What is the ONE label, field, or automation rule you'll add to that board next week?
+
 ## Facilitation notes
 - **Goal in one line:** the student turns a raw, untriaged backlog into a governed system — labeled, milestoned, and tracked on a Projects (v2) board with working automation.
 - **Where students get stuck:**

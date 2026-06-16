@@ -2,6 +2,17 @@
 
 > Audience: facilitators and graders. Pair with the student `README.md`.
 
+## Grounding conversation (you will be called)
+
+Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+
+**Their question:** Coach conversation — what is the most painful or inconsistent part of onboarding a new developer (or yourself after a fresh machine) onto your current project, and how would a Codespace with a locked devcontainer.json change that? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+
+Use these follow-ups to steer the conversation:
+- Tell me about a specific repo or project where environment setup causes the most friction — what usually breaks?
+- If you shipped a Codespace for that repo today, what would still not work out of the box?
+- What is the single .devcontainer change you could open a PR for before next week?
+
 ## Facilitation notes
 - **Goal in one line:** the student makes "clone and code in 60 seconds" real — a committed, reproducible dev container, a prebuild for speed, and an org policy that controls spend.
 - **Where students get stuck:**

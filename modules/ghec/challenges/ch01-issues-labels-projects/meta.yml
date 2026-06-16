@@ -20,6 +20,7 @@ success_criteria:
 - The **Projects (v2)** board has the four custom fields, all backlog issues added, and **three saved views** (board / table / roadmap).
 - A **built-in workflow** is enabled and demonstrably moved a closed issue to `Done`.
 - An **Insights chart** grouped by `Priority` is saved on the project.
+- 'Coach conversation — what real work item or backlog from your team would you model differently now that you understand GitHub''s label taxonomy and Projects v2 automation, and what field or view are you missing today? Talk it through with your coach and connect it to a real project, task, or workflow you own.'
 tags:
 - issues
 - labels
