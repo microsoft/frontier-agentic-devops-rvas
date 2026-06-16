@@ -76,11 +76,11 @@ references:
 | `ghec` | `admin-governance` | Admin & Governance |
 | `ghec` | `security` | Security |
 | `ghec` | `automation-ai` | Automation & AI |
-| `ghas` | `security-fundamentals` | Security Fundamentals |
+| `ghas` | `security` | Security |
 | `ghaw` | `hello-agent` | Hello Agent |
-| `ghaw` | `mcp-integration` | MCP Integration |
+| `ghaw` | `repo-concierge` | Repo Concierge |
+| `ghaw` | `continuous-intelligence` | Continuous Intelligence |
 | `ghaw` | `production-patterns` | Production Patterns |
-| `ghaw` | `safe-outputs` | Safe Outputs |
 | `sre-agent` | `agentic-lifecycle` | Agentic Lifecycle |
 
 ---

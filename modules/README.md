@@ -12,7 +12,7 @@ modules/
 │       ├── README.md    ← student guide template
 │       └── COACH.md     ← coach guide template
 │
-├── ghec/                ← GitHub Enterprise Cloud (20 challenges)
+├── ghec/                ← GitHub Enterprise Cloud (21 challenges)
 │   ├── ATTRIBUTION.md
 │   └── challenges/
 │       └── <slug>/      ← one directory per challenge
@@ -20,12 +20,12 @@ modules/
 │           ├── README.md
 │           └── COACH.md
 │
-├── ghas/                ← GitHub Advanced Security (6 challenges: S00–S05)
+├── ghas/                ← GitHub Advanced Security (7 challenges: S00–S06)
 │   ├── ATTRIBUTION.md
 │   ├── setup.md         ← how to run Juice Shop
 │   └── challenges/
 │
-├── ghaw/                ← GitHub Agentic Workflows (24 challenges)
+├── ghaw/                ← GitHub Agentic Workflows (25 challenges)
 │   ├── ATTRIBUTION.md
 │   └── challenges/
 │

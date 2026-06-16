@@ -7,8 +7,8 @@ One repo. One GitHub Pages site. Four hackathon modules, 59 challenges, zero con
 | Module ID | Name | Challenges | Tracks |
 |---|---|---|---|
 | `ghec` | GitHub Enterprise Cloud | 21 | Developer Flow, Admin & Governance, Security, Automation & AI |
-| `ghas` | GitHub Advanced Security | 7 | Security Fundamentals |
-| `ghaw` | GitHub Agentic Workflows | 25 | Hello Agent, MCP Integration, Production Patterns, Safe Outputs |
+| `ghas` | GitHub Advanced Security | 7 | Security |
+| `ghaw` | GitHub Agentic Workflows | 25 | Hello, Agent, Repo Concierge, Continuous Intelligence, Production Patterns |
 | `sre-agent` | SRE Agent | 6 | Agentic Lifecycle |
 
 > **Total:** 59 challenges across 4 modules.
@@ -39,7 +39,7 @@ The build script is the **only bridge** between content metadata and the rendere
 **Prerequisites:** Node.js ≥ 18. No npm install required.
 
 ```bash
-node docs/build.js
+npm run build
 ```
 
 Output lands in `docs/assets/data/`. The Pages site (`docs/`) is fully self-contained.
@@ -60,6 +60,15 @@ The build validates:
 - Every `prerequisites` entry references a real challenge `id` in the catalog.
 - No circular dependencies.
 - Warns on missing optional fields.
+
+Additional deterministic content audits are available:
+
+```bash
+npm run audit          # validate factuality surfaces without network calls
+npm run audit:content  # rebuild, then audit generated catalog/link consistency
+```
+
+`npm run audit:external` can probe external URLs, but reports them as warnings only to avoid flaky CI gates.
 
 CI runs the same build on every PR and fails the check if validation errors are found.
 

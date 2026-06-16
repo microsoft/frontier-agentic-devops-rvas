@@ -39,3 +39,9 @@ Session delivered 59 challenges across 4 modules via 12 sequential decisions:
 7-12. Environment Setup template (4-module implementation, doc updates) — independence guarantee, setup-first ordering
 
 See `.squad/decisions.md` for merged decision records and git log for commit details per task.
+
+## Session Summary (2026-06-16)
+
+**Delivered:** Fixed confirmed internal resource 404s in generated challenge pages. The Pages build now copies module resource bundles to `docs/resources/<moduleId>/` and rewrites challenge guide resource links such as `../../resources/Agent-Ready-Issue-Template.md` to site-root-relative-in-docs links like `resources/sre-agent/Agent-Ready-Issue-Template.md` during guide generation.
+
+**Validation:** `npm run build` passed (4 modules, 59 challenges, 35 edges). A generated-link validation script confirmed no `olivomarco.github.io/resources`, `/resources`, or parent-relative resource links remain in generated challenge guides and every `resources/...` target exists under `docs/`.

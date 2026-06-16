@@ -6,6 +6,7 @@ npm-debug.log*
 docs/assets/data/platform.json
 docs/assets/data/dependency-graph.json
 docs/assets/data/challenges/
+docs/resources/
 
 # OS
 .DS_Store

@@ -19,5 +19,5 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Run build & validate
-        run: node docs/build.js
+      - name: Run build & content audit
+        run: npm run audit:content

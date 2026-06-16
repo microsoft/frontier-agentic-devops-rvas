@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Agentic DevOps — unified hackathon site builder",
   "scripts": {
-    "build": "node docs/build.js"
+    "build": "node docs/build.js",
+    "audit": "node scripts/audit-content.js",
+    "audit:external": "node scripts/audit-content.js --external",
+    "audit:content": "npm run build && node scripts/audit-content.js"
   },
   "engines": {
     "node": ">=18"

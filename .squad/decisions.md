@@ -436,3 +436,17 @@ Typography adjustments:
 - All meaningful changes require team consensus
 - Document architectural decisions here
 - Keep history focused on work, decisions focused on direction
+
+---
+
+### frontier-ghplatform-hackathon: Pages Resource Link Rewriting (2026-06-16)
+
+**Status:** ✅ Implemented
+
+**Summary:** Challenge guide markdown is rendered inside `challenge.html`, so source-valid links like `../../resources/Agent-Ready-Issue-Template.md` resolve incorrectly on GitHub Pages as `/resources/...` and 404. The build now copies each module's `resources/` bundle to `docs/resources/<moduleId>/` and rewrites generated guide resource links to `resources/<moduleId>/...`.
+
+**Rationale:** Keep module source docs repo-relative and readable while making generated Pages links resolve from the deployed site root. Generated resources remain build artifacts and are ignored by git.
+
+**Verification:** `npm run build`; generated resource-link validation confirmed all `resources/...` targets exist and no known bad resource URL forms remain.
+
+**Owner:** Zoe

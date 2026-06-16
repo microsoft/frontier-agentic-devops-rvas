@@ -4,9 +4,8 @@ This repository can be published with GitHub Pages so participants have a simple
 
 ## Recommended Pages Entry Points
 
-- [README.md](../README.md) as the landing page.
+- [ATTRIBUTION.md](../ATTRIBUTION.md) as the module provenance page.
 - [challenges/00-setup/README.md](../challenges/00-setup/README.md) as the first participant action.
-- [COACH.md](../COACH.md) for facilitators.
 - [Resources/README.md](README.md) for templates and fallback packets.
 
 ## Publishing Checklist

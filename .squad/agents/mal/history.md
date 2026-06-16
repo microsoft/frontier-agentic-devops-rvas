@@ -36,9 +36,17 @@
 
 **Independence rule:** List setup challenge in downstream `prerequisites:` only when there is a hard technical artifact that downstream literally cannot proceed without. GHAW: keep (CLI install). GHEC/GHAS/SRE Agent ch01: keep `[]`.
 
-**Final expected counts:** GHEC 21, GHAS 7, GHAW 25, SRE Agent 7 = 60 total.
+**Superseded expected counts:** GHEC 21, GHAS 7, GHAW 25, SRE Agent 7 = 60 total. See 2026-06-16 reconciliation below: SRE Agent 02 was intentionally removed, so the current source-of-truth total is 59.
 
 **Full template spec at:** `.squad/decisions/inbox/mal-setup-challenge-template.md`
+
+### 2026-06-16 — Inventory Reconciliation
+
+- Current source-of-truth inventory is 59 challenges: GHEC 21, GHAS 7, GHAW 25, SRE Agent 6.
+- The missing 60th challenge is not a build bug. It is the intentionally removed `agentic-devops-02` / would-be `sre-agent-02` ("Build with GitHub Copilot"), documented in `.squad/decisions.md`.
+- Preserve the SRE Agent sequence gap at 02 unless Marco explicitly reverses that removal decision; do not invent replacement content just to close the count.
+- Setup challenge independence still holds: `sre-agent-01` keeps `prerequisites: []`; `sre-agent-03` depends only on `sre-agent-01`.
+- Keep docs count/track tables aligned with `docs/build.js` / generated `platform.json`, especially GHAW track ids (`repo-concierge`, `continuous-intelligence`) and GHAS track id (`security`).
 
 ### 2026-06-15 — Phase 0 Architecture Analysis
 
@@ -77,4 +85,3 @@
 - Architecture doc delta (66→58 challenges) is acceptable scope refinement, not a doc bug
 
 **Verdict:** APPROVE — ship-ready. Written to `.squad/decisions/inbox/mal-final-review.md`
-

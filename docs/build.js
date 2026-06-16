@@ -12,6 +12,7 @@
  *   docs/assets/data/dependency-graph.json               — prereq graph (nodes + edges)
  *   docs/assets/data/challenges/<id>/README.md           — student guide copy
  *   docs/assets/data/challenges/<id>/COACH.md            — coach guide copy
+ *   docs/resources/<moduleId>/...                        — module resource files
  *
  * Validation (exits non-zero on errors):
  *   - Every prerequisites[] entry must reference a real challenge id in the catalog.
@@ -77,6 +78,7 @@ const ROOT           = path.resolve(__dirname, '..');
 const MODULES_DIR    = path.join(ROOT, 'modules');
 const OUT_DATA_DIR   = path.join(__dirname, 'assets', 'data');
 const OUT_GUIDES_DIR = path.join(OUT_DATA_DIR, 'challenges');
+const OUT_RESOURCES_DIR = path.join(__dirname, 'resources');
 
 /* ─── Minimal YAML parser ────────────────────────────────────────────────────
  * Handles only the locked meta.yml contract: scalar key-value pairs, block
@@ -185,9 +187,82 @@ function readDirSafe(p) {
   catch { return []; }
 }
 
-function copyIfExists(src, dest) {
-  if (fs.existsSync(src)) { fs.copyFileSync(src, dest); return true; }
-  return false;
+function rewriteResourceLinksForPages(text, moduleId) {
+  const moduleResources = `resources/${moduleId}/`;
+  return text.replace(
+    /(\]\()(https:\/\/olivomarco\.github\.io\/resources\/|(?:\.\.\/)+[Rr]esources\/|\/[Rr]esources\/|(?:\.\/)?[Rr]esources\/)/g,
+    `$1${moduleResources}`,
+  ).replace(
+    /(\]\()(?:\.\.\/)+setup\.md/g,
+    '$1resources/ghas/setup.md',
+  ).replace(
+    /(\]\()(?:\.\.\/)([^/)]+)\/README\.md/g,
+    (_match, prefix, slug) => {
+      const challengeId = challengeIdFromSlug(moduleId, slug);
+      return challengeId ? `${prefix}challenge.html?id=${challengeId}` : `${prefix}../${slug}/README.md`;
+    },
+  );
+}
+
+function challengeIdFromSlug(moduleId, slug) {
+  if (moduleId === 'ghec' && /^ch\d+/.test(slug)) return `ghec-${slug.split('-')[0]}`;
+  if (moduleId === 'ghas' && /^s\d+/.test(slug)) return `ghas-${slug.split('-')[0]}`;
+  if (moduleId === 'ghaw' && /^\d+-\d+/.test(slug)) return `ghaw-${slug.split('-').slice(0, 2).join('-')}`;
+  if (moduleId === 'sre-agent' && /^\d+/.test(slug)) return `sre-agent-${slug.split('-')[0]}`;
+  return null;
+}
+
+function copyGuideForPages(src, dest, moduleId) {
+  if (!fs.existsSync(src)) return false;
+  const md = fs.readFileSync(src, 'utf8');
+  fs.writeFileSync(dest, rewriteResourceLinksForPages(md, moduleId));
+  return true;
+}
+
+function rewriteModuleResourceLinksForPages(text, moduleId) {
+  return text.replace(
+    /(\]\()(?:\.\.\/)+challenges\/([^/)]+)\/README\.md/g,
+    (_match, prefix, slug) => {
+      const challengeId = challengeIdFromSlug(moduleId, slug);
+      return challengeId ? `${prefix}../../challenge.html?id=${challengeId}` : `${prefix}../challenges/${slug}/README.md`;
+    },
+  ).replace(
+    /(\]\()(?:\.\.\/)+(?:README|COACH|ATTRIBUTION)\.md/g,
+    '$1README.md',
+  );
+}
+
+function rewriteCopiedMarkdownFiles(dir, moduleId) {
+  for (const entry of readDirSafe(dir)) {
+    const file = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      rewriteCopiedMarkdownFiles(file, moduleId);
+    } else if (entry.isFile() && entry.name.endsWith('.md')) {
+      const md = fs.readFileSync(file, 'utf8');
+      fs.writeFileSync(file, rewriteModuleResourceLinksForPages(md, moduleId));
+    }
+  }
+}
+
+function copyModuleResources(moduleId) {
+  const dest = path.join(OUT_RESOURCES_DIR, moduleId);
+  let copied = false;
+
+  const resourcesSrc = path.join(MODULES_DIR, moduleId, 'resources');
+  if (fs.existsSync(resourcesSrc)) {
+    fs.cpSync(resourcesSrc, dest, { recursive: true });
+    rewriteCopiedMarkdownFiles(dest, moduleId);
+    copied = true;
+  }
+
+  const setupSrc = path.join(MODULES_DIR, moduleId, 'setup.md');
+  if (fs.existsSync(setupSrc)) {
+    fs.mkdirSync(dest, { recursive: true });
+    fs.copyFileSync(setupSrc, path.join(dest, 'setup.md'));
+    copied = true;
+  }
+
+  return copied;
 }
 
 /* ─── Cycle detection (DFS) ─────────────────────────────────────────────────*/
@@ -224,8 +299,13 @@ function main() {
   let warnings = 0;
   const allChallenges = [];
 
+  fs.rmSync(OUT_RESOURCES_DIR, { recursive: true, force: true });
+  fs.mkdirSync(OUT_RESOURCES_DIR, { recursive: true });
+
   /* ── 1. Collect all challenges from all modules ── */
   for (const [moduleId, moduleCfg] of Object.entries(MODULE_CONFIG)) {
+    copyModuleResources(moduleId);
+
     const challengesDir = path.join(MODULES_DIR, moduleId, 'challenges');
     const slugDirs = readDirSafe(challengesDir)
       .filter(d => d.isDirectory())
@@ -263,8 +343,8 @@ function main() {
       // Copy student + coach guides
       const guideDir = path.join(OUT_GUIDES_DIR, meta.id);
       fs.mkdirSync(guideDir, { recursive: true });
-      const hasReadme = copyIfExists(path.join(dir, 'README.md'), path.join(guideDir, 'README.md'));
-      const hasCoach  = copyIfExists(path.join(dir, 'COACH.md'),  path.join(guideDir, 'COACH.md'));
+      const hasReadme = copyGuideForPages(path.join(dir, 'README.md'), path.join(guideDir, 'README.md'), moduleId);
+      const hasCoach  = copyGuideForPages(path.join(dir, 'COACH.md'),  path.join(guideDir, 'COACH.md'), moduleId);
 
       if (!hasReadme) { console.warn(`  ! ${meta.id}: no README.md (student guide)`); warnings++; }
       if (!hasCoach)  { console.warn(`  ! ${meta.id}: no COACH.md (coach guide)`);   warnings++; }
