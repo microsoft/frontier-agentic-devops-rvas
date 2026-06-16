@@ -44,6 +44,7 @@
     }
 
     syncChipState();
+    syncUrl();
   }
 
   /* Reflect _activeModule / _activeDiff onto the rendered chips. */
