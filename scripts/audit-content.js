@@ -16,8 +16,8 @@ const MODULES_DIR = path.join(ROOT, 'modules');
 const PLATFORM_PATH = path.join(DOCS_DIR, 'assets', 'data', 'platform.json');
 const GRAPH_PATH = path.join(DOCS_DIR, 'assets', 'data', 'dependency-graph.json');
 const CHECK_EXTERNAL = process.argv.includes('--external') || process.env.AUDIT_EXTERNAL === '1';
-const PAGES_HOSTS = new Set(['olivomarco.github.io']);
-const PROJECT_SLUG = 'ghplatform-hackathon';
+const PAGES_HOSTS = new Set(['microsoft.github.io']);
+const PROJECT_SLUG = 'frontier-agenticdevops-hackathon';
 
 const state = {
   errors: [],

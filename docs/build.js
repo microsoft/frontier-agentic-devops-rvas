@@ -190,7 +190,7 @@ function readDirSafe(p) {
 function rewriteResourceLinksForPages(text, moduleId) {
   const moduleResources = `resources/${moduleId}/`;
   return text.replace(
-    /(\]\()(https:\/\/olivomarco\.github\.io\/resources\/|(?:\.\.\/)+[Rr]esources\/|\/[Rr]esources\/|(?:\.\/)?[Rr]esources\/)/g,
+    /(\]\()(https:\/\/microsoft\.github\.io\/resources\/|(?:\.\.\/)+[Rr]esources\/|\/[Rr]esources\/|(?:\.\/)?[Rr]esources\/)/g,
     `$1${moduleResources}`,
   ).replace(
     /(\]\()(?:\.\.\/)+setup\.md/g,
