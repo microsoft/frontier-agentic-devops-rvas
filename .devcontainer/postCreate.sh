@@ -8,12 +8,23 @@ BOLD="\033[1m"; CYAN="\033[36m"; GREEN="\033[32m"; YELLOW="\033[33m"; RESET="\03
 
 echo -e "${BOLD}${CYAN}"
 echo "╔══════════════════════════════════════════════════════╗"
-echo "║   Frontier GitHub Platform Hackathon — Dev Container  ║"
+echo "║   Frontier GitHub Platform Hackathon — Dev Container ║"
 echo "╚══════════════════════════════════════════════════════╝"
 echo -e "${RESET}"
 
-# ── 1. Install the gh-aw CLI extension (GitHub Agentic Workflows) ──────────────
-echo -e "${BOLD}[1/3] Installing gh-aw (GitHub Agentic Workflows)...${RESET}"
+# ── 1. Install jq (not included in the slim base image) ───────────────────────
+echo -e "${BOLD}[1/4] Installing jq...${RESET}"
+if command -v jq >/dev/null 2>&1; then
+  echo -e "      ${GREEN}✓ jq already installed — skipping${RESET}"
+else
+  sudo apt-get update -qq >/dev/null 2>&1 \
+    && sudo apt-get install -y -qq jq >/dev/null 2>&1 \
+    && echo -e "      ${GREEN}✓ jq installed${RESET}" \
+    || echo -e "      ${YELLOW}! jq install failed — run 'sudo apt-get install -y jq' manually${RESET}"
+fi
+
+# ── 2. Install the gh-aw CLI extension (GitHub Agentic Workflows) ──────────────
+echo -e "${BOLD}[2/4] Installing gh-aw (GitHub Agentic Workflows)...${RESET}"
 if gh aw --version >/dev/null 2>&1; then
   echo -e "      ${GREEN}✓ gh aw already installed — skipping${RESET}"
 else
@@ -22,8 +33,8 @@ else
     || echo -e "      ${YELLOW}! gh aw install failed — run the curl command again after 'gh auth login'${RESET}"
 fi
 
-# ── 2. Install Bicep on top of the Azure CLI (SRE Agent module) ────────────────
-echo -e "${BOLD}[2/3] Installing Bicep...${RESET}"
+# ── 3. Install Bicep on top of the Azure CLI (SRE Agent module) ────────────────
+echo -e "${BOLD}[3/4] Installing Bicep...${RESET}"
 if az bicep version >/dev/null 2>&1; then
   echo -e "      ${GREEN}✓ Bicep already installed — skipping${RESET}"
 else
@@ -32,8 +43,8 @@ else
     || echo -e "      ${YELLOW}! Bicep install failed — run 'az bicep install' manually${RESET}"
 fi
 
-# ── 3. Verify the environment ─────────────────────────────────────────────────
-echo -e "${BOLD}[3/3] Verifying tools...${RESET}"
+# ── 4. Verify the environment ─────────────────────────────────────────────────
+echo -e "${BOLD}[4/4] Verifying tools...${RESET}"
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 bash "${REPO_ROOT}/scripts/doctor.sh" || true
 

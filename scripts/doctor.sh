@@ -13,6 +13,7 @@ check() {
   local label="$1"; local req="$2"; shift 2
   local ver
   if ver="$("$@" 2>/dev/null | head -n1)"; then
+    [ -z "$ver" ] && ver="(installed)"
     printf "  ${GREEN}✓${RESET} %-12s %s\n" "$label" "$ver"
   elif [ "$req" = "required" ]; then
     printf "  ${RED}✗${RESET} %-12s ${RED}MISSING (required)${RESET}\n" "$label"
@@ -27,6 +28,7 @@ check_sub() {
   local label="$1"; local req="$2"; shift 2
   local ver
   if ver="$("$@" 2>/dev/null | head -n1)"; then
+    [ -z "$ver" ] && ver="(installed)"
     printf "  ${GREEN}✓${RESET} %-12s %s\n" "$label" "$ver"
   elif [ "$req" = "required" ]; then
     printf "  ${RED}✗${RESET} %-12s ${RED}MISSING (required)${RESET}\n" "$label"
@@ -53,7 +55,7 @@ check "python"  required python3 --version
 
 echo
 echo -e "${BOLD}Cloud / containers${RESET}"
-check     "az"     required az version
+check     "az"     required az version --query "\"azure-cli\"" -o tsv
 check_sub "bicep"  required az bicep version
 check     "docker" required docker --version
 

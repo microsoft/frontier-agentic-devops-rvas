@@ -1,19 +1,19 @@
 {
   "name": "Frontier GitHub Platform Hackathon — All-in-One",
 
-  // Universal image ships Node, Python, Go, jq, and common tooling out of the box.
-  // Pinned to major version 2 (not :latest) for reproducible rebuilds. This is the
-  // same proven base used by the GHAW source repo (the heaviest module).
-  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  // Lightweight official Ubuntu base (~a few hundred MB vs. ~10GB for universal:2).
+  // Every tool is layered on via Dev Container Features so the image stays small and
+  // each version is explicitly pinned. Jammy (22.04 LTS) for broad package support.
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
 
-  // Dev Container Features supplement what the image already provides. Together they
-  // cover the union of tooling needed across all four modules (GHEC, GHAS, GHAW, SRE).
+  // Dev Container Features provide the full union of tooling needed across all four
+  // modules (GHEC, GHAS, GHAW, SRE Agent).
   "features": {
     // gh CLI — used by every module. Pinned feature so participants get a known-good build.
     "ghcr.io/devcontainers/features/github-cli:1": {
       "version": "latest"
     },
-    // Node 22 — required by the SRE Agent sample app; safe for all other modules.
+    // Node 22 (+ npm) — required by the SRE Agent sample app and OWASP Juice Shop.
     "ghcr.io/devcontainers/features/node:1": {
       "version": "22"
     },
@@ -32,8 +32,8 @@
     }
   },
 
-  // codespace is the default non-root user in the universal image.
-  "remoteUser": "codespace",
+  // base:ubuntu ships a non-root `vscode` user by default.
+  "remoteUser": "vscode",
 
   // Installs gh-aw, Bicep, and runs the environment doctor. Runs once after create.
   "postCreateCommand": "bash .devcontainer/postCreate.sh",

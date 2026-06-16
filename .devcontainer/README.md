@@ -7,7 +7,8 @@ modules** (GHEC, GHAS, GHAW, SRE Agent) so you can work any challenge from one e
 
 | Tool | Source | Used by |
 |------|--------|---------|
-| `git`, `jq` | `universal:2` base image | all modules |
+| `git` | `base:ubuntu` base image | all modules |
+| `jq` | `postCreate.sh` (apt) | all modules |
 | `gh` CLI | `github-cli` feature | all modules |
 | **`gh-aw`** (GitHub Agentic Workflows) | `postCreate.sh` | GHAW, SRE |
 | **Node 22** + `npm` | `node` feature | SRE sample app, Juice Shop |
@@ -15,6 +16,10 @@ modules** (GHEC, GHAS, GHAW, SRE Agent) so you can work any challenge from one e
 | **Azure CLI** (`az`) | `azure-cli` feature | SRE Agent |
 | **Bicep** | `postCreate.sh` (`az bicep install`) | SRE Agent |
 | **Docker** (docker-in-docker) | `docker-in-docker` feature | GHAS (Juice Shop) |
+
+The base is the lightweight official **`mcr.microsoft.com/devcontainers/base:ubuntu-22.04`**
+image (~a few hundred MB). Every tool is layered on via pinned Dev Container Features, so the
+container stays small and reproducible rather than shipping a ~10GB universal image.
 
 VS Code extensions: Copilot + Copilot Chat, GitHub Actions, CodeQL, Bicep, YAML, Markdown.
 
@@ -57,8 +62,8 @@ devcontainer up --workspace-folder .
 devcontainer exec --workspace-folder . bash scripts/doctor.sh
 ```
 
-> The `universal:2` base is multi-GB, so the first build pulls a large image and can take
-> several minutes.
+> The base image is lightweight, but the features (Node, Azure CLI, docker-in-docker) add a
+> few minutes to the first build.
 
 ## Notes
 
