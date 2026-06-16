@@ -1,0 +1,72 @@
+{
+  "name": "Frontier GitHub Platform Hackathon — All-in-One",
+
+  // Universal image ships Node, Python, Go, jq, and common tooling out of the box.
+  // Pinned to major version 2 (not :latest) for reproducible rebuilds. This is the
+  // same proven base used by the GHAW source repo (the heaviest module).
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+
+  // Dev Container Features supplement what the image already provides. Together they
+  // cover the union of tooling needed across all four modules (GHEC, GHAS, GHAW, SRE).
+  "features": {
+    // gh CLI — used by every module. Pinned feature so participants get a known-good build.
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "version": "latest"
+    },
+    // Node 22 — required by the SRE Agent sample app; safe for all other modules.
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "22"
+    },
+    // Python 3.12 — a handful of GHEC/GHAW challenges use small Python helpers.
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.12"
+    },
+    // Azure CLI — SRE Agent module (`az login`, resource management). Bicep is installed
+    // on top of this in postCreate.sh (`az bicep install`).
+    "ghcr.io/devcontainers/features/azure-cli:1": {
+      "version": "latest"
+    },
+    // Docker-in-Docker — GHAS runs OWASP Juice Shop; some GHEC/GHAS steps use containers.
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "moby": false
+    }
+  },
+
+  // codespace is the default non-root user in the universal image.
+  "remoteUser": "codespace",
+
+  // Installs gh-aw, Bicep, and runs the environment doctor. Runs once after create.
+  "postCreateCommand": "bash .devcontainer/postCreate.sh",
+
+  // Module sample apps (Juice Shop, Contoso Claims sample-app) listen on 3000.
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "Module app",
+      "onAutoForward": "notify"
+    }
+  },
+
+  // AI Engine API keys (for gh-aw / agentic workflows) — set as Codespace secrets at
+  // github.com/settings/codespaces to make them available in every Codespace:
+  //   ANTHROPIC_API_KEY (Claude), OPENAI_API_KEY (Codex), GEMINI_API_KEY (Gemini).
+  // GitHub Copilot is configured automatically if your account has a Copilot subscription.
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "GitHub.vscode-github-actions",
+        "GitHub.vscode-codeql",
+        "ms-azuretools.vscode-bicep",
+        "redhat.vscode-yaml",
+        "yzhang.markdown-all-in-one"
+      ],
+      "settings": {
+        "files.associations": {
+          "*.lock.yml": "github-actions-workflow"
+        }
+      }
+    }
+  }
+}
