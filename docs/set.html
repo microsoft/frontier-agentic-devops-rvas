@@ -13,8 +13,8 @@
       } catch (e) {}
     })();
   </script>
-  <title>Challenge Catalog — Agentic DevOps</title>
-  <meta name="description" content="Browse all 58 challenges across GHEC, GHAS, Agentic Workflows, and SRE Agent. Filter by module, difficulty, track, and tags." />
+  <title>Your Challenges — Agentic DevOps</title>
+  <meta name="description" content="A curated set of challenges prepared by your coach." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -35,8 +35,7 @@
       </a>
       <nav class="nav-links" aria-label="Primary">
         <a href="index.html">Home</a>
-        <a href="catalog.html" aria-current="page">Catalog</a>
-        <a href="builder.html">Build a set</a>
+        <a href="catalog.html">Catalog</a>
         <a href="module.html?m=ghec">GHEC</a>
         <a href="module.html?m=ghas">GHAS</a>
         <a href="module.html?m=ghaw">GHAW</a>
@@ -53,35 +52,13 @@
 
   <main id="mainContent">
 
-    <section class="catalog-hero" aria-labelledby="catalogHeading">
+    <section class="catalog-hero" aria-labelledby="setHeading">
       <div class="wrap">
-        <span class="eyebrow">Challenge catalog</span>
-        <h1 id="catalogHeading" style="margin-top:14px">All 57 challenges.</h1>
-        <p>Filter across all four modules. Every card is data-driven from <span class="mono">platform.json</span> — no hand-maintained lists.</p>
-        <p style="margin-top:18px"><a class="btn btn-primary btn-sm" href="builder.html">⊞ Build a custom set for your students →</a></p>
+        <span class="eyebrow">Curated set</span>
+        <h1 id="setHeading" style="margin-top:14px">Your challenges.</h1>
+        <p id="setIntro">A focused selection prepared for you. Work through them at your own pace.</p>
       </div>
     </section>
-
-    <div class="filters" role="search" aria-label="Filter challenges">
-      <div class="wrap filters-inner">
-        <div class="filter-group">
-          <span class="filter-label" id="moduleFilterLabel">Module</span>
-          <div id="moduleChips" role="group" aria-labelledby="moduleFilterLabel" style="display:contents"></div>
-        </div>
-        <div class="filter-group">
-          <span class="filter-label" id="diffFilterLabel">Level</span>
-          <div id="diffChips" role="group" aria-labelledby="diffFilterLabel" style="display:contents"></div>
-        </div>
-        <div class="filter-group" style="margin-left:auto;flex-wrap:nowrap">
-          <label class="search-box" for="searchInput">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
-            <input id="searchInput" type="search" placeholder="Search challenges…" autocomplete="off" />
-          </label>
-          <button class="chip" id="clearBtn" type="button">Clear</button>
-          <span class="result-count" id="count" aria-live="polite" aria-atomic="true">—</span>
-        </div>
-      </div>
-    </div>
 
     <section class="section-tight" aria-labelledby="gridLabel">
       <div class="wrap">
@@ -107,15 +84,12 @@
       <p>Content sourced from four Microsoft hackathon repositories under MIT license.</p>
       <nav class="footer-links" aria-label="Footer">
         <a href="index.html">Home</a>
-        <a href="module.html?m=ghec">GHEC</a>
-        <a href="module.html?m=ghas">GHAS</a>
-        <a href="module.html?m=ghaw">GHAW</a>
-        <a href="module.html?m=sre-agent">SRE Agent</a>
+        <a href="catalog.html">Catalog</a>
       </nav>
     </div>
   </footer>
 
   <script src="assets/js/core.js"></script>
-  <script src="assets/js/catalog.js"></script>
+  <script src="assets/js/set.js"></script>
 </body>
 </html>

@@ -82,6 +82,63 @@
     return new URLSearchParams(window.location.search).get(name);
   };
 
+  /* ─────────────────────── Kiosk / curated set ───────────────────── */
+  /* A coach-built set lives entirely in the URL. `set.html` uses ?ids=…,
+     challenge pages opened from a set carry ?set=… so the locked view
+     persists. When either is present, kiosk mode hides outbound navigation
+     and shows a small "Exit view" button. */
+
+  FP.kioskParams = function () {
+    const raw = FP.qp('ids') || FP.qp('set');
+    if (!raw) return null;
+    const ids = raw.split(',').map((s) => s.trim()).filter(Boolean);
+    if (!ids.length) return null;
+    return { ids, name: FP.qp('name') || '' };
+  };
+
+  FP.isKiosk = function () {
+    return !!FP.kioskParams();
+  };
+
+  /* URL of the curated set landing page */
+  FP.setUrl = function (ids, name) {
+    const q = new URLSearchParams();
+    q.set('ids', (ids || []).join(','));
+    if (name) q.set('name', name);
+    return 'set.html?' + q.toString();
+  };
+
+  /* Challenge URL that keeps the kiosk state attached */
+  FP.kioskChallengeUrl = function (id, params) {
+    const q = new URLSearchParams();
+    q.set('id', id);
+    q.set('set', (params.ids || []).join(','));
+    if (params.name) q.set('name', params.name);
+    return 'challenge.html?' + q.toString();
+  };
+
+  FP.applyKiosk = function () {
+    const params = FP.kioskParams();
+    if (!params) return null;
+    document.documentElement.setAttribute('data-kiosk', 'true');
+    if (document.body) document.body.setAttribute('data-kiosk', 'true');
+    _injectExitButton();
+    return params;
+  };
+
+  function _injectExitButton() {
+    if (document.getElementById('kioskExitBtn')) return;
+    const btn = document.createElement('a');
+    btn.id = 'kioskExitBtn';
+    btn.className = 'kiosk-exit';
+    btn.href = 'index.html';
+    btn.textContent = 'Exit view';
+    btn.setAttribute('aria-label', 'Exit curated view and return to the full site');
+    const actions = document.querySelector('.nav-actions');
+    if (actions) actions.insertBefore(btn, actions.firstChild);
+    else document.body.appendChild(btn);
+  }
+
   /* ─────────────────────────── Theme ────────────────────────────── */
   const THEME_KEY = 'fp-theme';
 
@@ -179,6 +236,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     FP.initTheme();
     FP.initNav();
+    FP.applyKiosk();
     FP.initReveal();
   });
 

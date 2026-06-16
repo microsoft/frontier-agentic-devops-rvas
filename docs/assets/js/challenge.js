@@ -2,9 +2,18 @@
 (function () {
   'use strict';
 
+  let _kiosk = null;
+
+  /* Internal challenge link that preserves kiosk state when active */
+  function cUrl(id) {
+    return _kiosk ? FP.kioskChallengeUrl(id, _kiosk) : FP.challengeUrl(id);
+  }
+
   async function init() {
     const challengeId = FP.qp('id');
     if (!challengeId) { showError('No challenge ID specified.'); return; }
+
+    _kiosk = FP.kioskParams();
 
     let data;
     try { data = await FP.loadData(); }
@@ -21,8 +30,19 @@
     renderHero(challenge, mod);
     renderFacts(challenge, mod, allChallenges);
     renderRelated(challenge, allChallenges);
+    applyKioskLinks();
     initViewSwitch(challenge);
     loadGuide('student', challenge);
+  }
+
+  /* In kiosk mode, point the sidebar "back" link at the curated set */
+  function applyKioskLinks() {
+    if (!_kiosk) return;
+    const back = document.querySelector('.facts-panel a[href="catalog.html"]');
+    if (back) {
+      back.setAttribute('href', FP.setUrl(_kiosk.ids, _kiosk.name));
+      back.textContent = '← Back to set';
+    }
   }
 
   function applyModuleColor(moduleId) {
@@ -82,7 +102,7 @@
           const prereq = allChallenges.find((x) => x.id === pid);
           return `<li class="prereq-item">
             ${prereq
-              ? `<a href="${FP.challengeUrl(pid)}" style="color:${FP.moduleColor(prereq.module)}">${FP.esc(prereq.title)}</a>`
+              ? `<a href="${cUrl(pid)}" style="color:${FP.moduleColor(prereq.module)}">${FP.esc(prereq.title)}</a>`
               : `<span class="mono">${FP.esc(pid)}</span>`}
           </li>`;
         }).join('');
@@ -154,8 +174,10 @@
     if (!relPanel || !relGrid) return;
 
     const myTags = new Set(c.tags || []);
+    const inSet = _kiosk ? new Set(_kiosk.ids) : null;
     const related = allChallenges
       .filter((x) => x.id !== c.id && (x.tags || []).some((t) => myTags.has(t)))
+      .filter((x) => !inSet || inSet.has(x.id))
       .sort((a, b) => {
         const aMatch = (a.tags || []).filter((t) => myTags.has(t)).length;
         const bMatch = (b.tags || []).filter((t) => myTags.has(t)).length;
@@ -168,7 +190,7 @@
     relGrid.innerHTML = related.map((r) => {
       const color = FP.moduleColor(r.module);
       return `
-        <a href="${FP.challengeUrl(r.id)}" class="related-item">
+        <a href="${cUrl(r.id)}" class="related-item">
           <span class="related-dot" style="background:${color}"></span>
           <span style="flex:1;min-width:0;font-size:0.8rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${FP.esc(r.title)}</span>
           <span class="badge badge-tag" style="color:${color};flex-shrink:0">${FP.esc(r.module)}</span>

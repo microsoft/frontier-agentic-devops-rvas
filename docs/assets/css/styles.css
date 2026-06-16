@@ -1217,3 +1217,140 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
 }
 .attribution a { color: var(--c-gold); }
 .attribution a:hover { text-decoration: underline; }
+
+/* ═══════════════════════ COACH SET BUILDER ═════════════════════════ */
+/* Selection card — same look as .ch-card but acts as a toggle button.   */
+.sel-card {
+  width: 100%;
+  text-align: left;
+  background: var(--c-800);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r);
+  padding: 18px 20px 16px 44px;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: transform 0.2s var(--ease), border-color 0.2s, box-shadow 0.2s;
+}
+.sel-card::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--mod-color, var(--c-gold));
+  border-radius: var(--r) 0 0 var(--r);
+}
+.sel-card:hover { transform: translateX(3px); box-shadow: var(--shadow-card); border-color: var(--mod-color, var(--c-line)); }
+.sel-card:focus-visible { outline: 2px solid var(--c-gold); outline-offset: 3px; }
+.sel-check {
+  position: absolute;
+  left: 16px; top: 18px;
+  width: 18px; height: 18px;
+  border-radius: 5px;
+  border: 1.5px solid var(--c-line);
+  background: var(--c-700);
+  display: grid;
+  place-items: center;
+  transition: background 0.15s, border-color 0.15s;
+}
+.sel-check svg { opacity: 0; transition: opacity 0.15s; }
+.sel-card[aria-pressed="true"] {
+  border-color: var(--mod-color, var(--c-gold));
+  background: color-mix(in srgb, var(--mod-color, var(--c-gold)) 7%, var(--c-800));
+}
+.sel-card[aria-pressed="true"] .sel-check {
+  background: var(--mod-color, var(--c-gold));
+  border-color: var(--mod-color, var(--c-gold));
+}
+.sel-card[aria-pressed="true"] .sel-check svg { opacity: 1; }
+
+/* Sticky selection tray */
+.set-tray {
+  position: sticky;
+  bottom: 0;
+  z-index: 50;
+  background: var(--c-850);
+  border-top: 1px solid var(--c-line);
+  backdrop-filter: blur(12px);
+  padding: 12px 0;
+}
+.set-tray-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.set-tray .set-name-box {
+  display: flex;
+  align-items: center;
+  background: var(--c-700);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-sm);
+  padding: 0 12px;
+  flex: 1;
+  min-width: 200px;
+  max-width: 360px;
+  transition: border-color 0.2s;
+}
+.set-tray .set-name-box:focus-within { border-color: var(--c-gold); }
+.set-tray .set-name-box input {
+  background: transparent; border: none; outline: none; width: 100%;
+  font-family: var(--font-body); font-size: 0.875rem; color: var(--c-fg);
+  padding: 9px 0;
+}
+.set-tray .set-name-box input::placeholder { color: var(--c-faint); }
+.set-count {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--c-dim);
+  white-space: nowrap;
+}
+.set-count strong { color: var(--c-gold); }
+.set-link-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 0 100%;
+  margin-top: 4px;
+}
+.set-link-row input {
+  flex: 1;
+  min-width: 0;
+  background: var(--c-700);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-sm);
+  padding: 9px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--c-fg);
+}
+.set-link-row[hidden] { display: none; }
+
+/* ═══════════════════════ KIOSK / CURATED VIEW ══════════════════════ */
+html[data-kiosk] .nav-links,
+html[data-kiosk] .footer-links,
+html[data-kiosk] .nav-toggle,
+html[data-kiosk] .breadcrumbs { display: none !important; }
+/* Brand stays visible for identity but is no longer an escape hatch */
+html[data-kiosk] .brand { pointer-events: none; cursor: default; }
+
+.kiosk-exit {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 6px 12px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--c-line);
+  background: transparent;
+  color: var(--c-dim);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.kiosk-exit:hover { color: var(--c-fg); background: var(--c-600); border-color: var(--c-dim); }
+.kiosk-exit:focus-visible { outline: 2px solid var(--c-gold); outline-offset: 2px; }

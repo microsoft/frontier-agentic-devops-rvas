@@ -13,8 +13,8 @@
       } catch (e) {}
     })();
   </script>
-  <title>Challenge Catalog — Agentic DevOps</title>
-  <meta name="description" content="Browse all 58 challenges across GHEC, GHAS, Agentic Workflows, and SRE Agent. Filter by module, difficulty, track, and tags." />
+  <title>Build a Custom Set — Agentic DevOps</title>
+  <meta name="description" content="Coaches: hand-pick challenges into a custom set and share a single link that opens a locked, student-ready view." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -35,8 +35,8 @@
       </a>
       <nav class="nav-links" aria-label="Primary">
         <a href="index.html">Home</a>
-        <a href="catalog.html" aria-current="page">Catalog</a>
-        <a href="builder.html">Build a set</a>
+        <a href="catalog.html">Catalog</a>
+        <a href="builder.html" aria-current="page">Build a set</a>
         <a href="module.html?m=ghec">GHEC</a>
         <a href="module.html?m=ghas">GHAS</a>
         <a href="module.html?m=ghaw">GHAW</a>
@@ -53,12 +53,11 @@
 
   <main id="mainContent">
 
-    <section class="catalog-hero" aria-labelledby="catalogHeading">
+    <section class="catalog-hero" aria-labelledby="builderHeading">
       <div class="wrap">
-        <span class="eyebrow">Challenge catalog</span>
-        <h1 id="catalogHeading" style="margin-top:14px">All 57 challenges.</h1>
-        <p>Filter across all four modules. Every card is data-driven from <span class="mono">platform.json</span> — no hand-maintained lists.</p>
-        <p style="margin-top:18px"><a class="btn btn-primary btn-sm" href="builder.html">⊞ Build a custom set for your students →</a></p>
+        <span class="eyebrow">Coach toolkit</span>
+        <h1 id="builderHeading" style="margin-top:14px">Build a custom set.</h1>
+        <p>Pick the challenges you want, name the set, and share one link. Students open a focused view with only your selection — the rest of the site stays out of the way.</p>
       </div>
     </section>
 
@@ -85,7 +84,7 @@
 
     <section class="section-tight" aria-labelledby="gridLabel">
       <div class="wrap">
-        <h2 class="sr-only" id="gridLabel">Challenge list</h2>
+        <h2 class="sr-only" id="gridLabel">Selectable challenges</h2>
         <div id="grid" role="list" aria-label="Challenges">
           <div class="empty" role="status">Loading challenges…</div>
         </div>
@@ -93,6 +92,22 @@
     </section>
 
   </main>
+
+  <div class="set-tray" aria-label="Your custom set">
+    <div class="wrap set-tray-inner">
+      <span class="set-count" id="setCount"><strong>0</strong> selected</span>
+      <label class="set-name-box" for="setName">
+        <input id="setName" type="text" placeholder="Name this set (e.g. Week 3 — Security Basics)" autocomplete="off" maxlength="80" />
+      </label>
+      <button class="btn btn-ghost btn-sm" id="deselectBtn" type="button">Deselect all</button>
+      <button class="btn btn-primary btn-sm" id="generateBtn" type="button" disabled>Generate link</button>
+      <div class="set-link-row" id="linkRow" hidden>
+        <input id="setLink" type="text" readonly aria-label="Shareable link" />
+        <button class="btn btn-ghost btn-sm" id="copyBtn" type="button">Copy</button>
+        <a class="btn btn-ghost btn-sm" id="openBtn" href="#" target="_blank" rel="noopener">Open</a>
+      </div>
+    </div>
+  </div>
 
   <footer class="footer" role="contentinfo">
     <div class="wrap footer-inner">
@@ -107,15 +122,12 @@
       <p>Content sourced from four Microsoft hackathon repositories under MIT license.</p>
       <nav class="footer-links" aria-label="Footer">
         <a href="index.html">Home</a>
-        <a href="module.html?m=ghec">GHEC</a>
-        <a href="module.html?m=ghas">GHAS</a>
-        <a href="module.html?m=ghaw">GHAW</a>
-        <a href="module.html?m=sre-agent">SRE Agent</a>
+        <a href="catalog.html">Catalog</a>
       </nav>
     </div>
   </footer>
 
   <script src="assets/js/core.js"></script>
-  <script src="assets/js/catalog.js"></script>
+  <script src="assets/js/builder.js"></script>
 </body>
 </html>
