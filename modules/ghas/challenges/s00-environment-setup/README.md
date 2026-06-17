@@ -5,7 +5,7 @@
 By the end of this challenge you will have:
 
 - A working development environment (GitHub Codespaces or local dev container)
-- OWASP Juice Shop running on port 3000
+- OWASP Juice Shop running on port 3000 (for manual exploit testing)
 - An authenticated `gh` CLI session
 - A personal working branch created and pushed to the shared org repo
 
@@ -85,9 +85,9 @@ git push -u origin participant/{your-github-handle}
 
 ---
 
-## Start Juice Shop
+## Start Juice Shop (Local Runtime)
 
-All GHAS challenges work against the OWASP Juice Shop application.
+All GHAS challenges work with OWASP Juice Shop for **manual exploit testing**. The actual GHAS alerts come from the shared org repository (see important note below).
 
 ```bash
 cd app && npm start
@@ -98,6 +98,16 @@ port-forwards it — click the **Ports** tab and open the forwarded URL. Locally
 `http://localhost:3000` in your browser.
 
 Confirm you see the Juice Shop storefront before moving on.
+
+---
+
+## Important: GHAS Alerts vs. Local Runtime
+
+**Your local Juice Shop instance** is for manual testing and learning the app — it has **no GHAS alerts**. 
+
+**GHAS alerts** (CodeQL, Dependabot, secret scanning) run on the **shared org repository** that your organizer maintains. All challenges reference alerts from that shared repo, not your local Juice Shop runtime.
+
+See [`modules/ghas/setup.md`](../../setup.md) for details on how these two environments work together.
 
 ---
 

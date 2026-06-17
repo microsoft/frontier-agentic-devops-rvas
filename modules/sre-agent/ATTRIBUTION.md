@@ -1,6 +1,6 @@
 # Attribution — Agentic DevOps & Azure SRE Module
 
-This module is derived from [microsoft/frontier-agentic-devops-hackathon](https://github.com/microsoft/frontier-agentic-devops-hackathon).
+This module is derived from [microsoft/frontier-agenticdevops-hackathon](https://github.com/microsoft/frontier-agenticdevops-hackathon).
 
 Original content © Microsoft Corporation, licensed under MIT.
 Ported to the unified frontier-ghplatform-hackathon curriculum on 2026-06-15.

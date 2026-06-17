@@ -6,7 +6,9 @@
     "build": "node docs/build.js",
     "audit": "node scripts/audit-content.js",
     "audit:external": "node scripts/audit-content.js --external",
-    "audit:content": "npm run build && node scripts/audit-content.js"
+    "audit:content": "npm run build && node scripts/audit-content.js",
+    "verify:repos": "node scripts/verify-external-repos.js",
+    "verify:repos:external": "node scripts/verify-external-repos.js --external"
   },
   "engines": {
     "node": ">=18"

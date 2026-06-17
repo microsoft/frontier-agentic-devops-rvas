@@ -76,6 +76,7 @@ CI runs the same build on every PR and fails the check if validation errors are 
 
 See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the `meta.yml` field contract and authoring guide.  
 See [`modules/README.md`](modules/README.md) for the module and directory layout.  
+See [`docs/EXTERNAL-REPOS.md`](docs/EXTERNAL-REPOS.md) for how external dependencies (Juice Shop, sample apps, third-party hackathons) are managed and pinned.  
 Use `modules/_TEMPLATE/challenge/` as your starting point for new challenges.
 
 ## Deploy

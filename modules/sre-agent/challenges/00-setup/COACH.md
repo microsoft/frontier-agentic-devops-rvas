@@ -29,7 +29,7 @@
 | `az login` device code doesn't open | Corp proxy / blocked browser | Use `az login --use-device-code`; copy URL manually |
 | `az account show` returns no subscription | Azure access not yet provisioned | Coach distributes the fallback deployment evidence packet |
 | `az account show` shows wrong subscription | Multiple subs on the account | Run `az account set --subscription "<name>"` |
-| `npm test` fails in `Resources/sample-app/` | `npm install` not run | Run `npm install` first, then `npm test` |
+| `npm test` fails in `modules/sre-agent/resources/sample-app/` | `npm install` not run | Run `npm install` first, then `npm test` |
 | `npm test` fails after install | Node version < 20 | Rebuild container; local: use `nvm use 22` |
 | Org repo not accessible | Not added to org | Coach adds participant to org team; or provides read-only clone for the session |
 
@@ -41,8 +41,8 @@ Before releasing the group to Challenge 01, confirm per participant (or pair):
 
 - [ ] `gh auth status` exits 0 and shows the correct username
 - [ ] `az account show` returns the correct subscription with `state: Enabled`
-- [ ] `gh repo view microsoft/frontier-agentic-devops-hackathon` succeeds
-- [ ] `cd Resources/sample-app && npm test` passes
+- [ ] `gh repo view microsoft/frontier-agenticdevops-hackathon` succeeds
+- [ ] `cd modules/sre-agent/resources/sample-app && npm test` passes
 - [ ] Repository is open and writable (or readable with a documented fallback)
 - [ ] Azure subscription confirmed or fallback evidence packet distributed
 

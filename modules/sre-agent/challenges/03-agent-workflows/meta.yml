@@ -25,7 +25,7 @@ app_dependency: contoso-app
 emu_compatible: true
 min_environment: org
 tier: core
-source_repo: microsoft/frontier-agentic-devops-hackathon
+source_repo: microsoft/frontier-agenticdevops-hackathon
 source_path: Student/Challenge-03-Agent-Workflows.md
 license: MIT
 references: []

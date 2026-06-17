@@ -20,7 +20,7 @@ By the end of this challenge you will have:
 
 ## Option A: GitHub Codespaces (Recommended)
 
-1. Open the repository at `https://github.com/microsoft/frontier-ghaw-hackathon`.
+1. Open the repository at `https://github.com/microsoft/frontier-ghaw-hackathon` (pinned, latest main).
 2. Click **Code → Codespaces → Create codespace on main**.
 3. Wait ~30 seconds for the dev container to build.
    The `postCreate.sh` script installs `gh-aw` automatically.

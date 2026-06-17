@@ -1,0 +1,228 @@
+{
+  "schema_version": 1,
+  "dependencies": [
+    {
+      "key": "juice-shop",
+      "name": "OWASP Juice Shop",
+      "description": "Intentionally vulnerable web application used by GHAS and GHEC security challenges.",
+      "type": "app_dependency",
+      "acquisition": "clone-or-fork-at-tag",
+      "source": {
+        "url": "https://github.com/juice-shop/juice-shop",
+        "tag": "v20.0.0",
+        "sha": "f356a09207c7a9550eb6fc4c3945e081922cf998"
+      },
+      "affected_challenge_ids": [
+        "ghas-s00",
+        "ghas-s01",
+        "ghas-s02",
+        "ghas-s03",
+        "ghas-s04",
+        "ghas-s05",
+        "ghas-s06",
+        "ghec-ch11",
+        "ghec-ch12",
+        "ghec-ch13",
+        "ghec-ch15"
+      ],
+      "attribution": "OWASP Juice Shop project; preserve upstream license and notices when acquired. Not vendored in this repository."
+    },
+    {
+      "key": "seed",
+      "name": "GHEC seed repository",
+      "description": "Participant seed repository used by GitHub Enterprise Cloud workflow and automation challenges.",
+      "type": "app_dependency",
+      "acquisition": "provision-from-source-materials",
+      "source": {
+        "url": "https://github.com/microsoft/frontier-ghec-hackathon",
+        "sha": "b65c8d6b4ef758f04b2c73fa5c4e74d3cb17bbe7"
+      },
+      "affected_challenge_ids": [
+        "ghec-ch01",
+        "ghec-ch02",
+        "ghec-ch03",
+        "ghec-ch04",
+        "ghec-ch05",
+        "ghec-ch06",
+        "ghec-ch07",
+        "ghec-ch08",
+        "ghec-ch16",
+        "ghec-ch17",
+        "ghec-ch18",
+        "ghec-ch19",
+        "ghec-ch20"
+      ],
+      "attribution": "Derived from Microsoft Frontier GHEC Hackathon source material at the documented commit."
+    },
+    {
+      "key": "contoso-claims",
+      "name": "Contoso Claims",
+      "description": "Initial Contoso Claims setup asset for the SRE Agent track.",
+      "type": "app_dependency",
+      "acquisition": "vendored-local",
+      "source": {
+        "url": "https://github.com/microsoft/frontier-agenticdevops-hackathon",
+        "sha": "08edbed4eee3ab185ebd5772bd1b48783ba83882"
+      },
+      "local_path": "modules/sre-agent/resources/sample-app",
+      "affected_challenge_ids": [
+        "sre-agent-00"
+      ],
+      "attribution": "Derived from Microsoft Frontier Agentic DevOps Hackathon source material and included in this repository as first-party curriculum resources."
+    },
+    {
+      "key": "contoso-app",
+      "name": "Contoso App",
+      "description": "Contoso application used by SRE Agent SDLC, deployment, agent workflow, and recovery challenges.",
+      "type": "app_dependency",
+      "acquisition": "vendored-local",
+      "source": {
+        "url": "https://github.com/microsoft/frontier-agenticdevops-hackathon",
+        "sha": "08edbed4eee3ab185ebd5772bd1b48783ba83882"
+      },
+      "local_path": "modules/sre-agent/resources/sample-app",
+      "affected_challenge_ids": [
+        "sre-agent-01",
+        "sre-agent-03",
+        "sre-agent-04",
+        "sre-agent-05",
+        "sre-agent-06"
+      ],
+      "attribution": "Derived from Microsoft Frontier Agentic DevOps Hackathon source material and included in this repository as first-party curriculum resources."
+    },
+    {
+      "key": "source-frontier-ghas-hackathon",
+      "name": "Frontier GHAS Hackathon source",
+      "description": "Source repository for the GitHub Advanced Security module content.",
+      "type": "source_repo",
+      "acquisition": "content-port-source",
+      "source": {
+        "url": "https://github.com/microsoft/frontier-ghas-hackathon",
+        "sha": "4abc7439f0cab329b659263845e20139fbbe5359"
+      },
+      "usage": {
+        "field": "source_repo",
+        "value": "microsoft/frontier-ghas-hackathon"
+      },
+      "affected_challenge_ids": [
+        "ghas-s00",
+        "ghas-s01",
+        "ghas-s02",
+        "ghas-s03",
+        "ghas-s04",
+        "ghas-s05",
+        "ghas-s06"
+      ],
+      "attribution": "Microsoft Frontier GHAS Hackathon source repository. Preserve upstream attribution and notices."
+    },
+    {
+      "key": "source-frontier-ghaw-hackathon",
+      "name": "Frontier GHAW Hackathon source",
+      "description": "Source repository for the GitHub Agentic Workflows module content.",
+      "type": "source_repo",
+      "acquisition": "content-port-source",
+      "source": {
+        "url": "https://github.com/microsoft/frontier-ghaw-hackathon",
+        "sha": "9f0957ed3be978b2143c7048f5396183ad189d6e"
+      },
+      "usage": {
+        "field": "source_repo",
+        "value": "microsoft/frontier-ghaw-hackathon"
+      },
+      "affected_challenge_ids": [
+        "ghaw-0-00",
+        "ghaw-1-01",
+        "ghaw-1-02",
+        "ghaw-1-03",
+        "ghaw-1-04",
+        "ghaw-2-01",
+        "ghaw-2-02",
+        "ghaw-2-03",
+        "ghaw-2-04",
+        "ghaw-2-05",
+        "ghaw-2-06",
+        "ghaw-3-01",
+        "ghaw-3-02",
+        "ghaw-3-03",
+        "ghaw-3-04",
+        "ghaw-3-05",
+        "ghaw-3-06",
+        "ghaw-4-01",
+        "ghaw-4-02",
+        "ghaw-4-03",
+        "ghaw-4-04",
+        "ghaw-4-05",
+        "ghaw-4-06",
+        "ghaw-4-07",
+        "ghaw-4-08"
+      ],
+      "attribution": "Microsoft Frontier GHAW Hackathon source repository. Preserve upstream attribution and notices."
+    },
+    {
+      "key": "source-frontier-agenticdevops-hackathon",
+      "name": "Frontier Agentic DevOps Hackathon source",
+      "description": "Canonical source repository for the SRE Agent module content.",
+      "type": "source_repo",
+      "acquisition": "content-port-source",
+      "source": {
+        "url": "https://github.com/microsoft/frontier-agenticdevops-hackathon",
+        "sha": "08edbed4eee3ab185ebd5772bd1b48783ba83882"
+      },
+      "usage": {
+        "field": "source_repo",
+        "value": "microsoft/frontier-agenticdevops-hackathon",
+        "aliases": [
+          "microsoft/frontier-agentic-devops-hackathon"
+        ]
+      },
+      "affected_challenge_ids": [
+        "sre-agent-00",
+        "sre-agent-01",
+        "sre-agent-03",
+        "sre-agent-04",
+        "sre-agent-05",
+        "sre-agent-06"
+      ],
+      "attribution": "Canonical source is microsoft/frontier-agenticdevops-hackathon at the documented commit. Alias retained for older metadata that used the hyphenated slug."
+    },
+    {
+      "key": "source-frontier-ghec-hackathon",
+      "name": "Frontier GHEC Hackathon source",
+      "description": "Source repository for the GitHub Enterprise Cloud module content.",
+      "type": "source_repo",
+      "acquisition": "content-port-source",
+      "source": {
+        "url": "https://github.com/microsoft/frontier-ghec-hackathon",
+        "sha": "b65c8d6b4ef758f04b2c73fa5c4e74d3cb17bbe7"
+      },
+      "usage": {
+        "field": "source_repo",
+        "value": "microsoft/frontier-ghec-hackathon"
+      },
+      "affected_challenge_ids": [
+        "ghec-ch00",
+        "ghec-ch01",
+        "ghec-ch02",
+        "ghec-ch03",
+        "ghec-ch04",
+        "ghec-ch05",
+        "ghec-ch06",
+        "ghec-ch07",
+        "ghec-ch08",
+        "ghec-ch09",
+        "ghec-ch10",
+        "ghec-ch11",
+        "ghec-ch12",
+        "ghec-ch13",
+        "ghec-ch14",
+        "ghec-ch15",
+        "ghec-ch16",
+        "ghec-ch17",
+        "ghec-ch18",
+        "ghec-ch19",
+        "ghec-ch20"
+      ],
+      "attribution": "Microsoft Frontier GHEC Hackathon source repository at the documented commit."
+    }
+  ]
+}

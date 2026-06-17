@@ -8,7 +8,7 @@
 | **Difficulty** | Intermediate *(per-track ramp)* |
 | **Duration** | ~5 hrs total, multi-session |
 | **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
-| **App** | juice-shop *(imported at pinned ref `v20.0.0`)* |
+| **App** | juice-shop *(imported at pinned ref `v20.0.0`; see `docs/EXTERNAL-REPOS.md`)* |
 | **EMU compatible** | yes |
 
 ## Prerequisites

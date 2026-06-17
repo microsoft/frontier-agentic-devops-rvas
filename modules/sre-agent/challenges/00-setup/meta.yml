@@ -19,8 +19,8 @@ description: >
 success_criteria:
   - "`gh auth status` exits 0 and shows your username"
   - "`az account show` returns your Azure subscription with Contributor role confirmed"
-  - "`gh repo view microsoft/frontier-agentic-devops-hackathon` returns repository metadata without error"
-  - "`cd Resources/sample-app && npm test` passes all baseline tests"
+  - "`gh repo view microsoft/frontier-agenticdevops-hackathon` returns repository metadata without error"
+  - "`cd modules/sre-agent/resources/sample-app && npm test` passes all baseline tests"
   - "The Codespaces or dev container environment is open, port 3000 forwarded, and the terminal is ready"
 tags:
   - setup
@@ -30,7 +30,7 @@ app_dependency: contoso-claims
 emu_compatible: true
 min_environment: org
 tier: setup
-source_repo: microsoft/frontier-agentic-devops-hackathon
+source_repo: microsoft/frontier-agenticdevops-hackathon
 source_path: Student/Challenge-00-Setup.md
 license: MIT
 references:

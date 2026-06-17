@@ -55,3 +55,5 @@ The directory name is used only for human navigation. The canonical identifier i
 ## Module Attributions
 
 Each module directory contains an `ATTRIBUTION.md` crediting its source repository. All source content is MIT licensed © Microsoft Corporation.
+
+For information on how external dependencies (Juice Shop, source hackathon repos, sample apps) are managed and pinned, see [`docs/EXTERNAL-REPOS.md`](../docs/EXTERNAL-REPOS.md).
