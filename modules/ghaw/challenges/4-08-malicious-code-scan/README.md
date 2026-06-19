@@ -10,7 +10,7 @@ Supply-chain attacks are subtle: malicious code appears as a normal dependency u
 
 This is your automated defence layer against code-injection campaigns, compromised contributors, and dependency poisoning. Sourced from `githubnext/agentics`.
 
-Source: `githubnext/agentics/workflows/daily-malicious-code-scan.md`
+Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://github.com/githubnext/agentics/blob/main/workflows/daily-malicious-code-scan.md)
 
 ## What It Does
 
@@ -21,7 +21,7 @@ Source: `githubnext/agentics/workflows/daily-malicious-code-scan.md`
 
 ## What You'll Do
 
-1. **Install gh aw** (if not already done):
+1. **Install [`gh aw`](https://github.com/github/gh-aw)** (if not already done):
    ```bash
    curl -sL https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh | bash
    ```
@@ -83,7 +83,7 @@ Source: `githubnext/agentics/workflows/daily-malicious-code-scan.md`
 → Constrain aggressively: _"Only flag code added by commits from outside the organisation (check author's membership). Internal contributors are pre-screened."_
 
 **"How is this different from CodeQL / SAST tools?"**
-→ Complementary, not competing. CodeQL knows ASTs and known CVE patterns. This agent reasons about intent, context, and novel patterns that rule-based tools miss. Run both.
+→ Complementary, not competing. [CodeQL code scanning](https://docs.github.com/en/code-security/code-scanning/introduction-to-code-scanning/about-code-scanning-with-codeql) knows ASTs and known CVE patterns. This agent reasons about intent, context, and novel patterns that rule-based tools miss. Run both.
 
 **"Should alerts auto-revert the commit?"**
 → Not in this challenge. Issue creation + human review is the right gate here. Auto-revert is a more advanced pattern with revert-commit safe-output — that's an extension.

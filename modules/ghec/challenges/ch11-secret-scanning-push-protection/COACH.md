@@ -68,6 +68,10 @@ gh issue list --repo $ORG/$REPO --search "triage summary" --json number,title
 - **Custom patterns unavailable.** The **Custom patterns** option only appears with **GitHub Secret Protection** enabled on the org — it is not part of the free public-repo feature set. Without it, Part D is awareness-only.
 - **Private-repo trap.** If someone re-creates the repo private without a license, scanning silently won't run. Keep it public.
 
+## Useful references for coaching
+
+- [About secret scanning](https://docs.github.com/en/code-security/secret-scanning/about-secret-scanning), [Configuring secret scanning for your repositories](https://docs.github.com/en/code-security/secret-scanning/enabling-secret-scanning-features/enabling-secret-scanning-for-your-repository).
+
 ## Teardown
 ```bash
 wth teardown ch11 --org <org> --yes        # wraps the scripts below

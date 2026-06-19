@@ -42,7 +42,7 @@ Cloud coding agent capabilities, autonomous issue assignment, GitHub Agentic Wor
 
 Use [GitHub Agentic Workflows Starter](../../resources/GitHub-Agentic-Workflows-Starter.md) for the required templates. If the GitHub Agentic Workflows extension is available, coaches may demonstrate the Quick Start pattern: install `github/gh-aw`, scaffold with the approved workflow path, configure only approved tokens or provider keys, and compile according to the current docs. Treat generated lock files as compiled artifacts and do not edit them by hand.
 
-Safe workflow specs should be read-first by default. Add write jobs only when permissions are scoped, outputs are safe, secrets are excluded from agent runtime, and a human checkpoint exists before consequential changes.
+Safe workflow specs should be read-first by default. Add write jobs only when [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) are scoped, outputs are safe, secrets are excluded from agent runtime, and a human checkpoint exists before consequential changes.
 
 ## Success Criteria
 
@@ -60,9 +60,9 @@ Safe workflow specs should be read-first by default. Add write jobs only when pe
 - Strong agent-ready issues include context, files or areas to inspect, acceptance criteria, validation commands, and boundaries.
 - Workflow descriptions are activation APIs. Be precise about when the workflow should run and what it may touch.
 - Prefer read-only analysis first. Add write jobs only when they are scoped and gated.
-- Do not approve a pull request because the summary sounds confident. Inspect the diff.
+- Do not approve a pull request because the summary sounds confident. Inspect the diff and use normal [pull request review](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews) discipline.
 - Watch for broad changes, deleted tests, hidden assumptions, and missing error handling.
-- Watch for prompt injection through dependencies, issue comments, logs, or generated files. Treat untrusted content as data, not instruction.
+- Watch for prompt injection through dependencies, issue comments, logs, or generated files. Treat untrusted content as data, not instruction, consistent with GitHub's [Actions security hardening](https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions) guidance.
 - A rejection is a successful outcome if it teaches the team how to write better issues.
 
 ## Coach Validation Checkpoints

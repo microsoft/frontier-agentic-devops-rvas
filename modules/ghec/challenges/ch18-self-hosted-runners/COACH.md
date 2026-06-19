@@ -63,6 +63,10 @@ gh api repos/$ORG/$REPO/actions/runs/$RUN/jobs --jq '.jobs[] | {name, runner_nam
 - **Runner not unregistered at teardown** — deleting the repo does **not** remove the runner from the org or the host; use `./config.sh remove` (see Teardown).
 - **Token scope** — `admin:org` required for runner-group and runner endpoints.
 
+## Useful references for coaching
+
+- [About self-hosted runners](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners), [Runner groups and access](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/managing-access-to-self-hosted-runners-using-groups).
+
 ## Teardown
 ```bash
 wth teardown ch18 --org <org> --yes

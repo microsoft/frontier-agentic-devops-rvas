@@ -67,6 +67,10 @@ gh api repos/$ORG/$REPO/environments/staging --jq '.protection_rules'
 - **`workflow` scope missing** — pushing `.github/workflows/*` via API 403s without it.
 - **Private repo metering** — long matrices burn minutes; keep to 3 legs.
 
+## Useful references for coaching
+
+- [Understanding GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions), [Workflow syntax for GitHub Actions](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions).
+
 ## Teardown
 ```bash
 wth teardown ch04 --org <org> --yes

@@ -61,6 +61,10 @@ gh api repos/$ORG/$REPO/contents/docs/merge-strategy.md --jq '.path'
 - **"Require linear history" + merge commits** are mutually exclusive — students who enable both get a confusing block. Mentioned as a stretch on purpose.
 - **Token scope** `read:org` is needed for team lookups; `repo` covers protection + PRs.
 
+## Useful references for coaching
+
+- [About pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests), [About code owners](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners).
+
 ## Teardown
 ```bash
 wth teardown ch02 --org <org> --yes

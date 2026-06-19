@@ -35,4 +35,8 @@ tier: stretch
 source_repo: microsoft/frontier-ghaw-hackathon
 source_path: _challenges/4-06-test-improver.md
 license: MIT
-references: []
+references:
+  - https://github.com/github/gh-aw
+  - https://github.com/githubnext/agentics/blob/main/workflows/daily-test-improver.md
+  - https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
+  - https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews

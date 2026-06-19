@@ -15,6 +15,9 @@ Use these follow-ups to steer the conversation:
 
 Policy-as-code: encoding security SLAs and vulnerability response procedures directly into a workflow. Participants learn to turn a compliance spreadsheet into an automated agent that tracks deadlines, classifies by severity, and escalates before anything slips. The key insight is that "security-as-code" is not just scanning — it's the full loop: detect, classify, track, alert.
 
+
+Official grounding: keep the workflow mechanics aligned with GitHub Actions syntax and token permissions, and keep vulnerability language aligned with GitHub's [Dependabot alerts](https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts) and [Advisory Database](https://docs.github.com/en/code-security/security-advisories/working-with-global-security-advisories-from-the-github-advisory-database/about-the-github-advisory-database) docs.
+
 ---
 
 ## Expected Solution Shape

@@ -76,6 +76,10 @@ gh api repos/$ORG/$REPO/branches/main/protection/required_status_checks --jq '.c
 - **`security_events` scope missing** → Dependabot alerts API 403. Fix: `gh auth refresh -s security_events`.
 - **Private repo** → dependency review needs a license. Keep the repo public.
 
+## Useful references for coaching
+
+- [About the dependency graph](https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph), [About Dependabot alerts](https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts).
+
 ## Teardown
 ```bash
 wth teardown ch13 --org <org> --yes        # wraps the scripts below

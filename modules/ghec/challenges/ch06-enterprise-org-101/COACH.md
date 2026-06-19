@@ -79,6 +79,10 @@ gh api /orgs/$ORG/outside_collaborators --jq '.[].login'
 - **Flipping 2FA requirement on a live org** and removing members. Keep it awareness-only unless they fully own membership.
 - **Assuming base `Read` overrides explicit grants.** It doesn't — the more permissive of base and team/collaborator grant applies.
 
+## Useful references for coaching
+
+- [About organizations](https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations), [Setting permissions for adding outside collaborators](https://docs.github.com/en/organizations/managing-organization-settings/setting-permissions-for-adding-outside-collaborators).
+
 ## Teardown
 ```bash
 wth teardown ch06 --org <org> --yes        # wraps the scripts below

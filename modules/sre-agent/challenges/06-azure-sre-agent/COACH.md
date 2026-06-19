@@ -17,7 +17,7 @@ Use these follow-ups to steer the conversation:
 
 ### Strong Evidence
 
-- Investigation starts from symptom, timestamp, deployment SHA, and affected flow.
+- Investigation starts from symptom, timestamp, deployment SHA, affected flow, and any available [Azure Monitor alert](https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-overview) context.
 - To-Do plan separates completed checks from open questions.
 - Likely cause references file, line, commit, or pull request evidence where available.
 - Remediation returns to GitHub as an issue or pull request.
@@ -27,7 +27,7 @@ Use these follow-ups to steer the conversation:
 ### Common Gaps
 
 - Team jumps directly to a fix without evidence.
-- Source-code references are treated as proof without validation.
+- Source-code references are treated as proof without validation against logs, metrics, or [Application Insights traces](https://learn.microsoft.com/en-us/azure/azure-monitor/app/distributed-trace-data).
 - Incident notes include sensitive information.
 - Remediation bypasses review because an agent suggested it.
 - The team cannot identify which missing context primitive would have improved the investigation.

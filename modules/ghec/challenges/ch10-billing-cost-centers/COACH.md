@@ -68,6 +68,10 @@ gh api /repos/$ORG/wth-ch10-cost-report/contents/COST-REPORT.md --jq '.path'
 - **Forgetting per-OS pricing** when explaining cost — minutes alone don't equal dollars; `pricePerUnit` differs by SKU.
 - **Generating too much usage.** The generator workflow is deliberately tiny; discourage looping it dozens of times.
 
+## Useful references for coaching
+
+- [Introduction to billing](https://docs.github.com/en/billing/get-started/introduction-to-billing), [Viewing your product usage](https://docs.github.com/en/billing/managing-billing-for-your-products/viewing-your-product-usage).
+
 ## Teardown
 ```bash
 wth teardown ch10 --org <org> --yes

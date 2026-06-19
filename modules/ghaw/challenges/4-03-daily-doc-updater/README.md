@@ -10,7 +10,7 @@ Code evolves. Docs don't — not unless someone makes them a first-class concern
 
 The production version in `githubnext/agentics` achieved a **96% merge rate** — 57 merged PRs out of 59 proposed. When the agent proposes a doc fix, maintainers almost always agree with it.
 
-Source: `githubnext/agentics/workflows/daily-doc-updater.md`
+Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.com/githubnext/agentics/blob/main/workflows/daily-doc-updater.md)
 
 ## What It Does
 
@@ -21,7 +21,7 @@ Source: `githubnext/agentics/workflows/daily-doc-updater.md`
 
 ## What You'll Do
 
-1. **Install gh aw** (if not already done):
+1. **Install [`gh aw`](https://github.com/github/gh-aw)** (if not already done):
    ```bash
    curl -sL https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh | bash
    ```
@@ -31,7 +31,7 @@ Source: `githubnext/agentics/workflows/daily-doc-updater.md`
    gh aw add-wizard https://github.com/githubnext/agentics/blob/main/workflows/daily-doc-updater.md
    ```
 
-3. **Read the cron expression** in the frontmatter — understand how `schedule: - cron: "0 9 * * *"` works and what time it fires in UTC.
+3. **Read the [scheduled workflow](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule) cron expression** in the frontmatter — understand how `schedule: - cron: "0 9 * * *"` works and what time it fires in UTC.
 
 4. **Customise** the docs scope and review depth for your repository.
 
@@ -71,7 +71,7 @@ Source: `githubnext/agentics/workflows/daily-doc-updater.md`
 <summary>💡 Hints</summary>
 
 **"How do I trigger a scheduled workflow manually for testing?"**
-→ Add `workflow_dispatch: {}` to your `on:` block. Then trigger it from the Actions tab with "Run workflow".
+→ Add `workflow_dispatch: {}` to your `on:` block. Then use GitHub's [manual workflow run](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow) flow from the Actions tab.
 
 **"The PR diff is too large / changes too many files"**
 → Constrain the body: _"Review only `docs/api.md`. Open a single PR per file. Each PR should change no more than 10 lines."_ Smaller PRs get merged faster.

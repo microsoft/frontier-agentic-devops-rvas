@@ -19,7 +19,7 @@ Use these follow-ups to steer the conversation:
 
 - Issue has context, constraints, acceptance criteria, and validation commands.
 - Workflow specs exist for issue triage, CI Doctor, and plan command, or at least two of the three.
-- Workflow specs include triggers, inputs, scoped permissions, denied actions, safe outputs, and human checkpoints.
+- Workflow specs include triggers, inputs, [scoped permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication), denied actions, safe outputs, and human checkpoints.
 - Pull request diff is inspected carefully.
 - Review feedback is specific.
 - Team decides merge, request changes, or reject based on evidence.
@@ -27,7 +27,7 @@ Use these follow-ups to steer the conversation:
 ### Common Gaps
 
 - Issue is too vague for asynchronous execution.
-- Team trusts the pull request summary without reading the diff.
+- Team trusts the pull request summary without doing a normal [pull request review](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews).
 - Tests are missing or removed.
 - Participants overgeneralize from a simulated artifact to a product guarantee.
 - Workflow specs allow broad writes, expose secrets, or treat untrusted issue comments/logs as instructions.

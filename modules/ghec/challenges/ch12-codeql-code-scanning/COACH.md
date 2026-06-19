@@ -71,6 +71,10 @@ gh api repos/$ORG/$REPO/branches/main/protection/required_status_checks --jq '.c
 - **Expecting instant alerts** — `security-extended` is slower; wait for the run to finish.
 - **Private repo without a license** → CodeQL won't run. Keep the repo public.
 
+## Useful references for coaching
+
+- [About code scanning](https://docs.github.com/en/code-security/code-scanning/introduction-to-code-scanning/about-code-scanning), [Configuring default setup for code scanning](https://docs.github.com/en/code-security/code-scanning/enabling-code-scanning/configuring-default-setup-for-code-scanning).
+
 ## Teardown
 ```bash
 wth teardown ch12 --org <org> --yes        # wraps the scripts below

@@ -18,8 +18,8 @@ Use these follow-ups to steer the conversation:
 ### Strong Evidence
 
 - Workflow stages are understandable.
-- Secrets are stored safely and not printed.
-- Environment controls or approvals are visible when available.
+- Secrets are stored safely and not printed; use GitHub's [Actions security hardening](https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions) language to coach this point.
+- [Environment controls or approvals](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment) are visible when available.
 - Deployment evidence includes commit SHA, run link, environment, endpoint, and warnings.
 - Gate map identifies tests, schemas, allowlists, permissions, environment approvals, and human checkpoints.
 

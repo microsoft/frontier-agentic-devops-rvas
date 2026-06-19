@@ -184,9 +184,13 @@ function linkCandidates(text) {
   while ((m = md.exec(text)) !== null) links.push({ href: m[1], index: m.index });
   const html = /\b(?:href|src)=["']([^"']+)["']/gi;
   while ((m = html.exec(text)) !== null) links.push({ href: m[1], index: m.index });
-  const raw = /https?:\/\/[^\s<>)"']+/g;
-  while ((m = raw.exec(text)) !== null) links.push({ href: m[0].replace(/[.,;:]+$/, ''), index: m.index });
+  const raw = /https?:\/\/[^\s<>\])"`'{}]+/g;
+  while ((m = raw.exec(text)) !== null) links.push({ href: trimUrlCandidate(m[0]), index: m.index });
   return links;
+}
+
+function trimUrlCandidate(href) {
+  return href.replace(/[.,;:]+$/, '');
 }
 
 function lineAt(text, index) {
@@ -440,11 +444,29 @@ async function auditExternalUrls() {
 
 function checkUrl(url) {
   return new Promise(resolve => {
-    const client = url.startsWith('https:') ? https : http;
-    const req = client.request(url, { method: 'HEAD', timeout: 8000 }, res => {
-      res.resume();
-      resolve({ ok: res.statusCode >= 200 && res.statusCode < 400, status: res.statusCode });
-    });
+    let parsed;
+    try {
+      parsed = new URL(url);
+    } catch {
+      resolve({ ok: false, error: 'invalid URL' });
+      return;
+    }
+    if (!['http:', 'https:'].includes(parsed.protocol)) {
+      resolve({ ok: false, error: `unsupported protocol ${parsed.protocol}` });
+      return;
+    }
+
+    const client = parsed.protocol === 'https:' ? https : http;
+    let req;
+    try {
+      req = client.request(parsed, { method: 'HEAD', timeout: 8000 }, res => {
+        res.resume();
+        resolve({ ok: res.statusCode >= 200 && res.statusCode < 400, status: res.statusCode });
+      });
+    } catch (err) {
+      resolve({ ok: false, error: err.code || err.message });
+      return;
+    }
     req.on('timeout', () => { req.destroy(); resolve({ ok: false, error: 'timeout' }); });
     req.on('error', err => resolve({ ok: false, error: err.code || err.message }));
     req.end();

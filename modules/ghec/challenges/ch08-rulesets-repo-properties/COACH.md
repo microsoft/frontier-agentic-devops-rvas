@@ -64,6 +64,10 @@ gh api /repos/$ORG/wth-ch08-prod-payments/rulesets --jq '.[] | {name, enforcemen
 - **Token missing `admin:org`.** Property schema and org ruleset writes 403. Fix: `gh auth refresh -s admin:org,repo,read:org`.
 - **Default property value not set**, so a future repo wouldn't inherit — remind them the "default for new repositories" toggle is what makes this scale.
 
+## Useful references for coaching
+
+- [About custom properties](https://docs.github.com/en/organizations/managing-organization-settings/managing-custom-properties-for-repositories-in-your-organization), [About rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets).
+
 ## Teardown
 ```bash
 wth teardown ch08 --org <org> --yes

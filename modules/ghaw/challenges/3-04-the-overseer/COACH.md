@@ -255,6 +255,10 @@ If all workflows are healthy, still create the issue with a "✅ All systems gre
 
 ---
 
+## Useful references for coaching
+
+- [Audit workflows example](https://github.com/github/gh-aw/blob/main/.github/workflows/audit-workflows.md), [max-effective-tokens guide](https://github.github.com/gh-aw/reference/frontmatter/#max-effective-tokens).
+
 ## Time Management
 
 | Phase | Time | What to Do |

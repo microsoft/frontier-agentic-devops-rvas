@@ -25,9 +25,9 @@ Use the agentic SDLC evidence you created earlier. The issue, pull request, depl
 
 Azure SRE Agent capabilities may vary by environment and availability. The curriculum uses the following source-aligned concepts:
 
-- microsoft/sre-agent is the community hub for Azure SRE Agent labs and resources.
+- [`microsoft/sre-agent`](https://github.com/microsoft/sre-agent) is the community hub for Azure SRE Agent labs and resources.
 - Azure SRE Agent can connect source code so investigations can analyze repositories, provide file and line references, create To-Do investigation plans, correlate production symptoms to code changes, and create pull requests in review or autonomous modes when source branches exist.
-- Azure/sre-agent-plugins contains official plugin examples and marketplace structure, with plugins under `plugins/` and marketplace registration in `.github/plugin/marketplace.json`.
+- [`Azure/sre-agent-plugins`](https://github.com/Azure/sre-agent-plugins) contains official plugin examples and marketplace structure, with plugins under [`plugins/`](https://github.com/Azure/sre-agent-plugins/tree/main/plugins) and marketplace registration in `.github/plugin/marketplace.json`.
 - If live access is not available, coaches provide a simulated incident packet and source-code evidence so teams can still practice the reasoning flow.
 
 ## Tasks
@@ -35,7 +35,7 @@ Azure SRE Agent capabilities may vary by environment and availability. The curri
 1. Review the incident packet: symptom, timestamp, affected endpoint or workflow, deployment evidence, and recent change history.
 2. If live Azure SRE Agent access is available, connect or confirm source-code context for the workshop repository according to coach instructions.
 3. Ask the agent or use the simulation packet to build a To-Do investigation plan.
-4. Inspect correlated evidence: deployment SHA, recent pull requests, relevant logs or metrics, and file/line references when available.
+4. Inspect correlated evidence: deployment SHA, recent pull requests, relevant logs or metrics such as [Azure Monitor alerts](https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-overview), and file/line references when available.
 5. Check whether your Challenge 03 instrumentation and Challenge 04 gate map gave the investigation useful context. If not, write down the missing primitive.
 6. Identify the most likely code cause and at least one alternative hypothesis.
 7. Create a GitHub issue that captures customer-safe incident summary, evidence, likely cause, validation plan, remediation owner, and human review gate.
@@ -55,7 +55,7 @@ Azure SRE Agent capabilities may vary by environment and availability. The curri
 
 ## Hints
 
-- Do not jump from symptom to fix. Write down the evidence chain.
+- Do not jump from symptom to fix. Write down the evidence chain; application telemetry such as [Application Insights distributed traces](https://learn.microsoft.com/en-us/azure/azure-monitor/app/distributed-trace-data) is evidence, not decoration.
 - A file/line reference is a lead, not proof. Validate it against logs, tests, and recent changes.
 - Keep incident notes customer-safe: avoid secrets, personal data, and unsupported claims.
 - If the agent creates a pull request, review it with the same rigor as Challenge 05.

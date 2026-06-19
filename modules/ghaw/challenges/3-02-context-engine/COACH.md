@@ -236,6 +236,10 @@ Example output:
 
 ---
 
+## Useful references for coaching
+
+- [Issue triage agent example](https://github.com/github/gh-aw/blob/main/.github/workflows/issue-triage-agent.md), [Safe outputs comments](https://github.github.com/gh-aw/reference/safe-outputs/#add-comment).
+
 ## Time Management
 
 | Phase | Time | What to Do |

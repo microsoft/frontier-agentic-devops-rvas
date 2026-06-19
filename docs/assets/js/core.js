@@ -232,6 +232,74 @@
     }
   };
 
+  FP.renderInlineMd = function (rawMd) {
+    if (rawMd == null || rawMd === '') return '';
+    if (!window.marked || typeof window.marked.parseInline !== 'function') return FP.esc(rawMd);
+
+    try {
+      return _sanitizeInlineHtml(window.marked.parseInline(String(rawMd), { breaks: false, gfm: true }));
+    } catch (e) {
+      return FP.esc(rawMd);
+    }
+  };
+
+  function _sanitizeInlineHtml(html) {
+    const template = document.createElement('template');
+    template.innerHTML = html;
+
+    const out = document.createElement('span');
+    Array.from(template.content.childNodes).forEach((node) => {
+      out.appendChild(_sanitizeInlineNode(node));
+    });
+    return out.innerHTML;
+  }
+
+  function _sanitizeInlineNode(node) {
+    if (node.nodeType === 3) return document.createTextNode(node.textContent || '');
+    if (node.nodeType !== 1) return document.createTextNode('');
+
+    const tag = node.tagName.toLowerCase();
+    if (!['a', 'strong', 'em', 'code', 'del', 'br'].includes(tag)) {
+      return _sanitizeInlineChildren(node);
+    }
+
+    if (tag === 'br') return document.createElement('br');
+
+    if (tag === 'a') {
+      const href = node.getAttribute('href') || '';
+      if (!_isSafeInlineHref(href)) return _sanitizeInlineChildren(node);
+
+      const a = document.createElement('a');
+      a.setAttribute('href', href);
+      const title = node.getAttribute('title');
+      if (title) a.setAttribute('title', title);
+      Array.from(node.childNodes).forEach((child) => a.appendChild(_sanitizeInlineNode(child)));
+      return a;
+    }
+
+    const el = document.createElement(tag);
+    Array.from(node.childNodes).forEach((child) => el.appendChild(_sanitizeInlineNode(child)));
+    return el;
+  }
+
+  function _sanitizeInlineChildren(node) {
+    const frag = document.createDocumentFragment();
+    Array.from(node.childNodes).forEach((child) => frag.appendChild(_sanitizeInlineNode(child)));
+    return frag;
+  }
+
+  function _isSafeInlineHref(href) {
+    const trimmed = String(href || '').trim();
+    if (!trimmed) return false;
+    if (/[\u0000-\u001F\u007F]/.test(trimmed)) return false;
+    if (!/^[a-z][a-z0-9+.-]*:/i.test(trimmed) && !trimmed.startsWith('//')) return true;
+    try {
+      return ['http:', 'https:', 'mailto:'].includes(new URL(trimmed, window.location.href).protocol);
+    } catch (e) {
+      return false;
+    }
+  }
+
   /* ─────────────────────────── Init ─────────────────────────────── */
   document.addEventListener('DOMContentLoaded', () => {
     FP.initTheme();

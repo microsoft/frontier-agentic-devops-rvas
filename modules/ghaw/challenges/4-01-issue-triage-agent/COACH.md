@@ -15,6 +15,9 @@ Use these follow-ups to steer the conversation:
 
 The fundamentals of production agentic workflows: event-driven triggering on `issues`, constrained tool access via `toolsets`, and safe-outputs that prevent unintended side effects. This is the pattern every other production workflow builds on — participants leave understanding why allowlists matter and how to prevent label hallucination.
 
+
+Official grounding: when students are unsure whether a frontmatter field or permission is valid, anchor them in the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions) and [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) docs before they tune the agent prompt.
+
 ---
 
 ## Expected Solution Shape

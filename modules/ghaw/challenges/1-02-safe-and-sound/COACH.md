@@ -167,6 +167,10 @@ Keep the logic clear and the issue body concise — just filename and count, no 
 
 ---
 
+## Useful references for coaching
+
+- [Safe Outputs Reference](https://github.github.com/gh-aw/reference/safe-outputs/), [Permissions Scoping](https://github.github.com/gh-aw/reference/permissions/).
+
 ## Time Management
 
 Suggest this breakdown:

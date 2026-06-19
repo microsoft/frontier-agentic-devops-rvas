@@ -19,8 +19,8 @@ Use these follow-ups to steer the conversation:
 
 - Issue includes user impact, acceptance criteria, and validation.
 - Issue includes boundaries, relevant files, non-goals, validation commands, and human checkpoints.
-- Pull request references the issue.
-- Review comments discuss risk or correctness.
+- Pull request references the issue using GitHub's [issue-linking behavior](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue).
+- [Pull request review](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews) comments discuss risk or correctness.
 - A check, test, or manual validation result is visible.
 
 ### Common Gaps

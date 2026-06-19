@@ -57,3 +57,8 @@ If a participant cannot reach the full environment, apply the smallest unblock:
    - Coach provides a **pre-scanned results packet**: export of CodeQL SARIF results + Dependabot alert JSON + secret scanning summary so participants can proceed with the analysis tasks even without a running app.
    - For fixes: participants write and submit PRs; CodeQL runs on the PR branch in GitHub Actions and validates the fix without needing a local running instance.
 4. **GitHub Actions / CodeQL not running:** Coach triggers a manual workflow run (`gh workflow run codeql.yml`) or shares pre-generated SARIF results for the alert-reading portion.
+
+## Useful references for coaching
+
+- [Codespaces quickstart](https://docs.github.com/en/codespaces/getting-started/quickstart), [GitHub CLI manual](https://cli.github.com/manual/).
+

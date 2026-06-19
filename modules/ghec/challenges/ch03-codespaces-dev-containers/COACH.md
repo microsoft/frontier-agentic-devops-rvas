@@ -62,6 +62,10 @@ gh api repos/$ORG/$REPO/contents/docs/devcontainer-notes.md --jq '.path'
 - **Leftover Codespaces** keep billing. Verify `gh codespace list` is empty at teardown.
 - **Token missing `codespace`/`admin:org`** — policy and codespace API calls 403.
 
+## Useful references for coaching
+
+- [Introduction to dev containers](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers), [devcontainer.json reference](https://containers.dev/implementors/json_reference/).
+
 ## Teardown
 ```bash
 wth teardown ch03 --org <org> --yes

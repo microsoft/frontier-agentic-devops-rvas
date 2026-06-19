@@ -15,6 +15,9 @@ Use these follow-ups to steer the conversation:
 
 The consumer side of the causal chain pattern — a workflow that translates analysis (issues from Testify) into implementation (PRs with new tests). Participants learn incremental, focused automation: one PR per file, one concern per PR, human review before merge. They also practice framework-specific prompt engineering.
 
+
+Official grounding: when students are unsure whether a frontmatter field or permission is valid, anchor them in the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions) and [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) docs before they tune the agent prompt.
+
 ---
 
 ## Expected Solution Shape

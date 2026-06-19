@@ -70,3 +70,8 @@ If a participant cannot reach the environment, apply the smallest unblock:
    - Incident packet (pre-generated Azure SRE Agent investigation notes and alert JSON)
    - Participant drives decisions and reviews without direct Azure console access.
 4. **All paths blocked:** Coach screen-shares org-owner session for Challenge 00 while participant drives decisions. Unblock access asynchronously and re-run environment setup before Challenge 04 (Azure deploy).
+
+## Useful references for coaching
+
+- [Codespaces quickstart](https://docs.github.com/en/codespaces/getting-started/quickstart), [Azure CLI install guide](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli).
+

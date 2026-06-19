@@ -10,7 +10,7 @@ Most workflows are generalists. Daily Testify is a specialist: a workflow with d
 
 In `github/gh-aw`, this pattern produced 19 issues, 13 of which led to merged PRs — a **100% causal chain merge rate**. Every issue that got acted on resulted in merged code. This is the *producer* half of a causal chain: it creates the issues; the Test Improver (4-06) acts on them.
 
-Source: `github/gh-aw/.github/workflows/daily-testify-uber-super-expert.md`
+Source: [`github/gh-aw/.github/workflows/daily-testify-uber-super-expert.md`](https://github.com/github/gh-aw/blob/main/.github/workflows/daily-testify-uber-super-expert.md)
 
 ## What It Does
 
@@ -21,7 +21,7 @@ Source: `github/gh-aw/.github/workflows/daily-testify-uber-super-expert.md`
 
 ## What You'll Do
 
-1. **Install gh aw** (if not already done):
+1. **Install [`gh aw`](https://github.com/github/gh-aw)** (if not already done):
    ```bash
    curl -sL https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh | bash
    ```

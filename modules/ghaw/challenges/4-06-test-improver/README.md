@@ -10,7 +10,7 @@ The Test Improver is the *consumer* half of the causal chain that begins with Da
 
 Run together, the pair operates as an autonomous testing pipeline: analyst identifies gaps, implementer fills them, PRs land for human review. The pattern comes from `githubnext/agentics` and pairs naturally with the issues created by Challenge 4-05.
 
-Source: `githubnext/agentics/workflows/daily-test-improver.md`
+Source: [`githubnext/agentics/workflows/daily-test-improver.md`](https://github.com/githubnext/agentics/blob/main/workflows/daily-test-improver.md)
 
 ## What It Does
 
@@ -21,7 +21,7 @@ Source: `githubnext/agentics/workflows/daily-test-improver.md`
 
 ## What You'll Do
 
-1. **Install gh aw** (if not already done):
+1. **Install [`gh aw`](https://github.com/github/gh-aw)** (if not already done):
    ```bash
    curl -sL https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh | bash
    ```

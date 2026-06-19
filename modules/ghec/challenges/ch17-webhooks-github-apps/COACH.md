@@ -65,6 +65,10 @@ gh api repos/$ORG/$REPO/issues/comments --jq '.[] | {user: .user.login, type: .u
 - **Token scope** — `admin:org_hook` needed for org webhooks; org-owner needed to install the App.
 - **Leftover org hook / temp repo** — remind students to delete the `wth-ch17-temp` repo from Part D.
 
+## Useful references for coaching
+
+- [smee.io](https://smee.io), [About webhooks](https://docs.github.com/en/webhooks/about-webhooks).
+
 ## Teardown
 ```bash
 wth teardown ch17 --org <org> --yes

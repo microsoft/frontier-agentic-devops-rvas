@@ -20,7 +20,7 @@ Use these follow-ups to steer the conversation:
 - Work is split into small issues or checklist items.
 - Instructions, agent persona, reusable prompt or skill, and memory/decision note exist as durable artifacts.
 - Owners and validation expectations are visible.
-- Agent-generated summary or plan is attached to the workflow.
+- Agent-generated summary or plan is attached to a durable GitHub artifact such as an [issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues) or pull request.
 - Review feedback changes the work or creates a follow-up.
 
 ### Common Gaps
@@ -30,7 +30,7 @@ Use these follow-ups to steer the conversation:
 - Work decomposition is too broad to review.
 - Handoff note omits risks and deployment readiness.
 - Teams create a large prompt instead of small primitives.
-- Teams cannot explain whether a primitive resolved, materialized, bound, or activated.
+- Teams cannot explain whether a primitive resolved, materialized, bound, or activated, or whether a workflow artifact follows the [Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions).
 
 ### Coach Hint
 

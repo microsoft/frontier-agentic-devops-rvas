@@ -15,6 +15,9 @@ Use these follow-ups to steer the conversation:
 
 The difference between correctness (what Doc Updater fixes) and quality (what Unbloat improves). Participants learn to write specificity into simplification prompts — "be concise" produces garbage, "remove sentences starting with 'Note that'" produces precise diffs. They also practice PR discipline: one file, one concern, reviewable in under 60 seconds.
 
+
+Official grounding: when students are unsure whether a frontmatter field or permission is valid, anchor them in the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions) and [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) docs before they tune the agent prompt.
+
 ---
 
 ## Expected Solution Shape

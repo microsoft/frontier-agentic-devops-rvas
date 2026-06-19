@@ -126,7 +126,7 @@
     const criteriaList = document.getElementById('criteriaList');
     if (criteriaList) {
       criteriaList.innerHTML = (c.success_criteria || [])
-        .map((s) => `<li class="criteria-item">${FP.esc(s)}</li>`)
+        .map((s) => `<li class="criteria-item"><span>${FP.renderInlineMd(s)}</span></li>`)
         .join('') || '<li class="cap-item">See the challenge guide.</li>';
     }
 

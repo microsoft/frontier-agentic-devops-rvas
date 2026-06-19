@@ -15,6 +15,9 @@ Use these follow-ups to steer the conversation:
 
 The `workflow_run` trigger — one of the most powerful and least-understood triggers in GitHub Actions. Participants learn how to react to another workflow's outcome (not just code events), how to access run logs programmatically, and how to structure a diagnostic issue that's actually useful to a maintainer.
 
+
+Official grounding: when students are unsure whether a frontmatter field or permission is valid, anchor them in the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions) and [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) docs before they tune the agent prompt.
+
 ---
 
 ## Expected Solution Shape

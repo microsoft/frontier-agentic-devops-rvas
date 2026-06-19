@@ -280,6 +280,10 @@ Keep the body to 5-10 sentences. Use bullet points for readability.
 
 ---
 
+## Useful references for coaching
+
+- [repo-memory Reference](https://github.github.com/gh-aw/reference/repo-memory/), [Metrics Collector Example](https://github.com/github/gh-aw/blob/main/.github/workflows/metrics-collector.md).
+
 ## Time Management
 
 Suggest this breakdown:

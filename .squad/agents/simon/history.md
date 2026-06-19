@@ -12,6 +12,10 @@
 
 ## Learnings
 
+### 2026-06-19 — External URL audit hardening
+
+`npm run audit:external` must treat raw URL extraction as untrusted input. Markdown examples can produce malformed raw candidates such as localhost URLs with trailing Markdown delimiters; the auditor should trim/exclude those delimiters and guard `new URL()`/HTTP request creation so bad candidates become warnings, not crashes.
+
 ### 2026-06-15 — Phase 3 QA (58 challenges, 4 modules)
 
 **Build:** `node docs/build.js` exits 0, deterministic. Outputs: `platform.json` (4 modules, 58 challenges), `dependency-graph.json` (58 nodes, 33 edges), guide copies under `docs/assets/data/challenges/`.
@@ -60,3 +64,7 @@
 ---
 
 ### 2026-06-15 — Environment Setup QA: Full verification of setup challenges across all 4 modules (Mal template + Zoe implementations + doc updates). Found 1 defect (sre-agent-01 independence rule), routed to Coordinator. Final verdict: ship-ready (59 challenges, 4 tier:setup, all first-real-challenges prereqs:[]).
+
+### 2026-06-19 — External audit robustness improvements
+
+Fixed scripts/audit-content.js to handle untrusted URL extraction gracefully. Malformed URL candidates from Markdown examples (e.g. localhost URLs with trailing delimiters) are now trimmed and excluded safely; invalid URL/request construction generates warnings instead of crashes. npm run audit:content and npm run audit:external both pass successfully with warnings only. This ensures audit determinism across all content including edge cases like code examples and inline references.

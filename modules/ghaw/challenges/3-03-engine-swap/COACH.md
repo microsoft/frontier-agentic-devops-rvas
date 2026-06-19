@@ -418,6 +418,10 @@ Now categorize the current issue and apply the matching label.
 
 ---
 
+## Useful references for coaching
+
+- [Supported engines](https://github.github.com/gh-aw/reference/engines/).
+
 ## Time Management
 
 | Phase | Time | What to Do |

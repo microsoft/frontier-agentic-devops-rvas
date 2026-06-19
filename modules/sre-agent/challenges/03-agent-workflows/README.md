@@ -25,7 +25,7 @@ Your mission is to introduce an agentic workflow pattern that keeps intent, owne
 1. Select a request that is too large for one pull request.
 2. Decompose it into issues or checklist items with owners and validation expectations.
 3. Create or update starter instrumentation using [Agentic SDLC Starter Kit](../../resources/Agentic-SDLC-Starter-Kit.md): instructions, one agent persona, one reusable prompt or skill, and one memory or decision note.
-4. Use Copilot or an agent workflow to draft a plan, summarize a pull request, or respond to review feedback.
+4. Use Copilot or an agent workflow to draft a plan, summarize a pull request, or respond to [review feedback](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews).
 5. Assign a human owner for each decision and merge gate.
 6. Update the pull request or issue thread with what changed because of review feedback.
 7. If an instruction, persona, prompt, or memory note seems ignored, debug it with Resolve, Materialize, Bind, Activate.
@@ -45,9 +45,9 @@ Your mission is to introduce an agentic workflow pattern that keeps intent, owne
 ## Hints
 
 - Agents are most useful when the issue is specific, scoped, and has clear acceptance criteria.
-- Preserve context in GitHub artifacts instead of private chat whenever possible.
+- Preserve context in GitHub artifacts such as [issues](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues) and pull requests instead of private chat whenever possible.
 - Ask for summaries after work has happened, but verify those summaries against files and checks.
-- Markdown that steers agents is code. Keep it small, reviewed, and specific.
+- Markdown that steers agents is code. Keep it small, reviewed, and specific; if you turn it into a workflow, validate it against [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions).
 - One agent is enough for small work. Use writer/reviewer/tester or audit/execute/validate patterns only when the work needs separation.
 - If the workflow feels too heavy, remove ceremony before removing review evidence.
 

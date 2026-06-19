@@ -352,6 +352,10 @@ Copilot will take it from here.
 
 ---
 
+## Useful references for coaching
+
+- [repo-memory](https://github.github.com/gh-aw/reference/repo-memory/), [assign-to-agent](https://github.github.com/gh-aw/reference/safe-outputs/#assign-to-agent).
+
 ## Time Management
 
 This is ambitious for 30 min. Here's a suggested flow:

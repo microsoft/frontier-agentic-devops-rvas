@@ -10,7 +10,7 @@ Security vulnerabilities don't respect your sprint schedule. They land in your d
 
 This is security-as-code — your SLAs, escalation logic, and severity thresholds live in the workflow file alongside your other infrastructure.
 
-Source: `github/gh-aw/.github/workflows/security-compliance.md`
+Source: [`github/gh-aw/.github/workflows/security-compliance.md`](https://github.com/github/gh-aw/blob/main/.github/workflows/security-compliance.md)
 
 ## What It Does
 
@@ -22,7 +22,7 @@ Source: `github/gh-aw/.github/workflows/security-compliance.md`
 
 ## What You'll Do
 
-1. **Install gh aw** (if not already done):
+1. **Install [`gh aw`](https://github.com/github/gh-aw)** (if not already done):
    ```bash
    curl -sL https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh | bash
    ```
@@ -41,7 +41,7 @@ Source: `github/gh-aw/.github/workflows/security-compliance.md`
    gh aw compile .github/workflows/security-compliance.md
    ```
 
-6. **Enable Dependabot alerts** on your repo (Settings > Security > Dependabot alerts) if not already enabled — give the workflow something to find.
+6. **Enable [Dependabot alerts](https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts)** on your repo (Settings > Security > Dependabot alerts) if not already enabled — give the workflow something to find.
 
 7. **Manually trigger** and check if it surfaces any alerts.
 
@@ -78,7 +78,7 @@ Source: `github/gh-aw/.github/workflows/security-compliance.md`
 → Replace `create-issue` with `add-comment` and add issue-lookup logic in the body: _"If an open issue already exists for this CVE, add a comment with the updated deadline. Only open a new issue if none exists."_
 
 **"What's the difference between a Dependabot alert and a GHSA advisory?"**
-→ Dependabot alerts are per-repo (your dependencies). GHSA is the global advisory database. The agent can work with both — scope it to whichever is relevant.
+→ Dependabot alerts are per-repo (your dependencies). The [GitHub Advisory Database](https://docs.github.com/en/code-security/security-advisories/working-with-global-security-advisories-from-the-github-advisory-database/about-the-github-advisory-database) is global. The agent can work with both — scope it to whichever is relevant.
 
 **"Should this workflow also open PRs to fix vulnerabilities?"**
 → That's an extension. For this challenge, start with issue-creation-only (signal before action). Combine with Dependabot auto-merge or a separate fix workflow for the full automation.

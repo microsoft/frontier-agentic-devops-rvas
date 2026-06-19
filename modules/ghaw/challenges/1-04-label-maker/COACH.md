@@ -153,6 +153,10 @@ Explain your reasoning in a comment on the issue summarizing why you applied (or
 
 ---
 
+## Useful references for coaching
+
+- [Peli's Agent Factory Part 7: Issue & PR Management](https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-issue-management/), [Issues Event Trigger](https://github.github.com/gh-aw/reference/triggers/#issues).
+
 ## Time Management
 
 Suggest this breakdown:

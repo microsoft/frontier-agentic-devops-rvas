@@ -146,6 +146,10 @@ Keep the comment brief and friendly — it's for the committer to see inline.
 
 ---
 
+## Useful references for coaching
+
+- [Peli's Agent Factory Part 2: Continuous Simplicity](https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-continuous-simplicity/), [Push Event Trigger](https://github.github.com/gh-aw/reference/triggers/#push).
+
 ## Time Management
 
 Suggest this breakdown:

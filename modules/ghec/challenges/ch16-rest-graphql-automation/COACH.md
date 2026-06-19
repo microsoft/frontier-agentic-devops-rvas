@@ -67,6 +67,10 @@ gh api rate_limit --jq '.resources.core, .resources.graphql'
 - **No back-off** — hammering the API trips the **secondary** rate limit (a `403` with `Retry-After`), which `rate_limit` core counters won't show. Honor `Retry-After`.
 - **Token scope** — missing `project` blocks Projects v2 mutations even when REST issue calls work.
 
+## Useful references for coaching
+
+- [About the REST API](https://docs.github.com/en/rest/about-the-rest-api/about-the-rest-api), [Using pagination in the REST API](https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api).
+
 ## Teardown
 ```bash
 wth teardown ch16 --org <org> --yes

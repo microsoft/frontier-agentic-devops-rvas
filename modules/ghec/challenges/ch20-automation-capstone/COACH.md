@@ -74,6 +74,10 @@ gh api repos/$ORG/$REPO/actions/secrets --jq '.secrets[].name'   # expect App ID
 - **Treating it as five mini-exercises** — the capstone is the **end-to-end loop**; partial parts that never connect don't earn the integration rows.
 - **Token scope** — `repo` + `admin:org_hook` + App-creation rights.
 
+## Useful references for coaching
+
+- [REST API quickstart](https://docs.github.com/en/rest/quickstart), [GraphQL API — forming calls](https://docs.github.com/en/graphql/guides/forming-calls-with-graphql).
+
 ## Teardown
 ```bash
 wth teardown ch20 --org <org> --yes

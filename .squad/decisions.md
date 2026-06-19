@@ -450,3 +450,148 @@ Typography adjustments:
 **Verification:** `npm run build`; generated resource-link validation confirmed all `resources/...` targets exist and no known bad resource URL forms remain.
 
 **Owner:** Zoe
+
+### frontier-ghplatform-hackathon: Homepage Environment-Setup Section (2026-06-15)
+
+**Date:** 2026-06-15  
+**Author:** Kaylee (Frontend / Site Engineer)
+
+**Status:** ✅ Implemented
+
+**Summary:** Added a static `#setup` section to `docs/index.html` (just above `</main>`, after the "featured" section) containing four `ch-card` anchor links — one per module — pointing to the four `tier: setup` challenges.
+
+**Implementation notes:**
+- Uses existing `.ch-card`, `.challenge-grid`, `.section-tight`, `.shead`, `.eyebrow`, `.badge` classes — no new CSS added.
+- Module colors applied via inline `style="--mod-color:var(--c-{token})"` since `sre-agent` has no `.mod-sre-agent` CSS class (its token is `--c-agentic`).
+- All four links are real `<a>` anchors with correct `href="challenge.html?id=..."` values.
+- `docs/index.html` is hand-authored; no build step needed.
+
+**Stable IDs used:**
+| Module | Challenge ID | href |
+|--------|-------------|------|
+| GHEC | ghec-ch00 | challenge.html?id=ghec-ch00 |
+| GHAS | ghas-s00 | challenge.html?id=ghas-s00 |
+| GHAW | ghaw-0-00 | challenge.html?id=ghaw-0-00 |
+| SRE Agent | sre-agent-00 | challenge.html?id=sre-agent-00 |
+
+---
+
+### frontier-ghplatform-hackathon: Render Success Criteria Inline Markdown (2026-06-19)
+
+**Date:** 2026-06-19  
+**Author:** Kaylee (Frontend / Site Engineer)
+
+**Status:** ✅ Implemented
+
+**Summary:** Render Markdown only for challenge success criteria in the sidebar, using a focused `FP.renderInlineMd()` helper.
+
+**Rationale:** Success criteria content is authored with simple inline Markdown and was visibly leaking syntax. Prerequisite capabilities stay plain escaped text because they are capability labels, not rich prose, and broadening Markdown rendering there would be unnecessary behavior change.
+
+**Safety posture:** The helper uses `marked.parseInline()` when present, then sanitizes output to a small inline allowlist and safe link protocols; fallback remains `FP.esc()`.
+
+---
+
+### frontier-ghplatform-hackathon: Inventory Reconciliation — 59 vs 60 Challenges (2026-06-16)
+
+**Date:** 2026-06-16  
+**Author:** Mal (Lead / Architect)
+
+**Status:** ✅ Adopted
+
+**Summary:** Repository correctly builds **59 challenges**, not 60. The apparent missing challenge is the SRE Agent sequence gap at `02`. That gap traces to the approved removal of `agentic-devops-02` ("Build with GitHub Copilot") before the module rename to `sre-agent`; it would otherwise have become `sre-agent-02`.
+
+**Module counts:**
+| Module | Count |
+|---|---:|
+| GHEC | 21 |
+| GHAS | 7 |
+| GHAW | 25 |
+| SRE Agent | 6 |
+
+**Decision:** Do **not** restore or recreate `sre-agent-02` as part of reconciliation. The gap is intentional unless Marco explicitly reverses the prior removal decision. Preserve challenge independence:
+- `sre-agent-01` remains independently runnable with `prerequisites: []`.
+- `sre-agent-03` depends only on `sre-agent-01`.
+- No replacement challenge should be invented only to satisfy a numeric sequence.
+
+**Documentation cleanup applied:**
+- `modules/README.md`: updated stale module counts to GHEC 21, GHAS 7, GHAW 25, SRE Agent 6.
+- `README.md`: updated the GHAW track list to match the build contract.
+- `CONTRIBUTING.md`: updated track slugs/names to match `docs/build.js` and `platform.json`.
+
+---
+
+### frontier-ghplatform-hackathon: External Audit Robustness (2026-06-19)
+
+**Date:** 2026-06-19  
+**Author:** Simon (QA / Build Engineer)
+
+**Status:** ✅ Implemented
+
+**Summary:** Treat externally audited URL strings as untrusted extraction candidates. Raw Markdown URL extraction should avoid common Markdown delimiters, and the external checker must catch invalid URL/request construction so malformed candidates generate warnings at most and never crash the audit.
+
+**Rationale:** Content can legitimately include localhost examples and inline Markdown forms that expose raw URL-looking substrings. The QA gate should report bad links without blocking on a tooling crash, preserving deterministic audit behavior.
+
+---
+
+### frontier-ghplatform-hackathon: GHEC Ch05 Documentation — Inline Link Strategy (2026-06-19)
+
+**Date:** 2026-06-19  
+**Author:** Zoe (Content/Curriculum Engineer)
+
+**Status:** ✅ Complete
+
+**Scope:** GHEC Challenge 5 (Advanced PR Automation & Rulesets)
+
+**Rationale:** Student-facing challenge documentation should embed official references **contextually near the task they support**, not in a static reference dump at the end. This approach:
+- **Reduces cognitive load:** Students see the link at the moment they need it, not later.
+- **Improves retention:** Context + reference together = better learning.
+- **Supports scanning:** Inline links signal "this concept has official backing."
+
+**Decision:**
+1. **README.md (student guide):** Embedded verified docs.github.com links in 6 task sections (Parts A–F)
+   - Part A: Link to "Creating rulesets for a repository" 
+   - Part B: Link to "About code owners"
+   - Part C: Link to "Automatically merging a pull request"
+   - Part D: Link to "Creating a pull request template"
+   - Part E: Links to `actions/labeler` and `actions/stale` official repos
+   - Part F: Link to "Managing rulesets for organizations"
+
+2. **COACH.md (facilitation guide):** Added just-in-time references in facilitation notes and common pitfalls sections
+
+3. **meta.yml (metadata):** Updated `references` list from 7 to 11 items with verified official sources
+
+4. **README.md "Reference links" section:** Consolidated to avoid redundancy, with CLI manual links only
+
+**URL Verification Strategy:**
+- Searched docs.github.com for official Rulesets, Auto-Merge, CODEOWNERS, PR Templates, Merge Queue docs
+- Confirmed GitHub Actions org repository URLs (actions/labeler, actions/stale)
+- Verified cli.github.com/manual paths (gh_pr_merge, gh_ruleset)
+- No hallucinated URLs: All 11 references are official, resolvable sources
+
+**Validation:**
+- `npm run audit:content` passed (220 files, 1055 URLs, 59 challenges, 0 errors)
+- Build generated platform.json and dependency-graph.json successfully
+- No structural, grammar, or formatting issues introduced
+
+**Files Changed:**
+1. `modules/ghec/challenges/ch05-advanced-pr-automation/README.md` — 6 inline links + consolidated reference section
+2. `modules/ghec/challenges/ch05-advanced-pr-automation/COACH.md` — 7 inline references
+3. `modules/ghec/challenges/ch05-advanced-pr-automation/meta.yml` — 11 verified references
+
+---
+
+### frontier-ghplatform-hackathon: Global Official References Are Contextual (2026-06-19)
+
+**Date:** 2026-06-19  
+**Owner:** Zoe (Content/Curriculum Engineer)
+
+**Status:** ✅ Approved
+
+**Context:** Marco clarified that documentation-link improvements apply across all modules, not only GHEC Ch05. The goal is verified, natural official references in both student and coach material without changing seed repositories or adding generic resource dumps.
+
+**Decision:** Add official references at point of use in `README.md` and `COACH.md`, then mirror the final verified URL set in each changed challenge's `meta.yml`. Prioritize sparse challenges and obvious official docs topics. Prefer docs.github.com, learn.microsoft.com, cli.github.com, official GitHub/Azure repositories, and OWASP where relevant.
+
+**Implications:**
+- New links should explain the task immediately around the sentence where the learner needs the reference.
+- Metadata references should stay aligned with actual content links and source links.
+- External-audit warnings from inherited placeholder/source-attribution links should be reported separately from newly added verified references.

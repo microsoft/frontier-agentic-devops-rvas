@@ -65,6 +65,10 @@ gh repo view $ORG/$REPO --json name,visibility,isInOrganization
 - **Judging the draft PR as "broken"** — draft + incremental commits is the normal flow.
 - **Token scope** — `repo` + `read:org` is enough for the student; the agent does not use the student's token.
 
+## Useful references for coaching
+
+- [About Copilot cloud agent](https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent), [Managing access to Copilot cloud agent](https://docs.github.com/en/copilot/concepts/agents/cloud-agent/access-management).
+
 ## Teardown
 ```bash
 wth teardown ch19 --org <org> --yes

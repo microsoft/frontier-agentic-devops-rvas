@@ -24,11 +24,11 @@ This is also your first agent-ready specification. Write the issue so an assista
 ## Tasks
 
 1. Pick a small product improvement from the coach-provided backlog packet.
-2. Rewrite the work as a GitHub issue with user impact, acceptance criteria, and test expectations.
+2. Rewrite the work as a [GitHub issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/creating-an-issue) with user impact, acceptance criteria, and test expectations.
 3. Add an agent-ready section with relevant files, constraints, non-goals, validation commands, and human checkpoints. Use [Agent-Ready Issue Template](../../resources/Agent-Ready-Issue-Template.md) if helpful.
 4. Create a branch linked to the issue.
 5. Make a small, reviewable change. If the sample app is not available yet, use a documentation or configuration improvement that still exercises the workflow.
-6. Open a pull request that references the issue and explains the change.
+6. Open a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) that [links back to the issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue) and explains the change.
 7. Ensure at least one check, review, or manual validation result is visible on the pull request.
 8. Merge only after the team can explain the evidence.
 
@@ -46,7 +46,7 @@ This is also your first agent-ready specification. Write the issue so an assista
 
 - Good issues are small enough for a pull request and specific enough for a reviewer.
 - If you would not hand the issue to a new teammate without a meeting, it is not ready for an agent.
-- Use pull request templates or checklists if the repo already provides them.
+- Use pull request templates or checklists if the repo already provides them, and treat [pull request review](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews) as evidence rather than ceremony.
 - A failed check is not failure for the challenge. It is useful evidence if the team responds to it well.
 - Keep the change narrow. You will build on this workflow in later challenges.
 

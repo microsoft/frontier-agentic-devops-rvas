@@ -15,6 +15,9 @@ Use these follow-ups to steer the conversation:
 
 Supply-chain threat modelling expressed as an agentic workflow. Participants learn to define threat patterns precisely (not just "look for bad code"), scope reviews to recent changes (not the entire codebase), and structure alerts with enough context for a security reviewer to act immediately. This is the most security-engineering-adjacent challenge in Track 4.
 
+
+Official grounding: when students are unsure whether a frontmatter field or permission is valid, anchor them in the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions) and [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) docs before they tune the agent prompt.
+
 ---
 
 ## Expected Solution Shape

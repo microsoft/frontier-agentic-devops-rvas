@@ -32,4 +32,9 @@ tier: core
 source_repo: microsoft/frontier-agenticdevops-hackathon
 source_path: Student/Challenge-06-Azure-SRE-Agent.md
 license: MIT
-references: []
+references:
+  - https://github.com/microsoft/sre-agent
+  - https://github.com/Azure/sre-agent-plugins
+  - https://github.com/Azure/sre-agent-plugins/tree/main/plugins
+  - https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-overview
+  - https://learn.microsoft.com/en-us/azure/azure-monitor/app/distributed-trace-data

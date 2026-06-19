@@ -45,3 +45,29 @@ See `.squad/decisions.md` for merged decision records and git log for commit det
 **Delivered:** Fixed confirmed internal resource 404s in generated challenge pages. The Pages build now copies module resource bundles to `docs/resources/<moduleId>/` and rewrites challenge guide resource links such as `../../resources/Agent-Ready-Issue-Template.md` to site-root-relative-in-docs links like `resources/sre-agent/Agent-Ready-Issue-Template.md` during guide generation.
 
 **Validation:** `npm run build` passed (4 modules, 59 challenges, 35 edges). A generated-link validation script confirmed no `olivomarco.github.io/resources`, `/resources`, or parent-relative resource links remain in generated challenge guides and every `resources/...` target exists under `docs/`.
+
+## Session Summary (2026-06-19)
+
+**Delivered:** Embedded official GitHub documentation links naturally throughout GHEC ch05 student and coach materials, replacing a static end-of-document reference dump. All URLs verified against docs.github.com, cli.github.com, and official GitHub Actions repositories. Meta.yml references updated with 11 verified sources including CODEOWNERS, auto-merge, Actions Labeler, Actions Stale, and org ruleset guidance.
+
+**Changes made:**
+- README.md: Inline links placed in 6 task sections (Parts A–F) linking to rulesets, auto-merge, CODEOWNERS, PR templates, and org ruleset docs
+- COACH.md: Concise reference links embedded in facilitation notes and common pitfalls sections to clarify rulesets vs. classic protection, auto-merge behavior, labeler permissions, and org scope matching
+- meta.yml: Consolidated references list expanded from 7 to 11 items, adding CODEOWNERS docs, Actions/Stale, and gh CLI manuals
+- README.md Reference links section: Consolidated to acknowledge in-text links and reserve the section for CLI references only
+
+**Validation:** `npm run audit:content` passed (220 files, 1055 URLs, 59 challenges, 0 errors). All embedded links are official GitHub sources; no fabricated or unverified URLs added.
+
+**Key principles reinforced:**
+- Student-friendly link placement: Embed references contextually near the task they explain, not in a separate section
+- Coach guidance: Provide just-in-time URLs that clarify common misconceptions (rulesets vs. protection, auto-merge prerequisites, security nuances)
+- Meta accuracy: Ensure references metadata matches actual links embedded in content
+
+## Learnings
+
+### 2026-06-19 — Global official documentation links
+
+- Official references should be placed where students or coaches need them, then mirrored in `meta.yml`; avoid end-of-file resource dumps and avoid linking every repeated noun.
+- The highest-value gaps were sparse challenge sets (`ghaw` Track 4 and `sre-agent` 01/03/04/05/06), while GHEC/GHAS already had broad metadata coverage.
+- Verify added URLs before editing; `npm run audit:external` may still report inherited source-attribution 404s and placeholder/local URLs, so distinguish pre-existing warnings from new official links.
+- Coach guides need the same factual support as student guides. A short, coach-facing reference line is enough; reuse challenge README/meta references only after checking they are real URLs and not placeholders.

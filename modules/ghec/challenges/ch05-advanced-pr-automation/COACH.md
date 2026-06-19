@@ -16,10 +16,10 @@ Use these follow-ups to steer the conversation:
 ## Facilitation notes
 - **Goal in one line:** the student replaces manual merge babysitting with policy + automation — layered rulesets, auto-merge, and Actions-driven PR housekeeping that runs itself safely.
 - **Where students get stuck:**
-  - **Rulesets vs classic branch protection.** They coexist and the **most restrictive wins**. Students sometimes set both and get confused about which rule blocked them. Teach them to read the "rules" tooltip on the blocked PR.
-  - **Auto-merge prerequisites.** Auto-merge only arms when the repo setting is on *and* the PR has required checks/reviews pending (not already mergeable, not draft). A common "it just merged" surprise is that there were no required gates yet.
-  - **`labeler` trigger.** `pull_request_target` runs in the base-repo context (needed for fork PRs to get labels) — explain the security nuance (don't check out untrusted code in that context).
-  - **Org ruleset scope.** The repo-name pattern `wth-ch05-*` must match; a typo means the org rule silently covers nothing.
+  - **Rulesets vs classic branch protection.** They coexist and the **most restrictive wins**. Students sometimes set both and get confused about which rule blocked them. Reference [about rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets) to teach them to read the "rules" tooltip on the blocked PR.
+  - **Auto-merge prerequisites.** Auto-merge only arms when the repo setting is on *and* the PR has required checks/reviews pending (not already mergeable, not draft). Reference [automatically merging](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/automatically-merging-a-pull-request) to clarify the "it just merged" surprise.
+  - **`labeler` trigger.** `pull_request_target` runs in the base-repo context (needed for fork PRs to get labels) — explain the security nuance (don't check out untrusted code in that context). See [actions/labeler](https://github.com/actions/labeler).
+  - **Org ruleset scope.** The repo-name pattern `wth-ch05-*` must match; a typo means the org rule silently covers nothing. See [managing rulesets for organizations](https://docs.github.com/en/organizations/managing-organization-settings/creating-rulesets-for-repositories-in-your-organization).
 - **How to unblock without giving the answer:** ask "if two policies disagree, which one applies?" (→ strictest), and "what conditions must be *pending* for auto-merge to wait rather than merge now?"
 - **Org-scoped note:** runs with an org + org-owner token. The **org ruleset** (Part F) needs `admin:org`, which the org-owner token has. No enterprise owner required.
 
@@ -64,11 +64,11 @@ gh api /orgs/$ORG/rulesets --jq '.[] | {name, enforcement, target}'
 - For stale automation, have the student run the workflow via `workflow_dispatch` and show the labeled/closed PRs.
 
 ## Common pitfalls
-- **Both classic protection and a ruleset active** → confusing double-gates. Prefer rulesets here; if classic protection exists from setup, note which rule wins.
-- **Auto-merge "merged instantly"** because no required check was configured yet — set the ruleset's required check *before* arming auto-merge to see the wait behavior.
-- **`labeler` permissions** — the workflow needs `pull-requests: write`; missing perms silently skip labeling.
-- **Org ruleset pattern typo** — `wth-ch5-*` vs `wth-ch05-*` matches nothing.
-- **Stale workflow on a schedule** won't have fired during a short session — use `workflow_dispatch` to demonstrate.
+- **Both classic protection and a ruleset active** → confusing double-gates. Prefer rulesets here; if classic protection exists from setup, note which rule wins. See [about rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets).
+- **Auto-merge "merged instantly"** because no required check was configured yet — set the ruleset's required check *before* arming auto-merge to see the wait behavior. Clarify with [auto-merge docs](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/automatically-merging-a-pull-request).
+- **`labeler` permissions** — the workflow needs `pull-requests: write`; missing perms silently skip labeling. Confirm in [actions/labeler](https://github.com/actions/labeler) docs.
+- **Org ruleset pattern typo** — `wth-ch5-*` vs `wth-ch05-*` matches nothing. Verify pattern matching in [org rulesets](https://docs.github.com/en/organizations/managing-organization-settings/creating-rulesets-for-repositories-in-your-organization).
+- **Stale workflow on a schedule** won't have fired during a short session — use `workflow_dispatch` to demonstrate. See [actions/stale](https://github.com/actions/stale).
 - **Token scope** — `admin:org` required for the org ruleset; `workflow` to push workflow files.
 
 ## Teardown

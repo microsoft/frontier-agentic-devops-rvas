@@ -10,7 +10,7 @@ Every project accumulates doc debt: verbose intros, duplicate sections, outdated
 
 The production version in `githubnext/agentics` achieved an **85% merge rate** — 88 merged PRs out of 103 proposed. Maintainers love it because each PR is small, targeted, and easy to review.
 
-Source: `githubnext/agentics/workflows/unbloat-docs.md`
+Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/githubnext/agentics/blob/main/workflows/unbloat-docs.md)
 
 ## What It Does
 
@@ -21,7 +21,7 @@ Source: `githubnext/agentics/workflows/unbloat-docs.md`
 
 ## What You'll Do
 
-1. **Install gh aw** (if not already done):
+1. **Install [`gh aw`](https://github.com/github/gh-aw)** (if not already done):
    ```bash
    curl -sL https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh | bash
    ```

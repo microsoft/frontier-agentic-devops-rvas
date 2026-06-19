@@ -25,9 +25,9 @@ This is where the deterministic/probabilistic seam becomes visible. Agents and C
 
 1. Review the deployment target and credentials or federated identity approach provided by the coach.
 2. Inspect existing workflow files, if any, and identify missing build/test/deploy stages.
-3. Add or update a GitHub Actions workflow for pull request validation.
-4. Add or update a deployment workflow for the Azure target.
-5. Configure environment protection or approval if the workshop repository supports it.
+3. Add or update a [GitHub Actions workflow](https://docs.github.com/en/actions/writing-workflows/quickstart) for pull request validation.
+4. Add or update a deployment workflow for the Azure target, using the workshop-approved Azure authentication path such as [`azure/login`](https://github.com/Azure/login) rather than ad hoc credentials.
+5. Configure [environment protection or approval](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment) if the workshop repository supports it.
 6. Mark the seam in your pull request or deployment note: model proposes, deterministic substrate disposes. List the tests, schemas, allowlists, permissions, approval gates, and human checkpoints that decide whether the deployment proceeds.
 7. Run the workflow and inspect logs, artifacts, and deployment status.
 8. Validate the running service endpoint or review the coach-provided deployment evidence packet.
@@ -45,12 +45,12 @@ This is where the deterministic/probabilistic seam becomes visible. Agents and C
 
 ## Hints
 
-- Prefer workload identity or approved secret patterns provided by the coach. Do not invent credentials.
+- Prefer workload identity or approved secret patterns provided by the coach. Do not invent credentials, and follow GitHub's [security hardening for Actions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions) guidance.
 - Keep the workflow readable. Future operators need to understand what happened.
 - If deployment fails, inspect logs and create a remediation issue. That still supports the learning path.
 - Capture links and timestamps now. Incident response is harder when evidence is reconstructed later.
 - Do not put secrets in prompts or agent runtime. Use scoped permissions and safe outputs.
-- Treat the workflow file as executable governance, not just automation glue.
+- Treat the workflow file as executable governance, not just automation glue; Azure App Service deployments should follow Microsoft's [GitHub Actions deployment guidance](https://learn.microsoft.com/en-us/azure/app-service/deploy-github-actions) when that is the workshop target.
 
 ## Coach Validation Checkpoints
 

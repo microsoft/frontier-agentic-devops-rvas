@@ -29,4 +29,9 @@ tier: core
 source_repo: microsoft/frontier-agenticdevops-hackathon
 source_path: Student/Challenge-04-Deploy-To-Azure.md
 license: MIT
-references: []
+references:
+  - https://docs.github.com/en/actions/writing-workflows/quickstart
+  - https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment
+  - https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions
+  - https://github.com/Azure/login
+  - https://learn.microsoft.com/en-us/azure/app-service/deploy-github-actions

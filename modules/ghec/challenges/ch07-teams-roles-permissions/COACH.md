@@ -68,6 +68,10 @@ gh api /orgs/$ORG/teams/wth-ch07-backend-squad/members --jq '.[].login'
 - **Custom role assigned but role name typo'd** in the PUT — the grant 422s or silently falls back.
 - **Token missing `admin:org`.** Team creation and custom-role creation fail. Fix: `gh auth refresh -s admin:org,repo,read:org`.
 
+## Useful references for coaching
+
+- [About teams](https://docs.github.com/en/organizations/organizing-members-into-teams/about-teams), [Creating a team / adding a parent team](https://docs.github.com/en/organizations/organizing-members-into-teams/creating-a-team).
+
 ## Teardown
 ```bash
 wth teardown ch07 --org <org> --yes

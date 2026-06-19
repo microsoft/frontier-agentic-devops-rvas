@@ -67,6 +67,10 @@ gh project item-list <project-number> --owner $ORG --format json --jq '.items | 
 - **Workflow enabled but didn't fire.** Built-in workflows only act on events after they're turned on — close a *fresh* issue to demonstrate.
 - **Label color must be a 6-hex string without `#`** when using `gh label create --color`.
 
+## Useful references for coaching
+
+- [About issues](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues), [Configuring issue templates (issue forms)](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository).
+
 ## Teardown
 ```bash
 wth teardown ch01 --org <org> --yes        # wraps the scripts below

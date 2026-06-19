@@ -33,4 +33,9 @@ tier: stretch
 source_repo: microsoft/frontier-ghaw-hackathon
 source_path: _challenges/4-03-daily-doc-updater.md
 license: MIT
-references: []
+references:
+  - https://github.com/github/gh-aw
+  - https://github.com/githubnext/agentics/blob/main/workflows/daily-doc-updater.md
+  - https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
+  - https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow
+  - https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions

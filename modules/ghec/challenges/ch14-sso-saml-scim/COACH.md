@@ -66,6 +66,10 @@ gh api graphql -f query='
 - **Wrong SCIM tenant URL** (enterprise vs org path) → no users provision. Use `.../scim/v2/organizations/<org>/`.
 - **Hunting for enterprise settings** — keep it org-scoped; enterprise/EMU is awareness-only and needs an enterprise owner.
 
+## Useful references for coaching
+
+- [Identity and access management for enterprises](https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/understanding-iam-for-enterprises/about-identity-and-access-management), [SAML SSO for organizations](https://docs.github.com/en/organizations/managing-saml-single-sign-on-for-your-organization/about-identity-and-access-management-with-saml-single-sign-on).
+
 ## Teardown
 ```bash
 wth teardown ch14 --org <org> --yes        # wraps the scripts below

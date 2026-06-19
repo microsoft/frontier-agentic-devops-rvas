@@ -66,6 +66,10 @@ gh api -X GET /orgs/$ORG/audit-log -f phrase='created:>=2026-06-01' --paginate -
 - **Date format.** Use ISO `YYYY-MM-DD` in `created:` filters; relative phrases aren't supported.
 - **Expecting Git push events by default.** They require `include=git` and have shorter retention — keep to the stretch goal.
 
+## Useful references for coaching
+
+- [Reviewing the audit log for your organization](https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization), [Audit log events for your organization](https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/audit-log-events-for-your-organization).
+
 ## Teardown
 ```bash
 wth teardown ch09 --org <org> --yes

@@ -8,7 +8,7 @@
 
 The Issue Triage Agent is the _"hello world" of agentic workflows_ — it's the first example shown in Claude Code's documentation and the pattern that introduces thousands of developers to `gh aw`. When a new issue lands in your repo, it reads the body, matches it against your label taxonomy, and applies the right tags automatically. No more stale unlabelled backlogs.
 
-The real production version lives at `github/gh-aw/.github/workflows/issue-triage-agent.md`.
+Source: [`github/gh-aw/.github/workflows/issue-triage-agent.md`](https://github.com/github/gh-aw/blob/main/.github/workflows/issue-triage-agent.md)
 
 ## What It Does
 
@@ -20,7 +20,7 @@ The real production version lives at `github/gh-aw/.github/workflows/issue-triag
 
 ## What You'll Do
 
-1. **Install gh aw** (if not already done):
+1. **Install [`gh aw`](https://github.com/github/gh-aw)** (if not already done):
    ```bash
    curl -sL https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh | bash
    ```
@@ -30,7 +30,7 @@ The real production version lives at `github/gh-aw/.github/workflows/issue-triag
    gh aw add-wizard https://github.com/github/gh-aw/blob/main/.github/workflows/issue-triage-agent.md
    ```
 
-3. **Inspect the downloaded file** in `.github/workflows/issue-triage-agent.md`. Note the frontmatter structure: `on:`, `permissions:`, `safe-outputs:`, and `tools:`.
+3. **Inspect the downloaded file** in `.github/workflows/issue-triage-agent.md`. Compare its frontmatter with the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions): `on:`, `permissions:`, `safe-outputs:`, and `tools:`.
 
 4. **Customise** the workflow for your repo (see below).
 
@@ -78,7 +78,7 @@ Replace the default allowlist with your repo's actual labels:
 → `gh label list` — or visit `github.com/YOUR_ORG/YOUR_REPO/labels`
 
 **"Workflow runs but nothing happens"**
-→ Check the Actions tab for the run log. Permissions might be missing: you need at minimum `issues: write` for `add-labels` and `add-comment`.
+→ Check the Actions tab for the run log. Permissions might be missing: use the [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) model and grant at minimum `issues: write` for `add-labels` and `add-comment`.
 
 **"Can I add more than one comment type?"**
 → Yes. `safe-outputs: add-comment: {}` allows multiple comment calls in a single run.

@@ -26,4 +26,9 @@ tier: core
 source_repo: microsoft/frontier-agenticdevops-hackathon
 source_path: Student/Challenge-01-GitHub-SDLC.md
 license: MIT
-references: []
+references:
+  - https://docs.github.com/en/issues/tracking-your-work-with-issues/creating-an-issue
+  - https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue
+  - https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests
+  - https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews
+  - https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches

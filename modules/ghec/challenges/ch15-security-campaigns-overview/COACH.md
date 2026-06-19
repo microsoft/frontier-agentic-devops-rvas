@@ -73,6 +73,10 @@ gh issue list --repo $ORG/$REPO --search "remediation report" --json number,titl
 - **Private repo without a license** → no free scanning, sparse corpus. Keep it public.
 - **No GHAS product on the org** → the overview's Risk/Coverage/Campaigns views and the **Campaigns** feature won't be available even though the repo is public. Parts B–E require a GitHub Code Security or GitHub Secret Protection license; without one, students can only complete Part A.
 
+## Useful references for coaching
+
+- [About security overview](https://docs.github.com/en/code-security/security-overview/about-security-overview), [Viewing security insights](https://docs.github.com/en/code-security/security-overview/viewing-security-insights).
+
 ## Teardown
 ```bash
 wth teardown ch15 --org <org> --yes        # wraps the scripts below

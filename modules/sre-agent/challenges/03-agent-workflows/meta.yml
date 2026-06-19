@@ -28,4 +28,8 @@ tier: core
 source_repo: microsoft/frontier-agenticdevops-hackathon
 source_path: Student/Challenge-03-Agent-Workflows.md
 license: MIT
-references: []
+references:
+  - https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues
+  - https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews
+  - https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions
+  - https://github.com/github/gh-aw

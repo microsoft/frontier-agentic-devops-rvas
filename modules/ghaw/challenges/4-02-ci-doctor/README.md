@@ -10,7 +10,7 @@ CI breaks at the worst times. Normally a developer has to open the Actions tab, 
 
 In `github/gh-aw`, this workflow proposed 13 PRs with a **69% merge rate** (9 merged). That's a CI-fix pipeline running mostly on autopilot.
 
-Source: `githubnext/agentics/workflows/ci-doctor.md`
+Source: [`githubnext/agentics/workflows/ci-doctor.md`](https://github.com/githubnext/agentics/blob/main/workflows/ci-doctor.md)
 
 ## What It Does
 
@@ -21,7 +21,7 @@ Source: `githubnext/agentics/workflows/ci-doctor.md`
 
 ## What You'll Do
 
-1. **Install gh aw** (if not already done):
+1. **Install [`gh aw`](https://github.com/github/gh-aw)** (if not already done):
    ```bash
    curl -sL https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh | bash
    ```
@@ -31,7 +31,7 @@ Source: `githubnext/agentics/workflows/ci-doctor.md`
    gh aw add-wizard https://github.com/githubnext/agentics/blob/main/workflows/ci-doctor.md
    ```
 
-3. **Inspect the frontmatter** — note how `workflow_run` trigger names the workflows it watches, and what `workflows:` / `types: [completed]` + a condition on `conclusion` looks like.
+3. **Inspect the frontmatter** — note how the [`workflow_run` event](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#workflow_run) names the workflows it watches, and what `workflows:` / `types: [completed]` + a condition on `conclusion` looks like.
 
 4. **Customise** for your repo — change `workflows:` to list the actual CI workflow names you want to watch (e.g., `[CI, tests, build]`).
 
@@ -40,7 +40,7 @@ Source: `githubnext/agentics/workflows/ci-doctor.md`
    gh aw compile .github/workflows/ci-doctor.md
    ```
 
-6. **Trigger a test failure** (break a test intentionally in a branch, push, let CI fail) and watch the Doctor fire.
+6. **Trigger a test failure** (break a test intentionally in a branch, push, let CI fail) and inspect the [workflow run logs](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/using-workflow-run-logs) as the Doctor fires.
 
 7. Commit both the workflow and its `.lock.yml`.
 

@@ -57,7 +57,7 @@ wth setup ch05 --org <org>
 ## Tasks
 
 ### Part A — Repository ruleset (replace classic protection)
-1. **Create a repository ruleset** targeting `main` (Settings → Rules → Rulesets → New branch ruleset). Name it `wth-ch05-main`. Enable rules:
+1. **Create a repository ruleset** targeting `main` (Settings → Rules → Rulesets → New branch ruleset). Name it `wth-ch05-main`. Learn more about [repository rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository). Enable rules:
    - **Require a pull request before merging** (≥1 approval, **require review from Code Owners**, dismiss stale approvals)
    - **Require status checks to pass** → add the seeded `build` check
    - **Block force pushes**
@@ -66,26 +66,26 @@ wth setup ch05 --org <org>
 3. **Prove it bites:** attempt a direct push to `main` (`git push origin main`) and confirm it's rejected.
 
 ### Part B — CODEOWNERS + required reviewers + bypass
-4. **Flesh out `CODEOWNERS`** mapping `/src/` and `/docs/` to teams/users that exist. Create the team(s) if needed.
+4. **Flesh out `CODEOWNERS`** mapping `/src/` and `/docs/` to teams/users that exist. Create the team(s) if needed. See [about code owners](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners).
 5. **Configure a bypass actor.** Add an explicit **bypass** for org admins (or a named integration) in the ruleset, and document *why* limited bypass exists. Confirm a non-bypass user is fully gated.
 6. **Open a PR touching `/src/`** and confirm the code owner is **auto-requested** and the PR cannot merge without their approval.
 
 ### Part C — Auto-merge
-7. **Enable auto-merge** for the repo (Settings → General → Pull Requests → Allow auto-merge).
+7. **Enable auto-merge** for the repo (Settings → General → Pull Requests → Allow auto-merge). Learn more: [automatically merging a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/automatically-merging-a-pull-request).
 8. **Turn on auto-merge for a clean PR** (`gh pr merge <n> --auto --squash`). With CI still running and approval pending, watch the PR show "**will be merged automatically when requirements are met**." Approve + let CI go green, then confirm it **merges itself**.
 9. **Contrast with a failing PR:** enable auto-merge on the failing-CI PR and confirm it **does not** merge until the check passes.
 
 ### Part D — Draft PRs & template
-10. **Improve the PR template** (`.github/pull_request_template.md`) with a checklist, a "type of change" section, and a testing section. Open a new PR and confirm it pre-fills.
+10. **Improve the PR template** (`.github/pull_request_template.md`) with a checklist, a "type of change" section, and a testing section. See [creating a pull request template](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/creating-a-pull-request-template-for-your-repository) for best practices. Open a new PR and confirm it pre-fills.
 11. **Demonstrate draft gating:** open a PR as **draft**, confirm reviewers aren't auto-requested and auto-merge can't be armed, then `gh pr ready` and watch the gates engage.
 
 ### Part E — Actions-driven PR housekeeping
-12. **Auto-label by path.** Add `.github/labeler.yml` and a workflow using `actions/labeler@v6` (triggered on `pull_request_target`) so PRs touching `/src/` get `area: backend` and `/docs/` get `area: docs`. Open PRs to prove both.
+12. **Auto-label by path.** Add `.github/labeler.yml` and a workflow using [`actions/labeler@v6`](https://github.com/actions/labeler) (triggered on `pull_request_target`) so PRs touching `/src/` get `area: backend` and `/docs/` get `area: docs`. Open PRs to prove both.
 13. **Auto-assign reviewers** via a workflow (or the CODEOWNERS path you already built) and add a step that **comments** a checklist when a PR opens.
-14. **Stale PR automation.** Add `actions/stale@v10` on a schedule to mark PRs with no activity in N days `status: stale` and close them after a grace period. Trigger it manually with `workflow_dispatch` and confirm it labels/comments the right PRs.
+14. **Stale PR automation.** Add [`actions/stale@v10`](https://github.com/actions/stale) on a schedule to mark PRs with no activity in N days `status: stale` and close them after a grace period. Trigger it manually with `workflow_dispatch` and confirm it labels/comments the right PRs.
 
 ### Part F — Organization ruleset
-15. **Create an org-level ruleset** (Org Settings → Repository → Rulesets) named `wth-ch05-org` targeting repos matching `wth-ch05-*`, requiring a PR + the `build` check across all matching repos. Confirm it **layers on top** of the repo ruleset (the stricter wins) and verify via `gh api /orgs/<org>/rulesets`.
+15. **Create an org-level ruleset** (Org Settings → Repository → Rulesets) named `wth-ch05-org` targeting repos matching `wth-ch05-*`, requiring a PR + the `build` check across all matching repos. See [managing rulesets for organizations](https://docs.github.com/en/organizations/managing-organization-settings/creating-rulesets-for-repositories-in-your-organization). Confirm it **layers on top** of the repo ruleset (the stricter wins) and verify via `gh api /orgs/<org>/rulesets`.
 
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
@@ -105,11 +105,6 @@ You are done when ALL of the following are true:
 - Write a small **GitHub Script** (`actions/github-script`) step that posts a PR size label (`size: S/M/L`) computed from the diff.
 
 ## Reference links
-- About rulesets — https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets
-- Creating rulesets for a repository — https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository
-- Managing rulesets for organizations — https://docs.github.com/en/organizations/managing-organization-settings/creating-rulesets-for-repositories-in-your-organization
-- Automatically merging a pull request — https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/automatically-merging-a-pull-request
-- About code owners — https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
-- Creating a pull request template — https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/creating-a-pull-request-template-for-your-repository
-- About the merge queue — https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue
-- `gh ruleset` / `gh pr merge` CLI manual — https://cli.github.com/manual/gh_pr_merge
+Official documentation links are embedded throughout the tasks above. Additional CLI references:
+- `gh ruleset` / `gh pr merge` manual — https://cli.github.com/manual/gh_pr_merge
+- `gh ruleset` — https://cli.github.com/manual/gh_ruleset
