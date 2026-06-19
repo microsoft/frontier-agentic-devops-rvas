@@ -75,7 +75,7 @@ Replace the default allowlist with your repo's actual labels:
 → Your allowlist is the guard. Add explicit instructions: _"Only apply labels from this list: [bug, enhancement, docs, question]. Never invent labels."_
 
 **"How do I see what labels I have?"**
-→ `gh label list` — or visit `github.com/YOUR_ORG/YOUR_REPO/labels`
+→ `gh label list` — or open the repository's **Issues** → **Labels** page in GitHub.
 
 **"Workflow runs but nothing happens"**
 → Check the Actions tab for the run log. Permissions might be missing: use the [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) model and grant at minimum `issues: write` for `add-labels` and `add-comment`.
@@ -88,7 +88,3 @@ Replace the default allowlist with your repo's actual labels:
 
 </details>
 
----
-
-<a href="https://github.com/microsoft/frontier-ghaw-hackathon/blob/main/challenges/track-4-production-patterns/4-01-issue-triage-agent/Student/README.md" class="btn btn--primary">📘 Student Guide</a>
-<a href="https://github.com/microsoft/frontier-ghaw-hackathon/blob/main/challenges/track-4-production-patterns/4-01-issue-triage-agent/Coach/README.md" class="btn btn--ghost">🎓 Coach Guide</a>

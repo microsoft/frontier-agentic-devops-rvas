@@ -2,6 +2,20 @@
 
 ## Active Decisions
 
+### Agentic DevOps: Challenge QA rubric and missing-candidate policy (2026-06-19)
+
+**Status:** ✅ Implemented as repo contribution contract
+
+**Owner:** Mal (Lead / Architect)
+
+**Summary:** Per-challenge QA now uses a 100-point rubric covering metadata/provenance (15), independence/setup (20), student guide quality (20), coach guide quality (15), validation evidence (15), accessibility/operational safety (10), and catalog fit/coverage (5). Severity gates are P0/P1 blocking, P2 follow-up-eligible, and P3 non-blocking. The inventory format is JSON Lines compatible for PR comments, issue bodies, or generated local reports; no repo planning markdown is required.
+
+**Catalog coverage decision:** Current catalog coverage is 59 challenges: GHEC 21, GHAS 7, GHAW 25, SRE Agent 6. GHEC and GHAW are complete for current scope. GHAS remains security-focused; excluded Copilot app/frontend/backend material is declined for this module and should become a separate module only if Marco reopens that scope. The SRE Agent id gap at `sre-agent-02` is intentional after the removed Copilot-engineering challenge; do not restore it unless the prior removal decision is reversed. A future SRE-specific bridge challenge may be proposed only if it teaches a distinct lifecycle capability between SDLC setup and agent workflow coordination.
+
+**Repo change:** `CONTRIBUTING.md` now contains the authoritative `meta.yml` contract, QA rubric, severity policy, QA inventory object shape, and backlog-decision rules.
+
+---
+
 ### frontier-ghplatform-hackathon: Unified Platform Architecture (2026-06-15)
 
 **Status:** ✅ APPROVED by Marco (2026-06-15)
@@ -595,3 +609,19 @@ Typography adjustments:
 - New links should explain the task immediately around the sentence where the learner needs the reference.
 - Metadata references should stay aligned with actual content links and source links.
 - External-audit warnings from inherited placeholder/source-attribution links should be reported separately from newly added verified references.
+
+---
+
+### frontier-ghplatform-hackathon: Content QA Normalization (2026-06-19)
+
+**Date:** 2026-06-19  
+**Owner:** Zoe (Content/Curriculum Engineer)
+
+**Status:** ✅ Implemented
+
+**Decision:** Use the existing GHEC-style quality pattern as the normalization target: every challenge needs complete metadata, visible student validation, coach assessment/verification support, clear provisioning assumptions, and no fabricated placeholder URLs. Setup challenges may remain lightweight, but non-setup security challenges should include coach-facing assessment detail.
+
+**Implications:**
+- GHAS coach guides now include concise point-weighted assessment rubrics rather than only facilitation notes.
+- SRE module references must refer to the intentional 00, 01, 03, 04, 05, 06 sequence; do not reintroduce Challenge 02 wording unless the removed challenge is restored.
+- External audit warnings are acceptable only when they are expected local/private/source references; placeholder and stale-doc warnings should be fixed in content.

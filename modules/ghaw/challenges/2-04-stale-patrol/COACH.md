@@ -271,6 +271,6 @@ If a squad is stuck:
 ## Reference
 
 **Sample Solution Location:** `coaches/sample-solutions/track-2/2-04-stale-patrol.md`  
-**Daily Backlog Burner (Real):** https://github.com/githubnext/agentics/blob/main/workflows/daily-backlog-burner.md  
+**GitHub Next Agentics examples:** https://github.com/githubnext/agentics  
 **Cron Reference:** https://crontab.guru/  
 **Schedule Trigger:** https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule

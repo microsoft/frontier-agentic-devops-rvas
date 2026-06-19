@@ -38,7 +38,7 @@ source_repo: microsoft/frontier-ghaw-hackathon
 source_path: _challenges/2-02-review-buddy.md
 license: MIT
 references:
-  - https://github.github.com/gh-aw/reference/tools/github/
+  - https://github.github.com/gh-aw/reference/permissions/
   - https://github.github.com/gh-aw/reference/safe-outputs/
   - https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
   - https://github.com/githubnext/agentics/blob/main/workflows/pr-fix.md

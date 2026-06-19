@@ -36,5 +36,14 @@ Verify each success criterion from the student guide:
 - [ ] Alerts grouped by vulnerability class with a fix order documented
 - [ ] Dependabot alerts reviewed — any critical/high severity ones noted
 
+## Assessment rubric (100 pts)
+| Criterion | Points | What "full marks" looks like |
+|---|---:|---|
+| Alert evidence | 25 | Reviewed enough code scanning, Dependabot, and secret scanning detail to explain real paths and severity. |
+| Attack-surface map | 25 | Grouped findings by vulnerability class, affected component, and likely remediation order. |
+| Copilot-assisted reasoning | 20 | Used Copilot to explain exploitability, then verified the explanation against alert traces and code. |
+| Prioritization | 15 | Selected a fix order based on blast radius, exploitability, and effort rather than alert titles alone. |
+| Grounding conversation | 15 | Connected the alert classes to a real team repo, ownership model, and next action. |
+
 ## Source
 Derived from [microsoft/frontier-ghas-hackathon](https://github.com/microsoft/frontier-ghas-hackathon), MIT license.

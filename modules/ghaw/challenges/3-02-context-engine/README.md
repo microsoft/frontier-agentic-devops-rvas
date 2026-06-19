@@ -91,8 +91,8 @@ Use **`safe-outputs: add-comment`** to post a structured comment on the PR. The 
 
 ## References
 
-- **MCP Tools Reference:** https://github.github.com/gh-aw/reference/mcp-tools/
-- **GitHub Toolsets:** https://github.github.com/gh-aw/reference/mcp-tools/#github
+- **GitHub tool permissions:** https://github.github.com/gh-aw/reference/permissions/
+- **Workflow frontmatter:** https://github.github.com/gh-aw/reference/frontmatter/
 - **PR Analysis Example:** https://github.com/github/gh-aw/blob/main/.github/workflows/issue-triage-agent.md (triage agent pattern adapted for PRs)
 - **Safe Outputs (add-comment):** https://github.github.com/gh-aw/reference/safe-outputs/#add-comment
 - **Workflow Syntax — on.pull_request:** https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpull_request

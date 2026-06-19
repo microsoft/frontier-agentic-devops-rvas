@@ -1,4 +1,4 @@
-# Challenge 3-05: Ship It — The Capstone
+# Challenge 3-05: Ship It — Capstone
 
 **Track:** Continuous Intelligence (Advanced)  
 **Difficulty:** 🔴 Advanced  

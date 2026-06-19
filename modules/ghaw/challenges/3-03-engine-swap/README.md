@@ -110,10 +110,9 @@ Summarize your findings in a markdown file: `RESULTS.md`
 ## References
 
 - **Supported Engines:** https://github.github.com/gh-aw/reference/engines/
-- **Engine Comparison Table:** https://github.github.com/gh-aw/reference/engines/comparison/
-- **Prompt Engineering Guide:** https://github.github.com/gh-aw/guide/prompt-engineering/
-- **Copilot-specific notes:** https://github.github.com/gh-aw/guide/copilot-tuning/
-- **Claude-specific notes:** https://github.github.com/gh-aw/guide/claude-tuning/
+- **Model aliases:** https://github.github.com/gh-aw/reference/model-tables/
+- **Authentication for engines:** https://github.github.com/gh-aw/reference/auth/
+- **Workflow frontmatter:** https://github.github.com/gh-aw/reference/frontmatter/
 
 ---
 

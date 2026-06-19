@@ -21,6 +21,17 @@ This challenge introduces **scheduled triggers** and the **GitHub MCP tool** for
 
 ---
 
+## Expected Outcomes
+
+A coach can verify completion when the squad can show:
+
+- `.github/workflows/morning-briefing.md` and generated lockfile are present.
+- Frontmatter includes `schedule`, `workflow_dispatch`, minimal read permissions, GitHub issue/PR tool access, and a bounded `create-issue` safe-output.
+- A manual or scheduled run completed and produced a concise briefing issue with issue/PR counts.
+- The squad can explain what would make the briefing safe enough, or unsafe, for a real team channel.
+
+---
+
 ## Common Pitfalls & Coaching Responses
 
 ### Pitfall 1: Incorrect cron syntax
@@ -56,7 +67,7 @@ This challenge introduces **scheduled triggers** and the **GitHub MCP tool** for
 **Coach response:**
 - "I notice you're calling `gh api` directly. That's not wrong, but gh-aw has a better pattern: the GitHub MCP tool."
 - Explain: "When you add `tools: github: toolsets: [issues, pull_requests]`, the AI agent can query those without you writing API calls. The agent knows how to ask for 'issues opened in the last 24 hours' and the tool gives it the answer."
-- Show the tool reference: https://github.github.com/gh-aw/reference/tools/github/
+- Show the tool-permissions reference: https://github.github.com/gh-aw/reference/permissions/
 
 ---
 

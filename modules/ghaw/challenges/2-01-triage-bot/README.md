@@ -77,7 +77,7 @@ Create a gh-aw workflow named `triage-bot.md` in `.github/workflows/` that:
 
 - **gh-aw Frontmatter Docs:** https://github.github.com/gh-aw/reference/frontmatter/
 - **Safe Outputs (add-labels, add-comment):** https://github.github.com/gh-aw/reference/safe-outputs/
-- **GitHub API Toolset:** https://github.github.com/gh-aw/reference/tools/github/
+- **GitHub tool permissions:** https://github.github.com/gh-aw/reference/permissions/
 - **Real-world example:** `issue-triage-agent.md` at https://github.com/github/gh-aw/blob/main/.github/workflows/issue-triage-agent.md
 
 ---

@@ -58,7 +58,7 @@ By the end of this challenge, your squad will:
 - **Issues Event Trigger:** https://github.github.com/gh-aw/reference/triggers/#issues
 - **Safe Outputs — Add Labels:** https://github.github.com/gh-aw/reference/safe-outputs/#add-labels
 - **Label Allowlist Pattern:** https://github.github.com/gh-aw/reference/safe-outputs/#labels
-- **GitHub MCP Issues Toolset:** https://github.github.com/gh-aw/reference/tools/github/#issues
+- **GitHub tool permissions:** https://github.github.com/gh-aw/reference/permissions/
 - **Dossier Reference:** See Category A (Issue & PR Management) — `issue-triage-agent.md` and `auto-triage-issues.md` patterns
 - **Related Blog:** [Peli's Agent Factory Part 7: Issue & PR Management](https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-issue-management/)
 

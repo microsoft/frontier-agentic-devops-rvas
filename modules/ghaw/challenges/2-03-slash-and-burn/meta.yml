@@ -39,7 +39,7 @@ source_repo: microsoft/frontier-ghaw-hackathon
 source_path: _challenges/2-03-slash-and-burn.md
 license: MIT
 references:
-  - https://github.github.com/gh-aw/reference/tools/github/
+  - https://github.github.com/gh-aw/reference/permissions/
   - https://github.github.com/gh-aw/reference/safe-outputs/
   - https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-interactive-chatops/
   - https://docs.github.com/en/actions/learn-github-actions/contexts#github-context

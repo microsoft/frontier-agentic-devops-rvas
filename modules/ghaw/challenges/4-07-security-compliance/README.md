@@ -85,7 +85,3 @@ Source: [`github/gh-aw/.github/workflows/security-compliance.md`](https://github
 
 </details>
 
----
-
-<a href="https://github.com/microsoft/frontier-ghaw-hackathon/blob/main/challenges/track-4-production-patterns/4-07-security-compliance/Student/README.md" class="btn btn--primary">📘 Student Guide</a>
-<a href="https://github.com/microsoft/frontier-ghaw-hackathon/blob/main/challenges/track-4-production-patterns/4-07-security-compliance/Coach/README.md" class="btn btn--ghost">🎓 Coach Guide</a>

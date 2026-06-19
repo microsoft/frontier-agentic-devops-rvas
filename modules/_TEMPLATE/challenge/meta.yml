@@ -38,4 +38,4 @@ license: MIT
 # === Optional ===
 tier: core                       # core | stretch | bonus | setup
 references:
-  - https://docs.github.com/REPLACE
+  - https://docs.github.com/

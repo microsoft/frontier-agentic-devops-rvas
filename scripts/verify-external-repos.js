@@ -6,7 +6,6 @@
 'use strict';
 
 const fs = require('fs');
-const os = require('os');
 const path = require('path');
 const { execFile } = require('child_process');
 
@@ -57,7 +56,9 @@ function walk(dir, filter = () => true, out = []) {
 function parseMeta(text) {
   const out = {};
   let currentListKey = null;
-  for (const raw of text.split(/\r?\n/)) {
+  const lines = text.split(/\r?\n/);
+  for (let i = 0; i < lines.length; i++) {
+    const raw = lines[i];
     if (!raw.trim() || /^\s*#/.test(raw)) continue;
     const listItem = raw.match(/^\s*-\s+(.*)$/);
     if (listItem && currentListKey) {
@@ -69,7 +70,23 @@ function parseMeta(text) {
     if (!kv) continue;
     const key = kv[1];
     const rest = stripComment(kv[2]).trim();
-    if (rest === '' || rest === '[]') {
+    if (/^[>|][+-]?$/.test(rest)) {
+      const blockLines = [];
+      for (i = i + 1; i < lines.length; i++) {
+        const next = lines[i];
+        if (!next.trim()) {
+          blockLines.push('');
+          continue;
+        }
+        if (/^\S/.test(next)) {
+          i--;
+          break;
+        }
+        blockLines.push(next);
+      }
+      out[key] = coerceBlock(rest[0], blockLines);
+      currentListKey = null;
+    } else if (rest === '' || rest === '[]') {
       out[key] = [];
       currentListKey = key;
     } else {
@@ -89,6 +106,27 @@ function coerce(v) {
   if (v === 'false') return false;
   if (/^-?\d+$/.test(v)) return Number(v);
   return v.replace(/^["']|["']$/g, '');
+}
+
+function coerceBlock(style, lines) {
+  const nonBlank = lines.filter(line => line.trim());
+  const indent = nonBlank.length ? Math.min(...nonBlank.map(line => line.match(/^\s*/)[0].length)) : 0;
+  const normalized = lines.map(line => line.trim() ? line.slice(indent).replace(/\s+$/, '') : '');
+  if (style === '|') return normalized.join('\n').trim();
+
+  let out = '';
+  let previousBlank = false;
+  for (const line of normalized) {
+    if (!line.trim()) {
+      if (out && !previousBlank) out += '\n';
+      previousBlank = true;
+      continue;
+    }
+    if (out && !out.endsWith('\n')) out += ' ';
+    out += line.trim();
+    previousBlank = false;
+  }
+  return out.trim();
 }
 
 function normaliseMeta(raw, moduleId, slug) {
@@ -282,7 +320,10 @@ function gitLsRemote(url, ref) {
 }
 
 async function gitFetchSha(url, sha) {
-  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'frontier-repos-'));
+  const advertised = await gitLsRemote(url, sha);
+  if (advertised.ok && advertised.stdout.includes(sha)) return advertised;
+
+  const tmp = fs.mkdtempSync(path.join(ROOT, '.repo-check-'));
   try {
     const init = await runGit(['init', '--quiet'], { cwd: tmp });
     if (!init.ok) return init;

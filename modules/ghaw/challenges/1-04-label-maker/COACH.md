@@ -21,6 +21,17 @@ This is the **event-driven classification challenge** — the capstone of Track 
 
 ---
 
+## Expected Outcomes
+
+A coach can verify completion when the squad can show:
+
+- `.github/workflows/label-maker.md` and generated lockfile are present.
+- Frontmatter listens for opened issues, keeps token permissions minimal, and constrains labels with an explicit allowlist plus `noop`.
+- Test issues demonstrate at least two expected labels and one unclear case that noops or records no label.
+- The squad can explain how the allowlist prevents invented labels in a real routing workflow.
+
+---
+
 ## Common Pitfalls & Coaching Responses
 
 ### Pitfall 1: Label names don't exist in the repo

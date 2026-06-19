@@ -78,14 +78,14 @@ Create a gh-aw workflow named `welcome-wagon.md` in `.github/workflows/` that:
 
 - **Pull Request Context (author_association):** https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
 - **Safe Outputs (add-comment):** https://github.github.com/gh-aw/reference/safe-outputs/
-- **GitHub API Toolset:** https://github.github.com/gh-aw/reference/tools/github/
+- **GitHub tool permissions:** https://github.github.com/gh-aw/reference/permissions/
 
 ---
 
 ## Stuck?
 
 - **"How do I detect first-time contributors?"** → Use `github.event.pull_request.author_association`. If it's `NONE`, they're new to the repo
-- **"How do I reference CONTRIBUTING.md?"** → Use a GitHub URL: `https://github.com/YOUR_ORG/YOUR_REPO/blob/main/CONTRIBUTING.md`
+- **"How do I reference CONTRIBUTING.md?"** → Link to the actual `CONTRIBUTING.md` in your repository, using its owner, repository name, branch, and file path.
 - **"Workflow posts a comment even for existing contributors?"** → Add a check in the body: "If `author_association` is not `NONE`, do nothing"
 - **"How do I test this if I'm the repo owner?"** → Create a second test account (or use a friend's GitHub account) and have them open a PR
 

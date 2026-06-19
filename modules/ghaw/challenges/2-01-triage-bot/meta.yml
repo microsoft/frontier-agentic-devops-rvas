@@ -37,5 +37,5 @@ license: MIT
 references:
   - https://github.github.com/gh-aw/reference/frontmatter/
   - https://github.github.com/gh-aw/reference/safe-outputs/
-  - https://github.github.com/gh-aw/reference/tools/github/
+  - https://github.github.com/gh-aw/reference/permissions/
   - https://github.com/github/gh-aw/blob/main/.github/workflows/issue-triage-agent.md

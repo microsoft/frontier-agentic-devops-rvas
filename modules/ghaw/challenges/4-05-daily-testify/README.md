@@ -82,7 +82,3 @@ Source: [`github/gh-aw/.github/workflows/daily-testify-uber-super-expert.md`](ht
 
 </details>
 
----
-
-<a href="https://github.com/microsoft/frontier-ghaw-hackathon/blob/main/challenges/track-4-production-patterns/4-05-daily-testify/Student/README.md" class="btn btn--primary">📘 Student Guide</a>
-<a href="https://github.com/microsoft/frontier-ghaw-hackathon/blob/main/challenges/track-4-production-patterns/4-05-daily-testify/Coach/README.md" class="btn btn--ghost">🎓 Coach Guide</a>

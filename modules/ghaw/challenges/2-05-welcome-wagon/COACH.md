@@ -47,9 +47,9 @@ Comment posted:
 
 We're excited to have you here. Here are some resources to help you succeed:
 
-📖 **Getting Started:** https://github.com/myorg/myrepo/blob/main/CONTRIBUTING.md
-📋 **Code of Conduct:** https://github.com/myorg/myrepo/blob/main/CODE_OF_CONDUCT.md
-🚀 **Docs:** https://docs.example.com
+📖 **Getting Started:** CONTRIBUTING.md in this repository
+📋 **Code of Conduct:** CODE_OF_CONDUCT.md in this repository
+🚀 **Docs:** the `docs/` folder in this repository
 
 A maintainer will review your PR soon. If you have any questions, don't hesitate to ask!"
 ```
@@ -129,7 +129,7 @@ Branch on PR type:
 **Coach response:**
 - "Let's verify each link. Does `CONTRIBUTING.md` exist in your repo?"
 - Have them check: ls `.github/CONTRIBUTING.md` or `CONTRIBUTING.md` (location varies)
-- GitHub URLs should follow: `https://github.com/OWNER/REPO/blob/main/FILE`
+- GitHub URLs should point to the actual repository owner, repository name, branch, and file path.
 
 ### Pitfall 4: Can't Test (Need New User Account)
 

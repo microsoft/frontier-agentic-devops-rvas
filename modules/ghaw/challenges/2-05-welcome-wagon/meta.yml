@@ -42,4 +42,4 @@ license: MIT
 references:
   - https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
   - https://github.github.com/gh-aw/reference/safe-outputs/
-  - https://github.github.com/gh-aw/reference/tools/github/
+  - https://github.github.com/gh-aw/reference/permissions/

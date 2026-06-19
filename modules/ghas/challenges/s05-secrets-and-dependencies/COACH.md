@@ -38,5 +38,14 @@ Verify each success criterion from the student guide:
 - [ ] Secret scanning alerts relevant to changes addressed or explained
 - [ ] Application still starts and authenticates correctly after secrets migration
 
+## Assessment rubric (100 pts)
+| Criterion | Points | What "full marks" looks like |
+|---|---:|---|
+| Alert triage | 25 | Separates secrets, dependency alerts, severity, exploitability, and ownership without conflating the workflows. |
+| Secret remediation | 25 | Removes or rotates exposed material, documents exposure handling, and avoids committing replacement secrets. |
+| Dependency remediation | 20 | Updates vulnerable packages safely and confirms the application still works. |
+| Verification evidence | 15 | Confirms secret scanning, Dependabot, and PR checks reflect the remediation. |
+| Grounding conversation | 15 | Connects alert fatigue, ownership, and response SLA to a real repo. |
+
 ## Source
 Derived from [microsoft/frontier-ghas-hackathon](https://github.com/microsoft/frontier-ghas-hackathon), MIT license.

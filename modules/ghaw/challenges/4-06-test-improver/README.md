@@ -88,7 +88,3 @@ Source: [`githubnext/agentics/workflows/daily-test-improver.md`](https://github.
 
 </details>
 
----
-
-<a href="https://github.com/microsoft/frontier-ghaw-hackathon/blob/main/challenges/track-4-production-patterns/4-06-test-improver/Student/README.md" class="btn btn--primary">📘 Student Guide</a>
-<a href="https://github.com/microsoft/frontier-ghaw-hackathon/blob/main/challenges/track-4-production-patterns/4-06-test-improver/Coach/README.md" class="btn btn--ghost">🎓 Coach Guide</a>

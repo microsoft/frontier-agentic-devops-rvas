@@ -90,7 +90,3 @@ Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://g
 
 </details>
 
----
-
-<a href="https://github.com/microsoft/frontier-ghaw-hackathon/blob/main/challenges/track-4-production-patterns/4-08-malicious-code-scan/Student/README.md" class="btn btn--primary">📘 Student Guide</a>
-<a href="https://github.com/microsoft/frontier-ghaw-hackathon/blob/main/challenges/track-4-production-patterns/4-08-malicious-code-scan/Coach/README.md" class="btn btn--ghost">🎓 Coach Guide</a>

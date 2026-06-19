@@ -39,6 +39,6 @@ source_path: _challenges/2-04-stale-patrol.md
 license: MIT
 references:
   - https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
-  - https://github.github.com/gh-aw/reference/tools/github/
+  - https://github.github.com/gh-aw/reference/permissions/
   - https://github.github.com/gh-aw/reference/safe-outputs/
-  - https://github.com/githubnext/agentics/blob/main/workflows/daily-backlog-burner.md
+  - https://github.com/githubnext/agentics

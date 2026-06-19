@@ -37,5 +37,14 @@ Verify each success criterion from the student guide:
 - [ ] PR CodeQL/code scanning checks reviewed, with no remaining annotations for the fixed patterns where applicable
 - [ ] Application still handles legitimate requests correctly after fixes
 
+## Assessment rubric (100 pts)
+| Criterion | Points | What "full marks" looks like |
+|---|---:|---|
+| Authorization boundary | 25 | Identifies the protected object or action and who should be allowed to access it. |
+| Server-side enforcement | 30 | Implements backend authorization checks rather than relying on hidden UI or client routing. |
+| Negative testing | 20 | Demonstrates unauthorized access is blocked while authorized access still works. |
+| Verification evidence | 10 | Reviews PR checks, traces, or tests that prove the access-control rule is enforced. |
+| Grounding conversation | 15 | Connects the pattern to a real service, role model, or data boundary. |
+
 ## Source
 Derived from [microsoft/frontier-ghas-hackathon](https://github.com/microsoft/frontier-ghas-hackathon), MIT license.

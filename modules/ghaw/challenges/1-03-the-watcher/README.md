@@ -56,7 +56,7 @@ By the end of this challenge, your squad will:
 
 - **Push Event Trigger:** https://github.github.com/gh-aw/reference/triggers/#push
 - **Path Filters:** https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpushpullrequestpaths
-- **Commit API Access:** https://github.github.com/gh-aw/reference/tools/github/#commits
+- **GitHub tool permissions:** https://github.github.com/gh-aw/reference/permissions/
 - **Safe Outputs — Add Comment:** https://github.github.com/gh-aw/reference/safe-outputs/#add-comment
 - **Dossier Reference:** See Category C (Continuous Improvement) — `breaking-change-checker.md` pattern for `bash` tool + git inspection
 - **Related Blog:** [Peli's Agent Factory Part 2: Continuous Simplicity](https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-continuous-simplicity/)

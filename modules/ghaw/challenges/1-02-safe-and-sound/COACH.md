@@ -24,6 +24,17 @@ Your job is to build confidence in the safety model. When squads see that `noop`
 
 ---
 
+## Expected Outcomes
+
+A coach can verify completion when the squad can show:
+
+- `.github/workflows/safe-sound.md` and generated lockfile are present.
+- Frontmatter uses minimal read permissions and declares both the write safe-output and `noop`.
+- Test evidence covers both paths: one run creates the bounded issue, and one run cleanly noops.
+- The squad can explain why safe-outputs, not broad token permissions, authorize the write.
+
+---
+
 ## Common Pitfalls & Coaching Responses
 
 ### Pitfall 1: Forgot to declare safe-outputs in frontmatter

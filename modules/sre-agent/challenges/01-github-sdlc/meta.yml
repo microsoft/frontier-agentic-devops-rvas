@@ -4,7 +4,8 @@ module: sre-agent
 track: agentic-lifecycle
 difficulty: beginner
 duration_minutes: 60
-prerequisites: []
+prerequisites:
+  - sre-agent-00
 prerequisite_capabilities:
   - GitHub Copilot access
   - Basic Git workflow
@@ -18,7 +19,11 @@ success_criteria:
   - At least one quality signal exists: test output, lint output, workflow run, checklist, or coach-approved manual validation.
   - The team can trace the change from issue to merged result.
   - 'Coach conversation — if you applied this GitHub SDLC baseline to the next real change request your team receives, which step (issue clarity, branch linking, review evidence, or quality gate) would be most likely to slip, and why? Talk it through with your coach and connect it to a real project, task, or workflow you own.'
-tags: []
+tags:
+  - github-sdlc
+  - issues
+  - pull-requests
+  - quality-gates
 app_dependency: contoso-app
 emu_compatible: true
 min_environment: org

@@ -71,7 +71,7 @@ Use **`max-effective-tokens: 5000000`** (or similar high value) because analyzin
 
 - [ ] Workflow triggers weekly (`on: schedule:`)
 - [ ] Uses `agentic-workflows` MCP tool to fetch run data
-- [ ] Frontmatter includes `max-effective-tokens: XXXXX` with a comment explaining the value
+- [ ] Frontmatter includes a concrete high token budget (for example `max-effective-tokens: 5000000`) with a comment explaining the value
 - [ ] Analysis identifies: top expensive, top failing, unexpected spikes
 - [ ] Issue created with structured data (table + alerts)
 - [ ] Old issues auto-close (via `close-older-issues: true`)
@@ -93,7 +93,7 @@ Use **`max-effective-tokens: 5000000`** (or similar high value) because analyzin
 
 ## References
 
-- **agentic-workflows MCP Reference:** https://github.github.com/gh-aw/reference/mcp-tools/#agentic-workflows
+- **Workflow frontmatter:** https://github.github.com/gh-aw/reference/frontmatter/
 - **max-effective-tokens Guide:** https://github.github.com/gh-aw/reference/frontmatter/#max-effective-tokens
 - **Audit Workflows Example:** https://github.com/github/gh-aw/blob/main/.github/workflows/audit-workflows.md
 - **Workflow Health Manager Example:** https://github.com/github/gh-aw/blob/main/.github/workflows/workflow-health-manager.md

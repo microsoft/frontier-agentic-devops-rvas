@@ -76,9 +76,9 @@ Create a gh-aw workflow named `stale-patrol.md` in `.github/workflows/` that:
 ## References
 
 - **Schedule Syntax:** https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
-- **GitHub API Issues Querying:** https://github.github.com/gh-aw/reference/tools/github/
+- **GitHub tool permissions:** https://github.github.com/gh-aw/reference/permissions/
 - **Safe Outputs (update-issue):** https://github.github.com/gh-aw/reference/safe-outputs/
-- **Real-world example:** `daily-backlog-burner.md` at https://github.com/githubnext/agentics/blob/main/workflows/daily-backlog-burner.md
+- **Real-world example:** the GitHub Next Agentics examples at https://github.com/githubnext/agentics
 
 ---
 

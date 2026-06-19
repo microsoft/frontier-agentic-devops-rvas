@@ -198,4 +198,4 @@ A correct `2-06-mix-and-match.md`:
 **Sample Solution Location:** `coaches/sample-solutions/track-2/2-06-mix-and-match.md`  
 **imports:** https://github.github.com/gh-aw/reference/frontmatter/#imports  
 **create-discussion:** https://github.github.com/gh-aw/reference/safe-outputs/#create-discussion  
-**GitHub Discussions API:** https://docs.github.com/en/rest/discussions
+**GitHub Discussions API:** https://docs.github.com/en/graphql/guides/using-the-graphql-api-for-discussions

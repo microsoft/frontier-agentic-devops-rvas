@@ -78,7 +78,7 @@ Create a gh-aw workflow named `review-buddy.md` in `.github/workflows/` that:
 
 ## References
 
-- **GitHub API Toolset:** https://github.github.com/gh-aw/reference/tools/github/
+- **GitHub tool permissions:** https://github.github.com/gh-aw/reference/permissions/
 - **Safe Outputs (add-comment):** https://github.github.com/gh-aw/reference/safe-outputs/
 - **Pull Request Context Variables:** https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
 - **Real-world example (PR Fix):** https://github.com/githubnext/agentics/blob/main/workflows/pr-fix.md

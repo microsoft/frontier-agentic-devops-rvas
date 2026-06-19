@@ -36,6 +36,6 @@ license: MIT
 references:
   - https://github.github.com/gh-aw/reference/triggers/#push
   - https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpushpullrequestpaths
-  - https://github.github.com/gh-aw/reference/tools/github/#commits
+  - https://github.github.com/gh-aw/reference/permissions/
   - https://github.github.com/gh-aw/reference/safe-outputs/#add-comment
   - https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-continuous-simplicity/

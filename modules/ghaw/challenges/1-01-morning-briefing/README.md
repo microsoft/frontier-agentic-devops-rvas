@@ -54,7 +54,7 @@ By the end of this challenge, your squad will:
 ## References
 
 - **gh-aw Schedule Triggers:** https://github.github.com/gh-aw/reference/triggers/#schedule
-- **GitHub MCP Toolsets:** https://github.github.com/gh-aw/reference/tools/github/
+- **GitHub tool permissions:** https://github.github.com/gh-aw/reference/permissions/
 - **Cron Syntax Guide:** https://crontab.guru/
 - **Safe Outputs — Create Issue:** https://github.github.com/gh-aw/reference/safe-outputs/#create-issue
 - **Dossier Reference:** See Category B (Continuous Documentation) for `org-health-report.md` and `auto-triage-issues.md` patterns in Challenge Research Dossier

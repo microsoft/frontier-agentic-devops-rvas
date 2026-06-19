@@ -33,8 +33,8 @@ source_repo: microsoft/frontier-ghaw-hackathon
 source_path: _challenges/3-02-context-engine.md
 license: MIT
 references:
-  - https://github.github.com/gh-aw/reference/mcp-tools/
-  - https://github.github.com/gh-aw/reference/mcp-tools/#github
+  - https://github.github.com/gh-aw/reference/permissions/
+  - https://github.github.com/gh-aw/reference/frontmatter/
   - https://github.com/github/gh-aw/blob/main/.github/workflows/issue-triage-agent.md
   - https://github.github.com/gh-aw/reference/safe-outputs/#add-comment
   - https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpull_request

@@ -71,3 +71,9 @@ See `.squad/decisions.md` for merged decision records and git log for commit det
 - The highest-value gaps were sparse challenge sets (`ghaw` Track 4 and `sre-agent` 01/03/04/05/06), while GHEC/GHAS already had broad metadata coverage.
 - Verify added URLs before editing; `npm run audit:external` may still report inherited source-attribution 404s and placeholder/local URLs, so distinguish pre-existing warnings from new official links.
 - Coach guides need the same factual support as student guides. A short, coach-facing reference line is enough; reuse challenge README/meta references only after checking they are real URLs and not placeholders.
+
+### 2026-06-19 — Content QA workstream
+
+- Scored all 59 challenges with the saved QA rubric and fixed high-confidence P0/P1/P2 content issues surfaced by the pass.
+- Normalized GHAS coach assessment with point-weighted rubrics, added missing SRE metadata tags, repaired SRE Challenge 02 references after the intentional numbering gap, and removed concrete placeholder URLs from GHAW examples/templates.
+- Validation: `npm run audit:content` passed; `npm run audit:external` passed with warnings only for unresolved external/private/source or localhost references.

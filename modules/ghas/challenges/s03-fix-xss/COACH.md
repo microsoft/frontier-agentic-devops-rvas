@@ -37,5 +37,14 @@ Verify each success criterion from the student guide:
 - [ ] PR CodeQL/code scanning checks reviewed, with no remaining annotations for the fixed patterns
 - [ ] Application still renders correctly after the fixes
 
+## Assessment rubric (100 pts)
+| Criterion | Points | What "full marks" looks like |
+|---|---:|---|
+| Vulnerable flow identified | 20 | Explains where untrusted data reaches HTML, Markdown, or client-side rendering. |
+| Correct remediation | 30 | Uses context-appropriate escaping, sanitization, or safe rendering primitives without breaking legitimate output. |
+| Coverage | 20 | Fixes the required XSS paths and checks adjacent rendering paths for the same mistake. |
+| Verification evidence | 15 | Demonstrates the malicious payload no longer executes and code scanning/PR checks agree. |
+| Grounding conversation | 15 | Connects XSS risk to a real user-facing surface and ownership path. |
+
 ## Source
 Derived from [microsoft/frontier-ghas-hackathon](https://github.com/microsoft/frontier-ghas-hackathon), MIT license.

@@ -15,6 +15,7 @@ const DOCS_DIR = path.join(ROOT, 'docs');
 const MODULES_DIR = path.join(ROOT, 'modules');
 const PLATFORM_PATH = path.join(DOCS_DIR, 'assets', 'data', 'platform.json');
 const GRAPH_PATH = path.join(DOCS_DIR, 'assets', 'data', 'dependency-graph.json');
+const EXTERNAL_REPOS_PATH = path.join(ROOT, 'external-repos.json');
 const CHECK_EXTERNAL = process.argv.includes('--external') || process.env.AUDIT_EXTERNAL === '1';
 const PAGES_HOSTS = new Set(['microsoft.github.io']);
 const PROJECT_SLUG = 'frontier-agenticdevops-hackathon';
@@ -60,7 +61,9 @@ function readText(file) {
 function parseMeta(text) {
   const out = {};
   let currentListKey = null;
-  for (const raw of text.split(/\r?\n/)) {
+  const lines = text.split(/\r?\n/);
+  for (let i = 0; i < lines.length; i++) {
+    const raw = lines[i];
     if (!raw.trim() || /^\s*#/.test(raw)) continue;
     const listItem = raw.match(/^\s*-\s+(.*)$/);
     if (listItem && currentListKey) {
@@ -72,7 +75,23 @@ function parseMeta(text) {
     if (!kv) continue;
     const key = kv[1];
     const rest = stripComment(kv[2]).trim();
-    if (rest === '' || rest === '[]') {
+    if (/^[>|][+-]?$/.test(rest)) {
+      const blockLines = [];
+      for (i = i + 1; i < lines.length; i++) {
+        const next = lines[i];
+        if (!next.trim()) {
+          blockLines.push('');
+          continue;
+        }
+        if (/^\S/.test(next)) {
+          i--;
+          break;
+        }
+        blockLines.push(next);
+      }
+      out[key] = coerceBlock(rest[0], blockLines);
+      currentListKey = null;
+    } else if (rest === '' || rest === '[]') {
       out[key] = [];
       currentListKey = key;
     } else {
@@ -89,6 +108,27 @@ function coerce(v) {
   if (v === 'false') return false;
   if (/^-?\d+$/.test(v)) return Number(v);
   return v.replace(/^["']|["']$/g, '');
+}
+
+function coerceBlock(style, lines) {
+  const nonBlank = lines.filter(line => line.trim());
+  const indent = nonBlank.length ? Math.min(...nonBlank.map(line => line.match(/^\s*/)[0].length)) : 0;
+  const normalized = lines.map(line => line.trim() ? line.slice(indent).replace(/\s+$/, '') : '');
+  if (style === '|') return normalized.join('\n').trim();
+
+  let out = '';
+  let previousBlank = false;
+  for (const line of normalized) {
+    if (!line.trim()) {
+      if (out && !previousBlank) out += '\n';
+      previousBlank = true;
+      continue;
+    }
+    if (out && !out.endsWith('\n')) out += ' ';
+    out += line.trim();
+    previousBlank = false;
+  }
+  return out.trim();
 }
 
 function normaliseMeta(raw, moduleId, slug) {
@@ -123,13 +163,181 @@ function collectChallenges() {
       const dir = path.join(challengesDir, slugDir.name);
       const metaPath = path.join(dir, 'meta.yml');
       if (!fs.existsSync(metaPath)) continue;
-      const meta = normaliseMeta(parseMeta(readText(metaPath)), moduleId, slugDir.name);
-      challenges.push({ moduleId, slug: slugDir.name, dir, metaPath, meta });
+      const rawMeta = parseMeta(readText(metaPath));
+      const meta = normaliseMeta(rawMeta, moduleId, slugDir.name);
+      challenges.push({ moduleId, slug: slugDir.name, dir, metaPath, rawMeta, meta });
     }
   }
   challenges.sort((a, b) => a.meta.id.localeCompare(b.meta.id));
   state.counts.challenges = challenges.length;
   return challenges;
+}
+
+function isEmptyMetaValue(value) {
+  return value === undefined
+    || value === null
+    || (typeof value === 'string' && (!value.trim() || /^[>|]$/.test(value.trim())))
+    || (Array.isArray(value) && value.length === 0);
+}
+
+function auditMetaContract(challenges) {
+  const scalarFields = [
+    'id', 'title', 'module', 'track', 'difficulty', 'duration_minutes', 'description',
+    'app_dependency', 'emu_compatible', 'min_environment', 'tier', 'source_repo', 'source_path', 'license',
+  ];
+  const nonEmptyArrays = ['prerequisite_capabilities', 'success_criteria'];
+  for (const c of challenges) {
+    const fileRel = rel(c.metaPath);
+    const raw = c.rawMeta || {};
+    for (const field of scalarFields) {
+      if (isEmptyMetaValue(raw[field])) addError(fileRel, 0, `missing or empty required meta field "${field}"`);
+    }
+    if (!Object.prototype.hasOwnProperty.call(raw, 'prerequisites')) {
+      addError(fileRel, 0, 'missing required meta field "prerequisites" (use [] when intentionally independent)');
+    }
+    for (const field of nonEmptyArrays) {
+      if (!Array.isArray(raw[field]) || raw[field].filter(v => String(v).trim()).length === 0) {
+        addError(fileRel, 0, `missing or empty required meta list "${field}"`);
+      }
+    }
+    if (!Array.isArray(raw.tags) || raw.tags.length === 0) addWarning(fileRel, 0, 'meta tags list is empty');
+    if (raw.id && raw.id !== c.meta.id) addError(fileRel, 0, `raw id "${raw.id}" normalizes to "${c.meta.id}"`);
+    if (raw.module && raw.module !== c.moduleId) addError(fileRel, 0, `module "${raw.module}" does not match directory "${c.moduleId}"`);
+    if (raw.duration_minutes !== undefined && (!Number.isFinite(Number(raw.duration_minutes)) || Number(raw.duration_minutes) <= 0)) {
+      addError(fileRel, 0, `duration_minutes must be a positive number: ${raw.duration_minutes}`);
+    }
+    if (raw.difficulty && !['beginner', 'intermediate', 'advanced', 'foundational'].includes(String(raw.difficulty))) {
+      addError(fileRel, 0, `unknown difficulty "${raw.difficulty}"`);
+    }
+    if (raw.tier && !['setup', 'core', 'stretch', 'bonus'].includes(String(raw.tier))) {
+      addError(fileRel, 0, `unknown tier "${raw.tier}"`);
+    }
+  }
+}
+
+function auditPlaceholders(files) {
+  const patterns = [
+    { name: 'REPLACE', re: /\bREPLACE\b/ },
+    { name: 'YOUR_ORG', re: /\bYOUR_ORG\b|\bYOUR_REPO\b/ },
+    { name: 'OWNER/REPO', re: /\bOWNER\/REPO\b/ },
+    { name: 'XXXXX', re: /\bX{5,}\b/ },
+    { name: 'docs.example.com', re: /\bdocs\.example\.com\b/i },
+  ];
+  for (const file of files.filter(p => /\.(md|yml|html)$/i.test(p))) {
+    const fileRel = rel(file);
+    if (fileRel.startsWith('modules/_TEMPLATE/')) continue;
+    const lines = readText(file).split(/\r?\n/);
+    let inFence = false;
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      if (/^\s*```/.test(line)) inFence = !inFence;
+      for (const pattern of patterns) {
+        if (!pattern.re.test(line)) continue;
+        const context = lines.slice(Math.max(0, i - 4), Math.min(lines.length, i + 2)).join('\n');
+        if (isIllustrativePlaceholder(pattern.name, line, context, inFence)) continue;
+        addError(fileRel, i + 1, `unresolved placeholder token "${pattern.name}"`);
+      }
+    }
+  }
+}
+
+function isIllustrativePlaceholder(name, line, context, inFence) {
+  if (name === 'REPLACE' || name === 'XXXXX') return false;
+  const illustrative = /(example|sample|template|placeholder|format|pattern|should follow|use a github url|your repo|e\.g\.)/i;
+  if (illustrative.test(line) || illustrative.test(context)) return true;
+  return inFence && /(example|sample)/i.test(context);
+}
+
+function auditGuideSurfaces(challenges) {
+  for (const c of challenges) {
+    const titleNeedle = normalizeText(c.meta.title || '');
+    const readmePath = path.join(c.dir, 'README.md');
+    const coachPath = path.join(c.dir, 'COACH.md');
+    if (!fs.existsSync(readmePath)) addError(rel(c.dir), 0, `${c.meta.id} missing README.md student guide`);
+    if (!fs.existsSync(coachPath)) addError(rel(c.dir), 0, `${c.meta.id} missing COACH.md facilitator guide`);
+
+    if (fs.existsSync(readmePath)) {
+      const readme = readText(readmePath);
+      const h1 = (readme.match(/^#\s+(.+)$/m) || [])[1] || '';
+      if (titleNeedle && h1 && !titleMatchesHeading(titleNeedle, h1)) {
+        addWarning(rel(readmePath), 1, `README title does not include meta title "${c.meta.title}"`);
+      }
+      if (!/^##\s+(Success Criteria|Acceptance Criteria|Verify|Verification)\b/im.test(readme)
+        && (!Array.isArray(c.meta.success_criteria) || c.meta.success_criteria.length === 0)) {
+        addWarning(rel(readmePath), 0, 'student guide has no visible success/verification surface');
+      }
+    }
+
+    if (fs.existsSync(coachPath)) {
+      const coach = readText(coachPath);
+      const hasAssessmentSurface = /(grading rubric|rubric|expected (outputs?|outcomes?|solution shape)|strong evidence|how to verify|verification|success check|acceptance checklist|common (gaps|blockers|pitfalls))/i.test(coach);
+      if (!hasAssessmentSurface) addWarning(rel(coachPath), 0, 'coach guide lacks an expected-output, verification, or rubric surface');
+    }
+  }
+}
+
+function normalizeText(value) {
+  return String(value)
+    .toLowerCase()
+    .replace(/^challenge\s+[\w.-]+[:—-]\s*/, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function titleMatchesHeading(titleNeedle, heading) {
+  const normalizedHeading = normalizeText(heading);
+  if (normalizedHeading.includes(titleNeedle)) return true;
+  const titleWords = titleNeedle.split(/\s+/).filter(word => word.length > 2 && word !== 'the');
+  return titleWords.length > 0 && titleWords.every(word => normalizedHeading.includes(word));
+}
+
+function auditNumberingGaps(challenges) {
+  const groups = new Map();
+  for (const c of challenges) {
+    const local = String(c.meta.id).startsWith(`${c.moduleId}-`) ? String(c.meta.id).slice(c.moduleId.length + 1) : c.slug;
+    const parsed = parseNumberedLocalId(c.moduleId, local);
+    if (!parsed) continue;
+    const key = `${c.moduleId}:${parsed.group}`;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push({ number: parsed.number, id: c.meta.id });
+  }
+  const documentation = [
+    path.join(ROOT, 'README.md'),
+    path.join(ROOT, 'modules', 'README.md'),
+    path.join(ROOT, 'CONTRIBUTING.md'),
+    path.join(ROOT, '.squad', 'decisions.md'),
+  ].filter(fs.existsSync).map(readText).join('\n').toLowerCase();
+
+  for (const [groupKey, entries] of groups) {
+    const sorted = [...new Set(entries.map(e => e.number))].sort((a, b) => a - b);
+    if (sorted.length < 2) continue;
+    for (let n = sorted[0]; n <= sorted[sorted.length - 1]; n++) {
+      if (sorted.includes(n)) continue;
+      const [moduleId, group] = groupKey.split(':');
+      const localId = formatMissingLocalId(moduleId, group, n);
+      if (!documentation.includes(`${moduleId}-${localId}`.toLowerCase()) && !documentation.includes(`gap at ${localId}`.toLowerCase())) {
+        addWarning(`modules/${moduleId}`, 0, `undocumented numbering gap: ${moduleId}-${localId}`);
+      }
+    }
+  }
+}
+
+function parseNumberedLocalId(moduleId, local) {
+  let m;
+  if ((m = local.match(/^ch(\d+)$/i))) return { group: 'ch', number: Number(m[1]) };
+  if ((m = local.match(/^s(\d+)$/i))) return { group: 's', number: Number(m[1]) };
+  if ((m = local.match(/^(\d+)$/))) return { group: 'root', number: Number(m[1]) };
+  if (moduleId === 'ghaw' && (m = local.match(/^(\d+)-(\d+)$/))) return { group: m[1], number: Number(m[2]) };
+  return null;
+}
+
+function formatMissingLocalId(moduleId, group, number) {
+  const width = moduleId === 'ghaw' || group === 'root' || group === 's' ? 2 : 2;
+  const n = String(number).padStart(width, '0');
+  if (group === 'ch') return `ch${n}`;
+  if (group === 's') return `s${n}`;
+  if (group === 'root') return n;
+  return `${group}-${n}`;
 }
 
 function markdownFiles() {
@@ -435,14 +643,48 @@ function auditStaticChallengeCounts(platform) {
 
 async function auditExternalUrls() {
   if (!CHECK_EXTERNAL) return;
-  const urls = [...state.externalUrls].sort();
+  const urls = [...state.externalUrls].sort().filter(url => !shouldSkipExternalCheck(url));
   const checks = urls.map(url => checkUrl(url).then(result => {
     if (!result.ok) addWarning('(external-url)', 0, `${url} returned ${result.status || result.error}`);
   }));
   await Promise.all(checks);
 }
 
+function shouldSkipExternalCheck(url) {
+  let parsed;
+  try { parsed = new URL(url); } catch { return false; }
+  if (['localhost', '127.0.0.1', '::1'].includes(parsed.hostname) || parsed.hostname.endsWith('.local')) return true;
+  if ((parsed.hostname === 'fonts.googleapis.com' || parsed.hostname === 'fonts.gstatic.com') && parsed.pathname === '/') return true;
+  if (parsed.hostname === 'github.com' && /^\/orgs\/?$/.test(parsed.pathname)) return true;
+  if (parsed.hostname === 'api.github.com' && /^\/scim\/v2\/organizations\/?$/.test(parsed.pathname)) return true;
+  if (knownSourceRepoUrls().has(url.replace(/\/+$/, ''))) return true;
+  return false;
+}
+
+let sourceRepoUrlCache;
+function knownSourceRepoUrls() {
+  if (sourceRepoUrlCache) return sourceRepoUrlCache;
+  sourceRepoUrlCache = new Set();
+  if (!fs.existsSync(EXTERNAL_REPOS_PATH)) return sourceRepoUrlCache;
+  try {
+    const manifest = JSON.parse(readText(EXTERNAL_REPOS_PATH));
+    for (const entry of manifest.dependencies || []) {
+      if (entry && entry.source && entry.source.url) sourceRepoUrlCache.add(String(entry.source.url).replace(/\/+$/, ''));
+    }
+  } catch {
+    // Shape and JSON errors are reported by verify-external-repos.js.
+  }
+  return sourceRepoUrlCache;
+}
+
 function checkUrl(url) {
+  return requestUrl(url, 'HEAD').then(result => {
+    if (result.ok || !result.status) return result;
+    return requestUrl(url, 'GET');
+  });
+}
+
+function requestUrl(url, method) {
   return new Promise(resolve => {
     let parsed;
     try {
@@ -459,7 +701,7 @@ function checkUrl(url) {
     const client = parsed.protocol === 'https:' ? https : http;
     let req;
     try {
-      req = client.request(parsed, { method: 'HEAD', timeout: 8000 }, res => {
+      req = client.request(parsed, { method, timeout: 8000 }, res => {
         res.resume();
         resolve({ ok: res.statusCode >= 200 && res.statusCode < 400, status: res.statusCode });
       });
@@ -477,6 +719,10 @@ async function main() {
   const challenges = collectChallenges();
   const files = markdownFiles();
   state.counts.files = files.length;
+  auditMetaContract(challenges);
+  auditPlaceholders(files);
+  auditGuideSurfaces(challenges);
+  auditNumberingGaps(challenges);
   auditCodeFencesAndCommands(files);
   auditLinks(files);
   auditRenderedGuideLinks(challenges);

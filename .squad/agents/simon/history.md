@@ -68,3 +68,7 @@
 ### 2026-06-19 — External audit robustness improvements
 
 Fixed scripts/audit-content.js to handle untrusted URL extraction gracefully. Malformed URL candidates from Markdown examples (e.g. localhost URLs with trailing delimiters) are now trimmed and excluded safely; invalid URL/request construction generates warnings instead of crashes. npm run audit:content and npm run audit:external both pass successfully with warnings only. This ensures audit determinism across all content including edge cases like code examples and inline references.
+
+### 2026-06-19 — Deterministic content-audit guardrails
+
+Added deterministic QA checks for folded YAML scalars, required meta fields, unresolved placeholders, README title consistency, guide assessment surfaces, and documented numbering gaps. Fixed the shared minimal YAML parser in `docs/build.js`, `scripts/audit-content.js`, and `scripts/verify-external-repos.js`; four setup descriptions now render as real text instead of literal `>`. Current audit and repo verification pass cleanly.

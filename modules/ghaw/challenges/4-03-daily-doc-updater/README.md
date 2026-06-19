@@ -87,7 +87,3 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
 
 </details>
 
----
-
-<a href="https://github.com/microsoft/frontier-ghaw-hackathon/blob/main/challenges/track-4-production-patterns/4-03-daily-doc-updater/Student/README.md" class="btn btn--primary">📘 Student Guide</a>
-<a href="https://github.com/microsoft/frontier-ghaw-hackathon/blob/main/challenges/track-4-production-patterns/4-03-daily-doc-updater/Coach/README.md" class="btn btn--ghost">🎓 Coach Guide</a>

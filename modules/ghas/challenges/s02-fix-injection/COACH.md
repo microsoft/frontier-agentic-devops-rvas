@@ -37,5 +37,14 @@ Verify each success criterion from the student guide:
 - [ ] Copilot Autofix tried on at least one alert (click "Generate fix" in the Security tab)
 - [ ] PR CodeQL/code scanning checks reviewed, with no remaining annotations for the fixed patterns
 
+## Assessment rubric (100 pts)
+| Criterion | Points | What "full marks" looks like |
+|---|---:|---|
+| Vulnerable flow identified | 20 | Points to the attacker-controlled input, query construction, and unsafe sink for each fixed alert. |
+| Correct remediation | 30 | Uses parameterized queries or equivalent safe APIs; does not rely on regex filtering or superficial sanitization. |
+| Coverage | 20 | Fixes the required injection paths and checks for sibling instances of the same pattern. |
+| Verification evidence | 15 | Reviews CodeQL/code scanning results on the PR and confirms the fixed patterns are no longer annotated. |
+| Grounding conversation | 15 | Connects injection risk to a real service, data type, and verification action. |
+
 ## Source
 Derived from [microsoft/frontier-ghas-hackathon](https://github.com/microsoft/frontier-ghas-hackathon), MIT license.

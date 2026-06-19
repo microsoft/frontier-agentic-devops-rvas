@@ -32,7 +32,7 @@ As the developer who just spent the last few challenges in the code, you're in t
 
 ## Learning Resources
 
-- [About security campaigns](https://docs.github.com/en/code-security/securing-your-organization/fixing-security-alerts-at-scale/about-security-campaigns)
-- [Creating a security campaign](https://docs.github.com/en/code-security/securing-your-organization/fixing-security-alerts-at-scale/creating-a-security-campaign)
-- [Best practices for fixing security alerts at scale](https://docs.github.com/en/code-security/securing-your-organization/fixing-security-alerts-at-scale/best-practices-for-fixing-security-alerts-at-scale)
+- [About security campaigns](https://docs.github.com/en/code-security/concepts/security-at-scale/about-security-campaigns)
+- [Fixing alerts in a security campaign](https://docs.github.com/en/code-security/how-tos/manage-security-alerts/remediate-alerts-at-scale/fixing-alerts-in-security-campaign)
+- [Security campaigns GA announcement](https://github.blog/changelog/2025-04-07-security-campaigns-are-now-generally-available-to-help-address-security-debt-at-scale/)
 - [About security overview](https://docs.github.com/en/code-security/security-overview/about-security-overview)

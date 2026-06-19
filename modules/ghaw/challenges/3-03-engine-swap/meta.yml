@@ -34,7 +34,6 @@ source_path: _challenges/3-03-engine-swap.md
 license: MIT
 references:
   - https://github.github.com/gh-aw/reference/engines/
-  - https://github.github.com/gh-aw/reference/engines/comparison/
-  - https://github.github.com/gh-aw/guide/prompt-engineering/
-  - https://github.github.com/gh-aw/guide/copilot-tuning/
-  - https://github.github.com/gh-aw/guide/claude-tuning/
+  - https://github.github.com/gh-aw/reference/model-tables/
+  - https://github.github.com/gh-aw/reference/auth/
+  - https://github.github.com/gh-aw/reference/frontmatter/

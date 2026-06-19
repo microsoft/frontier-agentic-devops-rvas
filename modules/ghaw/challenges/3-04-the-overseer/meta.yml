@@ -14,7 +14,7 @@ description: Build a meta-workflow that watches your other workflows — queryin
 success_criteria:
   - Workflow triggers weekly (`on: schedule:`)
   - Uses `agentic-workflows` MCP tool to fetch run data
-  - Frontmatter includes `max-effective-tokens: XXXXX` with a comment explaining the value
+  - Frontmatter includes a concrete high token budget (for example `max-effective-tokens: 5000000`) with a comment explaining the value
   - Analysis identifies: top expensive, top failing, unexpected spikes
   - Issue created with structured data (table + alerts)
   - Old issues auto-close (via `close-older-issues: true`)
@@ -33,7 +33,7 @@ source_repo: microsoft/frontier-ghaw-hackathon
 source_path: _challenges/3-04-the-overseer.md
 license: MIT
 references:
-  - https://github.github.com/gh-aw/reference/mcp-tools/#agentic-workflows
+  - https://github.github.com/gh-aw/reference/frontmatter/
   - https://github.github.com/gh-aw/reference/frontmatter/#max-effective-tokens
   - https://github.com/github/gh-aw/blob/main/.github/workflows/audit-workflows.md
   - https://github.com/github/gh-aw/blob/main/.github/workflows/workflow-health-manager.md

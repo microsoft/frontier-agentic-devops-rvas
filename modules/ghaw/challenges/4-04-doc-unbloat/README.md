@@ -87,7 +87,3 @@ Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/git
 
 </details>
 
----
-
-<a href="https://github.com/microsoft/frontier-ghaw-hackathon/blob/main/challenges/track-4-production-patterns/4-04-doc-unbloat/Student/README.md" class="btn btn--primary">📘 Student Guide</a>
-<a href="https://github.com/microsoft/frontier-ghaw-hackathon/blob/main/challenges/track-4-production-patterns/4-04-doc-unbloat/Coach/README.md" class="btn btn--ghost">🎓 Coach Guide</a>

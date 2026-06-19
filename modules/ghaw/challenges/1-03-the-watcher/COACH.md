@@ -21,6 +21,17 @@ This is the **event-driven trigger challenge**. The mental model shift: instead 
 
 ---
 
+## Expected Outcomes
+
+A coach can verify completion when the squad can show:
+
+- `.github/workflows/the-watcher.md` and generated lockfile are present.
+- Frontmatter includes a push trigger with a relevant path filter, `workflow_dispatch`, minimal read permissions, and bounded comment/noop safe-outputs.
+- A pushed test change or manual run proves the workflow inspects changed files and posts the expected summary.
+- The squad can explain which path in a real repo deserves this kind of watcher and why.
+
+---
+
 ## Common Pitfalls & Coaching Responses
 
 ### Pitfall 1: Path filter is too specific or wrong

@@ -36,9 +36,9 @@ REPLACE: Keep steps granular — one action per step where possible.
 
 ## Success Criteria
 
-- [ ] REPLACE: First observable success condition
-- [ ] REPLACE: Second observable success condition
+- [ ] First observable success condition
+- [ ] Second observable success condition
 
 ## References
 
-- [REPLACE: Link title](https://docs.github.com/REPLACE)
+- [GitHub Docs](https://docs.github.com/)

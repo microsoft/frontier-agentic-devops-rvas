@@ -84,7 +84,3 @@ Source: [`githubnext/agentics/workflows/ci-doctor.md`](https://github.com/github
 
 </details>
 
----
-
-<a href="https://github.com/microsoft/frontier-ghaw-hackathon/blob/main/challenges/track-4-production-patterns/4-02-ci-doctor/Student/README.md" class="btn btn--primary">📘 Student Guide</a>
-<a href="https://github.com/microsoft/frontier-ghaw-hackathon/blob/main/challenges/track-4-production-patterns/4-02-ci-doctor/Coach/README.md" class="btn btn--ghost">🎓 Coach Guide</a>
