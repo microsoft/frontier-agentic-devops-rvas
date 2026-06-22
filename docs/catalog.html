@@ -13,8 +13,8 @@
       } catch (e) {}
     })();
   </script>
-  <title>Challenge Catalog — Agentic DevOps</title>
-  <meta name="description" content="Browse all 59 challenges across GHEC, GHAS, Agentic Workflows, and SRE Agent. Filter by module, difficulty, track, and tags." />
+  <title>Outcome Catalog — Agentic DevOps</title>
+  <meta name="description" content="Browse GitHub adoption, migration, GHAS, agentic workflow, and cloud DevOps outcome journeys across all challenges." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -55,15 +55,19 @@
 
     <section class="catalog-hero" aria-labelledby="catalogHeading">
       <div class="wrap">
-        <span class="eyebrow">Challenge catalog</span>
-        <h1 id="catalogHeading" style="margin-top:14px">All 59 challenges.</h1>
-        <p>Filter across all four modules. Every card is data-driven from <span class="mono">platform.json</span> — no hand-maintained lists.</p>
+        <span class="eyebrow">Outcome catalog</span>
+        <h1 id="catalogHeading" style="margin-top:14px">Find the right path.</h1>
+        <p>Filter by business outcome, module, or level. Every card is data-driven from <span class="mono">platform.json</span>, including journey membership and challenge metadata.</p>
         <p style="margin-top:18px"><a class="btn btn-primary btn-sm" href="builder.html">⊞ Build a custom set for your students →</a></p>
       </div>
     </section>
 
     <div class="filters" role="search" aria-label="Filter challenges">
       <div class="wrap filters-inner">
+        <div class="filter-group filter-group-wide">
+          <span class="filter-label" id="outcomeFilterLabel">Outcome</span>
+          <div id="outcomeChips" role="group" aria-labelledby="outcomeFilterLabel" style="display:contents"></div>
+        </div>
         <div class="filter-group">
           <span class="filter-label" id="moduleFilterLabel">Module</span>
           <div id="moduleChips" role="group" aria-labelledby="moduleFilterLabel" style="display:contents"></div>

@@ -477,6 +477,56 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
 }
 
+.outcome-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr));
+}
+.outcome-card {
+  background: linear-gradient(180deg, var(--c-800), var(--c-850));
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-lg);
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  color: inherit;
+  min-height: 250px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.22s var(--ease), border-color 0.22s, box-shadow 0.22s;
+}
+.outcome-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--c-ghec), var(--c-ghas), var(--c-ghaw), var(--c-agentic));
+}
+.outcome-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--c-gold-dim);
+  box-shadow: var(--shadow-card);
+}
+.outcome-card:focus-visible { outline: 2px solid var(--c-gold); outline-offset: 3px; }
+.outcome-card-top { display: flex; gap: 7px; flex-wrap: wrap; align-items: center; }
+.outcome-card h3 { font-size: 1.12rem; }
+.outcome-card p { margin: 0; color: var(--c-dim); font-size: 0.88rem; line-height: 1.65; }
+.outcome-id {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  color: var(--c-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.outcome-metrics {
+  margin: auto 0 0;
+  padding-left: 18px;
+  color: var(--c-dim);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
 .mod-card {
   background: var(--c-800);
   border: 1px solid var(--c-line);
@@ -677,6 +727,13 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
   font-size: 0.68rem;
 }
 .badge-tag:hover { color: var(--c-dim); }
+.badge-outcome {
+  background: rgba(232, 200, 74, 0.10);
+  color: var(--c-gold);
+  border-color: rgba(232, 200, 74, 0.20);
+  text-transform: none;
+  letter-spacing: 0;
+}
 
 /* ═══════════════════════════ FILTERS ═══════════════════════════════ */
 .filters {
@@ -695,6 +752,7 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
   gap: 8px 16px;
 }
 .filter-group { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.filter-group-wide { flex-basis: 100%; }
 .filter-label {
   font-family: var(--font-mono);
   font-size: 0.65rem;
@@ -722,6 +780,8 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
 .chip.active[data-module="ghas"]        { background: var(--c-ghas); }
 .chip.active[data-module="ghaw"]        { background: var(--c-ghaw); }
 .chip.active[data-module="agentic-devops"] { background: var(--c-agentic); }
+.chip.active[data-module="sre-agent"] { background: var(--c-agentic); }
+.chip-outcome { max-width: 260px; overflow: hidden; text-overflow: ellipsis; }
 
 /* Search box */
 .search-box {

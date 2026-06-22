@@ -4,6 +4,8 @@
 
   let _all = [];
   let _modules = [];
+  let _outcomes = [];
+  let _activeOutcome = null;
   let _activeModule = null;
   let _activeDiff = null;
   let _activeTrack = null;
@@ -16,7 +18,9 @@
 
     _all = data.challenges || [];
     _modules = data.modules || [];
+    _outcomes = data.outcomes || [];
 
+    buildOutcomeChips();
     buildModuleChips();
     buildDiffChips();
     initSearch();
@@ -32,6 +36,9 @@
   function applyUrlState() {
     const mod = FP.qp('module');
     if (mod && _modules.some((m) => m.id === mod)) _activeModule = mod;
+
+    const outcome = FP.qp('outcome');
+    if (outcome && _outcomes.some((o) => o.id === outcome)) _activeOutcome = outcome;
 
     const diff = FP.qp('difficulty');
     if (diff && DIFFS.indexOf(diff) !== -1) _activeDiff = diff;
@@ -54,6 +61,11 @@
       b.classList.toggle('active', on);
       b.setAttribute('aria-pressed', String(on));
     });
+    document.querySelectorAll('#outcomeChips .chip').forEach((b) => {
+      const on = b.dataset.outcome === _activeOutcome;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
     document.querySelectorAll('#diffChips .chip').forEach((b) => {
       const on = b.dataset.diff === _activeDiff;
       b.classList.toggle('active', on);
@@ -66,6 +78,7 @@
   function syncUrl() {
     const q = new URLSearchParams();
     if (_activeModule) q.set('module', _activeModule);
+    if (_activeOutcome) q.set('outcome', _activeOutcome);
     if (_activeDiff) q.set('difficulty', _activeDiff);
     if (_query) q.set('q', _query);
     const qs = q.toString();
@@ -93,6 +106,27 @@
           b.classList.toggle('active', b.dataset.module === _activeModule);
           b.setAttribute('aria-pressed', String(b.dataset.module === _activeModule));
         });
+        syncUrl();
+        render();
+      });
+    });
+  }
+
+  function buildOutcomeChips() {
+    const container = document.getElementById('outcomeChips');
+    if (!container) return;
+    container.innerHTML = _outcomes.map((o) =>
+      `<button class="chip chip-outcome" data-outcome="${FP.esc(o.id)}"
+         aria-pressed="false" type="button">
+         ${FP.esc(o.name)}
+       </button>`
+    ).join('');
+
+    container.querySelectorAll('.chip').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.outcome;
+        _activeOutcome = _activeOutcome === id ? null : id;
+        syncChipState();
         syncUrl();
         render();
       });
@@ -135,6 +169,7 @@
       clearBtn.addEventListener('click', () => {
         _query = '';
         input.value = '';
+        _activeOutcome = null;
         _activeModule = null;
         _activeDiff = null;
         document.querySelectorAll('.chip').forEach((b) => {
@@ -150,9 +185,11 @@
   function filtered() {
     return _all.filter((c) => {
       if (_activeModule && c.module !== _activeModule) return false;
+      if (_activeOutcome && !(c.outcomes || []).includes(_activeOutcome)) return false;
       if (_activeDiff   && c.difficulty !== _activeDiff) return false;
       if (_query) {
-        const hay = [c.title, c.description, ...(c.tags || []), c.module, c.track]
+        const outcomeNames = (c.outcomes || []).map((id) => FP.outcomeName(id, _outcomes));
+        const hay = [c.title, c.description, ...(c.tags || []), ...outcomeNames, c.module, c.track]
           .join(' ').toLowerCase();
         if (!hay.includes(_query)) return false;
       }
@@ -214,11 +251,18 @@
         <div class="ch-title">${FP.esc(c.title)}</div>
         <div class="ch-desc">${FP.esc(c.description)}</div>
         <div class="ch-footer">
+          ${outcomeBadge(c)}
           ${FP.diffBadge(c.difficulty)}
           ${FP.durBadge(c.duration_minutes)}
           <div class="ch-tags">${FP.tagBadges(c.tags, 3)}</div>
         </div>
       </a>`;
+  }
+
+  function outcomeBadge(c) {
+    const id = (c.outcomes || [])[0];
+    if (!id) return '';
+    return `<span class="badge badge-outcome">${FP.esc(FP.outcomeName(id, _outcomes))}</span>`;
   }
 
   document.addEventListener('DOMContentLoaded', init);

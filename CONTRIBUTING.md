@@ -20,6 +20,10 @@ Challenge content lives under `modules/<moduleId>/challenges/<slug>/`. The build
 generated Pages data. Do not hand-edit generated files under `docs/assets/data/`; run
 `npm run build` instead.
 
+Outcome journeys live in [`outcomes.json`](outcomes.json). Use that file to curate existing
+challenges into adoption, migration, security, agentic workflow, and cloud DevOps paths
+without duplicating challenge content.
+
 Every challenge directory must contain:
 
 ```text
@@ -57,6 +61,28 @@ Optional fields:
 |---|---|
 | `tier` | `setup`, `core`, `stretch`, or `bonus`. Defaults to `core` in the build. |
 | `references` | Source-backed docs and product links used by students or coaches. |
+| `outcomes` | Outcome ids from `outcomes.json` when a challenge needs explicit membership beyond journey curation. |
+| `personas` | Personas such as `platform-engineer`, `security-lead`, `developer`, `sre`, or `migration-lead`. |
+| `business_value` | Value tags such as `reduce-migration-risk`, `shift-left-security`, or `automate-repetitive-work`. |
+| `adoption_stage` | `assess`, `pilot`, `scale`, or `operate`. |
+
+## Outcome journey contract
+
+`outcomes.json` defines the business-facing paths shown on the home page and catalog filters.
+Each outcome requires:
+
+| Field | Contract |
+|---|---|
+| `id` | Stable kebab-case outcome id. |
+| `name` | Business-facing journey name. |
+| `tagline` | Short card summary. |
+| `description` | Longer explanation of when to use the journey. |
+| `personas` | Primary audience for the journey. |
+| `adoption_stage` | Stages covered by the journey: `assess`, `pilot`, `scale`, `operate`. |
+| `business_value` | Searchable value tags. |
+| `source_platforms` | Relevant starting platforms, such as `azure-devops`, `bitbucket`, `gitlab`, `github`, or `greenfield`. |
+| `challenge_ids` | Ordered list of existing challenge ids included in the journey. |
+| `success_metrics` | Observable business outcomes coaches can use in workshop or account-team conversations. |
 
 ## Per-challenge QA rubric
 

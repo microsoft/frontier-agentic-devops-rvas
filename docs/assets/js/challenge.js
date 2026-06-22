@@ -28,7 +28,7 @@
     document.title = challenge.title + ' — Agentic DevOps';
     applyModuleColor(challenge.module);
     renderHero(challenge, mod);
-    renderFacts(challenge, mod, allChallenges);
+    renderFacts(challenge, mod, allChallenges, data.outcomes || []);
     renderRelated(challenge, allChallenges);
     applyKioskLinks();
     initViewSwitch(challenge);
@@ -90,7 +90,7 @@
     }
   }
 
-  function renderFacts(c, mod, allChallenges) {
+  function renderFacts(c, mod, allChallenges, outcomes) {
     // Prerequisites
     const prereqPanel = document.getElementById('prereqPanel');
     const prereqList  = document.getElementById('prereqList');
@@ -136,6 +136,7 @@
       const rows = [
         ['Difficulty', FP.diffBadge(c.difficulty)],
         ['Duration', FP.durBadge(c.duration_minutes) || '—'],
+        ['Outcomes', outcomeLinks(c, outcomes)],
         ['Track', FP.esc(c.track || '—')],
         ['Tier', FP.esc(c.tier || 'core')],
         ['App', c.app_dependency && c.app_dependency !== 'none' ? FP.esc(c.app_dependency) : 'none'],
@@ -144,6 +145,13 @@
       factRows.innerHTML = rows.map(([k, v]) =>
         `<div class="fact-row"><span class="fact-key">${k}</span><span class="fact-val">${v}</span></div>`
       ).join('');
+    }
+
+    function outcomeLinks(c, outcomes) {
+      if (!c.outcomes || !c.outcomes.length) return '—';
+      return c.outcomes.map((id) =>
+        `<a href="${FP.catalogOutcomeUrl(id)}" class="badge badge-outcome">${FP.esc(FP.outcomeName(id, outcomes))}</a>`
+      ).join(' ');
     }
 
     // Tags

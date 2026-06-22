@@ -21,6 +21,7 @@
       ghec: 'var(--c-ghec)',
       ghas: 'var(--c-ghas)',
       ghaw: 'var(--c-ghaw)',
+      'sre-agent': 'var(--c-agentic)',
       'agentic-devops': 'var(--c-agentic)',
     };
     return map[moduleId] || 'var(--c-gold)';
@@ -75,6 +76,13 @@
   };
   FP.moduleUrl = function (id) {
     return 'module.html?m=' + encodeURIComponent(id);
+  };
+  FP.catalogOutcomeUrl = function (id) {
+    return 'catalog.html?outcome=' + encodeURIComponent(id);
+  };
+  FP.outcomeName = function (outcomeId, outcomes) {
+    const o = (outcomes || []).find((x) => x.id === outcomeId);
+    return o ? o.name : outcomeId;
   };
 
   /* ─────────────────────────── Query params ─────────────────────── */

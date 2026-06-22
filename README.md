@@ -1,6 +1,18 @@
 # Agentic DevOps
 
-One repo. One GitHub Pages site. Four hackathon modules, 59 challenges, zero configuration drama.
+One repo. One GitHub Pages site. Five outcome journeys, four hackathon modules, 59 challenges, zero configuration drama.
+
+## Outcomes
+
+The site is organized around business outcomes first, then platform modules:
+
+| Outcome ID | Purpose |
+|---|---|
+| `github-adoption` | Streamline adoption of GitHub Enterprise Cloud as the enterprise developer platform. |
+| `platform-migration` | Move projects from Azure DevOps, Bitbucket, GitLab, or other platforms to GitHub. |
+| `ghas-adoption` | Adopt GitHub Advanced Security as a repeatable secure-development operating model. |
+| `agentic-workflows` | Start using reviewable, safe agentic workflows on GitHub. |
+| `agentic-devops-cloud` | Connect GitHub, Azure, and agents into an end-to-end DevOps and SRE loop. |
 
 ## Modules
 
@@ -32,7 +44,7 @@ docs/assets/data/
   challenges/<id>/COACH.md   ← copied coach guide
 ```
 
-The build script is the **only bridge** between content metadata and the rendered site. Never hand-copy metadata.
+The build script is the **only bridge** between content metadata, outcome journeys, and the rendered site. Never hand-copy metadata.
 
 ## Building Locally
 

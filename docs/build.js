@@ -79,6 +79,7 @@ const MODULES_DIR    = path.join(ROOT, 'modules');
 const OUT_DATA_DIR   = path.join(__dirname, 'assets', 'data');
 const OUT_GUIDES_DIR = path.join(OUT_DATA_DIR, 'challenges');
 const OUT_RESOURCES_DIR = path.join(__dirname, 'resources');
+const OUTCOMES_PATH  = path.join(ROOT, 'outcomes.json');
 
 /* ─── Minimal YAML parser ────────────────────────────────────────────────────
  * Handles only the locked meta.yml contract: scalar key-value pairs, block
@@ -205,6 +206,9 @@ function normaliseMeta(raw, moduleId, slug) {
   if (!Array.isArray(m.tags))                  m.tags = [];
   if (!Array.isArray(m.provision_creates))     m.provision_creates = [];
   if (!Array.isArray(m.references))            m.references = [];
+  if (!Array.isArray(m.outcomes))              m.outcomes = [];
+  if (!Array.isArray(m.personas))              m.personas = [];
+  if (!Array.isArray(m.business_value))        m.business_value = [];
 
   // app_dependency: legacy uses "app"
   if (!m.app_dependency) m.app_dependency = m.app || 'none';
@@ -304,6 +308,16 @@ function copyModuleResources(moduleId) {
   return copied;
 }
 
+function readOutcomeConfig() {
+  if (!fs.existsSync(OUTCOMES_PATH)) return [];
+  const parsed = JSON.parse(fs.readFileSync(OUTCOMES_PATH, 'utf8'));
+  return Array.isArray(parsed.outcomes) ? parsed.outcomes : [];
+}
+
+function uniq(values) {
+  return [...new Set((values || []).filter(Boolean))];
+}
+
 /* ─── Cycle detection (DFS) ─────────────────────────────────────────────────*/
 function detectCycles(challenges) {
   const adjMap = new Map(challenges.map(c => [c.id, c.prerequisites]));
@@ -337,6 +351,7 @@ function main() {
   let errors   = 0;
   let warnings = 0;
   const allChallenges = [];
+  const outcomes = readOutcomeConfig();
 
   fs.rmSync(OUT_RESOURCES_DIR, { recursive: true, force: true });
   fs.mkdirSync(OUT_RESOURCES_DIR, { recursive: true });
@@ -402,6 +417,10 @@ function main() {
         prerequisite_capabilities: meta.prerequisite_capabilities,
         success_criteria:        meta.success_criteria,
         tags:                    meta.tags,
+        outcomes:                meta.outcomes,
+        personas:                meta.personas,
+        business_value:          meta.business_value,
+        adoption_stage:          meta.adoption_stage || '',
         app_dependency:          meta.app_dependency,
         emu_compatible:          meta.emu_compatible,
         tier:                    meta.tier,
@@ -420,12 +439,32 @@ function main() {
 
   /* ── 2. Validate prerequisites ── */
   const allIds = new Set(allChallenges.map(c => c.id));
+  const outcomeIds = new Set(outcomes.map(o => o.id));
 
   for (const c of allChallenges) {
     for (const prereqId of c.prerequisites) {
       if (!allIds.has(prereqId)) {
         console.error(`  ✗ ${c.id}: prerequisites references unknown id "${prereqId}"`);
         errors++;
+      }
+      for (const outcomeId of c.outcomes) {
+        if (!outcomeIds.has(outcomeId)) {
+          console.error(`  ✗ ${c.id}: outcomes references unknown id "${outcomeId}"`);
+          errors++;
+        }
+      }
+    }
+
+    for (const outcome of outcomes) {
+      if (!outcome.id || !outcome.name) {
+        console.error('  ✗ outcomes.json: every outcome needs id and name');
+        errors++;
+      }
+      for (const challengeId of outcome.challenge_ids || []) {
+        if (!allIds.has(challengeId)) {
+          console.error(`  ✗ outcome "${outcome.id}": challenge_ids references unknown id "${challengeId}"`);
+          errors++;
+        }
       }
     }
   }
@@ -442,7 +481,19 @@ function main() {
     process.exit(1);
   }
 
-  /* ── 4. Build modules metadata ── */
+  /* ── 4. Enrich challenges with outcome journey membership ── */
+  const challengeById = new Map(allChallenges.map(c => [c.id, c]));
+  for (const outcome of outcomes) {
+    for (const challengeId of outcome.challenge_ids || []) {
+      const challenge = challengeById.get(challengeId);
+      if (!challenge) continue;
+      challenge.outcomes = uniq([...(challenge.outcomes || []), outcome.id]);
+      challenge.personas = uniq([...(challenge.personas || []), ...(outcome.personas || [])]);
+      challenge.business_value = uniq([...(challenge.business_value || []), ...(outcome.business_value || [])]);
+    }
+  }
+
+  /* ── 5. Build modules metadata ── */
   const modules = Object.entries(MODULE_CONFIG).map(([moduleId, cfg]) => {
     const moduleChallenges = allChallenges.filter(c => c.module === moduleId);
     const trackSet         = {};
@@ -471,7 +522,19 @@ function main() {
     };
   });
 
-  /* ── 5. Build dependency graph ── */
+  const outputOutcomes = outcomes.map(o => {
+    const challengeIds = (o.challenge_ids || []).filter(id => allIds.has(id));
+    const totalMinutes = challengeIds.reduce((sum, id) => {
+      const c = challengeById.get(id);
+      return sum + (c && c.duration_minutes ? c.duration_minutes : 0);
+    }, 0);
+    return Object.assign({}, o, {
+      challenge_count: challengeIds.length,
+      duration_minutes: totalMinutes,
+    });
+  });
+
+  /* ── 6. Build dependency graph ── */
   const graphNodes = allChallenges.map(c => ({
     id:     c.id,
     title:  c.title,
@@ -488,7 +551,7 @@ function main() {
     }
   }
 
-  /* ── 6. Strip internal fields before writing ── */
+  /* ── 7. Strip internal fields before writing ── */
   const outputChallenges = allChallenges.map(c => {
     const out = Object.assign({}, c);
     delete out._has_student_guide;
@@ -496,12 +559,13 @@ function main() {
     return out;
   });
 
-  /* ── 7. Write outputs ── */
+  /* ── 8. Write outputs ── */
   fs.mkdirSync(OUT_DATA_DIR, { recursive: true });
 
   const platform = {
     generated_at: new Date().toISOString(),
     modules,
+    outcomes: outputOutcomes,
     challenges: outputChallenges,
   };
   fs.writeFileSync(
@@ -516,7 +580,7 @@ function main() {
   );
 
   const totalChallenges = allChallenges.length;
-  console.log(`✓ built platform.json  (modules: ${modules.length}, challenges: ${totalChallenges})`);
+  console.log(`✓ built platform.json  (modules: ${modules.length}, outcomes: ${outputOutcomes.length}, challenges: ${totalChallenges})`);
   console.log(`✓ built dependency-graph.json  (nodes: ${graphNodes.length}, edges: ${graphEdges.length})`);
   console.log(`✓ copied student/coach guides → ${path.relative(ROOT, OUT_GUIDES_DIR)}`);
   if (warnings > 0) console.warn(`  ${warnings} warning(s) — review above`);
