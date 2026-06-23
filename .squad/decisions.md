@@ -625,3 +625,94 @@ Typography adjustments:
 - GHAS coach guides now include concise point-weighted assessment rubrics rather than only facilitation notes.
 - SRE module references must refer to the intentional 00, 01, 03, 04, 05, 06 sequence; do not reintroduce Challenge 02 wording unless the removed challenge is restored.
 - External audit warnings are acceptable only when they are expected local/private/source references; placeholder and stale-doc warnings should be fixed in content.
+
+---
+
+### Submodule + Symlink Pattern for Local App Provisioning (2026-06-23)
+
+**Date:** 2026-06-23  
+**Author:** Wash (DevOps / Build)  
+**Status:** Proposed — pending team ratification
+
+**Context:** GHAS participants need OWASP Juice Shop running locally (port 3000) for manual exploit testing. Previously the instructions said `cd app && npm start` without a pinned, reproducible way to get `app/` — participants copy-pasted SHA references from challenge READMEs, which was error-prone.
+
+**Decision:** The **standard pattern for locally-run apps** in this curriculum is:
+
+1. **Git submodule** registered at `external/<name>`, pinned to a specific commit SHA in the gitlink. `.gitmodules` carries the URL and `shallow = true`.
+2. **Committed symlink** from a stable challenge-expected path (e.g., `app/`) to `external/<name>`, so instructions never need to reference the submodule's internal location.
+3. **Lazy provisioning** — the submodule working tree is NOT fetched at container create time. Participants run `npm run setup:<name>` when they need it.
+4. **`scripts/provision-app.sh`** — a single generic script driven by the app key. It reads `external-repos.json`, inits the submodule, verifies the SHA, ensures symlinks, and prints next steps.
+5. **`external-repos.json` as source of truth** — each submodule-backed app carries a `provisioning` block: `{ "method": "submodule", "submodule_path": "...", "symlinks": [...], "npm_script": "..." }`.
+6. **Drift check in `npm run verify:repos`** — `validateSubmodules()` asserts `.gitmodules` URL presence, gitlink SHA == `source.sha`, and (if checked out) HEAD SHA == `source.sha`.
+
+**Applied to Juice Shop:**
+- Submodule: `external/juice-shop` pinned at `f356a09207c7a9550eb6fc4c3945e081922cf998` (tag `v20.0.0`)
+- Symlink: `app → external/juice-shop`
+- NPM script: `npm run setup:juice-shop`
+- The submodule is the LOCAL RUNTIME only. The org-imported repo that carries GHAS alerts is completely separate and unaffected.
+
+**Adding a new local app:**
+1. Register submodule: `git submodule add --depth 1 <url> external/<name>` + checkout pinned SHA.
+2. Set `shallow = true` in `.gitmodules`.
+3. Create committed symlink(s) if needed.
+4. Add `provisioning` block to `external-repos.json`.
+5. Add `setup:<name>` npm script in `package.json`.
+6. Run `npm run verify:repos` to confirm drift check passes.
+
+**Rationale:**
+- **Pinned in-tree:** gitlink stores the exact SHA in the parent repo's tree — drift is impossible once committed.
+- **Lazy = fast containers:** participants who skip GHAS don't pay the ~61 MB Juice Shop download at container create time.
+- **Generic:** the provision script and drift check are key-driven; adding future apps requires only a manifest entry + npm script.
+- **Symlinks work in Codespaces/Linux devcontainers:** the expected deployment environment. Windows native checkout is out of scope (documented limitation).
+
+---
+
+### Deterministic Content-Audit Guardrails (2026-06-19)
+
+**Date:** 2026-06-19  
+**Owner:** Simon (QA / Tester)  
+**Status:** Proposed follow-up
+
+**Context:** The content audit now fails on structural P0/P1 issues: folded YAML parser regressions, empty required meta fields, unresolved production placeholders, missing guide files, stale catalog data, and undocumented numbering gaps.
+
+**Follow-up candidates:**
+- Decide whether SRE Agent challenge tags should be required and backfill tags for `sre-agent-01`, `03`, `04`, `05`, and `06`.
+- Decide whether GHAS coach guides should add an explicit expected-output, verification, or rubric section so the new warning becomes a future hard gate.
+
+**Current validation:** `npm run audit:content`, `npm run verify:repos`, and the sample app `npm test` pass.
+
+---
+
+### QA Rubric and Catalog Backlog Gates (2026-06-19)
+
+**Date:** 2026-06-19  
+**Owner:** Mal (Lead / Architect)  
+**Status:** Proposed
+
+**Context:** The catalog has reached a full current-scope inventory of 59 challenges. Future changes need a consistent way to score challenge readiness, classify defects, and decide whether omitted source material should become backlog.
+
+**Decision:** Use the `CONTRIBUTING.md` QA rubric as the challenge-readiness gate: 100 points, P0/P1 blocking severity, P2 tracked follow-up severity, and P3 polish severity. Use JSON Lines-compatible inventory objects for per-challenge review records in PR comments, issue bodies, or generated reports rather than creating planning markdown files in the repo.
+
+**Backlog stance:**
+- GHEC and GHAW are complete for the current scope.
+- GHAS remains security-focused; excluded Copilot app/frontend/backend material is declined for this module unless Marco reopens scope as a separate module/track.
+- `sre-agent-02` remains intentionally absent after the removed Copilot-engineering challenge. A future replacement must be SRE-lifecycle-specific and pass the same rubric before content work starts.
+
+**Final missing-candidate classification:** Current catalog review covers 59 challenges: GHEC 21, GHAS 7, GHAW 25, and SRE Agent 6. The catalog is complete enough to ship now; no new challenge is required before release.
+
+---
+
+### Global Official References Are Contextual, Not Resource Dumps (2026-06-19)
+
+**Date:** 2026-06-19  
+**Owner:** Zoe (Content/Curriculum Engineer)  
+**Status:** Proposed
+
+**Context:** Marco clarified that documentation-link improvements apply across all modules, not only GHEC Ch05. The goal is verified, natural official references in both student and coach material without changing seed repositories or adding generic resource dumps.
+
+**Decision:** Add official references at point of use in `README.md` and `COACH.md`, then mirror the final verified URL set in each changed challenge's `meta.yml`. Prioritize sparse challenges and obvious official docs topics. Prefer docs.github.com, learn.microsoft.com, cli.github.com, official GitHub/Azure repositories, and OWASP where relevant.
+
+**Implications:**
+- New links should explain the task immediately around the sentence where the learner needs the reference.
+- Metadata references should stay aligned with actual content links and source links.
+- External-audit warnings from inherited placeholder/source-attribution links should be reported separately from newly added verified references.
