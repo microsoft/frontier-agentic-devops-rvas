@@ -72,3 +72,55 @@ Fixed scripts/audit-content.js to handle untrusted URL extraction gracefully. Ma
 ### 2026-06-19 — Deterministic content-audit guardrails
 
 Added deterministic QA checks for folded YAML scalars, required meta fields, unresolved placeholders, README title consistency, guide assessment surfaces, and documented numbering gaps. Fixed the shared minimal YAML parser in `docs/build.js`, `scripts/audit-content.js`, and `scripts/verify-external-repos.js`; four setup descriptions now render as real text instead of literal `>`. Current audit and repo verification pass cleanly.
+
+---
+
+### 2026-06-23 — Submodule provisioning QA: git-submodule + symlink + lazy provision for OWASP Juice Shop
+
+## Learnings
+
+Reviewed Wash's submodule+symlink+lazy-provisioning implementation (juice-shop v20.0.0 / SHA f356a09207c7a9550eb6fc4c3945e081922cf998).
+
+**Verified clean (no defects):**
+- Drift check (`validateSubmodules` in verify-external-repos.js): gitlink SHA mismatch → `addError` → process exit 1. Hard fail on drift. ✓
+- Not-yet-checked-out graceful: gitlink check runs from git index (independent of working tree); HEAD check only fires if working tree is populated. ✓
+- Symlink is relative (`external/juice-shop`), not absolute — portable across Codespaces/Linux. ✓
+- Manifest scope: ONLY juice-shop carries a `provisioning` block; seed/contoso-*/source_repo entries untouched. ✓
+- GHAS s00 README flow: `npm run setup:juice-shop` appears before `cd app && npm install && npm start`. ✓
+- Pin-update workflow: documented in EXTERNAL-REPOS.md (update manifest + bump gitlink + verify:repos). ✓
+- Idempotency: provision-app.sh skips fetch if `.git` already present; skips symlink creation if already a symlink. ✓
+- SHA mismatch exits non-zero: loud box + exit 1. ✓
+- bash -n syntax check: passes. ✓
+- postCreate.sh does NOT auto-provision (lazy design preserved): prints tip only. ✓
+- gitlink SHA in index confirmed == f356a09... by `git ls-files --stage`. ✓
+- `npm run verify:repos` passes: submoduleChecks: 1, 0 errors. ✓
+- LOCAL runtime vs. org-alerts distinction: clearly documented in EXTERNAL-REPOS.md and devcontainer README. ✓
+
+**Defects found (REJECTED):**
+
+- D1 (P1): `package.json` — `"setup:app": "bash scripts/provision-app.sh"` always exits 1 (missing required `<app-key>` argument). Broken exposed npm script; should be removed or given an explicit key.
+- D2 (P2): `scripts/provision-app.sh` lines ~125–127 — when a declared symlink path exists as a real directory (not a symlink), the script skips with a yellow warning but still exits 0 and prints "✓ juice-shop is ready." Misleading success when setup is actually incomplete.
+- D3 (P3/theoretical): `scripts/provision-app.sh` node fallback (no jq) — `.join(' ')` space-joins multiple symlinks onto one string; the `while IFS= read -r` loop then treats the whole string as a single symlink target name. Broken for apps with >1 symlink in the node-fallback path. No immediate impact (jq installed by postCreate.sh; juice-shop has only one symlink).
+- D4 (trivial): `scripts/provision-app.sh` line 68 — `ENTRY_SCRIPT` variable set but never referenced. Dead code.
+
+**Verdict: REJECTED — D1 + D2 must be fixed before ship.**
+
+---
+
+### 2026-06-23 — Submodule provisioning QA RE-REVIEW (Mal's fixes for D1–D4)
+
+Re-reviewed `scripts/provision-app.sh` and `package.json` after Mal applied fixes for all four defects.
+
+**D1:** `setup:app` confirmed absent from `package.json`. Node assertion passes. ✓  
+**D2:** `SYMLINK_BLOCKED=0` flag introduced before symlink loop; real-dir branch sets `SYMLINK_BLOCKED=1`; post-loop check exits 1 and prints error — no success banner emitted. Simulation confirmed exit code 1. ✓  
+**D3:** Node fallback now uses `(p.symlinks||[]).join('\n')` (line 78) — one entry per line, matching jq's `.[]` path. ✓  
+**D4:** `ENTRY_SCRIPT` variable fully removed. ✓  
+
+**Regression checks:**
+- `bash -n scripts/provision-app.sh` — syntax OK ✓
+- `npm run setup:juice-shop` (idempotent) — exits 0, correct banner ✓
+- `npm run verify:repos` — exits 0, no errors ✓
+
+**Verdict: APPROVED — all four defects correctly fixed, no new defects introduced.**
+
+**KEY DECISION:** This repo's origin = microsoft/frontier-agenticdevops-hackathon = the LIVE consolidated repo (KEPT). Only frontier-ghas/ghaw/ghec-hackathon + private Contoso sources deleted. The agenticdevops slug must never be presented as archived.

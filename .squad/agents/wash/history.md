@@ -76,7 +76,17 @@ Runs in <1s with Node core only. Zero npm dependencies.
 8. **Canonical track slugs (2026-06-15)**: ghas renamed `security-fundamentals` → `security` (Zoe's 6 challenges use this); ghaw replaced with faithful Track 1–4 taxonomy: `hello-agent`, `repo-concierge`, `continuous-intelligence`, `production-patterns` (internal track_ids were scrambled, so config now matches actual content hierarchy).
 
 9. **P0 bugfix D-001 (2026-06-15)**: Fixed YAML list-item parser in `docs/build.js` line 93 — changed regex from `^\s+-\s+` to `^\s*-\s+` to accept unindented list items (e.g., `- ghas-s00` without leading spaces); restored 5 missing dependency edges (ghas-s01..s05 now correctly recognize ghas-s00 prerequisite).
-### Phase N+1 — Submodule Provisioning (2026-06-23)
+### Home-repo slug distinction & SELF_SOURCE_REPOS split (2026-06-23)
+
+**Resolved truth:** `microsoft/frontier-agenticdevops-hackathon` IS this live consolidated repo's own git origin — it is NOT a retired/archived source. The repos genuinely being deleted are only: `microsoft/frontier-ghas-hackathon`, `microsoft/frontier-ghaw-hackathon`, `microsoft/frontier-ghec-hackathon`.
+
+**challenge.js split:**
+- `RETIRED_SOURCE_REPOS` → keeps only the three genuinely-deleted slugs; renders `(archived)` plain-text, no hyperlink.
+- `SELF_SOURCE_REPOS` → new set with `microsoft/frontier-agenticdevops-hackathon` and `microsoft/frontier-agentic-devops-hackathon`; renders plain-text (no hyperlink, no "archived" label) since this IS the live repo.
+- All other source_repos (e.g. juice-shop) keep existing hyperlink rendering.
+
+**modules/sre-agent/ATTRIBUTION.md:** reworded to state the SRE module is first-party content of this consolidated repo, derived from its own pre-consolidation ancestor at commit `08edbed4eee3ab185ebd5772bd1b48783ba83882`. Removed incorrect "private/retained for historical provenance only" language.
+
 
 **Task:** Implement lazy/on-demand submodule provisioning for locally-run apps, starting with OWASP Juice Shop.
 
@@ -107,3 +117,41 @@ Runs in <1s with Node core only. Zero npm dependencies.
 - `npm run build` ✓ (59 challenges, 36 edges)
 - `bash -n scripts/provision-app.sh` ✓ (syntax OK)
 - Symlink resolves: `app → external/juice-shop` (mode 120000)
+
+## Learnings (2026-06-23 — ghec-embed + ghas-embed)
+
+### What was embedded
+
+**GHEC provisioning machinery** → `modules/ghec/resources/provisioning/`
+- `scripts/setup.sh`, `scripts/setup.ps1` — `wth` CLI entrypoints
+- `scripts/README.md`, `scripts/versions.lock` — documentation and pinned versions
+- `scripts/lib/` (6 files): `auth.sh`, `auth.ps1`, `common.sh`, `common.ps1`, `gh.sh`, `gh.ps1`,
+  `guards.sh`, `guards.ps1`, `log.sh`, `log.ps1`, `juice-shop-import.sh`, `juice-shop-import.ps1`
+- `challenges/ch01–ch20/provision.sh` + `provision.ps1` (40 files total)
+- `challenges/_TEMPLATE/README.md`, `COACH.md`, `meta.yml`
+- `CONTRIBUTING-BUILD.md`
+
+**GHAS scanning config fixtures** → `modules/ghas/resources/`
+- `github/workflows/codeql.yml`
+- `github/codeql/codeql-config.yml`
+- `github/dependabot.yml`
+- `README.md` (written fresh)
+
+### Path adaptations
+
+- `setup.sh` uses `SCRIPT_DIR`/`REPO_ROOT` computed at runtime via `$(dirname "${BASH_SOURCE[0]}")`.
+  When embedded at `modules/ghec/resources/provisioning/scripts/`, `REPO_ROOT` resolves to
+  `modules/ghec/resources/provisioning/` and `CHALLENGES_DIR` to
+  `modules/ghec/resources/provisioning/challenges/` — exactly where the challenge provision scripts
+  now live. **No script source-code change required.**
+- All 21 GHEC challenge READMEs (ch00–ch20) referenced `./scripts/setup.sh` / `./scripts/setup.ps1`
+  (relative to the old upstream repo root). Updated to
+  `bash modules/ghec/resources/provisioning/scripts/setup.sh` /
+  `modules/ghec/resources/provisioning/scripts/setup.ps1` (from this repo's root).
+- `juice-shop-import.sh` clones `juice-shop/juice-shop` at pinned tag `v20.0.0` (public repo) — left as-is per plan.
+
+### Validation
+- `bash -n` passed for all 27 embedded `.sh` files (setup.sh, 6 lib/*.sh, 20 provision.sh).
+- No upstream `frontier-ghec-hackathon` references found in any embedded script.
+
+**KEY DECISION:** This repo's origin = microsoft/frontier-agenticdevops-hackathon = the LIVE consolidated repo (KEPT). Only frontier-ghas/ghaw/ghec-hackathon + private Contoso sources deleted. The agenticdevops slug must never be presented as archived.
