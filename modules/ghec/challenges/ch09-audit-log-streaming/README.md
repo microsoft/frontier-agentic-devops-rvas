@@ -30,19 +30,19 @@ By completing this challenge you will:
 A GHEC customer's security team asks the question every audit eventually asks: *"Who changed that setting, and when?"* Right now nobody can answer it without guessing. You'll learn to treat the **organization audit log** as the source of truth — generate a controlled set of administrative actions, then reconstruct exactly what happened using search filters and the API. You'll finish with a repeatable script that exports a slice of the log, the seed of a real evidence-collection pipeline.
 
 ## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `./scripts/`.
+Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
 
 ```bash
 # Bash
 wth setup ch09 --org <org>
 # or directly:
-./scripts/setup.sh ch09 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh ch09 --org <org>
 ```
 ```powershell
 # PowerShell
 wth setup ch09 --org <org>
 # or directly:
-./scripts/setup.ps1 ch09 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 ch09 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch09-*`, idempotent, prefix-guarded teardown):

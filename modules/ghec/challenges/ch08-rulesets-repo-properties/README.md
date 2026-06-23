@@ -30,19 +30,19 @@ By completing this challenge you will:
 A GHEC customer has 80 repositories and a compliance team that needs "all production repos must require PRs, signed commits, and a passing check — automatically, forever, even on repos created next week." Naming conventions won't scale and people forget them. You'll attach a **`compliance` custom property** to repos, then write an **org ruleset targeted by that property** so governance follows the *metadata*, not the repo name. New repos that get tagged `compliance = high` inherit the rules with zero extra work. That's policy that scales.
 
 ## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `./scripts/`.
+Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
 
 ```bash
 # Bash
 wth setup ch08 --org <org>
 # or directly:
-./scripts/setup.sh ch08 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh ch08 --org <org>
 ```
 ```powershell
 # PowerShell
 wth setup ch08 --org <org>
 # or directly:
-./scripts/setup.ps1 ch08 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 ch08 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch08-*`, idempotent, prefix-guarded teardown):

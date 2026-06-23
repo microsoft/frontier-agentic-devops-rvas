@@ -30,19 +30,19 @@ By completing this challenge you will:
 You're the first platform admin hired at a fast-growing GHEC customer. The organization was created in a hurry: defaults are wide open, anyone can create public repos, base permissions are too generous, and nobody can say what the current policy actually is. Leadership wants a documented, defensible baseline — least-privilege member access, controlled repository creation, sensible security defaults — and they want it **verifiable from the API**, not from screenshots. Your job is to bring order to the org and prove it.
 
 ## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `./scripts/`.
+Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
 
 ```bash
 # Bash
 wth setup ch06 --org <org>
 # or directly:
-./scripts/setup.sh ch06 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh ch06 --org <org>
 ```
 ```powershell
 # PowerShell
 wth setup ch06 --org <org>
 # or directly:
-./scripts/setup.ps1 ch06 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 ch06 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch06-*`, idempotent, prefix-guarded teardown):

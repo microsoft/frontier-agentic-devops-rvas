@@ -30,19 +30,19 @@ By completing this challenge you will:
 A GHEC customer has GHAS switched on but no program around it — alerts pile up, nobody owns them, and leadership can't answer "are we getting safer?" You'll give them the management layer: a security overview that shows risk and coverage at a glance, a security configuration that applies GHAS uniformly, and a **security campaign** that turns a wall of alerts into a finite, owned, time-boxed remediation effort developers can actually act on. OWASP Juice Shop supplies the realistic alert volume — CodeQL findings, Dependabot alerts, and secret-scanning hits — that a campaign needs to be meaningful.
 
 ## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `./scripts/`.
+Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
 
 ```bash
 # Bash
 wth setup ch15 --org <org>
 # or directly:
-./scripts/setup.sh ch15 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh ch15 --org <org>
 ```
 ```powershell
 # PowerShell
 wth setup ch15 --org <org>
 # or directly:
-./scripts/setup.ps1 ch15 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 ch15 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch15-*`, idempotent, prefix-guarded teardown):

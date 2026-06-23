@@ -30,19 +30,19 @@ By completing this challenge you will:
 A GHEC platform team is drowning in manual merge babysitting: pinging reviewers, re-checking CI, merging PRs by hand at odd hours, and chasing stale branches. You'll replace all of that with policy and automation: rulesets that enforce quality at the org and repo level, auto-merge that ships the moment gates pass, and workflows that label, route, and tidy PRs without a human. The result is a merge pipeline that runs itself — safely.
 
 ## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `./scripts/`.
+Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
 
 ```bash
 # Bash
 wth setup ch05 --org <org>
 # or directly:
-./scripts/setup.sh ch05 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh ch05 --org <org>
 ```
 ```powershell
 # PowerShell
 wth setup ch05 --org <org>
 # or directly:
-./scripts/setup.ps1 ch05 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 ch05 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch05-*`, idempotent, prefix-guarded teardown):

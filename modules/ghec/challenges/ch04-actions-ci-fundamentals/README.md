@@ -31,19 +31,19 @@ By completing this challenge you will:
 A GHEC customer's team merges first and finds out it's broken later — there's no automated gate. You'll give them continuous integration: every push and PR builds and tests the app across supported runtimes, caches dependencies so it's fast, publishes a test report you can download, and — critically — blocks merges to `main` when the build is red.
 
 ## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `./scripts/`.
+Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
 
 ```bash
 # Bash
 wth setup ch04 --org <org>
 # or directly:
-./scripts/setup.sh ch04 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh ch04 --org <org>
 ```
 ```powershell
 # PowerShell
 wth setup ch04 --org <org>
 # or directly:
-./scripts/setup.ps1 ch04 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 ch04 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch04-*`, idempotent, prefix-guarded teardown):

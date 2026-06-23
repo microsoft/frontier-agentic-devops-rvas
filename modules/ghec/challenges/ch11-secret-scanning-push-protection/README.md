@@ -29,19 +29,19 @@ By completing this challenge you will:
 A GHEC customer just discovered a hard-coded cloud key in a public repo — caught by an outside researcher, not by them. Leadership wants two guarantees: (1) every credential already sitting in history is surfaced and triaged, and (2) the *next* secret never lands on `main` in the first place. You'll prove both on a deliberately leaky app: the provisioner imports OWASP Juice Shop and plants a set of **non-live, high-confidence test secrets** (fake AWS keys, GitHub-style tokens) so secret scanning has real, partner-pattern material to detect — Juice Shop's own app secrets are internal and won't reliably trip detection on their own.
 
 ## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `./scripts/`.
+Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
 
 ```bash
 # Bash
 wth setup ch11 --org <org>
 # or directly:
-./scripts/setup.sh ch11 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh ch11 --org <org>
 ```
 ```powershell
 # PowerShell
 wth setup ch11 --org <org>
 # or directly:
-./scripts/setup.ps1 ch11 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 ch11 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch11-*`, idempotent, prefix-guarded teardown):

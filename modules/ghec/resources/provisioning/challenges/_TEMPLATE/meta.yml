@@ -1,0 +1,33 @@
+# CANONICAL PER-CHALLENGE METADATA CONTRACT
+# Copy into challenges/ch##-<slug>/meta.yml and fill for the specific challenge.
+# This file is the single machine-readable source of truth consumed by BOTH:
+#   - Basher's GitHub Pages site (renders cards, filters, badges)
+#   - Yen's provisioning scripts (`wth doctor/setup/status/teardown`)
+# Keep it small and stable. Do not add fields without updating CONTRIBUTING-BUILD.md.
+
+id: ch##                       # ch01..ch20 (must match folder number)
+slug: <kebab-case-slug>        # folder name after the number, e.g. issues-labels-projects
+title: <Challenge Title>       # human title (matches README H1)
+track: <developer-flow|admin-governance|security|automation-ai>
+difficulty: <foundational|intermediate|advanced>   # per-track ramp
+duration_hours: <3-8>          # total, multi-session
+
+# Minimum input is ALWAYS an org + org-owner token (Marco decision #1: org-level everything).
+min_input: org                 # never anything stricter than `org`
+
+app: <juice-shop|seed|none>    # juice-shop = imported at pinned ref; seed = purpose-built; none = config-only
+juice_shop_ref: v20.0.0        # ONLY when app: juice-shop — pinned for reproducible alert corpus
+
+requires:                      # capabilities `doctor` must verify before setup
+  - org                        # always present
+  # - ghas                     # add for GHAS challenges (public repos make it free)
+  # - copilot                  # add for Copilot coding agent challenges
+
+emu_compatible: true           # false ONLY for ch19 (Copilot coding agent not available on EMU repos)
+
+provision_creates:             # exact artifacts setup creates (all `wth-ch##-*` namespaced)
+  - <e.g., repo wth-ch##-<slug>>
+  - <e.g., seeded issues/labels/branch-protection/ruleset>
+
+references:                    # official docs.github.com links (rendered by the site)
+  - <https://docs.github.com/...>

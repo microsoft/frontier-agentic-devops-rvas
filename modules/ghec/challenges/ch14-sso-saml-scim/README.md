@@ -32,19 +32,19 @@ A GHEC customer runs identity centrally in their IdP and wants GitHub to obey it
 > **Awareness callout — enterprise vs org:** SAML and SCIM can be configured at the **enterprise** level (applies across all orgs) or, as here, at a **single org**. **Enterprise Managed Users (EMU)** go further — every member is a managed user created only via SCIM at the **enterprise** level, with no personal account. Because EMU authenticates and provisions at the enterprise tier, the **org-level** SAML SSO and org-level SCIM you configure in this challenge are **not available inside an EMU organization** — run it in a non-EMU org. EMU and enterprise-level SSO require an **enterprise owner** and are out of scope for the hands-on tasks; this challenge delivers the org-scoped experience that any org owner can complete. Note the trade-offs where relevant, but you are **not required** to configure anything at the enterprise tier.
 
 ## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `./scripts/`.
+Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
 
 ```bash
 # Bash
 wth setup ch14 --org <org>
 # or directly:
-./scripts/setup.sh ch14 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh ch14 --org <org>
 ```
 ```powershell
 # PowerShell
 wth setup ch14 --org <org>
 # or directly:
-./scripts/setup.ps1 ch14 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 ch14 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch14-*`, idempotent, prefix-guarded teardown):

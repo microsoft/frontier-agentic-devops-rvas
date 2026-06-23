@@ -33,7 +33,7 @@ By the end of this challenge you will have:
 
 ## Option A: GitHub Codespaces (Recommended)
 
-1. Open the repository at `https://github.com/microsoft/frontier-agenticdevops-hackathon` (pinned ref documented in `docs/EXTERNAL-REPOS.md`).
+1. Open **this repository** (`microsoft/frontier-agenticdevops-hackathon`) on GitHub.
 2. Click **Code → Codespaces → Create codespace on main**.
 3. Wait ~30 seconds for the dev container to build (Node 22, Bicep extension, port 3000 forwarded).
 4. When the terminal appears, dependencies install automatically via `postCreateCommand`. Continue to **Verify your setup** below.
@@ -43,7 +43,7 @@ By the end of this challenge you will have:
 ## Option B: Local Dev Container
 
 1. Install [VS Code](https://code.visualstudio.com/) and the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
-2. Clone the repository:
+2. Clone this repository (if you haven't already):
    ```bash
    git clone https://github.com/microsoft/frontier-agenticdevops-hackathon.git
    cd frontier-agenticdevops-hackathon
@@ -102,14 +102,11 @@ gh auth status
 # 2. Azure subscription
 az account show
 
-# 3. Repository access
-gh repo view microsoft/frontier-agenticdevops-hackathon
-
-# 4. Baseline app tests (sample app is included locally)
-cd modules/sre-agent/resources/sample-app && npm test
+# 3. Baseline app tests (sample app is vendored in this repo)
+cd modules/sre-agent/resources/sample-app && npm install && npm test
 ```
 
-> All four checks must succeed before you move to Challenge 01. If any fail, see **Common Blockers** in the coach guide.
+> All three checks must succeed before you move to Challenge 01. If any fail, see **Common Blockers** in the coach guide.
 
 ---
 

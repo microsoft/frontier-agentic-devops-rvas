@@ -33,19 +33,19 @@ By completing this challenge you will:
 A GHEC customer has a backlog of small, well-scoped bugs that never reach the top of anyone's list. Instead of letting them rot, they want to hand the clear ones to the Copilot cloud agent and have engineers review the results. You'll do exactly that on a small seeded repo with a known bug: write a crisp issue, assign it to Copilot, watch it open a draft PR and work in an ephemeral environment, then review and steer it to a correct, merged fix. You'll learn where the agent shines (small, bounded changes) and where human review stays essential.
 
 ## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `./scripts/`.
+Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
 
 ```bash
 # Bash
 wth setup ch19 --org <org>
 # or directly:
-./scripts/setup.sh ch19 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh ch19 --org <org>
 ```
 ```powershell
 # PowerShell
 wth setup ch19 --org <org>
 # or directly:
-./scripts/setup.ps1 ch19 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 ch19 --org <org>
 ```
 
 > `wth doctor ch19 --org <org>` runs first and **warns if the org looks EMU-managed** or if the Copilot cloud agent policy can't be confirmed. Heed it — the agent won't run on EMU repos.

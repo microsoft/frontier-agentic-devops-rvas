@@ -33,19 +33,19 @@ By completing this challenge you will:
 Your org wants a single automation that reacts to activity and keeps a project board honest without anyone touching it manually. When an issue is opened on the seeded repo, a webhook fires → your **GitHub App** (authenticated as an installation) **labels and triages** the issue via REST, **adds it to a Projects v2 board** via GraphQL, and an **Actions** workflow records the result and posts a summary. You'll build this from the seeded scaffold, prove it runs end to end, and make it **idempotent** so replays don't create duplicates. This is the track's payoff: every primitive you practiced, working together.
 
 ## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` wraps the scripts in `./scripts/`.
+Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
 
 ```bash
 # Bash
 wth setup ch20 --org <org>
 # or directly:
-./scripts/setup.sh ch20 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh ch20 --org <org>
 ```
 ```powershell
 # PowerShell
 wth setup ch20 --org <org>
 # or directly:
-./scripts/setup.ps1 ch20 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 ch20 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch20-*`, idempotent, prefix-guarded teardown):

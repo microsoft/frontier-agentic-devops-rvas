@@ -1,0 +1,12 @@
+# wth pinned versions — single source of truth for reproducible imports.
+# Read by scripts/setup.sh and scripts/setup.ps1 as the LOWEST-precedence default.
+# Precedence (low -> high):  versions.lock  <  meta.yml juice_shop_ref  <  --ref flag
+#
+# Do not track upstream branches. Pin a tag so every participant imports an
+# identical, reproducible alert corpus.
+
+# OWASP Juice Shop — MIT licensed. Confirmed pin (Livingston research).
+JUICE_SHOP_REF=v20.0.0
+
+# Minimum gh CLI the scripts target.
+GH_MIN_VERSION=2.0.0

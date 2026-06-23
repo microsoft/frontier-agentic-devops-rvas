@@ -31,19 +31,19 @@ By completing this challenge you will:
 A GHEC customer needs CI on hardware GitHub doesn't host — a GPU box, a license-locked toolchain, or a network-isolated build host. You'll stand up a self-hosted runner the right way: registered to an **org runner group** scoped to just the repos that should use it, targeted by labels, and hardened so a malicious PR can't turn your build host into a foothold. You'll finish knowing exactly when self-hosted is worth the operational cost versus GitHub-hosted or larger runners.
 
 ## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `./scripts/`.
+Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
 
 ```bash
 # Bash
 wth setup ch18 --org <org>
 # or directly:
-./scripts/setup.sh ch18 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh ch18 --org <org>
 ```
 ```powershell
 # PowerShell
 wth setup ch18 --org <org>
 # or directly:
-./scripts/setup.ps1 ch18 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 ch18 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch18-*`, idempotent, prefix-guarded teardown):

@@ -20,7 +20,7 @@ By the end of this challenge you will have:
 
 ## Option A: GitHub Codespaces (Recommended)
 
-1. Open the repository at `https://github.com/microsoft/frontier-ghaw-hackathon` (pinned, latest main).
+1. Open **this repository** (`microsoft/frontier-agenticdevops-hackathon`) on GitHub.
 2. Click **Code → Codespaces → Create codespace on main**.
 3. Wait ~30 seconds for the dev container to build.
    The `postCreate.sh` script installs `gh-aw` automatically.
@@ -31,10 +31,10 @@ By the end of this challenge you will have:
 ## Option B: Local Dev Container
 
 1. Install [VS Code](https://code.visualstudio.com/) and the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
-2. Fork and clone the repository:
+2. Clone this repository (if you haven't already):
    ```bash
-   gh repo fork microsoft/frontier-ghaw-hackathon --clone
-   cd frontier-ghaw-hackathon
+   git clone https://github.com/microsoft/frontier-agenticdevops-hackathon.git
+   cd frontier-agenticdevops-hackathon
    ```
 3. Open VS Code in the cloned folder and choose **Dev Containers: Reopen in Container**.
 4. Wait for the container to build — `postCreate.sh` installs `gh-aw` automatically.
@@ -74,20 +74,17 @@ gh auth status
 gh aw --version
 
 # 4. Dry-run smoke test
-gh aw run examples/hello-world.md --dry-run
-
-# 5. Repository access
-gh repo view microsoft/frontier-ghaw-hackathon
+gh aw run modules/ghaw/resources/examples/hello-world.md --dry-run
 ```
 
-> All five commands must succeed before you move on. If any fail, see **Common Blockers** in the coach guide.
+> All four commands must succeed before you move on. If any fail, see **Common Blockers** in the coach guide.
 
 ### Per-module verification
 
 | Command | Expected output |
 |---|---|
 | `gh aw --version` | Returns a version string (e.g., `gh-aw version 1.x.x`) |
-| `gh aw run examples/hello-world.md --dry-run` | Prints generated workflow YAML; exits 0 |
+| `gh aw run modules/ghaw/resources/examples/hello-world.md --dry-run` | Prints generated workflow YAML; exits 0 |
 
 ---
 

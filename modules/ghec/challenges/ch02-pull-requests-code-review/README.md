@@ -30,19 +30,19 @@ By completing this challenge you will:
 A GHEC customer's team keeps pushing straight to `main`, breaking each other's work, and shipping un-reviewed changes. You've been asked to introduce a real review culture: every change goes through a PR, the right people are required to review the code they own, and merges are clean and traceable. You'll build that workflow on a seeded service repo and prove it end-to-end.
 
 ## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `./scripts/`.
+Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
 
 ```bash
 # Bash
 wth setup ch02 --org <org>
 # or directly:
-./scripts/setup.sh ch02 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh ch02 --org <org>
 ```
 ```powershell
 # PowerShell
 wth setup ch02 --org <org>
 # or directly:
-./scripts/setup.ps1 ch02 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 ch02 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch02-*`, idempotent, prefix-guarded teardown):

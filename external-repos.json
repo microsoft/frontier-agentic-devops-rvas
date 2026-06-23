@@ -40,6 +40,8 @@
       "description": "Participant seed repository used by GitHub Enterprise Cloud workflow and automation challenges.",
       "type": "app_dependency",
       "acquisition": "provision-from-source-materials",
+      "retired": true,
+      "vendored_in": "modules/ghec/resources/provisioning",
       "source": {
         "url": "https://github.com/microsoft/frontier-ghec-hackathon",
         "sha": "b65c8d6b4ef758f04b2c73fa5c4e74d3cb17bbe7"
@@ -67,6 +69,8 @@
       "description": "Initial Contoso Claims setup asset for the SRE Agent track.",
       "type": "app_dependency",
       "acquisition": "vendored-local",
+      "retired": true,
+      "vendored_in": "modules/sre-agent",
       "source": {
         "url": "https://github.com/microsoft/frontier-agenticdevops-hackathon",
         "sha": "08edbed4eee3ab185ebd5772bd1b48783ba83882"
@@ -83,6 +87,8 @@
       "description": "Contoso application used by SRE Agent SDLC, deployment, agent workflow, and recovery challenges.",
       "type": "app_dependency",
       "acquisition": "vendored-local",
+      "retired": true,
+      "vendored_in": "modules/sre-agent",
       "source": {
         "url": "https://github.com/microsoft/frontier-agenticdevops-hackathon",
         "sha": "08edbed4eee3ab185ebd5772bd1b48783ba83882"
@@ -103,6 +109,8 @@
       "description": "Source repository for the GitHub Advanced Security module content.",
       "type": "source_repo",
       "acquisition": "content-port-source",
+      "retired": true,
+      "vendored_in": "modules/ghas",
       "source": {
         "url": "https://github.com/microsoft/frontier-ghas-hackathon",
         "sha": "4abc7439f0cab329b659263845e20139fbbe5359"
@@ -128,6 +136,8 @@
       "description": "Source repository for the GitHub Agentic Workflows module content.",
       "type": "source_repo",
       "acquisition": "content-port-source",
+      "retired": true,
+      "vendored_in": "modules/ghaw",
       "source": {
         "url": "https://github.com/microsoft/frontier-ghaw-hackathon",
         "sha": "9f0957ed3be978b2143c7048f5396183ad189d6e"
@@ -171,6 +181,8 @@
       "description": "Canonical source repository for the SRE Agent module content.",
       "type": "source_repo",
       "acquisition": "content-port-source",
+      "retired": true,
+      "vendored_in": "modules/sre-agent",
       "source": {
         "url": "https://github.com/microsoft/frontier-agenticdevops-hackathon",
         "sha": "08edbed4eee3ab185ebd5772bd1b48783ba83882"
@@ -198,6 +210,8 @@
       "description": "Source repository for the GitHub Enterprise Cloud module content.",
       "type": "source_repo",
       "acquisition": "content-port-source",
+      "retired": true,
+      "vendored_in": "modules/ghec",
       "source": {
         "url": "https://github.com/microsoft/frontier-ghec-hackathon",
         "sha": "b65c8d6b4ef758f04b2c73fa5c4e74d3cb17bbe7"

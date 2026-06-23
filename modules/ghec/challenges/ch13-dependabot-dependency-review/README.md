@@ -30,19 +30,19 @@ By completing this challenge you will:
 A GHEC customer's app drags a long tail of outdated, vulnerable npm packages — the kind of supply-chain risk that doesn't show up until a CVE makes the news. You'll give them an early-warning system: the dependency graph maps what they depend on, Dependabot opens PRs to fix known-vulnerable packages automatically, and dependency review stops a new risky dependency from sneaking in via a pull request. OWASP Juice Shop is purpose-built for this — its dependency tree is intentionally vulnerable (old Angular libraries, a deliberately risky `ftp` package, a `.dependabot/` directory), so there's genuine alert and PR material to work with.
 
 ## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `./scripts/`.
+Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
 
 ```bash
 # Bash
 wth setup ch13 --org <org>
 # or directly:
-./scripts/setup.sh ch13 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh ch13 --org <org>
 ```
 ```powershell
 # PowerShell
 wth setup ch13 --org <org>
 # or directly:
-./scripts/setup.ps1 ch13 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 ch13 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch13-*`, idempotent, prefix-guarded teardown):

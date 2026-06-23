@@ -1,13 +1,13 @@
 # External Repositories & Pinned References
 
-This guide explains how this hackathon curriculum manages external dependencies, source apps, and third-party tools without vendoring them into the main repository.
+This guide explains how this hackathon curriculum manages external dependencies, source apps, and third-party tools. Content originally hosted in separate private Microsoft repos has been vendored in-tree; the upstream repos are retired and may be deleted.
 
 ## Philosophy
 
-- **No vendoring of third-party apps** — we pull external projects at pinned references when needed.
+- **Content vendored in-tree** — material from the four Frontier Hackathon source repos is embedded under `modules/*/resources/` and `modules/*/challenges/`; no participant or organiser needs to reach the upstream repos.
+- **Juice Shop managed as a lazy submodule** — the only remaining external app dependency.
 - **Explicit pinning** — all refs (commit SHAs, tags) are documented and validated.
-- **Three import modes** — clone (shared org branches), fork (student copies), and import (one-time setup).
-- **Maintainability** — pinned refs stay stable; updates are deliberate and tracked.
+- **Provenance preserved** — historical source URLs and commit SHAs are kept in `external-repos.json` for attribution; they are no longer reachable network targets.
 
 ## External Dependencies
 
@@ -20,61 +20,54 @@ This guide explains how this hackathon curriculum manages external dependencies,
 - **Local runtime (GHAS participants):** GHAS challenges also run Juice Shop locally for manual exploit testing. This local instance has **no GHAS alerts** — it is the app only, not the security-scanning target. See *[Local app provisioning (submodules)](#local-app-provisioning-submodules)* below for how to get it running.
 - **Why Juice Shop is large but not vendored:** At ~61 MB it would bloat the curriculum repo and slow container creation for participants who never need it. It is registered as a git submodule and fetched on demand.
 
-### GitHub Advanced Security Source Hackathon
+### GitHub Advanced Security — module content (vendored in-tree)
 
-- **Source:** https://github.com/microsoft/frontier-ghas-hackathon
-- **Pinned ref:** HEAD commit `4abc7439f0cab329b659263845e20139fbbe5359` (as of curriculum freeze)
-- **Used by:** GHAS challenges reference setup guide, alert corpus
-- **Import mode:** Read-only reference at the pinned commit
+- **Original source:** `microsoft/frontier-ghas-hackathon` (private, retired)
+- **Provenance commit:** `4abc7439f0cab329b659263845e20139fbbe5359` (curriculum freeze)
+- **In-tree location:** `modules/ghas/` (challenges) and `modules/ghas/resources/` (scanning configs)
+- **Status:** Upstream repo is retired/private and retained for historical provenance only. All content needed for the curriculum is available in-tree.
 
-### GitHub Agentic Workflows Source Hackathon
+### GitHub Agentic Workflows — module content (vendored in-tree)
 
-- **Source:** https://github.com/microsoft/frontier-ghaw-hackathon
-- **Pinned ref:** HEAD commit `9f0957ed3be978b2143c7048f5396183ad189d6e` (as of curriculum freeze)
-- **Used by:** GHAW challenges reference source material
-- **Import mode:** Fork/clone by students (they work from their own copy); maintainers use the pinned commit for reproducibility checks
+- **Original source:** `microsoft/frontier-ghaw-hackathon` (private, retired)
+- **Provenance commit:** `9f0957ed3be978b2143c7048f5396183ad189d6e` (curriculum freeze)
+- **In-tree location:** `modules/ghaw/` (guides) and `modules/ghaw/resources/examples/`
+- **Status:** Upstream repo is retired/private and retained for historical provenance only. Participants work directly in this repository's Codespace — no external fork needed.
 
-### SRE Agent Sample App
+### GitHub Enterprise Cloud — module content + provisioning (vendored in-tree)
 
-- **Source:** Vendored locally at `modules/sre-agent/resources/sample-app/`
-- **Origin:** Contoso Claims demo application (first-party curriculum resource, included in-tree)
-- **Used by:** SRE Agent challenges
-- **Import mode:** Local; no external clone needed
-- **Why:** Small enough to vendor; students run it locally as the target for agent automation
+- **Original source:** `microsoft/frontier-ghec-hackathon` (private, retired)
+- **Provenance commit:** `b65c8d6b4ef758f04b2c73fa5c4e74d3cb17bbe7` (curriculum freeze)
+- **In-tree location:** `modules/ghec/` (challenges) and `modules/ghec/resources/provisioning/` (the `wth` provisioning CLI and per-challenge provision scripts)
+- **Status:** Upstream repo is retired/private and retained for historical provenance only.
 
-### Frontier Agentic DevOps Hackathon (This Repository)
+### SRE Agent — module content + sample app (vendored in-tree)
 
-- **URL:** https://github.com/microsoft/frontier-agenticdevops-hackathon
-- **Pinned ref:** commit `08edbed4eee3ab185ebd5772bd1b48783ba83882`
+- **Original source:** `microsoft/frontier-agenticdevops-hackathon` (private, retired; also predecessor of this repo)
+- **Provenance commit:** `08edbed4eee3ab185ebd5772bd1b48783ba83882` (curriculum freeze)
+- **In-tree location:** `modules/sre-agent/` (challenges) and `modules/sre-agent/resources/` (sample app, infra, runbooks, agentic workflows)
+- **Status:** Upstream repo is retired/private. All curriculum assets are in-tree.
 
 ## Import Modes
 
-### Clone (Shared Org Branch)
+### In-Tree (Vendored)
 
-**When:** A challenge uses a shared org repository that all students contribute to.
+**When:** Module content originated in a separate hackathon repo that is now retired.
 
-- **Example:** GHAS module — students clone the shared org repo and work on personal branches (`participant/{handle}` or `team-{team-name}/challenge-work`).
+- No participant action required — content is already in this repo.
+- Organisers run `npm run verify:repos` to confirm vendored paths are intact.
+
+### Submodule (Lazy / On-Demand)
+
+**When:** A large external app (Juice Shop) is needed at runtime but should not bloat the repo.
+
 - **Flow:**
   ```bash
-  git clone https://github.com/<org>/<repo>.git
-  cd <repo>
-  git checkout -b participant/{your-handle}
+  npm run setup:juice-shop
   ```
-- **Outcome:** Each student has an isolated branch; the app/environment is shared.
+- **Outcome:** The submodule is fetched at the pinned SHA and the `app` symlink is created.
 
-### Fork (Student Copies)
-
-**When:** A challenge needs each student to own a copy (for PRs, Actions workflows, or org settings).
-
-- **Example:** GHAW module — students fork the `frontier-ghaw-hackathon` repo so they have an org context.
-- **Flow:**
-  ```bash
-  gh repo fork microsoft/frontier-ghaw-hackathon --clone
-  cd frontier-ghaw-hackathon
-  ```
-- **Outcome:** Student owns their fork; workflows run in their org context.
-
-### Import (One-Time Setup)
+### Import (One-Time Setup — GHEC/GHAS)
 
 **When:** A challenge setup script creates a GitHub repository with external content imported.
 
@@ -88,29 +81,21 @@ This guide explains how this hackathon curriculum manages external dependencies,
 
 ## Pinned References & Validation
 
-### How to Check a Pinned Reference
-
-Each challenge documents the dependency family in its `meta.yml`; exact refs live in `external-repos.json`:
-
-```yaml
-app_dependency: juice-shop
-```
-
 ### How to Validate Refs
 
-When a new curriculum version is needed, Wash (the tooling engineer) runs:
+Organisers and curriculum maintainers run:
 
 ```bash
-npm run verify:repos           # Validates challenge metadata against external-repos.json
-npm run verify:repos:external  # Confirms pinned repo refs are reachable through git
+npm run verify:repos           # Validates challenge metadata against external-repos.json + vendored paths
+npm run verify:repos:external  # Confirms Juice Shop ref is reachable; skips retired entries
 npm run audit:external         # Optional content URL audit
 ```
 
-This confirms all URLs and refs exist and are accessible.
+`verify:repos:external` no longer checks retired Microsoft repos (they are private/deleted); it does assert that the `vendored_in` paths declared in the manifest exist in-tree.
 
 ### Updating a Pinned Reference
 
-If a new version of Juice Shop or another dependency is needed:
+If a new version of Juice Shop or another active dependency is needed:
 
 1. **Coordinate with curriculum**: Update `external-repos.json` with the new ref (tag and/or full SHA).
 2. **Bump the submodule pointer** (for submodule-backed apps): `cd external/juice-shop && git fetch --depth 1 origin <new-sha> && git checkout <new-sha>`, then `git add external/juice-shop` in the repo root.
@@ -159,10 +144,12 @@ The script (`scripts/provision-app.sh`):
 
 ### Drift prevention
 
-`npm run verify:repos` now asserts that, for every `provisioning.method == "submodule"` entry:
+`npm run verify:repos` asserts that, for every `provisioning.method == "submodule"` entry:
 - `.gitmodules` contains a URL for the declared `submodule_path`
 - The gitlink SHA in the index matches `source.sha`
 - If the submodule is checked out, the HEAD SHA also matches
+
+For retired/vendored entries, it asserts that the `vendored_in` path exists in-tree.
 
 ### Adding a new local app (for maintainers)
 
@@ -179,22 +166,23 @@ The script (`scripts/provision-app.sh`):
 ### GHAS Dependency Family
 
 - **Juice Shop** (OWASP app) — pinned at `v20.0.0`
-- **GHAS source hackathon** (reference material) — pinned at commit `4abc7439f0cab329b659263845e20139fbbe5359`
+- **GHAS source material** — vendored in-tree at `modules/ghas/resources/`; provenance commit `4abc7439f0cab329b659263845e20139fbbe5359`
 - **Local Docker image** — `bkimminich/juice-shop` (used as fallback for quick local runs)
 
 ### GHAW Dependency Family
 
-- **GHAW source hackathon** (primary source) — pinned at commit `9f0957ed3be978b2143c7048f5396183ad189d6e`; students fork it
+- **GHAW source material** — vendored in-tree at `modules/ghaw/`; provenance commit `9f0957ed3be978b2143c7048f5396183ad189d6e`
 - **No app** — challenges focus on workflow authoring, not a deployed service
 
 ### SRE Agent Dependency Family
 
-- **Sample app** (Contoso Claims) — vendored locally, no external dependency
+- **Sample app** (Contoso Claims) — vendored locally at `modules/sre-agent/resources/sample-app/`, no external dependency
 - **Azure** (runtime target) — students provision their own (not pinned, varies by subscription)
 
 ### GHEC Dependency Family
 
 - **Juice Shop** (for ch11–ch15) — pinned at `v20.0.0`
+- **GHEC provisioning machinery** — vendored in-tree at `modules/ghec/resources/provisioning/`
 - **Varies** — some challenges use no external app (auth, team roles, org governance)
 
 ## Local Runtime vs. Shared/Remote Resources
@@ -224,19 +212,21 @@ The script (`scripts/provision-app.sh`):
 ### For Maintainers
 
 - Keep pinned refs stable across a curriculum release cycle.
+- Retired source entries in `external-repos.json` carry `"retired": true` and a `"vendored_in"` path. Do not remove the `source.url`/`source.sha` fields — they are historical provenance.
 - When external projects release major versions, evaluate and document breaking changes before updating the pin.
 - Test setup scripts (`wth setup`) against the pinned refs in a CI/CD gate or manual verification step.
 
 ### For Students
 
 - Follow setup instructions in each challenge's `README.md` or `COACH.md`.
-- If setup fails to pull an external repo, check your GitHub token scopes and network access.
+- All module content is in-tree; you do not need to clone or fork the retired upstream repos.
+- If setup fails to pull Juice Shop, check your GitHub token scopes and network access.
 - Report setup failures via your hackathon organizer so coaches can investigate.
 
 ### For Coaches
 
-- Validate that pinned refs are reachable before running a cohort (run `npm run verify:repos:external`).
-- If a ref becomes unreachable, update it in coordination with the curriculum team.
+- Validate that Juice Shop ref is reachable before running a cohort (run `npm run verify:repos:external`).
+- Retired Microsoft repos do not need to be reachable; the verify script skips them automatically.
 - Keep students informed if external services (GitHub, Docker Hub) have outages.
 
 ## See Also

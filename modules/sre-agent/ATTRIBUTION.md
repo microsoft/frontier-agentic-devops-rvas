@@ -1,9 +1,9 @@
 # Attribution — Agentic DevOps & Azure SRE Module
 
-This module is derived from [microsoft/frontier-agenticdevops-hackathon](https://github.com/microsoft/frontier-agenticdevops-hackathon).
+The SRE Agent module is first-party content of this consolidated repository (`microsoft/frontier-agenticdevops-hackathon`). It is derived from this repo's own pre-consolidation ancestor content at commit `08edbed4eee3ab185ebd5772bd1b48783ba83882` and is now maintained natively in-tree. This repository is the live, active hackathon repo — it is not retired or archived.
 
 Original content © Microsoft Corporation, licensed under MIT.
-Ported to the unified frontier-ghplatform-hackathon curriculum on 2026-06-15.
+Integrated into the unified curriculum on 2026-06-15.
 
 ## Vendored Resources
 

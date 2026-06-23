@@ -30,19 +30,19 @@ By completing this challenge you will:
 A GHEC customer's platform team keeps doing the same triage by hand: relabeling issues, posting status comments, rolling items onto a project board, and exporting reports for leadership. Clicking doesn't scale. You'll rebuild that work as API automation — REST where it's simplest, GraphQL where it saves round-trips — that pages through everything, stays under rate limits, and can be re-run safely any day of the week.
 
 ## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `./scripts/`.
+Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
 
 ```bash
 # Bash
 wth setup ch16 --org <org>
 # or directly:
-./scripts/setup.sh ch16 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh ch16 --org <org>
 ```
 ```powershell
 # PowerShell
 wth setup ch16 --org <org>
 # or directly:
-./scripts/setup.ps1 ch16 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 ch16 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch16-*`, idempotent, prefix-guarded teardown):

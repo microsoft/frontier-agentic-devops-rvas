@@ -30,19 +30,19 @@ By completing this challenge you will:
 A GHEC customer ships a Node/Angular app with a backlog of latent vulnerabilities — SQL injection, XSS, broken auth, path traversal — none of them visible until something breaks in production. You'll give them static analysis that finds these on every push and every PR, explains each via its data-flow path, suggests fixes, and stops new vulnerabilities from merging. OWASP Juice Shop is the ideal target: it's intentionally riddled with the full OWASP Top 10, so CodeQL has genuine findings to surface — not toy examples.
 
 ## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `./scripts/`.
+Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
 
 ```bash
 # Bash
 wth setup ch12 --org <org>
 # or directly:
-./scripts/setup.sh ch12 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh ch12 --org <org>
 ```
 ```powershell
 # PowerShell
 wth setup ch12 --org <org>
 # or directly:
-./scripts/setup.ps1 ch12 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 ch12 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch12-*`, idempotent, prefix-guarded teardown):

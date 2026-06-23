@@ -30,19 +30,19 @@ By completing this challenge you will:
 A GHEC customer onboards new engineers slowly — each spends a day fighting local toolchains before they can run the app. You've been asked to make "clone and code in 60 seconds" real: a committed dev container that gives everyone the identical environment, a prebuild so it starts fast, and an org policy that keeps spend sane. You'll prove it on a seeded Node service.
 
 ## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `./scripts/`.
+Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
 
 ```bash
 # Bash
 wth setup ch03 --org <org>
 # or directly:
-./scripts/setup.sh ch03 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh ch03 --org <org>
 ```
 ```powershell
 # PowerShell
 wth setup ch03 --org <org>
 # or directly:
-./scripts/setup.ps1 ch03 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 ch03 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch03-*`, idempotent, prefix-guarded teardown):

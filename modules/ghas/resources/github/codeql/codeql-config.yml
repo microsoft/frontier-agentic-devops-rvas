@@ -1,0 +1,38 @@
+# =============================================================================
+# CodeQL Configuration
+# =============================================================================
+# This config tells CodeQL which files to scan and which to skip.
+# It's referenced by the CodeQL workflow in .github/workflows/codeql.yml
+#
+# WHY EXCLUDE app/build/?
+#   The app/build/ directory contains compiled JavaScript output transpiled
+#   from TypeScript source files. Scanning these causes:
+#   - Parse errors (CodeQL's parser chokes on some transpiler output patterns)
+#   - Duplicate findings (same vulnerabilities already found in source .ts files)
+#   - Wasted analysis time (234 redundant JS files + source maps)
+# =============================================================================
+
+paths-ignore:
+  # Compiled/transpiled output — source files in app/ are the real targets
+  - app/build
+
+  # Source maps are not code
+  - '**/*.js.map'
+
+  # Test fixtures and static test data
+  - app/build/test
+
+  # Node modules (already excluded by default, but explicit for clarity)
+  - '**/node_modules'
+
+  # Frontend build output (if generated)
+  - app/frontend/dist
+
+  # Angular test/spec files — no security-relevant code, and many cause
+  # parse errors with CodeQL's TypeScript parser (decorator + import type syntax)
+  - '**/*.spec.ts'
+  - app/frontend/src/test.ts
+  - app/frontend/src/karma.conf.js
+
+  # Third-party vendored JS libraries (three.js, dat.gui, etc.)
+  - app/frontend/src/assets/private

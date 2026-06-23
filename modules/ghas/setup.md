@@ -11,13 +11,16 @@ These are **separate**. You run Juice Shop locally for testing; the org reposito
 
 ### Option A: GitHub Codespaces (preferred)
 
-The source repository, [`microsoft/frontier-ghas-hackathon`](https://github.com/microsoft/frontier-ghas-hackathon), includes a devcontainer setup that is the fastest path for most students.
+Open **this repository** (`microsoft/frontier-agenticdevops-hackathon`) in a Codespace — the devcontainer is already configured with Node.js and the required toolchain.
 
-1. Open the source repo on GitHub.
-2. Create a new Codespace from the repository.
-3. Wait for the devcontainer to finish provisioning.
-4. Start Juice Shop if it is not already running in the workspace.
-5. Open the forwarded port for port 3000 and use that URL for browser testing.
+1. Open this repo on GitHub and click **Code → Codespaces → Create codespace on main**.
+2. Wait for the devcontainer to finish provisioning.
+3. Fetch and start Juice Shop:
+   ```bash
+   npm run setup:juice-shop
+   cd app && npm install && npm start
+   ```
+4. Open the forwarded port 3000 in your browser for exploit testing.
 
 ### Option B: Local Docker
 

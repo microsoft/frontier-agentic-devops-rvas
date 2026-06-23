@@ -30,19 +30,19 @@ By completing this challenge you will:
 A GHEC customer wants to react to activity in real time — auto-acknowledge new issues, notify on pushes, kick off downstream jobs — without polling the API on a timer. You'll wire up webhooks so GitHub pushes events to a receiver you control, prove each delivery is authentic by verifying its signature, and then graduate from a passive listener to a real **GitHub App** that can authenticate and act back on the org. By the end you'll know exactly when a webhook is enough and when you need an App.
 
 ## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `./scripts/`.
+Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
 
 ```bash
 # Bash
 wth setup ch17 --org <org>
 # or directly:
-./scripts/setup.sh ch17 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh ch17 --org <org>
 ```
 ```powershell
 # PowerShell
 wth setup ch17 --org <org>
 # or directly:
-./scripts/setup.ps1 ch17 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 ch17 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch17-*`, idempotent, prefix-guarded teardown):

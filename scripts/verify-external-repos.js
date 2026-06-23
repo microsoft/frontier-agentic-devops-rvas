@@ -23,6 +23,8 @@ const state = {
     appDependencies: 0,
     sourceRepos: 0,
     submoduleChecks: 0,
+    retiredVendored: 0,
+    vendoredChecks: 0,
     externalChecks: 0,
   },
 };
@@ -436,9 +438,25 @@ async function gitFetchSha(url, sha) {
   }
 }
 
+function validateVendoredPaths(entries) {
+  for (const entry of entries) {
+    if (!entry.retired) continue;
+    state.counts.retiredVendored++;
+    if (!entry.vendored_in) continue;
+    state.counts.vendoredChecks++;
+    const target = path.resolve(ROOT, entry.vendored_in);
+    if (!target.startsWith(ROOT)) {
+      addError(`${entry.key}: vendored_in escapes repository root`);
+    } else if (!fs.existsSync(target)) {
+      addError(`${entry.key}: vendored_in path does not exist: ${entry.vendored_in}`);
+    }
+  }
+}
+
 async function checkExternal(entries) {
   if (!CHECK_EXTERNAL) return;
   for (const entry of entries) {
+    if (entry.retired) continue; // skip retired/vendored entries — no live repo to reach
     if (!entry.source || !entry.source.url) continue;
     state.counts.externalChecks++;
     const repoResult = await gitLsRemote(entry.source.url, 'HEAD');
@@ -474,6 +492,7 @@ async function main() {
   validateManifestShape(entries);
   validateLocalPaths(entries);
   validateSubmodules(entries);
+  validateVendoredPaths(entries);
   validateAppDependencies(challenges, entries);
   validateSourceRepos(challenges, entries);
   validateAffectedChallenges(challenges, entries);

@@ -57,7 +57,7 @@ By the end of this challenge you will have:
 3. Open VS Code in the cloned folder (`code .`) and choose **Dev Containers: Reopen in Container** from the Command Palette (`Ctrl+Shift+P`).
 4. Wait for the container to build, then continue below.
 
-> **Windows note:** PowerShell users can also run `./scripts/setup.ps1 doctor --org <org>` to verify tooling instead of the Bash equivalent.
+> **Windows note:** PowerShell users can also run `modules/ghec/resources/provisioning/scripts/setup.ps1 doctor --org <org>` to verify tooling instead of the Bash equivalent.
 
 ---
 
@@ -114,14 +114,16 @@ gh repo view <org>/<repo>
 
 ## Provisioning CLI preflight (optional)
 
-The GHEC hackathon ships a provisioning CLI (`wth`) that sets up starting state for each challenge. You do not need it for this challenge, but you can run a preflight check now:
+The GHEC hackathon ships a provisioning CLI (`wth`) that sets up starting state for each challenge.
+The scripts live in-tree at `modules/ghec/resources/provisioning/`. You do not need them for this
+challenge, but you can run a preflight check now (from the repo root):
 
 ```bash
 # Bash
-./scripts/setup.sh doctor ch01 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh doctor ch01 --org <org>
 
 # PowerShell
-./scripts/setup.ps1 doctor ch01 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 doctor ch01 --org <org>
 ```
 
 A clean `doctor` output confirms your token scopes and tooling are ready for the whole module.

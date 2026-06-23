@@ -30,19 +30,19 @@ By completing this challenge you will:
 A GHEC customer just got a bigger-than-expected Actions bill and nobody can explain it. Finance wants guardrails: a budget with an alert before money is spent, a clear view of which repos burn the most minutes, and a report they can pull on demand. You'll stand up exactly that at the **organization** level — generate a little real usage, wire up a budget with alerts, and reconcile the API against the billing UI so the numbers are trustworthy. The output is the cost-governance baseline a real customer keeps.
 
 ## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `./scripts/`.
+Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
 
 ```bash
 # Bash
 wth setup ch10 --org <org>
 # or directly:
-./scripts/setup.sh ch10 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh ch10 --org <org>
 ```
 ```powershell
 # PowerShell
 wth setup ch10 --org <org>
 # or directly:
-./scripts/setup.ps1 ch10 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 ch10 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch10-*`, idempotent, prefix-guarded teardown):

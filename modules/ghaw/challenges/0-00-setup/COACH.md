@@ -25,8 +25,8 @@
 | `gh auth status` fails | Not logged in | Run `gh auth login` again; choose HTTPS |
 | Codespace build times out | Network / quota | Retry once; fall back to local dev container |
 | `gh aw --version` not found | Container image stale or `postCreate.sh` failed | Rebuild container (`Ctrl+Shift+P → Dev Containers: Rebuild Container`); or run `curl -sL https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh \| bash` manually |
-| `gh aw run examples/hello-world.md --dry-run` fails | AI engine key missing | Confirm Copilot subscription is active; or set `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` / `GEMINI_API_KEY` as Codespace secrets and rebuild |
-| Repository not accessible | Fork not created | Run `gh repo fork microsoft/frontier-ghaw-hackathon --clone` |
+| `gh aw run modules/ghaw/resources/examples/hello-world.md --dry-run` fails | AI engine key missing | Confirm Copilot subscription is active; or set `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` / `GEMINI_API_KEY` as Codespace secrets and rebuild |
+| Repository not accessible | Not in the right repo | Confirm the Codespace or local clone is for `microsoft/frontier-agenticdevops-hackathon` |
 
 ---
 
@@ -36,7 +36,7 @@ Before releasing the group to Challenge 1-01, confirm per participant:
 
 - [ ] `gh auth status` exits 0 and shows the correct username
 - [ ] `gh aw --version` returns a version string
-- [ ] `gh aw run examples/hello-world.md --dry-run` completes without errors
+- [ ] `gh aw run modules/ghaw/resources/examples/hello-world.md --dry-run` completes without errors
 - [ ] Repository is open and writable (or readable with a documented fallback)
 
 ---
@@ -46,6 +46,6 @@ Before releasing the group to Challenge 1-01, confirm per participant:
 If a participant cannot reach the environment, apply the smallest unblock:
 
 1. **Codespaces quota:** Use local dev container or request org Codespaces billing.
-2. **Fork access:** Not applicable — participants fork the public repo at `https://github.com/microsoft/frontier-ghaw-hackathon`. If GitHub is network-blocked, provide a pre-cloned repo baseline branch.
+2. **Repo access:** Participants work directly in `microsoft/frontier-agenticdevops-hackathon`. If GitHub is network-blocked, provide a pre-cloned repo baseline branch.
 3. **`gh aw` install blocked:** Coach provides a pre-built binary or runs the install script from a terminal with outbound access. As a last resort, install from source: `go install github.com/github/gh-aw@latest`.
 4. **AI engine key missing:** GitHub Copilot is the default and zero-config if the participant's account has an active subscription. For Claude/OpenAI/Gemini, set secrets at `github.com/settings/codespaces` and rebuild the Codespace.

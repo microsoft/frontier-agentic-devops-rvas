@@ -30,19 +30,19 @@ By completing this challenge you will:
 A GHEC customer's engineering org has grown past the point where ad-hoc collaborator adds make sense. People are added directly to repos, leavers keep access, and nobody can answer "who can merge to the payments repo?" You'll replace the chaos with a **team-based** model: a parent team for the whole department, child teams per squad, repository access granted to teams (never to individuals), and one **custom role** for a contractor pattern that the built-in roles don't capture. Access becomes something you can read from an org chart — and from the API.
 
 ## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `./scripts/`.
+Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
 
 ```bash
 # Bash
 wth setup ch07 --org <org>
 # or directly:
-./scripts/setup.sh ch07 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh ch07 --org <org>
 ```
 ```powershell
 # PowerShell
 wth setup ch07 --org <org>
 # or directly:
-./scripts/setup.ps1 ch07 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 ch07 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch07-*`, idempotent, prefix-guarded teardown):

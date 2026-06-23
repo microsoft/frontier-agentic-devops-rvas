@@ -1,0 +1,83 @@
+# =============================================================================
+# Dependabot Configuration
+# =============================================================================
+# Dependabot automatically checks your dependencies for known vulnerabilities
+# and creates pull requests to update them.
+#
+# HOW IT WORKS:
+#   1. Dependabot checks your dependency manifests (package.json, etc.)
+#   2. Compares versions against the GitHub Advisory Database
+#   3. Opens PRs to update vulnerable or outdated dependencies
+#
+# WHERE TO SEE RESULTS:
+#   - Pull Requests tab: Dependabot will open PRs for updates
+#   - Security tab > Dependabot alerts: Shows known vulnerabilities
+#   - Insights tab > Dependency graph: Shows all your dependencies
+#
+# FOR HACKATHON PARTICIPANTS:
+#   Juice Shop intentionally has vulnerable dependencies! Dependabot will
+#   flag many of them. This is by design — explore the alerts and see what
+#   Dependabot recommends. You don't need to merge every PR, but reviewing
+#   them teaches you how real-world dependency management works.
+# =============================================================================
+
+version: 2
+
+updates:
+  # ---------------------------------------------------------------------------
+  # npm dependencies (the main application)
+  # ---------------------------------------------------------------------------
+  # This monitors package.json and package-lock.json for:
+  #   - Known vulnerabilities (CVEs) in dependencies
+  #   - Available version updates (minor, patch, major)
+  #
+  # Juice Shop has MANY outdated/vulnerable deps on purpose. Expect a lot
+  # of Dependabot PRs and alerts — that's the learning opportunity!
+  # ---------------------------------------------------------------------------
+  - package-ecosystem: "npm"
+    directory: "/app"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/New_York"
+    # Limit open PRs to avoid overwhelming the repo
+    open-pull-requests-limit: 10
+    # Labels help you filter and manage Dependabot PRs
+    labels:
+      - "dependencies"
+      - "security"
+    # Group minor and patch updates together to reduce PR noise
+    groups:
+      # Group all minor and patch production dependency updates
+      production-dependencies:
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
+      # Group all dev dependency updates together
+      dev-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+          - "major"
+
+  # ---------------------------------------------------------------------------
+  # GitHub Actions dependencies
+  # ---------------------------------------------------------------------------
+  # This keeps your CI/CD workflow actions up to date. Actions can have
+  # vulnerabilities too! For example, a compromised action could leak secrets.
+  #
+  # This monitors all .yml files in .github/workflows/
+  # ---------------------------------------------------------------------------
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/New_York"
+    labels:
+      - "dependencies"
+      - "github-actions"
