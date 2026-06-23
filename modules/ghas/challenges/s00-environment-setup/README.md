@@ -89,8 +89,15 @@ git push -u origin participant/{your-github-handle}
 
 All GHAS challenges work with OWASP Juice Shop for **manual exploit testing**. The actual GHAS alerts come from the shared org repository (see important note below).
 
+**Step 1 — Fetch Juice Shop** (once per Codespace/container):
 ```bash
-cd app && npm start
+npm run setup:juice-shop
+```
+This command fetches Juice Shop at the exact pinned commit (`v20.0.0`), verifies the SHA, and links it to `app/` so the next command works immediately.
+
+**Step 2 — Start the app:**
+```bash
+cd app && npm install && npm start
 ```
 
 Juice Shop will be available at **port 3000**. In Codespaces, GitHub automatically

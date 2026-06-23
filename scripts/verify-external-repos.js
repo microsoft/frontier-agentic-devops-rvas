@@ -22,6 +22,7 @@ const state = {
     challenges: 0,
     appDependencies: 0,
     sourceRepos: 0,
+    submoduleChecks: 0,
     externalChecks: 0,
   },
 };
@@ -300,6 +301,108 @@ function validateLocalPaths(entries) {
   }
 }
 
+/**
+ * Reads .gitmodules and returns a map of submodule path -> url.
+ * Dependency-free: pure string parsing.
+ */
+function parseGitmodules() {
+  const gitmodulesPath = path.join(ROOT, '.gitmodules');
+  const result = new Map(); // path -> { url }
+  if (!fs.existsSync(gitmodulesPath)) return result;
+  const text = readText(gitmodulesPath);
+  let currentPath = null;
+  for (const line of text.split(/\r?\n/)) {
+    const pathMatch = line.match(/^\s*path\s*=\s*(.+)$/);
+    const urlMatch = line.match(/^\s*url\s*=\s*(.+)$/);
+    const sectionMatch = line.match(/^\s*\[submodule\s+"([^"]+)"\]/);
+    if (sectionMatch) { currentPath = null; }
+    if (pathMatch) { currentPath = pathMatch[1].trim(); if (!result.has(currentPath)) result.set(currentPath, {}); }
+    if (urlMatch && currentPath) { result.get(currentPath).url = urlMatch[1].trim(); }
+  }
+  return result;
+}
+
+/**
+ * Reads the gitlink SHA for a submodule path from `git ls-files --stage`.
+ * Returns the SHA string or null if not registered.
+ */
+function readGitlink(submodulePath) {
+  try {
+    const { execFileSync } = require('child_process');
+    const out = execFileSync('git', ['ls-files', '--stage', submodulePath], { cwd: ROOT, encoding: 'utf8', timeout: 10000 });
+    const match = out.match(/^160000 ([0-9a-f]{40}) \d\t/);
+    return match ? match[1] : null;
+  } catch {
+    return null;
+  }
+}
+
+function validateSubmodules(entries) {
+  const submoduleEntries = entries.filter(
+    e => e.provisioning && e.provisioning.method === 'submodule'
+  );
+  if (submoduleEntries.length === 0) return;
+
+  const gitmodules = parseGitmodules();
+  state.counts.submoduleChecks = 0;
+
+  for (const entry of submoduleEntries) {
+    const label = entry.key;
+    const prov = entry.provisioning;
+    const subPath = prov.submodule_path;
+    const manifestSha = entry.source && entry.source.sha;
+
+    if (!subPath) { addError(`${label}: provisioning.submodule_path is missing`); continue; }
+    if (!manifestSha) { addError(`${label}: source.sha is required for submodule-backed entries`); continue; }
+
+    state.counts.submoduleChecks++;
+
+    // 1. .gitmodules must have a URL entry for this path
+    if (!gitmodules.has(subPath)) {
+      addError(`${label}: .gitmodules has no entry for path '${subPath}' — register the submodule`);
+    } else {
+      const registered = gitmodules.get(subPath);
+      if (!registered.url) addError(`${label}: .gitmodules entry for '${subPath}' is missing a url`);
+    }
+
+    // 2. If the submodule is checked out, its HEAD must match the manifest SHA
+    const absSubPath = path.join(ROOT, subPath);
+    const headFile = path.join(absSubPath, '.git');
+    const isCheckedOut = fs.existsSync(headFile) || (fs.existsSync(absSubPath) && fs.readdirSync(absSubPath).length > 0);
+    if (isCheckedOut) {
+      try {
+        const { execFileSync } = require('child_process');
+        const actualSha = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: absSubPath, encoding: 'utf8', timeout: 10000 }).trim();
+        if (actualSha !== manifestSha) {
+          addError(`${label}: submodule HEAD (${actualSha}) does not match manifest source.sha (${manifestSha}) — drift detected`);
+        }
+      } catch {
+        addWarning(`${label}: could not read HEAD from checked-out submodule at ${subPath}`);
+      }
+    }
+
+    // 3. Gitlink in the index must match the manifest SHA (if registered)
+    const gitlinkSha = readGitlink(subPath);
+    if (gitlinkSha !== null) {
+      if (gitlinkSha !== manifestSha) {
+        addError(`${label}: gitlink SHA (${gitlinkSha}) does not match manifest source.sha (${manifestSha}) — drift detected`);
+      }
+    } else {
+      addWarning(`${label}: no gitlink found in index for '${subPath}' (run 'git submodule update --init')`);
+    }
+
+    // 4. Symlinks
+    for (const symlink of Array.isArray(prov.symlinks) ? prov.symlinks : []) {
+      const symlinkPath = path.join(ROOT, symlink);
+      let symlinkExists = false;
+      try { symlinkExists = fs.lstatSync(symlinkPath) != null; } catch { /* not found */ }
+      if (!symlinkExists) {
+        addWarning(`${label}: declared symlink '${symlink}' does not exist (run 'npm run setup:${entry.key}' to create it)`);
+      }
+    }
+  }
+}
+
 function runGit(args, options = {}) {
   return new Promise(resolve => {
     const child = execFile('git', args, Object.assign({ timeout: 15000 }, options), (err, stdout, stderr) => {
@@ -370,6 +473,7 @@ async function main() {
 
   validateManifestShape(entries);
   validateLocalPaths(entries);
+  validateSubmodules(entries);
   validateAppDependencies(challenges, entries);
   validateSourceRepos(challenges, entries);
   validateAffectedChallenges(challenges, entries);

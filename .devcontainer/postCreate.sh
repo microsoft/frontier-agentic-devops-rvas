@@ -54,5 +54,6 @@ echo -e "  • Authenticate GitHub:  ${CYAN}gh auth login${RESET}"
 echo -e "  • (SRE module) Azure:   ${CYAN}az login${RESET}"
 echo -e "  • Open the catalog:     ${CYAN}docs/index.html${RESET} (or your published Pages site)"
 echo
-echo -e "${YELLOW}Note: module sample apps (Juice Shop, Contoso Claims) are cloned on demand"
-echo -e "      from their source repos — this container ships the toolchain, not the apps.${RESET}"
+echo -e "${YELLOW}Note: module sample apps (Contoso Claims) are cloned on demand from their source repos —${RESET}"
+echo -e "${YELLOW}      this container ships the toolchain, not the apps.${RESET}"
+echo -e "${YELLOW}Tip:  GHAS participants → run ${BOLD}npm run setup:juice-shop${RESET}${YELLOW} to fetch + link Juice Shop locally.${RESET}"

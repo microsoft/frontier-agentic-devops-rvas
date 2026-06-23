@@ -25,7 +25,14 @@
         "ghec-ch13",
         "ghec-ch15"
       ],
-      "attribution": "OWASP Juice Shop project; preserve upstream license and notices when acquired. Not vendored in this repository."
+      "attribution": "OWASP Juice Shop project; preserve upstream license and notices when acquired. Not vendored in this repository.",
+      "provisioning": {
+        "method": "submodule",
+        "submodule_path": "external/juice-shop",
+        "symlinks": ["app"],
+        "npm_script": "setup:juice-shop",
+        "note": "Lazy/on-demand. Run `npm run setup:juice-shop` to fetch. The tag v20.0.0 is the human-readable ref; the submodule gitlink is pinned to the exact SHA above."
+      }
     },
     {
       "key": "seed",

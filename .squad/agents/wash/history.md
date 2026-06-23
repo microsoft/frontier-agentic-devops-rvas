@@ -76,3 +76,34 @@ Runs in <1s with Node core only. Zero npm dependencies.
 8. **Canonical track slugs (2026-06-15)**: ghas renamed `security-fundamentals` → `security` (Zoe's 6 challenges use this); ghaw replaced with faithful Track 1–4 taxonomy: `hello-agent`, `repo-concierge`, `continuous-intelligence`, `production-patterns` (internal track_ids were scrambled, so config now matches actual content hierarchy).
 
 9. **P0 bugfix D-001 (2026-06-15)**: Fixed YAML list-item parser in `docs/build.js` line 93 — changed regex from `^\s+-\s+` to `^\s*-\s+` to accept unindented list items (e.g., `- ghas-s00` without leading spaces); restored 5 missing dependency edges (ghas-s01..s05 now correctly recognize ghas-s00 prerequisite).
+### Phase N+1 — Submodule Provisioning (2026-06-23)
+
+**Task:** Implement lazy/on-demand submodule provisioning for locally-run apps, starting with OWASP Juice Shop.
+
+**Key decisions:**
+
+1. **Submodule path:** `external/juice-shop` — keeps third-party content clearly separated from first-party modules.
+
+2. **Symlink:** Committed symlink `app → external/juice-shop` (mode 120000). This preserves the existing `cd app && npm start` instruction without requiring participants to know the submodule layout.
+
+3. **Gitlink registration without network:** Used `git update-index --add --cacheinfo 160000,<sha>,external/juice-shop` to directly write the gitlink at the pinned SHA into the index. This avoids cloning a ~61MB repo during scaffolding and is fully correct — git submodule machinery only needs the SHA in the parent's tree, not the actual objects. The actual clone is deferred to `npm run setup:juice-shop`. **Result: only `.gitmodules` registration + gitlink object were committed; the submodule working tree is NOT populated.**
+
+4. **Provisioning schema:** Added `provisioning: { method, submodule_path, symlinks, npm_script }` block to the juice-shop entry in `external-repos.json`. The `method` field drives both the drift check and future tooling.
+
+5. **Drift check mechanism:** `validateSubmodules()` in `scripts/verify-external-repos.js` reads `.gitmodules` (pure string parse, no deps), checks gitlink SHA via `git ls-files --stage`, and checks HEAD SHA if submodule is checked out. Any mismatch is a hard error.
+
+6. **Provision script:** `scripts/provision-app.sh` is generic — reads any `provisioning.method == "submodule"` entry by key arg. Idempotent (skips init if `.git` already present). Uses `jq` if available, falls back to `node -e`.
+
+**Important file paths:**
+- `external/juice-shop` — submodule working tree (empty until `npm run setup:juice-shop`)
+- `app` — symlink to `external/juice-shop`
+- `.gitmodules` — submodule URL + `shallow = true`
+- `scripts/provision-app.sh` — generic lazy provisioner
+- `external-repos.json` — manifest with `provisioning` block on juice-shop entry
+- `scripts/verify-external-repos.js` — extended with `validateSubmodules()`
+
+**Validation results (2026-06-23):**
+- `npm run verify:repos` ✓ (submoduleChecks: 1)
+- `npm run build` ✓ (59 challenges, 36 edges)
+- `bash -n scripts/provision-app.sh` ✓ (syntax OK)
+- Symlink resolves: `app → external/juice-shop` (mode 120000)

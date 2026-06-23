@@ -16,9 +16,9 @@ This guide explains how this hackathon curriculum manages external dependencies,
 - **Source:** https://github.com/juice-shop/juice-shop
 - **Pinned ref:** `v20.0.0` (tag) = commit `f356a09207c7a9550eb6fc4c3945e081922cf998`
 - **Used by:** GHEC challenges (ch11–ch15), GHAS setup
-- **Import mode:** Challenge setup scripts (`wth setup`) import the repo into org-owned GitHub repositories
-- **Why:** Juice Shop is a large, intentionally vulnerable app; we don't embed it. Each challenge provisions its own imported instance (e.g., `wth-ch11-juice-shop`), so students work against isolated, disposable copies.
-- **Local runtime:** GHAS module runs Juice Shop locally (Docker or devcontainer) for manual exploit testing; the shared org repo (governed by GHAS alerts) is separate.
+- **Import mode (org repo):** Challenge setup scripts (`wth setup`) import the repo into org-owned GitHub repositories — each challenge gets its own isolated, disposable copy (e.g., `wth-ch11-juice-shop`). GHAS alerts run on *that* org repo.
+- **Local runtime (GHAS participants):** GHAS challenges also run Juice Shop locally for manual exploit testing. This local instance has **no GHAS alerts** — it is the app only, not the security-scanning target. See *[Local app provisioning (submodules)](#local-app-provisioning-submodules)* below for how to get it running.
+- **Why Juice Shop is large but not vendored:** At ~61 MB it would bloat the curriculum repo and slow container creation for participants who never need it. It is registered as a git submodule and fetched on demand.
 
 ### GitHub Advanced Security Source Hackathon
 
@@ -113,9 +113,66 @@ This confirms all URLs and refs exist and are accessible.
 If a new version of Juice Shop or another dependency is needed:
 
 1. **Coordinate with curriculum**: Update `external-repos.json` with the new ref (tag and/or full SHA).
-2. **Test**: Run `npm run verify:repos` and `npm run verify:repos:external` to confirm the manifest and refs are valid.
-3. **Document**: Add a note to the challenge's `COACH.md` if the new ref introduces breaking changes.
-4. **Rebuild**: Run `npm run build` to regenerate catalogs with the new refs.
+2. **Bump the submodule pointer** (for submodule-backed apps): `cd external/juice-shop && git fetch --depth 1 origin <new-sha> && git checkout <new-sha>`, then `git add external/juice-shop` in the repo root.
+3. **Test**: Run `npm run verify:repos` and `npm run verify:repos:external` to confirm the manifest SHA and gitlink are in sync.
+4. **Document**: Add a note to the challenge's `COACH.md` if the new ref introduces breaking changes.
+5. **Rebuild**: Run `npm run build` to regenerate catalogs with the new refs.
+
+> **Tag vs. SHA nuance:** `external-repos.json` stores both the friendly tag (`v20.0.0`) and the exact commit SHA. Git submodules track the SHA only — the tag is purely for human reference. The drift check (`npm run verify:repos`) asserts the gitlink SHA equals `source.sha`; always update both together.
+
+## Local App Provisioning (Submodules)
+
+Locally-run apps (apps that participants start in their Codespace or dev container) are managed as **lazy git submodules**. The submodule is *registered* (`.gitmodules` + gitlink) in this repo at the pinned commit, but the actual clone is deferred to when a participant first needs it. This keeps container creation fast for participants who don't use that module.
+
+### How it works
+
+```
+external/
+  juice-shop/          ← git submodule, pinned to f356a09... (v20.0.0)
+app -> external/juice-shop   ← committed symlink, stable path for challenge instructions
+```
+
+`external-repos.json` carries a `provisioning` block for each submodule-backed app:
+```json
+"provisioning": {
+  "method": "submodule",
+  "submodule_path": "external/juice-shop",
+  "symlinks": ["app"],
+  "npm_script": "setup:juice-shop"
+}
+```
+
+### Fetching Juice Shop (participants)
+
+GHAS participants run this once after the container starts:
+```bash
+npm run setup:juice-shop
+```
+
+The script (`scripts/provision-app.sh`):
+1. Runs `git submodule update --init --depth 1 -- external/juice-shop` (shallow, fast)
+2. Verifies the checked-out HEAD SHA equals the manifest `source.sha` (fails loudly on drift)
+3. Ensures the `app → external/juice-shop` symlink exists
+4. Prints next steps: `cd app && npm install && npm start`
+
+> **This submodule is the LOCAL RUNTIME only.** It does NOT replace the org-imported repository that carries the GHAS alerts (CodeQL, Dependabot, secret scanning). Those run on the shared org repo your organizer provisions. Never confuse the two.
+
+### Drift prevention
+
+`npm run verify:repos` now asserts that, for every `provisioning.method == "submodule"` entry:
+- `.gitmodules` contains a URL for the declared `submodule_path`
+- The gitlink SHA in the index matches `source.sha`
+- If the submodule is checked out, the HEAD SHA also matches
+
+### Adding a new local app (for maintainers)
+
+1. Add the submodule: `git submodule add --depth 1 <url> external/<name>` then check out the pinned SHA.
+2. Set `shallow = true` in `.gitmodules`.
+3. Create the committed symlink(s) if challenge instructions expect a stable path.
+4. Add a `provisioning` block in `external-repos.json` (same schema as `juice-shop`).
+5. Add an npm script `setup:<name>` in `package.json` pointing to `provision-app.sh <key>`.
+6. Run `npm run verify:repos` to confirm drift check passes.
+7. Document in this file and in the relevant challenge's `README.md`.
 
 ## Dependency Families
 

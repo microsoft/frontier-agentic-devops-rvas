@@ -1,0 +1,4 @@
+[submodule "external/juice-shop"]
+	path = external/juice-shop
+	url = https://github.com/juice-shop/juice-shop
+	shallow = true

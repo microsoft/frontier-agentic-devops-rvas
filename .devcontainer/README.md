@@ -26,9 +26,17 @@ VS Code extensions: Copilot + Copilot Chat, GitHub Actions, CodeQL, Bicep, YAML,
 ## What's *not* included (by design)
 
 This is a **tools-only** container. The per-module **sample apps** — OWASP **Juice Shop**
-(GHAS) and **Contoso Claims** (SRE) — are **not vendored** here. Clone them on demand from
-their source repos when a challenge requires them. Each source repo also ships its own
-purpose-built dev container if you prefer to work a single module there.
+(GHAS) and **Contoso Claims** (SRE) — are **not auto-pulled** at container create time
+(they are large; ~75% of participants never need both). Juice Shop is registered as a git
+submodule and fetched lazily when needed.
+
+**GHAS participants:** after the container starts, run:
+```bash
+npm run setup:juice-shop
+```
+This fetches Juice Shop at the pinned commit, verifies the SHA, and links it to `app/` so
+`cd app && npm start` works immediately. Contoso Claims (SRE module) is vendored in-tree
+and needs no separate fetch.
 
 ## Getting started
 
