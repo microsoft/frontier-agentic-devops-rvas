@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - Juice Shop instance running (see modules/ghas/setup.md)
   - GitHub Advanced Security enabled at organization level (Team plan or higher with Code Security license)
   - GitHub Copilot license assigned
-  - Completed at least one of S01–S04 recommended (to have fixed alerts to reference)
+  - Completed at least one of S02–S05 recommended (to have fixed alerts to reference)
   - Org-level Security Overview access (or ability to write a campaign plan if unavailable)
 description: Design and create a GitHub Security Campaign to coordinate systematic remediation of a vulnerability class at scale; scope alerts, assign to developers, set a deadline, and track progress in the Security Overview dashboard.
 success_criteria:

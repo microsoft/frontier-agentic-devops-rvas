@@ -27,7 +27,7 @@ Use these follow-ups to steer the conversation:
 - Have students group alerts by class and likely remediation effort before they choose a fix order.
 - Ask them to explain one alert in plain language: what input is attacker-controlled, what sink is dangerous, and what impact follows.
 - If they rely too heavily on Copilot, ask them to verify the explanation against the actual code path.
-- Encourage notes they can reuse in S01-S05 so the reconnaissance work pays off later.
+- Encourage notes they can reuse in S02-S06 so the reconnaissance work pays off later.
 
 ## Validation checklist
 Verify each success criterion from the student guide:

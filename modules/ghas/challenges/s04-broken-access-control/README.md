@@ -1,4 +1,4 @@
-# Challenge S-03: Fix Broken Access Control
+# Challenge S04 — Fix Broken Access Control
 
 ## Description
 

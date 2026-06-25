@@ -11,7 +11,7 @@ prerequisite_capabilities:
   - GitHub Advanced Security enabled on the shared org repo
   - GitHub Copilot license assigned
   - Familiarity with Node.js environment variables and npm package management
-  - Completed S00 (attack surface overview) recommended
+  - Completed S01 (attack surface overview) recommended
 description: Remove hardcoded secrets from Juice Shop source code (replacing with environment variable references) and review critical Dependabot alerts; validate both through push protection and PR security checks.
 success_criteria:
   - No hardcoded secrets, passwords, or credentials remain in source code files

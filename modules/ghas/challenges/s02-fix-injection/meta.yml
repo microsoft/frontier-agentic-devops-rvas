@@ -11,7 +11,7 @@ prerequisite_capabilities:
   - GitHub Advanced Security enabled on the shared org repo
   - GitHub Copilot license assigned
   - Basic familiarity with Node.js/Express and SQL queries
-  - Completed S00 (attack surface overview) recommended
+  - Completed S01 (attack surface overview) recommended
 description: Fix real SQL injection and NoSQL injection vulnerabilities in Juice Shop backend routes identified by CodeQL, using parameterized queries and ORM-safe patterns; open pull requests and verify fixes via PR code scanning checks.
 success_criteria:
   - At least 2 injection vulnerabilities fixed in the code

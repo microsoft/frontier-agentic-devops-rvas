@@ -1,4 +1,4 @@
-# Challenge S-02: Fix XSS & Unsafe Output
+# Challenge S03 — Fix XSS & Unsafe Output
 
 ## Description
 

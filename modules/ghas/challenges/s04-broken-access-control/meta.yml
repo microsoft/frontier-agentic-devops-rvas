@@ -11,7 +11,7 @@ prerequisite_capabilities:
   - GitHub Advanced Security enabled on the shared org repo
   - GitHub Copilot license assigned
   - Basic familiarity with Node.js/Express route middleware and authentication patterns
-  - Completed S00 (attack surface overview) recommended
+  - Completed S01 (attack surface overview) recommended
 description: Identify and fix broken access control vulnerabilities (IDOR, missing authorization middleware) in Juice Shop backend routes; enforce server-side ownership checks and role-based authorization in route handlers.
 success_criteria:
   - At least 2 access control vulnerabilities identified and fixed in route handlers

@@ -93,7 +93,7 @@ All GHAS challenges work with OWASP Juice Shop for **manual exploit testing**. T
 ```bash
 npm run setup:juice-shop
 ```
-This command fetches Juice Shop at the exact pinned commit (`v20.0.0`), verifies the SHA, and links it to `app/` so the next command works immediately.
+This command fetches Juice Shop at the exact pinned release tag (`v20.0.0`), verifies the commit SHA, and links it to `app/` so the next command works immediately.
 
 **Step 2 — Start the app:**
 ```bash

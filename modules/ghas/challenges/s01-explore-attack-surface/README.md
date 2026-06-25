@@ -1,4 +1,4 @@
-# Challenge S-00: Explore the Attack Surface
+# Challenge S01 — Explore the Attack Surface
 
 ## Description
 

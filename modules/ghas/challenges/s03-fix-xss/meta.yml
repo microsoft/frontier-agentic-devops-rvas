@@ -11,7 +11,7 @@ prerequisite_capabilities:
   - GitHub Advanced Security enabled on the shared org repo
   - GitHub Copilot license assigned
   - Basic familiarity with HTML/JavaScript and frontend frameworks (Angular)
-  - Completed S00 (attack surface overview) recommended
+  - Completed S01 (attack surface overview) recommended
 description: Fix cross-site scripting (XSS) vulnerabilities in Juice Shop by applying correct output encoding and safe framework APIs; trace data flows from user input to HTML output and verify fixes through PR code scanning annotations.
 success_criteria:
   - At least 2 XSS vulnerabilities fixed

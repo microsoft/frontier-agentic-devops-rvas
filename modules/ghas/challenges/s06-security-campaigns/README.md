@@ -1,4 +1,4 @@
-# Challenge S-05: Security Campaigns (Advanced)
+# Challenge S06 — Security Campaigns (Advanced)
 
 ## Description
 

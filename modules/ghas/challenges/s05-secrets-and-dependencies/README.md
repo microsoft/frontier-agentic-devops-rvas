@@ -1,4 +1,4 @@
-# Challenge S-04: Secure Secrets & Dependencies
+# Challenge S05 — Secure Secrets & Dependencies
 
 ## Description
 

@@ -1,4 +1,4 @@
-# Challenge S-01: Fix Injection Vulnerabilities
+# Challenge S02 — Fix Injection Vulnerabilities
 
 ## Description
 
@@ -31,7 +31,7 @@ You're working as a developer fixing real application code. Not configuring tool
 - Ask: *"What's the difference between input sanitization and parameterization, and why is parameterization the right fix here?"*
 - Use Copilot Autofix in the Security tab — click an alert and hit **Generate fix** to see its proposed remediation, then review and refine it.
 
-**Power move:** If you've done C-00, create a custom Copilot agent that's instructed to always suggest parameterized queries when it sees raw string concatenation in SQL context.
+**Power move:** Create a custom Copilot agent (or repository custom instructions) that always suggests parameterized queries when it sees raw string concatenation in a SQL context.
 
 ## Learning Resources
 
