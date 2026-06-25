@@ -25,7 +25,7 @@ tags:
   - setup
   - devcontainer
   - sre-agent
-app_dependency: contoso-claims
+app_dependency: contoso-app
 emu_compatible: true
 min_environment: org
 tier: setup

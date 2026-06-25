@@ -12,8 +12,8 @@ The handbook's core warning is that agents fail on real codebases when team know
 | --- | --- | --- |
 | Instructions | A short repo guidance note with coding rules, review rules, and denied actions. | 00, 03 |
 | Agent persona | A role card for one assistant, such as reviewer, tester, CI Doctor, or triage helper. | 03 |
-| Skill or prompt | One reusable prompt for a repeated task. | 02, 03 |
-| Memory or decision note | One versioned convention, risk, or operating rule discovered during the day. | 02, 03, 06 |
+| Skill or prompt | One reusable prompt for a repeated task. | 03 |
+| Memory or decision note | One versioned convention, risk, or operating rule discovered during the day. | 03, 06 |
 | Specs and orchestration | Agent-ready issues, plans, checklists, and handoff notes. | 01, 03, 05 |
 | Hooks and gates | Tests, workflow checks, schemas, allowlists, approvals, or manual gates. | 04, 05 |
 

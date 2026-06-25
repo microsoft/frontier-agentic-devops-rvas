@@ -46,8 +46,8 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 ch01 --org <org>
 
 **What setup creates** (all artifacts namespaced `wth-ch01-*`, idempotent, prefix-guarded teardown):
 - A seeded repo **`wth-ch01-issues-labels-projects`** with a realistic `README`, a small source tree, and a `.github/ISSUE_TEMPLATE/` directory you will extend.
-- **12–15 seeded issues** describing a backlog (bugs, features, chores) — deliberately *untriaged*: no labels, no milestone, no assignee.
-- A few **starter labels** only (`bug`, `enhancement`) so you can feel the gap and design the rest.
+- **~26 seeded issues** describing a backlog (bugs, features, chores) — deliberately messy: inconsistent or missing labels, no milestone, no assignee.
+- An **intentionally messy, incomplete label set** (`bug`, `Bug`, `enhancement`, `urgent`, `wontfix`, `question`, `backend`, `frontend` — note the duplicate `bug`/`Bug` casing) so you can feel the gap and design a real taxonomy.
 - An **empty Projects (v2) board** `wth-ch01-board` linked to the repo, with no custom fields yet.
 - A printed **Next steps** block telling you where to start.
 
@@ -56,7 +56,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 ch01 --org <org>
 ## Tasks
 
 ### Part A — Issues & issue hygiene
-1. **Read the backlog.** Open the repo's **Issues** tab and skim every seeded issue. Note that none are labeled, assigned, or milestoned — this is your raw material.
+1. **Read the backlog.** Open the repo's **Issues** tab and skim every seeded issue. Note that they are inconsistently labeled and none are assigned or milestoned — this is your raw material.
 2. **Add issue forms.** In `.github/ISSUE_TEMPLATE/`, add a **bug report** form and a **feature request** form using GitHub's **issue forms** (`.yml`) schema (not plain markdown). Each form must collect a title, a structured body, and at least one dropdown (e.g., area or severity). Open the **New issue** chooser and confirm both forms render.
 3. **File one issue through your new form** to prove it works. Use a task list (`- [ ]`) in the body with at least three sub-tasks, and reference another issue with `#<number>` so the timeline cross-links.
 4. **Triage assignment.** Assign yourself to at least 5 issues. Use `gh issue edit <n> --add-assignee @me` to do it in bulk where that's faster than clicking.
