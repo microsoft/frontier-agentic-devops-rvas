@@ -125,8 +125,7 @@ safe-outputs:
   create-issue:
     title-prefix: '[Morning Briefing] '
 
-engines:
-  - copilot
+engine: copilot
 
 tools:
   github:
@@ -162,7 +161,7 @@ Keep the summary concise — 5-7 sentences total.
 - `tools: github: toolsets: [issues, pull_requests]` — agent can query data
 - `safe-outputs: create-issue:` with title prefix — consistent naming
 - Body: clear, structured instructions with specific counts to gather and format
-- `engines: [copilot]` — free, reliable default
+- `engine: copilot` — free, reliable default
 
 **Production-ready reference solution:** See `coaches/sample-solutions/track-1/1-01-morning-briefing.md`
 

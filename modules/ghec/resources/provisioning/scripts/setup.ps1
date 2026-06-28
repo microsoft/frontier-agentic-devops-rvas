@@ -41,6 +41,7 @@ USAGE:
 COMMANDS:
   doctor      Preflight: tooling, auth, required scopes/capabilities (no changes)
   provision   Create all wth-<chid>-* starting state (idempotent)
+              (alias: setup)
   status      Report what wth-<chid>-* artifacts currently exist
   teardown    Delete ONLY wth-<chid>-* artifacts (confirmation required)
 
@@ -61,8 +62,10 @@ EXAMPLES:
 
 if (-not $Command) { Show-Usage; exit 1 }
 if ($Command -in @('-h', '--help', 'help')) { Show-Usage; exit 0 }
+# `setup` is a friendly alias for `provision` (the verb used throughout the docs).
+if ($Command -eq 'setup') { $Command = 'provision' }
 if ($Command -notin @('doctor', 'provision', 'status', 'teardown')) {
-  Stop-Wth "unknown command '$Command' (expected doctor|provision|status|teardown)"
+  Stop-Wth "unknown command '$Command' (expected doctor|provision|setup|status|teardown)"
 }
 if (-not $Chid) { Stop-Wth 'missing challenge id (e.g. ch01)' }
 

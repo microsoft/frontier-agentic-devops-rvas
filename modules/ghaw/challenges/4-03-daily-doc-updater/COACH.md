@@ -13,7 +13,7 @@ Use these follow-ups to steer the conversation:
 
 ## What This Challenge Teaches
 
-Scheduled automation with `create-pr` safe-output. Participants learn to think about docs as a living artefact that drifts from code, how to write prompts that detect drift (not just "review docs"), and how to produce focused, mergeable PRs rather than wholesale rewrites.
+Scheduled automation with `create-pull-request` safe-output. Participants learn to think about docs as a living artefact that drifts from code, how to write prompts that detect drift (not just "review docs"), and how to produce focused, mergeable PRs rather than wholesale rewrites.
 
 
 Official grounding: when students are unsure whether a frontmatter field or permission is valid, anchor them in the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions) and [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) docs before they tune the agent prompt.
@@ -34,10 +34,9 @@ permissions:
   pull-requests: write
 
 safe-outputs:
-  create-pr: {}
+  create-pull-request: {}
 
-engines:
-  - copilot
+engine: copilot
 ---
 
 # Daily Documentation Updater

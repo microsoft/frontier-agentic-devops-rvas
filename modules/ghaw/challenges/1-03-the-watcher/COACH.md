@@ -123,8 +123,7 @@ safe-outputs:
   add-comment:
   noop:
 
-engines:
-  - copilot
+engine: copilot
 
 tools:
   github:

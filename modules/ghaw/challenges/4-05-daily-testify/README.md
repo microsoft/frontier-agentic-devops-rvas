@@ -37,7 +37,7 @@ Source: [`github/gh-aw/.github/workflows/daily-testify-uber-super-expert.md`](ht
 
 5. **Compile**:
    ```bash
-   gh aw compile .github/workflows/daily-testify-uber-super-expert.md
+   gh aw compile daily-testify-uber-super-expert
    ```
 
 6. **Trigger manually** and examine the first issue it creates — is it actionable?
@@ -54,7 +54,7 @@ Source: [`github/gh-aw/.github/workflows/daily-testify-uber-super-expert.md`](ht
 - [ ] `.github/workflows/daily-testify-uber-super-expert.md` exists with valid frontmatter
 - [ ] `schedule: cron` trigger is set
 - [ ] Expert persona is established in the body (specific, not generic)
-- [ ] `safe-outputs: create-issue` is declared — **no** `create-pr` here
+- [ ] `safe-outputs: create-issue` is declared — **no** `create-pull-request` here
 - [ ] `.lock.yml` compiles without errors
 - [ ] Manually triggered run creates at least one actionable issue
 - [ ] Issue body is specific: names a file, a function, or a concrete gap — not "add more tests"
@@ -77,7 +77,7 @@ Source: [`github/gh-aw/.github/workflows/daily-testify-uber-super-expert.md`](ht
 **"I don't have many tests yet"**
 → That's fine — the agent will tell you _where_ tests are missing, which is useful signal even before the Test Improver acts.
 
-**"Should I use create-pr instead?"**
+**"Should I use create-pull-request instead?"**
 → No. This is an intentional design: human review between analysis and action. The 100% merge rate comes from that review gate, not from skipping it.
 
 </details>

@@ -15,7 +15,7 @@ success_criteria:
   - `.github/workflows/daily-testify-uber-super-expert.md` exists with valid frontmatter
   - `schedule: cron` trigger is set
   - Expert persona is established in the body (specific, not generic)
-  - `safe-outputs: create-issue` is declared — **no** `create-pr` here
+  - `safe-outputs: create-issue` is declared — **no** `create-pull-request` here
   - `.lock.yml` compiles without errors
   - Manually triggered run creates at least one actionable issue
   - Issue body is specific: names a file, a function, or a concrete gap — not "add more tests"

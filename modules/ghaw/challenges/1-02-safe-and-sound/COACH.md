@@ -120,7 +120,7 @@ A coach can verify completion when the squad can show:
     create-issue:
       title-prefix: "[...]"
     noop:
-  engines: ...
+  engine: copilot
   ---
   ```
 - Remind: "2 or 4 spaces per level, consistent throughout."
@@ -146,8 +146,7 @@ safe-outputs:
     title-prefix: '[TODO Scan] '
   noop:
 
-engines:
-  - copilot
+engine: copilot
 
 tools:
   github:

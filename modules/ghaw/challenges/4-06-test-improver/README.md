@@ -17,7 +17,7 @@ Source: [`githubnext/agentics/workflows/daily-test-improver.md`](https://github.
 - Runs daily on a cron schedule
 - Scans the codebase for functions, methods, or paths with no corresponding test coverage
 - Writes new tests incrementally — one focused PR at a time
-- Uses `safe-outputs: create-pr` so maintainers review before merge
+- Uses `safe-outputs: create-pull-request` so maintainers review before merge
 
 ## What You'll Do
 
@@ -37,12 +37,12 @@ Source: [`githubnext/agentics/workflows/daily-test-improver.md`](https://github.
 
 5. **Compile**:
    ```bash
-   gh aw compile .github/workflows/daily-test-improver.md
+   gh aw compile daily-test-improver
    ```
 
 6. **Dry-run** to preview what tests it would write:
    ```bash
-   gh aw run --dry-run .github/workflows/daily-test-improver.md
+   gh aw run daily-test-improver --dry-run
    ```
 
 7. Evaluate the preview — would you merge those tests?
@@ -60,7 +60,7 @@ Source: [`githubnext/agentics/workflows/daily-test-improver.md`](https://github.
 - [ ] `schedule: cron` trigger is set
 - [ ] Test framework and language are specified in the body
 - [ ] Coverage gap detection logic is in the body (not just "write more tests")
-- [ ] `safe-outputs: create-pr` is declared
+- [ ] `safe-outputs: create-pull-request` is declared
 - [ ] `.lock.yml` compiles without errors
 - [ ] Dry-run produces at least one new test file or function
 - [ ] Proposed test is syntactically valid for your framework

@@ -210,8 +210,7 @@ tools:
 
 max-effective-tokens: 5000000
 
-engines:
-  - claude
+engine: claude
 
 checkout: false
 

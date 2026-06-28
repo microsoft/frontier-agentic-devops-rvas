@@ -8,7 +8,7 @@
 
 CI breaks at the worst times. Normally a developer has to open the Actions tab, scroll through log noise, and manually reason about root cause. CI Doctor automates that investigation: it fires on a failed workflow run, pulls the logs, analyses them, and opens a structured diagnostic issue with the root cause and suggested fix.
 
-In `github/gh-aw`, this workflow proposed 13 PRs with a **69% merge rate** (9 merged). That's a CI-fix pipeline running mostly on autopilot.
+In `github/gh-aw`, this workflow proposed 13 PRs with roughly a **69% merge rate** (9 merged) in a point-in-time sample — numbers will have moved since. That's a CI-fix pipeline running mostly on autopilot.
 
 Source: [`githubnext/agentics/workflows/ci-doctor.md`](https://github.com/githubnext/agentics/blob/main/workflows/ci-doctor.md)
 
@@ -37,7 +37,7 @@ Source: [`githubnext/agentics/workflows/ci-doctor.md`](https://github.com/github
 
 5. **Compile**:
    ```bash
-   gh aw compile .github/workflows/ci-doctor.md
+   gh aw compile ci-doctor
    ```
 
 6. **Trigger a test failure** (break a test intentionally in a branch, push, let CI fail) and inspect the [workflow run logs](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/using-workflow-run-logs) as the Doctor fires.

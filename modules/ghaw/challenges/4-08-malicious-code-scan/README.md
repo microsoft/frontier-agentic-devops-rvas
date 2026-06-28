@@ -37,7 +37,7 @@ Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://g
 
 5. **Compile**:
    ```bash
-   gh aw compile .github/workflows/daily-malicious-code-scan.md
+   gh aw compile daily-malicious-code-scan
    ```
 
 6. **Test it** by adding a benign-but-flaggable pattern to a branch (e.g., a base64-encoded eval), then manually triggering the scan.

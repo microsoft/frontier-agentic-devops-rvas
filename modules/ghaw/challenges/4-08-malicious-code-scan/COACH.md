@@ -40,8 +40,7 @@ tools:
   github:
     toolsets: [actions, issues]
 
-engines:
-  - copilot
+engine: copilot
 ---
 
 # Daily Malicious Code Scan

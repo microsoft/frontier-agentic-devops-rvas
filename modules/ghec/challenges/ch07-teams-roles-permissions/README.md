@@ -36,13 +36,13 @@ Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` i
 # Bash
 wth setup ch07 --org <org>
 # or directly:
-bash modules/ghec/resources/provisioning/scripts/setup.sh ch07 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh setup ch07 --org <org>
 ```
 ```powershell
 # PowerShell
 wth setup ch07 --org <org>
 # or directly:
-modules/ghec/resources/provisioning/scripts/setup.ps1 ch07 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch07 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch07-*`, idempotent, prefix-guarded teardown):

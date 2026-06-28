@@ -34,10 +34,9 @@ permissions:
   pull-requests: write
 
 safe-outputs:
-  create-pr: {}
+  create-pull-request: {}
 
-engines:
-  - copilot
+engine: copilot
 ---
 
 # Documentation Unbloat

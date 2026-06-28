@@ -221,8 +221,7 @@ tools:
   repo-memory:
     file-glob: 'observations/**/*.json'
 
-engines:
-  - copilot
+engine: copilot
 
 checkout: false
 ---
@@ -273,8 +272,7 @@ tools:
   repo-memory:
     file-glob: 'observations/**/*.json'
 
-engines:
-  - copilot
+engine: copilot
 
 checkout: false
 
@@ -320,8 +318,7 @@ tools:
   github:
     toolsets: [issues]
 
-engines:
-  - copilot
+engine: copilot
 
 checkout: false
 

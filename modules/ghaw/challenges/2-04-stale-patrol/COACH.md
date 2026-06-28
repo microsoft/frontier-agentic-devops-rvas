@@ -175,8 +175,7 @@ safe-outputs:
   add-comment: {}
   update-issue: {}
 
-engines:
-  - copilot
+engine: copilot
 ---
 
 # Stale Patrol
@@ -204,7 +203,7 @@ Be respectful and helpful. These might be contributors' important work.
 - `permissions: issues: read` — can query issues
 - `safe-outputs: update-issue: {}` — can close (which is a form of update)
 - Body: clear 3-phase logic (query → warn → close), respectful tone
-- `engines: [copilot]` — good at date calculations and respectful copy
+- `engine: copilot` — good at date calculations and respectful copy
 
 ---
 
@@ -213,7 +212,7 @@ Be respectful and helpful. These might be contributors' important work.
 | Phase | Time | What to Do |
 |-------|------|-----------|
 | Read & orient | 3 min | Read challenge, understand scheduled triggers |
-| Write frontmatter | 4 min | Set up `on: schedule:`, `permissions`, `safe-outputs`, `engines` |
+| Write frontmatter | 4 min | Set up `on: schedule:`, `permissions`, `safe-outputs`, `engine` |
 | Write body | 10 min | Draft stale issue query + warn/close logic |
 | Compile & test | 9 min | Compile, manually trigger with `workflow_dispatch`, verify logic |
 | Refine | 3 min | Adjust dates/exemptions if needed |

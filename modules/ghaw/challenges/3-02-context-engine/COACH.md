@@ -190,8 +190,7 @@ tools:
   github:
     toolsets: [pull_requests, contents]
 
-engines:
-  - copilot
+engine: copilot
 
 checkout: false
 ---

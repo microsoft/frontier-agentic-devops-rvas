@@ -13,7 +13,7 @@ prerequisite_capabilities:
 description: Build an event-driven workflow that categorises every new issue with an AI label and posts a friendly comment explaining the classification and next steps.
 success_criteria:
   - `.github/workflows/triage-bot.md` exists with valid gh-aw frontmatter
-  - Frontmatter includes: `on: issues:`, `permissions`, `safe-outputs:`, `engines`
+  - Frontmatter includes: `on: issues:`, `permissions`, `safe-outputs:`, `engine`
   - Safe-outputs has an allowlist limiting labels to: `bug`, `feature-request`, `documentation`, `question`, `duplicate`
   - `.github/workflows/triage-bot.lock.yml` compiles without errors
   - You manually test by creating a test issue in your repo

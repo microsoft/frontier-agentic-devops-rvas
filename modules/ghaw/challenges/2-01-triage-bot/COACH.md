@@ -108,7 +108,7 @@ Agent: Use grep results as a hint; apply your judgment and post comment.
 **Coach response:**
 - "Did you set `on: issues: types: [opened]` in the frontmatter?"
 - Show them: `issue_comment` (for comments) vs `issues` (for issue events)
-- Have them recompile: `gh aw compile triage-bot.md`
+- Have them recompile: `gh aw compile triage-bot`
 - Then create a fresh test issue to trigger it
 
 ### Pitfall 2: Label Not Applied (But Comment Posted)
@@ -187,8 +187,7 @@ safe-outputs:
     allowlist: [bug, feature-request, documentation, question, duplicate]
   add-comment: {}
 
-engines:
-  - copilot
+engine: copilot
 ---
 
 # Issue Triage Bot
@@ -216,10 +215,10 @@ Keep the comment warm and welcoming—this is our first interaction with the con
 **Why this works:**
 - `on: issues: types: [opened]` — fires immediately when new issue created
 - `permissions: issues: read` — minimal, agent doesn't write directly
-- `safe-outputs: add-labels: allowlist:` — gates to 5 safe choices
+- `safe-outputs: add-labels: allowed:` — gates to 5 safe choices
 - `safe-outputs: add-comment:` — permission granted to post comment
 - Body: natural language, clear decision tree, emphasizes friendliness
-- `engines: [copilot]` — free, reliable for classification
+- `engine: copilot` — free, reliable for classification
 
 ---
 
@@ -230,7 +229,7 @@ Suggest this breakdown:
 | Phase | Time | What to Do |
 |-------|------|-----------|
 | Read & orient | 3 min | Read the challenge, ask questions |
-| Write frontmatter | 5 min | Set up `on:`, `permissions`, `safe-outputs`, `engines` |
+| Write frontmatter | 5 min | Set up `on:`, `permissions`, `safe-outputs`, `engine` |
 | Write body | 7 min | Draft classification logic + comment template |
 | Compile & test | 8 min | Compile, create test issue, watch Actions tab |
 | Debug & refine | 5 min | Fix any label/comment issues |
@@ -266,7 +265,7 @@ If a squad finishes in <20 minutes:
 If a squad is stuck:
 
 - [ ] Is the workflow file named `triage-bot.md` in `.github/workflows/`?
-- [ ] Did they run `gh aw compile triage-bot.md`?
+- [ ] Did they run `gh aw compile triage-bot`?
 - [ ] Does `.lock.yml` exist? (`ls .github/workflows/triage-bot.lock.yml`)
 - [ ] Is frontmatter valid YAML? (spaces, not tabs; proper indentation)
 - [ ] Is `on: issues:` spelled correctly? (not `issue:`)

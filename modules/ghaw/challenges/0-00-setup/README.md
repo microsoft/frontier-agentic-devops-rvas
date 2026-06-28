@@ -74,7 +74,7 @@ gh auth status
 gh aw --version
 
 # 4. Dry-run smoke test
-gh aw run modules/ghaw/resources/examples/hello-world.md --dry-run
+gh aw trial modules/ghaw/resources/examples/hello-world.md --dry-run
 ```
 
 > All four commands must succeed before you move on. If any fail, see **Common Blockers** in the coach guide.
@@ -84,7 +84,7 @@ gh aw run modules/ghaw/resources/examples/hello-world.md --dry-run
 | Command | Expected output |
 |---|---|
 | `gh aw --version` | Returns a version string (e.g., `gh-aw version 1.x.x`) |
-| `gh aw run modules/ghaw/resources/examples/hello-world.md --dry-run` | Prints generated workflow YAML; exits 0 |
+| `gh aw trial modules/ghaw/resources/examples/hello-world.md --dry-run` | Previews the workflow without executing it; exits 0 |
 
 ---
 

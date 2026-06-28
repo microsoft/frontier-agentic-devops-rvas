@@ -40,8 +40,7 @@ tools:
   github:
     toolsets: [security]
 
-engines:
-  - copilot
+engine: copilot
 ---
 
 # Security Compliance

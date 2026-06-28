@@ -36,8 +36,7 @@ permissions:
 safe-outputs:
   create-issue: {}
 
-engines:
-  - copilot
+engine: copilot
 ---
 
 # Daily Testify — Uber Expert
@@ -69,7 +68,7 @@ Limit to 3 issues per run to avoid flooding.
 | Issues are vague ("add more tests to utils.js") | Enforce specificity: "Each issue must name the exact function and what's missing" |
 | Agent creates 20 issues at once | Add hard limit: "Create at most 3 issues per run" |
 | Expert persona feels generic | Push for specificity: what does the expert know that a junior dev doesn't? Name it explicitly |
-| `create-pr` used instead of `create-issue` | Redirect: this is intentional — the Improver handles PRs; Testify only identifies |
+| `create-pull-request` used instead of `create-issue` | Redirect: this is intentional — the Improver handles PRs; Testify only identifies |
 
 ---
 

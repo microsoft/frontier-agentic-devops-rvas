@@ -210,8 +210,7 @@ permissions:
 safe-outputs:
   add-comment: {}
 
-engines:
-  - copilot
+engine: copilot
 ---
 
 # Slash Commands: /summarize
@@ -243,7 +242,7 @@ Be professional but friendly.
 - `checkout: false` (implicit) — doesn't need code
 - `safe-outputs: add-comment: {}` — can post summary
 - Body: natural language, clear instruction to check for `/summarize` first, then posts structured summary
-- `engines: [copilot]` — free, good at summarization
+- `engine: copilot` — free, good at summarization
 
 ---
 
@@ -289,7 +288,7 @@ If a squad is stuck:
 
 - [ ] Is trigger `on: issue_comment: types: [created]`?
 - [ ] Is `lock-for-agent: true` present?
-- [ ] Did they compile? (`gh aw compile slash-commands.md`)
+- [ ] Did they compile? (`gh aw compile slash-commands`)
 - [ ] Did they create a test issue + several comments + then post `/summarize`?
 - [ ] Is there a workflow run in the Actions tab?
 - [ ] Does the body check for `/summarize` before posting summary?
