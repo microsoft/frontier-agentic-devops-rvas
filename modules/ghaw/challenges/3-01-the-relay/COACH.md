@@ -196,8 +196,7 @@ tools:
   repo-memory:
     file-glob: 'metrics/**/*.json'
 
-engines:
-  - copilot
+engine: copilot
 ---
 
 # Daily Metrics Collector
@@ -245,8 +244,7 @@ tools:
   repo-memory:
     file-glob: 'metrics/**/*.json'
 
-engines:
-  - copilot
+engine: copilot
 ---
 
 # Weekly Metrics Report

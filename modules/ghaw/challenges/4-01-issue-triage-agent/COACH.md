@@ -39,8 +39,7 @@ tools:
   github:
     toolsets: [issues, labels]
 
-engines:
-  - copilot
+engine: copilot
 ---
 
 # Issue Triage Agent

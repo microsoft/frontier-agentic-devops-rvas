@@ -49,7 +49,7 @@ Create a gh-aw workflow named `triage-bot.md` in `.github/workflows/` that:
 ## Success Criteria
 
 - [ ] `.github/workflows/triage-bot.md` exists with valid gh-aw frontmatter
-- [ ] Frontmatter includes: `on: issues:`, `permissions`, `safe-outputs:`, `engines`
+- [ ] Frontmatter includes: `on: issues:`, `permissions`, `safe-outputs:`, `engine`
 - [ ] Safe-outputs has an allowlist limiting labels to: `bug`, `feature-request`, `documentation`, `question`, `duplicate`
 - [ ] `.github/workflows/triage-bot.lock.yml` compiles without errors
 - [ ] You manually test by creating a test issue in your repo

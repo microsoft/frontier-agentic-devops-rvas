@@ -19,7 +19,7 @@ This challenge teaches one of the most important production patterns in gh-aw: *
 
 **Key insight to surface:** The AI model is not a database. It cannot look up your open issue count — it will guess. `pre-agent-steps:` separates "gather facts" (shell, deterministic, reliable) from "reason about facts" (AI, creative, unreliable without grounding). That separation is the architecture of trustworthy automation.
 
-**For `create-pr`:** The PR gate is about trust. Even when agents produce correct output, good teams don't merge automatically. `create-pr` is the "propose, don't impose" pattern — the agent does the work, a human approves the result.
+**For `create-pull-request`:** The PR gate is about trust. Even when agents produce correct output, good teams don't merge automatically. `create-pull-request` is the "propose, don't impose" pattern — the agent does the work, a human approves the result.
 
 ---
 
@@ -64,12 +64,11 @@ pre-agent-steps:
       git log -1 --format="%ci" > /tmp/last-commit.txt
 
 safe-outputs:
-  create-pr:
+  create-pull-request:
     base-branch: main
-    title-template: "docs: update CONTRIBUTING.md with current project health"
+    title-prefix: "docs: update CONTRIBUTING.md with current project health"
 
-engines:
-  - copilot
+engine: copilot
 ---
 ```
 
@@ -80,9 +79,9 @@ engines:
 
 ---
 
-## How `create-pr` Differs from Direct Commits
+## How `create-pull-request` Differs from Direct Commits
 
-Without `create-pr`, if an agent modifies a file, those changes are committed directly to the default branch. With `create-pr`:
+Without `create-pull-request`, if an agent modifies a file, those changes are committed directly to the default branch. With `create-pull-request`:
 
 1. The agent's file changes are staged on a new branch
 2. A pull request is opened against `base-branch`
@@ -90,7 +89,7 @@ Without `create-pr`, if an agent modifies a file, those changes are committed di
 
 This is the "propose, don't impose" pattern. It's not just about safety — it's about auditability. Stakeholders can see exactly what the agent changed, in the diff, before it affects anything.
 
-**The contrast:** `safe-outputs: noop` (read-only) → `safe-outputs: create-pr` (write, but gated) → direct commit (write, ungated — not available as a safe-output by design).
+**The contrast:** `safe-outputs: noop` (read-only) → `safe-outputs: create-pull-request` (write, but gated) → direct commit (write, ungated — not available as a safe-output by design).
 
 ---
 
@@ -100,7 +99,7 @@ This is the "propose, don't impose" pattern. It's not just about safety — it's
 
 **Symptom:** Workflow runs, `pre-agent-steps:` succeeds, agent runs, but no PR appears. Permission error in logs.
 
-**Cause:** Only `contents: write` was declared. `create-pr` needs both.
+**Cause:** Only `contents: write` was declared. `create-pull-request` needs both.
 
 **Fix:**
 ```yaml
@@ -109,7 +108,7 @@ permissions:
   pull-requests: write
 ```
 
-**Socratic response:** "Let's look at your permissions block. `create-pr` needs two permissions — which one is missing?"
+**Socratic response:** "Let's look at your permissions block. `create-pull-request` needs two permissions — which one is missing?"
 
 ---
 
@@ -129,7 +128,7 @@ pre-agent-steps:
       cat /tmp/open-issues.txt   # debug: show value in logs
 ```
 
-**Socratic response:** "Run `gh aw run --dry-run` and check whether the `/tmp/` files have values. What does `cat /tmp/open-issues.txt` output in the dry-run logs?"
+**Socratic response:** "Run `gh aw run 3-06-ground-truth --dry-run` and check whether the `/tmp/` files have values. What does `cat /tmp/open-issues.txt` output in the dry-run logs?"
 
 ---
 
@@ -179,15 +178,15 @@ A correct `3-06-ground-truth.md`:
 - Each writes a single value to a `/tmp/` file
 - Body explicitly references each `/tmp/` file path and instructs the agent to use those exact values
 - Body asks agent to update only the `## Project Health` section of `CONTRIBUTING.md`
-- `safe-outputs: create-pr: base-branch: main` with a descriptive `title-template`
+- `safe-outputs: create-pull-request: base-branch: main` with a descriptive `title-prefix`
 - Both `contents: write` and `pull-requests: write` in `permissions:`
 
 ---
 
 ## How to Verify It's Working
 
-1. **Compile:** `gh aw compile .github/workflows/3-06-ground-truth.md` — no errors
-2. **Dry-run:** `gh aw run --dry-run` — `pre-agent-steps:` output should show real numbers in `/tmp/` files
+1. **Compile:** `gh aw compile 3-06-ground-truth` — no errors
+2. **Dry-run:** `gh aw run 3-06-ground-truth --dry-run` — `pre-agent-steps:` output should show real numbers in `/tmp/` files
 3. **Live run:** Trigger via `workflow_dispatch`
 4. **PR check:** A PR should appear with a new branch; diff shows only `## Project Health` section changed in `CONTRIBUTING.md`
 5. **Number accuracy:** Open the PR, check the numbers in `CONTRIBUTING.md`. Cross-check against `gh issue list --state open | wc -l` — numbers should match (within a few seconds of drift)
@@ -201,7 +200,7 @@ A correct `3-06-ground-truth.md`:
 | Read & orient | 3 min | Understand pre-agent-steps flow |
 | Write pre-agent-steps | 8 min | 3 fetch commands + write to /tmp/ |
 | Write agent body | 7 min | Reference /tmp/ files, describe CONTRIBUTING.md update |
-| Configure create-pr | 3 min | base-branch, title-template, permissions |
+| Configure create-pull-request | 3 min | base-branch, title-prefix, permissions |
 | Compile + dry-run | 5 min | Verify /tmp/ files populated in dry-run output |
 | Live test | 4 min | Trigger, verify PR opens with real numbers |
 
@@ -222,7 +221,7 @@ A correct `3-06-ground-truth.md`:
 
 - **Separation of concerns.** `pre-agent-steps:` = deterministic. Agent body = reasoning. This is good software architecture applied to AI workflows.
 - **AI doesn't know your repo state.** This is not a flaw — it's by design. The agent's job is reasoning, not data fetching. `pre-agent-steps:` handles the fetch.
-- **`create-pr` as a trust dial.** Squads may want to auto-merge. Push back gently: "When would you *not* want to auto-merge? Now build for that case." Most squads arrive at "keep the human in the loop for docs changes."
+- **`create-pull-request` as a trust dial.** Squads may want to auto-merge. Push back gently: "When would you *not* want to auto-merge? Now build for that case." Most squads arrive at "keep the human in the loop for docs changes."
 
 ---
 
@@ -230,5 +229,5 @@ A correct `3-06-ground-truth.md`:
 
 **Sample Solution Location:** `coaches/sample-solutions/track-3/3-06-ground-truth.md`  
 **pre-agent-steps:** https://github.github.com/gh-aw/reference/frontmatter/#pre-agent-steps  
-**create-pr:** https://github.github.com/gh-aw/reference/safe-outputs/#create-pr  
+**create-pull-request:** https://github.github.com/gh-aw/reference/safe-outputs-pull-requests/#create-pull-request  
 **gh CLI — gh api:** https://cli.github.com/manual/gh_api

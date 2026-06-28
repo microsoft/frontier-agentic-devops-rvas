@@ -22,7 +22,7 @@ Use one of these supported environment paths before starting `ghaw-0-00`:
 gh auth login
 gh auth status
 gh aw --version
-gh aw run modules/ghaw/resources/examples/hello-world.md --dry-run
+gh aw trial modules/ghaw/resources/examples/hello-world.md --dry-run
 ```
 
 If `gh aw --version` fails in a local environment, reinstall with:

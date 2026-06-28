@@ -8,7 +8,7 @@
 
 ## What You'll Build
 
-A workflow that runs deterministic shell commands *before* the AI model starts — using `pre-agent-steps:` — to fetch real, live repo metrics via the `gh` CLI. The agent is given those numbers and uses them to update `CONTRIBUTING.md` with a "## Project Health" section. Instead of committing directly, it opens a pull request via the `create-pr` safe-output, keeping a human in the loop.
+A workflow that runs deterministic shell commands *before* the AI model starts — using `pre-agent-steps:` — to fetch real, live repo metrics via the `gh` CLI. The agent is given those numbers and uses them to update `CONTRIBUTING.md` with a "## Project Health" section. Instead of committing directly, it opens a pull request via the `create-pull-request` safe-output, keeping a human in the loop.
 
 **Why this matters:** AI models hallucinate numbers. If you ask "how many open issues does this repo have?" without giving the model real data, it will guess. `pre-agent-steps:` closes that gap: shell commands run first, write real data to files, and the agent reads those files before reasoning. The result is grounded, accurate output — not plausible fiction.
 
@@ -21,7 +21,7 @@ By the end of this challenge, your squad will:
 1. ✅ Use `pre-agent-steps:` to fetch real repo metrics via `gh` CLI
 2. ✅ Pass those metrics to the agent via files
 3. ✅ Have the agent update `CONTRIBUTING.md` with live data
-4. ✅ Open a PR (not a direct commit) using `create-pr`
+4. ✅ Open a PR (not a direct commit) using `create-pull-request`
 5. ✅ Compile and dry-run successfully
 
 ---
@@ -46,18 +46,18 @@ The files written to `/tmp/` are ephemeral — they exist only for the duration 
 
 ---
 
-## Background: `create-pr`
+## Background: `create-pull-request`
 
-The `create-pr` safe-output tells the gh-aw runtime to open a pull request containing any files the agent modified during its run. The agent does not commit directly; changes are staged and a PR is opened for human review.
+The `create-pull-request` safe-output tells the gh-aw runtime to open a pull request containing any files the agent modified during its run. The agent does not commit directly; changes are staged and a PR is opened for human review.
 
 ```yaml
 safe-outputs:
-  create-pr:
+  create-pull-request:
     base-branch: main
-    title-template: "docs: update CONTRIBUTING.md with current project health"
+    title-prefix: "docs: update CONTRIBUTING.md with current project health"
 ```
 
-The `title-template` sets the PR title. The agent can suggest additional context in the PR body.
+The `title-prefix` sets the PR title. The agent can suggest additional context in the PR body.
 
 ---
 
@@ -89,19 +89,19 @@ Read /tmp/open-prs.txt for the number of open pull requests.
 Read /tmp/last-commit.txt for the date of the last commit.
 ```
 
-### Step 3: Configure `create-pr`
+### Step 3: Configure `create-pull-request`
 
-Add `create-pr` to `safe-outputs` with a `base-branch` of `main`. The agent's changes to `CONTRIBUTING.md` will land in a new branch, and a PR will be opened automatically.
+Add `create-pull-request` to `safe-outputs` with a `base-branch` of `main`. The agent's changes to `CONTRIBUTING.md` will land in a new branch, and a PR will be opened automatically.
 
 ### Step 4: Set permissions
 
-`create-pr` requires both `contents: write` (to push a branch) and `pull-requests: write` (to open the PR). Both must be declared.
+`create-pull-request` requires both `contents: write` (to push a branch) and `pull-requests: write` (to open the PR). Both must be declared.
 
 ### Step 5: Compile and dry-run
 
 ```bash
-gh aw compile .github/workflows/3-06-ground-truth.md
-gh aw run --dry-run .github/workflows/3-06-ground-truth.md
+gh aw compile 3-06-ground-truth
+gh aw run 3-06-ground-truth --dry-run
 ```
 
 The dry-run will execute `pre-agent-steps:` and show you the values captured — a quick sanity check before running for real.
@@ -115,7 +115,7 @@ The dry-run will execute `pre-agent-steps:` and show you the values captured —
 - [ ] Agent body references those `/tmp/` files explicitly
 - [ ] `CONTRIBUTING.md` is updated with a `## Project Health` section containing real numbers
 - [ ] A PR is opened — not a direct commit
-- [ ] PR title matches `title-template`
+- [ ] PR title matches `title-prefix`
 - [ ] Numbers in the PR are accurate (match what `gh` CLI would return for the repo)
 - [ ] `permissions: contents: write` and `pull-requests: write` are both declared
 - [ ] Coach conversation — where has an AI confidently produced numbers or facts it made up in your work, and how would feeding it deterministic data first change what you would trust it to output? Talk it through with your coach and connect it to a real project, task, or workflow you own.
@@ -144,7 +144,7 @@ The dry-run will execute `pre-agent-steps:` and show you the values captured —
 ## References
 
 - **pre-agent-steps:** https://github.github.com/gh-aw/reference/frontmatter/#pre-agent-steps
-- **create-pr safe-output:** https://github.github.com/gh-aw/reference/safe-outputs/#create-pr
+- **create-pull-request safe-output:** https://github.github.com/gh-aw/reference/safe-outputs-pull-requests/#create-pull-request
 - **gh CLI — gh api:** https://cli.github.com/manual/gh_api
 - **gh CLI — gh pr list:** https://cli.github.com/manual/gh_pr_list
 

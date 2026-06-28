@@ -50,8 +50,7 @@ safe-outputs:
   create-discussion:
     category: "General"
 
-engines:
-  - copilot
+engine: copilot
 ---
 ```
 
@@ -153,7 +152,7 @@ A correct `2-06-mix-and-match.md`:
 
 ## How to Verify It's Working
 
-1. **Compile check:** `gh aw compile .github/workflows/2-06-mix-and-match.md` — no errors
+1. **Compile check:** `gh aw compile 2-06-mix-and-match` — no errors
 2. **Import check:** Inspect the compiled `.lock.yml` — the helper's content should appear merged into the agent context
 3. **Manual trigger:** Run via `workflow_dispatch` from the Actions tab
 4. **Discussion created:** Navigate to the repo's Discussions tab — a new post should appear in "General" within seconds of the workflow completing

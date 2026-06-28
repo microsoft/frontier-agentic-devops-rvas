@@ -36,12 +36,12 @@ Source: [`github/gh-aw/.github/workflows/issue-triage-agent.md`](https://github.
 
 5. **Compile** the workflow:
    ```bash
-   gh aw compile .github/workflows/issue-triage-agent.md
+   gh aw compile issue-triage-agent
    ```
 
-6. **Dry-run** with a real issue number:
+6. **Dry-run** the workflow:
    ```bash
-   gh aw run --dry-run .github/workflows/issue-triage-agent.md --event issue --issue 1
+   gh aw run issue-triage-agent --dry-run
    ```
 
 7. Commit both `.github/workflows/issue-triage-agent.md` and the generated `.lock.yml`.

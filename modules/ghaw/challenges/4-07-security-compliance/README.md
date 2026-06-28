@@ -38,7 +38,7 @@ Source: [`github/gh-aw/.github/workflows/security-compliance.md`](https://github
 
 5. **Compile**:
    ```bash
-   gh aw compile .github/workflows/security-compliance.md
+   gh aw compile security-compliance
    ```
 
 6. **Enable [Dependabot alerts](https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts)** on your repo (Settings > Security > Dependabot alerts) if not already enabled — give the workflow something to find.

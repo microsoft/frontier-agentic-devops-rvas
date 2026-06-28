@@ -14,7 +14,7 @@ description: Bloated docs scare contributors away. Deploy a workflow that identi
 success_criteria:
   - `.github/workflows/unbloat-docs.md` exists with valid gh-aw frontmatter
   - Target document is explicitly named in the workflow body
-  - `safe-outputs: create-pr` is declared
+  - `safe-outputs: create-pull-request` is declared
   - Simplification criteria are specific, not vague ("make it shorter" is too vague — "remove duplicate warnings and shorten code examples to one line" is good)
   - `.github/workflows/unbloat-docs.lock.yml` compiles without errors
   - Dry-run proposes at least one real simplification
@@ -23,7 +23,7 @@ success_criteria:
 tags:
   - documentation
   - simplification
-  - create-pr
+  - create-pull-request
   - production
 app_dependency: none
 emu_compatible: true

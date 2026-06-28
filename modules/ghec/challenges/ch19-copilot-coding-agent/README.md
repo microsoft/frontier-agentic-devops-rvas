@@ -39,13 +39,13 @@ Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` i
 # Bash
 wth setup ch19 --org <org>
 # or directly:
-bash modules/ghec/resources/provisioning/scripts/setup.sh ch19 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh setup ch19 --org <org>
 ```
 ```powershell
 # PowerShell
 wth setup ch19 --org <org>
 # or directly:
-modules/ghec/resources/provisioning/scripts/setup.ps1 ch19 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch19 --org <org>
 ```
 
 > `wth doctor ch19 --org <org>` runs first and **warns if the org looks EMU-managed** or if the Copilot cloud agent policy can't be confirmed. Heed it — the agent won't run on EMU repos.
@@ -108,6 +108,6 @@ You are done when ALL of the following are true:
 - About Copilot cloud agent — https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent
 - Managing access to Copilot cloud agent — https://docs.github.com/en/copilot/concepts/agents/cloud-agent/access-management
 - Using Copilot to work on an issue — https://docs.github.com/en/copilot/using-github-copilot/coding-agent/using-copilot-to-work-on-an-issue
-- Customizing or restricting Copilot cloud agent — https://docs.github.com/en/copilot/how-tos/agents/coding-agent
+- Customizing or restricting Copilot cloud agent — https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent
 - Managing GitHub Copilot policies in your organization — https://docs.github.com/en/copilot/managing-copilot/managing-github-copilot-in-your-organization/managing-policies-for-copilot-in-your-organization
 - `gh pr` CLI manual — https://cli.github.com/manual/gh_pr

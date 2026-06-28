@@ -77,7 +77,7 @@ A coach can verify completion when the squad can show:
 **Root cause:** Safe-outputs config doesn't actually specify an allowlist, or allowlist is too broad.
 
 **Coach response:**
-- "Your safe-outputs should specify exact labels. For example: `safe-outputs: add-labels: labels: [bug, feature, question]`"
+- "Your safe-outputs should specify exact labels. For example: `safe-outputs: add-labels: allowed: [bug, feature, question]`"
 - Show them: "This means the agent can ONLY apply these three labels. It can't invent others."
 - Verify: "Check your frontmatter — is the allowlist enforced?"
 
@@ -123,7 +123,7 @@ permissions:
 
 safe-outputs:
   add-labels:
-    labels:
+    allowed:
       - bug
       - feature
       - question
@@ -131,8 +131,7 @@ safe-outputs:
       - help-wanted
   noop:
 
-engines:
-  - copilot
+engine: copilot
 ---
 
 # Label Maker
@@ -156,7 +155,7 @@ Explain your reasoning in a comment on the issue summarizing why you applied (or
 - `permissions: contents: read` — minimal
 - `safe-outputs: add-labels:` with explicit allowlist — constrained labels
 - `noop:` path — escape hatch for unclear cases
-- `engines: [copilot]` — reliable default
+- `engine: copilot` — reliable default
 - Body: clear heuristics with keywords and examples
 - Includes feedback comment so user understands the classification
 

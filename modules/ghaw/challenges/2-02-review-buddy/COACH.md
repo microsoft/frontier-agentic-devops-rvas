@@ -192,8 +192,7 @@ permissions:
 safe-outputs:
   add-comment: {}
 
-engines:
-  - copilot
+engine: copilot
 ---
 
 # Review Buddy
@@ -220,7 +219,7 @@ Tone: helpful colleague, not gatekeeper.
 - `checkout: false` (implicit) — doesn't need code, saves time
 - `safe-outputs: add-comment: {}` — can post a single comment
 - Body: natural language, clear observations, emphasizes warmth
-- `engines: [copilot]` — free, reliable
+- `engine: copilot` — free, reliable
 
 ---
 
@@ -229,7 +228,7 @@ Tone: helpful colleague, not gatekeeper.
 | Phase | Time | What to Do |
 |-------|------|-----------|
 | Read & orient | 3 min | Read challenge, understand PR triggers |
-| Write frontmatter | 4 min | Set up `on: pull_request:`, `permissions`, `safe-outputs`, `engines` |
+| Write frontmatter | 4 min | Set up `on: pull_request:`, `permissions`, `safe-outputs`, `engine` |
 | Write body | 6 min | Draft observations + comment template |
 | Compile & test | 8 min | Compile, create test PR, watch Actions tab |
 | Refine tone | 6 min | Read comment, improve warmth/specificity |
@@ -265,7 +264,7 @@ If finished in <20 minutes:
 If a squad is stuck:
 
 - [ ] Is trigger `on: pull_request: types: [opened]`? (not `on: issues:`)
-- [ ] Did they compile? (`gh aw compile review-buddy.md`)
+- [ ] Did they compile? (`gh aw compile review-buddy`)
 - [ ] Does `.lock.yml` exist?
 - [ ] Did they create a fresh test PR *after* compiling?
 - [ ] Is there a workflow run in the Actions tab?

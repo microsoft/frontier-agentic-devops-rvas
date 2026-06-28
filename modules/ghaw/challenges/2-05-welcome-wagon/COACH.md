@@ -182,8 +182,7 @@ permissions:
 safe-outputs:
   add-comment: {}
 
-engines:
-  - copilot
+engine: copilot
 ---
 
 # Welcome Wagon
@@ -209,7 +208,7 @@ Keep the comment friendly and concise. New contributors should feel welcomed, no
 - `permissions: pull-requests: read` — can read PR context
 - `safe-outputs: add-comment: {}` — can post comment
 - Body: clear author_association check, warm tone, resource inclusion
-- `engines: [copilot]` — good at personalization and tone
+- `engine: copilot` — good at personalization and tone
 
 ---
 
@@ -218,7 +217,7 @@ Keep the comment friendly and concise. New contributors should feel welcomed, no
 | Phase | Time | What to Do |
 |-------|------|-----------|
 | Read & orient | 3 min | Read challenge, understand author_association |
-| Write frontmatter | 4 min | Set up `on: pull_request:`, `permissions`, `safe-outputs`, `engines` |
+| Write frontmatter | 4 min | Set up `on: pull_request:`, `permissions`, `safe-outputs`, `engine` |
 | Write body | 8 min | Draft author_association check + welcome message with resources |
 | Compile & test | 10 min | Compile, create test PR (or use alternate account), verify |
 | Refine tone | 3 min | Make comment warmer if needed |

@@ -40,8 +40,7 @@ tools:
   github:
     toolsets: [actions]
 
-engines:
-  - copilot
+engine: copilot
 ---
 
 # CI Doctor

@@ -35,14 +35,13 @@ permissions:
   issues: read
 
 safe-outputs:
-  create-pr: {}
+  create-pull-request: {}
 
 tools:
   github:
     toolsets: [issues]
 
-engines:
-  - copilot
+engine: copilot
 ---
 
 # Daily Test Improver

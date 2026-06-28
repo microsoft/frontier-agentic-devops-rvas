@@ -31,8 +31,7 @@ A finished solution has:
 
 1. **`issue-categorizer-copilot.md`** (~25 lines)
    ```markdown
-   engines:
-     - copilot
+   engine: copilot
    
    ---
    
@@ -52,8 +51,7 @@ A finished solution has:
 
 2. **`issue-categorizer-claude.md`** (~30 lines)
    ```markdown
-   engines:
-     - claude
+   engine: claude
    
    ---
    
@@ -76,8 +74,7 @@ A finished solution has:
 
 3. **`issue-categorizer-codex.md`** (~25 lines)
    ```markdown
-   engines:
-     - codex
+   engine: codex
    
    ---
    
@@ -207,7 +204,7 @@ Only tests 2 of 3 engines (e.g., Copilot + Claude, skip Codex).
 **Root cause:** Engine name typo or API credentials missing.
 
 **Coach response:**
-- "What does your `engines:` section say? Should be `copilot`, `claude`, or `codex` exactly."
+- "What does your `engine:` section say? Should be `copilot`, `claude`, or `codex` exactly."
 - Check: do they have API access for all three engines? (Copilot is built-in; Claude and Codex may need setup)
 
 ---
@@ -243,8 +240,7 @@ safe-outputs:
   add-labels:
     allowlist: [bug, feature, question, docs]
 
-engines:
-  - copilot
+engine: copilot
 
 checkout: false
 ---
@@ -281,8 +277,7 @@ safe-outputs:
   add-labels:
     allowlist: [bug, feature, question, docs]
 
-engines:
-  - claude
+engine: claude
 
 checkout: false
 ---
@@ -323,8 +318,7 @@ safe-outputs:
   add-labels:
     allowlist: [bug, feature, question, docs]
 
-engines:
-  - codex
+engine: codex
 
 checkout: false
 ---

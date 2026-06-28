@@ -8,7 +8,7 @@
 
 Code evolves. Docs don't — not unless someone makes them a first-class concern. The Daily Documentation Updater runs on a cron schedule, reviews your docs directory against the actual codebase, and opens PRs for content that has drifted out of sync.
 
-The production version in `githubnext/agentics` achieved a **96% merge rate** — 57 merged PRs out of 59 proposed. When the agent proposes a doc fix, maintainers almost always agree with it.
+The production version in `githubnext/agentics` achieved roughly a **96% merge rate** (57 of 59 proposed PRs merged, as a point-in-time sample). When the agent proposes a doc fix, maintainers almost always agree with it.
 
 Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.com/githubnext/agentics/blob/main/workflows/daily-doc-updater.md)
 
@@ -37,12 +37,12 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
 
 5. **Compile**:
    ```bash
-   gh aw compile .github/workflows/daily-doc-updater.md
+   gh aw compile daily-doc-updater
    ```
 
 6. **Dry-run** to see what it would propose:
    ```bash
-   gh aw run --dry-run .github/workflows/daily-doc-updater.md
+   gh aw run daily-doc-updater --dry-run
    ```
 
 7. Commit both workflow and `.lock.yml`. Add a stale doc to trigger your first real PR.
@@ -52,14 +52,14 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
 - Change the target path in the prompt body: point at `docs/`, `README.md`, or a subdirectory specific to your project
 - Adjust the cron schedule — `0 9 * * 1-5` for weekdays only, or `0 9 * * 1` for Monday morning only
 - Tune the review depth: "only check API endpoint docs" vs "review all docs for accuracy"
-- Add a PR template or label to the `create-pr` output so doc-update PRs are easy to filter
+- Add a PR template or label to the `create-pull-request` output so doc-update PRs are easy to filter
 
 ## Success Criteria
 
 - [ ] `.github/workflows/daily-doc-updater.md` exists with valid gh-aw frontmatter
 - [ ] Trigger is `schedule: cron` (valid cron expression)
 - [ ] Target doc directory is configured to something real in your repo
-- [ ] `safe-outputs: create-pr` is declared
+- [ ] `safe-outputs: create-pull-request` is declared
 - [ ] `.github/workflows/daily-doc-updater.lock.yml` compiles without errors
 - [ ] Dry-run produces at least one proposed doc change
 - [ ] A manually triggered run opens a real PR with a focused, accurate diff
@@ -77,7 +77,7 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
 → Constrain the body: _"Review only `docs/api.md`. Open a single PR per file. Each PR should change no more than 10 lines."_ Smaller PRs get merged faster.
 
 **"How do I make sure it doesn't overwrite things it shouldn't?"**
-→ `safe-outputs: create-pr` still requires a human to merge. The agent can propose; humans approve.
+→ `safe-outputs: create-pull-request` still requires a human to merge. The agent can propose; humans approve.
 
 **"What cron syntax do I use?"**
 → GitHub Actions uses UTC. `0 9 * * *` = 9am UTC daily. Use https://crontab.guru to validate your expression.

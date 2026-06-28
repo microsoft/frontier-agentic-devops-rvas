@@ -48,6 +48,7 @@ USAGE:
 COMMANDS:
   doctor      Preflight: tooling, auth, required scopes/capabilities (no changes)
   provision   Create all wth-<chid>-* starting state for the challenge (idempotent)
+              (alias: setup)
   status      Report what wth-<chid>-* artifacts currently exist
   teardown    Delete ONLY wth-<chid>-* artifacts (confirmation required)
 
@@ -71,6 +72,8 @@ EOF
 # ---- arg parsing -----------------------------------------------------------
 [[ $# -lt 1 ]] && { usage; exit 1; }
 COMMAND="$1"; shift || true
+# `setup` is a friendly alias for `provision` (the verb used throughout the docs).
+[[ "$COMMAND" == "setup" ]] && COMMAND="provision"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -88,7 +91,7 @@ done
 case "$COMMAND" in
   doctor|provision|status|teardown) ;;
   -h|--help) usage; exit 0 ;;
-  *) die "unknown command '$COMMAND' (expected doctor|provision|status|teardown)" ;;
+  *) die "unknown command '$COMMAND' (expected doctor|provision|setup|status|teardown)" ;;
 esac
 
 [[ -n "$CHID" ]] || die "missing challenge id (e.g. ch01)"

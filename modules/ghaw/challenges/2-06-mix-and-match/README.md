@@ -84,7 +84,7 @@ Make sure GitHub Discussions is enabled for your repository (Settings → Featur
 ### Step 4: Compile and validate
 
 ```bash
-gh aw compile .github/workflows/2-06-mix-and-match.md
+gh aw compile 2-06-mix-and-match
 ```
 
 No errors? You're ready to test. Trigger manually with `workflow_dispatch` to verify the Discussion appears.

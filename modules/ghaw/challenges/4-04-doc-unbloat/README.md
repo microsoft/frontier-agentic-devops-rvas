@@ -8,7 +8,7 @@
 
 Every project accumulates doc debt: verbose intros, duplicate sections, outdated warnings, nested caveats-of-caveats. The Documentation Unbloat workflow finds this bloat and opens focused PRs that trim it — no rewrites, just surgical simplification.
 
-The production version in `githubnext/agentics` achieved an **85% merge rate** — 88 merged PRs out of 103 proposed. Maintainers love it because each PR is small, targeted, and easy to review.
+The production version in `githubnext/agentics` achieved roughly an **85% merge rate** (88 of 103 proposed PRs merged, as a point-in-time sample). Maintainers love it because each PR is small, targeted, and easy to review.
 
 Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/githubnext/agentics/blob/main/workflows/unbloat-docs.md)
 
@@ -37,12 +37,12 @@ Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/git
 
 5. **Compile**:
    ```bash
-   gh aw compile .github/workflows/unbloat-docs.md
+   gh aw compile unbloat-docs
    ```
 
 6. **Dry-run** against your bloated doc:
    ```bash
-   gh aw run --dry-run .github/workflows/unbloat-docs.md
+   gh aw run unbloat-docs --dry-run
    ```
 
 7. Review the proposed PR diff — does it match what you'd have cut manually?
@@ -58,7 +58,7 @@ Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/git
 
 - [ ] `.github/workflows/unbloat-docs.md` exists with valid gh-aw frontmatter
 - [ ] Target document is explicitly named in the workflow body
-- [ ] `safe-outputs: create-pr` is declared
+- [ ] `safe-outputs: create-pull-request` is declared
 - [ ] Simplification criteria are specific, not vague ("make it shorter" is too vague — "remove duplicate warnings and shorten code examples to one line" is good)
 - [ ] `.github/workflows/unbloat-docs.lock.yml` compiles without errors
 - [ ] Dry-run proposes at least one real simplification
@@ -80,7 +80,7 @@ Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/git
 → Look for: sentences starting with "Note that", "Please be aware", "It is important to". These almost always can be cut or rewritten more directly.
 
 **"The PR is huge — 50 files changed"**
-→ The production workflow targets one or two files per run. Narrow your scope in the body, and use `create-pr` with a focused branch name.
+→ The production workflow targets one or two files per run. Narrow your scope in the body, and use `create-pull-request` with a focused branch name.
 
 **"Should I run this on a schedule or manually?"**
 → Start with `workflow_dispatch` so you control when it runs. Graduate to a weekly cron once you trust the output.
