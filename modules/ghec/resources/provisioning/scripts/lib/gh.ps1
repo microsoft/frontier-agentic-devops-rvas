@@ -6,13 +6,39 @@ function Test-WthRepoExists {
   return ($LASTEXITCODE -eq 0)
 }
 
+function Invoke-WthRepoCreateWithFallback {
+  param([string]$Org, [string]$Repo, [string]$Visibility, [string]$Description)
+  if ($Global:WthDryRun) {
+    Write-WthPlan "would run: gh repo create $Org/$Repo --$Visibility --description $Description"
+    return $true
+  }
+
+  $output = gh repo create "$Org/$Repo" "--$Visibility" --description $Description 2>&1
+  if ($LASTEXITCODE -eq 0) {
+    if ($output) { $output | Write-Host }
+    return $true
+  }
+
+  if ($Visibility -eq 'public' -and ($output -join "`n") -match 'Public repositories are not permitted for Enterprise Managed Users') {
+    Write-WthWarn "org '$Org' does not permit public repos (EMU); creating private repo instead"
+    $output = gh repo create "$Org/$Repo" --private --description $Description 2>&1
+    if ($LASTEXITCODE -eq 0) {
+      if ($output) { $output | Write-Host }
+      return $true
+    }
+  }
+
+  if ($output) { $output | Write-Host }
+  return $false
+}
+
 function New-WthRepo {
   param([string]$Org, [string]$Repo, [string]$Visibility = 'public')
   if (Test-WthRepoExists -Org $Org -Repo $Repo) {
     Write-WthOk "repo $Org/$Repo already exists (skip)"; return
   }
-  Invoke-WthMutation -Plan "gh repo create $Org/$Repo --$Visibility" -Action {
-    gh repo create "$Org/$Repo" "--$Visibility" --description 'wth challenge artifact — safe to delete via teardown'
+  if (-not (Invoke-WthRepoCreateWithFallback -Org $Org -Repo $Repo -Visibility $Visibility -Description 'wth challenge artifact — safe to delete via teardown')) {
+    exit 1
   }
 }
 
@@ -114,9 +140,7 @@ function New-WthRepoSoft {
   if (Test-WthRepoExists -Org $Org -Repo $Repo) {
     Write-WthOk "repo $Org/$Repo already exists (skip)"; return
   }
-  if ($Global:WthDryRun) { Write-WthPlan "would create $Visibility repo $Org/$Repo"; return }
-  gh repo create "$Org/$Repo" "--$Visibility" --description 'wth challenge artifact — safe to delete via teardown' 2>$null
-  if ($LASTEXITCODE -eq 0) { Write-WthOk "created $Visibility repo $Org/$Repo" }
+  if (Invoke-WthRepoCreateWithFallback -Org $Org -Repo $Repo -Visibility $Visibility -Description 'wth challenge artifact — safe to delete via teardown') { Write-WthOk "created $Visibility repo $Org/$Repo" }
   else { Write-WthWarn "could not create '$Visibility' repo $Org/$Repo — visibility may require an enterprise-owned org (MANUAL STEP)" }
 }
 

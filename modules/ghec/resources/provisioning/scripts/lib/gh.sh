@@ -7,6 +7,30 @@ gh_repo_exists() {
   gh repo view "$1/$2" >/dev/null 2>&1
 }
 
+gh_repo_create_with_fallback() {
+  local org="$1" repo="$2" vis="$3" desc="$4" output
+  if [[ "${DRY_RUN:-false}" == "true" ]]; then
+    log_plan "would run: gh repo create $org/$repo --$vis --description $desc"
+    return 0
+  fi
+
+  if output="$(gh repo create "$org/$repo" "--$vis" --description "$desc" 2>&1)"; then
+    [[ -n "$output" ]] && printf '%s\n' "$output" >&2
+    return 0
+  fi
+
+  if [[ "$vis" == "public" ]] && grep -q "Public repositories are not permitted for Enterprise Managed Users" <<< "$output"; then
+    log_warn "org '$org' does not permit public repos (EMU); creating private repo instead"
+    if output="$(gh repo create "$org/$repo" --private --description "$desc" 2>&1)"; then
+      [[ -n "$output" ]] && printf '%s\n' "$output" >&2
+      return 0
+    fi
+  fi
+
+  [[ -n "$output" ]] && printf '%s\n' "$output" >&2
+  return 1
+}
+
 # gh_create_repo <org> <repo> [visibility=public]
 gh_create_repo() {
   local org="$1" repo="$2" vis="${3:-public}"
@@ -14,8 +38,8 @@ gh_create_repo() {
     log_ok "repo $org/$repo already exists (skip)"
     return 0
   fi
-  run_mutation gh repo create "$org/$repo" "--$vis" \
-    --description "wth challenge artifact — safe to delete via teardown"
+  gh_repo_create_with_fallback "$org" "$repo" "$vis" \
+    "wth challenge artifact — safe to delete via teardown"
 }
 
 # gh_delete_repo <org> <repo>
@@ -131,12 +155,8 @@ gh_create_repo_soft() {
     log_ok "repo $org/$repo already exists (skip)"
     return 0
   fi
-  if [[ "${DRY_RUN:-false}" == "true" ]]; then
-    log_plan "would create $vis repo $org/$repo"
-    return 0
-  fi
-  if gh repo create "$org/$repo" "--$vis" \
-      --description "wth challenge artifact — safe to delete via teardown" 2>/dev/null; then
+  if gh_repo_create_with_fallback "$org" "$repo" "$vis" \
+      "wth challenge artifact — safe to delete via teardown"; then
     log_ok "created $vis repo $org/$repo"
   else
     log_warn "could not create '$vis' repo $org/$repo — visibility '$vis' may require an enterprise-owned org (MANUAL STEP)"

@@ -43,7 +43,9 @@ function Import-WthJuiceShop {
       git -c user.name='wth-bot' -c user.email='wth-bot@users.noreply.github.com' commit -q -m "Import OWASP Juice Shop $Ref (MIT) for wth challenge"
 
       Write-WthStep "creating public repo $Org/$Repo and pushing"
-      gh repo create "$Org/$Repo" --public --description "OWASP Juice Shop $Ref (MIT) — wth challenge target, safe to delete" | Out-Null
+      if (-not (Invoke-WthRepoCreateWithFallback -Org $Org -Repo $Repo -Visibility public -Description "OWASP Juice Shop $Ref (MIT) — wth challenge target, safe to delete")) {
+        exit 1
+      }
       git remote add origin "https://github.com/$Org/$Repo.git"
       git push -u origin main 2>$null | Out-Null
     } finally { Pop-Location }

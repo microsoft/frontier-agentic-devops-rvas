@@ -52,8 +52,8 @@ juice_shop_import() {
   )
 
   log_step "creating public repo $org/$repo and pushing"
-  gh repo create "$org/$repo" --public \
-    --description "OWASP Juice Shop ${ref} (MIT) — wth challenge target, safe to delete" \
+  gh_repo_create_with_fallback "$org" "$repo" public \
+    "OWASP Juice Shop ${ref} (MIT) — wth challenge target, safe to delete" \
     >/dev/null
 
   (
