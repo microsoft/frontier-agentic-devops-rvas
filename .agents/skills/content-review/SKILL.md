@@ -26,7 +26,7 @@ Do **not** use this for code refactoring, schema/field validation (that's `npm r
 | Challenge metadata | `modules/<m>/challenges/<slug>/meta.yml` | wrong difficulty/duration, stale `references` URLs, prerequisite gaps |
 | Student guide | `.../README.md` | wrong commands, fabricated UI labels, broken steps, stale screenshots-in-words |
 | Coach guide | `.../COACH.md` | expected outputs that no longer match reality, wrong hint sequencing |
-| Module docs | `modules/<m>/setup.md`, `modules/README.md`, `ATTRIBUTION.md` | stale setup commands, wrong versions, broken provenance |
+| Module docs | `modules/<m>/setup.md`, `modules/README.md` | stale setup commands, wrong versions, broken provenance |
 | Site/docs | `docs/**`, `README.md`, `CONTRIBUTING.md` | counts/totals drift, broken internal links |
 | Vendored resources | `modules/*/resources/**`, `external/**` | pinned-version drift, upstream renames |
 

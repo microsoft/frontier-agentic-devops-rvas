@@ -42,8 +42,8 @@ gh api repos/<org>/wth-ch##-<slug>/<endpoint>
 
 ## Teardown
 ```bash
-./scripts/teardown.sh ch## --org <org> --yes      # Bash
-./scripts/teardown.ps1 ch## --org <org> --yes     # PowerShell
+bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch## --org <org> --yes      # Bash
+modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch## --org <org> --yes     # PowerShell
 ```
 - Removes only `wth-ch##-*` artifacts (prefix-guarded).
 - **Manual cleanup (if any):** <org/enterprise settings that scripts can't cleanly revert, e.g., audit stream config.>

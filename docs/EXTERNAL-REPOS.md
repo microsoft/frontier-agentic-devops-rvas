@@ -16,7 +16,7 @@ This guide explains how this hackathon curriculum manages external dependencies,
 - **Source:** https://github.com/juice-shop/juice-shop
 - **Pinned ref:** `v20.0.0` (tag) = commit `f356a09207c7a9550eb6fc4c3945e081922cf998`
 - **Used by:** GHEC challenges (ch11–ch15), GHAS setup
-- **Import mode (org repo):** Challenge setup scripts (`wth setup`) import the repo into org-owned GitHub repositories — each challenge gets its own isolated, disposable copy (e.g., `wth-ch11-juice-shop`). GHAS alerts run on *that* org repo.
+- **Import mode (org repo):** Challenge setup scripts (`setup.sh provision`) import the repo into org-owned GitHub repositories — each challenge gets its own isolated, disposable copy (e.g., `wth-ch11-juice-shop`). GHAS alerts run on *that* org repo.
 - **Local runtime (GHAS participants):** GHAS challenges also run Juice Shop locally for manual exploit testing. This local instance has **no GHAS alerts** — it is the app only, not the security-scanning target. See *[Local app provisioning (submodules)](#local-app-provisioning-submodules)* below for how to get it running.
 - **Why Juice Shop is large but not vendored:** At ~61 MB it would bloat the curriculum repo and slow container creation for participants who never need it. It is registered as a git submodule and fetched on demand.
 
@@ -74,7 +74,6 @@ This guide explains how this hackathon curriculum manages external dependencies,
 - **Example:** GHEC/GHAS challenges — setup scripts import Juice Shop at `v20.0.0` into a new org repo (e.g., `wth-ch11-juice-shop`).
 - **Flow:**
   ```bash
-  wth setup ch11 --org <org>
   # Creates <org>/wth-ch11-juice-shop with Juice Shop imported
   ```
 - **Outcome:** New repo exists in the student's org; challenges work against it.
@@ -214,7 +213,7 @@ For retired/vendored entries, it asserts that the `vendored_in` path exists in-t
 - Keep pinned refs stable across a curriculum release cycle.
 - Retired source entries in `external-repos.json` carry `"retired": true` and a `"vendored_in"` path. Do not remove the `source.url`/`source.sha` fields — they are historical provenance.
 - When external projects release major versions, evaluate and document breaking changes before updating the pin.
-- Test setup scripts (`wth setup`) against the pinned refs in a CI/CD gate or manual verification step.
+- Test setup scripts (`setup.sh provision`) against the pinned refs in a CI/CD gate or manual verification step.
 
 ### For Students
 

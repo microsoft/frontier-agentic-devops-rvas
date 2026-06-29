@@ -39,5 +39,5 @@ These are the highest-value finds — content that sounds authoritative but desc
 
 - **Counts and totals**: module/challenge totals stated in `README.md`, `modules/README.md`, and module headers must match the actual catalog. The build prints real counts — compare.
 - **Cross-file drift**: `meta.yml` `title`/`description`/`success_criteria` must align with the `README.md` body and `COACH.md` expected outputs.
-- **Source provenance**: `source_repo` and `source_path` should point at the real upstream location; `ATTRIBUTION.md` should reflect actual sources.
+- **Source provenance**: `source_repo` and `source_path` should point at the real upstream location
 - **Pinned external versions**: versions referenced for Juice Shop / sample apps / vendored resources should match what `external-repos.json` and setup docs pin.

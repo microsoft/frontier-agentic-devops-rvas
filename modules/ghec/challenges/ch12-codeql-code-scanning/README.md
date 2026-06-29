@@ -13,11 +13,11 @@
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `wth doctor ch12 --org <org>` (least-privilege; for this challenge: `repo` + `workflow` + `security_events`).
-- Local tooling: `gh >= 2.x`, `git`, `jq` (run `wth doctor` to verify).
-- **GHAS note:** code scanning with CodeQL is **free on public repos**. Setup provisions the Juice Shop import as **public**. On private/internal repos CodeQL needs a paid Code Security license — `wth doctor` warns. Actions minutes are consumed by scan runs (free on public).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch12 --org <org>` (least-privilege; for this challenge: `repo` + `workflow` + `security_events`).
+- Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
+- **GHAS note:** code scanning with CodeQL is **free on public repos**. Setup provisions the Juice Shop import as **public**. On private/internal repos CodeQL needs a paid Code Security license — `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns. Actions minutes are consumed by scan runs (free on public).
 
-## Learning objectives
+## Scenario objectives
 By completing this challenge you will:
 - Enable **CodeQL default setup** and confirm an initial scan runs and produces alerts.
 - Replace it with an **advanced CodeQL workflow** so you control the language matrix, query suite, and triggers.
@@ -29,20 +29,24 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer ships a Node/Angular app with a backlog of latent vulnerabilities — SQL injection, XSS, broken auth, path traversal — none of them visible until something breaks in production. You'll give them static analysis that finds these on every push and every PR, explains each via its data-flow path, suggests fixes, and stops new vulnerabilities from merging. OWASP Juice Shop is the ideal target: it's intentionally riddled with the full OWASP Top 10, so CodeQL has genuine findings to surface — not toy examples.
 
-## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
+## Bring your own outcome (do this first)
+This challenge is most valuable when the result *outlives the hackathon*. Pick a real application repository your organization owns so CodeQL findings and gates matter after today and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+
+- **Have a candidate?** Use it everywhere this guide says `wth-ch12-juice-shop`. Skip the Setup step below entirely.
+- **No suitable one?** Use the fallback below: an OWASP Juice Shop import with known vulnerable code for safe CodeQL practice.
+
+> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+
+## Setup (fallback sample)
+Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
 # Bash
-wth setup ch12 --org <org>
-# or directly:
-bash modules/ghec/resources/provisioning/scripts/setup.sh setup ch12 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch12 --org <org>
 ```
 ```powershell
 # PowerShell
-wth setup ch12 --org <org>
-# or directly:
-modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch12 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch12 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch12-*`, idempotent, prefix-guarded teardown):
@@ -50,9 +54,9 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch12 --org <org>
 - A `feature/insecure-endpoint` **branch** with a small deliberately vulnerable change you'll open as a PR to demonstrate PR-time scanning and required-check gating.
 - A printed **Next steps** block telling you where to start.
 
-> Re-running `setup` reconciles (create-if-absent). `wth teardown ch12 --org <org> --yes` removes only `wth-ch12-*` artifacts (the imported repo).
 
 ## Tasks
+> Throughout, **`wth-ch12-juice-shop` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Default setup
 1. **Enable CodeQL default setup.** In `wth-ch12-juice-shop` → **Settings → Code security → Code scanning**, choose **Set up → Default**. Confirm it detects **JavaScript/TypeScript** as the language.
@@ -98,6 +102,7 @@ You are done when ALL of the following are true:
 - [ ] You **triaged ≥3 alerts** (one dismissed with a reason via API; others reviewed).
 - [ ] You applied **Copilot Autofix** to at least one alert and reviewed the suggested patch.
 - [ ] The **code-scanning check is required** on `main`, and the seeded vulnerable PR is **blocked** until the alert is resolved/dismissed.
+- [ ] Real-outcome check — if you brought your own repo, CodeQL analysis and PR gating now protect code you actually ship; if you used the sample, you can name the application repo you will enable next.
 - [ ] Coach conversation — pick a codebase you own or contribute to: what class of vulnerability (injection, path traversal, auth bypass) do you most fear is hiding there right now, and how would a CodeQL custom query surface it before your next release? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.

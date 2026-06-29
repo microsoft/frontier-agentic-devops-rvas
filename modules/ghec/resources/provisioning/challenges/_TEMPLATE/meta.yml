@@ -2,7 +2,7 @@
 # Copy into challenges/ch##-<slug>/meta.yml and fill for the specific challenge.
 # This file is the single machine-readable source of truth consumed by BOTH:
 #   - Basher's GitHub Pages site (renders cards, filters, badges)
-#   - Yen's provisioning scripts (`wth doctor/setup/status/teardown`)
+#   - Yen's provisioning scripts (`wth doctor/provision/status/teardown`)
 # Keep it small and stable. Do not add fields without updating CONTRIBUTING-BUILD.md.
 
 id: ch##                       # ch01..ch20 (must match folder number)

@@ -67,7 +67,6 @@ Runs in <1s with Node core only. Zero npm dependencies.
 **Files owned by Wash (Phase 1):**
 - `README.md`, `LICENSE`, `.gitignore`, `CONTRIBUTING.md`
 - `modules/README.md`, `modules/_TEMPLATE/challenge/{meta.yml,README.md,COACH.md}`
-- `modules/{ghec,ghas,ghaw,agentic-devops}/ATTRIBUTION.md`
 - `modules/ghas/setup.md`
 - `docs/build.js`, `docs/.nojekyll`
 - `.github/workflows/build-deploy.yml`, `.github/workflows/validate.yml`
@@ -84,9 +83,6 @@ Runs in <1s with Node core only. Zero npm dependencies.
 - `RETIRED_SOURCE_REPOS` → keeps only the three genuinely-deleted slugs; renders `(archived)` plain-text, no hyperlink.
 - `SELF_SOURCE_REPOS` → new set with `microsoft/frontier-agenticdevops-hackathon` and `microsoft/frontier-agentic-devops-hackathon`; renders plain-text (no hyperlink, no "archived" label) since this IS the live repo.
 - All other source_repos (e.g. juice-shop) keep existing hyperlink rendering.
-
-**modules/sre-agent/ATTRIBUTION.md:** reworded to state the SRE module is first-party content of this consolidated repo, derived from its own pre-consolidation ancestor at commit `08edbed4eee3ab185ebd5772bd1b48783ba83882`. Removed incorrect "private/retained for historical provenance only" language.
-
 
 **Task:** Implement lazy/on-demand submodule provisioning for locally-run apps, starting with OWASP Juice Shop.
 

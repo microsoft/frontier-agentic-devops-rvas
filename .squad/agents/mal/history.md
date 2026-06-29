@@ -62,7 +62,6 @@
 3. Dedupe: Keep all modules intact, cross-link via tags. No deduplication.
 4. Heavy assets: Exclude Juice Shop (61MB) by reference; vendor Agentic-DevOps Resources (212KB).
 5. Layout: `modules/<id>/challenges/<slug>/` as input; `docs/` as output served by Pages.
-6. All sources are MIT © Microsoft — unified LICENSE + per-module ATTRIBUTION.md.
 
 **Architecture proposal written to:** `.squad/decisions/inbox/mal-architecture.md`
 
@@ -72,7 +71,7 @@
 - Build clean: 4 modules, 58 challenges, 38 edges, 0 cycles, 0 cross-module prereqs
 - All Simon defects (D-001..D-005) confirmed fixed and re-verified
 - Independence model holds across all 4 modules — spot-read 6 challenges
-- Schema conformance: tiers are clean (core/stretch/setup only), IDs prefix-correct, all ATTRIBUTION.md + GHAS setup.md present
+- Schema conformance: tiers are clean (core/stretch/setup only), IDs prefix-correct
 - Cross-linking tags work correctly between GHEC security and GHAS modules
 - Agentic-devops linear chain justified (not over-coupled)
 
@@ -104,7 +103,7 @@
 
 ### 2026-06-23 — Retired/Vendored Schema: Manifest + Tooling + Provenance
 
-**Context:** Four private Microsoft repos (frontier-ghas/ghaw/ghec/agenticdevops-hackathon) are being deleted. Content already embedded in-tree by parallel agents. Mal's scope: manifest, verify script, provenance links, ATTRIBUTION.md, EXTERNAL-REPOS.md.
+**Context:** Four private Microsoft repos (frontier-ghas/ghaw/ghec/agenticdevops-hackathon) are being deleted. Content already embedded in-tree by parallel agents. Mal's scope: manifest, verify script, provenance links, EXTERNAL-REPOS.md.
 
 **Work done:**
 
@@ -115,8 +114,6 @@
 - `docs/assets/js/challenge.js`: Added `RETIRED_SOURCE_REPOS` Set (5 slugs covering all four frontier repos + hyphenated alias). Attribution rendering: if `RETIRED_SOURCE_REPOS.has(c.source_repo)` → plain text `Source: <slug> (archived) · MIT License`; otherwise live hyperlink as before.
 
 - `docs/EXTERNAL-REPOS.md`: Rewrote entirely to describe vendored-in-tree reality; replaced fork/clone instructions for dead repos with in-tree references; kept Juice Shop submodule section accurate; updated Coaches/Maintainers guidance.
-
-- `modules/ghas/ATTRIBUTION.md`, `modules/ghaw/ATTRIBUTION.md`, `modules/ghec/ATTRIBUTION.md`, `modules/sre-agent/ATTRIBUTION.md`: Replaced live hyperlinks to retired repos with prose text citing repo slug + provenance commit; added note that repo is private/retained for historical provenance only.
 
 ## Learnings
 

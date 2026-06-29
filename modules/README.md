@@ -13,7 +13,6 @@ modules/
 │       └── COACH.md     ← coach guide template
 │
 ├── ghec/                ← GitHub Enterprise Cloud (21 challenges)
-│   ├── ATTRIBUTION.md
 │   └── challenges/
 │       └── <slug>/      ← one directory per challenge
 │           ├── meta.yml
@@ -21,16 +20,13 @@ modules/
 │           └── COACH.md
 │
 ├── ghas/                ← GitHub Advanced Security (7 challenges: S00–S06)
-│   ├── ATTRIBUTION.md
 │   ├── setup.md         ← how to run Juice Shop
 │   └── challenges/
 │
 ├── ghaw/                ← GitHub Agentic Workflows (25 challenges)
-│   ├── ATTRIBUTION.md
 │   └── challenges/
 │
 └── sre-agent/           ← SRE Agent (6 challenges)
-    ├── ATTRIBUTION.md
     ├── resources/       ← vendored assets (212 KB)
     └── challenges/
 ```
@@ -53,7 +49,5 @@ The directory name is used only for human navigation. The canonical identifier i
 4. Run `node docs/build.js` to validate.
 
 ## Module Attributions
-
-Each module directory contains an `ATTRIBUTION.md` crediting its source repository. All source content is MIT licensed © Microsoft Corporation.
 
 For information on how external dependencies (Juice Shop, source hackathon repos, sample apps) are managed and pinned, see [`docs/EXTERNAL-REPOS.md`](../docs/EXTERNAL-REPOS.md).

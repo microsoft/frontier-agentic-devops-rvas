@@ -8,6 +8,8 @@ Students are **expected to call you** to talk through this challenge's real-worl
 
 **Their question:** Coach conversation — what manual GitHub task does someone on your team do by clicking through the UI every week that a twenty-line API script could eliminate, and what is the organizational cost (time, error rate, toil) of not automating it? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch16-rest-graphql-automation` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+
 Use these follow-ups to steer the conversation:
 - Describe the specific manual click-through task — who does it, how often, and how long does it take?
 - What API endpoint (REST or GraphQL) would replace the most time-consuming step?
@@ -36,7 +38,7 @@ Use these follow-ups to steer the conversation:
 
 ## Automated verification hints
 ```bash
-ORG=<org>; REPO=wth-ch16-rest-graphql-automation
+ORG=<org>; REPO=wth-ch16-rest-graphql-automation   # swap REPO for the student's own repo if they brought one
 
 # Repo exists and issue volume is there
 gh api repos/$ORG/$REPO --jq '{name, open_issues_count}'
@@ -73,9 +75,8 @@ gh api rate_limit --jq '.resources.core, .resources.graphql'
 
 ## Teardown
 ```bash
-wth teardown ch16 --org <org> --yes
-./scripts/teardown.sh ch16 --org <org> --yes   # Bash
-./scripts/teardown.ps1 ch16 --org <org> --yes  # PowerShell
+bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch16 --org <org> --yes   # Bash
+modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch16 --org <org> --yes  # PowerShell
 ```
 - Removes only `wth-ch16-*` artifacts (prefix-guarded): the repo (with its issues/labels/comments) **and** the `wth-ch16-board` org project.
 - **Manual cleanup (if any):** none beyond the prefixed repo and board.

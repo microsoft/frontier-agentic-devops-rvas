@@ -13,11 +13,11 @@
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud. The **org audit log** is a GHEC organization feature.
-- A token with the scopes listed by `wth doctor ch09 --org <org>` (least-privilege; for this challenge: `admin:org` + `read:audit_log` + `repo`).
-- Local tooling: `gh >= 2.x`, `git`, `jq` (run `wth doctor` to verify).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch09 --org <org>` (least-privilege; for this challenge: `admin:org` + `read:audit_log` + `repo`).
+- Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - No GHAS or Codespaces required. **Enterprise audit-log streaming** is awareness-only here (see callout) — the real, gradable work uses the **org** audit log + API.
 
-## Learning objectives
+## Scenario objectives
 By completing this challenge you will:
 - Read the **organization audit log** and understand its event model (actor, action, timestamp, repo).
 - Use the **audit-log search syntax** (`action:`, `actor:`, `created:`, `repo:`) to answer real investigative questions.
@@ -29,20 +29,24 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer's security team asks the question every audit eventually asks: *"Who changed that setting, and when?"* Right now nobody can answer it without guessing. You'll learn to treat the **organization audit log** as the source of truth — generate a controlled set of administrative actions, then reconstruct exactly what happened using search filters and the API. You'll finish with a repeatable script that exports a slice of the log, the seed of a real evidence-collection pipeline.
 
-## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
+## Bring your own outcome (do this first)
+This challenge is most valuable when the result *outlives the hackathon*. Pick a real org audit question or repository where you can generate and investigate known events and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+
+- **Have a candidate?** Use it everywhere this guide says `wth-ch09-audit-target`. Skip the Setup step below entirely.
+- **No suitable one?** Use the fallback below: a seeded audit-target repo and auditors team for safe event generation.
+
+> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+
+## Setup (fallback sample)
+Skip this if you brought your own audit target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
 # Bash
-wth setup ch09 --org <org>
-# or directly:
-bash modules/ghec/resources/provisioning/scripts/setup.sh setup ch09 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch09 --org <org>
 ```
 ```powershell
 # PowerShell
-wth setup ch09 --org <org>
-# or directly:
-modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch09 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch09 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch09-*`, idempotent, prefix-guarded teardown):
@@ -51,9 +55,9 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch09 --org <org>
 - A printed **"recent activity" sample** (the last few org audit events pulled from the API) so you can see the shape of an event immediately.
 - A printed **Next steps** block telling you where to start.
 
-> Re-running `setup` reconciles (create-if-absent). `wth teardown ch09 --org <org> --yes` removes only `wth-ch09-*` artifacts. **The audit log itself is append-only and is never deleted** — see the Coach teardown note.
 
 ## Tasks
+> Throughout, **`wth-ch09-audit-target` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Read the log & learn the event model
 1. **Open the org audit log** (**Org Settings → Archive → Logs → Audit log** — the "Logs" item is under the **Archive** section of the settings sidebar). Skim recent events; note each row's **actor**, **action** (e.g., `repo.create`, `org.update_member`), **time**, and affected object.
@@ -93,6 +97,7 @@ You are done when ALL of the following are true:
 - [ ] A **combined, time-bounded API query** returns a sensible count for today's events.
 - [ ] An **export script** committed to the repo pulls a time-bounded slice to JSON and the output contains your events.
 - [ ] A **`FINDINGS.md`** answers three investigative questions with the exact filter used.
+- [ ] Real-outcome check — if you brought your own audit target, you now have real filters, evidence, or export scripts for an investigation you care about; if you used the sample, you can name the audit question you will answer next.
 - [ ] Coach conversation — if your org's GitHub audit log were streaming to your SIEM right now, what is the first alert or anomaly query you would write, and what event from the past six months do you wish you had been alerted to? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.

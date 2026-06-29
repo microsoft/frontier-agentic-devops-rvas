@@ -8,6 +8,8 @@ Students are **expected to call you** to talk through this challenge's real-worl
 
 **Their question:** Coach conversation — if you turned push protection on across your real org tomorrow, whose workflow breaks first and what secret would it have caught in your last six months of commits? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
+> **Bring-your-own grading:** prefer students who ran this on a **real org repo** over the Juice Shop sample. If they used the sample, confirm they can name the actual repo/team they'll roll this out to and any blockers (license, repo visibility). The lasting outcome is the goal; the sample is fallback.
+
 Use these follow-ups to steer the conversation:
 - Name a specific repo or team where secrets have historically been committed — what kind (tokens, keys, connection strings)?
 - Who would push protection block first, and what would their workaround be if you didn't communicate it in advance?
@@ -36,7 +38,7 @@ Use these follow-ups to steer the conversation:
 ## Automated verification hints
 Use these to check Definition of Done quickly (prefer `gh` CLI / API over manual clicks):
 ```bash
-ORG=<org>; REPO=wth-ch11-juice-shop
+ORG=<org>; REPO=wth-ch11-juice-shop   # swap REPO for the student's own repo if they brought one
 
 # Repo exists, public, and scanning + push protection are enabled
 gh repo view $ORG/$REPO --json name,visibility
@@ -74,9 +76,8 @@ gh issue list --repo $ORG/$REPO --search "triage summary" --json number,title
 
 ## Teardown
 ```bash
-wth teardown ch11 --org <org> --yes        # wraps the scripts below
-./scripts/teardown.sh ch11 --org <org> --yes   # Bash
-./scripts/teardown.ps1 ch11 --org <org> --yes  # PowerShell
+bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch11 --org <org> --yes   # Bash
+modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch11 --org <org> --yes  # PowerShell
 ```
 - Removes only `wth-ch11-*` artifacts (prefix-guarded): the imported `wth-ch11-juice-shop` repo (which carries its history, planted secrets, alerts, and custom patterns).
 - **Manual cleanup (if any):** none. Deleting the repo removes its alerts and any repo-scoped custom patterns. If a student published a pattern at **org** level (stretch), remove it from the org security settings manually.

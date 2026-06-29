@@ -8,6 +8,8 @@ Students are **expected to call you** to talk through this challenge's real-worl
 
 **Their question:** Coach conversation — looking across everything you've automated in this challenge, what is the single workflow in your real org that is still entirely manual and would benefit most from combining the Actions, API, and security layers you just built? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch20-automation-capstone` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+
 Use these follow-ups to steer the conversation:
 - Describe that manual workflow end-to-end — what triggers it, who does each step, and where does it break down?
 - Which of the three layers (Actions orchestration, REST/GraphQL API, security gate) would give the biggest leverage if applied to it?
@@ -40,7 +42,7 @@ Use these follow-ups to steer the conversation:
 
 ## Automated verification hints
 ```bash
-ORG=<org>; REPO=wth-ch20-automation-capstone
+ORG=<org>; REPO=wth-ch20-automation-capstone   # swap REPO for the student's own repo if they brought one
 
 # App is installed on the seeded repo (run as the App's installation token)
 gh api /installation/repositories --jq '.repositories[].full_name'
@@ -80,9 +82,8 @@ gh api repos/$ORG/$REPO/actions/secrets --jq '.secrets[].name'   # expect App ID
 
 ## Teardown
 ```bash
-wth teardown ch20 --org <org> --yes
-./scripts/teardown.sh ch20 --org <org> --yes   # Bash
-./scripts/teardown.ps1 ch20 --org <org> --yes  # PowerShell
+bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch20 --org <org> --yes   # Bash
+modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch20 --org <org> --yes  # PowerShell
 ```
 - Removes only `wth-ch20-*` artifacts (prefix-guarded): the seeded repo and the `wth-ch20-board` Projects v2 board.
 - **Manual cleanup (required):** the **GitHub App** is not a `wth-ch20-*` repo artifact and is **not** auto-deleted — uninstall it from the org and delete the App registration (Org Settings → Developer settings → GitHub Apps). Revoke/delete the App **private key**. If you used a `smee.io` channel, it expires on its own.

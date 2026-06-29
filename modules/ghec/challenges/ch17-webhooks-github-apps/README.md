@@ -13,11 +13,11 @@
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `wth doctor ch17 --org <org>` (least-privilege; for this challenge: `repo` + `admin:org_hook` + `read:org`).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch17 --org <org>` (least-privilege; for this challenge: `repo` + `admin:org_hook` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq`, plus `openssl` (for HMAC verification). Node or Python for the receiver is optional — an Actions-based receiver works too.
 - A way to receive a public callback: a [`smee.io`](https://smee.io) channel (no install/account) **or** the Actions-based `repository_dispatch` receiver this challenge seeds. Both paths are documented below.
 
-## Learning objectives
+## Scenario objectives
 By completing this challenge you will:
 - Configure a **repository webhook** and an **organization webhook**, choosing events deliberately.
 - Read a **delivery payload** and the `X-GitHub-Event` / `X-GitHub-Delivery` headers.
@@ -29,20 +29,24 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer wants to react to activity in real time — auto-acknowledge new issues, notify on pushes, kick off downstream jobs — without polling the API on a timer. You'll wire up webhooks so GitHub pushes events to a receiver you control, prove each delivery is authentic by verifying its signature, and then graduate from a passive listener to a real **GitHub App** that can authenticate and act back on the org. By the end you'll know exactly when a webhook is enough and when you need an App.
 
-## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
+## Bring your own outcome (do this first)
+This challenge is most valuable when the result *outlives the hackathon*. Pick a real integration target where a GitHub event should update another system and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+
+- **Have a candidate?** Use it everywhere this guide says `wth-ch17-webhooks-github-apps`. Skip the Setup step below entirely.
+- **No suitable one?** Use the fallback below: a seeded sample repo and app/webhook practice target.
+
+> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+
+## Setup (fallback sample)
+Skip this if you brought your own integration target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
 # Bash
-wth setup ch17 --org <org>
-# or directly:
-bash modules/ghec/resources/provisioning/scripts/setup.sh setup ch17 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch17 --org <org>
 ```
 ```powershell
 # PowerShell
-wth setup ch17 --org <org>
-# or directly:
-modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch17 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch17 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch17-*`, idempotent, prefix-guarded teardown):
@@ -51,9 +55,9 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch17 --org <org>
 - A **GitHub App manifest** (`app-manifest.json`) you'll use to register the App in a few clicks.
 - A printed **Next steps** block (including a generated webhook **secret** suggestion) telling you where to start.
 
-> Re-running `setup` reconciles (create-if-absent). `wth teardown ch17 --org <org> --yes` removes only `wth-ch17-*` artifacts. (Webhooks live on the repo/org; teardown removes the `wth-ch17-*` repo hook and any org hook it created — see Teardown.)
 
 ## Tasks
+> Throughout, **`wth-ch17-webhooks-github-apps` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Receive your first delivery
 1. **Pick a receiver.** Start a `smee.io` channel (copy its URL) **or** plan to use the seeded Actions `receiver.yml`. Note the public callback URL.
@@ -91,6 +95,7 @@ You are done when ALL of the following are true:
 - [ ] An **organization webhook** exists and a real org event was delivered and verified.
 - [ ] A **GitHub App** is registered with scoped permissions + event subscriptions and **installed** on the org.
 - [ ] You minted an **installation access token** and the App **posted a comment as a bot identity**.
+- [ ] Real-outcome check — if you brought your own integration target, a real GitHub event now drives another system or workflow; if you used the sample, you can name the webhook/App integration you will build next.
 - [ ] Coach conversation — which external system in your workflow (Jira, Slack, PagerDuty, a deployment dashboard) is updated by hand after a GitHub event, and what webhook payload or GitHub App permission would let you wire it up automatically? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.

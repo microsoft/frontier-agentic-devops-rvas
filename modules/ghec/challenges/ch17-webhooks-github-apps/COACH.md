@@ -8,6 +8,8 @@ Students are **expected to call you** to talk through this challenge's real-worl
 
 **Their question:** Coach conversation — which external system in your workflow (Jira, Slack, PagerDuty, a deployment dashboard) is updated by hand after a GitHub event, and what webhook payload or GitHub App permission would let you wire it up automatically? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch17-webhooks-github-apps` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+
 Use these follow-ups to steer the conversation:
 - Name the external system and the GitHub event (push, PR merged, release created) that should trigger the update.
 - What is the current human-in-the-loop step that introduces delay or inconsistency?
@@ -36,7 +38,7 @@ Use these follow-ups to steer the conversation:
 
 ## Automated verification hints
 ```bash
-ORG=<org>; REPO=wth-ch17-webhooks-github-apps
+ORG=<org>; REPO=wth-ch17-webhooks-github-apps   # swap REPO for the student's own repo if they brought one
 
 # Repo webhook exists with the right events
 gh api repos/$ORG/$REPO/hooks --jq '.[] | {id, events, active}'
@@ -71,9 +73,8 @@ gh api repos/$ORG/$REPO/issues/comments --jq '.[] | {user: .user.login, type: .u
 
 ## Teardown
 ```bash
-wth teardown ch17 --org <org> --yes
-./scripts/teardown.sh ch17 --org <org> --yes   # Bash
-./scripts/teardown.ps1 ch17 --org <org> --yes  # PowerShell
+bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch17 --org <org> --yes   # Bash
+modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch17 --org <org> --yes  # PowerShell
 ```
 - Removes only `wth-ch17-*` artifacts (prefix-guarded): the repo (with its repo webhook) and any `wth-ch17-*` org webhook the script created.
 - **Manual cleanup (required):** the **GitHub App registration** and its **installation** are owned by the org's developer settings and are **not** prefix-deletable by the script — remove them by hand (Org Settings → Developer settings → GitHub Apps → delete; Installations → uninstall). Delete any `wth-ch17-temp` repo if left over. Revoke the smee.io channel.

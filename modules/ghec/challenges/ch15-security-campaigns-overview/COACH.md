@@ -8,6 +8,8 @@ Students are **expected to call you** to talk through this challenge's real-worl
 
 **Their question:** Coach conversation — if you ran a security campaign across your org's repos today targeting the most common CWE your stack is exposed to, which three repo owners would you expect to push back hardest on fixing their alerts, and what would make the campaign succeed anyway? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch15-juice-shop` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+
 Use these follow-ups to steer the conversation:
 - Name the specific CWE category or alert type you'd target first in your org — where is the highest concentration of alerts?
 - Who are the likely resisters — legacy repo owners, under-resourced teams, conflicting roadmaps?
@@ -37,7 +39,7 @@ Use these follow-ups to steer the conversation:
 ## Automated verification hints
 Use these to check Definition of Done quickly. Campaign and configuration UI state is best confirmed with a screenshot; the alert APIs prove the corpus and burn-down.
 ```bash
-ORG=<org>; REPO=wth-ch15-juice-shop
+ORG=<org>; REPO=wth-ch15-juice-shop   # swap REPO for the student's own repo if they brought one
 
 # Repo exists and is public
 gh repo view $ORG/$REPO --json name,visibility
@@ -79,9 +81,8 @@ gh issue list --repo $ORG/$REPO --search "remediation report" --json number,titl
 
 ## Teardown
 ```bash
-wth teardown ch15 --org <org> --yes        # wraps the scripts below
-./scripts/teardown.sh ch15 --org <org> --yes   # Bash
-./scripts/teardown.ps1 ch15 --org <org> --yes  # PowerShell
+bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch15 --org <org> --yes   # Bash
+modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch15 --org <org> --yes  # PowerShell
 ```
 - Removes only `wth-ch15-*` artifacts (prefix-guarded): the imported `wth-ch15-juice-shop` repo (which carries its alerts).
 - **Manual cleanup (REQUIRED — org-level constructs aren't prefix-scoped):**

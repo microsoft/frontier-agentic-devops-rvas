@@ -8,6 +8,8 @@ Students are **expected to call you** to talk through this challenge's real-worl
 
 **Their question:** Coach conversation — which class of GitHub issues in your repos is well-defined enough that the Copilot coding agent could handle it unsupervised, and what review gate would you trust before merging its PR? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch19-copilot-coding-agent` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+
 Use these follow-ups to steer the conversation:
 - Name a specific label or issue template in your repos that tags well-scoped, low-risk tasks — what makes them safe to delegate?
 - What is the review checklist or CI gate that would need to pass before you merged an agent-authored PR without deep inspection?
@@ -15,7 +17,7 @@ Use these follow-ups to steer the conversation:
 
 ## Facilitation notes
 - **Goal in one line:** the student delegates a clear, bounded bug to the **Copilot cloud agent**, then **reviews and steers** it to a merged, correct fix — learning the human-in-the-loop boundary.
-- **⚠️ Eligibility is the gate, not a footnote.** Before anything else, confirm the org has the **Copilot cloud agent policy enabled** and the repo is **non-EMU**. If the enterprise is **GHEMU**, the agent will not run — this challenge is **N/A** and the student should run it on a non-EMU org. `wth doctor ch19` warns, but verify by hand too.
+- **⚠️ Eligibility is the gate, not a footnote.** Before anything else, confirm the org has the **Copilot cloud agent policy enabled** and the repo is **non-EMU**. If the enterprise is **GHEMU**, the agent will not run — this challenge is **N/A** and the student should run it on a non-EMU org. `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19` warns, but verify by hand too.
 - **Where students get stuck:**
   - **Nothing happens after assignment.** Either the policy is off, the user has no Copilot license, or the repo is EMU. Triage in that order.
   - **Expecting a non-draft PR.** The agent opens a **draft** PR and works incrementally — that's normal, not a failure.
@@ -37,7 +39,7 @@ Use these follow-ups to steer the conversation:
 
 ## Automated verification hints
 ```bash
-ORG=<org>; REPO=wth-ch19-copilot-coding-agent
+ORG=<org>; REPO=wth-ch19-copilot-coding-agent   # swap REPO for the student's own repo if they brought one
 
 # A PR authored by the Copilot agent exists (author is a Bot)
 gh pr list --repo $ORG/$REPO --state all \
@@ -71,9 +73,8 @@ gh repo view $ORG/$REPO --json name,visibility,isInOrganization
 
 ## Teardown
 ```bash
-wth teardown ch19 --org <org> --yes
-./scripts/teardown.sh ch19 --org <org> --yes   # Bash
-./scripts/teardown.ps1 ch19 --org <org> --yes  # PowerShell
+bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch19 --org <org> --yes   # Bash
+modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch19 --org <org> --yes  # PowerShell
 ```
 - Removes only `wth-ch19-*` artifacts (prefix-guarded): the seeded repo (with its issue, PRs, runs).
 - **Manual cleanup (if any):** none beyond the repo. The org **Copilot cloud agent policy** is an org setting, not a `wth-ch19-*` artifact — leave it as the org wants it. If you added Copilot as a ruleset bypass actor on a non-prefixed org ruleset, remove it by hand.

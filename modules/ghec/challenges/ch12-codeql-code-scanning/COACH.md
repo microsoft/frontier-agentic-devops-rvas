@@ -8,6 +8,8 @@ Students are **expected to call you** to talk through this challenge's real-worl
 
 **Their question:** Coach conversation — pick a codebase you own or contribute to: what class of vulnerability (injection, path traversal, auth bypass) do you most fear is hiding there right now, and how would a CodeQL custom query surface it before your next release? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch12-juice-shop` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+
 Use these follow-ups to steer the conversation:
 - Name the specific codebase — what language, how old, and what's your current static analysis story for it?
 - What is the data-flow or taint path you'd want CodeQL to trace in that repo?
@@ -37,7 +39,7 @@ Use these follow-ups to steer the conversation:
 ## Automated verification hints
 Use these to check Definition of Done quickly (prefer `gh` CLI / API over manual clicks):
 ```bash
-ORG=<org>; REPO=wth-ch12-juice-shop
+ORG=<org>; REPO=wth-ch12-juice-shop   # swap REPO for the student's own repo if they brought one
 
 # Repo exists and is public
 gh repo view $ORG/$REPO --json name,visibility
@@ -77,9 +79,8 @@ gh api repos/$ORG/$REPO/branches/main/protection/required_status_checks --jq '.c
 
 ## Teardown
 ```bash
-wth teardown ch12 --org <org> --yes        # wraps the scripts below
-./scripts/teardown.sh ch12 --org <org> --yes   # Bash
-./scripts/teardown.ps1 ch12 --org <org> --yes  # PowerShell
+bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch12 --org <org> --yes   # Bash
+modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch12 --org <org> --yes  # PowerShell
 ```
 - Removes only `wth-ch12-*` artifacts (prefix-guarded): the imported `wth-ch12-juice-shop` repo (which carries its workflows, analyses, and alerts).
 - **Manual cleanup (if any):** none. Deleting the repo removes its CodeQL configuration, runs, and alerts.

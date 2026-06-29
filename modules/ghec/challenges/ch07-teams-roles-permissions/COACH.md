@@ -8,6 +8,8 @@ Students are **expected to call you** to talk through this challenge's real-worl
 
 **Their question:** Coach conversation — map your real team's structure onto GitHub Teams right now: where do people have more access than they need, and where is the absence of the right permission creating an actual bottleneck for someone? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch07-frontend` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+
 Use these follow-ups to steer the conversation:
 - Name the GitHub teams or individual collaborator grants that exist in your main org — were they designed or just accumulated?
 - Tell me one concrete case where over-permission or under-permission has caused a mistake or a delay in the last year.
@@ -74,9 +76,8 @@ gh api /orgs/$ORG/teams/wth-ch07-backend-squad/members --jq '.[].login'
 
 ## Teardown
 ```bash
-wth teardown ch07 --org <org> --yes
-./scripts/teardown.sh ch07 --org <org> --yes   # Bash
-./scripts/teardown.ps1 ch07 --org <org> --yes  # PowerShell
+bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch07 --org <org> --yes   # Bash
+modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch07 --org <org> --yes  # PowerShell
 ```
 - Removes only `wth-ch07-*` artifacts (prefix-guarded): the three sample repos and all `wth-ch07-*` teams.
 - **Manual cleanup (required):** the **custom repository role** the student created is org-scoped and **not** `wth-ch07-*` prefixed, so teardown leaves it in place. Have the student delete it by hand (**Org Settings → Repository roles**, or `gh api -X DELETE /orgs/<org>/custom-repository-roles/<role-id>`) if the org is a reusable sandbox.

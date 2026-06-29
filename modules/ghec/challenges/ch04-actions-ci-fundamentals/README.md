@@ -13,11 +13,11 @@
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `wth doctor ch04 --org <org>` (least-privilege; for this challenge: `repo` + `workflow`).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch04 --org <org>` (least-privilege; for this challenge: `repo` + `workflow`).
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
-- **Cost note:** Actions on GitHub-hosted runners consumes **Actions minutes** (free tier on public repos; metered on private). `wth doctor` warns. Keep matrices small.
+- **Cost note:** Actions on GitHub-hosted runners consumes **Actions minutes** (free tier on public repos; metered on private). `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns. Keep matrices small.
 
-## Learning objectives
+## Scenario objectives
 By completing this challenge you will:
 - Write a **workflow** from scratch: `on` triggers, `jobs`, `steps`, and `runs-on`.
 - Run tests across a **build matrix** (multiple Node versions / OSes).
@@ -30,20 +30,24 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer's team merges first and finds out it's broken later — there's no automated gate. You'll give them continuous integration: every push and PR builds and tests the app across supported runtimes, caches dependencies so it's fast, publishes a test report you can download, and — critically — blocks merges to `main` when the build is red.
 
-## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
+## Bring your own outcome (do this first)
+This challenge is most valuable when the result *outlives the hackathon*. Pick a real repository with a build, test, or validation step that should run automatically and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+
+- **Have a candidate?** Use it everywhere this guide says `wth-ch04-actions-ci-fundamentals`. Skip the Setup step below entirely.
+- **No suitable one?** Use the fallback below: a seeded sample repo with code ready for a first CI workflow.
+
+> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+
+## Setup (fallback sample)
+Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
 # Bash
-wth setup ch04 --org <org>
-# or directly:
-bash modules/ghec/resources/provisioning/scripts/setup.sh setup ch04 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch04 --org <org>
 ```
 ```powershell
 # PowerShell
-wth setup ch04 --org <org>
-# or directly:
-modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch04 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch04 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch04-*`, idempotent, prefix-guarded teardown):
@@ -52,9 +56,9 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch04 --org <org>
 - A **minimal starter workflow** (`.github/workflows/ci.yml`) that just echoes — you will replace it with a real pipeline.
 - A printed **Next steps** block telling you where to start.
 
-> Re-running `setup` reconciles (create-if-absent). `wth teardown ch04 --org <org> --yes` removes only `wth-ch04-*` artifacts.
 
 ## Tasks
+> Throughout, **`wth-ch04-actions-ci-fundamentals` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — A real CI workflow
 1. **Replace the starter workflow.** Author `.github/workflows/ci.yml` that triggers on `push` to any branch and on `pull_request` targeting `main`. Add a `build-test` job on `ubuntu-latest`.
@@ -88,6 +92,7 @@ You are done when ALL of the following are true:
 - [ ] A second job uses **`needs`** and a **conditional** so it only runs on `main`.
 - [ ] An **environment** `staging` exists with a protection rule and a variable + secret wired into a job.
 - [ ] The **`build-test` check is required** on `main`; a red run **blocks merge**, a green run unblocks it.
+- [ ] Real-outcome check — if you brought your own repo, CI now runs against a real build or test path; if you used the sample, you can name the workflow you will automate next.
 - [ ] Coach conversation — pick one test suite or build process from your actual work that runs manually or inconsistently: what would an always-on, branch-triggered Actions workflow catch in the next two weeks that human discipline alone has missed? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.

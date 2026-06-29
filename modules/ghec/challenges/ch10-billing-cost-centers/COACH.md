@@ -8,6 +8,8 @@ Students are **expected to call you** to talk through this challenge's real-worl
 
 **Their question:** Coach conversation — look at your team's actual GitHub usage right now: where is spend invisible or unattributed, and who in your org should own cost accountability for Actions minutes, Codespaces, or storage but currently does not? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch10-usage-generator` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+
 Use these follow-ups to steer the conversation:
 - Describe who currently reviews your GitHub bill and what detail they can see — down to repo or team level?
 - Which repos or teams are the likely top consumers of Actions minutes or Codespaces in your org?
@@ -74,9 +76,8 @@ gh api /repos/$ORG/wth-ch10-cost-report/contents/COST-REPORT.md --jq '.path'
 
 ## Teardown
 ```bash
-wth teardown ch10 --org <org> --yes
-./scripts/teardown.sh ch10 --org <org> --yes   # Bash
-./scripts/teardown.ps1 ch10 --org <org> --yes  # PowerShell
+bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch10 --org <org> --yes   # Bash
+modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch10 --org <org> --yes  # PowerShell
 ```
 - Removes only `wth-ch10-*` artifacts (prefix-guarded): `wth-ch10-usage-generator` and `wth-ch10-cost-report`.
 - **Manual cleanup (required):** the **budget and any alert thresholds** the student created are org-level billing settings, **not** `wth-ch10-*` prefixed, and are **not** reverted by teardown. Delete the budget by hand (**Org Settings → Billing & licensing → Budgets and alerts**) if the org is a reusable sandbox. The **metered usage already incurred is permanent** (it's real billing history) — expected and negligible for the few seconds generated here.

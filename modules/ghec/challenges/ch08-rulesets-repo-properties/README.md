@@ -13,11 +13,11 @@
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `wth doctor ch08 --org <org>` (least-privilege; for this challenge: `admin:org` + `repo` + `read:org`).
-- Local tooling: `gh >= 2.x`, `git`, `jq` (run `wth doctor` to verify).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch08 --org <org>` (least-privilege; for this challenge: `admin:org` + `repo` + `read:org`).
+- Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - This challenge is **independent** of Ch05 (which also touches rulesets). The focus here is **org-wide governance via custom properties**, not the PR pipeline.
 
-## Learning objectives
+## Scenario objectives
 By completing this challenge you will:
 - Define **custom repository properties** (single-select and true/false) at the organization.
 - Set property **values** on individual repositories and set **defaults** for new repos.
@@ -29,20 +29,24 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer has 80 repositories and a compliance team that needs "all production repos must require PRs, signed commits, and a passing check — automatically, forever, even on repos created next week." Naming conventions won't scale and people forget them. You'll attach a **`compliance` custom property** to repos, then write an **org ruleset targeted by that property** so governance follows the *metadata*, not the repo name. New repos that get tagged `compliance = high` inherit the rules with zero extra work. That's policy that scales.
 
-## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
+## Bring your own outcome (do this first)
+This challenge is most valuable when the result *outlives the hackathon*. Pick a real production or compliance-sensitive repository set that needs rulesets and properties and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+
+- **Have a candidate?** Use your real repos wherever this guide names `wth-ch08-prod-payments` or the sibling `wth-ch08-*` repos. Skip the Setup step below entirely.
+- **No suitable one?** Use the fallback below: seeded prod/internal/sandbox repos for property-targeted guardrails.
+
+> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+
+## Setup (fallback sample)
+Skip this if you brought your own repo set. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
 # Bash
-wth setup ch08 --org <org>
-# or directly:
-bash modules/ghec/resources/provisioning/scripts/setup.sh setup ch08 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch08 --org <org>
 ```
 ```powershell
 # PowerShell
-wth setup ch08 --org <org>
-# or directly:
-modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch08 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch08 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch08-*`, idempotent, prefix-guarded teardown):
@@ -51,9 +55,9 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch08 --org <org>
 - A printed **inventory** of the four repos (from the API) so you can tag and target them.
 - A printed **Next steps** block telling you where to start.
 
-> Re-running `setup` reconciles (create-if-absent). `wth teardown ch08 --org <org> --yes` removes only `wth-ch08-*` artifacts (the repos and any `wth-ch08-*` org ruleset).
 
 ## Tasks
+> Throughout, **`wth-ch08-prod-payments` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Define custom properties
 1. **Create a single-select property** `compliance` with allowed values `high`, `medium`, `low`. **Org Settings → Repository → Custom properties → New property** (or `gh api -X PUT /orgs/<org>/properties/schema/compliance` with the value definition).
@@ -94,6 +98,7 @@ You are done when ALL of the following are true:
 - [ ] The org ruleset governs **both** `high`-compliance repos (proven by a rejected direct push on the second repo).
 - [ ] A **repository ruleset** on one prod repo layers a stricter rule (e.g., 2 approvals) on top of the org ruleset.
 - [ ] A **`GOVERNANCE.md`** documents the schema, values, and ruleset targeting.
+- [ ] Real-outcome check — if you brought your own repo set, rulesets and properties now protect production or compliance-sensitive work; if you used the sample, you can name the real repo group you will target next.
 - [ ] Coach conversation — which of your repos is most likely to accept a direct push to main or merge without a review right now, and what ruleset targeting which repo property would close that gap at scale? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.

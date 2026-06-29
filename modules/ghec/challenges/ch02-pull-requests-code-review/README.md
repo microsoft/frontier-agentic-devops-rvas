@@ -13,11 +13,11 @@
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `wth doctor ch02 --org <org>` (least-privilege; for this challenge: `repo` + `read:org`).
-- Local tooling: `gh >= 2.x`, `git`, `jq` (run `wth doctor` to verify).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch02 --org <org>` (least-privilege; for this challenge: `repo` + `read:org`).
+- Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - A second account or teammate helps demonstrate *real* review approvals, but the challenge is completable solo (the coach guide explains the self-review caveat).
 
-## Learning objectives
+## Scenario objectives
 By completing this challenge you will:
 - Use a clean **branch-per-change** workflow and open **pull requests** from the CLI and UI.
 - Run a **code review**: line comments, review threads, suggested changes, approve / request-changes.
@@ -29,20 +29,24 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer's team keeps pushing straight to `main`, breaking each other's work, and shipping un-reviewed changes. You've been asked to introduce a real review culture: every change goes through a PR, the right people are required to review the code they own, and merges are clean and traceable. You'll build that workflow on a seeded service repo and prove it end-to-end.
 
-## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
+## Bring your own outcome (do this first)
+This challenge is most valuable when the result *outlives the hackathon*. Pick a real repository with a pull-request review flow you can improve and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+
+- **Have a candidate?** Use it everywhere this guide says `wth-ch02-pull-requests-code-review`. Skip the Setup step below entirely.
+- **No suitable one?** Use the fallback below: a seeded sample repo with PRs and review settings to configure.
+
+> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+
+## Setup (fallback sample)
+Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
 # Bash
-wth setup ch02 --org <org>
-# or directly:
-bash modules/ghec/resources/provisioning/scripts/setup.sh setup ch02 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch02 --org <org>
 ```
 ```powershell
 # PowerShell
-wth setup ch02 --org <org>
-# or directly:
-modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch02 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch02 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch02-*`, idempotent, prefix-guarded teardown):
@@ -52,9 +56,9 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch02 --org <org>
 - A `main` branch with **no protection yet** (you add it) and a starter directory layout that maps cleanly to `CODEOWNERS` paths.
 - A printed **Next steps** block telling you where to start.
 
-> Re-running `setup` reconciles (create-if-absent). `wth teardown ch02 --org <org> --yes` removes only `wth-ch02-*` artifacts.
 
 ## Tasks
+> Throughout, **`wth-ch02-pull-requests-code-review` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Branch & open a PR
 1. **Clone and branch.** `gh repo clone <org>/wth-ch02-pull-requests-code-review`, then create `feature/add-healthcheck` and add a small, real change (e.g., a `/health` endpoint or a new function + doc line).
@@ -94,6 +98,7 @@ You are done when ALL of the following are true:
 - [ ] A **merge conflict was resolved** and that branch merged cleanly afterward.
 - [ ] **All three merge strategies are enabled** and each was used at least once (verifiable from commit history).
 - [ ] `docs/merge-strategy.md` documents the chosen default.
+- [ ] Real-outcome check — if you brought your own repo, its PR template, review rules, and branch protections now improve a live review flow; if you used the sample, you can name the real repo you will harden next.
 - [ ] Coach conversation — think about the last pull request that sat open too long or had a painful review cycle on your team: which of the branch protection rules, required reviewers, or PR templates you just configured would have shortened it, and what's still missing? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.

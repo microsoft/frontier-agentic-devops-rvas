@@ -8,6 +8,8 @@ Students are **expected to call you** to talk through this challenge's real-worl
 
 **Their question:** Coach conversation — which of your repos is most likely to accept a direct push to main or merge without a review right now, and what ruleset targeting which repo property would close that gap at scale? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch08-prod-payments` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+
 Use these follow-ups to steer the conversation:
 - Pick the riskiest repo in your org — what's protecting its default branch today?
 - If rulesets with repo property targeting existed in your org yesterday, which incident or near-miss would they have prevented?
@@ -70,9 +72,8 @@ gh api /repos/$ORG/wth-ch08-prod-payments/rulesets --jq '.[] | {name, enforcemen
 
 ## Teardown
 ```bash
-wth teardown ch08 --org <org> --yes
-./scripts/teardown.sh ch08 --org <org> --yes   # Bash
-./scripts/teardown.ps1 ch08 --org <org> --yes  # PowerShell
+bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch08 --org <org> --yes   # Bash
+modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch08 --org <org> --yes  # PowerShell
 ```
 - Removes only `wth-ch08-*` artifacts (prefix-guarded): the four repos and the `wth-ch08-prod-guardrail` org ruleset (plus any `wth-ch08-*` repo rulesets, which die with their repos).
 - **Manual cleanup (required):** the **custom property schema** (`compliance`, `prod`) is org-scoped and **not** `wth-ch08-*` prefixed; teardown leaves it. Delete the properties by hand (**Org Settings → Custom properties**, or `gh api -X DELETE /orgs/<org>/properties/schema/<name>`) if the org is a reusable sandbox.

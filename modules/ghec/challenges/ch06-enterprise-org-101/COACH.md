@@ -8,6 +8,8 @@ Students are **expected to call you** to talk through this challenge's real-worl
 
 **Their question:** Coach conversation — if you were the org owner of your team's GitHub organization today, what is the first enterprise policy or default repository setting you would change, and what risk or inefficiency is it currently causing? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch06-public-sample` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+
 Use these follow-ups to steer the conversation:
 - Describe your current GitHub org structure — how many repos, who are the admins, is there a parent enterprise?
 - What repository default (visibility, merge strategy, Actions permissions) do you know is wrong but haven't had access to fix?
@@ -85,9 +87,8 @@ gh api /orgs/$ORG/outside_collaborators --jq '.[].login'
 
 ## Teardown
 ```bash
-wth teardown ch06 --org <org> --yes        # wraps the scripts below
-./scripts/teardown.sh ch06 --org <org> --yes   # Bash
-./scripts/teardown.ps1 ch06 --org <org> --yes  # PowerShell
+bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch06 --org <org> --yes   # Bash
+modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch06 --org <org> --yes  # PowerShell
 ```
 - Removes only `wth-ch06-*` artifacts (prefix-guarded): the three sample repos and the `wth-ch06-members` team.
 - **Manual cleanup (required):** the **organization-level settings** the student changed — base permission, repo-creation flags, fork policy, default workflow permissions — are **not** namespaced and are **not** reverted by teardown. If the org is a reusable sandbox, have the student record the original "before" values from Part A and restore them, or accept the new (safer) baseline. This is expected for admin challenges and worth calling out at the start.

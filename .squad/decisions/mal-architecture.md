@@ -200,13 +200,8 @@ All four source repos are **MIT License, Copyright (c) Microsoft Corporation.**
 
 ### Implementation:
 1. Root `LICENSE` file: MIT, covering all original content in this repo.
-2. Each module directory gets an `ATTRIBUTION.md`:
-   ```
-   This module is derived from [microsoft/frontier-ghec-hackathon](https://github.com/microsoft/frontier-ghec-hackathon).
-   Original content © Microsoft Corporation, licensed under MIT.
-   ```
-3. Each challenge's `meta.yml` carries `source_repo` and `source_path` — machine-readable provenance.
-4. The site footer includes: "Content sourced from four Microsoft hackathon repositories under MIT license."
+2. Each challenge's `meta.yml` carries `source_repo` and `source_path` — machine-readable provenance.
+3. The site footer includes: "Content sourced from four Microsoft hackathon repositories under MIT license."
 
 ---
 
@@ -237,7 +232,6 @@ frontier-ghplatform-hackathon/
 │               └── ...
 ├── modules/                        # Source content (input to build.js)
 │   ├── ghec/
-│   │   ├── ATTRIBUTION.md
 │   │   └── challenges/
 │   │       ├── ch01-issues-labels-projects/
 │   │       │   ├── meta.yml
@@ -245,7 +239,6 @@ frontier-ghplatform-hackathon/
 │   │       │   └── COACH.md        # Coach guide
 │   │       └── ...
 │   ├── ghas/
-│   │   ├── ATTRIBUTION.md
 │   │   ├── setup.md                # How to get Juice Shop running
 │   │   └── challenges/
 │   │       ├── s00-explore-attack-surface/
@@ -254,7 +247,6 @@ frontier-ghplatform-hackathon/
 │   │       │   └── COACH.md
 │   │       └── ...
 │   ├── ghaw/
-│   │   ├── ATTRIBUTION.md
 │   │   └── challenges/
 │   │       ├── 0-00-setup/
 │   │       │   ├── meta.yml
@@ -262,7 +254,6 @@ frontier-ghplatform-hackathon/
 │   │       │   └── COACH.md
 │   │       └── ...
 │   └── agentic-devops/
-│       ├── ATTRIBUTION.md
 │       ├── resources/              # Vendored (small, 212KB)
 │       └── challenges/
 │           ├── 00-setup/

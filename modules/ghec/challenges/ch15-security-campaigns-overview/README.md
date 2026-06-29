@@ -13,12 +13,12 @@
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `wth doctor ch15 --org <org>` (least-privilege; for this challenge: `repo` + `admin:org` + `security_events`).
-- Local tooling: `gh >= 2.x`, `git`, `jq` (run `wth doctor` to verify).
-- **GHAS note:** security overview, configurations, and campaigns operate on GHAS alert data. The Juice Shop import is provisioned **public** so CodeQL/Dependabot/secret scanning **alerts** run free. **However**, the security overview's advanced views (**Risk**, **Coverage**, **Campaigns**) **and security campaigns themselves require a GitHub Code Security or GitHub Secret Protection license at the organization level** — a public repo's free scanning does *not* unlock them. If your org has no GHAS product, you can still generate and triage alerts (Part A) but Parts B–E need a licensed org. `wth doctor` confirms availability.
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch15 --org <org>` (least-privilege; for this challenge: `repo` + `admin:org` + `security_events`).
+- Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
+- **GHAS note:** security overview, configurations, and campaigns operate on GHAS alert data. The Juice Shop import is provisioned **public** so CodeQL/Dependabot/secret scanning **alerts** run free. **However**, the security overview's advanced views (**Risk**, **Coverage**, **Campaigns**) **and security campaigns themselves require a GitHub Code Security or GitHub Secret Protection license at the organization level** — a public repo's free scanning does *not* unlock them. If your org has no GHAS product, you can still generate and triage alerts (Part A) but Parts B–E need a licensed org. `modules/ghec/resources/provisioning/scripts/setup.sh doctor` confirms availability.
 - **Soft-link note (independence preserved):** this challenge does **not** depend on ch12/ch13 having run — setup creates its **own** `wth-ch15-juice-shop` and enables scanning so the alert corpus exists standalone.
 
-## Learning objectives
+## Scenario objectives
 By completing this challenge you will:
 - Navigate the org **Security overview**: the risk and coverage views, and filter alerts across repos.
 - Create an **organization security configuration** and apply it so GHAS features roll out consistently to repos.
@@ -29,20 +29,24 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer has GHAS switched on but no program around it — alerts pile up, nobody owns them, and leadership can't answer "are we getting safer?" You'll give them the management layer: a security overview that shows risk and coverage at a glance, a security configuration that applies GHAS uniformly, and a **security campaign** that turns a wall of alerts into a finite, owned, time-boxed remediation effort developers can actually act on. OWASP Juice Shop supplies the realistic alert volume — CodeQL findings, Dependabot alerts, and secret-scanning hits — that a campaign needs to be meaningful.
 
-## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
+## Bring your own outcome (do this first)
+This challenge is most valuable when the result *outlives the hackathon*. Pick a real application repository or security campaign candidate your organization owns and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+
+- **Have a candidate?** Use it everywhere this guide says `wth-ch15-juice-shop`. Skip the Setup step below entirely.
+- **No suitable one?** Use the fallback below: an OWASP Juice Shop import with security findings suitable for campaign practice.
+
+> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+
+## Setup (fallback sample)
+Skip this if you brought your own repo/campaign target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
 # Bash
-wth setup ch15 --org <org>
-# or directly:
-bash modules/ghec/resources/provisioning/scripts/setup.sh setup ch15 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch15 --org <org>
 ```
 ```powershell
 # PowerShell
-wth setup ch15 --org <org>
-# or directly:
-modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch15 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch15 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch15-*`, idempotent, prefix-guarded teardown):
@@ -50,9 +54,9 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch15 --org <org>
 - The repo is staged so that enabling GHAS produces a **rich alert corpus** across **CodeQL** (OWASP Top 10), **Dependabot** (vulnerable npm tree), and **secret scanning** — the raw material a campaign targets. (Setup may enable default CodeQL and Dependabot so alerts exist out of the gate; you'll confirm and extend.)
 - A printed **Next steps** block pointing at the org **Security** tab (overview, configurations, campaigns).
 
-> Re-running `setup` reconciles (create-if-absent). `wth teardown ch15 --org <org> --yes` removes only `wth-ch15-*` artifacts (the imported repo). Org-level **security configurations / campaigns** you create are noted for manual cleanup in `COACH.md`.
 
 ## Tasks
+> Throughout, **`wth-ch15-juice-shop` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Generate the alert corpus
 1. **Confirm alerts exist.** Open `wth-ch15-juice-shop` → **Security**. Ensure **code scanning (CodeQL)**, **Dependabot**, and **secret scanning** are enabled (enable any that aren't). Wait for the initial scans to complete so the org has a real alert volume to manage.
@@ -93,6 +97,7 @@ You are done when ALL of the following are true:
 - [ ] A **security campaign** exists with a name, a **manager**, a **due date**, and **guidance**, scoped to a finite alert slice.
 - [ ] The campaign shows **remediation burn-down** (open count dropped after you fixed/dismissed targeted alerts).
 - [ ] A **remediation report** issue exists with before/after numbers.
+- [ ] Real-outcome check — if you brought your own repo/campaign target, the campaign view now maps to real owners and alerts; if you used the sample, you can name the repo group you will campaign against next.
 - [ ] Coach conversation — if you ran a security campaign across your org's repos today targeting the most common CWE your stack is exposed to, which three repo owners would you expect to push back hardest on fixing their alerts, and what would make the campaign succeed anyway? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.

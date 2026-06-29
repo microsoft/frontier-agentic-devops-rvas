@@ -13,12 +13,12 @@
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `wth doctor ch14 --org <org>` (least-privilege; for this challenge: `admin:org` + `read:org` + `scim`).
-- Local tooling: `gh >= 2.x`, `git`, `jq` (run `wth doctor` to verify).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch14 --org <org>` (least-privilege; for this challenge: `admin:org` + `read:org` + `scim`).
+- Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - **A test IdP you control.** A free **Microsoft Entra ID** tenant (or an Okta developer org) is recommended — you'll register a SAML app and a SCIM provisioning connector against your test org. You can complete most tasks with a single IdP test app.
 - **⚠️ Identity is disruptive.** Enabling enforced SAML on an org you depend on can lock out members who haven't linked. Use a **dedicated test org** (the provisioner creates supporting test members) and keep SSO in **test/non-enforced** mode until the final step.
 
-## Learning objectives
+## Scenario objectives
 By completing this challenge you will:
 - Explain the three GHEC auth models — **personal accounts**, **SAML-restricted orgs/enterprises**, and **EMU + SCIM** — and where org-level SSO fits.
 - Configure **SAML SSO** for an organization against a real IdP (Entra ID / Okta), validate it in **test mode**, then enforce it.
@@ -31,20 +31,24 @@ A GHEC customer runs identity centrally in their IdP and wants GitHub to obey it
 
 > **Awareness callout — enterprise vs org:** SAML and SCIM can be configured at the **enterprise** level (applies across all orgs) or, as here, at a **single org**. **Enterprise Managed Users (EMU)** go further — every member is a managed user created only via SCIM at the **enterprise** level, with no personal account. Because EMU authenticates and provisions at the enterprise tier, the **org-level** SAML SSO and org-level SCIM you configure in this challenge are **not available inside an EMU organization** — run it in a non-EMU org. EMU and enterprise-level SSO require an **enterprise owner** and are out of scope for the hands-on tasks; this challenge delivers the org-scoped experience that any org owner can complete. Note the trade-offs where relevant, but you are **not required** to configure anything at the enterprise tier.
 
-## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
+## Bring your own outcome (do this first)
+This challenge is most valuable when the result *outlives the hackathon*. Pick a real identity runbook, SAML/SCIM rollout plan, or org authentication setting you can improve and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+
+- **Have a candidate?** Use it everywhere this guide says `wth-ch14-identity-runbook`. Skip the Setup step below entirely.
+- **No suitable one?** Use the fallback below: a seeded identity-runbook repo and validation helpers.
+
+> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+
+## Setup (fallback sample)
+Skip this if you brought your own identity runbook or org setting. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
 # Bash
-wth setup ch14 --org <org>
-# or directly:
-bash modules/ghec/resources/provisioning/scripts/setup.sh setup ch14 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch14 --org <org>
 ```
 ```powershell
 # PowerShell
-wth setup ch14 --org <org>
-# or directly:
-modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch14 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch14 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch14-*`, idempotent, prefix-guarded teardown):
@@ -52,9 +56,9 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch14 --org <org>
 - A documented list of the **org-scoped identity settings** you'll touch (the org's **Authentication security** page) — the provisioner does **not** flip SSO on for you (that's the learning), it stages the runbook and validation helpers.
 - A printed **Next steps** block, including the exact org **Settings → Authentication security** URL and the SCIM API base.
 
-> Re-running `setup` reconciles (create-if-absent). `wth teardown ch14 --org <org> --yes` removes only `wth-ch14-*` artifacts (the runbook repo). **SSO/SCIM settings you change on the org are NOT auto-reverted** — see the manual-cleanup note in `COACH.md`.
 
 ## Tasks
+> Throughout, **`wth-ch14-identity-runbook` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Identity models & IdP app
 1. **Map the three auth models.** In the runbook, write one paragraph each on personal accounts, SAML-restricted org, and EMU+SCIM — when each is appropriate. (Cite the IAM fundamentals doc in References.)
@@ -99,6 +103,7 @@ You are done when ALL of the following are true:
 - [ ] **SCIM provisioning is enabled** and you demonstrated a **join** (user created via SCIM) and a **leave** (user suspended via SCIM), verifiable via the SCIM API.
 - [ ] You produced an **external-identity audit** listing GitHub logins ↔ IdP identities.
 - [ ] **SAML SSO is enforced** on the org (and you documented a tested rollback).
+- [ ] Real-outcome check — if you brought your own identity target, the runbook or SAML/SCIM plan now reflects a real lifecycle gap; if you used the sample, you can name the org rollout you will plan next.
 - [ ] Coach conversation — think about your org's identity lifecycle right now: when a developer joins or leaves your company, how many hours does it take for their GitHub access to be correctly provisioned or deprovisioned, and where is the manual step that SCIM would remove? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.

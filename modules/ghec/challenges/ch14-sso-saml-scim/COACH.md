@@ -8,6 +8,8 @@ Students are **expected to call you** to talk through this challenge's real-worl
 
 **Their question:** Coach conversation — think about your org's identity lifecycle right now: when a developer joins or leaves your company, how many hours does it take for their GitHub access to be correctly provisioned or deprovisioned, and where is the manual step that SCIM would remove? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch14-identity-runbook` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+
 Use these follow-ups to steer the conversation:
 - Walk me through the actual steps today when a new engineer joins — who does what to give them GitHub access?
 - Where has a departed employee or contractor retained access longer than they should have in the last year?
@@ -72,9 +74,8 @@ gh api graphql -f query='
 
 ## Teardown
 ```bash
-wth teardown ch14 --org <org> --yes        # wraps the scripts below
-./scripts/teardown.sh ch14 --org <org> --yes   # Bash
-./scripts/teardown.ps1 ch14 --org <org> --yes  # PowerShell
+bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch14 --org <org> --yes   # Bash
+modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch14 --org <org> --yes  # PowerShell
 ```
 - Removes only `wth-ch14-*` artifacts (prefix-guarded): the `wth-ch14-identity-runbook` repo.
 - **Manual cleanup (REQUIRED — scripts cannot revert identity settings):**

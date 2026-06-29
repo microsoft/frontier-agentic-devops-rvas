@@ -13,11 +13,11 @@
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `wth doctor ch05 --org <org>` (least-privilege; for this challenge: `repo` + `workflow` + `admin:org` for org rulesets).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch05 --org <org>` (least-privilege; for this challenge: `repo` + `workflow` + `admin:org` for org rulesets).
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
 - Recommended: you've done the *concepts* in Ch02 (PRs/CODEOWNERS) and Ch04 (Actions/required checks) — but this challenge is **independent** and its setup creates everything it needs.
 
-## Learning objectives
+## Scenario objectives
 By completing this challenge you will:
 - Define **repository rulesets** and an **organization ruleset** and understand how they layer with classic branch protection.
 - Require **status checks**, **pull requests**, **linear history**, and **signed commits** via rules.
@@ -29,20 +29,24 @@ By completing this challenge you will:
 ## Scenario
 A GHEC platform team is drowning in manual merge babysitting: pinging reviewers, re-checking CI, merging PRs by hand at odd hours, and chasing stale branches. You'll replace all of that with policy and automation: rulesets that enforce quality at the org and repo level, auto-merge that ships the moment gates pass, and workflows that label, route, and tidy PRs without a human. The result is a merge pipeline that runs itself — safely.
 
-## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
+## Bring your own outcome (do this first)
+This challenge is most valuable when the result *outlives the hackathon*. Pick a real repository where PR automation would remove review toil and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+
+- **Have a candidate?** Use it everywhere this guide says `wth-ch05-advanced-pr-automation`. Skip the Setup step below entirely.
+- **No suitable one?** Use the fallback below: a seeded sample repo with PR automation hooks to build on.
+
+> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+
+## Setup (fallback sample)
+Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
 # Bash
-wth setup ch05 --org <org>
-# or directly:
-bash modules/ghec/resources/provisioning/scripts/setup.sh setup ch05 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch05 --org <org>
 ```
 ```powershell
 # PowerShell
-wth setup ch05 --org <org>
-# or directly:
-modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch05 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch05 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch05-*`, idempotent, prefix-guarded teardown):
@@ -52,9 +56,9 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch05 --org <org>
 - **No rulesets yet** — you create them.
 - A printed **Next steps** block telling you where to start.
 
-> Re-running `setup` reconciles (create-if-absent). `wth teardown ch05 --org <org> --yes` removes only `wth-ch05-*` artifacts (the repo **and** any `wth-ch05-*` org ruleset).
 
 ## Tasks
+> Throughout, **`wth-ch05-advanced-pr-automation` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Repository ruleset (replace classic protection)
 1. **Create a repository ruleset** targeting `main` (Settings → Rules → Rulesets → New branch ruleset). Name it `wth-ch05-main`. Learn more about [repository rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository). Enable rules:
@@ -95,6 +99,7 @@ You are done when ALL of the following are true:
 - [ ] A **PR template** pre-fills new PRs; a **draft** PR demonstrably blocks auto-merge/reviewers until marked ready.
 - [ ] **Auto-labeling** assigns `area:` labels by path; an **open-PR comment** workflow fires; a **stale** workflow labels/closes inactive PRs.
 - [ ] An **organization ruleset** targeting `wth-ch05-*` is active and layers with the repo ruleset.
+- [ ] Real-outcome check — if you brought your own repo, PR automation now removes a real review chore; if you used the sample, you can name the team repo where you will install it next.
 - [ ] Coach conversation — which repetitive PR task on your current team (auto-labeling, reviewer assignment, size checks, changelog enforcement) costs the most human time per week, and what could a composite action or reusable workflow replace? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.

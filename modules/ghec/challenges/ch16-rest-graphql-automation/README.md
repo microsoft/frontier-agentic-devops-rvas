@@ -13,11 +13,11 @@
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `wth doctor ch16 --org <org>` (least-privilege; for this challenge: `repo` + `read:org` + `project`).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch16 --org <org>` (least-privilege; for this challenge: `repo` + `read:org` + `project`).
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
 - Comfort reading JSON. The whole challenge is API-first — you'll live in `gh api`, not the web UI.
 
-## Learning objectives
+## Scenario objectives
 By completing this challenge you will:
 - Call the **REST API** for reads and writes with `gh api` (verbs, paths, `--method`, `-f`/`-F` fields).
 - Write **GraphQL** queries and mutations against the single `graphql` endpoint, using variables and fragments.
@@ -29,20 +29,24 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer's platform team keeps doing the same triage by hand: relabeling issues, posting status comments, rolling items onto a project board, and exporting reports for leadership. Clicking doesn't scale. You'll rebuild that work as API automation — REST where it's simplest, GraphQL where it saves round-trips — that pages through everything, stays under rate limits, and can be re-run safely any day of the week.
 
-## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
+## Bring your own outcome (do this first)
+This challenge is most valuable when the result *outlives the hackathon*. Pick a real GitHub automation task or repository where an API script will save recurring toil and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+
+- **Have a candidate?** Use it everywhere this guide says `wth-ch16-rest-graphql-automation`. Skip the Setup step below entirely.
+- **No suitable one?** Use the fallback below: a seeded sample repo for REST and GraphQL automation practice.
+
+> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+
+## Setup (fallback sample)
+Skip this if you brought your own automation target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
 # Bash
-wth setup ch16 --org <org>
-# or directly:
-bash modules/ghec/resources/provisioning/scripts/setup.sh setup ch16 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch16 --org <org>
 ```
 ```powershell
 # PowerShell
-wth setup ch16 --org <org>
-# or directly:
-modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch16 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch16 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch16-*`, idempotent, prefix-guarded teardown):
@@ -52,9 +56,9 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch16 --org <org>
 - An empty org **Projects v2 board** `wth-ch16-board` you'll populate from GraphQL.
 - A printed **Next steps** block telling you where to start.
 
-> Re-running `setup` reconciles (create-if-absent). `wth teardown ch16 --org <org> --yes` removes only `wth-ch16-*` artifacts.
 
 ## Tasks
+> Throughout, **`wth-ch16-rest-graphql-automation` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — REST reads
 1. **Authenticate and confirm identity.** Run `gh api user --jq '.login'` and `gh api orgs/<org> --jq '.login'` to prove the token reaches the org.
@@ -92,6 +96,7 @@ You are done when ALL of the following are true:
 - [ ] You executed at least one **GraphQL mutation** (added issues to `wth-ch16-board` and set their `Status`).
 - [ ] You inspected **`rate_limit`** and your reconcile script **backs off** when `remaining` is low.
 - [ ] Your reconcile script is **idempotent** — a second run produces **no changes**.
+- [ ] Real-outcome check — if you brought your own automation target, an API script now removes real recurring toil; if you used the sample, you can name the manual GitHub task you will automate next.
 - [ ] Coach conversation — what manual GitHub task does someone on your team do by clicking through the UI every week that a twenty-line API script could eliminate, and what is the organizational cost (time, error rate, toil) of not automating it? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.

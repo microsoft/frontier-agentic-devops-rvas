@@ -15,12 +15,12 @@
 > ⚠️ **Read this before starting — this challenge has a hard prerequisite the others don't.**
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - **Copilot cloud agent must be enabled.** Copilot Business/Enterprise has the cloud agent **disabled by default** — an admin must turn on the **Copilot cloud agent** policy for the org (and a Copilot license must cover the user assigning issues).
-- **NOT available on EMU repos.** If your enterprise is **Enterprise Managed Users (GHEMU)**, the cloud agent will not run on its repositories. This challenge is **N/A for pure GHEMU customers** — run it on a non-EMU org. `wth doctor ch19` warns about EMU.
-- A token with the scopes listed by `wth doctor ch19 --org <org>` (least-privilege; for this challenge: `repo` + `read:org`). The cloud agent itself runs under Copilot's identity, not your token.
+- **NOT available on EMU repos.** If your enterprise is **Enterprise Managed Users (GHEMU)**, the cloud agent will not run on its repositories. This challenge is **N/A for pure GHEMU customers** — run it on a non-EMU org. `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19` warns about EMU.
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19 --org <org>` (least-privilege; for this challenge: `repo` + `read:org`). The cloud agent itself runs under Copilot's identity, not your token.
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
 - **Note on limits:** agent sessions are capped (~59 min) and run in an ephemeral Actions environment, consuming Actions minutes + Copilot premium requests.
 
-## Learning objectives
+## Scenario objectives
 By completing this challenge you will:
 - Confirm the **Copilot cloud agent** is enabled and the repo is **eligible** (non-EMU).
 - **Assign an issue to Copilot** and trigger an autonomous agent session.
@@ -32,23 +32,27 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer has a backlog of small, well-scoped bugs that never reach the top of anyone's list. Instead of letting them rot, they want to hand the clear ones to the Copilot cloud agent and have engineers review the results. You'll do exactly that on a small seeded repo with a known bug: write a crisp issue, assign it to Copilot, watch it open a draft PR and work in an ephemeral environment, then review and steer it to a correct, merged fix. You'll learn where the agent shines (small, bounded changes) and where human review stays essential.
 
-## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
+## Bring your own outcome (do this first)
+This challenge is most valuable when the result *outlives the hackathon*. Pick a real repository issue that the Copilot coding agent could safely attempt with review gates and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+
+- **Have a candidate?** Use it everywhere this guide says `wth-ch19-copilot-coding-agent`. Skip the Setup step below entirely.
+- **No suitable one?** Use the fallback below: a seeded sample repo and issues for coding-agent practice.
+
+> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+
+## Setup (fallback sample)
+Skip this if you brought your own repo/issue. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
 # Bash
-wth setup ch19 --org <org>
-# or directly:
-bash modules/ghec/resources/provisioning/scripts/setup.sh setup ch19 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch19 --org <org>
 ```
 ```powershell
 # PowerShell
-wth setup ch19 --org <org>
-# or directly:
-modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch19 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch19 --org <org>
 ```
 
-> `wth doctor ch19 --org <org>` runs first and **warns if the org looks EMU-managed** or if the Copilot cloud agent policy can't be confirmed. Heed it — the agent won't run on EMU repos.
+> `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19 --org <org>` runs first and **warns if the org looks EMU-managed** or if the Copilot cloud agent policy can't be confirmed. Heed it — the agent won't run on EMU repos.
 
 **What setup creates** (all artifacts namespaced `wth-ch19-*`, idempotent, prefix-guarded teardown):
 - A **small seeded buggy repo** **`wth-ch19-copilot-coding-agent`** (NOT Juice Shop — kept small so agent runs stay short and gradable): a tiny app with a **failing test** that pins a single, clear bug.
@@ -56,13 +60,13 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch19 --org <org>
 - A **well-framed seeded issue** describing the bug, repro, and acceptance criteria — ready to assign to Copilot.
 - A printed **Next steps** block (including how to add Copilot as a bypass actor if you enable branch protection).
 
-> Re-running `setup` reconciles (create-if-absent). `wth teardown ch19 --org <org> --yes` removes only `wth-ch19-*` artifacts.
 
 ## Tasks
+> Throughout, **`wth-ch19-copilot-coding-agent` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Confirm eligibility
 1. **Verify the policy.** Confirm the org has the **Copilot cloud agent** enabled (Org Settings → Copilot → Policies) and that your user has a Copilot license.
-2. **Confirm non-EMU.** Ensure the repo is **not** in an EMU-managed enterprise. If `wth doctor ch19` flagged EMU, stop — this challenge can't run here.
+2. **Confirm non-EMU.** Ensure the repo is **not** in an EMU-managed enterprise. If `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19` flagged EMU, stop — this challenge can't run here.
 3. **Open the seeded issue** and read its repro + acceptance criteria so you can judge the agent's output later.
 
 ### Part B — Delegate to the agent
@@ -95,6 +99,7 @@ You are done when ALL of the following are true:
 - [ ] You **steered the agent** with at least one review comment and it pushed **new commits** in response.
 - [ ] The **failing test is green** in the PR and the PR was **approved and merged** to `main`.
 - [ ] You captured a short **reflection** on where the agent fits (and where human review stays essential).
+- [ ] Real-outcome check — if you brought your own repo issue, the Copilot coding agent now has a real candidate task and review gate; if you used the sample, you can name the issue class you will try next.
 - [ ] Coach conversation — which class of GitHub issues in your repos is well-defined enough that the Copilot coding agent could handle it unsupervised, and what review gate would you trust before merging its PR? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.

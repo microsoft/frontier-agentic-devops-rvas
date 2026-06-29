@@ -13,11 +13,11 @@
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `wth doctor ch03 --org <org>` (least-privilege; for this challenge: `repo` + `codespace` + `admin:org` for org policy).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch03 --org <org>` (least-privilege; for this challenge: `repo` + `codespace` + `admin:org` for org policy).
 - Local tooling: `gh >= 2.x` (with the **Codespaces** extension available), `git`, `jq`.
-- **Cost note:** Codespaces is a **metered** product. This challenge consumes Codespaces minutes/storage on the participant account. Use the smallest machine type (2-core) and **stop** codespaces when idle. `wth doctor` warns about cost-bearing challenges.
+- **Cost note:** Codespaces is a **metered** product. This challenge consumes Codespaces minutes/storage on the participant account. Use the smallest machine type (2-core) and **stop** codespaces when idle. `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns about cost-bearing challenges.
 
-## Learning objectives
+## Scenario objectives
 By completing this challenge you will:
 - Author a **`devcontainer.json`** that pins a base image, installs features, and runs setup commands.
 - **Launch a Codespace** from the UI and the CLI, and understand the create/stop/delete lifecycle.
@@ -29,20 +29,24 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer onboards new engineers slowly — each spends a day fighting local toolchains before they can run the app. You've been asked to make "clone and code in 60 seconds" real: a committed dev container that gives everyone the identical environment, a prebuild so it starts fast, and an org policy that keeps spend sane. You'll prove it on a seeded Node service.
 
-## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
+## Bring your own outcome (do this first)
+This challenge is most valuable when the result *outlives the hackathon*. Pick a real repository whose onboarding or local setup is painful today and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+
+- **Have a candidate?** Use it everywhere this guide says `wth-ch03-codespaces-dev-containers`. Skip the Setup step below entirely.
+- **No suitable one?** Use the fallback below: a seeded sample repo ready for a devcontainer and Codespace.
+
+> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+
+## Setup (fallback sample)
+Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
 # Bash
-wth setup ch03 --org <org>
-# or directly:
-bash modules/ghec/resources/provisioning/scripts/setup.sh setup ch03 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch03 --org <org>
 ```
 ```powershell
 # PowerShell
-wth setup ch03 --org <org>
-# or directly:
-modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch03 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch03 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch03-*`, idempotent, prefix-guarded teardown):
@@ -50,9 +54,9 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch03 --org <org>
 - A `README` describing how to run the app *locally* (so the contrast with Codespaces is obvious).
 - A printed **Next steps** block telling you where to start.
 
-> Re-running `setup` reconciles (create-if-absent). `wth teardown ch03 --org <org> --yes` removes only `wth-ch03-*` artifacts. **Stop/delete any Codespaces you created** — those are billed to your account (the teardown reminds you and lists them).
 
 ## Tasks
+> Throughout, **`wth-ch03-codespaces-dev-containers` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Author the dev container
 1. **Create `.devcontainer/devcontainer.json`.** Pin a base image suitable for the app (e.g., `mcr.microsoft.com/devcontainers/javascript-node:22`). Pinning a major version keeps the environment reproducible.
@@ -86,6 +90,7 @@ You are done when ALL of the following are true:
 - [ ] An **org Codespaces policy** restricts machine types and sets retention.
 - [ ] A **prebuild** is configured and a new Codespace reports **prebuilt**.
 - [ ] All your Codespaces are **stopped/deleted** at the end.
+- [ ] Real-outcome check — if you brought your own repo, it now has a Codespace/devcontainer path that reduces real onboarding friction; if you used the sample, you can name the repo whose setup you will standardize next.
 - [ ] Coach conversation — what is the most painful or inconsistent part of onboarding a new developer (or yourself after a fresh machine) onto your current project, and how would a Codespace with a locked devcontainer.json change that? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.

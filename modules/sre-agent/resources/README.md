@@ -40,7 +40,6 @@ Do not commit secrets, customer data, private tenant details, or live incident d
 
 ## Navigation
 
-- [Back to module front door](../ATTRIBUTION.md)
 - [Student challenges](../challenges/00-setup/README.md)
 - [Agentic SDLC practices](Agentic-SDLC-Practices.md)
 - [Agentic SDLC starter kit](Agentic-SDLC-Starter-Kit.md)

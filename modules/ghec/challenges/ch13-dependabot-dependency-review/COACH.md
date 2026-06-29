@@ -8,6 +8,8 @@ Students are **expected to call you** to talk through this challenge's real-worl
 
 **Their question:** Coach conversation — scan your real repos in your head: which project is most likely sitting on a critically vulnerable transitive dependency right now, and what would it take to make Dependabot auto-merge safe there? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch13-juice-shop` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+
 Use these follow-ups to steer the conversation:
 - Name the repo — what ecosystem (npm, pip, Maven, Go modules) and roughly how many dependencies does it have?
 - What is the test-coverage or CI-gate situation in that repo — what would need to be true before auto-merge is trustworthy?
@@ -37,7 +39,7 @@ Use these follow-ups to steer the conversation:
 ## Automated verification hints
 Use these to check Definition of Done quickly (prefer `gh` CLI / API over manual clicks):
 ```bash
-ORG=<org>; REPO=wth-ch13-juice-shop
+ORG=<org>; REPO=wth-ch13-juice-shop   # swap REPO for the student's own repo if they brought one
 
 # Repo exists and is public
 gh repo view $ORG/$REPO --json name,visibility
@@ -82,9 +84,8 @@ gh api repos/$ORG/$REPO/branches/main/protection/required_status_checks --jq '.c
 
 ## Teardown
 ```bash
-wth teardown ch13 --org <org> --yes        # wraps the scripts below
-./scripts/teardown.sh ch13 --org <org> --yes   # Bash
-./scripts/teardown.ps1 ch13 --org <org> --yes  # PowerShell
+bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch13 --org <org> --yes   # Bash
+modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch13 --org <org> --yes  # PowerShell
 ```
 - Removes only `wth-ch13-*` artifacts (prefix-guarded): the imported `wth-ch13-juice-shop` repo (which carries its dependency graph, alerts, Dependabot config, and workflows).
 - **Manual cleanup (if any):** none. Deleting the repo removes its alerts, Dependabot PRs, and configuration.

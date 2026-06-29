@@ -8,6 +8,8 @@ Students are **expected to call you** to talk through this challenge's real-worl
 
 **Their question:** Coach conversation — think about the last pull request that sat open too long or had a painful review cycle on your team: which of the branch protection rules, required reviewers, or PR templates you just configured would have shortened it, and what's still missing? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch02-pull-requests-code-review` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+
 Use these follow-ups to steer the conversation:
 - Describe a recent PR that stalled or caused friction — who was involved and why did it stall?
 - Which protection or template element from this challenge would have caught the problem earlier?
@@ -34,7 +36,7 @@ Use these follow-ups to steer the conversation:
 
 ## Automated verification hints
 ```bash
-ORG=<org>; REPO=wth-ch02-pull-requests-code-review
+ORG=<org>; REPO=wth-ch02-pull-requests-code-review   # swap REPO for the student's own repo if they brought one
 
 # Branch protection on main (expect required_pull_request_reviews + require_code_owner_reviews=true)
 gh api repos/$ORG/$REPO/branches/main/protection --jq '{required_reviews: .required_pull_request_reviews}'
@@ -67,9 +69,8 @@ gh api repos/$ORG/$REPO/contents/docs/merge-strategy.md --jq '.path'
 
 ## Teardown
 ```bash
-wth teardown ch02 --org <org> --yes
-./scripts/teardown.sh ch02 --org <org> --yes   # Bash
-./scripts/teardown.ps1 ch02 --org <org> --yes  # PowerShell
+bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch02 --org <org> --yes   # Bash
+modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch02 --org <org> --yes  # PowerShell
 ```
 - Removes only `wth-ch02-*` artifacts (prefix-guarded): the repo and any `wth-ch02-*` seed branches.
 - **Manual cleanup (if any):** the seeded `backend-team` (if the student created a real org team) is left in place if not prefixed; advise students to name it `wth-ch02-backend` or delete it manually.

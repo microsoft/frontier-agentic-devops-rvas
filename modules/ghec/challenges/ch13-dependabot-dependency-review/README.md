@@ -13,11 +13,11 @@
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `wth doctor ch13 --org <org>` (least-privilege; for this challenge: `repo` + `security_events`).
-- Local tooling: `gh >= 2.x`, `git`, `jq` (run `wth doctor` to verify).
-- **GHAS note:** the dependency graph, Dependabot alerts/updates, and dependency review are **free on public repos**. Setup provisions the Juice Shop import as **public**. On private/internal repos, dependency review needs a paid Code Security license — `wth doctor` warns.
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch13 --org <org>` (least-privilege; for this challenge: `repo` + `security_events`).
+- Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
+- **GHAS note:** the dependency graph, Dependabot alerts/updates, and dependency review are **free on public repos**. Setup provisions the Juice Shop import as **public**. On private/internal repos, dependency review needs a paid Code Security license — `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns.
 
-## Learning objectives
+## Scenario objectives
 By completing this challenge you will:
 - Enable the **dependency graph** and **Dependabot alerts** + **security updates** on a repository.
 - Read the **dependency graph** and an **SBOM** export to understand what the app actually depends on.
@@ -29,20 +29,24 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer's app drags a long tail of outdated, vulnerable npm packages — the kind of supply-chain risk that doesn't show up until a CVE makes the news. You'll give them an early-warning system: the dependency graph maps what they depend on, Dependabot opens PRs to fix known-vulnerable packages automatically, and dependency review stops a new risky dependency from sneaking in via a pull request. OWASP Juice Shop is purpose-built for this — its dependency tree is intentionally vulnerable (old Angular libraries, a deliberately risky `ftp` package, a `.dependabot/` directory), so there's genuine alert and PR material to work with.
 
-## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
+## Bring your own outcome (do this first)
+This challenge is most valuable when the result *outlives the hackathon*. Pick a real application repository your organization owns so Dependabot alerts and dependency-review gates persist and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+
+- **Have a candidate?** Use it everywhere this guide says `wth-ch13-juice-shop`. Skip the Setup step below entirely.
+- **No suitable one?** Use the fallback below: an OWASP Juice Shop import with dependency material you can inspect safely.
+
+> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+
+## Setup (fallback sample)
+Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
 # Bash
-wth setup ch13 --org <org>
-# or directly:
-bash modules/ghec/resources/provisioning/scripts/setup.sh setup ch13 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch13 --org <org>
 ```
 ```powershell
 # PowerShell
-wth setup ch13 --org <org>
-# or directly:
-modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch13 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch13 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch13-*`, idempotent, prefix-guarded teardown):
@@ -50,9 +54,9 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch13 --org <org>
 - A `feature/add-risky-dep` **branch** that adds a known-vulnerable dependency to `package.json`, ready to open as a PR so you can watch **dependency review** flag it.
 - A printed **Next steps** block telling you where to start.
 
-> Re-running `setup` reconciles (create-if-absent). `wth teardown ch13 --org <org> --yes` removes only `wth-ch13-*` artifacts (the imported repo).
 
 ## Tasks
+> Throughout, **`wth-ch13-juice-shop` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Dependency graph & SBOM
 1. **Enable the dependency graph.** In `wth-ch13-juice-shop` → **Settings → Code security**, confirm **Dependency graph** is on (default on public repos), then open **Insights → Dependency graph → Dependencies** and explore the resolved tree.
@@ -107,6 +111,7 @@ You are done when ALL of the following are true:
 - [ ] At least one **Dependabot security-update PR** was merged and its alert moved to **fixed**.
 - [ ] `.github/dependabot.yml` configures **scheduled npm version updates** with a limit and a group.
 - [ ] A **dependency-review** workflow exists, is **required** on `main`, and **blocks** the seeded risky PR.
+- [ ] Real-outcome check — if you brought your own repo, Dependabot and dependency review now protect dependencies you actually ship; if you used the sample, you can name the application repo you will enable next.
 - [ ] Coach conversation — scan your real repos in your head: which project is most likely sitting on a critically vulnerable transitive dependency right now, and what would it take to make Dependabot auto-merge safe there? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.

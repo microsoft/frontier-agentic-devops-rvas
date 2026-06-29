@@ -8,6 +8,8 @@ Students are **expected to call you** to talk through this challenge's real-worl
 
 **Their question:** Coach conversation — what is the most painful or inconsistent part of onboarding a new developer (or yourself after a fresh machine) onto your current project, and how would a Codespace with a locked devcontainer.json change that? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch03-codespaces-dev-containers` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+
 Use these follow-ups to steer the conversation:
 - Tell me about a specific repo or project where environment setup causes the most friction — what usually breaks?
 - If you shipped a Codespace for that repo today, what would still not work out of the box?
@@ -36,7 +38,7 @@ Use these follow-ups to steer the conversation:
 
 ## Automated verification hints
 ```bash
-ORG=<org>; REPO=wth-ch03-codespaces-dev-containers
+ORG=<org>; REPO=wth-ch03-codespaces-dev-containers   # swap REPO for the student's own repo if they brought one
 
 # devcontainer.json present and pins an image + has features
 gh api repos/$ORG/$REPO/contents/.devcontainer/devcontainer.json --jq '.path'
@@ -68,9 +70,8 @@ gh api repos/$ORG/$REPO/contents/docs/devcontainer-notes.md --jq '.path'
 
 ## Teardown
 ```bash
-wth teardown ch03 --org <org> --yes
-./scripts/teardown.sh ch03 --org <org> --yes   # Bash
-./scripts/teardown.ps1 ch03 --org <org> --yes  # PowerShell
+bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch03 --org <org> --yes   # Bash
+modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch03 --org <org> --yes  # PowerShell
 ```
 - Removes only `wth-ch03-*` artifacts (prefix-guarded): the repo and its prebuild config.
 - **Manual cleanup (required):** running/stopped **Codespaces are billed** and may not be auto-deleted by teardown if created under a personal account — teardown prints `gh codespace list`; delete each with `gh codespace delete`. The **org Codespaces policy** change is an org setting; revert manually if desired.

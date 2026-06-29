@@ -22,11 +22,11 @@
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `wth doctor ch## --org <org>` (least-privilege; documented per challenge).
-- Local tooling: `gh >= 2.x`, `git`, `jq` (run `wth doctor` to verify).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch## --org <org>` (least-privilege; documented per challenge).
+- Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - <Any challenge-specific prerequisite, e.g., "Copilot coding agent policy enabled (NOT available on EMU repos)".>
 
-## Learning objectives
+## Scenario objectives
 By completing this challenge you will:
 - <Objective 1 — verb-first, observable.>
 - <Objective 2.>
@@ -53,7 +53,6 @@ Run the provisioning entrypoint (Bash or PowerShell — both supported):
 - <e.g., labels / issues / branch protection / ruleset / Juice Shop import at pinned ref v20.0.0.>
 - A printed **Next steps** block telling you where to start.
 
-> Re-running `setup` reconciles (create-if-absent). `wth teardown ch## --org <org> --yes` removes only `wth-ch##-*`.
 
 ## Tasks
 1. **<Task 1 title>** — <what to do; link to the exact UI path or `gh` command.>

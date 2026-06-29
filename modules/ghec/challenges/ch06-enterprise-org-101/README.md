@@ -13,11 +13,11 @@
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `wth doctor ch06 --org <org>` (least-privilege; for this challenge: `admin:org` + `repo` + `read:org`).
-- Local tooling: `gh >= 2.x`, `git`, `jq` (run `wth doctor` to verify).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch06 --org <org>` (least-privilege; for this challenge: `admin:org` + `repo` + `read:org`).
+- Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - No GHAS, Codespaces, or enterprise-owner features are required. Every setting in this challenge lives at **organization** scope.
 
-## Learning objectives
+## Scenario objectives
 By completing this challenge you will:
 - Read and reason about an organization's **member privileges** baseline (default repository permission, repo creation, page/visibility, fork policy).
 - Configure **repository creation, visibility, and deletion/transfer** policies for members.
@@ -29,20 +29,24 @@ By completing this challenge you will:
 ## Scenario
 You're the first platform admin hired at a fast-growing GHEC customer. The organization was created in a hurry: defaults are wide open, anyone can create public repos, base permissions are too generous, and nobody can say what the current policy actually is. Leadership wants a documented, defensible baseline — least-privilege member access, controlled repository creation, sensible security defaults — and they want it **verifiable from the API**, not from screenshots. Your job is to bring order to the org and prove it.
 
-## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
+## Bring your own outcome (do this first)
+This challenge is most valuable when the result *outlives the hackathon*. Pick a real organization policy or repository-default setting you are allowed to assess and improve and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+
+- **Have a candidate?** Use your real org settings and repos wherever this guide names `wth-ch06-public-sample` or the sibling `wth-ch06-*` repos. Skip the Setup step below entirely.
+- **No suitable one?** Use the fallback below: seeded public/private/internal repos plus a starter team for safe policy practice.
+
+> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+
+## Setup (fallback sample)
+Skip this if you brought your own org/repo policy target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
 # Bash
-wth setup ch06 --org <org>
-# or directly:
-bash modules/ghec/resources/provisioning/scripts/setup.sh setup ch06 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch06 --org <org>
 ```
 ```powershell
 # PowerShell
-wth setup ch06 --org <org>
-# or directly:
-modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch06 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch06 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch06-*`, idempotent, prefix-guarded teardown):
@@ -51,9 +55,9 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch06 --org <org>
 - A printed **current baseline snapshot** (the org's existing member-privilege settings dumped from the API) so you can see "before," then prove "after."
 - A printed **Next steps** block telling you where to start.
 
-> Re-running `setup` reconciles (create-if-absent). `wth teardown ch06 --org <org> --yes` removes only `wth-ch06-*` artifacts. **Org-level setting changes you make are not auto-reverted** — see the Coach teardown note.
 
 ## Tasks
+> Throughout, **`wth-ch06-public-sample` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Read the baseline (before you change anything)
 1. **Snapshot the org via the API.** Run `gh api /orgs/<org> --jq '{default_repository_permission, members_can_create_repositories, members_can_create_public_repositories, members_can_create_private_repositories, members_can_create_internal_repositories, members_can_fork_private_repositories, web_commit_signoff_required, two_factor_requirement_enabled}'`. Save the output — this is your "before."
@@ -89,6 +93,7 @@ You are done when ALL of the following are true:
 - [ ] At least one sample repo's **visibility was changed** and you can explain public vs internal vs private.
 - [ ] Default **Actions workflow permissions** are set to read-only at the org.
 - [ ] A **before/after API diff** exists and a **`POLICY.md`/baseline doc** records every setting + rationale.
+- [ ] Real-outcome check — if you brought your own org/repo target, a real policy baseline or default setting is documented and improved; if you used the sample, you can name the org setting you will propose changing next.
 - [ ] Coach conversation — if you were the org owner of your team's GitHub organization today, what is the first enterprise policy or default repository setting you would change, and what risk or inefficiency is it currently causing? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.

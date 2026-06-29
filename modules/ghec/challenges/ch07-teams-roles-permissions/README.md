@@ -13,11 +13,11 @@
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `wth doctor ch07 --org <org>` (least-privilege; for this challenge: `admin:org` + `repo` + `read:org`).
-- Local tooling: `gh >= 2.x`, `git`, `jq` (run `wth doctor` to verify).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch07 --org <org>` (least-privilege; for this challenge: `admin:org` + `repo` + `read:org`).
+- Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - No GHAS, Codespaces, or enterprise-owner features are required. Custom **repository** roles are an org capability available on GHEC.
 
-## Learning objectives
+## Scenario objectives
 By completing this challenge you will:
 - Create a **team hierarchy** (parent + child teams) and understand how **nested teams inherit** access from their parent.
 - Grant teams access to repositories at the correct **predefined repository role** (Read / Triage / Write / Maintain / Admin).
@@ -29,20 +29,24 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer's engineering org has grown past the point where ad-hoc collaborator adds make sense. People are added directly to repos, leavers keep access, and nobody can answer "who can merge to the payments repo?" You'll replace the chaos with a **team-based** model: a parent team for the whole department, child teams per squad, repository access granted to teams (never to individuals), and one **custom role** for a contractor pattern that the built-in roles don't capture. Access becomes something you can read from an org chart — and from the API.
 
-## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
+## Bring your own outcome (do this first)
+This challenge is most valuable when the result *outlives the hackathon*. Pick a real team structure and repository access model you can make clearer and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+
+- **Have a candidate?** Use your real teams and repos wherever this guide names `wth-ch07-frontend` or the sibling `wth-ch07-*` artifacts. Skip the Setup step below entirely.
+- **No suitable one?** Use the fallback below: seeded frontend/backend/platform repos and a starter engineering team.
+
+> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+
+## Setup (fallback sample)
+Skip this if you brought your own team/repo access model. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
 # Bash
-wth setup ch07 --org <org>
-# or directly:
-bash modules/ghec/resources/provisioning/scripts/setup.sh setup ch07 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch07 --org <org>
 ```
 ```powershell
 # PowerShell
-wth setup ch07 --org <org>
-# or directly:
-modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch07 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch07 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch07-*`, idempotent, prefix-guarded teardown):
@@ -51,9 +55,9 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch07 --org <org>
 - A printed **access snapshot** (current teams + repo grants from the API) so you can prove "before" → "after."
 - A printed **Next steps** block telling you where to start.
 
-> Re-running `setup` reconciles (create-if-absent). `wth teardown ch07 --org <org> --yes` removes only `wth-ch07-*` artifacts (repos and `wth-ch07-*` teams).
 
 ## Tasks
+> Throughout, **`wth-ch07-frontend` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Build the team hierarchy
 1. **Create a parent team** `wth-ch07-engineering` (reuse the seeded one) and two **child teams** under it: `wth-ch07-frontend-squad` and `wth-ch07-backend-squad`. Create children with the parent set, e.g. `gh api -X POST /orgs/<org>/teams -f name='wth-ch07-frontend-squad' -F parent_team_id=<parent-id>`.
@@ -91,6 +95,7 @@ You are done when ALL of the following are true:
 - [ ] A team holds the **Maintain** predefined role on `wth-ch07-platform`.
 - [ ] A **custom repository role** exists (`gh api /orgs/<org>/custom-repository-roles` lists it) and is **assigned** to a team on a repo.
 - [ ] An **`ACCESS.md`** access matrix exists, generated from the API, and a before/after comparison shows the org is now team-modeled.
+- [ ] Real-outcome check — if you brought your own teams/repos, access is now clearer on a model people actually use; if you used the sample, you can name the real team or repo set you will map next.
 - [ ] Coach conversation — map your real team's structure onto GitHub Teams right now: where do people have more access than they need, and where is the absence of the right permission creating an actual bottleneck for someone? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.

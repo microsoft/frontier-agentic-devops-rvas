@@ -98,5 +98,3 @@ GitHub Actions (`.github/workflows/build-deploy.yml`) runs `node docs/build.js` 
 ## License
 
 MIT License — Copyright (c) Microsoft Corporation. See [`LICENSE`](LICENSE).  
-Content sourced from four Microsoft hackathon repositories under MIT license.  
-See each module's `ATTRIBUTION.md` for source provenance.

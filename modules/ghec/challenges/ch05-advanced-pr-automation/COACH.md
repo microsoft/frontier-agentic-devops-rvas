@@ -8,6 +8,8 @@ Students are **expected to call you** to talk through this challenge's real-worl
 
 **Their question:** Coach conversation — which repetitive PR task on your current team (auto-labeling, reviewer assignment, size checks, changelog enforcement) costs the most human time per week, and what could a composite action or reusable workflow replace? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch05-advanced-pr-automation` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+
 Use these follow-ups to steer the conversation:
 - List the manual steps that happen every time a PR is opened in your main repo — who does each one?
 - Which of those steps is most error-prone or most often skipped under time pressure?
@@ -36,7 +38,7 @@ Use these follow-ups to steer the conversation:
 
 ## Automated verification hints
 ```bash
-ORG=<org>; REPO=wth-ch05-advanced-pr-automation
+ORG=<org>; REPO=wth-ch05-advanced-pr-automation   # swap REPO for the student's own repo if they brought one
 
 # Repository rulesets (expect an Active ruleset with the rules below)
 gh api repos/$ORG/$REPO/rulesets --jq '.[] | {name, enforcement}'
@@ -73,9 +75,8 @@ gh api /orgs/$ORG/rulesets --jq '.[] | {name, enforcement, target}'
 
 ## Teardown
 ```bash
-wth teardown ch05 --org <org> --yes
-./scripts/teardown.sh ch05 --org <org> --yes   # Bash
-./scripts/teardown.ps1 ch05 --org <org> --yes  # PowerShell
+bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch05 --org <org> --yes   # Bash
+modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch05 --org <org> --yes  # PowerShell
 ```
 - Removes only `wth-ch05-*` artifacts (prefix-guarded): the repo (with its repo ruleset, workflows, PRs) **and** the `wth-ch05-org` organization ruleset.
 - **Manual cleanup (if any):** any org **team** the student created for CODEOWNERS that isn't `wth-ch05-*` prefixed must be removed by hand; advise naming teams `wth-ch05-*`.

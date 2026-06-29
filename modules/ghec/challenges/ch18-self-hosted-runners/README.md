@@ -13,12 +13,12 @@
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `wth doctor ch18 --org <org>` (least-privilege; for this challenge: `repo` + `admin:org` for runner-group + runner management).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch18 --org <org>` (least-privilege; for this challenge: `repo` + `admin:org` for runner-group + runner management).
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
 - A **machine to host the runner** — your laptop, a VM, or a throwaway container. Linux/macOS/Windows all work; a disposable VM is recommended so you can practice hardening and tear it down cleanly.
 - **Org-scoped framing:** this challenge configures runners at the **org** level (org runner group). **Enterprise runner groups** are covered as *awareness* only — no enterprise owner required to complete it.
 
-## Learning objectives
+## Scenario objectives
 By completing this challenge you will:
 - Register a **self-hosted runner** at the **org** level and bring it online.
 - Organize runners with a **runner group** and control **which repos** may use it.
@@ -30,20 +30,24 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer needs CI on hardware GitHub doesn't host — a GPU box, a license-locked toolchain, or a network-isolated build host. You'll stand up a self-hosted runner the right way: registered to an **org runner group** scoped to just the repos that should use it, targeted by labels, and hardened so a malicious PR can't turn your build host into a foothold. You'll finish knowing exactly when self-hosted is worth the operational cost versus GitHub-hosted or larger runners.
 
-## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
+## Bring your own outcome (do this first)
+This challenge is most valuable when the result *outlives the hackathon*. Pick a real CI job or repository that needs a self-hosted runner because of network, hardware, compliance, or cost and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+
+- **Have a candidate?** Use it everywhere this guide says `wth-ch18-self-hosted-runners`. Skip the Setup step below entirely.
+- **No suitable one?** Use the fallback below: a seeded sample repo with runner workflows to validate safely.
+
+> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+
+## Setup (fallback sample)
+Skip this if you brought your own runner target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
 # Bash
-wth setup ch18 --org <org>
-# or directly:
-bash modules/ghec/resources/provisioning/scripts/setup.sh setup ch18 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch18 --org <org>
 ```
 ```powershell
 # PowerShell
-wth setup ch18 --org <org>
-# or directly:
-modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch18 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch18 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch18-*`, idempotent, prefix-guarded teardown):
@@ -52,9 +56,9 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch18 --org <org>
 - A `HARDENING.md` checklist (service account, ephemeral runners, fork-PR risk, network egress).
 - A printed **Next steps** block telling you where to start.
 
-> Re-running `setup` reconciles (create-if-absent). `wth teardown ch18 --org <org> --yes` removes only `wth-ch18-*` artifacts. **Note:** the runner registration on your host and the org runner group are removed in Teardown (see COACH.md) — deleting the repo alone does not unregister a runner.
 
 ## Tasks
+> Throughout, **`wth-ch18-self-hosted-runners` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Create an org runner group
 1. **Create a runner group** scoped to your org: Org Settings → Actions → Runner groups → New, name it `wth-ch18-group`. (Or by API: `gh api orgs/<org>/actions/runner-groups -f name='wth-ch18-group' -f visibility='selected'`.)
@@ -91,6 +95,7 @@ You are done when ALL of the following are true:
 - [ ] A **mis-labeled** job stays **queued**, proving label routing.
 - [ ] The runner runs under a **least-privilege account** and you demonstrated an **ephemeral** registration.
 - [ ] You documented the **fork-PR risk** and a **GitHub-hosted vs larger vs self-hosted** decision matrix, plus the **org-vs-enterprise runner group** note.
+- [ ] Real-outcome check — if you brought your own runner target, a real CI job now has a clearer self-hosted-runner path; if you used the sample, you can name the constrained job you will move next.
 - [ ] Coach conversation — what build or test job in your current CI pipeline is bottlenecked on GitHub-hosted runner constraints (network, hardware, compliance, cost), and what would a self-hosted runner in your own infrastructure unlock for that job? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.

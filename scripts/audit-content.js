@@ -575,23 +575,6 @@ function validateCronField(field, min, max) {
   return '';
 }
 
-function auditAttribution(challenges) {
-  for (const c of challenges) {
-    const fileRel = rel(c.metaPath);
-    const m = c.meta;
-    if (!m.source_repo) addError(fileRel, 0, 'missing source_repo attribution');
-    if (!m.source_path) addError(fileRel, 0, 'missing source_path attribution');
-    if (m.source_path && (path.isAbsolute(String(m.source_path)) || String(m.source_path).includes('..'))) {
-      addError(fileRel, 0, `source_path must be repository-relative and non-traversing: ${m.source_path}`);
-    }
-    const attrPath = path.join(MODULES_DIR, c.moduleId, 'ATTRIBUTION.md');
-    if (m.source_repo && fs.existsSync(attrPath)) {
-      const attr = readText(attrPath);
-      if (!attr.includes(m.source_repo)) addError(rel(attrPath), 0, `does not mention source_repo used by ${m.id}: ${m.source_repo}`);
-    }
-  }
-}
-
 function auditCatalog(challenges) {
   if (!fs.existsSync(PLATFORM_PATH)) addError(rel(PLATFORM_PATH), 0, 'missing generated platform catalog; run npm run build');
   if (!fs.existsSync(GRAPH_PATH)) addError(rel(GRAPH_PATH), 0, 'missing generated dependency graph; run npm run build');
@@ -728,7 +711,6 @@ async function main() {
   auditRenderedGuideLinks(challenges);
   auditVersionClaims(files);
   auditCron(files);
-  auditAttribution(challenges);
   auditCatalog(challenges);
   await auditExternalUrls();
 

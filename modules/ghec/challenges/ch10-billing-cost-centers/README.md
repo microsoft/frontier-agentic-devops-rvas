@@ -13,11 +13,11 @@
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud, with **billing manager** access (org owners have it by default).
-- A token with the scopes listed by `wth doctor ch10 --org <org>` (least-privilege; for this challenge: `admin:org` + `repo`, plus the read access the **billing usage** endpoints require).
-- Local tooling: `gh >= 2.x`, `git`, `jq` (run `wth doctor` to verify).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch10 --org <org>` (least-privilege; for this challenge: `admin:org` + `repo`, plus the read access the **billing usage** endpoints require).
+- Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - No GHAS or Codespaces required. **Enterprise cost centers** are awareness-only here (see callout) — the real, gradable work uses **org-level billing, budgets, and usage**.
 
-## Learning objectives
+## Scenario objectives
 By completing this challenge you will:
 - Navigate the org's **billing & licensing** views and read **included vs metered** usage for Actions, Packages, and Storage.
 - Generate a **small, controlled amount of metered usage** (a few Actions runs) and watch it appear in usage.
@@ -29,20 +29,24 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer just got a bigger-than-expected Actions bill and nobody can explain it. Finance wants guardrails: a budget with an alert before money is spent, a clear view of which repos burn the most minutes, and a report they can pull on demand. You'll stand up exactly that at the **organization** level — generate a little real usage, wire up a budget with alerts, and reconcile the API against the billing UI so the numbers are trustworthy. The output is the cost-governance baseline a real customer keeps.
 
-## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
+## Bring your own outcome (do this first)
+This challenge is most valuable when the result *outlives the hackathon*. Pick a real org usage, budget, or cost-reporting artifact someone will rely on after the hackathon and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+
+- **Have a candidate?** Use your real usage source and reporting repo wherever this guide names `wth-ch10-usage-generator` or `wth-ch10-cost-report`. Skip the Setup step below entirely.
+- **No suitable one?** Use the fallback below: a tiny usage-generator repo and cost-report repo for safe metered practice.
+
+> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+
+## Setup (fallback sample)
+Skip this if you brought your own usage/cost artifact. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
 # Bash
-wth setup ch10 --org <org>
-# or directly:
-bash modules/ghec/resources/provisioning/scripts/setup.sh setup ch10 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch10 --org <org>
 ```
 ```powershell
 # PowerShell
-wth setup ch10 --org <org>
-# or directly:
-modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch10 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch10 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch10-*`, idempotent, prefix-guarded teardown):
@@ -51,9 +55,9 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch10 --org <org>
 - A printed **current usage snapshot** (Actions minutes / storage from the API) so you have a "before" reading.
 - A printed **Next steps** block telling you where to start.
 
-> Re-running `setup` reconciles (create-if-absent). `wth teardown ch10 --org <org> --yes` removes only `wth-ch10-*` artifacts. **Budgets and spending-limit settings you change are org-level and are not auto-reverted** — see the Coach teardown note. *(Cost note: this challenge intentionally generates a few seconds of Actions usage; per Marco's build decision metered cost is owned by the org and is negligible here.)*
 
 ## Tasks
+> Throughout, **`wth-ch10-usage-generator` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Read the billing baseline
 1. **Open the org billing views** (**Org Settings → Billing & licensing → Usage**). Locate **Actions minutes**, **Packages/Storage**, and any **Codespaces** lines. Note included allowances vs metered overage.
@@ -88,6 +92,7 @@ You are done when ALL of the following are true:
 - [ ] You can **reconcile** the API usage total against the UI Usage page and explain the cost model (included vs metered; per-minute price varies by runner OS/SKU).
 - [ ] A committed **cost-report script** runs and produces a product/used/included/billable table.
 - [ ] A **`COST-REPORT.md`** exists with the before/after delta and a budget recommendation.
+- [ ] Real-outcome check — if you brought your own usage data, a real budget or cost report now exists for someone to use; if you used the sample, you can name the org/team cost view you will build next.
 - [ ] Coach conversation — look at your team's actual GitHub usage right now: where is spend invisible or unattributed, and who in your org should own cost accountability for Actions minutes, Codespaces, or storage but currently does not? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.

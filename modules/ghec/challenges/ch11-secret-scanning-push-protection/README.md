@@ -13,11 +13,11 @@
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `wth doctor ch11 --org <org>` (least-privilege; for this challenge: `repo` + `admin:org` + `security_events`).
-- Local tooling: `gh >= 2.x`, `git`, `jq` (run `wth doctor` to verify).
-- **GHAS note:** **secret scanning** and **push protection** are **free on public repos**. Setup provisions the Juice Shop import as **public**, so no Code Security / Secret Protection license is required for Parts A–C and E. On private/internal repos these features need a paid license — `wth doctor` warns. **Custom secret-scanning patterns (Part D) are different:** they require **GitHub Secret Protection** on an organization-owned repo (GitHub Team or Enterprise) regardless of repo visibility, and are *not* part of the free public-repo feature set — see Part D.
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch11 --org <org>` (least-privilege; for this challenge: `repo` + `admin:org` + `security_events`).
+- Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
+- **GHAS note:** **secret scanning** and **push protection** are **free on public repos**. Setup provisions the Juice Shop import as **public**, so no Code Security / Secret Protection license is required for Parts A–C and E. On private/internal repos these features need a paid license — `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns. **Custom secret-scanning patterns (Part D) are different:** they require **GitHub Secret Protection** on an organization-owned repo (GitHub Team or Enterprise) regardless of repo visibility, and are *not* part of the free public-repo feature set — see Part D.
 
-## Learning objectives
+## Scenario objectives
 By completing this challenge you will:
 - Enable **secret scanning** and **push protection** on a repository from both the UI and the API.
 - Triage **secret-scanning alerts**: read the commit/blob location, then resolve each as revoked / false positive / used in tests.
@@ -28,20 +28,24 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer just discovered a hard-coded cloud key in a public repo — caught by an outside researcher, not by them. Leadership wants two guarantees: (1) every credential already sitting in history is surfaced and triaged, and (2) the *next* secret never lands on `main` in the first place. You'll prove both on a deliberately leaky app: the provisioner imports OWASP Juice Shop and plants a set of **non-live, high-confidence test secrets** (fake AWS keys, GitHub-style tokens) so secret scanning has real, partner-pattern material to detect — Juice Shop's own app secrets are internal and won't reliably trip detection on their own.
 
-## Setup
-Run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` is the documented command surface; it wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
+## Bring your own outcome (do this first)
+This challenge is most valuable when the result *outlives the hackathon*. **Pick a real repository your organization owns** — ideally a public one, or a private/internal one if you have GitHub Secret Protection — and complete every task on **that** repo. You leave with secret scanning, push protection, a custom pattern, and a triage trail genuinely standing up on a project you care about.
+
+- **Have a candidate repo?** Use it everywhere this guide says `wth-ch11-juice-shop`. Skip the Setup step below entirely. You already have real history to triage — no planted secrets needed.
+- **No suitable repo (or want a safe sandbox)?** Use the fallback below: we import OWASP Juice Shop with non-live planted secrets so you can practice without risk.
+
+> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+
+## Setup (fallback sample)
+Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
 # Bash
-wth setup ch11 --org <org>
-# or directly:
-bash modules/ghec/resources/provisioning/scripts/setup.sh setup ch11 --org <org>
+bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch11 --org <org>
 ```
 ```powershell
 # PowerShell
-wth setup ch11 --org <org>
-# or directly:
-modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch11 --org <org>
+modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch11 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch11-*`, idempotent, prefix-guarded teardown):
@@ -51,9 +55,9 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 setup ch11 --org <org>
 - A `feature/leaky-config` **branch** carrying one fresh planted secret you'll use to exercise push protection.
 - A printed **Next steps** block telling you where to start.
 
-> Re-running `setup` reconciles (create-if-absent). `wth teardown ch11 --org <org> --yes` removes only `wth-ch11-*` artifacts (the imported repo).
 
 ## Tasks
+> Throughout, **`wth-ch11-juice-shop` is the fallback sample**. If you brought your own repo, substitute its name in every command and skip the manifest steps (your real commit history is the material to triage).
 
 ### Part A — Enable secret scanning
 1. **Turn on the features.** In `wth-ch11-juice-shop` → **Settings → Code security**, enable **Secret scanning** and **Push protection**. (On a public repo these may already be on by default — confirm both toggles read "Enabled".)
@@ -105,6 +109,7 @@ You are done when ALL of the following are true:
 - [ ] At least **one push-protection bypass** exists with a recorded actor and reason (verifiable via the alerts API).
 - [ ] A **custom secret-scanning pattern** is published and raised at least one alert.
 - [ ] A **triage summary** issue exists on the repo.
+- [ ] Real-outcome check — if you brought your own repo, scanning + push protection are now enabled on a project you actually own; if you used the sample, you can name the real repo you'll roll this out to next.
 - [ ] Coach conversation — if you turned push protection on across your real org tomorrow, whose workflow breaks first and what secret would it have caught in your last six months of commits? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.

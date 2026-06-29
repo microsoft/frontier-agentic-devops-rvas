@@ -8,6 +8,8 @@ Students are **expected to call you** to talk through this challenge's real-worl
 
 **Their question:** Coach conversation — what build or test job in your current CI pipeline is bottlenecked on GitHub-hosted runner constraints (network, hardware, compliance, cost), and what would a self-hosted runner in your own infrastructure unlock for that job? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch18-self-hosted-runners` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+
 Use these follow-ups to steer the conversation:
 - Name the specific workflow and the constraint — is it network egress, memory, GPUs, a license, or a compliance boundary?
 - What is the operational cost (maintenance, scaling, security patching) of owning that runner fleet, and who on your team would own it?
@@ -36,7 +38,7 @@ Use these follow-ups to steer the conversation:
 
 ## Automated verification hints
 ```bash
-ORG=<org>; REPO=wth-ch18-self-hosted-runners
+ORG=<org>; REPO=wth-ch18-self-hosted-runners   # swap REPO for the student's own repo if they brought one
 
 # Runner group exists and is repo-scoped
 gh api orgs/$ORG/actions/runner-groups --jq '.runner_groups[] | {name, visibility}'
@@ -69,9 +71,8 @@ gh api repos/$ORG/$REPO/actions/runs/$RUN/jobs --jq '.jobs[] | {name, runner_nam
 
 ## Teardown
 ```bash
-wth teardown ch18 --org <org> --yes
-./scripts/teardown.sh ch18 --org <org> --yes   # Bash
-./scripts/teardown.ps1 ch18 --org <org> --yes  # PowerShell
+bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch18 --org <org> --yes   # Bash
+modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch18 --org <org> --yes  # PowerShell
 ```
 - Removes only `wth-ch18-*` artifacts (prefix-guarded): the repo and the `wth-ch18-group` org runner group.
 - **Manual cleanup (required):** **unregister the runner on the host** before/after teardown — `./config.sh remove --token <removal-token>` (get one via `gh api -X POST orgs/<org>/actions/runners/remove-token`). If you installed it as a service, stop and uninstall the service. Delete the disposable VM/container if you used one.
