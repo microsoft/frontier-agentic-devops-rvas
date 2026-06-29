@@ -48,12 +48,13 @@ _ch01_seed_labels() {
   local entry name color desc
   for entry in "${labels[@]}"; do
     IFS='|' read -r name color desc <<< "$entry"
-    if printf '%s\n' "$existing" | grep -qxF "$name"; then
+    if printf '%s\n' "$existing" | grep -qxiF "$name"; then
       log_ok "label '$name' exists (skip)"
       continue
     fi
     run_mutation gh label create "$name" --repo "$(_ch01_repo_full)" \
       --color "$color" --description "$desc"
+    existing="${existing}"$'\n'"${name}"
   done
   log_info "GAP by design: no priority scale, no 'triage', no 'good first issue', dup 'bug/Bug'."
 }
