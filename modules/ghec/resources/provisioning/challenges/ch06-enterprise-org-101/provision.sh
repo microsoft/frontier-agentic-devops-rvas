@@ -39,6 +39,7 @@ wth_provision() {
   gh_create_repo_soft "$ORG" "$R_INT" internal
 
   if [[ "$DRY_RUN" != "true" ]]; then
+    local pub_vis
     if gh_repo_exists "$ORG" "$R_PUB"; then
       pub_vis="$(_ch06_repo_visibility "$R_PUB")"
       [[ "$pub_vis" != "public" ]] && \

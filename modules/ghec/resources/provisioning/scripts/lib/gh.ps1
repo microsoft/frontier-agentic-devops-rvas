@@ -140,6 +140,10 @@ function New-WthRepoSoft {
   if (Test-WthRepoExists -Org $Org -Repo $Repo) {
     Write-WthOk "repo $Org/$Repo already exists (skip)"; return
   }
+  if ($Global:WthDryRun) {
+    Invoke-WthRepoCreateWithFallback -Org $Org -Repo $Repo -Visibility $Visibility -Description 'wth challenge artifact — safe to delete via teardown' | Out-Null
+    return
+  }
   if (Invoke-WthRepoCreateWithFallback -Org $Org -Repo $Repo -Visibility $Visibility -Description 'wth challenge artifact — safe to delete via teardown') { Write-WthOk "created $Visibility repo $Org/$Repo" }
   else { Write-WthWarn "could not create '$Visibility' repo $Org/$Repo — visibility may require an enterprise-owned org (MANUAL STEP)" }
 }

@@ -155,6 +155,11 @@ gh_create_repo_soft() {
     log_ok "repo $org/$repo already exists (skip)"
     return 0
   fi
+  if [[ "${DRY_RUN:-false}" == "true" ]]; then
+    gh_repo_create_with_fallback "$org" "$repo" "$vis" \
+      "wth challenge artifact — safe to delete via teardown"
+    return 0
+  fi
   if gh_repo_create_with_fallback "$org" "$repo" "$vis" \
       "wth challenge artifact — safe to delete via teardown"; then
     log_ok "created $vis repo $org/$repo"
