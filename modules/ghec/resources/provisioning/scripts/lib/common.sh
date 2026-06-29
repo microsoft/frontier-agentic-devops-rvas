@@ -34,7 +34,7 @@ meta_list() {
   awk -v k="$key" '
     index($0, k":") == 1 { found=1; next }
     found {
-      if ($0 ~ /^[[:space:]]+-[[:space:]]*/) {
+      if ($0 ~ /^[[:space:]]*-[[:space:]]*/) {
         line=$0
         sub(/^[[:space:]]*-[[:space:]]*/, "", line)
         sub(/[[:space:]]*#.*$/, "", line)

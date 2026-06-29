@@ -100,10 +100,19 @@ esac
 CH_DIR="$(resolve_challenge_dir "$CHID" "$CHALLENGES_DIR")" \
   || die "no challenge folder found for '$CHID' under $CHALLENGES_DIR"
 META="$CH_DIR/meta.yml"
-[[ -f "$META" ]] || die "missing meta.yml at $META"
+if [[ ! -f "$META" ]]; then
+  CH_FOLDER="$(basename "$CH_DIR")"
+  CANONICAL_META="$(cd "$REPO_ROOT/../.." && pwd)/challenges/$CH_FOLDER/meta.yml"
+  [[ -f "$CANONICAL_META" ]] \
+    || die "missing meta.yml at $META (also checked $CANONICAL_META)"
+  META="$CANONICAL_META"
+fi
 
 SLUG="$(meta_scalar "$META" slug)"
+[[ -n "$SLUG" ]] || SLUG="${CH_FOLDER:-$(basename "$CH_DIR")}"
+SLUG="${SLUG#${CHID}-}"
 APP="$(meta_scalar "$META" app)"
+[[ -n "$APP" ]] || APP="$(meta_scalar "$META" app_dependency)"
 EMU_COMPAT="$(meta_scalar "$META" emu_compatible)"
 
 # Juice Shop ref precedence: --ref > meta.yml > versions.lock
@@ -120,6 +129,28 @@ export ORG ENTERPRISE CHID SLUG APP JUICE_SHOP_REF DRY_RUN ASSUME_YES NAMESPACE 
 
 require_org() {
   [[ -n "$ORG" ]] || die "--org <org> is required for '$COMMAND'"
+}
+
+challenge_requires() {
+  local explicit caps tags title
+  explicit="$(meta_list "$META" requires)"
+  if [[ -n "$explicit" ]]; then
+    printf '%s\n' "$explicit"
+    return 0
+  fi
+
+  caps="$(meta_list "$META" prerequisite_capabilities)"
+  tags="$(meta_list "$META" tags)"
+  title="$(meta_scalar "$META" title)"
+  {
+    echo "org"
+    if printf '%s\n%s\n' "$caps" "$tags" | grep -qiE 'advanced security|ghas|code scanning|secret scanning|dependabot'; then
+      echo "ghas"
+    fi
+    if printf '%s\n%s\n%s\n' "$caps" "$tags" "$title" | grep -qi 'copilot'; then
+      echo "copilot"
+    fi
+  } | awk 'NF && !seen[$0]++'
 }
 
 # load_challenge — source the per-challenge provisioner and verify its contract.
@@ -144,10 +175,10 @@ print_min_scopes() {
   local joined; joined="$(printf '%s, ' "${scopes[@]}")"; joined="${joined%, }"
   log_info "classic PAT scopes:   $joined"
   log_info "fine-grained PAT:     Administration:RW, Contents:RW, Issues:RW, Metadata:R (org '$ORG')"
-  if meta_list "$META" requires | grep -qx copilot; then
+  if challenge_requires | grep -qx copilot; then
     log_warn "Copilot cannot be enabled via a PAT — an org owner must enable it in org settings."
   fi
-  if meta_list "$META" requires | grep -qx ghas; then
+  if challenge_requires | grep -qx ghas; then
     log_info "GHAS: no extra PAT scope on PUBLIC repos; ensure Actions + code scanning are enabled."
   fi
 }
@@ -190,7 +221,7 @@ cmd_doctor() {
       copilot) log_warn "Copilot must be enabled at org level by an org owner" ;;
       *)       log_info "capability: $cap" ;;
     esac
-  done < <(meta_list "$META" requires)
+  done < <(challenge_requires)
 
   print_min_scopes
 

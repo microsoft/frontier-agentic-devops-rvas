@@ -80,10 +80,23 @@ $Global:WthEnterprise = $Enterprise
 $ChDir = Resolve-WthChallengeDir -Chid $Chid -Base $ChallengesDir
 if (-not $ChDir) { Stop-Wth "no challenge folder found for '$Chid' under $ChallengesDir" }
 $Meta = Join-Path $ChDir 'meta.yml'
-if (-not (Test-Path -LiteralPath $Meta)) { Stop-Wth "missing meta.yml at $Meta" }
+if (-not (Test-Path -LiteralPath $Meta)) {
+  $ChFolder = Split-Path -Leaf $ChDir
+  $ModuleRoot = Split-Path -Parent (Split-Path -Parent $RepoRoot)
+  $CanonicalMeta = Join-Path (Join-Path (Join-Path $ModuleRoot 'challenges') $ChFolder) 'meta.yml'
+  if (-not (Test-Path -LiteralPath $CanonicalMeta)) {
+    Stop-Wth "missing meta.yml at $Meta (also checked $CanonicalMeta)"
+  }
+  $Meta = $CanonicalMeta
+}
 
 $Slug = Get-WthMetaScalar -File $Meta -Key 'slug'
+if (-not $Slug) {
+  if (-not $ChFolder) { $ChFolder = Split-Path -Leaf $ChDir }
+  $Slug = $ChFolder -replace "^$([regex]::Escape($Chid))-", ''
+}
 $App  = Get-WthMetaScalar -File $Meta -Key 'app'
+if (-not $App) { $App = Get-WthMetaScalar -File $Meta -Key 'app_dependency' }
 $EmuCompat = Get-WthMetaScalar -File $Meta -Key 'emu_compatible'
 
 # Juice Shop ref precedence: -Ref > meta.yml > versions.lock
@@ -100,6 +113,24 @@ $Global:WthRepo         = "wth-$Chid-$Slug"
 $Global:WthMeta         = $Meta
 
 function Require-Org { if (-not $Org) { Stop-Wth "-Org <org> is required for '$Command'" } }
+
+function Get-ChallengeRequires {
+  $explicit = @(Get-WthMetaList -File $Meta -Key 'requires')
+  if ($explicit.Count -gt 0) { return $explicit }
+
+  $caps = @(Get-WthMetaList -File $Meta -Key 'prerequisite_capabilities')
+  $tags = @(Get-WthMetaList -File $Meta -Key 'tags')
+  $title = Get-WthMetaScalar -File $Meta -Key 'title'
+  $reqs = New-Object System.Collections.Generic.List[string]
+  $reqs.Add('org')
+  $capText = (($caps + $tags) -join "`n")
+  if ($capText -match '(?i)advanced security|ghas|code scanning|secret scanning|dependabot') {
+    $reqs.Add('ghas')
+  }
+  $copilotText = (($caps + $tags + @($title)) -join "`n")
+  if ($copilotText -match '(?i)copilot') { $reqs.Add('copilot') }
+  return @($reqs | Select-Object -Unique)
+}
 
 function Import-Challenge {
   $pf = Join-Path $ChDir 'provision.ps1'
@@ -120,7 +151,7 @@ function Show-MinScopes {
   if ($App -eq 'juice-shop') { $scopes += 'workflow' }
   Write-WthInfo ("classic PAT scopes:   " + ($scopes -join ', '))
   Write-WthInfo "fine-grained PAT:     Administration:RW, Contents:RW, Issues:RW, Metadata:R (org '$Org')"
-  $reqs = Get-WthMetaList -File $Meta -Key 'requires'
+  $reqs = Get-ChallengeRequires
   if ($reqs -contains 'copilot') { Write-WthWarn 'Copilot cannot be enabled via a PAT — an org owner must enable it.' }
   if ($reqs -contains 'ghas')    { Write-WthInfo 'GHAS: no extra PAT scope on PUBLIC repos; ensure Actions + code scanning are enabled.' }
 }
@@ -137,7 +168,7 @@ function Invoke-Doctor {
   else { Write-WthErr 'gh not authenticated'; Show-WthAuthHint; $fail = $true }
 
   Write-WthStep 'required capabilities'
-  foreach ($cap in (Get-WthMetaList -File $Meta -Key 'requires')) {
+  foreach ($cap in (Get-ChallengeRequires)) {
     switch ($cap) {
       'org'     { Write-WthInfo "org-owner access on '$Org'" }
       'ghas'    { Write-WthWarn 'GHAS — FREE on PUBLIC repos; private/internal needs Code Security/Secret Protection' }

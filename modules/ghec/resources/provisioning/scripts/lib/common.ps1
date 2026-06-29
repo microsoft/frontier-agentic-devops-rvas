@@ -30,7 +30,7 @@ function Get-WthMetaList {
   foreach ($line in Get-Content -LiteralPath $File) {
     if ($line -match ("^" + [regex]::Escape($Key) + ":\s*$")) { $inKey = $true; continue }
     if ($inKey) {
-      if ($line -match '^\s+-\s*(.+?)\s*(#.*)?$') { $items += $Matches[1].Trim() }
+      if ($line -match '^\s*-\s*(.+?)\s*(#.*)?$') { $items += $Matches[1].Trim() }
       elseif ($line -match '^\S') { break }
     }
   }
