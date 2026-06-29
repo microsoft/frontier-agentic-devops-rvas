@@ -48,6 +48,15 @@ _ch01_seed_labels() {
   local entry name color desc
   for entry in "${labels[@]}"; do
     IFS='|' read -r name color desc <<< "$entry"
+    if printf '%s\n' "$existing" | grep -qxF "$name"; then
+      if [[ "${FORCE:-false}" == "true" ]]; then
+        run_mutation gh label edit "$name" --repo "$(_ch01_repo_full)" \
+          --color "$color" --description "$desc"
+      else
+        log_ok "label '$name' exists (skip)"
+      fi
+      continue
+    fi
     if printf '%s\n' "$existing" | grep -qxiF "$name"; then
       log_ok "label '$name' exists (skip)"
       continue

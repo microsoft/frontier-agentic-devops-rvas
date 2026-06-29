@@ -35,6 +35,7 @@ ENTERPRISE=""
 JUICE_SHOP_REF=""        # may be set by --ref; else meta.yml; else versions.lock
 DRY_RUN="false"          # mutate by default for create-only provisioning;
 ASSUME_YES="false"       # --dry-run previews, teardown still needs confirmation
+FORCE="false"            # allow provisioners to reconcile overwrite-safe resources
 VL_JUICE_SHOP_REF="v20.0.0"
 VL_GH_MIN_VERSION="2.0.0"
 
@@ -57,6 +58,7 @@ OPTIONS:
   --enterprise <slug>  Enterprise slug (only used by enterprise-tier challenges)
   --ref <ref>          Override Juice Shop ref (default: pinned ${VL_JUICE_SHOP_REF})
   --dry-run            Print the mutation plan; change nothing
+  --force              Reconcile overwrite-safe seeded resources where supported
   --yes                Skip the teardown confirmation prompt
   -h, --help           This help
 
@@ -81,6 +83,7 @@ while [[ $# -gt 0 ]]; do
     --enterprise)  ENTERPRISE="${2:-}"; shift 2 ;;
     --ref)         JUICE_SHOP_REF="${2:-}"; shift 2 ;;
     --dry-run)     DRY_RUN="true"; shift ;;
+    --force)       FORCE="true"; shift ;;
     --yes)         ASSUME_YES="true"; shift ;;
     -h|--help)     usage; exit 0 ;;
     ch[0-9][0-9])  CHID="$1"; shift ;;
@@ -125,7 +128,7 @@ fi
 # Canonical names exported to per-challenge provisioners.
 NAMESPACE="wth-${CHID}-"
 REPO="wth-${CHID}-${SLUG}"
-export ORG ENTERPRISE CHID SLUG APP JUICE_SHOP_REF DRY_RUN ASSUME_YES NAMESPACE REPO META
+export ORG ENTERPRISE CHID SLUG APP JUICE_SHOP_REF DRY_RUN ASSUME_YES FORCE NAMESPACE REPO META
 
 require_org() {
   [[ -n "$ORG" ]] || die "--org <org> is required for '$COMMAND'"

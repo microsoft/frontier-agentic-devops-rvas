@@ -16,6 +16,7 @@ param(
   [string]$Enterprise,
   [string]$Ref,
   [switch]$DryRun,
+  [switch]$Force,
   [switch]$Yes
 )
 
@@ -50,6 +51,7 @@ OPTIONS:
   -Enterprise <slug>  Enterprise slug (only for enterprise-tier challenges)
   -Ref <ref>          Override Juice Shop ref (default: pinned v20.0.0)
   -DryRun             Print the mutation plan; change nothing
+  -Force              Reconcile overwrite-safe seeded resources where supported
   -Yes                Skip the teardown confirmation prompt
 
 EXAMPLES:
@@ -72,6 +74,7 @@ if (-not $Chid) { Stop-Wth 'missing challenge id (e.g. ch01)' }
 # ---- globals consumed by lib + per-challenge provisioners ------------------
 $Global:WthDryRun    = [bool]$DryRun
 $Global:WthAssumeYes = [bool]$Yes
+$Global:WthForce     = [bool]$Force
 $Global:WthChid      = $Chid
 $Global:WthOrg       = $Org
 $Global:WthEnterprise = $Enterprise

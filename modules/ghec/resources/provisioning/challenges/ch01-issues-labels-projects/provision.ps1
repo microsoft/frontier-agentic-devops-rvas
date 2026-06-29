@@ -30,6 +30,16 @@ function _Ch01-SeedLabels {
   )
   foreach ($entry in $labels) {
     $name, $color, $desc = $entry -split '\|', 3
+    if ($existing -contains $name) {
+      if ($Global:WthForce) {
+        Invoke-WthMutation -Plan "gh label edit $name" -Action {
+          gh label edit $name --repo (_Ch01-RepoFull) --color $color --description $desc
+        }
+      } else {
+        Write-WthOk "label '$name' exists (skip)"
+      }
+      continue
+    }
     if ($existing -icontains $name) { Write-WthOk "label '$name' exists (skip)"; continue }
     Invoke-WthMutation -Plan "gh label create $name" -Action {
       gh label create $name --repo (_Ch01-RepoFull) --color $color --description $desc
