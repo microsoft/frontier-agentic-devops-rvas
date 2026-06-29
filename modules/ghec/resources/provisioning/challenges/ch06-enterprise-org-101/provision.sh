@@ -4,9 +4,9 @@
 #
 # Sourced by scripts/setup.sh. CONTRACT: wth_provision / wth_teardown / wth_status.
 #
-# ORG-SCOPED. ch06 builds three sample repos at different visibilities, a
-# members team with one repo attached at the default permission, and prints a
-# baseline snapshot of the org's member-privilege settings.
+# ORG-SCOPED. ch06 builds sample repos for visibility governance, a members
+# team with one repo attached at the default permission, and prints a baseline
+# snapshot of the org's member-privilege settings.
 #
 # NOTE: this challenge creates its OWN repo names (not the default $REPO) so it
 # can demonstrate public/private/internal side by side.
@@ -25,18 +25,28 @@ A ${vis} sample repo seeded by wth-${CHID} (Enterprise Org 101).
 Use it to explore visibility, base permissions, and member privileges."
 }
 
+_ch06_repo_visibility() {
+  gh repo view "$ORG/$1" --json visibility --jq '.visibility' 2>/dev/null | tr '[:upper:]' '[:lower:]'
+}
+
 # ===========================================================================
 wth_provision() {
-  # public + private created normally.
+  # Public creation is retried as private by the shared helper on EMU, where
+  # public repositories are platform-blocked.
   gh_create_repo "$ORG" "$R_PUB" public
   gh_create_repo "$ORG" "$R_PRIV" private
   # internal requires an enterprise-owned org — tolerate failure with a warning.
   gh_create_repo_soft "$ORG" "$R_INT" internal
 
   if [[ "$DRY_RUN" != "true" ]]; then
-    gh_repo_exists "$ORG" "$R_PUB"  && _ch06_seed_readme "$R_PUB"  "public"
-    gh_repo_exists "$ORG" "$R_PRIV" && _ch06_seed_readme "$R_PRIV" "private"
-    gh_repo_exists "$ORG" "$R_INT"  && _ch06_seed_readme "$R_INT"  "internal"
+    if gh_repo_exists "$ORG" "$R_PUB"; then
+      pub_vis="$(_ch06_repo_visibility "$R_PUB")"
+      [[ "$pub_vis" != "public" ]] && \
+        log_warn "$R_PUB was requested as public but is '$pub_vis' (expected on EMU)"
+      _ch06_seed_readme "$R_PUB" "${pub_vis:-public-requested}"
+    fi
+    gh_repo_exists "$ORG" "$R_PRIV" && _ch06_seed_readme "$R_PRIV" "$(_ch06_repo_visibility "$R_PRIV")"
+    gh_repo_exists "$ORG" "$R_INT"  && _ch06_seed_readme "$R_INT"  "$(_ch06_repo_visibility "$R_INT")"
   else
     log_plan "would seed README into $R_PUB, $R_PRIV, $R_INT (when present)"
   fi
@@ -70,7 +80,11 @@ wth_status() {
   log_step "status — $CHID in '$ORG'"
   local r
   for r in "$R_PUB" "$R_PRIV" "$R_INT"; do
-    if gh_repo_exists "$ORG" "$r"; then log_ok "repo $ORG/$r present"; else log_info "repo $ORG/$r absent"; fi
+    if gh_repo_exists "$ORG" "$r"; then
+      log_ok "repo $ORG/$r present — visibility=$(_ch06_repo_visibility "$r")"
+    else
+      log_info "repo $ORG/$r absent"
+    fi
   done
   if gh_team_exists "$ORG" "$TEAM"; then log_ok "team $TEAM present"; else log_info "team $TEAM absent"; fi
 }

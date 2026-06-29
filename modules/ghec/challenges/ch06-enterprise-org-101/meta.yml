@@ -14,10 +14,10 @@ prerequisite_capabilities:
 description: By the end of this challenge you can stand up and govern an organization the way a GHEC admin does on day one — member & outside-collaborator management, base member privileges, repository-creation and visibility policies, default member permissions, security defaults, and a verification pass via the org-settings API — using nothing but an org and an org-owner token.
 success_criteria:
 - '`default_repository_permission` is `read` or `none` (verifiable: `gh api /orgs/<org> --jq ''.default_repository_permission''`).'
-- Members **cannot** create public repositories (`members_can_create_public_repositories == false`).
+- Members **cannot** create public repositories (`members_can_create_public_repositories == false`, or EMU platform policy prevents public repositories entirely).
 - Members **cannot** delete or transfer repositories (confirmed in Member privileges).
 - The fork policy for private/internal repos is set deliberately and verified via the API.
-- At least one sample repo's **visibility was changed** and you can explain public vs internal vs private.
+- At least one sample repo's **visibility was changed** where the org permits it; on EMU, the public-repo block is documented and you can explain public vs internal vs private.
 - Default **Actions workflow permissions** are set to read-only at the org.
 - A **before/after API diff** exists and a **`POLICY.md`/baseline doc** records every setting + rationale.
 - 'Coach conversation — if you were the org owner of your team''s GitHub organization today, what is the first enterprise policy or default repository setting you would change, and what risk or inefficiency is it currently causing? Talk it through with your coach and connect it to a real project, task, or workflow you own.'
@@ -31,7 +31,7 @@ app_dependency: seed
 emu_compatible: true
 min_environment: org
 provision_creates:
-- repo wth-ch06-public-sample (seeded README)
+- repo wth-ch06-public-sample (requested public; private fallback on EMU)
 - repo wth-ch06-private-sample (seeded README)
 - repo wth-ch06-internal-sample (seeded README)
 - team wth-ch06-members with one sample repo attached at default permission

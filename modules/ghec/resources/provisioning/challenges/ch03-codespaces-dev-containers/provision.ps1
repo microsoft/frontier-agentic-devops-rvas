@@ -3,8 +3,8 @@
 # Dot-sourced by scripts/setup.ps1. CONTRACT:
 #   Invoke-WthProvision / Invoke-WthTeardown / Invoke-WthStatus
 #
-# ch03: seeded Node/Express app + package.json + local-run README. No
-# .devcontainer/ — authoring it (and launching a Codespace) is the challenge.
+# ch03: seeded Node/Express app + package.json + local-run README + a minimal
+# .devcontainer/ baseline participants extend during the challenge.
 
 function _Ch03-Full { "$($Global:WthOrg)/$($Global:WthRepo)" }
 
@@ -25,11 +25,11 @@ version locally — your job is to make it reproducible in a Codespace.
 4. Forward/expose the port manually.
 
 ## Your task
-- Add a ``.devcontainer/devcontainer.json`` so a Codespace boots ready-to-run.
-- Pin the Node image, install deps on create, and forward port 3000.
+- Inspect the seeded ``.devcontainer/devcontainer.json`` baseline.
+- Extend it with dev-container Features, lifecycle polish, and port settings.
 - Bonus: configure a prebuild.
 
-> There is no ``.devcontainer/`` yet — that's the point.
+> The seeded ``.devcontainer/`` is intentionally minimal — improve it as part of the challenge.
 "@
 
   Set-WthFile -Org $o -Repo $r -Path 'package.json' -Message "seed package.json (wth-$ch)" -Content @"
@@ -62,6 +62,21 @@ node_modules/
 npm-debug.log
 .env
 "@
+
+  Set-WthFile -Org $o -Repo $r -Path '.devcontainer/devcontainer.json' -Message "seed minimal devcontainer (wth-$ch)" -Content @"
+{
+  "name": "wth-$ch",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "postCreateCommand": "npm install",
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "web",
+      "onAutoForward": "notify"
+    }
+  }
+}
+"@
 }
 
 # ===========================================================================
@@ -73,7 +88,8 @@ function Invoke-WthProvision {
   _Ch03-Seed
   Write-Host ''
   Write-WthInfo 'Next steps for the participant:'
-  Write-WthInfo '  - author .devcontainer/devcontainer.json (pin Node, postCreate npm install, forward 3000)'
+  Write-WthInfo '  - inspect the seeded .devcontainer/devcontainer.json baseline'
+  Write-WthInfo '  - add dev-container Features, postStartCommand, and VS Code customizations'
   Write-WthInfo "  - open the repo in a Codespace and run 'npm start'"
   Write-WthInfo '  - configure a prebuild for faster boots'
 }
@@ -87,9 +103,9 @@ function Invoke-WthStatus {
   Write-WthStep "status — $($Global:WthChid) in '$($Global:WthOrg)'"
   if (Test-WthRepoExists -Org $Global:WthOrg -Repo $Global:WthRepo) {
     if (Test-WthFileExists -Org $Global:WthOrg -Repo $Global:WthRepo -Path '.devcontainer/devcontainer.json') {
-      Write-WthOk "repo $(_Ch03-Full) present — devcontainer authored (challenge progressed)"
+      Write-WthOk "repo $(_Ch03-Full) present — minimal devcontainer present"
     } else {
-      Write-WthOk "repo $(_Ch03-Full) present — no .devcontainer yet (expected at provision)"
+      Write-WthWarn "repo $(_Ch03-Full) present — .devcontainer/devcontainer.json missing"
     }
   } else {
     Write-WthInfo "repo $(_Ch03-Full) not provisioned"

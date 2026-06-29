@@ -7,9 +7,9 @@
 #
 # CONTRACT: wth_provision / wth_teardown / wth_status.
 #
-# ch03 builds: a seeded Node/Express app with package.json and a README that
-# documents the LOCAL run path. There is intentionally NO .devcontainer/ —
-# authoring it (and launching a Codespace) is the challenge.
+# ch03 builds: a seeded Node/Express app with package.json, a README that
+# documents the local run path, and a minimal .devcontainer/ baseline that
+# participants extend with features, lifecycle polish, policy, and prebuilds.
 
 _ch03_full() { printf '%s/%s' "$ORG" "$REPO"; }
 
@@ -29,11 +29,11 @@ version locally — your job is to make it reproducible in a Codespace.
 4. Forward/expose the port manually.
 
 ## Your task
-- Add a \`.devcontainer/devcontainer.json\` so a Codespace boots ready-to-run.
-- Pin the Node image, install deps on create, and forward port 3000.
+- Inspect the seeded \`.devcontainer/devcontainer.json\` baseline.
+- Extend it with dev-container Features, lifecycle polish, and port settings.
 - Bonus: configure a prebuild.
 
-> There is no \`.devcontainer/\` yet — that's the point."
+> The seeded \`.devcontainer/\` is intentionally minimal — improve it as part of the challenge."
 
   gh_put_file "$ORG" "$REPO" "package.json" "seed package.json (wth-${CHID})" \
 "{
@@ -65,6 +65,22 @@ app.listen(port, () => {
 npm-debug.log
 .env
 "
+
+  gh_put_file "$ORG" "$REPO" ".devcontainer/devcontainer.json" \
+    "seed minimal devcontainer (wth-${CHID})" \
+"{
+  \"name\": \"wth-${CHID}\",
+  \"image\": \"mcr.microsoft.com/devcontainers/javascript-node:22\",
+  \"postCreateCommand\": \"npm install\",
+  \"forwardPorts\": [3000],
+  \"portsAttributes\": {
+    \"3000\": {
+      \"label\": \"web\",
+      \"onAutoForward\": \"notify\"
+    }
+  }
+}
+"
 }
 
 # ===========================================================================
@@ -76,7 +92,8 @@ wth_provision() {
   _ch03_seed
   echo >&2
   log_info "Next steps for the participant:"
-  log_info "  - author .devcontainer/devcontainer.json (pin Node, postCreate npm install, forward 3000)"
+  log_info "  - inspect the seeded .devcontainer/devcontainer.json baseline"
+  log_info "  - add dev-container Features, postStartCommand, and VS Code customizations"
   log_info "  - open the repo in a Codespace and run 'npm start'"
   log_info "  - configure a prebuild for faster boots"
 }
@@ -90,9 +107,9 @@ wth_status() {
   log_step "status — $CHID in '$ORG'"
   if gh_repo_exists "$ORG" "$REPO"; then
     if gh_file_exists "$ORG" "$REPO" ".devcontainer/devcontainer.json"; then
-      log_ok "repo $(_ch03_full) present — devcontainer authored (challenge progressed)"
+      log_ok "repo $(_ch03_full) present — minimal devcontainer present"
     else
-      log_ok "repo $(_ch03_full) present — no .devcontainer yet (expected at provision)"
+      log_warn "repo $(_ch03_full) present — .devcontainer/devcontainer.json missing"
     fi
   else
     log_info "repo $(_ch03_full) not provisioned"

@@ -33,7 +33,7 @@ emu_compatible: true
 min_environment: org
 provision_creates:
 - repo wth-ch03-codespaces-dev-containers (seeded Node/Express app + package.json)
-- minimal/absent .devcontainer/ (student authors it)
+- minimal .devcontainer/devcontainer.json baseline (student extends it)
 - README documenting local-run steps (contrast with Codespaces)
 tier: core
 source_repo: microsoft/frontier-ghec-hackathon

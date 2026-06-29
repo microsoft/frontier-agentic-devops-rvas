@@ -3,9 +3,9 @@
 # Dot-sourced by scripts/setup.ps1. CONTRACT:
 #   Invoke-WthProvision / Invoke-WthTeardown / Invoke-WthStatus
 #
-# ORG-SCOPED. ch06: three sample repos (public/private/internal-soft), a
-# members team with one repo attached at default permission, and a printed
-# baseline snapshot of the org's member-privilege settings.
+# ORG-SCOPED. ch06: sample repos for visibility governance, a members team
+# with one repo attached at default permission, and a printed baseline snapshot
+# of the org's member-privilege settings.
 
 $Global:WthR06Pub  = "wth-$($Global:WthChid)-public-sample"
 $Global:WthR06Priv = "wth-$($Global:WthChid)-private-sample"
@@ -22,17 +22,31 @@ Use it to explore visibility, base permissions, and member privileges.
 "@
 }
 
+function _Ch06-RepoVisibility {
+  param([string]$Repo)
+  $v = gh repo view "$($Global:WthOrg)/$Repo" --json visibility --jq '.visibility' 2>$null
+  if ($v) { return $v.ToLowerInvariant() }
+  return ''
+}
+
 # ===========================================================================
 function Invoke-WthProvision {
   $o = $Global:WthOrg
+  # Public creation is retried as private by the shared helper on EMU, where
+  # public repositories are platform-blocked.
   New-WthRepo -Org $o -Repo $Global:WthR06Pub  -Visibility public
   New-WthRepo -Org $o -Repo $Global:WthR06Priv -Visibility private
   New-WthRepoSoft -Org $o -Repo $Global:WthR06Int -Visibility internal
 
   if (-not $Global:WthDryRun) {
-    if (Test-WthRepoExists -Org $o -Repo $Global:WthR06Pub)  { _Ch06-SeedReadme -Repo $Global:WthR06Pub  -Vis 'public' }
-    if (Test-WthRepoExists -Org $o -Repo $Global:WthR06Priv) { _Ch06-SeedReadme -Repo $Global:WthR06Priv -Vis 'private' }
-    if (Test-WthRepoExists -Org $o -Repo $Global:WthR06Int)  { _Ch06-SeedReadme -Repo $Global:WthR06Int  -Vis 'internal' }
+    if (Test-WthRepoExists -Org $o -Repo $Global:WthR06Pub)  {
+      $pubVis = _Ch06-RepoVisibility -Repo $Global:WthR06Pub
+      if ($pubVis -ne 'public') { Write-WthWarn "$($Global:WthR06Pub) was requested as public but is '$pubVis' (expected on EMU)" }
+      $pubLabel = if ($pubVis) { $pubVis } else { 'public-requested' }
+      _Ch06-SeedReadme -Repo $Global:WthR06Pub -Vis $pubLabel
+    }
+    if (Test-WthRepoExists -Org $o -Repo $Global:WthR06Priv) { _Ch06-SeedReadme -Repo $Global:WthR06Priv -Vis (_Ch06-RepoVisibility -Repo $Global:WthR06Priv) }
+    if (Test-WthRepoExists -Org $o -Repo $Global:WthR06Int)  { _Ch06-SeedReadme -Repo $Global:WthR06Int -Vis (_Ch06-RepoVisibility -Repo $Global:WthR06Int) }
   } else {
     Write-WthPlan "would seed README into the three sample repos (when present)"
   }
@@ -66,7 +80,7 @@ function Invoke-WthStatus {
   Write-WthStep "status — $($Global:WthChid) in '$($Global:WthOrg)'"
   $o = $Global:WthOrg
   foreach ($r in @($Global:WthR06Pub, $Global:WthR06Priv, $Global:WthR06Int)) {
-    if (Test-WthRepoExists -Org $o -Repo $r) { Write-WthOk "repo $o/$r present" } else { Write-WthInfo "repo $o/$r absent" }
+    if (Test-WthRepoExists -Org $o -Repo $r) { Write-WthOk "repo $o/$r present — visibility=$(_Ch06-RepoVisibility -Repo $r)" } else { Write-WthInfo "repo $o/$r absent" }
   }
   if (Test-WthTeamExists -Org $o -Team $Global:WthTeam06) { Write-WthOk "team $($Global:WthTeam06) present" } else { Write-WthInfo "team $($Global:WthTeam06) absent" }
 }

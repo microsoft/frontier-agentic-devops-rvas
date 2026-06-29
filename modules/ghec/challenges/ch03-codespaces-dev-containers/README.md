@@ -50,7 +50,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch03 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch03-*`, idempotent, prefix-guarded teardown):
-- A seeded repo **`wth-ch03-codespaces-dev-containers`** with a small **Node/Express** app, a `package.json`, and a deliberately **missing/minimal `.devcontainer/`** so you build it.
+- A seeded repo **`wth-ch03-codespaces-dev-containers`** with a small **Node/Express** app, a `package.json`, and a deliberately **minimal `.devcontainer/devcontainer.json`** so you can extend it.
 - A `README` describing how to run the app *locally* (so the contrast with Codespaces is obvious).
 - A printed **Next steps** block telling you where to start.
 
@@ -59,7 +59,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch03 --org <org>
 > Throughout, **`wth-ch03-codespaces-dev-containers` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Author the dev container
-1. **Create `.devcontainer/devcontainer.json`.** Pin a base image suitable for the app (e.g., `mcr.microsoft.com/devcontainers/javascript-node:22`). Pinning a major version keeps the environment reproducible.
+1. **Inspect and extend `.devcontainer/devcontainer.json`.** The fallback sample includes a minimal baseline with a pinned Node image, dependency install, and port 3000 forwarding. Keep the pinned base image suitable for the app (e.g., `mcr.microsoft.com/devcontainers/javascript-node:22`) and improve it.
 2. **Add Features.** Include at least two dev-container **Features**, e.g. `ghcr.io/devcontainers/features/github-cli:1` and `ghcr.io/devcontainers/features/node:1`. Understand Features vs baking tools into a custom Dockerfile.
 3. **Add lifecycle commands.** Set `postCreateCommand` to install dependencies (`npm ci`) and `postStartCommand` to print a ready message. Add a `customizations.vscode.extensions` list with at least one extension.
 

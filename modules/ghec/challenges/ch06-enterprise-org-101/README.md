@@ -16,6 +16,7 @@
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch06 --org <org>` (least-privilege; for this challenge: `admin:org` + `repo` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - No GHAS, Codespaces, or enterprise-owner features are required. Every setting in this challenge lives at **organization** scope.
+- **EMU note:** Enterprise Managed Users cannot create public repositories. In EMU orgs, setup requests `wth-ch06-public-sample` as public but GitHub rejects that visibility, so the provisioner falls back to a private repo and prints a warning. The governance lesson still applies: public visibility is platform-blocked, and you verify/document that constraint instead of changing that repo to public.
 
 ## Scenario objectives
 By completing this challenge you will:
@@ -27,13 +28,13 @@ By completing this challenge you will:
 - Understand where an **enterprise account** would layer policy *on top* of these org settings (awareness only).
 
 ## Scenario
-You're the first platform admin hired at a fast-growing GHEC customer. The organization was created in a hurry: defaults are wide open, anyone can create public repos, base permissions are too generous, and nobody can say what the current policy actually is. Leadership wants a documented, defensible baseline — least-privilege member access, controlled repository creation, sensible security defaults — and they want it **verifiable from the API**, not from screenshots. Your job is to bring order to the org and prove it.
+You're the first platform admin hired at a fast-growing GHEC customer. The organization was created in a hurry: defaults are wide open, public repo creation may be allowed in standard GHEC or platform-blocked in EMU, base permissions are too generous, and nobody can say what the current policy actually is. Leadership wants a documented, defensible baseline — least-privilege member access, controlled repository creation, sensible security defaults — and they want it **verifiable from the API**, not from screenshots. Your job is to bring order to the org and prove it.
 
 ## Bring your own outcome (do this first)
 This challenge is most valuable when the result *outlives the hackathon*. Pick a real organization policy or repository-default setting you are allowed to assess and improve and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 
 - **Have a candidate?** Use your real org settings and repos wherever this guide names `wth-ch06-public-sample` or the sibling `wth-ch06-*` repos. Skip the Setup step below entirely.
-- **No suitable one?** Use the fallback below: seeded public/private/internal repos plus a starter team for safe policy practice.
+- **No suitable one?** Use the fallback below: seeded visibility sample repos plus a starter team for safe policy practice. In EMU, the public sample is created as private because public repositories are not allowed.
 
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
 
@@ -50,7 +51,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch06 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch06-*`, idempotent, prefix-guarded teardown):
-- Three seeded repos — **`wth-ch06-public-sample`**, **`wth-ch06-private-sample`**, and **`wth-ch06-internal-sample`** — each with a short `README` so you have real objects to apply visibility/permission policy against.
+- Three seeded repos — **`wth-ch06-public-sample`**, **`wth-ch06-private-sample`**, and **`wth-ch06-internal-sample`** — each with a short `README` so you have real objects to apply visibility/permission policy against. On EMU, `wth-ch06-public-sample` is expected to fall back to private because public repos are blocked.
 - A **starter team** `wth-ch06-members` with one of the sample repos attached at the default permission, so you can observe how base permissions flow.
 - A printed **current baseline snapshot** (the org's existing member-privilege settings dumped from the API) so you can see "before," then prove "after."
 - A printed **Next steps** block telling you where to start.
@@ -66,13 +67,13 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch06 --org <org>
 
 ### Part B — Member privileges baseline
 4. **Set the default repository permission** for members to the least-privilege value that still lets the team work. In **Org Settings → Member privileges → Base permissions**, choose `Read` (or `None` if you want explicit grants only). Verify: `gh api /orgs/<org> --jq '.default_repository_permission'`.
-5. **Restrict repository creation.** Under **Repository creation**, disable members creating **public** repos and allow **private/internal** only (or restrict entirely to owners). Verify all three flags via the API (`members_can_create_public_repositories`, `..._private_...`, `..._internal_...`).
+5. **Restrict repository creation.** Under **Repository creation**, disable members creating **public** repos and allow **private/internal** only (or restrict entirely to owners). In EMU, public repo creation is already platform-blocked; verify and document that rather than trying to enable it. Verify all three flags via the API (`members_can_create_public_repositories`, `..._private_...`, `..._internal_...`).
 6. **Restrict repository deletion & transfer** to owners (Member privileges → "Allow members to delete or transfer repositories" off). 
 7. **Set the fork policy** for private/internal repos to match a sensible default (off unless the team needs it). Verify `members_can_fork_private_repositories`.
 
 ### Part C — Visibility policy in practice
-8. **Confirm the three sample repos' visibility:** `gh repo view <org>/wth-ch06-public-sample --json visibility` (and the private/internal twins). 
-9. **Change `wth-ch06-public-sample` to internal** (`gh repo edit <org>/wth-ch06-public-sample --visibility internal --accept-visibility-change-consequences`) and observe how "internal" exposes it to the whole enterprise's members but not the public. Document the difference between **public / internal / private** in your notes.
+8. **Confirm the three sample repos' visibility:** `gh repo view <org>/wth-ch06-public-sample --json visibility` (and the private/internal twins). In EMU, expect `wth-ch06-public-sample` to report `PRIVATE` even though its name says public sample.
+9. **Change one sample repo's visibility.** In standard GHEC, change `wth-ch06-public-sample` to internal (`gh repo edit <org>/wth-ch06-public-sample --visibility internal --accept-visibility-change-consequences`) and observe how "internal" exposes it to the whole enterprise's members but not the public. In EMU, use an allowed transition such as private ↔ internal if internal is available, or document that public is unavailable by design. Document the difference between **public / internal / private** in your notes.
 10. **Attempt a member-context action** (or reason about it): with base permission now `Read`, a plain member can no longer push to a repo they aren't explicitly added to. Record why.
 
 ### Part D — Security & workflow defaults
@@ -87,10 +88,10 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch06 --org <org>
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
 - [ ] `default_repository_permission` is `read` or `none` (verifiable: `gh api /orgs/<org> --jq '.default_repository_permission'`).
-- [ ] Members **cannot** create public repositories (`members_can_create_public_repositories == false`).
+- [ ] Members **cannot** create public repositories (`members_can_create_public_repositories == false`, or EMU platform policy prevents public repositories entirely).
 - [ ] Members **cannot** delete or transfer repositories (confirmed in Member privileges).
 - [ ] The fork policy for private/internal repos is set deliberately and verified via the API.
-- [ ] At least one sample repo's **visibility was changed** and you can explain public vs internal vs private.
+- [ ] At least one sample repo's **visibility was changed** where the org permits it; on EMU, you documented the public-repo block and can explain public vs internal vs private.
 - [ ] Default **Actions workflow permissions** are set to read-only at the org.
 - [ ] A **before/after API diff** exists and a **`POLICY.md`/baseline doc** records every setting + rationale.
 - [ ] Real-outcome check — if you brought your own org/repo target, a real policy baseline or default setting is documented and improved; if you used the sample, you can name the org setting you will propose changing next.
