@@ -53,7 +53,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch20 --org <org>
 ```
 
 **What setup creates** (all artifacts namespaced `wth-ch20-*`, idempotent, prefix-guarded teardown):
-- A seeded repo **`wth-ch20-automation-capstone`** containing the **App handler scaffold** (Node, with HMAC verification + REST/GraphQL stubs), an **Actions workflow** (`automation.yml`), and a `CAPSTONE.md` build guide.
+- A seeded repo **`wth-ch20-automation-capstone`** containing the **App handler scaffold** (`src/handler.js` — Node, HMAC verification + REST/GraphQL TODOs), **ready-made App auth helpers** (`src/auth.js` — App JWT signing + installation-token exchange), an **Actions workflow** (`automation.yml`), and a `CAPSTONE.md` build guide.
 - An **empty org Projects v2 board** **`wth-ch20-board`** for the GraphQL step to populate.
 - A printed **Next steps** block (App registration URL flow, where to put the webhook secret, how to drive deliveries via `smee.io` or `repository_dispatch`).
 
@@ -73,7 +73,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch20 --org <org>
    - **Where can this GitHub App be installed?** Choose **Only on this account**, then click **Create GitHub App**.
    - On the App's *General* page, **record the App ID and Client ID**, then **Private keys → Generate a private key** and save the `.pem`.
 2. **Install the App** on the seeded repo: in the App's left sidebar click **Install App**, choose your org, and select **Only select repositories → `wth-ch20-automation-capstone`**.
-3. **Mint an installation token** and confirm it works. Capture the installation ID, mint an App JWT (RS256, `iss`=App ID or Client ID, `exp` ≤10 min — see the JWT doc below), exchange it for an installation token (`POST /app/installations/<installation_id>/access_tokens`), then check `gh api /installation/repositories` (as the App) returns the seeded repo.
+3. **Mint an installation token** and confirm it works. JWT signing is done for you — the seeded **`src/auth.js`** exposes `createAppJwt(appId, pem)` and `getInstallationToken(jwt, installationId)`, and `src/handler.js` wraps both in `mintInstallationToken()` (reads the `APP_ID`, `INSTALLATION_ID`, and `PRIVATE_KEY_PATH` env vars). Capture the installation ID, then verify the token works — e.g. call `mintInstallationToken()` (or `gh api /app/installations/<installation_id>/access_tokens` as the App) and check `gh api /installation/repositories` returns the seeded repo. You should never hand-sign a JWT with openssl.
 
 ### Part B — Wire the inbound webhook
 4. **Set the webhook secret** and point the App's webhook at your receiver: a **`smee.io`** relay for local dev **or** the **`repository_dispatch`** Actions receiver if you have no public endpoint.

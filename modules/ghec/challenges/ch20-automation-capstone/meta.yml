@@ -31,7 +31,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
-- repo wth-ch20-automation-capstone (seeded App handler scaffold + automation.yml + CAPSTONE.md)
+- repo wth-ch20-automation-capstone (seeded App handler scaffold + ready-made auth helpers src/auth.js + automation.yml + CAPSTONE.md)
 - empty org Projects v2 board wth-ch20-board for the GraphQL step to populate
 tier: core
 source_repo: microsoft/frontier-agenticdevops-hackathon

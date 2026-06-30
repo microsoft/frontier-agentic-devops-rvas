@@ -29,6 +29,7 @@ Tie it all together: a GitHub App webhook handler, an automation workflow, and
 a Projects v2 board driven by the API.
 
 - \`src/handler.js\` — webhook handler scaffold (signature verify + route)
+- \`src/auth.js\` — GitHub App auth helpers (App JWT + installation token), ready to use
 - \`.github/workflows/automation.yml\` — automation entry point
 - \`CAPSTONE.md\` — the capstone brief and acceptance criteria
 - Board: \`$PROJECT_TITLE\` (empty org Projects v2 board to populate via GraphQL)
@@ -53,8 +54,11 @@ EOF
     "Add webhook handler scaffold" \
 "$(cat <<'EOF'
 // wth-ch20 — GitHub App webhook handler scaffold.
-// Verify the signature, then route events. Fill in the TODOs for the capstone.
+// Signature verification and App auth are provided for you; fill in the REST and
+// GraphQL TODOs — that automation logic is the capstone.
 const crypto = require('crypto')
+const fs = require('fs')
+const { createAppJwt, getInstallationToken } = require('./auth')
 
 function verifySignature (secret, payload, signature) {
   const hmac = crypto.createHmac('sha256', secret)
@@ -63,17 +67,76 @@ function verifySignature (secret, payload, signature) {
     crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(digest))
 }
 
-function handleEvent (event, body) {
+// Mint a short-lived installation token. JWT signing is done for you in auth.js,
+// so you never touch RS256/openssl here — just call this and use the token.
+async function mintInstallationToken () {
+  const pem = fs.readFileSync(process.env.PRIVATE_KEY_PATH || './private-key.pem', 'utf8')
+  const jwt = createAppJwt(process.env.APP_ID, pem)
+  return getInstallationToken(jwt, process.env.INSTALLATION_ID)
+}
+
+async function handleEvent (event, body) {
   switch (event) {
-    case 'issues':
-      // TODO: add new issues to the wth-ch20-board project via GraphQL
-      return { handled: true, action: body.action }
+    case 'issues': {
+      if (body.action !== 'opened') return { handled: false }
+      const token = await mintInstallationToken()
+      // TODO (Part C): with `token`, add a triage label + acknowledgement comment via REST.
+      // TODO (Part D): add the new issue to the wth-ch20-board project via GraphQL.
+      return { handled: true, action: body.action, token: Boolean(token) }
+    }
     default:
       return { handled: false }
   }
 }
 
-module.exports = { verifySignature, handleEvent }
+module.exports = { verifySignature, mintInstallationToken, handleEvent }
+EOF
+)"
+
+  gh_put_file "$ORG" "$REPO" "src/auth.js" \
+    "Add GitHub App auth helpers" \
+"$(cat <<'EOF'
+// wth-ch20 — GitHub App auth helpers. Zero dependencies, Node 18+ (global fetch).
+//
+// The App JWT -> installation-token flow is provided ready-made so the capstone
+// stays focused on the REST + GraphQL automation, not auth plumbing. You should
+// never need to hand-sign a JWT (RS256/openssl) yourself.
+const crypto = require('crypto')
+
+function base64url (input) {
+  return Buffer.from(input).toString('base64')
+    .replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
+}
+
+// Mint a short-lived App JWT (RS256). `iss` may be the App ID or the Client ID.
+function createAppJwt (appId, privateKeyPem) {
+  const now = Math.floor(Date.now() / 1000)
+  const header = { alg: 'RS256', typ: 'JWT' }
+  const payload = { iat: now - 60, exp: now + 9 * 60, iss: String(appId) }
+  const unsigned = base64url(JSON.stringify(header)) + '.' + base64url(JSON.stringify(payload))
+  const signature = crypto.createSign('RSA-SHA256').update(unsigned).sign(privateKeyPem)
+  const sig = signature.toString('base64')
+    .replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
+  return unsigned + '.' + sig
+}
+
+// Exchange the App JWT for a short-lived installation access token.
+async function getInstallationToken (jwt, installationId) {
+  const url = `https://api.github.com/app/installations/${installationId}/access_tokens`
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${jwt}`,
+      Accept: 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28',
+      'User-Agent': 'wth-ch20-capstone-app'
+    }
+  })
+  if (!res.ok) throw new Error(`token exchange failed: ${res.status} ${await res.text()}`)
+  return (await res.json()).token
+}
+
+module.exports = { createAppJwt, getInstallationToken }
 EOF
 )"
 
@@ -107,6 +170,7 @@ Combine the automation building blocks into one working flow.
 ## Goals
 - Register and install a GitHub App (manual — see the challenge README, Part A).
 - Verify webhook signatures in \`src/handler.js\`.
+- Mint an installation token via \`src/auth.js\` (JWT signing is provided — just call \`mintInstallationToken()\`).
 - On new issues, add them to the \`$PROJECT_TITLE\` board via the GraphQL API.
 - Use \`.github/workflows/automation.yml\` as the automation entry point.
 

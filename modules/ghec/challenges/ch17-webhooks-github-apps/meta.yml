@@ -32,6 +32,7 @@ min_environment: org
 provision_creates:
 - repo wth-ch17-webhooks-github-apps (seeded)
 - receiver scaffold (Bash + Node HMAC-verify snippet) + Actions receiver.yml (repository_dispatch path)
+- App handler accelerator app/handler.js + app/auth.js (zero-dep; verify + routing + App auth, one TODO for Part G)
 - WEBHOOK-SETUP.md covering smee.io and Actions-receiver options
 tier: core
 source_repo: microsoft/frontier-agenticdevops-hackathon

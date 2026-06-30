@@ -33,7 +33,7 @@ Use these follow-ups to steer the conversation:
 | Signature verification | 25 | HMAC-SHA256 over raw body; constant-time compare; tampered payload rejected (demonstrated) |
 | Organization webhook | 15 | Org hook created; real org event delivered and verified |
 | App registration + install | 20 | App with scoped permissions + event subs; installed on org; install ID captured |
-| Installation auth | 15 | JWT → installation token; App comments as a **bot** identity |
+| Installation auth + auto-react | 15 | JWT → installation token; App comments as a **bot** identity, and the **Part G handler posts that comment automatically** on `issues.opened` (manual `gh api` comment alone = partial credit) |
 | **Total** | **100** | |
 
 ## Automated verification hints
@@ -58,6 +58,7 @@ gh api repos/$ORG/$REPO/issues/comments --jq '.[] | {user: .user.login, type: .u
 ```
 - The strongest mastery signal is a **comment whose `user.type` is `Bot`** — only an installation token produces that. A PAT comment shows `type: User`.
 - For signature verification, have the student **redeliver** a payload, tamper one byte locally, and show the receiver logging a **reject**.
+- **Part G check:** with `app/handler.js` running (behind smee), opening a *new* issue should produce a bot comment **without any manual command**. The accelerator already does verify + routing + auth, so a failure here is almost always in the student's TODO (wrong endpoint, missing `Authorization: token <token>` header, or not reading `issue.number`/`issue.user.login` from the payload). If nothing appears, check the handler logs for `bad signature` (secret mismatch with the repo webhook) vs `handler error` (their POST).
 
 ## Common pitfalls
 - **Hashing re-serialized JSON** instead of the raw body → signature never matches. Capture and sign the raw bytes.
@@ -85,4 +86,5 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch17 --org <org> 
 - Part C (signature verification): ~1 hr
 - Part D (org webhook): ~30 min
 - Parts E–F (App register/install + installation auth): ~1.5 hrs
-- **Total facilitated:** ~4–5 hrs across sessions.
+- Part G (auto-acknowledge via the seeded handler): ~30 min — auth/verification/routing are provided; the only work is composing the comment and POSTing it with the installation token.
+- **Total facilitated:** ~4.5–5.5 hrs across sessions.
