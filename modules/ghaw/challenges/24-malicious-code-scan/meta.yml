@@ -1,15 +1,15 @@
-id: ghaw-4-08
+id: ghaw-24
 title: Malicious Code Scan
 module: ghaw
 track: production-patterns
 difficulty: advanced
 duration_minutes: 30
 prerequisites:
-  - ghaw-0-00
+  - ghaw-00
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-0-00
+  - gh-aw CLI installed — see ghaw-00
 description: Supply-chain attacks hide in plain sight. Deploy a daily workflow that reviews recent code changes for suspicious patterns — your automated defence against code-injection campaigns.
 success_criteria:
   - `.github/workflows/daily-malicious-code-scan.md` exists with valid frontmatter
@@ -36,7 +36,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: stretch
-source_path: _challenges/4-08-malicious-code-scan.md
+source_path: _challenges/24-malicious-code-scan.md
 license: MIT
 references:
   - https://github.com/github/gh-aw

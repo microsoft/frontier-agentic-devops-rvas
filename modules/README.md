@@ -36,7 +36,7 @@ modules/
 Use a short, descriptive, kebab-case slug as the directory name. Examples:
 - `ch01-issues-labels-projects`
 - `s00-explore-attack-surface`
-- `1-01-morning-briefing`
+- `01-morning-briefing`
 - `00-setup`
 
 The directory name is used only for human navigation. The canonical identifier is `id` in `meta.yml`.

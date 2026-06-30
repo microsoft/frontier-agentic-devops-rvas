@@ -1,16 +1,16 @@
-id: ghaw-4-06
+id: ghaw-22
 title: The Test Improver
 module: ghaw
 track: production-patterns
 difficulty: advanced
 duration_minutes: 30
 prerequisites:
-  - ghaw-0-00
-  - ghaw-4-05
+  - ghaw-00
+  - ghaw-21
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-0-00
+  - gh-aw CLI installed — see ghaw-00
 description: The consumer half of the causal chain — a daily workflow that finds coverage gaps and writes the actual tests, turning Testify's issues into merged PRs automatically.
 success_criteria:
   - `.github/workflows/daily-test-improver.md` exists with valid frontmatter
@@ -32,7 +32,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: stretch
-source_path: _challenges/4-06-test-improver.md
+source_path: _challenges/22-test-improver.md
 license: MIT
 references:
   - https://github.com/github/gh-aw

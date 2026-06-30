@@ -1,15 +1,15 @@
-id: ghaw-3-04
+id: ghaw-14
 title: The Overseer
 module: ghaw
 track: continuous-intelligence
 difficulty: advanced
 duration_minutes: 30
 prerequisites:
-  - ghaw-0-00
+  - ghaw-00
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-0-00
+  - gh-aw CLI installed — see ghaw-00
 description: Build a meta-workflow that watches your other workflows — querying run history, calculating failure rates, and creating alert issues when something in your automation system goes wrong.
 success_criteria:
   - Workflow triggers weekly (`on: schedule:`)
@@ -29,7 +29,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: stretch
-source_path: _challenges/3-04-the-overseer.md
+source_path: _challenges/14-the-overseer.md
 license: MIT
 references:
   - https://github.github.com/gh-aw/reference/frontmatter/

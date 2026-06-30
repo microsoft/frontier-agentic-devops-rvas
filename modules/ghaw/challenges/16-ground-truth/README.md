@@ -100,8 +100,8 @@ Add `create-pull-request` to `safe-outputs` with a `base-branch` of `main`. The 
 ### Step 5: Compile and dry-run
 
 ```bash
-gh aw compile 3-06-ground-truth
-gh aw run 3-06-ground-truth --dry-run
+gh aw compile 16-ground-truth
+gh aw run 16-ground-truth --dry-run
 ```
 
 The dry-run will execute `pre-agent-steps:` and show you the values captured — a quick sanity check before running for real.
@@ -110,7 +110,7 @@ The dry-run will execute `pre-agent-steps:` and show you the values captured —
 
 ## Success Criteria
 
-- [ ] `.github/workflows/3-06-ground-truth.md` compiles without errors
+- [ ] `.github/workflows/16-ground-truth.md` compiles without errors
 - [ ] `pre-agent-steps:` fetches at least 3 real metrics and writes them to `/tmp/`
 - [ ] Agent body references those `/tmp/` files explicitly
 - [ ] `CONTRIBUTING.md` is updated with a `## Project Health` section containing real numbers

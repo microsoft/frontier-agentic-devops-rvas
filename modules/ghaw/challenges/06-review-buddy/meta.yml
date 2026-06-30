@@ -1,15 +1,15 @@
-id: ghaw-2-02
+id: ghaw-06
 title: Review Buddy
 module: ghaw
 track: repo-concierge
 difficulty: intermediate
 duration_minutes: 30
 prerequisites:
-  - ghaw-0-00
+  - ghaw-00
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-0-00
+  - gh-aw CLI installed — see ghaw-00
 description: Create an automated first-pass PR reviewer that analyses diffs, spots common issues, and posts a structured comment with observations and suggestions the moment a pull request opens.
 success_criteria:
   - `.github/workflows/review-buddy.md` exists with valid gh-aw frontmatter
@@ -34,7 +34,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: core
-source_path: _challenges/2-02-review-buddy.md
+source_path: _challenges/06-review-buddy.md
 license: MIT
 references:
   - https://github.github.com/gh-aw/reference/permissions/

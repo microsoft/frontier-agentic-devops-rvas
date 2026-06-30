@@ -1,15 +1,15 @@
-id: ghaw-2-01
+id: ghaw-05
 title: Triage Bot
 module: ghaw
 track: repo-concierge
 difficulty: intermediate
 duration_minutes: 30
 prerequisites:
-  - ghaw-0-00
+  - ghaw-00
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-0-00
+  - gh-aw CLI installed — see ghaw-00
 description: Build an event-driven workflow that categorises every new issue with an AI label and posts a friendly comment explaining the classification and next steps.
 success_criteria:
   - `.github/workflows/triage-bot.md` exists with valid gh-aw frontmatter
@@ -31,7 +31,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: core
-source_path: _challenges/2-01-triage-bot.md
+source_path: _challenges/05-triage-bot.md
 license: MIT
 references:
   - https://github.github.com/gh-aw/reference/frontmatter/

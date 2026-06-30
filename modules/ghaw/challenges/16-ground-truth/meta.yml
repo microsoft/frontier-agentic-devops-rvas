@@ -1,18 +1,18 @@
-id: ghaw-3-06
+id: ghaw-16
 title: Ground Truth
 module: ghaw
 track: continuous-intelligence
 difficulty: advanced
 duration_minutes: 30
 prerequisites:
-  - ghaw-0-00
+  - ghaw-00
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-0-00
+  - gh-aw CLI installed — see ghaw-00
 description: Feed your agent real data before it runs. Use pre-agent-steps: to deterministically fetch context, and create-pull-request to safely propose code changes.
 success_criteria:
-  - `.github/workflows/3-06-ground-truth.md` compiles without errors
+  - `.github/workflows/16-ground-truth.md` compiles without errors
   - `pre-agent-steps:` fetches at least 3 real metrics and writes them to `/tmp/`
   - Agent body references those `/tmp/` files explicitly
   - `CONTRIBUTING.md` is updated with a `## Project Health` section containing real numbers
@@ -30,7 +30,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: stretch
-source_path: _challenges/3-06-ground-truth.md
+source_path: _challenges/16-ground-truth.md
 license: MIT
 references:
   - https://github.github.com/gh-aw/reference/frontmatter/#pre-agent-steps

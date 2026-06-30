@@ -1,15 +1,15 @@
-id: ghaw-3-05
+id: ghaw-15
 title: Ship It — Capstone
 module: ghaw
 track: continuous-intelligence
 difficulty: advanced
 duration_minutes: 45
 prerequisites:
-  - ghaw-0-00
+  - ghaw-00
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-0-00
+  - gh-aw CLI installed — see ghaw-00
 description: Connect everything you've built into a working factory: an end-to-end agentic pipeline that takes an issue from discovery through triage, automated fix, PR creation, and merge.
 success_criteria:
   - Workflow 1 (Observer) writes data to `repo-memory/observations/` with valid JSON
@@ -31,7 +31,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: stretch
-source_path: _challenges/3-05-ship-it.md
+source_path: _challenges/15-ship-it.md
 license: MIT
 references:
   - https://github.github.com/gh-aw/reference/repo-memory/

@@ -159,7 +159,7 @@ Explain your reasoning in a comment on the issue summarizing why you applied (or
 - Body: clear heuristics with keywords and examples
 - Includes feedback comment so user understands the classification
 
-**Production-ready reference solution:** See `coaches/sample-solutions/track-1/1-04-label-maker.md`
+**Production-ready reference solution:** See `coaches/sample-solutions/track-1/04-label-maker.md`
 
 ---
 

@@ -29,8 +29,8 @@ A finished solution has:
 
 **File structure:**
 - `lib/repo-stats-helper.md` — 10–25 lines of formatting/analysis instructions
-- `.github/workflows/2-06-mix-and-match.md` — ~25–35 lines
-- `.github/workflows/2-06-mix-and-match.lock.yml` — auto-generated
+- `.github/workflows/10-mix-and-match.md` — ~25–35 lines
+- `.github/workflows/10-mix-and-match.lock.yml` — auto-generated
 
 **Frontmatter shape:**
 ```yaml
@@ -141,7 +141,7 @@ A correct `lib/repo-stats-helper.md`:
 - Defines: what sections to include in a health digest, what tone and length to use, any formatting rules (tables, emojis, traffic-light indicators)
 - 10–25 lines — specific enough to be useful, short enough to stay focused
 
-A correct `2-06-mix-and-match.md`:
+A correct `10-mix-and-match.md`:
 - `imports:` with relative path to helper
 - `on: schedule:` with a valid weekly cron, plus `workflow_dispatch:` for testing
 - `permissions: discussions: write`
@@ -152,7 +152,7 @@ A correct `2-06-mix-and-match.md`:
 
 ## How to Verify It's Working
 
-1. **Compile check:** `gh aw compile 2-06-mix-and-match` — no errors
+1. **Compile check:** `gh aw compile 10-mix-and-match` — no errors
 2. **Import check:** Inspect the compiled `.lock.yml` — the helper's content should appear merged into the agent context
 3. **Manual trigger:** Run via `workflow_dispatch` from the Actions tab
 4. **Discussion created:** Navigate to the repo's Discussions tab — a new post should appear in "General" within seconds of the workflow completing
@@ -194,7 +194,7 @@ A correct `2-06-mix-and-match.md`:
 
 ## Reference
 
-**Sample Solution Location:** `coaches/sample-solutions/track-2/2-06-mix-and-match.md`  
+**Sample Solution Location:** `coaches/sample-solutions/track-2/10-mix-and-match.md`  
 **imports:** https://github.github.com/gh-aw/reference/frontmatter/#imports  
 **create-discussion:** https://github.github.com/gh-aw/reference/safe-outputs/#create-discussion  
 **GitHub Discussions API:** https://docs.github.com/en/graphql/guides/using-the-graphql-api-for-discussions

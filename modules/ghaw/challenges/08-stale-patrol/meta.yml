@@ -1,15 +1,15 @@
-id: ghaw-2-04
+id: ghaw-08
 title: Stale Patrol
 module: ghaw
 track: repo-concierge
 difficulty: intermediate
 duration_minutes: 30
 prerequisites:
-  - ghaw-0-00
+  - ghaw-00
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-0-00
+  - gh-aw CLI installed — see ghaw-00
 description: Keep your backlog healthy with a daily scheduled workflow that warns maintainers about inactive issues and closes them automatically after a grace period.
 success_criteria:
   - `.github/workflows/stale-patrol.md` exists with valid gh-aw frontmatter
@@ -34,7 +34,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: stretch
-source_path: _challenges/2-04-stale-patrol.md
+source_path: _challenges/08-stale-patrol.md
 license: MIT
 references:
   - https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule

@@ -291,6 +291,6 @@ If all check out and it still doesn't work, escalate to Ripley or check the Acti
 
 ## Reference
 
-**Sample Solution Location:** `coaches/sample-solutions/track-2/2-01-triage-bot.md`  
+**Sample Solution Location:** `coaches/sample-solutions/track-2/05-triage-bot.md`  
 **Issue Triage Agent (Real):** https://github.com/github/gh-aw/blob/main/.github/workflows/issue-triage-agent.md  
 **Safe Outputs Reference:** https://github.github.com/gh-aw/reference/safe-outputs/

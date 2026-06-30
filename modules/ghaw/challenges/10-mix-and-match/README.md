@@ -69,7 +69,7 @@ Keep it focused. A good helper is 10–20 lines of clear instructions that any w
 
 ### Step 2: Create the workflow
 
-Create `.github/workflows/2-06-mix-and-match.md` with:
+Create `.github/workflows/10-mix-and-match.md` with:
 
 - **`imports:`** referencing your helper: `./lib/repo-stats-helper.md`
 - **`on:`** scheduled weekly (e.g., every Monday at 9am UTC)
@@ -84,7 +84,7 @@ Make sure GitHub Discussions is enabled for your repository (Settings → Featur
 ### Step 4: Compile and validate
 
 ```bash
-gh aw compile 2-06-mix-and-match
+gh aw compile 10-mix-and-match
 ```
 
 No errors? You're ready to test. Trigger manually with `workflow_dispatch` to verify the Discussion appears.
@@ -94,7 +94,7 @@ No errors? You're ready to test. Trigger manually with `workflow_dispatch` to ve
 ## Success Criteria
 
 - [ ] `lib/repo-stats-helper.md` exists and contains meaningful formatting instructions
-- [ ] `.github/workflows/2-06-mix-and-match.md` has `imports: [./lib/repo-stats-helper.md]` in frontmatter
+- [ ] `.github/workflows/10-mix-and-match.md` has `imports: [./lib/repo-stats-helper.md]` in frontmatter
 - [ ] Trigger is `on: schedule:` (weekly)
 - [ ] `safe-outputs: create-discussion: category: "General"` is declared
 - [ ] `permissions: discussions: write` is set

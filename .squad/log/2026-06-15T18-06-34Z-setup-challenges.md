@@ -19,7 +19,7 @@ Comprehensive environment setup challenge work across all four modules (GHEC, GH
 ## Final State
 
 - **Challenges:** 59 total (ghec 21, ghas 7, ghaw 25, sre-agent 6)
-- **Setup challenges:** 4 (ghec-ch00, ghas-s00, ghaw-0-00, sre-agent-00) — all tier:setup, prerequisites:[]
+- **Setup challenges:** 4 (ghec-ch00, ghas-s00, ghaw-00, sre-agent-00) — all tier:setup, prerequisites:[]
 - **First-real-challenges:** All have prerequisites:[] (independence rule satisfied)
 - **Prerequisite edges:** 36 (0 cross-module, 0 cycles)
 - **Build status:** ✅ Clean, ship-ready

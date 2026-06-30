@@ -1,15 +1,15 @@
-id: ghaw-3-02
+id: ghaw-12
 title: Context Engine
 module: ghaw
 track: continuous-intelligence
 difficulty: advanced
 duration_minutes: 30
 prerequisites:
-  - ghaw-0-00
+  - ghaw-00
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-0-00
+  - gh-aw CLI installed — see ghaw-00
 description: Supercharge your agent with external context — wire multiple MCP toolsets so it can read live PR diffs, contribution guidelines, and architecture docs before making decisions.
 success_criteria:
   - Workflow triggers on PR open/push
@@ -29,7 +29,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: core
-source_path: _challenges/3-02-context-engine.md
+source_path: _challenges/12-context-engine.md
 license: MIT
 references:
   - https://github.github.com/gh-aw/reference/permissions/

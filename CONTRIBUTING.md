@@ -36,7 +36,7 @@ COACH.md   # facilitator guide, hints, expected outputs, common failures
 
 | Field | Contract |
 |---|---|
-| `id` | Globally unique challenge id. Use `<module>-<local-id>` (`ghec-ch01`, `ghas-s02`, `ghaw-3-05`, `sre-agent-04`). Ids are stable and may have intentional gaps. |
+| `id` | Globally unique challenge id. Use `<module>-<local-id>` (`ghec-ch01`, `ghas-s02`, `ghaw-15`, `sre-agent-04`). Ids are stable and may have intentional gaps. |
 | `title` | Short catalog title. |
 | `module` | One of `ghec`, `ghas`, `ghaw`, `sre-agent`. |
 | `track` | Track slug for the module; must match `docs/build.js` module config. |

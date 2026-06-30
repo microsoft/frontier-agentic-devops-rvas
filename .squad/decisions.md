@@ -58,7 +58,7 @@
 
 **Status:** Complete
 
-**Summary:** GHAW (25 challenges, 4 tracks: hello-agent 5, repo-concierge 6, continuous-intelligence 6, production-patterns 8) and Agentic DevOps (7 challenges, linear arc 00→01,02→03→04,05→06) ported to modules. Prerequisites: GHAW all non-setup challenges require ghaw-0-00; ghaw-4-06 additionally requires ghaw-4-05 (causal consumer). Agentic-DevOps prerequisites justified by content: both SDLC and Copilot experience feed into challenge 03 (coordinate workflows), deployed infra from 04 required for 06 (SRE agent). Resources vendored (212KB). Coach guides derived from source challenge solutions. Tier mapping: source core→core, bonus/extension→stretch.
+**Summary:** GHAW (25 challenges, 4 tracks: hello-agent 5, repo-concierge 6, continuous-intelligence 6, production-patterns 8) and Agentic DevOps (7 challenges, linear arc 00→01,02→03→04,05→06) ported to modules. Prerequisites: GHAW all non-setup challenges require ghaw-00; ghaw-22 additionally requires ghaw-21 (causal consumer). Agentic-DevOps prerequisites justified by content: both SDLC and Copilot experience feed into challenge 03 (coordinate workflows), deployed infra from 04 required for 06 (SRE agent). Resources vendored (212KB). Coach guides derived from source challenge solutions. Tier mapping: source core→core, bonus/extension→stretch.
 
 **Owner:** Zoe
 
@@ -329,7 +329,7 @@ Typography adjustments:
 **Key decisions:**
 - All setup challenges: `tier: setup`, `prerequisites: []`, `difficulty: beginner`, `emu_compatible: true`
 - Success criteria must be shell-command verifiable (not subjective observations)
-- First real challenge of each module (`ghec-ch01`, `ghas-s01`, `ghaw-1-01`, `sre-agent-01`) retains `prerequisites: []` — setup is not a hard blocker; it's a resource enabler documented via `prerequisite_capabilities`
+- First real challenge of each module (`ghec-ch01`, `ghas-s01`, `ghaw-01`, `sre-agent-01`) retains `prerequisites: []` — setup is not a hard blocker; it's a resource enabler documented via `prerequisite_capabilities`
 - README sections: Objectives → Prerequisites → Option A Codespaces → Option B Dev Container → Authenticate CLI → Verify Setup → Next Step
 - COACH sections: Objectives → Facilitation Hints → Common Blockers & Fixes table → Success Check list → Access-Blocked Fallback
 
@@ -373,18 +373,18 @@ Typography adjustments:
 
 ---
 
-### frontier-ghplatform-hackathon: Refresh ghaw-0-00 to Shared Setup Template (2026-06-15)
+### frontier-ghplatform-hackathon: Refresh ghaw-00 to Shared Setup Template (2026-06-15)
 
 **Date:** 2026-06-15  
 **Author:** Zoe (Content / Curriculum Engineer)  
 **Status:** ✅ Done  
 **Requested by:** Marco (@olivomarco)
 
-**Summary:** Refreshed existing `modules/ghaw/challenges/0-00-setup/` (no rename; id `ghaw-0-00` unchanged). Applied Mal's template contract to meta.yml, README, and COACH.md. Upgraded `success_criteria` from mixed soft items to 5 verifiable shell commands: `gh auth status`, `gh --version`, `gh aw --version`, `gh aw run examples/hello-world.md --dry-run`, `gh repo view retired private predecessor repo`.
+**Summary:** Refreshed existing `modules/ghaw/challenges/00-setup/` (no rename; id `ghaw-00` unchanged). Applied Mal's template contract to meta.yml, README, and COACH.md. Upgraded `success_criteria` from mixed soft items to 5 verifiable shell commands: `gh auth status`, `gh --version`, `gh aw --version`, `gh aw run examples/hello-world.md --dry-run`, `gh repo view retired private predecessor repo`.
 
 **Title decision:** Kept as `Challenge 00 — Environment Setup` (existing value, matches template for GHAW continuity).
 
-**Prerequisite integrity:** All 24 non-setup GHAW challenges retain `ghaw-0-00` in prerequisites — correct because `gh-aw` CLI is a hard dependency installed by setup.
+**Prerequisite integrity:** All 24 non-setup GHAW challenges retain `ghaw-00` in prerequisites — correct because `gh-aw` CLI is a hard dependency installed by setup.
 
 ---
 
@@ -485,7 +485,7 @@ Typography adjustments:
 |--------|-------------|------|
 | GHEC | ghec-ch00 | challenge.html?id=ghec-ch00 |
 | GHAS | ghas-s00 | challenge.html?id=ghas-s00 |
-| GHAW | ghaw-0-00 | challenge.html?id=ghaw-0-00 |
+| GHAW | ghaw-00 | challenge.html?id=ghaw-00 |
 | SRE Agent | sre-agent-00 | challenge.html?id=sre-agent-00 |
 
 ---

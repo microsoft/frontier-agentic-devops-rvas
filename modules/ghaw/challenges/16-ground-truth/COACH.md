@@ -42,8 +42,8 @@ The agent accesses these files by reading from the filesystem in its execution c
 A finished solution has:
 
 **File structure:**
-- `.github/workflows/3-06-ground-truth.md` — ~40–55 lines
-- `.github/workflows/3-06-ground-truth.lock.yml` — auto-generated
+- `.github/workflows/16-ground-truth.md` — ~40–55 lines
+- `.github/workflows/16-ground-truth.lock.yml` — auto-generated
 
 **Frontmatter shape:**
 ```yaml
@@ -128,7 +128,7 @@ pre-agent-steps:
       cat /tmp/open-issues.txt   # debug: show value in logs
 ```
 
-**Socratic response:** "Run `gh aw run 3-06-ground-truth --dry-run` and check whether the `/tmp/` files have values. What does `cat /tmp/open-issues.txt` output in the dry-run logs?"
+**Socratic response:** "Run `gh aw run 16-ground-truth --dry-run` and check whether the `/tmp/` files have values. What does `cat /tmp/open-issues.txt` output in the dry-run logs?"
 
 ---
 
@@ -173,7 +173,7 @@ Use these exact values. Do not estimate or fabricate.
 
 Don't give the full workflow; describe what correct looks like.
 
-A correct `3-06-ground-truth.md`:
+A correct `16-ground-truth.md`:
 - `pre-agent-steps:` with 3 named steps: one `gh api` for issues, one `gh pr list` for PRs, one `git log` for last commit
 - Each writes a single value to a `/tmp/` file
 - Body explicitly references each `/tmp/` file path and instructs the agent to use those exact values
@@ -185,8 +185,8 @@ A correct `3-06-ground-truth.md`:
 
 ## How to Verify It's Working
 
-1. **Compile:** `gh aw compile 3-06-ground-truth` — no errors
-2. **Dry-run:** `gh aw run 3-06-ground-truth --dry-run` — `pre-agent-steps:` output should show real numbers in `/tmp/` files
+1. **Compile:** `gh aw compile 16-ground-truth` — no errors
+2. **Dry-run:** `gh aw run 16-ground-truth --dry-run` — `pre-agent-steps:` output should show real numbers in `/tmp/` files
 3. **Live run:** Trigger via `workflow_dispatch`
 4. **PR check:** A PR should appear with a new branch; diff shows only `## Project Health` section changed in `CONTRIBUTING.md`
 5. **Number accuracy:** Open the PR, check the numbers in `CONTRIBUTING.md`. Cross-check against `gh issue list --state open | wc -l` — numbers should match (within a few seconds of drift)
@@ -227,7 +227,7 @@ A correct `3-06-ground-truth.md`:
 
 ## Reference
 
-**Sample Solution Location:** `coaches/sample-solutions/track-3/3-06-ground-truth.md`  
+**Sample Solution Location:** `coaches/sample-solutions/track-3/16-ground-truth.md`  
 **pre-agent-steps:** https://github.github.com/gh-aw/reference/frontmatter/#pre-agent-steps  
 **create-pull-request:** https://github.github.com/gh-aw/reference/safe-outputs-pull-requests/#create-pull-request  
 **gh CLI — gh api:** https://cli.github.com/manual/gh_api

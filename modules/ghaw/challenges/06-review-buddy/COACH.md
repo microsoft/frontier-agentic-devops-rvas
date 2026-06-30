@@ -285,6 +285,6 @@ If a squad is stuck:
 
 ## Reference
 
-**Sample Solution Location:** `coaches/sample-solutions/track-2/2-02-review-buddy.md`  
+**Sample Solution Location:** `coaches/sample-solutions/track-2/06-review-buddy.md`  
 **PR Fix Workflow (Real):** https://github.com/githubnext/agentics/blob/main/workflows/pr-fix.md  
 **Pull Request Context:** https://docs.github.com/en/actions/learn-github-actions/contexts#github-context

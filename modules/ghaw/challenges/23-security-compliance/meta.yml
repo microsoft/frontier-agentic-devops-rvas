@@ -1,15 +1,15 @@
-id: ghaw-4-07
+id: ghaw-23
 title: Security Compliance
 module: ghaw
 track: production-patterns
 difficulty: advanced
 duration_minutes: 30
 prerequisites:
-  - ghaw-0-00
+  - ghaw-00
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-0-00
+  - gh-aw CLI installed — see ghaw-00
 description: Run vulnerability campaigns on a schedule — tracking CVEs by severity, enforcing SLA windows, and opening deadline-aware issues before vulnerabilities slip through the cracks.
 success_criteria:
   - `.github/workflows/security-compliance.md` exists with valid frontmatter
@@ -30,7 +30,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: stretch
-source_path: _challenges/4-07-security-compliance.md
+source_path: _challenges/23-security-compliance.md
 license: MIT
 references:
   - https://github.com/github/gh-aw

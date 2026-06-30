@@ -1,15 +1,15 @@
-id: ghaw-2-03
+id: ghaw-07
 title: Slash & Burn
 module: ghaw
 track: repo-concierge
 difficulty: intermediate
 duration_minutes: 30
 prerequisites:
-  - ghaw-0-00
+  - ghaw-00
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-0-00
+  - gh-aw CLI installed — see ghaw-00
 description: Turn issue comments into a command interface — build a workflow that detects a /summarize slash command and posts a concise AI-generated summary of the entire issue thread.
 success_criteria:
   - `.github/workflows/slash-commands.md` exists with valid gh-aw frontmatter
@@ -35,7 +35,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: core
-source_path: _challenges/2-03-slash-and-burn.md
+source_path: _challenges/07-slash-and-burn.md
 license: MIT
 references:
   - https://github.github.com/gh-aw/reference/permissions/

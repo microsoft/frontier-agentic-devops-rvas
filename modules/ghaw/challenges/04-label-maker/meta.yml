@@ -1,15 +1,15 @@
-id: ghaw-1-04
+id: ghaw-04
 title: Label Maker
 module: ghaw
 track: hello-agent
 difficulty: beginner
 duration_minutes: 30
 prerequisites:
-  - ghaw-0-00
+  - ghaw-00
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-0-00
+  - gh-aw CLI installed — see ghaw-00
 description: Wire up an issue-events trigger so the AI agent reads every new issue's title and body, classifies it automatically, and applies the right label from a defined allowlist.
 success_criteria:
   - Workflow file `.github/workflows/label-maker.md` exists
@@ -31,7 +31,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: stretch
-source_path: _challenges/1-04-label-maker.md
+source_path: _challenges/04-label-maker.md
 license: MIT
 references:
   - https://github.github.com/gh-aw/reference/triggers/#issues

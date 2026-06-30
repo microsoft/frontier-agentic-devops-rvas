@@ -173,7 +173,7 @@ Keep the logic clear and the issue body concise — just filename and count, no 
 - `workflow_dispatch:` lets them test immediately
 - Body: clear, measurable instructions
 
-**Production-ready reference solution:** See `coaches/sample-solutions/track-1/1-02-safe-and-sound.md`
+**Production-ready reference solution:** See `coaches/sample-solutions/track-1/02-safe-and-sound.md`
 
 ---
 

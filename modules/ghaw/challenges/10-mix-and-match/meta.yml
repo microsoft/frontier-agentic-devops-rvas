@@ -1,19 +1,19 @@
-id: ghaw-2-06
+id: ghaw-10
 title: Mix & Match
 module: ghaw
 track: repo-concierge
 difficulty: intermediate
 duration_minutes: 30
 prerequisites:
-  - ghaw-0-00
+  - ghaw-00
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-0-00
+  - gh-aw CLI installed — see ghaw-00
 description: Stop copy-pasting. Use imports: to compose reusable workflow snippets and create-discussion to post async digests instead of noisy issues.
 success_criteria:
   - `lib/repo-stats-helper.md` exists and contains meaningful formatting instructions
-  - `.github/workflows/2-06-mix-and-match.md` has `imports: [./lib/repo-stats-helper.md]` in frontmatter
+  - `.github/workflows/10-mix-and-match.md` has `imports: [./lib/repo-stats-helper.md]` in frontmatter
   - Trigger is `on: schedule:` (weekly)
   - `safe-outputs: create-discussion: category: "General"` is declared
   - `permissions: discussions: write` is set
@@ -30,7 +30,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: stretch
-source_path: _challenges/2-06-mix-and-match.md
+source_path: _challenges/10-mix-and-match.md
 license: MIT
 references:
   - https://github.github.com/gh-aw/reference/frontmatter/#imports

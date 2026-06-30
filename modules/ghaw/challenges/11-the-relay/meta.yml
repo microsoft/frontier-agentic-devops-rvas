@@ -1,15 +1,15 @@
-id: ghaw-3-01
+id: ghaw-11
 title: The Relay
 module: ghaw
 track: continuous-intelligence
 difficulty: advanced
 duration_minutes: 30
 prerequisites:
-  - ghaw-0-00
+  - ghaw-00
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-0-00
+  - gh-aw CLI installed — see ghaw-00
 description: Unlock workflow chaining — build a producer that writes structured data to repo-memory and a consumer that reads it, demonstrating how independent agents pass state to each other.
 success_criteria:
   - Daily trigger works (`on: schedule:`)
@@ -33,7 +33,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: core
-source_path: _challenges/3-01-the-relay.md
+source_path: _challenges/11-the-relay.md
 license: MIT
 references:
   - https://github.github.com/gh-aw/reference/repo-memory/

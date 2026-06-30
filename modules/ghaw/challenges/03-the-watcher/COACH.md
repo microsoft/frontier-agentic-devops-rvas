@@ -152,7 +152,7 @@ Keep the comment brief and friendly — it's for the committer to see inline.
 - `workflow_dispatch:` for testing
 - Body: clear, measurable conditions based on file count
 
-**Production-ready reference solution:** See `coaches/sample-solutions/track-1/1-03-the-watcher.md`
+**Production-ready reference solution:** See `coaches/sample-solutions/track-1/03-the-watcher.md`
 
 ---
 

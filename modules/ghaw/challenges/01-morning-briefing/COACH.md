@@ -163,7 +163,7 @@ Keep the summary concise — 5-7 sentences total.
 - Body: clear, structured instructions with specific counts to gather and format
 - `engine: copilot` — free, reliable default
 
-**Production-ready reference solution:** See `coaches/sample-solutions/track-1/1-01-morning-briefing.md`
+**Production-ready reference solution:** See `coaches/sample-solutions/track-1/01-morning-briefing.md`
 
 ---
 

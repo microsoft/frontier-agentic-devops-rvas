@@ -269,7 +269,7 @@ If a squad is stuck:
 
 ## Reference
 
-**Sample Solution Location:** `coaches/sample-solutions/track-2/2-04-stale-patrol.md`  
+**Sample Solution Location:** `coaches/sample-solutions/track-2/08-stale-patrol.md`  
 **GitHub Next Agentics examples:** https://github.com/githubnext/agentics  
 **Cron Reference:** https://crontab.guru/  
 **Schedule Trigger:** https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule

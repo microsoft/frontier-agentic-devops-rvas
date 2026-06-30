@@ -1,15 +1,15 @@
-id: ghaw-1-01
+id: ghaw-01
 title: Morning Briefing
 module: ghaw
 track: hello-agent
 difficulty: beginner
 duration_minutes: 30
 prerequisites:
-  - ghaw-0-00
+  - ghaw-00
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-0-00
+  - gh-aw CLI installed — see ghaw-00
 description: Build a scheduled workflow that runs every weekday morning and creates a GitHub issue summarizing your repo's last 24 hours of activity.
 success_criteria:
   - Workflow file `.github/workflows/morning-briefing.md` exists with valid frontmatter
@@ -30,7 +30,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: core
-source_path: _challenges/1-01-morning-briefing.md
+source_path: _challenges/01-morning-briefing.md
 license: MIT
 references:
   - https://github.github.com/gh-aw/reference/triggers/#schedule

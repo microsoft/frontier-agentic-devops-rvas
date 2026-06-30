@@ -1,15 +1,15 @@
-id: ghaw-1-03
+id: ghaw-03
 title: The Watcher
 module: ghaw
 track: hello-agent
 difficulty: beginner
 duration_minutes: 30
 prerequisites:
-  - ghaw-0-00
+  - ghaw-00
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-0-00
+  - gh-aw CLI installed — see ghaw-00
 description: Build an event-driven workflow that fires on push, detects which files changed in a watched directory, and posts a commit comment summarising the modification.
 success_criteria:
   - Workflow file `.github/workflows/the-watcher.md` exists
@@ -30,7 +30,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: stretch
-source_path: _challenges/1-03-the-watcher.md
+source_path: _challenges/03-the-watcher.md
 license: MIT
 references:
   - https://github.github.com/gh-aw/reference/triggers/#push

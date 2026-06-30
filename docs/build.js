@@ -354,6 +354,7 @@ function main() {
   const outcomes = readOutcomeConfig();
 
   fs.rmSync(OUT_RESOURCES_DIR, { recursive: true, force: true });
+  fs.rmSync(OUT_GUIDES_DIR, { recursive: true, force: true });
   fs.mkdirSync(OUT_RESOURCES_DIR, { recursive: true });
 
   /* ── 1. Collect all challenges from all modules ── */

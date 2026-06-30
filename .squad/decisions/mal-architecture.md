@@ -39,7 +39,7 @@ Every challenge directory contains a `meta.yml` file as the **single source of t
 
 ```yaml
 # === Required ===
-id: ghaw-1-01                    # Globally unique: <module>-<local-id>
+id: ghaw-01                    # Globally unique: <module>-<local-id>
 title: "Morning Briefing"
 module: ghaw                     # One of: ghec, ghas, ghaw, agentic-devops
 track: hello-agent               # Slug within the module
@@ -48,7 +48,7 @@ duration_minutes: 30            # Estimated time
 
 # === Independence fields (critical) ===
 prerequisites:                   # Explicit list; empty = no prereqs
-  - ghaw-0-00                    # References another challenge id OR a capability string
+  - ghaw-00                    # References another challenge id OR a capability string
 prerequisite_capabilities:       # What a student needs to KNOW (not DO) — skills, not challenges
   - "GitHub Actions basics"
   - "YAML syntax"
@@ -71,7 +71,7 @@ provision_creates: []            # Resources the setup script creates
 
 # === Attribution ===
 source_repo: retired private predecessor repo
-source_path: _challenges/1-01-morning-briefing.md
+source_path: _challenges/01-morning-briefing.md
 license: MIT
 
 # === Optional ===
@@ -248,7 +248,7 @@ frontier-ghplatform-hackathon/
 │   │       └── ...
 │   ├── ghaw/
 │   │   └── challenges/
-│   │       ├── 0-00-setup/
+│   │       ├── 00-setup/
 │   │       │   ├── meta.yml
 │   │       │   ├── README.md
 │   │       │   └── COACH.md

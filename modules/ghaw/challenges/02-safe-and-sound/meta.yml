@@ -1,15 +1,15 @@
-id: ghaw-1-02
+id: ghaw-02
 title: Safe & Sound
 module: ghaw
 track: hello-agent
 difficulty: beginner
 duration_minutes: 30
 prerequisites:
-  - ghaw-0-00
+  - ghaw-00
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-0-00
+  - gh-aw CLI installed — see ghaw-00
 description: Master the safe-outputs gate — write a workflow that conditionally creates an issue or explicitly declares noop, proving that every gh-aw write is intentional and auditable.
 success_criteria:
   - Workflow file `.github/workflows/safe-sound.md` exists
@@ -30,7 +30,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: core
-source_path: _challenges/1-02-safe-and-sound.md
+source_path: _challenges/02-safe-and-sound.md
 license: MIT
 references:
   - https://github.github.com/gh-aw/reference/safe-outputs/

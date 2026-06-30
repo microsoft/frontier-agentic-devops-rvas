@@ -1,6 +1,6 @@
 # GHAW Setup
 
-Use one of these supported environment paths before starting `ghaw-0-00`:
+Use one of these supported environment paths before starting `ghaw-00`:
 
 ## Option 1: GitHub Codespaces
 1. Open **this repository** (`microsoft/frontier-agenticdevops-hackathon`) on GitHub.

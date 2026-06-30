@@ -275,6 +275,6 @@ If a squad is stuck:
 
 ## Reference
 
-**Sample Solution Location:** `coaches/sample-solutions/track-2/2-05-welcome-wagon.md`  
+**Sample Solution Location:** `coaches/sample-solutions/track-2/09-welcome-wagon.md`  
 **GitHub Author Association:** https://docs.github.com/en/actions/learn-github-actions/contexts#github-context  
 **Pull Request Context:** https://docs.github.com/en/actions/learn-github-actions/contexts#github-context

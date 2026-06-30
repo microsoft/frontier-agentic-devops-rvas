@@ -308,7 +308,7 @@ If a squad is stuck:
 
 ## Reference
 
-**Sample Solution Location:** `coaches/sample-solutions/track-2/2-03-slash-and-burn.md`  
+**Sample Solution Location:** `coaches/sample-solutions/track-2/07-slash-and-burn.md`  
 **/q Command (Real):** https://github.com/githubnext/agentics/blob/main/workflows/q.md  
 **/plan Command (Real):** https://github.com/githubnext/agentics/blob/main/workflows/plan.md  
 **ChatOps Blog Post:** https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-interactive-chatops/
