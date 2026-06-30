@@ -69,8 +69,8 @@ Official lab source:
   https://github.com/microsoft/sre-agent/tree/main/labs/starter-lab
 
 Recommended live setup:
-  git clone https://github.com/microsoft/sre-agent.git
-  cd sre-agent/labs/starter-lab
+  LAB_DIR="$(bash modules/sre-agent/resources/scripts/ensure-starter-lab.sh)"
+  cd "$LAB_DIR"
   bash scripts/setup.sh
 
 If Azure access is blocked, use the coach fallback packet instead of troubleshooting subscription policy during the workshop.

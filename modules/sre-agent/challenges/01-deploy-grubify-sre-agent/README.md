@@ -23,13 +23,17 @@ This challenge is Azure-first. GitHub is optional at this stage; the primary out
 From the official lab:
 
 ```bash
-cd sre-agent/labs/starter-lab
+LAB_DIR="$(bash modules/sre-agent/resources/scripts/ensure-starter-lab.sh)"
+cd "$LAB_DIR"
 bash scripts/setup.sh
 ```
 
 If you prefer manual setup:
 
 ```bash
+LAB_DIR="$(bash modules/sre-agent/resources/scripts/ensure-starter-lab.sh)"
+cd "$LAB_DIR"
+
 az login --use-device-code
 azd auth login --use-device-code
 az provider register -n Microsoft.App --wait

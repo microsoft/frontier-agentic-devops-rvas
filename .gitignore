@@ -8,6 +8,9 @@ docs/assets/data/dependency-graph.json
 docs/assets/data/challenges/
 docs/resources/
 
+# On-demand external lab clones
+external/sre-agent/
+
 # OS
 .DS_Store
 Thumbs.db

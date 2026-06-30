@@ -23,8 +23,8 @@ The goal is not to build a custom app. The goal is to use a known Microsoft-prov
 Use the Microsoft Azure SRE Agent repository:
 
 ```bash
-git clone https://github.com/microsoft/sre-agent.git
-cd sre-agent/labs/starter-lab
+LAB_DIR="$(bash modules/sre-agent/resources/scripts/ensure-starter-lab.sh)"
+cd "$LAB_DIR"
 ```
 
 The starter lab deploys:

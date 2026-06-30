@@ -21,8 +21,8 @@ The doctor checks for Git, Azure CLI, Azure Developer CLI, Python, Azure login s
 Use these commands from a separate clone of the Microsoft lab:
 
 ```bash
-git clone https://github.com/microsoft/sre-agent.git
-cd sre-agent/labs/starter-lab
+LAB_DIR="$(bash modules/sre-agent/resources/scripts/ensure-starter-lab.sh)"
+cd "$LAB_DIR"
 bash scripts/setup.sh
 ```
 
