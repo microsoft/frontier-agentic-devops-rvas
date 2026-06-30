@@ -89,9 +89,3 @@ You do not need write access to `microsoft/frontier-agenticdevops-hackathon` for
 |---|---|
 | `gh aw --version` | Returns a version string (e.g., `gh-aw version 1.x.x`) |
 | `gh aw trial modules/ghaw/resources/examples/hello-world.md --logical-repo microsoft/frontier-agenticdevops-hackathon --dry-run --yes` | Previews the workflow without executing it; exits 0 |
-
----
-
-## Next Step
-
-Environment confirmed → proceed to **[Challenge 1-01 — Morning Briefing](../1-01-morning-briefing/README.md)**.

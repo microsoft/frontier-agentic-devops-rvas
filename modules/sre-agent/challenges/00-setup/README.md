@@ -106,7 +106,7 @@ az account show
 cd modules/sre-agent/resources/sample-app && npm install && npm test
 ```
 
-> All three checks must succeed before you move to Challenge 01. If any fail, see **Common Blockers** in the coach guide.
+> All three checks must succeed before you continue with your assigned track. If any fail, see **Common Blockers** in the coach guide.
 
 ---
 
@@ -156,9 +156,3 @@ Choose one person for each accountability role:
 - Team context artifact with roles, boundaries, and decision location (issue, project note, or repo file).
 - Setup blocker issue for each unresolved access problem.
 - Confirmed environment path: Codespaces, dev container, local, or coach fallback.
-
----
-
-## Next Step
-
-Environment confirmed and team launched → proceed to **[Challenge 01 — GitHub SDLC Baseline](../01-github-sdlc/README.md)**.

@@ -185,9 +185,3 @@ Juice Shop homepage loads.
 
 > All checks must pass before you move on. If any fail, see **Common Blockers** in
 > the coach guide.
-
----
-
-## Next Step
-
-Environment confirmed → proceed to **[S01 — Explore the Attack Surface](../s01-explore-attack-surface/README.md)**.

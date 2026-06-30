@@ -129,9 +129,3 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 doctor ch01 --org <org>
 ```
 
 A clean `doctor` output confirms your token scopes and tooling are ready for the whole module.
-
----
-
-## Next Step
-
-Environment confirmed → proceed to **[Ch01 — Issues, Labels & Project Boards](../ch01-issues-labels-projects/README.md)**.
