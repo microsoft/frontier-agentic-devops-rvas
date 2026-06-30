@@ -8,7 +8,7 @@ prerequisites:
   - ghas-s01
 prerequisite_capabilities:
   - Juice Shop instance running (see modules/ghas/setup.md)
-  - GitHub Advanced Security enabled on the shared org repo
+  - GitHub Advanced Security enabled on the org repo provisioned in S00
   - GitHub Copilot license assigned
   - Basic familiarity with HTML/JavaScript and frontend frameworks (Angular)
   - Completed S01 (attack surface overview) recommended

@@ -1,7 +1,8 @@
 # GHAS Reference Fixtures
 
 This directory contains GitHub Advanced Security (GHAS) configuration files that participants apply
-to their shared org/Juice-Shop repository to light up GHAS scanning features during the hackathon.
+to the org-owned Juice Shop repository provisioned in Challenge S00 to light up GHAS scanning
+features during the hackathon.
 
 These fixtures were originally maintained in the `frontier-ghas-hackathon` source repository and are
 now vendored here so that repository can be retired.
@@ -16,11 +17,11 @@ now vendored here so that repository can be retired.
 
 ## How to apply
 
-Copy these files into the `.github/` folder of the shared org repository (the one hosting your
-Juice Shop instance):
+Challenge S00's `setup.sh`/`setup.ps1` automation applies these files for you. If you need to apply
+them manually, copy them into the `.github/` folder of the org-owned Juice Shop repository:
 
 ```bash
-# From the repo root — adjust <org>/<repo> to your hackathon org/repo
+# From the curriculum repo root — adjust <org>/<repo> to your hackathon org/repo
 gh repo clone <org>/<repo> /tmp/target-repo
 cp -r modules/ghas/resources/github/. /tmp/target-repo/.github/
 cd /tmp/target-repo
@@ -28,6 +29,11 @@ git add .github/workflows/codeql.yml .github/codeql/codeql-config.yml .github/de
 git commit -m "chore: add GHAS scanning configs (CodeQL + Dependabot)"
 git push
 ```
+
+> **Note:** If the target repo is a direct Juice Shop import created by the setup script, npm
+> manifests live at repository root. The setup script adjusts `.github/dependabot.yml` from
+> `directory: "/app"` to `directory: "/"` automatically. Make the same edit when applying these
+> files manually to a direct Juice Shop import.
 
 Once pushed:
 
