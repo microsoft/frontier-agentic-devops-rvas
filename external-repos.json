@@ -64,44 +64,24 @@
       "attribution": "Derived from Microsoft Frontier GHEC Hackathon source material at the documented commit."
     },
     {
-      "key": "contoso-claims",
-      "name": "Contoso Claims",
-      "description": "Initial Contoso Claims setup asset for the SRE Agent track.",
+      "key": "grubify-starter-lab",
+      "name": "Grubify Azure SRE Agent starter lab",
+      "description": "Official Microsoft Azure SRE Agent starter lab sample app and break-fix environment.",
       "type": "app_dependency",
-      "acquisition": "vendored-local",
-      "retired": true,
-      "vendored_in": "modules/sre-agent",
+      "acquisition": "clone-or-fork",
       "source": {
-        "url": "https://github.com/microsoft/frontier-agenticdevops-hackathon",
-        "sha": "08edbed4eee3ab185ebd5772bd1b48783ba83882"
+        "url": "https://github.com/microsoft/sre-agent",
+        "sha": "673f88765b27d4a74ebc660875bf605a382b6d28"
       },
-      "local_path": "modules/sre-agent/resources/sample-app",
       "affected_challenge_ids": [
-        "sre-agent-00"
-      ],
-      "attribution": "Derived from Microsoft Frontier Agentic DevOps Hackathon source material and included in this repository as first-party curriculum resources."
-    },
-    {
-      "key": "contoso-app",
-      "name": "Contoso App",
-      "description": "Contoso application used by SRE Agent SDLC, deployment, agent workflow, and recovery challenges.",
-      "type": "app_dependency",
-      "acquisition": "vendored-local",
-      "retired": true,
-      "vendored_in": "modules/sre-agent",
-      "source": {
-        "url": "https://github.com/microsoft/frontier-agenticdevops-hackathon",
-        "sha": "08edbed4eee3ab185ebd5772bd1b48783ba83882"
-      },
-      "local_path": "modules/sre-agent/resources/sample-app",
-      "affected_challenge_ids": [
+        "sre-agent-00",
         "sre-agent-01",
         "sre-agent-03",
         "sre-agent-04",
         "sre-agent-05",
         "sre-agent-06"
       ],
-      "attribution": "Derived from Microsoft Frontier Agentic DevOps Hackathon source material and included in this repository as first-party curriculum resources."
+      "attribution": "Official Microsoft Azure SRE Agent hands-on lab. Participants clone or fork it on demand; it is not vendored in this repository."
     },
     {
       "key": "source-frontier-ghas-hackathon",
@@ -176,23 +156,19 @@
       "attribution": "Microsoft Frontier GHAW Hackathon source repository. Preserve upstream attribution and notices."
     },
     {
-      "key": "source-frontier-agenticdevops-hackathon",
-      "name": "Frontier Agentic DevOps Hackathon source",
-      "description": "Canonical source repository for the SRE Agent module content.",
+      "key": "source-azure-sre-agent",
+      "name": "Azure SRE Agent source",
+      "description": "Canonical source repository for the Azure SRE Agent module content and starter lab.",
       "type": "source_repo",
       "acquisition": "content-port-source",
-      "retired": true,
       "vendored_in": "modules/sre-agent",
       "source": {
-        "url": "https://github.com/microsoft/frontier-agenticdevops-hackathon",
-        "sha": "08edbed4eee3ab185ebd5772bd1b48783ba83882"
+        "url": "https://github.com/microsoft/sre-agent",
+        "sha": "673f88765b27d4a74ebc660875bf605a382b6d28"
       },
       "usage": {
         "field": "source_repo",
-        "value": "microsoft/frontier-agenticdevops-hackathon",
-        "aliases": [
-          "microsoft/frontier-agentic-devops-hackathon"
-        ]
+        "value": "microsoft/sre-agent"
       },
       "affected_challenge_ids": [
         "sre-agent-00",
@@ -202,7 +178,7 @@
         "sre-agent-05",
         "sre-agent-06"
       ],
-      "attribution": "Canonical source is microsoft/frontier-agenticdevops-hackathon at the documented commit. Alias retained for older metadata that used the hyphenated slug."
+      "attribution": "Canonical source is microsoft/sre-agent at the documented commit, especially labs/starter-lab and sreagent-templates."
     },
     {
       "key": "source-frontier-ghec-hackathon",

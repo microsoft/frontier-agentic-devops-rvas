@@ -1,39 +1,41 @@
 id: sre-agent-00
-title: Environment Setup
+title: Prepare the Azure SRE Agent Lab
 module: sre-agent
-track: agentic-lifecycle
+track: azure-sre-agent
 difficulty: beginner
-duration_minutes: 30
+duration_minutes: 45
 prerequisites: []
 prerequisite_capabilities:
   - GitHub account
   - Basic Git and CLI usage
-  - Azure subscription (Contributor role)
-  - GitHub organization access (branch workflow, not fork)
-  - GitHub CLI (gh >= 2.x) installed or available via Codespaces
+  - Azure subscription with Owner role for the lab subscription or approved resource group
+  - Azure CLI 2.60+
+  - Azure Developer CLI 1.9+
+  - Python 3.10+
 description: >
-  Provision your development environment for the Agentic DevOps hackathon.
-  Open the Contoso Claims repository in GitHub Codespaces (or a local dev container),
-  authenticate the GitHub CLI and Azure CLI, verify your Azure subscription access,
-  and confirm the baseline app is reachable before Challenge 01.
+  Prepare the official Microsoft Azure SRE Agent starter lab. Verify the tools,
+  Azure role assignments, supported region, and repository access needed to deploy
+  the Grubify sample application, Azure Monitor alerts, Log Analytics, Application
+  Insights, and an Azure SRE Agent.
 success_criteria:
-  - "`gh auth status` exits 0 and shows your username"
-  - "`az account show` returns your Azure subscription with Contributor role confirmed"
-  - "`cd modules/sre-agent/resources/sample-app && npm install && npm test` passes all baseline tests"
-  - "The Codespaces or dev container environment is open, port 3000 forwarded, and the terminal is ready"
+  - "`az account show` returns the intended subscription"
+  - "The participant confirms Owner role or a coach-approved pre-provisioned environment"
+  - "`az provider register -n Microsoft.App --wait` succeeds or is already registered"
+  - "The official `microsoft/sre-agent` starter-lab prerequisites are understood"
+  - "A fallback evidence packet is selected if live deployment is not available"
 tags:
   - setup
-  - devcontainer
   - sre-agent
-app_dependency: contoso-app
+  - azure-monitor
+app_dependency: grubify-starter-lab
 emu_compatible: true
 min_environment: org
 tier: setup
-source_repo: microsoft/frontier-agenticdevops-hackathon
-source_path: Student/Challenge-00-Setup.md
+source_repo: microsoft/sre-agent
+source_path: labs/starter-lab/README.md
 license: MIT
 references:
-  - https://docs.github.com/en/codespaces/getting-started/quickstart
-  - https://cli.github.com/manual/
+  - https://github.com/microsoft/sre-agent/tree/main/labs/starter-lab
   - https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
-  - https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#contributor
+  - https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd
+  - https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#owner

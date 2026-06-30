@@ -1,51 +1,56 @@
 # Azure SRE Agent Reference
 
-This note gives the curriculum team a source-backed baseline for Challenge 6 and related coach material. It is intentionally practical: what the tool is for, what source-code context adds, how plugins fit, and how this hackathon should use those ideas without overpromising product behavior.
+This note gives curriculum maintainers a source-backed baseline for the rebuilt Azure SRE Agent track.
+
+## Official Microsoft Lab to Use
+
+Use the official Microsoft repository:
+
+- `microsoft/sre-agent`
+- `labs/starter-lab`
+
+The starter lab deploys an Azure SRE Agent connected to the Grubify sample app. It includes Azure Container Apps, Log Analytics, Application Insights, Azure Monitor alerts, managed identity/RBAC, knowledge files, response plans, and optional GitHub connection.
+
+The lab scenarios are the right foundation for this course:
+
+| Scenario | Why it fits |
+| --- | --- |
+| Break app -> agent investigates logs and remediates | Shows Azure SRE Agent as an operations assistant without requiring GitHub. |
+| Source-code RCA and issue creation | Shows code context after Azure evidence is established. |
+| Issue triage | Optional extension; not the core track. |
 
 ## What Azure SRE Agent Is
 
-Azure SRE Agent is a reliability assistant for operations work. The official community repo describes it as a place for Azure SRE Agent resources, labs, sample environments, prompt guides, issue reporting, and links to the product docs, portal, pricing, official plugins, discussions, and videos.
+Azure SRE Agent is a reliability assistant for operations work. The official community repo describes it as a hub for Azure SRE Agent resources, labs, sample environments, prompt guides, issue reporting, product docs, portal links, pricing, official plugins, discussions, and videos.
 
-For this hackathon, treat Azure SRE Agent as the operations side of the agentic DevOps loop. Earlier challenges ask teams to plan, code, review, deploy, and validate a change. Challenge 6 asks what happens after that change is running: which signals matter, what evidence should be gathered, what likely cause can be defended, and what follow-up work should become an issue or pull request.
+For this track, Azure SRE Agent is the main product. GitHub is a supporting remediation target, not the primary learning objective.
 
 ## Source-Code Connection
 
-The Microsoft Learn source-code connection guide says a connected GitHub or Azure DevOps repository lets the agent use source code during investigations. The documented outcomes include:
+The source-code connection documentation says a connected GitHub or Azure DevOps repository can let Azure SRE Agent:
 
-- analyzing source during investigations;
-- returning file and line references for suspected problems;
-- creating To-Do Plans that show investigation steps;
-- correlating production symptoms to code changes;
-- creating pull requests from chat when repository connection, Review or Autonomous run mode, and an existing source branch with committed changes are in place.
+- analyze source during investigations;
+- return file and line references for suspected problems;
+- create To-Do investigation plans;
+- correlate production symptoms to code changes;
+- create pull requests when repository connection, run mode, permissions, and branch state allow it.
 
-Authentication can use OAuth or a Personal Access Token. Repository selection can come from a dropdown, and teams can also type a repository URL directly when the repo is not listed. The docs also describe an MCP plus custom agent option when the team needs broader GitHub API access, such as searching code, reading files, or listing commits across repositories.
+The course should not require live PR creation in every environment. The baseline should be a source-aware investigation and a governed remediation issue or reviewed PR packet.
 
-The curriculum should not require live pull-request creation in every customer environment. A safer baseline is: connect source where access allows it, then ask participants to produce an investigation summary that includes the suspected code area, the operational symptom, and the change or follow-up they would open.
+## Recipes and Plugins
 
-## Plugin Model
+`microsoft/sre-agent/sreagent-templates` includes production-oriented recipes. The most relevant simple recipe is `azmon-lawappinsights`, which connects Azure Monitor, Log Analytics, and Application Insights.
 
-The official plugin repo, `Azure/sre-agent-plugins`, states that its plugins are designed for Azure SRE Agent and may not work with other coding agents. Plugins live under `plugins/`, and new plugins are registered by adding entries to `.github/plugin/marketplace.json`.
-
-For the hackathon, plugins should be framed as extension points rather than required setup. Coaches can explain that plugins let the agent work with additional operational systems or domain-specific tools, but Challenge 6 should still work as a packet-based exercise when tenant policy, licensing, or access prevents live plugin use.
-
-## How This Hackathon Uses SRE Agent Practices
-
-Challenge 6 should use Azure SRE Agent practices to close the loop from delivery to operations:
-
-- Start from a realistic production signal, such as an alert, failed health check, latency spike, failed deployment validation, or customer-impact report.
-- Ask teams to gather evidence before choosing a fix. Useful evidence includes deployment records, workflow runs, logs, traces, metrics, recent commits, pull requests, and known runbook steps.
-- Use source context when available to connect symptoms to likely code paths.
-- Require a customer-safe incident summary: what happened, what is known, what is still uncertain, what action is recommended, and what follow-up work should be tracked.
-- Keep human review visible. Even when an agent proposes a cause or remediation, the team should explain how they validated it.
+`Azure/sre-agent-plugins` is the official plugin repository. Plugins should be introduced as extension points, not required setup.
 
 ## Delivery Caveats
 
-Azure SRE Agent capabilities, GitHub agent workflows, source-code integration, and pull-request creation can vary by tenant policy, region, product availability, and run mode. Coaches should validate access before delivery and keep a simulated incident packet ready.
-
-The fallback should preserve the learning objective. If live SRE Agent access is not available, teams can still inspect the same evidence packet, write the To-Do Plan manually, identify the likely source area, and draft the follow-up issue or pull request summary.
+Live behavior depends on tenant policy, role assignments, region, connector availability, product access, and run mode. Coaches should always prepare a fallback evidence packet with the same learning shape: signal, Azure evidence, agent transcript, source lead, remediation work, recovery proof, and follow-up.
 
 ## Primary Sources
 
 - [microsoft/sre-agent](https://github.com/microsoft/sre-agent)
+- [microsoft/sre-agent starter lab](https://github.com/microsoft/sre-agent/tree/main/labs/starter-lab)
+- [microsoft/sre-agent recipes](https://github.com/microsoft/sre-agent/tree/main/sreagent-templates)
 - [Azure/sre-agent-plugins](https://github.com/Azure/sre-agent-plugins)
 - [Connect source code in Azure SRE Agent](https://learn.microsoft.com/en-us/azure/sre-agent/connect-source-code)

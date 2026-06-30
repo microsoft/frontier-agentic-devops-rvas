@@ -1,0 +1,37 @@
+id: sre-agent-05
+title: Connect Source Code and Create Remediation Work
+module: sre-agent
+track: azure-sre-agent
+difficulty: advanced
+duration_minutes: 60
+prerequisites:
+  - sre-agent-04
+prerequisite_capabilities:
+  - Azure SRE Agent portal access
+  - GitHub account or coach-provided simulated repository evidence
+  - Basic pull request review
+description: Add GitHub/source-code context so Azure SRE Agent can connect runtime symptoms to code areas, create a GitHub issue, and optionally propose a pull request for human review.
+success_criteria:
+  - Source-code context is connected live or represented by fallback file references.
+  - Azure SRE Agent produces file, line, commit, issue, or pull request leads only where evidence supports them.
+  - The remediation work item includes symptom, evidence, likely cause, alternative hypothesis, and validation plan.
+  - If a PR is proposed, the team reviews it as untrusted teammate output before approval.
+  - Secrets and tenant-specific incident data are not pasted into public GitHub artifacts.
+  - 'Coach conversation — for your real team, should Azure SRE Agent create an issue, draft a PR, or only recommend a runbook step by default? What approval gate would you require?'
+tags:
+  - source-code-context
+  - remediation
+  - github
+  - review
+app_dependency: grubify-starter-lab
+emu_compatible: true
+min_environment: org
+tier: core
+source_repo: microsoft/sre-agent
+source_path: labs/starter-lab/README.md
+license: MIT
+references:
+  - https://sre.azure.com/docs/concepts/workspace-tools
+  - https://learn.microsoft.com/en-us/azure/sre-agent/github-connector
+  - https://learn.microsoft.com/en-us/azure/sre-agent/connect-source-code
+  - https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews

@@ -46,4 +46,4 @@ This note connects the hackathon path to The Agentic SDLC Handbook without addin
 - [GitHub Agentic Workflows Starter](GitHub-Agentic-Workflows-Starter.md)
 - [Agent-Ready Issue Template](Agent-Ready-Issue-Template.md)
 - [Reference Architecture](Reference-Architecture.md)
-- [Challenge 03: Agent Workflows](../challenges/03-agent-workflows/README.md)
+- [Challenge 03: Onboard Service Context and Response Plans](../challenges/03-onboard-context/README.md)

@@ -1,74 +1,68 @@
-# Incident Packet Template
+# Azure SRE Agent Incident Packet Template
 
-Use this packet for Challenge 06 when live incident data or Azure SRE Agent access is not available. Replace placeholders with workshop-specific values before delivery.
+Use this packet when live Azure SRE Agent access is not available. Replace placeholders with sanitized workshop-specific values before delivery.
 
 ## Incident Summary
 
-- **Service:** Contoso Claims
-- **Detected by:** Synthetic monitor, support report, or coach-provided signal
+- **Service:** Grubify
+- **Detected by:** Azure Monitor alert, synthetic check, or coach-provided signal
 - **Start time:** `<timestamp>`
-- **Affected flow:** `<endpoint or user workflow>`
+- **Affected flow:** Add to Cart / Grubify API
 - **Customer impact:** `<brief customer-safe impact statement>`
 - **Current status:** Investigating
 
-## Deployment Context
+## Azure Context
 
-- **Last deployment time:** `<timestamp>`
-- **Commit SHA:** `<sha>`
-- **Pull request:** `<link or number>`
-- **GitHub Actions run:** `<link or simulated run id>`
-- **Environment:** `<dev/test/prod-sim>`
-- **Known deployment warnings:** `<warnings or none>`
+- **Azure SRE Agent:** `<agent name or simulated>`
+- **Resource group:** `<resource group>`
+- **Region:** `<region>`
+- **Container App:** `<name>`
+- **Log Analytics workspace:** `<name>`
+- **Application Insights resource:** `<name>`
+- **Alert rule:** `<name>`
 
 ## Observed Signals
 
 | Signal | Evidence |
 | --- | --- |
+| Alert | `<alert text or screenshot reference>` |
 | Error rate | `<metric or simulated value>` |
-| Latency | `<metric or simulated value>` |
-| Logs | `<sample log lines with secrets removed>` |
-| User reports | `<short summary>` |
-| Recent code changes | `<file, commit, or PR references>` |
+| Logs | `<sanitized log lines>` |
+| Trace/exception | `<sanitized App Insights detail>` |
+| User report | `<short summary>` |
+
+## Azure SRE Agent Transcript
+
+Include or link to a sanitized transcript that shows:
+
+- evidence gathered;
+- runbook or knowledge used;
+- likely cause;
+- alternative hypothesis;
+- mitigation recommendation;
+- validation plan.
 
 ## Source-Code Context
 
-Use this section to simulate or record what source-connected investigation provides.
+Use this section only when source context is part of the exercise.
 
-| Candidate Area | Evidence | Confidence |
+| Candidate area | Evidence | Confidence |
 | --- | --- | --- |
 | `<file:line>` | `<why this file is relevant>` | Low/Medium/High |
-| `<file:line>` | `<why this file is relevant>` | Low/Medium/High |
-
-## Investigation To-Do Plan
-
-- [ ] Confirm affected endpoint or workflow.
-- [ ] Compare incident start time with deployment time.
-- [ ] Inspect recent pull requests touching affected files.
-- [ ] Review logs for error shape and repeated messages.
-- [ ] Identify likely code cause and alternative hypotheses.
-- [ ] Create remediation issue or pull request.
-- [ ] Define validation required before merge.
-
-## Likely Cause
-
-`<Write the likely cause only after connecting symptoms, deployment evidence, and source-code context.>`
-
-## Alternative Hypotheses
-
-- `<hypothesis 1>`
-- `<hypothesis 2>`
 
 ## Remediation Path
 
-- **GitHub issue:** `<link>`
+- **GitHub issue:** `<link or simulated issue>`
 - **Pull request:** `<link or simulated packet>`
-- **Human reviewer:** `<name or role>`
-- **Validation before merge:** `<tests, logs, metrics, or manual checks>`
+- **Human reviewer role:** `<role>`
+- **Validation before acceptance:** `<endpoint, metric, test, or log check>`
 
 ## Customer-Safe Update
 
-`<Short, factual update. Avoid unsupported claims, secrets, or personal data.>`
+```text
+We are investigating elevated failures in the Grubify ordering flow. Azure SRE Agent has reviewed the connected operational signals and the team is validating the safest mitigation. Next update by <time>.
+```
 
 ## Learning Note
 
-`<What should the team change to prevent, detect, or recover faster next time?>`
+`<What should the team improve: monitoring, runbook, source context, response plan, hook, or approval policy?>`

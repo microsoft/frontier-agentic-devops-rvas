@@ -1,9 +1,9 @@
-# Runbooks
+# Azure SRE Agent Runbooks
 
-These assets support Challenge 06: Azure SRE agent response.
+These assets support the Azure SRE Agent game-day fallback path.
 
-- `challenge-06-incident-packet.md` gives participants the simulated production signal.
+- `challenge-06-incident-packet.md` gives participants a simulated Grubify production signal.
 - `challenge-06-triage-template.md` captures the operational response.
-- `generated/` is created by the simulation script and is intentionally ignored by Git.
+- `generated/` may be created by local simulation scripts and is intentionally ignored by Git.
 
-Real Azure SRE Agent access is optional for the hackathon. When available, it should be used to correlate symptoms to source code, create an investigation To-Do Plan, and propose a reviewed remediation. When unavailable, coaches can use the local evidence packet and rubric path.
+Use live Azure SRE Agent evidence when available. When it is not available, preserve the same learning shape: Azure signal, telemetry evidence, agent transcript, source-code lead, governed remediation, recovery proof, and improvement.

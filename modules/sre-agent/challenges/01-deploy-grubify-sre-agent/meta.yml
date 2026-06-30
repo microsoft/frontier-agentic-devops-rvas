@@ -1,0 +1,37 @@
+id: sre-agent-01
+title: Deploy Grubify and Create the Azure SRE Agent
+module: sre-agent
+track: azure-sre-agent
+difficulty: intermediate
+duration_minutes: 75
+prerequisites:
+  - sre-agent-00
+prerequisite_capabilities:
+  - Azure CLI authenticated
+  - Azure Developer CLI authenticated
+  - Supported Azure SRE Agent region access
+description: Deploy the official Grubify starter lab with Azure Container Apps, Log Analytics, Application Insights, Azure Monitor alerts, managed identity, and Azure SRE Agent configuration.
+success_criteria:
+  - The Grubify app is deployed or represented by a coach fallback packet.
+  - The Azure SRE Agent resource is visible in the Azure SRE Agent portal.
+  - Log Analytics, Application Insights, Azure Monitor alerting, and managed identity are identified.
+  - The team records the frontend URL, API URL, resource group, agent name, and region.
+  - The team can explain what telemetry the agent can use before source code is connected.
+  - 'Coach conversation — what production service would you connect first to Azure SRE Agent, and which signal would prove the agent is looking at the right workload?'
+tags:
+  - azure-sre-agent
+  - grubify
+  - azure-container-apps
+  - app-insights
+app_dependency: grubify-starter-lab
+emu_compatible: true
+min_environment: org
+tier: core
+source_repo: microsoft/sre-agent
+source_path: labs/starter-lab/README.md
+license: MIT
+references:
+  - https://github.com/microsoft/sre-agent/tree/main/labs/starter-lab
+  - https://sre.azure.com/docs/get-started/create-and-setup
+  - https://learn.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview
+  - https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-overview

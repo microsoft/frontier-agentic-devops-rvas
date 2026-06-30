@@ -64,11 +64,11 @@ const MODULE_CONFIG = {
   },
   'sre-agent': {
     name: 'SRE Agent',
-    description: 'End-to-end agentic pipeline: from issue triage to Azure SRE incident response.',
+    description: 'Use Azure SRE Agent to investigate Azure signals, connect evidence to source, and drive governed remediation.',
     color: '#1a7f37',
     icon: 'icon-agentic-devops.svg',
     tracks: {
-      'agentic-lifecycle': { name: 'Agentic Lifecycle', description: 'A linear journey through agent-driven DevOps: plan, build, deploy, monitor, and recover.' },
+      'azure-sre-agent': { name: 'Azure SRE Agent', description: 'A linear journey through setup, service onboarding, alert investigation, code-context RCA, remediation, and game-day recovery.' },
     },
   },
 };

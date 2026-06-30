@@ -24,7 +24,7 @@ tags:
   - REPLACE-tag-2
 
 # === Operational ===
-app_dependency: none             # none | juice-shop | contoso-claims | seed-repo
+app_dependency: none             # none | juice-shop | grubify-starter-lab | seed-repo
 emu_compatible: true             # Can this run in an EMU-controlled org?
 min_environment: org             # org | repo | codespace
 provision_creates:               # Resources the setup script creates (human-readable).

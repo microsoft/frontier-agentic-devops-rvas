@@ -1,77 +1,35 @@
-# Coach Guide: Challenge 00 — Environment Setup
+# Coach Guide: Challenge 00 — Prepare the Azure SRE Agent Lab
 
-## Objectives
+## Expected Outcome
 
-- Help every participant reach a verified working environment (Codespaces or local dev container).
-- Confirm `gh` CLI authentication, Azure CLI authentication, and the Contoso Claims baseline app smoke test before track work begins.
-- Establish team roles and a starter context artifact visible in the repository.
-- Surface and document access blockers early; apply fallback paths before Challenge 01.
+Teams confirm whether they can run the official Microsoft Azure SRE Agent starter lab live, use a shared coach environment, or switch to fallback evidence. They understand that the track is about Azure SRE Agent, not GitHub workflow setup.
 
----
+## Coach Prep
 
-## Facilitation Hints
+Prepare one of these paths before delivery:
 
-- **Push Codespaces first.** The dev container pre-installs everything (Node 22, Azure CLI, Bicep, GitHub Copilot). If local setup consumes more than 10 minutes, redirect to Codespaces.
-- Ask for a show-of-hands "green terminal" check after the first 10 minutes: `gh auth status` and `az account show` should both succeed.
-- Pair any participant who is blocked with a working neighbor; don't let one access blocker stall the group.
-- If Copilot is not enabled for all participants, pair so every team still practices the prompt-review-validation loop.
-- If Azure access is blocked entirely, distribute the fallback deployment evidence packet and keep teams on the GitHub-side tasks (issues, PRs, SDLC baseline).
-- Remind teams: the starter context note should be small and in the repo — not a long doc, not in chat.
+| Path | Coach needs |
+| --- | --- |
+| Live participant lab | Subscription, Owner role, supported region, cost approval |
+| Shared coach lab | Pre-deployed Grubify + Azure SRE Agent, portal screenshots, URLs |
+| Fallback packet | Alert, logs, App Insights excerpt, SRE Agent transcript, source references |
 
----
+Supported regions in the official lab docs include `eastus2`, `swedencentral`, and `australiaeast`. Validate availability before the session.
 
-## Common Blockers & Fixes
+## Validation Checkpoints
 
-| Symptom | Cause | Fix |
-|---|---|---|
-| `gh auth status` fails | Not logged in | Run `gh auth login` again; choose HTTPS |
-| Codespace build times out | Network / quota | Retry once; fall back to local dev container |
-| `az login` device code doesn't open | Corp proxy / blocked browser | Use `az login --use-device-code`; copy URL manually |
-| `az account show` returns no subscription | Azure access not yet provisioned | Coach distributes the fallback deployment evidence packet |
-| `az account show` shows wrong subscription | Multiple subs on the account | Run `az account set --subscription "<name>"` |
-| `npm test` fails in `modules/sre-agent/resources/sample-app/` | `npm install` not run | Run `npm install` first, then `npm test` |
-| `npm test` fails after install | Node version < 20 | Rebuild container; local: use `nvm use 22` |
-| Org repo not accessible | Not added to org | Coach adds participant to org team; or provides read-only clone for the session |
+- Ask participants to explain what the starter lab deploys.
+- Confirm they understand why Owner role may be required for RBAC assignments.
+- Confirm they know when to stop troubleshooting Azure policy and use fallback evidence.
+- Remind teams not to paste secrets, tenant IDs, tokens, or private incident details into notes.
 
----
+## Common Gaps
 
-## Success Check
+- Treating this as a GitHub/Codespaces setup challenge.
+- Spending too long on subscription policy.
+- Missing `Microsoft.App` provider registration.
+- Not distinguishing live lab from fallback evidence.
 
-Before releasing the group to Challenge 01, confirm per participant (or pair):
+## Coach Prompt
 
-- [ ] `gh auth status` exits 0 and shows the correct username
-- [ ] `az account show` returns the correct subscription with `state: Enabled`
-- [ ] `gh repo view microsoft/frontier-agenticdevops-hackathon` succeeds
-- [ ] `cd modules/sre-agent/resources/sample-app && npm test` passes
-- [ ] Repository is open and writable (or readable with a documented fallback)
-- [ ] Azure subscription confirmed or fallback evidence packet distributed
-
----
-
-## Team Launch — Coach Checkpoints
-
-After environment setup, verify the team launch deliverables:
-
-- Ask each team to show their team context artifact (issue, project note, or repo file).
-- Confirm at least one human is named for each role: architect, reviewer, escalation handler, operator.
-- The context artifact must include at least one safety boundary and one review rule.
-- Decide whether any team needs a coach-provided baseline branch before Challenge 01.
-
----
-
-## Access-Blocked Fallback
-
-If a participant cannot reach the environment, apply the smallest unblock:
-
-1. **Codespaces quota:** Use local dev container or request org Codespaces billing increase.
-2. **Org access:** Coach adds participant to org team, or provides a pre-cloned repo baseline branch.
-3. **Azure subscription blocked:** Coach provides the pre-built deployment evidence packet:
-   - Azure deployment logs (stdout from a passing `az deployment group create` run)
-   - Incident packet (pre-generated Azure SRE Agent investigation notes and alert JSON)
-   - Participant drives decisions and reviews without direct Azure console access.
-4. **All paths blocked:** Coach screen-shares org-owner session for Challenge 00 while participant drives decisions. Unblock access asynchronously and re-run environment setup before Challenge 04 (Azure deploy).
-
-## Useful references for coaching
-
-- [Codespaces quickstart](https://docs.github.com/en/codespaces/getting-started/quickstart), [Azure CLI install guide](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli).
-
+Ask: Which real Azure workload would benefit most from an SRE Agent, and what signal would you connect first?

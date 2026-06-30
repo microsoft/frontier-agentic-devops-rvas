@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-MODULE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-REPO_ROOT="$(cd "$MODULE_DIR/../../.." && pwd)"
-APP_DIR="$MODULE_DIR/resources/sample-app"
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../.." && pwd)"
 FAILURES=0
 
 pass() {
@@ -21,64 +19,66 @@ fail() {
 
 check_command() {
   local name="$1"
+  local required="${2:-required}"
   if command -v "$name" >/dev/null 2>&1; then
     pass "$name is installed"
-  else
+  elif [[ "$required" == "required" ]]; then
     fail "$name is not installed"
+  else
+    warn "$name is not installed"
   fi
 }
 
-printf 'SRE Agent track doctor\n'
+printf 'Azure SRE Agent track doctor\n'
 printf 'Repository: %s\n\n' "$REPO_ROOT"
 
 check_command git
-check_command node
-check_command npm
-check_command gh
+check_command az
+check_command azd
 
-if command -v az >/dev/null 2>&1; then
-  pass "az is installed"
+if command -v python3 >/dev/null 2>&1 || command -v python >/dev/null 2>&1; then
+  pass "Python is installed"
 else
-  warn "az is not installed; Azure deployment can use the coach fallback packet until access is ready"
-fi
-
-if command -v gh >/dev/null 2>&1; then
-  if gh auth status >/dev/null 2>&1; then
-    pass "GitHub CLI is authenticated"
-  else
-    fail "GitHub CLI is not authenticated; run gh auth login"
-  fi
+  fail "Python 3.10+ is not installed"
 fi
 
 if command -v az >/dev/null 2>&1; then
   if az account show >/dev/null 2>&1; then
     pass "Azure CLI has an active subscription"
   else
-    warn "Azure CLI is not logged in or no subscription is selected; run az login and az account set before Challenge 04"
+    warn "Azure CLI is not logged in or no subscription is selected; run az login --use-device-code"
+  fi
+
+  provider_state="$(az provider show -n Microsoft.App --query registrationState -o tsv 2>/dev/null || true)"
+  if [[ "$provider_state" == "Registered" ]]; then
+    pass "Microsoft.App provider is registered"
+  else
+    warn "Microsoft.App provider is not registered; run az provider register -n Microsoft.App --wait"
   fi
 fi
 
 if git -C "$REPO_ROOT" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-  branch="$(git -C "$REPO_ROOT" branch --show-current)"
-  if [[ -n "$branch" && "$branch" != "main" ]]; then
-    pass "working on branch $branch"
-  else
-    warn "create a personal/team branch before making challenge changes"
-  fi
+  pass "running inside a Git repository"
 else
   fail "not inside a Git repository"
 fi
 
-npm --prefix "$APP_DIR" install --silent
-npm --prefix "$APP_DIR" test
-pass "sample app dependencies install and tests pass"
+cat <<'EOF'
 
-bash "$MODULE_DIR/resources/scripts/validate-agentic-workflow-specs.sh"
-pass "agentic workflow specs validate"
+Official lab source:
+  https://github.com/microsoft/sre-agent/tree/main/labs/starter-lab
+
+Recommended live setup:
+  git clone https://github.com/microsoft/sre-agent.git
+  cd sre-agent/labs/starter-lab
+  bash scripts/setup.sh
+
+If Azure access is blocked, use the coach fallback packet instead of troubleshooting subscription policy during the workshop.
+EOF
 
 if [[ "$FAILURES" -gt 0 ]]; then
   printf '\nDoctor found %s blocking issue(s).\n' "$FAILURES" >&2
   exit 1
 fi
 
-printf '\nSRE Agent track setup is ready. Azure warnings can be resolved before Challenge 04 or handled with coach fallback evidence.\n'
+printf '\nAzure SRE Agent track preflight is ready. Resolve warnings before live deployment or use the fallback packet.\n'

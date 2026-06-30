@@ -137,9 +137,9 @@
     },
     {
       "id": "agentic-devops-cloud",
-      "name": "Modernize DevOps with GitHub and cloud",
-      "tagline": "Connect GitHub, Azure, and agents into an end-to-end delivery and operations loop.",
-      "description": "Use GitHub as the system of record for planning, coding, deployment, cloud operations, incident response, and agent-assisted recovery.",
+      "name": "Adopt Azure SRE Agent",
+      "tagline": "Turn Azure operational signals into evidence-backed investigation and governed remediation.",
+      "description": "Use Azure SRE Agent with Azure Monitor, Log Analytics, Application Insights, service knowledge, source-code context, and GitHub follow-up to reduce operational toil and improve incident response.",
       "personas": ["sre", "platform-engineer", "cloud-engineer"],
       "adoption_stage": ["pilot", "operate"],
       "business_value": ["improve-operational-resilience", "accelerate-cloud-delivery", "reduce-incident-mttx"],
@@ -151,14 +151,12 @@
         "sre-agent-04",
         "sre-agent-05",
         "sre-agent-06",
-        "ghec-ch04",
-        "ghec-ch19",
-        "ghaw-4-02"
+        "ghec-ch19"
       ],
       "success_metrics": [
-        "A cloud-backed app can move from issue to deployment through GitHub workflows.",
-        "Operational automation has human-review points and clear ownership.",
-        "Incident response and recovery flows produce evidence that SREs can inspect."
+        "An Azure SRE Agent can explain the monitored application, connected Azure resources, and available runbooks.",
+        "A controlled incident produces an alert, investigation evidence, likely cause, and recovery action.",
+        "Source-code context or a fallback evidence packet connects operational symptoms to governed engineering follow-up."
       ]
     }
   ]

@@ -1,0 +1,38 @@
+id: sre-agent-04
+title: Investigate a Controlled Azure Incident
+module: sre-agent
+track: azure-sre-agent
+difficulty: intermediate
+duration_minutes: 60
+prerequisites:
+  - sre-agent-03
+prerequisite_capabilities:
+  - Azure SRE Agent portal access
+  - Grubify deployed or fallback evidence packet available
+  - Azure Monitor and Log Analytics basics
+description: Trigger the official Grubify break scenario, observe Azure Monitor incident routing, and use Azure SRE Agent to investigate runtime evidence before accepting any remediation.
+success_criteria:
+  - A controlled Grubify failure is triggered or represented through fallback evidence.
+  - The team captures the starting symptom, timestamp, alert, and affected user action.
+  - Azure SRE Agent queries or cites logs, metrics, traces, runbooks, or resource state.
+  - The likely cause is separated from alternatives and unknowns.
+  - Any mitigation is treated as operational action with a review or coach checkpoint.
+  - Recovery is verified through browser or endpoint evidence.
+  - 'Coach conversation — which Azure signal would you trust first during a real incident: alert, log query, trace, metric, or user report, and why?'
+tags:
+  - azure
+  - incident-response
+  - azure-monitor
+  - log-analytics
+app_dependency: grubify-starter-lab
+emu_compatible: true
+min_environment: org
+tier: core
+source_repo: microsoft/sre-agent
+source_path: labs/starter-lab/README.md
+license: MIT
+references:
+  - https://github.com/microsoft/sre-agent/tree/main/labs/starter-lab
+  - https://sre.azure.com/docs/capabilities/incident-response
+  - https://sre.azure.com/docs/capabilities/diagnose-azure-observability
+  - https://learn.microsoft.com/en-us/azure/azure-monitor/logs/log-analytics-overview

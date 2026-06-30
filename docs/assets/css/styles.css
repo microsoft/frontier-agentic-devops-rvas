@@ -676,14 +676,25 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
   gap: 8px;
   flex-wrap: wrap;
   margin-top: auto;
+  min-width: 0;
 }
-.ch-tags { display: flex; gap: 5px; flex-wrap: wrap; flex: 1; min-width: 0; }
+.ch-tags {
+  display: flex;
+  gap: 5px;
+  flex: 1 1 100%;
+  flex-wrap: wrap;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
 
 /* ═══════════════════════════ BADGES ════════════════════════════════ */
 .badge {
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  min-width: 0;
+  max-width: 100%;
   font-family: var(--font-mono);
   font-size: 0.63rem;
   letter-spacing: 0.04em;
@@ -693,6 +704,8 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
   border: 1px solid transparent;
   text-transform: uppercase;
   font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .badge-difficulty-beginner   { background: rgba(74, 222, 128, 0.12); color: var(--c-beginner); border-color: rgba(74, 222, 128, 0.2); }
 .badge-difficulty-intermediate { background: rgba(250, 204, 21, 0.12); color: var(--c-intermediate); border-color: rgba(250, 204, 21, 0.2); }
@@ -725,6 +738,7 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
   letter-spacing: 0;
   text-transform: none;
   font-size: 0.68rem;
+  max-width: 100%;
 }
 .badge-tag:hover { color: var(--c-dim); }
 .badge-outcome {
@@ -733,6 +747,7 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
   border-color: rgba(232, 200, 74, 0.20);
   text-transform: none;
   letter-spacing: 0;
+  max-width: min(100%, 18rem);
 }
 
 /* ═══════════════════════════ FILTERS ═══════════════════════════════ */
@@ -1003,6 +1018,8 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
   border-radius: var(--r);
   padding: 28px 32px;
   min-height: 200px;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 /* Markdown styles inside .guide-body */
@@ -1021,12 +1038,15 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
   padding: 2px 6px;
   border-radius: 4px;
   color: var(--c-gold);
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .guide-body pre {
   background: var(--c-700);
   border: 1px solid var(--c-line);
   border-radius: var(--r-sm);
   padding: 16px 20px;
+  max-width: 100%;
   overflow-x: auto;
   margin: 0 0 1rem;
 }
@@ -1036,6 +1056,8 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
   font-size: 0.83rem;
   color: var(--c-fg);
   line-height: 1.6;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 .guide-body blockquote {
   border-left: 3px solid var(--c-gold);
@@ -1045,9 +1067,9 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
   border-radius: 0 var(--r-sm) var(--r-sm) 0;
 }
 .guide-body blockquote p { margin: 0; font-size: 0.9rem; color: var(--c-dim); }
-.guide-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.875rem; }
+.guide-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.875rem; table-layout: fixed; }
 .guide-body th { background: var(--c-700); padding: 8px 12px; text-align: left; font-weight: 700; border-bottom: 1px solid var(--c-line); }
-.guide-body td { padding: 8px 12px; border-bottom: 1px solid var(--c-line-soft); }
+.guide-body td { padding: 8px 12px; border-bottom: 1px solid var(--c-line-soft); overflow-wrap: anywhere; }
 .guide-body hr { border: none; border-top: 1px solid var(--c-line); margin: 1.5rem 0; }
 
 /* Facts sidebar */

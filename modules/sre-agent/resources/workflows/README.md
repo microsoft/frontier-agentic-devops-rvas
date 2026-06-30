@@ -1,5 +1,9 @@
 # Workflow Templates
 
-These templates are copied into `.github/workflows/` during the SRE Agent track. They are intentionally inactive while they live under `modules/sre-agent/resources/workflows/`.
+The Azure SRE Agent track no longer requires a custom GitHub Actions deployment workflow. Live delivery should use the official Microsoft starter lab:
 
-Use [azure-container-apps-deploy.yml](azure-container-apps-deploy.yml) in Challenge 04 when coaches provide an Azure Container Apps target, Azure Container Registry, and workload identity configuration.
+```text
+https://github.com/microsoft/sre-agent/tree/main/labs/starter-lab
+```
+
+Files in this folder are retained only as legacy coach references. They are intentionally inactive while they live under `modules/sre-agent/resources/workflows/`.

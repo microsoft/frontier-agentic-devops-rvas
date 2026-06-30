@@ -1,158 +1,100 @@
-# Challenge 00 — Environment Setup
+# Challenge 00: Prepare the Azure SRE Agent Lab
 
-## Objectives
+## Scenario
 
-By the end of this challenge you will have:
+Your team is about to run an Azure SRE Agent lab using Microsoft's official Grubify starter environment. Before deploying anything, confirm that the tools, Azure access, region, and fallback path are ready.
 
-**Environment setup:**
-- A working development environment (GitHub Codespaces or local dev container)
-- An authenticated `gh` CLI session
-- An authenticated Azure CLI session with Contributor access confirmed
-- The Contoso Claims baseline app running and passing tests
+The goal is not to build a custom app. The goal is to use a known Microsoft-provided sample so the rest of the track can focus on Azure SRE Agent behavior: observability, alert investigation, runbooks, source-code context, remediation, and recovery.
 
-**Team launch:**
-- A shared understanding of the Contoso Claims scenario and the one-day arc
-- Named human accountability roles: architect, reviewer, escalation handler, and operator
-- A starter context artifact capturing roles, review rules, and safety boundaries
+## Goals
 
----
+- Understand the official `microsoft/sre-agent` starter lab.
+- Confirm Azure CLI, Azure Developer CLI, Git, and Python prerequisites.
+- Confirm Azure role and provider requirements.
+- Select a supported Azure SRE Agent region.
+- Decide whether your team will run the live lab or use coach-provided fallback evidence.
 
-## Prerequisites
+## Estimated Time
 
-- GitHub account
-- Basic Git and CLI usage
-- Azure subscription with **Contributor** role on the hackathon resource group
-- Access to the shared org repository (branch workflow — do **not** fork)
+45 minutes.
 
-> **Branch workflow (not fork):** This module uses a shared org repository. Do **not** fork. Clone directly and work on a personal branch:
-> ```bash
-> git checkout -b setup/<your-github-handle>
-> ```
+## Official Lab Source
 
----
-
-## Option A: GitHub Codespaces (Recommended)
-
-1. Open **this repository** (`microsoft/frontier-agenticdevops-hackathon`) on GitHub.
-2. Click **Code → Codespaces → Create codespace on main**.
-3. Wait ~30 seconds for the dev container to build (Node 22, Bicep extension, port 3000 forwarded).
-4. When the terminal appears, dependencies install automatically via `postCreateCommand`. Continue to **Verify your setup** below.
-
----
-
-## Option B: Local Dev Container
-
-1. Install [VS Code](https://code.visualstudio.com/) and the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
-2. Clone this repository (if you haven't already):
-   ```bash
-   git clone https://github.com/microsoft/frontier-agenticdevops-hackathon.git
-   cd frontier-agenticdevops-hackathon
-   ```
-3. Open VS Code in the cloned folder and choose **Dev Containers: Reopen in Container**.
-4. Wait for the container to build, then continue below.
-
----
-
-## Authenticate the GitHub CLI
-
-Your container does not have your GitHub credentials pre-loaded. Run:
+Use the Microsoft Azure SRE Agent repository:
 
 ```bash
-gh auth login
+git clone https://github.com/microsoft/sre-agent.git
+cd sre-agent/labs/starter-lab
 ```
 
-Choose **HTTPS**, follow the device-code prompt in your browser, and grant the requested permissions.
+The starter lab deploys:
 
-Verify:
+| Component | Purpose |
+| --- | --- |
+| Azure SRE Agent | Investigates incidents and uses connected context |
+| Grubify API and frontend | Sample food-ordering app to break and recover |
+| Azure Container Apps | Runtime for the sample app |
+| Log Analytics | Queryable logs for investigation |
+| Application Insights | Request, exception, and trace context |
+| Azure Monitor alert | Incident signal that can trigger agent investigation |
+| Knowledge files and runbooks | Context the agent uses during response |
+
+## Verify Prerequisites
+
+Confirm the required tools:
+
 ```bash
-gh auth status
+az version
+azd version
+git --version
+python3 --version || python --version
 ```
 
----
-
-## Authenticate the Azure CLI
+Sign in:
 
 ```bash
-az login
-```
-
-Follow the device-code prompt. Once logged in, confirm your subscription:
-
-```bash
+az login --use-device-code
+azd auth login --use-device-code
 az account show
 ```
 
-You should see your subscription name and a `state: Enabled` field. If the wrong subscription is selected:
+Register the required resource provider:
 
 ```bash
-az account set --subscription "<your-subscription-name-or-id>"
-az account show
+az provider register -n Microsoft.App --wait
 ```
 
----
+Confirm with your coach:
 
-## Verify Your Setup
+| Requirement | Needed for live lab |
+| --- | --- |
+| Azure subscription | Active subscription |
+| Role | Owner, or a coach-provisioned environment |
+| Region | `eastus2`, `swedencentral`, or `australiaeast` |
+| Cost approval | Required before deployment |
+| GitHub account | Optional for source-code and issue scenarios |
 
-Run each command and confirm it exits successfully:
+## Choose Your Path
 
-```bash
-# 1. GitHub CLI auth
-gh auth status
+| Path | Use when | You will do |
+| --- | --- | --- |
+| Live lab | Azure access is available | Deploy Grubify and Azure SRE Agent |
+| Shared coach lab | A coach owns the Azure environment | Inspect shared resources and run guided prompts |
+| Fallback packet | Azure access is blocked | Use prepared alerts, logs, screenshots, and source references |
 
-# 2. Azure subscription
-az account show
+Do not spend the workshop debugging subscription policy. If access is blocked, switch to the fallback packet and preserve the learning objective.
 
-# 3. Baseline app tests (sample app is vendored in this repo)
-cd modules/sre-agent/resources/sample-app && npm install && npm test
-```
+## Deliverables
 
-> All three checks must succeed before you continue with your assigned track. If any fail, see **Common Blockers** in the coach guide.
+- Selected path: live, shared coach lab, or fallback packet.
+- Azure subscription, region, and resource group decision.
+- Tool prerequisite check results.
+- One note naming the Azure SRE Agent capabilities this track will exercise.
 
----
+## Success Criteria
 
----
-
-## Team Launch & Scenario
-
-### The Contoso Claims Story
-
-Your product team has inherited a customer-facing service called **Contoso Claims**. The service works, but the engineering system around it is uneven: backlog items are vague, pull requests are inconsistent, automation is incomplete, and operational evidence is scattered.
-
-Today your team will modernize how this service moves from idea to production signal. You will use GitHub as the system of record, GitHub Copilot and agent workflows as engineering accelerators, Azure as the deployment target, and Azure SRE Agent practices to close the loop from incident evidence back to a reviewed fix.
-
-The first lesson is simple: **do not ask agents to infer your team's operating model from scattered chat.** Before autonomy increases, make enough team knowledge explicit that a new teammate or agent can find it in the repo.
-
-### Team Roles
-
-Choose one person for each accountability role:
-
-| Role | Responsibility |
-|---|---|
-| **Architect** | Owns design decisions, review gates, and safety boundaries |
-| **Reviewer** | Approves pull requests and agent-generated changes |
-| **Escalation handler** | Decides when to pause and escalate vs. continue |
-| **Operator** | Monitors deployments, runs baseline checks, handles incidents |
-
-### Team Tasks
-
-1. Confirm everyone can open the repository and has a working environment (see above).
-2. Review the service README and known issues in the repository.
-3. Create or identify your team board, issue list, or project view for the day.
-4. Create a short team context note using the [Agentic SDLC Starter Kit](../../resources/Agentic-SDLC-Starter-Kit.md). Include:
-   - Human roles and merge authority
-   - Safety boundaries (what agents may and may not do autonomously)
-   - Where decisions will be recorded
-5. Capture any unresolved setup blockers as GitHub issues — not chat messages.
-
-### Working Agreements
-
-- If Copilot is not enabled for everyone, pair up so every team still practices prompt-review-validation loops.
-- If Azure access is not ready, keep moving. Coaches can provide deployment logs, incident packets, and SRE response artifacts for later challenges.
-- Keep the starter context small. Progressive disclosure beats one giant instruction file.
-- Treat setup governance as a working draft — you will improve it as agents reveal missing assumptions.
-
-### Deliverables
-
-- Team context artifact with roles, boundaries, and decision location (issue, project note, or repo file).
-- Setup blocker issue for each unresolved access problem.
-- Confirmed environment path: Codespaces, dev container, local, or coach fallback.
+- The intended Azure subscription and region are known.
+- Required tools are installed or a fallback path is selected.
+- `Microsoft.App` is registered or registration is delegated to the coach.
+- The team can explain what the Grubify starter lab deploys.
+- No secrets, tokens, tenant details, or credentials are pasted into notes or prompts.

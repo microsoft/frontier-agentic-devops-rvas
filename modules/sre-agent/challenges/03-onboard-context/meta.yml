@@ -1,0 +1,37 @@
+id: sre-agent-03
+title: Onboard Service Context and Response Plans
+module: sre-agent
+track: azure-sre-agent
+difficulty: intermediate
+duration_minutes: 45
+prerequisites:
+  - sre-agent-01
+prerequisite_capabilities:
+  - Azure SRE Agent portal access
+  - Deployed or simulated Grubify lab
+  - Azure monitoring basics
+description: Teach Azure SRE Agent what it is responsible for by reviewing connected Azure resources, knowledge files, runbooks, custom agents, response plans, and team memory.
+success_criteria:
+  - The team verifies connected Azure resources, incidents, knowledge files, and optional code.
+  - The agent can summarize the Grubify architecture and HTTP error runbook.
+  - The team identifies the incident-handler, code-analyzer, and issue-triager roles when available.
+  - A response plan or fallback response-plan summary explains how alerts reach the agent.
+  - Team memory captures on-call ownership and escalation without secrets.
+  - 'Coach conversation — which runbook, escalation rule, or architecture note would make Azure SRE Agent more useful for your real service on day one?'
+tags:
+  - azure-sre-agent
+  - response-plans
+  - runbooks
+  - memory
+app_dependency: grubify-starter-lab
+emu_compatible: true
+min_environment: org
+tier: core
+source_repo: microsoft/sre-agent
+source_path: labs/starter-lab/README.md
+license: MIT
+references:
+  - https://sre.azure.com/docs/concepts/memory
+  - https://sre.azure.com/docs/concepts/subagents
+  - https://sre.azure.com/docs/capabilities/incident-response-plans
+  - https://github.com/microsoft/sre-agent/tree/main/labs/starter-lab

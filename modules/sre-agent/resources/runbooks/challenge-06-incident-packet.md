@@ -1,54 +1,55 @@
-# Challenge 06 Incident Packet: Checkout Failure
+# Challenge 06 Incident Packet: Grubify Ordering Failure
 
 ## Situation
 
-At 15:22 UTC, synthetic monitoring began reporting elevated failures on the checkout path after a deployment. Customers can browse the site, but checkout intermittently fails or exceeds the response-time budget.
+At `<timestamp>`, Azure Monitor detected elevated failures for the Grubify ordering flow. Customers can browse the frontend, but Add to Cart or the backing API call is failing.
 
 ## Starting Evidence
 
 | Signal | Value |
 | --- | --- |
-| Service | `frontier-sample-app` |
-| Endpoint | `/api/checkout` |
-| Health endpoint | `/healthz` |
-| Observed status | HTTP 500 or HTTP 503 depending on incident mode |
-| First detected | 15:22 UTC |
-| Change window | Deployment completed roughly 10 minutes before first alert |
-| Customer impact | Checkout attempts fail; browsing remains available |
+| Service | `grubify` |
+| Frontend | `<frontend URL>` |
+| API | `<API URL>` |
+| Affected action | Add to Cart / ordering flow |
+| First detected | `<timestamp>` |
+| Customer impact | Ordering attempts fail; browsing remains available |
 
-## Local Reproduction
+## Azure Evidence
 
-From the repository root:
+| Evidence | Value |
+| --- | --- |
+| Azure Monitor alert | `<alert name>` |
+| Log Analytics query | `<query or excerpt>` |
+| Application Insights exception | `<exception or trace excerpt>` |
+| Container App state | `<revision/resource state>` |
+| Runbook reference | `<knowledge file or runbook section>` |
 
-```bash
-modules/sre-agent/resources/scripts/simulate-checkout-incident.sh checkout_error
-```
+## Azure SRE Agent Transcript
 
-or:
+Provide a sanitized transcript or summary showing:
 
-```bash
-modules/sre-agent/resources/scripts/simulate-checkout-incident.sh checkout_latency
-```
+- evidence gathered;
+- likely cause;
+- alternative hypothesis;
+- mitigation recommendation;
+- validation plan.
 
-The script starts the sample service locally, captures health and checkout responses, and writes evidence to `modules/sre-agent/resources/runbooks/generated/`.
+## Source-Code Context
 
-## Azure SRE Agent Use
+If source context is included:
 
-If Azure SRE Agent access is available, connect it to the deployed service, logs, and the GitHub repository source branch. Ask it to:
-
-- Correlate the failing endpoint to source files.
-- Produce an investigation To-Do Plan.
-- Identify the likely code or configuration cause.
-- Draft a remediation pull request only after a human reviews the plan.
-
-If Azure SRE Agent access is unavailable, use the generated evidence and the triage template in this folder. The learning objective is the same: preserve evidence, explain likely cause, and produce a reviewable remediation path.
+| Candidate area | Evidence | Confidence |
+| --- | --- | --- |
+| `<file:line>` | `<why this source area is relevant>` | `<Low/Medium/High>` |
 
 ## Expected Participant Outcome
 
-Teams should finish with a concise incident response summary that includes:
+Teams should finish with:
 
-- Customer-safe status.
-- Technical symptoms and evidence.
-- Likely cause and confidence level.
-- Immediate mitigation.
-- Follow-up issue or pull request recommendation.
+- incident timeline;
+- evidence-backed likely cause;
+- alternative hypothesis;
+- GitHub issue or reviewed PR packet;
+- recovery proof;
+- one monitoring, runbook, response-plan, source-context, hook, or approval-policy improvement.
