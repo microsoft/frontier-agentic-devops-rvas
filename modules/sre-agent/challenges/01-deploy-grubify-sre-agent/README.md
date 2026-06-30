@@ -28,6 +28,10 @@ cd external/sre-agent/labs/starter-lab
 bash scripts/setup.sh
 ```
 
+When the setup script asks for a GitHub username, press **Enter** unless your coach has already provided a lab GitHub repository. Challenge 01 does not require GitHub; skipping it still deploys Grubify, Azure Monitor, Log Analytics, Application Insights, knowledge files, and the Azure SRE Agent.
+
+If your coach provides a GitHub repository for source-code scenarios, the current starter lab expects a repository named `grubify` under the owner you enter. For example, for `https://github.com/contoso-team-01/grubify`, enter `contoso-team-01`. Do not enter an email address, token, `@handle`, full repository URL, or the original sample owner.
+
 If you prefer manual setup:
 
 ```bash
@@ -44,6 +48,8 @@ azd up
 
 bash scripts/post-provision.sh
 ```
+
+For manual Challenge 01 setup, leave `GITHUB_USER` unset unless your coach tells you to connect source code now.
 
 Deployment can take several minutes. If deployment fails because of role, policy, region, or cost restrictions, switch to the coach fallback packet.
 

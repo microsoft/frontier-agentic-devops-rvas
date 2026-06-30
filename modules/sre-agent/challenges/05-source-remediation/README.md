@@ -18,15 +18,37 @@ Azure evidence can explain what failed. Source-code context helps explain where 
 
 ## Connect Source Code
 
-If your live lab supports GitHub connection, follow the starter lab's GitHub setup:
+If your live lab supports GitHub connection, use a lab-safe GitHub repository approved by your coach. In GitHub Enterprise Managed User (EMU) environments, do not assume participants can fork public repositories into personal accounts. Your coach may provide an enterprise-owned repository instead.
+
+The current starter lab expects the connected repository to be named `grubify` and uses the value of `GITHUB_USER` as the repository owner. Use one of these paths:
+
+| Environment | What to use |
+| --- | --- |
+| Personal GitHub account allowed | Fork `https://github.com/dm-chelupati/grubify` to `<your-user>/grubify`. |
+| EMU or enterprise-managed account | Use the coach-provided enterprise owner that contains `<owner>/grubify`. |
+| GitHub blocked or repo name differs | Use the fallback source packet, or connect the repository manually in the Azure SRE Agent portal if your coach supports it. |
+
+Enable Issues on the lab repository before connecting it. The source-code and issue-triage scenarios need issue read/write access.
+
+From the starter lab directory, set the repository owner and rerun post-provision setup:
 
 ```bash
 npm run setup:sre-agent-lab
 cd external/sre-agent/labs/starter-lab
-bash scripts/setup-github.sh
+azd env set GITHUB_USER <repo-owner>
+bash scripts/post-provision.sh --retry
 ```
 
-You may also connect GitHub through the Azure SRE Agent portal. Use the least privilege option your coach approves. For the lab, a fork of the sample repository is preferred.
+For example, if your coach provides `https://github.com/contoso-team-01/grubify`, run:
+
+```bash
+azd env set GITHUB_USER contoso-team-01
+bash scripts/post-provision.sh --retry
+```
+
+When the OAuth URL appears, open it in a browser and authorize with the GitHub account that has access to the lab repository. Do not paste GitHub tokens into chat or notes.
+
+You may also connect GitHub through the Azure SRE Agent portal. Use the least privilege option your coach approves.
 
 If GitHub connection is blocked, use the fallback packet with source snippets, file references, and a simulated issue or pull request.
 

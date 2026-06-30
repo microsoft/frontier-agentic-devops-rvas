@@ -9,8 +9,10 @@ Teams connect or simulate source-code context and use Azure SRE Agent to turn op
 Prepare one of:
 
 - Live GitHub connector for the lab repository.
-- A fork of the sample repo with issues enabled.
+- A fork or import of the sample repo with issues enabled.
 - A fallback source packet with file references and a simulated issue/PR.
+
+For GitHub Enterprise Managed User (EMU) tenants, prefer a coach-provisioned enterprise repository over asking participants to fork public code during the workshop. The current starter lab expects the connected repository to be `<owner>/grubify`, so provide each team with an owner that has a repo named `grubify`, or use the fallback packet/manual portal connection if your enterprise uses team-specific repo names.
 
 Least privilege is preferred. If OAuth or PAT setup becomes the workshop, switch to fallback.
 
