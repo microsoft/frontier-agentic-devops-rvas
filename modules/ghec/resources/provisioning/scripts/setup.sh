@@ -173,7 +173,9 @@ load_challenge() {
 print_min_scopes() {
   log_step "minimum token scopes for $CHID"
   local scopes=("repo" "read:org")
-  meta_list "$META" provision_creates | grep -qiE 'project' && scopes+=("project")
+  if meta_list "$META" provision_creates | grep -qiE 'project'; then
+    scopes+=("project" "read:project")
+  fi
   [[ "$APP" == "juice-shop" ]] && scopes+=("workflow")
   local joined; joined="$(printf '%s, ' "${scopes[@]}")"; joined="${joined%, }"
   log_info "classic PAT scopes:   $joined"

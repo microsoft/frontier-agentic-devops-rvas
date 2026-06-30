@@ -150,7 +150,9 @@ function Import-Challenge {
 function Show-MinScopes {
   Write-WthStep "minimum token scopes for $Chid"
   $scopes = @('repo', 'read:org')
-  if ((Get-WthMetaList -File $Meta -Key 'provision_creates') -match 'project') { $scopes += 'project' }
+  if ((Get-WthMetaList -File $Meta -Key 'provision_creates') -match 'project') {
+    $scopes += @('project', 'read:project')
+  }
   if ($App -eq 'juice-shop') { $scopes += 'workflow' }
   Write-WthInfo ("classic PAT scopes:   " + ($scopes -join ', '))
   Write-WthInfo "fine-grained PAT:     Administration:RW, Contents:RW, Issues:RW, Metadata:R (org '$Org')"

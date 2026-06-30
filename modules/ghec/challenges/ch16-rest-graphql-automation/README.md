@@ -13,9 +13,14 @@
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch16 --org <org>` (least-privilege; for this challenge: `repo` + `read:org` + `project`).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch16 --org <org>` (least-privilege; for this challenge: `repo` + `read:org` + `project` + `read:project`).
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
 - Comfort reading JSON. The whole challenge is API-first — you'll live in `gh api`, not the web UI.
+
+If setup fails at the project step with missing scopes, add them in place and re-run:
+```bash
+gh auth refresh -h github.com -s project,read:project
+```
 
 ## Scenario objectives
 By completing this challenge you will:

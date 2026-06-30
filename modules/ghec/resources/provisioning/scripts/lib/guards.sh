@@ -7,7 +7,8 @@
 # guard_prefix <name> <chid> -> 0 only if <name> is inside wth-<chid>-*.
 # Teardown MUST call this before deleting anything.
 guard_prefix() {
-  local name="$1" chid="$2" expect="wth-${chid}-"
+  local name="$1" chid="$2" expect
+  expect="wth-${chid}-"
   case "$name" in
     "${expect}"*) return 0 ;;
     *)

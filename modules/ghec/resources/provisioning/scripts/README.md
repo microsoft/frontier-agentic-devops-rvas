@@ -33,6 +33,12 @@ export GH_TOKEN=...           # set in your environment, not as a flag
 
 The scripts read auth purely through `gh`. There is no `--token` flag anywhere, by design.
 
+If `doctor` or `provision` reports missing scopes for Projects v2 operations, refresh scopes in place:
+
+```bash
+gh auth refresh -h github.com -s project,read:project
+```
+
 ## Command surface
 
 ```

@@ -71,6 +71,8 @@ gh auth login
 
 Choose **GitHub.com**, then **HTTPS**, and follow the device-code prompt in your browser. Grant the requested permissions (at minimum: `repo`, `read:org`).
 
+> Some later challenges (Projects v2 automation, including ch16) also need `project` and `read:project`. You can add missing scopes later without re-login: `gh auth refresh -h github.com -s project,read:project`.
+
 Verify the session is active:
 
 ```bash
