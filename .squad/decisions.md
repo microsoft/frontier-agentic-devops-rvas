@@ -346,7 +346,7 @@ Typography adjustments:
 
 **Summary:** Created `modules/ghec/challenges/ch00-environment-setup/` (three files: meta.yml, README.md, COACH.md). Follows Mal's shared template contract. Challenge ID: `ghec-ch00`, title: "Environment Setup", track: `developer-flow`, `prerequisites: []`.
 
-**Content sources:** `frontier-ghec-hackathon/scripts/setup.sh` (provisioning CLI commands, tool versions), `frontier-ghec-hackathon/README.md` (setup narrative).
+**Content sources:** `retired-private-predecessor/scripts/setup.sh` (provisioning CLI commands, tool versions), `retired-private-predecessor/README.md` (setup narrative).
 
 **Key fields:** `tier: setup`, `duration_minutes: 25`, `difficulty: beginner`, `min_environment: org`, `app_dependency: none`, `emu_compatible: true`.
 
@@ -365,7 +365,7 @@ Typography adjustments:
 
 **Prerequisite decisions:** `ghas-s01` (formerly s00, "Explore the Attack Surface") retains `prerequisites: []` — it was the original entry point. `ghas-s02` through `ghas-s06` updated to list `ghas-s01` (not the old s00).
 
-**Content sources:** `frontier-ghas-hackathon/docs/getting-started.html`, `frontier-ghas-hackathon/docs/prerequisites.html`, `frontier-ghas-hackathon/Student/README.md`.
+**Content sources:** `retired-private-predecessor/docs/getting-started.html`, `retired-private-predecessor/docs/prerequisites.html`, `retired-private-predecessor/Student/README.md`.
 
 **Key fields:** `tier: setup`, `duration_minutes: 25`, `app_dependency: juice-shop`, `min_environment: org`.
 
@@ -380,7 +380,7 @@ Typography adjustments:
 **Status:** ✅ Done  
 **Requested by:** Marco (@olivomarco)
 
-**Summary:** Refreshed existing `modules/ghaw/challenges/0-00-setup/` (no rename; id `ghaw-0-00` unchanged). Applied Mal's template contract to meta.yml, README, and COACH.md. Upgraded `success_criteria` from mixed soft items to 5 verifiable shell commands: `gh auth status`, `gh --version`, `gh aw --version`, `gh aw run examples/hello-world.md --dry-run`, `gh repo view microsoft/frontier-ghaw-hackathon`.
+**Summary:** Refreshed existing `modules/ghaw/challenges/0-00-setup/` (no rename; id `ghaw-0-00` unchanged). Applied Mal's template contract to meta.yml, README, and COACH.md. Upgraded `success_criteria` from mixed soft items to 5 verifiable shell commands: `gh auth status`, `gh --version`, `gh aw --version`, `gh aw run examples/hello-world.md --dry-run`, `gh repo view retired private predecessor repo`.
 
 **Title decision:** Kept as `Challenge 00 — Environment Setup` (existing value, matches template for GHAW continuity).
 
@@ -745,7 +745,7 @@ Typography adjustments:
 
 **Owner:** Mal (Lead / Architect)
 
-**Summary:** Four private Microsoft repositories (`frontier-ghas-hackathon`, `frontier-ghaw-hackathon`, `frontier-ghec-hackathon`, `frontier-agenticdevops-hackathon`) are being deleted after content vendoring in-tree. The `external-repos.json` manifest now supports optional `retired: true` and `vendored_in: "modules/.../"` fields to record provenance without breaking verify scripts or challenge rendering.
+**Summary:** Four private Microsoft repositories (`retired-private-predecessor`, `retired-private-predecessor`, `retired-private-predecessor`, `frontier-agenticdevops-hackathon`) are being deleted after content vendoring in-tree. The `external-repos.json` manifest now supports optional `retired: true` and `vendored_in: "modules/.../"` fields to record provenance without breaking verify scripts or challenge rendering.
 
 **Key decision:** This repo's origin = `microsoft/frontier-agenticdevops-hackathon` = the **LIVE consolidated repo (KEPT)**. Only the private `frontier-ghas/ghaw/ghec-hackathon` repos (+ private contoso sources) are being deleted. The `agenticdevops` slug must never be presented to participants as a dead/archived repo.
 
@@ -796,10 +796,10 @@ Typography adjustments:
 
 **Author:** Zoe (Content / Curriculum Engineer)
 
-**Summary:** Removed all participant instructions that fork/clone private upstream repos (`frontier-ghaw-hackathon`, `frontier-agenticdevops-hackathon`, `frontier-ghas-hackathon`). Embedded GHAW starter example in-tree at `modules/ghaw/resources/examples/hello-world.md`. All setup workflows (GHAW 4 files, SRE Agent 2 files, GHAS setup.md) rewritten to reference THIS consolidated repo only.
+**Summary:** Removed all participant instructions that fork/clone private upstream repos (`retired-private-predecessor`, `frontier-agenticdevops-hackathon`, `retired-private-predecessor`). Embedded GHAW starter example in-tree at `modules/ghaw/resources/examples/hello-world.md`. All setup workflows (GHAW 4 files, SRE Agent 2 files, GHAS setup.md) rewritten to reference THIS consolidated repo only.
 
 **Changes:**
-- **GHAW setup:** Option A opens THIS repo's Codespace; Option B clones THIS repo. Smoke-test path → `modules/ghaw/resources/examples/hello-world.md`. Removed `gh repo view microsoft/frontier-ghaw-hackathon` step.
+- **GHAW setup:** Option A opens THIS repo's Codespace; Option B clones THIS repo. Smoke-test path → `modules/ghaw/resources/examples/hello-world.md`. Removed `gh repo view retired private predecessor repo` step.
 - **SRE Agent setup:** Removed `gh repo view microsoft/frontier-agenticdevops-hackathon` success criterion.
 - **GHAS setup:** Option A now uses THIS repo's devcontainer + `npm run setup:juice-shop` + Juice Shop v20.0.0 from public upstream.
 

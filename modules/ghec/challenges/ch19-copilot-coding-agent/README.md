@@ -8,7 +8,7 @@
 | **Difficulty** | Advanced *(per-track ramp)* |
 | **Duration** | ~4 hrs total, multi-session |
 | **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
-| **App** | seed |
+| **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | **no** — the Copilot cloud agent is **not available on EMU-owned repositories**. Requires a **non-EMU enterprise** with the **Copilot cloud agent policy enabled**. **N/A for pure GHEMU customers** (see Prerequisites). |
 
 ## Prerequisites

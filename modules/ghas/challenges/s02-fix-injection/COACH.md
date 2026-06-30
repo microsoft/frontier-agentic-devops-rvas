@@ -47,4 +47,4 @@ Verify each success criterion from the student guide:
 | Grounding conversation | 15 | Connects injection risk to a real service, data type, and verification action. |
 
 ## Source
-Derived from [microsoft/frontier-ghas-hackathon](https://github.com/microsoft/frontier-ghas-hackathon), MIT license.
+Derived from legacy GHAS hackathon source material, MIT license.

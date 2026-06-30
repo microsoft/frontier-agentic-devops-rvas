@@ -27,7 +27,7 @@ tags:
 - graphql
 - actions
 - capstone
-app_dependency: seed
+app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
@@ -35,7 +35,6 @@ provision_creates:
 - GitHub App manifest app-manifest.json (manifest registration flow) — supported auth path
 - empty org Projects v2 board wth-ch20-board for the GraphQL step to populate
 tier: core
-source_repo: microsoft/frontier-ghec-hackathon
 source_path: challenges/ch20-automation-capstone/meta.yml
 license: MIT
 references:

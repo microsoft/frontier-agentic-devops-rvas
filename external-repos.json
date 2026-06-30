@@ -35,35 +35,6 @@
       }
     },
     {
-      "key": "seed",
-      "name": "GHEC seed repository",
-      "description": "Participant seed repository used by GitHub Enterprise Cloud workflow and automation challenges.",
-      "type": "app_dependency",
-      "acquisition": "provision-from-source-materials",
-      "retired": true,
-      "vendored_in": "modules/ghec/resources/provisioning",
-      "source": {
-        "url": "https://github.com/microsoft/frontier-ghec-hackathon",
-        "sha": "b65c8d6b4ef758f04b2c73fa5c4e74d3cb17bbe7"
-      },
-      "affected_challenge_ids": [
-        "ghec-ch01",
-        "ghec-ch02",
-        "ghec-ch03",
-        "ghec-ch04",
-        "ghec-ch05",
-        "ghec-ch06",
-        "ghec-ch07",
-        "ghec-ch08",
-        "ghec-ch16",
-        "ghec-ch17",
-        "ghec-ch18",
-        "ghec-ch19",
-        "ghec-ch20"
-      ],
-      "attribution": "Derived from Microsoft Frontier GHEC Hackathon source material at the documented commit."
-    },
-    {
       "key": "grubify-starter-lab",
       "name": "Grubify Azure SRE Agent starter lab",
       "description": "Official Microsoft Azure SRE Agent starter lab sample app and break-fix environment.",
@@ -90,78 +61,6 @@
       }
     },
     {
-      "key": "source-frontier-ghas-hackathon",
-      "name": "Frontier GHAS Hackathon source",
-      "description": "Source repository for the GitHub Advanced Security module content.",
-      "type": "source_repo",
-      "acquisition": "content-port-source",
-      "retired": true,
-      "vendored_in": "modules/ghas",
-      "source": {
-        "url": "https://github.com/microsoft/frontier-ghas-hackathon",
-        "sha": "4abc7439f0cab329b659263845e20139fbbe5359"
-      },
-      "usage": {
-        "field": "source_repo",
-        "value": "microsoft/frontier-ghas-hackathon"
-      },
-      "affected_challenge_ids": [
-        "ghas-s00",
-        "ghas-s01",
-        "ghas-s02",
-        "ghas-s03",
-        "ghas-s04",
-        "ghas-s05",
-        "ghas-s06"
-      ],
-      "attribution": "Microsoft Frontier GHAS Hackathon source repository. Preserve upstream attribution and notices."
-    },
-    {
-      "key": "source-frontier-ghaw-hackathon",
-      "name": "Frontier GHAW Hackathon source",
-      "description": "Source repository for the GitHub Agentic Workflows module content.",
-      "type": "source_repo",
-      "acquisition": "content-port-source",
-      "retired": true,
-      "vendored_in": "modules/ghaw",
-      "source": {
-        "url": "https://github.com/microsoft/frontier-ghaw-hackathon",
-        "sha": "9f0957ed3be978b2143c7048f5396183ad189d6e"
-      },
-      "usage": {
-        "field": "source_repo",
-        "value": "microsoft/frontier-ghaw-hackathon"
-      },
-      "affected_challenge_ids": [
-        "ghaw-0-00",
-        "ghaw-1-01",
-        "ghaw-1-02",
-        "ghaw-1-03",
-        "ghaw-1-04",
-        "ghaw-2-01",
-        "ghaw-2-02",
-        "ghaw-2-03",
-        "ghaw-2-04",
-        "ghaw-2-05",
-        "ghaw-2-06",
-        "ghaw-3-01",
-        "ghaw-3-02",
-        "ghaw-3-03",
-        "ghaw-3-04",
-        "ghaw-3-05",
-        "ghaw-3-06",
-        "ghaw-4-01",
-        "ghaw-4-02",
-        "ghaw-4-03",
-        "ghaw-4-04",
-        "ghaw-4-05",
-        "ghaw-4-06",
-        "ghaw-4-07",
-        "ghaw-4-08"
-      ],
-      "attribution": "Microsoft Frontier GHAW Hackathon source repository. Preserve upstream attribution and notices."
-    },
-    {
       "key": "source-azure-sre-agent",
       "name": "Azure SRE Agent source",
       "description": "Canonical source repository for the Azure SRE Agent module content and starter lab.",
@@ -184,47 +83,6 @@
         "sre-agent-05"
       ],
       "attribution": "Canonical source is microsoft/sre-agent at the documented commit, especially labs/starter-lab and sreagent-templates."
-    },
-    {
-      "key": "source-frontier-ghec-hackathon",
-      "name": "Frontier GHEC Hackathon source",
-      "description": "Source repository for the GitHub Enterprise Cloud module content.",
-      "type": "source_repo",
-      "acquisition": "content-port-source",
-      "retired": true,
-      "vendored_in": "modules/ghec",
-      "source": {
-        "url": "https://github.com/microsoft/frontier-ghec-hackathon",
-        "sha": "b65c8d6b4ef758f04b2c73fa5c4e74d3cb17bbe7"
-      },
-      "usage": {
-        "field": "source_repo",
-        "value": "microsoft/frontier-ghec-hackathon"
-      },
-      "affected_challenge_ids": [
-        "ghec-ch00",
-        "ghec-ch01",
-        "ghec-ch02",
-        "ghec-ch03",
-        "ghec-ch04",
-        "ghec-ch05",
-        "ghec-ch06",
-        "ghec-ch07",
-        "ghec-ch08",
-        "ghec-ch09",
-        "ghec-ch10",
-        "ghec-ch11",
-        "ghec-ch12",
-        "ghec-ch13",
-        "ghec-ch14",
-        "ghec-ch15",
-        "ghec-ch16",
-        "ghec-ch17",
-        "ghec-ch18",
-        "ghec-ch19",
-        "ghec-ch20"
-      ],
-      "attribution": "Microsoft Frontier GHEC Hackathon source repository at the documented commit."
     }
   ]
 }

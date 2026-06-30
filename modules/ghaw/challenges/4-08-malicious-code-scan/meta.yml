@@ -36,7 +36,6 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: stretch
-source_repo: microsoft/frontier-ghaw-hackathon
 source_path: _challenges/4-08-malicious-code-scan.md
 license: MIT
 references:

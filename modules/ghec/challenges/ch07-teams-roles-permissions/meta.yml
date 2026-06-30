@@ -26,7 +26,7 @@ tags:
 - repository-roles
 - custom-roles
 - access-control
-app_dependency: seed
+app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
@@ -36,7 +36,6 @@ provision_creates:
 - flat starter team wth-ch07-engineering (one member, no repo access yet)
 - printed access snapshot of current teams + repo grants
 tier: core
-source_repo: microsoft/frontier-ghec-hackathon
 source_path: challenges/ch07-teams-roles-permissions/meta.yml
 license: MIT
 references:

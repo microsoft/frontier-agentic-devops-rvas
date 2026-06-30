@@ -33,7 +33,6 @@ provision_creates:
 - team wth-ch09-auditors (for membership/permission-change events)
 - printed sample of recent org audit events from the API
 tier: core
-source_repo: microsoft/frontier-ghec-hackathon
 source_path: challenges/ch09-audit-log-streaming/meta.yml
 license: MIT
 references:

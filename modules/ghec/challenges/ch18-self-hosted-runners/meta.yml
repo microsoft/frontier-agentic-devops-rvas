@@ -26,7 +26,7 @@ tags:
 - runner-groups
 - hardening
 - larger-runners
-app_dependency: seed
+app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
@@ -35,7 +35,6 @@ provision_creates:
 - RUNNER-SETUP.md registration + hardening walkthrough (Linux/macOS/Windows)
 - HARDENING.md checklist (service account, ephemeral, fork-PR risk, egress)
 tier: core
-source_repo: microsoft/frontier-ghec-hackathon
 source_path: challenges/ch18-self-hosted-runners/meta.yml
 license: MIT
 references:

@@ -27,7 +27,6 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: setup
-source_repo: microsoft/frontier-ghaw-hackathon
 source_path: _challenges/00-setup.md
 license: MIT
 references:

@@ -34,7 +34,6 @@ provision_creates:
 - rich multi-tool alert corpus (CodeQL OWASP Top 10 + Dependabot vulnerable npm tree + secret scanning) to drive a security campaign
 - own standalone alert volume — does NOT depend on ch12/ch13 having run (independence preserved)
 tier: core
-source_repo: microsoft/frontier-ghec-hackathon
 source_path: challenges/ch15-security-campaigns-overview/meta.yml
 license: MIT
 references:

@@ -8,7 +8,7 @@
 | **Difficulty** | Advanced *(capstone — hardest in the track)* |
 | **Duration** | ~8 hrs total, multi-session |
 | **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
-| **App** | seed |
+| **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes — all steps run on org-owned, prefix-namespaced resources. |
 
 > **Independent by design.** This capstone **stands alone** — it provisions all its own `wth-ch20-*` state and requires **no other challenge to have been run**. It *revisits the skills* from ch16 (REST/GraphQL), ch17 (webhooks + GitHub App), and ch18 (Actions runners) conceptually, but you do **not** need their artifacts.

@@ -32,7 +32,6 @@ provision_creates:
 - repo wth-ch14-identity-runbook (runbook for IdP SAML app settings, SCIM rollout checklist, join/leave test script)
 - staged org-scoped identity settings reference (Authentication security page URL + SCIM API base) — SSO is NOT auto-enabled (that is the learning)
 tier: core
-source_repo: microsoft/frontier-ghec-hackathon
 source_path: challenges/ch14-sso-saml-scim/meta.yml
 license: MIT
 references:

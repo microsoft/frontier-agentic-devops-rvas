@@ -34,7 +34,6 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: stretch
-source_repo: microsoft/frontier-ghaw-hackathon
 source_path: _challenges/2-04-stale-patrol.md
 license: MIT
 references:

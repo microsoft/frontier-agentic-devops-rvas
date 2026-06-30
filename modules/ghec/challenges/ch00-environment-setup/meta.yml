@@ -28,7 +28,6 @@ app_dependency: none
 emu_compatible: true
 min_environment: org
 tier: setup
-source_repo: microsoft/frontier-ghec-hackathon
 source_path: scripts/setup.sh
 license: MIT
 references:

@@ -29,7 +29,6 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: core
-source_repo: microsoft/frontier-ghaw-hackathon
 source_path: _challenges/3-02-context-engine.md
 license: MIT
 references:

@@ -27,7 +27,7 @@ tags:
 - ai-assisted-development
 - pull-requests
 - automation
-app_dependency: seed
+app_dependency: none
 emu_compatible: false
 min_environment: org
 provision_creates:
@@ -35,7 +35,6 @@ provision_creates:
 - a failing test that pins a single clear bug + CI workflow to verify the fix
 - a well-framed seeded issue (repro + acceptance criteria) ready to assign to Copilot
 tier: core
-source_repo: microsoft/frontier-ghec-hackathon
 source_path: challenges/ch19-copilot-coding-agent/meta.yml
 license: MIT
 references:

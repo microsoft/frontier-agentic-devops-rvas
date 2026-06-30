@@ -27,7 +27,7 @@ tags:
 - governance
 - member-privileges
 - repository-visibility
-app_dependency: seed
+app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
@@ -37,7 +37,6 @@ provision_creates:
 - team wth-ch06-members with one sample repo attached at default permission
 - printed baseline snapshot of current org member-privilege settings
 tier: core
-source_repo: microsoft/frontier-ghec-hackathon
 source_path: challenges/ch06-enterprise-org-101/meta.yml
 license: MIT
 references:

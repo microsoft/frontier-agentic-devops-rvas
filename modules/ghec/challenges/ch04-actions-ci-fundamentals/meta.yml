@@ -28,7 +28,7 @@ tags:
 - caching
 - artifacts
 - environments
-app_dependency: seed
+app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
@@ -37,7 +37,6 @@ provision_creates:
 - package.json with test/build/lint scripts
 - minimal starter workflow .github/workflows/ci.yml (echo only; student replaces)
 tier: core
-source_repo: microsoft/frontier-ghec-hackathon
 source_path: challenges/ch04-actions-ci-fundamentals/meta.yml
 license: MIT
 references:

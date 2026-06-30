@@ -26,7 +26,7 @@ tags:
 - hmac
 - automation
 - integrations
-app_dependency: seed
+app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
@@ -35,7 +35,6 @@ provision_creates:
 - WEBHOOK-SETUP.md covering smee.io and Actions-receiver options
 - GitHub App manifest app-manifest.json for one-click App registration
 tier: core
-source_repo: microsoft/frontier-ghec-hackathon
 source_path: challenges/ch17-webhooks-github-apps/meta.yml
 license: MIT
 references:

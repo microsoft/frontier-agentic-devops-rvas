@@ -32,7 +32,6 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: stretch
-source_repo: microsoft/frontier-ghaw-hackathon
 source_path: _challenges/4-06-test-improver.md
 license: MIT
 references:

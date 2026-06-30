@@ -46,4 +46,4 @@ Verify each success criterion from the student guide:
 | Grounding conversation | 15 | Connects campaign design to a real organizational rollout path. |
 
 ## Source
-Derived from [microsoft/frontier-ghas-hackathon](https://github.com/microsoft/frontier-ghas-hackathon), MIT license.
+Derived from legacy GHAS hackathon source material, MIT license.

@@ -30,7 +30,6 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: core
-source_repo: microsoft/frontier-ghaw-hackathon
 source_path: _challenges/4-01-issue-triage-agent.md
 license: MIT
 references:

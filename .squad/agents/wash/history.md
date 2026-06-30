@@ -33,7 +33,7 @@ Runs in <1s with Node core only. Zero npm dependencies.
     { "id": "ghec-ch01", "title": "...", "module": "ghec", "track": "developer-flow",
       "difficulty": "beginner", "duration_minutes": 180, "description": "...",
       "prerequisites": [], "prerequisite_capabilities": ["..."],
-      "success_criteria": ["..."], "tags": ["..."], "app_dependency": "seed",
+      "success_criteria": ["..."], "tags": ["..."], "app_dependency": "none",
       "emu_compatible": true, "tier": "core", "references": ["..."],
       "source_repo": "...", "source_path": "...", "license": "MIT",
       "student_path": "assets/data/challenges/ghec-ch01/README.md",
@@ -58,7 +58,7 @@ Runs in <1s with Node core only. Zero npm dependencies.
    - `ghaw`: `#8250df` (GitHub purple / AI)
    - `agentic-devops`: `#1a7f37` (GitHub green)
 
-6. **Build test**: Temporarily copied `ch01-issues-labels-projects` + `ch02-pull-requests-code-review` from `frontier-ghec-hackathon` into `modules/ghec/challenges/`. Build ran cleanly (exit 0) with 2 warnings (expected: old meta.yml lacks `description` field). Fixtures removed after verification.
+6. **Build test**: Temporarily copied `ch01-issues-labels-projects` + `ch02-pull-requests-code-review` from `retired-private-predecessor` into `modules/ghec/challenges/`. Build ran cleanly (exit 0) with 2 warnings (expected: old meta.yml lacks `description` field). Fixtures removed after verification.
 
 7. **Workflows**: Two GitHub Actions workflows:
    - `.github/workflows/build-deploy.yml` — pushes to `main` + `workflow_dispatch`: build + deploy to Pages via `actions/upload-pages-artifact@v3` + `actions/deploy-pages@v4`
@@ -77,7 +77,7 @@ Runs in <1s with Node core only. Zero npm dependencies.
 9. **P0 bugfix D-001 (2026-06-15)**: Fixed YAML list-item parser in `docs/build.js` line 93 — changed regex from `^\s+-\s+` to `^\s*-\s+` to accept unindented list items (e.g., `- ghas-s00` without leading spaces); restored 5 missing dependency edges (ghas-s01..s05 now correctly recognize ghas-s00 prerequisite).
 ### Home-repo slug distinction & SELF_SOURCE_REPOS split (2026-06-23)
 
-**Resolved truth:** `microsoft/frontier-agenticdevops-hackathon` IS this live consolidated repo's own git origin — it is NOT a retired/archived source. The repos genuinely being deleted are only: `microsoft/frontier-ghas-hackathon`, `microsoft/frontier-ghaw-hackathon`, `microsoft/frontier-ghec-hackathon`.
+**Resolved truth:** `microsoft/frontier-agenticdevops-hackathon` IS this live consolidated repo's own git origin — it is NOT a retired/archived source. The repos genuinely being deleted are only: `retired private predecessor repo`, `retired private predecessor repo`, `retired private predecessor repo`.
 
 **challenge.js split:**
 - `RETIRED_SOURCE_REPOS` → keeps only the three genuinely-deleted slugs; renders `(archived)` plain-text, no hyperlink.
@@ -148,6 +148,6 @@ Runs in <1s with Node core only. Zero npm dependencies.
 
 ### Validation
 - `bash -n` passed for all 27 embedded `.sh` files (setup.sh, 6 lib/*.sh, 20 provision.sh).
-- No upstream `frontier-ghec-hackathon` references found in any embedded script.
+- No upstream `retired-private-predecessor` references found in any embedded script.
 
 **KEY DECISION:** This repo's origin = microsoft/frontier-agenticdevops-hackathon = the LIVE consolidated repo (KEPT). Only frontier-ghas/ghaw/ghec-hackathon + private Contoso sources deleted. The agenticdevops slug must never be presented as archived.

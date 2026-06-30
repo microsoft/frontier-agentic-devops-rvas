@@ -52,11 +52,11 @@ Full catalog data. **This is the contract Kaylee renders against.**
       "prerequisite_capabilities": ["GitHub account with org access"],
       "success_criteria": ["Custom label taxonomy applied"],
       "tags": ["issues", "labels", "projects"],
-      "app_dependency": "seed",
+      "app_dependency": "none",
       "emu_compatible": true,
       "tier": "core",
       "references": ["https://docs.github.com/..."],
-      "source_repo": "microsoft/frontier-ghec-hackathon",
+      "source_repo": "retired private predecessor repo",
       "source_path": "challenges/ch01-issues-labels-projects/meta.yml",
       "license": "MIT",
       "student_path": "assets/data/challenges/ghec-ch01/README.md",
@@ -110,7 +110,7 @@ Copied verbatim from `modules/<moduleId>/challenges/<slug>/`. Pages serves them 
 | `requires: [ghec-ch00]` | `prerequisites: [ghec-ch00]` | Items containing `-` → challenge prereq |
 | `duration_hours: 3` | `duration_minutes: 180` | × 60 |
 | `difficulty: foundational` | `difficulty: beginner` | Renamed |
-| `app: seed` | `app_dependency: seed` | Renamed |
+| `app: seed` | `app_dependency: none` | Renamed |
 | `id: ch01` (no module prefix) | `id: ghec-ch01` | Prefixed with `moduleId` |
 
 ---

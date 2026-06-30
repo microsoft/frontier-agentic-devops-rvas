@@ -27,7 +27,7 @@ tags:
 - codeowners
 - branch-protection
 - merge-conflicts
-app_dependency: seed
+app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
@@ -36,7 +36,6 @@ provision_creates:
 - .github/pull_request_template.md placeholder
 - directory layout mapping cleanly to CODEOWNERS paths (no branch protection yet)
 tier: core
-source_repo: microsoft/frontier-ghec-hackathon
 source_path: challenges/ch02-pull-requests-code-review/meta.yml
 license: MIT
 references:

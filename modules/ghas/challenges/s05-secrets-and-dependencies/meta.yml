@@ -36,7 +36,6 @@ provision_creates:
   - Shared org repo with Juice Shop (OWASP Juice Shop v20+) — provisioned by organizer setup
   - Secret scanning and push protection active; Dependabot alerts pre-populated
 tier: core
-source_repo: microsoft/frontier-ghas-hackathon
 source_path: Student/Challenge-S04.md
 license: MIT
 references:

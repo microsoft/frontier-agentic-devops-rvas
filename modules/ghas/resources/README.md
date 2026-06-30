@@ -4,7 +4,7 @@ This directory contains GitHub Advanced Security (GHAS) configuration files that
 to the org-owned Juice Shop repository provisioned in Challenge S00 to light up GHAS scanning
 features during the hackathon.
 
-These fixtures were originally maintained in the `frontier-ghas-hackathon` source repository and are
+These fixtures are maintained in this repository and are
 now vendored here so that repository can be retired.
 
 ## Files

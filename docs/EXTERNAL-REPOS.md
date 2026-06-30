@@ -1,13 +1,13 @@
 # External Repositories & Pinned References
 
-This guide explains how this hackathon curriculum manages external dependencies, source apps, and third-party tools. Content originally hosted in separate private Microsoft repos has been vendored in-tree; the upstream repos are retired and may be deleted.
+This guide explains how this hackathon curriculum manages external dependencies, source apps, and third-party tools. Course content lives in this repository; private predecessor repositories are not required or referenced by the course.
 
 ## Philosophy
 
-- **Content vendored in-tree** — material from the four Frontier Hackathon source repos is embedded under `modules/*/resources/` and `modules/*/challenges/`; no participant or organiser needs to reach the upstream repos.
+- **Content lives in-tree** — course modules are embedded under `modules/*/resources/` and `modules/*/challenges/`; no participant or organiser needs a private upstream repo.
 - **Local app dependencies managed as lazy submodules** — Juice Shop and the Azure SRE Agent starter lab are registered at exact commits but fetched only when needed.
 - **Explicit pinning** — all refs (commit SHAs, tags) are documented and validated.
-- **Provenance preserved** — historical source URLs and commit SHAs are kept in `external-repos.json` for attribution; they are no longer reachable network targets.
+- **External repo references stay current** — `external-repos.json` lists only active external repositories required by the course.
 
 ## External Dependencies
 
@@ -28,39 +28,11 @@ This guide explains how this hackathon curriculum manages external dependencies,
 - **Local runtime:** The full upstream repo is registered as `external/sre-agent`; the lab commands use `external/sre-agent/labs/starter-lab`.
 - **Why it is a submodule:** The official Microsoft lab stays tied to a specific upstream commit without vendoring the full repository into this curriculum repo.
 
-### GitHub Advanced Security — module content (vendored in-tree)
-
-- **Original source:** `microsoft/frontier-ghas-hackathon` (private, retired)
-- **Provenance commit:** `4abc7439f0cab329b659263845e20139fbbe5359` (curriculum freeze)
-- **In-tree location:** `modules/ghas/` (challenges) and `modules/ghas/resources/` (scanning configs)
-- **Status:** Upstream repo is retired/private and retained for historical provenance only. All content needed for the curriculum is available in-tree.
-
-### GitHub Agentic Workflows — module content (vendored in-tree)
-
-- **Original source:** `microsoft/frontier-ghaw-hackathon` (private, retired)
-- **Provenance commit:** `9f0957ed3be978b2143c7048f5396183ad189d6e` (curriculum freeze)
-- **In-tree location:** `modules/ghaw/` (guides) and `modules/ghaw/resources/examples/`
-- **Status:** Upstream repo is retired/private and retained for historical provenance only. Participants work directly in this repository's Codespace — no external fork needed.
-
-### GitHub Enterprise Cloud — module content + provisioning (vendored in-tree)
-
-- **Original source:** `microsoft/frontier-ghec-hackathon` (private, retired)
-- **Provenance commit:** `b65c8d6b4ef758f04b2c73fa5c4e74d3cb17bbe7` (curriculum freeze)
-- **In-tree location:** `modules/ghec/` (challenges) and `modules/ghec/resources/provisioning/` (the `wth` provisioning CLI and per-challenge provision scripts)
-- **Status:** Upstream repo is retired/private and retained for historical provenance only.
-
-### SRE Agent — module content + sample app (vendored in-tree)
-
-- **Original source:** `microsoft/frontier-agenticdevops-hackathon` (private, retired; also predecessor of this repo)
-- **Provenance commit:** `08edbed4eee3ab185ebd5772bd1b48783ba83882` (curriculum freeze)
-- **In-tree location:** `modules/sre-agent/` (challenges) and `modules/sre-agent/resources/` (sample app, infra, runbooks, agentic workflows)
-- **Status:** Upstream repo is retired/private. All curriculum assets are in-tree.
-
 ## Import Modes
 
 ### In-Tree (Vendored)
 
-**When:** Module content originated in a separate hackathon repo that is now retired.
+**When:** Module content and support assets are included directly in this repository.
 
 - No participant action required — content is already in this repo.
 - Organisers run `npm run verify:repos` to confirm vendored paths are intact.
@@ -102,7 +74,7 @@ npm run verify:repos:external  # Confirms Juice Shop ref is reachable; skips ret
 npm run audit:external         # Optional content URL audit
 ```
 
-`verify:repos:external` no longer checks retired Microsoft repos (they are private/deleted); it does assert that the `vendored_in` paths declared in the manifest exist in-tree.
+`verify:repos:external` checks only active external dependencies that participants or maintainers may need to fetch.
 
 ### Updating a Pinned Reference
 
@@ -266,7 +238,7 @@ For retired/vendored entries, it asserts that the `vendored_in` path exists in-t
 ### For Maintainers
 
 - Keep pinned refs stable across a curriculum release cycle.
-- Retired source entries in `external-repos.json` carry `"retired": true` and a `"vendored_in"` path. Do not remove the `source.url`/`source.sha` fields — they are historical provenance.
+- Keep `external-repos.json` limited to active external repositories used by the course.
 - When external projects release major versions, evaluate and document breaking changes before updating the pin.
 - Test setup scripts (`setup.sh provision`) against the pinned refs in a CI/CD gate or manual verification step.
 

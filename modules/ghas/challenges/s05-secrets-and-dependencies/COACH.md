@@ -48,4 +48,4 @@ Verify each success criterion from the student guide:
 | Grounding conversation | 15 | Connects alert fatigue, ownership, and response SLA to a real repo. |
 
 ## Source
-Derived from [microsoft/frontier-ghas-hackathon](https://github.com/microsoft/frontier-ghas-hackathon), MIT license.
+Derived from legacy GHAS hackathon source material, MIT license.

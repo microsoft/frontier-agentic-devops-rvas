@@ -47,4 +47,4 @@ Verify each success criterion from the student guide:
 | Grounding conversation | 15 | Connects XSS risk to a real user-facing surface and ownership path. |
 
 ## Source
-Derived from [microsoft/frontier-ghas-hackathon](https://github.com/microsoft/frontier-ghas-hackathon), MIT license.
+Derived from legacy GHAS hackathon source material, MIT license.

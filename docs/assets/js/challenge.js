@@ -2,14 +2,7 @@
 (function () {
   'use strict';
 
-  // Source repos that have been retired/archived; render as plain text with "(archived)" label.
-  const RETIRED_SOURCE_REPOS = new Set([
-    'microsoft/frontier-ghas-hackathon',
-    'microsoft/frontier-ghaw-hackathon',
-    'microsoft/frontier-ghec-hackathon',
-  ]);
-
-  // Home-repo slugs (this live consolidated repo); render as plain text without a hyperlink or "(archived)" label.
+  // Home-repo slugs (this live consolidated repo); render as plain text without a hyperlink.
   const SELF_SOURCE_REPOS = new Set([
     'microsoft/frontier-agenticdevops-hackathon',
     'microsoft/frontier-agentic-devops-hackathon',
@@ -99,9 +92,7 @@
     // Attribution
     const attr = document.getElementById('attribution');
     if (attr && c.source_repo) {
-      if (RETIRED_SOURCE_REPOS.has(c.source_repo)) {
-        attr.innerHTML = `Source: ${FP.esc(c.source_repo)} (archived) · ${FP.esc(c.license || 'MIT')} License`;
-      } else if (SELF_SOURCE_REPOS.has(c.source_repo)) {
+      if (SELF_SOURCE_REPOS.has(c.source_repo)) {
         attr.innerHTML = `Source: ${FP.esc(c.source_repo)} · ${FP.esc(c.license || 'MIT')} License`;
       } else {
         attr.innerHTML = `Source: <a href="https://github.com/${FP.esc(c.source_repo)}" target="_blank" rel="noopener">${FP.esc(c.source_repo)}</a> · ${FP.esc(c.license || 'MIT')} License`;

@@ -27,7 +27,7 @@ tags:
 - codeowners
 - auto-merge
 - merge-queue
-app_dependency: seed
+app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
@@ -36,7 +36,6 @@ provision_creates:
 - starter .github/CODEOWNERS + placeholder .github/pull_request_template.md
 - no rulesets yet (student creates repo + org rulesets)
 tier: core
-source_repo: microsoft/frontier-ghec-hackathon
 source_path: challenges/ch05-advanced-pr-automation/meta.yml
 license: MIT
 references:

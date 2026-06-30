@@ -34,7 +34,6 @@ app_dependency: juice-shop
 emu_compatible: true
 min_environment: org
 tier: setup
-source_repo: microsoft/frontier-ghas-hackathon
 source_path: docs/getting-started.html
 license: MIT
 references:

@@ -34,7 +34,6 @@ provision_creates:
 - real OWASP Top 10 vulnerabilities (SQLi, XSS, broken auth/JWT, path traversal, SSRF) for CodeQL to detect
 - branch feature/insecure-endpoint carrying a deliberately vulnerable change to open as a PR for required-check gating
 tier: core
-source_repo: microsoft/frontier-ghec-hackathon
 source_path: challenges/ch12-codeql-code-scanning/meta.yml
 license: MIT
 references:

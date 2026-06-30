@@ -12,9 +12,9 @@ Four top-level **modules**, each mapping 1:1 to a source hackathon. Modules cont
 
 | Module ID | Module Name | Source Repo | Tracks | Challenges |
 |-----------|-------------|-------------|--------|------------|
-| `ghec` | GitHub Enterprise Cloud | frontier-ghec-hackathon | 4 (Developer Flow, Admin/Governance, Security, Automation & AI) | 20 |
-| `ghas` | GitHub Advanced Security & Copilot | frontier-ghas-hackathon | 4 (Copilot Customization, Security, Frontend, Backend) | 15 |
-| `ghaw` | GitHub Agentic Workflows | frontier-ghaw-hackathon | 4 (Hello Agent, MCP Integration, Production Patterns, Safe Outputs) | 24 (excl. setup) |
+| `ghec` | GitHub Enterprise Cloud | retired-private-predecessor | 4 (Developer Flow, Admin/Governance, Security, Automation & AI) | 20 |
+| `ghas` | GitHub Advanced Security & Copilot | retired-private-predecessor | 4 (Copilot Customization, Security, Frontend, Backend) | 15 |
+| `ghaw` | GitHub Agentic Workflows | retired-private-predecessor | 4 (Hello Agent, MCP Integration, Production Patterns, Safe Outputs) | 24 (excl. setup) |
 | `agentic-devops` | Agentic DevOps & Azure SRE | frontier-agentic-devops-hackathon | 1 (linear arc) | 7 |
 
 **Total: 66 challenges across 13 tracks in 4 modules.**
@@ -70,7 +70,7 @@ min_environment: org             # org | repo | codespace
 provision_creates: []            # Resources the setup script creates
 
 # === Attribution ===
-source_repo: microsoft/frontier-ghaw-hackathon
+source_repo: retired private predecessor repo
 source_path: _challenges/1-01-morning-briefing.md
 license: MIT
 
@@ -102,14 +102,14 @@ tags:
   - labels
   - projects
   - project-boards
-app_dependency: seed
+app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
   - "repo wth-ch01-issues-labels-projects (seeded)"
   - "~26 untriaged issues"
   - "empty Projects (v2) board"
-source_repo: microsoft/frontier-ghec-hackathon
+source_repo: retired private predecessor repo
 source_path: challenges/ch01-issues-labels-projects/meta.yml
 license: MIT
 tier: core

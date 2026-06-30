@@ -8,7 +8,7 @@
 | **Difficulty** | Foundational *(per-track ramp)* |
 | **Duration** | ~3–4 hrs total, multi-session |
 | **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
-| **App** | seed |
+| **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes |
 
 ## Prerequisites

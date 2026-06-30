@@ -31,7 +31,6 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: stretch
-source_repo: microsoft/frontier-ghaw-hackathon
 source_path: _challenges/1-04-label-maker.md
 license: MIT
 references:

@@ -80,19 +80,19 @@ See `.squad/decisions.md` for merged decision records and git log for commit det
 
 ### 2026-06-23 — Embed GHAW example content + remove dead upstream-repo dependencies
 
-**Context:** Private upstream repos (`frontier-ghaw-hackathon`, `frontier-agenticdevops-hackathon`, `frontier-ghas-hackathon`) are being deleted. Setup instructions and success criteria still pointed at those repos for clone/fork/`gh repo view` steps.
+**Context:** Private upstream repos (`retired-private-predecessor`, `frontier-agenticdevops-hackathon`, `retired-private-predecessor`) are being deleted. Setup instructions and success criteria still pointed at those repos for clone/fork/`gh repo view` steps.
 
 **What changed:**
 
-- **`modules/ghaw/resources/examples/hello-world.md`** — NEW FILE. Faithful copy of `examples/hello-world.md` from `frontier-ghaw-hackathon`. This is the canonical gh-aw smoke-test workflow used by all setup docs.
+- **`modules/ghaw/resources/examples/hello-world.md`** — NEW FILE. Faithful copy of `examples/hello-world.md` from `retired-private-predecessor`. This is the canonical gh-aw smoke-test workflow used by all setup docs.
 - **`modules/ghaw/resources/examples/README.md`** — NEW FILE. Copy of the examples README from the upstream repo.
-- **`modules/ghaw/challenges/0-00-setup/README.md`** — Option A now opens THIS repo's Codespace (not upstream). Option B clones this repo (not `gh repo fork microsoft/frontier-ghaw-hackathon`). Smoke test updated: `gh aw run modules/ghaw/resources/examples/hello-world.md --dry-run` (embedded path). `gh repo view microsoft/frontier-ghaw-hackathon` success step removed (5→4 checks).
+- **`modules/ghaw/challenges/0-00-setup/README.md`** — Option A now opens THIS repo's Codespace (not upstream). Option B clones this repo (not `gh repo fork retired private predecessor repo`). Smoke test updated: `gh aw run modules/ghaw/resources/examples/hello-world.md --dry-run` (embedded path). `gh repo view retired private predecessor repo` success step removed (5→4 checks).
 - **`modules/ghaw/challenges/0-00-setup/COACH.md`** — Troubleshooting table: removed "Fork not created / `gh repo fork`" row; replaced with "confirm Codespace is for this repo" row. Access-blocked fallback section: removed fork-access paragraph, replaced with "work directly in this repo" guidance. Success checklist: updated dry-run path.
-- **`modules/ghaw/challenges/0-00-setup/meta.yml`** — Success criteria: replaced `gh repo view microsoft/frontier-ghaw-hackathon` with `ls modules/ghaw/resources/examples/hello-world.md` (local existence check). Updated dry-run path.
+- **`modules/ghaw/challenges/0-00-setup/meta.yml`** — Success criteria: replaced `gh repo view retired private predecessor repo` with `ls modules/ghaw/resources/examples/hello-world.md` (local existence check). Updated dry-run path.
 - **`modules/ghaw/setup.md`** — Options 1 and 2 now reference this repo entirely; no more upstream clone or fork.
 - **`modules/sre-agent/challenges/00-setup/README.md`** — Option A and B already pointed at this repo by name; clarified "this repository" language. Success criteria: removed `gh repo view microsoft/frontier-agenticdevops-hackathon` (3rd check); added `npm install` before `npm test` for freshness. 4→3 checks.
 - **`modules/sre-agent/challenges/00-setup/meta.yml`** — Success criteria: removed `gh repo view microsoft/frontier-agenticdevops-hackathon`; updated sample-app check to include `npm install`.
-- **`modules/ghas/setup.md`** — Option A: replaced "open `microsoft/frontier-ghas-hackathon` source repo and create Codespace" with "open THIS repo in a Codespace + `npm run setup:juice-shop` + `cd app && npm install && npm start`". Preserves Option B (Docker) and Option C (organizer-hosted) unchanged.
+- **`modules/ghas/setup.md`** — Option A: replaced "open `retired private predecessor repo` source repo and create Codespace" with "open THIS repo in a Codespace + `npm run setup:juice-shop` + `cd app && npm install && npm start`". Preserves Option B (Docker) and Option C (organizer-hosted) unchanged.
 
 **New GHAW workspace model:** Participants work in a Codespace (or local dev container) of THIS consolidated repo (`microsoft/frontier-agenticdevops-hackathon`). The devcontainer's `postCreate.sh` already installs `gh-aw`. The starter example workflow is vendored at `modules/ghaw/resources/examples/hello-world.md` and all setup docs reference that path.
 

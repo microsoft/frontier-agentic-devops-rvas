@@ -26,7 +26,7 @@ tags:
 - automation
 - pagination
 - projects-v2
-app_dependency: seed
+app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
@@ -35,7 +35,6 @@ provision_creates:
 - starter label set (bug, enhancement, triage, area:backend, area:docs) with deliberate gaps
 - empty org Projects v2 board wth-ch16-board to populate via GraphQL
 tier: core
-source_repo: microsoft/frontier-ghec-hackathon
 source_path: challenges/ch16-rest-graphql-automation/meta.yml
 license: MIT
 references:

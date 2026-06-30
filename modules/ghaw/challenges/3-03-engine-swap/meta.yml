@@ -29,7 +29,6 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: stretch
-source_repo: microsoft/frontier-ghaw-hackathon
 source_path: _challenges/3-03-engine-swap.md
 license: MIT
 references:

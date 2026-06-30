@@ -34,7 +34,6 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: core
-source_repo: microsoft/frontier-ghaw-hackathon
 source_path: _challenges/2-02-review-buddy.md
 license: MIT
 references:

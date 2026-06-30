@@ -33,7 +33,6 @@ provision_creates:
 - repo wth-ch10-cost-report (holds reconciliation script + final report)
 - printed current usage snapshot (Actions minutes / storage from the API)
 tier: core
-source_repo: microsoft/frontier-ghec-hackathon
 source_path: challenges/ch10-billing-cost-centers/meta.yml
 license: MIT
 references:
