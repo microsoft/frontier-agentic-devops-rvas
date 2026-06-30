@@ -1,0 +1,18 @@
+id: ghas-s00
+slug: juice-shop
+title: GHAS Environment Setup
+app: juice-shop
+requires:
+  - org
+  - ghas
+prerequisite_capabilities:
+  - GitHub account
+  - Basic Git and CLI usage
+  - GitHub Advanced Security license available for private/internal repos
+provision_creates:
+  - repository
+  - codeql-workflow
+  - dependabot-config
+  - security-settings
+juice_shop_ref: v20.0.0
+emu_compatible: true
