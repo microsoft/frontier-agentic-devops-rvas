@@ -39,6 +39,7 @@ const MODULE_CONFIG = {
       'admin-governance': { name: 'Admin & Governance',   description: 'Org structure, policies, SAML/SSO, audit logs, and enterprise compliance.' },
       'security':         { name: 'Security',             description: 'Code scanning, secret scanning, Dependabot, and supply-chain protection.' },
       'automation-ai':    { name: 'Automation & AI',      description: 'Actions, REST/GraphQL, webhooks, GitHub Apps, and AI-assisted workflows.' },
+      'migration':        { name: 'Migration',            description: 'Move repos, history, and metadata from Azure DevOps, Bitbucket, GitLab, and legacy VCS into GitHub Enterprise Cloud.' },
     },
   },
   ghas: {

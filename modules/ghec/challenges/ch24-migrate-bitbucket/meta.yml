@@ -1,0 +1,58 @@
+id: ghec-ch24
+title: Migrate Bitbucket to GitHub (Server & Cloud)
+module: ghec
+track: migration
+difficulty: advanced
+duration_minutes: 240
+prerequisites: []
+prerequisite_capabilities:
+- GitHub org with org-owner rights
+- Classic GitHub PAT
+- 'Server/Data Center path: Bitbucket Server/Data Center 5.14+ instance with admin access, SSH/SFTP or SMB access, and blob storage using AWS S3, Azure Blob, or GitHub-owned storage'
+- 'Cloud path: bitbucket.org repository and git CLI'
+- GitHub CLI >= 2.4.0
+- PowerShell because generated migration scripts are .ps1 files
+description: Learn the supported Bitbucket Server/Data Center migration path with gh bbs2gh and the source-history-only fallback for Bitbucket Cloud.
+success_criteria:
+- A Bitbucket Server/Data Center repository with pull request history is migrated with gh bbs2gh and its pull requests, reviews, line comments, required reviewers, and attachments are visible in GitHub.
+- Blob storage using AWS S3, Azure Blob, or GitHub-owned storage is configured and used as the staging location for the Server/Data Center migration archive.
+- The learner can explain the multi-hop bbs2gh flow from Bitbucket export API to SFTP/SMB download, blob upload, and GEI import into GitHub Enterprise Cloud.
+- Bulk migration evidence exists from gh bbs2gh generate-script or the learner can explain why the single-repo command was used instead.
+- The two-phase manual archive path is practiced or documented, including where the .tar archive is produced under BITBUCKET_SHARED_HOME.
+- A Bitbucket Cloud repository is mirror-pushed to GitHub and all Git branches and tags are present in the destination repository.
+- The learner documents which Bitbucket data does not migrate for Server/Data Center and which collaboration metadata is lost for Bitbucket Cloud.
+- Coach conversation completed: the learner identifies the cutover risks, validation evidence, and rollback or retry plan for one real Bitbucket migration wave.
+tags:
+- bitbucket
+- github-enterprise-importer
+- migration
+- bbs2gh
+- git-mirror
+- pull-requests
+app_dependency: none
+emu_compatible: true
+min_environment: org
+provision_creates:
+- GitHub destination repositories created by the learner during migration
+- Temporary migration archive in Bitbucket shared home for Server/Data Center exports
+- Temporary staging objects in AWS S3, Azure Blob, or GitHub-owned blob storage
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghec/challenges/ch24-migrate-bitbucket/meta.yml
+license: MIT
+tier: core
+outcomes:
+- platform-migration
+personas:
+- migration-lead
+- platform-engineer
+business_value:
+- reduce-migration-risk
+- accelerate-cutover
+adoption_stage: pilot
+references:
+- https://docs.github.com/en/migrations/using-github-enterprise-importer/understanding-github-enterprise-importer/about-github-enterprise-importer
+- https://docs.github.com/en/migrations/using-github-enterprise-importer/migrating-from-bitbucket-server-to-github-enterprise-cloud/about-migrations-from-bitbucket-server-to-github-enterprise-cloud
+- https://docs.github.com/en/migrations/using-github-enterprise-importer/migrating-from-bitbucket-server-to-github-enterprise-cloud/overview-of-a-migration-from-bitbucket-server-to-github-enterprise-cloud
+- https://docs.github.com/en/migrations/using-github-enterprise-importer/migrating-from-bitbucket-server-to-github-enterprise-cloud/managing-access-for-a-migration-from-bitbucket-server-to-github-enterprise-cloud
+- https://docs.github.com/en/migrations/using-github-enterprise-importer/migrating-from-bitbucket-server-to-github-enterprise-cloud/migrating-repositories-from-bitbucket-server-to-github-enterprise-cloud
+- https://github.com/github/gh-bbs2gh

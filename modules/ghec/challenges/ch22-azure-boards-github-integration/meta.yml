@@ -1,0 +1,53 @@
+id: ghec-ch22
+title: Connect Azure Boards to GitHub
+module: ghec
+track: migration
+difficulty: intermediate
+duration_minutes: 120
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner/admin rights on the target repository
+- Azure DevOps Services organization with an Azure Boards project
+- Ability to install or request installation of a GitHub Marketplace organization app
+description: Restore post-migration work-item-to-code traceability by connecting an Azure Boards project to migrated GitHub repositories and validating AB# links from commits and pull requests.
+success_criteria:
+- The **Azure Boards** GitHub Marketplace app is installed for the GitHub organization and the migrated repository is selected for repository access.
+- The Azure Boards project shows a **GitHub connection** to the migrated repository under **Project settings > GitHub connections**.
+- A commit or pull request using **`AB#<work-item-id>`** creates a visible GitHub commit or pull request link in the Azure Boards work item's **Development** section.
+- A pull request description using a supported transition phrase such as **`Fixes AB#<work-item-id>`** is merged into the default branch and transitions the linked work item to the expected Resolved/Completed workflow-category state.
+- The GitHub pull request shows the linked Azure Boards work item in its **Development** section when `AB#` is present in the pull request description.
+- You can explain and fix at least one failed-link scenario, such as wrong Azure DevOps organization, missing app permissions, or malformed `AB#` syntax.
+- 'Coach conversation — identify one migrated team that still plans in Azure Boards: which repositories must be connected first, who owns the GitHub app installation approval, and what evidence proves traceability survived cutover? Talk it through with your coach.'
+tags:
+- azure-boards
+- github-apps
+- migration
+- traceability
+- work-items
+- pull-requests
+app_dependency: none
+emu_compatible: true
+min_environment: org
+provision_creates:
+- Azure Boards GitHub App installation or repository access grant for selected migrated repositories
+- Azure Boards project GitHub connection to the migrated GitHub repository
+- Test branch, commit, and pull request linked to an Azure Boards work item
+outcomes:
+- platform-migration
+personas:
+- migration-lead
+- engineering-lead
+business_value:
+- reduce-migration-risk
+- standardize-delivery
+adoption_stage: pilot
+tier: core
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghec/challenges/ch22-azure-boards-github-integration/meta.yml
+license: MIT
+references:
+- https://learn.microsoft.com/en-us/azure/devops/boards/github/?view=azure-devops
+- https://learn.microsoft.com/en-us/azure/devops/boards/github/install-github-app?view=azure-devops
+- https://learn.microsoft.com/en-us/azure/devops/boards/github/connect-to-github?view=azure-devops
+- https://learn.microsoft.com/en-us/azure/devops/boards/github/link-to-from-github?view=azure-devops
+- /home/marco/.copilot/session-state/58bb295a-c8c1-42e1-b6f2-898549a9f8b8/research/all-migration-patterns-supported-to-github-enterpr.md#4-azure-devops--ghec-gh-ado2gh--deep-dive

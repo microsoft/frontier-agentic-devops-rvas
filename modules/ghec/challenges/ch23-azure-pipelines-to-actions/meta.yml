@@ -1,0 +1,50 @@
+id: ghec-ch23
+title: Convert Azure Pipelines to GitHub Actions
+module: ghec
+track: migration
+difficulty: intermediate
+duration_minutes: 180
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization and repository access, ideally the repository migrated from Azure DevOps in ch21
+- Azure DevOps organization with at least one Azure Pipeline to convert
+- Docker installed and running, because GitHub Actions Importer runs as a container
+- GitHub CLI installed with the GitHub Actions Importer extension available
+- Azure DevOps personal access token with read access to pipelines, code, releases, service connections, task groups, variable groups, and agent pools
+description: Convert an Azure DevOps Pipeline into a reviewable GitHub Actions workflow using GitHub Actions Importer audit, forecast, dry-run, and migrate commands.
+success_criteria:
+- '`audit` produced a report summarizing the Azure DevOps pipeline footprint, conversion status, manual tasks, secrets, runners, and unsupported items.'
+- '`forecast` produced an Actions usage estimate from Azure DevOps pipeline history.'
+- '`dry-run` generated a reviewable GitHub Actions workflow YAML locally without opening a pull request.'
+- '`migrate` opened a pull request that adds a converted `.github/workflows/*.yml` file to the target GitHub repository.'
+- 'The generated workflow was reviewed and at least one unsupported, unknown, secret, variable, runner, or service-connection gap was documented with the required manual fix.'
+- 'The migrated workflow ran successfully in GitHub Actions after required cleanup.'
+- 'Coach conversation — explain why repository migration tools such as GEI or ado2gh do not migrate Azure Pipelines, and describe where Actions Importer fits in the migration cutover plan.'
+tags:
+- github-actions
+- actions-importer
+- azure-devops
+- azure-pipelines
+- migration
+- ci-cd
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+provision_creates: []
+tier: core
+outcomes:
+- platform-migration
+personas:
+- platform-engineer
+- migration-lead
+business_value:
+- accelerate-cutover
+- automate-repetitive-work
+adoption_stage: pilot
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghec/challenges/ch23-azure-pipelines-to-actions/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/actions/tutorials/migrate-to-github-actions/automated-migrations/use-github-actions-importer
+- https://docs.github.com/en/actions/tutorials/migrate-to-github-actions/automated-migrations/azure-devops-migration
+- /home/marco/.copilot/session-state/58bb295a-c8c1-42e1-b6f2-898549a9f8b8/research/all-migration-patterns-supported-to-github-enterpr.md

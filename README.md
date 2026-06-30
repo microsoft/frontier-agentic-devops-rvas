@@ -1,6 +1,6 @@
 # Agentic DevOps
 
-One repo. One GitHub Pages site. Five outcome journeys, four hackathon modules, 58 challenges, zero configuration drama.
+One repo. One GitHub Pages site. Five outcome journeys, four hackathon modules, 64 challenges, zero configuration drama.
 
 ## Outcomes
 
@@ -18,12 +18,12 @@ The site is organized around business outcomes first, then platform modules:
 
 | Module ID | Name | Challenges | Tracks |
 |---|---|---|---|
-| `ghec` | GitHub Enterprise Cloud | 21 | Developer Flow, Admin & Governance, Security, Automation & AI |
+| `ghec` | GitHub Enterprise Cloud | 27 | Developer Flow, Admin & Governance, Security, Automation & AI, Migration |
 | `ghas` | GitHub Advanced Security | 7 | Security |
 | `ghaw` | GitHub Agentic Workflows | 25 | Hello, Agent, Repo Concierge, Continuous Intelligence, Production Patterns |
 | `sre-agent` | SRE Agent | 5 | Azure SRE Agent |
 
-> **Total:** 58 challenges across 4 modules.
+> **Total:** 64 challenges across 4 modules.
 
 ## Architecture
 

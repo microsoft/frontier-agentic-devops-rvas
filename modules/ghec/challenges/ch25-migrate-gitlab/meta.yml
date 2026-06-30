@@ -1,0 +1,54 @@
+id: ghec-ch25
+title: Migrate from GitLab to GitHub
+module: ghec
+track: migration
+difficulty: intermediate
+duration_minutes: 180
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization and repository create rights
+- GitLab repository on gitlab.com or self-managed GitLab with branches, tags, history, and a .gitlab-ci.yml file
+- git CLI installed
+- Docker installed and running, because GitHub Actions Importer runs as a container
+- GitHub CLI installed
+- GitLab personal access token with read access to the source repository and CI configuration
+description: Migrate a GitLab repository's source and Git history to GitHub with Git CLI, then convert its GitLab CI pipeline to GitHub Actions with GitHub Actions Importer.
+success_criteria:
+- "An empty GitHub repository was created as the migration target."
+- "A GitLab repository's full branch and tag history was mirror-pushed to the GitHub repository."
+- "Commit authorship resolves to the correct GitHub user where the GitLab commit email is present on the GitHub account."
+- "GitLab CI was converted into a reviewable or runnable GitHub Actions workflow using GitHub Actions Importer."
+- "The student documented which GitLab data did not migrate in the self-serve Git CLI path."
+- "The student identified when GitHub Expert Services or the GHES gl-exporter to ghe-migrator path is required."
+- "Coach conversation — explain why GitLab is not a self-serve GitHub Enterprise Importer source, what this hands-on path preserves, and which cutover risks remain."
+tags:
+- gitlab
+- migration
+- git-history
+- github-actions
+- actions-importer
+- cutover
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+provision_creates:
+- Empty GitHub repository used as the migration target
+- Local bare clone of the GitLab repository during migration
+- GitHub Actions workflow pull request or generated workflow files from Actions Importer
+tier: core
+outcomes:
+- platform-migration
+personas:
+- migration-lead
+- platform-engineer
+business_value:
+- reduce-migration-risk
+- accelerate-cutover
+adoption_stage: pilot
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghec/challenges/ch25-migrate-gitlab/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/migrations/overview/migration-paths-to-github
+- https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/importing-an-external-git-repository-using-the-command-line
+- https://docs.github.com/en/actions/tutorials/migrate-to-github-actions/automated-migrations/use-github-actions-importer

@@ -1,0 +1,57 @@
+id: ghec-ch26
+title: Migrate Legacy VCS (SVN, Mercurial, TFVC, Perforce) to GitHub
+module: ghec
+track: migration
+difficulty: advanced
+duration_minutes: 240
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with repository create rights
+- git CLI installed
+- 'For SVN: git svn and access to a Subversion repository'
+- 'For Mercurial: hg and hg-fast-export with Python available'
+- 'For TFVC: an Azure DevOps organization with Azure Repos access'
+- 'For Perforce: git-p4 and access to a Perforce depot'
+- GitHub CLI installed and authenticated
+description: Convert source and history from legacy version-control systems into Git repositories and push them to GitHub with author mapping, size-limit planning, and cutover evidence.
+success_criteria:
+- 'An SVN repository''s trunk, branches, and tags history was converted to Git with an authors map and pushed to GitHub, or the exact source-specific blocker was documented.'
+- 'A Mercurial repository was converted through hg-fast-export with an author map and pushed to GitHub with history intact, or the exact source-specific blocker was documented.'
+- 'The TFVC to Azure Repos Git to GitHub path was executed or documented end-to-end, including where ch21 handles the Azure Repos Git to GitHub migration pattern.'
+- 'A Perforce depot path was converted through git-p4 and pushed to GitHub, or the exact source-specific blocker was documented.'
+- 'Author identities in converted commits resolve to real names and email addresses instead of unknown or raw source usernames.'
+- 'Large-file and large-push risks were checked, including 100 MiB file blocks, Git LFS candidates, and the 2 GiB single-push limit.'
+- 'At least one converted repository exists in GitHub with branches and tags visible and expected commit history preserved.'
+- 'Coach conversation — explain which legacy VCS source you would migrate first in a real program, which metadata will not come across, and how you would reduce cutover risk.'
+tags:
+- migration
+- legacy-vcs
+- subversion
+- mercurial
+- tfvc
+- perforce
+- github-cli
+- git-lfs
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+provision_creates: []
+tier: core
+outcomes:
+- platform-migration
+personas:
+- migration-lead
+- platform-engineer
+business_value:
+- reduce-migration-risk
+adoption_stage: assess
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghec/challenges/ch26-migrate-legacy-vcs/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/about-source-code-imports-using-the-command-line
+- https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/importing-an-external-git-repository-using-the-command-line
+- https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/importing-a-subversion-repository
+- https://docs.github.com/en/migrations/importing-source-code/using-github-importer/about-github-importer
+- https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github
+- https://docs.github.com/en/get-started/using-git/troubleshooting-the-2-gb-push-limit
