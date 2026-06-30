@@ -66,6 +66,17 @@ Output lands in `docs/assets/data/`. The Pages site (`docs/`) is fully self-cont
 
 Exit code 0 = success. Non-zero = validation errors (check stderr).
 
+## External Labs and Submodules
+
+Large local lab dependencies are pinned as lazy git submodules. A normal `git clone` is enough for the curriculum site; fetch each lab only when needed:
+
+```bash
+npm run setup:juice-shop
+npm run setup:sre-agent-lab
+```
+
+To prefetch everything during clone, use `git clone --recurse-submodules <repo>`. For an existing clone after pulling updates, run `git submodule update --init --recursive --depth 1`. See [`docs/EXTERNAL-REPOS.md`](docs/EXTERNAL-REPOS.md) for the full refresh and pin-bump workflow.
+
 ## Validation
 
 The build validates:

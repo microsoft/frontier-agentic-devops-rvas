@@ -2,3 +2,7 @@
 	path = external/juice-shop
 	url = https://github.com/juice-shop/juice-shop
 	shallow = true
+[submodule "external/sre-agent"]
+	path = external/sre-agent
+	url = https://github.com/microsoft/sre-agent
+	shallow = true

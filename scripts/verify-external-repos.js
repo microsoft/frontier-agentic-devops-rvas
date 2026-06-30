@@ -303,6 +303,10 @@ function validateLocalPaths(entries) {
   }
 }
 
+function normalizeGitUrl(url) {
+  return String(url || '').trim().replace(/\.git$/, '');
+}
+
 /**
  * Reads .gitmodules and returns a map of submodule path -> url.
  * Dependency-free: pure string parsing.
@@ -365,6 +369,9 @@ function validateSubmodules(entries) {
     } else {
       const registered = gitmodules.get(subPath);
       if (!registered.url) addError(`${label}: .gitmodules entry for '${subPath}' is missing a url`);
+      else if (entry.source && entry.source.url && normalizeGitUrl(registered.url) !== normalizeGitUrl(entry.source.url)) {
+        addError(`${label}: .gitmodules url (${registered.url}) does not match manifest source.url (${entry.source.url})`);
+      }
     }
 
     // 2. If the submodule is checked out, its HEAD must match the manifest SHA
@@ -401,6 +408,17 @@ function validateSubmodules(entries) {
       if (!symlinkExists) {
         addWarning(`${label}: declared symlink '${symlink}' does not exist (run 'npm run setup:${entry.key}' to create it)`);
       }
+    }
+  }
+
+}
+
+function validateActiveAppProvisioning(entries) {
+  for (const entry of entries) {
+    if (!entry || entry.retired || entry.type !== 'app_dependency') continue;
+    if (!String(entry.acquisition || '').startsWith('clone-or-fork')) continue;
+    if (!entry.provisioning || !entry.provisioning.method) {
+      addError(`${entry.key}: active clone-or-fork app dependencies must declare provisioning.method`);
     }
   }
 }
@@ -491,6 +509,7 @@ async function main() {
 
   validateManifestShape(entries);
   validateLocalPaths(entries);
+  validateActiveAppProvisioning(entries);
   validateSubmodules(entries);
   validateVendoredPaths(entries);
   validateAppDependencies(challenges, entries);

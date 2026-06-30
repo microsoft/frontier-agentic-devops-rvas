@@ -5,7 +5,7 @@ This guide explains how this hackathon curriculum manages external dependencies,
 ## Philosophy
 
 - **Content vendored in-tree** — material from the four Frontier Hackathon source repos is embedded under `modules/*/resources/` and `modules/*/challenges/`; no participant or organiser needs to reach the upstream repos.
-- **Juice Shop managed as a lazy submodule** — the only remaining external app dependency.
+- **Local app dependencies managed as lazy submodules** — Juice Shop and the Azure SRE Agent starter lab are registered at exact commits but fetched only when needed.
 - **Explicit pinning** — all refs (commit SHAs, tags) are documented and validated.
 - **Provenance preserved** — historical source URLs and commit SHAs are kept in `external-repos.json` for attribution; they are no longer reachable network targets.
 
@@ -19,6 +19,14 @@ This guide explains how this hackathon curriculum manages external dependencies,
 - **Import mode (org repo):** Challenge setup scripts (`setup.sh provision`) import the repo into org-owned GitHub repositories — each challenge gets its own isolated, disposable copy (e.g., `wth-ch11-juice-shop`, `wth-ghas-s00-juice-shop`). GHAS alerts run on *that* org repo.
 - **Local runtime (GHAS participants):** GHAS challenges also run Juice Shop locally for manual exploit testing. This local instance has **no GHAS alerts** — it is the app only, not the security-scanning target. See *[Local app provisioning (submodules)](#local-app-provisioning-submodules)* below for how to get it running.
 - **Why Juice Shop is large but not vendored:** At ~61 MB it would bloat the curriculum repo and slow container creation for participants who never need it. It is registered as a git submodule and fetched on demand.
+
+### Azure SRE Agent starter lab
+
+- **Source:** https://github.com/microsoft/sre-agent
+- **Pinned ref:** commit `673f88765b27d4a74ebc660875bf605a382b6d28`
+- **Used by:** SRE Agent challenges 00, 01, 03, 04, and 05
+- **Local runtime:** The full upstream repo is registered as `external/sre-agent`; the lab commands use `external/sre-agent/labs/starter-lab`.
+- **Why it is a submodule:** The official Microsoft lab stays tied to a specific upstream commit without vendoring the full repository into this curriculum repo.
 
 ### GitHub Advanced Security — module content (vendored in-tree)
 
@@ -59,13 +67,14 @@ This guide explains how this hackathon curriculum manages external dependencies,
 
 ### Submodule (Lazy / On-Demand)
 
-**When:** A large external app (Juice Shop) is needed at runtime but should not bloat the repo.
+**When:** A large external app or lab repo is needed at runtime but should not bloat the repo.
 
 - **Flow:**
   ```bash
   npm run setup:juice-shop
+  npm run setup:sre-agent-lab
   ```
-- **Outcome:** The submodule is fetched at the pinned SHA and the `app` symlink is created.
+- **Outcome:** The submodule is fetched at the pinned SHA. Juice Shop also creates the `app` symlink; the SRE Agent lab helper prints the `labs/starter-lab` path.
 
 ### Import (One-Time Setup — GHEC/GHAS)
 
@@ -79,6 +88,7 @@ This guide explains how this hackathon curriculum manages external dependencies,
   ./setup.sh provision ghas-s00 --org <org>
   ```
 - **Outcome:** New repo exists in the student's/team's/organizer's org; for GHAS S00 the script also seeds CodeQL/Dependabot config and attempts to enable GHAS features. Repo admins manually add any participants who need access.
+- **Not a submodule:** These repos are disposable challenge targets that participants clone and push to, and that GitHub Advanced Security scans. They intentionally remain normal GitHub repositories.
 
 ## Pinned References & Validation
 
@@ -99,7 +109,7 @@ npm run audit:external         # Optional content URL audit
 If a new version of Juice Shop or another active dependency is needed:
 
 1. **Coordinate with curriculum**: Update `external-repos.json` with the new ref (tag and/or full SHA).
-2. **Bump the submodule pointer** (for submodule-backed apps): `cd external/juice-shop && git fetch --depth 1 origin <new-sha> && git checkout <new-sha>`, then `git add external/juice-shop` in the repo root.
+2. **Bump the submodule pointer** (for submodule-backed apps): `cd external/<name> && git fetch --depth 1 origin <new-sha> && git checkout <new-sha>`, then `git add external/<name>` in the repo root.
 3. **Test**: Run `npm run verify:repos` and `npm run verify:repos:external` to confirm the manifest SHA and gitlink are in sync.
 4. **Document**: Add a note to the challenge's `COACH.md` if the new ref introduces breaking changes.
 5. **Rebuild**: Run `npm run build` to regenerate catalogs with the new refs.
@@ -108,13 +118,14 @@ If a new version of Juice Shop or another active dependency is needed:
 
 ## Local App Provisioning (Submodules)
 
-Locally-run apps (apps that participants start in their Codespace or dev container) are managed as **lazy git submodules**. The submodule is *registered* (`.gitmodules` + gitlink) in this repo at the pinned commit, but the actual clone is deferred to when a participant first needs it. This keeps container creation fast for participants who don't use that module.
+Locally-run apps and labs (things participants start in their Codespace or dev container) are managed as **lazy git submodules**. Each submodule is *registered* (`.gitmodules` + gitlink) in this repo at the pinned commit, but the actual clone is deferred to when a participant first needs it. This keeps container creation fast for participants who don't use that module.
 
 ### How it works
 
 ```
 external/
   juice-shop/          ← git submodule, pinned to f356a09... (v20.0.0)
+  sre-agent/           ← git submodule, pinned to 673f887... (starter lab source)
 app -> external/juice-shop   ← committed symlink, stable path for challenge instructions
 ```
 
@@ -143,10 +154,52 @@ The script (`scripts/provision-app.sh`):
 
 > **This submodule is the LOCAL RUNTIME only.** It does NOT replace the org-imported repository that carries the GHAS alerts (CodeQL, Dependabot, secret scanning). Those run on the shared org repo your organizer provisions. Never confuse the two.
 
+### Fetching the SRE Agent starter lab (participants)
+
+SRE Agent participants run this once before the live Azure lab commands:
+```bash
+npm run setup:sre-agent-lab
+```
+
+The helper (`modules/sre-agent/resources/scripts/ensure-starter-lab.sh`):
+1. Runs `git submodule update --init --depth 1 -- external/sre-agent`
+2. Verifies the checked-out HEAD SHA equals the manifest `source.sha`
+3. Prints `external/sre-agent/labs/starter-lab`
+
+Challenge guides that use:
+```bash
+LAB_DIR="$(bash modules/sre-agent/resources/scripts/ensure-starter-lab.sh)"
+cd "$LAB_DIR"
+```
+continue to work; the helper now fetches the pinned submodule instead of doing an unpinned clone.
+
+### Fresh clones and existing clones
+
+For a fresh clone, participants can choose either lazy or eager submodule fetching:
+
+```bash
+# Lazy: fastest initial clone; fetch each lab/app only when needed.
+git clone https://github.com/microsoft/frontier-agenticdevops-hackathon.git
+cd frontier-agenticdevops-hackathon
+npm run setup:juice-shop        # when GHAS local runtime is needed
+npm run setup:sre-agent-lab     # when SRE Agent starter lab is needed
+
+# Eager: fetch all registered submodules during clone.
+git clone --recurse-submodules https://github.com/microsoft/frontier-agenticdevops-hackathon.git
+```
+
+For an existing clone after pulling curriculum updates:
+
+```bash
+git pull --recurse-submodules
+git submodule update --init --recursive --depth 1
+```
+
 ### Drift prevention
 
 `npm run verify:repos` asserts that, for every `provisioning.method == "submodule"` entry:
 - `.gitmodules` contains a URL for the declared `submodule_path`
+- The `.gitmodules` URL matches `external-repos.json`
 - The gitlink SHA in the index matches `source.sha`
 - If the submodule is checked out, the HEAD SHA also matches
 
@@ -177,7 +230,7 @@ For retired/vendored entries, it asserts that the `vendored_in` path exists in-t
 
 ### SRE Agent Dependency Family
 
-- **Sample app** (Contoso Claims) — vendored locally at `modules/sre-agent/resources/sample-app/`, no external dependency
+- **Azure SRE Agent starter lab** — pinned lazy submodule at `external/sre-agent`, lab path `labs/starter-lab`
 - **Azure** (runtime target) — students provision their own (not pinned, varies by subscription)
 
 ### GHEC Dependency Family

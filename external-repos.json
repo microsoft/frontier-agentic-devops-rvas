@@ -68,7 +68,7 @@
       "name": "Grubify Azure SRE Agent starter lab",
       "description": "Official Microsoft Azure SRE Agent starter lab sample app and break-fix environment.",
       "type": "app_dependency",
-      "acquisition": "clone-or-fork",
+      "acquisition": "clone-or-fork-at-sha",
       "source": {
         "url": "https://github.com/microsoft/sre-agent",
         "sha": "673f88765b27d4a74ebc660875bf605a382b6d28"
@@ -80,7 +80,14 @@
         "sre-agent-04",
         "sre-agent-05"
       ],
-      "attribution": "Official Microsoft Azure SRE Agent hands-on lab. Participants clone or fork it on demand; it is not vendored in this repository."
+      "attribution": "Official Microsoft Azure SRE Agent hands-on lab. Fetched as a lazy git submodule at the pinned commit; not vendored in this repository.",
+      "provisioning": {
+        "method": "submodule",
+        "submodule_path": "external/sre-agent",
+        "content_path": "labs/starter-lab",
+        "npm_script": "setup:sre-agent-lab",
+        "note": "Lazy/on-demand. Run `npm run setup:sre-agent-lab` or the SRE ensure-starter-lab helper to fetch the pinned repo, then use external/sre-agent/labs/starter-lab."
+      }
     },
     {
       "key": "source-frontier-ghas-hackathon",

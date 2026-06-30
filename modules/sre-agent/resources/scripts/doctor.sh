@@ -67,8 +67,10 @@ cat <<'EOF'
 
 Official lab source:
   https://github.com/microsoft/sre-agent/tree/main/labs/starter-lab
+  fetched here as a pinned lazy submodule under external/sre-agent
 
 Recommended live setup:
+  npm run setup:sre-agent-lab
   LAB_DIR="$(bash modules/sre-agent/resources/scripts/ensure-starter-lab.sh)"
   cd "$LAB_DIR"
   bash scripts/setup.sh

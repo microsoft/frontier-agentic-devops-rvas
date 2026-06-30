@@ -1,6 +1,6 @@
 # Scripts
 
-The rebuilt Azure SRE Agent track uses the official Microsoft starter lab as the live source:
+The rebuilt Azure SRE Agent track uses the official Microsoft starter lab as the live source, fetched through a pinned lazy submodule:
 
 ```text
 https://github.com/microsoft/sre-agent/tree/main/labs/starter-lab
@@ -18,7 +18,7 @@ The doctor checks for Git, Azure CLI, Azure Developer CLI, Python, Azure login s
 
 ## Official Live Lab Commands
 
-Use these commands from a separate clone of the Microsoft lab:
+Use these commands to fetch the pinned submodule and enter the Microsoft lab:
 
 ```bash
 LAB_DIR="$(bash modules/sre-agent/resources/scripts/ensure-starter-lab.sh)"
