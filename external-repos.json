@@ -57,7 +57,7 @@
         "submodule_path": "external/sre-agent",
         "content_path": "labs/starter-lab",
         "npm_script": "setup:sre-agent-lab",
-        "note": "Lazy/on-demand. Run `npm run setup:sre-agent-lab` or the SRE ensure-starter-lab helper to fetch the pinned repo, then use external/sre-agent/labs/starter-lab."
+        "note": "Lazy/on-demand. Run `npm run setup:sre-agent-lab` to fetch the pinned repo with the shared provisioner, then use external/sre-agent/labs/starter-lab."
       }
     },
     {

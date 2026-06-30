@@ -10,7 +10,7 @@
     "verify:repos": "node scripts/verify-external-repos.js",
     "verify:repos:external": "node scripts/verify-external-repos.js --external",
     "setup:juice-shop": "bash scripts/provision-app.sh juice-shop",
-    "setup:sre-agent-lab": "bash modules/sre-agent/resources/scripts/ensure-starter-lab.sh",
+    "setup:sre-agent-lab": "bash scripts/provision-app.sh grubify-starter-lab",
     "setup:sre-agent": "bash modules/sre-agent/resources/scripts/doctor.sh"
   },
   "engines": {

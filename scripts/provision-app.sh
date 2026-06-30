@@ -60,6 +60,7 @@ if command -v jq >/dev/null 2>&1; then
   fi
   PROV_METHOD=$(echo "${ENTRY_JSON}" | jq -r '.provisioning.method // empty')
   SUBMODULE_PATH=$(echo "${ENTRY_JSON}" | jq -r '.provisioning.submodule_path // empty')
+  CONTENT_PATH=$(echo "${ENTRY_JSON}" | jq -r '.provisioning.content_path // empty')
   MANIFEST_SHA=$(echo "${ENTRY_JSON}" | jq -r '.source.sha // empty')
   MANIFEST_TAG=$(echo "${ENTRY_JSON}" | jq -r '.source.tag // empty')
   SYMLINKS_JSON=$(echo "${ENTRY_JSON}" | jq -r '.provisioning.symlinks // [] | .[]')
@@ -75,6 +76,7 @@ console.log([
   p.submodule_path||'',
   (e.source||{}).sha||'',
   (e.source||{}).tag||'',
+  p.content_path||'',
   (p.symlinks||[]).join('\n')
 ].join('\n'));
 " > "${REPO_ROOT}/.provision-tmp-out" 2>&1 || {
@@ -89,7 +91,12 @@ console.log([
   SUBMODULE_PATH="${_FIELDS[1]:-}"
   MANIFEST_SHA="${_FIELDS[2]:-}"
   MANIFEST_TAG="${_FIELDS[3]:-}"
-  SYMLINKS_JSON="${_FIELDS[4]:-}"
+  CONTENT_PATH="${_FIELDS[4]:-}"
+  if ((${#_FIELDS[@]} > 5)); then
+    SYMLINKS_JSON="$(printf '%s\n' "${_FIELDS[@]:5}")"
+  else
+    SYMLINKS_JSON=""
+  fi
 fi
 
 # ── validate provisioning method ─────────────────────────────────────────────
@@ -105,6 +112,7 @@ fi
 echo -e "  Submodule path : ${SUBMODULE_PATH}"
 echo -e "  Pinned SHA     : ${MANIFEST_SHA}"
 [[ -n "${MANIFEST_TAG}" ]] && echo -e "  Tag (human ref): ${MANIFEST_TAG}"
+[[ -n "${CONTENT_PATH}" ]] && echo -e "  Content path   : ${SUBMODULE_PATH}/${CONTENT_PATH}"
 
 # ── step 1: init submodule ────────────────────────────────────────────────────
 echo
@@ -137,8 +145,8 @@ if [[ "${ACTUAL_SHA}" != "${MANIFEST_SHA}" ]]; then
 fi
 echo -e "  ${GREEN}✓ SHA verified: ${ACTUAL_SHA}${RESET}"
 
-# ── step 3: ensure symlinks ───────────────────────────────────────────────────
-echo -e "${BOLD}[3/3] Ensuring symlinks…${RESET}"
+# ── step 3: prepare stable paths ─────────────────────────────────────────────
+echo -e "${BOLD}[3/3] Preparing stable paths…${RESET}"
 # SYMLINKS_JSON is newline-separated (both jq and node fallback emit one entry per line)
 SYMLINK_BLOCKED=0
 while IFS= read -r SYMLINK_TARGET || [[ -n "${SYMLINK_TARGET}" ]]; do
@@ -155,6 +163,17 @@ while IFS= read -r SYMLINK_TARGET || [[ -n "${SYMLINK_TARGET}" ]]; do
   fi
 done <<< "${SYMLINKS_JSON}"
 
+if [[ -n "${CONTENT_PATH}" ]]; then
+  CONTENT_DIR="${ABS_SUB}/${CONTENT_PATH}"
+  if [[ ! -d "${CONTENT_DIR}" ]]; then
+    echo -e "${RED}✗ Expected content path not found: ${SUBMODULE_PATH}/${CONTENT_PATH}${RESET}" >&2
+    exit 1
+  fi
+  echo -e "  ${GREEN}✓ Content path available: ${SUBMODULE_PATH}/${CONTENT_PATH}${RESET}"
+elif [[ -z "${SYMLINKS_JSON}" ]]; then
+  echo -e "  ${GREEN}✓ No additional paths required${RESET}"
+fi
+
 if [[ "${SYMLINK_BLOCKED}" -eq 1 ]]; then
   echo >&2
   echo -e "${RED}✗ Provisioning incomplete: one or more symlink paths are blocked by real directories/files.${RESET}" >&2
@@ -168,6 +187,10 @@ echo
 echo -e "${BOLD}${GREEN}✓ ${APP_KEY} is ready.${RESET}"
 echo
 echo -e "${BOLD}Next steps:${RESET}"
-echo -e "  cd app && npm install && npm start"
-echo -e "  Open ${CYAN}http://localhost:3000${RESET} in your browser (or the Codespaces Ports tab)."
+if [[ -n "${CONTENT_PATH}" ]]; then
+  echo -e "  cd ${SUBMODULE_PATH}/${CONTENT_PATH}"
+else
+  echo -e "  cd app && npm install && npm start"
+  echo -e "  Open ${CYAN}http://localhost:3000${RESET} in your browser (or the Codespaces Ports tab)."
+fi
 echo

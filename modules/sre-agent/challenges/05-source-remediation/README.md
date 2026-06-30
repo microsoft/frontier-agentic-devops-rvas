@@ -21,8 +21,8 @@ Azure evidence can explain what failed. Source-code context helps explain where 
 If your live lab supports GitHub connection, follow the starter lab's GitHub setup:
 
 ```bash
-LAB_DIR="$(bash modules/sre-agent/resources/scripts/ensure-starter-lab.sh)"
-cd "$LAB_DIR"
+npm run setup:sre-agent-lab
+cd external/sre-agent/labs/starter-lab
 bash scripts/setup-github.sh
 ```
 

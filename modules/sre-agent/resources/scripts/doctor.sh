@@ -71,8 +71,7 @@ Official lab source:
 
 Recommended live setup:
   npm run setup:sre-agent-lab
-  LAB_DIR="$(bash modules/sre-agent/resources/scripts/ensure-starter-lab.sh)"
-  cd "$LAB_DIR"
+  cd external/sre-agent/labs/starter-lab
   bash scripts/setup.sh
 
 If Azure access is blocked, use the coach fallback packet instead of troubleshooting subscription policy during the workshop.

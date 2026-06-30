@@ -21,8 +21,8 @@ You will intentionally break Grubify and use Azure SRE Agent to investigate the 
 From the starter lab:
 
 ```bash
-LAB_DIR="$(bash modules/sre-agent/resources/scripts/ensure-starter-lab.sh)"
-cd "$LAB_DIR"
+npm run setup:sre-agent-lab
+cd external/sre-agent/labs/starter-lab
 bash scripts/break-app.sh
 ```
 

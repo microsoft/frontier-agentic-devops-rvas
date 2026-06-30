@@ -133,17 +133,19 @@ SRE Agent participants run this once before the live Azure lab commands:
 npm run setup:sre-agent-lab
 ```
 
-The helper (`modules/sre-agent/resources/scripts/ensure-starter-lab.sh`):
-1. Runs `git submodule update --init --depth 1 -- external/sre-agent`
-2. Verifies the checked-out HEAD SHA equals the manifest `source.sha`
-3. Prints `external/sre-agent/labs/starter-lab`
+The npm script uses the same manifest-driven provisioner as Juice Shop:
+1. Runs `bash scripts/provision-app.sh grubify-starter-lab`
+2. Fetches `external/sre-agent` as a pinned lazy submodule
+3. Verifies the checked-out HEAD SHA equals the manifest `source.sha`
+4. Verifies the manifest `provisioning.content_path` exists
 
-Challenge guides that use:
+Then enter the lab:
 ```bash
-LAB_DIR="$(bash modules/sre-agent/resources/scripts/ensure-starter-lab.sh)"
-cd "$LAB_DIR"
+npm run setup:sre-agent-lab
+cd external/sre-agent/labs/starter-lab
 ```
-continue to work; the helper now fetches the pinned submodule instead of doing an unpinned clone.
+
+For automation that needs to capture the lab path, `modules/sre-agent/resources/scripts/ensure-starter-lab.sh` is a thin wrapper around the same provisioner and prints the absolute lab directory.
 
 ### Fresh clones and existing clones
 
@@ -175,7 +177,7 @@ git submodule update --init --recursive --depth 1
 - The gitlink SHA in the index matches `source.sha`
 - If the submodule is checked out, the HEAD SHA also matches
 
-For retired/vendored entries, it asserts that the `vendored_in` path exists in-tree.
+In-tree course content is validated by `npm run build` and the content audit scripts.
 
 ### Adding a new local app (for maintainers)
 
