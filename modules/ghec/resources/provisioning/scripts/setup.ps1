@@ -2,7 +2,7 @@
 #
 # setup.ps1 — wth provisioning CLI (PowerShell entrypoint, Windows / cross-platform pwsh).
 #
-#   ./setup.ps1 <doctor|provision|status|teardown> <ch##|ghas-s##> -Org <org> `
+#   ./setup.ps1 <doctor|provision|status|teardown> <ch##|ghas-##> -Org <org> `
 #       [-Enterprise <slug>] [-Ref <juiceShopRef>] [-DryRun] [-Yes]
 #
 # One challenge per invocation. Everything created is namespaced wth-<chid>-*.
@@ -37,7 +37,7 @@ function Show-Usage {
 wth provisioning CLI (v$Global:WthVersion)
 
 USAGE:
-  ./setup.ps1 <command> <ch##|ghas-s##> -Org <org> [options]
+  ./setup.ps1 <command> <ch##|ghas-##> -Org <org> [options]
 
 COMMANDS:
   doctor      Preflight: tooling, auth, required scopes/capabilities (no changes)
@@ -56,7 +56,7 @@ OPTIONS:
 
 EXAMPLES:
   ./setup.ps1 doctor ch01 -Org acme-co
-  ./setup.ps1 provision ghas-s00 -Org acme-co
+  ./setup.ps1 provision ghas-00 -Org acme-co
   ./setup.ps1 provision ch01 -Org acme-co -DryRun
   ./setup.ps1 provision ch01 -Org acme-co
   ./setup.ps1 teardown ch01 -Org acme-co
@@ -70,9 +70,9 @@ if ($Command -eq 'setup') { $Command = 'provision' }
 if ($Command -notin @('doctor', 'provision', 'status', 'teardown')) {
   Stop-Wth "unknown command '$Command' (expected doctor|provision|setup|status|teardown)"
 }
-if (-not $Chid) { Stop-Wth 'missing challenge id (e.g. ch01 or ghas-s00)' }
-if ($Chid -notmatch '^(ch\d\d|ghas-s\d\d)$') {
-  Stop-Wth "invalid challenge id '$Chid' (expected ch## or ghas-s##)"
+if (-not $Chid) { Stop-Wth 'missing challenge id (e.g. ch01 or ghas-00)' }
+if ($Chid -notmatch '^(ch\d\d|ghas-\d\d)$') {
+  Stop-Wth "invalid challenge id '$Chid' (expected ch## or ghas-##)"
 }
 
 # ---- globals consumed by lib + per-challenge provisioners ------------------

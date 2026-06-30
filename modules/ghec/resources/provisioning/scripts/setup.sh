@@ -2,7 +2,7 @@
 #
 # setup.sh — wth provisioning CLI (Bash entrypoint, macOS/Linux).
 #
-#   wth <doctor|provision|status|teardown> <ch##|ghas-s##> --org <org> \
+#   wth <doctor|provision|status|teardown> <ch##|ghas-##> --org <org> \
 #        [--enterprise <slug>] [--ref <juiceShopRef>] [--dry-run] [--yes]
 #
 # One challenge per invocation. Everything created is namespaced wth-<chid>-*.
@@ -44,7 +44,7 @@ usage() {
 wth provisioning CLI (v${WTH_VERSION})
 
 USAGE:
-  ./setup.sh <command> <ch##|ghas-s##> --org <org> [options]
+  ./setup.sh <command> <ch##|ghas-##> --org <org> [options]
 
 COMMANDS:
   doctor      Preflight: tooling, auth, required scopes/capabilities (no changes)
@@ -64,7 +64,7 @@ OPTIONS:
 
 EXAMPLES:
   ./setup.sh doctor ch01 --org acme-co
-  ./setup.sh provision ghas-s00 --org acme-co
+  ./setup.sh provision ghas-00 --org acme-co
   ./setup.sh provision ch01 --org acme-co --dry-run
   ./setup.sh provision ch01 --org acme-co
   ./setup.sh status ch01 --org acme-co
@@ -87,7 +87,7 @@ while [[ $# -gt 0 ]]; do
     --force)       FORCE="true"; shift ;;
     --yes)         ASSUME_YES="true"; shift ;;
     -h|--help)     usage; exit 0 ;;
-    ch[0-9][0-9]|ghas-s[0-9][0-9])  CHID="$1"; shift ;;
+    ch[0-9][0-9]|ghas-[0-9][0-9])  CHID="$1"; shift ;;
     *)             die "unknown argument: '$1' (see --help)" ;;
   esac
 done
@@ -98,7 +98,7 @@ case "$COMMAND" in
   *) die "unknown command '$COMMAND' (expected doctor|provision|setup|status|teardown)" ;;
 esac
 
-[[ -n "$CHID" ]] || die "missing challenge id (e.g. ch01 or ghas-s00)"
+[[ -n "$CHID" ]] || die "missing challenge id (e.g. ch01 or ghas-00)"
 
 # ---- resolve challenge + meta ---------------------------------------------
 CH_DIR="$(resolve_challenge_dir "$CHID" "$CHALLENGES_DIR")" \

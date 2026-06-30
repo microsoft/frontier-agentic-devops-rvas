@@ -13,7 +13,7 @@
 
 ## Session Summary (2026-06-15)
 
-**Delivered:** Phase 1 (GHEC + GHAS port, 27 challenges), Phase 2 (GHAW + SRE port, 32 challenges, linear agentic chain), Phase 3 QA fixes (D-001 YAML indentation, D-003/D-004 broken links, D-005 tier fix), track rename (agentic-arc → agentic-lifecycle), module id rename (agentic-devops → sre-agent), ch02 removal (Copilot engineering), Environment Setup template implementation (GHEC ch00 new, GHAS renumber s00..s05→s01..s06+new s00, GHAW 0-00 refresh, SRE 00 refactor), doc table updates (57→59 challenges).
+**Delivered:** Phase 1 (GHEC + GHAS port, 27 challenges), Phase 2 (GHAW + SRE port, 32 challenges, linear agentic chain), Phase 3 QA fixes (D-001 YAML indentation, D-003/D-004 broken links, D-005 tier fix), track rename (agentic-arc → agentic-lifecycle), module id rename (agentic-devops → sre-agent), ch02 removal (Copilot engineering), Environment Setup template implementation (GHEC ch00 new, GHAS renumber 00..05→01..06+new 00, GHAW 0-00 refresh, SRE 00 refactor), doc table updates (57→59 challenges).
 
 **Final State:** 59 challenges (GHEC 21, GHAS 7, GHAW 25, SRE 6), 36 prerequisite edges, 0 cross-module, 0 cycles, all setup challenges tier:setup+prereqs:[], all first-real-challenges prereqs:[].
 

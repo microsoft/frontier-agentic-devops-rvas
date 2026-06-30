@@ -21,12 +21,12 @@
 **Build:** `node docs/build.js` exits 0, deterministic. Outputs: `platform.json` (4 modules, 58 challenges), `dependency-graph.json` (58 nodes, 33 edges), guide copies under `docs/assets/data/challenges/`.
 
 **Critical defect found — D-001 (Wash must fix):**  
-`parseMeta()` in `build.js` uses regex `^\s+-\s+` for block-list items, requiring at least one leading whitespace. GHAS `meta.yml` files use zero-indent list items (`- ghas-s00`); GHAW/agentic-devops use 2-space-indented items. Result: **5 prerequisite edges silently dropped** from `platform.json` and `dependency-graph.json` for `ghas-s01` through `ghas-s05`. Fix: change `\s+` → `\s*` in the listItem regex.
+`parseMeta()` in `build.js` uses regex `^\s+-\s+` for block-list items, requiring at least one leading whitespace. GHAS `meta.yml` files use zero-indent list items (`- ghas-00`); GHAW/agentic-devops use 2-space-indented items. Result: **5 prerequisite edges silently dropped** from `platform.json` and `dependency-graph.json` for `ghas-01` through `ghas-05`. Fix: change `\s+` → `\s*` in the listItem regex.
 
 **Content defects (Zoe must fix):**
-- D-003: `ghas-s00/README.md` references `../docs/prerequisites.html` (source-repo path, doesn't exist here).
+- D-003: `ghas-00/README.md` references `../docs/prerequisites.html` (source-repo path, doesn't exist here).
 - D-004: 7 broken links in `agentic-devops/resources/` pointing to original source repo layout (`../Student/...`, `../Coach/...`).
-- D-005: `ghas-s00` is `tier:core` not `tier:setup` — inconsistent with GHAW and agentic-devops module entry-point pattern.
+- D-005: `ghas-00` is `tier:core` not `tier:setup` — inconsistent with GHAW and agentic-devops module entry-point pattern.
 
 **UI defect (Kaylee must fix):**
 - D-002: `index.html` has 4 stale hardcoded counts: "57 challenges" (×2), "24 challenges" for GHAW, "2 tracks" for GHAS. Actual: 58, 25, 1 track.
@@ -45,8 +45,8 @@
 3. Setup challenge validation: tier:setup, prerequisites:[], first in module's first track (×4 IDs)
 4. Exactly 4 `tier: setup` in meta.yml files (grep)
 5. Dependency integrity: no dangling prerequisites (all 36 edges resolve)
-6. GHAS renumber integrity: s00=setup, s01..s06=core, no old ID references
-7. Independence rule: ghec-ch01, ghas-s01, sre-agent-01 must have prerequisites:[]
+6. GHAS renumber integrity: 00=setup, 01..06=core, no old ID references
+7. Independence rule: ghec-ch01, ghas-01, sre-agent-01 must have prerequisites:[]
 8. Stale data dirs: docs/assets/data/challenges/ dirs vs platform.json IDs
 9. Guide files: README.md + COACH.md present for all 4 setup challenge dirs
 10. Next-step links: setup README "Next Step" links point to real dirs
@@ -56,7 +56,7 @@
 
 **Cleanup applied (trivial artifact):** Removed stale dirs `docs/assets/data/challenges/ghaw-ch01/` and `docs/assets/data/challenges/ghaw-ch10/` — no matching IDs in platform.json.
 
-**Checks that passed:** Build counts, per-module counts (all match spec), all 4 setup challenges correct (tier, prereqs, position, guides, next-step links), no dangling prerequisites, no stale agentic-devops refs, GHAS chain clean (s00 setup + s01..s06 core), ghec-ch01 and ghas-s01 independence rule satisfied.
+**Checks that passed:** Build counts, per-module counts (all match spec), all 4 setup challenges correct (tier, prereqs, position, guides, next-step links), no dangling prerequisites, no stale agentic-devops refs, GHAS chain clean (00 setup + 01..06 core), ghec-ch01 and ghas-01 independence rule satisfied.
 
 **Final counts:** 4 modules, 59 challenges (ghec:21, ghas:7, ghaw:25, sre-agent:6), 36 edges.
 
@@ -86,7 +86,7 @@ Reviewed Wash's submodule+symlink+lazy-provisioning implementation (juice-shop v
 - Not-yet-checked-out graceful: gitlink check runs from git index (independent of working tree); HEAD check only fires if working tree is populated. ✓
 - Symlink is relative (`external/juice-shop`), not absolute — portable across Codespaces/Linux. ✓
 - Manifest scope: ONLY juice-shop carries a `provisioning` block; seed/contoso-*/source_repo entries untouched. ✓
-- GHAS s00 README flow: `npm run setup:juice-shop` appears before `cd app && npm install && npm start`. ✓
+- GHAS 00 README flow: `npm run setup:juice-shop` appears before `cd app && npm install && npm start`. ✓
 - Pin-update workflow: documented in EXTERNAL-REPOS.md (update manifest + bump gitlink + verify:repos). ✓
 - Idempotency: provision-app.sh skips fetch if `.git` already present; skips symlink creation if already a symlink. ✓
 - SHA mismatch exits non-zero: loud box + exit 1. ✓

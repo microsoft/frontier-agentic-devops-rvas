@@ -24,13 +24,13 @@
 
 **ID and title conventions:**
 - GHEC: `ghec-ch00` / "Environment Setup"
-- GHAS: `ghas-s00` / "Environment Setup"
+- GHAS: `ghas-00` / "Environment Setup"
 - GHAW: `ghaw-00` / "Challenge 00 — Environment Setup" (keep existing)
 - SRE Agent: `sre-agent-00` / "Environment Setup" (rename from "Setup and Team Launch")
 
 **Ordering / renumber rules:**
 - GHEC: new ch00; ch01–ch20 unchanged; ch01 keeps `prerequisites: []` (no hard dep on ch00)
-- GHAS: rename s00→s01, s01→s02, s02→s03, s03→s04, s04→s05, s05→s06 (folders + ids + all cross-refs); then create new s00. Update prerequisites in s02–s06 to reference new ids. ghas-s01 keeps `prerequisites: []`.
+- GHAS: rename 00→01, 01→02, 02→03, 03→04, 04→05, 05→06 (folders + ids + all cross-refs); then create new 00. Update prerequisites in 02–06 to reference new ids. ghas-01 keeps `prerequisites: []`.
 - GHAW: no rename; refresh meta.yml/README/COACH to template; keep `ghaw-00` in all track challenge prerequisites (hard dep — CLI install)
 - SRE Agent: no rename; refactor README to lead with env setup, team-launch becomes clearly-labelled second section; sre-agent-01 keeps `prerequisites: []`
 

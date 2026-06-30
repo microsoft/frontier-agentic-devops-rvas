@@ -35,7 +35,7 @@
 
 **Setup-challenge IDs (tier: setup in platform.json):**
 - GHEC: `ghec-ch00` → `challenge.html?id=ghec-ch00` (module color `--c-ghec`)
-- GHAS: `ghas-s00` → `challenge.html?id=ghas-s00` (module color `--c-ghas`)
+- GHAS: `ghas-00` → `challenge.html?id=ghas-00` (module color `--c-ghas`)
 - GHAW: `ghaw-00` → `challenge.html?id=ghaw-00` (module color `--c-ghaw`)
 - SRE Agent: `sre-agent-00` → `challenge.html?id=sre-agent-00` (module color `--c-agentic` — the data module ID is `sre-agent` but the CSS color token is `--c-agentic`; no `.mod-sre-agent` class exists)
 

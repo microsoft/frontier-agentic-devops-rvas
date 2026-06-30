@@ -17,7 +17,7 @@
 - Ask for a show-of-hands "green terminal + Juice Shop storefront" check after the first 10 minutes.
 - Pair any blocked participant with a working neighbor; one blocker should not stall the group.
 - Start by having the responsible participant, team lead, or organizer run:
-  `./setup.sh provision ghas-s00 --org <org>` or `./setup.ps1 provision ghas-s00 -Org <org>`.
+  `./setup.sh provision ghas-00 --org <org>` or `./setup.ps1 provision ghas-00 -Org <org>`.
 - Verify that **Codespaces is enabled for the org** before the event starts (org Settings → Codespaces → Allow for all members). If not enabled, participants see no Codespace option.
 - If Copilot is not yet licensed for all participants, pair them so every team still practices the Copilot-assisted review loop in S01–S06.
 - Confirm **GHAS is enabled** on the provisioned org repo (Settings → Code security and analysis). CodeQL, secret scanning, Dependabot alerts, and push protection must all be on — these are the backbone of S01–S06.
@@ -46,7 +46,7 @@
 Before releasing the group to Challenge S01, confirm per participant:
 
 - [ ] `gh auth status` exits 0 and shows the correct username
-- [ ] `<org>/wth-ghas-s00-juice-shop` exists
+- [ ] `<org>/wth-ghas-00-juice-shop` exists
 - [ ] CodeQL workflow and Dependabot config exist under `.github/`
 - [ ] CodeQL, Dependabot alerts, secret scanning, and push protection are enabled or recorded as manual follow-up
 - [ ] Required participants/teams have been added to the repo

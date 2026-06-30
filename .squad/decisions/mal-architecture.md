@@ -226,7 +226,7 @@ frontier-ghplatform-hackathon/
 │               ├── ghec-ch01/
 │               │   ├── README.md
 │               │   └── COACH.md
-│               ├── ghas-s00/
+│               ├── ghas-00/
 │               │   ├── README.md
 │               │   └── COACH.md
 │               └── ...
@@ -241,7 +241,7 @@ frontier-ghplatform-hackathon/
 │   ├── ghas/
 │   │   ├── setup.md                # How to get Juice Shop running
 │   │   └── challenges/
-│   │       ├── s00-explore-attack-surface/
+│   │       ├── 00-explore-attack-surface/
 │   │       │   ├── meta.yml
 │   │       │   ├── README.md
 │   │       │   └── COACH.md

@@ -1,7 +1,7 @@
 ---
 name: content-review
 description: 'Review hackathon content (challenges, module docs, resources) for correctness, pacing, hallucinations, and staleness, and cross-check claims against official documentation on the web. Use when asked to "review content", "check for errors", "verify the docs", "find hallucinations", "is this still accurate", "check against the official docs", "fact-check the challenges", "audit content quality", or before publishing/PR-ing content changes. Spots and fixes wrong commands, fabricated UI labels and APIs, outdated product names/versions, broken links, mismatched difficulty/duration, and prerequisite gaps.'
-argument-hint: 'Optional: a path, module id, or challenge slug to scope the review (e.g. modules/ghas or ghas-s02)'
+argument-hint: 'Optional: a path, module id, or challenge slug to scope the review (e.g. modules/ghas or ghas-02)'
 disable-model-invocation: true
 user-invocable: true
 ---

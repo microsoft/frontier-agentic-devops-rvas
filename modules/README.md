@@ -35,7 +35,7 @@ modules/
 
 Use a short, descriptive, kebab-case slug as the directory name. Examples:
 - `ch01-issues-labels-projects`
-- `s00-explore-attack-surface`
+- `01-explore-attack-surface`
 - `01-morning-briefing`
 - `00-setup`
 

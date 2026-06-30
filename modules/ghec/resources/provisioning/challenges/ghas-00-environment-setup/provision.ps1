@@ -1,4 +1,4 @@
-# ghas-s00 imports OWASP Juice Shop into the participant/organizer-owned org,
+# ghas-00 imports OWASP Juice Shop into the participant/organizer-owned org,
 # seeds GHAS config, and enables repo-level security features where allowed.
 
 $Global:WthGhasRepo = $Global:WthRepo

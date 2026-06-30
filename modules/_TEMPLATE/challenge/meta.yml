@@ -1,6 +1,6 @@
 # === Required ===
 id: REPLACE-module-localid       # Globally unique. Convention: <module>-<local-id>
-                                 # Examples: ghec-ch01, ghas-s00, ghaw-01, sre-agent-00
+                                 # Examples: ghec-ch01, ghas-00, ghaw-01, sre-agent-00
 title: "REPLACE: Short Challenge Title"
 module: REPLACE                  # One of: ghec | ghas | ghaw | sre-agent
 track: REPLACE-track-slug        # See CONTRIBUTING.md for the module → track table

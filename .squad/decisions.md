@@ -97,11 +97,11 @@
 
 **Status:** ✅ All defects resolved
 
-**Summary:** QA by Simon identified 5 defects (D-001 P0, D-002–D-005 P1–P2). D-001 (ship blocker): `parseMeta()` regex required leading whitespace (`\s+`), silently dropping zero-indent YAML block sequences (GHAS meta.yml), causing 5 missing prerequisite edges. Fixed by Wash (regex `\s*`) and Zoe (re-indented GHAS items to 2-space). D-002: hardcoded challenge counts in index.html stale (57→58, GHAS tracks 2→1, GHAW 24→25) — fixed by Kaylee. D-003: broken docs links in ghas-s00 (source repo paths) — fixed by Zoe. D-004: broken resource links in agentic-devops (source layout paths) — fixed by Zoe. D-005: ghas-s00 tier `core` not `setup` — fixed by Zoe. Build verified clean: 58 challenges, 38 edges, 0 cross-module, 0 cycles.
+**Summary:** QA by Simon identified 5 defects (D-001 P0, D-002–D-005 P1–P2). D-001 (ship blocker): `parseMeta()` regex required leading whitespace (`\s+`), silently dropping zero-indent YAML block sequences (GHAS meta.yml), causing 5 missing prerequisite edges. Fixed by Wash (regex `\s*`) and Zoe (re-indented GHAS items to 2-space). D-002: hardcoded challenge counts in index.html stale (57→58, GHAS tracks 2→1, GHAW 24→25) — fixed by Kaylee. D-003: broken docs links in ghas-00 (source repo paths) — fixed by Zoe. D-004: broken resource links in agentic-devops (source layout paths) — fixed by Zoe. D-005: ghas-00 tier `core` not `setup` — fixed by Zoe. Build verified clean: 58 challenges, 38 edges, 0 cross-module, 0 cycles.
 
 **Owner:** Simon (QA), team (fixes)
 
-**Final independence audit:** GHEC (20 independent), GHAS (6, all require s00 on disk after fix), GHAW (24 require setup + 1 causal pair), Agentic-DevOps (7-challenge linear arc). ✅
+**Final independence audit:** GHEC (20 independent), GHAS (6, all require 00 on disk after fix), GHAW (24 require setup + 1 causal pair), Agentic-DevOps (7-challenge linear arc). ✅
 
 ---
 
@@ -324,12 +324,12 @@ Typography adjustments:
 **Status:** APPROVED — Zoe executes  
 **Requested by:** Marco (@olivomarco)
 
-**Summary:** Defines a unified contract for all module "Environment Setup" challenges (tier: setup, first challenge of each module). Specifies locked meta.yml fields, README skeleton, COACH skeleton, and independence rules. Four setup challenges follow this template: GHEC ch00 (new), GHAS s00 (new after renumber), GHAW 0-00 (refreshed), SRE Agent 00 (refreshed).
+**Summary:** Defines a unified contract for all module "Environment Setup" challenges (tier: setup, first challenge of each module). Specifies locked meta.yml fields, README skeleton, COACH skeleton, and independence rules. Four setup challenges follow this template: GHEC ch00 (new), GHAS 00 (new after renumber), GHAW 0-00 (refreshed), SRE Agent 00 (refreshed).
 
 **Key decisions:**
 - All setup challenges: `tier: setup`, `prerequisites: []`, `difficulty: beginner`, `emu_compatible: true`
 - Success criteria must be shell-command verifiable (not subjective observations)
-- First real challenge of each module (`ghec-ch01`, `ghas-s01`, `ghaw-01`, `sre-agent-01`) retains `prerequisites: []` — setup is not a hard blocker; it's a resource enabler documented via `prerequisite_capabilities`
+- First real challenge of each module (`ghec-ch01`, `ghas-01`, `ghaw-01`, `sre-agent-01`) retains `prerequisites: []` — setup is not a hard blocker; it's a resource enabler documented via `prerequisite_capabilities`
 - README sections: Objectives → Prerequisites → Option A Codespaces → Option B Dev Container → Authenticate CLI → Verify Setup → Next Step
 - COACH sections: Objectives → Facilitation Hints → Common Blockers & Fixes table → Success Check list → Access-Blocked Fallback
 
@@ -354,16 +354,16 @@ Typography adjustments:
 
 ---
 
-### frontier-ghplatform-hackathon: GHAS Renumber (s00..s05 → s01..s06) + New ghas-s00 Environment Setup (2026-06-15)
+### frontier-ghplatform-hackathon: GHAS Renumber (00..05 → 01..06) + New ghas-00 Environment Setup (2026-06-15)
 
 **Date:** 2026-06-15  
 **Author:** Zoe (Content / Curriculum Engineer)  
 **Status:** ✅ Implemented  
 **Requested by:** Marco (@olivomarco)
 
-**Summary:** Part 1 — renamed all 6 existing GHAS challenges (s00→s01, s01→s02, ..., s05→s06) to free up position s00 for the new setup challenge. Updated all `id:` fields and `prerequisites:` cross-refs in meta.yml files. Part 2 — created new `modules/ghas/challenges/s00-environment-setup/` with meta.yml, README.md, COACH.md. Challenge ID: `ghas-s00`, `prerequisites: []`.
+**Summary:** Part 1 — renamed all 6 existing GHAS challenges (00→01, 01→02, ..., 05→06) to free up position 00 for the new setup challenge. Updated all `id:` fields and `prerequisites:` cross-refs in meta.yml files. Part 2 — created new `modules/ghas/challenges/00-environment-setup/` with meta.yml, README.md, COACH.md. Challenge ID: `ghas-00`, `prerequisites: []`.
 
-**Prerequisite decisions:** `ghas-s01` (formerly s00, "Explore the Attack Surface") retains `prerequisites: []` — it was the original entry point. `ghas-s02` through `ghas-s06` updated to list `ghas-s01` (not the old s00).
+**Prerequisite decisions:** `ghas-01` (formerly 00, "Explore the Attack Surface") retains `prerequisites: []` — it was the original entry point. `ghas-02` through `ghas-06` updated to list `ghas-01` (not the old 00).
 
 **Content sources:** `retired-private-predecessor/docs/getting-started.html`, `retired-private-predecessor/docs/prerequisites.html`, `retired-private-predecessor/Student/README.md`.
 
@@ -410,9 +410,9 @@ Typography adjustments:
 **Status:** ✅ Implemented  
 **Requested by:** Marco (@olivomarco)
 
-**Summary:** Updated challenge inventory counts in README.md and CONTRIBUTING.md to reflect final state after setup challenge work. Old counts: 57 total, GHEC 20, GHAS 6, GHAW 24. New counts: 59 total, GHEC 21 (+1 ch00), GHAS 7 (+1 s00), GHAW 25 (+1 refresh), SRE Agent 6 (unchanged).
+**Summary:** Updated challenge inventory counts in README.md and CONTRIBUTING.md to reflect final state after setup challenge work. Old counts: 57 total, GHEC 20, GHAS 6, GHAW 24. New counts: 59 total, GHEC 21 (+1 ch00), GHAS 7 (+1 00), GHAW 25 (+1 refresh), SRE Agent 6 (unchanged).
 
-**Changes:** README.md tagline "57 challenges" → "59 challenges"; module table rows updated. CONTRIBUTING.md no changes required (existing `ghas-s00` example now refers to setup challenge, which is canonical).
+**Changes:** README.md tagline "57 challenges" → "59 challenges"; module table rows updated. CONTRIBUTING.md no changes required (existing `ghas-00` example now refers to setup challenge, which is canonical).
 
 **Verification:** Source of truth `docs/assets/data/platform.json`: 4 modules, 59 challenges (ghec 21, ghas 7, ghaw 25, sre-agent 6).
 
@@ -433,7 +433,7 @@ Typography adjustments:
 - ✅ Per-module counts (ghec 21, ghas 7, ghaw 25, sre-agent 6)
 - ✅ All 4 setup challenges (tier, prereqs, track position)
 - ✅ Dependency integrity (no dangling edges, renumber clean)
-- ✅ Independence rule (ch01/s01/sre-01 all have `prerequisites: []`)
+- ✅ Independence rule (ch01/01/sre-01 all have `prerequisites: []`)
 - ✅ Setup guide files (all 4 have README.md + COACH.md)
 - ✅ Next-step links in setup READMEs all valid
 
@@ -484,7 +484,7 @@ Typography adjustments:
 | Module | Challenge ID | href |
 |--------|-------------|------|
 | GHEC | ghec-ch00 | challenge.html?id=ghec-ch00 |
-| GHAS | ghas-s00 | challenge.html?id=ghas-s00 |
+| GHAS | ghas-00 | challenge.html?id=ghas-00 |
 | GHAW | ghaw-00 | challenge.html?id=ghaw-00 |
 | SRE Agent | sre-agent-00 | challenge.html?id=sre-agent-00 |
 

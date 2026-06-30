@@ -1,11 +1,11 @@
-id: ghas-s04
+id: ghas-04
 title: Fix Broken Access Control
 module: ghas
 track: security
 difficulty: intermediate
 duration_minutes: 90
 prerequisites:
-  - ghas-s01
+  - ghas-01
 prerequisite_capabilities:
   - Juice Shop instance running (see modules/ghas/setup.md)
   - GitHub Advanced Security enabled on the org repo provisioned in S00

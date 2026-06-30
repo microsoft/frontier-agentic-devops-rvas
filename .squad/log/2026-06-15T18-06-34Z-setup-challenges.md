@@ -11,15 +11,15 @@ Comprehensive environment setup challenge work across all four modules (GHEC, GH
 ## Manifesto
 
 - **Mal:** Setup template definition (APPROVED)
-- **Zoe:** GHEC ch00 created, GHAS renumbered s00..s05→s01..s06 + new s00, GHAW 0-00 refreshed, SRE Agent 00 refactored, docs updated to 59
+- **Zoe:** GHEC ch00 created, GHAS renumbered 00..05→01..06 + new 00, GHAW 0-00 refreshed, SRE Agent 00 refactored, docs updated to 59
 - **Kaylee:** Ordering verification (setup challenges render first)
 - **Simon:** Full QA — found 1 defect (sre-agent-01 independence rule)
-- **Coordinator:** Fixed ghas-s01 tier, sre-agent-01 prerequisites, rebuild clean
+- **Coordinator:** Fixed ghas-01 tier, sre-agent-01 prerequisites, rebuild clean
 
 ## Final State
 
 - **Challenges:** 59 total (ghec 21, ghas 7, ghaw 25, sre-agent 6)
-- **Setup challenges:** 4 (ghec-ch00, ghas-s00, ghaw-00, sre-agent-00) — all tier:setup, prerequisites:[]
+- **Setup challenges:** 4 (ghec-ch00, ghas-00, ghaw-00, sre-agent-00) — all tier:setup, prerequisites:[]
 - **First-real-challenges:** All have prerequisites:[] (independence rule satisfied)
 - **Prerequisite edges:** 36 (0 cross-module, 0 cycles)
 - **Build status:** ✅ Clean, ship-ready

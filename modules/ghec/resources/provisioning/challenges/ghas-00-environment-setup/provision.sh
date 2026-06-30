@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# ghas-s00 imports OWASP Juice Shop into the participant/organizer-owned org,
+# ghas-00 imports OWASP Juice Shop into the participant/organizer-owned org,
 # seeds the GHAS config files used by the module, and enables repo-level
 # security features where the authenticated user and org license allow it.
 

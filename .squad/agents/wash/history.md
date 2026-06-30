@@ -74,7 +74,7 @@ Runs in <1s with Node core only. Zero npm dependencies.
 
 8. **Canonical track slugs (2026-06-15)**: ghas renamed `security-fundamentals` → `security` (Zoe's 6 challenges use this); ghaw replaced with faithful Track 1–4 taxonomy: `hello-agent`, `repo-concierge`, `continuous-intelligence`, `production-patterns` (internal track_ids were scrambled, so config now matches actual content hierarchy).
 
-9. **P0 bugfix D-001 (2026-06-15)**: Fixed YAML list-item parser in `docs/build.js` line 93 — changed regex from `^\s+-\s+` to `^\s*-\s+` to accept unindented list items (e.g., `- ghas-s00` without leading spaces); restored 5 missing dependency edges (ghas-s01..s05 now correctly recognize ghas-s00 prerequisite).
+9. **P0 bugfix D-001 (2026-06-15)**: Fixed YAML list-item parser in `docs/build.js` line 93 — changed regex from `^\s+-\s+` to `^\s*-\s+` to accept unindented list items (e.g., `- ghas-00` without leading spaces); restored 5 missing dependency edges (ghas-01..05 now correctly recognize ghas-00 prerequisite).
 ### Home-repo slug distinction & SELF_SOURCE_REPOS split (2026-06-23)
 
 **Resolved truth:** `microsoft/frontier-agenticdevops-hackathon` IS this live consolidated repo's own git origin — it is NOT a retired/archived source. The repos genuinely being deleted are only: `retired private predecessor repo`, `retired private predecessor repo`, `retired private predecessor repo`.

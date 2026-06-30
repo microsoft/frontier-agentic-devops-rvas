@@ -16,7 +16,7 @@ This guide explains how this hackathon curriculum manages external dependencies,
 - **Source:** https://github.com/juice-shop/juice-shop
 - **Pinned ref:** `v20.0.0` (tag) = commit `f356a09207c7a9550eb6fc4c3945e081922cf998`
 - **Used by:** GHEC challenges (ch11–ch15), GHAS setup
-- **Import mode (org repo):** Challenge setup scripts (`setup.sh provision`) import the repo into org-owned GitHub repositories — each challenge gets its own isolated, disposable copy (e.g., `wth-ch11-juice-shop`, `wth-ghas-s00-juice-shop`). GHAS alerts run on *that* org repo.
+- **Import mode (org repo):** Challenge setup scripts (`setup.sh provision`) import the repo into org-owned GitHub repositories — each challenge gets its own isolated, disposable copy (e.g., `wth-ch11-juice-shop`, `wth-ghas-00-juice-shop`). GHAS alerts run on *that* org repo.
 - **Local runtime (GHAS participants):** GHAS challenges also run Juice Shop locally for manual exploit testing. This local instance has **no GHAS alerts** — it is the app only, not the security-scanning target. See *[Local app provisioning (submodules)](#local-app-provisioning-submodules)* below for how to get it running.
 - **Why Juice Shop is large but not vendored:** At ~61 MB it would bloat the curriculum repo and slow container creation for participants who never need it. It is registered as a git submodule and fetched on demand.
 
@@ -52,12 +52,12 @@ This guide explains how this hackathon curriculum manages external dependencies,
 
 **When:** A challenge setup script creates a GitHub repository with external content imported.
 
-- **Example:** GHEC/GHAS challenges — setup scripts import Juice Shop at `v20.0.0` into a new org repo (e.g., `wth-ch11-juice-shop` or `wth-ghas-s00-juice-shop`).
+- **Example:** GHEC/GHAS challenges — setup scripts import Juice Shop at `v20.0.0` into a new org repo (e.g., `wth-ch11-juice-shop` or `wth-ghas-00-juice-shop`).
 - **Flow:**
   ```bash
   # Creates <org>/wth-ch11-juice-shop with Juice Shop imported
   cd modules/ghec/resources/provisioning/scripts
-  ./setup.sh provision ghas-s00 --org <org>
+  ./setup.sh provision ghas-00 --org <org>
   ```
 - **Outcome:** New repo exists in the student's/team's/organizer's org; for GHAS S00 the script also seeds CodeQL/Dependabot config and attempts to enable GHAS features. Repo admins manually add any participants who need access.
 - **Not a submodule:** These repos are disposable challenge targets that participants clone and push to, and that GitHub Advanced Security scans. They intentionally remain normal GitHub repositories.

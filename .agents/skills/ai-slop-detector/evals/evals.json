@@ -1,0 +1,47 @@
+{
+  "skill_name": "ai-slop-detector",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Run an AI-slop audit on the attached product strategy markdown and return the findings list only. Do not rewrite it.",
+      "expected_output": "A concise audit that flags vacuous significance inflation, generic corporate fog, fake specificity, and placeholder sections with quoted evidence.",
+      "files": [
+        "evals/files/product_strategy_slop.md"
+      ],
+      "expectations": [
+        "Identifies at least one document/prose finding with an exact quote from product_strategy_slop.md",
+        "Classifies findings using AI-slop patterns rather than only saying the writing is bad",
+        "Does not rewrite the document"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Use the ai-slop detector on this small TypeScript service and test file. I want the list of code/test slop that looks complete but is useless.",
+      "expected_output": "A code-focused AI-slop report that flags useless abstraction, defensive-looking but ineffective code, fake completeness, comment noise, and test slop.",
+      "files": [
+        "evals/files/generated_service.ts",
+        "evals/files/generated_service.test.ts"
+      ],
+      "expectations": [
+        "Identifies at least one code finding and at least one test finding",
+        "Flags broad catch/default success behavior as defensive-looking but ineffective code",
+        "Flags tests that assert mocks or implementation details without proving behavior",
+        "Does not refactor or modify the code"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Audit these mixed README and Python snippets for AI-slop. Separate the high-risk misleading stuff from low-risk style residue.",
+      "expected_output": "A mixed document/code audit with severity labels and a short not-slop section for suspicious but acceptable content.",
+      "files": [
+        "evals/files/mixed_readme_and_code.md"
+      ],
+      "expectations": [
+        "Uses High/Medium/Low severity and explains why severity matters",
+        "Separates document/prose slop from code slop",
+        "Includes a Not slop or intentionally acceptable section",
+        "Does not claim the content was definitely AI-generated"
+      ]
+    }
+  ]
+}

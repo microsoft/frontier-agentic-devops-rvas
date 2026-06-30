@@ -1,4 +1,4 @@
-id: ghas-s00
+id: ghas-00
 title: Environment Setup
 module: ghas
 track: security
@@ -19,7 +19,7 @@ description: >
   your working branch before Challenge S01.
 success_criteria:
   - "`gh auth status` exits 0 and shows your username"
-  - "`wth-ghas-s00-juice-shop` exists in your org"
+  - "`wth-ghas-00-juice-shop` exists in your org"
   - "CodeQL, Dependabot alerts, secret scanning, and push protection are enabled or explicitly called out for manual enablement"
   - "Juice Shop is running and accessible at http://localhost:3000 (Codespace port-forwarded URL or local)"
   - "`npm start` completes without errors"

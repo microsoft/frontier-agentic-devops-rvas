@@ -36,7 +36,7 @@ COACH.md   # facilitator guide, hints, expected outputs, common failures
 
 | Field | Contract |
 |---|---|
-| `id` | Globally unique challenge id. Use `<module>-<local-id>` (`ghec-ch01`, `ghas-s02`, `ghaw-15`, `sre-agent-04`). Ids are stable and may have intentional gaps. |
+| `id` | Globally unique challenge id. Use `<module>-<local-id>` (`ghec-ch01`, `ghas-02`, `ghaw-15`, `sre-agent-04`). Ids are stable and may have intentional gaps. |
 | `title` | Short catalog title. |
 | `module` | One of `ghec`, `ghas`, `ghaw`, `sre-agent`. |
 | `track` | Track slug for the module; must match `docs/build.js` module config. |
@@ -124,7 +124,7 @@ in PR comments, issue bodies, or generated local reports because it is machine-d
 and does not require a repo planning markdown file.
 
 ```json
-{"id":"ghas-s02","reviewed_at":"2026-06-19T09:05:03+02:00","reviewer":"name-or-role","score":92,"severity":"P3","decision":"ship","evidence":["npm run build","npm run audit","cold-start runbook followed"],"findings":[{"severity":"P3","area":"tags","summary":"Add oauth tag if the guide gains OAuth steps."}],"missing_candidate_decision":"none"}
+{"id":"ghas-02","reviewed_at":"2026-06-19T09:05:03+02:00","reviewer":"name-or-role","score":92,"severity":"P3","decision":"ship","evidence":["npm run build","npm run audit","cold-start runbook followed"],"findings":[{"severity":"P3","area":"tags","summary":"Add oauth tag if the guide gains OAuth steps."}],"missing_candidate_decision":"none"}
 ```
 
 Allowed `decision` values: `ship`, `ship-with-followups`, `revise`, `reject`,
