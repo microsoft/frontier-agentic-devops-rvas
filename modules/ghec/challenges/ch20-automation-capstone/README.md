@@ -54,7 +54,6 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch20 --org <org>
 
 **What setup creates** (all artifacts namespaced `wth-ch20-*`, idempotent, prefix-guarded teardown):
 - A seeded repo **`wth-ch20-automation-capstone`** containing the **App handler scaffold** (Node, with HMAC verification + REST/GraphQL stubs), an **Actions workflow** (`automation.yml`), and a `CAPSTONE.md` build guide.
-- A **GitHub App manifest** (`app-manifest.json`) you finish registering + installing — the supported auth path for this automation.
 - An **empty org Projects v2 board** **`wth-ch20-board`** for the GraphQL step to populate.
 - A printed **Next steps** block (App registration URL flow, where to put the webhook secret, how to drive deliveries via `smee.io` or `repository_dispatch`).
 
@@ -63,9 +62,18 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch20 --org <org>
 > Throughout, **`wth-ch20-automation-capstone` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Register & install the App
-1. **Register the App** from the seeded `app-manifest.json` (manifest flow) so it lands with the right permissions and webhook config. Capture the **App ID** and generate a **private key**.
-2. **Install the App** on the seeded repo (or the org, scoped to that repo).
-3. **Mint an installation token** and confirm it works: `gh api /installation/repositories` (as the App) returns the seeded repo.
+1. **Register the App.** Create it from the **New GitHub App** form — there's no JSON/manifest to upload, so you fill the form by hand. Go to Org **Settings → Developer settings → GitHub Apps → New GitHub App** (page titled *Create GitHub App*) and set:
+   - **GitHub App name** (required): `wth-ch20-capstone-app` — names are globally unique, so add a suffix if it's taken.
+   - **Homepage URL** (required): any valid URL — use the repo, e.g. `https://github.com/<org>/wth-ch20-automation-capstone`.
+   - **Identifying and authorizing users** and **Post installation**: leave the Callback/Setup URLs blank.
+   - **Webhook → Active:** if you already have your receiver URL from Part B (a `smee.io` channel), keep **Active** checked and paste it as the **Webhook URL** with a **Secret** now. Otherwise **uncheck Active** and add the URL + secret later in Part B (you can edit the App at any time).
+   - **Permissions → Repository permissions:** set **Issues** to **Read and write** (for labeling + commenting). **Metadata** is already **Read-only** (mandatory) — leave it.
+   - **Permissions → Organization permissions:** set **Projects** to **Read and write** — this is required to add items to the org-level `wth-ch20-board` Projects v2 board (repository-level Projects does **not** cover org boards).
+   - **Subscribe to events:** the **Issues** checkbox appears *only after* you set the Issues permission above. Check **Issues**.
+   - **Where can this GitHub App be installed?** Choose **Only on this account**, then click **Create GitHub App**.
+   - On the App's *General* page, **record the App ID and Client ID**, then **Private keys → Generate a private key** and save the `.pem`.
+2. **Install the App** on the seeded repo: in the App's left sidebar click **Install App**, choose your org, and select **Only select repositories → `wth-ch20-automation-capstone`**.
+3. **Mint an installation token** and confirm it works. Capture the installation ID, mint an App JWT (RS256, `iss`=App ID or Client ID, `exp` ≤10 min — see the JWT doc below), exchange it for an installation token (`POST /app/installations/<installation_id>/access_tokens`), then check `gh api /installation/repositories` (as the App) returns the seeded repo.
 
 ### Part B — Wire the inbound webhook
 4. **Set the webhook secret** and point the App's webhook at your receiver: a **`smee.io`** relay for local dev **or** the **`repository_dispatch`** Actions receiver if you have no public endpoint.
@@ -112,6 +120,8 @@ You are done when ALL of the following are true:
 - GraphQL API — forming calls — https://docs.github.com/en/graphql/guides/forming-calls-with-graphql
 - Using the GraphQL API for Projects (Projects v2) — https://docs.github.com/en/issues/planning-and-tracking-with-projects/automating-your-project/using-the-api-to-manage-projects
 - About creating GitHub Apps — https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/about-creating-github-apps
+- Registering a GitHub App — https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/registering-a-github-app
+- Generating a JSON Web Token (JWT) for a GitHub App — https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-json-web-token-jwt-for-a-github-app
 - Authenticating as a GitHub App installation — https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/authenticating-as-a-github-app-installation
 - Validating webhook deliveries — https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries
 - Using secrets in GitHub Actions — https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions

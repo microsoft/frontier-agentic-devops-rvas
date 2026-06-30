@@ -32,7 +32,6 @@ emu_compatible: true
 min_environment: org
 provision_creates:
 - repo wth-ch20-automation-capstone (seeded App handler scaffold + automation.yml + CAPSTONE.md)
-- GitHub App manifest app-manifest.json (manifest registration flow) — supported auth path
 - empty org Projects v2 board wth-ch20-board for the GraphQL step to populate
 tier: core
 source_repo: microsoft/frontier-agenticdevops-hackathon

@@ -3,10 +3,9 @@
 # challenges/ch20-automation-capstone/provision.sh
 #
 # ch20 is the capstone: it seeds a repo with a GitHub App webhook-handler
-# scaffold, an automation workflow, a CAPSTONE.md brief, and an App manifest
-# (app-manifest.json) for the manifest registration flow. It also creates an
+# scaffold, an automation workflow, and a CAPSTONE.md brief. It also creates an
 # empty org Projects v2 board (wth-ch20-board) for the GraphQL step to populate.
-# Live App registration stays a manual step (the manifest is the supported path).
+# Live App registration stays a manual step (see the challenge README, Part A).
 
 PROJECT_TITLE="wth-${CHID}-board"
 
@@ -31,7 +30,6 @@ a Projects v2 board driven by the API.
 
 - \`src/handler.js\` — webhook handler scaffold (signature verify + route)
 - \`.github/workflows/automation.yml\` — automation entry point
-- \`app-manifest.json\` — GitHub App manifest (registration flow)
 - \`CAPSTONE.md\` — the capstone brief and acceptance criteria
 - Board: \`$PROJECT_TITLE\` (empty org Projects v2 board to populate via GraphQL)
 EOF
@@ -99,30 +97,6 @@ jobs:
 EOF
 )"
 
-  gh_put_file "$ORG" "$REPO" "app-manifest.json" \
-    "Add GitHub App manifest" \
-"$(cat <<EOF
-{
-  "name": "wth-ch20-capstone-app",
-  "url": "https://github.com/$ORG",
-  "hook_attributes": {
-    "url": "https://example.com/webhook"
-  },
-  "redirect_url": "https://example.com/callback",
-  "public": false,
-  "default_permissions": {
-    "issues": "write",
-    "contents": "read",
-    "metadata": "read"
-  },
-  "default_events": [
-    "issues",
-    "issue_comment"
-  ]
-}
-EOF
-)"
-
   gh_put_file "$ORG" "$REPO" "CAPSTONE.md" \
     "Add capstone brief" \
 "$(cat <<EOF
@@ -131,7 +105,7 @@ EOF
 Combine the automation building blocks into one working flow.
 
 ## Goals
-- Register a GitHub App using \`app-manifest.json\` (manifest flow).
+- Register and install a GitHub App (manual — see the challenge README, Part A).
 - Verify webhook signatures in \`src/handler.js\`.
 - On new issues, add them to the \`$PROJECT_TITLE\` board via the GraphQL API.
 - Use \`.github/workflows/automation.yml\` as the automation entry point.
@@ -142,7 +116,7 @@ Combine the automation building blocks into one working flow.
 - [ ] New issues appear on the \`$PROJECT_TITLE\` board automatically.
 - [ ] Secrets stored as Actions/App secrets — never committed.
 
-> Live App registration is a manual step; the manifest is the supported path.
+> Live App registration is a manual step — there is no JSON to upload; create the App via the GitHub Apps form.
 EOF
 )"
 }
@@ -168,7 +142,7 @@ wth_provision() {
   _ch20_seed_project
   echo >&2
   log_info "Next steps for the participant:"
-  log_info "  - register the App from app-manifest.json and install it on this repo"
+  log_info "  - register the App (manual — see README Part A) and install it on this repo"
   log_info "  - drive the '$PROJECT_TITLE' board from issue events via GraphQL"
   log_warn "manual: live GitHub App registration + webhook endpoint are not automated."
 }
@@ -190,11 +164,11 @@ wth_teardown() {
 wth_status() {
   log_step "status — $CHID in '$ORG'"
   if gh_repo_exists "$ORG" "$REPO"; then
-    local manifest num
-    manifest="present"; gh_file_exists "$ORG" "$REPO" "app-manifest.json" || manifest="MISSING"
+    local handler num
+    handler="present"; gh_file_exists "$ORG" "$REPO" "src/handler.js" || handler="MISSING"
     num="$(_ch20_project_number)"
     if [[ -n "${num:-}" ]]; then num="present (#$num)"; else num="MISSING"; fi
-    log_ok "repo $(_ch20_repo_full) present — manifest $manifest, board $num"
+    log_ok "repo $(_ch20_repo_full) present — handler $handler, board $num"
   else
     log_info "repo $(_ch20_repo_full) not provisioned"
   fi

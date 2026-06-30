@@ -4,14 +4,13 @@
 #
 # ch17 seeds a webhook + GitHub App practice repo: an HMAC-verifying receiver
 # scaffold (Bash + Node), a repository_dispatch workflow that the receiver can
-# trigger, a WEBHOOK-SETUP.md walkthrough, and an app-manifest.json for the
-# GitHub App manifest flow. No live webhook/app is created — wiring them is the
-# challenge.
+# trigger, and a WEBHOOK-SETUP.md walkthrough. No live webhook/app is created —
+# wiring them is the challenge.
 
 _ch17_repo_full() { printf '%s/%s' "$ORG" "$REPO"; }
 
 _ch17_seed() {
-  log_step "seeding webhook receiver scaffold + app manifest"
+  log_step "seeding webhook receiver scaffold"
 
   gh_put_file "$ORG" "$REPO" "README.md" \
     "Add webhooks & GitHub Apps overview" \
@@ -24,7 +23,6 @@ Scaffold for practising webhook delivery + GitHub App auth.
 - \`receiver/verify.js\` — Node HMAC-SHA256 signature check
 - \`.github/workflows/receiver.yml\` — repository_dispatch responder
 - \`WEBHOOK-SETUP.md\` — end-to-end setup walkthrough
-- \`app-manifest.json\` — GitHub App manifest for the create-from-manifest flow
 
 No live webhook or App is provisioned — creating them is the exercise.
 EOF
@@ -98,21 +96,6 @@ EOF
    \`\`\`
 EOF
 )"
-
-  gh_put_file "$ORG" "$REPO" "app-manifest.json" \
-    "Add GitHub App manifest" \
-"$(cat <<EOF
-{
-  "name": "wth-ch17-app",
-  "url": "https://github.com/$ORG/$REPO",
-  "hook_attributes": { "active": true },
-  "redirect_url": "https://example.com/callback",
-  "public": false,
-  "default_permissions": { "issues": "write", "metadata": "read" },
-  "default_events": ["issues", "issue_comment"]
-}
-EOF
-)"
 }
 
 # ===========================================================================
@@ -125,23 +108,22 @@ wth_provision() {
   echo >&2
   log_info "Next steps for the participant:"
   log_info "  - register a webhook and verify signed deliveries"
-  log_info "  - create a GitHub App from app-manifest.json and install it"
+  log_info "  - create a GitHub App (manual registration — see README Part E) and install it"
   log_warn "manual: no live webhook or App is created — wiring them is the challenge."
 }
 
 wth_teardown() {
   guard_prefix "$REPO" "$CHID" || return 1
   gh_delete_repo "$ORG" "$REPO"
-  log_warn "manual: delete any GitHub App you created from the manifest — teardown only removes the repo."
+  log_warn "manual: delete any GitHub App you created — teardown only removes the repo."
 }
 
 wth_status() {
   log_step "status — $CHID in '$ORG'"
   if gh_repo_exists "$ORG" "$REPO"; then
-    local recv manifest
+    local recv
     recv="present"; gh_file_exists "$ORG" "$REPO" "receiver/verify.js" || recv="MISSING"
-    manifest="present"; gh_file_exists "$ORG" "$REPO" "app-manifest.json" || manifest="MISSING"
-    log_ok "repo $(_ch17_repo_full) present — receiver $recv, app-manifest.json $manifest"
+    log_ok "repo $(_ch17_repo_full) present — receiver $recv"
   else
     log_info "repo $(_ch17_repo_full) not provisioned"
   fi

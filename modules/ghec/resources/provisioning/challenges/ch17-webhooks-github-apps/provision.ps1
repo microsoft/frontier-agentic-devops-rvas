@@ -1,11 +1,11 @@
 # challenges/ch17-webhooks-github-apps/provision.ps1
 #
-# PowerShell twin of ch17 — webhook receiver scaffold + GitHub App manifest.
+# PowerShell twin of ch17 — webhook receiver scaffold.
 
 function _Ch17-RepoFull { "$($Global:WthOrg)/$($Global:WthRepo)" }
 
 function _Ch17-Seed {
-  Write-WthStep 'seeding webhook receiver scaffold + app manifest'
+  Write-WthStep 'seeding webhook receiver scaffold'
   $org = $Global:WthOrg
   $repo = $Global:WthRepo
 
@@ -18,7 +18,6 @@ Scaffold for practising webhook delivery + GitHub App auth.
 - ``receiver/verify.js`` — Node HMAC-SHA256 signature check
 - ``.github/workflows/receiver.yml`` — repository_dispatch responder
 - ``WEBHOOK-SETUP.md`` — end-to-end setup walkthrough
-- ``app-manifest.json`` — GitHub App manifest for the create-from-manifest flow
 
 No live webhook or App is provisioned — creating them is the exercise.
 "@
@@ -84,19 +83,6 @@ jobs:
    ``````
 "@
   Set-WthFile -Org $org -Repo $repo -Path 'WEBHOOK-SETUP.md' -Message 'Add webhook setup walkthrough' -Content $setup
-
-  $manifest = @"
-{
-  "name": "wth-ch17-app",
-  "url": "https://github.com/$org/$repo",
-  "hook_attributes": { "active": true },
-  "redirect_url": "https://example.com/callback",
-  "public": false,
-  "default_permissions": { "issues": "write", "metadata": "read" },
-  "default_events": ["issues", "issue_comment"]
-}
-"@
-  Set-WthFile -Org $org -Repo $repo -Path 'app-manifest.json' -Message 'Add GitHub App manifest' -Content $manifest
 }
 
 # ===========================================================================
@@ -109,22 +95,21 @@ function Invoke-WthProvision {
   Write-Host ''
   Write-WthInfo 'Next steps for the participant:'
   Write-WthInfo '  - register a webhook and verify signed deliveries'
-  Write-WthInfo '  - create a GitHub App from app-manifest.json and install it'
+  Write-WthInfo '  - create a GitHub App (manual registration — see README Part E) and install it'
   Write-WthWarn 'manual: no live webhook or App is created — wiring them is the challenge.'
 }
 
 function Invoke-WthTeardown {
   if (-not (Confirm-WthPrefix -Name $Global:WthRepo -Chid $Global:WthChid)) { return }
   Remove-WthRepo -Org $Global:WthOrg -Repo $Global:WthRepo
-  Write-WthWarn 'manual: delete any GitHub App you created from the manifest — teardown only removes the repo.'
+  Write-WthWarn 'manual: delete any GitHub App you created — teardown only removes the repo.'
 }
 
 function Invoke-WthStatus {
   Write-WthStep "status — $($Global:WthChid) in '$($Global:WthOrg)'"
   if (Test-WthRepoExists -Org $Global:WthOrg -Repo $Global:WthRepo) {
     $recv = if (Test-WthFileExists -Org $Global:WthOrg -Repo $Global:WthRepo -Path 'receiver/verify.js') { 'present' } else { 'MISSING' }
-    $manifest = if (Test-WthFileExists -Org $Global:WthOrg -Repo $Global:WthRepo -Path 'app-manifest.json') { 'present' } else { 'MISSING' }
-    Write-WthOk "repo $(_Ch17-RepoFull) present — receiver $recv, app-manifest.json $manifest"
+    Write-WthOk "repo $(_Ch17-RepoFull) present — receiver $recv"
   } else {
     Write-WthInfo "repo $(_Ch17-RepoFull) not provisioned"
   }

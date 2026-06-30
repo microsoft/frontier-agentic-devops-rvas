@@ -52,7 +52,6 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch17 --org <org>
 **What setup creates** (all artifacts namespaced `wth-ch17-*`, idempotent, prefix-guarded teardown):
 - A seeded repo **`wth-ch17-webhooks-github-apps`** containing a **receiver scaffold**: a tiny webhook-verification snippet (Bash + Node) and an Actions workflow `receiver.yml` triggered by `repository_dispatch` for the no-public-host path.
 - A populated `WEBHOOK-SETUP.md` walking the **smee.io** and **Actions receiver** options.
-- A **GitHub App manifest** (`app-manifest.json`) you'll use to register the App in a few clicks.
 - A printed **Next steps** block (including a generated webhook **secret** suggestion) telling you where to start.
 
 
@@ -78,12 +77,26 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch17 --org <org>
 10. **Trigger and verify** an org-level event (e.g., create a throwaway `wth-ch17-temp` repo) and confirm it's delivered and passes signature verification, then delete the temp repo.
 
 ### Part E — Register & install a GitHub App
-11. **Register the App.** Use the seeded `app-manifest.json` flow (Org Settings → Developer settings → GitHub Apps → New) or the manifest conversion flow. Set **Permissions** (Issues: Read & write; Metadata: Read) and **Subscribe to events** (Issues).
-12. **Generate a private key** and record the **App ID** and **Client ID**.
-13. **Install the App** on your org, scoped to `wth-ch17-webhooks-github-apps`. Capture the **installation ID** (`gh api /orgs/<org>/installations` or the install URL).
+
+> GitHub Apps are created by filling the **New GitHub App** form — there's no JSON/manifest file to upload. The form is long, but for this challenge only a few fields matter; leave everything else at its default.
+
+11. **Open the form** at Org **Settings → Developer settings → GitHub Apps → New GitHub App** (the page is titled *Create GitHub App*), then fill it in top to bottom:
+    - **GitHub App name** (required): `wth-ch17-app` — names are globally unique, so add a suffix if it's taken.
+    - **Homepage URL** (required): any valid URL works — use your repo, e.g. `https://github.com/<org>/wth-ch17-webhooks-github-apps`.
+    - **Identifying and authorizing users** and **Post installation**: leave the Callback/Setup URLs blank — not needed here.
+    - **Webhook → Active:** **uncheck** it. It's on by default, which makes **Webhook URL** required; you aren't hosting the App's own webhook in this challenge, so turning it off skips that field.
+    - **Permissions → Repository permissions:** expand it and set **Issues** to **Read and write**. **Metadata** is already **Read-only** (mandatory) — leave it as is.
+    - **Subscribe to events:** the **Issues** checkbox appears *only after* you set the Issues permission above (the event list is driven by your permissions). Check **Issues**. Ignore the default *Installation target / Meta / Security advisory* options.
+    - **Where can this GitHub App be installed?** Choose **Only on this account**.
+    - Click **Create GitHub App**.
+12. **Record the App ID** and **Client ID** from the App's *General* settings page, then scroll to **Private keys → Generate a private key** and save the downloaded `.pem` — you'll sign the App JWT with it in Part F.
+13. **Install the App.** In the App's left sidebar click **Install App**, pick your org, choose **Only select repositories → `wth-ch17-webhooks-github-apps`**, and install. Capture the **installation ID**:
+    ```bash
+    gh api /orgs/<org>/installations --jq '.installations[] | {id, app_slug}'
+    ```
 
 ### Part F — Authenticate as the installation
-14. **Mint an App JWT** signed with the private key (RS256, `iss`=App ID, ≤10-min expiry). The seeded helper shows the exact `openssl`/jwt steps.
+14. **Mint an App JWT** signed with the private key (RS256, `iss`=App ID or Client ID, `iat` slightly in the past, `exp` ≤10 min). See *Generating a JSON Web Token* in the docs linked below for the exact `openssl`/script steps.
 15. **Exchange for an installation token.** `POST /app/installations/<installation_id>/access_tokens` with the JWT → short-lived installation token.
 16. **Act as the App.** Use the installation token to comment on an issue (`POST /repos/<org>/wth-ch17-webhooks-github-apps/issues/<n>/comments`). Confirm the comment is authored by **your App (bot)**, not your user.
 
@@ -110,6 +123,7 @@ You are done when ALL of the following are true:
 - Webhook events and payloads — https://docs.github.com/en/webhooks/webhook-events-and-payloads
 - Validating webhook deliveries — https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries
 - About creating GitHub Apps — https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/about-creating-github-apps
-- Registering a GitHub App from a manifest — https://docs.github.com/en/apps/sharing-github-apps/registering-a-github-app-from-a-manifest
+- Registering a GitHub App — https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/registering-a-github-app
+- Generating a JSON Web Token (JWT) for a GitHub App — https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-json-web-token-jwt-for-a-github-app
 - Authenticating as a GitHub App installation — https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/authenticating-as-a-github-app-installation
 - `gh api` CLI manual — https://cli.github.com/manual/gh_api

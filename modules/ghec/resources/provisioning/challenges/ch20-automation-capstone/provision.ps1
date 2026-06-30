@@ -1,6 +1,6 @@
 # challenges/ch20-automation-capstone/provision.ps1
 #
-# PowerShell twin of ch20 — capstone scaffold, App manifest, and org board.
+# PowerShell twin of ch20 — capstone scaffold and org board.
 
 $Global:WthProjectTitle = "wth-$($Global:WthChid)-board"
 
@@ -28,7 +28,6 @@ a Projects v2 board driven by the API.
 
 - ``src/handler.js`` — webhook handler scaffold (signature verify + route)
 - ``.github/workflows/automation.yml`` — automation entry point
-- ``app-manifest.json`` — GitHub App manifest (registration flow)
 - ``CAPSTONE.md`` — the capstone brief and acceptance criteria
 - Board: ``$board`` (empty org Projects v2 board to populate via GraphQL)
 "@
@@ -90,35 +89,13 @@ jobs:
 '@
   Set-WthFile -Org $org -Repo $repo -Path '.github/workflows/automation.yml' -Message 'Add automation workflow' -Content $auto
 
-  $manifest = @"
-{
-  "name": "wth-ch20-capstone-app",
-  "url": "https://github.com/$org",
-  "hook_attributes": {
-    "url": "https://example.com/webhook"
-  },
-  "redirect_url": "https://example.com/callback",
-  "public": false,
-  "default_permissions": {
-    "issues": "write",
-    "contents": "read",
-    "metadata": "read"
-  },
-  "default_events": [
-    "issues",
-    "issue_comment"
-  ]
-}
-"@
-  Set-WthFile -Org $org -Repo $repo -Path 'app-manifest.json' -Message 'Add GitHub App manifest' -Content $manifest
-
   $capstone = @"
 # Capstone Brief — wth-ch20
 
 Combine the automation building blocks into one working flow.
 
 ## Goals
-- Register a GitHub App using ``app-manifest.json`` (manifest flow).
+- Register and install a GitHub App (manual — see the challenge README, Part A).
 - Verify webhook signatures in ``src/handler.js``.
 - On new issues, add them to the ``$board`` board via the GraphQL API.
 - Use ``.github/workflows/automation.yml`` as the automation entry point.
@@ -129,7 +106,7 @@ Combine the automation building blocks into one working flow.
 - [ ] New issues appear on the ``$board`` board automatically.
 - [ ] Secrets stored as Actions/App secrets — never committed.
 
-> Live App registration is a manual step; the manifest is the supported path.
+> Live App registration is a manual step — there is no JSON to upload; create the App via the GitHub Apps form.
 "@
   Set-WthFile -Org $org -Repo $repo -Path 'CAPSTONE.md' -Message 'Add capstone brief' -Content $capstone
 }
@@ -153,7 +130,7 @@ function Invoke-WthProvision {
   _Ch20-SeedProject
   Write-Host ''
   Write-WthInfo 'Next steps for the participant:'
-  Write-WthInfo '  - register the App from app-manifest.json and install it on this repo'
+  Write-WthInfo '  - register the App (manual — see README Part A) and install it on this repo'
   Write-WthInfo "  - drive the '$($Global:WthProjectTitle)' board from issue events via GraphQL"
   Write-WthWarn 'manual: live GitHub App registration + webhook endpoint are not automated.'
 }
@@ -174,10 +151,10 @@ function Invoke-WthTeardown {
 function Invoke-WthStatus {
   Write-WthStep "status — $($Global:WthChid) in '$($Global:WthOrg)'"
   if (Test-WthRepoExists -Org $Global:WthOrg -Repo $Global:WthRepo) {
-    $manifest = if (Test-WthFileExists -Org $Global:WthOrg -Repo $Global:WthRepo -Path 'app-manifest.json') { 'present' } else { 'MISSING' }
+    $handler = if (Test-WthFileExists -Org $Global:WthOrg -Repo $Global:WthRepo -Path 'src/handler.js') { 'present' } else { 'MISSING' }
     $num = _Ch20-ProjectNumber
     $board = if ($num) { "present (#$num)" } else { 'MISSING' }
-    Write-WthOk "repo $(_Ch20-RepoFull) present — manifest $manifest, board $board"
+    Write-WthOk "repo $(_Ch20-RepoFull) present — handler $handler, board $board"
   } else {
     Write-WthInfo "repo $(_Ch20-RepoFull) not provisioned"
   }

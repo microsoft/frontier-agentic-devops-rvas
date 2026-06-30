@@ -33,7 +33,6 @@ provision_creates:
 - repo wth-ch17-webhooks-github-apps (seeded)
 - receiver scaffold (Bash + Node HMAC-verify snippet) + Actions receiver.yml (repository_dispatch path)
 - WEBHOOK-SETUP.md covering smee.io and Actions-receiver options
-- GitHub App manifest app-manifest.json for one-click App registration
 tier: core
 source_repo: microsoft/frontier-agenticdevops-hackathon
 source_path: modules/ghec/challenges/ch17-webhooks-github-apps/meta.yml
@@ -43,5 +42,5 @@ references:
 - https://docs.github.com/en/webhooks/webhook-events-and-payloads
 - https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries
 - https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/about-creating-github-apps
-- https://docs.github.com/en/apps/sharing-github-apps/registering-a-github-app-from-a-manifest
+- https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/registering-a-github-app
 - https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/authenticating-as-a-github-app-installation
