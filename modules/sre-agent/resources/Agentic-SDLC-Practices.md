@@ -19,7 +19,7 @@ This note connects the hackathon path to The Agentic SDLC Handbook without addin
 | Challenge 03 | Use PROSE-style coordination prompts, validate agent output, and externalize one discovered convention as starter repo instrumentation: instructions, persona, reusable prompt or skill, and memory or decision note. |
 | Challenge 04 | Treat CI, environments, approvals, schemas, allowlists, and deployment logs as the deterministic substrate. |
 | Challenge 05 | Build safe GitHub Agentic Workflows style specs and review cloud-agent work like teammate work. |
-| Challenge 06 | Convert incident learning into a follow-up issue or pull request with operational context and instrumentation improvements. |
+| Challenge 05 | Convert incident learning into a follow-up issue or pull request with operational context and instrumentation improvements. |
 
 ## Quick Checks
 

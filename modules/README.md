@@ -26,7 +26,7 @@ modules/
 ├── ghaw/                ← GitHub Agentic Workflows (25 challenges)
 │   └── challenges/
 │
-└── sre-agent/           ← SRE Agent (6 challenges)
+└── sre-agent/           ← SRE Agent (5 challenges)
     ├── resources/       ← vendored assets (212 KB)
     └── challenges/
 ```

@@ -78,8 +78,7 @@
         "sre-agent-01",
         "sre-agent-03",
         "sre-agent-04",
-        "sre-agent-05",
-        "sre-agent-06"
+        "sre-agent-05"
       ],
       "attribution": "Official Microsoft Azure SRE Agent hands-on lab. Participants clone or fork it on demand; it is not vendored in this repository."
     },
@@ -175,8 +174,7 @@
         "sre-agent-01",
         "sre-agent-03",
         "sre-agent-04",
-        "sre-agent-05",
-        "sre-agent-06"
+        "sre-agent-05"
       ],
       "attribution": "Canonical source is microsoft/sre-agent at the documented commit, especially labs/starter-lab and sreagent-templates."
     },

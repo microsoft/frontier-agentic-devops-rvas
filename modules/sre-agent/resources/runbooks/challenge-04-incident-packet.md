@@ -1,4 +1,4 @@
-# Challenge 06 Incident Packet: Grubify Ordering Failure
+# Challenge 04 Incident Packet: Grubify Ordering Failure
 
 ## Situation
 

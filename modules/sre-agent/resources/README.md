@@ -15,7 +15,6 @@ The course should use the Microsoft-provided Grubify starter lab whenever live A
 | [Azure SRE Agent Reference](SRE-Agent-Reference.md) | Source-backed baseline for what Azure SRE Agent, the starter lab, source-code context, plugins, and recipes provide. |
 | [Reference Architecture](Reference-Architecture.md) | Azure-first learning architecture for signal, investigation, source context, remediation, and recovery. |
 | [Incident Packet Template](Incident-Packet.md) | Fallback packet template when live Azure SRE Agent access is unavailable. |
-| [Challenge 06 SRE Story Companion](Challenge-06-SRE-Story.md) | Game-day story notes for coaches and maintainers. |
 | [Runbooks](runbooks/README.md) | Fallback incident packet and triage template aligned to Grubify/Azure SRE Agent. |
 | [Research Links](Research-Links.md) | Curated Azure SRE Agent, Azure Monitor, GitHub connector, and operational excellence references. |
 

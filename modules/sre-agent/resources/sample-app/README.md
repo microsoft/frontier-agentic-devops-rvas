@@ -21,7 +21,7 @@ npm test
 
 ## Incident Mode
 
-Challenge 06 can simulate a production symptom by setting `INCIDENT_MODE` before starting the service:
+The controlled incident challenge can simulate a production symptom by setting `INCIDENT_MODE` before starting the service:
 
 ```bash
 INCIDENT_MODE=checkout_latency npm start

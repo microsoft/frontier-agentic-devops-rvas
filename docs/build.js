@@ -68,7 +68,7 @@ const MODULE_CONFIG = {
     color: '#1a7f37',
     icon: 'icon-agentic-devops.svg',
     tracks: {
-      'azure-sre-agent': { name: 'Azure SRE Agent', description: 'A linear journey through setup, service onboarding, alert investigation, code-context RCA, remediation, and game-day recovery.' },
+      'azure-sre-agent': { name: 'Azure SRE Agent', description: 'A focused journey through setup, service onboarding, alert investigation, code-context RCA, and governed remediation.' },
     },
   },
 };
