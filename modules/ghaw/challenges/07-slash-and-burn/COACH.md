@@ -4,7 +4,7 @@
 
 ## Grounding conversation (you will be called)
 
-Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — what context do you and your teammates rebuild by hand by scrolling long threads, and which on-demand slash command would you actually reach for in your daily work? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -308,7 +308,7 @@ If a squad is stuck:
 
 ## Reference
 
-**Sample Solution Location:** `coaches/sample-solutions/track-2/07-slash-and-burn.md`  
+**Reference solution note:** This repository does not include separate committed sample-solution files; use the inline sample and validation checklist above.
 **/q Command (Real):** https://github.com/githubnext/agentics/blob/main/workflows/q.md  
 **/plan Command (Real):** https://github.com/githubnext/agentics/blob/main/workflows/plan.md  
 **ChatOps Blog Post:** https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-interactive-chatops/

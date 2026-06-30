@@ -36,7 +36,8 @@ provision_creates:
 - minimal .devcontainer/devcontainer.json baseline (student extends it)
 - README documenting local-run steps (contrast with Codespaces)
 tier: core
-source_path: challenges/ch03-codespaces-dev-containers/meta.yml
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghec/challenges/ch03-codespaces-dev-containers/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers

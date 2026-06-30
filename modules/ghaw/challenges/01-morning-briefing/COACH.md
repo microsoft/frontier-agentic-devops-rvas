@@ -4,7 +4,7 @@
 
 ## Grounding conversation (you will be called)
 
-Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — what daily status update do you or your team assemble by hand today that this scheduled briefing pattern could replace, and what would you trust it to send unsupervised? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -163,8 +163,7 @@ Keep the summary concise — 5-7 sentences total.
 - Body: clear, structured instructions with specific counts to gather and format
 - `engine: copilot` — free, reliable default
 
-**Production-ready reference solution:** See `coaches/sample-solutions/track-1/01-morning-briefing.md`
-
+**Reference solution note:** This repository does not include separate committed sample-solution files; use the inline sample and validation checklist above.
 ---
 
 ## Time Management

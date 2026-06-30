@@ -30,7 +30,8 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: stretch
-source_path: _challenges/10-mix-and-match.md
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghaw/challenges/10-mix-and-match/meta.yml
 license: MIT
 references:
   - https://github.github.com/gh-aw/reference/frontmatter/#imports

@@ -36,7 +36,8 @@ provision_creates:
 - SECRETS-MANIFEST.md documenting each planted secret and its location
 - branch feature/leaky-config carrying one fresh planted secret to exercise push protection
 tier: core
-source_path: challenges/ch11-secret-scanning-push-protection/meta.yml
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghec/challenges/ch11-secret-scanning-push-protection/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/code-security/secret-scanning/about-secret-scanning

@@ -36,7 +36,8 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: stretch
-source_path: _challenges/09-welcome-wagon.md
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghaw/challenges/09-welcome-wagon/meta.yml
 license: MIT
 references:
   - https://docs.github.com/en/actions/learn-github-actions/contexts#github-context

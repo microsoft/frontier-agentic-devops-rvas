@@ -30,7 +30,8 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: stretch
-source_path: _challenges/03-the-watcher.md
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghaw/challenges/03-the-watcher/meta.yml
 license: MIT
 references:
   - https://github.github.com/gh-aw/reference/triggers/#push

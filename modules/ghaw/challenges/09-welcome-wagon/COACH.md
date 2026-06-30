@@ -4,7 +4,7 @@
 
 ## Grounding conversation (you will be called)
 
-Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — what first impression do new contributors get from your project today, and what would you trust an automated welcome to handle versus what should stay a personal touch? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -275,6 +275,6 @@ If a squad is stuck:
 
 ## Reference
 
-**Sample Solution Location:** `coaches/sample-solutions/track-2/09-welcome-wagon.md`  
+**Reference solution note:** This repository does not include separate committed sample-solution files; use the inline sample and validation checklist above.
 **GitHub Author Association:** https://docs.github.com/en/actions/learn-github-actions/contexts#github-context  
 **Pull Request Context:** https://docs.github.com/en/actions/learn-github-actions/contexts#github-context

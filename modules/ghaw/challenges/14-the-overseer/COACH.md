@@ -4,7 +4,7 @@
 
 ## Grounding conversation (you will be called)
 
-Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — who or what watches your automations today, and at what failure rate or cost would you want an overseer agent to alert you before things spiral? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -19,7 +19,7 @@ This is the **meta-workflow intro**. Squads have built workflows that do things.
 
 Your job: Build the insight that observability is not optional—it's foundational. An unmonitored automation system is a liability. An agent watching all the other agents? That's professional.
 
-**Key rule:** Celebrate when they get their first workflow health alert working. That's the "aha moment" of meta-thinking.
+**Key rule:** When they get their first workflow health alert working, ask them what evidence the alert used and what action it would trigger.
 
 ---
 
@@ -60,10 +60,10 @@ Last 7 days: 42 workflow runs, 38 succeeded (90% success rate)
 ## Alerts
 
 🔴 **weekly-reporter** has 20% failure rate. Latest run timed out querying repos.
-→ Recommendation: Increase timeout or add rate limiting to queries.
+→ Example recommendation: check whether the timeout came from an API limit, a slow query, or missing pagination before changing settings.
 
 ⚠️ **schema-consistency-checker** spiked to 2.7M tokens (2× normal).
-→ Recommendation: Check if the codebase grew or if the prompt is too verbose.
+→ Example recommendation: compare against the workflow's previous runs before deciding whether to reduce scope, split the prompt, or raise the token budget.
 
 ## Next Steps
 
@@ -87,7 +87,7 @@ Agent fetches workflow summaries, creates a basic table with: workflow name, suc
 ### Approach 2: "Full Analysis"
 Compares current week to previous week, flags spikes, computes failure rates, includes recommendations.
 
-**Pros:** Production-grade, genuinely useful
+**Pros:** Closest to an operational report when the thresholds come from the team's own baseline
 **Cons:** More complex prompt, requires more tokens
 
 ### Approach 3: "Minimal Output"
@@ -148,7 +148,7 @@ Workflow runs but only creates an issue if something is broken (no issue if all 
 
 **Coach response:**
 - "A good health report spots problems. If all your workflows are perfect, great! But if not, the report should highlight them."
-- "Your prompt should include: 'Identify workflows with >20% failure rate, or those that spiked in token usage.'"
+- "Your prompt should include the thresholds your team cares about, such as: 'Flag workflows above the team's failure-rate threshold, or those that doubled token usage compared with their previous baseline.'"
 - Guide them to add decision logic.
 
 ### Pitfall 6: Confused about failure rate calculation
@@ -228,26 +228,26 @@ Use the agentic-workflows MCP tool to fetch:
 Calculate:
 - Success rate = successful runs / total runs
 - Failure rate = failed runs / total runs
-- Identify workflows with >20% failure rate (red flag)
-- Identify workflows that used >2M tokens (expensive flag)
+- Identify workflows above the team's failure-rate threshold; choose a classroom default only if no baseline exists
+- Identify workflows whose token usage doubled from their previous baseline; choose a classroom token threshold only if no budget exists
 - Compare current week's token usage to previous week (spike detection)
 
 Create an issue with:
 1. Summary header: "X runs, Y% success rate"
 2. Table: Workflow | Runs | Success % | Avg Tokens | Status
 3. Alerts section: List any workflows with high failure or high cost
-4. Recommendations: Suggest actions (e.g., "Optimize prompt", "Increase timeout")
+4. Recommendations: Suggest actions tied to evidence, such as "add pagination before increasing timeout" or "split this prompt because token use doubled after the repo scan was added"
 
 Format: Markdown tables, bullets, checkboxes. Keep under 250 lines.
 
-If all workflows are healthy, still create the issue with a "✅ All systems green" note.
+If all workflows are below the chosen thresholds, still create the issue with a short "no threshold breaches" note and the baseline used.
 ```
 
 ---
 
 ## Why This Works
 
-- **Frontmatter:** High `max-effective-tokens` allows deep analysis. `agentic-workflows` MCP tool configured. `close-older-issues: true` prevents report spam.
+- **Frontmatter:** The `max-effective-tokens` value gives enough headroom for the classroom dataset. Tune it down or up against real run counts and token budgets. `agentic-workflows` MCP tool configured. `close-older-issues: true` prevents report spam.
 - **Meta-pattern:** The agent queries its own ecosystem—meta-thinking.
 - **Observability:** Production automation needs this layer.
 - **Decision-making:** Not just data, but insights and recommendations.
@@ -286,7 +286,7 @@ If all workflows are healthy, still create the issue with a "✅ All systems gre
 ## Debugging Checklist
 
 - [ ] `tools: agentic-workflows` configured?
-- [ ] `max-effective-tokens` set to a reasonable value (5M+)?
+- [ ] `max-effective-tokens` set from expected run volume or the classroom default?
 - [ ] Workflow triggered at least once?
 - [ ] Issue created? (check Issues tab)
 - [ ] Issue includes a table or structured data?

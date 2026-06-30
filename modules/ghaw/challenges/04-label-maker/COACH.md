@@ -4,7 +4,7 @@
 
 ## Grounding conversation (you will be called)
 
-Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — how much of your team's issue labelling is guesswork you would hand to an agent, and where would a constrained allowlist stop it from inventing categories you can't trust? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -159,8 +159,7 @@ Explain your reasoning in a comment on the issue summarizing why you applied (or
 - Body: clear heuristics with keywords and examples
 - Includes feedback comment so user understands the classification
 
-**Production-ready reference solution:** See `coaches/sample-solutions/track-1/04-label-maker.md`
-
+**Reference solution note:** This repository does not include separate committed sample-solution files; use the inline sample and validation checklist above.
 ---
 
 ## Useful references for coaching

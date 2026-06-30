@@ -29,7 +29,8 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: stretch
-source_path: _challenges/20-doc-unbloat.md
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghaw/challenges/20-doc-unbloat/meta.yml
 license: MIT
 references:
   - https://github.com/github/gh-aw

@@ -4,7 +4,7 @@
 
 ## Grounding conversation (you will be called)
 
-Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — across an end-to-end pipeline from issue to merge, which handoffs would you let agents run autonomously and which single gate would you never remove a human from? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -15,7 +15,7 @@ Use these follow-ups to steer the conversation:
 
 ## Coaching Philosophy for This Challenge
 
-This is **the capstone**. Squads that reach here are advanced. Your job is not to teach them new concepts—they've learned everything. Your job is to **help them integrate** and **celebrate the aha moment** when the whole system runs end-to-end.
+This is **the capstone**. Squads that reach here are advanced. Your job is to help them integrate the pieces they have practiced and prove each handoff with evidence.
 
 **Key rule:** Help them break the problem into pieces. Observer → Triage → ChatOps. Get each working independently, then wire them together.
 
@@ -54,8 +54,8 @@ A finished solution has:
 3. Triage workflow creates tracking issue
 4. Human (or bot) comments `/fix` on tracking issue
 5. ChatOps workflow assigns to Copilot
-6. Copilot creates a PR with the fix
-7. (Optional) PR auto-merges or gets labeled
+6. Copilot attempts the fix and opens a PR when it can
+7. (Optional) PR gets labeled for review, or merges only if the squad has defined the required checks and approval policy
 
 ---
 
@@ -71,12 +71,12 @@ Squads will vary:
 **Pros:** Focused, achievable in 30 min, demonstrates the pattern
 **Cons:** Less complete than the ideal
 
-### Approach 2: "Full Factory"
+### Approach 2: "Full Prototype"
 - All 4 workflows: Observer, Triage, ChatOps, Auto-Merger
 - Complex observation data (urgency, labels, priority)
-- Automatic end-to-end with no human intervention
+- Automated handoffs with an explicit merge policy
 
-**Pros:** Production-grade
+**Pros:** Exercises the full pipeline and exposes the policy decisions needed before production use
 **Cons:** Risk of time-box overrun
 
 ### Approach 3: "Simplified Chain"
@@ -344,7 +344,7 @@ Copilot will take it from here.
 - **Observer:** Simple data collection. Writes to repo-memory. Tests the "producer" pattern.
 - **Triage:** Meta-workflow reading that data. Demonstrates consumption and decision-making.
 - **ChatOps:** Interactive layer. Shows how humans (or other workflows) trigger the pipeline.
-- **Together:** A complete autonomous factory that responds to events, triages, and acts.
+- **Together:** A reviewable pipeline that responds to events, triages, and hands work to an agent under explicit gates.
 - **Pattern:** This is the "Factory Capstone" from the dossier—event → persist → triage → act.
 
 ---
@@ -363,8 +363,8 @@ This is ambitious for 30 min. Here's a suggested flow:
 | Build Observer | 8 min | Write, compile, test. Verify repo-memory file appears. |
 | Build Triage | 8 min | Write, compile, test. Create a tracking issue. |
 | Build ChatOps | 6 min | Write, compile, test `/fix` command. |
-| End-to-end test | 2 min | Trigger flow, watch it happen |
-| Celebrate | 1 min | Victory lap 🎉 |
+| End-to-end test | 2 min | Trigger flow and capture evidence for each handoff |
+| Debrief | 1 min | Name the gate they would keep before production use |
 
 **If running late:** Skip PR auto-merge. Get Observer → Triage → ChatOps working.
 
@@ -395,7 +395,7 @@ This is ambitious for 30 min. Here's a suggested flow:
 ## Key Takeaways for Coaches
 
 - **This is the capstone.** Squads who finish this understand production automation.
-- **Celebrate the "aha moment."** When they see Observer → Triage → ChatOps → Copilot all run end-to-end, that's the moment they "get it."
+- **Ask for evidence at each handoff.** When they see Observer → Triage → ChatOps → Copilot run end-to-end, have them point to the repo-memory file, tracking issue, slash-command run, and PR or failure log.
 - **Systems thinking matters.** This challenge teaches composition and orchestration, not just individual workflows.
 - **Scope is OK to reduce.** If they build a solid 2-workflow system instead of 4, that's still a huge win.
 - **Document the flow.** A squad that can explain "issue comes in, gets recorded, gets triaged, gets fixed" has internalized the pattern.
@@ -404,8 +404,7 @@ This is ambitious for 30 min. Here's a suggested flow:
 
 ## Beyond This Challenge
 
-Squads that finish Ship It are ready for:
-- Production agentic automation
-- Real codebases with complex workflows
-- Building teams around autonomous systems
-- The Future™
+Squads that finish Ship It are ready to pilot this pattern on a real workflow with:
+- Required checks and branch protections
+- Clear rollback and escalation paths
+- Human ownership for merge policy and failure review

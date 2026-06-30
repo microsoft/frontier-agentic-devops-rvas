@@ -33,7 +33,8 @@ provision_creates:
   - Shared org repo with Juice Shop (OWASP Juice Shop v20+) — provisioned by organizer setup
   - Open alert corpus across CodeQL, Dependabot, and secret scanning for campaign scoping
 tier: core
-source_path: Student/Challenge-S05.md
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghas/challenges/06-security-campaigns/meta.yml
 license: MIT
 references:
   - https://docs.github.com/en/code-security/concepts/security-at-scale/about-security-campaigns

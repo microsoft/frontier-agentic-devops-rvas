@@ -29,7 +29,8 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: stretch
-source_path: _challenges/14-the-overseer.md
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghaw/challenges/14-the-overseer/meta.yml
 license: MIT
 references:
   - https://github.github.com/gh-aw/reference/frontmatter/

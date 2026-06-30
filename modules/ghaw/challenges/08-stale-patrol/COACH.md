@@ -4,7 +4,7 @@
 
 ## Grounding conversation (you will be called)
 
-Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — where would you draw the line between an agent warning about stale work and actually closing it on your behalf, and what grace period earns your trust? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -269,7 +269,7 @@ If a squad is stuck:
 
 ## Reference
 
-**Sample Solution Location:** `coaches/sample-solutions/track-2/08-stale-patrol.md`  
+**Reference solution note:** This repository does not include separate committed sample-solution files; use the inline sample and validation checklist above.
 **GitHub Next Agentics examples:** https://github.com/githubnext/agentics  
 **Cron Reference:** https://crontab.guru/  
 **Schedule Trigger:** https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule

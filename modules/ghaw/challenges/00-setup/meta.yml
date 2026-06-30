@@ -27,7 +27,8 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: setup
-source_path: _challenges/00-setup.md
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghaw/challenges/00-setup/meta.yml
 license: MIT
 references:
   - https://github.com/github/gh-aw

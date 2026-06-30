@@ -36,7 +36,8 @@ provision_creates:
   - Shared org repo with Juice Shop (OWASP Juice Shop v20+) — provisioned by organizer setup
   - CodeQL scanning active with access-control-class alerts on default branch
 tier: core
-source_path: Student/Challenge-S03.md
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghas/challenges/04-broken-access-control/meta.yml
 license: MIT
 references:
   - https://owasp.org/Top10/A01_2021-Broken_Access_Control/

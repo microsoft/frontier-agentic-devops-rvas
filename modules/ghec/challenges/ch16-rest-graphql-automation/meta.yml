@@ -35,7 +35,8 @@ provision_creates:
 - starter label set (bug, enhancement, triage, area:backend, area:docs) with deliberate gaps
 - empty org Projects v2 board wth-ch16-board to populate via GraphQL
 tier: core
-source_path: challenges/ch16-rest-graphql-automation/meta.yml
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghec/challenges/ch16-rest-graphql-automation/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/rest/about-the-rest-api/about-the-rest-api

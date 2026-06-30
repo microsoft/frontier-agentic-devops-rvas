@@ -37,7 +37,8 @@ provision_creates:
 - intentionally messy starter labels (bug, Bug, enhancement, urgent, wontfix, question, backend, frontend)
 - empty Projects (v2) board wth-ch01-board linked to the repo
 tier: core
-source_path: challenges/ch01-issues-labels-projects/meta.yml
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghec/challenges/ch01-issues-labels-projects/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues

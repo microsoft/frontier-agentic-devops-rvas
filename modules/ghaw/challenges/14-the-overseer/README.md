@@ -11,15 +11,15 @@
 
 When you have multiple workflows running, who watches the watchers?
 
-**The Overseer** is about **meta-workflows**—agents that monitor, audit, and report on other agents. Imagine a supervisor workflow that checks:
+**The Overseer** is about **meta-workflows**: agents that monitor, audit, and report on other agents. Imagine a supervisor workflow that checks:
 - *Are my other workflows running successfully?*
 - *How many tokens did each workflow burn?*
 - *Which workflows are failing repeatedly?*
 - *Should I alert someone?*
 
-This is the **observability layer**. Production automation doesn't just execute—it observes itself and reacts to what it finds.
+This is an **observability layer** for agentic workflows. Useful automation does not just execute; it reports what happened and makes failures visible.
 
-**Why this matters:** As your automation system grows (5, 10, 20 workflows), you need built-in health monitoring. An Overseer catches problems early, alerts the team, and helps you optimize before costs spiral.
+**Why this matters:** As your automation system grows, built-in health monitoring helps the team spot repeated failures, token spikes, and stale workflows before they become expensive habits.
 
 ---
 
@@ -56,14 +56,14 @@ Identify:
 
 Create an **issue** with:
 - A summary table: Workflow name, success rate, avg tokens, trend
-- Alerts for any workflow with >20% failure rate
-- Recommendations (e.g., "workflow X is burning tokens—consider optimizing the prompt")
+- Alerts for workflows above the failure-rate threshold your team chose
+- Recommendations tied to evidence, such as pagination fixes for API timeouts or prompt splitting when token use doubles after a new scan is added
 
 Use `safe-outputs: create-issue: expires: 7d, max: 1, close-older-issues: true` to keep one active health report per week.
 
 ### The Trick
 
-Use **`max-effective-tokens: 5000000`** (or similar high value) because analyzing all workflow data requires headroom. Document in your solution *why* you set that value.
+Use a concrete **`max-effective-tokens`** value because analyzing workflow history requires headroom. Document in your solution *why* that value fits the number of runs you expect to analyze.
 
 ---
 
@@ -71,7 +71,7 @@ Use **`max-effective-tokens: 5000000`** (or similar high value) because analyzin
 
 - [ ] Workflow triggers weekly (`on: schedule:`)
 - [ ] Uses `agentic-workflows` MCP tool to fetch run data
-- [ ] Frontmatter includes a concrete high token budget (for example `max-effective-tokens: 5000000`) with a comment explaining the value
+- [ ] Frontmatter includes a concrete token budget with a comment explaining the expected run volume behind it
 - [ ] Analysis identifies: top expensive, top failing, unexpected spikes
 - [ ] Issue created with structured data (table + alerts)
 - [ ] Old issues auto-close (via `close-older-issues: true`)
@@ -83,8 +83,8 @@ Use **`max-effective-tokens: 5000000`** (or similar high value) because analyzin
 ## Tips & Hints
 
 - The `agentic-workflows` MCP tool is special—it only works in gh-aw workflows and gives you read-only access to all workflow runs in *this* repo.
-- `max-effective-tokens` is about **cost-normalized tokens**—set it high enough that the agent won't get cut off mid-analysis, but not so high that costs spiral. A good starting value is 5,000,000–10,000,000.
-- Failure rate: If a workflow ran 5 times and failed 1 time, that's 20% failure rate. Use a threshold (e.g., >20% triggers an alert).
+- `max-effective-tokens` is about **cost-normalized tokens**; set it high enough that the agent can finish the analysis, and document why the expected run count needs that headroom.
+- Failure rate: If a workflow ran 5 times and failed 1 time, that's 20% failure rate. Choose the alert threshold before the run so the report is not tuned after seeing the data.
 - Token efficiency: If a workflow's latest run used 2× more tokens than average, flag it. Could be a prompt regression or a real data spike.
 - Use `tracker-id: workflow-health-monitor` in frontmatter—this helps other workflows correlate issues back to this specific monitor.
 - Keep the issue body to ~200 lines. Use markdown tables for easy reading.
@@ -106,7 +106,7 @@ Use **`max-effective-tokens: 5000000`** (or similar high value) because analyzin
 Stuck? Here's how to escalate:
 
 - **"agentic-workflows tool not found?"** → Check your `tools: agentic-workflows` in frontmatter. Verify the tool is configured.
-- **"Max-effective-tokens—how high is too high?"** → Start with 5M. If the agent gets cut off mid-analysis, increase to 10M.
+- **"Max-effective-tokens—how high is too high?"** → Estimate the number of workflow runs and fields you ask the agent to inspect. If the agent gets cut off mid-analysis, reduce scope first, then raise the budget with a note explaining why.
 - **"How do I compute failure rate?"** → # failed runs / # total runs. Simple division.
 - **"How do I detect unexpected spikes?"** → Compare latest run tokens to average of previous 5 runs. If >2× average, flag it.
 - **"The issue is too long?"** → Use a table instead of prose. Tables are compact and scannable.

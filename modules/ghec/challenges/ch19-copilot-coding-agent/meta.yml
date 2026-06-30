@@ -35,7 +35,8 @@ provision_creates:
 - a failing test that pins a single clear bug + CI workflow to verify the fix
 - a well-framed seeded issue (repro + acceptance criteria) ready to assign to Copilot
 tier: core
-source_path: challenges/ch19-copilot-coding-agent/meta.yml
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghec/challenges/ch19-copilot-coding-agent/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent

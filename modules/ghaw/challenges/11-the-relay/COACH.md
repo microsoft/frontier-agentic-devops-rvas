@@ -4,7 +4,7 @@
 
 ## Grounding conversation (you will be called)
 
-Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — what complex automation are you tempted to build as one giant agent that would be safer split into a producer and a consumer passing state, and where would you put the checkpoint between them? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -19,7 +19,7 @@ This is the **first Advanced challenge**. Squads coming from Track 2 have seen e
 
 Your job: Build confidence that workflow chaining is not magic, it's just data + contracts. One workflow writes JSON, another reads it. They don't know about each other, but they work together.
 
-**Key rule:** Celebrate the "aha moment" when the consumer reads the producer's data. That's the win.
+**Key rule:** Ask for proof that the consumer read the producer's data: the repo-memory file path, the matching glob, and the report output.
 
 ---
 
@@ -332,7 +332,7 @@ If a squad is truly stuck:
 
 ## Key Takeaways for Coaches
 
-- **The "aha moment":** When the consumer reads the producer's data and creates a report, the squad will get it. That's the win.
+- **Evidence over vibes:** When the consumer creates a report, have the squad point to the exact producer JSON file and the glob that selected it.
 - **Silent failures are the enemy:** The `repo-memory` glob filter is the biggest gotcha—it silently drops files. Point it out explicitly.
 - **Simplicity wins:** A squad that writes 5 JSON fields and reads them correctly is better than one that tries to be fancy and fails. Celebrate the simple wins.
 - **This is the foundation:** Producer-consumer patterns unlock everything ahead — meta-workflows, orchestration, state machines. Build confidence here.

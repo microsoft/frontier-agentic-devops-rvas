@@ -28,7 +28,8 @@ app_dependency: none
 emu_compatible: true
 min_environment: org
 tier: setup
-source_path: scripts/setup.sh
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghec/challenges/ch00-environment-setup/meta.yml
 license: MIT
 references:
   - https://docs.github.com/en/codespaces/getting-started/quickstart

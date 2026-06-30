@@ -31,7 +31,8 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: stretch
-source_path: _challenges/15-ship-it.md
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghaw/challenges/15-ship-it/meta.yml
 license: MIT
 references:
   - https://github.github.com/gh-aw/reference/repo-memory/

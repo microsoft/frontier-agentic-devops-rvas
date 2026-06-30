@@ -36,7 +36,8 @@ provision_creates:
 - repo wth-ch08-sandbox (populated main + CI emitting a build check)
 - printed inventory of the four repos (no properties/rulesets yet)
 tier: core
-source_path: challenges/ch08-rulesets-repo-properties/meta.yml
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghec/challenges/ch08-rulesets-repo-properties/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/organizations/managing-organization-settings/managing-custom-properties-for-repositories-in-your-organization

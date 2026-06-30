@@ -4,7 +4,7 @@
 
 ## Grounding conversation (you will be called)
 
-Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — which prompt guidance or context do you keep copy-pasting across your automations, and what would change if you maintained it as one shared, imported library? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -194,7 +194,7 @@ A correct `10-mix-and-match.md`:
 
 ## Reference
 
-**Sample Solution Location:** `coaches/sample-solutions/track-2/10-mix-and-match.md`  
+**Reference solution note:** This repository does not include separate committed sample-solution files; use the inline sample and validation checklist above.
 **imports:** https://github.github.com/gh-aw/reference/frontmatter/#imports  
 **create-discussion:** https://github.github.com/gh-aw/reference/safe-outputs/#create-discussion  
 **GitHub Discussions API:** https://docs.github.com/en/graphql/guides/using-the-graphql-api-for-discussions

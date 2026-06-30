@@ -4,7 +4,7 @@
 
 ## Grounding conversation (you will be called)
 
-Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — where in your own automation would an explicit safe-outputs gate and a deliberate noop give you the confidence to let an agent write without a human watching every run? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -173,8 +173,7 @@ Keep the logic clear and the issue body concise — just filename and count, no 
 - `workflow_dispatch:` lets them test immediately
 - Body: clear, measurable instructions
 
-**Production-ready reference solution:** See `coaches/sample-solutions/track-1/02-safe-and-sound.md`
-
+**Reference solution note:** This repository does not include separate committed sample-solution files; use the inline sample and validation checklist above.
 ---
 
 ## Useful references for coaching

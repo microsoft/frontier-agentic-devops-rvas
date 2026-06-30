@@ -34,7 +34,8 @@ provision_creates:
 - rich multi-tool alert corpus (CodeQL OWASP Top 10 + Dependabot vulnerable npm tree + secret scanning) to drive a security campaign
 - own standalone alert volume — does NOT depend on ch12/ch13 having run (independence preserved)
 tier: core
-source_path: challenges/ch15-security-campaigns-overview/meta.yml
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghec/challenges/ch15-security-campaigns-overview/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/code-security/security-overview/about-security-overview

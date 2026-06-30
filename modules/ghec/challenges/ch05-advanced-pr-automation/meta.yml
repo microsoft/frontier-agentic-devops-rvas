@@ -36,7 +36,8 @@ provision_creates:
 - starter .github/CODEOWNERS + placeholder .github/pull_request_template.md
 - no rulesets yet (student creates repo + org rulesets)
 tier: core
-source_path: challenges/ch05-advanced-pr-automation/meta.yml
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghec/challenges/ch05-advanced-pr-automation/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets

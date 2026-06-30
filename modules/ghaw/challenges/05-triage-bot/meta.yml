@@ -31,7 +31,8 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: core
-source_path: _challenges/05-triage-bot.md
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghaw/challenges/05-triage-bot/meta.yml
 license: MIT
 references:
   - https://github.github.com/gh-aw/reference/frontmatter/

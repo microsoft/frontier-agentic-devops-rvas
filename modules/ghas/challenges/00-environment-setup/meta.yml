@@ -34,7 +34,8 @@ app_dependency: juice-shop
 emu_compatible: true
 min_environment: org
 tier: setup
-source_path: docs/getting-started.html
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghas/challenges/00-environment-setup/meta.yml
 license: MIT
 references:
   - https://docs.github.com/en/codespaces/getting-started/quickstart

@@ -11,20 +11,20 @@
 
 Everything you've learned comes together here.
 
-**Ship It** is the **end-to-end agentic pipeline**. Take an issue from discovery to resolution, entirely through autonomous workflows:
+**Ship It** is a **reviewable agentic pipeline**. Move an issue from discovery through triage and agent assignment, with an optional PR and merge path:
 
 1. **Event**: An issue arrives or code changes (event trigger)
 2. **Observe**: A workflow records what happened to `repo-memory` (producer)
 3. **Triage**: A meta-workflow reads observations and creates a tracking issue (meta layer)
 4. **Act**: A ChatOps workflow (`/fix` slash command) assigns the tracking issue to the Copilot coding agent
-5. **Review**: Copilot fixes the issue, creates a PR
-6. **Merge**: A final workflow merges the PR (or flags it for human review)
+5. **Review**: Copilot attempts the fix and opens a PR when it can
+6. **Merge**: A final workflow can label the PR for review, or merge only under the policy you define
 
-You've built pieces of this in 3-01, 3-02, 3-03, 3-04. Now **connect them into a working factory**.
+You've built pieces of this in 3-01, 3-02, 3-03, 3-04. Now **connect them into a working prototype pipeline**.
 
-This is the capstone. When you see this system run end-to-end, you'll understand what production agentic automation looks like.
+This is the capstone. When you see this system run end-to-end, you'll understand how reviewable agentic automation is assembled.
 
-**Why this matters:** This is not theory—it's a real pattern used in production. You'll walk away understanding how to orchestrate multiple AI agents into a coherent system.
+**Why this matters:** The pattern is adapted from production systems, but this challenge is still a learning prototype. Production use needs your own tests, branch protections, rollback plan, and human-owned merge policy.
 
 ---
 
@@ -35,7 +35,7 @@ By the end of this challenge, your squad will:
 1. ✅ Design and build a 3-5 workflow chain
 2. ✅ Use all four techniques: events, repo-memory, meta-workflows, ChatOps
 3. ✅ Successfully trigger the chain end-to-end
-4. ✅ See an issue go from discovery to fix to PR to merge (or staged for merge)
+4. ✅ See an issue go from discovery to triage to agent assignment, then to PR or a clearly logged attempt
 5. ✅ Understand orchestration, not just individual workflows
 
 ---

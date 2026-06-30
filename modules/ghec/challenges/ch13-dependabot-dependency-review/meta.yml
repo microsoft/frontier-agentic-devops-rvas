@@ -34,7 +34,8 @@ provision_creates:
 - intentionally vulnerable npm dependency tree (old Angular libs, risky ftp package) for genuine Dependabot alerts and security-update PRs
 - branch feature/add-risky-dep adding a known-vulnerable dependency to open as a PR for dependency-review gating
 tier: core
-source_path: challenges/ch13-dependabot-dependency-review/meta.yml
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghec/challenges/ch13-dependabot-dependency-review/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph

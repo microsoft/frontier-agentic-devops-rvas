@@ -4,7 +4,7 @@
 
 ## Grounding conversation (you will be called)
 
-Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — when an agent both labels a new issue and explains its reasoning in a comment, where does that transparency earn enough trust for you to let it triage your real backlog unattended? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -291,6 +291,6 @@ If all check out and it still doesn't work, escalate to Ripley or check the Acti
 
 ## Reference
 
-**Sample Solution Location:** `coaches/sample-solutions/track-2/05-triage-bot.md`  
+**Reference solution note:** This repository does not include separate committed sample-solution files; use the inline sample and validation checklist above.
 **Issue Triage Agent (Real):** https://github.com/github/gh-aw/blob/main/.github/workflows/issue-triage-agent.md  
 **Safe Outputs Reference:** https://github.github.com/gh-aw/reference/safe-outputs/

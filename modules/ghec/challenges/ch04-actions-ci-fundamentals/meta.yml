@@ -37,7 +37,8 @@ provision_creates:
 - package.json with test/build/lint scripts
 - minimal starter workflow .github/workflows/ci.yml (echo only; student replaces)
 tier: core
-source_path: challenges/ch04-actions-ci-fundamentals/meta.yml
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghec/challenges/ch04-actions-ci-fundamentals/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions

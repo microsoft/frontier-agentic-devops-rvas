@@ -30,7 +30,8 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: core
-source_path: _challenges/02-safe-and-sound.md
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghaw/challenges/02-safe-and-sound/meta.yml
 license: MIT
 references:
   - https://github.github.com/gh-aw/reference/safe-outputs/

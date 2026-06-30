@@ -32,7 +32,8 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: stretch
-source_path: _challenges/22-test-improver.md
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghaw/challenges/22-test-improver/meta.yml
 license: MIT
 references:
   - https://github.com/github/gh-aw

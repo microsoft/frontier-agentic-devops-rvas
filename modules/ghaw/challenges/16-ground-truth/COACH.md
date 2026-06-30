@@ -4,7 +4,7 @@
 
 ## Grounding conversation (you will be called)
 
-Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — where has an AI confidently produced numbers or facts it made up in your work, and how would feeding it deterministic data first change what you would trust it to output? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -227,7 +227,7 @@ A correct `16-ground-truth.md`:
 
 ## Reference
 
-**Sample Solution Location:** `coaches/sample-solutions/track-3/16-ground-truth.md`  
+**Reference solution note:** This repository does not include separate committed sample-solution files; use the inline sample and validation checklist above.
 **pre-agent-steps:** https://github.github.com/gh-aw/reference/frontmatter/#pre-agent-steps  
 **create-pull-request:** https://github.github.com/gh-aw/reference/safe-outputs-pull-requests/#create-pull-request  
 **gh CLI — gh api:** https://cli.github.com/manual/gh_api

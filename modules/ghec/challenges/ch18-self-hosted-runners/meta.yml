@@ -35,7 +35,8 @@ provision_creates:
 - RUNNER-SETUP.md registration + hardening walkthrough (Linux/macOS/Windows)
 - HARDENING.md checklist (service account, ephemeral, fork-PR risk, egress)
 tier: core
-source_path: challenges/ch18-self-hosted-runners/meta.yml
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghec/challenges/ch18-self-hosted-runners/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners

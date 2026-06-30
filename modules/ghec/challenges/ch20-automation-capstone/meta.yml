@@ -35,7 +35,8 @@ provision_creates:
 - GitHub App manifest app-manifest.json (manifest registration flow) — supported auth path
 - empty org Projects v2 board wth-ch20-board for the GraphQL step to populate
 tier: core
-source_path: challenges/ch20-automation-capstone/meta.yml
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghec/challenges/ch20-automation-capstone/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/rest/quickstart

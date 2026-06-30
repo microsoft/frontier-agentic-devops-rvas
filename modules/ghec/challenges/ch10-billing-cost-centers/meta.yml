@@ -33,7 +33,8 @@ provision_creates:
 - repo wth-ch10-cost-report (holds reconciliation script + final report)
 - printed current usage snapshot (Actions minutes / storage from the API)
 tier: core
-source_path: challenges/ch10-billing-cost-centers/meta.yml
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghec/challenges/ch10-billing-cost-centers/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/billing/get-started/introduction-to-billing

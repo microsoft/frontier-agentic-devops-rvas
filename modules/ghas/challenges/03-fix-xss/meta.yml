@@ -36,7 +36,8 @@ provision_creates:
   - Shared org repo with Juice Shop (OWASP Juice Shop v20+) — provisioned by organizer setup
   - CodeQL scanning active with XSS-class alerts pre-populated on default branch
 tier: core
-source_path: Student/Challenge-S02.md
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghas/challenges/03-fix-xss/meta.yml
 license: MIT
 references:
   - https://owasp.org/www-community/attacks/xss/

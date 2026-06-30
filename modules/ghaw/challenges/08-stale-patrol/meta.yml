@@ -34,7 +34,8 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: stretch
-source_path: _challenges/08-stale-patrol.md
+source_repo: microsoft/frontier-agenticdevops-hackathon
+source_path: modules/ghaw/challenges/08-stale-patrol/meta.yml
 license: MIT
 references:
   - https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
