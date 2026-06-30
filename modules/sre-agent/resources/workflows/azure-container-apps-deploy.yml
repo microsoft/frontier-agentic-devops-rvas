@@ -1,0 +1,102 @@
+name: SRE Sample App - Azure Container Apps
+
+on:
+  workflow_dispatch:
+    inputs:
+      incident_mode:
+        description: "Deploy a controlled runtime mode"
+        required: true
+        default: healthy
+        type: choice
+        options:
+          - healthy
+          - checkout_error
+          - checkout_latency
+  pull_request:
+    paths:
+      - "modules/sre-agent/resources/sample-app/**"
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  SAMPLE_APP_DIR: modules/sre-agent/resources/sample-app
+  IMAGE_NAME: frontier-sample-app
+
+jobs:
+  validate:
+    name: Validate sample app
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: ${{ env.SAMPLE_APP_DIR }}/package-lock.json
+      - run: npm ci
+        working-directory: ${{ env.SAMPLE_APP_DIR }}
+      - run: npm test
+        working-directory: ${{ env.SAMPLE_APP_DIR }}
+
+  deploy:
+    name: Deploy to Azure Container Apps
+    needs: validate
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    environment: sre-agent-azure
+    env:
+      INCIDENT_MODE_INPUT: ${{ inputs.incident_mode }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Build and push image
+        run: |
+          set -euo pipefail
+          az acr login --name "$ACR_NAME"
+          image="$ACR_LOGIN_SERVER/$IMAGE_NAME:${GITHUB_SHA}"
+          docker build -t "$image" "$SAMPLE_APP_DIR"
+          docker push "$image"
+          echo "IMAGE=$image" >> "$GITHUB_ENV"
+        env:
+          ACR_NAME: ${{ vars.ACR_NAME }}
+          ACR_LOGIN_SERVER: ${{ vars.ACR_LOGIN_SERVER }}
+
+      - name: Update container app
+        run: |
+          set -euo pipefail
+          incident_mode="$INCIDENT_MODE_INPUT"
+          if [[ "$incident_mode" == "healthy" ]]; then
+            incident_mode=""
+          fi
+          az containerapp update \
+            --name "$AZURE_CONTAINER_APP" \
+            --resource-group "$AZURE_RESOURCE_GROUP" \
+            --image "$IMAGE" \
+            --set-env-vars INCIDENT_MODE="$incident_mode"
+        env:
+          AZURE_CONTAINER_APP: ${{ vars.AZURE_CONTAINER_APP }}
+          AZURE_RESOURCE_GROUP: ${{ vars.AZURE_RESOURCE_GROUP }}
+
+      - name: Capture runtime evidence
+        run: |
+          set -euo pipefail
+          fqdn="$(az containerapp show \
+            --name "$AZURE_CONTAINER_APP" \
+            --resource-group "$AZURE_RESOURCE_GROUP" \
+            --query properties.configuration.ingress.fqdn \
+            --output tsv)"
+          app_url="https://$fqdn"
+          echo "Endpoint: $app_url"
+          curl --fail-with-body "$app_url/healthz"
+          curl --fail-with-body "$app_url/api/checkout"
+        env:
+          AZURE_CONTAINER_APP: ${{ vars.AZURE_CONTAINER_APP }}
+          AZURE_RESOURCE_GROUP: ${{ vars.AZURE_RESOURCE_GROUP }}

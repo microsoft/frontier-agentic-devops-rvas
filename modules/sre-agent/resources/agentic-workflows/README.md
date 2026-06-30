@@ -47,7 +47,7 @@ Suggested flow:
 
 1. Pick one template and identify the trigger, permissions, tools, and safe outputs.
 2. Review the template with the [agentic workflow review rubric](agentic-workflow-review-rubric.md).
-3. Run `bash Resources/scripts/validate-agentic-workflow-specs.sh` from the repository root.
+3. Run `bash modules/sre-agent/resources/scripts/validate-agentic-workflow-specs.sh` from the repository root.
 4. If `gh-aw` is available, adapt the spec through `gh aw add-wizard` and compile it.
 5. If `gh-aw` is unavailable, simulate the safe outputs in an issue thread and have humans review the result.
 

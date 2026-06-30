@@ -21,16 +21,16 @@ At 15:22 UTC, synthetic monitoring began reporting elevated failures on the chec
 From the repository root:
 
 ```bash
-Resources/scripts/simulate-checkout-incident.sh checkout_error
+modules/sre-agent/resources/scripts/simulate-checkout-incident.sh checkout_error
 ```
 
 or:
 
 ```bash
-Resources/scripts/simulate-checkout-incident.sh checkout_latency
+modules/sre-agent/resources/scripts/simulate-checkout-incident.sh checkout_latency
 ```
 
-The script starts the sample service locally, captures health and checkout responses, and writes evidence to `Resources/runbooks/generated/`.
+The script starts the sample service locally, captures health and checkout responses, and writes evidence to `modules/sre-agent/resources/runbooks/generated/`.
 
 ## Azure SRE Agent Use
 

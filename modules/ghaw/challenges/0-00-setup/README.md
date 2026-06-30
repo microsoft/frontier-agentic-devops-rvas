@@ -74,17 +74,21 @@ gh auth status
 gh aw --version
 
 # 4. Dry-run smoke test
-gh aw trial modules/ghaw/resources/examples/hello-world.md --dry-run
+gh aw trial modules/ghaw/resources/examples/hello-world.md --logical-repo microsoft/frontier-agenticdevops-hackathon --dry-run --yes
 ```
 
 > All four commands must succeed before you move on. If any fail, see **Common Blockers** in the coach guide.
+
+The smoke test uses `--logical-repo` so `gh-aw` does not need to infer the simulated repository from your local Git remote. This is especially useful if your clone uses an SSH host alias instead of `github.com`.
+
+You do not need write access to `microsoft/frontier-agenticdevops-hackathon` for this smoke test. `gh-aw` creates or uses a trial host repository in your own GitHub account and only simulates the hackathon repository as the target.
 
 ### Per-module verification
 
 | Command | Expected output |
 |---|---|
 | `gh aw --version` | Returns a version string (e.g., `gh-aw version 1.x.x`) |
-| `gh aw trial modules/ghaw/resources/examples/hello-world.md --dry-run` | Previews the workflow without executing it; exits 0 |
+| `gh aw trial modules/ghaw/resources/examples/hello-world.md --logical-repo microsoft/frontier-agenticdevops-hackathon --dry-run --yes` | Previews the workflow without executing it; exits 0 |
 
 ---
 

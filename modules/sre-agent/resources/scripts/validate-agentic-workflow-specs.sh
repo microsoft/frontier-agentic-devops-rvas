@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-SPEC_DIR="$ROOT_DIR/Resources/agentic-workflows"
+MODULE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+SPEC_DIR="$MODULE_DIR/resources/agentic-workflows"
 
 required_specs=(
   "issue-triage-agent.md"
@@ -43,7 +43,7 @@ check_contains() {
   local needle="$2"
 
   if ! grep -Fq -- "$needle" "$file"; then
-    printf 'ERROR: %s missing required text: %s\n' "${file#$ROOT_DIR/}" "$needle" >&2
+    printf 'ERROR: %s missing required text: %s\n' "${file#$MODULE_DIR/}" "$needle" >&2
     failures=$((failures + 1))
   fi
 }
@@ -53,14 +53,14 @@ check_frontmatter() {
   local delimiter_count
 
   if [[ "$(head -n 1 "$file")" != "---" ]]; then
-    printf 'ERROR: %s must start with YAML frontmatter delimiter.\n' "${file#$ROOT_DIR/}" >&2
+    printf 'ERROR: %s must start with YAML frontmatter delimiter.\n' "${file#$MODULE_DIR/}" >&2
     failures=$((failures + 1))
     return
   fi
 
   delimiter_count="$(grep -n '^---$' "$file" | wc -l | tr -d ' ')"
   if [[ "$delimiter_count" -lt 2 ]]; then
-    printf 'ERROR: %s must contain closing YAML frontmatter delimiter.\n' "${file#$ROOT_DIR/}" >&2
+    printf 'ERROR: %s must contain closing YAML frontmatter delimiter.\n' "${file#$MODULE_DIR/}" >&2
     failures=$((failures + 1))
   fi
 
@@ -73,7 +73,7 @@ for spec in "${required_specs[@]}"; do
   path="$SPEC_DIR/$spec"
 
   if [[ ! -f "$path" ]]; then
-    printf 'ERROR: Missing required spec: %s\n' "${path#$ROOT_DIR/}" >&2
+    printf 'ERROR: Missing required spec: %s\n' "${path#$MODULE_DIR/}" >&2
     failures=$((failures + 1))
     continue
   fi

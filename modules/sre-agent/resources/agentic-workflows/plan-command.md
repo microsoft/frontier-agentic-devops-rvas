@@ -92,7 +92,7 @@ add-comment: |
   - Scope may be too broad if deployment behavior is included.
 
   ## Validation
-  - `npm test` from `Resources/sample-app`
+  - `npm test` from `modules/sre-agent/resources/sample-app`
 
   Human review required before implementation starts.
 ```
@@ -116,7 +116,7 @@ create-subissues:
       - Validation command is documented in the PR.
 
       ## Validation
-      - `npm test` from `Resources/sample-app`
+      - `npm test` from `modules/sre-agent/resources/sample-app`
 ```
 
 Rules:

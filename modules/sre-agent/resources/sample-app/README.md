@@ -5,7 +5,7 @@ This tiny Node.js service anchors the hackathon story: participants can make an 
 ## Run Locally
 
 ```bash
-cd Resources/sample-app
+cd modules/sre-agent/resources/sample-app
 npm install
 npm start
 ```
@@ -15,7 +15,7 @@ Open `http://localhost:3000/healthz` or `http://localhost:3000/api/checkout`.
 ## Test
 
 ```bash
-cd Resources/sample-app
+cd modules/sre-agent/resources/sample-app
 npm test
 ```
 

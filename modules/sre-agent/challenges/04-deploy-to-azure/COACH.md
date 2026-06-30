@@ -2,36 +2,49 @@
 
 ### Expected Outcome
 
-Teams can show validation and deployment flow through GitHub Actions, or use a fallback packet with the same evidence shape. They can explain the deterministic/probabilistic seam in the pipeline.
+Teams deploy the sample app through GitHub Actions, capture a healthy runtime evidence note, then run one controlled Azure failure mode so Challenge 06 starts from real operational signal.
 
-## Grounding conversation (you will be called)
+## Coach Prep
 
-Students are **expected to call you** to talk through this challenge's real-world impact before they consider it done. This is a required completion step, not optional — it is how we keep the learning grounded in their actual day-to-day work.
+Prepare one of these paths before the workshop:
 
-**Their question:** Coach conversation — in your real deployment pipeline, where does the deterministic/probabilistic seam sit today: what does automation decide on its own, and what requires a human approval or deterministic gate before reaching production? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+| Path | Use when | Coach provides |
+| --- | --- | --- |
+| Live Azure Container Apps | Teams have Azure access and enough time | Resource group, Container App, ACR, workload identity values, expected endpoint |
+| Shared demo target | Only coaches should touch Azure | Screenshots/logs plus a reusable endpoint or run packet |
+| Fallback packet | Azure access is blocked | Healthy deployment evidence and degraded deployment evidence with the same fields students would capture |
 
-Use these follow-ups to steer the conversation:
-- Ask them to describe a specific service or pipeline they own — what is the last stage before production, and who (or what) currently owns that gate?
-- Ask what the cost would be if a model-suggested workflow change bypassed their current gate: what is the blast radius, and how would they detect it?
-- Ask them to identify one gate in their real pipeline they would harden or formalize before their team starts letting Copilot propose workflow changes.
+The live path expects GitHub variables named `AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID`, `AZURE_RESOURCE_GROUP`, `AZURE_CONTAINER_APP`, `ACR_NAME`, and `ACR_LOGIN_SERVER`.
+
+### Grounding conversation
+
+Students are **expected to call you** before they consider this done.
+
+**Their question:** In your real deployment pipeline, where does the deterministic/probabilistic seam sit today: what does automation decide on its own, and what requires a human approval or deterministic gate before reaching production?
+
+Use these follow-ups:
+
+- Which gate would stop a model-suggested workflow change from reaching production?
+- What evidence would an on-call engineer need 30 minutes after this deployment?
+- Where would a controlled failure belong in your real pipeline: pre-prod, canary, synthetic monitor, or incident drill?
 
 ### Strong Evidence
 
-- Workflow stages are understandable.
-- Secrets are stored safely and not printed; use GitHub's [Actions security hardening](https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions) language to coach this point.
-- [Environment controls or approvals](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment) are visible when available.
-- Deployment evidence includes commit SHA, run link, environment, endpoint, and warnings.
-- Gate map identifies tests, schemas, allowlists, permissions, environment approvals, and human checkpoints.
+- Workflow has a validation job and a deployment job.
+- Azure authentication uses `azure/login` with workload identity or coach-approved configuration.
+- Secrets are not committed, printed, or passed to agent prompts.
+- Healthy deployment evidence includes run URL, SHA, endpoint, health status, and checkout status.
+- Controlled failure evidence shows `checkout_error` or `checkout_latency` and is clearly labeled as intentional.
+- Gate map distinguishes deterministic checks, human approvals, and advisory agent output.
 
 ### Common Gaps
 
-- Credentials are copied into files.
-- Teams cannot explain workflow stages.
-- Deployment succeeds but no evidence is recorded.
-- Failed deployment is abandoned instead of turned into a remediation issue.
-- Agent-generated workflow suggestions are treated as deployable without gate review.
+- Students treat random Azure permission failures as the main learning activity. Redirect to the fallback packet if access takes more than a few minutes.
+- The workflow deploys but no one captures the endpoint or SHA.
+- The controlled failure is not labeled, making it look like an accidental outage.
+- Teams weaken checks to make the workflow pass.
+- Agent-generated YAML is merged without human review.
 
 ### Coach Hint
 
-Ask: Which piece of deployment evidence will matter if there is an incident in 30 minutes?
-Ask: What can the model propose, and what must the deterministic substrate or a human approve?
+The Azure target is the evidence source, not the puzzle. Keep students focused on a reviewable loop: PR validation, deployment, health evidence, controlled failure evidence, and recovery path.

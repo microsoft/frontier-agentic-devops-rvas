@@ -17,7 +17,7 @@ success_criteria:
   - "`gh auth status` exits 0 and shows your username"
   - "`gh --version` returns gh >= 2.x"
   - "`gh aw --version` returns a version string"
-  - "`gh aw trial modules/ghaw/resources/examples/hello-world.md --dry-run` completes without errors"
+  - "`gh aw trial modules/ghaw/resources/examples/hello-world.md --logical-repo microsoft/frontier-agenticdevops-hackathon --dry-run --yes` completes without errors"
   - "`ls modules/ghaw/resources/examples/hello-world.md` confirms the embedded example exists"
 tags:
   - setup

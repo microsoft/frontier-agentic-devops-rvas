@@ -3,15 +3,15 @@ set -euo pipefail
 
 MODE="${1:-checkout_error}"
 PORT="${PORT:-3000}"
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-APP_DIR="$ROOT_DIR/Resources/sample-app"
-OUTPUT_DIR="$ROOT_DIR/Resources/runbooks/generated"
+MODULE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+APP_DIR="$MODULE_DIR/resources/sample-app"
+OUTPUT_DIR="$MODULE_DIR/resources/runbooks/generated"
 
 case "$MODE" in
   checkout_error|checkout_latency)
     ;;
   *)
-    echo "Usage: Resources/scripts/simulate-checkout-incident.sh [checkout_error|checkout_latency]" >&2
+    echo "Usage: modules/sre-agent/resources/scripts/simulate-checkout-incident.sh [checkout_error|checkout_latency]" >&2
     exit 2
     ;;
 esac
@@ -65,7 +65,7 @@ cat > "$SUMMARY_FILE" <<EOF
 - Checkout response: $CHECKOUT_FILE
 - Service log: $OUTPUT_DIR/sample-app.log
 
-Use this evidence with Resources/runbooks/challenge-06-triage-template.md.
+Use this evidence with modules/sre-agent/resources/runbooks/challenge-06-triage-template.md.
 EOF
 
 echo "Incident evidence written to $OUTPUT_DIR"

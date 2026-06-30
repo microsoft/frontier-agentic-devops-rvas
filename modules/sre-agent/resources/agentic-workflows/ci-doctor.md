@@ -101,7 +101,7 @@ create-issue:
     The checkout route assertion appears to expect a successful response, while the current handler returns an error state.
 
     ## Recommended Next Step
-    Reproduce locally with `npm test` from `Resources/sample-app` and inspect the checkout route behavior before changing workflow gates.
+    Reproduce locally with `npm test` from `modules/sre-agent/resources/sample-app` and inspect the checkout route behavior before changing workflow gates.
 ```
 
 or:

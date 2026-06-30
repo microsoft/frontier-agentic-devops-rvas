@@ -18,6 +18,6 @@ Suggested command after configuration:
 ```bash
 az deployment group create \
   --resource-group "$AZURE_RESOURCE_GROUP" \
-  --template-file Resources/infra/main.bicep \
+  --template-file modules/sre-agent/resources/infra/main.bicep \
   --parameters appName=<unique-name> containerImage=<registry/image:tag>
 ```

@@ -5,7 +5,7 @@ This repository can be published with GitHub Pages so participants have a simple
 ## Recommended Pages Entry Points
 
 - [challenges/00-setup/README.md](../challenges/00-setup/README.md) as the first participant action.
-- [Resources/README.md](README.md) for templates and fallback packets.
+- [resources/README.md](README.md) for templates and fallback packets.
 
 ## Publishing Checklist
 

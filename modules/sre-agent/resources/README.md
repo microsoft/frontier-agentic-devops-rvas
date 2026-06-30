@@ -20,6 +20,7 @@ This folder contains reusable reference material for coaches and participants. S
 | [Sample App Assets](sample-app/README.md) | Local Node.js service used for development, CI, deployment discussion, and incident simulation. |
 | [Runbooks](runbooks/README.md) | Challenge 06 incident packet, triage template, and generated local evidence. |
 | [Scripts](scripts/README.md) | Local scripts for simulating checkout incidents and validating agentic workflow specs. |
+| [Workflow Templates](workflows/README.md) | Starter GitHub Actions workflow for Azure Container Apps deployment and controlled failure modes. |
 | [Infrastructure](infra/README.md) | Safe-by-default Bicep starting point for Azure deployment planning. |
 
 ## Delivery Assets Coaches Should Add
