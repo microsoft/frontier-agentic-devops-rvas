@@ -78,7 +78,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch17 --org <org>
 
 ### Part E — Register & install a GitHub App
 
-> GitHub Apps are created by filling the **New GitHub App** form — there's no JSON/manifest file to upload. The form is long, but for this challenge only a few fields matter; leave everything else at its default.
+> GitHub Apps are created by filling the **New GitHub App** form. The form is long, but for this challenge only a few fields matter; leave everything else at its default.
 
 11. **Open the form** at Org **Settings → Developer settings → GitHub Apps → New GitHub App** (the page is titled *Create GitHub App*), then fill it in top to bottom:
     - **GitHub App name** (required): `wth-ch17-app` — names are globally unique, so add a suffix if it's taken.
@@ -86,7 +86,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch17 --org <org>
     - **Identifying and authorizing users** and **Post installation**: leave the Callback/Setup URLs blank — not needed here.
     - **Webhook → Active:** **uncheck** it. It's on by default, which makes **Webhook URL** required; you aren't hosting the App's own webhook in this challenge, so turning it off skips that field.
     - **Permissions → Repository permissions:** expand it and set **Issues** to **Read and write**. **Metadata** is already **Read-only** (mandatory) — leave it as is.
-    - **Subscribe to events:** the **Issues** checkbox appears *only after* you set the Issues permission above (the event list is driven by your permissions). Check **Issues**. Ignore the default *Installation target / Meta / Security advisory* options.
+    - **Subscribe to events:** the **Issues** checkbox appears here *only after* you set the Issues permission above (the event list is driven by your permissions). Check **Issues** and leave any other events unchecked.
     - **Where can this GitHub App be installed?** Choose **Only on this account**.
     - Click **Create GitHub App**.
 12. **Record the App ID** and **Client ID** from the App's *General* settings page, then scroll to **Private keys → Generate a private key** and save the downloaded `.pem` — you'll sign the App JWT with it in Part F.
