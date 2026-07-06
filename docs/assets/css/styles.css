@@ -1452,3 +1452,147 @@ html[data-kiosk] .brand { pointer-events: none; cursor: default; }
 }
 .kiosk-exit:hover { color: var(--c-fg); background: var(--c-600); border-color: var(--c-dim); }
 .kiosk-exit:focus-visible { outline: 2px solid var(--c-gold); outline-offset: 2px; }
+
+/* ═══════════════════ TAKE IT HOME (production adoption) ═══════════════════ */
+.take-home-card {
+  border: 1px solid var(--c-line);
+  border-left: 3px solid var(--c-gold);
+  background:
+    linear-gradient(180deg, var(--c-gold-glow), transparent 60%),
+    var(--c-700);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin: 0 0 22px;
+}
+.take-home-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.take-home-kicker {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-gold);
+  font-weight: 600;
+}
+.take-home-owner {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--c-dim);
+  border: 1px solid var(--c-line);
+  border-radius: 999px;
+  padding: 3px 10px;
+  white-space: nowrap;
+}
+.take-home-card h2 {
+  font-size: 18px;
+  margin: 0 0 8px;
+  color: var(--c-fg);
+}
+.take-home-action {
+  margin: 0 0 10px;
+  color: var(--c-fg);
+  line-height: 1.55;
+}
+.take-home-signal {
+  margin: 0;
+  font-size: 14px;
+  color: var(--c-dim);
+  line-height: 1.5;
+}
+.take-home-signal-label {
+  display: inline-block;
+  font-weight: 600;
+  color: var(--c-gold-dim);
+  margin-right: 4px;
+}
+.take-home-signal-label::after { content: ':'; }
+
+/* ═══════════════════ PRODUCTION ADOPTION CHECKLIST (per outcome) ═════════ */
+.adoption-checklist {
+  border: 1px solid var(--c-line);
+  border-radius: 12px;
+  background: var(--c-700);
+  padding: 22px 24px;
+  margin: 24px 0;
+}
+.adoption-checklist-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.adoption-checklist-head h2 {
+  font-size: 20px;
+  margin: 0;
+  color: var(--c-fg);
+}
+.adoption-checklist-sub {
+  color: var(--c-dim);
+  font-size: 14px;
+  margin: 0 0 16px;
+}
+.adoption-checklist ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  counter-reset: adopt;
+}
+.adoption-item {
+  border: 1px solid var(--c-line);
+  border-radius: 9px;
+  background: var(--c-600);
+  padding: 13px 15px 13px 46px;
+  position: relative;
+}
+.adoption-item::before {
+  counter-increment: adopt;
+  content: counter(adopt);
+  position: absolute;
+  left: 12px;
+  top: 13px;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: var(--c-gold);
+  color: var(--c-900);
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.adoption-item-action { color: var(--c-fg); line-height: 1.5; margin: 0 0 6px; }
+.adoption-item-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 12px;
+  color: var(--c-dim);
+}
+.adoption-item-owner {
+  border: 1px solid var(--c-line);
+  border-radius: 999px;
+  padding: 2px 9px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.adoption-item-signal::before { content: '✓ '; color: var(--c-gold-dim); }
+.adoption-item-link { margin-left: auto; }
+.adoption-checklist-actions { margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap; }
+
+@media print {
+  header, nav, .breadcrumbs, .adoption-checklist-actions, .view-switch, footer { display: none !important; }
+  .adoption-checklist, .adoption-item { border-color: #999; background: #fff; color: #000; }
+}

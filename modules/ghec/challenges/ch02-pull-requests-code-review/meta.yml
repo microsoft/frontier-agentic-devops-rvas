@@ -20,7 +20,9 @@ success_criteria:
 - A **merge conflict was resolved** and that branch merged cleanly afterward.
 - '**All three merge strategies are enabled** and each was used at least once (verifiable from commit history).'
 - '`docs/merge-strategy.md` documents the chosen default.'
-- 'Coach conversation — think about the last pull request that sat open too long or had a painful review cycle on your team: which of the branch protection rules, required reviewers, or PR templates you just configured would have shortened it, and what''s still missing? Talk it through with your coach and connect it to a real project, task, or workflow you own.'
+take_home_action: In your own org, enforce the pull request workflow on a production repository with branch protection, CODEOWNERS, required reviews, PR templates, and an agreed merge strategy.
+take_home_owner: developer
+take_home_signal: Direct pushes to main are blocked and real pull requests show requested code owners, completed reviews, required checks, and the selected merge strategy in history.
 tags:
 - pull-requests
 - code-review

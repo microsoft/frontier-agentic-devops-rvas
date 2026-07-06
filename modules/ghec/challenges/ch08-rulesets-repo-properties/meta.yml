@@ -19,7 +19,9 @@ success_criteria:
 - The org ruleset governs **both** `high`-compliance repos (proven by a rejected direct push on the second repo).
 - A **repository ruleset** on one prod repo layers a stricter rule (e.g., 2 approvals) on top of the org ruleset.
 - A **`GOVERNANCE.md`** documents the schema, values, and ruleset targeting.
-- 'Coach conversation — which of your repos is most likely to accept a direct push to main or merge without a review right now, and what ruleset targeting which repo property would close that gap at scale? Talk it through with your coach and connect it to a real project, task, or workflow you own.'
+take_home_action: In your own org, classify repositories with custom properties and enforce organization rulesets that target production or high-compliance repos by those properties.
+take_home_owner: platform-governance
+take_home_signal: A direct push or under-reviewed merge is rejected on every property-matched repository while documented exceptions remain explicit.
 tags:
 - rulesets
 - custom-properties

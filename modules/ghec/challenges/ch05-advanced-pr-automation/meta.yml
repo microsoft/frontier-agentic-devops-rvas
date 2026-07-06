@@ -19,7 +19,9 @@ success_criteria:
 - A **PR template** pre-fills new PRs; a **draft** PR demonstrably blocks auto-merge/reviewers until marked ready.
 - '**Auto-labeling** assigns `area:` labels by path; an **open-PR comment** workflow fires; a **stale** workflow labels/closes inactive PRs.'
 - An **organization ruleset** targeting `wth-ch05-*` is active and layers with the repo ruleset.
-- 'Coach conversation — which repetitive PR task on your current team (auto-labeling, reviewer assignment, size checks, changelog enforcement) costs the most human time per week, and what could a composite action or reusable workflow replace? Talk it through with your coach and connect it to a real project, task, or workflow you own.'
+take_home_action: In your own org, replace one repetitive pull request control with reusable Actions automation, auto-labeling, auto-merge gates, stale handling, and layered rulesets.
+take_home_owner: developer
+take_home_signal: Production pull requests are labeled, assigned, gated, and merged or held automatically according to the configured ruleset and workflow evidence.
 tags:
 - rulesets
 - pull-requests

@@ -21,7 +21,9 @@ success_criteria:
   - The agent correctly classifies the issue and applies the appropriate label
   - Multiple issues are tested with different classifications
   - Logs show the agent's reasoning (e.g., "This is a bug because...")
-  - "Coach conversation — how much of your team's issue labelling is guesswork you would hand to an agent, and where would a constrained allowlist stop it from inventing categories you can't trust? Talk it through with your coach and connect it to a real project, task, or workflow you own."
+take_home_action: In a repository you own, deploy issue labelling with a strict allowlist and safe label writes for the categories your team already uses.
+take_home_owner: developer
+take_home_signal: New real issues receive only approved labels with no invented categories.
 tags:
   - issue-events
   - ai-classification

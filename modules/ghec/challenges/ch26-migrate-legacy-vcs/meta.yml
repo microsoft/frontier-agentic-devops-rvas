@@ -22,7 +22,9 @@ success_criteria:
 - 'Author identities in converted commits resolve to real names and email addresses instead of unknown or raw source usernames.'
 - 'Large-file and large-push risks were checked, including 100 MiB file blocks, Git LFS candidates, and the 2 GiB single-push limit.'
 - 'At least one converted repository exists in GitHub with branches and tags visible and expected commit history preserved.'
-- 'Coach conversation — explain which legacy VCS source you would migrate first in a real program, which metadata will not come across, and how you would reduce cutover risk.'
+take_home_action: In your own tenant, choose the first legacy VCS source for migration and execute or document the source-specific conversion path, author mapping, size limits, and cutover controls.
+take_home_owner: solution-architect
+take_home_signal: At least one converted GitHub repository shows expected branches, tags, and history with mapped authors, or the blocker and risk-reduction plan are documented.
 tags:
 - migration
 - legacy-vcs

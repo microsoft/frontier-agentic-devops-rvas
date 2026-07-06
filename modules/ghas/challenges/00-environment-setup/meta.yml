@@ -25,6 +25,9 @@ success_criteria:
   - "`npm start` completes without errors"
   - "Working branch created and pushed: `git push -u origin <your-branch>` succeeds"
   - "`gh repo view` returns repository metadata without error"
+take_home_action: In your own org, standardize repository onboarding so every production repo has GHAS features enabled before developers start remediation work.
+take_home_owner: platform-governance
+take_home_signal: A newly onboarded production repository shows CodeQL, Dependabot alerts, secret scanning, and push protection enabled in its security settings.
 tags:
   - setup
   - devcontainer

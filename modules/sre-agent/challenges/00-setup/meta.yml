@@ -23,6 +23,9 @@ success_criteria:
   - "`az provider register -n Microsoft.App --wait` succeeds or is already registered"
   - "The official `microsoft/sre-agent` starter-lab prerequisites are understood"
   - "A fallback evidence packet is selected if live deployment is not available"
+take_home_action: In your own Azure subscription, verify roles, providers, and tooling against the GitHub org that will host governed Azure SRE Agent incident workflows.
+take_home_owner: solution-architect
+take_home_signal: The selected subscription and GitHub org pass prerequisite checks with documented resource group access and no fallback evidence required.
 tags:
   - setup
   - sre-agent

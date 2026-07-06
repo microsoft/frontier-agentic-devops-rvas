@@ -46,6 +46,9 @@ COACH.md   # facilitator guide, hints, expected outputs, common failures
 | `prerequisite_capabilities` | Skills or access needed before starting; do not use this for challenge ids. |
 | `description` | One-sentence catalog summary. |
 | `success_criteria` | Observable outcomes that prove the challenge is complete. |
+| `take_home_action` | Imperative production-adoption step the reader repeats in **their own org/tenant** (e.g. "In your own org, enforce push protection org-wide"). Plain scalar; drives real GitHub usage, not a coaching chat. |
+| `take_home_owner` | Who owns the rollout: `developer`, `platform-governance`, or `solution-architect`. |
+| `take_home_signal` | Observable production signal proving it landed (e.g. "Secret push protection blocks a real push in your org"). |
 | `tags` | Search/filter terms. Use lowercase kebab-case where possible. |
 | `app_dependency` | Runtime/sample dependency (`none`, `juice-shop`, `contoso-claims`, `contoso-app`, `seed`, or `seed-repo`). |
 | `emu_compatible` | `true` when the challenge works in an EMU-controlled org; otherwise `false`. |
@@ -68,13 +71,13 @@ Optional fields:
 
 ## Outcome journey contract
 
-`outcomes.json` defines the business-facing paths shown on the home page and catalog filters.
+`outcomes.json` defines the customer adoption paths shown on the home page and catalog filters.
 Each outcome requires:
 
 | Field | Contract |
 |---|---|
 | `id` | Stable kebab-case outcome id. |
-| `name` | Business-facing journey name. |
+| `name` | Customer adoption journey name. |
 | `tagline` | Short card summary. |
 | `description` | Longer explanation of when to use the journey. |
 | `personas` | Primary audience for the journey. |
@@ -82,7 +85,7 @@ Each outcome requires:
 | `business_value` | Searchable value tags. |
 | `source_platforms` | Relevant starting platforms, such as `azure-devops`, `bitbucket`, `gitlab`, `github`, or `greenfield`. |
 | `challenge_ids` | Ordered list of existing challenge ids included in the journey. |
-| `success_metrics` | Observable business outcomes coaches can use in workshop or account-team conversations. |
+| `success_metrics` | Production-observable outcomes the customer's own team can verify in their GitHub organization or Azure tenant. |
 
 ## Per-challenge QA rubric
 

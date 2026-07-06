@@ -25,7 +25,9 @@ success_criteria:
   - At least 2 key points from the discussion
   - Next steps or recommendation
   - Only authorized users (repo members) can trigger the command
-  - "Coach conversation — what context do you and your teammates rebuild by hand by scrolling long threads, and which on-demand slash command would you actually reach for in your daily work? Talk it through with your coach and connect it to a real project, task, or workflow you own."
+take_home_action: In a repository you own, enable the slash-command summarizer with safe comment output for issue threads your team actually discusses.
+take_home_owner: developer
+take_home_signal: A real issue comment using the slash command produces a concise thread summary and other comments do not trigger the workflow.
 tags:
   - slash-commands
   - issue-comments

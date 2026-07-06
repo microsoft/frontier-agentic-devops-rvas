@@ -1,14 +1,14 @@
 # Agentic DevOps
 
-One repo. One GitHub Pages site. Five outcome journeys, four hackathon modules, 64 challenges, zero configuration drama.
+One repo. One GitHub Pages site. Five adoption journeys, four hackathon modules, 64 challenges, zero configuration drama.
 
 ## Outcomes
 
-The site is organized around business outcomes first, then platform modules:
+The site is organized around customer adoption outcomes first, then platform modules:
 
 | Outcome ID | Purpose |
 |---|---|
-| `github-adoption` | Streamline adoption of GitHub Enterprise Cloud as the enterprise developer platform. |
+| `github-adoption` | Help customer teams adopt GitHub Enterprise Cloud as their production developer platform. |
 | `platform-migration` | Move projects from Azure DevOps, Bitbucket, GitLab, or other platforms to GitHub. |
 | `ghas-adoption` | Adopt GitHub Advanced Security as a repeatable secure-development operating model. |
 | `agentic-workflows` | Start using reviewable, safe agentic workflows on GitHub. |

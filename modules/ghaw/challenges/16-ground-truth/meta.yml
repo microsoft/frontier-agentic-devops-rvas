@@ -20,7 +20,9 @@ success_criteria:
   - PR title matches `title-prefix`
   - Numbers in the PR are accurate (match what `gh` CLI would return for the repo)
   - `permissions: contents: write` and `pull-requests: write` are both declared
-  - "Coach conversation — where has an AI confidently produced numbers or facts it made up in your work, and how would feeding it deterministic data first change what you would trust it to output? Talk it through with your coach and connect it to a real project, task, or workflow you own."
+take_home_action: In a repository you own, feed deterministic pre-agent data into a workflow before allowing it to open safe pull requests with proposed code changes.
+take_home_owner: developer
+take_home_signal: Generated PRs reference fetched ground-truth data and reviewers can reproduce the evidence used by the agent.
 tags:
   - pre-agent-steps
   - create-pull-request

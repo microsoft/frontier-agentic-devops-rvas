@@ -23,7 +23,9 @@ success_criteria:
 - The migrated repository is private by default or its visibility was intentionally set with `--target-repo-visibility` and verified after migration.
 - Migration logs were downloaded within the 24-hour availability window or the learner documented the exact command and migration ID needed to retrieve them.
 - At least one mannequin was reclaimed, or the mannequin CSV was generated and an org-owner-approved reclaim plan was documented.
-- Coach conversation — connect this migration to a real repository, owner team, cutover window, and post-migration backlog the learner owns.
+take_home_action: In your own tenant, select one Azure DevOps repository wave, confirm owner teams and cutover windows, migrate with GitHub Enterprise Importer, and plan post-migration remediation.
+take_home_owner: solution-architect
+take_home_signal: The migrated GitHub repository contains source history, pull request metadata, work item links or documented gaps, reclaimed users, logs, and an approved cutover record.
 tags:
 - azure-devops
 - github-enterprise-importer

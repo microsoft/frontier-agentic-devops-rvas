@@ -20,7 +20,9 @@ success_criteria:
 - At least **one push-protection bypass** exists with a recorded actor and reason (verifiable via the alerts API).
 - A **custom secret-scanning pattern** is published and raised at least one alert.
 - A **triage summary** issue exists on the repo.
-- 'Coach conversation — if you turned push protection on across your real org tomorrow, whose workflow breaks first and what secret would it have caught in your last six months of commits? Talk it through with your coach and connect it to a real project, task, or workflow you own.'
+take_home_action: In your own org, enable secret scanning and push protection for production repositories, publish custom patterns, and define the bypass triage process.
+take_home_owner: platform-governance
+take_home_signal: New secret pushes are blocked, existing alerts have owners and resolution reasons, and bypass events appear in alert or audit evidence.
 tags:
 - ghas
 - secret-scanning

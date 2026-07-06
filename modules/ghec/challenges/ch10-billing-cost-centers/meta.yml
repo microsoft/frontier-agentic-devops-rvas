@@ -18,7 +18,9 @@ success_criteria:
 - You can **reconcile** the API usage total against the UI Usage page and explain the cost model (included vs metered; per-minute price varies by runner OS/SKU).
 - A committed **cost-report script** runs and produces a product/used/included/billable table.
 - A **`COST-REPORT.md`** exists with the before/after delta and a budget recommendation.
-- 'Coach conversation — look at your team''s actual GitHub usage right now: where is spend invisible or unattributed, and who in your org should own cost accountability for Actions minutes, Codespaces, or storage but currently does not? Talk it through with your coach and connect it to a real project, task, or workflow you own.'
+take_home_action: In your own org, assign cost ownership for Actions, Codespaces, Packages, and storage, then configure budgets and reporting for the accountable teams.
+take_home_owner: platform-governance
+take_home_signal: The billing UI and API show budgets, alert thresholds, and a recurring usage report that maps metered spend to the owning cost center.
 tags:
 - billing
 - usage

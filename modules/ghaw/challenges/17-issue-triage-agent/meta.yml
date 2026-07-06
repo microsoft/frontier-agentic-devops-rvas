@@ -20,7 +20,9 @@ success_criteria:
   - `.github/workflows/issue-triage-agent.lock.yml` compiles without errors
   - Dry-run completes and shows expected label assignments in output
   - Live test: open a new issue and verify labels + comment appear
-  - "Coach conversation — if you deployed this proven triage agent on your busiest repo tomorrow, what would you measure to decide whether it is actually saving the team time rather than adding noise? Talk it through with your coach and connect it to a real project, task, or workflow you own."
+take_home_action: In a repository you own, deploy the issue triage agent with safe label and comment outputs for the labels and response style your maintainers accept.
+take_home_owner: developer
+take_home_signal: Incoming real issues are categorized consistently and maintainers can trust the comment rationale.
 tags:
   - issues
   - triage

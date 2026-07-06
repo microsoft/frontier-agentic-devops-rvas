@@ -19,7 +19,9 @@ success_criteria:
   - Comment appears on the PR
   - Comment avoids generic advice—it's specific to *this* repo's standards
   - `safe-outputs: add-comment` is used correctly
-  - "Coach conversation — what context does an agent on your team need before it can make a decision you would trust, and where today does it fly blind without that data? Talk it through with your coach and connect it to a real project, task, or workflow you own."
+take_home_action: In a repository you own, connect the agent to live repository context through approved MCP toolsets before allowing safe comment or PR outputs.
+take_home_owner: solution-architect
+take_home_signal: Agent output cites current repo context such as diffs or docs and avoids decisions based on missing information.
 tags:
   - mcp-tools
   - external-context

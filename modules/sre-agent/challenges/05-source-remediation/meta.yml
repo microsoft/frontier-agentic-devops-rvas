@@ -17,7 +17,9 @@ success_criteria:
   - The remediation work item includes symptom, evidence, likely cause, alternative hypothesis, and validation plan.
   - If a PR is proposed, the team reviews it as untrusted teammate output before approval.
   - Secrets and tenant-specific incident data are not pasted into public GitHub artifacts.
-  - 'Coach conversation — for your real team, should Azure SRE Agent create an issue, draft a PR, or only recommend a runbook step by default? What approval gate would you require?'
+take_home_action: In your own GitHub org, connect the production service repository to Azure SRE Agent and require human approval before it opens issues or proposes pull requests.
+take_home_owner: solution-architect
+take_home_signal: A real incident produces a governed GitHub issue or draft pull request with evidence, validation steps, and an explicit approval gate.
 tags:
   - source-code-context
   - remediation

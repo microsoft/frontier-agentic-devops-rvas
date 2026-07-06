@@ -21,7 +21,9 @@ success_criteria:
 - The two-phase manual archive path is practiced or documented, including where the .tar archive is produced under BITBUCKET_SHARED_HOME.
 - A Bitbucket Cloud repository is mirror-pushed to GitHub and all Git branches and tags are present in the destination repository.
 - The learner documents which Bitbucket data does not migrate for Server/Data Center and which collaboration metadata is lost for Bitbucket Cloud.
-- Coach conversation completed: the learner identifies the cutover risks, validation evidence, and rollback or retry plan for one real Bitbucket migration wave.
+take_home_action: In your own tenant, define the Bitbucket Server, Data Center, or Cloud migration wave with staging storage, validation evidence, rollback, and retry procedures.
+take_home_owner: solution-architect
+take_home_signal: A migrated GitHub repository preserves expected branches, tags, pull request metadata where supported, and a wave runbook records cutover risks and fallback steps.
 tags:
 - bitbucket
 - github-enterprise-importer

@@ -21,7 +21,9 @@ success_criteria:
   - **End-to-end test**: Open an issue → Triage workflow creates tracking issue → Comment `/fix` on tracking issue → Copilot creates a PR (or attempts to)
   - At least one workflow uses `repo-memory` for data passing
   - At least one workflow uses `assign-to-agent`
-  - "Coach conversation — across an end-to-end pipeline from issue to merge, which handoffs would you let agents run autonomously and which single gate would you never remove a human from? Talk it through with your coach and connect it to a real project, task, or workflow you own."
+take_home_action: In a repository you own, roll out the end-to-end agentic pipeline behind safe-output gates and keep the merge or release decision as an explicit human checkpoint.
+take_home_owner: solution-architect
+take_home_signal: A real issue moves through triage, fix proposal, and PR creation while protected branches still enforce human approval.
 tags:
   - capstone
   - end-to-end

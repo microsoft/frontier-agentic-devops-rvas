@@ -20,7 +20,9 @@ success_criteria:
 - The **Projects (v2)** board has the four custom fields, all backlog issues added, and **three saved views** (board / table / roadmap).
 - A **built-in workflow** is enabled and demonstrably moved a closed issue to `Done`.
 - An **Insights chart** grouped by `Priority` is saved on the project.
-- 'Coach conversation — what real work item or backlog from your team would you model differently now that you understand GitHub''s label taxonomy and Projects v2 automation, and what field or view are you missing today? Talk it through with your coach and connect it to a real project, task, or workflow you own.'
+take_home_action: In your own org, move one real team backlog onto a Projects (v2) board with the label taxonomy, custom fields, saved views, and the built-in automation you configured here.
+take_home_owner: developer
+take_home_signal: A team's live backlog is triaged with type:/priority: labels and issues move across the board automatically on close.
 tags:
 - issues
 - labels

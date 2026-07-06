@@ -19,7 +19,9 @@ success_criteria:
   - `.github/workflows/unbloat-docs.lock.yml` compiles without errors
   - Dry-run proposes at least one real simplification
   - Proposed PR diff is focused (one file, clean changes)
-  - "Coach conversation — where has documentation bloat in your projects actually pushed contributors away, and how would you keep an agent from cutting something important while it trims the fat? Talk it through with your coach and connect it to a real project, task, or workflow you own."
+take_home_action: In a repository you own, run the documentation unbloat workflow on one docs area and require safe pull requests with small, reviewable deletions.
+take_home_owner: developer
+take_home_signal: A real PR removes redundant documentation while preserving required guidance and passing normal review.
 tags:
   - documentation
   - simplification

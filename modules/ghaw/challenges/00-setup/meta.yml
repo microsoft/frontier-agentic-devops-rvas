@@ -19,6 +19,9 @@ success_criteria:
   - "`gh aw --version` returns a version string"
   - "`gh aw trial modules/ghaw/resources/examples/hello-world.md --logical-repo microsoft/frontier-agenticdevops-hackathon --dry-run --yes` completes without errors"
   - "`ls modules/ghaw/resources/examples/hello-world.md` confirms the embedded example exists"
+take_home_action: In a repository you own, authenticate gh-aw and run the hello-world trial in dry-run mode before enabling any workflow that writes through safe-outputs.
+take_home_owner: developer
+take_home_signal: The dry run completes against the real repo and shows no write operation outside the declared safe-outputs.
 tags:
   - setup
   - devcontainer

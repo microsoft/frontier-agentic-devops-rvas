@@ -26,7 +26,9 @@ success_criteria:
   - At least 2 helpful links or resources
   - Encouragement
   - Comment is friendly, not robotic
-  - "Coach conversation — what first impression do new contributors get from your project today, and what would you trust an automated welcome to handle versus what should stay a personal touch? Talk it through with your coach and connect it to a real project, task, or workflow you own."
+take_home_action: In a repository you own, deploy the first-time contributor welcome workflow with safe PR comments and links to your real contribution guidance.
+take_home_owner: developer
+take_home_signal: A debut pull request receives one relevant welcome comment and repeat contributors are not spammed.
 tags:
   - pull-requests
   - first-time-contributors

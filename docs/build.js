@@ -211,6 +211,11 @@ function normaliseMeta(raw, moduleId, slug) {
   if (!Array.isArray(m.personas))              m.personas = [];
   if (!Array.isArray(m.business_value))        m.business_value = [];
 
+  // take_home_* (production adoption): plain scalars, default to empty string.
+  if (typeof m.take_home_action !== 'string') m.take_home_action = m.take_home_action ? String(m.take_home_action) : '';
+  if (typeof m.take_home_owner  !== 'string') m.take_home_owner  = m.take_home_owner  ? String(m.take_home_owner)  : '';
+  if (typeof m.take_home_signal !== 'string') m.take_home_signal = m.take_home_signal ? String(m.take_home_signal) : '';
+
   // app_dependency: legacy uses "app"
   if (!m.app_dependency) m.app_dependency = m.app || 'none';
 
@@ -405,6 +410,11 @@ function main() {
       if (!hasReadme) { console.warn(`  ! ${meta.id}: no README.md (student guide)`); warnings++; }
       if (!hasCoach)  { console.warn(`  ! ${meta.id}: no COACH.md (coach guide)`);   warnings++; }
 
+      if (!meta.take_home_action || !meta.take_home_owner || !meta.take_home_signal) {
+        console.error(`  ✗ ${meta.id}: missing take_home_action/owner/signal (production-adoption take-home)`);
+        errors++;
+      }
+
       const trackCfg = (moduleCfg.tracks && moduleCfg.tracks[meta.track]) || {};
 
       allChallenges.push({
@@ -418,6 +428,9 @@ function main() {
         prerequisites:           meta.prerequisites,
         prerequisite_capabilities: meta.prerequisite_capabilities,
         success_criteria:        meta.success_criteria,
+        take_home_action:        meta.take_home_action,
+        take_home_owner:         meta.take_home_owner,
+        take_home_signal:        meta.take_home_signal,
         tags:                    meta.tags,
         outcomes:                meta.outcomes,
         personas:                meta.personas,
@@ -530,9 +543,22 @@ function main() {
       const c = challengeById.get(id);
       return sum + (c && c.duration_minutes ? c.duration_minutes : 0);
     }, 0);
+    // Aggregate each member challenge's take-home into a production adoption checklist.
+    const take_home = challengeIds
+      .map(id => challengeById.get(id))
+      .filter(c => c && c.take_home_action)
+      .map(c => ({
+        id:     c.id,
+        title:  c.title,
+        module: c.module,
+        action: c.take_home_action,
+        owner:  c.take_home_owner,
+        signal: c.take_home_signal,
+      }));
     return Object.assign({}, o, {
       challenge_count: challengeIds.length,
       duration_minutes: totalMinutes,
+      take_home,
     });
   });
 

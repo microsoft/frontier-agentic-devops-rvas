@@ -34,6 +34,7 @@
     document.title = challenge.title + ' — Agentic DevOps';
     applyModuleColor(challenge.module);
     renderHero(challenge, mod);
+    renderTakeHome(challenge);
     renderFacts(challenge, mod, allChallenges, data.outcomes || []);
     renderRelated(challenge, allChallenges);
     applyKioskLinks();
@@ -100,9 +101,45 @@
     }
   }
 
+  const OWNER_LABELS = {
+    'developer': 'Developer',
+    'platform-governance': 'Platform / Governance',
+    'solution-architect': 'Solution Architect',
+  };
+
+  function renderTakeHome(c) {
+    const card = document.getElementById('takeHomeCard');
+    if (!card) return;
+    const action = (c.take_home_action || '').trim();
+    if (!action) { card.hidden = true; return; }
+    card.hidden = false;
+
+    const actionEl = document.getElementById('takeHomeAction');
+    if (actionEl) actionEl.innerHTML = FP.renderInlineMd(action);
+
+    const signal = (c.take_home_signal || '').trim();
+    const signalEl = document.getElementById('takeHomeSignal');
+    if (signalEl) {
+      signalEl.innerHTML = signal
+        ? `<span class="take-home-signal-label">You'll know it landed when</span> ${FP.renderInlineMd(signal)}`
+        : '';
+      signalEl.style.display = signal ? '' : 'none';
+    }
+
+    const owner = (c.take_home_owner || '').trim();
+    const ownerEl = document.getElementById('takeHomeOwner');
+    if (ownerEl) {
+      if (owner) {
+        ownerEl.textContent = OWNER_LABELS[owner] || owner;
+        ownerEl.style.display = '';
+      } else {
+        ownerEl.style.display = 'none';
+      }
+    }
+  }
+
   function renderFacts(c, mod, allChallenges, outcomes) {
-    // Prerequisites
-    const prereqPanel = document.getElementById('prereqPanel');
+    // Prerequisites    const prereqPanel = document.getElementById('prereqPanel');
     const prereqList  = document.getElementById('prereqList');
     if (prereqPanel && prereqList) {
       if (!c.prerequisites || !c.prerequisites.length) {

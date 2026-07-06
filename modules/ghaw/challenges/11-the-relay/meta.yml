@@ -23,7 +23,9 @@ success_criteria:
   - Producer runs, data appears in `repo-memory/`
   - Consumer reads that data and creates a discussion referencing the metrics
   - The two workflows are not directly coupled (consumer doesn't know producer's name)
-  - "Coach conversation — what complex automation are you tempted to build as one giant agent that would be safer split into a producer and a consumer passing state, and where would you put the checkpoint between them? Talk it through with your coach and connect it to a real project, task, or workflow you own."
+take_home_action: In a repository you own, split one oversized automation into producer and consumer workflows that exchange repo-memory state and write only through declared safe-outputs.
+take_home_owner: solution-architect
+take_home_signal: The consumer run uses producer data from the real repo and emits the expected safe output without manual handoff.
 tags:
   - workflow-chaining
   - repo-memory

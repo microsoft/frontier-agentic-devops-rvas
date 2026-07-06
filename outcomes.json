@@ -4,9 +4,9 @@
     {
       "id": "github-adoption",
       "name": "Adopt GitHub Enterprise Cloud",
-      "tagline": "Stand up the operating model for GitHub as the enterprise developer platform.",
-      "description": "Move teams from basic GitHub usage to an enterprise-ready foundation for planning, collaboration, governance, automation, and AI-assisted delivery.",
-      "personas": ["platform-engineer", "engineering-lead", "enterprise-admin"],
+      "tagline": "Stand up GitHub Enterprise Cloud for production teams.",
+      "description": "Configure GitHub in the customer's own organization so teams can plan work, review code, enforce governance, run automation, and use AI-assisted delivery in production repositories.",
+      "personas": ["customer-developer", "platform-governance", "solution-architect", "platform-engineer"],
       "adoption_stage": ["assess", "pilot", "scale", "operate"],
       "business_value": ["streamline-platform-adoption", "standardize-developer-flow", "improve-governance"],
       "source_platforms": ["greenfield", "github"],
@@ -28,17 +28,17 @@
         "ghec-ch20"
       ],
       "success_metrics": [
-        "Pilot teams can plan, code, review, and automate delivery in GitHub without leaving the platform.",
-        "Org-level governance, access, audit, and cost controls are configured and explainable.",
-        "Coaches can map completed challenges to an adoption plan for additional teams."
+        "A production repository has teams, permissions, rulesets, required checks, and audit visibility configured in the customer's GitHub organization.",
+        "The team's next production pull request runs required checks and merges through the configured ruleset.",
+        "Customer developers can plan, code, review, and automate delivery in GitHub without leaving their daily workflow."
       ]
     },
     {
       "id": "platform-migration",
       "name": "Migrate projects to GitHub",
-      "tagline": "Plan and execute a safe move from Azure DevOps, Bitbucket, GitLab, or other platforms.",
-      "description": "Use the GitHub platform modules to model a migration path: repository setup, team permissions, branch protections, CI conversion, security controls, and post-migration validation.",
-      "personas": ["platform-engineer", "migration-lead", "engineering-lead"],
+      "tagline": "Move a real project onto GitHub and prove it is ready for production work.",
+      "description": "Migrate a customer project into GitHub with repository setup, team permissions, rulesets, CI conversion, security controls, validation evidence, and post-cutover ownership in the customer's tenant.",
+      "personas": ["platform-engineer", "platform-governance", "solution-architect", "customer-developer"],
       "adoption_stage": ["assess", "pilot", "scale"],
       "business_value": ["reduce-migration-risk", "accelerate-cutover", "standardize-delivery"],
       "source_platforms": ["azure-devops", "bitbucket", "gitlab", "other"],
@@ -60,17 +60,17 @@
         "ghec-ch18"
       ],
       "success_metrics": [
-        "A pilot repository has a GitHub-native planning, review, security, and CI/CD path.",
-        "Legacy platform controls have a documented GitHub equivalent or migration decision.",
-        "The migration lead can explain validation, rollback, and post-cutover ownership."
+        "A migrated repository in the customer's GitHub organization contains the expected history, default branch, teams, permissions, and rulesets.",
+        "The first production pull request after migration runs GitHub-native checks, security scans, and review requirements before merge.",
+        "Legacy platform controls have verified GitHub equivalents or documented cutover decisions owned by the customer's platform team."
       ]
     },
     {
       "id": "ghas-adoption",
       "name": "Adopt GitHub Advanced Security",
-      "tagline": "Turn security tooling into a repeatable secure-development operating model.",
-      "description": "Enable GHAS, explore real vulnerabilities, remediate findings, protect secrets and dependencies, and run security campaigns that scale across teams.",
-      "personas": ["security-lead", "appsec-engineer", "developer"],
+      "tagline": "Put GitHub Advanced Security into daily pull-request work.",
+      "description": "Enable GHAS in the customer's organization so developers and AppSec teams can find, triage, and remediate code, secret, and dependency risk in production repositories.",
+      "personas": ["security-lead", "appsec-engineer", "customer-developer", "platform-governance"],
       "adoption_stage": ["pilot", "scale", "operate"],
       "business_value": ["reduce-security-risk", "shift-left-security", "improve-remediation-flow"],
       "source_platforms": ["github", "azure-devops", "bitbucket", "gitlab"],
@@ -88,17 +88,17 @@
         "ghec-ch15"
       ],
       "success_metrics": [
-        "Teams can identify, prioritize, and remediate CodeQL, secret, and dependency findings.",
-        "Security campaigns have owners, scope, evidence, and measurable remediation outcomes.",
-        "Developers understand how GHAS changes their daily pull-request workflow."
+        "Code scanning, secret scanning, push protection, and dependency alerts are enabled on the customer's target production repositories.",
+        "Push protection blocks a real secret from being pushed in the customer's GitHub organization.",
+        "A code scanning or dependency alert is triaged, remediated through a pull request, and shown closed in GitHub."
       ]
     },
     {
       "id": "agentic-workflows",
       "name": "Adopt agentic workflows",
-      "tagline": "Move from one-off automation to reviewable agent-driven engineering flows.",
-      "description": "Build safe GitHub-native agents for issue triage, PR review, CI diagnosis, documentation, testing, security, and continuous intelligence.",
-      "personas": ["developer", "platform-engineer", "engineering-lead"],
+      "tagline": "Put safe agentic workflows into GitHub issues, pull requests, and CI.",
+      "description": "Build and operate GitHub-native agents in the customer's repositories for issue triage, pull-request review, CI diagnosis, documentation, testing, security, and continuous intelligence with reviewable outputs.",
+      "personas": ["customer-developer", "platform-engineer", "solution-architect", "platform-governance"],
       "adoption_stage": ["pilot", "scale", "operate"],
       "business_value": ["automate-repetitive-work", "improve-developer-productivity", "standardize-agent-safety"],
       "source_platforms": ["github"],
@@ -130,17 +130,17 @@
         "ghaw-24"
       ],
       "success_metrics": [
-        "Each agent has clear triggers, allowed tools, safe outputs, and review points.",
-        "Teams can choose candidate workflows based on measurable time saved or risk reduced.",
-        "Production patterns are reusable across real repositories with guardrails."
+        "An agent workflow runs from a real issue, pull request, or CI failure in the customer's GitHub organization.",
+        "Each agent uses documented triggers, least-privilege permissions, allowed tools, logs, and human review points.",
+        "Agent-generated changes land only through pull requests with required checks and reviewer approval."
       ]
     },
     {
       "id": "agentic-devops-cloud",
       "name": "Adopt Azure SRE Agent",
-      "tagline": "Turn Azure operational signals into evidence-backed investigation and governed remediation.",
-      "description": "Use Azure SRE Agent with Azure Monitor, Log Analytics, Application Insights, service knowledge, source-code context, and GitHub follow-up to reduce operational toil and improve incident response.",
-      "personas": ["sre", "platform-engineer", "cloud-engineer"],
+      "tagline": "Connect Azure SRE Agent to production signals and GitHub follow-up.",
+      "description": "Use Azure SRE Agent in the customer's Azure tenant with Azure Monitor, Log Analytics, Application Insights, service knowledge, source-code context, and GitHub follow-up for production incident investigation.",
+      "personas": ["sre", "platform-engineer", "solution-architect"],
       "adoption_stage": ["pilot", "operate"],
       "business_value": ["improve-operational-resilience", "accelerate-cloud-delivery", "reduce-incident-mttx"],
       "source_platforms": ["github", "azure"],
@@ -153,9 +153,9 @@
         "ghec-ch19"
       ],
       "success_metrics": [
-        "An Azure SRE Agent can explain the monitored application, connected Azure resources, and available runbooks.",
-        "A controlled incident produces an alert, investigation evidence, likely cause, and recovery action.",
-        "Source-code context or a fallback evidence packet connects operational symptoms to governed engineering follow-up."
+        "Azure SRE Agent is connected to the customer's monitored application, Azure resources, logs, traces, and runbooks.",
+        "A controlled incident produces an alert, investigation evidence, likely cause, and recovery action in the customer's Azure environment.",
+        "A GitHub issue or pull request links the operational symptoms to source-code context, logs, and the agreed engineering follow-up."
       ]
     }
   ]

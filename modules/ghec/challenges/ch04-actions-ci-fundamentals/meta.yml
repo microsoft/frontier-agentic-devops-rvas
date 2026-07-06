@@ -20,7 +20,9 @@ success_criteria:
 - A second job uses **`needs`** and a **conditional** so it only runs on `main`.
 - An **environment** `staging` exists with a protection rule and a variable + secret wired into a job.
 - The **`build-test` check is required** on `main`; a red run **blocks merge**, a green run unblocks it.
-- 'Coach conversation — pick one test suite or build process from your actual work that runs manually or inconsistently: what would an always-on, branch-triggered Actions workflow catch in the next two weeks that human discipline alone has missed? Talk it through with your coach and connect it to a real project, task, or workflow you own.'
+take_home_action: In your own org, convert one manual build or test path into a required GitHub Actions CI workflow with caching, artifacts, environments, and branch-gating status checks.
+take_home_owner: developer
+take_home_signal: A real pull request cannot merge until the Actions check passes and the workflow produces the expected build, test, cache, and artifact evidence.
 tags:
 - github-actions
 - ci

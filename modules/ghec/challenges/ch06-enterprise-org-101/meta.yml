@@ -20,7 +20,9 @@ success_criteria:
 - At least one sample repo's **visibility was changed** where the org permits it; on EMU, the public-repo block is documented and you can explain public vs internal vs private.
 - Default **Actions workflow permissions** are set to read-only at the org.
 - A **before/after API diff** exists and a **`POLICY.md`/baseline doc** records every setting + rationale.
-- 'Coach conversation — if you were the org owner of your team''s GitHub organization today, what is the first enterprise policy or default repository setting you would change, and what risk or inefficiency is it currently causing? Talk it through with your coach and connect it to a real project, task, or workflow you own.'
+take_home_action: In your own org or tenant, set the enterprise baseline for member privileges, repository creation, visibility, fork policy, Actions permissions, and security defaults.
+take_home_owner: platform-governance
+take_home_signal: The org settings API and baseline policy document show the approved defaults enforced with before-and-after evidence.
 tags:
 - enterprise
 - organization-settings

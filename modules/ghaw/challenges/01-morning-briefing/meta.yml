@@ -20,7 +20,9 @@ success_criteria:
   - `.github/workflows/morning-briefing.lock.yml` is generated after compiling
   - At least one issue was created when the workflow ran (or manual trigger via `workflow_dispatch`)
   - Issue body includes a summary of recent activity (issues opened, PRs, etc.)
-  - "Coach conversation — what daily status update do you or your team assemble by hand today that this scheduled briefing pattern could replace, and what would you trust it to send unsupervised? Talk it through with your coach and connect it to a real project, task, or workflow you own."
+take_home_action: In a repository you own, deploy the scheduled briefing workflow with safe-outputs so it posts a daily summary issue without write access to code.
+take_home_owner: developer
+take_home_signal: A real repo receives an automated daily briefing issue on schedule with no manual steps.
 tags:
   - cron
   - schedule

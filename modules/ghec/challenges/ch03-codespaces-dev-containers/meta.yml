@@ -21,7 +21,9 @@ success_criteria:
 - An **org Codespaces policy** restricts machine types and sets retention.
 - A **prebuild** is configured and a new Codespace reports **prebuilt**.
 - All your Codespaces are **stopped/deleted** at the end.
-- 'Coach conversation — what is the most painful or inconsistent part of onboarding a new developer (or yourself after a fresh machine) onto your current project, and how would a Codespace with a locked devcontainer.json change that? Talk it through with your coach and connect it to a real project, task, or workflow you own.'
+take_home_action: In your own org, publish a locked devcontainer and Codespaces policy for one onboarding-critical repository, then enable prebuilds for the default branch.
+take_home_owner: developer
+take_home_signal: A new developer can open the repository in Codespaces and get the pinned tools, forwarded ports, policy-compliant machine type, and prebuilt environment without manual setup.
 tags:
 - codespaces
 - devcontainers

@@ -17,7 +17,9 @@ success_criteria:
 - A pull request description using a supported transition phrase such as **`Fixes AB#<work-item-id>`** is merged into the default branch and transitions the linked work item to the expected Resolved/Completed workflow-category state.
 - The GitHub pull request shows the linked Azure Boards work item in its **Development** section when `AB#` is present in the pull request description.
 - You can explain and fix at least one failed-link scenario, such as wrong Azure DevOps organization, missing app permissions, or malformed `AB#` syntax.
-- 'Coach conversation — identify one migrated team that still plans in Azure Boards: which repositories must be connected first, who owns the GitHub app installation approval, and what evidence proves traceability survived cutover? Talk it through with your coach.'
+take_home_action: In your own tenant, connect Azure Boards projects to the migrated GitHub repositories that still require work-item traceability and confirm app installation ownership.
+take_home_owner: solution-architect
+take_home_signal: Commits and pull requests using AB links appear in Azure Boards Development fields and linked work items transition as expected after merge.
 tags:
 - azure-boards
 - github-apps

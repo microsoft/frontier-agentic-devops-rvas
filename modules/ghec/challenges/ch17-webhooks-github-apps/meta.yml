@@ -19,7 +19,9 @@ success_criteria:
 - An **organization webhook** exists and a real org event was delivered and verified.
 - A **GitHub App** is registered with scoped permissions + event subscriptions and **installed** on the org.
 - You minted an **installation access token** and the App **posted a comment as a bot identity**.
-- 'Coach conversation — which external system in your workflow (Jira, Slack, PagerDuty, a deployment dashboard) is updated by hand after a GitHub event, and what webhook payload or GitHub App permission would let you wire it up automatically? Talk it through with your coach and connect it to a real project, task, or workflow you own.'
+take_home_action: In your own org, replace one manually updated downstream system with a signed webhook receiver or GitHub App installed with least-privilege permissions.
+take_home_owner: developer
+take_home_signal: A real GitHub event updates the downstream system automatically and delivery logs show signature verification and bot-authenticated API activity.
 tags:
 - webhooks
 - github-apps

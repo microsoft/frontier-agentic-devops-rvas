@@ -19,7 +19,9 @@ success_criteria:
   - `.lock.yml` compiles without errors
   - Manually triggered run either: opens issues for real alerts, or reports "no violations found" clearly
   - Issues (if opened) include: CVE/advisory ID, severity, days remaining, package name
-  - "Coach conversation — how does your team track vulnerabilities and SLA deadlines today, and where would deadline-aware agent-filed issues close a real gap versus create alert fatigue you would regret? Talk it through with your coach and connect it to a real project, task, or workflow you own."
+take_home_action: In a repository you own, deploy vulnerability campaign tracking with safe issue creation, severity mapping, and SLA deadlines aligned to your governance policy.
+take_home_owner: platform-governance
+take_home_signal: Open security issues reflect real vulnerabilities, due dates, and escalation status without duplicate alert noise.
 tags:
   - security
   - compliance

@@ -21,7 +21,9 @@ success_criteria:
   - `.lock.yml` compiles without errors
   - Dry-run produces at least one new test file or function
   - Proposed test is syntactically valid for your framework
-  - "Coach conversation — would you trust an agent to write and open PRs for your missing tests, and how would you check that those generated tests actually prove something rather than just lifting coverage numbers? Talk it through with your coach and connect it to a real project, task, or workflow you own."
+take_home_action: In a repository you own, deploy the test improver to consume approved testing issues and open safe pull requests with focused tests that reviewers can run.
+take_home_owner: developer
+take_home_signal: A real PR adds tests for a named gap and the test suite shows the new coverage behaves as intended.
 tags:
   - testing
   - coverage
