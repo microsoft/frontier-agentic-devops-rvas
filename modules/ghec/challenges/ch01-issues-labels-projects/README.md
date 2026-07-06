@@ -29,9 +29,9 @@ By completing this challenge you will:
 You have just inherited the backlog for an internal developer-tools team at a GHEC customer. Work is scattered across chat threads, spreadsheets, and people's heads. Leadership wants a single source of truth: every request becomes an issue, every issue is triaged within a day, and a live board shows what's in flight, what's blocked, and what ships this sprint. Your job is to stand that system up on GitHub the way you'd hand it to a real team on Monday morning.
 
 ## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the hackathon*. Pick a real backlog, issue taxonomy, and Projects board your team will keep using and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+This challenge is most valuable when the result *outlives the delivery session*. Pick a real backlog, issue taxonomy, and Projects board your team will keep using and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 
-- **Have a candidate?** Use it everywhere this guide says `wth-ch01-issues-labels-projects` or `wth-ch01-board`. Skip the Setup step below entirely.
+- **Have a candidate?** Use it everywhere this guide says `ghec-ch01-issues-labels-projects` or `ghec-ch01-board`. Skip the Setup step below entirely.
 - **No suitable one?** Use the fallback below: a seeded backlog repo and empty project board you can shape safely.
 
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
@@ -48,16 +48,16 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch01 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch01 --org <org>
 ```
 
-**What setup creates** (all artifacts namespaced `wth-ch01-*`, idempotent, prefix-guarded teardown):
-- A seeded repo **`wth-ch01-issues-labels-projects`** with a realistic `README`, a small source tree, and a `.github/ISSUE_TEMPLATE/` directory you will extend.
+**What setup creates** (all artifacts namespaced `ghec-ch01-*`, idempotent, prefix-guarded teardown):
+- A seeded repo **`ghec-ch01-issues-labels-projects`** with a realistic `README`, a small source tree, and a `.github/ISSUE_TEMPLATE/` directory you will extend.
 - **~26 seeded issues** describing a backlog (bugs, features, chores) — deliberately messy: inconsistent or missing labels, no milestone, no assignee.
 - An **intentionally messy, incomplete label set** (`bug`, `Bug`, `enhancement`, `urgent`, `wontfix`, `question`, `backend`, `frontend` — note the duplicate `bug`/`Bug` casing) so you can feel the gap and design a real taxonomy.
-- An **empty Projects (v2) board** `wth-ch01-board` linked to the repo, with no custom fields yet.
+- An **empty Projects (v2) board** `ghec-ch01-board` linked to the repo, with no custom fields yet.
 - A printed **Next steps** block telling you where to start.
 
 
 ## Tasks
-> Throughout, **`wth-ch01-issues-labels-projects` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
+> Throughout, **`ghec-ch01-issues-labels-projects` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Issues & issue hygiene
 1. **Read the backlog.** Open the repo's **Issues** tab and skim every seeded issue. Note that they are inconsistently labeled and none are assigned or milestoned — this is your raw material.
@@ -83,11 +83,11 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch01 --org <org>
 7. **Prove consistency.** Run `gh issue list --label "priority: p0"` and confirm the highest-priority items surface correctly.
 
 ### Part C — Milestones
-8. **Create two milestones:** `Sprint 1` (due 2026-06-15) and `Sprint 2` (due 2026-06-29) — via the UI or `gh api repos/<org>/wth-ch01-issues-labels-projects/milestones -f title='Sprint 1' -f due_on='2026-06-15T00:00:00Z'`.
+8. **Create two milestones:** `Sprint 1` (due 2026-06-15) and `Sprint 2` (due 2026-06-29) — via the UI or `gh api repos/<org>/ghec-ch01-issues-labels-projects/milestones -f title='Sprint 1' -f due_on='2026-06-15T00:00:00Z'`.
 9. **Assign issues to milestones** so each sprint has a realistic, finite scope (4–6 issues each). Open a milestone and confirm the **progress bar** reflects open/closed counts.
 
 ### Part D — Projects (v2) board
-10. **Add custom fields** to `wth-ch01-board`:
+10. **Add custom fields** to `ghec-ch01-board`:
     - a **single-select** `Status` field (`Todo`, `In Progress`, `In Review`, `Done`)
     - a **single-select** `Priority` field (`P0`, `P1`, `P2`)
     - an **Iteration** field with two iterations matching your milestones

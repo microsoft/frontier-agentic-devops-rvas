@@ -28,9 +28,9 @@
 Use these to check Definition of Done quickly (prefer `gh` CLI / Actions over manual clicks):
 ```bash
 # Example: confirm the seeded repo exists and is configured
-gh repo view <org>/wth-ch##-<slug> --json name,visibility
+gh repo view <org>/ghec-ch##-<slug> --json name,visibility
 # Example: confirm a security feature / alert / workflow run
-gh api repos/<org>/wth-ch##-<slug>/<endpoint>
+gh api repos/<org>/ghec-ch##-<slug>/<endpoint>
 ```
 - <Hint 1 — exact command + expected result.>
 - <Hint 2.>
@@ -45,7 +45,7 @@ gh api repos/<org>/wth-ch##-<slug>/<endpoint>
 bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch## --org <org> --yes      # Bash
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch## --org <org> --yes     # PowerShell
 ```
-- Removes only `wth-ch##-*` artifacts (prefix-guarded).
+- Removes only `ghec-ch##-*` artifacts (prefix-guarded).
 - **Manual cleanup (if any):** <org/enterprise settings that scripts can't cleanly revert, e.g., audit stream config.>
 
 ## Time budget

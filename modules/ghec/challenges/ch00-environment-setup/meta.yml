@@ -11,13 +11,13 @@ prerequisite_capabilities:
   - GitHub organization with org-owner rights
   - GitHub CLI (gh >= 2.x) installed or available via Codespaces
 description: >
-  Provision your development environment for the GitHub Enterprise Cloud hackathon.
+  Provision your development environment for the GitHub Enterprise Cloud delivery session.
   Open the shared org repository in Codespaces (or a local dev container), authenticate
   the GitHub CLI, and verify you have org-owner rights before Challenge 01.
 success_criteria:
   - "`gh auth status` exits 0 and shows your username"
   - "`gh --version` returns gh >= 2.x"
-  - "`gh org list` returns the hackathon organization"
+  - "`gh org list` returns the delivery session organization"
   - "`gh repo view <org>/<repo>` returns the repository metadata without error"
   - "The Codespaces or dev container environment is open and the terminal is ready"
 take_home_action: In your own org, standardize the GitHub CLI, Codespaces or dev container, and org-owner access checks required before teams begin GitHub Enterprise Cloud rollout work.
@@ -31,7 +31,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: org
 tier: setup
-source_repo: microsoft/frontier-agenticdevops-hackathon
+source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/ch00-environment-setup/meta.yml
 license: MIT
 references:

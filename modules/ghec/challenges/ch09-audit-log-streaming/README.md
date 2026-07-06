@@ -30,9 +30,9 @@ By completing this challenge you will:
 A GHEC customer's security team asks the question every audit eventually asks: *"Who changed that setting, and when?"* Right now nobody can answer it without guessing. You'll learn to treat the **organization audit log** as the source of truth — generate a controlled set of administrative actions, then reconstruct exactly what happened using search filters and the API. You'll finish with a repeatable script that exports a slice of the log, the seed of a real evidence-collection pipeline.
 
 ## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the hackathon*. Pick a real org audit question or repository where you can generate and investigate known events and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+This challenge is most valuable when the result *outlives the delivery session*. Pick a real org audit question or repository where you can generate and investigate known events and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 
-- **Have a candidate?** Use it everywhere this guide says `wth-ch09-audit-target`. Skip the Setup step below entirely.
+- **Have a candidate?** Use it everywhere this guide says `ghec-ch09-audit-target`. Skip the Setup step below entirely.
 - **No suitable one?** Use the fallback below: a seeded audit-target repo and auditors team for safe event generation.
 
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
@@ -49,15 +49,15 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch09 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch09 --org <org>
 ```
 
-**What setup creates** (all artifacts namespaced `wth-ch09-*`, idempotent, prefix-guarded teardown):
-- A seeded repo **`wth-ch09-audit-target`** with a populated `main` — a safe object to perform auditable actions against.
-- A starter team **`wth-ch09-auditors`** so team-membership and permission-change events have somewhere to land.
+**What setup creates** (all artifacts namespaced `ghec-ch09-*`, idempotent, prefix-guarded teardown):
+- A seeded repo **`ghec-ch09-audit-target`** with a populated `main` — a safe object to perform auditable actions against.
+- A starter team **`ghec-ch09-auditors`** so team-membership and permission-change events have somewhere to land.
 - A printed **"recent activity" sample** (the last few org audit events pulled from the API) so you can see the shape of an event immediately.
 - A printed **Next steps** block telling you where to start.
 
 
 ## Tasks
-> Throughout, **`wth-ch09-audit-target` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
+> Throughout, **`ghec-ch09-audit-target` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Read the log & learn the event model
 1. **Open the org audit log** (**Org Settings → Archive → Logs → Audit log** — the "Logs" item is under the **Archive** section of the settings sidebar). Skim recent events; note each row's **actor**, **action** (e.g., `repo.create`, `org.update_member`), **time**, and affected object.
@@ -65,9 +65,9 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch09 --org <org>
 3. **Identify the action namespaces** you see (`org.*`, `repo.*`, `team.*`, `protected_branch.*`, `repository_ruleset.*`) and write a one-line description of three of them.
 
 ### Part B — Generate a known event set
-4. **Create an auditable trail on purpose.** Perform each of these against `wth-ch09-audit-target` (or the org), pausing a moment between them:
-   - Create a label: `gh label create "audit-marker" --repo <org>/wth-ch09-audit-target --color FFAA00`.
-   - Add the team to the repo: `gh api -X PUT /orgs/<org>/teams/wth-ch09-auditors/repos/<org>/wth-ch09-audit-target -f permission=push`.
+4. **Create an auditable trail on purpose.** Perform each of these against `ghec-ch09-audit-target` (or the org), pausing a moment between them:
+   - Create a label: `gh label create "audit-marker" --repo <org>/ghec-ch09-audit-target --color FFAA00`.
+   - Add the team to the repo: `gh api -X PUT /orgs/<org>/teams/ghec-ch09-auditors/repos/<org>/ghec-ch09-audit-target -f permission=push`.
    - Change repo visibility once and back, or toggle a setting.
    - Create (and delete) a simple repository ruleset on the target.
 5. **Record what you did** (action + rough timestamp) so you can later confirm each one surfaced in the log.
@@ -75,8 +75,8 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch09 --org <org>
 ### Part C — Search syntax mastery
 6. **Filter by action:** in the audit-log UI search box, run `action:team.add_repository` and confirm your Part B grant appears.
 7. **Filter by actor + time:** `actor:<your-login> created:2026-06-01`. Adjust the date to today's run if different (ISO `YYYY-MM-DD`).
-8. **Filter by repo:** `repo:<org>/wth-ch09-audit-target` to scope everything to the target.
-9. **Combine filters** to answer a specific question, e.g., "every ruleset change on the target today": `repo:<org>/wth-ch09-audit-target action:repository_ruleset created:>=2026-06-01`.
+8. **Filter by repo:** `repo:<org>/ghec-ch09-audit-target` to scope everything to the target.
+9. **Combine filters** to answer a specific question, e.g., "every ruleset change on the target today": `repo:<org>/ghec-ch09-audit-target action:repository_ruleset created:>=2026-06-01`.
 
 ### Part D — Audit log via the REST API
 10. **Phrase-query the API** with the same filters: `gh api -X GET /orgs/<org>/audit-log -f phrase='action:team.add_repository' --jq '.[] | {actor, created_at, repo}'`.
@@ -85,7 +85,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch09 --org <org>
 13. **Confirm every Part B action is findable** through the API — tie each generated event back to a query.
 
 ### Part E — Build an export pipeline
-14. **Write an export script** (`export-audit.sh` or `.ps1`, committed to `wth-ch09-audit-target`) that pulls a time-bounded slice (`-f phrase='created:>=<date>'`, `--paginate`) and writes pretty JSON to a file.
+14. **Write an export script** (`export-audit.sh` or `.ps1`, committed to `ghec-ch09-audit-target`) that pulls a time-bounded slice (`-f phrase='created:>=<date>'`, `--paginate`) and writes pretty JSON to a file.
 15. **Run it** and confirm the output contains your generated events. This is the org-owner equivalent of "streaming" — a repeatable pull you could schedule.
 16. **Write `FINDINGS.md`**: for three investigative questions (who added the team? who changed the ruleset? what happened today?), record the exact filter used and the answer.
 

@@ -47,4 +47,4 @@ Verify each success criterion from the student guide:
 | Grounding conversation | 15 | Connects the pattern to a real service, role model, or data boundary. |
 
 ## Source
-Derived from legacy GHAS hackathon source material, MIT license.
+Derived from legacy GHAS delivery session source material, MIT license.

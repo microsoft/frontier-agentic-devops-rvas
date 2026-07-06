@@ -7,7 +7,7 @@ By the end of this challenge you will have:
 - A working development environment (GitHub Codespaces or local dev container)
 - An authenticated `gh` CLI session
 - `gh-aw` installed and verified
-- Access confirmed to the GHAW hackathon repository
+- Access confirmed to the GHAW delivery session repository
 
 ---
 
@@ -20,7 +20,7 @@ By the end of this challenge you will have:
 
 ## Option A: GitHub Codespaces (Recommended)
 
-1. Open **this repository** (`microsoft/frontier-agenticdevops-hackathon`) on GitHub.
+1. Open **this repository** (`microsoft/frontier-agentic-devops-rvas`) on GitHub.
 2. Click **Code → Codespaces → Create codespace on main**.
 3. Wait ~30 seconds for the dev container to build.
    The `postCreate.sh` script installs `gh-aw` automatically.
@@ -33,8 +33,8 @@ By the end of this challenge you will have:
 1. Install [VS Code](https://code.visualstudio.com/) and the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
 2. Clone this repository (if you haven't already):
    ```bash
-   git clone https://github.com/microsoft/frontier-agenticdevops-hackathon.git
-   cd frontier-agenticdevops-hackathon
+   git clone https://github.com/microsoft/frontier-agentic-devops-rvas.git
+   cd frontier-agentic-devops-rvas
    ```
 3. Open VS Code in the cloned folder and choose **Dev Containers: Reopen in Container**.
 4. Wait for the container to build — `postCreate.sh` installs `gh-aw` automatically.
@@ -74,18 +74,18 @@ gh auth status
 gh aw --version
 
 # 4. Dry-run smoke test
-gh aw trial modules/ghaw/resources/examples/hello-world.md --logical-repo microsoft/frontier-agenticdevops-hackathon --dry-run --yes
+gh aw trial modules/ghaw/resources/examples/hello-world.md --logical-repo microsoft/frontier-agentic-devops-rvas --dry-run --yes
 ```
 
 > All four commands must succeed before you move on. If any fail, see **Common Blockers** in the coach guide.
 
 The smoke test uses `--logical-repo` so `gh-aw` does not need to infer the simulated repository from your local Git remote. This is especially useful if your clone uses an SSH host alias instead of `github.com`.
 
-You do not need write access to `microsoft/frontier-agenticdevops-hackathon` for this smoke test. `gh-aw` creates or uses a trial host repository in your own GitHub account and only simulates the hackathon repository as the target.
+You do not need write access to `microsoft/frontier-agentic-devops-rvas` for this smoke test. `gh-aw` creates or uses a trial host repository in your own GitHub account and only simulates the delivery session repository as the target.
 
 ### Per-module verification
 
 | Command | Expected output |
 |---|---|
 | `gh aw --version` | Returns a version string (e.g., `gh-aw version 1.x.x`) |
-| `gh aw trial modules/ghaw/resources/examples/hello-world.md --logical-repo microsoft/frontier-agenticdevops-hackathon --dry-run --yes` | Previews the workflow without executing it; exits 0 |
+| `gh aw trial modules/ghaw/resources/examples/hello-world.md --logical-repo microsoft/frontier-agentic-devops-rvas --dry-run --yes` | Previews the workflow without executing it; exits 0 |

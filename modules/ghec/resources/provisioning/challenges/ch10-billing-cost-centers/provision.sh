@@ -2,26 +2,26 @@
 #
 # challenges/ch10-billing-cost-centers/provision.sh
 #
-# Sourced by scripts/setup.sh. CONTRACT: wth_provision / wth_teardown / wth_status.
+# Sourced by scripts/setup.sh. CONTRACT: ghec_provision / ghec_teardown / ghec_status.
 #
 # ORG-SCOPED. ch10 builds a usage-generator repo (a tiny workflow_dispatch
 # Action you can run to burn Actions minutes) and a cost-report repo (a small
 # reconciliation script + REPORT.md). It prints a current usage snapshot.
 # Creating/assigning cost centers is not fully API-automatable — manual step.
 
-R_GEN="wth-${CHID}-usage-generator"
-R_RPT="wth-${CHID}-cost-report"
+R_GEN="ghec-${CHID}-usage-generator"
+R_RPT="ghec-${CHID}-cost-report"
 
 _ch10_seed_generator() {
-  gh_put_file "$ORG" "$R_GEN" "README.md" "seed README (wth-${CHID})" \
+  gh_put_file "$ORG" "$R_GEN" "README.md" "seed README (ghec-${CHID})" \
 "# ${R_GEN}
 
-Seeded by wth-${CHID} (Billing & Cost Centers). Run the 'usage' workflow
+Seeded by ghec-${CHID} (Billing & Cost Centers). Run the 'usage' workflow
 (Actions → Run workflow) a few times to generate Actions minutes, then watch
 them show up in billing and your cost-report reconciliation."
-  gh_put_file "$ORG" "$R_GEN" ".github/workflows/usage.yml" "seed usage workflow (wth-${CHID})" \
+  gh_put_file "$ORG" "$R_GEN" ".github/workflows/usage.yml" "seed usage workflow (ghec-${CHID})" \
 "name: usage
-# wth-${CHID} — manually triggered to burn a little Actions usage.
+# ghec-${CHID} — manually triggered to burn a little Actions usage.
 on:
   workflow_dispatch:
     inputs:
@@ -33,28 +33,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo \"Generating usage for wth-${CHID}...\"
+          echo \"Generating usage for ghec-${CHID}...\"
           sleep \"\${{ inputs.seconds }}\"
           echo 'done'
 "
 }
 
 _ch10_seed_report() {
-  gh_put_file "$ORG" "$R_RPT" "README.md" "seed README (wth-${CHID})" \
+  gh_put_file "$ORG" "$R_RPT" "README.md" "seed README (ghec-${CHID})" \
 "# ${R_RPT}
 
-Seeded by wth-${CHID}. A starting point for reconciling Actions/usage against
+Seeded by ghec-${CHID}. A starting point for reconciling Actions/usage against
 cost centers. Flesh out \`reconcile.js\` to pull billing data and group spend."
-  gh_put_file "$ORG" "$R_RPT" "reconcile.js" "seed reconciliation script (wth-${CHID})" \
+  gh_put_file "$ORG" "$R_RPT" "reconcile.js" "seed reconciliation script (ghec-${CHID})" \
 "#!/usr/bin/env node
-// wth-${CHID} starter reconciliation. Replace the sample with real billing data
+// ghec-${CHID} starter reconciliation. Replace the sample with real billing data
 // from: gh api orgs/<org>/settings/billing/actions
 const sample = { included_minutes: 3000, total_minutes_used: 0, cost_centers: {} };
-console.log('wth-${CHID} usage reconciliation');
+console.log('ghec-${CHID} usage reconciliation');
 console.table(sample);
 "
-  gh_put_file "$ORG" "$R_RPT" "REPORT.md" "seed REPORT.md (wth-${CHID})" \
-"# Cost Report (wth-${CHID})
+  gh_put_file "$ORG" "$R_RPT" "REPORT.md" "seed REPORT.md (ghec-${CHID})" \
+"# Cost Report (ghec-${CHID})
 
 | Cost center | Repos | Actions minutes | Notes |
 |-------------|-------|-----------------|-------|
@@ -64,7 +64,7 @@ console.table(sample);
 }
 
 # ===========================================================================
-wth_provision() {
+ghec_provision() {
   gh_create_repo "$ORG" "$R_GEN" private
   gh_create_repo "$ORG" "$R_RPT" private
 
@@ -91,7 +91,7 @@ wth_provision() {
   log_warn "MANUAL STEP: creating cost centers and assigning repos/users to them is done in Enterprise billing settings (and the Billing Platform API where available) — it is not fully automatable here."
 }
 
-wth_teardown() {
+ghec_teardown() {
   local r
   for r in "$R_GEN" "$R_RPT"; do
     guard_prefix "$r" "$CHID" || return 1
@@ -99,7 +99,7 @@ wth_teardown() {
   done
 }
 
-wth_status() {
+ghec_status() {
   log_step "status — $CHID in '$ORG'"
   local r
   for r in "$R_GEN" "$R_RPT"; do

@@ -1,20 +1,20 @@
 # common.ps1 — dry-run gating, minimal meta.yml reader, challenge resolution.
 
-$Global:WthVersion = '0.1.0'
+$Global:GhecVersion = '0.1.0'
 
-# Invoke-WthMutation -Plan <string> -Action <scriptblock>
+# Invoke-GhecMutation -Plan <string> -Action <scriptblock>
 # Runs a mutating action, or prints the plan under -DryRun and changes nothing.
-function Invoke-WthMutation {
+function Invoke-GhecMutation {
   param([Parameter(Mandatory)][string]$Plan,
         [Parameter(Mandatory)][scriptblock]$Action)
-  if ($Global:WthDryRun) {
-    Write-WthPlan "would run: $Plan"
+  if ($Global:GhecDryRun) {
+    Write-GhecPlan "would run: $Plan"
     return
   }
   & $Action
 }
 
-function Get-WthMetaScalar {
+function Get-GhecMetaScalar {
   param([string]$File, [string]$Key)
   foreach ($line in Get-Content -LiteralPath $File) {
     if ($line -match ("^" + [regex]::Escape($Key) + ":\s*(.*)$")) {
@@ -24,7 +24,7 @@ function Get-WthMetaScalar {
   return ''
 }
 
-function Get-WthMetaList {
+function Get-GhecMetaList {
   param([string]$File, [string]$Key)
   $items = @(); $inKey = $false
   foreach ($line in Get-Content -LiteralPath $File) {
@@ -37,14 +37,14 @@ function Get-WthMetaList {
   return $items
 }
 
-function Resolve-WthChallengeDir {
+function Resolve-GhecChallengeDir {
   param([string]$Chid, [string]$Base)
   $m = Get-ChildItem -LiteralPath $Base -Directory -Filter "$Chid-*" | Select-Object -First 1
   if ($m) { return $m.FullName }
   return $null
 }
 
-function Import-WthVersionsLock {
+function Import-GhecVersionsLock {
   param([string]$File)
   $result = @{ JUICE_SHOP_REF = 'v20.0.0'; GH_MIN_VERSION = '2.0.0' }
   if (Test-Path -LiteralPath $File) {

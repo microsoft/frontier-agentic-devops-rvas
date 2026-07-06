@@ -12,7 +12,7 @@
 # partner-pattern). A SECRETS-MANIFEST.md documents every plant; a
 # feature/leaky-config branch carries a fresh secret to exercise push protection.
 
-JS_REPO="wth-${CHID}-juice-shop"
+JS_REPO="ghec-${CHID}-juice-shop"
 
 # Non-live / synthetic secrets. The AWS pair is AWS's own published EXAMPLE
 # documentation key (not a live credential); the GitHub-style token is padded
@@ -33,7 +33,7 @@ _ch11_plant_secrets() {
   gh_put_file "$ORG" "$JS_REPO" "config/aws-credentials.ini" \
     "Add legacy AWS uploader credentials (seed)" \
 "$(cat <<EOF
-; wth-ch11 planted NON-LIVE test secret — see SECRETS-MANIFEST.md
+; ghec-ch11 planted NON-LIVE test secret — see SECRETS-MANIFEST.md
 [default]
 aws_access_key_id = ${_AWS_KEY_ID}
 aws_secret_access_key = ${_AWS_SECRET}
@@ -45,7 +45,7 @@ EOF
     "Add deploy helper with embedded token (seed)" \
 "$(cat <<EOF
 #!/usr/bin/env bash
-# wth-ch11 planted NON-LIVE test secret — see SECRETS-MANIFEST.md
+# ghec-ch11 planted NON-LIVE test secret — see SECRETS-MANIFEST.md
 set -e
 GITHUB_TOKEN="${_GH_TOKEN}"
 echo "deploying with \$GITHUB_TOKEN" >/dev/null
@@ -56,9 +56,9 @@ EOF
 _ch11_seed_manifest() {
   log_step "writing SECRETS-MANIFEST.md"
   gh_put_file "$ORG" "$JS_REPO" "SECRETS-MANIFEST.md" \
-    "Add SECRETS-MANIFEST for wth-ch11" \
+    "Add SECRETS-MANIFEST for ghec-ch11" \
 "$(cat <<EOF
-# SECRETS-MANIFEST — wth-ch11
+# SECRETS-MANIFEST — ghec-ch11
 
 Every secret below is **synthetic / non-live** and exists only so secret
 scanning + push protection have partner-pattern material to detect. None
@@ -85,7 +85,7 @@ _ch11_seed_leaky_branch() {
   gh_put_file "$ORG" "$JS_REPO" "config/extra-uploader.ini" \
     "Add second uploader credential (seed)" \
 "$(cat <<EOF
-; wth-ch11 planted NON-LIVE test secret — see SECRETS-MANIFEST.md
+; ghec-ch11 planted NON-LIVE test secret — see SECRETS-MANIFEST.md
 [uploader]
 aws_access_key_id = ${_AWS_KEY_ID_FRESH}
 aws_secret_access_key = ${_AWS_SECRET}
@@ -98,7 +98,7 @@ EOF
 # CONTRACT FUNCTIONS
 # ===========================================================================
 
-wth_provision() {
+ghec_provision() {
   juice_shop_import "$ORG" "$JS_REPO" "$JUICE_SHOP_REF"
   if [[ "$DRY_RUN" != "true" ]] && ! gh_repo_exists "$ORG" "$JS_REPO"; then
     die "repo $(_ch11_js_full) missing after import — aborting seed"
@@ -114,12 +114,12 @@ wth_provision() {
   log_warn "manual: enabling secret scanning/push protection is the learning — not auto-enabled."
 }
 
-wth_teardown() {
+ghec_teardown() {
   guard_prefix "$JS_REPO" "$CHID" || return 1
   gh_delete_repo "$ORG" "$JS_REPO"
 }
 
-wth_status() {
+ghec_status() {
   log_step "status — $CHID in '$ORG'"
   if gh_repo_exists "$ORG" "$JS_REPO"; then
     local manifest branch

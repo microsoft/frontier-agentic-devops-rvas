@@ -30,9 +30,9 @@ By completing this challenge you will:
 A GHEC customer onboards new engineers slowly — each spends a day fighting local toolchains before they can run the app. You've been asked to make "clone and code in 60 seconds" real: a committed dev container that gives everyone the identical environment, a prebuild so it starts fast, and an org policy that keeps spend sane. You'll prove it on a seeded Node service.
 
 ## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the hackathon*. Pick a real repository whose onboarding or local setup is painful today and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+This challenge is most valuable when the result *outlives the delivery session*. Pick a real repository whose onboarding or local setup is painful today and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 
-- **Have a candidate?** Use it everywhere this guide says `wth-ch03-codespaces-dev-containers`. Skip the Setup step below entirely.
+- **Have a candidate?** Use it everywhere this guide says `ghec-ch03-codespaces-dev-containers`. Skip the Setup step below entirely.
 - **No suitable one?** Use the fallback below: a seeded sample repo ready for a devcontainer and Codespace.
 
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
@@ -49,14 +49,14 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch03 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch03 --org <org>
 ```
 
-**What setup creates** (all artifacts namespaced `wth-ch03-*`, idempotent, prefix-guarded teardown):
-- A seeded repo **`wth-ch03-codespaces-dev-containers`** with a small **Node/Express** app, a `package.json`, and a deliberately **minimal `.devcontainer/devcontainer.json`** so you can extend it.
+**What setup creates** (all artifacts namespaced `ghec-ch03-*`, idempotent, prefix-guarded teardown):
+- A seeded repo **`ghec-ch03-codespaces-dev-containers`** with a small **Node/Express** app, a `package.json`, and a deliberately **minimal `.devcontainer/devcontainer.json`** so you can extend it.
 - A `README` describing how to run the app *locally* (so the contrast with Codespaces is obvious).
 - A printed **Next steps** block telling you where to start.
 
 
 ## Tasks
-> Throughout, **`wth-ch03-codespaces-dev-containers` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
+> Throughout, **`ghec-ch03-codespaces-dev-containers` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Author the dev container
 1. **Inspect and extend `.devcontainer/devcontainer.json`.** The fallback sample includes a minimal baseline with a pinned Node image, dependency install, and port 3000 forwarding. Keep the pinned base image suitable for the app (e.g., `mcr.microsoft.com/devcontainers/javascript-node:22`) and improve it.
@@ -64,7 +64,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch03 --org <org>
 3. **Add lifecycle commands.** Set `postCreateCommand` to install dependencies (`npm ci`) and `postStartCommand` to print a ready message. Add a `customizations.vscode.extensions` list with at least one extension.
 
 ### Part B — Launch & run
-4. **Open a Codespace** from the repo's **Code → Codespaces** menu *and* from the CLI: `gh codespace create -R <org>/wth-ch03-codespaces-dev-containers -m basicLinux32gb` (use the smallest available). List it with `gh codespace list`.
+4. **Open a Codespace** from the repo's **Code → Codespaces** menu *and* from the CLI: `gh codespace create -R <org>/ghec-ch03-codespaces-dev-containers -m basicLinux32gb` (use the smallest available). List it with `gh codespace list`.
 5. **Verify the environment** inside the Codespace: `node -v` matches the pinned image, `gh --version` works (proves the Feature installed), and `npm ci` already ran (proves `postCreateCommand`).
 6. **Run the app** (`npm start`). Confirm it boots.
 

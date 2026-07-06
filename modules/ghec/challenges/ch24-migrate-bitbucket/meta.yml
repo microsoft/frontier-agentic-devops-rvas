@@ -38,7 +38,7 @@ provision_creates:
 - GitHub destination repositories created by the learner during migration
 - Temporary migration archive in Bitbucket shared home for Server/Data Center exports
 - Temporary staging objects in AWS S3, Azure Blob, or GitHub-owned blob storage
-source_repo: microsoft/frontier-agenticdevops-hackathon
+source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/ch24-migrate-bitbucket/meta.yml
 license: MIT
 tier: core

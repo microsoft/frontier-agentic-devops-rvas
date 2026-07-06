@@ -31,11 +31,11 @@ app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
-- repo wth-ch09-audit-target (populated main, safe object for auditable actions)
-- team wth-ch09-auditors (for membership/permission-change events)
+- repo ghec-ch09-audit-target (populated main, safe object for auditable actions)
+- team ghec-ch09-auditors (for membership/permission-change events)
 - printed sample of recent org audit events from the API
 tier: core
-source_repo: microsoft/frontier-agenticdevops-hackathon
+source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/ch09-audit-log-streaming/meta.yml
 license: MIT
 references:

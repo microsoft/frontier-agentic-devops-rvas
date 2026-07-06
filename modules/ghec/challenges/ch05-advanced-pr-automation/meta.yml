@@ -18,7 +18,7 @@ success_criteria:
 - '**Auto-merge** is enabled and a clean PR **merged itself** once gates passed; a failing PR did **not**.'
 - A **PR template** pre-fills new PRs; a **draft** PR demonstrably blocks auto-merge/reviewers until marked ready.
 - '**Auto-labeling** assigns `area:` labels by path; an **open-PR comment** workflow fires; a **stale** workflow labels/closes inactive PRs.'
-- An **organization ruleset** targeting `wth-ch05-*` is active and layers with the repo ruleset.
+- An **organization ruleset** targeting `ghec-ch05-*` is active and layers with the repo ruleset.
 take_home_action: In your own org, replace one repetitive pull request control with reusable Actions automation, auto-labeling, auto-merge gates, stale handling, and layered rulesets.
 take_home_owner: developer
 take_home_signal: Production pull requests are labeled, assigned, gated, and merged or held automatically according to the configured ruleset and workflow evidence.
@@ -33,12 +33,12 @@ app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
-- repo wth-ch05-advanced-pr-automation (seeded app + working CI emitting a 'build' check)
+- repo ghec-ch05-advanced-pr-automation (seeded app + working CI emitting a 'build' check)
 - several open PRs in mixed states (clean, failing-CI, draft, missing-owner-review)
 - starter .github/CODEOWNERS + placeholder .github/pull_request_template.md
 - no rulesets yet (student creates repo + org rulesets)
 tier: core
-source_repo: microsoft/frontier-agenticdevops-hackathon
+source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/ch05-advanced-pr-automation/meta.yml
 license: MIT
 references:

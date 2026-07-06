@@ -16,7 +16,7 @@
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch15 --org <org>` (least-privilege; for this challenge: `repo` + `admin:org` + `security_events`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - **GHAS note:** security overview, configurations, and campaigns operate on GHAS alert data. The Juice Shop import is provisioned **public** so CodeQL/Dependabot/secret scanning **alerts** run free. **However**, the security overview's advanced views (**Risk**, **Coverage**, **Campaigns**) **and security campaigns themselves require a GitHub Code Security or GitHub Secret Protection license at the organization level** — a public repo's free scanning does *not* unlock them. If your org has no GHAS product, you can still generate and triage alerts (Part A) but Parts B–E need a licensed org. `modules/ghec/resources/provisioning/scripts/setup.sh doctor` confirms availability.
-- **Soft-link note (independence preserved):** this challenge does **not** depend on ch12/ch13 having run — setup creates its **own** `wth-ch15-juice-shop` and enables scanning so the alert corpus exists standalone.
+- **Soft-link note (independence preserved):** this challenge does **not** depend on ch12/ch13 having run — setup creates its **own** `ghec-ch15-juice-shop` and enables scanning so the alert corpus exists standalone.
 
 ## Scenario objectives
 By completing this challenge you will:
@@ -30,9 +30,9 @@ By completing this challenge you will:
 A GHEC customer has GHAS switched on but no program around it — alerts pile up, nobody owns them, and leadership can't answer "are we getting safer?" You'll give them the management layer: a security overview that shows risk and coverage at a glance, a security configuration that applies GHAS uniformly, and a **security campaign** that turns a wall of alerts into a finite, owned, time-boxed remediation effort developers can actually act on. OWASP Juice Shop supplies the realistic alert volume — CodeQL findings, Dependabot alerts, and secret-scanning hits — that a campaign needs to be meaningful.
 
 ## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the hackathon*. Pick a real application repository or security campaign candidate your organization owns and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+This challenge is most valuable when the result *outlives the delivery session*. Pick a real application repository or security campaign candidate your organization owns and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 
-- **Have a candidate?** Use it everywhere this guide says `wth-ch15-juice-shop`. Skip the Setup step below entirely.
+- **Have a candidate?** Use it everywhere this guide says `ghec-ch15-juice-shop`. Skip the Setup step below entirely.
 - **No suitable one?** Use the fallback below: an OWASP Juice Shop import with security findings suitable for campaign practice.
 
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
@@ -49,26 +49,26 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch15 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch15 --org <org>
 ```
 
-**What setup creates** (all artifacts namespaced `wth-ch15-*`, idempotent, prefix-guarded teardown):
-- A **public** repo **`wth-ch15-juice-shop`** — OWASP Juice Shop imported at pinned ref **`v20.0.0`** (pulled from the official source, never vendored into this repo).
+**What setup creates** (all artifacts namespaced `ghec-ch15-*`, idempotent, prefix-guarded teardown):
+- A **public** repo **`ghec-ch15-juice-shop`** — OWASP Juice Shop imported at pinned ref **`v20.0.0`** (pulled from the official source, never vendored into this repo).
 - The repo is staged so that enabling GHAS produces a **rich alert corpus** across **CodeQL** (OWASP Top 10), **Dependabot** (vulnerable npm tree), and **secret scanning** — the raw material a campaign targets. (Setup may enable default CodeQL and Dependabot so alerts exist out of the gate; you'll confirm and extend.)
 - A printed **Next steps** block pointing at the org **Security** tab (overview, configurations, campaigns).
 
 
 ## Tasks
-> Throughout, **`wth-ch15-juice-shop` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
+> Throughout, **`ghec-ch15-juice-shop` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Generate the alert corpus
-1. **Confirm alerts exist.** Open `wth-ch15-juice-shop` → **Security**. Ensure **code scanning (CodeQL)**, **Dependabot**, and **secret scanning** are enabled (enable any that aren't). Wait for the initial scans to complete so the org has a real alert volume to manage.
+1. **Confirm alerts exist.** Open `ghec-ch15-juice-shop` → **Security**. Ensure **code scanning (CodeQL)**, **Dependabot**, and **secret scanning** are enabled (enable any that aren't). Wait for the initial scans to complete so the org has a real alert volume to manage.
 2. **Spot-check via API** that multiple alert types are present:
    ```bash
-   gh api repos/<org>/wth-ch15-juice-shop/code-scanning/alerts --jq 'length'
-   gh api repos/<org>/wth-ch15-juice-shop/dependabot/alerts --jq 'length'
+   gh api repos/<org>/ghec-ch15-juice-shop/code-scanning/alerts --jq 'length'
+   gh api repos/<org>/ghec-ch15-juice-shop/dependabot/alerts --jq 'length'
    ```
 
 ### Part B — Security overview
 3. **Open the org Security overview.** Go to the org's **Security** tab → **Overview**. Explore the **Risk** view (open alerts by type/severity across repos) and the **Coverage** view (which repos have which features enabled).
-4. **Filter and read the data.** Filter the overview to `wth-ch15-juice-shop` and by **critical/high** severity. Note the alert counts per tool — this is your campaign's candidate scope.
+4. **Filter and read the data.** Filter the overview to `ghec-ch15-juice-shop` and by **critical/high** severity. Note the alert counts per tool — this is your campaign's candidate scope.
 5. **Pull an org-wide alert view via API** for a CodeQL slice you can reason about:
    ```bash
    gh api orgs/<org>/code-scanning/alerts --paginate \
@@ -77,21 +77,21 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch15 --org <org>
 
 ### Part C — Security configuration
 6. **Create an org security configuration.** In **Org Settings → Code security → Configurations**, create a configuration that enables the GHAS features you want as a baseline (code scanning default setup, Dependabot alerts + security updates, secret scanning + push protection).
-7. **Apply it.** Apply the configuration to `wth-ch15-juice-shop` (and optionally set it as the **default for newly created repos**). Confirm in the **Coverage** view that the repo now reports the features as enabled.
+7. **Apply it.** Apply the configuration to `ghec-ch15-juice-shop` (and optionally set it as the **default for newly created repos**). Confirm in the **Coverage** view that the repo now reports the features as enabled.
 
 ### Part D — Launch a security campaign
-8. **Scope the campaign.** From the **Security overview → Campaigns**, create a campaign targeting a meaningful, finite slice — e.g. **all critical/high CodeQL alerts** (or critical Dependabot alerts) in `wth-ch15-juice-shop`. Keep the scope achievable, not the entire backlog.
+8. **Scope the campaign.** From the **Security overview → Campaigns**, create a campaign targeting a meaningful, finite slice — e.g. **all critical/high CodeQL alerts** (or critical Dependabot alerts) in `ghec-ch15-juice-shop`. Keep the scope achievable, not the entire backlog.
 9. **Set the campaign metadata:** a clear **name**, a **manager** (yourself), a **due date**, and a **description** with remediation guidance and links (Autofix for CodeQL, version bumps for Dependabot).
 10. **Confirm developers see actionable work.** Open the campaign and verify the targeted alerts are grouped under it with the guidance attached — this is what a developer would pick up.
 
 ### Part E — Track remediation & report
 11. **Remediate part of the campaign.** Fix or dismiss several targeted alerts (apply Autofix on a CodeQL alert, merge a Dependabot security PR, resolve a secret alert) so the campaign shows real **burn-down**.
 12. **Track progress.** Re-open the campaign and the overview; confirm the open-alert count for the campaign has dropped. Capture before/after numbers.
-13. **Write a remediation report.** In an issue on `wth-ch15-juice-shop`, summarize: starting alert count by type, the campaign scope and deadline, what was remediated, and the residual risk — the report leadership asked for at the start.
+13. **Write a remediation report.** In an issue on `ghec-ch15-juice-shop`, summarize: starting alert count by type, the campaign scope and deadline, what was remediated, and the residual risk — the report leadership asked for at the start.
 
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
-- [ ] `wth-ch15-juice-shop` has a **multi-tool alert corpus** (CodeQL **and** Dependabot alerts present, verifiable via the alerts APIs).
+- [ ] `ghec-ch15-juice-shop` has a **multi-tool alert corpus** (CodeQL **and** Dependabot alerts present, verifiable via the alerts APIs).
 - [ ] You used the org **Security overview** Risk and Coverage views and produced an **org-wide alert slice** via the API.
 - [ ] An **org security configuration** exists and is **applied** to the repo (features show enabled in Coverage).
 - [ ] A **security campaign** exists with a name, a **manager**, a **due date**, and **guidance**, scoped to a finite alert slice.

@@ -8,7 +8,7 @@
 # alerts), and one planted non-live secret + manifest (secret scanning). The
 # repo stands alone so its alert volume is independent of ch11–ch13.
 
-JS_REPO="wth-${CHID}-juice-shop"
+JS_REPO="ghec-${CHID}-juice-shop"
 
 _AWS_KEY_ID="AKIAIOSFODNN7EXAMPLE"
 _AWS_SECRET="wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
@@ -64,7 +64,7 @@ _ch15_seed_secret() {
   gh_put_file "$ORG" "$JS_REPO" "config/aws-credentials.ini" \
     "Add legacy AWS uploader credentials (seed)" \
 "$(cat <<EOF
-; wth-ch15 planted NON-LIVE test secret — see SECURITY-CORPUS.md
+; ghec-ch15 planted NON-LIVE test secret — see SECURITY-CORPUS.md
 [default]
 aws_access_key_id = ${_AWS_KEY_ID}
 aws_secret_access_key = ${_AWS_SECRET}
@@ -73,7 +73,7 @@ EOF
   gh_put_file "$ORG" "$JS_REPO" "SECURITY-CORPUS.md" \
     "Add multi-tool alert corpus manifest" \
 "$(cat <<'EOF'
-# SECURITY-CORPUS — wth-ch15
+# SECURITY-CORPUS — ghec-ch15
 
 This repo deliberately produces alerts across THREE tools so you can build and
 manage a security campaign end to end:
@@ -90,7 +90,7 @@ EOF
 }
 
 # ===========================================================================
-wth_provision() {
+ghec_provision() {
   juice_shop_import "$ORG" "$JS_REPO" "$JUICE_SHOP_REF"
   if [[ "$DRY_RUN" != "true" ]] && ! gh_repo_exists "$ORG" "$JS_REPO"; then
     die "repo $(_ch15_js_full) missing after import — aborting seed"
@@ -105,12 +105,12 @@ wth_provision() {
   log_warn "manual: enabling the three scanners is the learning — not auto-enabled."
 }
 
-wth_teardown() {
+ghec_teardown() {
   guard_prefix "$JS_REPO" "$CHID" || return 1
   gh_delete_repo "$ORG" "$JS_REPO"
 }
 
-wth_status() {
+ghec_status() {
   log_step "status — $CHID in '$ORG'"
   if gh_repo_exists "$ORG" "$JS_REPO"; then
     local codeql dependabot secret

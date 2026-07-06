@@ -34,12 +34,12 @@ app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
-- repo wth-ch04-actions-ci-fundamentals (seeded Node app)
+- repo ghec-ch04-actions-ci-fundamentals (seeded Node app)
 - passing test suite + one flag-gated failing test (for red/green gating)
 - package.json with test/build/lint scripts
 - minimal starter workflow .github/workflows/ci.yml (echo only; student replaces)
 tier: core
-source_repo: microsoft/frontier-agenticdevops-hackathon
+source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/ch04-actions-ci-fundamentals/meta.yml
 license: MIT
 references:

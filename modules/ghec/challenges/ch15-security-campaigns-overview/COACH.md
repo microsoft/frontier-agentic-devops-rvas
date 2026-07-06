@@ -8,7 +8,7 @@
 
 **Their question:** Coach conversation — if you ran a security campaign across your org's repos today targeting the most common CWE your stack is exposed to, which three repo owners would you expect to push back hardest on fixing their alerts, and what would make the campaign succeed anyway? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch15-juice-shop` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch15-juice-shop` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Name the specific CWE category or alert type you'd target first in your org — where is the highest concentration of alerts?
@@ -24,7 +24,7 @@ Use these follow-ups to steer the conversation:
   - **No alerts yet.** Campaigns need an alert corpus. If scans haven't finished, there's nothing to target — start scans early.
   - **Configuration vs manual toggles.** A **security configuration** applies features at scale; doing it per-repo by hand misses the learning objective.
 - **How to unblock without giving the answer:** ask "what's the difference between a repo being *covered* and being *risky*?" and "how would a developer know *which* alerts to fix *by when*?" (→ a scoped campaign with an owner and a deadline).
-- **Org-scoped note:** runs with just an org + org-owner token. Public Juice Shop import = free **scanning/alerts** (Part A). **But the security overview's Risk/Coverage/Campaigns views and security campaigns require a GitHub Code Security or GitHub Secret Protection license at the org level** — public-repo free scanning does not unlock them, so Parts B–E need a licensed org. `admin:org` is needed for configurations/campaigns; `security_events` for the alerts APIs. Independence preserved — setup creates its own `wth-ch15-juice-shop`; it does not rely on ch12/ch13.
+- **Org-scoped note:** runs with just an org + org-owner token. Public Juice Shop import = free **scanning/alerts** (Part A). **But the security overview's Risk/Coverage/Campaigns views and security campaigns require a GitHub Code Security or GitHub Secret Protection license at the org level** — public-repo free scanning does not unlock them, so Parts B–E need a licensed org. `admin:org` is needed for configurations/campaigns; `security_events` for the alerts APIs. Independence preserved — setup creates its own `ghec-ch15-juice-shop`; it does not rely on ch12/ch13.
 
 ## Grading rubric (point-weighted, 100 pts)
 | Criterion | Points | What "full marks" looks like |
@@ -39,7 +39,7 @@ Use these follow-ups to steer the conversation:
 ## Automated verification hints
 Use these to check Definition of Done quickly. Campaign and configuration UI state is best confirmed with a screenshot; the alert APIs prove the corpus and burn-down.
 ```bash
-ORG=<org>; REPO=wth-ch15-juice-shop   # swap REPO for the student's own repo if they brought one
+ORG=<org>; REPO=ghec-ch15-juice-shop   # swap REPO for the student's own repo if they brought one
 
 # Repo exists and is public
 gh repo view $ORG/$REPO --json name,visibility
@@ -65,7 +65,7 @@ gh issue list --repo $ORG/$REPO --search "remediation report" --json number,titl
 ```
 - **Burn-down truth source:** run the critical/high count before and after the student's remediation; it must drop. The report issue should cite matching numbers.
 - **Configuration/campaign:** these are largely UI/org-settings constructs — confirm via screenshot that a configuration is *applied* (Coverage view) and a campaign exists with a manager + due date. The alert deltas back it up.
-- **Independence:** confirm `wth-ch15-juice-shop` exists on its own (not reusing ch12/ch13 repos).
+- **Independence:** confirm `ghec-ch15-juice-shop` exists on its own (not reusing ch12/ch13 repos).
 
 ## Common pitfalls
 - **Working in a repo Security tab** instead of the org Security overview — campaigns/configurations live at org scope.
@@ -84,7 +84,7 @@ gh issue list --repo $ORG/$REPO --search "remediation report" --json number,titl
 bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch15 --org <org> --yes   # Bash
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch15 --org <org> --yes  # PowerShell
 ```
-- Removes only `wth-ch15-*` artifacts (prefix-guarded): the imported `wth-ch15-juice-shop` repo (which carries its alerts).
+- Removes only `ghec-ch15-*` artifacts (prefix-guarded): the imported `ghec-ch15-juice-shop` repo (which carries its alerts).
 - **Manual cleanup (REQUIRED — org-level constructs aren't prefix-scoped):**
   - **Delete the security campaign** you created (Org → Security overview → Campaigns).
   - **Delete or unset the security configuration** (Org Settings → Code security → Configurations), especially if you set it as the **default for new repos**.

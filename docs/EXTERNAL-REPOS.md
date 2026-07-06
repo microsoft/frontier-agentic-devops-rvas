@@ -1,6 +1,6 @@
 # External Repositories & Pinned References
 
-This guide explains how this hackathon curriculum manages external dependencies, source apps, and third-party tools. Course content lives in this repository; private predecessor repositories are not required or referenced by the course.
+This guide explains how this delivery session curriculum manages external dependencies, source apps, and third-party tools. Course content lives in this repository; private predecessor repositories are not required or referenced by the course.
 
 ## Philosophy
 
@@ -16,7 +16,7 @@ This guide explains how this hackathon curriculum manages external dependencies,
 - **Source:** https://github.com/juice-shop/juice-shop
 - **Pinned ref:** `v20.0.0` (tag) = commit `f356a09207c7a9550eb6fc4c3945e081922cf998`
 - **Used by:** GHEC challenges (ch11–ch15), GHAS setup
-- **Import mode (org repo):** Challenge setup scripts (`setup.sh provision`) import the repo into org-owned GitHub repositories — each challenge gets its own isolated, disposable copy (e.g., `wth-ch11-juice-shop`, `wth-ghas-00-juice-shop`). GHAS alerts run on *that* org repo.
+- **Import mode (org repo):** Challenge setup scripts (`setup.sh provision`) import the repo into org-owned GitHub repositories — each challenge gets its own isolated, disposable copy (e.g., `ghec-ch11-juice-shop`, `ghec-ghas-00-juice-shop`). GHAS alerts run on *that* org repo.
 - **Local runtime (GHAS participants):** GHAS challenges also run Juice Shop locally for manual exploit testing. This local instance has **no GHAS alerts** — it is the app only, not the security-scanning target. See *[Local app provisioning (submodules)](#local-app-provisioning-submodules)* below for how to get it running.
 - **Why Juice Shop is large but not vendored:** At ~61 MB it would bloat the curriculum repo and slow container creation for participants who never need it. It is registered as a git submodule and fetched on demand.
 
@@ -52,10 +52,10 @@ This guide explains how this hackathon curriculum manages external dependencies,
 
 **When:** A challenge setup script creates a GitHub repository with external content imported.
 
-- **Example:** GHEC/GHAS challenges — setup scripts import Juice Shop at `v20.0.0` into a new org repo (e.g., `wth-ch11-juice-shop` or `wth-ghas-00-juice-shop`).
+- **Example:** GHEC/GHAS challenges — setup scripts import Juice Shop at `v20.0.0` into a new org repo (e.g., `ghec-ch11-juice-shop` or `ghec-ghas-00-juice-shop`).
 - **Flow:**
   ```bash
-  # Creates <org>/wth-ch11-juice-shop with Juice Shop imported
+  # Creates <org>/ghec-ch11-juice-shop with Juice Shop imported
   cd modules/ghec/resources/provisioning/scripts
   ./setup.sh provision ghas-00 --org <org>
   ```
@@ -153,13 +153,13 @@ For a fresh clone, participants can choose either lazy or eager submodule fetchi
 
 ```bash
 # Lazy: fastest initial clone; fetch each lab/app only when needed.
-git clone https://github.com/microsoft/frontier-agenticdevops-hackathon.git
-cd frontier-agenticdevops-hackathon
+git clone https://github.com/microsoft/frontier-agentic-devops-rvas.git
+cd frontier-agentic-devops-rvas
 npm run setup:juice-shop        # when GHAS local runtime is needed
 npm run setup:sre-agent-lab     # when SRE Agent starter lab is needed
 
 # Eager: fetch all registered submodules during clone.
-git clone --recurse-submodules https://github.com/microsoft/frontier-agenticdevops-hackathon.git
+git clone --recurse-submodules https://github.com/microsoft/frontier-agentic-devops-rvas.git
 ```
 
 For an existing clone after pulling curriculum updates:
@@ -249,7 +249,7 @@ In-tree course content is validated by `npm run build` and the content audit scr
 - Follow setup instructions in each challenge's `README.md` or `COACH.md`.
 - All module content is in-tree; you do not need to clone or fork the retired upstream repos.
 - If setup fails to pull Juice Shop, check your GitHub token scopes and network access.
-- Report setup failures via your hackathon organizer so coaches can investigate.
+- Report setup failures via your delivery session organizer so coaches can investigate.
 
 ### For Coaches
 

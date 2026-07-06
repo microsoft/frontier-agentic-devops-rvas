@@ -13,7 +13,7 @@ prerequisite_capabilities:
 - jq installed
 description: By the end of this challenge you can turn on GitHub secret scanning, triage real leaked-credential alerts, block new secrets at `git push` with push protection, and wire up a custom pattern and a bypass-audit — all on a public OWASP Juice Shop repo seeded with high-confidence planted secrets.
 success_criteria:
-- '`secret_scanning` **and** `secret_scanning_push_protection` both read `enabled` on `wth-ch11-juice-shop` (verifiable via the `security_and_analysis` API).'
+- '`secret_scanning` **and** `secret_scanning_push_protection` both read `enabled` on `ghec-ch11-juice-shop` (verifiable via the `security_and_analysis` API).'
 - '**Every planted secret in `SECRETS-MANIFEST.md` has a corresponding secret-scanning alert** (count + types reconcile).'
 - '**All alerts are resolved** with an explicit, correct resolution reason (none left `open`).'
 - You **demonstrated push protection blocking** a fresh secret at `git push` (and a clean push after removing it).
@@ -33,12 +33,12 @@ app_dependency: juice-shop
 emu_compatible: true
 min_environment: org
 provision_creates:
-- repo wth-ch11-juice-shop (public, OWASP Juice Shop imported at v20.0.0, pulled from official source — never vendored)
+- repo ghec-ch11-juice-shop (public, OWASP Juice Shop imported at v20.0.0, pulled from official source — never vendored)
 - planted high-confidence non-live test secrets across history (fake AWS AKIA key + paired secret, GitHub-style ghp_ token)
 - SECRETS-MANIFEST.md documenting each planted secret and its location
 - branch feature/leaky-config carrying one fresh planted secret to exercise push protection
 tier: core
-source_repo: microsoft/frontier-agenticdevops-hackathon
+source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/ch11-secret-scanning-push-protection/meta.yml
 license: MIT
 references:

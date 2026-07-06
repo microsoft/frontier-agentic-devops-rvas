@@ -30,9 +30,9 @@ By completing this challenge you will:
 A GHEC customer's engineering org has grown past the point where ad-hoc collaborator adds make sense. People are added directly to repos, leavers keep access, and nobody can answer "who can merge to the payments repo?" You'll replace the chaos with a **team-based** model: a parent team for the whole department, child teams per squad, repository access granted to teams (never to individuals), and one **custom role** for a contractor pattern that the built-in roles don't capture. Access becomes something you can read from an org chart — and from the API.
 
 ## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the hackathon*. Pick a real team structure and repository access model you can make clearer and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+This challenge is most valuable when the result *outlives the delivery session*. Pick a real team structure and repository access model you can make clearer and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 
-- **Have a candidate?** Use your real teams and repos wherever this guide names `wth-ch07-frontend` or the sibling `wth-ch07-*` artifacts. Skip the Setup step below entirely.
+- **Have a candidate?** Use your real teams and repos wherever this guide names `ghec-ch07-frontend` or the sibling `ghec-ch07-*` artifacts. Skip the Setup step below entirely.
 - **No suitable one?** Use the fallback below: seeded frontend/backend/platform repos and a starter engineering team.
 
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
@@ -49,31 +49,31 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch07 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch07 --org <org>
 ```
 
-**What setup creates** (all artifacts namespaced `wth-ch07-*`, idempotent, prefix-guarded teardown):
-- Three seeded repos — **`wth-ch07-frontend`**, **`wth-ch07-backend`**, and **`wth-ch07-platform`** — each with a short `README` and a `src/` tree.
-- A single **flat starter team** `wth-ch07-engineering` with one member (you) and **no repository access yet**, deliberately under-modeled so you build the hierarchy.
+**What setup creates** (all artifacts namespaced `ghec-ch07-*`, idempotent, prefix-guarded teardown):
+- Three seeded repos — **`ghec-ch07-frontend`**, **`ghec-ch07-backend`**, and **`ghec-ch07-platform`** — each with a short `README` and a `src/` tree.
+- A single **flat starter team** `ghec-ch07-engineering` with one member (you) and **no repository access yet**, deliberately under-modeled so you build the hierarchy.
 - A printed **access snapshot** (current teams + repo grants from the API) so you can prove "before" → "after."
 - A printed **Next steps** block telling you where to start.
 
 
 ## Tasks
-> Throughout, **`wth-ch07-frontend` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
+> Throughout, **`ghec-ch07-frontend` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Build the team hierarchy
-1. **Create a parent team** `wth-ch07-engineering` (reuse the seeded one) and two **child teams** under it: `wth-ch07-frontend-squad` and `wth-ch07-backend-squad`. Create children with the parent set, e.g. `gh api -X POST /orgs/<org>/teams -f name='wth-ch07-frontend-squad' -F parent_team_id=<parent-id>`.
-2. **Confirm nesting** via `gh api /orgs/<org>/teams/wth-ch07-frontend-squad --jq '.parent.name'` (should print the parent).
+1. **Create a parent team** `ghec-ch07-engineering` (reuse the seeded one) and two **child teams** under it: `ghec-ch07-frontend-squad` and `ghec-ch07-backend-squad`. Create children with the parent set, e.g. `gh api -X POST /orgs/<org>/teams -f name='ghec-ch07-frontend-squad' -F parent_team_id=<parent-id>`.
+2. **Confirm nesting** via `gh api /orgs/<org>/teams/ghec-ch07-frontend-squad --jq '.parent.name'` (should print the parent).
 3. **Understand inheritance:** any repository access you grant the **parent** flows down to **both** child teams. You'll use this in Part B.
 
 ### Part B — Grant repository access via teams
-4. **Grant the parent team `Read`** on all three repos (so the whole department can see everything): `gh api -X PUT /orgs/<org>/teams/wth-ch07-engineering/repos/<org>/wth-ch07-frontend -f permission=pull` (repeat for backend/platform).
+4. **Grant the parent team `Read`** on all three repos (so the whole department can see everything): `gh api -X PUT /orgs/<org>/teams/ghec-ch07-engineering/repos/<org>/ghec-ch07-frontend -f permission=pull` (repeat for backend/platform).
 5. **Grant child teams elevated, scoped access:**
-   - `wth-ch07-frontend-squad` → **Write** (`push`) on `wth-ch07-frontend`.
-   - `wth-ch07-backend-squad` → **Write** (`push`) on `wth-ch07-backend`.
-   - Neither squad gets Write on `wth-ch07-platform` (that's a protected, shared repo).
-6. **Verify effective access:** `gh api /orgs/<org>/teams/wth-ch07-frontend-squad/repos/<org>/wth-ch07-frontend --jq '.permissions'`. Confirm the squad has push on its own repo but only the inherited pull on others.
+   - `ghec-ch07-frontend-squad` → **Write** (`push`) on `ghec-ch07-frontend`.
+   - `ghec-ch07-backend-squad` → **Write** (`push`) on `ghec-ch07-backend`.
+   - Neither squad gets Write on `ghec-ch07-platform` (that's a protected, shared repo).
+6. **Verify effective access:** `gh api /orgs/<org>/teams/ghec-ch07-frontend-squad/repos/<org>/ghec-ch07-frontend --jq '.permissions'`. Confirm the squad has push on its own repo but only the inherited pull on others.
 
 ### Part C — Predefined repository roles
-7. **Assign Maintain, not Admin.** Create a child team `wth-ch07-maintainers` and grant it the **Maintain** predefined role on `wth-ch07-platform` (`-f permission=maintain`). Document *why* Maintain (manage settings/issues without full admin) fits a tech-lead pattern better than Admin.
+7. **Assign Maintain, not Admin.** Create a child team `ghec-ch07-maintainers` and grant it the **Maintain** predefined role on `ghec-ch07-platform` (`-f permission=maintain`). Document *why* Maintain (manage settings/issues without full admin) fits a tech-lead pattern better than Admin.
 8. **Demonstrate Triage.** Grant a team or member the **Triage** role somewhere and explain what Triage can do (manage issues/PRs) and cannot (push code). Use the role list reference to back your explanation.
 9. **Map the five predefined roles** (Read / Triage / Write / Maintain / Admin) to one sentence each describing the real-world persona that fits.
 
@@ -83,16 +83,16 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch07 --org <org>
 12. **Prove the boundary:** document which actions the custom role allows vs blocks, referencing the base role + the removed permissions.
 
 ### Part E — Members & verification
-13. **Add at least one member to each squad** (or model it with your own account across teams) and confirm membership: `gh api /orgs/<org>/teams/wth-ch07-frontend-squad/members --jq '.[].login'`.
-14. **Produce an access matrix:** for each repo, list which teams have which role, pulled from the API. Save it as `ACCESS.md` in `wth-ch07-platform`.
+13. **Add at least one member to each squad** (or model it with your own account across teams) and confirm membership: `gh api /orgs/<org>/teams/ghec-ch07-frontend-squad/members --jq '.[].login'`.
+14. **Produce an access matrix:** for each repo, list which teams have which role, pulled from the API. Save it as `ACCESS.md` in `ghec-ch07-platform`.
 15. **Diff against the "before" snapshot** from setup to prove the org went from flat to modeled.
 
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
 - [ ] A **parent team** has **two child teams**, confirmed nested via the API (`.parent.name` is non-null).
 - [ ] The **parent** grants `Read` on all three repos and that access **inherits** to the children (verifiable on a child team's repo permissions).
-- [ ] Each **squad** has `Write` on its own repo only; neither has Write on `wth-ch07-platform`.
-- [ ] A team holds the **Maintain** predefined role on `wth-ch07-platform`.
+- [ ] Each **squad** has `Write` on its own repo only; neither has Write on `ghec-ch07-platform`.
+- [ ] A team holds the **Maintain** predefined role on `ghec-ch07-platform`.
 - [ ] A **custom repository role** exists (`gh api /orgs/<org>/custom-repository-roles` lists it) and is **assigned** to a team on a repo.
 - [ ] An **`ACCESS.md`** access matrix exists, generated from the API, and a before/after comparison shows the org is now team-modeled.
 - [ ] Real-outcome check — if you brought your own teams/repos, access is now clearer on a model people actually use; if you used the sample, you can name the real team or repo set you will map next.

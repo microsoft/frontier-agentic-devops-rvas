@@ -15,7 +15,7 @@ _ch17_seed() {
   gh_put_file "$ORG" "$REPO" "README.md" \
     "Add webhooks & GitHub Apps overview" \
 "$(cat <<EOF
-# wth-ch17 — Webhooks & GitHub Apps
+# ghec-ch17 — Webhooks & GitHub Apps
 
 Scaffold for practising webhook delivery + GitHub App auth.
 
@@ -34,7 +34,7 @@ EOF
     "Add Bash HMAC verifier" \
 "$(cat <<'EOF'
 #!/usr/bin/env bash
-# wth-ch17 — verify an X-Hub-Signature-256 header against the raw body.
+# ghec-ch17 — verify an X-Hub-Signature-256 header against the raw body.
 set -euo pipefail
 SECRET="${WEBHOOK_SECRET:?set WEBHOOK_SECRET}"
 SIG_HEADER="${1:?usage: verify.sh <sha256=...> <body-file>}"
@@ -51,7 +51,7 @@ EOF
   gh_put_file "$ORG" "$REPO" "receiver/verify.js" \
     "Add Node HMAC verifier" \
 "$(cat <<'EOF'
-// wth-ch17 — verify an X-Hub-Signature-256 header against the raw body.
+// ghec-ch17 — verify an X-Hub-Signature-256 header against the raw body.
 const crypto = require('crypto')
 function verify (secret, body, signature) {
   const hmac = crypto.createHmac('sha256', secret).update(body).digest('hex')
@@ -68,7 +68,7 @@ EOF
 name: Webhook Responder
 on:
   repository_dispatch:
-    types: [wth-event]
+    types: [ghec-event]
 permissions:
   contents: read
 jobs:
@@ -85,15 +85,15 @@ EOF
   gh_put_file "$ORG" "$REPO" "WEBHOOK-SETUP.md" \
     "Add webhook setup walkthrough" \
 "$(cat <<EOF
-# Webhook Setup — wth-ch17
+# Webhook Setup — ghec-ch17
 
 1. Add a repo webhook (Settings → Webhooks) pointing at your receiver URL.
 2. Set a strong **secret** and select the events you care about.
 3. Verify deliveries with \`receiver/verify.sh\` or \`receiver/verify.js\`.
 4. To exercise Actions, send a \`repository_dispatch\` event of type
-   \`wth-event\` and watch \`.github/workflows/receiver.yml\` run:
+   \`ghec-event\` and watch \`.github/workflows/receiver.yml\` run:
    \`\`\`
-   gh api repos/$ORG/$REPO/dispatches -f event_type=wth-event \\
+   gh api repos/$ORG/$REPO/dispatches -f event_type=ghec-event \\
      -F client_payload[hello]=world
    \`\`\`
 EOF
@@ -102,7 +102,7 @@ EOF
   gh_put_file "$ORG" "$REPO" "app/auth.js" \
     "Add GitHub App auth helpers" \
 "$(cat <<'EOF'
-// wth-ch17 — GitHub App auth helpers. Zero dependencies, Node 18+ (global fetch).
+// ghec-ch17 — GitHub App auth helpers. Zero dependencies, Node 18+ (global fetch).
 //
 // This is the same JWT -> installation-token flow you ran by hand with openssl
 // and `gh api` in Part F, now as reusable functions. It is provided ready-made
@@ -135,7 +135,7 @@ async function getInstallationToken (jwt, installationId) {
       Authorization: `Bearer ${jwt}`,
       Accept: 'application/vnd.github+json',
       'X-GitHub-Api-Version': '2022-11-28',
-      'User-Agent': 'wth-ch17-app'
+      'User-Agent': 'ghec-ch17-app'
     }
   })
   if (!res.ok) throw new Error(`token exchange failed: ${res.status} ${await res.text()}`)
@@ -149,13 +149,13 @@ EOF
   gh_put_file "$ORG" "$REPO" "app/handler.js" \
     "Add webhook handler scaffold (Part G TODO)" \
 "$(cat <<'EOF'
-// wth-ch17 — minimal GitHub App webhook handler. Zero dependencies, Node 18+.
+// ghec-ch17 — minimal GitHub App webhook handler. Zero dependencies, Node 18+.
 //
 // Run it (use the same secret you set on the repo webhook in Part A, and the
 // App ID / installation ID / private key from Part E):
 //
 //   APP_ID=<id> INSTALLATION_ID=<id> WEBHOOK_SECRET=<secret> \
-//     PRIVATE_KEY_PATH=./wth-ch17-app.private-key.pem node app/handler.js
+//     PRIVATE_KEY_PATH=./ghec-ch17-app.private-key.pem node app/handler.js
 //
 // Then relay your public webhook deliveries to it in another shell:
 //
@@ -232,13 +232,13 @@ const server = http.createServer((req, res) => {
   })
 })
 
-server.listen(PORT, () => console.log(`wth-ch17 handler listening on :${PORT} (POST)`))
+server.listen(PORT, () => console.log(`ghec-ch17 handler listening on :${PORT} (POST)`))
 EOF
 )"
 }
 
 # ===========================================================================
-wth_provision() {
+ghec_provision() {
   gh_create_repo "$ORG" "$REPO" public
   if [[ "$DRY_RUN" != "true" ]] && ! gh_repo_exists "$ORG" "$REPO"; then
     die "repo $(_ch17_repo_full) missing after create — aborting seed"
@@ -251,13 +251,13 @@ wth_provision() {
   log_warn "manual: no live webhook or App is created — wiring them is the challenge."
 }
 
-wth_teardown() {
+ghec_teardown() {
   guard_prefix "$REPO" "$CHID" || return 1
   gh_delete_repo "$ORG" "$REPO"
   log_warn "manual: delete any GitHub App you created — teardown only removes the repo."
 }
 
-wth_status() {
+ghec_status() {
   log_step "status — $CHID in '$ORG'"
   if gh_repo_exists "$ORG" "$REPO"; then
     local recv

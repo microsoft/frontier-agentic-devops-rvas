@@ -7,7 +7,7 @@
 # Dependabot config plus a feature/add-risky-dep branch that adds a known-
 # vulnerable dependency to open as a PR for dependency-review gating.
 
-JS_REPO="wth-${CHID}-juice-shop"
+JS_REPO="ghec-${CHID}-juice-shop"
 
 _ch13_js_full() { printf '%s/%s' "$ORG" "$JS_REPO"; }
 
@@ -39,14 +39,14 @@ _ch13_seed_config() {
 _ch13_seed_risky_branch() {
   log_step "seeding feature/add-risky-dep (known-vulnerable dependency)"
   gh_create_branch "$ORG" "$JS_REPO" "feature/add-risky-dep" main
-  gh_put_file "$ORG" "$JS_REPO" "wth-risky-dep/package.json" \
+  gh_put_file "$ORG" "$JS_REPO" "ghec-risky-dep/package.json" \
     "Add a known-vulnerable dependency (seed, for dependency-review)" \
 "$(cat <<'EOF'
 {
-  "name": "wth-ch13-risky-dep",
+  "name": "ghec-ch13-risky-dep",
   "version": "1.0.0",
   "private": true,
-  "description": "wth-ch13 SEED — pins known-vulnerable versions so dependency review flags the PR diff.",
+  "description": "ghec-ch13 SEED — pins known-vulnerable versions so dependency review flags the PR diff.",
   "dependencies": {
     "lodash": "4.17.4",
     "minimist": "1.2.0",
@@ -59,7 +59,7 @@ EOF
 }
 
 # ===========================================================================
-wth_provision() {
+ghec_provision() {
   juice_shop_import "$ORG" "$JS_REPO" "$JUICE_SHOP_REF"
   if [[ "$DRY_RUN" != "true" ]] && ! gh_repo_exists "$ORG" "$JS_REPO"; then
     die "repo $(_ch13_js_full) missing after import — aborting seed"
@@ -74,12 +74,12 @@ wth_provision() {
   log_warn "manual: Dependabot alerts/security updates are toggled in repo Security settings."
 }
 
-wth_teardown() {
+ghec_teardown() {
   guard_prefix "$JS_REPO" "$CHID" || return 1
   gh_delete_repo "$ORG" "$JS_REPO"
 }
 
-wth_status() {
+ghec_status() {
   log_step "status — $CHID in '$ORG'"
   if gh_repo_exists "$ORG" "$JS_REPO"; then
     local cfg branch

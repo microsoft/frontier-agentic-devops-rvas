@@ -37,7 +37,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: core
-source_repo: microsoft/frontier-agenticdevops-hackathon
+source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghaw/challenges/07-slash-and-burn/meta.yml
 license: MIT
 references:

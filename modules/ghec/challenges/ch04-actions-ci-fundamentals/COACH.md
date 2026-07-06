@@ -8,7 +8,7 @@
 
 **Their question:** Coach conversation — pick one test suite or build process from your actual work that runs manually or inconsistently: what would an always-on, branch-triggered Actions workflow catch in the next two weeks that human discipline alone has missed? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch04-actions-ci-fundamentals` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch04-actions-ci-fundamentals` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Name the specific repo and the test or build step you're thinking of — what triggers it today?
@@ -39,7 +39,7 @@ Use these follow-ups to steer the conversation:
 
 ## Automated verification hints
 ```bash
-ORG=<org>; REPO=wth-ch04-actions-ci-fundamentals   # swap REPO for the student's own repo if they brought one
+ORG=<org>; REPO=ghec-ch04-actions-ci-fundamentals   # swap REPO for the student's own repo if they brought one
 
 # Workflow exists and has matrix + cache (inspect raw yaml)
 gh api repos/$ORG/$REPO/contents/.github/workflows/ci.yml -H "Accept: application/vnd.github.raw" \
@@ -78,7 +78,7 @@ gh api repos/$ORG/$REPO/environments/staging --jq '.protection_rules'
 bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch04 --org <org> --yes   # Bash
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch04 --org <org> --yes  # PowerShell
 ```
-- Removes only `wth-ch04-*` artifacts (prefix-guarded): the repo (which carries its workflows, environments, and artifacts).
+- Removes only `ghec-ch04-*` artifacts (prefix-guarded): the repo (which carries its workflows, environments, and artifacts).
 - **Manual cleanup (if any):** none beyond the repo; deleting the repo removes its runs, artifacts, and the `staging` environment.
 
 ## Time budget

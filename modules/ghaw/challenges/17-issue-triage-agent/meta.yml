@@ -32,7 +32,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: core
-source_repo: microsoft/frontier-agenticdevops-hackathon
+source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghaw/challenges/17-issue-triage-agent/meta.yml
 license: MIT
 references:

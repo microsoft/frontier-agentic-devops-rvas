@@ -2,7 +2,7 @@
 # Copy into challenges/ch##-<slug>/meta.yml and fill for the specific challenge.
 # This file is the single machine-readable source of truth consumed by BOTH:
 #   - Basher's GitHub Pages site (renders cards, filters, badges)
-#   - Yen's provisioning scripts (`wth doctor/provision/status/teardown`)
+#   - Yen's provisioning scripts (`./setup.sh doctor/provision/status/teardown`)
 # Keep it small and stable. Do not add fields without updating CONTRIBUTING-BUILD.md.
 
 id: ch##                       # ch01..ch20 (must match folder number)
@@ -25,8 +25,8 @@ requires:                      # capabilities `doctor` must verify before setup
 
 emu_compatible: true           # false ONLY for ch19 (Copilot coding agent not available on EMU repos)
 
-provision_creates:             # exact artifacts setup creates (all `wth-ch##-*` namespaced)
-  - <e.g., repo wth-ch##-<slug>>
+provision_creates:             # exact artifacts setup creates (all `ghec-ch##-*` namespaced)
+  - <e.g., repo ghec-ch##-<slug>>
   - <e.g., seeded issues/labels/branch-protection/ruleset>
 
 references:                    # official docs.github.com links (rendered by the site)

@@ -4,10 +4,10 @@
 #
 # ch20 is the capstone: it seeds a repo with a GitHub App webhook-handler
 # scaffold, an automation workflow, and a CAPSTONE.md brief. It also creates an
-# empty org Projects v2 board (wth-ch20-board) for the GraphQL step to populate.
+# empty org Projects v2 board (ghec-ch20-board) for the GraphQL step to populate.
 # Live App registration stays a manual step (see the challenge README, Part A).
 
-PROJECT_TITLE="wth-${CHID}-board"
+PROJECT_TITLE="ghec-${CHID}-board"
 
 _ch20_repo_full() { printf '%s/%s' "$ORG" "$REPO"; }
 
@@ -23,7 +23,7 @@ _ch20_seed_repo() {
   gh_put_file "$ORG" "$REPO" "README.md" \
     "Add capstone overview" \
 "$(cat <<EOF
-# wth-ch20 — Automation Capstone
+# ghec-ch20 — Automation Capstone
 
 Tie it all together: a GitHub App webhook handler, an automation workflow, and
 a Projects v2 board driven by the API.
@@ -40,7 +40,7 @@ EOF
     "Add minimal package.json" \
 "$(cat <<'EOF'
 {
-  "name": "wth-ch20-automation-capstone",
+  "name": "ghec-ch20-automation-capstone",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -53,7 +53,7 @@ EOF
   gh_put_file "$ORG" "$REPO" "src/handler.js" \
     "Add webhook handler scaffold" \
 "$(cat <<'EOF'
-// wth-ch20 — GitHub App webhook handler scaffold.
+// ghec-ch20 — GitHub App webhook handler scaffold.
 // Signature verification and App auth are provided for you; fill in the REST and
 // GraphQL TODOs — that automation logic is the capstone.
 const crypto = require('crypto')
@@ -81,7 +81,7 @@ async function handleEvent (event, body) {
       if (body.action !== 'opened') return { handled: false }
       const token = await mintInstallationToken()
       // TODO (Part C): with `token`, add a triage label + acknowledgement comment via REST.
-      // TODO (Part D): add the new issue to the wth-ch20-board project via GraphQL.
+      // TODO (Part D): add the new issue to the ghec-ch20-board project via GraphQL.
       return { handled: true, action: body.action, token: Boolean(token) }
     }
     default:
@@ -96,7 +96,7 @@ EOF
   gh_put_file "$ORG" "$REPO" "src/auth.js" \
     "Add GitHub App auth helpers" \
 "$(cat <<'EOF'
-// wth-ch20 — GitHub App auth helpers. Zero dependencies, Node 18+ (global fetch).
+// ghec-ch20 — GitHub App auth helpers. Zero dependencies, Node 18+ (global fetch).
 //
 // The App JWT -> installation-token flow is provided ready-made so the capstone
 // stays focused on the REST + GraphQL automation, not auth plumbing. You should
@@ -129,7 +129,7 @@ async function getInstallationToken (jwt, installationId) {
       Authorization: `Bearer ${jwt}`,
       Accept: 'application/vnd.github+json',
       'X-GitHub-Api-Version': '2022-11-28',
-      'User-Agent': 'wth-ch20-capstone-app'
+      'User-Agent': 'ghec-ch20-capstone-app'
     }
   })
   if (!res.ok) throw new Error(`token exchange failed: ${res.status} ${await res.text()}`)
@@ -163,7 +163,7 @@ EOF
   gh_put_file "$ORG" "$REPO" "CAPSTONE.md" \
     "Add capstone brief" \
 "$(cat <<EOF
-# Capstone Brief — wth-ch20
+# Capstone Brief — ghec-ch20
 
 Combine the automation building blocks into one working flow.
 
@@ -197,7 +197,7 @@ _ch20_seed_project() {
 }
 
 # ===========================================================================
-wth_provision() {
+ghec_provision() {
   gh_create_repo "$ORG" "$REPO" public
   if [[ "$DRY_RUN" != "true" ]] && ! gh_repo_exists "$ORG" "$REPO"; then
     die "repo $(_ch20_repo_full) missing after create — aborting seed"
@@ -211,7 +211,7 @@ wth_provision() {
   log_warn "manual: live GitHub App registration + webhook endpoint are not automated."
 }
 
-wth_teardown() {
+ghec_teardown() {
   guard_prefix "$REPO" "$CHID" || return 1
   gh_delete_repo "$ORG" "$REPO"
 
@@ -225,7 +225,7 @@ wth_teardown() {
   fi
 }
 
-wth_status() {
+ghec_status() {
   log_step "status — $CHID in '$ORG'"
   if gh_repo_exists "$ORG" "$REPO"; then
     local handler num

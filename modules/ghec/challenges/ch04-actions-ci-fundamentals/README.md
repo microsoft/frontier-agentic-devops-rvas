@@ -31,9 +31,9 @@ By completing this challenge you will:
 A GHEC customer's team merges first and finds out it's broken later — there's no automated gate. You'll give them continuous integration: every push and PR builds and tests the app across supported runtimes, caches dependencies so it's fast, publishes a test report you can download, and — critically — blocks merges to `main` when the build is red.
 
 ## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the hackathon*. Pick a real repository with a build, test, or validation step that should run automatically and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+This challenge is most valuable when the result *outlives the delivery session*. Pick a real repository with a build, test, or validation step that should run automatically and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 
-- **Have a candidate?** Use it everywhere this guide says `wth-ch04-actions-ci-fundamentals`. Skip the Setup step below entirely.
+- **Have a candidate?** Use it everywhere this guide says `ghec-ch04-actions-ci-fundamentals`. Skip the Setup step below entirely.
 - **No suitable one?** Use the fallback below: a seeded sample repo with code ready for a first CI workflow.
 
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
@@ -50,15 +50,15 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch04 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch04 --org <org>
 ```
 
-**What setup creates** (all artifacts namespaced `wth-ch04-*`, idempotent, prefix-guarded teardown):
-- A seeded repo **`wth-ch04-actions-ci-fundamentals`** with a small **Node** app that has a **passing test suite** and at least one **intentionally failing test behind a flag** (so you can demonstrate red→green gating).
+**What setup creates** (all artifacts namespaced `ghec-ch04-*`, idempotent, prefix-guarded teardown):
+- A seeded repo **`ghec-ch04-actions-ci-fundamentals`** with a small **Node** app that has a **passing test suite** and at least one **intentionally failing test behind a flag** (so you can demonstrate red→green gating).
 - A `package.json` with `test`, `build`, and `lint` scripts.
 - A **minimal starter workflow** (`.github/workflows/ci.yml`) that just echoes — you will replace it with a real pipeline.
 - A printed **Next steps** block telling you where to start.
 
 
 ## Tasks
-> Throughout, **`wth-ch04-actions-ci-fundamentals` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
+> Throughout, **`ghec-ch04-actions-ci-fundamentals` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — A real CI workflow
 1. **Replace the starter workflow.** Author `.github/workflows/ci.yml` that triggers on `push` to any branch and on `pull_request` targeting `main`. Add a `build-test` job on `ubuntu-latest`.

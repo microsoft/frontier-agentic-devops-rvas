@@ -7,7 +7,7 @@
 # a feature/insecure-endpoint branch carrying a deliberately vulnerable change to
 # open as a PR for required-check gating.
 
-JS_REPO="wth-${CHID}-juice-shop"
+JS_REPO="ghec-${CHID}-juice-shop"
 
 _ch12_js_full() { printf '%s/%s' "$ORG" "$JS_REPO"; }
 
@@ -49,13 +49,13 @@ _ch12_seed_workflow() {
 _ch12_seed_insecure_branch() {
   log_step "seeding feature/insecure-endpoint (deliberately vulnerable change)"
   gh_create_branch "$ORG" "$JS_REPO" "feature/insecure-endpoint" main
-  gh_put_file "$ORG" "$JS_REPO" "routes/wthInsecureLookup.js" \
+  gh_put_file "$ORG" "$JS_REPO" "routes/ghecInsecureLookup.js" \
     "Add insecure lookup endpoint (seed, for CodeQL PR gating)" \
 "$(cat <<'EOF'
-// wth-ch12 SEED — deliberately vulnerable. Do NOT ship.
+// ghec-ch12 SEED — deliberately vulnerable. Do NOT ship.
 // Open as a PR against main so CodeQL flags it on the diff (SQLi + XSS).
 const sqlite3 = require('sqlite3')
-module.exports = function wthInsecureLookup () {
+module.exports = function ghecInsecureLookup () {
   return (req, res) => {
     const db = new sqlite3.Database(':memory:')
     // SQL injection: untrusted input concatenated straight into the query.
@@ -72,7 +72,7 @@ EOF
 }
 
 # ===========================================================================
-wth_provision() {
+ghec_provision() {
   juice_shop_import "$ORG" "$JS_REPO" "$JUICE_SHOP_REF"
   if [[ "$DRY_RUN" != "true" ]] && ! gh_repo_exists "$ORG" "$JS_REPO"; then
     die "repo $(_ch12_js_full) missing after import — aborting seed"
@@ -86,12 +86,12 @@ wth_provision() {
   log_info "  - triage alerts and try Copilot Autofix on a finding"
 }
 
-wth_teardown() {
+ghec_teardown() {
   guard_prefix "$JS_REPO" "$CHID" || return 1
   gh_delete_repo "$ORG" "$JS_REPO"
 }
 
-wth_status() {
+ghec_status() {
   log_step "status — $CHID in '$ORG'"
   if gh_repo_exists "$ORG" "$JS_REPO"; then
     local wf branch

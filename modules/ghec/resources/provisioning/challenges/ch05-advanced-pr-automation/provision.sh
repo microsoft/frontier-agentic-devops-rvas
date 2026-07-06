@@ -2,7 +2,7 @@
 #
 # challenges/ch05-advanced-pr-automation/provision.sh
 #
-# Sourced by scripts/setup.sh. CONTRACT: wth_provision / wth_teardown / wth_status.
+# Sourced by scripts/setup.sh. CONTRACT: ghec_provision / ghec_teardown / ghec_status.
 #
 # ch05 builds: a seeded app with a WORKING CI workflow that emits a 'build'
 # check on every PR, a starter .github/CODEOWNERS, a placeholder PR template,
@@ -13,46 +13,46 @@
 #   - needs-owner      : touches a CODEOWNERS path, awaiting owner review
 # No rulesets yet — wiring required checks + review automation is the challenge.
 
-BR_CLEAN="wth-${CHID}-clean"
-BR_FAIL="wth-${CHID}-failing-ci"
-BR_DRAFT="wth-${CHID}-draft"
-BR_OWNER="wth-${CHID}-needs-owner"
+BR_CLEAN="ghec-${CHID}-clean"
+BR_FAIL="ghec-${CHID}-failing-ci"
+BR_DRAFT="ghec-${CHID}-draft"
+BR_OWNER="ghec-${CHID}-needs-owner"
 
 _ch05_full() { printf '%s/%s' "$ORG" "$REPO"; }
 
 _ch05_seed_main() {
   log_step "seeding app + working CI on main"
 
-  gh_put_file "$ORG" "$REPO" "README.md" "seed README (wth-${CHID})" \
-"# wth-${CHID} — Advanced PR Automation
+  gh_put_file "$ORG" "$REPO" "README.md" "seed README (ghec-${CHID})" \
+"# ghec-${CHID} — Advanced PR Automation
 
 A seeded app with a working CI workflow that publishes a \`build\` check on
 every pull request. Four PRs are already open in different states. Your job is
 to add automation: required status checks, required reviews from code owners,
 auto-labelling, and a ruleset — without merging the broken ones by accident."
 
-  gh_put_file "$ORG" "$REPO" "package.json" "seed package.json (wth-${CHID})" \
+  gh_put_file "$ORG" "$REPO" "package.json" "seed package.json (ghec-${CHID})" \
 "{
-  \"name\": \"wth-${CHID}-app\",
+  \"name\": \"ghec-${CHID}-app\",
   \"version\": \"1.0.0\",
   \"private\": true,
   \"scripts\": { \"test\": \"node test/app.test.js\" }
 }
 "
 
-  gh_put_file "$ORG" "$REPO" "src/math.js" "seed src/math.js (wth-${CHID})" \
+  gh_put_file "$ORG" "$REPO" "src/math.js" "seed src/math.js (ghec-${CHID})" \
 "function add(a, b) { return a + b; }
 module.exports = { add };
 "
 
-  gh_put_file "$ORG" "$REPO" "test/app.test.js" "seed test (wth-${CHID})" \
+  gh_put_file "$ORG" "$REPO" "test/app.test.js" "seed test (ghec-${CHID})" \
 "const assert = require('assert');
 const { add } = require('../src/math');
 assert.strictEqual(add(2, 3), 5, 'add(2,3) should be 5');
 console.log('ok - build check passed');
 "
 
-  gh_put_file "$ORG" "$REPO" ".github/workflows/ci.yml" "seed working build-check CI (wth-${CHID})" \
+  gh_put_file "$ORG" "$REPO" ".github/workflows/ci.yml" "seed working build-check CI (ghec-${CHID})" \
 "name: build
 on:
   pull_request:
@@ -69,14 +69,14 @@ jobs:
       - run: npm test
 "
 
-  gh_put_file "$ORG" "$REPO" ".github/CODEOWNERS" "seed starter CODEOWNERS (wth-${CHID})" \
-"# wth-${CHID} starter CODEOWNERS — replace the placeholder owner with a real
+  gh_put_file "$ORG" "$REPO" ".github/CODEOWNERS" "seed starter CODEOWNERS (ghec-${CHID})" \
+"# ghec-${CHID} starter CODEOWNERS — replace the placeholder owner with a real
 # team/user (e.g. @${ORG}/maintainers) and wire required reviews via a ruleset.
 /src/   @${ORG}/PLACEHOLDER-OWNERS
 "
 
-  gh_put_file "$ORG" "$REPO" ".github/pull_request_template.md" "seed PR template placeholder (wth-${CHID})" \
-"<!-- wth-${CHID} placeholder PR template -->
+  gh_put_file "$ORG" "$REPO" ".github/pull_request_template.md" "seed PR template placeholder (ghec-${CHID})" \
+"<!-- ghec-${CHID} placeholder PR template -->
 
 ## Summary
 
@@ -91,54 +91,54 @@ jobs:
 _ch05_pr_clean() {
   log_step "PR (clean) from $BR_CLEAN"
   gh_create_branch "$ORG" "$REPO" "$BR_CLEAN" main
-  gh_put_file "$ORG" "$REPO" "docs/notes.md" "add notes (wth-${CHID})" \
+  gh_put_file "$ORG" "$REPO" "docs/notes.md" "add notes (ghec-${CHID})" \
 "# Notes
 
 Clean change — no code touched, build stays green.
 " "$BR_CLEAN"
   gh_open_pr "$ORG" "$REPO" "$BR_CLEAN" main "Add docs notes (clean)" \
-    "Seeded by wth-${CHID}. Clean PR — build check should pass."
+    "Seeded by ghec-${CHID}. Clean PR — build check should pass."
 }
 
 _ch05_pr_failing() {
   log_step "PR (failing-ci) from $BR_FAIL"
   gh_create_branch "$ORG" "$REPO" "$BR_FAIL" main
   # Break the function so 'npm test' (the build check) fails.
-  gh_upsert_file "$ORG" "$REPO" "src/math.js" "break add() to fail CI (wth-${CHID})" \
+  gh_upsert_file "$ORG" "$REPO" "src/math.js" "break add() to fail CI (ghec-${CHID})" \
 "function add(a, b) { return a - b; } // BUG: should be a + b
 module.exports = { add };
 " "$BR_FAIL"
   gh_open_pr "$ORG" "$REPO" "$BR_FAIL" main "Refactor add() (FAILS build)" \
-    "Seeded by wth-${CHID}. This PR breaks the test — the build check should go red. Do not merge."
+    "Seeded by ghec-${CHID}. This PR breaks the test — the build check should go red. Do not merge."
 }
 
 _ch05_pr_draft() {
   log_step "PR (draft) from $BR_DRAFT"
   gh_create_branch "$ORG" "$REPO" "$BR_DRAFT" main
-  gh_put_file "$ORG" "$REPO" "docs/wip.md" "wip notes (wth-${CHID})" \
+  gh_put_file "$ORG" "$REPO" "docs/wip.md" "wip notes (ghec-${CHID})" \
 "# WIP
 
 Work in progress — opened as a draft on purpose.
 " "$BR_DRAFT"
   gh_open_pr "$ORG" "$REPO" "$BR_DRAFT" main "WIP feature (draft)" \
-    "Seeded by wth-${CHID}. Opened as a draft — should be excluded from auto-merge." --draft
+    "Seeded by ghec-${CHID}. Opened as a draft — should be excluded from auto-merge." --draft
 }
 
 _ch05_pr_owner() {
   log_step "PR (needs-owner) from $BR_OWNER"
   gh_create_branch "$ORG" "$REPO" "$BR_OWNER" main
   # Touches /src — a CODEOWNERS path — so it needs owner review once wired.
-  gh_upsert_file "$ORG" "$REPO" "src/math.js" "add mul() under CODEOWNERS path (wth-${CHID})" \
+  gh_upsert_file "$ORG" "$REPO" "src/math.js" "add mul() under CODEOWNERS path (ghec-${CHID})" \
 "function add(a, b) { return a + b; }
 function mul(a, b) { return a * b; }
 module.exports = { add, mul };
 " "$BR_OWNER"
   gh_open_pr "$ORG" "$REPO" "$BR_OWNER" main "Add mul() (needs code owner)" \
-    "Seeded by wth-${CHID}. Touches /src (a CODEOWNERS path) — should require owner review once you wire it."
+    "Seeded by ghec-${CHID}. Touches /src (a CODEOWNERS path) — should require owner review once you wire it."
 }
 
 # ===========================================================================
-wth_provision() {
+ghec_provision() {
   gh_create_repo "$ORG" "$REPO" public
   if [[ "$DRY_RUN" != "true" ]] && ! gh_repo_exists "$ORG" "$REPO"; then
     die "repo $(_ch05_full) missing after create — aborting seed"
@@ -155,12 +155,12 @@ wth_provision() {
   log_info "  - add auto-labelling / auto-merge that respects draft + failing states"
 }
 
-wth_teardown() {
+ghec_teardown() {
   guard_prefix "$REPO" "$CHID" || return 1
   gh_delete_repo "$ORG" "$REPO"
 }
 
-wth_status() {
+ghec_status() {
   log_step "status — $CHID in '$ORG'"
   if gh_repo_exists "$ORG" "$REPO"; then
     local prs

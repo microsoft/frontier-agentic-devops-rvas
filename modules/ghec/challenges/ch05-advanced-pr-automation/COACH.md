@@ -8,7 +8,7 @@
 
 **Their question:** Coach conversation — which repetitive PR task on your current team (auto-labeling, reviewer assignment, size checks, changelog enforcement) costs the most human time per week, and what could a composite action or reusable workflow replace? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch05-advanced-pr-automation` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch05-advanced-pr-automation` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - List the manual steps that happen every time a PR is opened in your main repo — who does each one?
@@ -21,7 +21,7 @@ Use these follow-ups to steer the conversation:
   - **Rulesets vs classic branch protection.** They coexist and the **most restrictive wins**. Students sometimes set both and get confused about which rule blocked them. Reference [about rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets) to teach them to read the "rules" tooltip on the blocked PR.
   - **Auto-merge prerequisites.** Auto-merge only arms when the repo setting is on *and* the PR has required checks/reviews pending (not already mergeable, not draft). Reference [automatically merging](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/automatically-merging-a-pull-request) to clarify the "it just merged" surprise.
   - **`labeler` trigger.** `pull_request_target` runs in the base-repo context (needed for fork PRs to get labels) — explain the security nuance (don't check out untrusted code in that context). See [actions/labeler](https://github.com/actions/labeler).
-  - **Org ruleset scope.** The repo-name pattern `wth-ch05-*` must match; a typo means the org rule silently covers nothing. See [managing rulesets for organizations](https://docs.github.com/en/organizations/managing-organization-settings/creating-rulesets-for-repositories-in-your-organization).
+  - **Org ruleset scope.** The repo-name pattern `ghec-ch05-*` must match; a typo means the org rule silently covers nothing. See [managing rulesets for organizations](https://docs.github.com/en/organizations/managing-organization-settings/creating-rulesets-for-repositories-in-your-organization).
 - **How to unblock without giving the answer:** ask "if two policies disagree, which one applies?" (→ strictest), and "what conditions must be *pending* for auto-merge to wait rather than merge now?"
 - **Org-scoped note:** runs with an org + org-owner token. The **org ruleset** (Part F) needs `admin:org`, which the org-owner token has. No enterprise owner required.
 
@@ -33,12 +33,12 @@ Use these follow-ups to steer the conversation:
 | Auto-merge | 20 | Clean PR merged itself after gates; failing PR held back; demonstrated both |
 | Draft PR + template | 15 | Template pre-fills; draft blocks auto-merge/reviewers until ready |
 | Actions PR housekeeping | 20 | Path auto-labeling works; open-PR comment fires; stale workflow labels/closes correctly |
-| Organization ruleset | 10 | Org ruleset targets `wth-ch05-*`, active, layers with repo ruleset |
+| Organization ruleset | 10 | Org ruleset targets `ghec-ch05-*`, active, layers with repo ruleset |
 | **Total** | **100** | |
 
 ## Automated verification hints
 ```bash
-ORG=<org>; REPO=wth-ch05-advanced-pr-automation   # swap REPO for the student's own repo if they brought one
+ORG=<org>; REPO=ghec-ch05-advanced-pr-automation   # swap REPO for the student's own repo if they brought one
 
 # Repository rulesets (expect an Active ruleset with the rules below)
 gh api repos/$ORG/$REPO/rulesets --jq '.[] | {name, enforcement}'
@@ -58,7 +58,7 @@ gh pr list --repo $ORG/$REPO --state all --json number,isDraft,autoMergeRequest,
 gh api repos/$ORG/$REPO/contents/.github/workflows --jq '.[].name'
 gh api repos/$ORG/$REPO/contents/.github/labeler.yml --jq '.path'
 
-# Organization ruleset targeting wth-ch05-*
+# Organization ruleset targeting ghec-ch05-*
 gh api /orgs/$ORG/rulesets --jq '.[] | {name, enforcement, target}'
 ```
 - The **ruleset `rules[].type`** list is the fastest mastery signal — it should include `pull_request`, `required_status_checks`, `non_fast_forward`, and `required_linear_history`.
@@ -69,7 +69,7 @@ gh api /orgs/$ORG/rulesets --jq '.[] | {name, enforcement, target}'
 - **Both classic protection and a ruleset active** → confusing double-gates. Prefer rulesets here; if classic protection exists from setup, note which rule wins. See [about rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets).
 - **Auto-merge "merged instantly"** because no required check was configured yet — set the ruleset's required check *before* arming auto-merge to see the wait behavior. Clarify with [auto-merge docs](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/automatically-merging-a-pull-request).
 - **`labeler` permissions** — the workflow needs `pull-requests: write`; missing perms silently skip labeling. Confirm in [actions/labeler](https://github.com/actions/labeler) docs.
-- **Org ruleset pattern typo** — `wth-ch5-*` vs `wth-ch05-*` matches nothing. Verify pattern matching in [org rulesets](https://docs.github.com/en/organizations/managing-organization-settings/creating-rulesets-for-repositories-in-your-organization).
+- **Org ruleset pattern typo** — `ghec-ch5-*` vs `ghec-ch05-*` matches nothing. Verify pattern matching in [org rulesets](https://docs.github.com/en/organizations/managing-organization-settings/creating-rulesets-for-repositories-in-your-organization).
 - **Stale workflow on a schedule** won't have fired during a short session — use `workflow_dispatch` to demonstrate. See [actions/stale](https://github.com/actions/stale).
 - **Token scope** — `admin:org` required for the org ruleset; `workflow` to push workflow files.
 
@@ -78,8 +78,8 @@ gh api /orgs/$ORG/rulesets --jq '.[] | {name, enforcement, target}'
 bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch05 --org <org> --yes   # Bash
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch05 --org <org> --yes  # PowerShell
 ```
-- Removes only `wth-ch05-*` artifacts (prefix-guarded): the repo (with its repo ruleset, workflows, PRs) **and** the `wth-ch05-org` organization ruleset.
-- **Manual cleanup (if any):** any org **team** the student created for CODEOWNERS that isn't `wth-ch05-*` prefixed must be removed by hand; advise naming teams `wth-ch05-*`.
+- Removes only `ghec-ch05-*` artifacts (prefix-guarded): the repo (with its repo ruleset, workflows, PRs) **and** the `ghec-ch05-org` organization ruleset.
+- **Manual cleanup (if any):** any org **team** the student created for CODEOWNERS that isn't `ghec-ch05-*` prefixed must be removed by hand; advise naming teams `ghec-ch05-*`.
 
 ## Time budget
 - Setup + read PR states: ~30 min

@@ -16,7 +16,7 @@ success_criteria:
 - You performed both a **REST read** and a **REST write** (label created, issues labeled, comment posted) via `gh api`.
 - You **paged through all seeded issues** with REST `--paginate` and the count matches the seeded total.
 - You ran a **parameterized GraphQL query** with variables and **cursor-paginated** it to completion.
-- You executed at least one **GraphQL mutation** (added issues to `wth-ch16-board` and set their `Status`).
+- You executed at least one **GraphQL mutation** (added issues to `ghec-ch16-board` and set their `Status`).
 - You inspected **`rate_limit`** and your reconcile script **backs off** when `remaining` is low.
 - Your reconcile script is **idempotent** — a second run produces **no changes**.
 take_home_action: In your own org, automate one recurring GitHub administration or delivery task with idempotent REST and GraphQL scripts that handle pagination and rate limits.
@@ -32,12 +32,12 @@ app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
-- repo wth-ch16-rest-graphql-automation (seeded, src/ + docs/ layout)
+- repo ghec-ch16-rest-graphql-automation (seeded, src/ + docs/ layout)
 - ~60 seeded issues in mixed states (open/closed, many unlabeled) for real pagination
 - starter label set (bug, enhancement, triage, area:backend, area:docs) with deliberate gaps
-- empty org Projects v2 board wth-ch16-board to populate via GraphQL
+- empty org Projects v2 board ghec-ch16-board to populate via GraphQL
 tier: core
-source_repo: microsoft/frontier-agenticdevops-hackathon
+source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/ch16-rest-graphql-automation/meta.yml
 license: MIT
 references:

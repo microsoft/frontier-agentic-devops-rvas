@@ -30,9 +30,9 @@ By completing this challenge you will:
 A GHEC customer ships a Node/Angular app with a backlog of latent vulnerabilities — SQL injection, XSS, broken auth, path traversal — none of them visible until something breaks in production. You'll give them static analysis that finds these on every push and every PR, explains each via its data-flow path, suggests fixes, and stops new vulnerabilities from merging. OWASP Juice Shop is the ideal target: it's intentionally riddled with the full OWASP Top 10, so CodeQL has genuine findings to surface — not toy examples.
 
 ## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the hackathon*. Pick a real application repository your organization owns so CodeQL findings and gates matter after today and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+This challenge is most valuable when the result *outlives the delivery session*. Pick a real application repository your organization owns so CodeQL findings and gates matter after today and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 
-- **Have a candidate?** Use it everywhere this guide says `wth-ch12-juice-shop`. Skip the Setup step below entirely.
+- **Have a candidate?** Use it everywhere this guide says `ghec-ch12-juice-shop`. Skip the Setup step below entirely.
 - **No suitable one?** Use the fallback below: an OWASP Juice Shop import with known vulnerable code for safe CodeQL practice.
 
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
@@ -49,21 +49,21 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch12 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch12 --org <org>
 ```
 
-**What setup creates** (all artifacts namespaced `wth-ch12-*`, idempotent, prefix-guarded teardown):
-- A **public** repo **`wth-ch12-juice-shop`** — OWASP Juice Shop imported at pinned ref **`v20.0.0`** (pulled from the official source, never vendored into this repo). The codebase carries real, intentional OWASP Top 10 vulnerabilities (SQLi, XSS, broken auth/JWT, path traversal, SSRF, and more).
+**What setup creates** (all artifacts namespaced `ghec-ch12-*`, idempotent, prefix-guarded teardown):
+- A **public** repo **`ghec-ch12-juice-shop`** — OWASP Juice Shop imported at pinned ref **`v20.0.0`** (pulled from the official source, never vendored into this repo). The codebase carries real, intentional OWASP Top 10 vulnerabilities (SQLi, XSS, broken auth/JWT, path traversal, SSRF, and more).
 - A `feature/insecure-endpoint` **branch** with a small deliberately vulnerable change you'll open as a PR to demonstrate PR-time scanning and required-check gating.
 - A printed **Next steps** block telling you where to start.
 
 
 ## Tasks
-> Throughout, **`wth-ch12-juice-shop` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
+> Throughout, **`ghec-ch12-juice-shop` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Default setup
-1. **Enable CodeQL default setup.** In `wth-ch12-juice-shop` → **Settings → Code security → Code scanning**, choose **Set up → Default**. Confirm it detects **JavaScript/TypeScript** as the language.
+1. **Enable CodeQL default setup.** In `ghec-ch12-juice-shop` → **Settings → Code security → Code scanning**, choose **Set up → Default**. Confirm it detects **JavaScript/TypeScript** as the language.
 2. **Watch the first scan run.** Default setup creates a CodeQL run under the **Actions** tab. Wait for it to complete (`gh run watch`), then open **Security → Code scanning** and confirm alerts have appeared.
 3. **Confirm via API** that an analysis exists:
    ```bash
-   gh api repos/<org>/wth-ch12-juice-shop/code-scanning/analyses --jq '.[0] | {tool: .tool.name, ref, created_at}'
+   gh api repos/<org>/ghec-ch12-juice-shop/code-scanning/analyses --jq '.[0] | {tool: .tool.name, ref, created_at}'
    ```
 
 ### Part B — Switch to an advanced workflow
@@ -76,13 +76,13 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch12 --org <org>
 8. **Inspect a high-severity alert.** Open a **SQL injection** or **XSS** alert and read its **data-flow path** — source (user input) → sink (query/DOM). Note the rule ID and severity.
 9. **Set priority and triage three alerts:** confirm one as a true positive (leave open / create a tracking issue), and dismiss one with a reason (`won't fix` / `used in tests` / `false positive`) using the UI or API:
    ```bash
-   gh api -X PATCH repos/<org>/wth-ch12-juice-shop/code-scanning/alerts/<n> \
+   gh api -X PATCH repos/<org>/ghec-ch12-juice-shop/code-scanning/alerts/<n> \
      -f state=dismissed -f dismissed_reason="won't fix" \
      -f dismissed_comment="Demo target — tracked separately"
    ```
 10. **List open alerts by severity** to build a triage view:
     ```bash
-    gh api repos/<org>/wth-ch12-juice-shop/code-scanning/alerts --paginate \
+    gh api repos/<org>/ghec-ch12-juice-shop/code-scanning/alerts --paginate \
       --jq '.[] | select(.state=="open") | {number, rule: .rule.id, severity: .rule.security_severity_level}'
     ```
 

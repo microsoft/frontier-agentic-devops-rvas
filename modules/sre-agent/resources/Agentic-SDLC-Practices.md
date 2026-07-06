@@ -1,6 +1,6 @@
 # Agentic SDLC Practices
 
-This note connects the hackathon path to The Agentic SDLC Handbook without adding a separate lecture track. Use it as a coach reference when teams need language for responsible agent-assisted delivery.
+This note connects the delivery session path to The Agentic SDLC Handbook without adding a separate lecture track. Use it as a coach reference when teams need language for responsible agent-assisted delivery.
 
 ## Handbook Integration
 

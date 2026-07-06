@@ -47,7 +47,7 @@ business_value:
 - reduce-migration-risk
 - accelerate-cutover
 adoption_stage: pilot
-source_repo: microsoft/frontier-agenticdevops-hackathon
+source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/ch25-migrate-gitlab/meta.yml
 license: MIT
 references:

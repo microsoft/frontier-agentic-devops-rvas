@@ -4,11 +4,11 @@
 # (a) a name that starts with this challenge's exact prefix, and
 # (b) explicit confirmation (interactive or --yes).
 
-# guard_prefix <name> <chid> -> 0 only if <name> is inside wth-<chid>-*.
+# guard_prefix <name> <chid> -> 0 only if <name> is inside ghec-<chid>-*.
 # Teardown MUST call this before deleting anything.
 guard_prefix() {
   local name="$1" chid="$2" expect
-  expect="wth-${chid}-"
+  expect="ghec-${chid}-"
   case "$name" in
     "${expect}"*) return 0 ;;
     *)

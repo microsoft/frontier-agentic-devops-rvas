@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Lightweight factuality-surface audit for the hackathon content.
+ * Lightweight factuality-surface audit for the delivery session content.
  * Dependency-free: Node core only, deterministic by default.
  */
 'use strict';
@@ -18,7 +18,7 @@ const GRAPH_PATH = path.join(DOCS_DIR, 'assets', 'data', 'dependency-graph.json'
 const EXTERNAL_REPOS_PATH = path.join(ROOT, 'external-repos.json');
 const CHECK_EXTERNAL = process.argv.includes('--external') || process.env.AUDIT_EXTERNAL === '1';
 const PAGES_HOSTS = new Set(['microsoft.github.io']);
-const PROJECT_SLUG = 'frontier-agenticdevops-hackathon';
+const PROJECT_SLUG = 'frontier-agentic-devops-rvas';
 
 const state = {
   errors: [],

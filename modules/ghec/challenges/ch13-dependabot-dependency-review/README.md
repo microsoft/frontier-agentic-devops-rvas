@@ -30,9 +30,9 @@ By completing this challenge you will:
 A GHEC customer's app drags a long tail of outdated, vulnerable npm packages — the kind of supply-chain risk that doesn't show up until a CVE makes the news. You'll give them an early-warning system: the dependency graph maps what they depend on, Dependabot opens PRs to fix known-vulnerable packages automatically, and dependency review stops a new risky dependency from sneaking in via a pull request. OWASP Juice Shop is purpose-built for this — its dependency tree is intentionally vulnerable (old Angular libraries, a deliberately risky `ftp` package, a `.dependabot/` directory), so there's genuine alert and PR material to work with.
 
 ## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the hackathon*. Pick a real application repository your organization owns so Dependabot alerts and dependency-review gates persist and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+This challenge is most valuable when the result *outlives the delivery session*. Pick a real application repository your organization owns so Dependabot alerts and dependency-review gates persist and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 
-- **Have a candidate?** Use it everywhere this guide says `wth-ch13-juice-shop`. Skip the Setup step below entirely.
+- **Have a candidate?** Use it everywhere this guide says `ghec-ch13-juice-shop`. Skip the Setup step below entirely.
 - **No suitable one?** Use the fallback below: an OWASP Juice Shop import with dependency material you can inspect safely.
 
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
@@ -49,20 +49,20 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch13 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch13 --org <org>
 ```
 
-**What setup creates** (all artifacts namespaced `wth-ch13-*`, idempotent, prefix-guarded teardown):
-- A **public** repo **`wth-ch13-juice-shop`** — OWASP Juice Shop imported at pinned ref **`v20.0.0`** (pulled from the official source, never vendored into this repo). Its npm dependency tree is intentionally vulnerable, giving Dependabot genuine alerts and security-update PRs to raise.
+**What setup creates** (all artifacts namespaced `ghec-ch13-*`, idempotent, prefix-guarded teardown):
+- A **public** repo **`ghec-ch13-juice-shop`** — OWASP Juice Shop imported at pinned ref **`v20.0.0`** (pulled from the official source, never vendored into this repo). Its npm dependency tree is intentionally vulnerable, giving Dependabot genuine alerts and security-update PRs to raise.
 - A `feature/add-risky-dep` **branch** that adds a known-vulnerable dependency to `package.json`, ready to open as a PR so you can watch **dependency review** flag it.
 - A printed **Next steps** block telling you where to start.
 
 
 ## Tasks
-> Throughout, **`wth-ch13-juice-shop` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
+> Throughout, **`ghec-ch13-juice-shop` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Dependency graph & SBOM
-1. **Enable the dependency graph.** In `wth-ch13-juice-shop` → **Settings → Code security**, confirm **Dependency graph** is on (default on public repos), then open **Insights → Dependency graph → Dependencies** and explore the resolved tree.
+1. **Enable the dependency graph.** In `ghec-ch13-juice-shop` → **Settings → Code security**, confirm **Dependency graph** is on (default on public repos), then open **Insights → Dependency graph → Dependencies** and explore the resolved tree.
 2. **Export an SBOM.** From the dependency graph UI (Export SBOM) or the API, pull the SPDX SBOM and skim it:
    ```bash
-   gh api repos/<org>/wth-ch13-juice-shop/dependency-graph/sbom --jq '.sbom.name, (.sbom.packages | length)'
+   gh api repos/<org>/ghec-ch13-juice-shop/dependency-graph/sbom --jq '.sbom.name, (.sbom.packages | length)'
    ```
 
 ### Part B — Dependabot alerts
@@ -70,7 +70,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch13 --org <org>
 4. **Triage the alert backlog.** Open **Security → Dependabot** and review the alerts. Sort by severity. Open one **critical/high** alert and read the linked **GitHub Advisory** (CVE, affected range, patched version).
 5. **List alerts via API** and build a severity view:
    ```bash
-   gh api repos/<org>/wth-ch13-juice-shop/dependabot/alerts --paginate \
+   gh api repos/<org>/ghec-ch13-juice-shop/dependabot/alerts --paginate \
      --jq '.[] | select(.state=="open") | {number, pkg: .dependency.package.name, severity: .security_advisory.severity}'
    ```
 6. **Dismiss one alert with a reason** (e.g. a dev-only dependency you deem not exploitable) using the UI or API, and note the audit reason recorded.
@@ -78,7 +78,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch13 --org <org>
 ### Part C — Security-update PRs
 7. **Let Dependabot open security PRs.** With security updates enabled, Dependabot opens PRs that bump vulnerable packages to patched versions. List them:
    ```bash
-   gh pr list --repo <org>/wth-ch13-juice-shop --author "app/dependabot" --json number,title,headRefName
+   gh pr list --repo <org>/ghec-ch13-juice-shop --author "app/dependabot" --json number,title,headRefName
    ```
 8. **Review and merge one security PR.** Read the changelog/compatibility score Dependabot includes, then merge a low-risk bump. Confirm the corresponding Dependabot alert moves to **fixed** after the merge.
 

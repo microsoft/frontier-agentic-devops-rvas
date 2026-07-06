@@ -46,7 +46,7 @@
 Before releasing the group to Challenge S01, confirm per participant:
 
 - [ ] `gh auth status` exits 0 and shows the correct username
-- [ ] `<org>/wth-ghas-00-juice-shop` exists
+- [ ] `<org>/ghec-ghas-00-juice-shop` exists
 - [ ] CodeQL workflow and Dependabot config exist under `.github/`
 - [ ] CodeQL, Dependabot alerts, secret scanning, and push protection are enabled or recorded as manual follow-up
 - [ ] Required participants/teams have been added to the repo

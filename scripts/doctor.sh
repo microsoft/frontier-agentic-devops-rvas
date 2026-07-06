@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# doctor.sh — verify the unified hackathon toolchain is present.
+# doctor.sh — verify the unified delivery session toolchain is present.
 # Prints a status table and exits non-zero if any REQUIRED tool is missing.
 # Safe to run on the host or inside the dev container.
 set -uo pipefail
@@ -38,7 +38,7 @@ check_sub() {
   fi
 }
 
-echo -e "${BOLD}Environment doctor — Frontier GitHub Platform Hackathon${RESET}"
+echo -e "${BOLD}Environment doctor — Frontier GitHub Platform Delivery Session${RESET}"
 echo
 
 echo -e "${BOLD}Core${RESET}"

@@ -2,7 +2,7 @@
   "name": "frontier-sample-app",
   "version": "0.1.0",
   "private": true,
-  "description": "Tiny dependency-light Node.js service for the Frontier Agentic DevOps Hackathon.",
+  "description": "Tiny dependency-light Node.js service for the Frontier Agentic DevOps Delivery session.",
   "type": "module",
   "scripts": {
     "start": "node src/server.js",

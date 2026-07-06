@@ -46,4 +46,4 @@ Verify each success criterion from the student guide:
 | Grounding conversation | 15 | Connected the alert classes to a real team repo, ownership model, and next action. |
 
 ## Source
-Derived from legacy GHAS hackathon source material, MIT license.
+Derived from legacy GHAS delivery session source material, MIT license.

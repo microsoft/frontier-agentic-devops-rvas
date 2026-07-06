@@ -17,7 +17,7 @@ param incidentMode string = ''
 
 var normalizedName = toLower(replace(appName, '_', '-'))
 var tags = {
-  workload: 'frontier-agentic-devops-hackathon'
+  workload: 'frontier-agentic-devops-rvas'
   environment: 'workshop'
 }
 

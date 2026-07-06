@@ -2,7 +2,7 @@
 # common.sh — generic helpers shared by every command: dry-run gating,
 # a minimal meta.yml reader (no yq dependency), and challenge-dir resolution.
 
-WTH_VERSION="0.1.0"
+GHEC_VERSION="0.1.0"
 
 # run_mutation <cmd...>
 # Executes a state-changing command, or prints the plan under --dry-run and

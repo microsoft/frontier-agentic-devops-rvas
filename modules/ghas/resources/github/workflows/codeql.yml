@@ -9,7 +9,7 @@
 #   2. It runs a suite of security queries against that database
 #   3. Results appear in the "Security" tab > "Code scanning alerts"
 #
-# HACKATHON MODEL:
+# DELIVERY SESSION MODEL:
 #   Participants work in this shared repository on their own branches, then
 #   validate fixes by opening pull requests back into main.
 #
@@ -20,7 +20,7 @@
 #   - When organizers run it manually from the Actions tab
 #   - On a weekly schedule (catches new vulnerability patterns as queries update)
 #
-# FOR HACKATHON PARTICIPANTS:
+# FOR DELIVERY SESSION PARTICIPANTS:
 #   Use branches like team-{your-team-name}/challenge-work or participant/{name}.
 #   CodeQL findings appear in PR checks and in the Security tab under
 #   "Code scanning alerts". Copilot Autofix can suggest fixes for many alerts.

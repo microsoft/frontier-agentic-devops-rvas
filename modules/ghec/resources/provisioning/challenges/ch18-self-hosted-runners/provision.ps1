@@ -2,25 +2,25 @@
 #
 # PowerShell twin of ch18 — runner workflows, docs, and an org runner group.
 
-$Global:WthRunnerGroup = "wth-$($Global:WthChid)-runners"
+$Global:GhecRunnerGroup = "ghec-$($Global:GhecChid)-runners"
 
-function _Ch18-RepoFull { "$($Global:WthOrg)/$($Global:WthRepo)" }
+function _Ch18-RepoFull { "$($Global:GhecOrg)/$($Global:GhecRepo)" }
 
 function _Ch18-RunnerGroupId {
-  $id = gh api "orgs/$($Global:WthOrg)/actions/runner-groups" `
-    --jq ".runner_groups[]? | select(.name==`"$($Global:WthRunnerGroup)`") | .id" 2>$null
+  $id = gh api "orgs/$($Global:GhecOrg)/actions/runner-groups" `
+    --jq ".runner_groups[]? | select(.name==`"$($Global:GhecRunnerGroup)`") | .id" 2>$null
   if ($id) { return ($id -split '\r?\n')[0] }
   return $null
 }
 
 function _Ch18-SeedRepo {
-  Write-WthStep 'seeding runner workflows + setup/hardening guides'
-  $org = $Global:WthOrg
-  $repo = $Global:WthRepo
-  $grp = $Global:WthRunnerGroup
+  Write-GhecStep 'seeding runner workflows + setup/hardening guides'
+  $org = $Global:GhecOrg
+  $repo = $Global:GhecRepo
+  $grp = $Global:GhecRunnerGroup
 
   $readme = @"
-# wth-ch18 — Self-Hosted Runners
+# ghec-ch18 — Self-Hosted Runners
 
 Practice repo for self-hosted runner setup, targeting, and hardening.
 
@@ -31,7 +31,7 @@ Practice repo for self-hosted runner setup, targeting, and hardening.
 
 Registering a runner requires a real machine + token — that is the manual step.
 "@
-  Set-WthFile -Org $org -Repo $repo -Path 'README.md' -Message 'Add self-hosted runners overview' -Content $readme
+  Set-GhecFile -Org $org -Repo $repo -Path 'README.md' -Message 'Add self-hosted runners overview' -Content $readme
 
   $hosted = @'
 name: Hosted Baseline
@@ -48,7 +48,7 @@ jobs:
       - uses: actions/checkout@v4
       - run: echo "running on a GitHub-hosted runner"
 '@
-  Set-WthFile -Org $org -Repo $repo -Path '.github/workflows/hosted.yml' -Message 'Add GitHub-hosted baseline workflow' -Content $hosted
+  Set-GhecFile -Org $org -Repo $repo -Path '.github/workflows/hosted.yml' -Message 'Add GitHub-hosted baseline workflow' -Content $hosted
 
   $self = @'
 name: Self-Hosted Job
@@ -64,10 +64,10 @@ jobs:
       - uses: actions/checkout@v4
       - run: echo "running on a self-hosted runner: $(hostname)"
 '@
-  Set-WthFile -Org $org -Repo $repo -Path '.github/workflows/self-hosted.yml' -Message 'Add self-hosted (label-targeted) workflow' -Content $self
+  Set-GhecFile -Org $org -Repo $repo -Path '.github/workflows/self-hosted.yml' -Message 'Add self-hosted (label-targeted) workflow' -Content $self
 
   $setup = @"
-# Runner Setup — wth-ch18
+# Runner Setup — ghec-ch18
 
 Register a self-hosted runner into the ``$grp`` org runner group.
 
@@ -80,10 +80,10 @@ Register a self-hosted runner into the ``$grp`` org runner group.
    ``````
 3. Trigger ``.github/workflows/self-hosted.yml`` and confirm it lands on your runner.
 "@
-  Set-WthFile -Org $org -Repo $repo -Path 'RUNNER-SETUP.md' -Message 'Add runner registration guide' -Content $setup
+  Set-GhecFile -Org $org -Repo $repo -Path 'RUNNER-SETUP.md' -Message 'Add runner registration guide' -Content $setup
 
   $hard = @'
-# Runner Hardening Checklist — wth-ch18
+# Runner Hardening Checklist — ghec-ch18
 
 - [ ] Use ephemeral runners (`--ephemeral`) so each job starts clean.
 - [ ] Never run self-hosted runners on public repos with untrusted PRs.
@@ -92,56 +92,56 @@ Register a self-hosted runner into the ``$grp`` org runner group.
 - [ ] Keep the runner host patched; rotate registration tokens.
 - [ ] Isolate the host (network egress controls, no long-lived cloud creds).
 '@
-  Set-WthFile -Org $org -Repo $repo -Path 'HARDENING.md' -Message 'Add runner hardening checklist' -Content $hard
+  Set-GhecFile -Org $org -Repo $repo -Path 'HARDENING.md' -Message 'Add runner hardening checklist' -Content $hard
 }
 
 function _Ch18-SeedRunnerGroup {
-  Write-WthStep "seeding org runner group: $($Global:WthRunnerGroup)"
+  Write-GhecStep "seeding org runner group: $($Global:GhecRunnerGroup)"
   $id = _Ch18-RunnerGroupId
-  if ($id) { Write-WthOk "runner group '$($Global:WthRunnerGroup)' exists (#$id, skip)"; return }
-  Invoke-WthMutation -Plan "gh api POST runner-groups $($Global:WthRunnerGroup)" -Action {
-    gh api -X POST "orgs/$($Global:WthOrg)/actions/runner-groups" -f name="$($Global:WthRunnerGroup)" -f visibility=all
+  if ($id) { Write-GhecOk "runner group '$($Global:GhecRunnerGroup)' exists (#$id, skip)"; return }
+  Invoke-GhecMutation -Plan "gh api POST runner-groups $($Global:GhecRunnerGroup)" -Action {
+    gh api -X POST "orgs/$($Global:GhecOrg)/actions/runner-groups" -f name="$($Global:GhecRunnerGroup)" -f visibility=all
   }
 }
 
 # ===========================================================================
-function Invoke-WthProvision {
-  New-WthRepo -Org $Global:WthOrg -Repo $Global:WthRepo -Visibility 'public'
-  if ((-not $Global:WthDryRun) -and (-not (Test-WthRepoExists -Org $Global:WthOrg -Repo $Global:WthRepo))) {
-    Stop-Wth "repo $(_Ch18-RepoFull) missing after create — aborting seed"
+function Invoke-GhecProvision {
+  New-GhecRepo -Org $Global:GhecOrg -Repo $Global:GhecRepo -Visibility 'public'
+  if ((-not $Global:GhecDryRun) -and (-not (Test-GhecRepoExists -Org $Global:GhecOrg -Repo $Global:GhecRepo))) {
+    Stop-Ghec "repo $(_Ch18-RepoFull) missing after create — aborting seed"
   }
   _Ch18-SeedRepo
   _Ch18-SeedRunnerGroup
   Write-Host ''
-  Write-WthInfo 'Next steps for the participant:'
-  Write-WthInfo "  - register a self-hosted runner into the '$($Global:WthRunnerGroup)' group"
-  Write-WthInfo '  - run the self-hosted workflow and review HARDENING.md'
-  Write-WthWarn 'manual: runner registration needs a real machine + token — not automated.'
+  Write-GhecInfo 'Next steps for the participant:'
+  Write-GhecInfo "  - register a self-hosted runner into the '$($Global:GhecRunnerGroup)' group"
+  Write-GhecInfo '  - run the self-hosted workflow and review HARDENING.md'
+  Write-GhecWarn 'manual: runner registration needs a real machine + token — not automated.'
 }
 
-function Invoke-WthTeardown {
-  if (-not (Confirm-WthPrefix -Name $Global:WthRepo -Chid $Global:WthChid)) { return }
-  Remove-WthRepo -Org $Global:WthOrg -Repo $Global:WthRepo
+function Invoke-GhecTeardown {
+  if (-not (Confirm-GhecPrefix -Name $Global:GhecRepo -Chid $Global:GhecChid)) { return }
+  Remove-GhecRepo -Org $Global:GhecOrg -Repo $Global:GhecRepo
 
   $id = _Ch18-RunnerGroupId
   if ($id) {
-    if (-not (Confirm-WthPrefix -Name $Global:WthRunnerGroup -Chid $Global:WthChid)) { return }
-    Invoke-WthMutation -Plan "gh api DELETE runner-groups/$id" -Action {
-      gh api -X DELETE "orgs/$($Global:WthOrg)/actions/runner-groups/$id"
+    if (-not (Confirm-GhecPrefix -Name $Global:GhecRunnerGroup -Chid $Global:GhecChid)) { return }
+    Invoke-GhecMutation -Plan "gh api DELETE runner-groups/$id" -Action {
+      gh api -X DELETE "orgs/$($Global:GhecOrg)/actions/runner-groups/$id"
     }
   } else {
-    Write-WthOk "runner group '$($Global:WthRunnerGroup)' absent (skip)"
+    Write-GhecOk "runner group '$($Global:GhecRunnerGroup)' absent (skip)"
   }
-  Write-WthWarn 'manual: de-register any self-hosted runner you connected — teardown does not touch runner hosts.'
+  Write-GhecWarn 'manual: de-register any self-hosted runner you connected — teardown does not touch runner hosts.'
 }
 
-function Invoke-WthStatus {
-  Write-WthStep "status — $($Global:WthChid) in '$($Global:WthOrg)'"
-  if (Test-WthRepoExists -Org $Global:WthOrg -Repo $Global:WthRepo) {
+function Invoke-GhecStatus {
+  Write-GhecStep "status — $($Global:GhecChid) in '$($Global:GhecOrg)'"
+  if (Test-GhecRepoExists -Org $Global:GhecOrg -Repo $Global:GhecRepo) {
     $id = _Ch18-RunnerGroupId
     $grp = if ($id) { "present (#$id)" } else { 'MISSING' }
-    Write-WthOk "repo $(_Ch18-RepoFull) present — runner group $grp"
+    Write-GhecOk "repo $(_Ch18-RepoFull) present — runner group $grp"
   } else {
-    Write-WthInfo "repo $(_Ch18-RepoFull) not provisioned"
+    Write-GhecInfo "repo $(_Ch18-RepoFull) not provisioned"
   }
 }

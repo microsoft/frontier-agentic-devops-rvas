@@ -8,7 +8,7 @@
 
 **Their question:** Coach conversation — what build or test job in your current CI pipeline is bottlenecked on GitHub-hosted runner constraints (network, hardware, compliance, cost), and what would a self-hosted runner in your own infrastructure unlock for that job? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch18-self-hosted-runners` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch18-self-hosted-runners` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Name the specific workflow and the constraint — is it network egress, memory, GPUs, a license, or a compliance boundary?
@@ -19,7 +19,7 @@ Use these follow-ups to steer the conversation:
 - **Goal in one line:** the student registers a self-hosted runner through an **org runner group**, targets it with labels, and — the key outcome — **hardens it** (least-privilege, ephemeral, fork-PR risk) rather than just getting a green build.
 - **Where students get stuck:**
   - **Registration token vs PAT.** The runner config needs a short-lived **registration token** (`actions/runners/registration-token`), not their PAT. They paste the wrong one.
-  - **`runs-on` label matching.** A job needs **all** listed labels present on a runner. `[self-hosted, wth-ch18]` requires both; a runner missing `wth-ch18` won't pick it up — the job sits **Queued** with no error.
+  - **`runs-on` label matching.** A job needs **all** listed labels present on a runner. `[self-hosted, ghec-ch18]` requires both; a runner missing `ghec-ch18` won't pick it up — the job sits **Queued** with no error.
   - **Runner never goes idle.** They configured it but didn't start `run.sh` (or the service). Status stays offline.
   - **Hardening hand-waved.** The temptation is to run as root and call it done. Hold them to the least-privilege account and a demonstrated **ephemeral** run.
 - **How to unblock without giving the answer:** ask "which credential does `config.sh` want, and how long does it live?" (→ registration token), and "what labels does the job require vs what labels does your runner advertise?" (→ exact set match).
@@ -28,7 +28,7 @@ Use these follow-ups to steer the conversation:
 ## Grading rubric (point-weighted, 100 pts)
 | Criterion | Points | What "full marks" looks like |
 |---|---:|---|
-| Org runner group (scoped) | 15 | `wth-ch18-group` exists, **selected repos** only, scoped to the one repo |
+| Org runner group (scoped) | 15 | `ghec-ch18-group` exists, **selected repos** only, scoped to the one repo |
 | Runner registration | 20 | Runner online/Idle in the group with custom labels |
 | Targeting + label routing | 20 | `self-hosted.yml` ran on the student's runner; mis-labeled job stays Queued (shown) |
 | Hosted vs self-hosted contrast | 10 | Both run; student articulates latency/env/cost tradeoffs |
@@ -38,11 +38,11 @@ Use these follow-ups to steer the conversation:
 
 ## Automated verification hints
 ```bash
-ORG=<org>; REPO=wth-ch18-self-hosted-runners   # swap REPO for the student's own repo if they brought one
+ORG=<org>; REPO=ghec-ch18-self-hosted-runners   # swap REPO for the student's own repo if they brought one
 
 # Runner group exists and is repo-scoped
 gh api orgs/$ORG/actions/runner-groups --jq '.runner_groups[] | {name, visibility}'
-GID=$(gh api orgs/$ORG/actions/runner-groups --jq '.runner_groups[] | select(.name=="wth-ch18-group") | .id')
+GID=$(gh api orgs/$ORG/actions/runner-groups --jq '.runner_groups[] | select(.name=="ghec-ch18-group") | .id')
 gh api orgs/$ORG/actions/runner-groups/$GID/repositories --jq '.repositories[].name'
 
 # Runner is online with the expected labels
@@ -53,7 +53,7 @@ gh run list --repo $ORG/$REPO --workflow self-hosted.yml --json databaseId,concl
 RUN=$(gh run list --repo $ORG/$REPO --workflow self-hosted.yml --limit 1 --json databaseId --jq '.[0].databaseId')
 gh api repos/$ORG/$REPO/actions/runs/$RUN/jobs --jq '.jobs[] | {name, runner_name, labels}'
 ```
-- The **truth source** is `jobs[].runner_name` — it must match the student's runner (`wth-ch18-runner`), not a GitHub-hosted name.
+- The **truth source** is `jobs[].runner_name` — it must match the student's runner (`ghec-ch18-runner`), not a GitHub-hosted name.
 - For ephemeral, have the student show the runner **disappearing from `actions/runners`** after a single job, then re-registering for the next.
 - For label routing, have them show a run **stuck in Queued** when the workflow requires a label no runner advertises.
 
@@ -74,7 +74,7 @@ gh api repos/$ORG/$REPO/actions/runs/$RUN/jobs --jq '.jobs[] | {name, runner_nam
 bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch18 --org <org> --yes   # Bash
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch18 --org <org> --yes  # PowerShell
 ```
-- Removes only `wth-ch18-*` artifacts (prefix-guarded): the repo and the `wth-ch18-group` org runner group.
+- Removes only `ghec-ch18-*` artifacts (prefix-guarded): the repo and the `ghec-ch18-group` org runner group.
 - **Manual cleanup (required):** **unregister the runner on the host** before/after teardown — `./config.sh remove --token <removal-token>` (get one via `gh api -X POST orgs/<org>/actions/runners/remove-token`). If you installed it as a service, stop and uninstall the service. Delete the disposable VM/container if you used one.
 
 ## Time budget

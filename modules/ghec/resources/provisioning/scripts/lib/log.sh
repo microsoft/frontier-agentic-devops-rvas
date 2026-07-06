@@ -1,5 +1,5 @@
 # shellcheck shell=bash
-# log.sh — logging helpers for the wth provisioning CLI.
+# log.sh — logging helpers for the provisioning scripts.
 # Pure I/O: writes to stderr so stdout stays clean for machine-readable output.
 # Colour auto-disables when stderr is not a TTY (CI-safe).
 

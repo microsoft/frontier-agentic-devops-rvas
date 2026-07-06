@@ -2,14 +2,14 @@
 #
 # PowerShell twin of ch16 — large messy automation target.
 
-$Global:WthProjectTitle = "wth-$($Global:WthChid)-board"
+$Global:GhecProjectTitle = "ghec-$($Global:GhecChid)-board"
 
-function _Ch16-RepoFull { "$($Global:WthOrg)/$($Global:WthRepo)" }
+function _Ch16-RepoFull { "$($Global:GhecOrg)/$($Global:GhecRepo)" }
 
 function _Ch16-SeedScaffold {
-  Write-WthStep 'seeding src/ + docs/ scaffold'
+  Write-GhecStep 'seeding src/ + docs/ scaffold'
   $readme = @"
-# wth-ch16 — REST & GraphQL Automation Target
+# ghec-ch16 — REST & GraphQL Automation Target
 
 A deliberately large, messy backlog to automate against. Use the REST and
 GraphQL APIs to triage, label, and organise the issues in this repo.
@@ -17,28 +17,28 @@ GraphQL APIs to triage, label, and organise the issues in this repo.
 - ``src/`` — placeholder service code
 - ``docs/`` — placeholder docs
 - ~60 seeded issues (mixed open/closed, mostly unlabeled)
-- empty board: ``$($Global:WthProjectTitle)``
+- empty board: ``$($Global:GhecProjectTitle)``
 "@
-  Set-WthFile -Org $Global:WthOrg -Repo $Global:WthRepo -Path 'README.md' -Message 'Add automation target overview' -Content $readme
+  Set-GhecFile -Org $Global:GhecOrg -Repo $Global:GhecRepo -Path 'README.md' -Message 'Add automation target overview' -Content $readme
 
   $app = @'
-// wth-ch16 placeholder service — the code is not the point; the backlog is.
+// ghec-ch16 placeholder service — the code is not the point; the backlog is.
 module.exports = function app () {
   return { status: 'ok' }
 }
 '@
-  Set-WthFile -Org $Global:WthOrg -Repo $Global:WthRepo -Path 'src/app.js' -Message 'Add placeholder service entrypoint' -Content $app
+  Set-GhecFile -Org $Global:GhecOrg -Repo $Global:GhecRepo -Path 'src/app.js' -Message 'Add placeholder service entrypoint' -Content $app
 
   $docs = @'
 # API (placeholder)
 
 Document the endpoints here as part of the automation exercise.
 '@
-  Set-WthFile -Org $Global:WthOrg -Repo $Global:WthRepo -Path 'docs/API.md' -Message 'Add placeholder API docs' -Content $docs
+  Set-GhecFile -Org $Global:GhecOrg -Repo $Global:GhecRepo -Path 'docs/API.md' -Message 'Add placeholder API docs' -Content $docs
 }
 
 function _Ch16-SeedLabels {
-  Write-WthStep 'seeding starter labels (intentionally incomplete)'
+  Write-GhecStep 'seeding starter labels (intentionally incomplete)'
   $existing = gh label list --repo (_Ch16-RepoFull) --limit 200 --json name --jq '.[].name' 2>$null
   $labels = @(
     'bug|d73a4a|Something is broken',
@@ -49,20 +49,20 @@ function _Ch16-SeedLabels {
   )
   foreach ($entry in $labels) {
     $name, $color, $desc = $entry -split '\|', 3
-    if ($existing -contains $name) { Write-WthOk "label '$name' exists (skip)"; continue }
-    Invoke-WthMutation -Plan "gh label create $name" -Action {
+    if ($existing -contains $name) { Write-GhecOk "label '$name' exists (skip)"; continue }
+    Invoke-GhecMutation -Plan "gh label create $name" -Action {
       gh label create $name --repo (_Ch16-RepoFull) --color $color --description $desc
     }
   }
-  Write-WthInfo "GAP by design: no priority scale, no 'good first issue' — automation fills these."
+  Write-GhecInfo "GAP by design: no priority scale, no 'good first issue' — automation fills these."
 }
 
 function _Ch16-SeedIssues {
-  Write-WthStep 'seeding ~60 issues (mixed open/closed, mostly unlabeled)'
+  Write-GhecStep 'seeding ~60 issues (mixed open/closed, mostly unlabeled)'
   $existing = gh issue list --repo (_Ch16-RepoFull) --state all --limit 500 --json title --jq '.[].title' 2>$null
   $topics = @('login flow','search endpoint','rate limiting','pagination','webhook retries',
               'CSV export','audit logging','cache invalidation','error messages','timezone handling')
-  $body = 'Seeded by wth-ch16 — messy backlog at scale. Triage, label, and organise via REST/GraphQL.'
+  $body = 'Seeded by ghec-ch16 — messy backlog at scale. Triage, label, and organise via REST/GraphQL.'
   for ($i = 1; $i -le 60; $i++) {
     $n = '{0:000}' -f $i
     $topic = $topics[($i - 1) % $topics.Count]
@@ -71,70 +71,70 @@ function _Ch16-SeedIssues {
     $label = switch ($i % 4) { 0 { 'bug' } 2 { 'enhancement' } default { '' } }
     $state = if ($i % 3 -eq 0) { 'closed' } else { 'open' }
 
-    if ($existing -contains $title) { Write-WthOk "issue '$title' exists (skip)"; continue }
+    if ($existing -contains $title) { Write-GhecOk "issue '$title' exists (skip)"; continue }
 
     $args = @('issue', 'create', '--repo', (_Ch16-RepoFull), '--title', $title, '--body', $body)
     if ($label) { $args += @('--label', $label) }
-    $url = Invoke-WthMutation -Plan "gh issue create '$title'" -Action { gh @args }
+    $url = Invoke-GhecMutation -Plan "gh issue create '$title'" -Action { gh @args }
     if ($state -eq 'closed' -and $url) {
-      Invoke-WthMutation -Plan "gh issue close '$title'" -Action { gh issue close $url }
+      Invoke-GhecMutation -Plan "gh issue close '$title'" -Action { gh issue close $url }
     }
   }
 }
 
 function _Ch16-ProjectNumber {
-  $json = gh project list --owner $Global:WthOrg --format json --limit 100 2>$null
+  $json = gh project list --owner $Global:GhecOrg --format json --limit 100 2>$null
   if (-not $json) { return $null }
   return ($json | ConvertFrom-Json).projects |
-    Where-Object { $_.title -eq $Global:WthProjectTitle } |
+    Where-Object { $_.title -eq $Global:GhecProjectTitle } |
     Select-Object -First 1 -ExpandProperty number
 }
 
 function _Ch16-SeedProject {
-  Write-WthStep "seeding empty Project (v2): $($Global:WthProjectTitle)"
+  Write-GhecStep "seeding empty Project (v2): $($Global:GhecProjectTitle)"
   $num = _Ch16-ProjectNumber
-  if ($num) { Write-WthOk "project '$($Global:WthProjectTitle)' exists (#$num, skip)"; return }
-  Invoke-WthMutation -Plan "gh project create $($Global:WthProjectTitle)" -Action {
-    gh project create --owner $Global:WthOrg --title $Global:WthProjectTitle
+  if ($num) { Write-GhecOk "project '$($Global:GhecProjectTitle)' exists (#$num, skip)"; return }
+  Invoke-GhecMutation -Plan "gh project create $($Global:GhecProjectTitle)" -Action {
+    gh project create --owner $Global:GhecOrg --title $Global:GhecProjectTitle
   }
 }
 
 # ===========================================================================
-function Invoke-WthProvision {
-  New-WthRepo -Org $Global:WthOrg -Repo $Global:WthRepo -Visibility public
-  if ((-not $Global:WthDryRun) -and (-not (Test-WthRepoExists -Org $Global:WthOrg -Repo $Global:WthRepo))) {
-    Stop-Wth "repo $(_Ch16-RepoFull) missing after create — aborting seed"
+function Invoke-GhecProvision {
+  New-GhecRepo -Org $Global:GhecOrg -Repo $Global:GhecRepo -Visibility public
+  if ((-not $Global:GhecDryRun) -and (-not (Test-GhecRepoExists -Org $Global:GhecOrg -Repo $Global:GhecRepo))) {
+    Stop-Ghec "repo $(_Ch16-RepoFull) missing after create — aborting seed"
   }
   _Ch16-SeedScaffold
   _Ch16-SeedLabels
   _Ch16-SeedIssues
   _Ch16-SeedProject
   Write-Host ''
-  Write-WthInfo 'Next steps for the participant:'
-  Write-WthInfo '  - script bulk triage/labeling over the backlog with REST + GraphQL'
-  Write-WthInfo "  - add issues to the '$($Global:WthProjectTitle)' board programmatically"
+  Write-GhecInfo 'Next steps for the participant:'
+  Write-GhecInfo '  - script bulk triage/labeling over the backlog with REST + GraphQL'
+  Write-GhecInfo "  - add issues to the '$($Global:GhecProjectTitle)' board programmatically"
 }
 
-function Invoke-WthTeardown {
-  if (-not (Confirm-WthPrefix -Name $Global:WthRepo -Chid $Global:WthChid)) { return }
-  Remove-WthRepo -Org $Global:WthOrg -Repo $Global:WthRepo
+function Invoke-GhecTeardown {
+  if (-not (Confirm-GhecPrefix -Name $Global:GhecRepo -Chid $Global:GhecChid)) { return }
+  Remove-GhecRepo -Org $Global:GhecOrg -Repo $Global:GhecRepo
 
   $num = _Ch16-ProjectNumber
   if ($num) {
-    if (-not (Confirm-WthPrefix -Name $Global:WthProjectTitle -Chid $Global:WthChid)) { return }
-    Invoke-WthMutation -Plan "gh project delete $num" -Action { gh project delete $num --owner $Global:WthOrg }
+    if (-not (Confirm-GhecPrefix -Name $Global:GhecProjectTitle -Chid $Global:GhecChid)) { return }
+    Invoke-GhecMutation -Plan "gh project delete $num" -Action { gh project delete $num --owner $Global:GhecOrg }
   } else {
-    Write-WthOk "project '$($Global:WthProjectTitle)' absent (skip)"
+    Write-GhecOk "project '$($Global:GhecProjectTitle)' absent (skip)"
   }
 }
 
-function Invoke-WthStatus {
-  Write-WthStep "status — $($Global:WthChid) in '$($Global:WthOrg)'"
-  if (Test-WthRepoExists -Org $Global:WthOrg -Repo $Global:WthRepo) {
+function Invoke-GhecStatus {
+  Write-GhecStep "status — $($Global:GhecChid) in '$($Global:GhecOrg)'"
+  if (Test-GhecRepoExists -Org $Global:GhecOrg -Repo $Global:GhecRepo) {
     $issues = gh issue list --repo (_Ch16-RepoFull) --state all --limit 500 --json number --jq 'length' 2>$null
     $labels = gh label list --repo (_Ch16-RepoFull) --limit 200 --json name --jq 'length' 2>$null
-    Write-WthOk "repo $(_Ch16-RepoFull) present — $issues issues, $labels labels"
+    Write-GhecOk "repo $(_Ch16-RepoFull) present — $issues issues, $labels labels"
   } else {
-    Write-WthInfo "repo $(_Ch16-RepoFull) not provisioned"
+    Write-GhecInfo "repo $(_Ch16-RepoFull) not provisioned"
   }
 }

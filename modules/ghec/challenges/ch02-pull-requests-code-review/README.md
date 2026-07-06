@@ -30,9 +30,9 @@ By completing this challenge you will:
 A GHEC customer's team keeps pushing straight to `main`, breaking each other's work, and shipping un-reviewed changes. You've been asked to introduce a real review culture: every change goes through a PR, the right people are required to review the code they own, and merges are clean and traceable. You'll build that workflow on a seeded service repo and prove it end-to-end.
 
 ## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the hackathon*. Pick a real repository with a pull-request review flow you can improve and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+This challenge is most valuable when the result *outlives the delivery session*. Pick a real repository with a pull-request review flow you can improve and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 
-- **Have a candidate?** Use it everywhere this guide says `wth-ch02-pull-requests-code-review`. Skip the Setup step below entirely.
+- **Have a candidate?** Use it everywhere this guide says `ghec-ch02-pull-requests-code-review`. Skip the Setup step below entirely.
 - **No suitable one?** Use the fallback below: a seeded sample repo with PRs and review settings to configure.
 
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
@@ -49,8 +49,8 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch02 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch02 --org <org>
 ```
 
-**What setup creates** (all artifacts namespaced `wth-ch02-*`, idempotent, prefix-guarded teardown):
-- A seeded repo **`wth-ch02-pull-requests-code-review`** containing a small multi-file app (e.g., `src/`, `docs/`, `.github/`) and a populated `main` branch.
+**What setup creates** (all artifacts namespaced `ghec-ch02-*`, idempotent, prefix-guarded teardown):
+- A seeded repo **`ghec-ch02-pull-requests-code-review`** containing a small multi-file app (e.g., `src/`, `docs/`, `.github/`) and a populated `main` branch.
 - **Two pre-existing feature branches** with **open pull requests** that need review (one clean, one that will conflict).
 - A **`.github/pull_request_template.md`** placeholder you will improve.
 - A `main` branch with **no protection yet** (you add it) and a starter directory layout that maps cleanly to `CODEOWNERS` paths.
@@ -58,10 +58,10 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch02 --org <org>
 
 
 ## Tasks
-> Throughout, **`wth-ch02-pull-requests-code-review` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
+> Throughout, **`ghec-ch02-pull-requests-code-review` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Branch & open a PR
-1. **Clone and branch.** `gh repo clone <org>/wth-ch02-pull-requests-code-review`, then create `feature/add-healthcheck` and add a small, real change (e.g., a `/health` endpoint or a new function + doc line).
+1. **Clone and branch.** `gh repo clone <org>/ghec-ch02-pull-requests-code-review`, then create `feature/add-healthcheck` and add a small, real change (e.g., a `/health` endpoint or a new function + doc line).
 2. **Open a PR from the CLI.** `gh pr create --base main --head feature/add-healthcheck --fill`. In the body, link an issue with `Closes #<n>` (create a tracking issue first if none exists).
 3. **Open it as a draft first**, then mark it **Ready for review** (`gh pr ready`). Note how draft PRs cannot be merged and don't request reviewers automatically.
 

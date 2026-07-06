@@ -13,7 +13,7 @@ prerequisite_capabilities:
 - Repository provisioned via challenge setup script
 description: By the end of this challenge you can register, harden, and target a self-hosted runner through an **organization runner group**, route jobs to it with labels, and reason about scaling and isolation — all from an org and an org-owner token.
 success_criteria:
-- An **org runner group** `wth-ch18-group` exists, scoped to **selected repos** (only `wth-ch18-self-hosted-runners`).
+- An **org runner group** `ghec-ch18-group` exists, scoped to **selected repos** (only `ghec-ch18-self-hosted-runners`).
 - A **self-hosted runner** is registered to that group with custom **labels** and shows **Idle/online**.
 - '`self-hosted.yml` ran **on your runner** (runner name confirmed) while `hosted.yml` ran on a hosted runner.'
 - A **mis-labeled** job stays **queued**, proving label routing.
@@ -32,12 +32,12 @@ app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
-- repo wth-ch18-self-hosted-runners (seeded build)
+- repo ghec-ch18-self-hosted-runners (seeded build)
 - hosted.yml (ubuntu-latest) + self-hosted.yml (label-targeted, queued until runner exists)
 - RUNNER-SETUP.md registration + hardening walkthrough (Linux/macOS/Windows)
 - HARDENING.md checklist (service account, ephemeral, fork-PR risk, egress)
 tier: core
-source_repo: microsoft/frontier-agenticdevops-hackathon
+source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/ch18-self-hosted-runners/meta.yml
 license: MIT
 references:

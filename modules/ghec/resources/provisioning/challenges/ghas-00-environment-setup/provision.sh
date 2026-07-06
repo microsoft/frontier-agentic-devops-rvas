@@ -4,7 +4,7 @@
 # seeds the GHAS config files used by the module, and enables repo-level
 # security features where the authenticated user and org license allow it.
 
-GHAS_REPO="${REPO:-wth-${CHID}-juice-shop}"
+GHAS_REPO="${REPO:-ghec-${CHID}-juice-shop}"
 GHAS_RESOURCES_DIR="$(cd "$SCRIPT_DIR/../../../../.." && pwd)/modules/ghas/resources/github"
 
 _ghas_full() { printf '%s/%s' "$ORG" "$GHAS_REPO"; }
@@ -71,7 +71,7 @@ _ghas_trigger_codeql() {
 }
 
 # ===========================================================================
-wth_provision() {
+ghec_provision() {
   juice_shop_import "$ORG" "$GHAS_REPO" "$JUICE_SHOP_REF"
   if [[ "$DRY_RUN" != "true" ]] && ! gh_repo_exists "$ORG" "$GHAS_REPO"; then
     die "repo $(_ghas_full) missing after import — aborting GHAS setup"
@@ -88,12 +88,12 @@ wth_provision() {
   log_info "  - have each participant clone $(_ghas_full) and push a personal/team branch"
 }
 
-wth_teardown() {
+ghec_teardown() {
   guard_prefix "$GHAS_REPO" "$CHID" || return 1
   gh_delete_repo "$ORG" "$GHAS_REPO"
 }
 
-wth_status() {
+ghec_status() {
   log_step "status — $CHID in '$ORG'"
   if gh_repo_exists "$ORG" "$GHAS_REPO"; then
     local codeql config dependabot visibility security

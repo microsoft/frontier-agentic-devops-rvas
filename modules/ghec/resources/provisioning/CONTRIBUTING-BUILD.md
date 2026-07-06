@@ -71,7 +71,7 @@ Never duplicate this data in prose — render or read it from here.
 | `juice_shop_ref` | `v20.0.0` | scripts | Only when `app: juice-shop`. Pinned for reproducibility. |
 | `requires` | list | scripts (`doctor` preflight) | Always includes `org`; add `ghas`/`copilot`. |
 | `emu_compatible` | bool | site (badge), scripts (`doctor` warn) | `false` **only** for ch19. |
-| `provision_creates` | list | site (Setup summary), scripts | All artifacts `wth-ch##-*`. |
+| `provision_creates` | list | site (Setup summary), scripts | All artifacts `ghec-ch##-*`. |
 | `references` | list of URLs | site | Official docs.github.com links. |
 
 ## Who owns what
@@ -87,10 +87,10 @@ Never duplicate this data in prose — render or read it from here.
 ### ⚙️ Yen — provisioning scripts (`scripts/`)
 - Own `scripts/setup.sh` + `scripts/setup.ps1` (and `teardown`, `doctor`, `status`) over one shared gh/jq core.
 - Per-challenge logic reads `challenges/ch##-<slug>/meta.yml` for `app`, `requires`, `provision_creates`.
-- Command surface: `wth <doctor|setup|status|teardown> ch## --org <org> [--dry-run] [--yes]`.
-- Namespace **everything** `wth-ch##-*`; teardown refuses to touch anything without that prefix.
+- Command surface: `setup.sh` / `setup.ps1` `<doctor|setup|status|teardown> ch## --org <org> [--dry-run] [--yes]`.
+- Namespace **everything** `ghec-ch##-*`; teardown refuses to touch anything without that prefix.
 - `doctor` verifies tooling (`gh`/`git`/`jq`), auth, and the `requires` capabilities; warns on EMU for ch19.
-- Juice Shop: pull pinned `v20.0.0` release tarball → fresh git init → push to `wth-ch##-juice-shop`. Never vendor.
+- Juice Shop: pull pinned `v20.0.0` release tarball → fresh git init → push to `ghec-ch##-juice-shop`. Never vendor.
 
 ### 🌐 Basher — GitHub Pages site (`docs/`)
 - Source of truth for cards/filters/badges is each `meta.yml` — read it, don't hand-copy.
@@ -99,7 +99,7 @@ Never duplicate this data in prose — render or read it from here.
 - Link the site from the root `README.md` and back.
 
 ## Independence guarantee (everyone upholds)
-- No challenge depends on another's output. Each `setup` creates all of its own `wth-ch##-*` state.
+- No challenge depends on another's output. Each `setup` creates all of its own `ghec-ch##-*` state.
 - Soft-links are optional only and must be re-created by provisioning, never assumed.
 
 ## Changing the contract

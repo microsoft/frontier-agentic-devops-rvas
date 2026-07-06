@@ -1,6 +1,6 @@
 # Research Links
 
-Curated references for the Frontier Agentic DevOps Hackathon. Prefer these links when writing challenge guides, coach notes, and setup instructions.
+Curated references for the Frontier Agentic DevOps Delivery session. Prefer these links when writing challenge guides, coach notes, and setup instructions.
 
 ## Azure SRE Agent
 
@@ -25,7 +25,7 @@ Curated references for the Frontier Agentic DevOps Hackathon. Prefer these links
 | --- | --- | --- |
 | [The Agentic SDLC Handbook](https://danielmeppiel.github.io/agentic-sdlc-handbook/) | Methodology frame for AI-native software delivery. | Daniel Meppiel's handbook is a living pre-release under CC BY-NC-ND 4.0. Summarize and attribute; do not copy long passages. |
 | [The Agentic SDLC Thesis](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch01-the-agentic-sdlc-thesis.html) | Source for the claim that AI-native delivery needs an operating model, not only tool adoption. | Useful framing for Challenge 00 and Challenge 01. |
-| [The Reference Architecture](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch04-the-reference-architecture.html) | Source for human, agent, and platform separation. | Connect to the hackathon evidence chain and review gates. |
+| [The Reference Architecture](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch04-the-reference-architecture.html) | Source for human, agent, and platform separation. | Connect to the delivery session evidence chain and review gates. |
 | [Governance for AI-Assisted Delivery](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch05-governance-for-ai-assisted-delivery.html) | Source for governance and accountability language. | Use when explaining why humans still own policy, review, and release decisions. |
 | [The Practitioner's Mindset](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch10-the-practitioners-mindset.html) | Source for practitioner habits when working with agents. | Applies directly to Challenge 03 prompt, plan, test, and verify loops. |
 | [The Runtime Machine](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch11-the-runtime-machine.html) | Source for agent runtime concepts. | Useful for Challenge 03 coordination and handoff design. |
@@ -64,7 +64,7 @@ Curated references for the Frontier Agentic DevOps Hackathon. Prefer these links
 
 | Source | Use in Curriculum | Notes |
 | --- | --- | --- |
-| [microsoft/WhatTheHack](https://github.com/microsoft/WhatTheHack) | Format anchor for challenge-based hackathon structure. | What The Hack challenges describe high-level tasks and goals, not step-by-step labs. Coaches guide without giving direct answers. |
+| [microsoft/WhatTheHack](https://github.com/microsoft/WhatTheHack) | Format anchor for challenge-based delivery session structure. | What The Hack challenges describe high-level tasks and goals, not step-by-step labs. Coaches guide without giving direct answers. |
 | [Modern Development and DevOps with GitHub](https://github.com/microsoft/WhatTheHack/tree/master/065-ModernGitHubDev) | Reference for GitHub SDLC challenge design. | Useful when shaping Challenge 1 and Challenge 4. |
 | [GitHub Copilot What The Hack](https://github.com/microsoft/WhatTheHack/tree/master/071-GitHubCopilot) | Reference for Copilot learning flow. | Useful when shaping Challenge 03. |
 | [DevOps with GitHub Actions](https://github.com/microsoft/WhatTheHack/tree/master/044-DevOpswithGithubActions) | Reference for Actions-focused delivery exercises. | Useful when Challenge 4 needs a deeper Actions path. |

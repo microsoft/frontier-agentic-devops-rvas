@@ -39,7 +39,7 @@ gh_create_repo() {
     return 0
   fi
   gh_repo_create_with_fallback "$org" "$repo" "$vis" \
-    "wth challenge artifact — safe to delete via teardown"
+    "ghec challenge artifact — safe to delete via teardown"
 }
 
 # gh_delete_repo <org> <repo>
@@ -157,11 +157,11 @@ gh_create_repo_soft() {
   fi
   if [[ "${DRY_RUN:-false}" == "true" ]]; then
     gh_repo_create_with_fallback "$org" "$repo" "$vis" \
-      "wth challenge artifact — safe to delete via teardown"
+      "ghec challenge artifact — safe to delete via teardown"
     return 0
   fi
   if gh_repo_create_with_fallback "$org" "$repo" "$vis" \
-      "wth challenge artifact — safe to delete via teardown"; then
+      "ghec challenge artifact — safe to delete via teardown"; then
     log_ok "created $vis repo $org/$repo"
   else
     log_warn "could not create '$vis' repo $org/$repo — visibility '$vis' may require an enterprise-owned org (MANUAL STEP)"
@@ -176,7 +176,7 @@ gh_team_exists() {
 
 # gh_create_team <org> <name> [description] — create-if-absent. dry-run aware.
 gh_create_team() {
-  local org="$1" name="$2" desc="${3:-wth challenge team — safe to delete via teardown}"
+  local org="$1" name="$2" desc="${3:-ghec challenge team — safe to delete via teardown}"
   if gh_team_exists "$org" "$name"; then
     log_ok "team '$name' exists (skip)"
     return 0

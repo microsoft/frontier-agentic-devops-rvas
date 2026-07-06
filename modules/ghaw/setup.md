@@ -3,7 +3,7 @@
 Use one of these supported environment paths before starting `ghaw-00`:
 
 ## Option 1: GitHub Codespaces
-1. Open **this repository** (`microsoft/frontier-agenticdevops-hackathon`) on GitHub.
+1. Open **this repository** (`microsoft/frontier-agentic-devops-rvas`) on GitHub.
 2. Click **Code** → **Codespaces** → **Create codespace on main**.
 3. Wait for the dev container to finish building. `gh-aw` installs automatically via `postCreate.sh`.
 
@@ -11,8 +11,8 @@ Use one of these supported environment paths before starting `ghaw-00`:
 1. Install Docker Desktop and VS Code.
 2. Clone this repository (if you haven't already):
    ```bash
-   git clone https://github.com/microsoft/frontier-agenticdevops-hackathon.git
-   cd frontier-agenticdevops-hackathon
+   git clone https://github.com/microsoft/frontier-agentic-devops-rvas.git
+   cd frontier-agentic-devops-rvas
    ```
 3. Install the **Dev Containers** extension in VS Code.
 4. Run **Dev Containers: Reopen in Container**. `gh-aw` installs automatically via `postCreate.sh`.
@@ -22,7 +22,7 @@ Use one of these supported environment paths before starting `ghaw-00`:
 gh auth login
 gh auth status
 gh aw --version
-gh aw trial modules/ghaw/resources/examples/hello-world.md --logical-repo microsoft/frontier-agenticdevops-hackathon --dry-run --yes
+gh aw trial modules/ghaw/resources/examples/hello-world.md --logical-repo microsoft/frontier-agentic-devops-rvas --dry-run --yes
 ```
 
 If `gh aw --version` fails in a local environment, reinstall with:
@@ -34,4 +34,4 @@ Expected outcome: GitHub authentication succeeds, `gh aw --version` prints a ver
 
 The `--logical-repo` flag tells `gh-aw` which repository to simulate. This avoids failures when your local clone uses an SSH host alias or another non-standard remote URL.
 
-Students do not need write access to `microsoft/frontier-agenticdevops-hackathon` for this smoke test. In trial mode, `gh-aw` uses a temporary host repository in the student's own GitHub account and only simulates the hackathon repository as the target.
+Students do not need write access to `microsoft/frontier-agentic-devops-rvas` for this smoke test. In trial mode, `gh-aw` uses a temporary host repository in the student's own GitHub account and only simulates the delivery session repository as the target.

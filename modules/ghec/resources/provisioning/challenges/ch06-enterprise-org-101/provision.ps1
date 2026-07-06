@@ -1,86 +1,86 @@
 # challenges/ch06-enterprise-org-101/provision.ps1
 #
 # Dot-sourced by scripts/setup.ps1. CONTRACT:
-#   Invoke-WthProvision / Invoke-WthTeardown / Invoke-WthStatus
+#   Invoke-GhecProvision / Invoke-GhecTeardown / Invoke-GhecStatus
 #
 # ORG-SCOPED. ch06: sample repos for visibility governance, a members team
 # with one repo attached at default permission, and a printed baseline snapshot
 # of the org's member-privilege settings.
 
-$Global:WthR06Pub  = "wth-$($Global:WthChid)-public-sample"
-$Global:WthR06Priv = "wth-$($Global:WthChid)-private-sample"
-$Global:WthR06Int  = "wth-$($Global:WthChid)-internal-sample"
-$Global:WthTeam06  = "wth-$($Global:WthChid)-members"
+$Global:GhecR06Pub  = "ghec-$($Global:GhecChid)-public-sample"
+$Global:GhecR06Priv = "ghec-$($Global:GhecChid)-private-sample"
+$Global:GhecR06Int  = "ghec-$($Global:GhecChid)-internal-sample"
+$Global:GhecTeam06  = "ghec-$($Global:GhecChid)-members"
 
 function _Ch06-SeedReadme {
   param([string]$Repo, [string]$Vis)
-  Set-WthFile -Org $Global:WthOrg -Repo $Repo -Path 'README.md' -Message "seed README (wth-$($Global:WthChid))" -Content @"
+  Set-GhecFile -Org $Global:GhecOrg -Repo $Repo -Path 'README.md' -Message "seed README (ghec-$($Global:GhecChid))" -Content @"
 # $Repo
 
-A $Vis sample repo seeded by wth-$($Global:WthChid) (Enterprise Org 101).
+A $Vis sample repo seeded by ghec-$($Global:GhecChid) (Enterprise Org 101).
 Use it to explore visibility, base permissions, and member privileges.
 "@
 }
 
 function _Ch06-RepoVisibility {
   param([string]$Repo)
-  $v = gh repo view "$($Global:WthOrg)/$Repo" --json visibility --jq '.visibility' 2>$null
+  $v = gh repo view "$($Global:GhecOrg)/$Repo" --json visibility --jq '.visibility' 2>$null
   if ($v) { return $v.ToLowerInvariant() }
   return ''
 }
 
 # ===========================================================================
-function Invoke-WthProvision {
-  $o = $Global:WthOrg
+function Invoke-GhecProvision {
+  $o = $Global:GhecOrg
   # Public creation is retried as private by the shared helper on EMU, where
   # public repositories are platform-blocked.
-  New-WthRepo -Org $o -Repo $Global:WthR06Pub  -Visibility public
-  New-WthRepo -Org $o -Repo $Global:WthR06Priv -Visibility private
-  New-WthRepoSoft -Org $o -Repo $Global:WthR06Int -Visibility internal
+  New-GhecRepo -Org $o -Repo $Global:GhecR06Pub  -Visibility public
+  New-GhecRepo -Org $o -Repo $Global:GhecR06Priv -Visibility private
+  New-GhecRepoSoft -Org $o -Repo $Global:GhecR06Int -Visibility internal
 
-  if (-not $Global:WthDryRun) {
-    if (Test-WthRepoExists -Org $o -Repo $Global:WthR06Pub)  {
-      $pubVis = _Ch06-RepoVisibility -Repo $Global:WthR06Pub
-      if ($pubVis -ne 'public') { Write-WthWarn "$($Global:WthR06Pub) was requested as public but is '$pubVis' (expected on EMU)" }
+  if (-not $Global:GhecDryRun) {
+    if (Test-GhecRepoExists -Org $o -Repo $Global:GhecR06Pub)  {
+      $pubVis = _Ch06-RepoVisibility -Repo $Global:GhecR06Pub
+      if ($pubVis -ne 'public') { Write-GhecWarn "$($Global:GhecR06Pub) was requested as public but is '$pubVis' (expected on EMU)" }
       $pubLabel = if ($pubVis) { $pubVis } else { 'public-requested' }
-      _Ch06-SeedReadme -Repo $Global:WthR06Pub -Vis $pubLabel
+      _Ch06-SeedReadme -Repo $Global:GhecR06Pub -Vis $pubLabel
     }
-    if (Test-WthRepoExists -Org $o -Repo $Global:WthR06Priv) { _Ch06-SeedReadme -Repo $Global:WthR06Priv -Vis (_Ch06-RepoVisibility -Repo $Global:WthR06Priv) }
-    if (Test-WthRepoExists -Org $o -Repo $Global:WthR06Int)  { _Ch06-SeedReadme -Repo $Global:WthR06Int -Vis (_Ch06-RepoVisibility -Repo $Global:WthR06Int) }
+    if (Test-GhecRepoExists -Org $o -Repo $Global:GhecR06Priv) { _Ch06-SeedReadme -Repo $Global:GhecR06Priv -Vis (_Ch06-RepoVisibility -Repo $Global:GhecR06Priv) }
+    if (Test-GhecRepoExists -Org $o -Repo $Global:GhecR06Int)  { _Ch06-SeedReadme -Repo $Global:GhecR06Int -Vis (_Ch06-RepoVisibility -Repo $Global:GhecR06Int) }
   } else {
-    Write-WthPlan "would seed README into the three sample repos (when present)"
+    Write-GhecPlan "would seed README into the three sample repos (when present)"
   }
 
-  New-WthTeam -Org $o -Name $Global:WthTeam06 -Description "wth-$($Global:WthChid) sample members team"
-  Add-WthTeamRepo -Org $o -Team $Global:WthTeam06 -Repo $Global:WthR06Pub -Permission pull
+  New-GhecTeam -Org $o -Name $Global:GhecTeam06 -Description "ghec-$($Global:GhecChid) sample members team"
+  Add-GhecTeamRepo -Org $o -Team $Global:GhecTeam06 -Repo $Global:GhecR06Pub -Permission pull
 
-  Write-WthStep "org member-privilege snapshot for '$o'"
-  if ($Global:WthDryRun) {
-    Write-WthPlan "would read: gh api orgs/$o (default_repository_permission, members_can_create_repositories, ...)"
+  Write-GhecStep "org member-privilege snapshot for '$o'"
+  if ($Global:GhecDryRun) {
+    Write-GhecPlan "would read: gh api orgs/$o (default_repository_permission, members_can_create_repositories, ...)"
   } else {
     try {
       gh api "orgs/$o" --jq '{default_repository_permission, members_can_create_repositories, members_can_create_public_repositories, members_can_create_private_repositories, members_can_create_internal_repositories, two_factor_requirement_enabled}'
     } catch {
-      Write-WthWarn "could not read org settings (needs admin:org / read:org)"
+      Write-GhecWarn "could not read org settings (needs admin:org / read:org)"
     }
   }
 }
 
-function Invoke-WthTeardown {
-  $o = $Global:WthOrg
-  foreach ($r in @($Global:WthR06Pub, $Global:WthR06Priv, $Global:WthR06Int)) {
-    if (-not (Confirm-WthPrefix -Name $r -Chid $Global:WthChid)) { return }
-    Remove-WthRepo -Org $o -Repo $r
+function Invoke-GhecTeardown {
+  $o = $Global:GhecOrg
+  foreach ($r in @($Global:GhecR06Pub, $Global:GhecR06Priv, $Global:GhecR06Int)) {
+    if (-not (Confirm-GhecPrefix -Name $r -Chid $Global:GhecChid)) { return }
+    Remove-GhecRepo -Org $o -Repo $r
   }
-  if (-not (Confirm-WthPrefix -Name $Global:WthTeam06 -Chid $Global:WthChid)) { return }
-  Remove-WthTeam -Org $o -Team $Global:WthTeam06
+  if (-not (Confirm-GhecPrefix -Name $Global:GhecTeam06 -Chid $Global:GhecChid)) { return }
+  Remove-GhecTeam -Org $o -Team $Global:GhecTeam06
 }
 
-function Invoke-WthStatus {
-  Write-WthStep "status — $($Global:WthChid) in '$($Global:WthOrg)'"
-  $o = $Global:WthOrg
-  foreach ($r in @($Global:WthR06Pub, $Global:WthR06Priv, $Global:WthR06Int)) {
-    if (Test-WthRepoExists -Org $o -Repo $r) { Write-WthOk "repo $o/$r present — visibility=$(_Ch06-RepoVisibility -Repo $r)" } else { Write-WthInfo "repo $o/$r absent" }
+function Invoke-GhecStatus {
+  Write-GhecStep "status — $($Global:GhecChid) in '$($Global:GhecOrg)'"
+  $o = $Global:GhecOrg
+  foreach ($r in @($Global:GhecR06Pub, $Global:GhecR06Priv, $Global:GhecR06Int)) {
+    if (Test-GhecRepoExists -Org $o -Repo $r) { Write-GhecOk "repo $o/$r present — visibility=$(_Ch06-RepoVisibility -Repo $r)" } else { Write-GhecInfo "repo $o/$r absent" }
   }
-  if (Test-WthTeamExists -Org $o -Team $Global:WthTeam06) { Write-WthOk "team $($Global:WthTeam06) present" } else { Write-WthInfo "team $($Global:WthTeam06) absent" }
+  if (Test-GhecTeamExists -Org $o -Team $Global:GhecTeam06) { Write-GhecOk "team $($Global:GhecTeam06) present" } else { Write-GhecInfo "team $($Global:GhecTeam06) absent" }
 }

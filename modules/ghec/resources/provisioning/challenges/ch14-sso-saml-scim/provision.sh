@@ -3,12 +3,12 @@
 # challenges/ch14-sso-saml-scim/provision.sh
 #
 # ch14 has NO Juice Shop and does NOT touch live identity settings. It seeds a
-# wth-ch14-identity-runbook repo (SAML app runbook, SCIM rollout checklist,
+# ghec-ch14-identity-runbook repo (SAML app runbook, SCIM rollout checklist,
 # join/leave test script) and prints a staged reference to the org-scoped
 # identity settings. SSO/SCIM are NOT auto-enabled — wiring them is the learning,
 # so the provisioner only emits clear manual-step guidance.
 
-RUNBOOK_REPO="wth-${CHID}-identity-runbook"
+RUNBOOK_REPO="ghec-${CHID}-identity-runbook"
 
 _ch14_repo_full() { printf '%s/%s' "$ORG" "$RUNBOOK_REPO"; }
 
@@ -18,7 +18,7 @@ _ch14_seed_runbook() {
   gh_put_file "$ORG" "$RUNBOOK_REPO" "README.md" \
     "Add identity runbook overview" \
 "$(cat <<EOF
-# wth-ch14 — Identity Runbook
+# ghec-ch14 — Identity Runbook
 
 Working notes for wiring **SAML SSO** and **SCIM** provisioning for the
 \`$ORG\` organization. Nothing here changes live settings; it is the plan you
@@ -71,7 +71,7 @@ EOF
     "Add join/leave provisioning test script" \
 "$(cat <<'EOF'
 #!/usr/bin/env bash
-# wth-ch14 — manual join/leave provisioning test (read-only helper).
+# ghec-ch14 — manual join/leave provisioning test (read-only helper).
 # Run AFTER SCIM is configured. Replace USER with a pilot account login.
 set -euo pipefail
 ORG="${1:?usage: join-leave-test.sh <org> <user>}"
@@ -85,7 +85,7 @@ EOF
 }
 
 # ===========================================================================
-wth_provision() {
+ghec_provision() {
   gh_create_repo "$ORG" "$RUNBOOK_REPO" public
   _ch14_seed_runbook
   echo >&2
@@ -95,13 +95,13 @@ wth_provision() {
   log_warn "manual: SSO/SAML and SCIM are NOT auto-enabled — configuring them is the challenge."
 }
 
-wth_teardown() {
+ghec_teardown() {
   guard_prefix "$RUNBOOK_REPO" "$CHID" || return 1
   gh_delete_repo "$ORG" "$RUNBOOK_REPO"
   log_warn "manual: if you enabled SSO/SCIM in org settings, disable them by hand — teardown does not touch identity settings."
 }
 
-wth_status() {
+ghec_status() {
   log_step "status — $CHID in '$ORG'"
   if gh_repo_exists "$ORG" "$RUNBOOK_REPO"; then
     local runbook checklist

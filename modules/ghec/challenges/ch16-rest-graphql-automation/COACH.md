@@ -8,7 +8,7 @@
 
 **Their question:** Coach conversation — what manual GitHub task does someone on your team do by clicking through the UI every week that a twenty-line API script could eliminate, and what is the organizational cost (time, error rate, toil) of not automating it? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch16-rest-graphql-automation` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch16-rest-graphql-automation` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Describe the specific manual click-through task — who does it, how often, and how long does it take?
@@ -32,13 +32,13 @@ Use these follow-ups to steer the conversation:
 | REST writes | 20 | Label created; unlabeled issues triaged; comment posted via API |
 | Pagination | 15 | All seeded issues paged (REST `--paginate`); count matches total; `Link` header understood |
 | GraphQL queries | 20 | Parameterized query with variables; cursor-paginated to completion |
-| GraphQL mutations + Projects v2 | 20 | Issues added to `wth-ch16-board`; `Status` field set via `updateProjectV2ItemFieldValue` |
+| GraphQL mutations + Projects v2 | 20 | Issues added to `ghec-ch16-board`; `Status` field set via `updateProjectV2ItemFieldValue` |
 | Rate limits + idempotency | 10 | `rate_limit` inspected; script backs off; second run = no changes |
 | **Total** | **100** | |
 
 ## Automated verification hints
 ```bash
-ORG=<org>; REPO=wth-ch16-rest-graphql-automation   # swap REPO for the student's own repo if they brought one
+ORG=<org>; REPO=ghec-ch16-rest-graphql-automation   # swap REPO for the student's own repo if they brought one
 
 # Repo exists and issue volume is there
 gh api repos/$ORG/$REPO --jq '{name, open_issues_count}'
@@ -54,7 +54,7 @@ gh api repos/$ORG/$REPO/labels --jq '.[].name' | grep -x 'needs-info'
 gh api graphql -f query='{ viewer { login } }' --jq '.data.viewer.login'
 gh api graphql -F org=$ORG -f query='
   query($org:String!){ organization(login:$org){ projectsV2(first:10){ nodes { number title } } } }' \
-  --jq '.data.organization.projectsV2.nodes[] | select(.title｜test("wth-ch16"))'
+  --jq '.data.organization.projectsV2.nodes[] | select(.title｜test("ghec-ch16"))'
 
 # Rate-limit budget (the script should read this)
 gh api rate_limit --jq '.resources.core, .resources.graphql'
@@ -78,7 +78,7 @@ gh api rate_limit --jq '.resources.core, .resources.graphql'
 bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch16 --org <org> --yes   # Bash
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch16 --org <org> --yes  # PowerShell
 ```
-- Removes only `wth-ch16-*` artifacts (prefix-guarded): the repo (with its issues/labels/comments) **and** the `wth-ch16-board` org project.
+- Removes only `ghec-ch16-*` artifacts (prefix-guarded): the repo (with its issues/labels/comments) **and** the `ghec-ch16-board` org project.
 - **Manual cleanup (if any):** none beyond the prefixed repo and board.
 
 ## Time budget

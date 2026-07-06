@@ -3,17 +3,17 @@
 # PowerShell twin of ch14. No Juice Shop; seeds an identity runbook repo and
 # prints staged identity-settings references. SSO/SCIM are NOT auto-enabled.
 
-$Global:WthRunbookRepo = "wth-$($Global:WthChid)-identity-runbook"
+$Global:GhecRunbookRepo = "ghec-$($Global:GhecChid)-identity-runbook"
 
-function _Ch14-RepoFull { "$($Global:WthOrg)/$($Global:WthRunbookRepo)" }
+function _Ch14-RepoFull { "$($Global:GhecOrg)/$($Global:GhecRunbookRepo)" }
 
 function _Ch14-SeedRunbook {
-  Write-WthStep 'seeding identity runbook content'
-  $org = $Global:WthOrg
-  $repo = $Global:WthRunbookRepo
+  Write-GhecStep 'seeding identity runbook content'
+  $org = $Global:GhecOrg
+  $repo = $Global:GhecRunbookRepo
 
   $readme = @"
-# wth-ch14 — Identity Runbook
+# ghec-ch14 — Identity Runbook
 
 Working notes for wiring **SAML SSO** and **SCIM** provisioning for the
 ``$org`` organization. Nothing here changes live settings; it is the plan you
@@ -25,7 +25,7 @@ execute by hand in the org identity settings.
 
 > SSO is intentionally NOT enabled by setup — enabling it is the exercise.
 "@
-  Set-WthFile -Org $org -Repo $repo -Path 'README.md' -Message 'Add identity runbook overview' -Content $readme
+  Set-GhecFile -Org $org -Repo $repo -Path 'README.md' -Message 'Add identity runbook overview' -Content $readme
 
   $saml = @"
 # SAML SSO Runbook — $org
@@ -43,7 +43,7 @@ execute by hand in the org identity settings.
 3. **Test** the configuration before requiring it.
 4. Require SAML SSO only after a successful test.
 "@
-  Set-WthFile -Org $org -Repo $repo -Path 'SAML-RUNBOOK.md' -Message 'Add SAML configuration runbook' -Content $saml
+  Set-GhecFile -Org $org -Repo $repo -Path 'SAML-RUNBOOK.md' -Message 'Add SAML configuration runbook' -Content $saml
 
   $scim = @"
 # SCIM Rollout Checklist — $org
@@ -56,11 +56,11 @@ execute by hand in the org identity settings.
 - [ ] Verify de-provisioning (leave) removes access.
 - [ ] Expand from pilot group to all users.
 "@
-  Set-WthFile -Org $org -Repo $repo -Path 'SCIM-CHECKLIST.md' -Message 'Add SCIM rollout checklist' -Content $scim
+  Set-GhecFile -Org $org -Repo $repo -Path 'SCIM-CHECKLIST.md' -Message 'Add SCIM rollout checklist' -Content $scim
 
   $script = @'
 #!/usr/bin/env bash
-# wth-ch14 — manual join/leave provisioning test (read-only helper).
+# ghec-ch14 — manual join/leave provisioning test (read-only helper).
 # Run AFTER SCIM is configured. Replace USER with a pilot account login.
 set -euo pipefail
 ORG="${1:?usage: join-leave-test.sh <org> <user>}"
@@ -70,33 +70,33 @@ gh api "scim/v2/organizations/$ORG/Users?filter=userName eq \"$USER\"" \
   --jq '.Resources[] | {id, userName, active}'
 echo "De-provision the user in your IdP, then re-run to confirm 'active: false'."
 '@
-  Set-WthFile -Org $org -Repo $repo -Path 'scripts/join-leave-test.sh' -Message 'Add join/leave provisioning test script' -Content $script
+  Set-GhecFile -Org $org -Repo $repo -Path 'scripts/join-leave-test.sh' -Message 'Add join/leave provisioning test script' -Content $script
 }
 
 # ===========================================================================
-function Invoke-WthProvision {
-  New-WthRepo -Org $Global:WthOrg -Repo $Global:WthRunbookRepo -Visibility 'public'
+function Invoke-GhecProvision {
+  New-GhecRepo -Org $Global:GhecOrg -Repo $Global:GhecRunbookRepo -Visibility 'public'
   _Ch14-SeedRunbook
   Write-Host ''
-  Write-WthInfo 'Staged identity settings reference (act on these by hand):'
-  Write-WthInfo "  - Authentication security page: https://github.com/organizations/$($Global:WthOrg)/settings/security"
-  Write-WthInfo "  - SCIM API base: https://api.github.com/scim/v2/organizations/$($Global:WthOrg)"
-  Write-WthWarn 'manual: SSO/SAML and SCIM are NOT auto-enabled — configuring them is the challenge.'
+  Write-GhecInfo 'Staged identity settings reference (act on these by hand):'
+  Write-GhecInfo "  - Authentication security page: https://github.com/organizations/$($Global:GhecOrg)/settings/security"
+  Write-GhecInfo "  - SCIM API base: https://api.github.com/scim/v2/organizations/$($Global:GhecOrg)"
+  Write-GhecWarn 'manual: SSO/SAML and SCIM are NOT auto-enabled — configuring them is the challenge.'
 }
 
-function Invoke-WthTeardown {
-  if (-not (Confirm-WthPrefix -Name $Global:WthRunbookRepo -Chid $Global:WthChid)) { return }
-  Remove-WthRepo -Org $Global:WthOrg -Repo $Global:WthRunbookRepo
-  Write-WthWarn 'manual: if you enabled SSO/SCIM in org settings, disable them by hand — teardown does not touch identity settings.'
+function Invoke-GhecTeardown {
+  if (-not (Confirm-GhecPrefix -Name $Global:GhecRunbookRepo -Chid $Global:GhecChid)) { return }
+  Remove-GhecRepo -Org $Global:GhecOrg -Repo $Global:GhecRunbookRepo
+  Write-GhecWarn 'manual: if you enabled SSO/SCIM in org settings, disable them by hand — teardown does not touch identity settings.'
 }
 
-function Invoke-WthStatus {
-  Write-WthStep "status — $($Global:WthChid) in '$($Global:WthOrg)'"
-  if (Test-WthRepoExists -Org $Global:WthOrg -Repo $Global:WthRunbookRepo) {
-    $runbook = if (Test-WthFileExists -Org $Global:WthOrg -Repo $Global:WthRunbookRepo -Path 'SAML-RUNBOOK.md') { 'present' } else { 'MISSING' }
-    $checklist = if (Test-WthFileExists -Org $Global:WthOrg -Repo $Global:WthRunbookRepo -Path 'SCIM-CHECKLIST.md') { 'present' } else { 'MISSING' }
-    Write-WthOk "repo $(_Ch14-RepoFull) present — SAML-RUNBOOK.md $runbook, SCIM-CHECKLIST.md $checklist"
+function Invoke-GhecStatus {
+  Write-GhecStep "status — $($Global:GhecChid) in '$($Global:GhecOrg)'"
+  if (Test-GhecRepoExists -Org $Global:GhecOrg -Repo $Global:GhecRunbookRepo) {
+    $runbook = if (Test-GhecFileExists -Org $Global:GhecOrg -Repo $Global:GhecRunbookRepo -Path 'SAML-RUNBOOK.md') { 'present' } else { 'MISSING' }
+    $checklist = if (Test-GhecFileExists -Org $Global:GhecOrg -Repo $Global:GhecRunbookRepo -Path 'SCIM-CHECKLIST.md') { 'present' } else { 'MISSING' }
+    Write-GhecOk "repo $(_Ch14-RepoFull) present — SAML-RUNBOOK.md $runbook, SCIM-CHECKLIST.md $checklist"
   } else {
-    Write-WthInfo "repo $(_Ch14-RepoFull) not provisioned"
+    Write-GhecInfo "repo $(_Ch14-RepoFull) not provisioned"
   }
 }

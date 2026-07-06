@@ -32,11 +32,11 @@ app_dependency: juice-shop
 emu_compatible: true
 min_environment: org
 provision_creates:
-- repo wth-ch12-juice-shop (public, OWASP Juice Shop imported at v20.0.0, pulled from official source — never vendored)
+- repo ghec-ch12-juice-shop (public, OWASP Juice Shop imported at v20.0.0, pulled from official source — never vendored)
 - real OWASP Top 10 vulnerabilities (SQLi, XSS, broken auth/JWT, path traversal, SSRF) for CodeQL to detect
 - branch feature/insecure-endpoint carrying a deliberately vulnerable change to open as a PR for required-check gating
 tier: core
-source_repo: microsoft/frontier-agenticdevops-hackathon
+source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/ch12-codeql-code-scanning/meta.yml
 license: MIT
 references:

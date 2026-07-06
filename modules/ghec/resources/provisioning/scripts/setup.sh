@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #
-# setup.sh — wth provisioning CLI (Bash entrypoint, macOS/Linux).
+# setup.sh — provisioning entrypoint (Bash, macOS/Linux).
 #
-#   wth <doctor|provision|status|teardown> <ch##|ghas-##> --org <org> \
+#   ./setup.sh <doctor|provision|status|teardown> <ch##|ghas-##> --org <org> \
 #        [--enterprise <slug>] [--ref <juiceShopRef>] [--dry-run] [--yes]
 #
-# One challenge per invocation. Everything created is namespaced wth-<chid>-*.
+# One challenge per invocation. Everything created is namespaced ghec-<chid>-*.
 # Runs against a CUSTOMER-OWNED org: idempotent, prefix-guarded, dry-run aware.
 #
 set -euo pipefail
@@ -41,17 +41,17 @@ VL_GH_MIN_VERSION="2.0.0"
 
 usage() {
   cat >&2 <<EOF
-wth provisioning CLI (v${WTH_VERSION})
+setup.sh — provisioning entrypoint (v${GHEC_VERSION})
 
 USAGE:
   ./setup.sh <command> <ch##|ghas-##> --org <org> [options]
 
 COMMANDS:
   doctor      Preflight: tooling, auth, required scopes/capabilities (no changes)
-  provision   Create all wth-<chid>-* starting state for the challenge (idempotent)
+  provision   Create all ghec-<chid>-* starting state for the challenge (idempotent)
               (alias: setup)
-  status      Report what wth-<chid>-* artifacts currently exist
-  teardown    Delete ONLY wth-<chid>-* artifacts (confirmation required)
+  status      Report what ghec-<chid>-* artifacts currently exist
+  teardown    Delete ONLY ghec-<chid>-* artifacts (confirmation required)
 
 OPTIONS:
   --org <org>          Target org (required for provision/status/teardown)
@@ -127,8 +127,8 @@ if [[ -z "$JUICE_SHOP_REF" ]]; then
 fi
 
 # Canonical names exported to per-challenge provisioners.
-NAMESPACE="wth-${CHID}-"
-REPO="wth-${CHID}-${SLUG}"
+NAMESPACE="ghec-${CHID}-"
+REPO="ghec-${CHID}-${SLUG}"
 export ORG ENTERPRISE CHID SLUG APP JUICE_SHOP_REF DRY_RUN ASSUME_YES FORCE NAMESPACE REPO META
 
 require_org() {
@@ -164,7 +164,7 @@ load_challenge() {
   # shellcheck source=/dev/null
   source "$pf"
   local fn
-  for fn in wth_provision wth_teardown wth_status; do
+  for fn in ghec_provision ghec_teardown ghec_status; do
     declare -F "$fn" >/dev/null \
       || die "$pf does not define required function $fn()"
   done
@@ -257,7 +257,7 @@ teardown_flow() {
   elif ! confirm_destructive "Confirm teardown of $CHID in '$ORG'"; then
     die "teardown aborted by user."
   fi
-  wth_teardown
+  ghec_teardown
   log_ok "teardown of $CHID complete."
 }
 
@@ -271,13 +271,13 @@ case "$COMMAND" in
     auth_check || { auth_login_hint; die "authenticate first (run: ./setup.sh doctor $CHID --org $ORG)"; }
     load_challenge
     log_step "provision $CHID -> org '$ORG' (dry-run=$DRY_RUN)"
-    wth_provision
+    ghec_provision
     log_ok "provision of $CHID complete."
     ;;
   status)
     require_org
     load_challenge
-    wth_status
+    ghec_status
     ;;
   teardown)
     require_org

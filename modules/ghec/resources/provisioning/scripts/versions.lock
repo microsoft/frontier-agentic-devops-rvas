@@ -1,4 +1,4 @@
-# wth pinned versions — single source of truth for reproducible imports.
+# ghec pinned versions — single source of truth for reproducible imports.
 # Read by scripts/setup.sh and scripts/setup.ps1 as the LOWEST-precedence default.
 # Precedence (low -> high):  versions.lock  <  meta.yml juice_shop_ref  <  --ref flag
 #

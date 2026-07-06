@@ -48,8 +48,8 @@ Run the provisioning entrypoint (Bash or PowerShell — both supported):
 ./scripts/setup.ps1 ch## --org <org>
 ```
 
-**What setup creates** (all artifacts namespaced `wth-ch##-*`, idempotent, prefix-guarded teardown):
-- <e.g., repo `wth-ch##-<slug>` seeded with starting content.>
+**What setup creates** (all artifacts namespaced `ghec-ch##-*`, idempotent, prefix-guarded teardown):
+- <e.g., repo `ghec-ch##-<slug>` seeded with starting content.>
 - <e.g., labels / issues / branch protection / ruleset / Juice Shop import at pinned ref v20.0.0.>
 - A printed **Next steps** block telling you where to start.
 

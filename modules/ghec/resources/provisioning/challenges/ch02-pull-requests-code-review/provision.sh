@@ -6,15 +6,15 @@
 #   ORG CHID SLUG APP JUICE_SHOP_REF DRY_RUN ASSUME_YES NAMESPACE REPO META
 # and provides lib helpers: log_*, run_mutation, gh_*, guard_prefix, meta_*.
 #
-# CONTRACT — defines exactly: wth_provision / wth_teardown / wth_status.
+# CONTRACT — defines exactly: ghec_provision / ghec_teardown / ghec_status.
 #
 # ch02 builds: a seeded multi-file app on main, a PR template placeholder, a
 # directory layout that maps cleanly to CODEOWNERS paths (src/, docs/), and TWO
 # open PRs from feature branches — one clean, one engineered to conflict on
 # main. No branch protection yet (the participant adds review + CODEOWNERS).
 
-BR_CLEAN="wth-${CHID}-clean-feature"
-BR_CONFLICT="wth-${CHID}-conflict-feature"
+BR_CLEAN="ghec-${CHID}-clean-feature"
+BR_CONFLICT="ghec-${CHID}-conflict-feature"
 
 _ch02_full() { printf '%s/%s' "$ORG" "$REPO"; }
 
@@ -26,8 +26,8 @@ _ch02_seed_main() {
   local full; full="$(_ch02_full)"
 
   # First file initialises the default branch (main) on the empty repo.
-  gh_put_file "$ORG" "$REPO" "README.md" "seed README (wth-${CHID})" \
-"# wth-${CHID} — Pull Requests & Code Review
+  gh_put_file "$ORG" "$REPO" "README.md" "seed README (ghec-${CHID})" \
+"# ghec-${CHID} — Pull Requests & Code Review
 
 A deliberately small multi-file app. Use it to practise branches, pull
 requests, reviews, CODEOWNERS, and resolving a merge conflict.
@@ -38,7 +38,7 @@ Layout (maps cleanly to CODEOWNERS paths):
 
 Two PRs are already open: one is clean, one will conflict on \`main\`."
 
-  gh_put_file "$ORG" "$REPO" "src/app.js" "seed src/app.js (wth-${CHID})" \
+  gh_put_file "$ORG" "$REPO" "src/app.js" "seed src/app.js (ghec-${CHID})" \
 "const { greeting } = require('./util');
 
 function main() {
@@ -48,7 +48,7 @@ function main() {
 main();
 "
 
-  gh_put_file "$ORG" "$REPO" "src/util.js" "seed src/util.js (wth-${CHID})" \
+  gh_put_file "$ORG" "$REPO" "src/util.js" "seed src/util.js (ghec-${CHID})" \
 "function greeting(name) {
   return 'Hello, ' + name + '!';
 }
@@ -56,9 +56,9 @@ main();
 module.exports = { greeting };
 "
 
-  gh_put_file "$ORG" "$REPO" "package.json" "seed package.json (wth-${CHID})" \
+  gh_put_file "$ORG" "$REPO" "package.json" "seed package.json (ghec-${CHID})" \
 "{
-  \"name\": \"wth-${CHID}-app\",
+  \"name\": \"ghec-${CHID}-app\",
   \"version\": \"1.0.0\",
   \"private\": true,
   \"scripts\": { \"start\": \"node src/app.js\" }
@@ -66,15 +66,15 @@ module.exports = { greeting };
 "
 
   # The shared file that both main and the conflict branch will edit.
-  gh_put_file "$ORG" "$REPO" "docs/config.md" "seed docs/config.md (wth-${CHID})" \
+  gh_put_file "$ORG" "$REPO" "docs/config.md" "seed docs/config.md (ghec-${CHID})" \
 "# Configuration
 
 release-channel: ORIGINAL
 "
 
   gh_put_file "$ORG" "$REPO" ".github/pull_request_template.md" \
-    "seed PR template placeholder (wth-${CHID})" \
-"<!-- wth-${CHID} placeholder PR template — flesh this out as part of the challenge. -->
+    "seed PR template placeholder (ghec-${CHID})" \
+"<!-- ghec-${CHID} placeholder PR template — flesh this out as part of the challenge. -->
 
 ## What & why
 
@@ -92,7 +92,7 @@ release-channel: ORIGINAL
 _ch02_clean_pr() {
   log_step "opening CLEAN pr from $BR_CLEAN"
   gh_create_branch "$ORG" "$REPO" "$BR_CLEAN" main
-  gh_put_file "$ORG" "$REPO" "src/feature.js" "add feature module (wth-${CHID})" \
+  gh_put_file "$ORG" "$REPO" "src/feature.js" "add feature module (ghec-${CHID})" \
 "// New, self-contained feature — merges cleanly.
 function shout(name) {
   return 'HELLO, ' + String(name).toUpperCase() + '!';
@@ -102,7 +102,7 @@ module.exports = { shout };
 " "$BR_CLEAN"
   gh_open_pr "$ORG" "$REPO" "$BR_CLEAN" main \
     "Add shout() helper (clean)" \
-    "Seeded by wth-${CHID}. A clean PR: adds \`src/feature.js\` with no overlap on main. Practise review + merge."
+    "Seeded by ghec-${CHID}. A clean PR: adds \`src/feature.js\` with no overlap on main. Practise review + merge."
 }
 
 # ---------------------------------------------------------------------------
@@ -113,7 +113,7 @@ _ch02_conflict_pr() {
   gh_create_branch "$ORG" "$REPO" "$BR_CONFLICT" main
 
   # branch side: change the shared line
-  gh_upsert_file "$ORG" "$REPO" "docs/config.md" "branch: switch channel to beta (wth-${CHID})" \
+  gh_upsert_file "$ORG" "$REPO" "docs/config.md" "branch: switch channel to beta (ghec-${CHID})" \
 "# Configuration
 
 release-channel: BETA
@@ -121,14 +121,14 @@ release-channel: BETA
 
   gh_open_pr "$ORG" "$REPO" "$BR_CONFLICT" main \
     "Switch release channel to beta (will conflict)" \
-    "Seeded by wth-${CHID}. This PR edits the same line in \`docs/config.md\` that main also changed — resolve the merge conflict."
+    "Seeded by ghec-${CHID}. This PR edits the same line in \`docs/config.md\` that main also changed — resolve the merge conflict."
 
   # main side: change the SAME line so the PR conflicts (gated for idempotency).
   if gh_file_contains "$ORG" "$REPO" "docs/config.md" "release-channel: STABLE" main; then
     log_ok "main already diverged (skip conflict edit)"
   else
     log_step "diverging main to force the conflict"
-    gh_upsert_file "$ORG" "$REPO" "docs/config.md" "main: switch channel to stable (wth-${CHID})" \
+    gh_upsert_file "$ORG" "$REPO" "docs/config.md" "main: switch channel to stable (ghec-${CHID})" \
 "# Configuration
 
 release-channel: STABLE
@@ -140,7 +140,7 @@ release-channel: STABLE
 # CONTRACT FUNCTIONS
 # ===========================================================================
 
-wth_provision() {
+ghec_provision() {
   gh_create_repo "$ORG" "$REPO" public
   if [[ "$DRY_RUN" != "true" ]] && ! gh_repo_exists "$ORG" "$REPO"; then
     die "repo $(_ch02_full) missing after create — aborting seed"
@@ -156,12 +156,12 @@ wth_provision() {
   log_info "  - turn on branch protection / required reviews on main"
 }
 
-wth_teardown() {
+ghec_teardown() {
   guard_prefix "$REPO" "$CHID" || return 1
   gh_delete_repo "$ORG" "$REPO"
 }
 
-wth_status() {
+ghec_status() {
   log_step "status — $CHID in '$ORG'"
   if gh_repo_exists "$ORG" "$REPO"; then
     local prs

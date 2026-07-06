@@ -11,7 +11,7 @@
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes — all steps run on org-owned, prefix-namespaced resources. |
 
-> **Independent by design.** This capstone **stands alone** — it provisions all its own `wth-ch20-*` state and requires **no other challenge to have been run**. It *revisits the skills* from ch16 (REST/GraphQL), ch17 (webhooks + GitHub App), and ch18 (Actions runners) conceptually, but you do **not** need their artifacts.
+> **Independent by design.** This capstone **stands alone** — it provisions all its own `ghec-ch20-*` state and requires **no other challenge to have been run**. It *revisits the skills* from ch16 (REST/GraphQL), ch17 (webhooks + GitHub App), and ch18 (Actions runners) conceptually, but you do **not** need their artifacts.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -33,15 +33,15 @@ By completing this challenge you will:
 Your org wants a single automation that reacts to activity and keeps a project board honest without anyone touching it manually. When an issue is opened on the seeded repo, a webhook fires → your **GitHub App** (authenticated as an installation) **labels and triages** the issue via REST, **adds it to a Projects v2 board** via GraphQL, and an **Actions** workflow records the result and posts a summary. You'll build this from the seeded scaffold, prove it runs end to end, and make it **idempotent** so replays don't create duplicates. This is the track's payoff: every primitive you practiced, working together.
 
 ## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the hackathon*. Pick a real workflow that combines Actions, API automation, and security controls into a lasting delivery artifact and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+This challenge is most valuable when the result *outlives the delivery session*. Pick a real workflow that combines Actions, API automation, and security controls into a lasting delivery artifact and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 
-- **Have a candidate?** Use it everywhere this guide says `wth-ch20-automation-capstone`. Skip the Setup step below entirely.
+- **Have a candidate?** Use it everywhere this guide says `ghec-ch20-automation-capstone`. Skip the Setup step below entirely.
 - **No suitable one?** Use the fallback below: a seeded capstone repo for end-to-end automation practice.
 
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
 
 ## Setup (fallback sample)
-Skip this if you brought your own workflow/repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported). `wth` wraps the scripts in `modules/ghec/resources/provisioning/scripts/`.
+Skip this if you brought your own workflow/repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported): the `setup.sh` / `setup.ps1` scripts in `modules/ghec/resources/provisioning/scripts/`.
 
 ```bash
 # Bash
@@ -52,27 +52,27 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch20 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch20 --org <org>
 ```
 
-**What setup creates** (all artifacts namespaced `wth-ch20-*`, idempotent, prefix-guarded teardown):
-- A seeded repo **`wth-ch20-automation-capstone`** containing the **App handler scaffold** (`src/handler.js` — Node, HMAC verification + REST/GraphQL TODOs), **ready-made App auth helpers** (`src/auth.js` — App JWT signing + installation-token exchange), an **Actions workflow** (`automation.yml`), and a `CAPSTONE.md` build guide.
-- An **empty org Projects v2 board** **`wth-ch20-board`** for the GraphQL step to populate.
+**What setup creates** (all artifacts namespaced `ghec-ch20-*`, idempotent, prefix-guarded teardown):
+- A seeded repo **`ghec-ch20-automation-capstone`** containing the **App handler scaffold** (`src/handler.js` — Node, HMAC verification + REST/GraphQL TODOs), **ready-made App auth helpers** (`src/auth.js` — App JWT signing + installation-token exchange), an **Actions workflow** (`automation.yml`), and a `CAPSTONE.md` build guide.
+- An **empty org Projects v2 board** **`ghec-ch20-board`** for the GraphQL step to populate.
 - A printed **Next steps** block (App registration URL flow, where to put the webhook secret, how to drive deliveries via `smee.io` or `repository_dispatch`).
 
 
 ## Tasks
-> Throughout, **`wth-ch20-automation-capstone` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
+> Throughout, **`ghec-ch20-automation-capstone` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Register & install the App
 1. **Register the App.** Create it from the **New GitHub App** form, filling the form by hand. Go to Org **Settings → Developer settings → GitHub Apps → New GitHub App** (page titled *Create GitHub App*) and set:
-   - **GitHub App name** (required): `wth-ch20-capstone-app` — names are globally unique, so add a suffix if it's taken.
-   - **Homepage URL** (required): any valid URL — use the repo, e.g. `https://github.com/<org>/wth-ch20-automation-capstone`.
+   - **GitHub App name** (required): `ghec-ch20-capstone-app` — names are globally unique, so add a suffix if it's taken.
+   - **Homepage URL** (required): any valid URL — use the repo, e.g. `https://github.com/<org>/ghec-ch20-automation-capstone`.
    - **Identifying and authorizing users** and **Post installation**: leave the Callback/Setup URLs blank.
    - **Webhook → Active:** if you already have your receiver URL from Part B (a `smee.io` channel), keep **Active** checked and paste it as the **Webhook URL** with a **Secret** now. Otherwise **uncheck Active** and add the URL + secret later in Part B (you can edit the App at any time).
    - **Permissions → Repository permissions:** set **Issues** to **Read and write** (for labeling + commenting). **Metadata** is already **Read-only** (mandatory) — leave it.
-   - **Permissions → Organization permissions:** set **Projects** to **Read and write** — this is required to add items to the org-level `wth-ch20-board` Projects v2 board (repository-level Projects does **not** cover org boards).
+   - **Permissions → Organization permissions:** set **Projects** to **Read and write** — this is required to add items to the org-level `ghec-ch20-board` Projects v2 board (repository-level Projects does **not** cover org boards).
    - **Subscribe to events:** the **Issues** checkbox appears here *only after* you set the Issues permission above. Check **Issues** and leave any other events unchecked.
    - **Where can this GitHub App be installed?** Choose **Only on this account**, then click **Create GitHub App**.
    - On the App's *General* page, **record the App ID and Client ID**, then **Private keys → Generate a private key** and save the `.pem`.
-2. **Install the App** on the seeded repo: in the App's left sidebar click **Install App**, choose your org, and select **Only select repositories → `wth-ch20-automation-capstone`**.
+2. **Install the App** on the seeded repo: in the App's left sidebar click **Install App**, choose your org, and select **Only select repositories → `ghec-ch20-automation-capstone`**.
 3. **Mint an installation token** and confirm it works. JWT signing is done for you — the seeded **`src/auth.js`** exposes `createAppJwt(appId, pem)` and `getInstallationToken(jwt, installationId)`, and `src/handler.js` wraps both in `mintInstallationToken()` (reads the `APP_ID`, `INSTALLATION_ID`, and `PRIVATE_KEY_PATH` env vars). Capture the installation ID, then verify the token works — e.g. call `mintInstallationToken()` (or `gh api /app/installations/<installation_id>/access_tokens` as the App) and check `gh api /installation/repositories` returns the seeded repo. You should never hand-sign a JWT with openssl.
 
 ### Part B — Wire the inbound webhook
@@ -85,7 +85,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch20 --org <org>
 8. **Make it idempotent.** Re-deliver the same event (Redeliver in the webhook UI) and confirm you do **not** double-label or double-comment.
 
 ### Part D — Act via GraphQL (Projects v2)
-9. **Add the issue to the board.** Using GraphQL, look up `wth-ch20-board` and run `addProjectV2ItemById` to add the new issue. Capture the returned item id.
+9. **Add the issue to the board.** Using GraphQL, look up `ghec-ch20-board` and run `addProjectV2ItemById` to add the new issue. Capture the returned item id.
 10. **Set a field.** Set a single-select **Status** field on the new item (e.g., `Triage`) via `updateProjectV2ItemFieldValue`.
 11. **Idempotency again.** Confirm a replay doesn't add the issue twice.
 
@@ -102,7 +102,7 @@ You are done when ALL of the following are true:
 - [ ] A **GitHub App** is **registered and installed** on the seeded repo and mints a working **installation token**.
 - [ ] Inbound webhooks are **signature-verified** (HMAC-SHA256); bad signatures are rejected.
 - [ ] On `issues.opened`, the App **labels + comments** via REST and the action is **idempotent** on redelivery.
-- [ ] The issue is **added to `wth-ch20-board`** with a **Status** field set via **GraphQL**, also idempotent.
+- [ ] The issue is **added to `ghec-ch20-board`** with a **Status** field set via **GraphQL**, also idempotent.
 - [ ] **Actions** orchestrates the flow and records a **run summary**, with all credentials in **Actions secrets**.
 - [ ] You demonstrated the **full end-to-end loop** from a single fresh issue and documented its **failure modes**.
 - [ ] Real-outcome check — if you brought your own workflow, the capstone automation now leaves behind a reusable delivery artifact; if you used the sample, you can name the production workflow you will automate next.

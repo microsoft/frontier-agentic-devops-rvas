@@ -8,7 +8,7 @@
 
 **Their question:** Coach conversation — if you were the org owner of your team's GitHub organization today, what is the first enterprise policy or default repository setting you would change, and what risk or inefficiency is it currently causing? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch06-public-sample` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch06-public-sample` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Describe your current GitHub org structure — how many repos, who are the admins, is there a parent enterprise?
@@ -60,7 +60,7 @@ gh api /orgs/$ORG --jq '.members_can_create_public_repositories'   # expect fals
 
 # Sample repos + their visibility
 for r in public-sample private-sample internal-sample; do
-  gh repo view $ORG/wth-ch06-$r --json name,visibility
+  gh repo view $ORG/ghec-ch06-$r --json name,visibility
 done
 
 # Default Actions workflow permissions for the org (expect "read")
@@ -90,7 +90,7 @@ gh api /orgs/$ORG/outside_collaborators --jq '.[].login'
 bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch06 --org <org> --yes   # Bash
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch06 --org <org> --yes  # PowerShell
 ```
-- Removes only `wth-ch06-*` artifacts (prefix-guarded): the three sample repos and the `wth-ch06-members` team.
+- Removes only `ghec-ch06-*` artifacts (prefix-guarded): the three sample repos and the `ghec-ch06-members` team.
 - **Manual cleanup (required):** the **organization-level settings** the student changed — base permission, repo-creation flags, fork policy, default workflow permissions — are **not** namespaced and are **not** reverted by teardown. If the org is a reusable sandbox, have the student record the original "before" values from Part A and restore them, or accept the new (safer) baseline. This is expected for admin challenges and worth calling out at the start.
 
 ## Time budget

@@ -8,7 +8,7 @@
 
 **Their question:** Coach conversation — map your real team's structure onto GitHub Teams right now: where do people have more access than they need, and where is the absence of the right permission creating an actual bottleneck for someone? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch07-frontend` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch07-frontend` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Name the GitHub teams or individual collaborator grants that exist in your main org — were they designed or just accumulated?
@@ -42,22 +42,22 @@ ORG=<org>
 
 # Team list + nesting (child should report a parent)
 gh api /orgs/$ORG/teams --jq '.[] | {slug, parent: .parent.slug}'
-gh api /orgs/$ORG/teams/wth-ch07-frontend-squad --jq '.parent.name'   # non-null
+gh api /orgs/$ORG/teams/ghec-ch07-frontend-squad --jq '.parent.name'   # non-null
 
 # Effective repo permission for a team on a repo
-gh api /orgs/$ORG/teams/wth-ch07-frontend-squad/repos/$ORG/wth-ch07-frontend --jq '.role_name, .permissions'
+gh api /orgs/$ORG/teams/ghec-ch07-frontend-squad/repos/$ORG/ghec-ch07-frontend --jq '.role_name, .permissions'
 
 # Parent grant should appear (inherited) on a child for the shared repos
-gh api /orgs/$ORG/teams/wth-ch07-engineering/repos/$ORG/wth-ch07-platform --jq '.permissions'
+gh api /orgs/$ORG/teams/ghec-ch07-engineering/repos/$ORG/ghec-ch07-platform --jq '.permissions'
 
 # Custom repository roles defined at the org
 gh api /orgs/$ORG/custom-repository-roles --jq '.custom_roles[] | {name, base_role}'
 
 # Which teams have access to a given repo, and at what role
-gh api /repos/$ORG/wth-ch07-platform/teams --jq '.[] | {slug, permission}'
+gh api /repos/$ORG/ghec-ch07-platform/teams --jq '.[] | {slug, permission}'
 
 # Team membership
-gh api /orgs/$ORG/teams/wth-ch07-backend-squad/members --jq '.[].login'
+gh api /orgs/$ORG/teams/ghec-ch07-backend-squad/members --jq '.[].login'
 ```
 - The `role_name` field on the team→repo endpoint is the fastest mastery signal — it shows `read`/`write`/`maintain` or the **custom role name** directly.
 - For the custom role, confirm `base_role` is `push`/`write` and that the sensitive permissions were removed (the role's `permissions` array shouldn't include webhook/deploy-key management).
@@ -79,8 +79,8 @@ gh api /orgs/$ORG/teams/wth-ch07-backend-squad/members --jq '.[].login'
 bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch07 --org <org> --yes   # Bash
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch07 --org <org> --yes  # PowerShell
 ```
-- Removes only `wth-ch07-*` artifacts (prefix-guarded): the three sample repos and all `wth-ch07-*` teams.
-- **Manual cleanup (required):** the **custom repository role** the student created is org-scoped and **not** `wth-ch07-*` prefixed, so teardown leaves it in place. Have the student delete it by hand (**Org Settings → Repository roles**, or `gh api -X DELETE /orgs/<org>/custom-repository-roles/<role-id>`) if the org is a reusable sandbox.
+- Removes only `ghec-ch07-*` artifacts (prefix-guarded): the three sample repos and all `ghec-ch07-*` teams.
+- **Manual cleanup (required):** the **custom repository role** the student created is org-scoped and **not** `ghec-ch07-*` prefixed, so teardown leaves it in place. Have the student delete it by hand (**Org Settings → Repository roles**, or `gh api -X DELETE /orgs/<org>/custom-repository-roles/<role-id>`) if the org is a reusable sandbox.
 
 ## Time budget
 - Setup + access snapshot: ~30 min

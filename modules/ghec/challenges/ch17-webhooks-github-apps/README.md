@@ -30,9 +30,9 @@ By completing this challenge you will:
 A GHEC customer wants to react to activity in real time — auto-acknowledge new issues, notify on pushes, kick off downstream jobs — without polling the API on a timer. You'll wire up webhooks so GitHub pushes events to a receiver you control, prove each delivery is authentic by verifying its signature, and then graduate from a passive listener to a real **GitHub App** that can authenticate and act back on the org. By the end you'll know exactly when a webhook is enough and when you need an App.
 
 ## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the hackathon*. Pick a real integration target where a GitHub event should update another system and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+This challenge is most valuable when the result *outlives the delivery session*. Pick a real integration target where a GitHub event should update another system and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 
-- **Have a candidate?** Use it everywhere this guide says `wth-ch17-webhooks-github-apps`. Skip the Setup step below entirely.
+- **Have a candidate?** Use it everywhere this guide says `ghec-ch17-webhooks-github-apps`. Skip the Setup step below entirely.
 - **No suitable one?** Use the fallback below: a seeded sample repo and app/webhook practice target.
 
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
@@ -49,24 +49,24 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch17 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch17 --org <org>
 ```
 
-**What setup creates** (all artifacts namespaced `wth-ch17-*`, idempotent, prefix-guarded teardown):
-- A seeded repo **`wth-ch17-webhooks-github-apps`** containing a **receiver scaffold**: a tiny webhook-verification snippet (Bash + Node) and an Actions workflow `receiver.yml` triggered by `repository_dispatch` for the no-public-host path.
+**What setup creates** (all artifacts namespaced `ghec-ch17-*`, idempotent, prefix-guarded teardown):
+- A seeded repo **`ghec-ch17-webhooks-github-apps`** containing a **receiver scaffold**: a tiny webhook-verification snippet (Bash + Node) and an Actions workflow `receiver.yml` triggered by `repository_dispatch` for the no-public-host path.
 - An **App handler accelerator** (`app/handler.js` + `app/auth.js`, zero dependencies) that already does signature verification, event routing, and App→installation-token auth — leaving one TODO for Part G.
 - A populated `WEBHOOK-SETUP.md` walking the **smee.io** and **Actions receiver** options.
 - A printed **Next steps** block (including a generated webhook **secret** suggestion) telling you where to start.
 
 
 ## Tasks
-> Throughout, **`wth-ch17-webhooks-github-apps` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
+> Throughout, **`ghec-ch17-webhooks-github-apps` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Receive your first delivery
 1. **Pick a receiver.** Start a `smee.io` channel (copy its URL) **or** plan to use the seeded Actions `receiver.yml`. Note the public callback URL.
-2. **Create a repository webhook.** On `wth-ch17-webhooks-github-apps`: Settings → Webhooks → Add webhook. Set **Payload URL** to your receiver, **Content type** `application/json`, a **secret**, and subscribe to **Issues** + **Pushes**. (Or do it by API: `gh api repos/<org>/wth-ch17-webhooks-github-apps/hooks -f name=web -f config[url]=<url> -f config[content_type]=json -f config[secret]=<secret> -f 'events[]=issues' -f 'events[]=push'`.)
+2. **Create a repository webhook.** On `ghec-ch17-webhooks-github-apps`: Settings → Webhooks → Add webhook. Set **Payload URL** to your receiver, **Content type** `application/json`, a **secret**, and subscribe to **Issues** + **Pushes**. (Or do it by API: `gh api repos/<org>/ghec-ch17-webhooks-github-apps/hooks -f name=web -f config[url]=<url> -f config[content_type]=json -f config[secret]=<secret> -f 'events[]=issues' -f 'events[]=push'`.)
 3. **Trigger an event.** Open an issue in the repo and watch the delivery arrive at your receiver.
 
 ### Part B — Inspect the delivery
 4. **Read the headers.** Identify `X-GitHub-Event` (the event name), `X-GitHub-Delivery` (a unique GUID), and `X-Hub-Signature-256`.
-5. **Read the payload.** Find the `action` field and the `issue`/`repository` blocks. Use **Recent Deliveries** on the webhook page (or `gh api repos/<org>/wth-ch17-webhooks-github-apps/hooks/<id>/deliveries`) to re-inspect and **Redeliver**.
+5. **Read the payload.** Find the `action` field and the `issue`/`repository` blocks. Use **Recent Deliveries** on the webhook page (or `gh api repos/<org>/ghec-ch17-webhooks-github-apps/hooks/<id>/deliveries`) to re-inspect and **Redeliver**.
 
 ### Part C — Verify the signature (the security core)
 6. **Compute the HMAC.** With the same secret, compute `sha256=<hex>` over the **raw body**: `printf '%s' "$BODY" | openssl dgst -sha256 -hmac "$SECRET"`.
@@ -75,15 +75,15 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch17 --org <org>
 
 ### Part D — Organization webhook
 9. **Create an org webhook** (Org Settings → Webhooks, or `gh api orgs/<org>/hooks …`) subscribed to **Repository** + **Membership** events. Note the **scope difference** vs a repo hook.
-10. **Trigger and verify** an org-level event (e.g., create a throwaway `wth-ch17-temp` repo) and confirm it's delivered and passes signature verification, then delete the temp repo.
+10. **Trigger and verify** an org-level event (e.g., create a throwaway `ghec-ch17-temp` repo) and confirm it's delivered and passes signature verification, then delete the temp repo.
 
 ### Part E — Register & install a GitHub App
 
 > GitHub Apps are created by filling the **New GitHub App** form. The form is long, but for this challenge only a few fields matter; leave everything else at its default.
 
 11. **Open the form** at Org **Settings → Developer settings → GitHub Apps → New GitHub App** (the page is titled *Create GitHub App*), then fill it in top to bottom:
-    - **GitHub App name** (required): `wth-ch17-app` — names are globally unique, so add a suffix if it's taken.
-    - **Homepage URL** (required): any valid URL works — use your repo, e.g. `https://github.com/<org>/wth-ch17-webhooks-github-apps`.
+    - **GitHub App name** (required): `ghec-ch17-app` — names are globally unique, so add a suffix if it's taken.
+    - **Homepage URL** (required): any valid URL works — use your repo, e.g. `https://github.com/<org>/ghec-ch17-webhooks-github-apps`.
     - **Identifying and authorizing users** and **Post installation**: leave the Callback/Setup URLs blank — not needed here.
     - **Webhook → Active:** **uncheck** it. It's on by default, which makes **Webhook URL** required; you aren't hosting the App's own webhook in this challenge, so turning it off skips that field.
     - **Permissions → Repository permissions:** expand it and set **Issues** to **Read and write**. **Metadata** is already **Read-only** (mandatory) — leave it as is.
@@ -91,7 +91,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch17 --org <org>
     - **Where can this GitHub App be installed?** Choose **Only on this account**.
     - Click **Create GitHub App**.
 12. **Record the App ID** and **Client ID** from the App's *General* settings page, then scroll to **Private keys → Generate a private key** and save the downloaded `.pem` — you'll sign the App JWT with it in Part F.
-13. **Install the App.** In the App's left sidebar click **Install App**, pick your org, choose **Only select repositories → `wth-ch17-webhooks-github-apps`**, and install. Capture the **installation ID**:
+13. **Install the App.** In the App's left sidebar click **Install App**, pick your org, choose **Only select repositories → `ghec-ch17-webhooks-github-apps`**, and install. Capture the **installation ID**:
     ```bash
     gh api /orgs/<org>/installations --jq '.installations[] | {id, app_slug}'
     ```
@@ -99,7 +99,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch17 --org <org>
 ### Part F — Authenticate as the installation
 14. **Mint an App JWT** signed with the private key (RS256, `iss`=App ID or Client ID, `iat` slightly in the past, `exp` ≤10 min). See *Generating a JSON Web Token* in the docs linked below for the exact `openssl`/script steps.
 15. **Exchange for an installation token.** `POST /app/installations/<installation_id>/access_tokens` with the JWT → short-lived installation token.
-16. **Act as the App.** Use the installation token to comment on an issue (`POST /repos/<org>/wth-ch17-webhooks-github-apps/issues/<n>/comments`). Confirm the comment is authored by **your App (bot)**, not your user.
+16. **Act as the App.** Use the installation token to comment on an issue (`POST /repos/<org>/ghec-ch17-webhooks-github-apps/issues/<n>/comments`). Confirm the comment is authored by **your App (bot)**, not your user.
 
 ### Part G — Make the App act automatically
 > So far the App acts only when *you* run a command. Now wire it into the receiver so it reacts to events on its own. The repo ships an almost-complete handler — `app/handler.js` plus auth helpers in `app/auth.js` (zero dependencies, Node 18+) — that already verifies the signature, routes `issues.opened`, ignores bot-authored issues (so the App can't trigger itself), and mints an installation token. One piece is left for you.
@@ -107,7 +107,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch17 --org <org>
 17. **Run the handler.** Use the secret you set on the repo webhook in Part A and the App ID / installation ID / private key from Parts E–F:
     ```bash
     APP_ID=<app-id> INSTALLATION_ID=<installation-id> WEBHOOK_SECRET=<secret> \
-      PRIVATE_KEY_PATH=./wth-ch17-app.private-key.pem node app/handler.js
+      PRIVATE_KEY_PATH=./ghec-ch17-app.private-key.pem node app/handler.js
     # in another shell, relay your repo webhook's public deliveries to it:
     npx smee-client --url <your-smee-url> --target http://localhost:3000/
     ```

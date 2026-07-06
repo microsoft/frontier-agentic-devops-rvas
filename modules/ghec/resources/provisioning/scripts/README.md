@@ -1,8 +1,8 @@
-# scripts/ — wth Provisioning CLI
+# scripts/ — Provisioning scripts
 
 > Owned by **Yen** (Automation Engineer). This is the shared engine that stands up the
 > starting state for any single challenge inside **your own org**. One challenge per run,
-> everything namespaced `wth-<chid>-*`, idempotent, dry-run aware, and prefix-guarded so
+> everything namespaced `ghec-<chid>-*`, idempotent, dry-run aware, and prefix-guarded so
 > teardown can never touch anything that isn't ours.
 
 ## What lives here
@@ -54,9 +54,9 @@ gh auth refresh -h github.com -s project,read:project
 | Command | Does |
 |---|---|
 | `doctor` | Preflight only. Verifies `gh`/`git`/`jq`, auth, the challenge's `requires`, prints **minimum token scopes**, and warns (never blocks) on metered cost and on EMU for `ch19`. Changes nothing. |
-| `provision` | Creates all `wth-<chid>-*` starting state. **Idempotent** — re-run to reconcile (create-if-absent). |
-| `status` | Reports which `wth-<chid>-*` artifacts currently exist. |
-| `teardown` | Deletes **only** `wth-<chid>-*`. Requires confirmation (type the challenge id) unless `--yes`. |
+| `provision` | Creates all `ghec-<chid>-*` starting state. **Idempotent** — re-run to reconcile (create-if-absent). |
+| `status` | Reports which `ghec-<chid>-*` artifacts currently exist. |
+| `teardown` | Deletes **only** `ghec-<chid>-*`. Requires confirmation (type the challenge id) unless `--yes`. |
 
 ### Examples
 
@@ -70,8 +70,8 @@ gh auth refresh -h github.com -s project,read:project
 
 ## Namespacing & teardown safety model
 
-- **Every** created resource is prefixed `wth-<chid>-*` (e.g. `wth-ch01-issues-labels-projects`, `wth-ch12-juice-shop`).
-- `teardown` calls `guard_prefix` before every deletion. Any name that does not start with `wth-<chid>-` is **refused**, so the tool can never delete a pre-existing customer repo or project.
+- **Every** created resource is prefixed `ghec-<chid>-*` (e.g. `ghec-ch01-issues-labels-projects`, `ghec-ch12-juice-shop`).
+- `teardown` calls `guard_prefix` before every deletion. Any name that does not start with `ghec-<chid>-` is **refused**, so the tool can never delete a pre-existing customer repo or project.
 - `--dry-run` routes every mutation through a planner that prints `[plan] would run: …` and changes nothing. Use it first against a customer org.
 - `provision` is create-only and idempotent; `teardown` is the only destructive path and is double-guarded (prefix + confirmation).
 - Some platform/admin changes (audit settings, org policies) can't be cleanly reverted by script — those challenges document manual cleanup in their `COACH.md`.
@@ -80,7 +80,7 @@ gh auth refresh -h github.com -s project,read:project
 
 `app: juice-shop` challenges import **OWASP Juice Shop** at the pinned ref (default `v20.0.0` from
 `versions.lock`; override per-challenge in `meta.yml` or with `--ref`). The importer shallow-clones
-the tag, **strips history**, fresh-inits, and pushes to a **public** `wth-<chid>-juice-shop` repo.
+the tag, **strips history**, fresh-inits, and pushes to a **public** `ghec-<chid>-juice-shop` repo.
 Juice Shop is MIT-licensed; its `LICENSE` is preserved in the push. **It is never vendored into this repo.**
 
 ## Authoring a new challenge provisioner (the contract)
@@ -91,19 +91,19 @@ Juice Shop is MIT-licensed; its `LICENSE` is preserved in the push. **It is neve
 Each `provision.sh` **must** define exactly three functions:
 
 ```bash
-wth_provision    # create-if-absent, idempotent, dry-run aware
-wth_teardown     # delete ONLY wth-<chid>-* (call guard_prefix first)
-wth_status       # report what currently exists
+ghec_provision    # create-if-absent, idempotent, dry-run aware
+ghec_teardown     # delete ONLY ghec-<chid>-* (call guard_prefix first)
+ghec_status       # report what currently exists
 ```
 
 `setup.sh` exports for you: `ORG CHID SLUG APP JUICE_SHOP_REF DRY_RUN ASSUME_YES NAMESPACE REPO META`,
 and the lib helpers are in scope: `log_*`, `run_mutation`, `gh_*`, `guard_prefix`, `meta_*`,
-`juice_shop_import`. The PowerShell twin (`provision.ps1`) defines `Invoke-WthProvision` /
-`Invoke-WthTeardown` / `Invoke-WthStatus` and uses the `$Global:Wth*` globals.
+`juice_shop_import`. The PowerShell twin (`provision.ps1`) defines `Invoke-GhecProvision` /
+`Invoke-GhecTeardown` / `Invoke-GhecStatus` and uses the `$Global:Ghec*` globals.
 
 **`ch01` is the worked reference** — copy its `provision.sh` / `provision.ps1` shape for new challenges.
 
-Rules every provisioner upholds: route mutations through `run_mutation` / `Invoke-WthMutation`;
-check-then-create for idempotency; name everything `wth-<chid>-*`; `guard_prefix` before any delete.
+Rules every provisioner upholds: route mutations through `run_mutation` / `Invoke-GhecMutation`;
+check-then-create for idempotency; name everything `ghec-<chid>-*`; `guard_prefix` before any delete.
 
 See [../CONTRIBUTING-BUILD.md](../CONTRIBUTING-BUILD.md) for the full build contract.

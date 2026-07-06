@@ -7,9 +7,9 @@ set -uo pipefail
 BOLD="\033[1m"; CYAN="\033[36m"; GREEN="\033[32m"; YELLOW="\033[33m"; RESET="\033[0m"
 
 echo -e "${BOLD}${CYAN}"
-echo "╔══════════════════════════════════════════════════════╗"
-echo "║   Frontier GitHub Platform Hackathon — Dev Container ║"
-echo "╚══════════════════════════════════════════════════════╝"
+echo "╔═══════════════════════════════════════════════════════════════╗"
+echo "║   Frontier GitHub Platform Delivery Session — Dev Container   ║"
+echo "╚═══════════════════════════════════════════════════════════════╝"
 echo -e "${RESET}"
 
 # ── 1. Install jq (not included in the slim base image) ───────────────────────

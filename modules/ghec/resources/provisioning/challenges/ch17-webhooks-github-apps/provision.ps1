@@ -2,15 +2,15 @@
 #
 # PowerShell twin of ch17 — webhook receiver scaffold.
 
-function _Ch17-RepoFull { "$($Global:WthOrg)/$($Global:WthRepo)" }
+function _Ch17-RepoFull { "$($Global:GhecOrg)/$($Global:GhecRepo)" }
 
 function _Ch17-Seed {
-  Write-WthStep 'seeding webhook receiver scaffold'
-  $org = $Global:WthOrg
-  $repo = $Global:WthRepo
+  Write-GhecStep 'seeding webhook receiver scaffold'
+  $org = $Global:GhecOrg
+  $repo = $Global:GhecRepo
 
   $readme = @"
-# wth-ch17 — Webhooks & GitHub Apps
+# ghec-ch17 — Webhooks & GitHub Apps
 
 Scaffold for practising webhook delivery + GitHub App auth.
 
@@ -23,11 +23,11 @@ Scaffold for practising webhook delivery + GitHub App auth.
 
 No live webhook or App is provisioned — creating them is the exercise.
 "@
-  Set-WthFile -Org $org -Repo $repo -Path 'README.md' -Message 'Add webhooks & GitHub Apps overview' -Content $readme
+  Set-GhecFile -Org $org -Repo $repo -Path 'README.md' -Message 'Add webhooks & GitHub Apps overview' -Content $readme
 
   $verifySh = @'
 #!/usr/bin/env bash
-# wth-ch17 — verify an X-Hub-Signature-256 header against the raw body.
+# ghec-ch17 — verify an X-Hub-Signature-256 header against the raw body.
 set -euo pipefail
 SECRET="${WEBHOOK_SECRET:?set WEBHOOK_SECRET}"
 SIG_HEADER="${1:?usage: verify.sh <sha256=...> <body-file>}"
@@ -39,10 +39,10 @@ else
   echo "signature MISMATCH" >&2; exit 1
 fi
 '@
-  Set-WthFile -Org $org -Repo $repo -Path 'receiver/verify.sh' -Message 'Add Bash HMAC verifier' -Content $verifySh
+  Set-GhecFile -Org $org -Repo $repo -Path 'receiver/verify.sh' -Message 'Add Bash HMAC verifier' -Content $verifySh
 
   $verifyJs = @'
-// wth-ch17 — verify an X-Hub-Signature-256 header against the raw body.
+// ghec-ch17 — verify an X-Hub-Signature-256 header against the raw body.
 const crypto = require('crypto')
 function verify (secret, body, signature) {
   const hmac = crypto.createHmac('sha256', secret).update(body).digest('hex')
@@ -51,13 +51,13 @@ function verify (secret, body, signature) {
 }
 module.exports = { verify }
 '@
-  Set-WthFile -Org $org -Repo $repo -Path 'receiver/verify.js' -Message 'Add Node HMAC verifier' -Content $verifyJs
+  Set-GhecFile -Org $org -Repo $repo -Path 'receiver/verify.js' -Message 'Add Node HMAC verifier' -Content $verifyJs
 
   $wf = @'
 name: Webhook Responder
 on:
   repository_dispatch:
-    types: [wth-event]
+    types: [ghec-event]
 permissions:
   contents: read
 jobs:
@@ -69,25 +69,25 @@ jobs:
           echo "Received event: ${{ github.event.action }}"
           echo "Client payload: ${{ toJSON(github.event.client_payload) }}"
 '@
-  Set-WthFile -Org $org -Repo $repo -Path '.github/workflows/receiver.yml' -Message 'Add repository_dispatch responder workflow' -Content $wf
+  Set-GhecFile -Org $org -Repo $repo -Path '.github/workflows/receiver.yml' -Message 'Add repository_dispatch responder workflow' -Content $wf
 
   $setup = @"
-# Webhook Setup — wth-ch17
+# Webhook Setup — ghec-ch17
 
 1. Add a repo webhook (Settings → Webhooks) pointing at your receiver URL.
 2. Set a strong **secret** and select the events you care about.
 3. Verify deliveries with ``receiver/verify.sh`` or ``receiver/verify.js``.
 4. To exercise Actions, send a ``repository_dispatch`` event of type
-   ``wth-event`` and watch ``.github/workflows/receiver.yml`` run:
+   ``ghec-event`` and watch ``.github/workflows/receiver.yml`` run:
    ``````
-   gh api repos/$org/$repo/dispatches -f event_type=wth-event \
+   gh api repos/$org/$repo/dispatches -f event_type=ghec-event \
      -F client_payload[hello]=world
    ``````
 "@
-  Set-WthFile -Org $org -Repo $repo -Path 'WEBHOOK-SETUP.md' -Message 'Add webhook setup walkthrough' -Content $setup
+  Set-GhecFile -Org $org -Repo $repo -Path 'WEBHOOK-SETUP.md' -Message 'Add webhook setup walkthrough' -Content $setup
 
   $authJs = @'
-// wth-ch17 — GitHub App auth helpers. Zero dependencies, Node 18+ (global fetch).
+// ghec-ch17 — GitHub App auth helpers. Zero dependencies, Node 18+ (global fetch).
 //
 // This is the same JWT -> installation-token flow you ran by hand with openssl
 // and `gh api` in Part F, now as reusable functions. It is provided ready-made
@@ -120,7 +120,7 @@ async function getInstallationToken (jwt, installationId) {
       Authorization: `Bearer ${jwt}`,
       Accept: 'application/vnd.github+json',
       'X-GitHub-Api-Version': '2022-11-28',
-      'User-Agent': 'wth-ch17-app'
+      'User-Agent': 'ghec-ch17-app'
     }
   })
   if (!res.ok) throw new Error(`token exchange failed: ${res.status} ${await res.text()}`)
@@ -129,16 +129,16 @@ async function getInstallationToken (jwt, installationId) {
 
 module.exports = { createAppJwt, getInstallationToken }
 '@
-  Set-WthFile -Org $org -Repo $repo -Path 'app/auth.js' -Message 'Add GitHub App auth helpers' -Content $authJs
+  Set-GhecFile -Org $org -Repo $repo -Path 'app/auth.js' -Message 'Add GitHub App auth helpers' -Content $authJs
 
   $handlerJs = @'
-// wth-ch17 — minimal GitHub App webhook handler. Zero dependencies, Node 18+.
+// ghec-ch17 — minimal GitHub App webhook handler. Zero dependencies, Node 18+.
 //
 // Run it (use the same secret you set on the repo webhook in Part A, and the
 // App ID / installation ID / private key from Part E):
 //
 //   APP_ID=<id> INSTALLATION_ID=<id> WEBHOOK_SECRET=<secret> \
-//     PRIVATE_KEY_PATH=./wth-ch17-app.private-key.pem node app/handler.js
+//     PRIVATE_KEY_PATH=./ghec-ch17-app.private-key.pem node app/handler.js
 //
 // Then relay your public webhook deliveries to it in another shell:
 //
@@ -215,37 +215,37 @@ const server = http.createServer((req, res) => {
   })
 })
 
-server.listen(PORT, () => console.log(`wth-ch17 handler listening on :${PORT} (POST)`))
+server.listen(PORT, () => console.log(`ghec-ch17 handler listening on :${PORT} (POST)`))
 '@
-  Set-WthFile -Org $org -Repo $repo -Path 'app/handler.js' -Message 'Add webhook handler scaffold (Part G TODO)' -Content $handlerJs
+  Set-GhecFile -Org $org -Repo $repo -Path 'app/handler.js' -Message 'Add webhook handler scaffold (Part G TODO)' -Content $handlerJs
 }
 
 # ===========================================================================
-function Invoke-WthProvision {
-  New-WthRepo -Org $Global:WthOrg -Repo $Global:WthRepo -Visibility 'public'
-  if ((-not $Global:WthDryRun) -and (-not (Test-WthRepoExists -Org $Global:WthOrg -Repo $Global:WthRepo))) {
-    Stop-Wth "repo $(_Ch17-RepoFull) missing after create — aborting seed"
+function Invoke-GhecProvision {
+  New-GhecRepo -Org $Global:GhecOrg -Repo $Global:GhecRepo -Visibility 'public'
+  if ((-not $Global:GhecDryRun) -and (-not (Test-GhecRepoExists -Org $Global:GhecOrg -Repo $Global:GhecRepo))) {
+    Stop-Ghec "repo $(_Ch17-RepoFull) missing after create — aborting seed"
   }
   _Ch17-Seed
   Write-Host ''
-  Write-WthInfo 'Next steps for the participant:'
-  Write-WthInfo '  - register a webhook and verify signed deliveries'
-  Write-WthInfo '  - create a GitHub App (manual registration — see README Part E) and install it'
-  Write-WthWarn 'manual: no live webhook or App is created — wiring them is the challenge.'
+  Write-GhecInfo 'Next steps for the participant:'
+  Write-GhecInfo '  - register a webhook and verify signed deliveries'
+  Write-GhecInfo '  - create a GitHub App (manual registration — see README Part E) and install it'
+  Write-GhecWarn 'manual: no live webhook or App is created — wiring them is the challenge.'
 }
 
-function Invoke-WthTeardown {
-  if (-not (Confirm-WthPrefix -Name $Global:WthRepo -Chid $Global:WthChid)) { return }
-  Remove-WthRepo -Org $Global:WthOrg -Repo $Global:WthRepo
-  Write-WthWarn 'manual: delete any GitHub App you created — teardown only removes the repo.'
+function Invoke-GhecTeardown {
+  if (-not (Confirm-GhecPrefix -Name $Global:GhecRepo -Chid $Global:GhecChid)) { return }
+  Remove-GhecRepo -Org $Global:GhecOrg -Repo $Global:GhecRepo
+  Write-GhecWarn 'manual: delete any GitHub App you created — teardown only removes the repo.'
 }
 
-function Invoke-WthStatus {
-  Write-WthStep "status — $($Global:WthChid) in '$($Global:WthOrg)'"
-  if (Test-WthRepoExists -Org $Global:WthOrg -Repo $Global:WthRepo) {
-    $recv = if (Test-WthFileExists -Org $Global:WthOrg -Repo $Global:WthRepo -Path 'receiver/verify.js') { 'present' } else { 'MISSING' }
-    Write-WthOk "repo $(_Ch17-RepoFull) present — receiver $recv"
+function Invoke-GhecStatus {
+  Write-GhecStep "status — $($Global:GhecChid) in '$($Global:GhecOrg)'"
+  if (Test-GhecRepoExists -Org $Global:GhecOrg -Repo $Global:GhecRepo) {
+    $recv = if (Test-GhecFileExists -Org $Global:GhecOrg -Repo $Global:GhecRepo -Path 'receiver/verify.js') { 'present' } else { 'MISSING' }
+    Write-GhecOk "repo $(_Ch17-RepoFull) present — receiver $recv"
   } else {
-    Write-WthInfo "repo $(_Ch17-RepoFull) not provisioned"
+    Write-GhecInfo "repo $(_Ch17-RepoFull) not provisioned"
   }
 }

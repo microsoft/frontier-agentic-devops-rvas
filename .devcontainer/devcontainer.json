@@ -1,5 +1,5 @@
 {
-  "name": "Frontier GitHub Platform Hackathon — All-in-One",
+  "name": "Frontier GitHub Platform Delivery Session — All-in-One",
 
   // Lightweight official Ubuntu base (~a few hundred MB vs. ~10GB for universal:2).
   // Every tool is layered on via Dev Container Features so the image stays small and

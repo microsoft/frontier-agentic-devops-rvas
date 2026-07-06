@@ -33,11 +33,11 @@ app_dependency: none
 emu_compatible: false
 min_environment: org
 provision_creates:
-- repo wth-ch19-copilot-coding-agent (small seeded buggy repo, NOT Juice Shop — short/gradable agent runs)
+- repo ghec-ch19-copilot-coding-agent (small seeded buggy repo, NOT Juice Shop — short/gradable agent runs)
 - a failing test that pins a single clear bug + CI workflow to verify the fix
 - a well-framed seeded issue (repro + acceptance criteria) ready to assign to Copilot
 tier: core
-source_repo: microsoft/frontier-agenticdevops-hackathon
+source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/ch19-copilot-coding-agent/meta.yml
 license: MIT
 references:

@@ -15,8 +15,8 @@ description: By the end of this challenge you can model a real organization's ac
 success_criteria:
 - A **parent team** has **two child teams**, confirmed nested via the API (`.parent.name` is non-null).
 - The **parent** grants `Read` on all three repos and that access **inherits** to the children (verifiable on a child team's repo permissions).
-- Each **squad** has `Write` on its own repo only; neither has Write on `wth-ch07-platform`.
-- A team holds the **Maintain** predefined role on `wth-ch07-platform`.
+- Each **squad** has `Write` on its own repo only; neither has Write on `ghec-ch07-platform`.
+- A team holds the **Maintain** predefined role on `ghec-ch07-platform`.
 - A **custom repository role** exists (`gh api /orgs/<org>/custom-repository-roles` lists it) and is **assigned** to a team on a repo.
 - An **`ACCESS.md`** access matrix exists, generated from the API, and a before/after comparison shows the org is now team-modeled.
 take_home_action: In your own org, model real teams as nested GitHub Teams with least-privilege repository roles, base permissions, and any required custom repository role.
@@ -32,13 +32,13 @@ app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
-- repo wth-ch07-frontend (seeded README + src tree)
-- repo wth-ch07-backend (seeded README + src tree)
-- repo wth-ch07-platform (seeded README + src tree)
-- flat starter team wth-ch07-engineering (one member, no repo access yet)
+- repo ghec-ch07-frontend (seeded README + src tree)
+- repo ghec-ch07-backend (seeded README + src tree)
+- repo ghec-ch07-platform (seeded README + src tree)
+- flat starter team ghec-ch07-engineering (one member, no repo access yet)
 - printed access snapshot of current teams + repo grants
 tier: core
-source_repo: microsoft/frontier-agenticdevops-hackathon
+source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/ch07-teams-roles-permissions/meta.yml
 license: MIT
 references:

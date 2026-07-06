@@ -1,13 +1,13 @@
 # Challenge 00 — Environment Setup
 
-> Provision your development environment for the GitHub Enterprise Cloud hackathon, authenticate the GitHub CLI, and confirm org access before you begin track work.
+> Provision your development environment for the GitHub Enterprise Cloud delivery session, authenticate the GitHub CLI, and confirm org access before you begin track work.
 
 | | |
 |---|---|
 | **Track** | Developer Flow |
 | **Difficulty** | Beginner |
 | **Duration** | ~25 min |
-| **Minimum input** | A GitHub account + org-owner rights on the hackathon org |
+| **Minimum input** | A GitHub account + org-owner rights on the delivery session org |
 | **App** | none |
 | **EMU compatible** | yes |
 
@@ -17,8 +17,8 @@ By the end of this challenge you will have:
 
 - A working development environment (GitHub Codespaces or local dev container)
 - An authenticated `gh` CLI session pointing at your GitHub account
-- Confirmed org-owner rights on the hackathon organization
-- Access verified to the GHEC hackathon repository
+- Confirmed org-owner rights on the delivery session organization
+- Access verified to the GHEC delivery session repository
 
 ---
 
@@ -26,7 +26,7 @@ By the end of this challenge you will have:
 
 - GitHub account
 - Basic Git and CLI usage
-- Org-owner rights on the shared GHEC hackathon organization (ask your coach if you have not been added yet)
+- Org-owner rights on the shared GHEC delivery session organization (ask your coach if you have not been added yet)
 
 > **Branch workflow (not fork):** This module uses a shared org repository. Do **not** fork. Clone directly and work on a personal branch:
 > ```bash
@@ -37,7 +37,7 @@ By the end of this challenge you will have:
 
 ## Option A: GitHub Codespaces (Recommended)
 
-1. Open the hackathon repository in your browser (your coach will share the URL, e.g. `https://github.com/<org>/<repo>`).
+1. Open the delivery session repository in your browser (your coach will share the URL, e.g. `https://github.com/<org>/<repo>`).
 2. Click **Code → Codespaces → Create codespace on main**.
 3. Wait ~30 seconds for the dev container to build. The terminal opens automatically when the container is ready.
 4. Continue to **Authenticate the GitHub CLI** below.
@@ -94,7 +94,7 @@ gh --version
 # 2. Authentication
 gh auth status
 
-# 3. Org access — must list the hackathon org
+# 3. Org access — must list the delivery session org
 gh org list
 
 # 4. Repository access
@@ -109,14 +109,14 @@ gh repo view <org>/<repo>
 |---|---|---|
 | CLI installed | `gh --version` | `gh version 2.x.x` |
 | Authenticated | `gh auth status` | Shows your username |
-| Org visible | `gh org list` | Lists the hackathon org |
+| Org visible | `gh org list` | Lists the delivery session org |
 | Repo accessible | `gh repo view <org>/<repo>` | Returns repository metadata |
 
 ---
 
-## Provisioning CLI preflight (optional)
+## Provisioning preflight (optional)
 
-The GHEC hackathon ships a provisioning CLI (`wth`) that sets up starting state for each challenge.
+The GHEC delivery session ships provisioning scripts (`setup.sh` / `setup.ps1`) that set up starting state for each challenge.
 The scripts live in-tree at `modules/ghec/resources/provisioning/`. You do not need them for this
 challenge, but you can run a preflight check now (from the repo root):
 

@@ -1,6 +1,6 @@
 # Modules
 
-This directory contains the **source content** for each hackathon module. The build script (`docs/build.js`) reads from here — never from `docs/` directly.
+This directory contains the **source content** for each delivery session module. The build script (`docs/build.js`) reads from here — never from `docs/` directly.
 
 ## Layout
 
@@ -50,4 +50,4 @@ The directory name is used only for human navigation. The canonical identifier i
 
 ## Module Attributions
 
-For information on how external dependencies (Juice Shop, source hackathon repos, sample apps) are managed and pinned, see [`docs/EXTERNAL-REPOS.md`](../docs/EXTERNAL-REPOS.md).
+For information on how external dependencies (Juice Shop, source delivery session repos, sample apps) are managed and pinned, see [`docs/EXTERNAL-REPOS.md`](../docs/EXTERNAL-REPOS.md).

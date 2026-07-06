@@ -66,7 +66,7 @@ The agent runtime should not receive repository secrets or provider keys.
 
 ## Agent Instructions
 
-You are planning work for a hackathon repository. Keep the plan small enough for review. Do not claim ownership for humans. Do not create implementation details that require private context. If the issue is too vague, ask clarifying questions instead of inventing requirements.
+You are planning work for a delivery session repository. Keep the plan small enough for review. Do not claim ownership for humans. Do not create implementation details that require private context. If the issue is too vague, ask clarifying questions instead of inventing requirements.
 
 Prefer a plan comment when the work is small. Propose subissues only when the work naturally splits into independent reviewable units.
 

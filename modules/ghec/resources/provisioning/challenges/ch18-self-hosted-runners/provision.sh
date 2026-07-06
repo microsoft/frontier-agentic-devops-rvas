@@ -4,10 +4,10 @@
 #
 # ch18 seeds a self-hosted runner practice repo: a hosted workflow (ubuntu-
 # latest) and a self-hosted workflow (label-targeted), RUNNER-SETUP.md and
-# HARDENING.md guides, plus an ORG-level runner group (wth-ch18-runners). Actual
+# HARDENING.md guides, plus an ORG-level runner group (ghec-ch18-runners). Actual
 # runner registration needs a real machine + token, so that stays a manual step.
 
-RUNNER_GROUP="wth-${CHID}-runners"
+RUNNER_GROUP="ghec-${CHID}-runners"
 
 _ch18_repo_full() { printf '%s/%s' "$ORG" "$REPO"; }
 
@@ -22,7 +22,7 @@ _ch18_seed_repo() {
   gh_put_file "$ORG" "$REPO" "README.md" \
     "Add self-hosted runners overview" \
 "$(cat <<EOF
-# wth-ch18 — Self-Hosted Runners
+# ghec-ch18 — Self-Hosted Runners
 
 Practice repo for self-hosted runner setup, targeting, and hardening.
 
@@ -75,7 +75,7 @@ EOF
   gh_put_file "$ORG" "$REPO" "RUNNER-SETUP.md" \
     "Add runner registration guide" \
 "$(cat <<EOF
-# Runner Setup — wth-ch18
+# Runner Setup — ghec-ch18
 
 Register a self-hosted runner into the \`$RUNNER_GROUP\` org runner group.
 
@@ -93,7 +93,7 @@ EOF
   gh_put_file "$ORG" "$REPO" "HARDENING.md" \
     "Add runner hardening checklist" \
 "$(cat <<'EOF'
-# Runner Hardening Checklist — wth-ch18
+# Runner Hardening Checklist — ghec-ch18
 
 - [ ] Use ephemeral runners (`--ephemeral`) so each job starts clean.
 - [ ] Never run self-hosted runners on public repos with untrusted PRs.
@@ -118,7 +118,7 @@ _ch18_seed_runner_group() {
 }
 
 # ===========================================================================
-wth_provision() {
+ghec_provision() {
   gh_create_repo "$ORG" "$REPO" public
   if [[ "$DRY_RUN" != "true" ]] && ! gh_repo_exists "$ORG" "$REPO"; then
     die "repo $(_ch18_repo_full) missing after create — aborting seed"
@@ -132,7 +132,7 @@ wth_provision() {
   log_warn "manual: runner registration needs a real machine + token — not automated."
 }
 
-wth_teardown() {
+ghec_teardown() {
   guard_prefix "$REPO" "$CHID" || return 1
   gh_delete_repo "$ORG" "$REPO"
 
@@ -147,7 +147,7 @@ wth_teardown() {
   log_warn "manual: de-register any self-hosted runner you connected — teardown does not touch runner hosts."
 }
 
-wth_status() {
+ghec_status() {
   log_step "status — $CHID in '$ORG'"
   if gh_repo_exists "$ORG" "$REPO"; then
     local grp

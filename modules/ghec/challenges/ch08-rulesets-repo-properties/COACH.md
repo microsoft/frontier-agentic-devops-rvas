@@ -8,7 +8,7 @@
 
 **Their question:** Coach conversation — which of your repos is most likely to accept a direct push to main or merge without a review right now, and what ruleset targeting which repo property would close that gap at scale? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch08-prod-payments` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch08-prod-payments` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Pick the riskiest repo in your org — what's protecting its default branch today?
@@ -18,7 +18,7 @@ Use these follow-ups to steer the conversation:
 ## Facilitation notes
 - **Goal in one line:** the student makes governance follow **metadata** instead of repo names — custom properties drive a property-targeted org ruleset that automatically governs any repo tagged for compliance, now or in the future.
 - **Where students get stuck:**
-  - **Property target vs name pattern.** The whole lesson is the **`repository_property`** condition. Students reflexively use a name pattern (`wth-ch08-prod-*`) — that's Ch05's mechanism and misses the point here. Insist on the property condition.
+  - **Property target vs name pattern.** The whole lesson is the **`repository_property`** condition. Students reflexively use a name pattern (`ghec-ch08-prod-*`) — that's Ch05's mechanism and misses the point here. Insist on the property condition.
   - **Bulk property values API shape.** The `/orgs/<org>/properties/values` PATCH takes an array of repos and an array of property objects; the nested `-f` syntax is fiddly. The UI is a fine fallback for setting values.
   - **Layering = strictest wins.** When the org rule (1 approval) and the repo rule (2 approvals) both apply, 2 wins. Students expect one to "override"; both apply and the maximum constraint holds.
   - **Signed-commit rule needs signing set up.** If they require signed commits but push unsigned, the rejection is *correct* — demonstrate the gate, then optionally show a signed push.
@@ -48,15 +48,15 @@ gh api /orgs/$ORG/properties/values --jq '.[] | {repository_name, properties}'
 
 # Org rulesets + the all-important condition type
 gh api /orgs/$ORG/rulesets --jq '.[] | {name, enforcement, target}'
-RID=$(gh api /orgs/$ORG/rulesets --jq '.[] | select(.name=="wth-ch08-prod-guardrail") | .id')
+RID=$(gh api /orgs/$ORG/rulesets --jq '.[] | select(.name=="ghec-ch08-prod-guardrail") | .id')
 gh api /orgs/$ORG/rulesets/$RID --jq '.conditions'        # expect a repository_property condition, NOT repository_name
 gh api /orgs/$ORG/rulesets/$RID --jq '.rules[].type'      # pull_request, required_status_checks, non_fast_forward, required_signatures
 
 # Repo-level ruleset overlay on the strict repo
-gh api /repos/$ORG/wth-ch08-prod-payments/rulesets --jq '.[] | {name, enforcement}'
+gh api /repos/$ORG/ghec-ch08-prod-payments/rulesets --jq '.[] | {name, enforcement}'
 ```
 - The single fastest mastery signal is the **`.conditions`** payload showing a `repository_property` include condition. If it shows `repository_name`, they solved it the Ch05 way — partial credit only.
-- Confirm `wth-ch08-prod-identity` (a *different name*, same property) is covered — that proves property targeting, not naming.
+- Confirm `ghec-ch08-prod-identity` (a *different name*, same property) is covered — that proves property targeting, not naming.
 - `rules[].type` should include `required_signatures` if they added the signed-commit rule.
 
 ## Common pitfalls
@@ -75,8 +75,8 @@ gh api /repos/$ORG/wth-ch08-prod-payments/rulesets --jq '.[] | {name, enforcemen
 bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch08 --org <org> --yes   # Bash
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch08 --org <org> --yes  # PowerShell
 ```
-- Removes only `wth-ch08-*` artifacts (prefix-guarded): the four repos and the `wth-ch08-prod-guardrail` org ruleset (plus any `wth-ch08-*` repo rulesets, which die with their repos).
-- **Manual cleanup (required):** the **custom property schema** (`compliance`, `prod`) is org-scoped and **not** `wth-ch08-*` prefixed; teardown leaves it. Delete the properties by hand (**Org Settings → Custom properties**, or `gh api -X DELETE /orgs/<org>/properties/schema/<name>`) if the org is a reusable sandbox.
+- Removes only `ghec-ch08-*` artifacts (prefix-guarded): the four repos and the `ghec-ch08-prod-guardrail` org ruleset (plus any `ghec-ch08-*` repo rulesets, which die with their repos).
+- **Manual cleanup (required):** the **custom property schema** (`compliance`, `prod`) is org-scoped and **not** `ghec-ch08-*` prefixed; teardown leaves it. Delete the properties by hand (**Org Settings → Custom properties**, or `gh api -X DELETE /orgs/<org>/properties/schema/<name>`) if the org is a reusable sandbox.
 
 ## Time budget
 - Setup + inventory: ~30 min

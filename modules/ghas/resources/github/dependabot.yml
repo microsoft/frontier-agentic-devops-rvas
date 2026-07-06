@@ -14,7 +14,7 @@
 #   - Security tab > Dependabot alerts: Shows known vulnerabilities
 #   - Insights tab > Dependency graph: Shows all your dependencies
 #
-# FOR HACKATHON PARTICIPANTS:
+# FOR DELIVERY SESSION PARTICIPANTS:
 #   Juice Shop intentionally has vulnerable dependencies! Dependabot will
 #   flag many of them. This is by design — explore the alerts and see what
 #   Dependabot recommends. You don't need to merge every PR, but reviewing

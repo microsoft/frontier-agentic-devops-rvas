@@ -14,7 +14,7 @@
 - Ask for a show-of-hands "green terminal" check after the first 10 minutes: "Raise your hand if `gh auth status` shows your username."
 - Pair any blocked participant with a working neighbor; one person's network issue should not stall the group.
 - If org invitations have not been sent yet, send them now. Participants cannot run `gh org list` or access the repo until they accept. Send invites from **Organization Settings → Members → Invite member** or via `gh api orgs/<org>/invitations`.
-- Remind participants to use the **branch workflow, not fork**: `git checkout -b setup/<handle>`. This matters for the org-scoped provisioning CLI in later challenges.
+- Remind participants to use the **branch workflow, not fork**: `git checkout -b setup/<handle>`. This matters for the org-scoped provisioning scripts in later challenges.
 
 ---
 
@@ -39,7 +39,7 @@ Before releasing the group to Challenge 01, confirm per participant:
 
 - [ ] `gh auth status` exits 0 and shows the correct GitHub username
 - [ ] `gh --version` returns `gh version 2.x.x` (>= 2.0.0)
-- [ ] `gh org list` lists the hackathon organization
+- [ ] `gh org list` lists the delivery session organization
 - [ ] `gh repo view <org>/<repo>` returns repository metadata without error
 - [ ] Participant is on a personal branch (`git branch` shows `setup/<handle>` or equivalent)
 

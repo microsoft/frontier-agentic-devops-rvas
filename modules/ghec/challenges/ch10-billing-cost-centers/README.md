@@ -30,9 +30,9 @@ By completing this challenge you will:
 A GHEC customer just got a bigger-than-expected Actions bill and nobody can explain it. Finance wants guardrails: a budget with an alert before money is spent, a clear view of which repos burn the most minutes, and a report they can pull on demand. You'll stand up exactly that at the **organization** level — generate a little real usage, wire up a budget with alerts, and reconcile the API against the billing UI so the numbers are trustworthy. The output is the cost-governance baseline a real customer keeps.
 
 ## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the hackathon*. Pick a real org usage, budget, or cost-reporting artifact someone will rely on after the hackathon and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+This challenge is most valuable when the result *outlives the delivery session*. Pick a real org usage, budget, or cost-reporting artifact someone will rely on after the delivery session and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 
-- **Have a candidate?** Use your real usage source and reporting repo wherever this guide names `wth-ch10-usage-generator` or `wth-ch10-cost-report`. Skip the Setup step below entirely.
+- **Have a candidate?** Use your real usage source and reporting repo wherever this guide names `ghec-ch10-usage-generator` or `ghec-ch10-cost-report`. Skip the Setup step below entirely.
 - **No suitable one?** Use the fallback below: a tiny usage-generator repo and cost-report repo for safe metered practice.
 
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
@@ -49,15 +49,15 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch10 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch10 --org <org>
 ```
 
-**What setup creates** (all artifacts namespaced `wth-ch10-*`, idempotent, prefix-guarded teardown):
-- A seeded repo **`wth-ch10-usage-generator`** containing a tiny, fast **GitHub Actions workflow** (`workflow_dispatch`-triggered, a few seconds of runtime) so you can generate a *small* amount of metered Actions usage on demand.
-- A seeded repo **`wth-ch10-cost-report`** to hold your reconciliation script and the final report.
+**What setup creates** (all artifacts namespaced `ghec-ch10-*`, idempotent, prefix-guarded teardown):
+- A seeded repo **`ghec-ch10-usage-generator`** containing a tiny, fast **GitHub Actions workflow** (`workflow_dispatch`-triggered, a few seconds of runtime) so you can generate a *small* amount of metered Actions usage on demand.
+- A seeded repo **`ghec-ch10-cost-report`** to hold your reconciliation script and the final report.
 - A printed **current usage snapshot** (Actions minutes / storage from the API) so you have a "before" reading.
 - A printed **Next steps** block telling you where to start.
 
 
 ## Tasks
-> Throughout, **`wth-ch10-usage-generator` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
+> Throughout, **`ghec-ch10-usage-generator` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Read the billing baseline
 1. **Open the org billing views** (**Org Settings → Billing & licensing → Usage**). Locate **Actions minutes**, **Packages/Storage**, and any **Codespaces** lines. Note included allowances vs metered overage.
@@ -65,8 +65,8 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch10 --org <org>
 3. **Read the licensing view** (seats consumed) and note where seat cost vs metered service cost differ.
 
 ### Part B — Generate a little controlled usage
-4. **Run the usage generator** twice: `gh workflow run usage.yml --repo <org>/wth-ch10-usage-generator` (or via the Actions tab → Run workflow). Each run is only seconds of compute.
-5. **Confirm the runs completed:** `gh run list --repo <org>/wth-ch10-usage-generator --json status,conclusion,createdAt`.
+4. **Run the usage generator** twice: `gh workflow run usage.yml --repo <org>/ghec-ch10-usage-generator` (or via the Actions tab → Run workflow). Each run is only seconds of compute.
+5. **Confirm the runs completed:** `gh run list --repo <org>/ghec-ch10-usage-generator --json status,conclusion,createdAt`.
 6. **Re-read usage** from Part A's API call and confirm Actions minutes **increased**. Usage data can lag — note that and re-check if needed.
 
 ### Part C — Budgets & alerts
@@ -76,11 +76,11 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch10 --org <org>
 
 ### Part D — Usage via the API & reconciliation
 10. **Pull the detailed usage** for the current period from the billing API and reconcile the total against the UI's Usage page — the numbers should agree (allowing for lag).
-11. **Attribute usage to repos:** using `gh run list`/run timing across `wth-ch10-*` repos (or the usage report export from the UI), identify which repo generated the Actions minutes you created.
+11. **Attribute usage to repos:** using `gh run list`/run timing across `ghec-ch10-*` repos (or the usage report export from the UI), identify which repo generated the Actions minutes you created.
 12. **Note the cost model:** included minutes are free; overage is billed per-minute at a rate that varies by runner OS/SKU (Linux is cheapest; Windows and macOS cost more per minute). The billing usage API reports a `pricePerUnit` per SKU — record how the per-minute price differs by runner OS in your report.
 
 ### Part E — Build the cost report
-13. **Write a reconciliation script** (`cost-report.sh` or `.ps1`, committed to `wth-ch10-cost-report`) that pulls the billing usage endpoints and prints a small table: product, used, included, billable.
+13. **Write a reconciliation script** (`cost-report.sh` or `.ps1`, committed to `ghec-ch10-cost-report`) that pulls the billing usage endpoints and prints a small table: product, used, included, billable.
 14. **Run it** and save the output as `COST-REPORT.md`, including the before/after Actions-minutes delta you generated in Part B.
 15. **Write a one-paragraph recommendation**: given the usage shape, what budget + alert thresholds would you set for this org, and would you add a hard spending limit?
 

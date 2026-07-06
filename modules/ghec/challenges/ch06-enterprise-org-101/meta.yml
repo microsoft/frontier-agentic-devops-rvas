@@ -33,13 +33,13 @@ app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
-- repo wth-ch06-public-sample (requested public; private fallback on EMU)
-- repo wth-ch06-private-sample (seeded README)
-- repo wth-ch06-internal-sample (seeded README)
-- team wth-ch06-members with one sample repo attached at default permission
+- repo ghec-ch06-public-sample (requested public; private fallback on EMU)
+- repo ghec-ch06-private-sample (seeded README)
+- repo ghec-ch06-internal-sample (seeded README)
+- team ghec-ch06-members with one sample repo attached at default permission
 - printed baseline snapshot of current org member-privilege settings
 tier: core
-source_repo: microsoft/frontier-agenticdevops-hackathon
+source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/ch06-enterprise-org-101/meta.yml
 license: MIT
 references:

@@ -8,7 +8,7 @@
 # org-level Project (v2) board. The volume is what makes REST + GraphQL
 # automation worth practising.
 
-PROJECT_TITLE="wth-${CHID}-board"
+PROJECT_TITLE="ghec-${CHID}-board"
 
 _ch16_repo_full() { printf '%s/%s' "$ORG" "$REPO"; }
 
@@ -17,7 +17,7 @@ _ch16_seed_scaffold() {
   gh_put_file "$ORG" "$REPO" "README.md" \
     "Add automation target overview" \
 "$(cat <<EOF
-# wth-ch16 — REST & GraphQL Automation Target
+# ghec-ch16 — REST & GraphQL Automation Target
 
 A deliberately large, messy backlog to automate against. Use the REST and
 GraphQL APIs to triage, label, and organise the issues in this repo.
@@ -31,7 +31,7 @@ EOF
   gh_put_file "$ORG" "$REPO" "src/app.js" \
     "Add placeholder service entrypoint" \
 "$(cat <<'EOF'
-// wth-ch16 placeholder service — the code is not the point; the backlog is.
+// ghec-ch16 placeholder service — the code is not the point; the backlog is.
 module.exports = function app () {
   return { status: 'ok' }
 }
@@ -106,7 +106,7 @@ _ch16_seed_issues() {
     fi
 
     local args=(gh issue create --repo "$(_ch16_repo_full)" --title "$title"
-      --body "Seeded by wth-ch16 — messy backlog at scale. Triage, label, and organise via REST/GraphQL.")
+      --body "Seeded by ghec-ch16 — messy backlog at scale. Triage, label, and organise via REST/GraphQL.")
     [[ -n "$label" ]] && args+=(--label "$label")
     url="$(run_mutation "${args[@]}")"
     if [[ "$state" == "closed" && -n "${url:-}" ]]; then
@@ -133,7 +133,7 @@ _ch16_seed_project() {
 }
 
 # ===========================================================================
-wth_provision() {
+ghec_provision() {
   gh_create_repo "$ORG" "$REPO" public
   if [[ "$DRY_RUN" != "true" ]] && ! gh_repo_exists "$ORG" "$REPO"; then
     die "repo $(_ch16_repo_full) missing after create — aborting seed"
@@ -148,7 +148,7 @@ wth_provision() {
   log_info "  - add issues to the '$PROJECT_TITLE' board programmatically"
 }
 
-wth_teardown() {
+ghec_teardown() {
   guard_prefix "$REPO" "$CHID" || return 1
   gh_delete_repo "$ORG" "$REPO"
 
@@ -162,7 +162,7 @@ wth_teardown() {
   fi
 }
 
-wth_status() {
+ghec_status() {
   log_step "status — $CHID in '$ORG'"
   if gh_repo_exists "$ORG" "$REPO"; then
     local issues labels

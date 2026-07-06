@@ -13,7 +13,7 @@ prerequisite_capabilities:
 - jq installed
 description: By the end of this challenge you can read the org-level security overview dashboards, roll GHAS out across repos with a security configuration, launch a security campaign that hands prioritized alerts to developers with a deadline, and track remediation to completion — using OWASP Juice Shop's real alert volume as the campaign target.
 success_criteria:
-- '`wth-ch15-juice-shop` has a **multi-tool alert corpus** (CodeQL **and** Dependabot alerts present, verifiable via the alerts APIs).'
+- '`ghec-ch15-juice-shop` has a **multi-tool alert corpus** (CodeQL **and** Dependabot alerts present, verifiable via the alerts APIs).'
 - You used the org **Security overview** Risk and Coverage views and produced an **org-wide alert slice** via the API.
 - An **org security configuration** exists and is **applied** to the repo (features show enabled in Coverage).
 - A **security campaign** exists with a name, a **manager**, a **due date**, and **guidance**, scoped to a finite alert slice.
@@ -32,11 +32,11 @@ app_dependency: juice-shop
 emu_compatible: true
 min_environment: org
 provision_creates:
-- repo wth-ch15-juice-shop (public, OWASP Juice Shop imported at v20.0.0, pulled from official source — never vendored)
+- repo ghec-ch15-juice-shop (public, OWASP Juice Shop imported at v20.0.0, pulled from official source — never vendored)
 - rich multi-tool alert corpus (CodeQL OWASP Top 10 + Dependabot vulnerable npm tree + secret scanning) to drive a security campaign
 - own standalone alert volume — does NOT depend on ch12/ch13 having run (independence preserved)
 tier: core
-source_repo: microsoft/frontier-agenticdevops-hackathon
+source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/ch15-security-campaigns-overview/meta.yml
 license: MIT
 references:

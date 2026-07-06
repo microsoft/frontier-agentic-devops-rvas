@@ -4,7 +4,7 @@ Use this resource during Challenges 00-06 to turn implicit team knowledge into r
 
 ## Why This Exists
 
-The handbook's core warning is that agents fail on real codebases when team knowledge is implicit. In this hackathon, participants should avoid that cliff by externalizing intent, conventions, boundaries, and review gates before assigning more autonomous work.
+The handbook's core warning is that agents fail on real codebases when team knowledge is implicit. In this delivery session, participants should avoid that cliff by externalizing intent, conventions, boundaries, and review gates before assigning more autonomous work.
 
 ## Starter Instrumentation Set
 

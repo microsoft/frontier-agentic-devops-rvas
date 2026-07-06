@@ -18,7 +18,7 @@ _ch19_seed_repo() {
   gh_put_file "$ORG" "$REPO" "README.md" \
     "Add Copilot cloud agent task overview" \
 "$(cat <<EOF
-# wth-ch19 — Copilot Cloud Agent Task
+# ghec-ch19 — Copilot Cloud Agent Task
 
 A deliberately tiny repo with ONE clear bug. The failing test pins it; the
 seeded issue describes the fix with acceptance criteria — ready to hand to the
@@ -36,7 +36,7 @@ EOF
     "Add minimal package.json" \
 "$(cat <<'EOF'
 {
-  "name": "wth-ch19-coding-agent",
+  "name": "ghec-ch19-coding-agent",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -49,7 +49,7 @@ EOF
   gh_put_file "$ORG" "$REPO" "src/math.js" \
     "Add math module (with deliberate bug)" \
 "$(cat <<'EOF'
-// wth-ch19 — BUG: sum() subtracts instead of adding. Fix me.
+// ghec-ch19 — BUG: sum() subtracts instead of adding. Fix me.
 function sum (a, b) {
   return a - b
 }
@@ -60,7 +60,7 @@ EOF
   gh_put_file "$ORG" "$REPO" "test/math.test.js" \
     "Add failing test that pins the bug" \
 "$(cat <<'EOF'
-// wth-ch19 — fails until sum() is fixed to add.
+// ghec-ch19 — fails until sum() is fixed to add.
 const assert = require('assert')
 const { sum } = require('../src/math')
 
@@ -128,7 +128,7 @@ EOF
 }
 
 # ===========================================================================
-wth_provision() {
+ghec_provision() {
   gh_create_repo "$ORG" "$REPO" public
   if [[ "$DRY_RUN" != "true" ]] && ! gh_repo_exists "$ORG" "$REPO"; then
     die "repo $(_ch19_repo_full) missing after create — aborting seed"
@@ -142,12 +142,12 @@ wth_provision() {
   log_warn "manual: enable the Copilot cloud agent for your org/account first (EMU-incompatible challenge)."
 }
 
-wth_teardown() {
+ghec_teardown() {
   guard_prefix "$REPO" "$CHID" || return 1
   gh_delete_repo "$ORG" "$REPO"
 }
 
-wth_status() {
+ghec_status() {
   log_step "status — $CHID in '$ORG'"
   if gh_repo_exists "$ORG" "$REPO"; then
     local test_present issues

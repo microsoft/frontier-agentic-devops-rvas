@@ -2,7 +2,7 @@
 
 This directory contains GitHub Advanced Security (GHAS) configuration files that participants apply
 to the org-owned Juice Shop repository provisioned in Challenge S00 to light up GHAS scanning
-features during the hackathon.
+features during the delivery session.
 
 These fixtures are maintained in this repository and are
 now vendored here so that repository can be retired.
@@ -21,7 +21,7 @@ Challenge S00's `setup.sh`/`setup.ps1` automation applies these files for you. I
 them manually, copy them into the `.github/` folder of the org-owned Juice Shop repository:
 
 ```bash
-# From the curriculum repo root — adjust <org>/<repo> to your hackathon org/repo
+# From the curriculum repo root — adjust <org>/<repo> to your delivery session org/repo
 gh repo clone <org>/<repo> /tmp/target-repo
 cp -r modules/ghas/resources/github/. /tmp/target-repo/.github/
 cd /tmp/target-repo

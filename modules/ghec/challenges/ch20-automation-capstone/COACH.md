@@ -8,7 +8,7 @@
 
 **Their question:** Coach conversation — looking across everything you've automated in this challenge, what is the single workflow in your real org that is still entirely manual and would benefit most from combining the Actions, API, and security layers you just built? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch20-automation-capstone` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch20-automation-capstone` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Describe that manual workflow end-to-end — what triggers it, who does each step, and where does it break down?
@@ -17,7 +17,7 @@ Use these follow-ups to steer the conversation:
 
 ## Facilitation notes
 - **Goal in one line:** the student builds **one end-to-end automation** where a **GitHub App** (installation auth) reacts to a **signature-verified webhook**, acts via **REST and GraphQL**, and is orchestrated by **Actions** — idempotently.
-- **Independence matters.** This challenge **must stand alone**. It creates all its own `wth-ch20-*` state and assumes **no other challenge was run**. If a student says "I'll reuse my ch17 App," that's fine conceptually, but grading is against the **ch20 seeded artifacts** — they should provision ch20 fresh.
+- **Independence matters.** This challenge **must stand alone**. It creates all its own `ghec-ch20-*` state and assumes **no other challenge was run**. If a student says "I'll reuse my ch17 App," that's fine conceptually, but grading is against the **ch20 seeded artifacts** — they should provision ch20 fresh.
 - **Where students get stuck:**
   - **Installation token vs PAT vs JWT.** They need a **JWT** (App auth) to mint an **installation token**, then use *that* for REST/GraphQL. Mixing these up is the #1 blocker.
   - **Signature verification over the wrong body.** HMAC must run over the **raw** request body, not a re-serialized JSON object. Constant-time compare.
@@ -33,7 +33,7 @@ Use these follow-ups to steer the conversation:
 | App registered + installed + installation token | 15 | App on the seeded repo; `/installation/repositories` returns it |
 | Webhook signature verification | 15 | HMAC-SHA256 over raw body vs `X-Hub-Signature-256`; bad sig rejected (shown) |
 | REST action + idempotency | 20 | Label + comment on `issues.opened`; redelivery does **not** duplicate |
-| GraphQL Projects v2 action + idempotency | 20 | Issue added to `wth-ch20-board` + Status set; replay doesn't double-add |
+| GraphQL Projects v2 action + idempotency | 20 | Issue added to `ghec-ch20-board` + Status set; replay doesn't double-add |
 | Actions orchestration + secret handling | 15 | `automation.yml` runs the flow; all creds in Actions secrets; run summary posted |
 | End-to-end demo + failure-mode write-up | 15 | One fresh issue drives all hops; failure modes documented |
 | **Total** | **100** | |
@@ -42,7 +42,7 @@ Use these follow-ups to steer the conversation:
 
 ## Automated verification hints
 ```bash
-ORG=<org>; REPO=wth-ch20-automation-capstone   # swap REPO for the student's own repo if they brought one
+ORG=<org>; REPO=ghec-ch20-automation-capstone   # swap REPO for the student's own repo if they brought one
 
 # App is installed on the seeded repo (run as the App's installation token)
 gh api /installation/repositories --jq '.repositories[].full_name'
@@ -52,7 +52,7 @@ gh issue list --repo $ORG/$REPO --json number,labels --jq '.[] | {number, labels
 ISSUE=<n>
 gh api repos/$ORG/$REPO/issues/$ISSUE/comments --jq '.[] | {user: .user.login, body: .body[0:60]}'
 
-# GraphQL action landed: issue is an item on wth-ch20-board with a Status set
+# GraphQL action landed: issue is an item on ghec-ch20-board with a Status set
 gh api graphql -f query='
   query($org:String!){ organization(login:$org){ projectV2(number: PROJECT_NUMBER){
     title items(first:20){ nodes{ content{ ... on Issue { number } }
@@ -85,8 +85,8 @@ gh api repos/$ORG/$REPO/actions/secrets --jq '.secrets[].name'   # expect App ID
 bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch20 --org <org> --yes   # Bash
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch20 --org <org> --yes  # PowerShell
 ```
-- Removes only `wth-ch20-*` artifacts (prefix-guarded): the seeded repo and the `wth-ch20-board` Projects v2 board.
-- **Manual cleanup (required):** the **GitHub App** is not a `wth-ch20-*` repo artifact and is **not** auto-deleted — uninstall it from the org and delete the App registration (Org Settings → Developer settings → GitHub Apps). Revoke/delete the App **private key**. If you used a `smee.io` channel, it expires on its own.
+- Removes only `ghec-ch20-*` artifacts (prefix-guarded): the seeded repo and the `ghec-ch20-board` Projects v2 board.
+- **Manual cleanup (required):** the **GitHub App** is not a `ghec-ch20-*` repo artifact and is **not** auto-deleted — uninstall it from the org and delete the App registration (Org Settings → Developer settings → GitHub Apps). Revoke/delete the App **private key**. If you used a `smee.io` channel, it expires on its own.
 
 ## Time budget
 - Setup + read scaffold: ~45 min

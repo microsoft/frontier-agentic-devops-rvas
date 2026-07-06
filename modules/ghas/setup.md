@@ -25,7 +25,7 @@ cd modules/ghec/resources/provisioning/scripts
 ./setup.ps1 provision ghas-00 -Org <your-org>
 ```
 
-This creates `<your-org>/wth-ghas-00-juice-shop`, imports the pinned Juice Shop release, commits the CodeQL and Dependabot configuration, and attempts to enable Actions, code scanning, Dependabot alerts, secret scanning, and push protection. If any feature cannot be enabled automatically, an org owner or repo admin must enable it manually in **Settings → Code security and analysis**.
+This creates `<your-org>/ghec-ghas-00-juice-shop`, imports the pinned Juice Shop release, commits the CodeQL and Dependabot configuration, and attempts to enable Actions, code scanning, Dependabot alerts, secret scanning, and push protection. If any feature cannot be enabled automatically, an org owner or repo admin must enable it manually in **Settings → Code security and analysis**.
 
 After the repo is ready, manually onboard any participants or teams that need access under **Settings → Collaborators and teams**. Participants should clone this org repo directly and work on personal/team branches rather than forking.
 
@@ -35,7 +35,7 @@ After the repo is ready, manually onboard any participants or teams that need ac
 
 Open the provisioned Juice Shop repo in a Codespace.
 
-1. Open `<your-org>/wth-ghas-00-juice-shop` on GitHub and click **Code → Codespaces → Create codespace on main**.
+1. Open `<your-org>/ghec-ghas-00-juice-shop` on GitHub and click **Code → Codespaces → Create codespace on main**.
 2. Wait for the devcontainer to finish provisioning.
 3. Install dependencies and start Juice Shop:
    ```bash

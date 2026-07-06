@@ -1,6 +1,6 @@
 # Agentic SDLC Handbook Integration
 
-Use this as a source-backed bridge between Daniel Meppiel's Agentic SDLC Handbook, Peli's Agent Factory, and the hackathon flow. Keep summaries short, attribute the sources, and avoid copying handbook text because the handbook is licensed CC BY-NC-ND 4.0.
+Use this as a source-backed bridge between Daniel Meppiel's Agentic SDLC Handbook, Peli's Agent Factory, and the delivery session flow. Keep summaries short, attribute the sources, and avoid copying handbook text because the handbook is licensed CC BY-NC-ND 4.0.
 
 | Handbook or Factory Lesson | Where Participants Apply It | Source |
 | --- | --- | --- |
@@ -25,4 +25,4 @@ Use this as a source-backed bridge between Daniel Meppiel's Agentic SDLC Handboo
 
 - The Agentic SDLC Handbook is a living pre-release document by Daniel Meppiel and is licensed [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/). Attribute it, summarize it, and do not adapt or reproduce long passages.
 - GitHub Agentic Workflows and Peli's Agent Factory describe early, evolving workflow technology. Use them as patterns and source-backed examples, not as a promise that every customer tenant can run every workflow unchanged.
-- The hackathon should keep live-product caveats visible: preview access, repository permissions, model/provider setup, GitHub Actions policy, secrets, and tenant controls can change the hands-on path.
+- The delivery session should keep live-product caveats visible: preview access, repository permissions, model/provider setup, GitHub Actions policy, secrets, and tenant controls can change the hands-on path.

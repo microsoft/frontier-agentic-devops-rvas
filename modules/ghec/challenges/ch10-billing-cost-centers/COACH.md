@@ -8,7 +8,7 @@
 
 **Their question:** Coach conversation — look at your team's actual GitHub usage right now: where is spend invisible or unattributed, and who in your org should own cost accountability for Actions minutes, Codespaces, or storage but currently does not? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch10-usage-generator` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch10-usage-generator` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Describe who currently reviews your GitHub bill and what detail they can see — down to repo or team level?
@@ -51,13 +51,13 @@ gh api /organizations/$ORG/settings/billing/usage \
   --jq '[.usageItems[] | select(.product=="Actions") | .quantity] | add'
 
 # Prove runs were generated
-gh run list --repo $ORG/wth-ch10-usage-generator --json status,conclusion,createdAt --limit 10
+gh run list --repo $ORG/ghec-ch10-usage-generator --json status,conclusion,createdAt --limit 10
 
 # Confirm the generator workflow exists and is dispatchable
-gh api /repos/$ORG/wth-ch10-usage-generator/actions/workflows --jq '.workflows[].name'
+gh api /repos/$ORG/ghec-ch10-usage-generator/actions/workflows --jq '.workflows[].name'
 
 # Confirm the report artifacts were committed
-gh api /repos/$ORG/wth-ch10-cost-report/contents/COST-REPORT.md --jq '.path'
+gh api /repos/$ORG/ghec-ch10-cost-report/contents/COST-REPORT.md --jq '.path'
 ```
 - The fastest mastery signal is a **non-zero Actions `quantity`** in the usage report that increased after Part B, paired with `gh run list` showing the runs that caused it.
 - Budgets aren't fully exposed via a stable public REST read in every plan — accept a **screenshot / UI walkthrough** of the budget + alert threshold as evidence, plus the written budget-vs-limit distinction.
@@ -79,8 +79,8 @@ gh api /repos/$ORG/wth-ch10-cost-report/contents/COST-REPORT.md --jq '.path'
 bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch10 --org <org> --yes   # Bash
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch10 --org <org> --yes  # PowerShell
 ```
-- Removes only `wth-ch10-*` artifacts (prefix-guarded): `wth-ch10-usage-generator` and `wth-ch10-cost-report`.
-- **Manual cleanup (required):** the **budget and any alert thresholds** the student created are org-level billing settings, **not** `wth-ch10-*` prefixed, and are **not** reverted by teardown. Delete the budget by hand (**Org Settings → Billing & licensing → Budgets and alerts**) if the org is a reusable sandbox. The **metered usage already incurred is permanent** (it's real billing history) — expected and negligible for the few seconds generated here.
+- Removes only `ghec-ch10-*` artifacts (prefix-guarded): `ghec-ch10-usage-generator` and `ghec-ch10-cost-report`.
+- **Manual cleanup (required):** the **budget and any alert thresholds** the student created are org-level billing settings, **not** `ghec-ch10-*` prefixed, and are **not** reverted by teardown. Delete the budget by hand (**Org Settings → Billing & licensing → Budgets and alerts**) if the org is a reusable sandbox. The **metered usage already incurred is permanent** (it's real billing history) — expected and negligible for the few seconds generated here.
 
 ## Time budget
 - Setup + baseline read: ~30 min

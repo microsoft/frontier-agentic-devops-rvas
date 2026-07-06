@@ -34,12 +34,12 @@ app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
-- repo wth-ch01-issues-labels-projects (seeded README + source tree + .github/ISSUE_TEMPLATE/)
+- repo ghec-ch01-issues-labels-projects (seeded README + source tree + .github/ISSUE_TEMPLATE/)
 - ~26 seeded untriaged issues (bugs/features/chores)
 - intentionally messy starter labels (bug, Bug, enhancement, urgent, wontfix, question, backend, frontend)
-- empty Projects (v2) board wth-ch01-board linked to the repo
+- empty Projects (v2) board ghec-ch01-board linked to the repo
 tier: core
-source_repo: microsoft/frontier-agenticdevops-hackathon
+source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/ch01-issues-labels-projects/meta.yml
 license: MIT
 references:

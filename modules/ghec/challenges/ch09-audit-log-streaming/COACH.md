@@ -8,7 +8,7 @@
 
 **Their question:** Coach conversation — if your org's GitHub audit log were streaming to your SIEM right now, what is the first alert or anomaly query you would write, and what event from the past six months do you wish you had been alerted to? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch09-audit-target` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch09-audit-target` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - What SIEM or logging system does your team use today, and is GitHub activity visible in it?
@@ -51,7 +51,7 @@ gh api -X GET /orgs/$ORG/audit-log -f phrase='action:team.add_repository' \
 gh api -X GET /orgs/$ORG/audit-log -f phrase='created:>=2026-06-01' --jq 'length'
 
 # Scope to the target repo
-gh api -X GET /orgs/$ORG/audit-log -f phrase='repo:'"$ORG"'/wth-ch09-audit-target' \
+gh api -X GET /orgs/$ORG/audit-log -f phrase='repo:'"$ORG"'/ghec-ch09-audit-target' \
   --jq '.[] | {action, actor, created_at}'
 
 # Pagination sanity (large slices)
@@ -77,7 +77,7 @@ gh api -X GET /orgs/$ORG/audit-log -f phrase='created:>=2026-06-01' --paginate -
 bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch09 --org <org> --yes   # Bash
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch09 --org <org> --yes  # PowerShell
 ```
-- Removes only `wth-ch09-*` artifacts (prefix-guarded): the `wth-ch09-audit-target` repo and the `wth-ch09-auditors` team.
+- Removes only `ghec-ch09-*` artifacts (prefix-guarded): the `ghec-ch09-audit-target` repo and the `ghec-ch09-auditors` team.
 - **Manual cleanup / cannot be reverted:** the **audit log is append-only** — the events the student generated in Part B are a permanent part of the org's history and are **not** (and cannot be) deleted by teardown. That's expected and correct; auditability is the point. If the student configured any **enterprise audit-log streaming** during the stretch/awareness discussion, that stream config must be removed by hand at the enterprise level — our scripts never touch it.
 
 ## Time budget

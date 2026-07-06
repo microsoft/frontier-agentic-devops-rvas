@@ -33,12 +33,12 @@ app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
-- repo wth-ch02-pull-requests-code-review (seeded multi-file app on main)
+- repo ghec-ch02-pull-requests-code-review (seeded multi-file app on main)
 - two feature branches with open PRs (one clean, one that will conflict)
 - .github/pull_request_template.md placeholder
 - directory layout mapping cleanly to CODEOWNERS paths (no branch protection yet)
 tier: core
-source_repo: microsoft/frontier-agenticdevops-hackathon
+source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/ch02-pull-requests-code-review/meta.yml
 license: MIT
 references:

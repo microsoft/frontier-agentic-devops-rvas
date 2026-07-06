@@ -30,9 +30,9 @@ By completing this challenge you will:
 A GHEC platform team is drowning in manual merge babysitting: pinging reviewers, re-checking CI, merging PRs by hand at odd hours, and chasing stale branches. You'll replace all of that with policy and automation: rulesets that enforce quality at the org and repo level, auto-merge that ships the moment gates pass, and workflows that label, route, and tidy PRs without a human. The result is a merge pipeline that runs itself — safely.
 
 ## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the hackathon*. Pick a real repository where PR automation would remove review toil and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+This challenge is most valuable when the result *outlives the delivery session*. Pick a real repository where PR automation would remove review toil and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 
-- **Have a candidate?** Use it everywhere this guide says `wth-ch05-advanced-pr-automation`. Skip the Setup step below entirely.
+- **Have a candidate?** Use it everywhere this guide says `ghec-ch05-advanced-pr-automation`. Skip the Setup step below entirely.
 - **No suitable one?** Use the fallback below: a seeded sample repo with PR automation hooks to build on.
 
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
@@ -49,8 +49,8 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch05 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch05 --org <org>
 ```
 
-**What setup creates** (all artifacts namespaced `wth-ch05-*`, idempotent, prefix-guarded teardown):
-- A seeded repo **`wth-ch05-advanced-pr-automation`** with a small app, a working **CI workflow** that emits a `build` status check, a populated `main`, and a `src/` + `docs/` layout for CODEOWNERS paths.
+**What setup creates** (all artifacts namespaced `ghec-ch05-*`, idempotent, prefix-guarded teardown):
+- A seeded repo **`ghec-ch05-advanced-pr-automation`** with a small app, a working **CI workflow** that emits a `build` status check, a populated `main`, and a `src/` + `docs/` layout for CODEOWNERS paths.
 - **Several open PRs** in different states (clean, failing-CI, draft, missing-owner-review) so every rule has something to act on.
 - A **starter `.github/CODEOWNERS`** and a placeholder **`.github/pull_request_template.md`**.
 - **No rulesets yet** — you create them.
@@ -58,15 +58,15 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch05 --org <org>
 
 
 ## Tasks
-> Throughout, **`wth-ch05-advanced-pr-automation` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
+> Throughout, **`ghec-ch05-advanced-pr-automation` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Repository ruleset (replace classic protection)
-1. **Create a repository ruleset** targeting `main` (Settings → Rules → Rulesets → New branch ruleset). Name it `wth-ch05-main`. Learn more about [repository rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository). Enable rules:
+1. **Create a repository ruleset** targeting `main` (Settings → Rules → Rulesets → New branch ruleset). Name it `ghec-ch05-main`. Learn more about [repository rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository). Enable rules:
    - **Require a pull request before merging** (≥1 approval, **require review from Code Owners**, dismiss stale approvals)
    - **Require status checks to pass** → add the seeded `build` check
    - **Block force pushes**
    - **Require linear history**
-2. **Set enforcement to Active.** Confirm via `gh api repos/<org>/wth-ch05-advanced-pr-automation/rulesets`.
+2. **Set enforcement to Active.** Confirm via `gh api repos/<org>/ghec-ch05-advanced-pr-automation/rulesets`.
 3. **Prove it bites:** attempt a direct push to `main` (`git push origin main`) and confirm it's rejected.
 
 ### Part B — CODEOWNERS + required reviewers + bypass
@@ -89,7 +89,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch05 --org <org>
 14. **Stale PR automation.** Add [`actions/stale@v10`](https://github.com/actions/stale) on a schedule to mark PRs with no activity in N days `status: stale` and close them after a grace period. Trigger it manually with `workflow_dispatch` and confirm it labels/comments the right PRs.
 
 ### Part F — Organization ruleset
-15. **Create an org-level ruleset** (Org Settings → Repository → Rulesets) named `wth-ch05-org` targeting repos matching `wth-ch05-*`, requiring a PR + the `build` check across all matching repos. See [managing rulesets for organizations](https://docs.github.com/en/organizations/managing-organization-settings/creating-rulesets-for-repositories-in-your-organization). Confirm it **layers on top** of the repo ruleset (the stricter wins) and verify via `gh api /orgs/<org>/rulesets`.
+15. **Create an org-level ruleset** (Org Settings → Repository → Rulesets) named `ghec-ch05-org` targeting repos matching `ghec-ch05-*`, requiring a PR + the `build` check across all matching repos. See [managing rulesets for organizations](https://docs.github.com/en/organizations/managing-organization-settings/creating-rulesets-for-repositories-in-your-organization). Confirm it **layers on top** of the repo ruleset (the stricter wins) and verify via `gh api /orgs/<org>/rulesets`.
 
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
@@ -98,7 +98,7 @@ You are done when ALL of the following are true:
 - [ ] **Auto-merge** is enabled and a clean PR **merged itself** once gates passed; a failing PR did **not**.
 - [ ] A **PR template** pre-fills new PRs; a **draft** PR demonstrably blocks auto-merge/reviewers until marked ready.
 - [ ] **Auto-labeling** assigns `area:` labels by path; an **open-PR comment** workflow fires; a **stale** workflow labels/closes inactive PRs.
-- [ ] An **organization ruleset** targeting `wth-ch05-*` is active and layers with the repo ruleset.
+- [ ] An **organization ruleset** targeting `ghec-ch05-*` is active and layers with the repo ruleset.
 - [ ] Real-outcome check — if you brought your own repo, PR automation now removes a real review chore; if you used the sample, you can name the team repo where you will install it next.
 - [ ] Coach conversation — which repetitive PR task on your current team (auto-labeling, reviewer assignment, size checks, changelog enforcement) costs the most human time per week, and what could a composite action or reusable workflow replace? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 

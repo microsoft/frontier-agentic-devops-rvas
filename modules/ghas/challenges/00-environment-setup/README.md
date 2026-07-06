@@ -57,7 +57,7 @@ cd modules/ghec/resources/provisioning/scripts
 The default repository name is:
 
 ```text
-<your-org>/wth-ghas-00-juice-shop
+<your-org>/ghec-ghas-00-juice-shop
 ```
 
 If a feature cannot be enabled by automation because the org lacks the license or the
@@ -66,7 +66,7 @@ owner or repo admin must enable it manually in **Settings → Code security and 
 
 After provisioning, manually add any participants who need access:
 
-1. Open `https://github.com/<your-org>/wth-ghas-00-juice-shop/settings/access`.
+1. Open `https://github.com/<your-org>/ghec-ghas-00-juice-shop/settings/access`.
 2. Add the participant, team, or outside collaborator with the access level your event needs.
 3. Ask each participant to clone this org repo directly and work on a personal or team branch.
 
@@ -94,8 +94,8 @@ If you prefer working locally, use Git and Node.js directly.
 1. Install [Git](https://git-scm.com/), [GitHub CLI](https://cli.github.com/), and Node.js 20 or later.
 2. Clone the org repo (do **not** fork it):
    ```bash
-   git clone https://github.com/<your-org>/wth-ghas-00-juice-shop.git
-   cd wth-ghas-00-juice-shop
+   git clone https://github.com/<your-org>/ghec-ghas-00-juice-shop.git
+   cd ghec-ghas-00-juice-shop
    ```
 3. Continue below.
 

@@ -38,7 +38,7 @@ Use these follow-ups to steer the conversation:
 ## Automated verification hints
 Use these to check Definition of Done quickly (prefer `gh` CLI / API over manual clicks):
 ```bash
-ORG=<org>; REPO=wth-ch11-juice-shop   # swap REPO for the student's own repo if they brought one
+ORG=<org>; REPO=ghec-ch11-juice-shop   # swap REPO for the student's own repo if they brought one
 
 # Repo exists, public, and scanning + push protection are enabled
 gh repo view $ORG/$REPO --json name,visibility
@@ -79,7 +79,7 @@ gh issue list --repo $ORG/$REPO --search "triage summary" --json number,title
 bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch11 --org <org> --yes   # Bash
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch11 --org <org> --yes  # PowerShell
 ```
-- Removes only `wth-ch11-*` artifacts (prefix-guarded): the imported `wth-ch11-juice-shop` repo (which carries its history, planted secrets, alerts, and custom patterns).
+- Removes only `ghec-ch11-*` artifacts (prefix-guarded): the imported `ghec-ch11-juice-shop` repo (which carries its history, planted secrets, alerts, and custom patterns).
 - **Manual cleanup (if any):** none. Deleting the repo removes its alerts and any repo-scoped custom patterns. If a student published a pattern at **org** level (stretch), remove it from the org security settings manually.
 
 ## Time budget

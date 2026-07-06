@@ -8,7 +8,7 @@
 
 **Their question:** Coach conversation — what real work item or backlog from your team would you model differently now that you understand GitHub's label taxonomy and Projects v2 automation, and what field or view are you missing today? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch01-issues-labels-projects` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch01-issues-labels-projects` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Walk me through one specific project or repo your team tracks work in — what labels exist there today?
@@ -37,7 +37,7 @@ Use these follow-ups to steer the conversation:
 ## Automated verification hints
 Use these to check Definition of Done quickly (prefer `gh` CLI / API over manual clicks):
 ```bash
-ORG=<org>; REPO=wth-ch01-issues-labels-projects   # swap REPO for the student's own repo if they brought one
+ORG=<org>; REPO=ghec-ch01-issues-labels-projects   # swap REPO for the student's own repo if they brought one
 
 # Repo exists and issue forms are present
 gh repo view $ORG/$REPO --json name,visibility
@@ -78,8 +78,8 @@ gh project item-list <project-number> --owner $ORG --format json --jq '.items | 
 bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch01 --org <org> --yes   # Bash
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch01 --org <org> --yes  # PowerShell
 ```
-- Removes only `wth-ch01-*` artifacts (prefix-guarded): the repo and the linked Projects (v2) board.
-- **Manual cleanup (if any):** none. Everything created lives under the `wth-ch01-*` namespace.
+- Removes only `ghec-ch01-*` artifacts (prefix-guarded): the repo and the linked Projects (v2) board.
+- **Manual cleanup (if any):** none. Everything created lives under the `ghec-ch01-*` namespace.
 
 ## Time budget
 - Setup + read backlog: ~30 min

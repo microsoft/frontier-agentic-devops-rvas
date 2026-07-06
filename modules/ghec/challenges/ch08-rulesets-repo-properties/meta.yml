@@ -32,13 +32,13 @@ app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
-- repo wth-ch08-prod-payments (populated main + CI emitting a build check)
-- repo wth-ch08-prod-identity (populated main + CI emitting a build check)
-- repo wth-ch08-internal-tools (populated main + CI emitting a build check)
-- repo wth-ch08-sandbox (populated main + CI emitting a build check)
+- repo ghec-ch08-prod-payments (populated main + CI emitting a build check)
+- repo ghec-ch08-prod-identity (populated main + CI emitting a build check)
+- repo ghec-ch08-internal-tools (populated main + CI emitting a build check)
+- repo ghec-ch08-sandbox (populated main + CI emitting a build check)
 - printed inventory of the four repos (no properties/rulesets yet)
 tier: core
-source_repo: microsoft/frontier-agenticdevops-hackathon
+source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/ch08-rulesets-repo-properties/meta.yml
 license: MIT
 references:

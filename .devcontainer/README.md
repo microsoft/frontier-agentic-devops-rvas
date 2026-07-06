@@ -1,4 +1,4 @@
-# Dev Container — Frontier GitHub Platform Hackathon
+# Dev Container — Frontier GitHub Platform Delivery Session
 
 A single **all-in-one** dev container that pre-installs every tool needed by **all four
 modules** (GHEC, GHAS, GHAW, SRE Agent) so you can work any challenge from one environment.

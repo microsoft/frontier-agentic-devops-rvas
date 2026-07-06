@@ -47,13 +47,13 @@ juice_shop_import() {
     git init -q
     git symbolic-ref HEAD refs/heads/main
     git add -A
-    git -c user.name="wth-bot" -c user.email="wth-bot@users.noreply.github.com" \
-        commit -q -m "Import OWASP Juice Shop ${ref} (MIT) for wth challenge"
+    git -c user.name="ghec-bot" -c user.email="ghec-bot@users.noreply.github.com" \
+        commit -q -m "Import OWASP Juice Shop ${ref} (MIT) for ghec challenge"
   )
 
   log_step "creating public repo $org/$repo and pushing"
   gh_repo_create_with_fallback "$org" "$repo" public \
-    "OWASP Juice Shop ${ref} (MIT) — wth challenge target, safe to delete" \
+    "OWASP Juice Shop ${ref} (MIT) — ghec challenge target, safe to delete" \
     >/dev/null
 
   (

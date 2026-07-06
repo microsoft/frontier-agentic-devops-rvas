@@ -2,7 +2,7 @@
 #
 # challenges/ch06-enterprise-org-101/provision.sh
 #
-# Sourced by scripts/setup.sh. CONTRACT: wth_provision / wth_teardown / wth_status.
+# Sourced by scripts/setup.sh. CONTRACT: ghec_provision / ghec_teardown / ghec_status.
 #
 # ORG-SCOPED. ch06 builds sample repos for visibility governance, a members
 # team with one repo attached at the default permission, and prints a baseline
@@ -11,17 +11,17 @@
 # NOTE: this challenge creates its OWN repo names (not the default $REPO) so it
 # can demonstrate public/private/internal side by side.
 
-R_PUB="wth-${CHID}-public-sample"
-R_PRIV="wth-${CHID}-private-sample"
-R_INT="wth-${CHID}-internal-sample"
-TEAM="wth-${CHID}-members"
+R_PUB="ghec-${CHID}-public-sample"
+R_PRIV="ghec-${CHID}-private-sample"
+R_INT="ghec-${CHID}-internal-sample"
+TEAM="ghec-${CHID}-members"
 
 _ch06_seed_readme() {
   local repo="$1" vis="$2"
-  gh_put_file "$ORG" "$repo" "README.md" "seed README (wth-${CHID})" \
+  gh_put_file "$ORG" "$repo" "README.md" "seed README (ghec-${CHID})" \
 "# ${repo}
 
-A ${vis} sample repo seeded by wth-${CHID} (Enterprise Org 101).
+A ${vis} sample repo seeded by ghec-${CHID} (Enterprise Org 101).
 Use it to explore visibility, base permissions, and member privileges."
 }
 
@@ -30,7 +30,7 @@ _ch06_repo_visibility() {
 }
 
 # ===========================================================================
-wth_provision() {
+ghec_provision() {
   # Public creation is retried as private by the shared helper on EMU, where
   # public repositories are platform-blocked.
   gh_create_repo "$ORG" "$R_PUB" public
@@ -53,7 +53,7 @@ wth_provision() {
   fi
 
   # members team with the public sample attached at the default (pull) permission.
-  gh_create_team "$ORG" "$TEAM" "wth-${CHID} sample members team"
+  gh_create_team "$ORG" "$TEAM" "ghec-${CHID} sample members team"
   gh_team_add_repo "$ORG" "$TEAM" "$R_PUB" pull
 
   # baseline snapshot of org member-privilege settings.
@@ -67,7 +67,7 @@ wth_provision() {
   fi
 }
 
-wth_teardown() {
+ghec_teardown() {
   local r
   for r in "$R_PUB" "$R_PRIV" "$R_INT"; do
     guard_prefix "$r" "$CHID" || return 1
@@ -77,7 +77,7 @@ wth_teardown() {
   gh_delete_team "$ORG" "$TEAM"
 }
 
-wth_status() {
+ghec_status() {
   log_step "status — $CHID in '$ORG'"
   local r
   for r in "$R_PUB" "$R_PRIV" "$R_INT"; do

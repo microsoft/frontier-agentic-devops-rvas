@@ -1,81 +1,81 @@
 # challenges/ch07-teams-roles-permissions/provision.ps1
 #
 # Dot-sourced by scripts/setup.ps1. CONTRACT:
-#   Invoke-WthProvision / Invoke-WthTeardown / Invoke-WthStatus
+#   Invoke-GhecProvision / Invoke-GhecTeardown / Invoke-GhecStatus
 #
 # ORG-SCOPED. ch07: three seeded repos (frontend/backend/platform), a flat
 # starter team with the current authenticated user as sole member and no repo
 # grants yet, plus a printed access snapshot.
 
-$Global:WthR07Fe   = "wth-$($Global:WthChid)-frontend"
-$Global:WthR07Be   = "wth-$($Global:WthChid)-backend"
-$Global:WthR07Pl   = "wth-$($Global:WthChid)-platform"
-$Global:WthTeam07  = "wth-$($Global:WthChid)-engineering"
+$Global:GhecR07Fe   = "ghec-$($Global:GhecChid)-frontend"
+$Global:GhecR07Be   = "ghec-$($Global:GhecChid)-backend"
+$Global:GhecR07Pl   = "ghec-$($Global:GhecChid)-platform"
+$Global:GhecTeam07  = "ghec-$($Global:GhecChid)-engineering"
 
 function _Ch07-SeedRepo {
   param([string]$Repo, [string]$Area)
-  $o = $Global:WthOrg; $ch = $Global:WthChid
-  Set-WthFile -Org $o -Repo $Repo -Path 'README.md' -Message "seed README (wth-$ch)" -Content @"
+  $o = $Global:GhecOrg; $ch = $Global:GhecChid
+  Set-GhecFile -Org $o -Repo $Repo -Path 'README.md' -Message "seed README (ghec-$ch)" -Content @"
 # $Repo
 
-The $Area service, seeded by wth-$ch (Teams, Roles & Permissions).
+The $Area service, seeded by ghec-$ch (Teams, Roles & Permissions).
 No team has access yet — that's your job.
 "@
-  Set-WthFile -Org $o -Repo $Repo -Path 'src/index.js' -Message "seed src tree (wth-$ch)" -Content @"
-console.log('$Area service — wth-$ch');
+  Set-GhecFile -Org $o -Repo $Repo -Path 'src/index.js' -Message "seed src tree (ghec-$ch)" -Content @"
+console.log('$Area service — ghec-$ch');
 "@
 }
 
 # ===========================================================================
-function Invoke-WthProvision {
-  $o = $Global:WthOrg
-  New-WthRepo -Org $o -Repo $Global:WthR07Fe -Visibility private
-  New-WthRepo -Org $o -Repo $Global:WthR07Be -Visibility private
-  New-WthRepo -Org $o -Repo $Global:WthR07Pl -Visibility private
+function Invoke-GhecProvision {
+  $o = $Global:GhecOrg
+  New-GhecRepo -Org $o -Repo $Global:GhecR07Fe -Visibility private
+  New-GhecRepo -Org $o -Repo $Global:GhecR07Be -Visibility private
+  New-GhecRepo -Org $o -Repo $Global:GhecR07Pl -Visibility private
 
-  if (-not $Global:WthDryRun) {
-    if (Test-WthRepoExists -Org $o -Repo $Global:WthR07Fe) { _Ch07-SeedRepo -Repo $Global:WthR07Fe -Area 'frontend' }
-    if (Test-WthRepoExists -Org $o -Repo $Global:WthR07Be) { _Ch07-SeedRepo -Repo $Global:WthR07Be -Area 'backend' }
-    if (Test-WthRepoExists -Org $o -Repo $Global:WthR07Pl) { _Ch07-SeedRepo -Repo $Global:WthR07Pl -Area 'platform' }
+  if (-not $Global:GhecDryRun) {
+    if (Test-GhecRepoExists -Org $o -Repo $Global:GhecR07Fe) { _Ch07-SeedRepo -Repo $Global:GhecR07Fe -Area 'frontend' }
+    if (Test-GhecRepoExists -Org $o -Repo $Global:GhecR07Be) { _Ch07-SeedRepo -Repo $Global:GhecR07Be -Area 'backend' }
+    if (Test-GhecRepoExists -Org $o -Repo $Global:GhecR07Pl) { _Ch07-SeedRepo -Repo $Global:GhecR07Pl -Area 'platform' }
   } else {
-    Write-WthPlan "would seed README + src tree into the three service repos"
+    Write-GhecPlan "would seed README + src tree into the three service repos"
   }
 
-  New-WthTeam -Org $o -Name $Global:WthTeam07 -Description "wth-$($Global:WthChid) flat starter team"
-  $me = Get-WthLogin
+  New-GhecTeam -Org $o -Name $Global:GhecTeam07 -Description "ghec-$($Global:GhecChid) flat starter team"
+  $me = Get-GhecLogin
   if ($me) {
-    Add-WthTeamMember -Org $o -Team $Global:WthTeam07 -User $me -Role member
+    Add-GhecTeamMember -Org $o -Team $Global:GhecTeam07 -User $me -Role member
   } else {
-    Write-WthWarn "could not resolve current login — add a member to '$($Global:WthTeam07)' manually"
+    Write-GhecWarn "could not resolve current login — add a member to '$($Global:GhecTeam07)' manually"
   }
 
-  Write-WthStep "team + repo access snapshot for '$o'"
-  if ($Global:WthDryRun) {
-    Write-WthPlan "would list org teams and per-repo grants for the wth-$($Global:WthChid) repos"
+  Write-GhecStep "team + repo access snapshot for '$o'"
+  if ($Global:GhecDryRun) {
+    Write-GhecPlan "would list org teams and per-repo grants for the ghec-$($Global:GhecChid) repos"
   } else {
     try {
       gh api "orgs/$o/teams" --jq '.[] | {slug, privacy, permission}'
     } catch {
-      Write-WthWarn "could not list teams (needs read:org)"
+      Write-GhecWarn "could not list teams (needs read:org)"
     }
   }
 }
 
-function Invoke-WthTeardown {
-  $o = $Global:WthOrg
-  foreach ($r in @($Global:WthR07Fe, $Global:WthR07Be, $Global:WthR07Pl)) {
-    if (-not (Confirm-WthPrefix -Name $r -Chid $Global:WthChid)) { return }
-    Remove-WthRepo -Org $o -Repo $r
+function Invoke-GhecTeardown {
+  $o = $Global:GhecOrg
+  foreach ($r in @($Global:GhecR07Fe, $Global:GhecR07Be, $Global:GhecR07Pl)) {
+    if (-not (Confirm-GhecPrefix -Name $r -Chid $Global:GhecChid)) { return }
+    Remove-GhecRepo -Org $o -Repo $r
   }
-  if (-not (Confirm-WthPrefix -Name $Global:WthTeam07 -Chid $Global:WthChid)) { return }
-  Remove-WthTeam -Org $o -Team $Global:WthTeam07
+  if (-not (Confirm-GhecPrefix -Name $Global:GhecTeam07 -Chid $Global:GhecChid)) { return }
+  Remove-GhecTeam -Org $o -Team $Global:GhecTeam07
 }
 
-function Invoke-WthStatus {
-  Write-WthStep "status — $($Global:WthChid) in '$($Global:WthOrg)'"
-  $o = $Global:WthOrg
-  foreach ($r in @($Global:WthR07Fe, $Global:WthR07Be, $Global:WthR07Pl)) {
-    if (Test-WthRepoExists -Org $o -Repo $r) { Write-WthOk "repo $o/$r present" } else { Write-WthInfo "repo $o/$r absent" }
+function Invoke-GhecStatus {
+  Write-GhecStep "status — $($Global:GhecChid) in '$($Global:GhecOrg)'"
+  $o = $Global:GhecOrg
+  foreach ($r in @($Global:GhecR07Fe, $Global:GhecR07Be, $Global:GhecR07Pl)) {
+    if (Test-GhecRepoExists -Org $o -Repo $r) { Write-GhecOk "repo $o/$r present" } else { Write-GhecInfo "repo $o/$r absent" }
   }
-  if (Test-WthTeamExists -Org $o -Team $Global:WthTeam07) { Write-WthOk "team $($Global:WthTeam07) present" } else { Write-WthInfo "team $($Global:WthTeam07) absent" }
+  if (Test-GhecTeamExists -Org $o -Team $Global:GhecTeam07) { Write-GhecOk "team $($Global:GhecTeam07) present" } else { Write-GhecInfo "team $($Global:GhecTeam07) absent" }
 }

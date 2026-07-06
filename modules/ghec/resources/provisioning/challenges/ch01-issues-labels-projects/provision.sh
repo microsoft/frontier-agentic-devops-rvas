@@ -8,16 +8,16 @@
 #
 # CONTRACT — every challenge's provision.sh MUST define exactly these three
 # functions (generic names; setup.sh calls them):
-#     wth_provision   create-if-absent, idempotent, dry-run aware
-#     wth_teardown    delete ONLY wth-<chid>-* (prefix-guarded)
-#     wth_status      report what currently exists
+#     ghec_provision   create-if-absent, idempotent, dry-run aware
+#     ghec_teardown    delete ONLY ghec-<chid>-* (prefix-guarded)
+#     ghec_status      report what currently exists
 #
 # ch01 builds: a public repo seeded with a deliberately MESSY backlog
 # (~26 issues, many unlabeled / inconsistently labeled), a label taxonomy with
 # obvious GAPS, milestones, and an EMPTY org-level Project (v2) board — the
 # raw material a participant cleans up to learn issues/labels/projects.
 
-PROJECT_TITLE="wth-${CHID}-board"
+PROJECT_TITLE="ghec-${CHID}-board"
 
 # ---------------------------------------------------------------------------
 # helpers
@@ -86,7 +86,7 @@ _ch01_seed_milestones() {
     fi
     run_mutation gh api -X POST "repos/$(_ch01_repo_full)/milestones" \
       -f title="$t" -f state=open \
-      -f description="Seeded by wth-ch01 — re-assign issues as part of triage."
+      -f description="Seeded by ghec-ch01 — re-assign issues as part of triage."
   done
 }
 
@@ -142,7 +142,7 @@ _ch01_seed_issues() {
 
     local args=(gh issue create --repo "$(_ch01_repo_full)" \
       --title "$title" \
-      --body "Seeded by wth-ch01. This backlog is intentionally messy — triage, label, milestone, and add it to the board.")
+      --body "Seeded by ghec-ch01. This backlog is intentionally messy — triage, label, milestone, and add it to the board.")
     if [[ -n "$labels" ]]; then
       local l
       IFS=',' read -ra _ls <<< "$labels"
@@ -176,7 +176,7 @@ _ch01_seed_project() {
 # CONTRACT FUNCTIONS
 # ===========================================================================
 
-wth_provision() {
+ghec_provision() {
   gh_create_repo "$ORG" "$REPO" public
   if [[ "$DRY_RUN" != "true" ]] && ! gh_repo_exists "$ORG" "$REPO"; then
     die "repo $(_ch01_repo_full) missing after create — aborting seed"
@@ -192,7 +192,7 @@ wth_provision() {
   log_info "  - add issues to the '$PROJECT_TITLE' board and build views"
 }
 
-wth_teardown() {
+ghec_teardown() {
   guard_prefix "$REPO" "$CHID" || return 1
   gh_delete_repo "$ORG" "$REPO"
 
@@ -206,7 +206,7 @@ wth_teardown() {
   fi
 }
 
-wth_status() {
+ghec_status() {
   log_step "status — $CHID in '$ORG'"
   if gh_repo_exists "$ORG" "$REPO"; then
     local issues labels

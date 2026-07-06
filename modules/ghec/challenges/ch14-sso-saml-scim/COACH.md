@@ -8,7 +8,7 @@
 
 **Their question:** Coach conversation — think about your org's identity lifecycle right now: when a developer joins or leaves your company, how many hours does it take for their GitHub access to be correctly provisioned or deprovisioned, and where is the manual step that SCIM would remove? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `wth-ch14-identity-runbook` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch14-identity-runbook` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Walk me through the actual steps today when a new engineer joins — who does what to give them GitHub access?
@@ -42,7 +42,7 @@ Use these to check Definition of Done quickly (prefer `gh` CLI / API over manual
 ORG=<org>
 
 # Runbook repo exists
-gh repo view $ORG/wth-ch14-identity-runbook --json name,visibility
+gh repo view $ORG/ghec-ch14-identity-runbook --json name,visibility
 
 # Token works against org resources (proves it's SSO-authorized once SAML is on)
 gh api orgs/$ORG/members --jq 'length'
@@ -77,7 +77,7 @@ gh api graphql -f query='
 bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch14 --org <org> --yes   # Bash
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch14 --org <org> --yes  # PowerShell
 ```
-- Removes only `wth-ch14-*` artifacts (prefix-guarded): the `wth-ch14-identity-runbook` repo.
+- Removes only `ghec-ch14-*` artifacts (prefix-guarded): the `ghec-ch14-identity-runbook` repo.
 - **Manual cleanup (REQUIRED — scripts cannot revert identity settings):**
   - **Un-enforce and disable SAML SSO** on the org (Settings → Authentication security).
   - **Revoke the SCIM token** and remove SCIM provisioning in the IdP.

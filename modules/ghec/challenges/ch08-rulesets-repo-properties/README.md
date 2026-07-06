@@ -30,9 +30,9 @@ By completing this challenge you will:
 A GHEC customer has 80 repositories and a compliance team that needs "all production repos must require PRs, signed commits, and a passing check — automatically, forever, even on repos created next week." Naming conventions won't scale and people forget them. You'll attach a **`compliance` custom property** to repos, then write an **org ruleset targeted by that property** so governance follows the *metadata*, not the repo name. New repos that get tagged `compliance = high` inherit the rules with zero extra work. That's policy that scales.
 
 ## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the hackathon*. Pick a real production or compliance-sensitive repository set that needs rulesets and properties and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+This challenge is most valuable when the result *outlives the delivery session*. Pick a real production or compliance-sensitive repository set that needs rulesets and properties and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 
-- **Have a candidate?** Use your real repos wherever this guide names `wth-ch08-prod-payments` or the sibling `wth-ch08-*` repos. Skip the Setup step below entirely.
+- **Have a candidate?** Use your real repos wherever this guide names `ghec-ch08-prod-payments` or the sibling `ghec-ch08-*` repos. Skip the Setup step below entirely.
 - **No suitable one?** Use the fallback below: seeded prod/internal/sandbox repos for property-targeted guardrails.
 
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
@@ -49,15 +49,15 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch08 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch08 --org <org>
 ```
 
-**What setup creates** (all artifacts namespaced `wth-ch08-*`, idempotent, prefix-guarded teardown):
-- Four seeded repos — **`wth-ch08-prod-payments`**, **`wth-ch08-prod-identity`**, **`wth-ch08-internal-tools`**, and **`wth-ch08-sandbox`** — each with a populated `main` and a CI workflow that emits a `build` status check so required-check rules have something to bind to.
+**What setup creates** (all artifacts namespaced `ghec-ch08-*`, idempotent, prefix-guarded teardown):
+- Four seeded repos — **`ghec-ch08-prod-payments`**, **`ghec-ch08-prod-identity`**, **`ghec-ch08-internal-tools`**, and **`ghec-ch08-sandbox`** — each with a populated `main` and a CI workflow that emits a `build` status check so required-check rules have something to bind to.
 - **No custom properties and no rulesets yet** — you create them.
 - A printed **inventory** of the four repos (from the API) so you can tag and target them.
 - A printed **Next steps** block telling you where to start.
 
 
 ## Tasks
-> Throughout, **`wth-ch08-prod-payments` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
+> Throughout, **`ghec-ch08-prod-payments` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Define custom properties
 1. **Create a single-select property** `compliance` with allowed values `high`, `medium`, `low`. **Org Settings → Repository → Custom properties → New property** (or `gh api -X PUT /orgs/<org>/properties/schema/compliance` with the value definition).
@@ -65,30 +65,30 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch08 --org <org>
 3. **Confirm the schema:** `gh api /orgs/<org>/properties/schema --jq '.[].property_name'` should list `compliance` and `prod`.
 
 ### Part B — Set property values on repos
-4. **Tag the two prod repos:** set `compliance = high` and `prod = true` on `wth-ch08-prod-payments` and `wth-ch08-prod-identity` via **Settings → Custom properties** on each repo, or in bulk:
+4. **Tag the two prod repos:** set `compliance = high` and `prod = true` on `ghec-ch08-prod-payments` and `ghec-ch08-prod-identity` via **Settings → Custom properties** on each repo, or in bulk:
    ```bash
    gh api -X PATCH /orgs/<org>/properties/values \
-     -f 'repository_names[]=wth-ch08-prod-payments' \
-     -f 'repository_names[]=wth-ch08-prod-identity' \
+     -f 'repository_names[]=ghec-ch08-prod-payments' \
+     -f 'repository_names[]=ghec-ch08-prod-identity' \
      -f 'properties[][property_name]=compliance' -f 'properties[][value]=high'
    ```
-5. **Tag the others** lower: `wth-ch08-internal-tools` → `compliance = medium`; `wth-ch08-sandbox` → `compliance = low`, `prod = false`.
+5. **Tag the others** lower: `ghec-ch08-internal-tools` → `compliance = medium`; `ghec-ch08-sandbox` → `compliance = low`, `prod = false`.
 6. **Verify values:** `gh api /orgs/<org>/properties/values --jq '.[] | {repository_name, properties}'`.
 7. **Set a default** for new repos (e.g., new repos default to `compliance = low`) so future repos inherit a baseline.
 
 ### Part C — Property-targeted organization ruleset
-8. **Create an org ruleset** (**Org Settings → Repository → Rulesets → New branch ruleset**) named `wth-ch08-prod-guardrail`. Set the **target** using a **property condition**: *include all repositories where `compliance` is `high`* (NOT a name pattern). Target the `main` branch.
+8. **Create an org ruleset** (**Org Settings → Repository → Rulesets → New branch ruleset**) named `ghec-ch08-prod-guardrail`. Set the **target** using a **property condition**: *include all repositories where `compliance` is `high`* (NOT a name pattern). Target the `main` branch.
 9. **Add rules:** require a pull request (≥1 approval), require the `build` **status check**, **block force pushes**, and **require signed commits**.
 10. **Set enforcement to Active.** Verify: `gh api /orgs/<org>/rulesets --jq '.[] | {name, enforcement, target}'` and then inspect the conditions: `gh api /orgs/<org>/rulesets/<id> --jq '.conditions'` (you should see a `repository_property` condition, not `repository_name`).
 
 ### Part D — Layer a repository ruleset
-11. **On `wth-ch08-prod-payments` only**, add a **repository ruleset** that's even stricter — e.g., require **2 approvals** and **require review from Code Owners**. 
+11. **On `ghec-ch08-prod-payments` only**, add a **repository ruleset** that's even stricter — e.g., require **2 approvals** and **require review from Code Owners**. 
 12. **Observe layering:** the repo now answers to **both** the org ruleset (property-targeted) and its own repo ruleset. The **most restrictive** combination applies (2 approvals from the repo rule beats the org's 1).
-13. **Prove the org rule reaches a repo by property, not name:** confirm `wth-ch08-prod-identity` (different name, same `compliance = high`) is also governed — attempt a direct push to its `main` and confirm rejection.
+13. **Prove the org rule reaches a repo by property, not name:** confirm `ghec-ch08-prod-identity` (different name, same `compliance = high`) is also governed — attempt a direct push to its `main` and confirm rejection.
 
 ### Part E — Verify & demonstrate
-14. **Demonstrate enforcement:** open a PR on `wth-ch08-prod-payments` and show it cannot merge without 2 approvals + the `build` check + signed commits. Open a PR on `wth-ch08-sandbox` (compliance `low`) and show it is **not** gated by the org ruleset.
-15. **Document the model:** write `GOVERNANCE.md` in `wth-ch08-internal-tools` describing the property schema, which repos carry which values, the org ruleset's property target, and the repo-level overlay.
+14. **Demonstrate enforcement:** open a PR on `ghec-ch08-prod-payments` and show it cannot merge without 2 approvals + the `build` check + signed commits. Open a PR on `ghec-ch08-sandbox` (compliance `low`) and show it is **not** gated by the org ruleset.
+15. **Document the model:** write `GOVERNANCE.md` in `ghec-ch08-internal-tools` describing the property schema, which repos carry which values, the org ruleset's property target, and the repo-level overlay.
 
 ## Validation / Definition of Done
 You are done when ALL of the following are true:

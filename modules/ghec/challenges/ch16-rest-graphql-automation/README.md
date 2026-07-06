@@ -35,9 +35,9 @@ By completing this challenge you will:
 A GHEC customer's platform team keeps doing the same triage by hand: relabeling issues, posting status comments, rolling items onto a project board, and exporting reports for leadership. Clicking doesn't scale. You'll rebuild that work as API automation — REST where it's simplest, GraphQL where it saves round-trips — that pages through everything, stays under rate limits, and can be re-run safely any day of the week.
 
 ## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the hackathon*. Pick a real GitHub automation task or repository where an API script will save recurring toil and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+This challenge is most valuable when the result *outlives the delivery session*. Pick a real GitHub automation task or repository where an API script will save recurring toil and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 
-- **Have a candidate?** Use it everywhere this guide says `wth-ch16-rest-graphql-automation`. Skip the Setup step below entirely.
+- **Have a candidate?** Use it everywhere this guide says `ghec-ch16-rest-graphql-automation`. Skip the Setup step below entirely.
 - **No suitable one?** Use the fallback below: a seeded sample repo for REST and GraphQL automation practice.
 
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
@@ -54,38 +54,38 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch16 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch16 --org <org>
 ```
 
-**What setup creates** (all artifacts namespaced `wth-ch16-*`, idempotent, prefix-guarded teardown):
-- A seeded repo **`wth-ch16-rest-graphql-automation`** with a README and a `src/`/`docs/` layout.
+**What setup creates** (all artifacts namespaced `ghec-ch16-*`, idempotent, prefix-guarded teardown):
+- A seeded repo **`ghec-ch16-rest-graphql-automation`** with a README and a `src/`/`docs/` layout.
 - **~60 seeded issues** in mixed states (open/closed, some labeled, many unlabeled) — enough volume to force real pagination.
 - A **starter label set** (`bug`, `enhancement`, `triage`, `area: backend`, `area: docs`) plus deliberate label gaps you'll fill via API.
-- An empty org **Projects v2 board** `wth-ch16-board` you'll populate from GraphQL.
+- An empty org **Projects v2 board** `ghec-ch16-board` you'll populate from GraphQL.
 - A printed **Next steps** block telling you where to start.
 
 
 ## Tasks
-> Throughout, **`wth-ch16-rest-graphql-automation` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
+> Throughout, **`ghec-ch16-rest-graphql-automation` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — REST reads
 1. **Authenticate and confirm identity.** Run `gh api user --jq '.login'` and `gh api orgs/<org> --jq '.login'` to prove the token reaches the org.
-2. **List the seeded repo and its issues.** `gh api repos/<org>/wth-ch16-rest-graphql-automation --jq '{name,open_issues_count}'`, then `gh api 'repos/<org>/wth-ch16-rest-graphql-automation/issues?state=open&per_page=100'`.
+2. **List the seeded repo and its issues.** `gh api repos/<org>/ghec-ch16-rest-graphql-automation --jq '{name,open_issues_count}'`, then `gh api 'repos/<org>/ghec-ch16-rest-graphql-automation/issues?state=open&per_page=100'`.
 3. **Shape the output.** Use `--jq` to print `number`, `title`, and label names for each issue so you can eyeball what needs triage.
 
 ### Part B — REST writes (mutations)
-4. **Create a missing label.** `gh api repos/<org>/wth-ch16-rest-graphql-automation/labels -f name='needs-info' -f color='d4c5f9' -f description='Awaiting reporter'`.
-5. **Label unlabeled issues.** For each issue with zero labels, add `triage`: `gh api repos/<org>/wth-ch16-rest-graphql-automation/issues/<n>/labels -f labels[]='triage'`.
+4. **Create a missing label.** `gh api repos/<org>/ghec-ch16-rest-graphql-automation/labels -f name='needs-info' -f color='d4c5f9' -f description='Awaiting reporter'`.
+5. **Label unlabeled issues.** For each issue with zero labels, add `triage`: `gh api repos/<org>/ghec-ch16-rest-graphql-automation/issues/<n>/labels -f labels[]='triage'`.
 6. **Comment via API.** Post a templated status comment on one issue with `--method POST … -f body='…'`. Re-run your loop and confirm it does **not** double-post (idempotency check).
 
 ### Part C — Pagination done right
-7. **Page through every issue with REST.** Use `gh api --paginate 'repos/<org>/wth-ch16-rest-graphql-automation/issues?state=all&per_page=100'` and count results; confirm the count matches the seeded total (don't stop at page 1).
+7. **Page through every issue with REST.** Use `gh api --paginate 'repos/<org>/ghec-ch16-rest-graphql-automation/issues?state=all&per_page=100'` and count results; confirm the count matches the seeded total (don't stop at page 1).
 8. **Do it the manual way once.** Inspect the `Link` response header (`gh api -i …`) and follow `rel="next"` yourself so you understand what `--paginate` automates.
 
 ### Part D — GraphQL queries
 9. **Run your first query.** `gh api graphql -f query='{ viewer { login } }'`.
-10. **Query issues with variables.** Write a query that takes `$owner`, `$repo`, and `$first`, returns `issues(first:$first, states:OPEN)` with `nodes { number title labels(first:5){nodes{name}} }` and `pageInfo { hasNextPage endCursor }`. Pass variables with `-F owner=<org> -F repo=wth-ch16-rest-graphql-automation -F first=50`.
+10. **Query issues with variables.** Write a query that takes `$owner`, `$repo`, and `$first`, returns `issues(first:$first, states:OPEN)` with `nodes { number title labels(first:5){nodes{name}} }` and `pageInfo { hasNextPage endCursor }`. Pass variables with `-F owner=<org> -F repo=ghec-ch16-rest-graphql-automation -F first=50`.
 11. **Cursor-paginate in GraphQL.** Loop using `after:$cursor` until `hasNextPage` is false. Compare the round-trip count to the REST version from Part C.
 
 ### Part E — GraphQL mutations + Projects v2
-12. **Find the project node ID.** Query `organization(login:$org){ projectV2(number:<n>){ id title } }` for `wth-ch16-board`.
+12. **Find the project node ID.** Query `organization(login:$org){ projectV2(number:<n>){ id title } }` for `ghec-ch16-board`.
 13. **Add items to the board.** For a handful of issues, run the `addProjectV2ItemById` mutation with the project ID and each issue's node ID. Confirm they appear on the board.
 14. **Set a field.** Read the board's single-select `Status` field options via GraphQL, then use `updateProjectV2ItemFieldValue` to set added items to `Todo`.
 
@@ -98,7 +98,7 @@ You are done when ALL of the following are true:
 - [ ] You performed both a **REST read** and a **REST write** (label created, issues labeled, comment posted) via `gh api`.
 - [ ] You **paged through all seeded issues** with REST `--paginate` and the count matches the seeded total.
 - [ ] You ran a **parameterized GraphQL query** with variables and **cursor-paginated** it to completion.
-- [ ] You executed at least one **GraphQL mutation** (added issues to `wth-ch16-board` and set their `Status`).
+- [ ] You executed at least one **GraphQL mutation** (added issues to `ghec-ch16-board` and set their `Status`).
 - [ ] You inspected **`rate_limit`** and your reconcile script **backs off** when `remaining` is low.
 - [ ] Your reconcile script is **idempotent** — a second run produces **no changes**.
 - [ ] Real-outcome check — if you brought your own automation target, an API script now removes real recurring toil; if you used the sample, you can name the manual GitHub task you will automate next.

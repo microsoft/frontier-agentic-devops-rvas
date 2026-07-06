@@ -9,15 +9,15 @@ prerequisite_capabilities:
   - GitHub account
   - Basic Git and CLI usage
 description: >
-  Provision your development environment for the GitHub Agentic Workflows hackathon.
-  Open the hackathon repository in Codespaces (or a local dev container), authenticate
+  Provision your development environment for the GitHub Agentic Workflows delivery session.
+  Open the delivery session repository in Codespaces (or a local dev container), authenticate
   the GitHub CLI, install and verify the gh-aw extension, and run a dry-run smoke test
   before Challenge 1-01.
 success_criteria:
   - "`gh auth status` exits 0 and shows your username"
   - "`gh --version` returns gh >= 2.x"
   - "`gh aw --version` returns a version string"
-  - "`gh aw trial modules/ghaw/resources/examples/hello-world.md --logical-repo microsoft/frontier-agenticdevops-hackathon --dry-run --yes` completes without errors"
+  - "`gh aw trial modules/ghaw/resources/examples/hello-world.md --logical-repo microsoft/frontier-agentic-devops-rvas --dry-run --yes` completes without errors"
   - "`ls modules/ghaw/resources/examples/hello-world.md` confirms the embedded example exists"
 take_home_action: In a repository you own, authenticate gh-aw and run the hello-world trial in dry-run mode before enabling any workflow that writes through safe-outputs.
 take_home_owner: developer
@@ -30,7 +30,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: repo
 tier: setup
-source_repo: microsoft/frontier-agenticdevops-hackathon
+source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghaw/challenges/00-setup/meta.yml
 license: MIT
 references:

@@ -34,11 +34,11 @@ app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
-- repo wth-ch03-codespaces-dev-containers (seeded Node/Express app + package.json)
+- repo ghec-ch03-codespaces-dev-containers (seeded Node/Express app + package.json)
 - minimal .devcontainer/devcontainer.json baseline (student extends it)
 - README documenting local-run steps (contrast with Codespaces)
 tier: core
-source_repo: microsoft/frontier-agenticdevops-hackathon
+source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/ch03-codespaces-dev-containers/meta.yml
 license: MIT
 references:

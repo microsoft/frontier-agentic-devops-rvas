@@ -31,9 +31,9 @@ By completing this challenge you will:
 A GHEC customer needs CI on hardware GitHub doesn't host — a GPU box, a license-locked toolchain, or a network-isolated build host. You'll stand up a self-hosted runner the right way: registered to an **org runner group** scoped to just the repos that should use it, targeted by labels, and hardened so a malicious PR can't turn your build host into a foothold. You'll finish knowing exactly when self-hosted is worth the operational cost versus GitHub-hosted or larger runners.
 
 ## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the hackathon*. Pick a real CI job or repository that needs a self-hosted runner because of network, hardware, compliance, or cost and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+This challenge is most valuable when the result *outlives the delivery session*. Pick a real CI job or repository that needs a self-hosted runner because of network, hardware, compliance, or cost and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 
-- **Have a candidate?** Use it everywhere this guide says `wth-ch18-self-hosted-runners`. Skip the Setup step below entirely.
+- **Have a candidate?** Use it everywhere this guide says `ghec-ch18-self-hosted-runners`. Skip the Setup step below entirely.
 - **No suitable one?** Use the fallback below: a seeded sample repo with runner workflows to validate safely.
 
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
@@ -50,27 +50,27 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch18 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch18 --org <org>
 ```
 
-**What setup creates** (all artifacts namespaced `wth-ch18-*`, idempotent, prefix-guarded teardown):
-- A seeded repo **`wth-ch18-self-hosted-runners`** with a small build and two workflows: `hosted.yml` (runs on `ubuntu-latest`) and `self-hosted.yml` (targets your runner by label — initially **queued** until your runner exists).
+**What setup creates** (all artifacts namespaced `ghec-ch18-*`, idempotent, prefix-guarded teardown):
+- A seeded repo **`ghec-ch18-self-hosted-runners`** with a small build and two workflows: `hosted.yml` (runs on `ubuntu-latest`) and `self-hosted.yml` (targets your runner by label — initially **queued** until your runner exists).
 - A `RUNNER-SETUP.md` with the exact registration + hardening walkthrough for Linux/macOS/Windows.
 - A `HARDENING.md` checklist (service account, ephemeral runners, fork-PR risk, network egress).
 - A printed **Next steps** block telling you where to start.
 
 
 ## Tasks
-> Throughout, **`wth-ch18-self-hosted-runners` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
+> Throughout, **`ghec-ch18-self-hosted-runners` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Create an org runner group
-1. **Create a runner group** scoped to your org: Org Settings → Actions → Runner groups → New, name it `wth-ch18-group`. (Or by API: `gh api orgs/<org>/actions/runner-groups -f name='wth-ch18-group' -f visibility='selected'`.)
-2. **Scope it to one repo.** Restrict the group to **selected repositories** and add only `wth-ch18-self-hosted-runners`. Confirm no other repo can use it.
+1. **Create a runner group** scoped to your org: Org Settings → Actions → Runner groups → New, name it `ghec-ch18-group`. (Or by API: `gh api orgs/<org>/actions/runner-groups -f name='ghec-ch18-group' -f visibility='selected'`.)
+2. **Scope it to one repo.** Restrict the group to **selected repositories** and add only `ghec-ch18-self-hosted-runners`. Confirm no other repo can use it.
 
 ### Part B — Register the runner
 3. **Get a registration token.** `gh api -X POST orgs/<org>/actions/runners/registration-token --jq '.token'`.
-4. **Download & configure the runner** on your host following `RUNNER-SETUP.md`: run `./config.sh --url https://github.com/<org> --token <reg-token> --runnergroup wth-ch18-group --labels wth-ch18,self-hosted --name wth-ch18-runner` (use `config.cmd` on Windows).
+4. **Download & configure the runner** on your host following `RUNNER-SETUP.md`: run `./config.sh --url https://github.com/<org> --token <reg-token> --runnergroup ghec-ch18-group --labels ghec-ch18,self-hosted --name ghec-ch18-runner` (use `config.cmd` on Windows).
 5. **Bring it online.** Start it with `./run.sh` (interactive) or install it as a service. Confirm **Idle** status: `gh api orgs/<org>/actions/runners --jq '.runners[] | {name, status, labels: [.labels[].name]}'`.
 
 ### Part C — Target the runner
-6. **Trigger `self-hosted.yml`.** It uses `runs-on: [self-hosted, wth-ch18]`. Push or `workflow_dispatch` and confirm the job lands on **your** runner (check the run's runner name).
+6. **Trigger `self-hosted.yml`.** It uses `runs-on: [self-hosted, ghec-ch18]`. Push or `workflow_dispatch` and confirm the job lands on **your** runner (check the run's runner name).
 7. **Contrast with hosted.** Trigger `hosted.yml` and confirm it runs on a GitHub-hosted runner. Side-by-side, articulate the difference in start latency and environment.
 8. **Label routing.** Add a second label (e.g., `gpu`) to your runner config, update the workflow's `runs-on`, and prove a mis-labeled job stays **queued** (no eligible runner).
 
@@ -89,7 +89,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch18 --org <org>
 
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
-- [ ] An **org runner group** `wth-ch18-group` exists, scoped to **selected repos** (only `wth-ch18-self-hosted-runners`).
+- [ ] An **org runner group** `ghec-ch18-group` exists, scoped to **selected repos** (only `ghec-ch18-self-hosted-runners`).
 - [ ] A **self-hosted runner** is registered to that group with custom **labels** and shows **Idle/online**.
 - [ ] `self-hosted.yml` ran **on your runner** (runner name confirmed) while `hosted.yml` ran on a hosted runner.
 - [ ] A **mis-labeled** job stays **queued**, proving label routing.

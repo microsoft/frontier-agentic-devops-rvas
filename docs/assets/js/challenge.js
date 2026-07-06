@@ -4,8 +4,7 @@
 
   // Home-repo slugs (this live consolidated repo); render as plain text without a hyperlink.
   const SELF_SOURCE_REPOS = new Set([
-    'microsoft/frontier-agenticdevops-hackathon',
-    'microsoft/frontier-agentic-devops-hackathon',
+    'microsoft/frontier-agentic-devops-rvas',
   ]);
 
   let _kiosk = null;
