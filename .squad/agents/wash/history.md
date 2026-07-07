@@ -77,11 +77,11 @@ Runs in <1s with Node core only. Zero npm dependencies.
 9. **P0 bugfix D-001 (2026-06-15)**: Fixed YAML list-item parser in `docs/build.js` line 93 — changed regex from `^\s+-\s+` to `^\s*-\s+` to accept unindented list items (e.g., `- ghas-00` without leading spaces); restored 5 missing dependency edges (ghas-01..05 now correctly recognize ghas-00 prerequisite).
 ### Home-repo slug distinction & SELF_SOURCE_REPOS split (2026-06-23)
 
-**Resolved truth:** `microsoft/frontier-agenticdevops-hackathon` IS this live consolidated repo's own git origin — it is NOT a retired/archived source. The repos genuinely being deleted are only: `retired private predecessor repo`, `retired private predecessor repo`, `retired private predecessor repo`.
+**Resolved truth:** `microsoft/frontier-agentic-devops-rvas` IS this live consolidated repo's own git origin — it is NOT a retired/archived source. The repos genuinely being deleted are only: `retired private predecessor repo`, `retired private predecessor repo`, `retired private predecessor repo`.
 
 **challenge.js split:**
 - `RETIRED_SOURCE_REPOS` → keeps only the three genuinely-deleted slugs; renders `(archived)` plain-text, no hyperlink.
-- `SELF_SOURCE_REPOS` → new set with `microsoft/frontier-agenticdevops-hackathon` and `microsoft/frontier-agentic-devops-hackathon`; renders plain-text (no hyperlink, no "archived" label) since this IS the live repo.
+- `SELF_SOURCE_REPOS` → new set with `microsoft/frontier-agentic-devops-rvas` and `microsoft/frontier-agentic-devops-hackathon`; renders plain-text (no hyperlink, no "archived" label) since this IS the live repo.
 - All other source_repos (e.g. juice-shop) keep existing hyperlink rendering.
 
 **Task:** Implement lazy/on-demand submodule provisioning for locally-run apps, starting with OWASP Juice Shop.
@@ -150,4 +150,4 @@ Runs in <1s with Node core only. Zero npm dependencies.
 - `bash -n` passed for all 27 embedded `.sh` files (setup.sh, 6 lib/*.sh, 20 provision.sh).
 - No upstream `retired-private-predecessor` references found in any embedded script.
 
-**KEY DECISION:** This repo's origin = microsoft/frontier-agenticdevops-hackathon = the LIVE consolidated repo (KEPT). Only frontier-ghas/ghaw/ghec-hackathon + private Contoso sources deleted. The agenticdevops slug must never be presented as archived.
+**KEY DECISION:** This repo's origin = microsoft/frontier-agentic-devops-rvas = the LIVE consolidated repo (KEPT). Only frontier-ghas/ghaw/ghec-hackathon + private Contoso sources deleted. The agenticdevops slug must never be presented as archived.

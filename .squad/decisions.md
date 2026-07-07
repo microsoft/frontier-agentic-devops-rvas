@@ -747,7 +747,7 @@ Typography adjustments:
 
 **Summary:** Four private Microsoft repositories (`retired-private-predecessor`, `retired-private-predecessor`, `retired-private-predecessor`, `frontier-agenticdevops-hackathon`) are being deleted after content vendoring in-tree. The `external-repos.json` manifest now supports optional `retired: true` and `vendored_in: "modules/.../"` fields to record provenance without breaking verify scripts or challenge rendering.
 
-**Key decision:** This repo's origin = `microsoft/frontier-agenticdevops-hackathon` = the **LIVE consolidated repo (KEPT)**. Only the private `frontier-ghas/ghaw/ghec-hackathon` repos (+ private contoso sources) are being deleted. The `agenticdevops` slug must never be presented to participants as a dead/archived repo.
+**Key decision:** This repo's origin = `microsoft/frontier-agentic-devops-rvas` = the **LIVE consolidated repo (KEPT)**. Only the private `frontier-ghas/ghaw/ghec-hackathon` repos (+ private contoso sources) are being deleted. The `agenticdevops` slug must never be presented to participants as a dead/archived repo.
 
 **Schema rules:**
 - `retired: true` — optional boolean; upstream repo is private/deleted, no network access.
@@ -800,10 +800,10 @@ Typography adjustments:
 
 **Changes:**
 - **GHAW setup:** Option A opens THIS repo's Codespace; Option B clones THIS repo. Smoke-test path → `modules/ghaw/resources/examples/hello-world.md`. Removed `gh repo view retired private predecessor repo` step.
-- **SRE Agent setup:** Removed `gh repo view microsoft/frontier-agenticdevops-hackathon` success criterion.
+- **SRE Agent setup:** Removed `gh repo view microsoft/frontier-agentic-devops-rvas` success criterion.
 - **GHAS setup:** Option A now uses THIS repo's devcontainer + `npm run setup:juice-shop` + Juice Shop v20.0.0 from public upstream.
 
-**Canonical workspace model:** Participants work directly in Codespace of `microsoft/frontier-agenticdevops-hackathon` (this repo). Devcontainer auto-installs `gh-aw`. Starter example embedded. No upstream fork required.
+**Canonical workspace model:** Participants work directly in Codespace of `microsoft/frontier-agentic-devops-rvas` (this repo). Devcontainer auto-installs `gh-aw`. Starter example embedded. No upstream fork required.
 
 **Attribution:** `source_repo:` fields in `meta.yml` files preserved as provenance per plan.
 

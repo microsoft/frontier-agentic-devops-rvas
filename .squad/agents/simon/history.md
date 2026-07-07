@@ -123,4 +123,4 @@ Re-reviewed `scripts/provision-app.sh` and `package.json` after Mal applied fixe
 
 **Verdict: APPROVED — all four defects correctly fixed, no new defects introduced.**
 
-**KEY DECISION:** This repo's origin = microsoft/frontier-agenticdevops-hackathon = the LIVE consolidated repo (KEPT). Only frontier-ghas/ghaw/ghec-hackathon + private Contoso sources deleted. The agenticdevops slug must never be presented as archived.
+**KEY DECISION:** This repo's origin = microsoft/frontier-agentic-devops-rvas = the LIVE consolidated repo (KEPT). Only frontier-ghas/ghaw/ghec-hackathon + private Contoso sources deleted. The agenticdevops slug must never be presented as archived.

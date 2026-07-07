@@ -134,4 +134,4 @@
 
 **Validation result:** `npm run verify:repos` and `npm run verify:repos:external` both exit 0. External check count: 2 (juice-shop HEAD + tag). Retired/vendored count: 7/7.
 
-**KEY DECISION:** This repo's origin = microsoft/frontier-agenticdevops-hackathon = the LIVE consolidated repo (KEPT). Only frontier-ghas/ghaw/ghec-hackathon + private Contoso sources deleted. The agenticdevops slug must never be presented as archived.
+**KEY DECISION:** This repo's origin = microsoft/frontier-agentic-devops-rvas = the LIVE consolidated repo (KEPT). Only frontier-ghas/ghaw/ghec-hackathon + private Contoso sources deleted. The agenticdevops slug must never be presented as archived.
