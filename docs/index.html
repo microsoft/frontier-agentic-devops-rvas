@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/shell.css" />
   <link rel="icon" href="assets/img/logo-mark-white.png" />
 </head>
 <body>
@@ -27,6 +28,7 @@
         <a href="module.html?m=ghaw">GHAW</a>
         <a href="module.html?m=sre-agent">SRE Agent</a>
         <a class="cta" href="catalog.html">Browse all challenges →</a>
+              <a class="gh" href="https://github.com/microsoft/frontier-agentic-devops-rvas" target="_blank" rel="noopener" aria-label="View source on GitHub">GitHub ↗</a>
       </nav>
       <div class="nav-actions">
         <button class="icon-btn nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
@@ -92,22 +94,22 @@
             <a class="btn btn-ghost" href="catalog.html">Explore the catalog</a>
           </div>
 
-          <div class="stat-row" aria-label="Delivery session statistics">
+          <div class="stats stats-4" aria-label="Delivery session statistics">
             <div class="stat">
-              <div class="stat-n" id="stat-challenges">—</div>
-              <div class="stat-l">Challenges</div>
+              <span class="stat-num" id="stat-challenges">—</span>
+              <span class="stat-lbl">Challenges</span>
             </div>
             <div class="stat">
-              <div class="stat-n">4</div>
-              <div class="stat-l">Modules</div>
+              <span class="stat-num" id="stat-modules">—</span>
+              <span class="stat-lbl">Modules</span>
             </div>
             <div class="stat">
-              <div class="stat-n" id="stat-tracks">—</div>
-              <div class="stat-l">Tracks</div>
+              <span class="stat-num" id="stat-tracks">—</span>
+              <span class="stat-lbl">Tracks</span>
             </div>
             <div class="stat">
-              <div class="stat-n" id="stat-hours">—</div>
-              <div class="stat-l">Guided hours</div>
+              <span class="stat-num" id="stat-hours">—</span>
+              <span class="stat-lbl">Guided hours</span>
             </div>
           </div>
         </div>
@@ -307,5 +309,6 @@
 
   <script src="assets/js/core.js"></script>
   <script src="assets/js/home.js"></script>
+  <script src="assets/js/shell.js"></script>
 </body>
 </html>
