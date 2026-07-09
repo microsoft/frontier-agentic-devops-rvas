@@ -44,6 +44,3 @@ Verify each success criterion from the student guide:
 | Execution plan | 25 | Produces owner-ready issues, tracking, or PR strategy that could drive remediation at scale. |
 | Verification evidence | 15 | Shows how campaign progress and remaining risk will be measured. |
 | Grounding conversation | 15 | Connects campaign design to a real organizational rollout path. |
-
-## Source
-Derived from legacy GHAS delivery session source material, MIT license.

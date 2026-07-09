@@ -45,6 +45,3 @@ Verify each success criterion from the student guide:
 | Coverage | 20 | Fixes the required injection paths and checks for sibling instances of the same pattern. |
 | Verification evidence | 15 | Reviews CodeQL/code scanning results on the PR and confirms the fixed patterns are no longer annotated. |
 | Grounding conversation | 15 | Connects injection risk to a real service, data type, and verification action. |
-
-## Source
-Derived from legacy GHAS delivery session source material, MIT license.

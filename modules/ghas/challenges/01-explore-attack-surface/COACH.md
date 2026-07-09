@@ -44,6 +44,3 @@ Verify each success criterion from the student guide:
 | Copilot-assisted reasoning | 20 | Used Copilot to explain exploitability, then verified the explanation against alert traces and code. |
 | Prioritization | 15 | Selected a fix order based on blast radius, exploitability, and effort rather than alert titles alone. |
 | Grounding conversation | 15 | Connected the alert classes to a real team repo, ownership model, and next action. |
-
-## Source
-Derived from legacy GHAS delivery session source material, MIT license.

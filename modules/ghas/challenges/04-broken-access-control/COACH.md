@@ -45,6 +45,3 @@ Verify each success criterion from the student guide:
 | Negative testing | 20 | Demonstrates unauthorized access is blocked while authorized access still works. |
 | Verification evidence | 10 | Reviews PR checks, traces, or tests that prove the access-control rule is enforced. |
 | Grounding conversation | 15 | Connects the pattern to a real service, role model, or data boundary. |
-
-## Source
-Derived from legacy GHAS delivery session source material, MIT license.

@@ -45,6 +45,3 @@ Verify each success criterion from the student guide:
 | Coverage | 20 | Fixes the required XSS paths and checks adjacent rendering paths for the same mistake. |
 | Verification evidence | 15 | Demonstrates the malicious payload no longer executes and code scanning/PR checks agree. |
 | Grounding conversation | 15 | Connects XSS risk to a real user-facing surface and ownership path. |
-
-## Source
-Derived from legacy GHAS delivery session source material, MIT license.
