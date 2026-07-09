@@ -19,6 +19,16 @@ Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/git
 - Opens focused PRs with verbosity removed and clarity improved
 - Each PR is intentionally small (one file, one concern)
 
+> [!IMPORTANT]
+> **Bring your own repo (do this first)**
+>
+> This challenge is most valuable when the simplification lands on documentation your team will keep maintaining. Pick a repository in an org you control with a bloated README, contributing guide, runbook, or product doc that would benefit from a focused cleanup PR.
+>
+> - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and target that repo's real docs with your own preservation rules, simplification criteria, and PR labels.
+> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+>
+> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+
 ## What You'll Do
 
 1. **Install [`gh aw`](https://github.com/github/gh-aw)** (if not already done):

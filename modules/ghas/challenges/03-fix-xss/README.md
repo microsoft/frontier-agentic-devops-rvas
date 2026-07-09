@@ -17,6 +17,17 @@ The fix pattern is usually: encode output before rendering it, or use framework 
 - Open pull requests to `main` with a description of the data flow that was exploitable and how the fix closes it
 - Review the PR CodeQL/code scanning check and annotations for the changed files
 
+> [!IMPORTANT]
+> **Bring your own application (do this first)**
+>
+> This challenge is most valuable when the XSS fixes *outlive the delivery session*. Use the real application repository you want to secure so the CodeQL data-flow findings, pull requests, and output-encoding changes land where your team can keep them.
+>
+> - **Have a candidate?** If you have an application repo in an organization you control with GHAS enabled, use it everywhere this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice-Shop-specific setup and pick real reflected or stored XSS findings, unsafe HTML rendering, or equivalent output-encoding alerts from your own repo instead of the Juice Shop examples.
+> - **No suitable one?** Use the fallback from S00: OWASP Juice Shop as a safe practice target for fixing known XSS flaws.
+>
+> Tell your coach which path you took — bringing your own is the goal; Juice Shop is the fallback.
+>
+
 ## Success Criteria
 
 - [ ] At least 2 XSS vulnerabilities fixed

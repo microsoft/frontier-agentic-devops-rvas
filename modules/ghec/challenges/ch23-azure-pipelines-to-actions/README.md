@@ -29,6 +29,15 @@ Repository migration tools such as GitHub Enterprise Importer and `ado2gh` move 
 
 In this challenge you will inventory the Azure DevOps CI/CD footprint, estimate future Actions usage, convert one pipeline locally, open a pull request with the converted workflow, and validate the migrated workflow in GitHub Actions.
 
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+> This challenge is most valuable when the result *outlives the delivery session*. Pick a real Azure DevOps project and pipeline you own and complete every task on **that** source and target. You leave with a migrated repo, pipelines-as-Actions, history, settings, evidence, and cleanup decisions genuinely standing up in your GitHub organization.
+>
+> - **Have a candidate?** Use it everywhere this guide references the sample Azure DevOps project, pipeline, or target repository. Skip the sample Setup path entirely.
+> - **No suitable one?** Use the fallback below: a provided sample Azure DevOps source project and pipeline you can convert safely.
+>
+> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+
 ## Setup
 
 Set variables for the source Azure DevOps project and target GitHub repository.

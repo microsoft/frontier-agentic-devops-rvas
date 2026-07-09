@@ -32,12 +32,13 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer has a backlog of small, well-scoped bugs that never reach the top of anyone's list. Instead of letting them rot, they want to hand the clear ones to the Copilot cloud agent and have engineers review the results. You'll do exactly that on a small seeded repo with a known bug: write a crisp issue, assign it to Copilot, watch it open a draft PR and work in an ephemeral environment, then review and steer it to a correct, merged fix. You'll learn where the agent shines (small, bounded changes) and where human review stays essential.
 
-## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the delivery session*. Pick a real repository issue that the Copilot coding agent could safely attempt with review gates and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
-
-- **Have a candidate?** Use it everywhere this guide says `ghec-ch19-copilot-coding-agent`. Skip the Setup step below entirely.
-- **No suitable one?** Use the fallback below: a seeded sample repo and issues for coding-agent practice.
-
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+> This challenge is most valuable when the result *outlives the delivery session*. Pick a real repository issue that the Copilot coding agent could safely attempt with review gates and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+>
+> - **Have a candidate?** Use it everywhere this guide says `ghec-ch19-copilot-coding-agent`. Skip the Setup step below entirely.
+> - **No suitable one?** Use the fallback below: a seeded sample repo and issues for coding-agent practice.
+>
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
 
 ## Setup (fallback sample)

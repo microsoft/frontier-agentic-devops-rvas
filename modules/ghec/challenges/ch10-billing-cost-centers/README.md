@@ -29,12 +29,14 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer just got a bigger-than-expected Actions bill and nobody can explain it. Finance wants guardrails: a budget with an alert before money is spent, a clear view of which repos burn the most minutes, and a report they can pull on demand. You'll stand up exactly that at the **organization** level — generate a little real usage, wire up a budget with alerts, and reconcile the API against the billing UI so the numbers are trustworthy. The output is the cost-governance baseline a real customer keeps.
 
-## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the delivery session*. Pick a real org usage, budget, or cost-reporting artifact someone will rely on after the delivery session and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
-
-- **Have a candidate?** Use your real usage source and reporting repo wherever this guide names `ghec-ch10-usage-generator` or `ghec-ch10-cost-report`. Skip the Setup step below entirely.
-- **No suitable one?** Use the fallback below: a tiny usage-generator repo and cost-report repo for safe metered practice.
-
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+>
+> This challenge is most valuable when the result *outlives the delivery session*. Pick a real org usage, budget, or cost-reporting artifact someone will rely on after the delivery session and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+>
+> - **Have a candidate?** Use your real usage source and reporting repo wherever this guide names `ghec-ch10-usage-generator` or `ghec-ch10-cost-report`. Skip the Setup step below entirely.
+> - **No suitable one?** Use the fallback below: a tiny usage-generator repo and cost-report repo for safe metered practice.
+>
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
 
 ## Setup (fallback sample)

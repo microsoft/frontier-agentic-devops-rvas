@@ -30,6 +30,18 @@ By the end of this challenge, your squad will:
 
 ---
 
+> [!IMPORTANT]
+> **Bring your own repo (do this first)**
+>
+> This challenge is most valuable when the context engine reads **your own repository's** real PRs, CONTRIBUTING guidance, architecture notes, docs, and tests, so its review-focus comments stay useful after the session. Treat the setup sample as practice, not the default destination.
+>
+> - **Have a candidate repo?** Install or point the workflow at that repo everywhere the guide references the sample repo, and use real PRs plus repo-specific context files such as `CONTRIBUTING.md`, `ARCHITECTURE.md`, docs, or test conventions.
+> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+>
+> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+
+---
+
 ## Challenge
 
 Build a workflow that **enriches PR analysis with external context**:

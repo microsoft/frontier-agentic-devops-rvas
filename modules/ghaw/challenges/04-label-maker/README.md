@@ -27,6 +27,18 @@ By the end of this challenge, your squad will:
 
 ---
 
+> [!IMPORTANT]
+> **Bring your own repo (do this first)**
+>
+> This challenge is most valuable when label automation uses **your own repository's** real issue taxonomy, so new issues continue landing in categories your team already trusts. Treat the setup sample as practice, not the default destination.
+>
+> - **Have a candidate repo?** Install or point `label-maker.md` at that repo everywhere the guide references the sample repo, and bring your own real label taxonomy or existing repo labels. Use the challenge's example labels only as inspiration.
+> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+>
+> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+
+---
+
 ## Success Criteria
 
 - [ ] Workflow file `.github/workflows/label-maker.md` exists

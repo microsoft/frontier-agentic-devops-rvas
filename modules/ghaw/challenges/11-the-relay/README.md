@@ -30,6 +30,18 @@ By the end of this challenge, your squad will:
 
 ---
 
+> [!IMPORTANT]
+> **Bring your own repo (do this first)**
+>
+> This challenge is most valuable when the producer and consumer workflows exchange **your own repository's** real metrics, so `repo-memory` becomes a durable signal your team can keep using after the session. Treat the setup sample as practice, not the default destination.
+>
+> - **Have a candidate repo?** Install or point both relay workflows at that repo everywhere the guide references the sample repo, and collect metrics from its real issues, labels, closure history, and Discussions audience.
+> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+>
+> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+
+---
+
 ## Challenge
 
 Build two workflows that work together:

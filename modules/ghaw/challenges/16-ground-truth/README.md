@@ -26,6 +26,16 @@ By the end of this challenge, your squad will:
 
 ---
 
+> [!IMPORTANT]
+> **Bring your own repo (do this first)**
+>
+> This challenge is most valuable when the grounded facts come from a repository whose health summary your team might actually publish. Pick a repository in an org you control where live issue, PR, commit, or release metrics would make a useful `CONTRIBUTING.md` update.
+>
+> - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and point the `pre-agent-steps:` commands at that repo's real issues, PRs, commits, and contribution docs.
+> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+>
+> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+
 ## Background: `pre-agent-steps:`
 
 `pre-agent-steps:` is a list of named shell steps that run before the AI model is invoked. They behave like GitHub Actions `run:` steps — you get full access to `gh`, `jq`, environment variables, and `$` expressions.

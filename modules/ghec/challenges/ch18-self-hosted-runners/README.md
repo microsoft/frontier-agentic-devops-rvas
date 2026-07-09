@@ -30,12 +30,13 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer needs CI on hardware GitHub doesn't host — a GPU box, a license-locked toolchain, or a network-isolated build host. You'll stand up a self-hosted runner the right way: registered to an **org runner group** scoped to just the repos that should use it, targeted by labels, and hardened so a malicious PR can't turn your build host into a foothold. You'll finish knowing exactly when self-hosted is worth the operational cost versus GitHub-hosted or larger runners.
 
-## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the delivery session*. Pick a real CI job or repository that needs a self-hosted runner because of network, hardware, compliance, or cost and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
-
-- **Have a candidate?** Use it everywhere this guide says `ghec-ch18-self-hosted-runners`. Skip the Setup step below entirely.
-- **No suitable one?** Use the fallback below: a seeded sample repo with runner workflows to validate safely.
-
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+> This challenge is most valuable when the result *outlives the delivery session*. Pick a real CI job or repository that needs a self-hosted runner because of network, hardware, compliance, or cost and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+>
+> - **Have a candidate?** Use it everywhere this guide says `ghec-ch18-self-hosted-runners`. Skip the Setup step below entirely.
+> - **No suitable one?** Use the fallback below: a seeded sample repo with runner workflows to validate safely.
+>
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
 
 ## Setup (fallback sample)

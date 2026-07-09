@@ -34,20 +34,21 @@ By completing this challenge you will:
 - Reclaim mannequins so migrated PR activity is attributed to GitHub users.
 - Build a follow-up backlog for Azure Boards and Azure Pipelines work that GEI does not migrate.
 
-## Bring your own outcome (do this first)
-
-Pick a repository that belongs to a real team and has at least one pull request. A small pilot repo is better than a huge monorepo: migration timing is driven mainly by **pull request count**, not Git repository size.
-
-Record these values before you start:
-
-```bash
-export ADO_ORG="YOUR_ADO_ORG"
-export ADO_PROJECT="YOUR_ADO_TEAM_PROJECT"
-export ADO_REPO="YOUR_ADO_REPO"
-export GITHUB_ORG="YOUR_GITHUB_ORG"
-export TARGET_REPO="ado-pilot-migrated"
-```
-
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+>
+> Pick a repository that belongs to a real team and has at least one pull request. A small pilot repo is better than a huge monorepo: migration timing is driven mainly by **pull request count**, not Git repository size.
+>
+> Record these values before you start:
+>
+> ```bash
+> export ADO_ORG="YOUR_ADO_ORG"
+> export ADO_PROJECT="YOUR_ADO_TEAM_PROJECT"
+> export ADO_REPO="YOUR_ADO_REPO"
+> export GITHUB_ORG="YOUR_GITHUB_ORG"
+> export TARGET_REPO="ado-pilot-migrated"
+> ```
+>
 > Recommended sequence: after this repo migration, continue with **ch22** for Azure Boards follow-up and **ch23** for Azure Pipelines / GitHub Actions migration. GEI migrates PR work item links, but not Azure Boards work items or Azure Pipelines definitions.
 
 ## Tasks

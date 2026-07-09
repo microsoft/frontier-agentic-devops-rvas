@@ -29,12 +29,14 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer ships a Node/Angular app with a backlog of latent vulnerabilities — SQL injection, XSS, broken auth, path traversal — none of them visible until something breaks in production. You'll give them static analysis that finds these on every push and every PR, explains each via its data-flow path, suggests fixes, and stops new vulnerabilities from merging. OWASP Juice Shop is the ideal target: it's intentionally riddled with the full OWASP Top 10, so CodeQL has genuine findings to surface — not toy examples.
 
-## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the delivery session*. Pick a real application repository your organization owns so CodeQL findings and gates matter after today and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
-
-- **Have a candidate?** Use it everywhere this guide says `ghec-ch12-juice-shop`. Skip the Setup step below entirely.
-- **No suitable one?** Use the fallback below: an OWASP Juice Shop import with known vulnerable code for safe CodeQL practice.
-
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+>
+> This challenge is most valuable when the result *outlives the delivery session*. Pick a real application repository your organization owns so CodeQL findings and gates matter after today and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+>
+> - **Have a candidate?** Use it everywhere this guide says `ghec-ch12-juice-shop`. Skip the Setup step below entirely.
+> - **No suitable one?** Use the fallback below: an OWASP Juice Shop import with known vulnerable code for safe CodeQL practice.
+>
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
 
 ## Setup (fallback sample)

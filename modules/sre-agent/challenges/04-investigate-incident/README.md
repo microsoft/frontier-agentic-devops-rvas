@@ -16,6 +16,16 @@ You will intentionally break Grubify and use Azure SRE Agent to investigate the 
 
 60 minutes.
 
+> [!IMPORTANT]
+> **Bring your own service (do this first)**
+>
+> This challenge is most valuable when Azure SRE Agent investigates a real service your team will keep operating after the session. If you have a candidate Azure workload in a subscription you control, use **that** service everywhere this guide references Grubify, and investigate a real or recent incident with your own telemetry and operational context.
+>
+> - **Have a candidate?** Start from a real alert, customer symptom, recent incident, or safely reproducible failure for your own service. Use its Azure Monitor signal, logs, metrics, traces, runbooks, and recovery process; do not intentionally break production unless your team already has an approved safe test path.
+> - **No suitable Azure service or incident yet?** Trigger the Grubify failure below as the safe fallback target.
+>
+> Tell your coach which path you took — bringing your own is the goal; Grubify is the fallback.
+
 ## Trigger the Incident
 
 From the starter lab:

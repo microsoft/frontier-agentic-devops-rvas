@@ -27,6 +27,18 @@ By the end of this challenge, your squad will:
 
 ---
 
+> [!IMPORTANT]
+> **Bring your own repo (do this first)**
+>
+> This challenge is most valuable when the watcher runs on **your own repository** and tracks a directory that matters in production, so push-time comments keep helping after the session. Treat the setup sample as practice, not the default destination.
+>
+> - **Have a candidate repo?** Install or point `the-watcher.md` at that repo everywhere the guide references the sample repo, and watch real paths such as `docs/**`, config, schemas, tests, or release files.
+> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+>
+> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+
+---
+
 ## Success Criteria
 
 - [ ] Workflow file `.github/workflows/the-watcher.md` exists

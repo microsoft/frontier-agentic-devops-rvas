@@ -16,6 +16,17 @@ As the developer who just spent the last few challenges in the code, you're in t
 - If org access is unavailable: write a campaign plan document covering: scope (which alert types), assignees (which team roles), timeline, definition of done, and how you'd track progress
 - Track or document progress: which alerts are fixed, which are in progress, which are deferred and why
 
+> [!IMPORTANT]
+> **Bring your own application (do this first)**
+>
+> This challenge is most valuable when the campaign plan *outlives the delivery session*. Use the real application repository or organization you want to secure so the campaign scope, alert grouping, owners, and remediation plan map to security debt your team can actually reduce.
+>
+> - **Have a candidate?** If you have an application repo or org in an organization you control with GHAS enabled, use it everywhere this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice-Shop-specific setup and build the campaign around a real alert class from your own Security Overview instead of the Juice Shop practice alerts.
+> - **No suitable one?** Use the fallback from S00: OWASP Juice Shop as a safe practice target for designing or creating a security campaign.
+>
+> Tell your coach which path you took — bringing your own is the goal; Juice Shop is the fallback.
+>
+
 ## Success Criteria
 
 - [ ] Campaign scope defined and justified with rationale (risk, volume, effort)

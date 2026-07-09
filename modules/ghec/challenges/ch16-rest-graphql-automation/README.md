@@ -34,12 +34,13 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer's platform team keeps doing the same triage by hand: relabeling issues, posting status comments, rolling items onto a project board, and exporting reports for leadership. Clicking doesn't scale. You'll rebuild that work as API automation — REST where it's simplest, GraphQL where it saves round-trips — that pages through everything, stays under rate limits, and can be re-run safely any day of the week.
 
-## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the delivery session*. Pick a real GitHub automation task or repository where an API script will save recurring toil and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
-
-- **Have a candidate?** Use it everywhere this guide says `ghec-ch16-rest-graphql-automation`. Skip the Setup step below entirely.
-- **No suitable one?** Use the fallback below: a seeded sample repo for REST and GraphQL automation practice.
-
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+> This challenge is most valuable when the result *outlives the delivery session*. Pick a real GitHub automation task or repository where an API script will save recurring toil and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+>
+> - **Have a candidate?** Use it everywhere this guide says `ghec-ch16-rest-graphql-automation`. Skip the Setup step below entirely.
+> - **No suitable one?** Use the fallback below: a seeded sample repo for REST and GraphQL automation practice.
+>
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
 
 ## Setup (fallback sample)

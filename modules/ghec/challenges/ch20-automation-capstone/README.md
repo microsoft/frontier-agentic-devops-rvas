@@ -32,12 +32,13 @@ By completing this challenge you will:
 ## Scenario
 Your org wants a single automation that reacts to activity and keeps a project board honest without anyone touching it manually. When an issue is opened on the seeded repo, a webhook fires → your **GitHub App** (authenticated as an installation) **labels and triages** the issue via REST, **adds it to a Projects v2 board** via GraphQL, and an **Actions** workflow records the result and posts a summary. You'll build this from the seeded scaffold, prove it runs end to end, and make it **idempotent** so replays don't create duplicates. This is the track's payoff: every primitive you practiced, working together.
 
-## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the delivery session*. Pick a real workflow that combines Actions, API automation, and security controls into a lasting delivery artifact and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
-
-- **Have a candidate?** Use it everywhere this guide says `ghec-ch20-automation-capstone`. Skip the Setup step below entirely.
-- **No suitable one?** Use the fallback below: a seeded capstone repo for end-to-end automation practice.
-
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+> This challenge is most valuable when the result *outlives the delivery session*. Pick a real workflow that combines Actions, API automation, and security controls into a lasting delivery artifact and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+>
+> - **Have a candidate?** Use it everywhere this guide says `ghec-ch20-automation-capstone`. Skip the Setup step below entirely.
+> - **No suitable one?** Use the fallback below: a seeded capstone repo for end-to-end automation practice.
+>
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
 
 ## Setup (fallback sample)

@@ -28,12 +28,14 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer just discovered a hard-coded cloud key in a public repo — caught by an outside researcher, not by them. Leadership wants two guarantees: (1) every credential already sitting in history is surfaced and triaged, and (2) the *next* secret never lands on `main` in the first place. You'll prove both on a deliberately leaky app: the provisioner imports OWASP Juice Shop and plants a set of **non-live, high-confidence test secrets** (fake AWS keys, GitHub-style tokens) so secret scanning has real, partner-pattern material to detect — Juice Shop's own app secrets are internal and won't reliably trip detection on their own.
 
-## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the delivery session*. **Pick a real repository your organization owns** — ideally a public one, or a private/internal one if you have GitHub Secret Protection — and complete every task on **that** repo. You leave with secret scanning, push protection, a custom pattern, and a triage trail genuinely standing up on a project you care about.
-
-- **Have a candidate repo?** Use it everywhere this guide says `ghec-ch11-juice-shop`. Skip the Setup step below entirely. You already have real history to triage — no planted secrets needed.
-- **No suitable repo (or want a safe sandbox)?** Use the fallback below: we import OWASP Juice Shop with non-live planted secrets so you can practice without risk.
-
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+>
+> This challenge is most valuable when the result *outlives the delivery session*. **Pick a real repository your organization owns** — ideally a public one, or a private/internal one if you have GitHub Secret Protection — and complete every task on **that** repo. You leave with secret scanning, push protection, a custom pattern, and a triage trail genuinely standing up on a project you care about.
+>
+> - **Have a candidate repo?** Use it everywhere this guide says `ghec-ch11-juice-shop`. Skip the Setup step below entirely. You already have real history to triage — no planted secrets needed.
+> - **No suitable repo (or want a safe sandbox)?** Use the fallback below: we import OWASP Juice Shop with non-live planted secrets so you can practice without risk.
+>
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
 
 ## Setup (fallback sample)

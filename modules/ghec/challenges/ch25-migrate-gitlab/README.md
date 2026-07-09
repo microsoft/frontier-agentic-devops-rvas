@@ -29,6 +29,15 @@ This hands-on challenge uses the self-serve path that is available to any Git re
 
 Your team is piloting a GitLab-to-GitHub move. The business wants fast cutover evidence, but also an honest inventory of what the self-serve path does **not** preserve. You will mirror Git history into GitHub, convert the CI definition, and document follow-up work for metadata, LFS, packages, and cutover risk.
 
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+> This challenge is most valuable when the result *outlives the delivery session*. Pick a real GitLab repository you own and complete every task on **that** source and target. You leave with a migrated repo, Git history, pipelines-as-Actions, settings evidence, and gap notes genuinely standing up in your GitHub organization.
+>
+> - **Have a candidate?** Use it everywhere this guide references the sample GitLab repository, CI file, or target repository. Skip the sample Setup path entirely.
+> - **No suitable one?** Use the fallback below: a provided sample GitLab source repository you can migrate safely.
+>
+> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+
 ## Tasks
 
 ### Part A — Prepare the target repository

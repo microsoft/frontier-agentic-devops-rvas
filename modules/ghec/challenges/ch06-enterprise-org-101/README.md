@@ -30,12 +30,14 @@ By completing this challenge you will:
 ## Scenario
 You're the first platform admin hired at a fast-growing GHEC customer. The organization was created in a hurry: defaults are wide open, public repo creation may be allowed in standard GHEC or platform-blocked in EMU, base permissions are too generous, and nobody can say what the current policy actually is. Leadership wants a documented, defensible baseline — least-privilege member access, controlled repository creation, sensible security defaults — and they want it **verifiable from the API**, not from screenshots. Your job is to bring order to the org and prove it.
 
-## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the delivery session*. Pick a real organization policy or repository-default setting you are allowed to assess and improve and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
-
-- **Have a candidate?** Use your real org settings and repos wherever this guide names `ghec-ch06-public-sample` or the sibling `ghec-ch06-*` repos. Skip the Setup step below entirely.
-- **No suitable one?** Use the fallback below: seeded visibility sample repos plus a starter team for safe policy practice. In EMU, the public sample is created as private because public repositories are not allowed.
-
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+>
+> This challenge is most valuable when the result *outlives the delivery session*. Pick a real organization policy or repository-default setting you are allowed to assess and improve and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+>
+> - **Have a candidate?** Use your real org settings and repos wherever this guide names `ghec-ch06-public-sample` or the sibling `ghec-ch06-*` repos. Skip the Setup step below entirely.
+> - **No suitable one?** Use the fallback below: seeded visibility sample repos plus a starter team for safe policy practice. In EMU, the public sample is created as private because public repositories are not allowed.
+>
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
 
 ## Setup (fallback sample)

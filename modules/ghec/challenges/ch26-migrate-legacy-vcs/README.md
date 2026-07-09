@@ -32,6 +32,15 @@ The GitHub Importer web tool is now **Git-only**, imports code and commit histor
 
 > Hands-on scope: complete SVN plus at least one of Mercurial, TFVC, or Perforce if you have source access. For systems you cannot access in the workshop, document the exact commands, source URL shape, identity map, and blocker so a real migration owner can execute it later.
 
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+> This challenge is most valuable when the result *outlives the delivery session*. Pick a real legacy VCS source you own, such as SVN, Mercurial, TFVC, or Perforce, and complete every task on **that** source and target. You leave with a converted Git repo, source history, author mapping, large-file checks, settings evidence, and gap notes genuinely standing up in your GitHub organization.
+>
+> - **Have a candidate?** Use it everywhere this guide references the sample legacy VCS source, converted Git directory, or target repository. Skip the sample Setup path entirely.
+> - **No suitable one?** Use the fallback below: a provided sample legacy VCS source you can convert safely.
+>
+> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+
 ## Setup
 
 Set shared destination variables.

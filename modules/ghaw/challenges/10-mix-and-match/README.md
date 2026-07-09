@@ -26,6 +26,18 @@ By the end, your squad will:
 
 ---
 
+> [!IMPORTANT]
+> **Bring your own repo (do this first)**
+>
+> This challenge is most valuable when the imported helper and weekly digest describe **your own repository's** real health signals, Discussions category, and stakeholder audience, so the pattern survives after the session. Treat the setup sample as practice, not the default destination.
+>
+> - **Have a candidate repo?** Install or point `10-mix-and-match.md` at that repo everywhere the guide references the sample repo, and write `lib/repo-stats-helper.md` around its real issues, PRs, tests, docs, and reporting tone.
+> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+>
+> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+
+---
+
 ## Background: `imports:`
 
 The `imports:` field in gh-aw frontmatter lets a workflow pull in one or more Markdown files before executing. The imported content is merged into the agent's context — as if you had written it inline.

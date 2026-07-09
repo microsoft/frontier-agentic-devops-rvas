@@ -28,12 +28,14 @@ By completing this challenge you will:
 ## Scenario
 You have just inherited the backlog for an internal developer-tools team at a GHEC customer. Work is scattered across chat threads, spreadsheets, and people's heads. Leadership wants a single source of truth: every request becomes an issue, every issue is triaged within a day, and a live board shows what's in flight, what's blocked, and what ships this sprint. Your job is to stand that system up on GitHub the way you'd hand it to a real team on Monday morning.
 
-## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the delivery session*. Pick a real backlog, issue taxonomy, and Projects board your team will keep using and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
-
-- **Have a candidate?** Use it everywhere this guide says `ghec-ch01-issues-labels-projects` or `ghec-ch01-board`. Skip the Setup step below entirely.
-- **No suitable one?** Use the fallback below: a seeded backlog repo and empty project board you can shape safely.
-
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+>
+> This challenge is most valuable when the result *outlives the delivery session*. Pick a real backlog, issue taxonomy, and Projects board your team will keep using and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+>
+> - **Have a candidate?** Use it everywhere this guide says `ghec-ch01-issues-labels-projects` or `ghec-ch01-board`. Skip the Setup step below entirely.
+> - **No suitable one?** Use the fallback below: a seeded backlog repo and empty project board you can shape safely.
+>
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
 
 ## Setup (fallback sample)

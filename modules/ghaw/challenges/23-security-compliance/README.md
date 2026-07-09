@@ -20,6 +20,16 @@ Source: [`github/gh-aw/.github/workflows/security-compliance.md`](https://github
 - Tracks time-to-remediate against configured SLA windows
 - Opens structured issues for any vulnerability at or approaching deadline
 
+> [!IMPORTANT]
+> **Bring your own repo (do this first)**
+>
+> This challenge is most valuable when the compliance workflow reflects your team's real vulnerability policy. Pick a repository in an org you control with Dependabot alerts, dependency risk, or security SLAs that need visible tracking.
+>
+> - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and configure the workflow with that repo's real alert sources, severity thresholds, SLA windows, and escalation targets.
+> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+>
+> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+
 ## What You'll Do
 
 1. **Install [`gh aw`](https://github.com/github/gh-aw)** (if not already done):

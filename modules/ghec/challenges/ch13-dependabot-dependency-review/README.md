@@ -29,12 +29,14 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer's app drags a long tail of outdated, vulnerable npm packages — the kind of supply-chain risk that doesn't show up until a CVE makes the news. You'll give them an early-warning system: the dependency graph maps what they depend on, Dependabot opens PRs to fix known-vulnerable packages automatically, and dependency review stops a new risky dependency from sneaking in via a pull request. OWASP Juice Shop is purpose-built for this — its dependency tree is intentionally vulnerable (old Angular libraries, a deliberately risky `ftp` package, a `.dependabot/` directory), so there's genuine alert and PR material to work with.
 
-## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the delivery session*. Pick a real application repository your organization owns so Dependabot alerts and dependency-review gates persist and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
-
-- **Have a candidate?** Use it everywhere this guide says `ghec-ch13-juice-shop`. Skip the Setup step below entirely.
-- **No suitable one?** Use the fallback below: an OWASP Juice Shop import with dependency material you can inspect safely.
-
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+>
+> This challenge is most valuable when the result *outlives the delivery session*. Pick a real application repository your organization owns so Dependabot alerts and dependency-review gates persist and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+>
+> - **Have a candidate?** Use it everywhere this guide says `ghec-ch13-juice-shop`. Skip the Setup step below entirely.
+> - **No suitable one?** Use the fallback below: an OWASP Juice Shop import with dependency material you can inspect safely.
+>
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
 
 ## Setup (fallback sample)

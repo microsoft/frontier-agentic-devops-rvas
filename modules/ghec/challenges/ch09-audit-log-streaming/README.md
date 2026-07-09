@@ -29,12 +29,14 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer's security team asks the question every audit eventually asks: *"Who changed that setting, and when?"* Right now nobody can answer it without guessing. You'll learn to treat the **organization audit log** as the source of truth — generate a controlled set of administrative actions, then reconstruct exactly what happened using search filters and the API. You'll finish with a repeatable script that exports a slice of the log, the seed of a real evidence-collection pipeline.
 
-## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the delivery session*. Pick a real org audit question or repository where you can generate and investigate known events and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
-
-- **Have a candidate?** Use it everywhere this guide says `ghec-ch09-audit-target`. Skip the Setup step below entirely.
-- **No suitable one?** Use the fallback below: a seeded audit-target repo and auditors team for safe event generation.
-
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+>
+> This challenge is most valuable when the result *outlives the delivery session*. Pick a real org audit question or repository where you can generate and investigate known events and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+>
+> - **Have a candidate?** Use it everywhere this guide says `ghec-ch09-audit-target`. Skip the Setup step below entirely.
+> - **No suitable one?** Use the fallback below: a seeded audit-target repo and auditors team for safe event generation.
+>
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
 
 ## Setup (fallback sample)

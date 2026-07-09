@@ -19,6 +19,16 @@ Source: [`githubnext/agentics/workflows/ci-doctor.md`](https://github.com/github
 - Analyses log output for the failure pattern (compile error, test failure, flaky test, etc.)
 - Opens a `create-issue` with structured root-cause analysis and a suggested remediation
 
+> [!IMPORTANT]
+> **Bring your own repo (do this first)**
+>
+> This challenge is most valuable when CI Doctor investigates failures from CI your team already depends on. Pick a repository in an org you control with real build, test, or deployment workflows whose logs are worth turning into diagnostic issues.
+>
+> - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and configure the workflow to watch that repo's real CI workflow names, branches, logs, and failure patterns.
+> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+>
+> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+
 ## What You'll Do
 
 1. **Install [`gh aw`](https://github.com/github/gh-aw)** (if not already done):

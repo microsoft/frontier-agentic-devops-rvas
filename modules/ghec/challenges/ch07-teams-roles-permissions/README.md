@@ -29,12 +29,14 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer's engineering org has grown past the point where ad-hoc collaborator adds make sense. People are added directly to repos, leavers keep access, and nobody can answer "who can merge to the payments repo?" You'll replace the chaos with a **team-based** model: a parent team for the whole department, child teams per squad, repository access granted to teams (never to individuals), and one **custom role** for a contractor pattern that the built-in roles don't capture. Access becomes something you can read from an org chart — and from the API.
 
-## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the delivery session*. Pick a real team structure and repository access model you can make clearer and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
-
-- **Have a candidate?** Use your real teams and repos wherever this guide names `ghec-ch07-frontend` or the sibling `ghec-ch07-*` artifacts. Skip the Setup step below entirely.
-- **No suitable one?** Use the fallback below: seeded frontend/backend/platform repos and a starter engineering team.
-
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+>
+> This challenge is most valuable when the result *outlives the delivery session*. Pick a real team structure and repository access model you can make clearer and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+>
+> - **Have a candidate?** Use your real teams and repos wherever this guide names `ghec-ch07-frontend` or the sibling `ghec-ch07-*` artifacts. Skip the Setup step below entirely.
+> - **No suitable one?** Use the fallback below: seeded frontend/backend/platform repos and a starter engineering team.
+>
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
 
 ## Setup (fallback sample)

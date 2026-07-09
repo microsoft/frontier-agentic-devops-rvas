@@ -27,6 +27,18 @@ By the end of this challenge, your squad will:
 
 ---
 
+> [!IMPORTANT]
+> **Bring your own repo (do this first)**
+>
+> This challenge is most valuable when the briefing runs on **your own repository** with real issues and PRs, so the workflow can keep informing your team after the session. Treat the setup sample as practice, not the default destination.
+>
+> - **Have a candidate repo?** Install or point `morning-briefing.md` at that repo everywhere the guide references the sample repo, and use its real backlog and PR activity as the briefing material.
+> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+>
+> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+
+---
+
 ## Success Criteria
 
 - [ ] Workflow file `.github/workflows/morning-briefing.md` exists with valid frontmatter

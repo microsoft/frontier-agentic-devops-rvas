@@ -40,6 +40,16 @@ By the end of this challenge, your squad will:
 
 ---
 
+> [!IMPORTANT]
+> **Bring your own repo (do this first)**
+>
+> This challenge is most valuable when the pipeline moves real work through a repository your team can keep using. Pick a repository in an org you control with issues, PRs, and review policies that can support an observable issue-to-agent-to-PR path.
+>
+> - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and build the observer, triage, ChatOps, and optional merge workflows around your real issues, PRs, branch protections, and human review gate.
+> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+>
+> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+
 ## Challenge
 
 Build a **factory pipeline** with at least 3 workflows:

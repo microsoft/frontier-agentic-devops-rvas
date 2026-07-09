@@ -358,6 +358,19 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
 
 .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 
+/* Bring-your-own emphasis under the hero lede */
+.byo-lede {
+  margin-top: -12px;
+  padding: 12px 16px;
+  font-size: 0.98rem;
+  border-left: 3px solid var(--c-gold);
+  background: var(--c-gold-glow);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  color: var(--c-dim);
+  max-width: 52ch;
+}
+.byo-lede strong { color: var(--c-fg); }
+
 /* Stats row */
 .stat-row {
   display: flex;
@@ -1070,6 +1083,39 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
   border-radius: 0 var(--r-sm) var(--r-sm) 0;
 }
 .guide-body blockquote p { margin: 0; font-size: 0.9rem; color: var(--c-dim); }
+
+/* GitHub-style alert banners (> [!IMPORTANT] etc.) rendered in guides */
+.guide-body blockquote.md-alert {
+  border: 1px solid var(--c-line);
+  border-left: 4px solid var(--c-dim);
+  background: var(--c-800);
+  padding: 12px 18px;
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+}
+.guide-body blockquote.md-alert p { color: var(--c-dim); font-size: 0.9rem; }
+.md-alert-title {
+  display: flex !important;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 6px !important;
+  font-weight: 700;
+  font-size: 0.9rem !important;
+  letter-spacing: 0.01em;
+}
+.md-alert-icon { flex: none; }
+.guide-body blockquote.md-alert .md-alert-title + p { margin-top: 0; }
+
+/* Flavor accents */
+.md-alert-important { border-left-color: var(--c-gold); background: var(--c-gold-glow); }
+.md-alert-important .md-alert-title { color: var(--c-gold); }
+.md-alert-tip { border-left-color: #3fb950; }
+.md-alert-tip .md-alert-title { color: #3fb950; }
+.md-alert-note { border-left-color: #58a6ff; }
+.md-alert-note .md-alert-title { color: #58a6ff; }
+.md-alert-warning { border-left-color: #d29922; }
+.md-alert-warning .md-alert-title { color: #d29922; }
+.md-alert-caution { border-left-color: #f85149; }
+.md-alert-caution .md-alert-title { color: #f85149; }
 .guide-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.875rem; table-layout: fixed; }
 .guide-body th { background: var(--c-700); padding: 8px 12px; text-align: left; font-weight: 700; border-bottom: 1px solid var(--c-line); }
 .guide-body td { padding: 8px 12px; border-bottom: 1px solid var(--c-line-soft); overflow-wrap: anywhere; }

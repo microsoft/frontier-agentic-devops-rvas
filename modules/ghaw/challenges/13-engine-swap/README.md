@@ -36,6 +36,16 @@ By the end of this challenge, your squad will:
 
 ---
 
+> [!IMPORTANT]
+> **Bring your own repo (do this first)**
+>
+> This challenge is most valuable when engine tradeoffs are measured against automation your team might actually keep. Pick a real issue, PR, or code-review task from a repository in an org you control and adapt the three engine versions around that same input.
+>
+> - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and run Copilot, Claude, and Codex against the same real issue, PR, or code snippet so your comparison reflects production work.
+> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+>
+> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+
 ## Challenge
 
 Pick one task. Build three versions of the same workflow, one for each engine.

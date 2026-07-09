@@ -19,6 +19,17 @@ Both issues have the same root cause: trusting something external without vettin
 - For at least 2 Dependabot alerts, open the alert detail, read the CVE description, and understand what the vulnerability actually is
 - Validate secret and dependency changes through your pull request checks, annotations, and push protection results
 
+> [!IMPORTANT]
+> **Bring your own application (do this first)**
+>
+> This challenge is most valuable when the secrets and dependency work *outlives the delivery session*. Use the real application repository you want to secure so secret scanning, push protection, Dependabot alerts, and dependency fixes improve a repo your team keeps.
+>
+> - **Have a candidate?** If you have an application repo in an organization you control with GHAS enabled, use it everywhere this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice-Shop-specific setup and review your own secret scanning alerts, high or critical Dependabot alerts, and configuration files instead.
+> - **No suitable one?** Use the fallback from S00: OWASP Juice Shop as a safe practice target for learning the secret and dependency remediation workflow.
+>
+> Tell your coach which path you took — bringing your own is the goal; Juice Shop is the fallback.
+>
+
 ## Success Criteria
 
 - [ ] No hardcoded secrets, passwords, or credentials remain in source code files

@@ -27,6 +27,18 @@ By the end of this challenge, your squad will:
 
 ---
 
+> [!IMPORTANT]
+> **Bring your own repo (do this first)**
+>
+> This challenge is most valuable when the safe-output gate protects **your own repository** and a real condition your team cares about, so the workflow can keep running safely after the session. Treat the setup sample as practice, not the default destination.
+>
+> - **Have a candidate repo?** Install or point `safe-sound.md` at that repo everywhere the guide references the sample repo, and use real files, TODOs, docs, tests, or policy checks as the condition.
+> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+>
+> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+
+---
+
 ## Success Criteria
 
 - [ ] Workflow file `.github/workflows/safe-sound.md` exists

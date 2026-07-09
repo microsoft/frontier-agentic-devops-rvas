@@ -19,6 +19,16 @@ Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://g
 - Analyses changes for: obfuscated logic, unexpected network calls, exfiltration patterns, eval/exec of dynamic strings, suspicious env variable access
 - Opens a `create-issue` alert for anything worth investigating — with the specific commit, file, and line number
 
+> [!IMPORTANT]
+> **Bring your own repo (do this first)**
+>
+> This challenge is most valuable when the scan watches code changes and threat patterns that matter to your team. Pick a repository in an org you control with recent commits, dependency updates, or sensitive code paths where supply-chain review would be useful.
+>
+> - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and tune the workflow to that repo's real languages, recent commits, suspicious pattern categories, and false-positive rules.
+> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+>
+> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+
 ## What You'll Do
 
 1. **Install [`gh aw`](https://github.com/github/gh-aw)** (if not already done):

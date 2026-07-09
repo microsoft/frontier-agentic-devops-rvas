@@ -29,12 +29,13 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer wants to react to activity in real time — auto-acknowledge new issues, notify on pushes, kick off downstream jobs — without polling the API on a timer. You'll wire up webhooks so GitHub pushes events to a receiver you control, prove each delivery is authentic by verifying its signature, and then graduate from a passive listener to a real **GitHub App** that can authenticate and act back on the org. By the end you'll know exactly when a webhook is enough and when you need an App.
 
-## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the delivery session*. Pick a real integration target where a GitHub event should update another system and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
-
-- **Have a candidate?** Use it everywhere this guide says `ghec-ch17-webhooks-github-apps`. Skip the Setup step below entirely.
-- **No suitable one?** Use the fallback below: a seeded sample repo and app/webhook practice target.
-
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+> This challenge is most valuable when the result *outlives the delivery session*. Pick a real integration target where a GitHub event should update another system and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+>
+> - **Have a candidate?** Use it everywhere this guide says `ghec-ch17-webhooks-github-apps`. Skip the Setup step below entirely.
+> - **No suitable one?** Use the fallback below: a seeded sample repo and app/webhook practice target.
+>
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
 
 ## Setup (fallback sample)

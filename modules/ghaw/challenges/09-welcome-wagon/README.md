@@ -26,6 +26,18 @@ By the end, your squad will:
 
 ---
 
+> [!IMPORTANT]
+> **Bring your own repo (do this first)**
+>
+> This challenge is most valuable when Welcome Wagon uses **your own repository's** contributor flow, links, and tone, so first-time contributors keep getting useful guidance after the session. Treat the setup sample as practice, not the default destination.
+>
+> - **Have a candidate repo?** Install or point `welcome-wagon.md` at that repo everywhere the guide references the sample repo, and use real CONTRIBUTING, docs, code of conduct, issue, or support links.
+> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+>
+> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+
+---
+
 ## Challenge
 
 Create a gh-aw workflow named `welcome-wagon.md` in `.github/workflows/` that:

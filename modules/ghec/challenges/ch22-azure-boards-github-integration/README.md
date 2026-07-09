@@ -32,16 +32,17 @@ By completing this challenge you will:
 ## Why this matters
 GEI preserves only work-item links that already existed on Azure DevOps pull requests. It does **not** move Azure Boards work items, board columns, queries, or backlog state into GitHub. After cutover, teams that keep planning in Azure Boards need a live bridge so new GitHub commits and pull requests continue to appear on the work item. The Azure Boards GitHub App is that bridge.
 
-## Bring your own outcome (do this first)
-Pick one migrated repository and one Azure Boards work item from a real team. The challenge is complete only when that real repository is connected and a real work item shows a GitHub commit or PR link.
-
-Use these variables in the commands below:
-
-```bash
-ORG=<github-org>
-REPO=<migrated-repo>
-WORK_ITEM_ID=<azure-boards-work-item-id>
-```
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+> Pick one migrated repository and one Azure Boards work item from a real team. The challenge is complete only when that real repository is connected and a real work item shows a GitHub commit or PR link.
+>
+> Use these variables in the commands below:
+>
+> ```bash
+> ORG=<github-org>
+> REPO=<migrated-repo>
+> WORK_ITEM_ID=<azure-boards-work-item-id>
+> ```
 
 ## Tasks
 

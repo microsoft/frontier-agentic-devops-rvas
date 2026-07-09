@@ -31,12 +31,13 @@ A GHEC customer runs identity centrally in their IdP and wants GitHub to obey it
 
 > **Awareness callout — enterprise vs org:** SAML and SCIM can be configured at the **enterprise** level (applies across all orgs) or, as here, at a **single org**. **Enterprise Managed Users (EMU)** go further — every member is a managed user created only via SCIM at the **enterprise** level, with no personal account. Because EMU authenticates and provisions at the enterprise tier, the **org-level** SAML SSO and org-level SCIM you configure in this challenge are **not available inside an EMU organization** — run it in a non-EMU org. EMU and enterprise-level SSO require an **enterprise owner** and are out of scope for the hands-on tasks; this challenge delivers the org-scoped experience that any org owner can complete. Note the trade-offs where relevant, but you are **not required** to configure anything at the enterprise tier.
 
-## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the delivery session*. Pick a real identity runbook, SAML/SCIM rollout plan, or org authentication setting you can improve and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
-
-- **Have a candidate?** Use it everywhere this guide says `ghec-ch14-identity-runbook`. Skip the Setup step below entirely.
-- **No suitable one?** Use the fallback below: a seeded identity-runbook repo and validation helpers.
-
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+> This challenge is most valuable when the result *outlives the delivery session*. Pick a real identity runbook, SAML/SCIM rollout plan, or org authentication setting you can improve and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+>
+> - **Have a candidate?** Use it everywhere this guide says `ghec-ch14-identity-runbook`. Skip the Setup step below entirely.
+> - **No suitable one?** Use the fallback below: a seeded identity-runbook repo and validation helpers.
+>
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
 
 ## Setup (fallback sample)

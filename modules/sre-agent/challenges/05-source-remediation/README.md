@@ -16,6 +16,16 @@ Azure evidence can explain what failed. Source-code context helps explain where 
 
 60 minutes.
 
+> [!IMPORTANT]
+> **Bring your own service (do this first)**
+>
+> This challenge is most valuable when Azure SRE Agent connects operational evidence to the source repository your team will keep using after the session. If you have a candidate Azure workload in a subscription you control, use **that** service everywhere this guide references Grubify, and connect its own source repo so remediation work lands in the right engineering workflow.
+>
+> - **Have a candidate?** Use a real or recent incident for your service and the repository that owns the suspected code path. Ask the agent to create or draft remediation work against your normal issue or pull request process, with evidence, uncertainty, validation, and human review gates.
+> - **No suitable Azure service, incident, or source repo yet?** Connect the Grubify repository or use the fallback source packet below as the safe practice target.
+>
+> Tell your coach which path you took — bringing your own is the goal; Grubify is the fallback.
+
 ## Connect Source Code
 
 If your live lab supports GitHub connection, use a lab-safe GitHub repository approved by your coach. In GitHub Enterprise Managed User (EMU) environments, do not assume participants can fork public repositories into personal accounts. Your coach may provide an enterprise-owned repository instead.

@@ -29,12 +29,14 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer's team keeps pushing straight to `main`, breaking each other's work, and shipping un-reviewed changes. You've been asked to introduce a real review culture: every change goes through a PR, the right people are required to review the code they own, and merges are clean and traceable. You'll build that workflow on a seeded service repo and prove it end-to-end.
 
-## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the delivery session*. Pick a real repository with a pull-request review flow you can improve and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
-
-- **Have a candidate?** Use it everywhere this guide says `ghec-ch02-pull-requests-code-review`. Skip the Setup step below entirely.
-- **No suitable one?** Use the fallback below: a seeded sample repo with PRs and review settings to configure.
-
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+>
+> This challenge is most valuable when the result *outlives the delivery session*. Pick a real repository with a pull-request review flow you can improve and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+>
+> - **Have a candidate?** Use it everywhere this guide says `ghec-ch02-pull-requests-code-review`. Skip the Setup step below entirely.
+> - **No suitable one?** Use the fallback below: a seeded sample repo with PRs and review settings to configure.
+>
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
 
 ## Setup (fallback sample)

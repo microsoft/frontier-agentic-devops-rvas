@@ -2,6 +2,13 @@
 
 One repo. One GitHub Pages site. Five adoption journeys, four delivery session modules, 64 challenges, zero configuration drama.
 
+> **Bring your own.** These challenges are built to run on **your** tenant — work each one
+> against your own applications, repositories, and data so the result keeps running in
+> production after the session, not just as an upskilling exercise. The sample apps
+> (OWASP Juice Shop, the Grubify sample, seed repos) are only a fallback so no one is
+> blocked. Wherever a challenge says "bring your own," start from your real work; the
+> setup script and sample are there when you don't yet have a candidate.
+
 ## Outcomes
 
 The site is organized around customer adoption outcomes first, then platform modules:

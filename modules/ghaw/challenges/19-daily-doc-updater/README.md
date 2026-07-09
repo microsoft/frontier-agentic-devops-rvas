@@ -19,6 +19,16 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
 - Identifies content that contradicts or no longer matches the codebase
 - Opens PRs with targeted, reviewable corrections
 
+> [!IMPORTANT]
+> **Bring your own repo (do this first)**
+>
+> This challenge is most valuable when the updater reviews docs that can keep serving your users after the session. Pick a repository in an org you control where `README.md`, `docs/`, API docs, or runbooks drift as the code changes.
+>
+> - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and point the workflow at that repo's real docs and code paths so proposed PRs fix production documentation drift.
+> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+>
+> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+
 ## What You'll Do
 
 1. **Install [`gh aw`](https://github.com/github/gh-aw)** (if not already done):

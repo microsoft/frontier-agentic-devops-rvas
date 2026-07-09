@@ -29,12 +29,14 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer onboards new engineers slowly — each spends a day fighting local toolchains before they can run the app. You've been asked to make "clone and code in 60 seconds" real: a committed dev container that gives everyone the identical environment, a prebuild so it starts fast, and an org policy that keeps spend sane. You'll prove it on a seeded Node service.
 
-## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the delivery session*. Pick a real repository whose onboarding or local setup is painful today and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
-
-- **Have a candidate?** Use it everywhere this guide says `ghec-ch03-codespaces-dev-containers`. Skip the Setup step below entirely.
-- **No suitable one?** Use the fallback below: a seeded sample repo ready for a devcontainer and Codespace.
-
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+>
+> This challenge is most valuable when the result *outlives the delivery session*. Pick a real repository whose onboarding or local setup is painful today and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+>
+> - **Have a candidate?** Use it everywhere this guide says `ghec-ch03-codespaces-dev-containers`. Skip the Setup step below entirely.
+> - **No suitable one?** Use the fallback below: a seeded sample repo ready for a devcontainer and Codespace.
+>
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
 
 ## Setup (fallback sample)

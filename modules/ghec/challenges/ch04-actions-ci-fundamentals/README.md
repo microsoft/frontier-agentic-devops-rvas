@@ -30,12 +30,14 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer's team merges first and finds out it's broken later — there's no automated gate. You'll give them continuous integration: every push and PR builds and tests the app across supported runtimes, caches dependencies so it's fast, publishes a test report you can download, and — critically — blocks merges to `main` when the build is red.
 
-## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the delivery session*. Pick a real repository with a build, test, or validation step that should run automatically and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
-
-- **Have a candidate?** Use it everywhere this guide says `ghec-ch04-actions-ci-fundamentals`. Skip the Setup step below entirely.
-- **No suitable one?** Use the fallback below: a seeded sample repo with code ready for a first CI workflow.
-
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+>
+> This challenge is most valuable when the result *outlives the delivery session*. Pick a real repository with a build, test, or validation step that should run automatically and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+>
+> - **Have a candidate?** Use it everywhere this guide says `ghec-ch04-actions-ci-fundamentals`. Skip the Setup step below entirely.
+> - **No suitable one?** Use the fallback below: a seeded sample repo with code ready for a first CI workflow.
+>
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
 
 ## Setup (fallback sample)

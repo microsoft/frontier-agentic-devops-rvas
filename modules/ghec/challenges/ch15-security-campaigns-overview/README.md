@@ -29,12 +29,13 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer has GHAS switched on but no program around it — alerts pile up, nobody owns them, and leadership can't answer "are we getting safer?" You'll give them the management layer: a security overview that shows risk and coverage at a glance, a security configuration that applies GHAS uniformly, and a **security campaign** that turns a wall of alerts into a finite, owned, time-boxed remediation effort developers can actually act on. OWASP Juice Shop supplies the realistic alert volume — CodeQL findings, Dependabot alerts, and secret-scanning hits — that a campaign needs to be meaningful.
 
-## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the delivery session*. Pick a real application repository or security campaign candidate your organization owns and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
-
-- **Have a candidate?** Use it everywhere this guide says `ghec-ch15-juice-shop`. Skip the Setup step below entirely.
-- **No suitable one?** Use the fallback below: an OWASP Juice Shop import with security findings suitable for campaign practice.
-
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+> This challenge is most valuable when the result *outlives the delivery session*. Pick a real application repository or security campaign candidate your organization owns and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+>
+> - **Have a candidate?** Use it everywhere this guide says `ghec-ch15-juice-shop`. Skip the Setup step below entirely.
+> - **No suitable one?** Use the fallback below: an OWASP Juice Shop import with security findings suitable for campaign practice.
+>
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
 
 ## Setup (fallback sample)

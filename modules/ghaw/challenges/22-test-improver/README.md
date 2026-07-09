@@ -19,6 +19,16 @@ Source: [`githubnext/agentics/workflows/daily-test-improver.md`](https://github.
 - Writes new tests incrementally — one focused PR at a time
 - Uses `safe-outputs: create-pull-request` so maintainers review before merge
 
+> [!IMPORTANT]
+> **Bring your own repo (do this first)**
+>
+> This challenge is most valuable when Test Improver opens PRs against code your team can review and keep. Pick a repository in an org you control with real source files, test conventions, and coverage gaps.
+>
+> - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and point the workflow at that repo's real code, tests, coverage targets, and framework-specific assertions.
+> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+>
+> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+
 ## What You'll Do
 
 1. **Install [`gh aw`](https://github.com/github/gh-aw)** (if not already done):

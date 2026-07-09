@@ -19,6 +19,16 @@ Source: [`github/gh-aw/.github/workflows/daily-testify-uber-super-expert.md`](ht
 - Creates issues for specific, actionable improvements — not vague suggestions
 - Uses `create-issue` only (no PRs) — keeps the signal clean and human-reviewed before action
 
+> [!IMPORTANT]
+> **Bring your own repo (do this first)**
+>
+> This challenge is most valuable when Testify studies a real test suite and files issues your team might actually act on. Pick a repository in an org you control where test quality, missing edge cases, or brittle tests matter.
+>
+> - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and customise the expert persona around that repo's real language, framework, test layout, and quality bar.
+> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+>
+> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+
 ## What You'll Do
 
 1. **Install [`gh aw`](https://github.com/github/gh-aw)** (if not already done):

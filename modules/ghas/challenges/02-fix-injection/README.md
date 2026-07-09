@@ -16,6 +16,17 @@ You're working as a developer fixing real application code. Not configuring tool
 - Open a pull request to `main` for each fix with a description of: what was wrong, what an attacker could have done, and how the fix addresses it
 - Review the PR CodeQL/code scanning check and annotations to confirm the fixed pattern is no longer flagged on your branch
 
+> [!IMPORTANT]
+> **Bring your own application (do this first)**
+>
+> This challenge is most valuable when the injection fixes *outlive the delivery session*. Use the real application repository you want to secure so the CodeQL findings, pull requests, and safer query patterns land in code your team keeps.
+>
+> - **Have a candidate?** If you have an application repo in an organization you control with GHAS enabled, use it everywhere this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice-Shop-specific setup and pick real SQL, NoSQL, command, or template-injection alerts from your own repo instead of the Juice Shop examples.
+> - **No suitable one?** Use the fallback from S00: OWASP Juice Shop as a safe practice target for fixing known injection flaws.
+>
+> Tell your coach which path you took — bringing your own is the goal; Juice Shop is the fallback.
+>
+
 ## Success Criteria
 
 - [ ] At least 2 injection vulnerabilities fixed in the code

@@ -29,12 +29,14 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer has 80 repositories and a compliance team that needs "all production repos must require PRs, signed commits, and a passing check — automatically, forever, even on repos created next week." Naming conventions won't scale and people forget them. You'll attach a **`compliance` custom property** to repos, then write an **org ruleset targeted by that property** so governance follows the *metadata*, not the repo name. New repos that get tagged `compliance = high` inherit the rules with zero extra work. That's policy that scales.
 
-## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the delivery session*. Pick a real production or compliance-sensitive repository set that needs rulesets and properties and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
-
-- **Have a candidate?** Use your real repos wherever this guide names `ghec-ch08-prod-payments` or the sibling `ghec-ch08-*` repos. Skip the Setup step below entirely.
-- **No suitable one?** Use the fallback below: seeded prod/internal/sandbox repos for property-targeted guardrails.
-
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+>
+> This challenge is most valuable when the result *outlives the delivery session*. Pick a real production or compliance-sensitive repository set that needs rulesets and properties and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+>
+> - **Have a candidate?** Use your real repos wherever this guide names `ghec-ch08-prod-payments` or the sibling `ghec-ch08-*` repos. Skip the Setup step below entirely.
+> - **No suitable one?** Use the fallback below: seeded prod/internal/sandbox repos for property-targeted guardrails.
+>
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
 
 ## Setup (fallback sample)

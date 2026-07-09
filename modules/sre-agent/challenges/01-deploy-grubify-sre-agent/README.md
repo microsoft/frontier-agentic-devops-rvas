@@ -18,6 +18,16 @@ This challenge is Azure-first. GitHub is optional at this stage; the primary out
 
 75 minutes.
 
+> [!IMPORTANT]
+> **Bring your own service (do this first)**
+>
+> This challenge is most valuable when the Azure SRE Agent is connected to an Azure service or application your team will keep operating after the session. If you have a candidate workload in a subscription you control, point the SRE Agent at **that** service everywhere this guide references Grubify so the setup, telemetry, incidents, and context live in your tenant.
+>
+> - **Have a candidate?** Use an existing Azure service that is already deployed, observable, and approved for the agent to access. Confirm the agent has permission to read the resource group, logs, metrics, traces, alerts, and any knowledge sources you want it to use; skip deploying Grubify unless your coach asks for a parallel practice target.
+> - **No suitable Azure service yet?** Deploy Grubify below as the safe fallback target for learning the workflow.
+>
+> Tell your coach which path you took — bringing your own is the goal; Grubify is the fallback.
+
 ## Deploy
 
 From the official lab:

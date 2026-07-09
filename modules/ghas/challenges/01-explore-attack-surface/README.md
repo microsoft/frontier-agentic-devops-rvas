@@ -18,6 +18,17 @@ This is your reconnaissance phase. Build a mental model of the vulnerability sur
 - Group your alerts by vulnerability class (injection, XSS, access control, secrets, etc.) to plan your fix order
 - Check **Security → Dependabot alerts** and note any critical or high-severity dependency vulnerabilities
 
+> [!IMPORTANT]
+> **Bring your own application (do this first)**
+>
+> This challenge is most valuable when the attack-surface picture *outlives the delivery session*. Use a real application repository you want to secure so the CodeQL, Dependabot, and secret scanning results you review become evidence your team can keep acting on after today.
+>
+> - **Have a candidate?** If you have an application repo in an organization you control with GHAS enabled, use it everywhere this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice-Shop-specific setup from S00 and review the Security tab for your own repo instead.
+> - **No suitable one?** Use the fallback from S00: OWASP Juice Shop as a safe practice target for learning how to inspect alerts.
+>
+> Tell your coach which path you took — bringing your own is the goal; Juice Shop is the fallback.
+>
+
 ## Success Criteria
 
 - [ ] At least 5 code scanning alerts reviewed with alert detail read

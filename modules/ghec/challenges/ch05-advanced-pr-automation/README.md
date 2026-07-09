@@ -29,12 +29,14 @@ By completing this challenge you will:
 ## Scenario
 A GHEC platform team is drowning in manual merge babysitting: pinging reviewers, re-checking CI, merging PRs by hand at odd hours, and chasing stale branches. You'll replace all of that with policy and automation: rulesets that enforce quality at the org and repo level, auto-merge that ships the moment gates pass, and workflows that label, route, and tidy PRs without a human. The result is a merge pipeline that runs itself — safely.
 
-## Bring your own outcome (do this first)
-This challenge is most valuable when the result *outlives the delivery session*. Pick a real repository where PR automation would remove review toil and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
-
-- **Have a candidate?** Use it everywhere this guide says `ghec-ch05-advanced-pr-automation`. Skip the Setup step below entirely.
-- **No suitable one?** Use the fallback below: a seeded sample repo with PR automation hooks to build on.
-
+> [!IMPORTANT]
+> **Bring your own outcome (do this first)**
+>
+> This challenge is most valuable when the result *outlives the delivery session*. Pick a real repository where PR automation would remove review toil and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+>
+> - **Have a candidate?** Use it everywhere this guide says `ghec-ch05-advanced-pr-automation`. Skip the Setup step below entirely.
+> - **No suitable one?** Use the fallback below: a seeded sample repo with PR automation hooks to build on.
+>
 > Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
 
 ## Setup (fallback sample)
