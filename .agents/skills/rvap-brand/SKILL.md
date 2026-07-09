@@ -163,18 +163,19 @@ theme:
 Copy the appropriate logo file from the skill's `assets/logos/` directory into the site's
 own assets folder (e.g., `docs/assets/` for MkDocs, `assets/img/` for custom HTML).
 
-| Context                              | Logo file               |
-|--------------------------------------|-------------------------|
-| Navigation bar / site header         | `logo-abbreviated.png`  |
-| Hero section / landing page feature  | `logo-full.png`         |
-| Favicon / social preview image       | `logo-mark-square.png`  |
-| Watermark / background mark          | `logo-chevron-mark.png` |
+| Context                              | Logo file              | Background |
+|--------------------------------------|------------------------|------------|
+| Navigation bar / site header         | `logo-full.png`        | transparent — works on white/light nav |
+| Hero section / landing page feature  | `logo-full.png`        | transparent — works on dark gradient hero |
+| On white backgrounds (print, slides) | `logo-full-white.png`  | white bg baked in |
+| Favicon / social preview image       | `logo-mark-white.png`  | white bg baked in |
+| Watermark / transparent mark         | `logo-mark.png`        | transparent |
 
 ### In custom HTML — replace nav brand:
 ```html
 <!-- Replace existing brand/logo element with: -->
 <a class="brand" href="index.html" aria-label="Real Value Acceleration Program — Home">
-  <img src="assets/img/logo-abbreviated.png" alt="RVAP" class="rvap-nav-logo" height="32">
+  <img src="assets/img/logo-full.png" alt="RVAP" class="rvap-nav-logo" height="32">
 </a>
 ```
 
@@ -182,8 +183,8 @@ own assets folder (e.g., `docs/assets/` for MkDocs, `assets/img/` for custom HTM
 ```yaml
 theme:
   name: material
-  logo: assets/logos/logo-abbreviated.png
-  favicon: assets/logos/logo-mark-square.png
+  logo: assets/logos/logo-full.png
+  favicon: assets/logos/logo-mark-white.png
 ```
 
 ---
@@ -268,7 +269,7 @@ Before calling the transformation done, verify:
 
 - `references/brand-tokens.md` — full color table, font stacks, logo specs, component recipes
 - `assets/brand.css` — ready-to-inject CSS with all tokens + utility classes + components
-- `assets/logos/logo-full.png` — full horizontal logo (1058 × 376, RGBA)
-- `assets/logos/logo-abbreviated.png` — abbreviated horizontal logo (1254 × 406, RGBA)
-- `assets/logos/logo-mark-square.png` — square mark (1254 × 1254, RGBA)
-- `assets/logos/logo-chevron-mark.png` — standalone chevron mark (1047 × 1015, RGBA)
+- `assets/logos/logo-full.png` — full horizontal logo, transparent background (1058 × 376, RGBA)
+- `assets/logos/logo-full-white.png` — full horizontal logo, white background (1254 × 406)
+- `assets/logos/logo-mark-white.png` — square chevron mark, white background (1254 × 1254)
+- `assets/logos/logo-mark.png` — standalone chevron mark, transparent background (1047 × 1015, RGBA)

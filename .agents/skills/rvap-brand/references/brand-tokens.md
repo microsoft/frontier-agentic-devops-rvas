@@ -58,12 +58,12 @@ Build → Innovate → Scale                   ← Aptos, small label, muted
 
 ## Logo Assets (assets/logos/)
 
-| File                   | Dimensions  | Use case                                                          |
-|------------------------|-------------|-------------------------------------------------------------------|
-| `logo-full.png`        | 1058 × 376  | Hero slides, program intros, one-pagers, anywhere story matters   |
-| `logo-abbreviated.png` | 1254 × 406  | Slide headers, nav bars, email banners, compact placements        |
-| `logo-mark-square.png` | 1254 × 1254 | Favicons, social cards, square avatar contexts                    |
-| `logo-chevron-mark.png`| 1047 × 1015 | Standalone acceleration mark, watermarks, small square containers |
+| File                    | Dimensions  | Background  | Use case                                                          |
+|-------------------------|-------------|-------------|-------------------------------------------------------------------|
+| `logo-full.png`         | 1058 × 376  | Transparent | Nav bars, hero banners, any colored/gradient background           |
+| `logo-full-white.png`   | 1254 × 406  | White       | Print, slides, email — when transparent PNG isn't supported       |
+| `logo-mark-white.png`   | 1254 × 1254 | White       | Favicons, social cards, square avatar contexts                    |
+| `logo-mark.png`         | 1047 × 1015 | Transparent | Watermarks, overlays, small square containers on light backgrounds|
 
 All logos are RGBA PNGs (transparent background).
 
@@ -107,7 +107,7 @@ Top border color signals which pillar the content belongs to:
 
 ### Navigation / header
 - Background: white, 1px `#E3E6ED` bottom border
-- Logo: abbreviated (`logo-abbreviated.png`), 32px height
+- Logo: `logo-full.png` (transparent), 32px height
 - Links: Aptos, 14px, Charcoal; hover RVAP Blue
 
 ### Hero / banner
