@@ -11,7 +11,7 @@
 
 A scheduled workflow that runs every weekday morning at 9 AM and creates a GitHub issue summarizing your repo's activity from the past 24 hours. The agent will read recent issues and PRs, generate a natural-language digest, and post it to your repo as an issue titled "📋 Morning Briefing".
 
-**Why this matters:** This is the first step toward real DevOps automation — scheduled reports that keep teams aligned without requiring manual check-ins. In production, morning briefings can surface blockers before standups, making async communication faster and more effective.
+**Why this matters:** A scheduled workflow that queries your repo on a cron can replace a manual status-check ritual — no one needs to pull up the issues list before standup. The value depends entirely on whether you trust the summary enough to act on it; this challenge is where you calibrate that trust by reading what the agent actually produces before relying on it.
 
 ---
 

@@ -9,13 +9,9 @@
 
 ## Background
 
-Imagine an AI agent that doesn't just run in isolation—it has **context**. External data sources feed it real-time information: GitHub labels, repository metrics, upstream service status, even data from outside GitHub.
+Without external data, an agent can only reason about what's already in the prompt. **Context Engine** is about closing that gap with **MCP tools** (Model Context Protocol). You'll connect the agent to external data sources — GitHub labels, repository metrics, upstream service status — using gh-aw's `tools:` configuration, so its decisions are grounded in real state rather than inferred from incomplete context.
 
-**Context Engine** is about **MCP tools** (Model Context Protocol). Instead of your agent working with only what's in the repo, you'll connect it to external data sources using gh-aw's `tools:` configuration. The agent reads enriched context and makes better decisions.
-
-This is where agentic workflows become truly powerful. An agent that understands your repo's recent trends, architectural constraints, or external system status makes decisions 10× better than one flying blind.
-
-**Why this matters:** Most production automation fails because it lacks context. This challenge teaches you to think about *what information your agent needs to make good decisions*, and how to supply it cleanly.
+**Why this matters:** Ask an agent to review a PR without giving it your repo's coding standards and it will apply generic heuristics. Give it a `repo-memory` file with your actual conventions and it applies those instead. This challenge teaches you to identify what information an agent needs before it can make a useful decision, and how to supply that information through `tools:` configuration.
 
 ---
 

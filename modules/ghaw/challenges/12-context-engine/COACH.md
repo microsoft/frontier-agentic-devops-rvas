@@ -277,7 +277,7 @@ Example output:
 
 ## Key Takeaways
 
-- **Context transforms agents:** A context-aware agent is 10× better than one flying blind.
+- **Context transforms agents:** An agent with real repo state (labels, metrics, standards) produces specific, applicable output. One without it falls back to generic output that needs manual correction.
 - **MCP toolsets are about scoping:** Don't grant every tool; grant what the agent needs.
 - **Repository conventions matter:** The agent should read your repo's standards, not invent its own.
 - **Specific feedback > generic advice:** Your comment should reference *your* repo, not any repo.

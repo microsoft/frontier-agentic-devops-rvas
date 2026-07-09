@@ -11,7 +11,7 @@
 
 A workflow triggered by `on: issues: types: [opened]` that automatically categorizes newly opened issues and applies labels based on the issue content. Your agent reads the issue title and body, classifies it (e.g., bug, feature, documentation, question), and applies the appropriate label using `safe-outputs: add-labels:`.
 
-**Why this matters:** Automatic issue classification is foundational for triaging and routing work. In large repositories, an AI triage agent can categorize hundreds of issues, keeping your backlog organized and helping teams find relevant issues faster. This is a real workflow deployed in production repositories.
+**Why this matters:** Without a triage step, every new issue lands in the backlog with the same weight regardless of type or urgency. An automated first pass that reads the issue body and applies a label forces a consistent taxonomy before a human ever looks at it — which means filters, saved views, and routing rules actually work reliably.
 
 ---
 

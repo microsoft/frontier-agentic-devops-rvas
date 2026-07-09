@@ -11,7 +11,7 @@
 
 A workflow triggered by `on: push` that detects when files in a specific directory (e.g., `docs/` or `src/config/`) are modified and creates a comment on the commit summarizing what changed. This teaches you how to react to repository events in real-time.
 
-**Why this matters:** Event-driven automation is the backbone of DevOps. When code changes, you might want to run tests, validate schemas, or notify teams. Learning `on: push` and working with commit data unlocks a whole category of reactive workflows.
+**Why this matters:** `on: push` fires inside the commit context — the agent can read the diff, the changed files, and the triggering commit. That makes it the right trigger for anything that needs to react to code: validating a config file format, checking for a required changelog entry, or annotating a PR with findings scoped to what actually changed.
 
 ---
 

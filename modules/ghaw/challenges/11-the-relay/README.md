@@ -9,13 +9,11 @@
 
 ## Background
 
-Most workflows live in isolation—they trigger, they run, they're done. But what if your workflows could pass data to each other? What if one workflow's output became another's input?
+By default, each workflow runs independently — it triggers, does its work, and exits. If you need two workflows to coordinate, one has to leave something behind for the other to pick up.
 
-**The Relay** is about **workflow chaining**. You'll build two workflows that work together: a **producer** (collects data, writes to `repo-memory`) and a **consumer** (reads that data, takes action). Think of it like a relay race where one agent hands off a baton to the next.
+**The Relay** is about **workflow chaining**. You'll build two workflows: a **producer** (collects data, writes to `repo-memory`) and a **consumer** (reads that data, takes action). The producer runs first and writes a structured file; the consumer reads it on its next trigger.
 
-This pattern is the foundation for coordinated multi-workflow systems. When you build big automation, you're not writing one massive agent—you're orchestrating a team of specialists, each doing one thing well.
-
-**Why this matters:** Workflow chaining unlocks producer-consumer patterns, state persistence across runs, and the ability to decompose complex logic into reusable pieces. You'll see this everywhere in advanced automation.
+**Why this matters:** Workflow chaining lets you break complex automation into stages with clear hand-off points — each stage reads what the previous one wrote, validates it, and adds its own output. Debugging is easier (one stage at a time), reuse is cleaner (a producer used by two consumers), and failures are isolated to the stage that actually broke.
 
 ---
 

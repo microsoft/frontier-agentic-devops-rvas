@@ -9,7 +9,7 @@
 
 ## Background
 
-Here's a dirty secret: **different AI engines produce wildly different results**. 
+**Different AI engines produce different results** on the same workflow — different reasoning quality, speed, cost, and failure modes.
 
 Take the same workflow, run it with Copilot vs Claude vs Codex. You'll get:
 - Different quality of reasoning
@@ -19,9 +19,9 @@ Take the same workflow, run it with Copilot vs Claude vs Codex. You'll get:
 
 **Engine Swap** is about **prompt portability**. You'll take ONE workflow design and rewrite it for three different engines, then compare results side-by-side.
 
-This teaches you the most valuable lesson: shipping an agentic workflow is not about finding the perfect prompt. It's about understanding the tradeoffs between engines and making intentional choices for *your* use case.
+The takeaway is not a fixed ranking. It's the habit: test your specific prompt against the engines available to your team, measure on the task you actually need, and make the choice deliberately.
 
-**Why this matters:** Teams that ship production automation test their prompts across engines. You'll learn to think like them: Claude for reasoning-heavy tasks, Copilot for fast + good, Codex for code-gen. Each has a role.
+**Why this matters:** Teams that ship production automation test their prompts across engines before committing to one. This challenge builds that testing habit — run the same task on multiple engines, observe the actual output differences, and make a documented choice based on evidence from your own workflow.
 
 ---
 
