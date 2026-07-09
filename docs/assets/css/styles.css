@@ -1,81 +1,30 @@
 /* =====================================================================
-   Frontier GitHub Platform Delivery session
-   Visual system: star-chart navigation meets developer terminal.
-   Deep-space canvas, Chakra Petch display + DM Sans body, frontier-gold accent,
-   four module spectral colors, light/dark theme.
-   Signature: navigation-compass hero backdrop — four radial arcs,
-   one per module, suggesting "four directions to explore."
+   RVAS — Agentic DevOps
+   Visual system: RVAP brand — clean light canvas, Deep Navy + RVAP Blue.
    ===================================================================== */
 
 /* ═══════════════════════════ TOKENS ════════════════════════════════ */
 :root {
-  /* Canvas — deeper than GHEC, more cosmic */
-  --c-900: #03050d;
-  --c-850: #06090f;
-  --c-800: #080c18;
-  --c-700: #0d1222;
-  --c-600: #131829;
-  --c-line: #1e2742;
-  --c-line-soft: #141b2e;
+  /* Surfaces — RVAP white / blue-white */
+  --c-900: #F5F8FE;
+  --c-850: #FAFBFD;
+  --c-800: #FFFFFF;
+  --c-700: #F5F8FE;
+  --c-600: #EEF1FA;
+  --c-line: #E3E6ED;
+  --c-line-soft: #DDE6F7;
 
-  /* Foreground */
-  --c-fg: #cdd6ea;
-  --c-dim: #7a8aaa;
-  --c-faint: #3f4e68;
+  /* Text */
+  --c-fg: #111827;
+  --c-dim: #47494E;
+  --c-faint: #6B7280;
 
-  /* Brand — frontier gold (star / compass needle) */
-  --c-gold: #e8c84a;
-  --c-gold-dim: #b89e3b;
-  --c-gold-glow: rgba(232, 200, 74, 0.14);
+  /* Primary — RVAP Blue */
+  --c-gold: #1A77E3;
+  --c-gold-dim: #0078D4;
+  --c-gold-glow: rgba(26, 119, 227, 0.10);
 
-  /* Module accents */
-  --c-ghec: #38bdf8;
-  --c-ghec-glow: rgba(56, 189, 248, 0.18);
-  --c-ghas: #f87171;
-  --c-ghas-glow: rgba(248, 113, 113, 0.18);
-  --c-ghaw: #a78bfa;
-  --c-ghaw-glow: rgba(167, 139, 250, 0.18);
-  --c-agentic: #fb923c;
-  --c-agentic-glow: rgba(251, 146, 60, 0.18);
-
-  /* Difficulty */
-  --c-beginner: #4ade80;
-  --c-intermediate: #facc15;
-  --c-advanced: #f87171;
-
-  /* Typography */
-  --font-display: 'Chakra Petch', 'Space Grotesk', system-ui, sans-serif;
-  --font-body: 'DM Sans', 'Inter', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', monospace;
-
-  /* Layout */
-  --maxw: 1200px;
-  --r: 12px;
-  --r-sm: 7px;
-  --r-lg: 18px;
-  --shadow: 0 28px 70px -32px rgba(0, 0, 0, 0.9);
-  --shadow-card: 0 12px 32px -18px rgba(0, 0, 0, 0.75);
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* Light theme */
-[data-theme="light"] {
-  --c-900: #f2f5fd;
-  --c-850: #f8faff;
-  --c-800: #ffffff;
-  --c-700: #eef1fa;
-  --c-600: #e5e9f5;
-  --c-line: #d0d8ee;
-  --c-line-soft: #dce4f6;
-
-  --c-fg: #131828;
-  --c-dim: #4a5578;
-  --c-faint: #8090b2;
-
-  --c-gold: #8a6800;
-  --c-gold-dim: #a07a00;
-  --c-gold-glow: rgba(138, 104, 0, 0.10);
-
+  /* Module accent colors */
   --c-ghec: #0284c7;
   --c-ghec-glow: rgba(2, 132, 199, 0.10);
   --c-ghas: #dc2626;
@@ -85,13 +34,65 @@
   --c-agentic: #ea580c;
   --c-agentic-glow: rgba(234, 88, 12, 0.10);
 
+  /* Difficulty */
   --c-beginner: #16a34a;
   --c-intermediate: #ca8a04;
   --c-advanced: #dc2626;
 
-  --shadow: 0 24px 60px -36px rgba(20, 24, 40, 0.30);
-  --shadow-card: 0 10px 28px -20px rgba(20, 24, 40, 0.22);
+  /* Typography — RVAP brand: Aptos preferred, Outfit/Inter as web fallback */
+  --font-display: "Aptos Display", "Outfit", "Segoe UI", system-ui, sans-serif;
+  --font-body:    "Aptos", "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', monospace;
+
+  /* Layout */
+  --maxw: 1200px;
+  --r: 12px;
+  --r-sm: 7px;
+  --r-lg: 18px;
+  --shadow: 0 4px 20px -8px rgba(3, 34, 84, 0.12), 0 1px 3px rgba(3, 34, 84, 0.06);
+  --shadow-card: 0 1px 3px rgba(3, 34, 84, 0.08), 0 4px 12px rgba(3, 34, 84, 0.06);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+/* ── Heading color — RVAP Deep Navy ─────────────────────────────── */
+h1, h2, h3, h4 { color: #032254; }
+
+/* ── Nav — clean white ───────────────────────────────────────────── */
+
+/* ── Hero — RVAP gradient with white text ───────────────────────── */
+.hero {
+  background: linear-gradient(135deg, #032254 0%, #0F3A7A 60%, #1A77E3 100%);
+  color: #fff;
+}
+.hero h1, .hero h2 { color: #fff; }
+.hero .accent { color: #93c5fd; }
+.hero .lede,
+.hero .byo-lede { color: rgba(255, 255, 255, 0.82); }
+.hero .byo-lede {
+  border-left-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+}
+.hero .byo-lede strong { color: #fff; }
+.hero .eyebrow { color: rgba(255, 255, 255, 0.65); }
+.hero .eyebrow::before { background: rgba(255, 255, 255, 0.5); }
+.hero .stat-row {
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+.hero .stat { border-right-color: rgba(255, 255, 255, 0.18); }
+.hero .stat-l { color: rgba(255, 255, 255, 0.55); }
+.hero .hero-mod-card {
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.20);
+  color: #fff;
+}
+.hero .hero-mod-card:hover { background: rgba(255, 255, 255, 0.18); }
+.hero .mod-count { color: rgba(255, 255, 255, 0.55); }
+.hero .btn-ghost { color: #fff; border-color: rgba(255, 255, 255, 0.45); }
+.hero .btn-ghost:hover { background: rgba(255, 255, 255, 0.12); }
+.hero .btn-primary { background: #fff; color: #032254; }
+.hero .hero-compass { color: #fff; }
+
 
 /* ═══════════════════════════ RESET ════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; }
@@ -108,31 +109,14 @@ body {
   transition: background 0.35s var(--ease), color 0.35s var(--ease);
 }
 
-/* Atmospheric backdrop: faint dot-grid + radial glows */
+/* Subtle surface gradient */
 body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  pointer-events: none;
-  background:
-    radial-gradient(800px 600px at 75% -5%, var(--c-gold-glow), transparent 65%),
-    radial-gradient(600px 500px at 5% 50%, var(--c-ghaw-glow), transparent 70%),
-    radial-gradient(500px 400px at 90% 90%, var(--c-ghec-glow), transparent 70%),
-    radial-gradient(40px 40px at center, transparent 39px, var(--c-line-soft) 39px, var(--c-line-soft) 40px, transparent 40px) 0 0 / 44px 44px;
-  opacity: 0.6;
-  mask-image: linear-gradient(180deg, #000 0%, transparent 80%);
-}
-
-/* Subtle grain texture */
-body::after {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background: radial-gradient(900px 600px at 80% -10%, rgba(26, 119, 227, 0.05), transparent 65%);
 }
 
 img { max-width: 100%; display: block; }
@@ -190,12 +174,9 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
   z-index: 100;
   backdrop-filter: blur(16px) saturate(160%);
   -webkit-backdrop-filter: blur(16px) saturate(160%);
-  background: rgba(3, 5, 13, 0.75);
+  background: rgba(255, 255, 255, 0.92);
   border-bottom: 1px solid var(--c-line);
   transition: background 0.3s, border-color 0.3s;
-}
-[data-theme="light"] .nav {
-  background: rgba(248, 250, 255, 0.82);
 }
 .nav-inner {
   display: flex;
@@ -223,16 +204,12 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
   color: var(--c-fg);
   flex-shrink: 0;
 }
-.brand-glyph {
-  width: 30px;
-  height: 30px;
-  border-radius: 7px;
-  background: var(--c-gold);
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
+/* RVAP logo in nav */
+.rvap-nav-logo {
+  height: 32px;
+  width: auto;
+  display: block;
 }
-.brand-glyph svg { display: block; }
 .brand-tag {
   font-family: var(--font-mono);
   font-size: 0.65rem;
@@ -266,12 +243,12 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
 .nav-links a.cta {
   margin-left: 8px;
   background: var(--c-gold);
-  color: var(--c-900);
+  color: #fff;
   font-weight: 700;
   padding: 7px 15px;
   border-radius: var(--r-sm);
 }
-.nav-links a.cta:hover { opacity: 0.88; background: var(--c-gold); color: var(--c-900); }
+.nav-links a.cta:hover { opacity: 0.88; background: var(--c-gold); color: #fff; }
 
 .nav-actions { margin-left: auto; display: flex; align-items: center; gap: 6px; }
 @media (min-width: 768px) { .nav-actions { margin-left: 0; } }
@@ -467,7 +444,7 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
 .btn:active { transform: scale(0.97); }
 .btn-primary {
   background: var(--c-gold);
-  color: var(--c-900);
+  color: #fff;
   box-shadow: 0 4px 20px -6px var(--c-gold-glow);
 }
 .btn-primary:hover { opacity: 0.88; }
@@ -803,7 +780,7 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
   white-space: nowrap;
 }
 .chip:hover { background: var(--c-600); color: var(--c-fg); }
-.chip.active { color: var(--c-900); border-color: transparent; background: var(--c-gold); font-weight: 700; }
+.chip.active { color: #fff; border-color: transparent; background: var(--c-gold); font-weight: 700; }
 .chip.active[data-module="ghec"]        { background: var(--c-ghec); }
 .chip.active[data-module="ghas"]        { background: var(--c-ghas); }
 .chip.active[data-module="ghaw"]        { background: var(--c-ghaw); }
@@ -1518,7 +1495,7 @@ html[data-kiosk] .brand { pointer-events: none; cursor: default; }
   margin-bottom: 6px;
 }
 .take-home-kicker {
-  font-family: 'Chakra Petch', sans-serif;
+  font-family: var(--font-display);
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -1610,14 +1587,7 @@ html[data-kiosk] .brand { pointer-events: none; cursor: default; }
   height: 22px;
   border-radius: 6px;
   background: var(--c-gold);
-  color: var(--c-900);
-  font-family: 'Chakra Petch', sans-serif;
-  font-weight: 700;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  color: #fff;
 .adoption-item-action { color: var(--c-fg); line-height: 1.5; margin: 0 0 6px; }
 .adoption-item-meta {
   display: flex;

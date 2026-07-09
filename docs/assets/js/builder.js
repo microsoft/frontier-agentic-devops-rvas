@@ -12,7 +12,7 @@
   const _selected = new Set();
 
   const CHECK_SVG =
-    '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#03050d" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>';
+    '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#032254" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>';
 
   async function init() {
     let data;

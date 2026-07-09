@@ -1,37 +1,23 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script>
-    (function () {
-      try {
-        var k = 'fp-theme';
-        var saved = localStorage.getItem(k);
-        var pref = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', saved || pref);
-      } catch (e) {}
-    })();
-  </script>
+
   <title>Agentic DevOps — Outcome Journeys</title>
   <meta name="description" content="Production adoption paths for GitHub — Enterprise Cloud, migrations, Advanced Security, agentic workflows, and cloud DevOps. Hands-on challenges your teams take home and run in their own org." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23e8c84a'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='14' font-weight='800' text-anchor='middle' fill='%2303050d'%3EA%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="assets/img/logo-mark-square.png" />
 </head>
 <body>
 
   <header class="nav" role="banner">
     <div class="nav-inner">
-      <a class="brand" href="index.html" aria-label="Agentic DevOps — Home">
-        <span class="brand-glyph" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M8 1L10 6h5L11 9.5l1.5 5L8 12l-4.5 2.5L5 9.5 1 6h5z" fill="#03050d" stroke="#03050d" stroke-width="0.5" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <span>Agentic DevOps</span>
+      <a class="brand" href="index.html" aria-label="RVAS — Agentic DevOps">
+        <img src="assets/img/logo-abbreviated.png" alt="RVAP" class="rvap-nav-logo" height="32">
       </a>
       <nav class="nav-links" aria-label="Primary">
         <a href="index.html" aria-current="page">Home</a>
@@ -43,7 +29,6 @@
         <a class="cta" href="catalog.html">Browse all challenges →</a>
       </nav>
       <div class="nav-actions">
-        <button class="icon-btn" id="themeBtn" type="button" aria-label="Toggle theme"></button>
         <button class="icon-btn nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
         </button>
@@ -71,8 +56,8 @@
         <line x1="200" y1="20"  x2="200" y2="380" stroke="currentColor" stroke-width="0.5" stroke-opacity="0.10"/>
         <line x1="20"  y1="200" x2="380" y2="200" stroke="currentColor" stroke-width="0.5" stroke-opacity="0.10"/>
         <!-- Center star -->
-        <circle cx="200" cy="200" r="5" fill="#e8c84a" fill-opacity="0.8"/>
-        <circle cx="200" cy="200" r="12" stroke="#e8c84a" stroke-width="1" stroke-opacity="0.3"/>
+        <circle cx="200" cy="200" r="5" fill="#1A77E3" fill-opacity="0.8"/>
+        <circle cx="200" cy="200" r="12" stroke="#1A77E3" stroke-width="1" stroke-opacity="0.3"/>
         <!-- Module dots -->
         <circle cx="200" cy="60"  r="5" fill="#38bdf8" fill-opacity="0.7"/>
         <circle cx="340" cy="200" r="5" fill="#f87171" fill-opacity="0.7"/>
@@ -306,13 +291,8 @@
 
   <footer class="footer" role="contentinfo">
     <div class="wrap footer-inner">
-      <a class="brand" href="index.html" aria-label="Agentic DevOps — Home">
-        <span class="brand-glyph" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M8 1L10 6h5L11 9.5l1.5 5L8 12l-4.5 2.5L5 9.5 1 6h5z" fill="#03050d" stroke="#03050d" stroke-width="0.5" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <span>Agentic DevOps</span>
+      <a class="brand" href="index.html" aria-label="RVAS — Agentic DevOps">
+        <img src="assets/img/logo-abbreviated.png" alt="RVAP" class="rvap-nav-logo" height="32">
       </a>
       <p>Content sourced from four Microsoft delivery session repositories under MIT license.<br>
          Built with a static <span class="mono">build.js → docs/</span> engine. No server required.</p>
