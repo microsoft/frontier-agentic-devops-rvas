@@ -24,8 +24,6 @@ safe-outputs:
 imports:
   - shared/github-guard-policy.md
   - shared/reporting.md
-
-  - shared/otlp.md
 ---
 
 # Issue Triage Agent
