@@ -60,7 +60,6 @@
 
   FP.emuBadge = function (compat) {
     if (compat === false) return '<span class="badge badge-emu-no">⚠ EMU N/A</span>';
-    if (compat === true)  return '<span class="badge badge-emu">✓ EMU</span>';
     return '';
   };
 

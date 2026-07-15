@@ -186,8 +186,8 @@
         ['Track', FP.esc(c.track || '—')],
         ['Tier', FP.esc(c.tier || 'core')],
         ['App', c.app_dependency && c.app_dependency !== 'none' ? FP.esc(c.app_dependency) : 'none'],
-        ['EMU', FP.emuBadge(c.emu_compatible) || '—'],
       ];
+      if (c.emu_compatible === false) rows.push(['EMU', FP.emuBadge(false)]);
       factRows.innerHTML = rows.map(([k, v]) =>
         `<div class="fact-row"><span class="fact-key">${k}</span><span class="fact-val">${v}</span></div>`
       ).join('');
