@@ -25,6 +25,8 @@ safe-outputs:
     title-prefix: "[ci-doctor] "
     labels: [automation, ci]
   add-comment:
+  noop:
+    report-as-issue: false
 
 tools:
   cache-memory: true
@@ -195,4 +197,3 @@ When creating an investigation issue, use this structure:
 - Persist findings across workflow runs using GitHub Actions cache
 - Build cumulative knowledge about failure patterns and solutions using structured JSON files
 - Use file-based indexing for fast pattern matching and similarity detection
-
