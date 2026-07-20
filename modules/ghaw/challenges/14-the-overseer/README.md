@@ -86,7 +86,7 @@ Use a concrete **`max-effective-tokens`** value because analyzing workflow histo
 - [ ] Issue created with structured data (table + alerts)
 - [ ] Old issues auto-close (via `close-older-issues: true`)
 - [ ] At least one alert or recommendation is triggered
-- [ ] Coach conversation — who or what watches your automations today, and at what failure rate or cost would you want an overseer agent to alert you before things spiral? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] Discuss who or what watches your automations today, and at what failure rate or cost you would want an overseer agent to alert you before things spiral. Connect it to a project, task, or workflow you own.
 
 ---
 

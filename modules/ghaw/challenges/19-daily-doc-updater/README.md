@@ -71,7 +71,7 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
 - [ ] `.github/workflows/daily-doc-updater.lock.yml` compiles without errors
 - [ ] Dry-run produces at least one proposed doc change
 - [ ] A manually triggered run opens a real PR with a focused, accurate diff
-- [ ] Coach conversation — which docs in your projects silently rot as the code evolves, and what would it take for you to trust an agent's documentation PRs enough to review and merge them regularly? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] Discuss which docs in your projects silently rot as the code evolves, and what it would take for you to trust an agent's documentation PRs enough to review and merge them regularly. Connect it to a project, task, or workflow you own.
 
 ---
 

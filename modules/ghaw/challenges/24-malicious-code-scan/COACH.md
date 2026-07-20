@@ -1,10 +1,10 @@
 ---
 
-## Grounding conversation (you will be called)
+## Facilitated application
 
-**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+**Required facilitator check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Their question:** Coach conversation — what would it take for you to rely on a daily agent scanning your code changes for supply-chain red flags, and how would you handle false positives without tuning out the real threats? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+**Discuss:** What would it take for you to rely on a daily agent scanning your code changes for supply-chain red flags, and how would you handle false positives without tuning out the real threats? Connect it to a project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Ask which of their repos or dependencies carry real supply-chain exposure.
@@ -93,6 +93,6 @@ If nothing suspicious is found, do nothing.
 
 The most important framing: this is an additional detection signal, not a replacement for code review. Socratic prompt: _"A CodeQL rule can detect known patterns. What could this workflow be prompted to examine beyond those rules?"_ Answer: novel patterns, contextual intent, cross-file reasoning, and things that may look unusual in context even without a CVE. Findings still require human review.
 
-The "likely benign vs suspicious" classification step is critical for reducing alert fatigue. Without it, every eval in a test file generates noise. Ask participants: _"If this fires every day with 50 findings, what happens to the team's trust in the tool?"_ Then have them add the likelihood gate.
+The "likely benign vs suspicious" classification step prevents excessive findings. Without it, every eval in a test file generates noise. Ask participants: _"If this fires every day with 50 findings, what happens to the team's trust in the tool?"_ Then have them add the likelihood gate.
 
 Participants with security backgrounds often want to add more patterns. Encourage it — but cap at 5-7 patterns per run to keep the prompt focused and the output actionable.

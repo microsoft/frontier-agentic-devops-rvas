@@ -77,7 +77,7 @@ Create a gh-aw workflow named `slash-commands.md` in `.github/workflows/` that:
   - At least 2 key points from the discussion
   - Next steps or recommendation
 - [ ] Only authorized users (repo members) can trigger the command
-- [ ] Coach conversation — what context do you and your teammates rebuild by hand by scrolling long threads, and which on-demand slash command would you actually reach for in your daily work? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] Discuss what context you and your teammates rebuild by hand by scrolling long threads, and which on-demand slash command you would actually reach for in your daily work. Connect it to a project, task, or workflow you own.
 
 ---
 

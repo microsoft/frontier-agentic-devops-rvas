@@ -2,11 +2,11 @@
 
 ---
 
-## Grounding conversation (you will be called)
+## Facilitated application
 
-**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+**Required facilitator check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Their question:** Coach conversation — where would you draw the line between an agent warning about stale work and actually closing it on your behalf, and what grace period earns your trust? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+**Discuss:** Where would you draw the line between an agent warning about stale work and actually closing it on your behalf, and what grace period earns your trust? Connect it to a project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Ask them to describe how their team handles stale issues or PRs today.

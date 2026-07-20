@@ -2,11 +2,11 @@
 
 ---
 
-## Grounding conversation (you will be called)
+## Facilitated application
 
-**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+**Required facilitator check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Their question:** Coach conversation — what complex automation are you tempted to build as one giant agent that would be safer split into a producer and a consumer passing state, and where would you put the checkpoint between them? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+**Discuss:** What complex automation are you tempted to build as one giant agent that would be safer split into a producer and a consumer passing state, and where would you put the checkpoint between them? Connect it to a project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Ask them to describe a complex automation they're tempted to build as a single agent.

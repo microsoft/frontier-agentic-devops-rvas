@@ -2,11 +2,11 @@
 
 ---
 
-## Grounding conversation (you will be called)
+## Facilitated application
 
-**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+**Required facilitator check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Their question:** Coach conversation — which prompt guidance or context do you keep copy-pasting across your automations, and what would change if you maintained it as one shared, imported library? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+**Discuss:** Which prompt guidance or context do you keep copy-pasting across your automations, and what would change if you maintained it as one shared, imported library? Connect it to a project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Ask which prompt guidance, tone, or context they keep copy-pasting across automations.

@@ -2,11 +2,11 @@
 
 ---
 
-## Grounding conversation (you will be called)
+## Facilitated application
 
-**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+**Required facilitator check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Their question:** Coach conversation — who or what watches your automations today, and at what failure rate or cost would you want an overseer agent to alert you before things spiral? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+**Discuss:** Who or what watches your automations today, and at what failure rate or cost would you want an overseer agent to alert you before things spiral? Connect it to a project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Ask what watches their automations or pipelines today, and how failures surface.

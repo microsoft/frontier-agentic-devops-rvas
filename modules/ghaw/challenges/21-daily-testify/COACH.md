@@ -1,8 +1,8 @@
 ---
 
-## Grounding conversation
+## Facilitated application
 
-**Required coach check-in:** agree the production boundary before the workflows are enabled on a schedule.
+**Required facilitator check-in:** agree the production boundary before the workflows are enabled on a schedule.
 
 Ask the customer delivery team:
 

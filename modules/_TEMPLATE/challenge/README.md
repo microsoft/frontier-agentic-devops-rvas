@@ -35,7 +35,7 @@ REPLACE: Continue with numbered steps.
 
 REPLACE: Keep steps granular — one action per step where possible.
 
-## Delivery evidence and handover
+## Implementation record and handover
 
 - [ ] First observable implementation or governance outcome
 - [ ] Second observable evidence or operational artefact

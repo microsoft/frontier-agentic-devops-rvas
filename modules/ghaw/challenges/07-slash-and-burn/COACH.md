@@ -2,11 +2,11 @@
 
 ---
 
-## Grounding conversation (you will be called)
+## Facilitated application
 
-**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+**Required facilitator check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Their question:** Coach conversation — what context do you and your teammates rebuild by hand by scrolling long threads, and which on-demand slash command would you actually reach for in your daily work? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+**Discuss:** What context do you and your teammates rebuild by hand by scrolling long threads, and which on-demand slash command would you actually reach for in your daily work? Connect it to a project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Ask where they and teammates repeatedly rebuild context by scrolling long threads.

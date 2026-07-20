@@ -2,11 +2,11 @@
 
 ---
 
-## Grounding conversation (you will be called)
+## Facilitated application
 
-**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+**Required facilitator check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Their question:** Coach conversation — which parts of your code review are mechanical enough to delegate to a first-pass bot, and which judgment calls must always stay with a human reviewer? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+**Discuss:** Which parts of your code review are mechanical enough to delegate to a first-pass bot, and which judgment calls must always stay with a human reviewer? Connect it to a project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Ask them to name a repo where a first-pass review bot would reduce reviewer load.

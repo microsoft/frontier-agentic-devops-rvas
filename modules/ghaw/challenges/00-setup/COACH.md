@@ -11,7 +11,7 @@
 ## Facilitation Hints
 
 - **Push Codespaces first.** If local setup consumes more than 10 minutes, redirect to Codespaces.
-- Ask for a show-of-hands "green terminal" check after the first 10 minutes.
+- Ask for a show-of-hands working-terminal check after the first 10 minutes.
 - Pair any participant who is blocked with a working neighbor; don't let one blocker stall the group.
 - `gh aw` installs automatically via `postCreate.sh` in both Codespaces and local dev containers. If a participant sees "command not found", the postCreate script likely failed — have them rebuild the container.
 - If `gh aw trial ... --dry-run` fails with an API key error, GitHub Copilot is the default zero-config engine. Confirm the participant's account has an active Copilot subscription. For Claude/OpenAI/Gemini, point them to `github.com/settings/codespaces` to add secrets.

@@ -113,7 +113,7 @@ No errors? You're ready to test. Trigger manually with `workflow_dispatch` to ve
 - [ ] Compiled `.lock.yml` exists without errors
 - [ ] Running the workflow creates a Discussion post, not an issue
 - [ ] The Discussion content matches the format defined in your helper
-- [ ] Coach conversation — which prompt guidance or context do you keep copy-pasting across your automations, and what would change if you maintained it as one shared, imported library? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] Discuss which prompt guidance or context you keep copy-pasting across your automations, and what would change if you maintained it as one shared, imported library. Connect it to a project, task, or workflow you own.
 
 ---
 

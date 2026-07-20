@@ -2,11 +2,11 @@
 
 ---
 
-## Grounding conversation (you will be called)
+## Facilitated application
 
-**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+**Required facilitator check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Their question:** Coach conversation — what daily status update do you or your team assemble by hand today that this scheduled briefing pattern could replace, and what would you trust it to send unsupervised? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+**Discuss:** What daily status update do you or your team assemble by hand today that this scheduled briefing pattern could replace, and what would you trust it to send unsupervised? Connect it to a project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Ask them to name the exact repo, project, or team channel where a status update is assembled by hand today.

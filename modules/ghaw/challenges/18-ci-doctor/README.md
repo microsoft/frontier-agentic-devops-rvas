@@ -68,7 +68,7 @@ Source: [`githubnext/agentics/workflows/ci-doctor.md`](https://github.com/github
 - [ ] `.github/workflows/ci-doctor.lock.yml` compiles without errors
 - [ ] Intentional CI failure causes Doctor to open a diagnostic issue
 - [ ] Issue contains: failure summary, likely root cause, suggested fix
-- [ ] Coach conversation — how much time does your team lose investigating broken CI by hand, and how far would you trust an agent's root-cause diagnosis before a human confirms the fix? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] Discuss how much time your team loses investigating broken CI by hand, and how far you would trust an agent's root-cause diagnosis before a human confirms the fix. Connect it to a project, task, or workflow you own.
 
 ---
 

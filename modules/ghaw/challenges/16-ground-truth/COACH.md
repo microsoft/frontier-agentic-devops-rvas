@@ -2,11 +2,11 @@
 
 ---
 
-## Grounding conversation (you will be called)
+## Facilitated application
 
-**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+**Required facilitator check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Their question:** Coach conversation — where has an AI confidently produced numbers or facts it made up in your work, and how would feeding it deterministic data first change what you would trust it to output? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+**Discuss:** Where has an AI confidently produced numbers or facts it made up in your work, and how would feeding it deterministic data first change what you would trust it to output? Connect it to a project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Ask them to recall a time an AI gave them confident but fabricated numbers or facts.

@@ -71,7 +71,7 @@ Source: [`github/gh-aw/.github/workflows/security-compliance.md`](https://github
 - [ ] `.lock.yml` compiles without errors
 - [ ] Manually triggered run either: opens issues for real alerts, or reports "no violations found" clearly
 - [ ] Issues (if opened) include: CVE/advisory ID, severity, days remaining, package name
-- [ ] Coach conversation — how does your team track vulnerabilities and SLA deadlines today, and where would deadline-aware agent-filed issues close a real gap versus create alert fatigue you would regret? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] Discuss how your team tracks vulnerabilities and SLA deadlines today, and where deadline-aware agent-filed issues would close a real gap versus create excessive findings that would undermine the process. Connect it to a project, task, or workflow you own.
 
 ---
 

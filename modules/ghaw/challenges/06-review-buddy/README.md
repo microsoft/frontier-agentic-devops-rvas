@@ -73,7 +73,7 @@ Create a gh-aw workflow named `review-buddy.md` in `.github/workflows/` that:
   - 2+ observations
   - An encouraging sign-off
 - [ ] The comment feels useful (not spam)
-- [ ] Coach conversation — which parts of your code review are mechanical enough to delegate to a first-pass bot, and which judgment calls must always stay with a human reviewer? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] Discuss which parts of your code review are mechanical enough to delegate to a first-pass bot, and which judgment calls must always stay with a human reviewer. Connect it to a project, task, or workflow you own.
 
 ---
 

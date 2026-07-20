@@ -21,7 +21,7 @@ console.log(provisioning.content_path || '');
 fi
 
 if [[ -z "$SUBMODULE_PATH" || -z "$CONTENT_PATH" ]]; then
-  printf 'Could not read submodule/content path for %s from %s\n' "$APP_KEY" "$MANIFEST" >&2
+  printf 'Could not read the lab location and content path for %s from %s\n' "$APP_KEY" "$MANIFEST" >&2
   exit 1
 fi
 

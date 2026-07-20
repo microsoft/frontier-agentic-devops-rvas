@@ -74,7 +74,7 @@ Replace the default allowlist with your repo's actual labels:
 - [ ] `.github/workflows/issue-triage-agent.lock.yml` compiles without errors
 - [ ] Dry-run completes and shows expected label assignments in output
 - [ ] Live test: open a new issue and verify labels + comment appear
-- [ ] Coach conversation — if you deployed this triage agent on your busiest repo tomorrow, what would you measure to decide whether it is helping the team rather than adding noise? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] Discuss what you would measure if you deployed this triage agent on your busiest repo tomorrow to decide whether it is helping the team rather than adding noise. Connect it to a project, task, or workflow you own.
 
 ---
 

@@ -2,11 +2,11 @@
 
 ---
 
-## Grounding conversation (you will be called)
+## Facilitated application
 
-**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+**Required facilitator check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Their question:** Coach conversation — which repository events do you currently notice only after the fact, and what would change if a push-triggered agent flagged risky file changes the moment they land? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+**Discuss:** Which repository events do you currently notice only after the fact, and what would change if a push-triggered agent flagged risky file changes the moment they land? Connect it to a project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Ask them to name a directory or file in their own repo whose changes carry outsized risk.

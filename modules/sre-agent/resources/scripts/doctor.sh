@@ -67,7 +67,8 @@ cat <<'EOF'
 
 Official lab source:
   https://github.com/microsoft/sre-agent/tree/main/labs/starter-lab
-  fetched here as a pinned lazy submodule under external/sre-agent
+  the setup command fetches this official lab at a fixed revision only when needed,
+  then makes it available under external/sre-agent
 
 Recommended live setup:
   npm run setup:sre-agent-lab

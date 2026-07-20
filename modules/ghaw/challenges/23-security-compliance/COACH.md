@@ -1,14 +1,14 @@
 ---
 
-## Grounding conversation (you will be called)
+## Facilitated application
 
-**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+**Required facilitator check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Their question:** Coach conversation — how does your team track vulnerabilities and SLA deadlines today, and where would deadline-aware agent-filed issues close a real gap versus create alert fatigue you would regret? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+**Discuss:** How does your team track vulnerabilities and SLA deadlines today, and where would deadline-aware agent-filed issues close a real gap versus create excessive findings that would undermine the process? Connect it to a project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Ask how their team tracks vulnerabilities and SLA deadlines today.
-- Tease apart where deadline-aware agent issues close a real gap versus cause alert fatigue.
+- Tease apart where deadline-aware agent issues close a real gap versus create excessive findings.
 - Have them define the severity-to-SLA mapping they'll pilot on one repo next week.
 
 ## What This Activity Teaches

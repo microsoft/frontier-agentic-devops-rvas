@@ -71,7 +71,7 @@ Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://g
 - [ ] `.lock.yml` compiles without errors
 - [ ] Test pattern (benign flaggable code) causes the scan to open an alert issue
 - [ ] Alert issue contains: file path, commit SHA, line number, and explanation of why it was flagged
-- [ ] Coach conversation — what would it take for you to rely on a daily agent scanning your code changes for supply-chain red flags, and how would you handle false positives without tuning out the real threats? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] Discuss what it would take for you to rely on a daily agent scanning your code changes for supply-chain red flags, and how you would handle false positives without tuning out the real threats. Connect it to a project, task, or workflow you own.
 
 ---
 

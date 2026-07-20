@@ -71,7 +71,7 @@ Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/git
 - [ ] `.github/workflows/unbloat-docs.lock.yml` compiles without errors
 - [ ] Dry-run proposes at least one real simplification
 - [ ] Proposed PR diff is focused (one file, clean changes)
-- [ ] Facilitator conversation — where has documentation bloat in your projects pushed contributors away, and how would you keep an agent from removing something important? Discuss it with your facilitator and connect it to a real project, task, or workflow you own.
+- [ ] Discuss where documentation bloat in your projects has pushed contributors away, and how you would keep an agent from removing something important. Connect it to a project, task, or workflow you own.
 
 ---
 

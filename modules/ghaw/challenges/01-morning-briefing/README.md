@@ -49,7 +49,7 @@ By the end of this activity, your squad will:
 - [ ] `.github/workflows/morning-briefing.lock.yml` is generated after compiling
 - [ ] At least one issue was created when the workflow ran (or manual trigger via `workflow_dispatch`)
 - [ ] Issue body includes a summary of recent activity (issues opened, PRs, etc.)
-- [ ] Coach conversation — what daily status update do you or your team assemble by hand today that this scheduled briefing pattern could replace, and what would you trust it to send unsupervised? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] Discuss what daily status update you or your team assemble by hand today that this scheduled briefing pattern could replace, and what you would trust it to send unsupervised. Connect it to a project, task, or workflow you own.
 
 ---
 
