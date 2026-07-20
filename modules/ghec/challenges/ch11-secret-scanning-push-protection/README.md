@@ -1,24 +1,24 @@
 # Ch11 — Secret Scanning & Push Protection
 
-> By the end of this challenge you can turn on GitHub secret scanning, triage real leaked-credential alerts, block new secrets at `git push` with push protection, and wire up a custom pattern and a bypass-audit — all on a public OWASP Juice Shop repo seeded with high-confidence planted secrets.
+> By the end of this activity you can turn on GitHub secret scanning, triage real leaked-credential alerts, block new secrets at `git push` with push protection, and wire up a custom pattern and a bypass-audit — all on a public OWASP Juice Shop repo seeded with high-confidence planted secrets.
 
 | | |
 |---|---|
 | **Track** | Security |
 | **Difficulty** | Foundational *(per-track ramp)* |
 | **Duration** | ~4 hrs total, multi-session |
-| **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
+| **Minimum input** | An **org** + an **org-owner token**. *(All activities are org-scoped — no enterprise owner required.)* |
 | **App** | juice-shop *(imported at pinned ref `v20.0.0`; see `docs/EXTERNAL-REPOS.md`)* |
 | **EMU compatible** | yes |
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch11 --org <org>` (least-privilege; for this challenge: `repo` + `admin:org` + `security_events`).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch11 --org <org>` (least-privilege; for this activity: `repo` + `admin:org` + `security_events`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - **GHAS note:** **secret scanning** and **push protection** are **free on public repos**. Setup provisions the Juice Shop import as **public**, so no Code Security / Secret Protection license is required for Parts A–C and E. On private/internal repos these features need a paid license — `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns. **Custom secret-scanning patterns (Part D) are different:** they require **GitHub Secret Protection** on an organization-owned repo (GitHub Team or Enterprise) regardless of repo visibility, and are *not* part of the free public-repo feature set — see Part D.
 
 ## Scenario objectives
-By completing this challenge you will:
+By completing this activity you will:
 - Enable **secret scanning** and **push protection** on a repository from both the UI and the API.
 - Triage **secret-scanning alerts**: read the commit/blob location, then resolve each as revoked / false positive / used in tests.
 - Experience **push protection** blocking a brand-new secret at `git push`, and exercise the **bypass** flow with a documented reason.
@@ -31,7 +31,7 @@ A GHEC customer just discovered a hard-coded cloud key in a public repo — caug
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This challenge is most valuable when the result *outlives the delivery session*. **Pick a real repository your organization owns** — ideally a public one, or a private/internal one if you have GitHub Secret Protection — and complete every task on **that** repo. You leave with secret scanning, push protection, a custom pattern, and a triage trail genuinely standing up on a project you care about.
+> This activity is most valuable when the result *outlives the delivery session*. **Pick a real repository your organization owns** — ideally a public one, or a private/internal one if you have GitHub Secret Protection — and complete every task on **that** repo. You leave with secret scanning, push protection, a custom pattern, and a triage trail genuinely standing up on a project you care about.
 >
 > - **Have a candidate repo?** Use it everywhere this guide says `ghec-ch11-juice-shop`. Skip the Setup step below entirely. You already have real history to triage — no planted secrets needed.
 > - **No suitable repo (or want a safe sandbox)?** Use the fallback below: we import OWASP Juice Shop with non-live planted secrets so you can practice without risk.
@@ -53,7 +53,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch11 --org <org>
 **What setup creates** (all artifacts namespaced `ghec-ch11-*`, idempotent, prefix-guarded teardown):
 - A **public** repo **`ghec-ch11-juice-shop`** — OWASP Juice Shop imported at pinned ref **`v20.0.0`** (pulled from the official source, never vendored into this repo).
 - **Planted high-confidence test secrets** committed across **history** so secret scanning has partner-pattern material to detect — for example a fake AWS access key (`AKIA…` paired with a fake secret access key) in an early commit and a GitHub-style token (`ghp_…`) in a later commit. **All planted secrets are non-live / synthetic** and exist only to trigger detection.
-- A small **`SECRETS-MANIFEST.md`** in the repo documenting which fake secrets were planted and where, so coaches and students can reconcile expected detections without guessing.
+- A small **`SECRETS-MANIFEST.md`** in the repo documenting which fake secrets were planted and where, so coaches and customer delivery team members can reconcile expected detections without guessing.
 - A `feature/leaky-config` **branch** carrying one fresh planted secret you'll use to exercise push protection.
 - A printed **Next steps** block telling you where to start.
 

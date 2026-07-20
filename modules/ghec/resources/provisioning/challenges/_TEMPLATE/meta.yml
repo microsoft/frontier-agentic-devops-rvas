@@ -7,7 +7,7 @@
 
 id: ch##                       # ch01..ch20 (must match folder number)
 slug: <kebab-case-slug>        # folder name after the number, e.g. issues-labels-projects
-title: <Challenge Title>       # human title (matches README H1)
+title: <Activity Title>       # human title (matches README H1)
 track: <developer-flow|admin-governance|security|automation-ai>
 difficulty: <foundational|intermediate|advanced>   # per-track ramp
 duration_hours: <3-8>          # total, multi-session

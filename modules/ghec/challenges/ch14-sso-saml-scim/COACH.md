@@ -1,14 +1,14 @@
 # Ch14 — SSO, SAML & SCIM Identity — Coach Guide
 
-> Audience: facilitators and graders. Pair with the student `README.md`.
+> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — think about your org's identity lifecycle right now: when a developer joins or leaves your company, how many hours does it take for their GitHub access to be correctly provisioned or deprovisioned, and where is the manual step that SCIM would remove? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch14-identity-runbook` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer customer delivery team members who ran this on a **real artifact they own** over the `ghec-ch14-identity-runbook` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Walk me through the actual steps today when a new engineer joins — who does what to give them GitHub access?
@@ -16,12 +16,12 @@ Use these follow-ups to steer the conversation:
 - What is the one IdP group-to-GitHub-team mapping you would configure first, and who needs to approve it?
 
 ## Facilitation notes
-- **Goal in one line:** the student wires a real IdP to a GitHub org via SAML, proves the SCIM join/leave lifecycle, audits identity links, and enforces SSO with a tested rollback — all at org scope.
-- **Where students get stuck:**
-  - **Test mode vs enforce.** The #1 safety lesson: validate SAML in **test mode** before checking "Require SAML SSO". Students who enforce first risk locking themselves out. Make them use the **test org** and the Test SAML button.
+- **Goal in one line:** the delivery team member wires a real IdP to a GitHub org via SAML, proves the SCIM join/leave lifecycle, audits identity links, and enforces SSO with a tested rollback — all at org scope.
+- **Where customer delivery team members get stuck:**
+  - **Test mode vs enforce.** The #1 safety lesson: validate SAML in **test mode** before checking "Require SAML SSO". Customer delivery team members who enforce first risk locking themselves out. Make them use the **test org** and the Test SAML button.
   - **PAT not authorized for SSO.** Under SAML, existing tokens must be explicitly **authorized for SSO** or every org API call fails. This surprises everyone — it's a teaching moment, not a bug.
   - **SCIM tenant URL + token.** The SCIM connector needs the exact org tenant URL and a token with `admin:org`/`scim`. Wrong URL or scope → provisioning silently no-ops.
-  - **Org vs enterprise scope.** Some students try to find enterprise SAML settings. Keep them at **org** scope — that's the primary experience; enterprise/EMU is awareness-only.
+  - **Org vs enterprise scope.** Some customer delivery team members try to find enterprise SAML settings. Keep them at **org** scope — that's the primary experience; enterprise/EMU is awareness-only.
   - **IdP friction.** Standing up an Entra/Okta test app is the slowest part. Encourage a free dev tenant ahead of time.
 - **How to unblock without giving the answer:** ask "what happens to your API token the moment SAML is enforced?" (→ must authorize for SSO), and "how would HR disabling someone reach GitHub automatically?" (→ SCIM de-provision).
 - **Org-scoped note:** runs with just an org + org-owner token. No enterprise owner needed — this is the org-level identity experience. EMU and enterprise SSO are called out for awareness only.
@@ -58,7 +58,7 @@ gh api graphql -f query='
         guid samlIdentity { nameId } user { login } } } } } }' -f login=$ORG
 ```
 - **SAML config truth source:** the GraphQL `samlIdentityProvider.ssoUrl` is non-null once SAML is configured. `externalIdentities` lists the login ↔ nameId links — that's the audit artifact.
-- **SCIM lifecycle:** the join shows a new `Resources[]` entry; the leave shows `active: false` (or the entry removed). Have the student show both states (before/after) from the runbook.
+- **SCIM lifecycle:** the join shows a new `Resources[]` entry; the leave shows `active: false` (or the entry removed). Have the delivery team member show both states (before/after) from the runbook.
 - **Enforcement:** confirm an unauthorized token is rejected on org resources, and an SSO-authorized one succeeds.
 
 ## Common pitfalls

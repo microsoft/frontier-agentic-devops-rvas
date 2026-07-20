@@ -1,8 +1,8 @@
-# Challenge 2-01: Triage Bot
+# Activity 2-01: Triage Bot
 
 **Track:** Repo Concierge (Intermediate 🟡)  
 **Estimated time:** 30 minutes  
-**Prerequisites:** Complete at least 2 challenges from Track 1
+**Prerequisites:** Complete at least 2 activities from Track 1
 
 ---
 
@@ -10,7 +10,7 @@
 
 A workflow that automatically categorizes new issues as they arrive. When someone opens an issue in your repo, your Triage Bot springs into action: it analyzes the issue title and body, assigns one of several labels (e.g., `bug`, `feature-request`, `documentation`, `question`), and posts a friendly comment explaining the categorization and next steps.
 
-**Why this matters:** Open source maintainers spend enormous time on issue triage. A Triage Bot handles the first pass instantly, reducing friction and letting humans focus on decisions that need judgment. This challenge teaches you event-driven automation — the most common pattern in gh-aw workflows.
+**Why this matters:** Open source maintainers spend enormous time on issue triage. A Triage Bot handles the first pass instantly, reducing friction and letting humans focus on decisions that need judgment. This activity teaches you event-driven automation — the most common pattern in gh-aw workflows.
 
 ---
 
@@ -29,7 +29,7 @@ By the end, your squad will:
 > [!IMPORTANT]
 > **Bring your own repo (do this first)**
 >
-> This challenge is most valuable when the triage bot handles **your own repository's** real incoming issues and labels, so it can keep reducing backlog noise after the session. Treat the setup sample as practice, not the default destination.
+> This activity is most valuable when the triage bot handles **your own repository's** real incoming issues and labels, so it can keep reducing backlog noise after the session. Treat the setup sample as practice, not the default destination.
 >
 > - **Have a candidate repo?** Install or point `triage-bot.md` at that repo everywhere the guide references the sample repo, and use your real backlog, label names, duplicate patterns, and maintainer tone as the material.
 > - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
@@ -38,7 +38,7 @@ By the end, your squad will:
 
 ---
 
-## Challenge
+## Activity
 
 Create a gh-aw workflow named `triage-bot.md` in `.github/workflows/` that:
 

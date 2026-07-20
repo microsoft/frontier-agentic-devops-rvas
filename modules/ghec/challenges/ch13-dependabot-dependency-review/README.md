@@ -1,24 +1,24 @@
 # Ch13 — Dependabot & Dependency Review
 
-> By the end of this challenge you can enable the dependency graph and Dependabot, triage real vulnerable-dependency alerts on OWASP Juice Shop, take Dependabot security-update PRs, configure scheduled version updates, and block risky dependencies at PR time with dependency review — all org-scoped on a public repo.
+> By the end of this activity you can enable the dependency graph and Dependabot, triage real vulnerable-dependency alerts on OWASP Juice Shop, take Dependabot security-update PRs, configure scheduled version updates, and block risky dependencies at PR time with dependency review — all org-scoped on a public repo.
 
 | | |
 |---|---|
 | **Track** | Security |
 | **Difficulty** | Intermediate *(per-track ramp)* |
 | **Duration** | ~4 hrs total, multi-session |
-| **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
+| **Minimum input** | An **org** + an **org-owner token**. *(All activities are org-scoped — no enterprise owner required.)* |
 | **App** | juice-shop *(imported at pinned ref `v20.0.0`; see `docs/EXTERNAL-REPOS.md`)* |
 | **EMU compatible** | yes |
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch13 --org <org>` (least-privilege; for this challenge: `repo` + `security_events`).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch13 --org <org>` (least-privilege; for this activity: `repo` + `security_events`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - **GHAS note:** the dependency graph, Dependabot alerts/updates, and dependency review are **free on public repos**. Setup provisions the Juice Shop import as **public**. On private/internal repos, dependency review needs a paid Code Security license — `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns.
 
 ## Scenario objectives
-By completing this challenge you will:
+By completing this activity you will:
 - Enable the **dependency graph** and **Dependabot alerts** + **security updates** on a repository.
 - Read the **dependency graph** and an **SBOM** export to understand what the app actually depends on.
 - Triage **Dependabot alerts** by severity and review the linked GitHub Advisory for each.
@@ -32,7 +32,7 @@ A GHEC customer's app drags a long tail of outdated, vulnerable npm packages —
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This challenge is most valuable when the result *outlives the delivery session*. Pick a real application repository your organization owns so Dependabot alerts and dependency-review gates persist and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> This activity is most valuable when the result *outlives the delivery session*. Pick a real application repository your organization owns so Dependabot alerts and dependency-review gates persist and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch13-juice-shop`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: an OWASP Juice Shop import with dependency material you can inspect safely.

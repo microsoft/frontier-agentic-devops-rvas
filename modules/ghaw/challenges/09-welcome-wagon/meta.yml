@@ -26,9 +26,6 @@ success_criteria:
   - At least 2 helpful links or resources
   - Encouragement
   - Comment is friendly, not robotic
-take_home_action: In a repository you own, deploy the first-time contributor welcome workflow with safe PR comments and links to your real contribution guidance.
-take_home_owner: developer
-take_home_signal: A debut pull request receives one relevant welcome comment and repeat contributors are not spammed.
 tags:
   - pull-requests
   - first-time-contributors

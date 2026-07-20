@@ -1,21 +1,21 @@
 # Ch16 — REST & GraphQL API Automation
 
-> By the end of this challenge you can drive GitHub end-to-end from its APIs — read and mutate with the REST API, run typed GraphQL queries and mutations, page through large result sets, and stay inside rate limits — using an org and an org-owner token.
+> By the end of this activity you can drive GitHub end-to-end from its APIs — read and mutate with the REST API, run typed GraphQL queries and mutations, page through large result sets, and stay inside rate limits — using an org and an org-owner token.
 
 | | |
 |---|---|
 | **Track** | Automation & AI |
 | **Difficulty** | Foundational *(per-track ramp)* |
 | **Duration** | ~3–4 hrs total, multi-session |
-| **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
+| **Minimum input** | An **org** + an **org-owner token**. *(All activities are org-scoped — no enterprise owner required.)* |
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes |
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch16 --org <org>` (least-privilege; for this challenge: `repo` + `read:org` + `project` + `read:project`).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch16 --org <org>` (least-privilege; for this activity: `repo` + `read:org` + `project` + `read:project`).
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
-- Comfort reading JSON. The whole challenge is API-first — you'll live in `gh api`, not the web UI.
+- Comfort reading JSON. The whole activity is API-first — you'll live in `gh api`, not the web UI.
 
 If setup fails at the project step with missing scopes, add them in place and re-run:
 ```bash
@@ -23,7 +23,7 @@ gh auth refresh -h github.com -s project,read:project
 ```
 
 ## Scenario objectives
-By completing this challenge you will:
+By completing this activity you will:
 - Call the **REST API** for reads and writes with `gh api` (verbs, paths, `--method`, `-f`/`-F` fields).
 - Write **GraphQL** queries and mutations against the single `graphql` endpoint, using variables and fragments.
 - Choose **REST vs GraphQL** deliberately — over-fetching, round-trips, and shape of the data.
@@ -36,7 +36,7 @@ A GHEC customer's platform team keeps doing the same triage by hand: relabeling 
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
-> This challenge is most valuable when the result *outlives the delivery session*. Pick a real GitHub automation task or repository where an API script will save recurring toil and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> This activity is most valuable when the result *outlives the delivery session*. Pick a real GitHub automation task or repository where an API script will save recurring toil and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch16-rest-graphql-automation`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded sample repo for REST and GraphQL automation practice.

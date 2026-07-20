@@ -1,10 +1,10 @@
-# Coach Guide: Challenge 1-04 — Label Maker
+# Coach Guide: Activity 1-04 — Label Maker
 
 ---
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — how much of your team's issue labelling is guesswork you would hand to an agent, and where would a constrained allowlist stop it from inventing categories you can't trust? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -15,7 +15,7 @@ Use these follow-ups to steer the conversation:
 
 ## Coaching Philosophy
 
-This is the **event-driven classification challenge** — the capstone of Track 1. Squads are now confidently writing workflows triggered by real repository events (not schedules) and using AI to make meaningful decisions. Your job is to cement the pattern: event → query → classify → act.
+This is the **event-driven classification activity** — the capstone of Track 1. Squads are now confidently writing workflows triggered by real repository events (not schedules) and using AI to make meaningful decisions. Your job is to cement the pattern: event → query → classify → act.
 
 **Key insight:** By now, squads should see that gh-aw workflows are deterministic (you specify the trigger, the data, and the decision) and auditable (logs show exactly what happened).
 

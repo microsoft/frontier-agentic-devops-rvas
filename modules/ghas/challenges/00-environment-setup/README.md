@@ -1,8 +1,8 @@
-# Challenge S00 — Environment Setup
+# Activity S00 — Environment Setup
 
 ## Objectives
 
-By the end of this challenge you will have:
+By the end of this activity you will have:
 
 - A Juice Shop repository pushed into an org you control
 - GitHub Advanced Security features enabled on that repo
@@ -136,7 +136,7 @@ git push -u origin participant/{your-github-handle}
 
 ## Start Juice Shop (Local Runtime)
 
-All GHAS challenges work with OWASP Juice Shop for **manual exploit testing**. Because the setup script imports Juice Shop into your org repo, run the app from the repository root:
+All GHAS activities work with OWASP Juice Shop for **manual exploit testing**. Because the setup script imports Juice Shop into your org repo, run the app from the repository root:
 
 ```bash
 npm install
@@ -155,7 +155,7 @@ Confirm you see the Juice Shop storefront before moving on.
 
 **Your local Juice Shop instance** is for manual testing and learning the app — it has **no GHAS alerts**. 
 
-**GHAS alerts** (CodeQL, Dependabot, secret scanning) run on the **org repository you provisioned in this challenge**. All challenges reference alerts from that repo, not your local Juice Shop runtime.
+**GHAS alerts** (CodeQL, Dependabot, secret scanning) run on the **org repository you provisioned in this activity**. All activities reference alerts from that repo, not your local Juice Shop runtime.
 
 See [`modules/ghas/setup.md`](../../setup.md) for details on how these two environments work together.
 

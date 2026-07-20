@@ -1,14 +1,14 @@
 # Ch04 — GitHub Actions CI Fundamentals — Coach Guide
 
-> Audience: facilitators and graders. Pair with the student `README.md`.
+> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — pick one test suite or build process from your actual work that runs manually or inconsistently: what would an always-on, branch-triggered Actions workflow catch in the next two weeks that human discipline alone has missed? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch04-actions-ci-fundamentals` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer customer delivery team members who ran this on a **real artifact they own** over the `ghec-ch04-actions-ci-fundamentals` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Name the specific repo and the test or build step you're thinking of — what triggers it today?
@@ -16,11 +16,11 @@ Use these follow-ups to steer the conversation:
 - What's the smallest workflow YAML you could commit to that repo today to start getting signal?
 
 ## Facilitation notes
-- **Goal in one line:** the student builds a real CI pipeline that runs across a matrix, caches deps, publishes artifacts, and — the key outcome — **blocks merges when CI is red**.
-- **Where students get stuck:**
+- **Goal in one line:** the delivery team member builds a real CI pipeline that runs across a matrix, caches deps, publishes artifacts, and — the key outcome — **blocks merges when CI is red**.
+- **Where customer delivery team members get stuck:**
   - **Required-check name mismatch.** The required status check must match the **job name** (or matrix-expanded check name) exactly. If they require `ci` but the job is `build-test`, the gate never satisfies. Show them the check names on a real PR.
   - **Cache key correctness.** A cache that never invalidates (or never hits) usually means the key isn't keyed on the lockfile hash. `setup-node` cache is the easy path.
-  - **Conditionals on `github.ref`.** Students test `if: main` and get string-comparison surprises — it's `refs/heads/main`.
+  - **Conditionals on `github.ref`.** Customer delivery team members test `if: main` and get string-comparison surprises — it's `refs/heads/main`.
   - **Environment protection blocks the job** waiting for a reviewer — that's expected; they approve the deployment to continue.
 - **How to unblock without giving the answer:** ask "what *exact* string does the merge gate look for?" (→ check name), and "what makes the second run faster than the first?" (→ cache hit).
 - **Org-scoped note:** runs with just an org + org-owner token. Public repo = free Actions minutes; recommend public to avoid metering. `workflow` scope is needed to push workflow files via API/CLI.
@@ -39,7 +39,7 @@ Use these follow-ups to steer the conversation:
 
 ## Automated verification hints
 ```bash
-ORG=<org>; REPO=ghec-ch04-actions-ci-fundamentals   # swap REPO for the student's own repo if they brought one
+ORG=<org>; REPO=ghec-ch04-actions-ci-fundamentals   # swap REPO for the delivery team member's own repo if they brought one
 
 # Workflow exists and has matrix + cache (inspect raw yaml)
 gh api repos/$ORG/$REPO/contents/.github/workflows/ci.yml -H "Accept: application/vnd.github.raw" \
@@ -60,7 +60,7 @@ gh api repos/$ORG/$REPO/environments --jq '.environments[].name'
 gh api repos/$ORG/$REPO/environments/staging --jq '.protection_rules'
 ```
 - The **required-check** truth source is `.../required_status_checks/.contexts` — it must list `build-test` (or the matrix-expanded names).
-- To verify gating end-to-end, have the student show a PR with a **red CI run** and a disabled merge button, then a follow-up green run that re-enables it.
+- To verify gating end-to-end, have the delivery team member show a PR with a **red CI run** and a disabled merge button, then a follow-up green run that re-enables it.
 
 ## Common pitfalls
 - **Check name ≠ required context** → the gate is permanently unsatisfied or trivially satisfied. Match exactly.

@@ -21,9 +21,6 @@ success_criteria:
   - The correct label appears on the test issue
   - A comment is posted with the category and explanation
   - The comment is friendly and encouraging (not robotic)
-take_home_action: In a repository you own, deploy issue triage with safe label and comment outputs so new backlog items get classified with visible reasoning.
-take_home_owner: developer
-take_home_signal: New issues receive an allowed label plus a useful explanation comment that maintainers can audit.
 tags:
   - issue-triage
   - event-triggers

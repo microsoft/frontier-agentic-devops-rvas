@@ -1,14 +1,14 @@
 # Ch12 — Code Scanning with CodeQL & Autofix — Coach Guide
 
-> Audience: facilitators and graders. Pair with the student `README.md`.
+> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — pick a codebase you own or contribute to: what class of vulnerability (injection, path traversal, auth bypass) do you most fear is hiding there right now, and how would a CodeQL custom query surface it before your next release? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch12-juice-shop` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer customer delivery team members who ran this on a **real artifact they own** over the `ghec-ch12-juice-shop` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Name the specific codebase — what language, how old, and what's your current static analysis story for it?
@@ -16,12 +16,12 @@ Use these follow-ups to steer the conversation:
 - What is one QL query or built-in suite you could add to that repo's Actions workflow before next week?
 
 ## Facilitation notes
-- **Goal in one line:** the student stands up CodeQL (default *and* advanced), reads real vulnerability findings via their data-flow paths, applies Autofix with judgment, and makes scanning a merge gate.
-- **Where students get stuck:**
+- **Goal in one line:** the delivery team member stands up CodeQL (default *and* advanced), reads real vulnerability findings via their data-flow paths, applies Autofix with judgment, and makes scanning a merge gate.
+- **Where customer delivery team members get stuck:**
   - **Default vs advanced confusion.** Default setup is one-click but opaque; advanced is a workflow they own. Make sure they *replace* default with advanced (you can't run both default and advanced for the same language).
   - **Wrong language pack.** Juice Shop is TS/JS — the pack is **`javascript-typescript`** (one combined pack), not separate `javascript` + `typescript`. The Web3/Solidity bits are out of scope.
   - **Required-check name.** The required context is the **CodeQL results** check, not the Actions job name. Show them the real check name on a PR.
-  - **Autofix over-trust.** Students click "commit suggestion" without reading it. The learning objective is *reviewing* the patch and knowing when Autofix is wrong.
+  - **Autofix over-trust.** Customer delivery team members click "commit suggestion" without reading it. The learning objective is *reviewing* the patch and knowing when Autofix is wrong.
   - **Scan latency.** `security-extended` runs longer than the default suite. Set expectations — the first advanced run can take several minutes.
 - **How to unblock without giving the answer:** ask "what's the path from user input to the dangerous sink?" (→ data-flow), and "what *exact* check does the merge gate wait for?" (→ the code-scanning results context).
 - **Org-scoped note:** runs with just an org + org-owner token. Public repo = free CodeQL. `security_events` scope is needed for the alerts/analyses API; `workflow` to push the advanced workflow.
@@ -32,14 +32,14 @@ Use these follow-ups to steer the conversation:
 | Default setup + first scan (Part A) | 15 | Default setup ran; at least one analysis recorded |
 | Advanced workflow (Part B) | 25 | `codeql.yml` scans `javascript-typescript` with `security-extended`; run is green and produces alerts |
 | Alert triage (Part C) | 25 | ≥3 alerts triaged; one dismissed with a reason via API; data-flow understood |
-| Copilot Autofix (Part D) | 15 | Autofix applied to ≥1 alert; student can explain the patch |
+| Copilot Autofix (Part D) | 15 | Autofix applied to ≥1 alert; delivery team member can explain the patch |
 | Required-check gating (Part E) | 20 | Code-scanning check required on main; seeded vulnerable PR blocked until resolved |
 | **Total** | **100** | |
 
 ## Automated verification hints
 Use these to check Definition of Done quickly (prefer `gh` CLI / API over manual clicks):
 ```bash
-ORG=<org>; REPO=ghec-ch12-juice-shop   # swap REPO for the student's own repo if they brought one
+ORG=<org>; REPO=ghec-ch12-juice-shop   # swap REPO for the delivery team member's own repo if they brought one
 
 # Repo exists and is public
 gh repo view $ORG/$REPO --json name,visibility
@@ -63,8 +63,8 @@ gh api repos/$ORG/$REPO/code-scanning/alerts --paginate \
 gh api repos/$ORG/$REPO/branches/main/protection/required_status_checks --jq '.contexts'
 ```
 - **Pack check:** the workflow grep must show `javascript-typescript`. Separate `javascript`/`typescript` entries → partial credit; wrong language → no marks for Part B.
-- **Gating check:** the `required_status_checks/.contexts` list must include the code-scanning context, and the student should demonstrate the vulnerable PR's merge button disabled.
-- **Autofix:** look for a commit on a branch authored via Autofix or a resolved alert that traces to a student-reviewed suggestion.
+- **Gating check:** the `required_status_checks/.contexts` list must include the code-scanning context, and the delivery team member should demonstrate the vulnerable PR's merge button disabled.
+- **Autofix:** look for a commit on a branch authored via Autofix or a resolved alert that traces to a suggestion reviewed by a delivery team member.
 
 ## Common pitfalls
 - **Running default + advanced together** for the same language → conflicting analyses. Disable default before advanced.

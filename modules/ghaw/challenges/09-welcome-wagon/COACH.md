@@ -1,10 +1,10 @@
-# Coach Guide: Challenge 2-05 — Welcome Wagon
+# Coach Guide: Activity 2-05 — Welcome Wagon
 
 ---
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — what first impression do new contributors get from your project today, and what would you trust an automated welcome to handle versus what should stay a personal touch? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -92,7 +92,7 @@ Branch on PR type:
 - If first PR to docs: offer writing resources
 
 **Pros:** More helpful (targeted resources)  
-**Cons:** More complex logic, saves for advanced students
+**Cons:** More complex logic, saves for advanced customer delivery team members
 
 ---
 
@@ -142,7 +142,7 @@ Branch on PR type:
   - Ask a friend to open a PR from their account
   - Create a second GitHub account (takes 2 min)
   - Or: in the body, mock the condition: "For testing, assume `author_association == 'NONE'` and post the welcome comment"
-- Normalize: "This is a real testing challenge in CI/CD. Production workflows often use dummy accounts or test workflows."
+- Normalize: "This is a real testing activity in CI/CD. Production workflows often use dummy accounts or test workflows."
 
 ### Pitfall 5: Over-Long Comment
 
@@ -216,7 +216,7 @@ Keep the comment friendly and concise. New contributors should feel welcomed, no
 
 | Phase | Time | What to Do |
 |-------|------|-----------|
-| Read & orient | 3 min | Read challenge, understand author_association |
+| Read & orient | 3 min | Read activity, understand author_association |
 | Write frontmatter | 4 min | Set up `on: pull_request:`, `permissions`, `safe-outputs`, `engine` |
 | Write body | 8 min | Draft author_association check + welcome message with resources |
 | Compile & test | 10 min | Compile, create test PR (or use alternate account), verify |

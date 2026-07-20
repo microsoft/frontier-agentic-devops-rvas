@@ -1,4 +1,4 @@
-# Coach Guide: Challenge 05 — Connect Source Code and Create Remediation Work
+# Coach Guide: Activity 05 — Connect Source Code and Create Remediation Work
 
 ## Expected Outcome
 

@@ -17,7 +17,7 @@ Migrate one Bitbucket Server/Data Center repository to GitHub Enterprise Cloud w
 
 ## Prerequisites
 
-**Challenges:** _(none — this challenge is self-contained)_
+**Activities:** _(none — this activity is self-contained)_
 
 **Access and tooling you need:**
 - GitHub organization where you are an org owner.
@@ -33,7 +33,7 @@ Your migration team has two Bitbucket populations. The production estate runs Bi
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
-> This challenge is most valuable when the result *outlives the delivery session*. Pick a real Bitbucket Server/Data Center or Bitbucket Cloud repository you own and complete every task on **that** source and target. You leave with a migrated repo, source history, supported pull request metadata, settings evidence, and gap notes genuinely standing up in your GitHub organization.
+> This activity is most valuable when the result *outlives the delivery session*. Pick a real Bitbucket Server/Data Center or Bitbucket Cloud repository you own and complete every task on **that** source and target. You leave with a migrated repo, source history, supported pull request metadata, settings evidence, and gap notes genuinely standing up in your GitHub organization.
 >
 > - **Have a candidate?** Use it everywhere this guide references the sample Bitbucket project, repository, workspace, or target repository. Skip the sample Setup path entirely.
 > - **No suitable one?** Use the fallback below: a provided sample Bitbucket source repository you can migrate safely.

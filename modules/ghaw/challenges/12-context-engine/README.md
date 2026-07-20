@@ -1,9 +1,9 @@
-# Challenge 3-02: Context Engine
+# Activity 3-02: Context Engine
 
 **Track:** Continuous Intelligence (Advanced)  
 **Difficulty:** 🔴 Advanced  
 **Estimated time:** 30 minutes  
-**Prerequisites:** Track 2, completed ≥3 challenges
+**Prerequisites:** Track 2, completed ≥3 activities
 
 ---
 
@@ -11,13 +11,13 @@
 
 Without external data, an agent can only reason about what's already in the prompt. **Context Engine** is about closing that gap with **MCP tools** (Model Context Protocol). You'll connect the agent to external data sources — GitHub labels, repository metrics, upstream service status — using gh-aw's `tools:` configuration, so its decisions are grounded in real state rather than inferred from incomplete context.
 
-**Why this matters:** Ask an agent to review a PR without giving it your repo's coding standards and it will apply generic heuristics. Give it a `repo-memory` file with your actual conventions and it applies those instead. This challenge teaches you to identify what information an agent needs before it can make a useful decision, and how to supply that information through `tools:` configuration.
+**Why this matters:** Ask an agent to review a PR without giving it your repo's coding standards and it will apply generic heuristics. Give it a `repo-memory` file with your actual conventions and it applies those instead. This activity teaches you to identify what information an agent needs before it can make a useful decision, and how to supply that information through `tools:` configuration.
 
 ---
 
 ## Goals
 
-By the end of this challenge, your squad will:
+By the end of this activity, your squad will:
 
 1. ✅ Configure `tools:` section to grant an agent access to multiple MCP toolsets
 2. ✅ Build a workflow that uses external data (not just GitHub APIs) to enrich decisions
@@ -29,7 +29,7 @@ By the end of this challenge, your squad will:
 > [!IMPORTANT]
 > **Bring your own repo (do this first)**
 >
-> This challenge is most valuable when the context engine reads **your own repository's** real PRs, CONTRIBUTING guidance, architecture notes, docs, and tests, so its review-focus comments stay useful after the session. Treat the setup sample as practice, not the default destination.
+> This activity is most valuable when the context engine reads **your own repository's** real PRs, CONTRIBUTING guidance, architecture notes, docs, and tests, so its review-focus comments stay useful after the session. Treat the setup sample as practice, not the default destination.
 >
 > - **Have a candidate repo?** Install or point the workflow at that repo everywhere the guide references the sample repo, and use real PRs plus repo-specific context files such as `CONTRIBUTING.md`, `ARCHITECTURE.md`, docs, or test conventions.
 > - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
@@ -38,7 +38,7 @@ By the end of this challenge, your squad will:
 
 ---
 
-## Challenge
+## Activity
 
 Build a workflow that **enriches PR analysis with external context**:
 
@@ -91,7 +91,7 @@ Use **`safe-outputs: add-comment`** to post a structured comment on the PR. The 
 - The `tools: github: toolsets: [...]` array lets you specify exactly which GitHub APIs the agent can use. Start with `[pull_requests, contents]` and add others if needed.
 - CONTRIBUTING.md and ARCHITECTURE.md are great context sources. Have the agent read them to understand repo conventions.
 - Avoid "code review" advice (that's what humans do). Instead, focus on: file patterns, size anomalies, and compliance with *your* specific standards.
-- If your repo doesn't have CONTRIBUTING.md, create a simple one during the challenge—just a few bullet points about your project's rules.
+- If your repo doesn't have CONTRIBUTING.md, create a simple one during the activity—just a few bullet points about your project's rules.
 - Use `checkout: false` since the agent only needs API calls, not to check out the code.
 - The comment should be ~200 words max. A bulleted list + a focused suggestion is better than paragraphs.
 

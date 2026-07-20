@@ -17,9 +17,6 @@ success_criteria:
   - The team identifies the incident-handler, code-analyzer, and issue-triager roles when available.
   - A response plan or fallback response-plan summary explains how alerts reach the agent.
   - Team memory captures on-call ownership and escalation without secrets.
-take_home_action: In your own Azure subscription and GitHub org, attach the service runbooks, response plans, escalation ownership, and source context Azure SRE Agent needs for one real workload.
-take_home_owner: solution-architect
-take_home_signal: The agent summarizes the real workload architecture, runbook path, escalation owner, and incident routing plan without exposing secrets.
 tags:
   - azure-sre-agent
   - response-plans

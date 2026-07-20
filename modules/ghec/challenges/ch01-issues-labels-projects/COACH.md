@@ -1,14 +1,14 @@
 # Ch01 — Issues, Labels & Project Boards — Coach Guide
 
-> Audience: facilitators and graders. Pair with the student `README.md`.
+> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — what real work item or backlog from your team would you model differently now that you understand GitHub's label taxonomy and Projects v2 automation, and what field or view are you missing today? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch01-issues-labels-projects` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer customer delivery team members who ran this on a **real artifact they own** over the `ghec-ch01-issues-labels-projects` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Walk me through one specific project or repo your team tracks work in — what labels exist there today?
@@ -16,13 +16,13 @@ Use these follow-ups to steer the conversation:
 - What is the ONE label, field, or automation rule you'll add to that board next week?
 
 ## Facilitation notes
-- **Goal in one line:** the student turns a raw, untriaged backlog into a governed system — labeled, milestoned, and tracked on a Projects (v2) board with working automation.
-- **Where students get stuck:**
-  - **Issue *forms* vs issue *templates*.** Many students write a markdown template and miss that forms are YAML with typed inputs. Point them at the issue-forms schema.
+- **Goal in one line:** the delivery team member turns a raw, untriaged backlog into a governed system — labeled, milestoned, and tracked on a Projects (v2) board with working automation.
+- **Where customer delivery team members get stuck:**
+  - **Issue *forms* vs issue *templates*.** Many customer delivery team members write a markdown template and miss that forms are YAML with typed inputs. Point them at the issue-forms schema.
   - **Projects (v2) is org-level, not the old repo "Projects" tab.** Some create a classic project. Make sure they create a **Projects (v2)** board and link the repo.
   - **Built-in workflows** are under the project's "⚙ Workflows" — easy to miss. The auto-move only fires on *new* events, so they must close an issue *after* enabling.
 - **How to unblock without giving the answer:** ask "what typed input would stop a reporter from forgetting the severity?" (→ dropdown), and "where would a new item's status get set without you clicking?" (→ workflows).
-- **Org-scoped note:** this challenge runs with just an org + org-owner token; no enterprise owner needed. Projects (v2) lives at org scope, which is why `project` token scope is required.
+- **Org-scoped note:** this activity runs with just an org + org-owner token; no enterprise owner needed. Projects (v2) lives at org scope, which is why `project` token scope is required.
 
 ## Grading rubric (point-weighted, 100 pts)
 | Criterion | Points | What "full marks" looks like |
@@ -37,7 +37,7 @@ Use these follow-ups to steer the conversation:
 ## Automated verification hints
 Use these to check Definition of Done quickly (prefer `gh` CLI / API over manual clicks):
 ```bash
-ORG=<org>; REPO=ghec-ch01-issues-labels-projects   # swap REPO for the student's own repo if they brought one
+ORG=<org>; REPO=ghec-ch01-issues-labels-projects   # swap REPO for the delivery team member's own repo if they brought one
 
 # Repo exists and issue forms are present
 gh repo view $ORG/$REPO --json name,visibility
@@ -61,7 +61,7 @@ gh project item-list <project-number> --owner $ORG --format json --jq '.items | 
 ```
 - **Issue forms:** the `contents` call should return at least two `.yml` files. Markdown-only templates → not full marks.
 - **Labels:** `wc -l` ≥ 13 *and* the name list shows the four dimensions. Flat labels (`bug`, `p0`) without the `dimension: value` shape → partial credit.
-- **Automation:** ask the student to show the closed issue now sitting in the project's `Done` column; confirm via `item-list` that its `Status` field reads `Done`.
+- **Automation:** ask the delivery team member to show the closed issue now sitting in the project's `Done` column; confirm via `item-list` that its `Status` field reads `Done`.
 
 ## Common pitfalls
 - **Classic Projects vs Projects v2.** If `gh project list` shows nothing, they likely built a classic board or a user-scoped project. Re-create at org scope.

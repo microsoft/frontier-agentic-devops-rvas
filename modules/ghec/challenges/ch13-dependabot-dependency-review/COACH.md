@@ -1,14 +1,14 @@
 # Ch13 — Dependabot & Dependency Review — Coach Guide
 
-> Audience: facilitators and graders. Pair with the student `README.md`.
+> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — scan your real repos in your head: which project is most likely sitting on a critically vulnerable transitive dependency right now, and what would it take to make Dependabot auto-merge safe there? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch13-juice-shop` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer customer delivery team members who ran this on a **real artifact they own** over the `ghec-ch13-juice-shop` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Name the repo — what ecosystem (npm, pip, Maven, Go modules) and roughly how many dependencies does it have?
@@ -16,9 +16,9 @@ Use these follow-ups to steer the conversation:
 - What Dependabot config change (schedule, allow-list, grouping, auto-merge rule) would you commit this week?
 
 ## Facilitation notes
-- **Goal in one line:** the student turns a vulnerable dependency tree into a managed supply chain — alerts triaged, security PRs merged, scheduled updates configured, and a PR-time gate that blocks new risky dependencies.
-- **Where students get stuck:**
-  - **Three different Dependabot things.** *Alerts* (notifications), *security updates* (auto-PRs for known vulns), and *version updates* (`dependabot.yml` scheduled bumps) are distinct. Students conflate them — make them name which is which.
+- **Goal in one line:** the delivery team member turns a vulnerable dependency tree into a managed supply chain — alerts triaged, security PRs merged, scheduled updates configured, and a PR-time gate that blocks new risky dependencies.
+- **Where customer delivery team members get stuck:**
+  - **Three different Dependabot things.** *Alerts* (notifications), *security updates* (auto-PRs for known vulns), and *version updates* (`dependabot.yml` scheduled bumps) are distinct. Customer delivery team members conflate them — make them name which is which.
   - **Dependency review ≠ Dependabot.** Dependency review is a **PR-time diff check** (the action), separate from Dependabot alerts. Both matter; they're not the same feature.
   - **Security PRs need security updates *enabled*.** If no PRs appear, they enabled alerts but not security updates.
   - **Required-check name.** The dependency-review check name (from the action/job) must match the required context.
@@ -39,7 +39,7 @@ Use these follow-ups to steer the conversation:
 ## Automated verification hints
 Use these to check Definition of Done quickly (prefer `gh` CLI / API over manual clicks):
 ```bash
-ORG=<org>; REPO=ghec-ch13-juice-shop   # swap REPO for the student's own repo if they brought one
+ORG=<org>; REPO=ghec-ch13-juice-shop   # swap REPO for the delivery team member's own repo if they brought one
 
 # Repo exists and is public
 gh repo view $ORG/$REPO --json name,visibility
@@ -68,8 +68,8 @@ gh api repos/$ORG/$REPO/contents/.github/dependabot.yml -H "Accept: application/
 # Required checks on main (expect the dependency-review context)
 gh api repos/$ORG/$REPO/branches/main/protection/required_status_checks --jq '.contexts'
 ```
-- **Distinguish features:** confirm BOTH a security-update PR (`app/dependabot` author, fixes an alert) AND a `dependabot.yml` for version updates exist — they prove the student separated the two.
-- **Gating:** the dependency-review context must be in `required_status_checks`, and the student should show the risky PR's merge blocked.
+- **Distinguish features:** confirm BOTH a security-update PR (`app/dependabot` author, fixes an alert) AND a `dependabot.yml` for version updates exist — they prove the delivery team member separated the two.
+- **Gating:** the dependency-review context must be in `required_status_checks`, and the delivery team member should show the risky PR's merge blocked.
 
 ## Common pitfalls
 - **Only enabling alerts** → no security PRs appear. Enable **security updates** too.

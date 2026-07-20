@@ -1,4 +1,4 @@
-# Coach Guide: Challenge S00 — Environment Setup
+# Coach Guide: Activity S00 — Environment Setup
 
 ## Objectives
 
@@ -7,7 +7,7 @@
 - Ensure GHAS features are enabled, with any script warnings followed up manually.
 - Ensure participants who need access are manually added to that repo.
 - Confirm `gh` CLI authentication, working branch creation, and Juice Shop running on port 3000.
-- Surface and document access blockers early; apply fallback paths before Challenge S01.
+- Surface and document access blockers early; apply fallback paths before Activity S01.
 
 ---
 
@@ -43,7 +43,7 @@
 
 ## Success Check
 
-Before releasing the group to Challenge S01, confirm per participant:
+Before releasing the group to Activity S01, confirm per participant:
 
 - [ ] `gh auth status` exits 0 and shows the correct username
 - [ ] `<org>/ghec-ghas-00-juice-shop` exists

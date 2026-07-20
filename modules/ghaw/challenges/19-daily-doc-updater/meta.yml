@@ -19,9 +19,6 @@ success_criteria:
   - `.github/workflows/daily-doc-updater.lock.yml` compiles without errors
   - Dry-run produces at least one proposed doc change
   - A manually triggered run opens a real PR with a focused, accurate diff
-take_home_action: In a repository you own, schedule the doc updater to compare code and docs and open safe pull requests for reviewable documentation fixes.
-take_home_owner: developer
-take_home_signal: A real documentation PR is opened with clear evidence of the code change or drift it addresses.
 tags:
   - documentation
   - schedule

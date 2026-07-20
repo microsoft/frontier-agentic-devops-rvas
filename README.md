@@ -1,12 +1,12 @@
 # Agentic DevOps
 
-One repo. One GitHub Pages site. Five adoption journeys, four delivery session modules, 64 challenges, zero configuration drama.
+One repo. One GitHub Pages site. Five adoption journeys, four delivery session modules, 64 activities, zero configuration drama.
 
-> **Bring your own.** These challenges are built to run on **your** tenant — work each one
+> **Bring your own.** These activities are built to run on **your** tenant — work each one
 > against your own applications, repositories, and data so the result keeps running in
 > production after the session, not just as an upskilling exercise. The sample apps
 > (OWASP Juice Shop, the Grubify sample, seed repos) are only a fallback so no one is
-> blocked. Wherever a challenge says "bring your own," start from your real work; the
+> blocked. Wherever a activity says "bring your own," start from your real work; the
 > setup script and sample are there when you don't yet have a candidate.
 
 ## Outcomes
@@ -23,21 +23,21 @@ The site is organized around customer adoption outcomes first, then platform mod
 
 ## Modules
 
-| Module ID | Name | Challenges | Tracks |
+| Module ID | Name | Activities | Tracks |
 |---|---|---|---|
 | `ghec` | GitHub Enterprise Cloud | 27 | Developer Flow, Admin & Governance, Security, Automation & AI, Migration |
 | `ghas` | GitHub Advanced Security | 7 | Security |
 | `ghaw` | GitHub Agentic Workflows | 25 | Hello, Agent, Repo Concierge, Continuous Intelligence, Production Patterns |
 | `sre-agent` | SRE Agent | 5 | Azure SRE Agent |
 
-> **Total:** 64 challenges across 4 modules.
+> **Total:** 64 activities across 4 modules.
 
 ## Architecture
 
 ```
 modules/<moduleId>/challenges/<slug>/
   meta.yml      ← single source of truth (build reads ONLY this)
-  README.md     ← student guide
+  README.md     ← customer delivery team guide
   COACH.md      ← coach guide (facilitator notes, expected outputs, hints)
         │
         ▼
@@ -47,7 +47,7 @@ modules/<moduleId>/challenges/<slug>/
 docs/assets/data/
   platform.json              ← full catalog (modules + challenges)
   dependency-graph.json      ← prereq graph (nodes + edges)
-  challenges/<id>/README.md  ← copied student guide (served by Pages)
+  challenges/<id>/README.md  ← copied customer delivery team guide (served by Pages)
   challenges/<id>/COACH.md   ← copied coach guide
 ```
 
@@ -68,7 +68,7 @@ Output lands in `docs/assets/data/`. The Pages site (`docs/`) is fully self-cont
 ```
 ✓ built platform.json  (modules: 4, challenges: N)
 ✓ built dependency-graph.json  (nodes: N, edges: N)
-✓ copied student/coach guides → docs/assets/data/challenges/
+✓ copied customer delivery team/coach guides → docs/assets/data/challenges/
 ```
 
 Exit code 0 = success. Non-zero = validation errors (check stderr).
@@ -87,7 +87,7 @@ To prefetch everything during clone, use `git clone --recurse-submodules <repo>`
 ## Validation
 
 The build validates:
-- Every `prerequisites` entry references a real challenge `id` in the catalog.
+- Every `prerequisites` entry references a real activity `id` in the catalog.
 - No circular dependencies.
 - Warns on missing optional fields.
 
@@ -107,7 +107,7 @@ CI runs the same build on every PR and fails the check if validation errors are 
 See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the `meta.yml` field contract and authoring guide.  
 See [`modules/README.md`](modules/README.md) for the module and directory layout.  
 See [`docs/EXTERNAL-REPOS.md`](docs/EXTERNAL-REPOS.md) for how external dependencies (Juice Shop, sample apps, third-party delivery sessions) are managed and pinned.  
-Use `modules/_TEMPLATE/challenge/` as your starting point for new challenges.
+Use `modules/_TEMPLATE/challenge/` as your starting point for new activities.
 
 ## Deploy
 

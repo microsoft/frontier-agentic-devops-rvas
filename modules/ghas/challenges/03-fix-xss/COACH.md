@@ -1,10 +1,10 @@
 # Fix XSS & Unsafe Output — Coach Guide
 
-> Audience: facilitators and coaches. Pair with the student `README.md`.
+> Audience: facilitators and coaches. Pair with the delivery team member `README.md`.
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — which pages or components in your own application render user-supplied content back into the browser, and do you know for certain what encoding is applied before each one hits the DOM? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -15,22 +15,22 @@ Use these follow-ups to steer the conversation:
 
 ## Facilitation objectives
 - Reinforce that XSS fixes depend on output context, not generic sanitization slogans.
-- Help students trace full source-to-sink data flows across frontend and backend code.
-- Keep students validating that the UI still behaves normally after secure rendering changes.
+- Help customer delivery team members trace full source-to-sink data flows across frontend and backend code.
+- Keep customer delivery team members validating that the UI still behaves normally after secure rendering changes.
 
-## Common student blockers
-- Students often stop at the alert location without understanding where the data originates; ask them to trace both ends of the flow.
+## Common delivery team member blockers
+- Customer delivery team members often stop at the alert location without understanding where the data originates; ask them to trace both ends of the flow.
 - Some try input filtering alone; remind them the preferred fix is safe rendering or context-appropriate encoding.
 - Security fixes can accidentally break page rendering; have them test the affected UI path after each change.
 
 ## Facilitation hints
 - Ask whether the unsafe sink is HTML body, attribute, URL, or script context before suggesting a fix.
-- Encourage students to use framework defaults where possible instead of hand-rolling escaping logic.
+- Encourage customer delivery team members to use framework defaults where possible instead of hand-rolling escaping logic.
 - Have them describe reflected versus stored XSS in their own words before they open the PR.
 - If the CodeQL annotation persists, check whether another nearby sink is still unencoded.
 
 ## Validation checklist
-Verify each success criterion from the student guide:
+Verify each success criterion from the customer delivery team guide:
 - [ ] At least 2 XSS vulnerabilities fixed
 - [ ] Fixes use output encoding or safe framework APIs — not input filtering alone
 - [ ] PR descriptions explain the data flow: source (user input), sink (HTML output), and encoding applied

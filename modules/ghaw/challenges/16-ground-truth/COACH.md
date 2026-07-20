@@ -1,10 +1,10 @@
-# Coach Guide: Challenge 3-06 — Ground Truth
+# Coach Guide: Activity 3-06 — Ground Truth
 
 ---
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — where has an AI confidently produced numbers or facts it made up in your work, and how would feeding it deterministic data first change what you would trust it to output? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -15,7 +15,7 @@ Use these follow-ups to steer the conversation:
 
 ## Coaching Philosophy
 
-This challenge teaches one of the most important production patterns in gh-aw: **grounding AI output in real data**. Squads at this level have seen agents produce confident-sounding but fabricated numbers. `pre-agent-steps:` is the solution: deterministic shell runs first, writes real values to files, and the agent reads those files.
+This activity teaches one of the most important production patterns in gh-aw: **grounding AI output in real data**. Squads at this level have seen agents produce confident-sounding but fabricated numbers. `pre-agent-steps:` is the solution: deterministic shell runs first, writes real values to files, and the agent reads those files.
 
 **Key insight to surface:** The AI model is not a database. It cannot look up your open issue count — it will guess. `pre-agent-steps:` separates "gather facts" (shell, deterministic, reliable) from "reason about facts" (AI, creative, unreliable without grounding). That separation is the architecture of trustworthy automation.
 

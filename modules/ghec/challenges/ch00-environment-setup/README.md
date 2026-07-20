@@ -1,4 +1,4 @@
-# Challenge 00 — Environment Setup
+# Activity 00 — Environment Setup
 
 > Provision your development environment for the GitHub Enterprise Cloud delivery session, authenticate the GitHub CLI, and confirm org access before you begin track work.
 
@@ -13,7 +13,7 @@
 
 ## Objectives
 
-By the end of this challenge you will have:
+By the end of this activity you will have:
 
 - A working development environment (GitHub Codespaces or local dev container)
 - An authenticated `gh` CLI session pointing at your GitHub account
@@ -71,7 +71,7 @@ gh auth login
 
 Choose **GitHub.com**, then **HTTPS**, and follow the device-code prompt in your browser. Grant the requested permissions (at minimum: `repo`, `read:org`).
 
-> Some later challenges (Projects v2 automation, including ch16) also need `project` and `read:project`. You can add missing scopes later without re-login: `gh auth refresh -h github.com -s project,read:project`.
+> Some later activities (Projects v2 automation, including ch16) also need `project` and `read:project`. You can add missing scopes later without re-login: `gh auth refresh -h github.com -s project,read:project`.
 
 Verify the session is active:
 
@@ -116,9 +116,9 @@ gh repo view <org>/<repo>
 
 ## Provisioning preflight (optional)
 
-The GHEC delivery session ships provisioning scripts (`setup.sh` / `setup.ps1`) that set up starting state for each challenge.
+The GHEC delivery session ships provisioning scripts (`setup.sh` / `setup.ps1`) that set up starting state for each activity.
 The scripts live in-tree at `modules/ghec/resources/provisioning/`. You do not need them for this
-challenge, but you can run a preflight check now (from the repo root):
+activity, but you can run a preflight check now (from the repo root):
 
 ```bash
 # Bash

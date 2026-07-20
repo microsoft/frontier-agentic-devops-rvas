@@ -1,10 +1,10 @@
-# Coach Guide: Challenge 2-03 — Slash & Burn
+# Coach Guide: Activity 2-03 — Slash & Burn
 
 ---
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — what context do you and your teammates rebuild by hand by scrolling long threads, and which on-demand slash command would you actually reach for in your daily work? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -250,7 +250,7 @@ Be professional but friendly.
 
 | Phase | Time | What to Do |
 |-------|------|-----------|
-| Read & orient | 3 min | Read challenge, understand slash commands |
+| Read & orient | 3 min | Read activity, understand slash commands |
 | Write frontmatter | 5 min | Set up `on: issue_comment:`, `lock-for-agent:`, `permissions`, `safe-outputs` |
 | Write body | 8 min | Draft command detection + summary logic |
 | Compile & test | 9 min | Compile, create test issue + add many comments, then post `/summarize` |

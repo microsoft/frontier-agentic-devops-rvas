@@ -1,6 +1,6 @@
 # Ch21 — Migrate Azure DevOps Repos with GitHub Enterprise Importer
 
-> By the end of this challenge you can inventory, queue, run, validate, and clean up a real Azure DevOps Services Git repository migration into GitHub Enterprise Cloud using `gh ado2gh`.
+> By the end of this activity you can inventory, queue, run, validate, and clean up a real Azure DevOps Services Git repository migration into GitHub Enterprise Cloud using `gh ado2gh`.
 
 | | |
 |---|---|
@@ -13,7 +13,7 @@
 
 ## Prerequisites
 
-**Challenges:** _(none — this challenge is self-contained)_
+**Activities:** _(none — this activity is self-contained)_
 
 **Access and tools you need:**
 - GitHub Enterprise Cloud organization with **org-owner** rights.
@@ -25,7 +25,7 @@
 
 ## Scenario objectives
 
-By completing this challenge you will:
+By completing this activity you will:
 - Install and verify the GitHub Enterprise Importer Azure DevOps extension.
 - Create and store the required `GH_PAT` and `ADO_PAT` environment variables safely.
 - Produce an Azure DevOps repository inventory and choose a realistic pilot repo based on PR count.

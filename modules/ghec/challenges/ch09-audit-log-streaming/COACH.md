@@ -1,14 +1,14 @@
 # Ch09 — Audit Log & Streaming — Coach Guide
 
-> Audience: facilitators and graders. Pair with the student `README.md`.
+> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — if your org's GitHub audit log were streaming to your SIEM right now, what is the first alert or anomaly query you would write, and what event from the past six months do you wish you had been alerted to? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch09-audit-target` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer customer delivery team members who ran this on a **real artifact they own** over the `ghec-ch09-audit-target` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - What SIEM or logging system does your team use today, and is GitHub activity visible in it?
@@ -16,10 +16,10 @@ Use these follow-ups to steer the conversation:
 - What is the single jq/Splunk/Sentinel query you'd write first once the stream is live?
 
 ## Facilitation notes
-- **Goal in one line:** the student treats the org audit log as a source of truth — generates a controlled event set, then reconstructs exactly what happened using search syntax and the API, finishing with a repeatable export.
-- **Where students get stuck:**
+- **Goal in one line:** the delivery team member treats the org audit log as a source of truth — generates a controlled event set, then reconstructs exactly what happened using search syntax and the API, finishing with a repeatable export.
+- **Where customer delivery team members get stuck:**
   - **Audit events are eventually-consistent.** A generated action can take a short while to appear. If a search returns nothing immediately, wait and retry rather than assuming failure.
-  - **Search syntax precision.** `action:team.add_repository` is exact; `action:team` is a prefix match. `created:` accepts ranges (`>=2026-06-01`). Students often guess action names — point them at the "audit log events" reference for the canonical list.
+  - **Search syntax precision.** `action:team.add_repository` is exact; `action:team` is a prefix match. `created:` accepts ranges (`>=2026-06-01`). Customer delivery team members often guess action names — point them at the "audit log events" reference for the canonical list.
   - **API `phrase` vs UI search.** The REST API takes the *same* query in a `phrase` parameter. Once they see that, the UI and API click together.
   - **Git events are separate and time-limited.** `git.*` events need `include=git` and aren't retained as long — keep that for the stretch.
 - **How to unblock without giving the answer:** ask "what exact `action:` string did the docs say a team-to-repo grant emits?" and "how would you scope a query to only today's events?" (→ `created:>=<today>`).
@@ -43,7 +43,7 @@ ORG=<org>
 # Recent events exist and have the expected shape
 gh api /orgs/$ORG/audit-log --jq '.[0] | {action, actor, created_at, repo}'
 
-# The team-add event the student generated in Part B
+# The team-add event the delivery team member generated in Part B
 gh api -X GET /orgs/$ORG/audit-log -f phrase='action:team.add_repository' \
   --jq '.[] | {actor, created_at, repo}'
 
@@ -57,7 +57,7 @@ gh api -X GET /orgs/$ORG/audit-log -f phrase='repo:'"$ORG"'/ghec-ch09-audit-targ
 # Pagination sanity (large slices)
 gh api -X GET /orgs/$ORG/audit-log -f phrase='created:>=2026-06-01' --paginate --jq 'length'
 ```
-- The fastest mastery signal is a **phrase query that returns the exact event** the student generated (e.g., `team.add_repository`) with the right actor and repo.
+- The fastest mastery signal is a **phrase query that returns the exact event** the delivery team member generated (e.g., `team.add_repository`) with the right actor and repo.
 - For the export, open the committed JSON file and confirm it contains the generated actions — not just that the script ran.
 - `FINDINGS.md` should show the **literal filter** used per question, so grading is just re-running it.
 
@@ -78,7 +78,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch09 --org <o
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch09 --org <org> --yes  # PowerShell
 ```
 - Removes only `ghec-ch09-*` artifacts (prefix-guarded): the `ghec-ch09-audit-target` repo and the `ghec-ch09-auditors` team.
-- **Manual cleanup / cannot be reverted:** the **audit log is append-only** — the events the student generated in Part B are a permanent part of the org's history and are **not** (and cannot be) deleted by teardown. That's expected and correct; auditability is the point. If the student configured any **enterprise audit-log streaming** during the stretch/awareness discussion, that stream config must be removed by hand at the enterprise level — our scripts never touch it.
+- **Manual cleanup / cannot be reverted:** the **audit log is append-only** — the events the delivery team member generated in Part B are a permanent part of the org's history and are **not** (and cannot be) deleted by teardown. That's expected and correct; auditability is the point. If the delivery team member configured any **enterprise audit-log streaming** during the stretch/awareness discussion, that stream config must be removed by hand at the enterprise level — our scripts never touch it.
 
 ## Time budget
 - Setup + read the log: ~30 min

@@ -1,14 +1,14 @@
-# Challenge Title
+# Activity Title
 
 > **Module:** REPLACE | **Track:** REPLACE | **Difficulty:** beginner | **Time:** ~60 min
 
 ## Goal
 
-REPLACE: One sentence describing what the student will build or achieve.
+REPLACE: One sentence describing what the delivery team member will build or achieve.
 
 ## Prerequisites
 
-**Challenges:** _(none — this challenge is self-contained)_
+**Activities:** _(none — this activity is self-contained)_
 
 **Skills you should have:**
 - GitHub account with organization access
@@ -16,9 +16,9 @@ REPLACE: One sentence describing what the student will build or achieve.
 
 ## Setup
 
-> Run the provision script before starting: `bash provision.sh` (or follow the setup challenge for this module).
+> Run the provision script before starting: `bash provision.sh` (or follow the setup activity for this module).
 
-REPLACE: Describe any repos, apps, or resources the student needs before they begin.
+REPLACE: Describe any repos, apps, or resources the delivery team member needs before they begin.
 
 ## Instructions
 

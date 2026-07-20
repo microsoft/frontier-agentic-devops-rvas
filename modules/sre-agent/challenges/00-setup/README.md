@@ -1,4 +1,4 @@
-# Challenge 00: Prepare the Azure SRE Agent Lab
+# Activity 00: Prepare the Azure SRE Agent Lab
 
 ## Scenario
 

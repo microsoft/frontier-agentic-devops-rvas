@@ -1,14 +1,14 @@
 # Ch05 — Advanced PR Automation & Rulesets — Coach Guide
 
-> Audience: facilitators and graders. Pair with the student `README.md`.
+> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — which repetitive PR task on your current team (auto-labeling, reviewer assignment, size checks, changelog enforcement) costs the most human time per week, and what could a composite action or reusable workflow replace? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch05-advanced-pr-automation` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer customer delivery team members who ran this on a **real artifact they own** over the `ghec-ch05-advanced-pr-automation` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - List the manual steps that happen every time a PR is opened in your main repo — who does each one?
@@ -16,9 +16,9 @@ Use these follow-ups to steer the conversation:
 - What single Actions workflow file could you open a PR for in the next two days?
 
 ## Facilitation notes
-- **Goal in one line:** the student replaces manual merge babysitting with policy + automation — layered rulesets, auto-merge, and Actions-driven PR housekeeping that runs itself safely.
-- **Where students get stuck:**
-  - **Rulesets vs classic branch protection.** They coexist and the **most restrictive wins**. Students sometimes set both and get confused about which rule blocked them. Reference [about rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets) to teach them to read the "rules" tooltip on the blocked PR.
+- **Goal in one line:** the delivery team member replaces manual merge babysitting with policy + automation — layered rulesets, auto-merge, and Actions-driven PR housekeeping that runs itself safely.
+- **Where customer delivery team members get stuck:**
+  - **Rulesets vs classic branch protection.** They coexist and the **most restrictive wins**. Customer delivery team members sometimes set both and get confused about which rule blocked them. Reference [about rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets) to teach them to read the "rules" tooltip on the blocked PR.
   - **Auto-merge prerequisites.** Auto-merge only arms when the repo setting is on *and* the PR has required checks/reviews pending (not already mergeable, not draft). Reference [automatically merging](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/automatically-merging-a-pull-request) to clarify the "it just merged" surprise.
   - **`labeler` trigger.** `pull_request_target` runs in the base-repo context (needed for fork PRs to get labels) — explain the security nuance (don't check out untrusted code in that context). See [actions/labeler](https://github.com/actions/labeler).
   - **Org ruleset scope.** The repo-name pattern `ghec-ch05-*` must match; a typo means the org rule silently covers nothing. See [managing rulesets for organizations](https://docs.github.com/en/organizations/managing-organization-settings/creating-rulesets-for-repositories-in-your-organization).
@@ -38,7 +38,7 @@ Use these follow-ups to steer the conversation:
 
 ## Automated verification hints
 ```bash
-ORG=<org>; REPO=ghec-ch05-advanced-pr-automation   # swap REPO for the student's own repo if they brought one
+ORG=<org>; REPO=ghec-ch05-advanced-pr-automation   # swap REPO for the delivery team member's own repo if they brought one
 
 # Repository rulesets (expect an Active ruleset with the rules below)
 gh api repos/$ORG/$REPO/rulesets --jq '.[] | {name, enforcement}'
@@ -63,7 +63,7 @@ gh api /orgs/$ORG/rulesets --jq '.[] | {name, enforcement, target}'
 ```
 - The **ruleset `rules[].type`** list is the fastest mastery signal — it should include `pull_request`, `required_status_checks`, `non_fast_forward`, and `required_linear_history`.
 - For auto-merge, `autoMergeRequest` on a PR being non-null proves it was armed; a later non-null `mergedAt` proves it self-merged.
-- For stale automation, have the student run the workflow via `workflow_dispatch` and show the labeled/closed PRs.
+- For stale automation, have the delivery team member run the workflow via `workflow_dispatch` and show the labeled/closed PRs.
 
 ## Common pitfalls
 - **Both classic protection and a ruleset active** → confusing double-gates. Prefer rulesets here; if classic protection exists from setup, note which rule wins. See [about rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets).
@@ -79,7 +79,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch05 --org <o
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch05 --org <org> --yes  # PowerShell
 ```
 - Removes only `ghec-ch05-*` artifacts (prefix-guarded): the repo (with its repo ruleset, workflows, PRs) **and** the `ghec-ch05-org` organization ruleset.
-- **Manual cleanup (if any):** any org **team** the student created for CODEOWNERS that isn't `ghec-ch05-*` prefixed must be removed by hand; advise naming teams `ghec-ch05-*`.
+- **Manual cleanup (if any):** any org **team** the delivery team member created for CODEOWNERS that isn't `ghec-ch05-*` prefixed must be removed by hand; advise naming teams `ghec-ch05-*`.
 
 ## Time budget
 - Setup + read PR states: ~30 min

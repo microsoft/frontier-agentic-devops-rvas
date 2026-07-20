@@ -24,9 +24,6 @@ success_criteria:
   - 2+ observations
   - An encouraging sign-off
   - The comment feels useful (not spam)
-take_home_action: In a repository you own, deploy the first-pass PR reviewer with safe comment-only output and no permission to change code.
-take_home_owner: developer
-take_home_signal: Real pull requests receive structured review comments that point to actionable diff evidence without blocking merges.
 tags:
   - pull-requests
   - code-review

@@ -1,10 +1,10 @@
-# Coach Guide: Challenge 3-02 — Context Engine
+# Coach Guide: Activity 3-02 — Context Engine
 
 ---
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — what context does an agent on your team need before it can make a decision you would trust, and where today does it fly blind without that data? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -13,7 +13,7 @@ Use these follow-ups to steer the conversation:
 - Probe exactly what data it needs and the cost of it deciding blind today.
 - Get them to identify one context source they'll wire in next week and how they'll verify it helps.
 
-## Coaching Philosophy for This Challenge
+## Coaching Philosophy for This Activity
 
 This is the **MCP tools intro**. Squads have used GitHub APIs passively (reading), but now you're teaching them to think about *data sources* and *context injection*.
 
@@ -80,7 +80,7 @@ Squads will differ in complexity. All are valid:
 **Pros:** Showcases MCP flexibility
 **Cons:** More moving parts, more things to go wrong
 
-**Coach guidance:** Approach 1 or 2 is ideal for this challenge. Approach 3 is ambitious but not required.
+**Coach guidance:** Approach 1 or 2 is ideal for this activity. Approach 3 is ambitious but not required.
 
 ---
 

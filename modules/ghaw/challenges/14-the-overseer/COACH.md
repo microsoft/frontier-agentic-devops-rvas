@@ -1,10 +1,10 @@
-# Coach Guide: Challenge 3-04 — The Overseer
+# Coach Guide: Activity 3-04 — The Overseer
 
 ---
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — who or what watches your automations today, and at what failure rate or cost would you want an overseer agent to alert you before things spiral? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -13,7 +13,7 @@ Use these follow-ups to steer the conversation:
 - Surface the failure rate or cost threshold at which they'd want to be alerted before things spiral.
 - Get them to define one health signal an overseer will monitor for them next week.
 
-## Coaching Philosophy for This Challenge
+## Coaching Philosophy for This Activity
 
 This is the **meta-workflow intro**. Squads have built workflows that do things. Now teach them to build workflows that *watch other workflows*.
 
@@ -163,10 +163,10 @@ Workflow runs but only creates an issue if something is broken (no issue if all 
 ### Pitfall 7: No workflows to monitor
 **Symptom:** Overseer runs but says "No workflows found" because this is the first week and no other workflows exist.
 
-**Root cause:** Squad is running challenges in isolation, no other workflows exist.
+**Root cause:** Squad is running activities in isolation, no other workflows exist.
 
 **Coach response:**
-- "That's OK! The challenge is to build the *Overseer*, not to have a full farm of workflows to monitor."
+- "That's OK! The activity is to build the *Overseer*, not to have a full farm of workflows to monitor."
 - "For testing, have them manually trigger the Overseer a few times to generate some run history. Then the Overseer has data to analyze."
 - Or: "If you want, create a dummy workflow that runs weekly and produces some data. Then the Overseer can monitor it."
 

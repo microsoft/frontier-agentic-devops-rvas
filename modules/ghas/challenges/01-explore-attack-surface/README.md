@@ -1,14 +1,14 @@
-# Challenge S01 — Explore the Attack Surface
+# Activity S01 — Explore the Attack Surface
 
 ## Description
 
 Before you fix anything, you need to understand what you're dealing with. GHAS is already running on the org repository provisioned in S00. CodeQL has scanned the default branch, Dependabot has checked every dependency, and secret scanning has reviewed every commit. The results are waiting for you in the Security tab.
 
-Juice Shop is intentionally vulnerable. The alerts you'll see aren't theoretical — they're real exploitable flaws in real code. SQL injection that lets attackers bypass authentication. XSS that can hijack user sessions. Broken access control that exposes data it shouldn't. Your job in this challenge is to read those alerts, open the affected files, and use Copilot to understand exactly what the code is doing wrong.
+Juice Shop is intentionally vulnerable. The alerts you'll see aren't theoretical — they're real exploitable flaws in real code. SQL injection that lets attackers bypass authentication. XSS that can hijack user sessions. Broken access control that exposes data it shouldn't. Your job in this activity is to read those alerts, open the affected files, and use Copilot to understand exactly what the code is doing wrong.
 
-This is your reconnaissance phase. Build a mental model of the vulnerability surface so the fix challenges that follow have real context.
+This is your reconnaissance phase. Build a mental model of the vulnerability surface so the fix activities that follow have real context.
 
-> **Before this challenge:** Make sure S00 is complete, the org repo exists, required participants have been added, GHAS features are enabled, and you've created your team branch. The Security tab is default-branch oriented. Your branch fixes will be validated later through PR CodeQL checks and code scanning annotations.
+> **Before this activity:** Make sure S00 is complete, the org repo exists, required participants have been added, GHAS features are enabled, and you've created your team branch. The Security tab is default-branch oriented. Your branch fixes will be validated later through PR CodeQL checks and code scanning annotations.
 
 ## Objectives
 
@@ -21,7 +21,7 @@ This is your reconnaissance phase. Build a mental model of the vulnerability sur
 > [!IMPORTANT]
 > **Bring your own application (do this first)**
 >
-> This challenge is most valuable when the attack-surface picture *outlives the delivery session*. Use a real application repository you want to secure so the CodeQL, Dependabot, and secret scanning results you review become evidence your team can keep acting on after today.
+> This activity is most valuable when the attack-surface picture *outlives the delivery session*. Use a real application repository you want to secure so the CodeQL, Dependabot, and secret scanning results you review become evidence your team can keep acting on after today.
 >
 > - **Have a candidate?** If you have an application repo in an organization you control with GHAS enabled, use it everywhere this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice-Shop-specific setup from S00 and review the Security tab for your own repo instead.
 > - **No suitable one?** Use the fallback from S00: OWASP Juice Shop as a safe practice target for learning how to inspect alerts.

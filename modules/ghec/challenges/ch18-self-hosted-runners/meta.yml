@@ -10,8 +10,8 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-- Repository provisioned via challenge setup script
-description: By the end of this challenge you can register, harden, and target a self-hosted runner through an **organization runner group**, route jobs to it with labels, and reason about scaling and isolation — all from an org and an org-owner token.
+- Repository provisioned via activity setup script
+description: By the end of this activity you can register, harden, and target a self-hosted runner through an **organization runner group**, route jobs to it with labels, and reason about scaling and isolation — all from an org and an org-owner token.
 success_criteria:
 - An **org runner group** `ghec-ch18-group` exists, scoped to **selected repos** (only `ghec-ch18-self-hosted-runners`).
 - A **self-hosted runner** is registered to that group with custom **labels** and shows **Idle/online**.
@@ -19,9 +19,6 @@ success_criteria:
 - A **mis-labeled** job stays **queued**, proving label routing.
 - The runner runs under a **least-privilege account** and you demonstrated an **ephemeral** registration.
 - You documented the **fork-PR risk** and a **GitHub-hosted vs larger vs self-hosted** decision matrix, plus the **org-vs-enterprise runner group** note.
-take_home_action: In your own org, route one constrained CI workload to a hardened self-hosted or larger runner group with labels, selected repository access, and isolation guidance.
-take_home_owner: developer
-take_home_signal: The production workflow runs on the intended runner label, unauthorized repositories cannot target the runner group, and mis-labeled jobs stay queued.
 tags:
 - actions
 - self-hosted-runners

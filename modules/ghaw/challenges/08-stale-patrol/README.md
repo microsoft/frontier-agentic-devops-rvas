@@ -1,8 +1,8 @@
-# Challenge 2-04: Stale Patrol
+# Activity 2-04: Stale Patrol
 
 **Track:** Repo Concierge (Intermediate 🟡)  
 **Estimated time:** 30 minutes  
-**Prerequisites:** Complete at least 2 challenges from Track 1
+**Prerequisites:** Complete at least 2 activities from Track 1
 
 ---
 
@@ -30,7 +30,7 @@ By the end, your squad will:
 > [!IMPORTANT]
 > **Bring your own repo (do this first)**
 >
-> This challenge is most valuable when Stale Patrol applies **your own repository's** backlog policy, exemption labels, and grace period, so maintenance can continue after the session. Treat the setup sample as practice, not the default destination.
+> This activity is most valuable when Stale Patrol applies **your own repository's** backlog policy, exemption labels, and grace period, so maintenance can continue after the session. Treat the setup sample as practice, not the default destination.
 >
 > - **Have a candidate repo?** Install or point `stale-patrol.md` at that repo everywhere the guide references the sample repo, and use real stale issues, labels such as `keep-alive`, and your team's closure language.
 > - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
@@ -39,7 +39,7 @@ By the end, your squad will:
 
 ---
 
-## Challenge
+## Activity
 
 Create a gh-aw workflow named `stale-patrol.md` in `.github/workflows/` that:
 

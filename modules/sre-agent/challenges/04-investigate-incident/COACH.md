@@ -1,4 +1,4 @@
-# Coach Guide: Challenge 04 — Investigate a Controlled Azure Incident
+# Coach Guide: Activity 04 — Investigate a Controlled Azure Incident
 
 ## Expected Outcome
 
@@ -14,7 +14,7 @@ Have one break path ready:
 | Shared | Coach-triggered incident and shared agent view |
 | Fallback | Alert text, KQL/log excerpt, App Insights exception, transcript |
 
-Prepare a known recovery path so the challenge does not stall after investigation.
+Prepare a known recovery path so the activity does not stall after investigation.
 
 ## Strong Evidence
 

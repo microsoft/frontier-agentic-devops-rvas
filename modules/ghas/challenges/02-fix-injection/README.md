@@ -1,10 +1,10 @@
-# Challenge S02 — Fix Injection Vulnerabilities
+# Activity S02 — Fix Injection Vulnerabilities
 
 ## Description
 
 Injection is consistently the most exploited class of vulnerability in web applications. When user-controlled input reaches a database query, command interpreter, or template engine without proper sanitization, attackers can rewrite the logic — stealing data, bypassing authentication, or destroying records.
 
-Juice Shop contains real SQL injection and NoSQL injection vulnerabilities in its backend routes. CodeQL has already flagged them. In this challenge you'll locate those alerts, open the affected code, understand exactly why it's exploitable, and write the fix. The goal isn't just to make the CodeQL alert disappear — it's to understand the safe coding pattern so you can apply it anywhere.
+Juice Shop contains real SQL injection and NoSQL injection vulnerabilities in its backend routes. CodeQL has already flagged them. In this activity you'll locate those alerts, open the affected code, understand exactly why it's exploitable, and write the fix. The goal isn't just to make the CodeQL alert disappear — it's to understand the safe coding pattern so you can apply it anywhere.
 
 You're working as a developer fixing real application code. Not configuring tools. Not clicking settings. Writing code.
 
@@ -19,7 +19,7 @@ You're working as a developer fixing real application code. Not configuring tool
 > [!IMPORTANT]
 > **Bring your own application (do this first)**
 >
-> This challenge is most valuable when the injection fixes *outlive the delivery session*. Use the real application repository you want to secure so the CodeQL findings, pull requests, and safer query patterns land in code your team keeps.
+> This activity is most valuable when the injection fixes *outlive the delivery session*. Use the real application repository you want to secure so the CodeQL findings, pull requests, and safer query patterns land in code your team keeps.
 >
 > - **Have a candidate?** If you have an application repo in an organization you control with GHAS enabled, use it everywhere this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice-Shop-specific setup and pick real SQL, NoSQL, command, or template-injection alerts from your own repo instead of the Juice Shop examples.
 > - **No suitable one?** Use the fallback from S00: OWASP Juice Shop as a safe practice target for fixing known injection flaws.

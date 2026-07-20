@@ -1,14 +1,14 @@
 # Ch17 — Webhooks & GitHub Apps — Coach Guide
 
-> Audience: facilitators and graders. Pair with the student `README.md`.
+> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — which external system in your workflow (Jira, Slack, PagerDuty, a deployment dashboard) is updated by hand after a GitHub event, and what webhook payload or GitHub App permission would let you wire it up automatically? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch17-webhooks-github-apps` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer customer delivery team members who ran this on a **real artifact they own** over the `ghec-ch17-webhooks-github-apps` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Name the external system and the GitHub event (push, PR merged, release created) that should trigger the update.
@@ -16,8 +16,8 @@ Use these follow-ups to steer the conversation:
 - What is the minimal webhook receiver or App you could prototype in a day to prove the integration out?
 
 ## Facilitation notes
-- **Goal in one line:** the student receives real webhook deliveries, **verifies them cryptographically**, and graduates from a passive listener to an installed **GitHub App** that acts back as a bot identity.
-- **Where students get stuck:**
+- **Goal in one line:** the delivery team member receives real webhook deliveries, **verifies them cryptographically**, and graduates from a passive listener to an installed **GitHub App** that acts back as a bot identity.
+- **Where customer delivery team members get stuck:**
   - **No public host.** Many corporate machines can't expose a port. Steer them to **smee.io** or the seeded **Actions `repository_dispatch` receiver** — don't let them rabbit-hole on ngrok/firewalls.
   - **Signature over the raw body.** The HMAC must be computed over the **exact raw bytes** GitHub sent — re-serializing the JSON changes whitespace and breaks the digest. This is the #1 failure.
   - **App auth chain confusion.** App JWT (signed with private key) → installation token (exchanged via JWT) → API calls (use installation token). They mix up which credential goes where.
@@ -38,7 +38,7 @@ Use these follow-ups to steer the conversation:
 
 ## Automated verification hints
 ```bash
-ORG=<org>; REPO=ghec-ch17-webhooks-github-apps   # swap REPO for the student's own repo if they brought one
+ORG=<org>; REPO=ghec-ch17-webhooks-github-apps   # swap REPO for the delivery team member's own repo if they brought one
 
 # Repo webhook exists with the right events
 gh api repos/$ORG/$REPO/hooks --jq '.[] | {id, events, active}'
@@ -57,8 +57,8 @@ gh api /orgs/$ORG/installations --jq '.installations[] | {id, app_slug, target_t
 gh api repos/$ORG/$REPO/issues/comments --jq '.[] | {user: .user.login, type: .user.type}' | grep -i Bot
 ```
 - The strongest mastery signal is a **comment whose `user.type` is `Bot`** — only an installation token produces that. A PAT comment shows `type: User`.
-- For signature verification, have the student **redeliver** a payload, tamper one byte locally, and show the receiver logging a **reject**.
-- **Part G check:** with `app/handler.js` running (behind smee), opening a *new* issue should produce a bot comment **without any manual command**. The accelerator already does verify + routing + auth, so a failure here is almost always in the student's TODO (wrong endpoint, missing `Authorization: token <token>` header, or not reading `issue.number`/`issue.user.login` from the payload). If nothing appears, check the handler logs for `bad signature` (secret mismatch with the repo webhook) vs `handler error` (their POST).
+- For signature verification, have the delivery team member **redeliver** a payload, tamper one byte locally, and show the receiver logging a **reject**.
+- **Part G check:** with `app/handler.js` running (behind smee), opening a *new* issue should produce a bot comment **without any manual command**. The accelerator already does verify + routing + auth, so a failure here is almost always in the delivery team member's TODO (wrong endpoint, missing `Authorization: token <token>` header, or not reading `issue.number`/`issue.user.login` from the payload). If nothing appears, check the handler logs for `bad signature` (secret mismatch with the repo webhook) vs `handler error` (their POST).
 
 ## Common pitfalls
 - **Hashing re-serialized JSON** instead of the raw body → signature never matches. Capture and sign the raw bytes.
@@ -66,7 +66,7 @@ gh api repos/$ORG/$REPO/issues/comments --jq '.[] | {user: .user.login, type: .u
 - **JWT used directly to call the API** → `401`; you must exchange it for an installation token first.
 - **JWT clock skew / >10-min expiry** → `401`; keep `exp` ≤ 10 minutes and the machine clock correct.
 - **Token scope** — `admin:org_hook` needed for org webhooks; org-owner needed to install the App.
-- **Leftover org hook / temp repo** — remind students to delete the `ghec-ch17-temp` repo from Part D.
+- **Leftover org hook / temp repo** — remind customer delivery team members to delete the `ghec-ch17-temp` repo from Part D.
 
 ## Useful references for coaching
 

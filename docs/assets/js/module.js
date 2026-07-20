@@ -72,7 +72,7 @@
             <div class="track-item-name">${FP.esc(t.name)}</div>
             ${t.description ? `<div class="track-item-desc">${FP.esc(t.description)}</div>` : ''}
           </div>
-          <div class="track-item-count">${count} challenge${count === 1 ? '' : 's'}</div>
+          <div class="track-item-count">${count} activit${count === 1 ? 'y' : 'ies'}</div>
         </${tag}>`;
     }).join('');
   }
@@ -83,7 +83,7 @@
     const color = FP.moduleColor(mod.id);
 
     if (!challenges.length) {
-      grid.innerHTML = '<div class="empty">No challenges found for this module.</div>';
+      grid.innerHTML = '<div class="empty">No activities found for this module.</div>';
       return;
     }
 
@@ -110,7 +110,7 @@
         <div class="group-head" id="track-${trackId}" style="--mod-color:${color}">
           <span class="group-count" style="color:${color};font-family:var(--font-mono);font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em">${FP.esc(trackId)}</span>
           <h3>${FP.esc(trackName)}</h3>
-          <span class="group-count">${items.length} challenge${items.length === 1 ? '' : 's'}</span>
+          <span class="group-count">${items.length} activit${items.length === 1 ? 'y' : 'ies'}</span>
         </div>
         <div class="challenge-grid">`;
 

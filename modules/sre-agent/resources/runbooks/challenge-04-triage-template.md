@@ -1,4 +1,4 @@
-# Challenge 04 Triage Template
+# Activity 04 Triage Template
 
 ## Incident Summary
 

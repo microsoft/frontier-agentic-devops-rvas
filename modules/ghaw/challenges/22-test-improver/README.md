@@ -8,7 +8,7 @@
 
 The Test Improver is the *consumer* half of the causal chain that begins with Daily Testify. Where Testify identifies what's wrong, the Test Improver writes the fix — it detects coverage gaps in your codebase and opens PRs with the new tests already written.
 
-Run together, the pair operates as an autonomous testing pipeline: analyst identifies gaps, implementer fills them, PRs land for human review. The pattern comes from `githubnext/agentics` and pairs naturally with the issues created by Challenge 4-05.
+Run together, the pair operates as an autonomous testing pipeline: analyst identifies gaps, implementer fills them, PRs land for human review. The pattern comes from `githubnext/agentics` and pairs naturally with the issues created by Activity 4-05.
 
 Source: [`githubnext/agentics/workflows/daily-test-improver.md`](https://github.com/githubnext/agentics/blob/main/workflows/daily-test-improver.md)
 
@@ -22,7 +22,7 @@ Source: [`githubnext/agentics/workflows/daily-test-improver.md`](https://github.
 > [!IMPORTANT]
 > **Bring your own repo (do this first)**
 >
-> This challenge is most valuable when Test Improver opens PRs against code your team can review and keep. Pick a repository in an org you control with real source files, test conventions, and coverage gaps.
+> This activity is most valuable when Test Improver opens PRs against code your team can review and keep. Pick a repository in an org you control with real source files, test conventions, and coverage gaps.
 >
 > - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and point the workflow at that repo's real code, tests, coverage targets, and framework-specific assertions.
 > - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.

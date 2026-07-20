@@ -1,8 +1,8 @@
-# Challenge 2-06: Mix & Match
+# Activity 2-06: Mix & Match
 
 **Track:** Repo Concierge (Intermediate 🟡)  
 **Estimated time:** 30 minutes  
-**Prerequisites:** Challenge 00, at least 2 Track 1 challenges, Challenge 2-01
+**Prerequisites:** Activity 00, at least 2 Track 1 activities, Activity 2-01
 
 ---
 
@@ -29,7 +29,7 @@ By the end, your squad will:
 > [!IMPORTANT]
 > **Bring your own repo (do this first)**
 >
-> This challenge is most valuable when the imported helper and weekly digest describe **your own repository's** real health signals, Discussions category, and stakeholder audience, so the pattern survives after the session. Treat the setup sample as practice, not the default destination.
+> This activity is most valuable when the imported helper and weekly digest describe **your own repository's** real health signals, Discussions category, and stakeholder audience, so the pattern survives after the session. Treat the setup sample as practice, not the default destination.
 >
 > - **Have a candidate repo?** Install or point `10-mix-and-match.md` at that repo everywhere the guide references the sample repo, and write `lib/repo-stats-helper.md` around its real issues, PRs, tests, docs, and reporting tone.
 > - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
@@ -67,7 +67,7 @@ The `category` must match a Discussion category that **already exists** in the r
 
 ---
 
-## Challenge
+## Activity
 
 ### Step 1: Create the helper snippet
 
@@ -145,4 +145,4 @@ Ask your coach.
 
 ---
 
-*Next: Challenge 2-05 — Welcome Wagon, or continue to Track 3 — Continuous Intelligence for advanced patterns.*
+*Next: Activity 2-05 — Welcome Wagon, or continue to Track 3 — Continuous Intelligence for advanced patterns.*

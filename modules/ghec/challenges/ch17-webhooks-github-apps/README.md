@@ -1,24 +1,24 @@
 # Ch17 — Webhooks & GitHub Apps
 
-> By the end of this challenge you can receive GitHub events over webhooks, verify their payloads cryptographically, and register and install a minimal GitHub App that authenticates as an installation — all from an org and an org-owner token.
+> By the end of this activity you can receive GitHub events over webhooks, verify their payloads cryptographically, and register and install a minimal GitHub App that authenticates as an installation — all from an org and an org-owner token.
 
 | | |
 |---|---|
 | **Track** | Automation & AI |
 | **Difficulty** | Intermediate *(per-track ramp)* |
 | **Duration** | ~4–5 hrs total, multi-session |
-| **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
+| **Minimum input** | An **org** + an **org-owner token**. *(All activities are org-scoped — no enterprise owner required.)* |
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes |
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch17 --org <org>` (least-privilege; for this challenge: `repo` + `admin:org_hook` + `read:org`).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch17 --org <org>` (least-privilege; for this activity: `repo` + `admin:org_hook` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq`, plus `openssl` (for HMAC verification). Node or Python for the receiver is optional — an Actions-based receiver works too.
-- A way to receive a public callback: a [`smee.io`](https://smee.io) channel (no install/account) **or** the Actions-based `repository_dispatch` receiver this challenge seeds. Both paths are documented below.
+- A way to receive a public callback: a [`smee.io`](https://smee.io) channel (no install/account) **or** the Actions-based `repository_dispatch` receiver this activity seeds. Both paths are documented below.
 
 ## Scenario objectives
-By completing this challenge you will:
+By completing this activity you will:
 - Configure a **repository webhook** and an **organization webhook**, choosing events deliberately.
 - Read a **delivery payload** and the `X-GitHub-Event` / `X-GitHub-Delivery` headers.
 - **Verify payloads** by computing the `X-Hub-Signature-256` HMAC-SHA256 with a shared secret.
@@ -31,7 +31,7 @@ A GHEC customer wants to react to activity in real time — auto-acknowledge new
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
-> This challenge is most valuable when the result *outlives the delivery session*. Pick a real integration target where a GitHub event should update another system and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> This activity is most valuable when the result *outlives the delivery session*. Pick a real integration target where a GitHub event should update another system and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch17-webhooks-github-apps`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded sample repo and app/webhook practice target.
@@ -80,13 +80,13 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch17 --org <org>
 
 ### Part E — Register & install a GitHub App
 
-> GitHub Apps are created by filling the **New GitHub App** form. The form is long, but for this challenge only a few fields matter; leave everything else at its default.
+> GitHub Apps are created by filling the **New GitHub App** form. The form is long, but for this activity only a few fields matter; leave everything else at its default.
 
 11. **Open the form** at Org **Settings → Developer settings → GitHub Apps → New GitHub App** (the page is titled *Create GitHub App*), then fill it in top to bottom:
     - **GitHub App name** (required): `ghec-ch17-app` — names are globally unique, so add a suffix if it's taken.
     - **Homepage URL** (required): any valid URL works — use your repo, e.g. `https://github.com/<org>/ghec-ch17-webhooks-github-apps`.
     - **Identifying and authorizing users** and **Post installation**: leave the Callback/Setup URLs blank — not needed here.
-    - **Webhook → Active:** **uncheck** it. It's on by default, which makes **Webhook URL** required; you aren't hosting the App's own webhook in this challenge, so turning it off skips that field.
+    - **Webhook → Active:** **uncheck** it. It's on by default, which makes **Webhook URL** required; you aren't hosting the App's own webhook in this activity, so turning it off skips that field.
     - **Permissions → Repository permissions:** expand it and set **Issues** to **Read and write**. **Metadata** is already **Read-only** (mandatory) — leave it as is.
     - **Subscribe to events:** the **Issues** checkbox appears here *only after* you set the Issues permission above (the event list is driven by your permissions). Check **Issues** and leave any other events unchecked.
     - **Where can this GitHub App be installed?** Choose **Only on this account**.

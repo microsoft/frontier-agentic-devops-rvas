@@ -1,16 +1,16 @@
 # === Required ===
 id: REPLACE-module-localid       # Globally unique. Convention: <module>-<local-id>
                                  # Examples: ghec-ch01, ghas-00, ghaw-01, sre-agent-00
-title: "REPLACE: Short Challenge Title"
+title: "REPLACE: Short Activity Title"
 module: REPLACE                  # One of: ghec | ghas | ghaw | sre-agent
 track: REPLACE-track-slug        # See CONTRIBUTING.md for the module → track table
 difficulty: beginner             # beginner | intermediate | advanced
-duration_minutes: 60             # Estimated student time in minutes
+duration_minutes: 60             # Estimated time for a delivery team member in minutes
 
 # === Independence fields ===
 prerequisites:                   # Challenge IDs that must be done first. Empty = none.
   []
-prerequisite_capabilities:       # Skills a student must KNOW (not challenges to complete).
+prerequisite_capabilities:       # Skills a delivery team member must KNOW (not activities to complete).
   - "GitHub account"
   - "Basic Git knowledge"
 
@@ -19,14 +19,6 @@ description: "REPLACE: One-sentence description shown in the catalog card."
 success_criteria:
   - "REPLACE: First observable success condition"
   - "REPLACE: Second observable success condition"
-
-# === Take it home (production adoption) ===
-# Turns the challenge into a concrete adoption step the reader repeats in THEIR OWN
-# org/tenant to drive real GitHub platform usage — not a coaching chat. Plain scalar
-# text (no leading '#', quotes optional). All three fields are required.
-take_home_action: "REPLACE: In your own org/tenant, do <the production thing this challenge taught>."
-take_home_owner: developer          # developer | platform-governance | solution-architect
-take_home_signal: "REPLACE: Observable production signal proving it is live/enforced/running in your org."
 
 tags:
   - REPLACE-tag-1

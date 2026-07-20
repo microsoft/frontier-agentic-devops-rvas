@@ -1,4 +1,4 @@
-# Coach Guide: Challenge 03 — Onboard Service Context and Response Plans
+# Coach Guide: Activity 03 — Onboard Service Context and Response Plans
 
 ## Expected Outcome
 

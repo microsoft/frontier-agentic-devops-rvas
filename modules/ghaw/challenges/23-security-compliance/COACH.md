@@ -2,7 +2,7 @@
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — how does your team track vulnerabilities and SLA deadlines today, and where would deadline-aware agent-filed issues close a real gap versus create alert fatigue you would regret? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -11,7 +11,7 @@ Use these follow-ups to steer the conversation:
 - Tease apart where deadline-aware agent issues close a real gap versus cause alert fatigue.
 - Have them define the severity-to-SLA mapping they'll pilot on one repo next week.
 
-## What This Challenge Teaches
+## What This Activity Teaches
 
 Policy-as-code: encoding security SLAs and vulnerability response procedures directly into a workflow. Participants learn to turn a compliance spreadsheet into an automated agent that tracks deadlines, classifies by severity, and escalates before anything slips. The key insight is that "security-as-code" is not just scanning — it's the full loop: detect, classify, track, alert.
 

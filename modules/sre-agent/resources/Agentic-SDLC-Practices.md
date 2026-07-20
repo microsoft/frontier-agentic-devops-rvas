@@ -14,12 +14,12 @@ This note connects the delivery session path to The Agentic SDLC Handbook withou
 
 | Moment | Practice |
 | --- | --- |
-| Challenge 00 | Choose human accountability roles and create a starter context artifact. |
-| Challenge 01 | Turn vague intent into an issue with acceptance criteria, boundaries, validation commands, and human checkpoints. |
-| Challenge 03 | Use PROSE-style coordination prompts, validate agent output, and externalize one discovered convention as starter repo instrumentation: instructions, persona, reusable prompt or skill, and memory or decision note. |
-| Challenge 04 | Treat CI, environments, approvals, schemas, allowlists, and deployment logs as the deterministic substrate. |
-| Challenge 05 | Build safe GitHub Agentic Workflows style specs and review cloud-agent work like teammate work. |
-| Challenge 05 | Convert incident learning into a follow-up issue or pull request with operational context and instrumentation improvements. |
+| Activity 00 | Choose human accountability roles and create a starter context artifact. |
+| Activity 01 | Turn vague intent into an issue with acceptance criteria, boundaries, validation commands, and human checkpoints. |
+| Activity 03 | Use PROSE-style coordination prompts, validate agent output, and externalize one discovered convention as starter repo instrumentation: instructions, persona, reusable prompt or skill, and memory or decision note. |
+| Activity 04 | Treat CI, environments, approvals, schemas, allowlists, and deployment logs as the deterministic substrate. |
+| Activity 05 | Build safe GitHub Agentic Workflows style specs and review cloud-agent work like teammate work. |
+| Activity 05 | Convert incident learning into a follow-up issue or pull request with operational context and instrumentation improvements. |
 
 ## Quick Checks
 
@@ -36,7 +36,7 @@ This note connects the delivery session path to The Agentic SDLC Handbook withou
 - Where is the human decision recorded?
 - What context did the agent receive, and what context was withheld?
 - Which test, review, or deployment signal would catch a bad agent suggestion?
-- What should become reusable guidance after this challenge?
+- What should become reusable guidance after this activity?
 - Which primitive failed, and how will the team fix it before asking the agent again?
 
 ## Related Assets
@@ -46,4 +46,4 @@ This note connects the delivery session path to The Agentic SDLC Handbook withou
 - [GitHub Agentic Workflows Starter](GitHub-Agentic-Workflows-Starter.md)
 - [Agent-Ready Issue Template](Agent-Ready-Issue-Template.md)
 - [Reference Architecture](Reference-Architecture.md)
-- [Challenge 03: Onboard Service Context and Response Plans](../challenges/03-onboard-context/README.md)
+- [Activity 03: Onboard Service Context and Response Plans](../challenges/03-onboard-context/README.md)

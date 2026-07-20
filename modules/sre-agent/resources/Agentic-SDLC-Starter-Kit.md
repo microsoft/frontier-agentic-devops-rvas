@@ -1,6 +1,6 @@
 # Agentic SDLC Starter Kit
 
-Use this resource during Challenges 00-06 to turn implicit team knowledge into repo-visible artifacts. Do not build everything. Build the smallest useful starter set and improve it as the day exposes gaps.
+Use this resource during Activities 00-06 to turn implicit team knowledge into repo-visible artifacts. Do not build everything. Build the smallest useful starter set and improve it as the day exposes gaps.
 
 ## Why This Exists
 
@@ -8,7 +8,7 @@ The handbook's core warning is that agents fail on real codebases when team know
 
 ## Starter Instrumentation Set
 
-| Primitive | Minimum Artifact | Challenge |
+| Primitive | Minimum Artifact | Activity |
 | --- | --- | --- |
 | Instructions | A short repo guidance note with coding rules, review rules, and denied actions. | 00, 03 |
 | Agent persona | A role card for one assistant, such as reviewer, tester, CI Doctor, or triage helper. | 03 |

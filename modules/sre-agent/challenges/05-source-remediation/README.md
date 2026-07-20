@@ -1,8 +1,8 @@
-# Challenge 05: Connect Source Code and Create Remediation Work
+# Activity 05: Connect Source Code and Create Remediation Work
 
 ## Scenario
 
-Azure evidence can explain what failed. Source-code context helps explain where the failure may live and how engineering work should be tracked. In this challenge, connect or simulate source-code context so Azure SRE Agent can move from operational investigation to governed remediation.
+Azure evidence can explain what failed. Source-code context helps explain where the failure may live and how engineering work should be tracked. In this activity, connect or simulate source-code context so Azure SRE Agent can move from operational investigation to governed remediation.
 
 ## Goals
 
@@ -19,7 +19,7 @@ Azure evidence can explain what failed. Source-code context helps explain where 
 > [!IMPORTANT]
 > **Bring your own service (do this first)**
 >
-> This challenge is most valuable when Azure SRE Agent connects operational evidence to the source repository your team will keep using after the session. If you have a candidate Azure workload in a subscription you control, use **that** service everywhere this guide references Grubify, and connect its own source repo so remediation work lands in the right engineering workflow.
+> This activity is most valuable when Azure SRE Agent connects operational evidence to the source repository your team will keep using after the session. If you have a candidate Azure workload in a subscription you control, use **that** service everywhere this guide references Grubify, and connect its own source repo so remediation work lands in the right engineering workflow.
 >
 > - **Have a candidate?** Use a real or recent incident for your service and the repository that owns the suspected code path. Ask the agent to create or draft remediation work against your normal issue or pull request process, with evidence, uncertainty, validation, and human review gates.
 > - **No suitable Azure service, incident, or source repo yet?** Connect the Grubify repository or use the fallback source packet below as the safe practice target.

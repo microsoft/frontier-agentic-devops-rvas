@@ -1,24 +1,24 @@
 # Ch07 — Teams, Roles & Base Permissions
 
-> By the end of this challenge you can model a real organization's access with **nested teams**, **base permissions**, **predefined repository roles**, and a **custom repository role** — granting least-privilege access that's verifiable from the API, all from an org and an org-owner token.
+> By the end of this activity you can model a real organization's access with **nested teams**, **base permissions**, **predefined repository roles**, and a **custom repository role** — granting least-privilege access that's verifiable from the API, all from an org and an org-owner token.
 
 | | |
 |---|---|
 | **Track** | Admin/Governance |
 | **Difficulty** | Intermediate *(per-track ramp)* |
 | **Duration** | ~4–5 hrs total, multi-session |
-| **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
+| **Minimum input** | An **org** + an **org-owner token**. *(All activities are org-scoped — no enterprise owner required.)* |
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes |
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch07 --org <org>` (least-privilege; for this challenge: `admin:org` + `repo` + `read:org`).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch07 --org <org>` (least-privilege; for this activity: `admin:org` + `repo` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - No GHAS, Codespaces, or enterprise-owner features are required. Custom **repository** roles are an org capability available on GHEC.
 
 ## Scenario objectives
-By completing this challenge you will:
+By completing this activity you will:
 - Create a **team hierarchy** (parent + child teams) and understand how **nested teams inherit** access from their parent.
 - Grant teams access to repositories at the correct **predefined repository role** (Read / Triage / Write / Maintain / Admin).
 - Reason about how **base (org) permission** combines with **team grants** (the more permissive wins).
@@ -32,7 +32,7 @@ A GHEC customer's engineering org has grown past the point where ad-hoc collabor
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This challenge is most valuable when the result *outlives the delivery session*. Pick a real team structure and repository access model you can make clearer and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> This activity is most valuable when the result *outlives the delivery session*. Pick a real team structure and repository access model you can make clearer and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 >
 > - **Have a candidate?** Use your real teams and repos wherever this guide names `ghec-ch07-frontend` or the sibling `ghec-ch07-*` artifacts. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: seeded frontend/backend/platform repos and a starter engineering team.
@@ -107,7 +107,7 @@ You are done when ALL of the following are true:
 - Script the entire access matrix as a Markdown table generated purely from `gh api` calls — turn "who can do what" into a one-command report.
 - Create a **second custom role** based on `Read` that adds *only* the "manage issues" permission (a "support" persona) and contrast it with Triage.
 
-> **At enterprise scale (awareness only):** An **enterprise account** adds **enterprise teams** and can define **custom organization roles** that span every org, plus **team synchronization** with an IdP so membership is driven by your identity provider. In this challenge you build the **org-level** team hierarchy and **custom repository roles**, which are the controls an org owner uses every day. No enterprise owner is required.
+> **At enterprise scale (awareness only):** An **enterprise account** adds **enterprise teams** and can define **custom organization roles** that span every org, plus **team synchronization** with an IdP so membership is driven by your identity provider. In this activity you build the **org-level** team hierarchy and **custom repository roles**, which are the controls an org owner uses every day. No enterprise owner is required.
 
 ## Reference links
 - About teams — https://docs.github.com/en/organizations/organizing-members-into-teams/about-teams

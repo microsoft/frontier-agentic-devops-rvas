@@ -1,8 +1,8 @@
-# Challenge 2-03: Slash & Burn
+# Activity 2-03: Slash & Burn
 
 **Track:** Repo Concierge (Intermediate 🟡)  
 **Estimated time:** 30 minutes  
-**Prerequisites:** Complete at least 2 challenges from Track 1
+**Prerequisites:** Complete at least 2 activities from Track 1
 
 ---
 
@@ -32,7 +32,7 @@ By the end, your squad will:
 > [!IMPORTANT]
 > **Bring your own repo (do this first)**
 >
-> This challenge is most valuable when `/summarize` runs on **your own repository's** real issue threads, decisions, blockers, and action items, so teammates can keep using the command after the session. Treat the setup sample as practice, not the default destination.
+> This activity is most valuable when `/summarize` runs on **your own repository's** real issue threads, decisions, blockers, and action items, so teammates can keep using the command after the session. Treat the setup sample as practice, not the default destination.
 >
 > - **Have a candidate repo?** Install or point `slash-commands.md` at that repo everywhere the guide references the sample repo, and test on an issue where the discussion history is genuinely useful.
 > - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
@@ -41,7 +41,7 @@ By the end, your squad will:
 
 ---
 
-## Challenge
+## Activity
 
 Create a gh-aw workflow named `slash-commands.md` in `.github/workflows/` that:
 

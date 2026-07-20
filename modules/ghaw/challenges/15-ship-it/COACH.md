@@ -1,10 +1,10 @@
-# Coach Guide: Challenge 3-05 — Ship It (The Capstone)
+# Coach Guide: Activity 3-05 — Ship It (The Capstone)
 
 ---
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — across an end-to-end pipeline from issue to merge, which handoffs would you let agents run autonomously and which single gate would you never remove a human from? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -13,7 +13,7 @@ Use these follow-ups to steer the conversation:
 - Tease apart which handoffs they'd let agents run autonomously and the one human gate they'd never remove.
 - Have them pick one stage of that pipeline to automate and pilot next week.
 
-## Coaching Philosophy for This Challenge
+## Coaching Philosophy for This Activity
 
 This is **the capstone**. Squads that reach here are advanced. Your job is to help them integrate the pieces they have practiced and prove each handoff with evidence.
 
@@ -110,7 +110,7 @@ Squads will vary:
 - "Let's verify: does the Observer file show up in repo-memory branch?"
 - "What path did Observer write to? What glob did Triage specify?"
 - "Do they match? If Observer writes `observations/2026-05-28.json` and Triage uses `glob: observations/**/*.json`, they match."
-- This is the classic repo-memory gotcha (see Challenge 3-01).
+- This is the classic repo-memory gotcha (see Activity 3-01).
 
 ### Pitfall 3: Triage creates duplicate tracking issues
 **Symptom:** Every 30 minutes, a new tracking issue is created instead of updating one.
@@ -169,7 +169,7 @@ Squads will vary:
   - Observer writes data continuously. Triage runs on a schedule and reads *whatever data exists*.
   - Or: Triage runs infrequently enough that Observer has time to write before the next triage run.
   - Or: Manual triggering for testing (use `workflow_dispatch` on Triage to test with existing data).
-- "For this challenge, running on a schedule (every 30 min) is fine—there will be data by then."
+- "For this activity, running on a schedule (every 30 min) is fine—there will be data by then."
 
 ### Pitfall 8: Slash command body check is wrong
 **Symptom:** ChatOps workflow triggers on *any* comment, not just `/fix`.
@@ -396,13 +396,13 @@ This is ambitious for 30 min. Here's a suggested flow:
 
 - **This is the capstone.** Squads who finish this understand production automation.
 - **Ask for evidence at each handoff.** When they see Observer → Triage → ChatOps → Copilot run end-to-end, have them point to the repo-memory file, tracking issue, slash-command run, and PR or failure log.
-- **Systems thinking matters.** This challenge teaches composition and orchestration, not just individual workflows.
+- **Systems thinking matters.** This activity teaches composition and orchestration, not just individual workflows.
 - **Scope is OK to reduce.** If they build a solid 2-workflow system instead of 4, that's still a huge win.
 - **Document the flow.** A squad that can explain "issue comes in, gets recorded, gets triaged, gets fixed" has internalized the pattern.
 
 ---
 
-## Beyond This Challenge
+## Beyond This Activity
 
 Squads that finish Ship It are ready to pilot this pattern on a real workflow with:
 - Required checks and branch protections

@@ -10,8 +10,8 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-- Repository provisioned via challenge setup script
-description: By the end of this challenge you can drive GitHub end-to-end from its APIs — read and mutate with the REST API, run typed GraphQL queries and mutations, page through large result sets, and stay inside rate limits — using an org and an org-owner token.
+- Repository provisioned via activity setup script
+description: By the end of this activity you can drive GitHub end-to-end from its APIs — read and mutate with the REST API, run typed GraphQL queries and mutations, page through large result sets, and stay inside rate limits — using an org and an org-owner token.
 success_criteria:
 - You performed both a **REST read** and a **REST write** (label created, issues labeled, comment posted) via `gh api`.
 - You **paged through all seeded issues** with REST `--paginate` and the count matches the seeded total.
@@ -19,9 +19,6 @@ success_criteria:
 - You executed at least one **GraphQL mutation** (added issues to `ghec-ch16-board` and set their `Status`).
 - You inspected **`rate_limit`** and your reconcile script **backs off** when `remaining` is low.
 - Your reconcile script is **idempotent** — a second run produces **no changes**.
-take_home_action: In your own org, automate one recurring GitHub administration or delivery task with idempotent REST and GraphQL scripts that handle pagination and rate limits.
-take_home_owner: developer
-take_home_signal: The script runs on production data twice with no unintended changes and reports the same reconciled GitHub state after the second run.
 tags:
 - rest-api
 - graphql

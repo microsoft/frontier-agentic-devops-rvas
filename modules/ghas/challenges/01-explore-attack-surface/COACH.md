@@ -1,10 +1,10 @@
 # Explore the Attack Surface — Coach Guide
 
-> Audience: facilitators and coaches. Pair with the student `README.md`.
+> Audience: facilitators and coaches. Pair with the delivery team member `README.md`.
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — if GHAS were scanning your real production repos today the way it scanned Juice Shop, which vulnerability class do you think would have the most open alerts, and how would you even find out? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -14,23 +14,23 @@ Use these follow-ups to steer the conversation:
 - What one concrete action could you take this week to start reducing the attack surface you just described?
 
 ## Facilitation objectives
-- Reinforce how students navigate CodeQL, Dependabot, and secret scanning alerts in the shared repository.
-- Help students turn alert details into an attack-surface map they can use in later fix challenges.
-- Encourage students to use Copilot Chat to explain exploitability without outsourcing all security reasoning.
+- Reinforce how customer delivery team members navigate CodeQL, Dependabot, and secret scanning alerts in the shared repository.
+- Help customer delivery team members turn alert details into an attack-surface map they can use in later fix activities.
+- Encourage customer delivery team members to use Copilot Chat to explain exploitability without outsourcing all security reasoning.
 
-## Common student blockers
-- Students may confuse shared default-branch alerts with their personal branch work; remind them this challenge is reconnaissance only and later PR checks validate fixes.
-- Students often skim alert titles without opening full paths and traces; push them to inspect locations, flows, and surrounding code before summarizing.
+## Common delivery team member blockers
+- Customer delivery team members may confuse shared default-branch alerts with their personal branch work; remind them this activity is reconnaissance only and later PR checks validate fixes.
+- Customer delivery team members often skim alert titles without opening full paths and traces; push them to inspect locations, flows, and surrounding code before summarizing.
 - Dependabot can feel separate from code scanning; frame it as another part of the same attack surface inventory.
 
 ## Facilitation hints
-- Have students group alerts by class and likely remediation effort before they choose a fix order.
+- Have customer delivery team members group alerts by class and likely remediation effort before they choose a fix order.
 - Ask them to explain one alert in plain language: what input is attacker-controlled, what sink is dangerous, and what impact follows.
 - If they rely too heavily on Copilot, ask them to verify the explanation against the actual code path.
 - Encourage notes they can reuse in S02-S06 so the reconnaissance work pays off later.
 
 ## Validation checklist
-Verify each success criterion from the student guide:
+Verify each success criterion from the customer delivery team guide:
 - [ ] At least 5 code scanning alerts reviewed with alert detail read
 - [ ] Each reviewed alert has a Copilot-generated explanation of: what the vulnerability is, what an attacker could do with it, and where in the code it lives
 - [ ] Alerts grouped by vulnerability class with a fix order documented

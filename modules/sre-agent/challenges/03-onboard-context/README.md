@@ -1,8 +1,8 @@
-# Challenge 03: Onboard Service Context and Response Plans
+# Activity 03: Onboard Service Context and Response Plans
 
 ## Scenario
 
-Azure SRE Agent is only useful when it has the right starting context. In this challenge, you inspect the service knowledge, response plans, custom agents, and team memory that shape how it responds to Grubify incidents.
+Azure SRE Agent is only useful when it has the right starting context. In this activity, you inspect the service knowledge, response plans, custom agents, and team memory that shape how it responds to Grubify incidents.
 
 ## Goals
 
@@ -19,7 +19,7 @@ Azure SRE Agent is only useful when it has the right starting context. In this c
 > [!IMPORTANT]
 > **Bring your own service (do this first)**
 >
-> This challenge is most valuable when Azure SRE Agent learns the context for a service your team will keep operating after the session. If you have a candidate Azure workload in a subscription you control, onboard **that** service everywhere this guide references Grubify so its real runbooks, architecture notes, telemetry, response plans, and ownership context stay useful in your tenant.
+> This activity is most valuable when Azure SRE Agent learns the context for a service your team will keep operating after the session. If you have a candidate Azure workload in a subscription you control, onboard **that** service everywhere this guide references Grubify so its real runbooks, architecture notes, telemetry, response plans, and ownership context stay useful in your tenant.
 >
 > - **Have a candidate?** Inspect and improve the context for your own service: connected Azure resources, alert routes, knowledge files, response plans, custom agents, and safe team memory. Use real operational context, but do not paste secrets, private contacts, or sensitive tenant details into notes or chat.
 > - **No suitable Azure service yet?** Use Grubify below as the safe fallback target for practicing context onboarding.

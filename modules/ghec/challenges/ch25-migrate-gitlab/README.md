@@ -15,7 +15,7 @@
 
 GitLab is **not** a self-serve source for GitHub Enterprise Importer. A full GitLab migration that preserves metadata such as Merge Requests and issues through GEI is a **GitHub Expert Services** engagement.
 
-This hands-on challenge uses the self-serve path that is available to any Git repository: **source + Git history** via Git CLI. You will then convert GitLab CI separately with GitHub Actions Importer. Treat this as a pilot cutover pattern, not a full metadata migration.
+This hands-on activity uses the self-serve path that is available to any Git repository: **source + Git history** via Git CLI. You will then convert GitLab CI separately with GitHub Actions Importer. Treat this as a pilot cutover pattern, not a full metadata migration.
 
 ## Prerequisites
 
@@ -31,7 +31,7 @@ Your team is piloting a GitLab-to-GitHub move. The business wants fast cutover e
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
-> This challenge is most valuable when the result *outlives the delivery session*. Pick a real GitLab repository you own and complete every task on **that** source and target. You leave with a migrated repo, Git history, pipelines-as-Actions, settings evidence, and gap notes genuinely standing up in your GitHub organization.
+> This activity is most valuable when the result *outlives the delivery session*. Pick a real GitLab repository you own and complete every task on **that** source and target. You leave with a migrated repo, Git history, pipelines-as-Actions, settings evidence, and gap notes genuinely standing up in your GitHub organization.
 >
 > - **Have a candidate?** Use it everywhere this guide references the sample GitLab repository, CI file, or target repository. Skip the sample Setup path entirely.
 > - **No suitable one?** Use the fallback below: a provided sample GitLab source repository you can migrate safely.

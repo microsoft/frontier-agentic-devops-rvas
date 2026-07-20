@@ -1,27 +1,27 @@
 # Ch20 — Automation Capstone
 
-> By the end of this challenge you have built one **end-to-end automation** that ties the whole track together: a **GitHub App** authenticates against the **REST and GraphQL APIs**, a **webhook** drives it in real time, and **Actions** runs the glue — all on a self-contained seeded repo using an org and an org-owner token.
+> By the end of this activity you have built one **end-to-end automation** that ties the whole track together: a **GitHub App** authenticates against the **REST and GraphQL APIs**, a **webhook** drives it in real time, and **Actions** runs the glue — all on a self-contained seeded repo using an org and an org-owner token.
 
 | | |
 |---|---|
 | **Track** | Automation & AI |
 | **Difficulty** | Advanced *(capstone — hardest in the track)* |
 | **Duration** | ~8 hrs total, multi-session |
-| **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
+| **Minimum input** | An **org** + an **org-owner token**. *(All activities are org-scoped — no enterprise owner required.)* |
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes — all steps run on org-owned, prefix-namespaced resources. |
 
-> **Independent by design.** This capstone **stands alone** — it provisions all its own `ghec-ch20-*` state and requires **no other challenge to have been run**. It *revisits the skills* from ch16 (REST/GraphQL), ch17 (webhooks + GitHub App), and ch18 (Actions runners) conceptually, but you do **not** need their artifacts.
+> **Independent by design.** This capstone **stands alone** — it provisions all its own `ghec-ch20-*` state and requires **no other activity to have been run**. It *revisits the skills* from ch16 (REST/GraphQL), ch17 (webhooks + GitHub App), and ch18 (Actions runners) conceptually, but you do **not** need their artifacts.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch20 --org <org>` (least-privilege; this challenge needs `repo`, `admin:org_hook`, and the ability to create a GitHub App in the org).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch20 --org <org>` (least-privilege; this activity needs `repo`, `admin:org_hook`, and the ability to create a GitHub App in the org).
 - Local tooling: `gh >= 2.x`, `git`, `jq`, and **Node.js 18+** (the seeded App handler is Node; a Bash path is provided where practical).
 - A way to receive webhook deliveries during development: **`smee.io`** for local relay, **or** the provided **Actions `repository_dispatch` receiver** for a no-public-endpoint path.
 - Comfort with the building blocks from earlier in the track (API calls, HMAC signature verification, installation tokens, Actions workflows). This capstone assumes them rather than re-teaching from zero.
 
 ## Scenario objectives
-By completing this challenge you will:
+By completing this activity you will:
 - **Register and install a GitHub App** in the org and authenticate as an **installation**.
 - Call both the **REST API** and the **GraphQL API** (including a **Projects v2** mutation) from the App's installation token.
 - **Verify inbound webhook signatures** (HMAC-SHA256, `X-Hub-Signature-256`) and route events to handlers.
@@ -34,7 +34,7 @@ Your org wants a single automation that reacts to activity and keeps a project b
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
-> This challenge is most valuable when the result *outlives the delivery session*. Pick a real workflow that combines Actions, API automation, and security controls into a lasting delivery artifact and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> This activity is most valuable when the result *outlives the delivery session*. Pick a real workflow that combines Actions, API automation, and security controls into a lasting delivery artifact and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch20-automation-capstone`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded capstone repo for end-to-end automation practice.
@@ -107,7 +107,7 @@ You are done when ALL of the following are true:
 - [ ] **Actions** orchestrates the flow and records a **run summary**, with all credentials in **Actions secrets**.
 - [ ] You demonstrated the **full end-to-end loop** from a single fresh issue and documented its **failure modes**.
 - [ ] Real-outcome check — if you brought your own workflow, the capstone automation now leaves behind a reusable delivery artifact; if you used the sample, you can name the production workflow you will automate next.
-- [ ] Coach conversation — looking across everything you've automated in this challenge, what is the single workflow in your real org that is still entirely manual and would benefit most from combining the Actions, API, and security layers you just built? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] Coach conversation — looking across everything you've automated in this activity, what is the single workflow in your real org that is still entirely manual and would benefit most from combining the Actions, API, and security layers you just built? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 

@@ -1,9 +1,9 @@
-# Challenge 1-02: Safe & Sound
+# Activity 1-02: Safe & Sound
 
 **Track:** Track 1 — Hello, Agent  
 **Difficulty:** 🟢 Beginner  
 **Estimated time:** 30 minutes  
-**Prerequisites:** Challenge 00 — Setup & Hello, Agent, Challenge 1-01 — Morning Briefing
+**Prerequisites:** Activity 00 — Setup & Hello, Agent, Activity 1-01 — Morning Briefing
 
 ---
 
@@ -17,7 +17,7 @@ A workflow that demonstrates the power and safety of the `safe-outputs` gate. Yo
 
 ## Goals
 
-By the end of this challenge, your squad will:
+By the end of this activity, your squad will:
 
 1. ✅ Understand that **every workflow must have at least one safe-output action**
 2. ✅ Write conditional logic in the workflow body (natural language, not code)
@@ -30,7 +30,7 @@ By the end of this challenge, your squad will:
 > [!IMPORTANT]
 > **Bring your own repo (do this first)**
 >
-> This challenge is most valuable when the safe-output gate protects **your own repository** and a real condition your team cares about, so the workflow can keep running safely after the session. Treat the setup sample as practice, not the default destination.
+> This activity is most valuable when the safe-output gate protects **your own repository** and a real condition your team cares about, so the workflow can keep running safely after the session. Treat the setup sample as practice, not the default destination.
 >
 > - **Have a candidate repo?** Install or point `safe-sound.md` at that repo everywhere the guide references the sample repo, and use real files, TODOs, docs, tests, or policy checks as the condition.
 > - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
@@ -59,14 +59,14 @@ By the end of this challenge, your squad will:
 - **Natural language conditions:** Write something like: "Scan the repo for TODOs. If there are more than 5, create an issue listing them. Otherwise, call noop."
 - **Noop is not a failure:** When the workflow calls `noop`, it's a success. Logs will show `noop called` — that's the signal that everything worked as intended.
 - **Safe-outputs gate:** Even if your agent code is perfect, if you forget to declare safe-outputs, the workflow fails. This is intentional—it prevents accidental writes.
-- **Permissions should be boring:** Don't overthink it. Use `contents: read` unless you have a specific reason for more access (you don't in this challenge).
+- **Permissions should be boring:** Don't overthink it. Use `contents: read` unless you have a specific reason for more access (you don't in this activity).
 
 ---
 
 ## References
 
 - **Safe Outputs Reference:** https://github.github.com/gh-aw/reference/safe-outputs/
-- **Noop Pattern (Dossier):** See Pitfall #1 in Challenge Research Dossier — Section 6 for the mandatory noop pattern
+- **Noop Pattern (Dossier):** See Pitfall #1 in Activity Research Dossier — Section 6 for the mandatory noop pattern
 - **Permissions Scoping:** https://github.github.com/gh-aw/reference/permissions/
 - **GitHub Actions Permissions Context:** https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 - **Related Workflow:** `metrics-collector.md` from gh-aw repo — a pure data-collection workflow that always calls `noop`

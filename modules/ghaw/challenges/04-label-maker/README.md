@@ -1,9 +1,9 @@
-# Challenge 1-04: Label Maker
+# Activity 1-04: Label Maker
 
 **Track:** Track 1 — Hello, Agent  
 **Difficulty:** 🟢 Beginner  
 **Estimated time:** 30 minutes  
-**Prerequisites:** Challenge 00 — Setup & Hello, Agent, Challenge 1-01 — Morning Briefing
+**Prerequisites:** Activity 00 — Setup & Hello, Agent, Activity 1-01 — Morning Briefing
 
 ---
 
@@ -17,7 +17,7 @@ A workflow triggered by `on: issues: types: [opened]` that automatically categor
 
 ## Goals
 
-By the end of this challenge, your squad will:
+By the end of this activity, your squad will:
 
 1. ✅ Understand `on: issues:` event triggers and issue metadata access
 2. ✅ Use issue content (title + body) to make classification decisions
@@ -30,9 +30,9 @@ By the end of this challenge, your squad will:
 > [!IMPORTANT]
 > **Bring your own repo (do this first)**
 >
-> This challenge is most valuable when label automation uses **your own repository's** real issue taxonomy, so new issues continue landing in categories your team already trusts. Treat the setup sample as practice, not the default destination.
+> This activity is most valuable when label automation uses **your own repository's** real issue taxonomy, so new issues continue landing in categories your team already trusts. Treat the setup sample as practice, not the default destination.
 >
-> - **Have a candidate repo?** Install or point `label-maker.md` at that repo everywhere the guide references the sample repo, and bring your own real label taxonomy or existing repo labels. Use the challenge's example labels only as inspiration.
+> - **Have a candidate repo?** Install or point `label-maker.md` at that repo everywhere the guide references the sample repo, and bring your own real label taxonomy or existing repo labels. Use the activity's example labels only as inspiration.
 > - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
 >
 > Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.

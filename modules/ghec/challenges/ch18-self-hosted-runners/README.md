@@ -1,25 +1,25 @@
 # Ch18 — Self-Hosted & Larger Runners
 
-> By the end of this challenge you can register, harden, and target a self-hosted runner through an **organization runner group**, route jobs to it with labels, and reason about scaling and isolation — all from an org and an org-owner token.
+> By the end of this activity you can register, harden, and target a self-hosted runner through an **organization runner group**, route jobs to it with labels, and reason about scaling and isolation — all from an org and an org-owner token.
 
 | | |
 |---|---|
 | **Track** | Automation & AI |
 | **Difficulty** | Advanced *(per-track ramp)* |
 | **Duration** | ~5–6 hrs total, multi-session |
-| **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
+| **Minimum input** | An **org** + an **org-owner token**. *(All activities are org-scoped — no enterprise owner required.)* |
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes |
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch18 --org <org>` (least-privilege; for this challenge: `repo` + `admin:org` for runner-group + runner management).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch18 --org <org>` (least-privilege; for this activity: `repo` + `admin:org` for runner-group + runner management).
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
 - A **machine to host the runner** — your laptop, a VM, or a throwaway container. Linux/macOS/Windows all work; a disposable VM is recommended so you can practice hardening and tear it down cleanly.
-- **Org-scoped framing:** this challenge configures runners at the **org** level (org runner group). **Enterprise runner groups** are covered as *awareness* only — no enterprise owner required to complete it.
+- **Org-scoped framing:** this activity configures runners at the **org** level (org runner group). **Enterprise runner groups** are covered as *awareness* only — no enterprise owner required to complete it.
 
 ## Scenario objectives
-By completing this challenge you will:
+By completing this activity you will:
 - Register a **self-hosted runner** at the **org** level and bring it online.
 - Organize runners with a **runner group** and control **which repos** may use it.
 - **Target** the runner from a workflow with `runs-on` **labels** (custom + default).
@@ -32,7 +32,7 @@ A GHEC customer needs CI on hardware GitHub doesn't host — a GPU box, a licens
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
-> This challenge is most valuable when the result *outlives the delivery session*. Pick a real CI job or repository that needs a self-hosted runner because of network, hardware, compliance, or cost and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> This activity is most valuable when the result *outlives the delivery session*. Pick a real CI job or repository that needs a self-hosted runner because of network, hardware, compliance, or cost and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch18-self-hosted-runners`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded sample repo with runner workflows to validate safely.

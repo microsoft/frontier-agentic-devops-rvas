@@ -1,9 +1,9 @@
-# Challenge 3-04: The Overseer
+# Activity 3-04: The Overseer
 
 **Track:** Continuous Intelligence (Advanced)  
 **Difficulty:** 🔴 Advanced  
 **Estimated time:** 30 minutes  
-**Prerequisites:** Track 2, completed ≥3 challenges
+**Prerequisites:** Track 2, completed ≥3 activities
 
 ---
 
@@ -25,7 +25,7 @@ This is an **observability layer** for agentic workflows. Useful automation does
 
 ## Goals
 
-By the end of this challenge, your squad will:
+By the end of this activity, your squad will:
 
 1. ✅ Use the `agentic-workflows` MCP tool to query all workflow runs
 2. ✅ Understand `max-effective-tokens` for large-scale analysis
@@ -37,14 +37,14 @@ By the end of this challenge, your squad will:
 > [!IMPORTANT]
 > **Bring your own repo (do this first)**
 >
-> This challenge is most valuable when the overseer watches workflow history your team will keep caring about after the session. Pick a repository in an org you control that already has, or will soon have, multiple agentic workflows whose failures, token use, and alerts matter.
+> This activity is most valuable when the overseer watches workflow history your team will keep caring about after the session. Pick a repository in an org you control that already has, or will soon have, multiple agentic workflows whose failures, token use, and alerts matter.
 >
 > - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and point the health monitor at that repo's real agentic workflow runs, failure patterns, and token history.
 > - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
 >
 > Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
 
-## Challenge
+## Activity
 
 Build a **workflow health monitor** that runs weekly and reports on all agentic workflows:
 

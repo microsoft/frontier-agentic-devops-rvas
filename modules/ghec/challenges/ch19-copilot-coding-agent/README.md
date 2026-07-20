@@ -1,27 +1,27 @@
 # Ch19 — Copilot Cloud Agent
 
-> By the end of this challenge you can delegate a real bug to the GitHub Copilot cloud agent — assign it an issue, watch it open a draft pull request, and review, steer, and merge its work — on a small seeded repo using an org and an org-owner token.
+> By the end of this activity you can delegate a real bug to the GitHub Copilot cloud agent — assign it an issue, watch it open a draft pull request, and review, steer, and merge its work — on a small seeded repo using an org and an org-owner token.
 
 | | |
 |---|---|
 | **Track** | Automation & AI |
 | **Difficulty** | Advanced *(per-track ramp)* |
 | **Duration** | ~4 hrs total, multi-session |
-| **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
+| **Minimum input** | An **org** + an **org-owner token**. *(All activities are org-scoped — no enterprise owner required.)* |
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | **no** — the Copilot cloud agent is **not available on EMU-owned repositories**. Requires a **non-EMU enterprise** with the **Copilot cloud agent policy enabled**. **N/A for pure GHEMU customers** (see Prerequisites). |
 
 ## Prerequisites
-> ⚠️ **Read this before starting — this challenge has a hard prerequisite the others don't.**
+> ⚠️ **Read this before starting — this activity has a hard prerequisite the others don't.**
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - **Copilot cloud agent must be enabled.** Copilot Business/Enterprise has the cloud agent **disabled by default** — an admin must turn on the **Copilot cloud agent** policy for the org (and a Copilot license must cover the user assigning issues).
-- **NOT available on EMU repos.** If your enterprise is **Enterprise Managed Users (GHEMU)**, the cloud agent will not run on its repositories. This challenge is **N/A for pure GHEMU customers** — run it on a non-EMU org. `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19` warns about EMU.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19 --org <org>` (least-privilege; for this challenge: `repo` + `read:org`). The cloud agent itself runs under Copilot's identity, not your token.
+- **NOT available on EMU repos.** If your enterprise is **Enterprise Managed Users (GHEMU)**, the cloud agent will not run on its repositories. This activity is **N/A for pure GHEMU customers** — run it on a non-EMU org. `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19` warns about EMU.
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19 --org <org>` (least-privilege; for this activity: `repo` + `read:org`). The cloud agent itself runs under Copilot's identity, not your token.
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
 - **Note on limits:** agent sessions are capped (~59 min) and run in an ephemeral Actions environment, consuming Actions minutes + Copilot premium requests.
 
 ## Scenario objectives
-By completing this challenge you will:
+By completing this activity you will:
 - Confirm the **Copilot cloud agent** is enabled and the repo is **eligible** (non-EMU).
 - **Assign an issue to Copilot** and trigger an autonomous agent session.
 - Read the agent's **draft pull request** and follow its **session log** as it works.
@@ -34,7 +34,7 @@ A GHEC customer has a backlog of small, well-scoped bugs that never reach the to
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
-> This challenge is most valuable when the result *outlives the delivery session*. Pick a real repository issue that the Copilot coding agent could safely attempt with review gates and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> This activity is most valuable when the result *outlives the delivery session*. Pick a real repository issue that the Copilot coding agent could safely attempt with review gates and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch19-copilot-coding-agent`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded sample repo and issues for coding-agent practice.
@@ -67,7 +67,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch19 --org <org>
 
 ### Part A — Confirm eligibility
 1. **Verify the policy.** Confirm the org has the **Copilot cloud agent** enabled (Org Settings → Copilot → Policies) and that your user has a Copilot license.
-2. **Confirm non-EMU.** Ensure the repo is **not** in an EMU-managed enterprise. If `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19` flagged EMU, stop — this challenge can't run here.
+2. **Confirm non-EMU.** Ensure the repo is **not** in an EMU-managed enterprise. If `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19` flagged EMU, stop — this activity can't run here.
 3. **Open the seeded issue** and read its repro + acceptance criteria so you can judge the agent's output later.
 
 ### Part B — Delegate to the agent

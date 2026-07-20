@@ -1,24 +1,24 @@
 # Ch03 — Codespaces & Dev Containers
 
-> By the end of this challenge you can define a reproducible cloud dev environment with `devcontainer.json`, launch and customize Codespaces, forward ports, configure org-level Codespaces policy, and speed everything up with prebuilds — all from an org and an org-owner token.
+> By the end of this activity you can define a reproducible cloud dev environment with `devcontainer.json`, launch and customize Codespaces, forward ports, configure org-level Codespaces policy, and speed everything up with prebuilds — all from an org and an org-owner token.
 
 | | |
 |---|---|
 | **Track** | Developer Flow |
 | **Difficulty** | Intermediate *(per-track ramp)* |
 | **Duration** | ~4–5 hrs total, multi-session |
-| **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
+| **Minimum input** | An **org** + an **org-owner token**. *(All activities are org-scoped — no enterprise owner required.)* |
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes |
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch03 --org <org>` (least-privilege; for this challenge: `repo` + `codespace` + `admin:org` for org policy).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch03 --org <org>` (least-privilege; for this activity: `repo` + `codespace` + `admin:org` for org policy).
 - Local tooling: `gh >= 2.x` (with the **Codespaces** extension available), `git`, `jq`.
-- **Cost note:** Codespaces is a **metered** product. This challenge consumes Codespaces minutes/storage on the participant account. Use the smallest machine type (2-core) and **stop** codespaces when idle. `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns about cost-bearing challenges.
+- **Cost note:** Codespaces is a **metered** product. This activity consumes Codespaces minutes/storage on the participant account. Use the smallest machine type (2-core) and **stop** codespaces when idle. `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns about cost-bearing activities.
 
 ## Scenario objectives
-By completing this challenge you will:
+By completing this activity you will:
 - Author a **`devcontainer.json`** that pins a base image, installs features, and runs setup commands.
 - **Launch a Codespace** from the UI and the CLI, and understand the create/stop/delete lifecycle.
 - Add **lifecycle scripts** (`postCreateCommand`, `postStartCommand`) and **dev-container Features**.
@@ -32,7 +32,7 @@ A GHEC customer onboards new engineers slowly — each spends a day fighting loc
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This challenge is most valuable when the result *outlives the delivery session*. Pick a real repository whose onboarding or local setup is painful today and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> This activity is most valuable when the result *outlives the delivery session*. Pick a real repository whose onboarding or local setup is painful today and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch03-codespaces-dev-containers`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded sample repo ready for a devcontainer and Codespace.

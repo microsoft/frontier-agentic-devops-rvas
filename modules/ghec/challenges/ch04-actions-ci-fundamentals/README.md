@@ -1,24 +1,24 @@
 # Ch04 — GitHub Actions CI Fundamentals
 
-> By the end of this challenge you can build a real CI pipeline with GitHub Actions — triggers, jobs, a build matrix, dependency caching, artifacts, environments, and a required status check that gates merges — using an org and an org-owner token.
+> By the end of this activity you can build a real CI pipeline with GitHub Actions — triggers, jobs, a build matrix, dependency caching, artifacts, environments, and a required status check that gates merges — using an org and an org-owner token.
 
 | | |
 |---|---|
 | **Track** | Developer Flow |
 | **Difficulty** | Intermediate *(per-track ramp)* |
 | **Duration** | ~4–5 hrs total, multi-session |
-| **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
+| **Minimum input** | An **org** + an **org-owner token**. *(All activities are org-scoped — no enterprise owner required.)* |
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes |
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch04 --org <org>` (least-privilege; for this challenge: `repo` + `workflow`).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch04 --org <org>` (least-privilege; for this activity: `repo` + `workflow`).
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
 - **Cost note:** Actions on GitHub-hosted runners consumes **Actions minutes** (free tier on public repos; metered on private). `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns. Keep matrices small.
 
 ## Scenario objectives
-By completing this challenge you will:
+By completing this activity you will:
 - Write a **workflow** from scratch: `on` triggers, `jobs`, `steps`, and `runs-on`.
 - Run tests across a **build matrix** (multiple Node versions / OSes).
 - Speed up runs with **dependency caching** (`actions/cache` or `setup-node` cache).
@@ -33,7 +33,7 @@ A GHEC customer's team merges first and finds out it's broken later — there's 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This challenge is most valuable when the result *outlives the delivery session*. Pick a real repository with a build, test, or validation step that should run automatically and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> This activity is most valuable when the result *outlives the delivery session*. Pick a real repository with a build, test, or validation step that should run automatically and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch04-actions-ci-fundamentals`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded sample repo with code ready for a first CI workflow.

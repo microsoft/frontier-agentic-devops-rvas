@@ -1,8 +1,8 @@
-# Challenge 3-06: Ground Truth
+# Activity 3-06: Ground Truth
 
 **Track:** Continuous Intelligence (Advanced 🔴)  
 **Estimated time:** 30 minutes  
-**Prerequisites:** Challenge 00, full Track 2, Challenges 3-01 and 3-02
+**Prerequisites:** Activity 00, full Track 2, Activities 3-01 and 3-02
 
 ---
 
@@ -16,7 +16,7 @@ A workflow that runs deterministic shell commands *before* the AI model starts �
 
 ## Goals
 
-By the end of this challenge, your squad will:
+By the end of this activity, your squad will:
 
 1. ✅ Use `pre-agent-steps:` to fetch real repo metrics via `gh` CLI
 2. ✅ Pass those metrics to the agent via files
@@ -29,7 +29,7 @@ By the end of this challenge, your squad will:
 > [!IMPORTANT]
 > **Bring your own repo (do this first)**
 >
-> This challenge is most valuable when the grounded facts come from a repository whose health summary your team might actually publish. Pick a repository in an org you control where live issue, PR, commit, or release metrics would make a useful `CONTRIBUTING.md` update.
+> This activity is most valuable when the grounded facts come from a repository whose health summary your team might actually publish. Pick a repository in an org you control where live issue, PR, commit, or release metrics would make a useful `CONTRIBUTING.md` update.
 >
 > - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and point the `pre-agent-steps:` commands at that repo's real issues, PRs, commits, and contribution docs.
 > - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
@@ -71,7 +71,7 @@ The `title-prefix` sets the PR title. The agent can suggest additional context i
 
 ---
 
-## Challenge
+## Activity
 
 ### Step 1: Write the `pre-agent-steps:`
 

@@ -1,14 +1,14 @@
 # Ch11 — Secret Scanning & Push Protection — Coach Guide
 
-> Audience: facilitators and graders. Pair with the student `README.md`.
+> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — if you turned push protection on across your real org tomorrow, whose workflow breaks first and what secret would it have caught in your last six months of commits? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real org repo** over the Juice Shop sample. If they used the sample, confirm they can name the actual repo/team they'll roll this out to and any blockers (license, repo visibility). The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer customer delivery team members who ran this on a **real org repo** over the Juice Shop sample. If they used the sample, confirm they can name the actual repo/team they'll roll this out to and any blockers (license, repo visibility). The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Name a specific repo or team where secrets have historically been committed — what kind (tokens, keys, connection strings)?
@@ -16,14 +16,14 @@ Use these follow-ups to steer the conversation:
 - What is the one org-wide push protection setting you would enable, and what rollout message would you send to developers?
 
 ## Facilitation notes
-- **Goal in one line:** the student surfaces and triages every leaked credential in a repo's history, then proves push protection stops the *next* secret before it lands — and can audit who bypassed it.
-- **Where students get stuck:**
-  - **"Why aren't Juice Shop's own secrets alerting?"** Because they're app-internal, not partner-pattern. The **planted** AWS/GitHub-style secrets are the detection material — point students at `SECRETS-MANIFEST.md`.
-  - **Push protection only blocks the *push*, not the commit.** Students commit fine, then are surprised at `git push`. That's expected — the gate is server-side.
+- **Goal in one line:** the delivery team member surfaces and triages every leaked credential in a repo's history, then proves push protection stops the *next* secret before it lands — and can audit who bypassed it.
+- **Where customer delivery team members get stuck:**
+  - **"Why aren't Juice Shop's own secrets alerting?"** Because they're app-internal, not partner-pattern. The **planted** AWS/GitHub-style secrets are the detection material — point customer delivery team members at `SECRETS-MANIFEST.md`.
+  - **Push protection only blocks the *push*, not the commit.** Customer delivery team members commit fine, then are surprised at `git push`. That's expected — the gate is server-side.
   - **Custom-pattern alerts aren't instant.** A custom pattern only scans content pushed *after* it's published (plus a backfill scan that takes a moment). Tell them to push fresh matching content.
   - **Resolution vs deletion.** Resolving an alert doesn't remove the secret from history — in real life they must also **rotate/revoke** the credential. Reinforce that distinction even though the planted ones are non-live.
 - **How to unblock without giving the answer:** ask "what makes a secret *detectable* by a partner — what shape does GitHub recognize?" (→ provider prefixes like `AKIA`/`ghp_`), and "where does the block happen — on your machine or on the server?" (→ push protection is server-side).
-- **Org-scoped note:** runs with just an org + org-owner token. The Juice Shop import is **public** so **secret scanning and push protection** are free; `admin:org`/`security_events` scope is needed for the security configuration and alerts API. **Note:** **custom patterns (Part D) require GitHub Secret Protection** on an org-owned repo — they are *not* free on public repos. If the org lacks Secret Protection, Part D can't be completed; have students treat it as awareness and grade accordingly.
+- **Org-scoped note:** runs with just an org + org-owner token. The Juice Shop import is **public** so **secret scanning and push protection** are free; `admin:org`/`security_events` scope is needed for the security configuration and alerts API. **Note:** **custom patterns (Part D) require GitHub Secret Protection** on an org-owned repo — they are *not* free on public repos. If the org lacks Secret Protection, Part D can't be completed; have customer delivery team members treat it as awareness and grade accordingly.
 
 ## Grading rubric (point-weighted, 100 pts)
 | Criterion | Points | What "full marks" looks like |
@@ -38,7 +38,7 @@ Use these follow-ups to steer the conversation:
 ## Automated verification hints
 Use these to check Definition of Done quickly (prefer `gh` CLI / API over manual clicks):
 ```bash
-ORG=<org>; REPO=ghec-ch11-juice-shop   # swap REPO for the student's own repo if they brought one
+ORG=<org>; REPO=ghec-ch11-juice-shop   # swap REPO for the delivery team member's own repo if they brought one
 
 # Repo exists, public, and scanning + push protection are enabled
 gh repo view $ORG/$REPO --json name,visibility
@@ -59,7 +59,7 @@ gh api repos/$ORG/$REPO/secret-scanning/alerts --paginate \
 gh issue list --repo $ORG/$REPO --search "triage summary" --json number,title
 ```
 - **Alert reconciliation:** open `SECRETS-MANIFEST.md` in the repo and confirm each documented plant has a matching `secret_type` in the alerts list. Missing the AWS or GitHub-token alert → not full marks.
-- **Push protection:** the truth source is the student demonstrating a blocked `git push` live (or a screenshot of the CLI block). The bypass shows up as `push_protection_bypassed==true` on an alert.
+- **Push protection:** the truth source is the delivery team member demonstrating a blocked `git push` live (or a screenshot of the CLI block). The bypass shows up as `push_protection_bypassed==true` on an alert.
 - **Custom pattern:** a custom-pattern alert has a `secret_type` matching the pattern name they created — confirm it's not a built-in type.
 
 ## Common pitfalls
@@ -80,7 +80,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch11 --org <o
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch11 --org <org> --yes  # PowerShell
 ```
 - Removes only `ghec-ch11-*` artifacts (prefix-guarded): the imported `ghec-ch11-juice-shop` repo (which carries its history, planted secrets, alerts, and custom patterns).
-- **Manual cleanup (if any):** none. Deleting the repo removes its alerts and any repo-scoped custom patterns. If a student published a pattern at **org** level (stretch), remove it from the org security settings manually.
+- **Manual cleanup (if any):** none. Deleting the repo removes its alerts and any repo-scoped custom patterns. If a delivery team member published a pattern at **org** level (stretch), remove it from the org security settings manually.
 
 ## Time budget
 - Setup + read manifest: ~30 min

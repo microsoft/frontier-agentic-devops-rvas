@@ -1,10 +1,10 @@
-# Coach Guide: Challenge 1-03 — The Watcher
+# Coach Guide: Activity 1-03 — The Watcher
 
 ---
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — which repository events do you currently notice only after the fact, and what would change if a push-triggered agent flagged risky file changes the moment they land? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -15,7 +15,7 @@ Use these follow-ups to steer the conversation:
 
 ## Coaching Philosophy
 
-This is the **event-driven trigger challenge**. The mental model shift: instead of workflows running on a schedule or manually, they react to repository events (pushes, PRs, issues). Your job is to help squads understand that `on: push:` is a powerful and simple trigger.
+This is the **event-driven trigger activity**. The mental model shift: instead of workflows running on a schedule or manually, they react to repository events (pushes, PRs, issues). Your job is to help squads understand that `on: push:` is a powerful and simple trigger.
 
 **Key rule:** Path filters can be tricky. If a squad's workflow isn't firing, the path filter is 90% of the time the culprit.
 
@@ -216,5 +216,5 @@ If a squad finishes early:
 
 - **Event-driven workflows are real automation:** Once this works, squads unlock reactive automation at scale.
 - **Path filters are the tricky part:** Spend time debugging them if needed; understanding glob patterns is a valuable skill.
-- **Safe-outputs is consistent:** Same model as Challenge 1-02: declare intent, multiple paths, noop as escape hatch.
+- **Safe-outputs is consistent:** Same model as Activity 1-02: declare intent, multiple paths, noop as escape hatch.
 - **Real git operations test everything:** When they make a real commit and see the workflow run, that's a strong motivational moment.

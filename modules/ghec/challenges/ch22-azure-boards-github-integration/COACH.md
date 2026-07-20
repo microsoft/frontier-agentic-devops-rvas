@@ -1,10 +1,10 @@
 # Ch22 — Connect Azure Boards to GitHub — Coach Guide
 
-> Audience: facilitators and graders. Pair with the student `README.md`.
+> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to a real migration wave.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to a real migration wave.
 
 **Their question:** Coach conversation — identify one migrated team that still plans in Azure Boards: which repositories must be connected first, who owns the GitHub app installation approval, and what evidence proves traceability survived cutover? Talk it through with your coach.
 
@@ -14,8 +14,8 @@ Use these follow-ups to steer the conversation:
 - What screenshots or audit evidence would convince a release manager that work-item-to-code traceability is working after cutover?
 
 ## Facilitation notes
-- **Goal in one line:** the student wires the live Azure Boards-GitHub integration so post-migration commits and PRs in GitHub keep linking back to Azure Boards work items.
-- **Why now:** GEI migrates Git source, PRs, and existing work-item links on PRs from Azure DevOps, but it does not migrate Azure Boards work items. This challenge is the post-migration bridge for teams that keep planning in Azure Boards.
+- **Goal in one line:** the delivery team member wires the live Azure Boards-GitHub integration so post-migration commits and PRs in GitHub keep linking back to Azure Boards work items.
+- **Why now:** GEI migrates Git source, PRs, and existing work-item links on PRs from Azure DevOps, but it does not migrate Azure Boards work items. This activity is the post-migration bridge for teams that keep planning in Azure Boards.
 - **Preferred artifact:** a real migrated repository and a real, low-risk Azure Boards work item. A disposable work item is acceptable if the production project cannot be changed during the workshop.
 - **Evidence standard:** verify both sides. Azure Boards should show GitHub artifacts in the work item's **Development** section, and the GitHub PR should show the Azure Boards work item when `AB#` is present in the PR description.
 
@@ -33,41 +33,41 @@ Use these follow-ups to steer the conversation:
 
 ## Expected Outputs
 
-When a student completes this challenge successfully, you should see:
+When a delivery team member completes this activity successfully, you should see:
 
 - The **Azure Boards** GitHub App installed in the target GitHub org with repository access that includes the migrated repo.
 - Azure DevOps **Project settings > GitHub connections** listing the GitHub organization and migrated repository.
 - A GitHub commit created with an `AB#<id>` mention and visible as a link on the Azure Boards work item.
 - A GitHub pull request whose description includes `Fixes AB#<id>` and is visible from the work item's **Development** section.
 - The GitHub PR **Development** section showing the linked Azure Boards work item.
-- After PR merge to the default branch, the work item is transitioned to the expected Resolved/Completed workflow-category state, or the student can explain the project-specific state mapping.
+- After PR merge to the default branch, the work item is transitioned to the expected Resolved/Completed workflow-category state, or the delivery team member can explain the project-specific state mapping.
 - A concise operating note naming who approves future app installation/repository access requests.
 
 ## Common Pitfalls
 
 ### GitHub App policy or EMU policy blocks installation
-**Symptom:** The learner sees an app approval request instead of completing installation, or the repository is unavailable when configuring the app.  
+**Symptom:** The customer practitioner sees an app approval request instead of completing installation, or the repository is unavailable when configuring the app.
 **Fix:** Have an org owner approve the Azure Boards app for selected repositories. In EMU environments, confirm enterprise and org GitHub App policies before the workshop.
 
 ### Repository connected to the wrong Azure DevOps organization
-**Symptom:** `AB#` links resolve unexpectedly, link to a different project, or do not resolve consistently.  
+**Symptom:** `AB#` links resolve unexpectedly, link to a different project, or do not resolve consistently.
 **Fix:** Microsoft Learn recommends connecting a GitHub repo to projects in a single Azure DevOps organization. Remove stale connections from **Project settings > GitHub connections**, then reconnect the repo to the intended project.
 
 ### `AB#` syntax is malformed or placed in the wrong field
-**Symptom:** The PR exists, but no work-item link appears in Azure Boards.  
+**Symptom:** The PR exists, but no work-item link appears in Azure Boards.
 **Fix:** Use `AB#123` exactly. For PRs, put the mention in the PR **description**; title-only mentions do not create the Azure Boards work-item link. Commit messages can also create links.
 
 ### Missing repository access on the app installation
-**Symptom:** Azure Boards connection succeeds for other repos, but the migrated repo is missing.  
+**Symptom:** Azure Boards connection succeeds for other repos, but the migrated repo is missing.
 **Fix:** In GitHub, open **Installed GitHub Apps > Azure Boards > Configure** and add the repository under **Repository access**.
 
 ### PR merge does not transition the work item
-**Symptom:** The link appears, but state does not change after merge.  
+**Symptom:** The link appears, but state does not change after merge.
 **Fix:** Confirm the PR merged into the default branch and used `fix`, `fixes`, or `fixed` before the `AB#` mention, or used an exact valid state name such as `Closed AB#123`. If the process template lacks a Resolved state category, Azure Boards falls back to Completed; if no matching state exists, no transition occurs.
 
 ## Progressive Hints
 
-Use these in order — give the first hint, wait, then give the next only if the student is still stuck.
+Use these in order — give the first hint, wait, then give the next only if the delivery team member is still stuck.
 
 1. **Hint 1 (gentle):** Start from the connection, not the syntax. Can Azure DevOps **Project settings > GitHub connections** see the exact GitHub repo you are testing?
 2. **Hint 2 (medium):** Check where the `AB#` mention lives. A PR title is not enough; put `AB#123` or `Fixes AB#123` in the PR description, or put `AB#123` in a commit message.
@@ -75,7 +75,7 @@ Use these in order — give the first hint, wait, then give the next only if the
 
 ## Debrief Questions
 
-Ask these after the challenge to reinforce learning:
+Ask these after the activity to reinforce learning:
 
 - What did GEI preserve from Azure DevOps PR metadata, and what did it intentionally not migrate from Azure Boards?
 - Which teams in your migration plan will keep Azure Boards after cutover, and which will move planning into GitHub Issues or Projects?
@@ -86,12 +86,12 @@ Ask these after the challenge to reinforce learning:
 
 | Criterion | Points | What "full marks" looks like |
 |---|---:|---|
-| Migration rationale | 15 | Student correctly explains that GEI migrates existing PR work-item links but not Azure Boards work items/backlogs. |
+| Migration rationale | 15 | Delivery team member correctly explains that GEI migrates existing PR work-item links but not Azure Boards work items/backlogs. |
 | App installation | 20 | Azure Boards GitHub App installed or approved for the selected org/repo with least-broad practical repository access. |
 | Azure Boards connection | 20 | Azure DevOps project lists the migrated GitHub repo in **Project settings > GitHub connections**. |
 | Link validation | 20 | Commit or PR with `AB#<id>` appears in the Azure Boards work item's **Development** section. |
 | State transition | 15 | Merged PR with `Fixes AB#<id>` transitions the work item as expected, or state mapping is accurately explained. |
-| Troubleshooting and operating model | 10 | Student can explain wrong-org, syntax, permissions, and EMU policy failure modes and name the app approval owner. |
+| Troubleshooting and operating model | 10 | Delivery team member can explain wrong-org, syntax, permissions, and EMU policy failure modes and name the app approval owner. |
 | **Total** | **100** | |
 
 ## Verification hints

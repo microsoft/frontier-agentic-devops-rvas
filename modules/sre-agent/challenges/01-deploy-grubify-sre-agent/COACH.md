@@ -1,4 +1,4 @@
-# Coach Guide: Challenge 01 — Deploy Grubify and Create the Azure SRE Agent
+# Coach Guide: Activity 01 — Deploy Grubify and Create the Azure SRE Agent
 
 ## Expected Outcome
 

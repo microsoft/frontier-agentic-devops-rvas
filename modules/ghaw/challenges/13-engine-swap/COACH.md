@@ -1,10 +1,10 @@
-# Coach Guide: Challenge 3-03 — Engine Swap
+# Coach Guide: Activity 3-03 — Engine Swap
 
 ---
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — for one automation you actually care about, how would you decide which AI engine to trust once you have weighed its quality, speed, and cost tradeoffs side by side? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -13,9 +13,9 @@ Use these follow-ups to steer the conversation:
 - Explore which tradeoff dominates for that use case and how they'd test engines against it.
 - Have them commit to running the same task across two engines and comparing results next week.
 
-## Coaching Philosophy for This Challenge
+## Coaching Philosophy for This Activity
 
-This is the **engine selection and prompt portability challenge**. Squads have built workflows—now teach them to think **like engineers choosing a tool**.
+This is the **engine selection and prompt portability activity**. Squads have built workflows—now teach them to think **like engineers choosing a tool**.
 
 Your job: Help them see that engine choice is not "pick the best one globally"—it's "pick the best for *this task*." Different engines, different tradeoffs.
 
@@ -436,7 +436,7 @@ Now categorize the current issue and apply the matching label.
 1. **A/B test prompt variants:** Run Claude with two different prompt styles and see which is better.
 2. **Cost optimization:** Optimize each engine's prompt to use fewer tokens while maintaining quality.
 3. **Hybrid approach:** Use Copilot for fast triage, Claude for edge cases (two-stage pipeline).
-4. **Sentiment analysis:** Add a second challenge (sentiment classification) and compare how engines perform.
+4. **Sentiment analysis:** Add a second activity (sentiment classification) and compare how engines perform.
 
 ---
 

@@ -1,26 +1,26 @@
 # Ch02 — Branches, Pull Requests & Code Review — Coach Guide
 
-> Audience: facilitators and graders. Pair with the student `README.md`.
+> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — think about the last pull request that sat open too long or had a painful review cycle on your team: which of the branch protection rules, required reviewers, or PR templates you just configured would have shortened it, and what's still missing? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch02-pull-requests-code-review` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer customer delivery team members who ran this on a **real artifact they own** over the `ghec-ch02-pull-requests-code-review` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Describe a recent PR that stalled or caused friction — who was involved and why did it stall?
-- Which protection or template element from this challenge would have caught the problem earlier?
+- Which protection or template element from this activity would have caught the problem earlier?
 - What one branch-protection rule or CODEOWNERS entry will you propose to your team this week?
 
 ## Facilitation notes
-- **Goal in one line:** the student establishes a real review culture — branch-per-change, required owner review, clean conflict resolution, and a deliberate merge-strategy choice.
-- **Where students get stuck:**
-  - **Self-approval.** A solo student can't approve their own PR when "required approvals ≥ 1" is set. This is *correct* behavior. Have them demonstrate the **gate** (PR blocked until someone else approves) rather than approving themselves. If a second account is available, use it.
+- **Goal in one line:** the delivery team member establishes a real review culture — branch-per-change, required owner review, clean conflict resolution, and a deliberate merge-strategy choice.
+- **Where customer delivery team members get stuck:**
+  - **Self-approval.** A solo delivery team member can't approve their own PR when "required approvals ≥ 1" is set. This is *correct* behavior. Have them demonstrate the **gate** (PR blocked until someone else approves) rather than approving themselves. If a second account is available, use it.
   - **`CODEOWNERS` not triggering.** The file must live at `.github/CODEOWNERS` (or repo root / `docs/`), reference **teams/users that exist and have access**, and the rule must protect the branch with "require review from Code Owners" *on*. A non-existent team silently no-ops.
-  - **Conflict fear.** Students panic at conflict markers. Reassure: edit out `<<<<<<<`, `=======`, `>>>>>>>`, keep the right content, commit.
+  - **Conflict fear.** Customer delivery team members panic at conflict markers. Reassure: edit out `<<<<<<<`, `=======`, `>>>>>>>`, keep the right content, commit.
 - **How to unblock without giving the answer:** ask "who *must* look at this code before it ships?" (→ CODEOWNERS), and "what does the history look like after each merge type?" (→ `git log --graph`).
 - **Org-scoped note:** runs with just an org + org-owner token. Creating the team in Task 7 needs `admin:org`/owner rights, which the org-owner token already has.
 
@@ -36,7 +36,7 @@ Use these follow-ups to steer the conversation:
 
 ## Automated verification hints
 ```bash
-ORG=<org>; REPO=ghec-ch02-pull-requests-code-review   # swap REPO for the student's own repo if they brought one
+ORG=<org>; REPO=ghec-ch02-pull-requests-code-review   # swap REPO for the delivery team member's own repo if they brought one
 
 # Branch protection on main (expect required_pull_request_reviews + require_code_owner_reviews=true)
 gh api repos/$ORG/$REPO/branches/main/protection --jq '{required_reviews: .required_pull_request_reviews}'
@@ -60,7 +60,7 @@ gh api repos/$ORG/$REPO/contents/docs/merge-strategy.md --jq '.path'
 ## Common pitfalls
 - **Protecting `main` *after* opening PRs** is fine, but the owner auto-request only applies to PRs opened/updated *after* CODEOWNERS + the rule exist. Push a new commit to re-trigger.
 - **Team has no repo access.** `CODEOWNERS` owners must be able to read the repo or the request silently drops. Grant the team access.
-- **"Require linear history" + merge commits** are mutually exclusive — students who enable both get a confusing block. Mentioned as a stretch on purpose.
+- **"Require linear history" + merge commits** are mutually exclusive — customer delivery team members who enable both get a confusing block. Mentioned as a stretch on purpose.
 - **Token scope** `read:org` is needed for team lookups; `repo` covers protection + PRs.
 
 ## Useful references for coaching
@@ -73,7 +73,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch02 --org <o
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch02 --org <org> --yes  # PowerShell
 ```
 - Removes only `ghec-ch02-*` artifacts (prefix-guarded): the repo and any `ghec-ch02-*` seed branches.
-- **Manual cleanup (if any):** the seeded `backend-team` (if the student created a real org team) is left in place if not prefixed; advise students to name it `ghec-ch02-backend` or delete it manually.
+- **Manual cleanup (if any):** the seeded `backend-team` (if the delivery team member created a real org team) is left in place if not prefixed; advise customer delivery team members to name it `ghec-ch02-backend` or delete it manually.
 
 ## Time budget
 - Setup + read PRs: ~30 min

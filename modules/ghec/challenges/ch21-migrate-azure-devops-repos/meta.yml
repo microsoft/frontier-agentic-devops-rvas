@@ -19,13 +19,10 @@ success_criteria:
 - An Azure DevOps Services Git repository with at least one pull request is migrated into the target GitHub organization.
 - '`gh ado2gh inventory-report` produced `repos.csv`, and the selected repository row was reviewed for pull request count and migration risk.'
 - The migrated GitHub repository contains Git source history and the migrated pull request history.
-- At least one migrated pull request in GitHub shows its Azure Boards work item link or the learner documents why the source PR had no work item link.
+- At least one migrated pull request in GitHub shows its Azure Boards work item link or a customer practitioner documents why the source PR had no work item link.
 - The migrated repository is private by default or its visibility was intentionally set with `--target-repo-visibility` and verified after migration.
-- Migration logs were downloaded within the 24-hour availability window or the learner documented the exact command and migration ID needed to retrieve them.
+- Migration logs were downloaded within the 24-hour availability window or a customer practitioner documented the exact command and migration ID needed to retrieve them.
 - At least one mannequin was reclaimed, or the mannequin CSV was generated and an org-owner-approved reclaim plan was documented.
-take_home_action: In your own tenant, select one Azure DevOps repository wave, confirm owner teams and cutover windows, migrate with GitHub Enterprise Importer, and plan post-migration remediation.
-take_home_owner: solution-architect
-take_home_signal: The migrated GitHub repository contains source history, pull request metadata, work item links or documented gaps, reclaimed users, logs, and an approved cutover record.
 tags:
 - azure-devops
 - github-enterprise-importer

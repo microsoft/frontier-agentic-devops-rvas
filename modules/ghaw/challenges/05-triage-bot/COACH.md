@@ -1,10 +1,10 @@
-# Coach Guide: Challenge 2-01 — Triage Bot
+# Coach Guide: Activity 2-01 — Triage Bot
 
 ---
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — when an agent both labels a new issue and explains its reasoning in a comment, where does that transparency earn enough trust for you to let it triage your real backlog unattended? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -228,7 +228,7 @@ Suggest this breakdown:
 
 | Phase | Time | What to Do |
 |-------|------|-----------|
-| Read & orient | 3 min | Read the challenge, ask questions |
+| Read & orient | 3 min | Read the activity, ask questions |
 | Write frontmatter | 5 min | Set up `on:`, `permissions`, `safe-outputs`, `engine` |
 | Write body | 7 min | Draft classification logic + comment template |
 | Compile & test | 8 min | Compile, create test issue, watch Actions tab |
@@ -281,11 +281,11 @@ If all check out and it still doesn't work, escalate to Ripley or check the Acti
 
 ## Key Takeaways for Coaches
 
-- **Event-driven = reactive:** This is the paradigm shift from Challenge 00. Celebrate that.
+- **Event-driven = reactive:** This is the paradigm shift from Activity 00. Celebrate that.
 - **Safe-outputs = guardrails:** The allowlist isn't a limitation; it's what makes automation safe
 - **Test rigorously:** Squads often forget to compile *or* forget to create a fresh issue after compiling
 - **Tone matters:** Emphasize that the comment is part of the user experience—not just task completion
-- **Small wins:** A working triage bot is genuinely useful. Squads should leave this challenge feeling "I could use this in my real repo"
+- **Small wins:** A working triage bot is genuinely useful. Squads should leave this activity feeling "I could use this in my real repo"
 
 ---
 

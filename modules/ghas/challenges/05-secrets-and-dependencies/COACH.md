@@ -1,10 +1,10 @@
 # Secure Secrets & Dependencies — Coach Guide
 
-> Audience: facilitators and coaches. Pair with the student `README.md`.
+> Audience: facilitators and coaches. Pair with the delivery team member `README.md`.
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — if you searched your team's repos right now, what is the most likely hardcoded credential or critically vulnerable dependency you'd find, and how long do you think it has been sitting there unnoticed? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -15,22 +15,22 @@ Use these follow-ups to steer the conversation:
 
 ## Facilitation objectives
 - Reinforce that secrets belong in runtime configuration, not source control.
-- Help students connect secret scanning and Dependabot as two complementary supply-chain/security hygiene workflows.
+- Help customer delivery team members connect secret scanning and Dependabot as two complementary supply-chain/security hygiene workflows.
 - Keep validation grounded in branch checks, push protection behavior, and application startup testing.
 
-## Common student blockers
-- Students may remove a hardcoded value without wiring a replacement environment variable; remind them to preserve app functionality.
+## Common delivery team member blockers
+- Customer delivery team members may remove a hardcoded value without wiring a replacement environment variable; remind them to preserve app functionality.
 - Some treat Dependabot alerts as just version bumps; ask them to read the advisory and explain the actual risk.
-- Push protection behavior can surprise students; frame a block as useful feedback, not a failure.
+- Push protection behavior can surprise customer delivery team members; frame a block as useful feedback, not a failure.
 
 ## Facilitation hints
-- Ask students to inventory where the secret is consumed before changing the code.
-- Encourage documenting required environment variables in the PR or challenge notes.
+- Ask customer delivery team members to inventory where the secret is consumed before changing the code.
+- Encourage documenting required environment variables in the PR or activity notes.
 - Have them review at least two high/critical advisories deeply enough to explain exploit impact.
 - After the changes, make sure they can still start the app and exercise an auth-related path.
 
 ## Validation checklist
-Verify each success criterion from the student guide:
+Verify each success criterion from the customer delivery team guide:
 - [ ] No hardcoded secrets, passwords, or credentials remain in source code files
 - [ ] Secrets replaced with environment variable references (process.env.VARIABLE_NAME)
 - [ ] At least 2 high or critical Dependabot alerts reviewed and understood

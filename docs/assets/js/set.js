@@ -5,7 +5,7 @@
   async function init() {
     const params = FP.kioskParams();
     if (!params) {
-      showEmpty('No challenge set specified. <a href="builder.html">Build one →</a>');
+      showEmpty('No activity set specified. <a href="builder.html">Build one →</a>');
       return;
     }
 
@@ -20,7 +20,7 @@
     renderHeading(params.name, items.length);
 
     if (!items.length) {
-      showEmpty('None of the challenges in this set could be found.');
+      showEmpty('None of the activities in this set could be found.');
       return;
     }
 
@@ -28,14 +28,14 @@
   }
 
   function renderHeading(name, n) {
-    const title = name || 'Your challenges';
+    const title = name || 'Your activities';
     document.title = title + ' — Agentic DevOps';
     const h = document.getElementById('setHeading');
-    if (h) h.textContent = name ? name : 'Your challenges.';
+    if (h) h.textContent = name ? name : 'Your activities.';
     const intro = document.getElementById('setIntro');
     if (intro) {
       intro.textContent =
-        `A focused selection of ${n} challenge${n === 1 ? '' : 's'} prepared for you. ` +
+        `A focused selection of ${n} activit${n === 1 ? 'y' : 'ies'} prepared for you. ` +
         'Work through them at your own pace.';
     }
   }
@@ -58,7 +58,7 @@
       html += `<div class="group-head mod-${FP.esc(mod.id)}" style="--mod-color:${color}">
         <span class="group-count mod-${FP.esc(mod.id)}" style="color:${color};font-family:var(--font-mono);font-size:0.72rem;font-weight:700">${mod.id.toUpperCase()}</span>
         <h3>${FP.esc(mod.name)}</h3>
-        <span class="group-count">${gItems.length} challenge${gItems.length === 1 ? '' : 's'}</span>
+        <span class="group-count">${gItems.length} activit${gItems.length === 1 ? 'y' : 'ies'}</span>
       </div>
       <div class="challenge-grid">`;
       html += gItems.map((c) => card(c, params)).join('');

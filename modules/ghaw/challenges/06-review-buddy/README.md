@@ -1,8 +1,8 @@
-# Challenge 2-02: Review Buddy
+# Activity 2-02: Review Buddy
 
 **Track:** Repo Concierge (Intermediate 🟡)  
 **Estimated time:** 30 minutes  
-**Prerequisites:** Complete at least 2 challenges from Track 1
+**Prerequisites:** Complete at least 2 activities from Track 1
 
 ---
 
@@ -31,7 +31,7 @@ By the end, your squad will:
 > [!IMPORTANT]
 > **Bring your own repo (do this first)**
 >
-> This challenge is most valuable when Review Buddy comments on **your own repository's** real PRs, diffs, tests, and review expectations, so the first-pass review keeps helping after the session. Treat the setup sample as practice, not the default destination.
+> This activity is most valuable when Review Buddy comments on **your own repository's** real PRs, diffs, tests, and review expectations, so the first-pass review keeps helping after the session. Treat the setup sample as practice, not the default destination.
 >
 > - **Have a candidate repo?** Install or point `review-buddy.md` at that repo everywhere the guide references the sample repo, and test it on a real or representative pull request.
 > - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
@@ -40,7 +40,7 @@ By the end, your squad will:
 
 ---
 
-## Challenge
+## Activity
 
 Create a gh-aw workflow named `review-buddy.md` in `.github/workflows/` that:
 
@@ -80,7 +80,7 @@ Create a gh-aw workflow named `review-buddy.md` in `.github/workflows/` that:
 ## Tips & Hints
 
 - **Pull request metadata:** Use `github.event.pull_request` context variables to get file count, diff stats, title, description. You don't need to clone the repo.
-- **Diff analysis:** The agent can read the PR description and reason about scope. You don't need deep code parsing for this challenge.
+- **Diff analysis:** The agent can read the PR description and reason about scope. You don't need deep code parsing for this activity.
 - **Observations matter:** Pick observations that are meaningful (e.g., "Tests included" is good; "5 lines of code" is less helpful). Aim for 2–3 key points.
 - **Keep it positive:** This is a friendly reviewer, not a harsh critic. Balance observations with encouragement.
 - **Large PR heuristic:** Generally >500 lines added = "big change worth flagging"

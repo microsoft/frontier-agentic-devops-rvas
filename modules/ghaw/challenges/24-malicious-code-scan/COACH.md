@@ -2,7 +2,7 @@
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — what would it take for you to rely on a daily agent scanning your code changes for supply-chain red flags, and how would you handle false positives without tuning out the real threats? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -11,12 +11,12 @@ Use these follow-ups to steer the conversation:
 - Explore how they'd handle false positives without tuning out genuine threats.
 - Get them to commit to one repo where they'll run a daily change-scan next week.
 
-## What This Challenge Teaches
+## What This Activity Teaches
 
-Supply-chain threat modelling expressed as an agentic workflow. Participants learn to define threat patterns precisely (not just "look for bad code"), scope reviews to recent changes (not the entire codebase), and structure alerts with enough context for a security reviewer to act immediately. This is the most security-engineering-adjacent challenge in Track 4.
+Supply-chain threat modelling expressed as an agentic workflow. Participants learn to define threat patterns precisely (not just "look for bad code"), scope reviews to recent changes (not the entire codebase), and structure alerts with enough context for a security reviewer to act immediately. This is the most security-engineering-adjacent activity in Track 4.
 
 
-Official grounding: when students are unsure whether a frontmatter field or permission is valid, anchor them in the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions) and [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) docs before they tune the agent prompt.
+Official grounding: when customer delivery team members are unsure whether a frontmatter field or permission is valid, anchor them in the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions) and [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) docs before they tune the agent prompt.
 
 ---
 

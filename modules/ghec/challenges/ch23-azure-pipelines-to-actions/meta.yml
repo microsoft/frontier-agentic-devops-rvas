@@ -19,9 +19,6 @@ success_criteria:
 - '`migrate` opened a pull request that adds a converted `.github/workflows/*.yml` file to the target GitHub repository.'
 - 'The generated workflow was reviewed and at least one unsupported, unknown, secret, variable, runner, or service-connection gap was documented with the required manual fix.'
 - 'The migrated workflow ran successfully in GitHub Actions after required cleanup.'
-take_home_action: In your own tenant, run Actions Importer against one Azure DevOps pipeline wave and convert each pipeline into a reviewed GitHub Actions pull request with manual gaps tracked.
-take_home_owner: solution-architect
-take_home_signal: The converted workflow runs in GitHub Actions and the migration plan lists unresolved secrets, runners, variables, service connections, and unsupported tasks.
 tags:
 - github-actions
 - actions-importer

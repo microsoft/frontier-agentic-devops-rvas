@@ -1,19 +1,19 @@
 <!--
   CANONICAL COACH-GUIDE TEMPLATE — DO NOT EDIT IN PLACE.
-  Copy into challenges/ch##-<slug>/COACH.md and fill every section.
+  Copy into activities/ch##-<slug>/COACH.md and fill every section.
   Keep these headings, in this order. This is the facilitator + grading view;
-  it is NOT shown to students on the Pages site (Basher filters COACH.md out).
+  it is NOT shown to customer delivery team members on the Pages site (Basher filters COACH.md out).
 -->
 
-# Ch## — <Challenge Title> — Coach Guide
+# Ch## — <Activity Title> — Coach Guide
 
-> Audience: facilitators and graders. Pair with the student `README.md`.
+> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
 
 ## Facilitation notes
 - **Goal in one line:** <what mastery looks like.>
-- **Where students get stuck:** <the 1–2 conceptual humps to watch for.>
+- **Where customer delivery team members get stuck:** <the 1–2 conceptual humps to watch for.>
 - **How to unblock without giving the answer:** <nudge prompts.>
-- **Org-scoped note:** this challenge runs with just an org + org-owner token; no enterprise owner needed.
+- **Org-scoped note:** this activity runs with just an org + org-owner token; no enterprise owner needed.
 
 ## Grading rubric (point-weighted, 100 pts)
 | Criterion | Points | What "full marks" looks like |

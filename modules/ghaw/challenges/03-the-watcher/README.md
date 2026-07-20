@@ -1,9 +1,9 @@
-# Challenge 1-03: The Watcher
+# Activity 1-03: The Watcher
 
 **Track:** Track 1 — Hello, Agent  
 **Difficulty:** 🟢 Beginner  
 **Estimated time:** 30 minutes  
-**Prerequisites:** Challenge 00 — Setup & Hello, Agent, Challenge 1-01 — Morning Briefing
+**Prerequisites:** Activity 00 — Setup & Hello, Agent, Activity 1-01 — Morning Briefing
 
 ---
 
@@ -17,7 +17,7 @@ A workflow triggered by `on: push` that detects when files in a specific directo
 
 ## Goals
 
-By the end of this challenge, your squad will:
+By the end of this activity, your squad will:
 
 1. ✅ Understand `on: push:` event triggers and how they fire
 2. ✅ Use `on: push: paths:` to filter which files trigger the workflow
@@ -30,7 +30,7 @@ By the end of this challenge, your squad will:
 > [!IMPORTANT]
 > **Bring your own repo (do this first)**
 >
-> This challenge is most valuable when the watcher runs on **your own repository** and tracks a directory that matters in production, so push-time comments keep helping after the session. Treat the setup sample as practice, not the default destination.
+> This activity is most valuable when the watcher runs on **your own repository** and tracks a directory that matters in production, so push-time comments keep helping after the session. Treat the setup sample as practice, not the default destination.
 >
 > - **Have a candidate repo?** Install or point `the-watcher.md` at that repo everywhere the guide references the sample repo, and watch real paths such as `docs/**`, config, schemas, tests, or release files.
 > - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.

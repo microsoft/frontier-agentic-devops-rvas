@@ -10,7 +10,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: By the end of this challenge you can read and govern an organization's spend — inspect **Actions/Packages/Storage usage**, set **budgets with alerts** (including budgets that stop spend), pull **billing usage from the API**, and produce a cost report — all from an org and an org-owner token.
+description: By the end of this activity you can read and govern an organization's spend — inspect **Actions/Packages/Storage usage**, set **budgets with alerts** (including budgets that stop spend), pull **billing usage from the API**, and produce a cost report — all from an org and an org-owner token.
 success_criteria:
 - A **before** usage snapshot was captured from the billing **API** (Actions minutes + storage).
 - At least **two Actions runs** were generated and **usage increased** (verifiable via `gh run list` + the billing API delta).
@@ -18,9 +18,6 @@ success_criteria:
 - You can **reconcile** the API usage total against the UI Usage page and explain the cost model (included vs metered; per-minute price varies by runner OS/SKU).
 - A committed **cost-report script** runs and produces a product/used/included/billable table.
 - A **`COST-REPORT.md`** exists with the before/after delta and a budget recommendation.
-take_home_action: In your own org, assign cost ownership for Actions, Codespaces, Packages, and storage, then configure budgets and reporting for the accountable teams.
-take_home_owner: platform-governance
-take_home_signal: The billing UI and API show budgets, alert thresholds, and a recurring usage report that maps metered spend to the owning cost center.
 tags:
 - billing
 - usage

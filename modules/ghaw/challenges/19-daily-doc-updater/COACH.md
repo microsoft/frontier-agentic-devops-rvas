@@ -2,7 +2,7 @@
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — which docs in your projects silently rot as the code evolves, and what would it take for you to trust an agent's documentation PRs enough to review and merge them regularly? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -11,12 +11,12 @@ Use these follow-ups to steer the conversation:
 - Explore what would make them trust and actually merge an agent's documentation PRs.
 - Have them choose one doc set they'll put under a daily doc-updater next week.
 
-## What This Challenge Teaches
+## What This Activity Teaches
 
 Scheduled automation with `create-pull-request` safe-output. Participants learn to think about docs as a living artefact that drifts from code, how to write prompts that detect drift (not just "review docs"), and how to produce focused, mergeable PRs rather than wholesale rewrites.
 
 
-Official grounding: when students are unsure whether a frontmatter field or permission is valid, anchor them in the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions) and [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) docs before they tune the agent prompt.
+Official grounding: when customer delivery team members are unsure whether a frontmatter field or permission is valid, anchor them in the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions) and [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) docs before they tune the agent prompt.
 
 ---
 

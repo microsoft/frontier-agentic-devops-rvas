@@ -1,14 +1,14 @@
 # Ch06 — Enterprise & Organization 101 — Coach Guide
 
-> Audience: facilitators and graders. Pair with the student `README.md`.
+> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — if you were the org owner of your team's GitHub organization today, what is the first enterprise policy or default repository setting you would change, and what risk or inefficiency is it currently causing? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch06-public-sample` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer customer delivery team members who ran this on a **real artifact they own** over the `ghec-ch06-public-sample` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Describe your current GitHub org structure — how many repos, who are the admins, is there a parent enterprise?
@@ -16,14 +16,14 @@ Use these follow-ups to steer the conversation:
 - What org-level setting change would you propose in writing to your security or platform team this week?
 
 ## Facilitation notes
-- **Goal in one line:** the student turns a wide-open org into a documented, least-privilege baseline and proves every setting from the API rather than from screenshots.
-- **Where students get stuck:**
-  - **Base permission vs team permission.** Students assume base `Read` caps everyone; remind them the **more permissive** of base permission and any explicit team/collaborator grant wins.
+- **Goal in one line:** the delivery team member turns a wide-open org into a documented, least-privilege baseline and proves every setting from the API rather than from screenshots.
+- **Where customer delivery team members get stuck:**
+  - **Base permission vs team permission.** Customer delivery team members assume base `Read` caps everyone; remind them the **more permissive** of base permission and any explicit team/collaborator grant wins.
   - **Public / internal / private.** "Internal" is the one people misread — it means visible to **all enterprise members**, not the public. Use the visibility change in Part C to make it concrete.
   - **Changing visibility on a repo with consequences.** The CLI needs `--accept-visibility-change-consequences`; the UI shows a scary warning. That's expected.
   - **2FA requirement is a foot-gun.** If they flip "require 2FA" on an org with members lacking 2FA, those members get **removed**. Keep Part D as awareness unless they truly own the org.
 - **How to unblock without giving the answer:** ask "if base permission is Read but a team grants Write, what can the member do?" (→ Write) and "where does a setting you clicked show up in `gh api /orgs/<org>`?"
-- **Org-scoped note:** this challenge runs with just an org + org-owner token. `admin:org` is the scope that lets the member-privilege and repo-creation settings be written and read. No enterprise owner needed.
+- **Org-scoped note:** this activity runs with just an org + org-owner token. `admin:org` is the scope that lets the member-privilege and repo-creation settings be written and read. No enterprise owner needed.
 
 ## Grading rubric (point-weighted, 100 pts)
 | Criterion | Points | What "full marks" looks like |
@@ -72,7 +72,7 @@ gh api /orgs/$ORG/outside_collaborators --jq '.[].login'
 ```
 - The single `/orgs/$ORG` JSON object is the fastest mastery signal — every Part B/D change should be reflected there.
 - For the policy doc, confirm it lists the **value** of each setting, not just the name, plus a one-line rationale.
-- A real before/after diff (e.g., the student saved Part A output and `diff`s it) earns the documentation points cleanly.
+- A real before/after diff (e.g., the delivery team member saved Part A output and `diff`s it) earns the documentation points cleanly.
 
 ## Common pitfalls
 - **Token missing `admin:org`.** Reads work, but writing member-privilege/repo-creation settings 403s. Fix: `gh auth refresh -s admin:org,repo,read:org`.
@@ -91,7 +91,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch06 --org <o
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch06 --org <org> --yes  # PowerShell
 ```
 - Removes only `ghec-ch06-*` artifacts (prefix-guarded): the three sample repos and the `ghec-ch06-members` team.
-- **Manual cleanup (required):** the **organization-level settings** the student changed — base permission, repo-creation flags, fork policy, default workflow permissions — are **not** namespaced and are **not** reverted by teardown. If the org is a reusable sandbox, have the student record the original "before" values from Part A and restore them, or accept the new (safer) baseline. This is expected for admin challenges and worth calling out at the start.
+- **Manual cleanup (required):** the **organization-level settings** the delivery team member changed — base permission, repo-creation flags, fork policy, default workflow permissions — are **not** namespaced and are **not** reverted by teardown. If the org is a reusable sandbox, have the delivery team member record the original "before" values from Part A and restore them, or accept the new (safer) baseline. This is expected for admin activities and worth calling out at the start.
 
 ## Time budget
 - Setup + baseline read: ~30 min

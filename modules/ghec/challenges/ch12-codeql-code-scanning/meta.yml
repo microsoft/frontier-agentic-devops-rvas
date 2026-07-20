@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: By the end of this challenge you can turn on CodeQL code scanning two ways (default setup and an advanced workflow), triage real vulnerability alerts in OWASP Juice Shop, apply Copilot Autofix, and gate pull requests on clean code-scanning results — all org-scoped on a public repo.
+description: By the end of this activity you can turn on CodeQL code scanning two ways (default setup and an advanced workflow), triage real vulnerability alerts in OWASP Juice Shop, apply Copilot Autofix, and gate pull requests on clean code-scanning results — all org-scoped on a public repo.
 success_criteria:
 - CodeQL is enabled via an **advanced workflow** scanning **`javascript-typescript`** with the `security-extended` suite (visible in `.github/workflows/codeql.yml`).
 - At least one completed **CodeQL analysis** exists (verifiable via the `code-scanning/analyses` API).
@@ -19,9 +19,6 @@ success_criteria:
 - You **triaged ≥3 alerts** (one dismissed with a reason via API; others reviewed).
 - You applied **Copilot Autofix** to at least one alert and reviewed the suggested patch.
 - The **code-scanning check is required** on `main`, and the seeded vulnerable PR is **blocked** until the alert is resolved/dismissed.
-take_home_action: In your own org, enable CodeQL with the security-extended suite on a production repository and require clean code-scanning results before merge.
-take_home_owner: platform-governance
-take_home_signal: CodeQL analyses run on the default branch, alerts are triaged, and a pull request with a qualifying finding is blocked by the required code-scanning check.
 tags:
 - ghas
 - codeql

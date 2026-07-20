@@ -1,8 +1,8 @@
-# Challenge 00 — Environment Setup
+# Activity 00 — Environment Setup
 
 ## Objectives
 
-By the end of this challenge you will have:
+By the end of this activity you will have:
 
 - A working development environment (GitHub Codespaces or local dev container)
 - An authenticated `gh` CLI session

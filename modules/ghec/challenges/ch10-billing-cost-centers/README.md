@@ -1,24 +1,24 @@
 # Ch10 — Billing, Cost Centers & Usage
 
-> By the end of this challenge you can read and govern an organization's spend — inspect **Actions/Packages/Storage usage**, set **budgets with alerts** (including budgets that stop spend), pull **billing usage from the API**, and produce a cost report — all from an org and an org-owner token.
+> By the end of this activity you can read and govern an organization's spend — inspect **Actions/Packages/Storage usage**, set **budgets with alerts** (including budgets that stop spend), pull **billing usage from the API**, and produce a cost report — all from an org and an org-owner token.
 
 | | |
 |---|---|
 | **Track** | Admin/Governance |
 | **Difficulty** | Advanced *(per-track ramp)* |
 | **Duration** | ~3–4 hrs total, multi-session |
-| **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
+| **Minimum input** | An **org** + an **org-owner token**. *(All activities are org-scoped — no enterprise owner required.)* |
 | **App** | none |
 | **EMU compatible** | yes |
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud, with **billing manager** access (org owners have it by default).
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch10 --org <org>` (least-privilege; for this challenge: `admin:org` + `repo`, plus the read access the **billing usage** endpoints require).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch10 --org <org>` (least-privilege; for this activity: `admin:org` + `repo`, plus the read access the **billing usage** endpoints require).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - No GHAS or Codespaces required. **Enterprise cost centers** are awareness-only here (see callout) — the real, gradable work uses **org-level billing, budgets, and usage**.
 
 ## Scenario objectives
-By completing this challenge you will:
+By completing this activity you will:
 - Navigate the org's **billing & licensing** views and read **included vs metered** usage for Actions, Packages, and Storage.
 - Generate a **small, controlled amount of metered usage** (a few Actions runs) and watch it appear in usage.
 - Set **budgets with alert thresholds** so spend can't surprise you.
@@ -32,7 +32,7 @@ A GHEC customer just got a bigger-than-expected Actions bill and nobody can expl
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This challenge is most valuable when the result *outlives the delivery session*. Pick a real org usage, budget, or cost-reporting artifact someone will rely on after the delivery session and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> This activity is most valuable when the result *outlives the delivery session*. Pick a real org usage, budget, or cost-reporting artifact someone will rely on after the delivery session and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 >
 > - **Have a candidate?** Use your real usage source and reporting repo wherever this guide names `ghec-ch10-usage-generator` or `ghec-ch10-cost-report`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a tiny usage-generator repo and cost-report repo for safe metered practice.

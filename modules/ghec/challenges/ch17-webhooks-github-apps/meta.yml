@@ -10,8 +10,8 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-- Repository provisioned via challenge setup script
-description: By the end of this challenge you can receive GitHub events over webhooks, verify their payloads cryptographically, and register and install a minimal GitHub App that authenticates as an installation — all from an org and an org-owner token.
+- Repository provisioned via activity setup script
+description: By the end of this activity you can receive GitHub events over webhooks, verify their payloads cryptographically, and register and install a minimal GitHub App that authenticates as an installation — all from an org and an org-owner token.
 success_criteria:
 - A **repository webhook** delivers **Issues** and **Push** events to your receiver (shown in Recent Deliveries).
 - You can identify `X-GitHub-Event`, `X-GitHub-Delivery`, and `X-Hub-Signature-256` on a delivery.
@@ -19,9 +19,6 @@ success_criteria:
 - An **organization webhook** exists and a real org event was delivered and verified.
 - A **GitHub App** is registered with scoped permissions + event subscriptions and **installed** on the org.
 - You minted an **installation access token** and the App **posted a comment as a bot identity**.
-take_home_action: In your own org, replace one manually updated downstream system with a signed webhook receiver or GitHub App installed with least-privilege permissions.
-take_home_owner: developer
-take_home_signal: A real GitHub event updates the downstream system automatically and delivery logs show signature verification and bot-authenticated API activity.
 tags:
 - webhooks
 - github-apps

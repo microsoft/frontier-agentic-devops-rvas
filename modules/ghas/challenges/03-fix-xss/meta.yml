@@ -19,9 +19,6 @@ success_criteria:
   - 'PR descriptions explain the data flow: source (user input), sink (HTML output), and encoding applied'
   - PR CodeQL/code scanning checks reviewed, with no remaining annotations for the fixed patterns
   - Application still renders correctly after the fixes
-take_home_action: In your own application, enforce safe output encoding or framework-safe rendering for every path that displays user-supplied content in the browser.
-take_home_owner: developer
-take_home_signal: CodeQL XSS alerts are closed for remediated rendering paths and regression tests confirm encoded output still renders correctly.
 tags:
   - ghas
   - codeql

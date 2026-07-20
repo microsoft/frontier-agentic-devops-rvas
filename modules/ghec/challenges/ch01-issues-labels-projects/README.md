@@ -1,24 +1,24 @@
 # Ch01 — Issues, Labels & Project Boards
 
-> By the end of this challenge you can run a real piece of work end-to-end on GitHub — triaged with labels and milestones, tracked on a Projects (v2) board with custom fields, automated workflows, and an insight chart — using nothing but an org and an org-owner token.
+> By the end of this activity you can run a real piece of work end-to-end on GitHub — triaged with labels and milestones, tracked on a Projects (v2) board with custom fields, automated workflows, and an insight chart — using nothing but an org and an org-owner token.
 
 | | |
 |---|---|
 | **Track** | Developer Flow |
 | **Difficulty** | Foundational *(per-track ramp)* |
 | **Duration** | ~3–4 hrs total, multi-session |
-| **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
+| **Minimum input** | An **org** + an **org-owner token**. *(All activities are org-scoped — no enterprise owner required.)* |
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes |
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch01 --org <org>` (least-privilege; for this challenge: `repo` + `project` + `read:org`).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch01 --org <org>` (least-privilege; for this activity: `repo` + `project` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
-- No GHAS, Codespaces, or enterprise features are required for this challenge.
+- No GHAS, Codespaces, or enterprise features are required for this activity.
 
 ## Scenario objectives
-By completing this challenge you will:
+By completing this activity you will:
 - Create, triage, and close **issues** using templates (issue forms), assignees, and task lists.
 - Design a **label taxonomy** (type / priority / area / status) and apply it consistently.
 - Group work into **milestones** and track completion percentage.
@@ -31,7 +31,7 @@ You have just inherited the backlog for an internal developer-tools team at a GH
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This challenge is most valuable when the result *outlives the delivery session*. Pick a real backlog, issue taxonomy, and Projects board your team will keep using and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> This activity is most valuable when the result *outlives the delivery session*. Pick a real backlog, issue taxonomy, and Projects board your team will keep using and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch01-issues-labels-projects` or `ghec-ch01-board`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded backlog repo and empty project board you can shape safely.

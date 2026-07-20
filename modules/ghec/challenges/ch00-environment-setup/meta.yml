@@ -13,16 +13,13 @@ prerequisite_capabilities:
 description: >
   Provision your development environment for the GitHub Enterprise Cloud delivery session.
   Open the shared org repository in Codespaces (or a local dev container), authenticate
-  the GitHub CLI, and verify you have org-owner rights before Challenge 01.
+  the GitHub CLI, and verify you have org-owner rights before Activity 01.
 success_criteria:
   - "`gh auth status` exits 0 and shows your username"
   - "`gh --version` returns gh >= 2.x"
   - "`gh org list` returns the delivery session organization"
   - "`gh repo view <org>/<repo>` returns the repository metadata without error"
   - "The Codespaces or dev container environment is open and the terminal is ready"
-take_home_action: In your own org, standardize the GitHub CLI, Codespaces or dev container, and org-owner access checks required before teams begin GitHub Enterprise Cloud rollout work.
-take_home_owner: developer
-take_home_signal: A production-ready onboarding check passes for the target org with gh auth status, gh org list, and gh repo view returning expected results.
 tags:
   - setup
   - devcontainer

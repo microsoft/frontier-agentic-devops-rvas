@@ -10,15 +10,12 @@ prerequisite_capabilities:
   - GitHub Advanced Security enabled on the org repo provisioned in S00
   - GitHub Copilot license assigned
   - Familiarity with GitHub Security tab navigation
-description: 'Reconnaissance phase: navigate GHAS alerts (CodeQL, Dependabot, secret scanning) on the shared Juice Shop org repository, use Copilot Chat to understand each vulnerability, and build a mental model of the attack surface before the fix challenges.'
+description: 'Reconnaissance phase: navigate GHAS alerts (CodeQL, Dependabot, secret scanning) on the shared Juice Shop org repository, use Copilot Chat to understand each vulnerability, and build a mental model of the attack surface before the fix activities.'
 success_criteria:
   - At least 5 code scanning alerts reviewed with alert detail read
   - 'Each reviewed alert has a Copilot-generated explanation of: what the vulnerability is, what an attacker could do with it, and where in the code it lives'
   - Alerts grouped by vulnerability class with a fix order documented
   - Dependabot alerts reviewed — any critical/high severity ones noted
-take_home_action: In your own org, review GHAS alerts across production repositories and rank the vulnerability classes your teams must remediate first.
-take_home_owner: platform-governance
-take_home_signal: Security Overview shows reviewed alert groups with owners, priority, and remediation order for production repositories.
 tags:
   - ghas
   - codeql

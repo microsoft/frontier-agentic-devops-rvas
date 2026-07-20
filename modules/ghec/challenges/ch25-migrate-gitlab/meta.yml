@@ -18,11 +18,8 @@ success_criteria:
 - "A GitLab repository's full branch and tag history was mirror-pushed to the GitHub repository."
 - "Commit authorship resolves to the correct GitHub user where the GitLab commit email is present on the GitHub account."
 - "GitLab CI was converted into a reviewable or runnable GitHub Actions workflow using GitHub Actions Importer."
-- "The student documented which GitLab data did not migrate in the self-serve Git CLI path."
-- "The student identified when GitHub Expert Services or the GHES gl-exporter to ghe-migrator path is required."
-take_home_action: In your own tenant, migrate one GitLab repository through the supported Git CLI path, convert its CI pipeline to Actions, and document metadata that requires services-led migration.
-take_home_owner: solution-architect
-take_home_signal: The GitHub repository contains all branches and tags, authorship resolves where emails match, the converted workflow is reviewable or running, and migration gaps are documented.
+- "A delivery team member documented which GitLab data did not migrate in the self-serve Git CLI path."
+- "A delivery team member identified when GitHub Expert Services or the GHES gl-exporter to ghe-migrator path is required."
 tags:
 - gitlab
 - migration

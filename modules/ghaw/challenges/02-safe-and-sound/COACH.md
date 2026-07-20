@@ -1,10 +1,10 @@
-# Coach Guide: Challenge 1-02 — Safe & Sound
+# Coach Guide: Activity 1-02 — Safe & Sound
 
 ---
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — where in your own automation would an explicit safe-outputs gate and a deliberate noop give you the confidence to let an agent write without a human watching every run? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -15,7 +15,7 @@ Use these follow-ups to steer the conversation:
 
 ## Coaching Philosophy
 
-This is the **permission & safety challenge**. It's not about complexity—it's about internalizing two truths:
+This is the **permission & safety activity**. It's not about complexity—it's about internalizing two truths:
 
 1. **Every workflow must call a safe-output** (or it fails)
 2. **Permissions should be minimal** (read-only by default, never overpermission)
@@ -236,4 +236,4 @@ If a squad finishes early:
 - **Safe-outputs is the contract:** It's not a suggestion; it's a declaration. No workflow works without it.
 - **Noop is not failure:** When squads see a successful noop, they start understanding the safety model.
 - **Minimal permissions by default:** This is a habit worth building early. Read-only first; escalate only if needed.
-- **This challenge builds trust:** After Challenge 1-02, squads believe gh-aw can be trusted in production.
+- **This activity builds trust:** After Activity 1-02, squads believe gh-aw can be trusted in production.

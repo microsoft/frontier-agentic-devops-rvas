@@ -10,8 +10,8 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-- Repository provisioned via challenge setup script
-description: By the end of this challenge you can drive a professional pull-request lifecycle — feature branches, reviews, `CODEOWNERS`, required reviewers, merge-conflict resolution, and the three merge strategies — entirely from an org-owner token.
+- Repository provisioned via activity setup script
+description: By the end of this activity you can drive a professional pull-request lifecycle — feature branches, reviews, `CODEOWNERS`, required reviewers, merge-conflict resolution, and the three merge strategies — entirely from an org-owner token.
 success_criteria:
 - At least **three pull requests** were opened against `main` (CLI or UI), one started as a **draft**.
 - A review contains **line comments, a thread, and a `suggestion` block**; at least one PR shows a **request-changes → fix → resolve** cycle.
@@ -20,9 +20,6 @@ success_criteria:
 - A **merge conflict was resolved** and that branch merged cleanly afterward.
 - '**All three merge strategies are enabled** and each was used at least once (verifiable from commit history).'
 - '`docs/merge-strategy.md` documents the chosen default.'
-take_home_action: In your own org, enforce the pull request workflow on a production repository with branch protection, CODEOWNERS, required reviews, PR templates, and an agreed merge strategy.
-take_home_owner: developer
-take_home_signal: Direct pushes to main are blocked and real pull requests show requested code owners, completed reviews, required checks, and the selected merge strategy in history.
 tags:
 - pull-requests
 - code-review

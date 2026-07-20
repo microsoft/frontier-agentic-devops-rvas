@@ -1,14 +1,14 @@
 # Ch07 — Teams, Roles & Base Permissions — Coach Guide
 
-> Audience: facilitators and graders. Pair with the student `README.md`.
+> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — map your real team's structure onto GitHub Teams right now: where do people have more access than they need, and where is the absence of the right permission creating an actual bottleneck for someone? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch07-frontend` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer customer delivery team members who ran this on a **real artifact they own** over the `ghec-ch07-frontend` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Name the GitHub teams or individual collaborator grants that exist in your main org — were they designed or just accumulated?
@@ -16,10 +16,10 @@ Use these follow-ups to steer the conversation:
 - What specific team permission change will you put in a PR or ticket this week?
 
 ## Facilitation notes
-- **Goal in one line:** the student replaces ad-hoc collaborator adds with a nested team model, grants repo access through teams at the right predefined role, and builds one custom role the built-ins can't express — all verifiable from the API.
-- **Where students get stuck:**
+- **Goal in one line:** the delivery team member replaces ad-hoc collaborator adds with a nested team model, grants repo access through teams at the right predefined role, and builds one custom role the built-ins can't express — all verifiable from the API.
+- **Where customer delivery team members get stuck:**
   - **Inheritance direction.** Nested teams inherit access **down** from the parent, not up. A grant on the parent reaches children; a grant on a child does *not* reach siblings or the parent.
-  - **"More permissive wins."** Effective access = the **maximum** of base org permission, any team grant, and any direct collaborator grant. Students expect a strict ceiling; there isn't one without enterprise policy.
+  - **"More permissive wins."** Effective access = the **maximum** of base org permission, any team grant, and any direct collaborator grant. Customer delivery team members expect a strict ceiling; there isn't one without enterprise policy.
   - **Predefined role names map to API permission strings.** Read=`pull`, Write=`push`, Admin=`admin`; Triage and Maintain use their own names. The mismatch (push≠Push-button) trips people up.
   - **Custom roles are org-scoped repository roles**, not org roles. They're created once at the org and assigned per repo/team.
 - **How to unblock without giving the answer:** ask "if the parent has Read and the child has Write on the same repo, what can a child member do?" (→ Write) and "which built-in role lets a lead manage settings but not delete the repo?" (→ Maintain).
@@ -80,7 +80,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch07 --org <o
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch07 --org <org> --yes  # PowerShell
 ```
 - Removes only `ghec-ch07-*` artifacts (prefix-guarded): the three sample repos and all `ghec-ch07-*` teams.
-- **Manual cleanup (required):** the **custom repository role** the student created is org-scoped and **not** `ghec-ch07-*` prefixed, so teardown leaves it in place. Have the student delete it by hand (**Org Settings → Repository roles**, or `gh api -X DELETE /orgs/<org>/custom-repository-roles/<role-id>`) if the org is a reusable sandbox.
+- **Manual cleanup (required):** the **custom repository role** the delivery team member created is org-scoped and **not** `ghec-ch07-*` prefixed, so teardown leaves it in place. Have the delivery team member delete it by hand (**Org Settings → Repository roles**, or `gh api -X DELETE /orgs/<org>/custom-repository-roles/<role-id>`) if the org is a reusable sandbox.
 
 ## Time budget
 - Setup + access snapshot: ~30 min

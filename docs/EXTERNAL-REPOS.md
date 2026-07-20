@@ -15,16 +15,16 @@ This guide explains how this delivery session curriculum manages external depend
 
 - **Source:** https://github.com/juice-shop/juice-shop
 - **Pinned ref:** `v20.0.0` (tag) = commit `f356a09207c7a9550eb6fc4c3945e081922cf998`
-- **Used by:** GHEC challenges (ch11–ch15), GHAS setup
-- **Import mode (org repo):** Challenge setup scripts (`setup.sh provision`) import the repo into org-owned GitHub repositories — each challenge gets its own isolated, disposable copy (e.g., `ghec-ch11-juice-shop`, `ghec-ghas-00-juice-shop`). GHAS alerts run on *that* org repo.
-- **Local runtime (GHAS participants):** GHAS challenges also run Juice Shop locally for manual exploit testing. This local instance has **no GHAS alerts** — it is the app only, not the security-scanning target. See *[Local app provisioning (submodules)](#local-app-provisioning-submodules)* below for how to get it running.
+- **Used by:** GHEC activities (ch11–ch15), GHAS setup
+- **Import mode (org repo):** Activity setup scripts (`setup.sh provision`) import the repo into org-owned GitHub repositories — each activity gets its own isolated, disposable copy (e.g., `ghec-ch11-juice-shop`, `ghec-ghas-00-juice-shop`). GHAS alerts run on *that* org repo.
+- **Local runtime (GHAS participants):** GHAS activities also run Juice Shop locally for manual exploit testing. This local instance has **no GHAS alerts** — it is the app only, not the security-scanning target. See *[Local app provisioning (submodules)](#local-app-provisioning-submodules)* below for how to get it running.
 - **Why Juice Shop is large but not vendored:** At ~61 MB it would bloat the curriculum repo and slow container creation for participants who never need it. It is registered as a git submodule and fetched on demand.
 
 ### Azure SRE Agent starter lab
 
 - **Source:** https://github.com/microsoft/sre-agent
 - **Pinned ref:** commit `673f88765b27d4a74ebc660875bf605a382b6d28`
-- **Used by:** SRE Agent challenges 00, 01, 03, 04, and 05
+- **Used by:** SRE Agent activities 00, 01, 03, 04, and 05
 - **Local runtime:** The full upstream repo is registered as `external/sre-agent`; the lab commands use `external/sre-agent/labs/starter-lab`.
 - **Why it is a submodule:** The official Microsoft lab stays tied to a specific upstream commit without vendoring the full repository into this curriculum repo.
 
@@ -50,17 +50,17 @@ This guide explains how this delivery session curriculum manages external depend
 
 ### Import (One-Time Setup — GHEC/GHAS)
 
-**When:** A challenge setup script creates a GitHub repository with external content imported.
+**When:** A activity setup script creates a GitHub repository with external content imported.
 
-- **Example:** GHEC/GHAS challenges — setup scripts import Juice Shop at `v20.0.0` into a new org repo (e.g., `ghec-ch11-juice-shop` or `ghec-ghas-00-juice-shop`).
+- **Example:** GHEC/GHAS activities — setup scripts import Juice Shop at `v20.0.0` into a new org repo (e.g., `ghec-ch11-juice-shop` or `ghec-ghas-00-juice-shop`).
 - **Flow:**
   ```bash
   # Creates <org>/ghec-ch11-juice-shop with Juice Shop imported
   cd modules/ghec/resources/provisioning/scripts
   ./setup.sh provision ghas-00 --org <org>
   ```
-- **Outcome:** New repo exists in the student's/team's/organizer's org; for GHAS S00 the script also seeds CodeQL/Dependabot config and attempts to enable GHAS features. Repo admins manually add any participants who need access.
-- **Not a submodule:** These repos are disposable challenge targets that participants clone and push to, and that GitHub Advanced Security scans. They intentionally remain normal GitHub repositories.
+- **Outcome:** New repo exists in the delivery team member's/team's/organizer's org; for GHAS S00 the script also seeds CodeQL/Dependabot config and attempts to enable GHAS features. Repo admins manually add any participants who need access.
+- **Not a submodule:** These repos are disposable activity targets that participants clone and push to, and that GitHub Advanced Security scans. They intentionally remain normal GitHub repositories.
 
 ## Pinned References & Validation
 
@@ -83,7 +83,7 @@ If a new version of Juice Shop or another active dependency is needed:
 1. **Coordinate with curriculum**: Update `external-repos.json` with the new ref (tag and/or full SHA).
 2. **Bump the submodule pointer** (for submodule-backed apps): `cd external/<name> && git fetch --depth 1 origin <new-sha> && git checkout <new-sha>`, then `git add external/<name>` in the repo root.
 3. **Test**: Run `npm run verify:repos` and `npm run verify:repos:external` to confirm the manifest SHA and gitlink are in sync.
-4. **Document**: Add a note to the challenge's `COACH.md` if the new ref introduces breaking changes.
+4. **Document**: Add a note to the activity's `COACH.md` if the new ref introduces breaking changes.
 5. **Rebuild**: Run `npm run build` to regenerate catalogs with the new refs.
 
 > **Tag vs. SHA nuance:** `external-repos.json` stores both the friendly tag (`v20.0.0`) and the exact commit SHA. Git submodules track the SHA only — the tag is purely for human reference. The drift check (`npm run verify:repos`) asserts the gitlink SHA equals `source.sha`; always update both together.
@@ -183,11 +183,11 @@ In-tree course content is validated by `npm run build` and the content audit scr
 
 1. Add the submodule: `git submodule add --depth 1 <url> external/<name>` then check out the pinned SHA.
 2. Set `shallow = true` in `.gitmodules`.
-3. Create the committed symlink(s) if challenge instructions expect a stable path.
+3. Create the committed symlink(s) if activity instructions expect a stable path.
 4. Add a `provisioning` block in `external-repos.json` (same schema as `juice-shop`).
 5. Add an npm script `setup:<name>` in `package.json` pointing to `provision-app.sh <key>`.
 6. Run `npm run verify:repos` to confirm drift check passes.
-7. Document in this file and in the relevant challenge's `README.md`.
+7. Document in this file and in the relevant activity's `README.md`.
 
 ## Dependency Families
 
@@ -200,38 +200,38 @@ In-tree course content is validated by `npm run build` and the content audit scr
 ### GHAW Dependency Family
 
 - **GHAW source material** — vendored in-tree at `modules/ghaw/`; provenance commit `9f0957ed3be978b2143c7048f5396183ad189d6e`
-- **No app** — challenges focus on workflow authoring, not a deployed service
+- **No app** — activities focus on workflow authoring, not a deployed service
 
 ### SRE Agent Dependency Family
 
 - **Azure SRE Agent starter lab** — pinned lazy submodule at `external/sre-agent`, lab path `labs/starter-lab`
-- **Azure** (runtime target) — students provision their own (not pinned, varies by subscription)
+- **Azure** (runtime target) — customer delivery team members provision their own (not pinned, varies by subscription)
 
 ### GHEC Dependency Family
 
 - **Juice Shop** (for ch11–ch15) — pinned at `v20.0.0`
 - **GHEC provisioning machinery** — vendored in-tree at `modules/ghec/resources/provisioning/`
-- **Varies** — some challenges use no external app (auth, team roles, org governance)
+- **Varies** — some activities use no external app (auth, team roles, org governance)
 
 ## Local Runtime vs. Shared/Remote Resources
 
 ### GHAS: Two Environments
 
 - **Local Juice Shop** (Docker or devcontainer)
-  - Used for **manual exploit testing** in challenges
+  - Used for **manual exploit testing** in activities
   - Started with `cd app && npm start` or `docker run bkimminich/juice-shop`
   - Runs on port 3000
   - No GHAS alerts here — it's just the app
 
 - **Shared org repository** (GitHub repo in the organization)
   - CodeQL, Dependabot, secret scanning run **here**
-  - Students clone or work on branches
+  - Customer delivery team members clone or work on branches
   - Alerts, security features, and all GHAS configuration are **org/repo-scoped**
   - "GHAS" refers to the alerts and features on this shared repo, not the local Juice Shop runtime
 
 ### SRE Agent: Local Sample App
 
-- **Runs locally** in the student environment (or Codespaces)
+- **Runs locally** in the delivery team member environment (or Codespaces)
 - **No external deploy needed** — included at `modules/sre-agent/resources/sample-app/`
 - **Used for incident simulation** and agent response testing
 
@@ -244,9 +244,9 @@ In-tree course content is validated by `npm run build` and the content audit scr
 - When external projects release major versions, evaluate and document breaking changes before updating the pin.
 - Test setup scripts (`setup.sh provision`) against the pinned refs in a CI/CD gate or manual verification step.
 
-### For Students
+### For Customer delivery team members
 
-- Follow setup instructions in each challenge's `README.md` or `COACH.md`.
+- Follow setup instructions in each activity's `README.md` or `COACH.md`.
 - All module content is in-tree; you do not need to clone or fork the retired upstream repos.
 - If setup fails to pull Juice Shop, check your GitHub token scopes and network access.
 - Report setup failures via your delivery session organizer so coaches can investigate.
@@ -255,10 +255,10 @@ In-tree course content is validated by `npm run build` and the content audit scr
 
 - Validate that Juice Shop ref is reachable before running a cohort (run `npm run verify:repos:external`).
 - Retired Microsoft repos do not need to be reachable; the verify script skips them automatically.
-- Keep students informed if external services (GitHub, Docker Hub) have outages.
+- Keep customer delivery team members informed if external services (GitHub, Docker Hub) have outages.
 
 ## See Also
 
 - [README.md](../README.md) — Build, validate, and deploy the curriculum.
-- [CONTRIBUTING.md](../CONTRIBUTING.md) — Authoring challenges and meta.yml field reference.
-- [modules/README.md](../modules/README.md) — Challenge directory structure.
+- [CONTRIBUTING.md](../CONTRIBUTING.md) — Authoring activities and meta.yml field reference.
+- [modules/README.md](../modules/README.md) — Activity directory structure.

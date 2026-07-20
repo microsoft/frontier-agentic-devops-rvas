@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>Challenge — Agentic DevOps</title>
-  <meta name="description" content="Agentic DevOps challenge guide — student and coach views." />
+  <title>Activity — Agentic DevOps</title>
+  <meta name="description" content="Agentic DevOps activity guide — delivery team and coach views." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -41,7 +41,7 @@
 
   <main id="mainContent">
 
-    <!-- Challenge hero -->
+    <!-- Activity hero -->
     <section class="ch-detail-hero" aria-labelledby="challengeTitle">
       <div class="wrap">
         <nav class="breadcrumbs" aria-label="Breadcrumb" id="breadcrumbs">
@@ -58,27 +58,16 @@
     </section>
 
     <!-- Detail layout: guide + sidebar -->
-    <section class="section-tight" aria-label="Challenge content">
+    <section class="section-tight" aria-label="Activity content">
       <div class="wrap">
         <div class="detail-layout">
 
           <!-- Main guide column -->
           <div>
-            <!-- Take it home — production adoption callout -->
-            <section class="take-home-card" id="takeHomeCard" hidden aria-labelledby="takeHomeHead">
-              <div class="take-home-top">
-                <span class="take-home-kicker">Take it home</span>
-                <span class="take-home-owner" id="takeHomeOwner"></span>
-              </div>
-              <h2 id="takeHomeHead">Put it into production</h2>
-              <p class="take-home-action" id="takeHomeAction"></p>
-              <p class="take-home-signal" id="takeHomeSignal"></p>
-            </section>
-
-            <!-- Student/coach toggle -->
+            <!-- Delivery/coach toggle -->
             <div class="view-switch" role="tablist" aria-label="Guide view">
               <button data-view="student" aria-pressed="true" role="tab" type="button">
-                ▸ Student guide
+                ▸ Delivery guide
               </button>
               <button data-view="coach" aria-pressed="false" role="tab" type="button">
                 ◆ Coach guide
@@ -88,7 +77,7 @@
             <!-- Coach warning banner (shown only in coach view) -->
             <div class="coach-flag" role="alert" aria-live="polite">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg>
-              Coach view — facilitation notes, rubric &amp; verification. Keep this out of the student room.
+              Coach view — facilitation notes, rubric &amp; verification. Keep this out of the delivery-team room.
             </div>
 
             <!-- Rendered Markdown guide -->
@@ -98,7 +87,7 @@
           </div>
 
           <!-- Facts sidebar -->
-          <aside class="facts-panel" aria-label="Challenge details">
+          <aside class="facts-panel" aria-label="Activity details">
 
             <div class="panel">
               <div class="panel-head">Quick facts</div>
@@ -137,7 +126,7 @@
             </div>
 
             <div class="panel" id="relatedPanel">
-              <div class="panel-head">Related challenges</div>
+              <div class="panel-head">Related activities</div>
               <div class="panel-body">
                 <div id="relatedGrid" class="related-grid"></div>
               </div>

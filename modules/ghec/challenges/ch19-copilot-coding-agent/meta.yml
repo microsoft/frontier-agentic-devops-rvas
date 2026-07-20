@@ -11,8 +11,8 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-- Repository provisioned via challenge setup script
-description: By the end of this challenge you can delegate a real bug to the GitHub Copilot cloud agent — assign it an issue, watch it open a draft pull request, and review, steer, and merge its work — on a small seeded repo using an org and an org-owner token.
+- Repository provisioned via activity setup script
+description: By the end of this activity you can delegate a real bug to the GitHub Copilot cloud agent — assign it an issue, watch it open a draft pull request, and review, steer, and merge its work — on a small seeded repo using an org and an org-owner token.
 success_criteria:
 - You confirmed the **Copilot cloud agent is enabled** and the repo is **eligible (non-EMU)**.
 - You **assigned the seeded issue to Copilot** and it opened a **draft pull request**.
@@ -20,9 +20,6 @@ success_criteria:
 - You **steered the agent** with at least one review comment and it pushed **new commits** in response.
 - The **failing test is green** in the PR and the PR was **approved and merged** to `main`.
 - You captured a short **reflection** on where the agent fits (and where human review stays essential).
-take_home_action: In your own org, identify a safe issue class for Copilot cloud agent delegation and require the review, test, and approval gates needed before merging its pull requests.
-take_home_owner: developer
-take_home_signal: A real delegated issue produces a Copilot-authored draft pull request that passes tests and merges only after human review approval.
 tags:
 - copilot
 - cloud-agent

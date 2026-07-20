@@ -4,7 +4,7 @@ This repository can be published with GitHub Pages so participants have a simple
 
 ## Recommended Pages Entry Points
 
-- [challenges/00-setup/README.md](../challenges/00-setup/README.md) as the first participant action.
+- [activities/00-setup/README.md](../challenges/00-setup/README.md) as the first participant action.
 - [resources/README.md](README.md) for templates and fallback packets.
 
 ## Publishing Checklist
@@ -14,7 +14,7 @@ This repository can be published with GitHub Pages so participants have a simple
 3. Confirm preview and fallback language is accurate for the delivery date.
 4. Enable GitHub Pages using the approved branch and folder for the customer environment.
 5. Test links from the landing page on desktop and projected display.
-6. Provide coaches with a direct link to Challenge 00 before kickoff.
+6. Provide coaches with a direct link to Activity 00 before kickoff.
 
 ## Content Freshness
 
@@ -29,7 +29,7 @@ Agentic DevOps capabilities change quickly. Before each delivery, review these a
 ## Accessibility and Delivery Notes
 
 - Keep the README as the main navigation surface.
-- Avoid burying the first challenge behind multiple clicks.
+- Avoid burying the first activity behind multiple clicks.
 - Use descriptive link text.
-- Keep coach-only materials clearly separated from student challenges.
+- Keep coach-only materials clearly separated from delivery team member activities.
 - If publishing publicly, verify that simulation packets contain no real customer data.

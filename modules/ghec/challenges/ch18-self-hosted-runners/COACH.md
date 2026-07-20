@@ -1,14 +1,14 @@
 # Ch18 — Self-Hosted & Larger Runners — Coach Guide
 
-> Audience: facilitators and graders. Pair with the student `README.md`.
+> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — what build or test job in your current CI pipeline is bottlenecked on GitHub-hosted runner constraints (network, hardware, compliance, cost), and what would a self-hosted runner in your own infrastructure unlock for that job? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch18-self-hosted-runners` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer customer delivery team members who ran this on a **real artifact they own** over the `ghec-ch18-self-hosted-runners` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Name the specific workflow and the constraint — is it network egress, memory, GPUs, a license, or a compliance boundary?
@@ -16,8 +16,8 @@ Use these follow-ups to steer the conversation:
 - What is the single job you'd migrate first, and what success metric would tell you the migration paid off?
 
 ## Facilitation notes
-- **Goal in one line:** the student registers a self-hosted runner through an **org runner group**, targets it with labels, and — the key outcome — **hardens it** (least-privilege, ephemeral, fork-PR risk) rather than just getting a green build.
-- **Where students get stuck:**
+- **Goal in one line:** the delivery team member registers a self-hosted runner through an **org runner group**, targets it with labels, and — the key outcome — **hardens it** (least-privilege, ephemeral, fork-PR risk) rather than just getting a green build.
+- **Where customer delivery team members get stuck:**
   - **Registration token vs PAT.** The runner config needs a short-lived **registration token** (`actions/runners/registration-token`), not their PAT. They paste the wrong one.
   - **`runs-on` label matching.** A job needs **all** listed labels present on a runner. `[self-hosted, ghec-ch18]` requires both; a runner missing `ghec-ch18` won't pick it up — the job sits **Queued** with no error.
   - **Runner never goes idle.** They configured it but didn't start `run.sh` (or the service). Status stays offline.
@@ -30,15 +30,15 @@ Use these follow-ups to steer the conversation:
 |---|---:|---|
 | Org runner group (scoped) | 15 | `ghec-ch18-group` exists, **selected repos** only, scoped to the one repo |
 | Runner registration | 20 | Runner online/Idle in the group with custom labels |
-| Targeting + label routing | 20 | `self-hosted.yml` ran on the student's runner; mis-labeled job stays Queued (shown) |
-| Hosted vs self-hosted contrast | 10 | Both run; student articulates latency/env/cost tradeoffs |
+| Targeting + label routing | 20 | `self-hosted.yml` ran on the delivery team member's runner; mis-labeled job stays Queued (shown) |
+| Hosted vs self-hosted contrast | 10 | Both run; delivery team member articulates latency/env/cost tradeoffs |
 | Hardening | 25 | Least-privilege account + ephemeral run demonstrated; fork-PR risk + egress documented |
 | Scaling + enterprise awareness | 10 | Decision matrix + autoscaling sketch + org-vs-enterprise runner-group note |
 | **Total** | **100** | |
 
 ## Automated verification hints
 ```bash
-ORG=<org>; REPO=ghec-ch18-self-hosted-runners   # swap REPO for the student's own repo if they brought one
+ORG=<org>; REPO=ghec-ch18-self-hosted-runners   # swap REPO for the delivery team member's own repo if they brought one
 
 # Runner group exists and is repo-scoped
 gh api orgs/$ORG/actions/runner-groups --jq '.runner_groups[] | {name, visibility}'
@@ -53,8 +53,8 @@ gh run list --repo $ORG/$REPO --workflow self-hosted.yml --json databaseId,concl
 RUN=$(gh run list --repo $ORG/$REPO --workflow self-hosted.yml --limit 1 --json databaseId --jq '.[0].databaseId')
 gh api repos/$ORG/$REPO/actions/runs/$RUN/jobs --jq '.jobs[] | {name, runner_name, labels}'
 ```
-- The **truth source** is `jobs[].runner_name` — it must match the student's runner (`ghec-ch18-runner`), not a GitHub-hosted name.
-- For ephemeral, have the student show the runner **disappearing from `actions/runners`** after a single job, then re-registering for the next.
+- The **truth source** is `jobs[].runner_name` — it must match the delivery team member's runner (`ghec-ch18-runner`), not a GitHub-hosted name.
+- For ephemeral, have the delivery team member show the runner **disappearing from `actions/runners`** after a single job, then re-registering for the next.
 - For label routing, have them show a run **stuck in Queued** when the workflow requires a label no runner advertises.
 
 ## Common pitfalls

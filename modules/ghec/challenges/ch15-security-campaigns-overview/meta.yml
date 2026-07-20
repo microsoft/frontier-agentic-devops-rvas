@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: By the end of this challenge you can read the org-level security overview dashboards, roll GHAS out across repos with a security configuration, launch a security campaign that hands prioritized alerts to developers with a deadline, and track remediation to completion — using OWASP Juice Shop's real alert volume as the campaign target.
+description: By the end of this activity you can read the org-level security overview dashboards, roll GHAS out across repos with a security configuration, launch a security campaign that hands prioritized alerts to developers with a deadline, and track remediation to completion — using OWASP Juice Shop's real alert volume as the campaign target.
 success_criteria:
 - '`ghec-ch15-juice-shop` has a **multi-tool alert corpus** (CodeQL **and** Dependabot alerts present, verifiable via the alerts APIs).'
 - You used the org **Security overview** Risk and Coverage views and produced an **org-wide alert slice** via the API.
@@ -19,9 +19,6 @@ success_criteria:
 - A **security campaign** exists with a name, a **manager**, a **due date**, and **guidance**, scoped to a finite alert slice.
 - The campaign shows **remediation burn-down** (open count dropped after you fixed/dismissed targeted alerts).
 - A **remediation report** issue exists with before/after numbers.
-take_home_action: In your own org, apply a GitHub security configuration across target repositories and launch a security campaign for a prioritized alert slice with named repository owners.
-take_home_owner: platform-governance
-take_home_signal: Security overview shows coverage on the target repositories and the campaign burn-down proves alerts are being fixed or dismissed by the deadline.
 tags:
 - ghas
 - security-overview

@@ -9,7 +9,7 @@ pieces fit. Rusty (Lead/Architect) owns this structure; propose changes via a de
 ```
 challenges/
   _TEMPLATE/                          ← DO NOT delete; copy, never edit in place
-    README.md   (student guide)
+    README.md   (customer delivery team guide)
     COACH.md    (coach guide)
     meta.yml    (machine-readable contract)
   ch##-<slug>/                        ← one per challenge, numbers ch01..ch20
@@ -22,14 +22,14 @@ docs/                                 ← GitHub Pages site source (Basher)
 ```
 
 ### Folder + file naming (HARD RULES)
-- Challenge folder = `ch##-<slug>` where `##` is zero-padded (`ch01`, …, `ch20`) and `<slug>` is
+- Activity folder = `ch##-<slug>` where `##` is zero-padded (`ch01`, …, `ch20`) and `<slug>` is
   **kebab-case**, matching `slug:` in `meta.yml` exactly.
 - The canonical slugs are fixed (see table below). **Do not rename** — the site, scripts, and links
   all key off them.
-- Inside each folder: `README.md` (student), `COACH.md` (coach), `meta.yml` (data). Exact filenames.
+- Inside each folder: `README.md` (delivery team member), `COACH.md` (coach), `meta.yml` (data). Exact filenames.
 - Any dates written in content use ISO format `YYYY-MM-DD`.
 
-### Canonical challenge slugs (locked)
+### Canonical activity slugs (locked)
 | id | folder |
 |---|---|
 | ch01 | `ch01-issues-labels-projects` |
@@ -76,17 +76,17 @@ Never duplicate this data in prose — render or read it from here.
 
 ## Who owns what
 
-### 📚 Linus — challenge content (student + coach guides)
+### 📚 Linus — activity content (delivery team member + coach guides)
 - For each `ch##-<slug>/`: copy `_TEMPLATE/README.md` → `README.md` and `_TEMPLATE/COACH.md` → `COACH.md`.
 - Fill **every** section; keep all headings in the template order (the site + coach filter depend on them).
 - Use the **exact titles/tracks** from the table in the root `README.md`.
 - Keep `meta.yml` in sync with the guide (title, app, requires, emu_compatible).
-- Apply Marco's decisions: org-scoped framing everywhere; GHAS challenges target Juice Shop at `v20.0.0`;
+- Apply Marco's decisions: org-scoped framing everywhere; GHAS activities target Juice Shop at `v20.0.0`;
   ch19 carries the EMU prerequisite and is N/A for pure GHEMU.
 
 ### ⚙️ Yen — provisioning scripts (`scripts/`)
 - Own `scripts/setup.sh` + `scripts/setup.ps1` (and `teardown`, `doctor`, `status`) over one shared gh/jq core.
-- Per-challenge logic reads `challenges/ch##-<slug>/meta.yml` for `app`, `requires`, `provision_creates`.
+- Per-activity logic reads `challenges/ch##-<slug>/meta.yml` for `app`, `requires`, `provision_creates`.
 - Command surface: `setup.sh` / `setup.ps1` `<doctor|setup|status|teardown> ch## --org <org> [--dry-run] [--yes]`.
 - Namespace **everything** `ghec-ch##-*`; teardown refuses to touch anything without that prefix.
 - `doctor` verifies tooling (`gh`/`git`/`jq`), auth, and the `requires` capabilities; warns on EMU for ch19.
@@ -94,12 +94,12 @@ Never duplicate this data in prose — render or read it from here.
 
 ### 🌐 Basher — GitHub Pages site (`docs/`)
 - Source of truth for cards/filters/badges is each `meta.yml` — read it, don't hand-copy.
-- Render student `README.md` per challenge; **exclude `COACH.md`** from the public student view (coach view separate).
+- Render delivery team member `README.md` per activity; **exclude `COACH.md`** from the public delivery team member view (coach view separate).
 - Group by `track`; show `difficulty`, `app`, and `emu_compatible` badges; surface `references`.
 - Link the site from the root `README.md` and back.
 
 ## Independence guarantee (everyone upholds)
-- No challenge depends on another's output. Each `setup` creates all of its own `ghec-ch##-*` state.
+- No activity depends on another's output. Each `setup` creates all of its own `ghec-ch##-*` state.
 - Soft-links are optional only and must be re-created by provisioning, never assumed.
 
 ## Changing the contract

@@ -22,7 +22,7 @@ Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/git
 > [!IMPORTANT]
 > **Bring your own repo (do this first)**
 >
-> This challenge is most valuable when the simplification lands on documentation your team will keep maintaining. Pick a repository in an org you control with a bloated README, contributing guide, runbook, or product doc that would benefit from a focused cleanup PR.
+> This activity is most valuable when the simplification lands on documentation your team will keep maintaining. Pick a repository in an org you control with a bloated README, contributing guide, runbook, or product doc that would benefit from a focused cleanup PR.
 >
 > - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and target that repo's real docs with your own preservation rules, simplification criteria, and PR labels.
 > - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.

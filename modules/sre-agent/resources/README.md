@@ -32,7 +32,7 @@ Do not commit secrets, customer data, private tenant details, or live incident d
 
 ## Navigation
 
-- [Student challenges](../challenges/00-setup/README.md)
+- [Delivery team member activities](../challenges/00-setup/README.md)
 - [Azure SRE Agent reference](SRE-Agent-Reference.md)
 - [Fallback incident packet](Incident-Packet.md)
 - [Runbooks](runbooks/README.md)

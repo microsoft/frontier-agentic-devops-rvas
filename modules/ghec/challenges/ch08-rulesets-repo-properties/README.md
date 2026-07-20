@@ -1,24 +1,24 @@
 # Ch08 — Repository Rulesets & Custom Properties
 
-> By the end of this challenge you can govern many repositories at once: define **custom repository properties**, create **organization rulesets** that **target repos by property**, layer repo-level rules, and verify enforcement from the API — all from an org and an org-owner token.
+> By the end of this activity you can govern many repositories at once: define **custom repository properties**, create **organization rulesets** that **target repos by property**, layer repo-level rules, and verify enforcement from the API — all from an org and an org-owner token.
 
 | | |
 |---|---|
 | **Track** | Admin/Governance |
 | **Difficulty** | Intermediate *(per-track ramp)* |
 | **Duration** | ~4–5 hrs total, multi-session |
-| **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
+| **Minimum input** | An **org** + an **org-owner token**. *(All activities are org-scoped — no enterprise owner required.)* |
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes |
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch08 --org <org>` (least-privilege; for this challenge: `admin:org` + `repo` + `read:org`).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch08 --org <org>` (least-privilege; for this activity: `admin:org` + `repo` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
-- This challenge is **independent** of Ch05 (which also touches rulesets). The focus here is **org-wide governance via custom properties**, not the PR pipeline.
+- This activity is **independent** of Ch05 (which also touches rulesets). The focus here is **org-wide governance via custom properties**, not the PR pipeline.
 
 ## Scenario objectives
-By completing this challenge you will:
+By completing this activity you will:
 - Define **custom repository properties** (single-select and true/false) at the organization.
 - Set property **values** on individual repositories and set **defaults** for new repos.
 - Create an **organization ruleset** whose **target** is a **property condition** (e.g., apply to every repo where `compliance = high`), not a name pattern.
@@ -32,7 +32,7 @@ A GHEC customer has 80 repositories and a compliance team that needs "all produc
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This challenge is most valuable when the result *outlives the delivery session*. Pick a real production or compliance-sensitive repository set that needs rulesets and properties and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> This activity is most valuable when the result *outlives the delivery session*. Pick a real production or compliance-sensitive repository set that needs rulesets and properties and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 >
 > - **Have a candidate?** Use your real repos wherever this guide names `ghec-ch08-prod-payments` or the sibling `ghec-ch08-*` repos. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: seeded prod/internal/sandbox repos for property-targeted guardrails.
@@ -110,7 +110,7 @@ You are done when ALL of the following are true:
 - Write a script that lists every repo and its property values as a Markdown compliance report, generated from `gh api /orgs/<org>/properties/values`.
 - Create a **second org ruleset** targeting `compliance = medium` with a lighter rule set, and show how a repo could match multiple property conditions.
 
-> **At enterprise scale (awareness only):** An **enterprise account** can define properties and rulesets that apply across **every organization** at once, and can prevent org owners from weakening them. In this challenge you build the **org-level** property schema and property-targeted rulesets — the exact same mechanism, scoped to one org, and the day-to-day control surface for an org owner. No enterprise owner is required.
+> **At enterprise scale (awareness only):** An **enterprise account** can define properties and rulesets that apply across **every organization** at once, and can prevent org owners from weakening them. In this activity you build the **org-level** property schema and property-targeted rulesets — the exact same mechanism, scoped to one org, and the day-to-day control surface for an org owner. No enterprise owner is required.
 
 ## Reference links
 - About custom properties — https://docs.github.com/en/organizations/managing-organization-settings/managing-custom-properties-for-repositories-in-your-organization

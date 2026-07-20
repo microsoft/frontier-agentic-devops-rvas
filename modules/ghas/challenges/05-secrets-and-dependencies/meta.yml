@@ -20,9 +20,6 @@ success_criteria:
   - Pull request checks and security annotations reviewed for branch changes
   - Secret scanning alerts relevant to changes addressed or explained
   - Application still starts and authenticates correctly after secrets migration
-take_home_action: In your own org, enforce secret scanning, push protection, Dependabot alerts, and dependency update workflows across production repositories.
-take_home_owner: platform-governance
-take_home_signal: A real push containing a test credential is blocked and high or critical dependency alerts are routed to accountable repository owners.
 tags:
   - ghas
   - secret-scanning

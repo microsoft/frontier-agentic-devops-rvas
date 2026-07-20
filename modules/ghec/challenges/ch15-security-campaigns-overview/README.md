@@ -1,25 +1,25 @@
 # Ch15 — Security Campaigns & Overview
 
-> By the end of this challenge you can read the org-level security overview dashboards, roll GHAS out across repos with a security configuration, launch a security campaign that hands prioritized alerts to developers with a deadline, and track remediation to completion — using OWASP Juice Shop's real alert volume as the campaign target.
+> By the end of this activity you can read the org-level security overview dashboards, roll GHAS out across repos with a security configuration, launch a security campaign that hands prioritized alerts to developers with a deadline, and track remediation to completion — using OWASP Juice Shop's real alert volume as the campaign target.
 
 | | |
 |---|---|
 | **Track** | Security |
 | **Difficulty** | Advanced *(per-track ramp)* |
 | **Duration** | ~5 hrs total, multi-session |
-| **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
+| **Minimum input** | An **org** + an **org-owner token**. *(All activities are org-scoped — no enterprise owner required.)* |
 | **App** | juice-shop *(imported at pinned ref `v20.0.0`; see `docs/EXTERNAL-REPOS.md`)* |
 | **EMU compatible** | yes |
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch15 --org <org>` (least-privilege; for this challenge: `repo` + `admin:org` + `security_events`).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch15 --org <org>` (least-privilege; for this activity: `repo` + `admin:org` + `security_events`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - **GHAS note:** security overview, configurations, and campaigns operate on GHAS alert data. The Juice Shop import is provisioned **public** so CodeQL/Dependabot/secret scanning **alerts** run free. **However**, the security overview's advanced views (**Risk**, **Coverage**, **Campaigns**) **and security campaigns themselves require a GitHub Code Security or GitHub Secret Protection license at the organization level** — a public repo's free scanning does *not* unlock them. If your org has no GHAS product, you can still generate and triage alerts (Part A) but Parts B–E need a licensed org. `modules/ghec/resources/provisioning/scripts/setup.sh doctor` confirms availability.
-- **Soft-link note (independence preserved):** this challenge does **not** depend on ch12/ch13 having run — setup creates its **own** `ghec-ch15-juice-shop` and enables scanning so the alert corpus exists standalone.
+- **Soft-link note (independence preserved):** this activity does **not** depend on ch12/ch13 having run — setup creates its **own** `ghec-ch15-juice-shop` and enables scanning so the alert corpus exists standalone.
 
 ## Scenario objectives
-By completing this challenge you will:
+By completing this activity you will:
 - Navigate the org **Security overview**: the risk and coverage views, and filter alerts across repos.
 - Create an **organization security configuration** and apply it so GHAS features roll out consistently to repos.
 - Read **coverage** (which repos have which features on) vs **risk** (where the open alerts are).
@@ -31,7 +31,7 @@ A GHEC customer has GHAS switched on but no program around it — alerts pile up
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
-> This challenge is most valuable when the result *outlives the delivery session*. Pick a real application repository or security campaign candidate your organization owns and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> This activity is most valuable when the result *outlives the delivery session*. Pick a real application repository or security campaign candidate your organization owns and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch15-juice-shop`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: an OWASP Juice Shop import with security findings suitable for campaign practice.

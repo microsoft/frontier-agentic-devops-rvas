@@ -25,9 +25,6 @@ success_criteria:
   - Access to `process.env` / `os.environ` for keys like `TOKEN`, `SECRET`, `KEY`, `PASSWORD`
   - Dynamic `require`/`import` with non-string arguments
   - New files added to `.github/workflows/` that weren't in a PR
-take_home_action: In a repository you own, schedule malicious-code scanning on recent changes with safe alert issues and a review path for suspicious supply-chain patterns.
-take_home_owner: platform-governance
-take_home_signal: The workflow flags real risky changes with evidence while benign changes avoid recurring false-positive issues.
 tags:
   - security
   - supply-chain

@@ -18,9 +18,6 @@ success_criteria:
   - The likely cause is separated from alternatives and unknowns.
   - Any mitigation is treated as operational action with a review or coach checkpoint.
   - Recovery is verified through browser or endpoint evidence.
-take_home_action: Route one non-production alert from your real Azure Monitor workspace to Azure SRE Agent and use it to investigate logs, metrics, traces, and resource state.
-take_home_owner: solution-architect
-take_home_signal: The investigation cites real Azure observability evidence, separates likely cause from alternatives, and records a reviewed mitigation path.
 tags:
   - azure
   - incident-response

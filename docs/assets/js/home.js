@@ -50,7 +50,7 @@
         <a href="${FP.catalogOutcomeUrl(o.id)}" class="outcome-card reveal">
           <div class="outcome-card-top">
             <span class="outcome-id">${FP.esc(o.id)}</span>
-            <span class="badge badge-duration">${count} challenges</span>
+            <span class="badge badge-duration">${count} activities</span>
             ${FP.durBadge(mins)}
           </div>
           <h3>${FP.esc(o.name)}</h3>
@@ -85,7 +85,7 @@
             <p class="mod-card-desc">${FP.esc(m.description)}</p>
             <div class="mod-card-tracks">${trackPills}</div>
             <div class="mod-card-meta">
-              <div class="mod-stat"><strong>${challengeCount}</strong> challenges</div>
+              <div class="mod-stat"><strong>${challengeCount}</strong> activities</div>
               <div class="mod-stat"><strong>${trackCount}</strong> tracks</div>
             </div>
           </div>
@@ -116,7 +116,7 @@
         </div>
       </a>
       <a class="btn btn-ghost btn-sm" href="${FP.challengeUrl(pick.id)}" style="align-self:flex-start">
-        Open challenge →
+        Open activity →
       </a>`;
   }
 

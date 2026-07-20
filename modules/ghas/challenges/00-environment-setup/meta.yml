@@ -16,7 +16,7 @@ description: >
   Use the provided setup scripts to import OWASP Juice Shop into an org you control,
   enable the required GHAS features, manually onboard any participants who need repo
   access, start the application on port 3000, authenticate the GitHub CLI, and create
-  your working branch before Challenge S01.
+  your working branch before Activity S01.
 success_criteria:
   - "`gh auth status` exits 0 and shows your username"
   - "`ghec-ghas-00-juice-shop` exists in your org"
@@ -25,9 +25,6 @@ success_criteria:
   - "`npm start` completes without errors"
   - "Working branch created and pushed: `git push -u origin <your-branch>` succeeds"
   - "`gh repo view` returns repository metadata without error"
-take_home_action: In your own org, standardize repository onboarding so every production repo has GHAS features enabled before developers start remediation work.
-take_home_owner: platform-governance
-take_home_signal: A newly onboarded production repository shows CodeQL, Dependabot alerts, secret scanning, and push protection enabled in its security settings.
 tags:
   - setup
   - devcontainer

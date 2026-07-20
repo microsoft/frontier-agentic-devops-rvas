@@ -10,8 +10,8 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-- Repository provisioned via challenge setup script
-description: By the end of this challenge you can define a reproducible cloud dev environment with `devcontainer.json`, launch and customize Codespaces, forward ports, configure org-level Codespaces policy, and speed everything up with prebuilds — all from an org and an org-owner token.
+- Repository provisioned via activity setup script
+description: By the end of this activity you can define a reproducible cloud dev environment with `devcontainer.json`, launch and customize Codespaces, forward ports, configure org-level Codespaces policy, and speed everything up with prebuilds — all from an org and an org-owner token.
 success_criteria:
 - '`.devcontainer/devcontainer.json` exists, **pins a base image**, includes **≥2 Features**, and sets `postCreateCommand` + `postStartCommand`.'
 - A Codespace was launched from **both** the UI and the CLI (`gh codespace list` showed it).
@@ -21,9 +21,6 @@ success_criteria:
 - An **org Codespaces policy** restricts machine types and sets retention.
 - A **prebuild** is configured and a new Codespace reports **prebuilt**.
 - All your Codespaces are **stopped/deleted** at the end.
-take_home_action: In your own org, publish a locked devcontainer and Codespaces policy for one onboarding-critical repository, then enable prebuilds for the default branch.
-take_home_owner: developer
-take_home_signal: A new developer can open the repository in Codespaces and get the pinned tools, forwarded ports, policy-compliant machine type, and prebuilt environment without manual setup.
 tags:
 - codespaces
 - devcontainers
@@ -35,7 +32,7 @@ emu_compatible: true
 min_environment: org
 provision_creates:
 - repo ghec-ch03-codespaces-dev-containers (seeded Node/Express app + package.json)
-- minimal .devcontainer/devcontainer.json baseline (student extends it)
+- minimal .devcontainer/devcontainer.json baseline (a delivery team member extends it)
 - README documenting local-run steps (contrast with Codespaces)
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas

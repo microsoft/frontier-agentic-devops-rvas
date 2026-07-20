@@ -13,7 +13,7 @@
 
 ## Prerequisites
 
-**Challenges:** none. This is independent, but it is recommended after the Azure DevOps repository migration challenge (ch21) and complements ch04 Actions CI fundamentals.
+**Activities:** none. This is independent, but it is recommended after the Azure DevOps repository migration activity (ch21) and complements ch04 Actions CI fundamentals.
 
 **Access and tooling:**
 - A GitHub organization and target repository, ideally the repository migrated from Azure DevOps in ch21.
@@ -27,11 +27,11 @@
 
 Repository migration tools such as GitHub Enterprise Importer and `ado2gh` move repository source, history, and supported metadata. They do **not** migrate Azure Pipelines. CI/CD migration is a separate cutover concern handled by **GitHub Actions Importer**.
 
-In this challenge you will inventory the Azure DevOps CI/CD footprint, estimate future Actions usage, convert one pipeline locally, open a pull request with the converted workflow, and validate the migrated workflow in GitHub Actions.
+In this activity you will inventory the Azure DevOps CI/CD footprint, estimate future Actions usage, convert one pipeline locally, open a pull request with the converted workflow, and validate the migrated workflow in GitHub Actions.
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
-> This challenge is most valuable when the result *outlives the delivery session*. Pick a real Azure DevOps project and pipeline you own and complete every task on **that** source and target. You leave with a migrated repo, pipelines-as-Actions, history, settings, evidence, and cleanup decisions genuinely standing up in your GitHub organization.
+> This activity is most valuable when the result *outlives the delivery session*. Pick a real Azure DevOps project and pipeline you own and complete every task on **that** source and target. You leave with a migrated repo, pipelines-as-Actions, history, settings, evidence, and cleanup decisions genuinely standing up in your GitHub organization.
 >
 > - **Have a candidate?** Use it everywhere this guide references the sample Azure DevOps project, pipeline, or target repository. Skip the sample Setup path entirely.
 > - **No suitable one?** Use the fallback below: a provided sample Azure DevOps source project and pipeline you can convert safely.

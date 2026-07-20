@@ -1,10 +1,10 @@
-# Coach Guide: Challenge 1-01 — Morning Briefing
+# Coach Guide: Activity 1-01 — Morning Briefing
 
 ---
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — what daily status update do you or your team assemble by hand today that this scheduled briefing pattern could replace, and what would you trust it to send unsupervised? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -15,9 +15,9 @@ Use these follow-ups to steer the conversation:
 
 ## Coaching Philosophy
 
-This challenge introduces **scheduled triggers** and the **GitHub MCP tool** for querying repo data. Your role is to guide squads through the mental model: cron schedules fire at fixed times, the GitHub tool reads data, and the agent synthesizes that into human-friendly output.
+This activity introduces **scheduled triggers** and the **GitHub MCP tool** for querying repo data. Your role is to guide squads through the mental model: cron schedules fire at fixed times, the GitHub tool reads data, and the agent synthesizes that into human-friendly output.
 
-**Key rule:** This should feel like building on Challenge 00, not a leap. If a squad is stuck on cron syntax or the tool, that's on the system design—give them a cheat sheet and move on.
+**Key rule:** This should feel like building on Activity 00, not a leap. If a squad is stuck on cron syntax or the tool, that's on the system design—give them a cheat sheet and move on.
 
 ---
 
@@ -86,7 +86,7 @@ A coach can verify completion when the squad can show:
 ### Pitfall 5: Permissions still set to `write-all`
 **Symptom:** Workflow has overly permissive permissions when it should be read-only.
 
-**Root cause:** Copy-paste from Challenge 00 or misunderstanding that `safe-outputs` needs permissions too.
+**Root cause:** Copy-paste from Activity 00 or misunderstanding that `safe-outputs` needs permissions too.
 
 **Coach response:**
 - "You have `permissions: write-all`. For this workflow, what do you need to write?"

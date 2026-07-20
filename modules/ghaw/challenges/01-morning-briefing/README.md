@@ -1,9 +1,9 @@
-# Challenge 1-01: Morning Briefing
+# Activity 1-01: Morning Briefing
 
 **Track:** Track 1 — Hello, Agent  
 **Difficulty:** 🟢 Beginner  
 **Estimated time:** 30 minutes  
-**Prerequisites:** Challenge 00 — Setup & Hello, Agent
+**Prerequisites:** Activity 00 — Setup & Hello, Agent
 
 ---
 
@@ -11,13 +11,13 @@
 
 A scheduled workflow that runs every weekday morning at 9 AM and creates a GitHub issue summarizing your repo's activity from the past 24 hours. The agent will read recent issues and PRs, generate a natural-language digest, and post it to your repo as an issue titled "📋 Morning Briefing".
 
-**Why this matters:** A scheduled workflow that queries your repo on a cron can replace a manual status-check ritual — no one needs to pull up the issues list before standup. The value depends entirely on whether you trust the summary enough to act on it; this challenge is where you calibrate that trust by reading what the agent actually produces before relying on it.
+**Why this matters:** A scheduled workflow that queries your repo on a cron can replace a manual status-check ritual — no one needs to pull up the issues list before standup. The value depends entirely on whether you trust the summary enough to act on it; this activity is where you calibrate that trust by reading what the agent actually produces before relying on it.
 
 ---
 
 ## Goals
 
-By the end of this challenge, your squad will:
+By the end of this activity, your squad will:
 
 1. ✅ Write a gh-aw workflow triggered by `on: schedule` (cron syntax)
 2. ✅ Use the GitHub MCP tool to query recent issues and PRs
@@ -30,7 +30,7 @@ By the end of this challenge, your squad will:
 > [!IMPORTANT]
 > **Bring your own repo (do this first)**
 >
-> This challenge is most valuable when the briefing runs on **your own repository** with real issues and PRs, so the workflow can keep informing your team after the session. Treat the setup sample as practice, not the default destination.
+> This activity is most valuable when the briefing runs on **your own repository** with real issues and PRs, so the workflow can keep informing your team after the session. Treat the setup sample as practice, not the default destination.
 >
 > - **Have a candidate repo?** Install or point `morning-briefing.md` at that repo everywhere the guide references the sample repo, and use its real backlog and PR activity as the briefing material.
 > - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
@@ -69,7 +69,7 @@ By the end of this challenge, your squad will:
 - **GitHub tool permissions:** https://github.github.com/gh-aw/reference/permissions/
 - **Cron Syntax Guide:** https://crontab.guru/
 - **Safe Outputs — Create Issue:** https://github.github.com/gh-aw/reference/safe-outputs/#create-issue
-- **Dossier Reference:** See Category B (Continuous Documentation) for `org-health-report.md` and `auto-triage-issues.md` patterns in Challenge Research Dossier
+- **Dossier Reference:** See Category B (Continuous Documentation) for `org-health-report.md` and `auto-triage-issues.md` patterns in Activity Research Dossier
 - **Related Blog:** [Peli's Agent Factory Part 9: Metrics & Analytics](https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-metrics-analytics/)
 
 ---

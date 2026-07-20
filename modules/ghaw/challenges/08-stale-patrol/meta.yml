@@ -24,9 +24,6 @@ success_criteria:
   - A second run (simulated 3 days later) closes the issue
   - Issues labeled `keep-alive` are skipped (not closed)
   - No errors if repo has no stale issues
-take_home_action: In a repository you own, deploy stale patrol with conservative grace periods, safe issue comments, and automatic closing only after the warning window expires.
-take_home_owner: platform-governance
-take_home_signal: Inactive real issues are warned and then closed according to policy while active issues remain untouched.
 tags:
   - schedule
   - stale-issues

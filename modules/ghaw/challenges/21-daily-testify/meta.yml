@@ -19,9 +19,6 @@ success_criteria:
   - `.lock.yml` compiles without errors
   - Manually triggered run creates at least one actionable issue
   - Issue body is specific: names a file, a function, or a concrete gap — not "add more tests"
-take_home_action: In a repository you own, schedule Daily Testify to inspect test quality and create safe issues that describe concrete gaps rather than generic coverage advice.
-take_home_owner: developer
-take_home_signal: The repo receives actionable testing issues tied to real files, risks, and expected improvements.
 tags:
   - testing
   - issue-creation

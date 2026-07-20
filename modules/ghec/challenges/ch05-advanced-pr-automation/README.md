@@ -1,24 +1,24 @@
 # Ch05 — Advanced PR Automation & Rulesets
 
-> By the end of this challenge you can run a hands-off, governed merge pipeline — repo & org **rulesets**, required status checks + required reviewers, **auto-merge**, **CODEOWNERS**, draft-PR gating, and Actions-driven PR automation (labeling, assignment, stale handling) — all from an org and an org-owner token.
+> By the end of this activity you can run a hands-off, governed merge pipeline — repo & org **rulesets**, required status checks + required reviewers, **auto-merge**, **CODEOWNERS**, draft-PR gating, and Actions-driven PR automation (labeling, assignment, stale handling) — all from an org and an org-owner token.
 
 | | |
 |---|---|
 | **Track** | Developer Flow |
 | **Difficulty** | Advanced *(per-track ramp)* |
 | **Duration** | ~5–6 hrs total, multi-session |
-| **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
+| **Minimum input** | An **org** + an **org-owner token**. *(All activities are org-scoped — no enterprise owner required.)* |
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes |
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch05 --org <org>` (least-privilege; for this challenge: `repo` + `workflow` + `admin:org` for org rulesets).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch05 --org <org>` (least-privilege; for this activity: `repo` + `workflow` + `admin:org` for org rulesets).
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
-- Recommended: you've done the *concepts* in Ch02 (PRs/CODEOWNERS) and Ch04 (Actions/required checks) — but this challenge is **independent** and its setup creates everything it needs.
+- Recommended: you've done the *concepts* in Ch02 (PRs/CODEOWNERS) and Ch04 (Actions/required checks) — but this activity is **independent** and its setup creates everything it needs.
 
 ## Scenario objectives
-By completing this challenge you will:
+By completing this activity you will:
 - Define **repository rulesets** and an **organization ruleset** and understand how they layer with classic branch protection.
 - Require **status checks**, **pull requests**, **linear history**, and **signed commits** via rules.
 - Configure **CODEOWNERS** + **required reviewers** and **bypass actors** correctly.
@@ -32,7 +32,7 @@ A GHEC platform team is drowning in manual merge babysitting: pinging reviewers,
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This challenge is most valuable when the result *outlives the delivery session*. Pick a real repository where PR automation would remove review toil and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> This activity is most valuable when the result *outlives the delivery session*. Pick a real repository where PR automation would remove review toil and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch05-advanced-pr-automation`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded sample repo with PR automation hooks to build on.

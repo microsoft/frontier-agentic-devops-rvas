@@ -1,14 +1,14 @@
 # Ch03 — Codespaces & Dev Containers — Coach Guide
 
-> Audience: facilitators and graders. Pair with the student `README.md`.
+> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — what is the most painful or inconsistent part of onboarding a new developer (or yourself after a fresh machine) onto your current project, and how would a Codespace with a locked devcontainer.json change that? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch03-codespaces-dev-containers` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer customer delivery team members who ran this on a **real artifact they own** over the `ghec-ch03-codespaces-dev-containers` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Tell me about a specific repo or project where environment setup causes the most friction — what usually breaks?
@@ -16,14 +16,14 @@ Use these follow-ups to steer the conversation:
 - What is the single .devcontainer change you could open a PR for before next week?
 
 ## Facilitation notes
-- **Goal in one line:** the student makes "clone and code in 60 seconds" real — a committed, reproducible dev container, a prebuild for speed, and an org policy that controls spend.
-- **Where students get stuck:**
-  - **Features vs Dockerfile.** Students conflate the two. Features are composable add-ons layered onto a base image; a Dockerfile is a full custom image. Both are valid; start with Features.
-  - **Lifecycle command timing.** `postCreateCommand` runs once at create; `postStartCommand` runs on every start. Students put `npm ci` in the wrong hook and wonder why it's slow.
+- **Goal in one line:** the delivery team member makes "clone and code in 60 seconds" real — a committed, reproducible dev container, a prebuild for speed, and an org policy that controls spend.
+- **Where customer delivery team members get stuck:**
+  - **Features vs Dockerfile.** Customer delivery team members conflate the two. Features are composable add-ons layered onto a base image; a Dockerfile is a full custom image. Both are valid; start with Features.
+  - **Lifecycle command timing.** `postCreateCommand` runs once at create; `postStartCommand` runs on every start. Customer delivery team members put `npm ci` in the wrong hook and wonder why it's slow.
   - **Prebuild ≠ instant.** The prebuild is a scheduled Action that must finish *before* a new Codespace shows "prebuilt." Have them wait for the prebuild run to go green.
   - **Cost anxiety / forgotten Codespaces.** Emphasize stop/delete. Idle Codespaces bill storage.
 - **How to unblock without giving the answer:** ask "what should every teammate get identically, and what's just *your* preference?" (→ devcontainer vs dotfiles), and "where did the time go on first start vs after a prebuild?"
-- **Org-scoped note:** runs with just an org + org-owner token. The org policy + prebuild steps need `admin:org`, which the org-owner token has. **This is a metered challenge** — make participants aware before they launch.
+- **Org-scoped note:** runs with just an org + org-owner token. The org policy + prebuild steps need `admin:org`, which the org-owner token has. **This is a metered activity** — make participants aware before they launch.
 
 ## Grading rubric (point-weighted, 100 pts)
 | Criterion | Points | What "full marks" looks like |
@@ -38,7 +38,7 @@ Use these follow-ups to steer the conversation:
 
 ## Automated verification hints
 ```bash
-ORG=<org>; REPO=ghec-ch03-codespaces-dev-containers   # swap REPO for the student's own repo if they brought one
+ORG=<org>; REPO=ghec-ch03-codespaces-dev-containers   # swap REPO for the delivery team member's own repo if they brought one
 
 # devcontainer.json present and pins an image + has features
 gh api repos/$ORG/$REPO/contents/.devcontainer/devcontainer.json --jq '.path'
@@ -56,7 +56,7 @@ gh run list --repo $ORG/$REPO --workflow "Create codespace prebuilds" --json sta
 gh api repos/$ORG/$REPO/contents/docs/devcontainer-notes.md --jq '.path'
 ```
 - The fastest mastery signal is the **raw devcontainer.json**: confirm `image` is version-pinned (not `:latest`), `features` has ≥2 entries, and both lifecycle hooks exist.
-- For the prebuild, look for a successful run of the **"Create codespace prebuilds"** workflow and have the student show a new Codespace's creation log saying *prebuilt*.
+- For the prebuild, look for a successful run of the **"Create codespace prebuilds"** workflow and have the delivery team member show a new Codespace's creation log saying *prebuilt*.
 
 ## Common pitfalls
 - **`:latest` base image** defeats reproducibility — dock points if not pinned.

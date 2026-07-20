@@ -2,7 +2,7 @@
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — would you trust an agent to write and open PRs for your missing tests, and how would you check that those generated tests actually prove something rather than just lifting coverage numbers? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -11,12 +11,12 @@ Use these follow-ups to steer the conversation:
 - Explore how they'd verify generated tests prove behaviour rather than just lift coverage numbers.
 - Get them to pick one module they'll let a test-improver open PRs for next week.
 
-## What This Challenge Teaches
+## What This Activity Teaches
 
 The consumer side of the causal chain pattern — a workflow that translates analysis (issues from Testify) into implementation (PRs with new tests). Participants learn incremental, focused automation: one PR per file, one concern per PR, human review before merge. They also practice framework-specific prompt engineering.
 
 
-Official grounding: when students are unsure whether a frontmatter field or permission is valid, anchor them in the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions) and [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) docs before they tune the agent prompt.
+Official grounding: when customer delivery team members are unsure whether a frontmatter field or permission is valid, anchor them in the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions) and [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) docs before they tune the agent prompt.
 
 ---
 
@@ -76,7 +76,7 @@ Open a single PR with the new or updated test file. Do not modify source code.
 
 ## How to Verify It's Working
 
-1. Have a `test-improvement` issue open from Challenge 4-05 (or create one manually)
+1. Have a `test-improvement` issue open from Activity 4-05 (or create one manually)
 2. Trigger `workflow_dispatch`
 3. Confirm a PR opens that addresses the specific issue
 4. Check the PR — does it close the issue in the PR body?
@@ -86,7 +86,7 @@ Open a single PR with the new or updated test file. Do not modify source code.
 
 ## Coaching Notes
 
-The most revealing moment in this challenge is when participants look at a Testify issue and then look at the Improver PR — and see the chain working end to end. Prompt them to articulate what would break if the issues weren't specific enough (_the Improver would produce vague tests_).
+The most revealing moment in this activity is when participants look at a Testify issue and then look at the Improver PR — and see the chain working end to end. Prompt them to articulate what would break if the issues weren't specific enough (_the Improver would produce vague tests_).
 
 The framework-specificity lesson is practical: a prompt that says "write tests" produces worse output than "write Jest 29 tests using `describe`/`it` with async `await` patterns and `.resolves`/`.rejects` matchers." Have them find the right level of specificity for their own framework.
 

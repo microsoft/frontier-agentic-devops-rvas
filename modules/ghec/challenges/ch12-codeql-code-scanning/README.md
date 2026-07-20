@@ -1,24 +1,24 @@
 # Ch12 — Code Scanning with CodeQL & Autofix
 
-> By the end of this challenge you can turn on CodeQL code scanning two ways (default setup and an advanced workflow), triage real vulnerability alerts in OWASP Juice Shop, apply Copilot Autofix, and gate pull requests on clean code-scanning results — all org-scoped on a public repo.
+> By the end of this activity you can turn on CodeQL code scanning two ways (default setup and an advanced workflow), triage real vulnerability alerts in OWASP Juice Shop, apply Copilot Autofix, and gate pull requests on clean code-scanning results — all org-scoped on a public repo.
 
 | | |
 |---|---|
 | **Track** | Security |
 | **Difficulty** | Intermediate *(per-track ramp)* |
 | **Duration** | ~5 hrs total, multi-session |
-| **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
+| **Minimum input** | An **org** + an **org-owner token**. *(All activities are org-scoped — no enterprise owner required.)* |
 | **App** | juice-shop *(imported at pinned ref `v20.0.0`; see `docs/EXTERNAL-REPOS.md`)* |
 | **EMU compatible** | yes |
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch12 --org <org>` (least-privilege; for this challenge: `repo` + `workflow` + `security_events`).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch12 --org <org>` (least-privilege; for this activity: `repo` + `workflow` + `security_events`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - **GHAS note:** code scanning with CodeQL is **free on public repos**. Setup provisions the Juice Shop import as **public**. On private/internal repos CodeQL needs a paid Code Security license — `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns. Actions minutes are consumed by scan runs (free on public).
 
 ## Scenario objectives
-By completing this challenge you will:
+By completing this activity you will:
 - Enable **CodeQL default setup** and confirm an initial scan runs and produces alerts.
 - Replace it with an **advanced CodeQL workflow** so you control the language matrix, query suite, and triggers.
 - Target the correct language pack — **`javascript-typescript`** — for Juice Shop's Angular + Node/Express stack.
@@ -32,7 +32,7 @@ A GHEC customer ships a Node/Angular app with a backlog of latent vulnerabilitie
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This challenge is most valuable when the result *outlives the delivery session*. Pick a real application repository your organization owns so CodeQL findings and gates matter after today and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> This activity is most valuable when the result *outlives the delivery session*. Pick a real application repository your organization owns so CodeQL findings and gates matter after today and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch12-juice-shop`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: an OWASP Juice Shop import with known vulnerable code for safe CodeQL practice.

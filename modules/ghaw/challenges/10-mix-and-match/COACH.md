@@ -1,10 +1,10 @@
-# Coach Guide: Challenge 2-06 — Mix & Match
+# Coach Guide: Activity 2-06 — Mix & Match
 
 ---
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — which prompt guidance or context do you keep copy-pasting across your automations, and what would change if you maintained it as one shared, imported library? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -15,7 +15,7 @@ Use these follow-ups to steer the conversation:
 
 ## Coaching Philosophy
 
-This challenge introduces two production-grade concepts in tandem: **workflow composition** (`imports:`) and **async reporting** (`create-discussion`). Neither is hard to use — but neither is obvious if you've only seen basic gh-aw examples.
+This activity introduces two production-grade concepts in tandem: **workflow composition** (`imports:`) and **async reporting** (`create-discussion`). Neither is hard to use — but neither is obvious if you've only seen basic gh-aw examples.
 
 **Key insight to surface:** Copy-pasting prompts across workflows is tech debt. `imports:` is the gh-aw answer to DRY (Don't Repeat Yourself). Help squads see that the helper file is a first-class artifact that deserves the same care as code.
 
@@ -164,7 +164,7 @@ A correct `10-mix-and-match.md`:
 
 | Phase | Time | What to Do |
 |-------|------|-----------|
-| Read & orient | 3 min | Read challenge, understand imports + create-discussion |
+| Read & orient | 3 min | Read activity, understand imports + create-discussion |
 | Create helper | 5 min | Author `lib/repo-stats-helper.md` |
 | Write workflow | 7 min | frontmatter + agent body |
 | Enable Discussions | 3 min | Repo settings, create "General" category |

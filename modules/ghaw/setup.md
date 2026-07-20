@@ -34,4 +34,4 @@ Expected outcome: GitHub authentication succeeds, `gh aw --version` prints a ver
 
 The `--logical-repo` flag tells `gh-aw` which repository to simulate. This avoids failures when your local clone uses an SSH host alias or another non-standard remote URL.
 
-Students do not need write access to `microsoft/frontier-agentic-devops-rvas` for this smoke test. In trial mode, `gh-aw` uses a temporary host repository in the student's own GitHub account and only simulates the delivery session repository as the target.
+Customer delivery team members do not need write access to `microsoft/frontier-agentic-devops-rvas` for this smoke test. In trial mode, `gh-aw` uses a temporary host repository in the delivery team member's own GitHub account and only simulates the delivery session repository as the target.

@@ -1,9 +1,9 @@
-# Challenge 3-05: Ship It — Capstone
+# Activity 3-05: Ship It — Capstone
 
 **Track:** Continuous Intelligence (Advanced)  
 **Difficulty:** 🔴 Advanced  
 **Estimated time:** 30 minutes  
-**Prerequisites:** Track 2, completed ≥3 challenges; strong understanding of Track 3-01 through 3-04
+**Prerequisites:** Track 2, completed ≥3 activities; strong understanding of Track 3-01 through 3-04
 
 ---
 
@@ -24,13 +24,13 @@ You've built pieces of this in 3-01, 3-02, 3-03, 3-04. Now **connect them into a
 
 This is the capstone. When you see this system run end-to-end, you'll understand how reviewable agentic automation is assembled.
 
-**Why this matters:** The pattern is adapted from production systems, but this challenge is still a learning prototype. Production use needs your own tests, branch protections, rollback plan, and human-owned merge policy.
+**Why this matters:** The pattern is adapted from production systems, but this activity is still a learning prototype. Production use needs your own tests, branch protections, rollback plan, and human-owned merge policy.
 
 ---
 
 ## Goals
 
-By the end of this challenge, your squad will:
+By the end of this activity, your squad will:
 
 1. ✅ Design and build a 3-5 workflow chain
 2. ✅ Use all four techniques: events, repo-memory, meta-workflows, ChatOps
@@ -43,14 +43,14 @@ By the end of this challenge, your squad will:
 > [!IMPORTANT]
 > **Bring your own repo (do this first)**
 >
-> This challenge is most valuable when the pipeline moves real work through a repository your team can keep using. Pick a repository in an org you control with issues, PRs, and review policies that can support an observable issue-to-agent-to-PR path.
+> This activity is most valuable when the pipeline moves real work through a repository your team can keep using. Pick a repository in an org you control with issues, PRs, and review policies that can support an observable issue-to-agent-to-PR path.
 >
 > - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and build the observer, triage, ChatOps, and optional merge workflows around your real issues, PRs, branch protections, and human review gate.
 > - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
 >
 > Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
 
-## Challenge
+## Activity
 
 Build a **factory pipeline** with at least 3 workflows:
 

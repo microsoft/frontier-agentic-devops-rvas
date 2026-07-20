@@ -19,9 +19,6 @@ success_criteria:
   - Pull requests to main opened with clear descriptions of the vulnerability and remediation
   - Copilot Autofix tried on at least one alert (click "Generate fix" in the Security tab)
   - PR CodeQL/code scanning checks reviewed, with no remaining annotations for the fixed patterns
-take_home_action: In your own codebase, replace unsafe database query construction with parameterized queries or ORM-safe patterns wherever user-controlled input reaches persistence.
-take_home_owner: developer
-take_home_signal: Pull requests that touch database access pass CodeQL injection checks with no open annotations for the changed paths.
 tags:
   - ghas
   - codeql

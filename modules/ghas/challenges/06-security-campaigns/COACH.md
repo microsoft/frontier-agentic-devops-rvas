@@ -1,10 +1,10 @@
 # Security Campaigns (Advanced) — Coach Guide
 
-> Audience: facilitators and coaches. Pair with the student `README.md`.
+> Audience: facilitators and coaches. Pair with the delivery team member `README.md`.
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — if you had to pitch a security campaign for your own team's codebase today, which vulnerability class would you tackle first, how would you make the case to your engineering lead, and what would your definition of done actually be? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -15,22 +15,22 @@ Use these follow-ups to steer the conversation:
 
 ## Facilitation objectives
 - Reinforce the shift from fixing one alert to planning remediation at vulnerability-class scale.
-- Help students choose scope using risk, alert volume, and delivery capacity rather than intuition alone.
+- Help customer delivery team members choose scope using risk, alert volume, and delivery capacity rather than intuition alone.
 - Support both the real campaign path and the written-plan fallback when org permissions are limited.
 
-## Common student blockers
-- Students may choose a scope that is too broad to execute; prompt them to narrow by class, repo area, or severity.
-- If org-level permissions are unavailable, students can feel blocked; remind them the written campaign plan is a valid advanced outcome.
+## Common delivery team member blockers
+- Customer delivery team members may choose a scope that is too broad to execute; prompt them to narrow by class, repo area, or severity.
+- If org-level permissions are unavailable, customer delivery team members can feel blocked; remind them the written campaign plan is a valid advanced outcome.
 - Some focus only on creating the campaign object and skip remediation strategy; ask who will do the work, by when, and how progress is tracked.
 
 ## Facilitation hints
-- Ask students to justify why they would prioritize one alert class before another in production.
+- Ask customer delivery team members to justify why they would prioritize one alert class before another in production.
 - Encourage realistic deadlines and ownership instead of aspirational, vague timelines.
 - Have them define what counts as done: fixed, dismissed with reason, or deferred with risk acceptance.
-- Use prior challenge experience to estimate effort and identify which fixes are easy wins versus deep refactors.
+- Use prior activity experience to estimate effort and identify which fixes are easy wins versus deep refactors.
 
 ## Validation checklist
-Verify each success criterion from the student guide:
+Verify each success criterion from the customer delivery team guide:
 - [ ] Campaign scope defined and justified with rationale (risk, volume, effort)
 - [ ] Option A: Security campaign created with name, due date, and at least 5 alerts scoped — progress tracked in the campaign view
 - [ ] Option B (no org access): Written campaign plan covering scope, assignees, timeline, and definition of done

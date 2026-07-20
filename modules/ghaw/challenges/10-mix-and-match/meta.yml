@@ -20,9 +20,6 @@ success_criteria:
   - Compiled `.lock.yml` exists without errors
   - Running the workflow creates a Discussion post, not an issue
   - The Discussion content matches the format defined in your helper
-take_home_action: In a repository you own, move shared prompt guidance into imported workflow snippets and publish digest output through safe discussions instead of noisy issues.
-take_home_owner: solution-architect
-take_home_signal: Multiple workflows reuse the same imported guidance and produce one trustworthy digest discussion on schedule.
 tags:
   - imports
   - workflow-composition

@@ -22,7 +22,7 @@ Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://g
 > [!IMPORTANT]
 > **Bring your own repo (do this first)**
 >
-> This challenge is most valuable when the scan watches code changes and threat patterns that matter to your team. Pick a repository in an org you control with recent commits, dependency updates, or sensitive code paths where supply-chain review would be useful.
+> This activity is most valuable when the scan watches code changes and threat patterns that matter to your team. Pick a repository in an org you control with recent commits, dependency updates, or sensitive code paths where supply-chain review would be useful.
 >
 > - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and tune the workflow to that repo's real languages, recent commits, suspicious pattern categories, and false-positive rules.
 > - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
@@ -96,7 +96,7 @@ Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://g
 → Complementary, not competing. [CodeQL code scanning](https://docs.github.com/en/code-security/code-scanning/introduction-to-code-scanning/about-code-scanning-with-codeql) knows ASTs and known CVE patterns. This agent reasons about intent, context, and novel patterns that rule-based tools miss. Run both.
 
 **"Should alerts auto-revert the commit?"**
-→ Not in this challenge. Issue creation + human review is the right gate here. Auto-revert is a more advanced pattern with revert-commit safe-output — that's an extension.
+→ Not in this activity. Issue creation + human review is the right gate here. Auto-revert is a more advanced pattern with revert-commit safe-output — that's an extension.
 
 </details>
 

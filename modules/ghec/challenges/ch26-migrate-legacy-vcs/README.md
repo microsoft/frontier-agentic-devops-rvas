@@ -13,7 +13,7 @@
 
 ## Prerequisites
 
-**Challenges:** none. This challenge is self-contained. For Azure Repos Git migration after TFVC conversion, ch21 is a useful cross-reference but not required.
+**Activities:** none. This activity is self-contained. For Azure Repos Git migration after TFVC conversion, ch21 is a useful cross-reference but not required.
 
 **Access and tooling:**
 - GitHub organization with repository create rights.
@@ -34,7 +34,7 @@ The GitHub Importer web tool is now **Git-only**, imports code and commit histor
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
-> This challenge is most valuable when the result *outlives the delivery session*. Pick a real legacy VCS source you own, such as SVN, Mercurial, TFVC, or Perforce, and complete every task on **that** source and target. You leave with a converted Git repo, source history, author mapping, large-file checks, settings evidence, and gap notes genuinely standing up in your GitHub organization.
+> This activity is most valuable when the result *outlives the delivery session*. Pick a real legacy VCS source you own, such as SVN, Mercurial, TFVC, or Perforce, and complete every task on **that** source and target. You leave with a converted Git repo, source history, author mapping, large-file checks, settings evidence, and gap notes genuinely standing up in your GitHub organization.
 >
 > - **Have a candidate?** Use it everywhere this guide references the sample legacy VCS source, converted Git directory, or target repository. Skip the sample Setup path entirely.
 > - **No suitable one?** Use the fallback below: a provided sample legacy VCS source you can convert safely.
@@ -162,7 +162,7 @@ git remote set-url origin "https://github.com/$GITHUB_ORG/$DEST_REPO.git"
 git push --mirror origin
 ```
 
-If you need Azure Repos Git repository migration patterns with metadata, use the Azure DevOps Git migration challenge (ch21). This challenge covers the legacy TFVC-to-Git prerequisite and the source-and-history Git push path.
+If you need Azure Repos Git repository migration patterns with metadata, use the Azure DevOps Git migration activity (ch21). This activity covers the legacy TFVC-to-Git prerequisite and the source-and-history Git push path.
 
 ### Part D — Perforce: convert with `git-p4`
 

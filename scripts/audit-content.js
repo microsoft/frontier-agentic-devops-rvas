@@ -17,6 +17,8 @@ const PLATFORM_PATH = path.join(DOCS_DIR, 'assets', 'data', 'platform.json');
 const GRAPH_PATH = path.join(DOCS_DIR, 'assets', 'data', 'dependency-graph.json');
 const EXTERNAL_REPOS_PATH = path.join(ROOT, 'external-repos.json');
 const CHECK_EXTERNAL = process.argv.includes('--external') || process.env.AUDIT_EXTERNAL === '1';
+const CHECK_TERMINOLOGY = process.argv.includes('--terminology');
+const CHECK_REMOVAL = process.argv.includes('--removal');
 const PAGES_HOSTS = new Set(['microsoft.github.io']);
 const PROJECT_SLUG = 'frontier-agentic-devops-rvas';
 
@@ -253,7 +255,7 @@ function auditGuideSurfaces(challenges) {
     const titleNeedle = normalizeText(c.meta.title || '');
     const readmePath = path.join(c.dir, 'README.md');
     const coachPath = path.join(c.dir, 'COACH.md');
-    if (!fs.existsSync(readmePath)) addError(rel(c.dir), 0, `${c.meta.id} missing README.md student guide`);
+    if (!fs.existsSync(readmePath)) addError(rel(c.dir), 0, `${c.meta.id} missing README.md delivery guide`);
     if (!fs.existsSync(coachPath)) addError(rel(c.dir), 0, `${c.meta.id} missing COACH.md facilitator guide`);
 
     if (fs.existsSync(readmePath)) {
@@ -264,7 +266,7 @@ function auditGuideSurfaces(challenges) {
       }
       if (!/^##\s+(Success Criteria|Acceptance Criteria|Verify|Verification)\b/im.test(readme)
         && (!Array.isArray(c.meta.success_criteria) || c.meta.success_criteria.length === 0)) {
-        addWarning(rel(readmePath), 0, 'student guide has no visible success/verification surface');
+        addWarning(rel(readmePath), 0, 'delivery guide has no visible success/verification surface');
       }
     }
 
@@ -351,6 +353,89 @@ function markdownFiles() {
       return /\.(md|html|css)$/i.test(p) && !r.startsWith('docs/assets/data/') && !r.startsWith('docs/resources/');
     }),
   ].filter((p, i, a) => fs.existsSync(p) && a.indexOf(p) === i);
+}
+
+function proseWithoutCode(text) {
+  return text
+    .replace(/```[\s\S]*?```/g, '')
+    .replace(/`[^`]*`/g, '')
+    .replace(/\]\([^)]*\)/g, ']');
+}
+
+function textFromHtml(text) {
+  return text
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<(script|style)\b[\s\S]*?<\/\1>/gi, '')
+    .replace(/<[^>]+>/g, ' ');
+}
+
+function auditTerminology() {
+  const markdown = [
+    path.join(ROOT, 'README.md'),
+    path.join(ROOT, 'CONTRIBUTING.md'),
+    ...walk(DOCS_DIR, p => p.endsWith('.md') && !rel(p).startsWith('docs/assets/data/') && !rel(p).startsWith('docs/resources/')),
+    ...walk(MODULES_DIR, p => p.endsWith('.md')),
+  ];
+  for (const file of markdown) {
+    const text = proseWithoutCode(readText(file));
+    const match = /\bchallenges?\b/i.exec(text);
+    if (match) addError(rel(file), lineAt(text, match.index), 'reader-facing terminology must use "activity" or "activities"');
+  }
+
+  for (const file of walk(DOCS_DIR, p => /^docs\/[^/]+\.html$/.test(rel(p)))) {
+    const source = readText(file);
+    const fields = [
+      textFromHtml(source),
+      ...[...source.matchAll(/\b(?:title|alt|aria-label|placeholder|content)=["']([^"']*)["']/gi)].map(m => m[1]),
+    ].join('\n');
+    const match = /\bchallenges?\b/i.exec(fields);
+    if (match) addError(rel(file), lineAt(fields, match.index), 'reader-facing terminology must use "activity" or "activities"');
+  }
+
+  const uiScripts = ['catalog.js', 'home.js', 'module.js', 'builder.js', 'set.js', 'challenge.js'];
+  for (const name of uiScripts) {
+    const file = path.join(DOCS_DIR, 'assets', 'js', name);
+    const source = readText(file).replace(/\/\*[\s\S]*?\*\/|\/\/.*$/gm, '');
+    const strings = source.match(/'(?:\\.|[^'])*'|"(?:\\.|[^"])*"|`(?:\\.|[^`])*`/g) || [];
+    for (const literal of strings) {
+      const visible = literal
+        .replace(/(?:id|class|href|src)=["'][^"']*["']/g, '')
+        .replace(/challenge\.html|challenge(?:Id|Title|Meta|Grid|Url)|challenge-grid|stat-challenges/g, '');
+      if (/\bchallenges?\b/i.test(visible)) {
+        addError(rel(file), 0, 'reader-facing terminology must use "activity" or "activities"');
+      }
+    }
+  }
+
+  for (const file of walk(MODULES_DIR, p => p.endsWith('meta.yml'))) {
+    const meta = parseMeta(readText(file));
+    for (const key of ['title', 'description', 'track', 'tags', 'prerequisite_capabilities', 'success_criteria']) {
+      const value = Array.isArray(meta[key]) ? meta[key].join('\n') : String(meta[key] || '');
+      const match = /\bchallenges?\b/i.exec(value);
+      if (match) addError(rel(file), 0, `metadata field "${key}" must use "activity" or "activities"`);
+    }
+  }
+}
+
+function auditRemoval() {
+  const forbidden = [
+    'take_home', 'takeHome', 'take-home', 'take home',
+    'adoptionChecklist', 'renderAdoptionChecklist', 'adoption-checklist', 'adoption-item',
+    'adoptHead', 'adoptCopyBtn', 'adoptPrintBtn', 'Take it to production',
+    'Copy as Markdown', 'Print / PDF',
+  ];
+  const files = [
+    path.join(ROOT, 'CONTRIBUTING.md'),
+    ...walk(DOCS_DIR, p => !rel(p).startsWith('docs/assets/data/') && !rel(p).startsWith('docs/resources/')),
+    ...walk(MODULES_DIR, p => /\.(md|yml)$/i.test(p)),
+  ];
+  for (const file of files) {
+    const text = readText(file);
+    for (const token of forbidden) {
+      const index = text.toLowerCase().indexOf(token.toLowerCase());
+      if (index !== -1) addError(rel(file), lineAt(text, index), `removed adoption-checklist token "${token}" remains`);
+    }
+  }
 }
 
 function auditCodeFencesAndCommands(files) {
@@ -712,6 +797,8 @@ async function main() {
   auditVersionClaims(files);
   auditCron(files);
   auditCatalog(challenges);
+  if (CHECK_TERMINOLOGY) auditTerminology();
+  if (CHECK_REMOVAL) auditRemoval();
   await auditExternalUrls();
 
   console.log('Audit summary');

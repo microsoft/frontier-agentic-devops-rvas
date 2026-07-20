@@ -10,7 +10,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: By the end of this challenge you can configure SAML single sign-on for an organization, connect a real identity provider in test mode, provision and de-provision members automatically with SCIM, and audit who is linked to which external identity — all org-scoped, with the enterprise-level model as an awareness callout.
+description: By the end of this activity you can configure SAML single sign-on for an organization, connect a real identity provider in test mode, provision and de-provision members automatically with SCIM, and audit who is linked to which external identity — all org-scoped, with the enterprise-level model as an awareness callout.
 success_criteria:
 - The runbook explains the **three auth models** and records your IdP app's SAML settings.
 - '**SAML SSO is configured** for the org and **validated in test mode** (test round-trip succeeded before enforcement).'
@@ -18,9 +18,6 @@ success_criteria:
 - '**SCIM provisioning is enabled** and you demonstrated a **join** (user created via SCIM) and a **leave** (user suspended via SCIM), verifiable via the SCIM API.'
 - You produced an **external-identity audit** listing GitHub logins ↔ IdP identities.
 - '**SAML SSO is enforced** on the org (and you documented a tested rollback).'
-take_home_action: In your own tenant, connect GitHub Enterprise Cloud to the identity provider with SAML SSO, SCIM lifecycle provisioning, external identity audit, and tested rollback.
-take_home_owner: platform-governance
-take_home_signal: Joiner and leaver events provision and suspend GitHub access through SCIM, and SSO-enforced API access works only with authorized identities.
 tags:
 - sso
 - saml

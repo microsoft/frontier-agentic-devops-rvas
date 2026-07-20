@@ -18,9 +18,6 @@ success_criteria:
   - 'Option A: Security campaign created with name, due date, and at least 5 alerts scoped — progress tracked in the campaign view'
   - 'Option B (no org access): Written campaign plan covering scope, assignees, timeline, and definition of done'
   - 'Reflection written: what would you prioritize in a real production codebase, and why?'
-take_home_action: In your own org, launch a security campaign for the highest-risk alert class with named owners, a deadline, and a clear definition of done.
-take_home_owner: platform-governance
-take_home_signal: Security Overview shows campaign progress, assigned alerts, and closed remediation work against the production alert class.
 tags:
   - ghas
   - security-campaigns

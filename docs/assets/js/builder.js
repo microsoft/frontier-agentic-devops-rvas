@@ -1,4 +1,4 @@
-/* Agentic DevOps — coach set builder: multi-select challenges → shareable link */
+/* Agentic DevOps — coach set builder: multi-select activities → shareable link */
 (function () {
   'use strict';
 
@@ -176,10 +176,10 @@
     if (!grid) return;
 
     const items = filtered();
-    if (countEl) countEl.textContent = items.length + ' challenge' + (items.length === 1 ? '' : 's');
+    if (countEl) countEl.textContent = items.length + ' activit' + (items.length === 1 ? 'y' : 'ies');
 
     if (!items.length) {
-      grid.innerHTML = '<div class="no-results">No challenges match those filters. <button class="btn btn-ghost btn-sm" id="inlineClrBtn" type="button">Clear filters</button></div>';
+      grid.innerHTML = '<div class="no-results">No activities match those filters. <button class="btn btn-ghost btn-sm" id="inlineClrBtn" type="button">Clear filters</button></div>';
       document.getElementById('inlineClrBtn')?.addEventListener('click', () => document.getElementById('clearBtn')?.click());
       return;
     }
@@ -198,7 +198,7 @@
       html += `<div class="group-head mod-${FP.esc(mod.id)}" style="--mod-color:${color}">
         <span class="group-count mod-${FP.esc(mod.id)}" style="color:${color};font-family:var(--font-mono);font-size:0.72rem;font-weight:700">${mod.id.toUpperCase()}</span>
         <h3>${FP.esc(mod.name)}</h3>
-        <span class="group-count">${gItems.length} challenge${gItems.length === 1 ? '' : 's'}</span>
+        <span class="group-count">${gItems.length} activit${gItems.length === 1 ? 'y' : 'ies'}</span>
       </div>
       <div class="challenge-grid">`;
       html += gItems.map((c) => selectCard(c)).join('');
@@ -258,7 +258,7 @@
     if (deselect) deselect.disabled = n === 0;
   }
 
-  /* Preserve catalog order so the student view reads top-to-bottom by module */
+  /* Preserve catalog order so the delivery-team view reads top-to-bottom by module */
   function orderedIds() {
     return _all.filter((c) => _selected.has(c.id)).map((c) => c.id);
   }

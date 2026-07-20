@@ -1,6 +1,6 @@
 # Ch22 — Connect Azure Boards to GitHub
 
-> By the end of this challenge you can restore post-migration traceability between Azure Boards work items and GitHub code activity by installing the Azure Boards GitHub App, connecting a migrated repository, and proving `AB#` links and PR-driven state transitions work.
+> By the end of this activity you can restore post-migration traceability between Azure Boards work items and GitHub code activity by installing the Azure Boards GitHub App, connecting a migrated repository, and proving `AB#` links and PR-driven state transitions work.
 
 | | |
 |---|---|
@@ -18,10 +18,10 @@
 - A migrated GitHub repository that represents code formerly tracked in Azure DevOps.
 - Local tooling for the validation path: `git` and `gh` authenticated to the target GitHub org.
 
-**Recommended sequence:** do this after the migration planning/cutover challenge for Azure DevOps-to-GitHub migrations, because this challenge assumes the repository now lives in GitHub and Azure Boards remains the system of record for work items.
+**Recommended sequence:** do this after the migration planning/cutover activity for Azure DevOps-to-GitHub migrations, because this activity assumes the repository now lives in GitHub and Azure Boards remains the system of record for work items.
 
 ## Scenario objectives
-By completing this challenge you will:
+By completing this activity you will:
 - Explain why GitHub Enterprise Importer (GEI) does not migrate Azure Boards work items: it migrates Git repos, PRs, and existing work-item links on PRs, but not the Boards backlog itself.
 - Install and configure the **Azure Boards** GitHub Marketplace app for selected migrated repositories.
 - Connect one Azure Boards project to the GitHub repository from **Project settings > GitHub connections**.
@@ -34,7 +34,7 @@ GEI preserves only work-item links that already existed on Azure DevOps pull req
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
-> Pick one migrated repository and one Azure Boards work item from a real team. The challenge is complete only when that real repository is connected and a real work item shows a GitHub commit or PR link.
+> Pick one migrated repository and one Azure Boards work item from a real team. The activity is complete only when that real repository is connected and a real work item shows a GitHub commit or PR link.
 >
 > Use these variables in the commands below:
 >

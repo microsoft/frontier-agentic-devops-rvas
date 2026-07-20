@@ -10,8 +10,8 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-- Repository provisioned via challenge setup script
-description: 'By the end of this challenge you can govern many repositories at once: define **custom repository properties**, create **organization rulesets** that **target repos by property**, layer repo-level rules, and verify enforcement from the API — all from an org and an org-owner token.'
+- Repository provisioned via activity setup script
+description: 'By the end of this activity you can govern many repositories at once: define **custom repository properties**, create **organization rulesets** that **target repos by property**, layer repo-level rules, and verify enforcement from the API — all from an org and an org-owner token.'
 success_criteria:
 - Two **custom properties** exist (`compliance` single-select, `prod` true/false), verifiable via `gh api /orgs/<org>/properties/schema`.
 - The four repos carry **deliberate property values** (two prod repos `compliance = high`), verifiable via `gh api /orgs/<org>/properties/values`.
@@ -19,9 +19,6 @@ success_criteria:
 - The org ruleset governs **both** `high`-compliance repos (proven by a rejected direct push on the second repo).
 - A **repository ruleset** on one prod repo layers a stricter rule (e.g., 2 approvals) on top of the org ruleset.
 - A **`GOVERNANCE.md`** documents the schema, values, and ruleset targeting.
-take_home_action: In your own org, classify repositories with custom properties and enforce organization rulesets that target production or high-compliance repos by those properties.
-take_home_owner: platform-governance
-take_home_signal: A direct push or under-reviewed merge is rejected on every property-matched repository while documented exceptions remain explicit.
 tags:
 - rulesets
 - custom-properties

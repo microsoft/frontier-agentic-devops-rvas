@@ -22,7 +22,7 @@ Source: [`githubnext/agentics/workflows/ci-doctor.md`](https://github.com/github
 > [!IMPORTANT]
 > **Bring your own repo (do this first)**
 >
-> This challenge is most valuable when CI Doctor investigates failures from CI your team already depends on. Pick a repository in an org you control with real build, test, or deployment workflows whose logs are worth turning into diagnostic issues.
+> This activity is most valuable when CI Doctor investigates failures from CI your team already depends on. Pick a repository in an org you control with real build, test, or deployment workflows whose logs are worth turning into diagnostic issues.
 >
 > - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and configure the workflow to watch that repo's real CI workflow names, branches, logs, and failure patterns.
 > - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.

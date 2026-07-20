@@ -1,14 +1,14 @@
 # Ch10 — Billing, Cost Centers & Usage — Coach Guide
 
-> Audience: facilitators and graders. Pair with the student `README.md`.
+> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — look at your team's actual GitHub usage right now: where is spend invisible or unattributed, and who in your org should own cost accountability for Actions minutes, Codespaces, or storage but currently does not? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch10-usage-generator` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer customer delivery team members who ran this on a **real artifact they own** over the `ghec-ch10-usage-generator` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Describe who currently reviews your GitHub bill and what detail they can see — down to repo or team level?
@@ -16,12 +16,12 @@ Use these follow-ups to steer the conversation:
 - What cost-center mapping or spending limit would you propose to your finance or platform team this week?
 
 ## Facilitation notes
-- **Goal in one line:** the student builds the org's cost-governance baseline — read usage, generate a little real metered usage, wire a budget with alerts, and reconcile the API against the UI in a repeatable report.
-- **Where students get stuck:**
+- **Goal in one line:** the delivery team member builds the org's cost-governance baseline — read usage, generate a little real metered usage, wire a budget with alerts, and reconcile the API against the UI in a repeatable report.
+- **Where customer delivery team members get stuck:**
   - **Usage data lags.** Generated Actions minutes can take a while to show in billing. If the "after" reading hasn't moved, wait and re-check — it's not a failure.
   - **Budget alerts vs a budget that stops spend.** On the enhanced billing platform these are two settings on the **same** budget. Alerts only **warn/track** (emails are sent automatically at **75%, 90%, and 100%** of the budget); enabling **"stop usage when the budget is reached"** actually **halts** further metered usage. There is no separate "spending limit" feature — the stop control lives on the budget. Make sure they articulate the distinction in Part C.
   - **Billing endpoints + token access.** The billing usage endpoints need the org-owner/billing-manager context; a token without the right access returns 403. Org owners have billing access by default.
-  - **Per-minute cost varies by OS/SKU.** Windows and macOS minutes cost more per minute than Linux (the usage API reports a `pricePerUnit` per SKU). Students often forget overage isn't a flat per-minute number across runners.
+  - **Per-minute cost varies by OS/SKU.** Windows and macOS minutes cost more per minute than Linux (the usage API reports a `pricePerUnit` per SKU). Customer delivery team members often forget overage isn't a flat per-minute number across runners.
   - **The new billing platform UI** differs from the legacy one; menu paths may say "Usage" / "Budgets and alerts." Point them at the "viewing your product usage" doc.
 - **How to unblock without giving the answer:** ask "what's the difference between getting *warned* at 90% and being *stopped* at 100%?" and "which runner OS would blow the budget fastest for the same minutes?" (→ macOS).
 - **Org-scoped note:** runs with an org + org-owner token; org owners hold billing-manager rights. **Enterprise cost centers are awareness-only** — never required to pass.
@@ -61,7 +61,7 @@ gh api /repos/$ORG/ghec-ch10-cost-report/contents/COST-REPORT.md --jq '.path'
 ```
 - The fastest mastery signal is a **non-zero Actions `quantity`** in the usage report that increased after Part B, paired with `gh run list` showing the runs that caused it.
 - Budgets aren't fully exposed via a stable public REST read in every plan — accept a **screenshot / UI walkthrough** of the budget + alert threshold as evidence, plus the written budget-vs-limit distinction.
-- For reconciliation, have the student show the API total and the UI Usage total side by side (within lag tolerance).
+- For reconciliation, have the delivery team member show the API total and the UI Usage total side by side (within lag tolerance).
 
 ## Common pitfalls
 - **Expecting instant usage updates.** Billing data lags; re-check rather than re-running endlessly.
@@ -80,7 +80,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch10 --org <o
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch10 --org <org> --yes  # PowerShell
 ```
 - Removes only `ghec-ch10-*` artifacts (prefix-guarded): `ghec-ch10-usage-generator` and `ghec-ch10-cost-report`.
-- **Manual cleanup (required):** the **budget and any alert thresholds** the student created are org-level billing settings, **not** `ghec-ch10-*` prefixed, and are **not** reverted by teardown. Delete the budget by hand (**Org Settings → Billing & licensing → Budgets and alerts**) if the org is a reusable sandbox. The **metered usage already incurred is permanent** (it's real billing history) — expected and negligible for the few seconds generated here.
+- **Manual cleanup (required):** the **budget and any alert thresholds** the delivery team member created are org-level billing settings, **not** `ghec-ch10-*` prefixed, and are **not** reverted by teardown. Delete the budget by hand (**Org Settings → Billing & licensing → Budgets and alerts**) if the org is a reusable sandbox. The **metered usage already incurred is permanent** (it's real billing history) — expected and negligible for the few seconds generated here.
 
 ## Time budget
 - Setup + baseline read: ~30 min

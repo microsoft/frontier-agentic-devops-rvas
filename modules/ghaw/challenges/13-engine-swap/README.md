@@ -1,9 +1,9 @@
-# Challenge 3-03: Engine Swap
+# Activity 3-03: Engine Swap
 
 **Track:** Continuous Intelligence (Advanced)  
 **Difficulty:** 🔴 Advanced  
 **Estimated time:** 30 minutes  
-**Prerequisites:** Track 2, completed ≥3 challenges
+**Prerequisites:** Track 2, completed ≥3 activities
 
 ---
 
@@ -21,13 +21,13 @@ Take the same workflow, run it with Copilot vs Claude vs Codex. You'll get:
 
 The takeaway is not a fixed ranking. It's the habit: test your specific prompt against the engines available to your team, measure on the task you actually need, and make the choice deliberately.
 
-**Why this matters:** Teams that ship production automation test their prompts across engines before committing to one. This challenge builds that testing habit — run the same task on multiple engines, observe the actual output differences, and make a documented choice based on evidence from your own workflow.
+**Why this matters:** Teams that ship production automation test their prompts across engines before committing to one. This activity builds that testing habit — run the same task on multiple engines, observe the actual output differences, and make a documented choice based on evidence from your own workflow.
 
 ---
 
 ## Goals
 
-By the end of this challenge, your squad will:
+By the end of this activity, your squad will:
 
 1. ✅ Take a working workflow and adapt it for multiple engines
 2. ✅ Understand how engine choice affects prompt writing
@@ -39,14 +39,14 @@ By the end of this challenge, your squad will:
 > [!IMPORTANT]
 > **Bring your own repo (do this first)**
 >
-> This challenge is most valuable when engine tradeoffs are measured against automation your team might actually keep. Pick a real issue, PR, or code-review task from a repository in an org you control and adapt the three engine versions around that same input.
+> This activity is most valuable when engine tradeoffs are measured against automation your team might actually keep. Pick a real issue, PR, or code-review task from a repository in an org you control and adapt the three engine versions around that same input.
 >
 > - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and run Copilot, Claude, and Codex against the same real issue, PR, or code snippet so your comparison reflects production work.
 > - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
 >
 > Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
 
-## Challenge
+## Activity
 
 Pick one task. Build three versions of the same workflow, one for each engine.
 

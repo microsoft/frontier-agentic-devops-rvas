@@ -10,8 +10,8 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-- Repository provisioned via challenge setup script
-description: By the end of this challenge you can run a hands-off, governed merge pipeline — repo & org **rulesets**, required status checks + required reviewers, **auto-merge**, **CODEOWNERS**, draft-PR gating, and Actions-driven PR automation (labeling, assignment, stale handling) — all from an org and an org-owner token.
+- Repository provisioned via activity setup script
+description: By the end of this activity you can run a hands-off, governed merge pipeline — repo & org **rulesets**, required status checks + required reviewers, **auto-merge**, **CODEOWNERS**, draft-PR gating, and Actions-driven PR automation (labeling, assignment, stale handling) — all from an org and an org-owner token.
 success_criteria:
 - An **active repository ruleset** on `main` requires PR + ≥1 approval + **code-owner review** + the **`build` status check** + linear history, and **blocks direct pushes** (demonstrated).
 - '**CODEOWNERS** is valid; a `/src/` PR **auto-requests** the owner; a **bypass actor** is configured and documented.'
@@ -19,9 +19,6 @@ success_criteria:
 - A **PR template** pre-fills new PRs; a **draft** PR demonstrably blocks auto-merge/reviewers until marked ready.
 - '**Auto-labeling** assigns `area:` labels by path; an **open-PR comment** workflow fires; a **stale** workflow labels/closes inactive PRs.'
 - An **organization ruleset** targeting `ghec-ch05-*` is active and layers with the repo ruleset.
-take_home_action: In your own org, replace one repetitive pull request control with reusable Actions automation, auto-labeling, auto-merge gates, stale handling, and layered rulesets.
-take_home_owner: developer
-take_home_signal: Production pull requests are labeled, assigned, gated, and merged or held automatically according to the configured ruleset and workflow evidence.
 tags:
 - rulesets
 - pull-requests
@@ -36,7 +33,7 @@ provision_creates:
 - repo ghec-ch05-advanced-pr-automation (seeded app + working CI emitting a 'build' check)
 - several open PRs in mixed states (clean, failing-CI, draft, missing-owner-review)
 - starter .github/CODEOWNERS + placeholder .github/pull_request_template.md
-- no rulesets yet (student creates repo + org rulesets)
+- no rulesets yet (a delivery team member creates repository and organization rulesets)
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/ch05-advanced-pr-automation/meta.yml

@@ -1,4 +1,4 @@
-# Challenge S05 — Secure Secrets & Dependencies
+# Activity S05 — Secure Secrets & Dependencies
 
 ## Description
 
@@ -8,7 +8,7 @@ Two different attack surfaces. Same urgency.
 
 **Vulnerable dependencies:** Every package in `package.json` is a potential attack vector. Dependabot alerts and Dependabot security update pull requests are shared repo/default-branch signals. Your job is to review the high and critical severity alerts, understand what the vulnerability in each package actually is, and validate any dependency changes your team makes through your pull request.
 
-Both issues have the same root cause: trusting something external without vetting it. Treating secrets as code. Treating dependencies as permanent. This challenge is about building the habit of not doing that.
+Both issues have the same root cause: trusting something external without vetting it. Treating secrets as code. Treating dependencies as permanent. This activity is about building the habit of not doing that.
 
 ## Objectives
 
@@ -22,7 +22,7 @@ Both issues have the same root cause: trusting something external without vettin
 > [!IMPORTANT]
 > **Bring your own application (do this first)**
 >
-> This challenge is most valuable when the secrets and dependency work *outlives the delivery session*. Use the real application repository you want to secure so secret scanning, push protection, Dependabot alerts, and dependency fixes improve a repo your team keeps.
+> This activity is most valuable when the secrets and dependency work *outlives the delivery session*. Use the real application repository you want to secure so secret scanning, push protection, Dependabot alerts, and dependency fixes improve a repo your team keeps.
 >
 > - **Have a candidate?** If you have an application repo in an organization you control with GHAS enabled, use it everywhere this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice-Shop-specific setup and review your own secret scanning alerts, high or critical Dependabot alerts, and configuration files instead.
 > - **No suitable one?** Use the fallback from S00: OWASP Juice Shop as a safe practice target for learning the secret and dependency remediation workflow.
@@ -40,7 +40,7 @@ Both issues have the same root cause: trusting something external without vettin
 - [ ] Application still starts and authenticates correctly after secrets migration
 - [ ] Coach conversation — if you searched your team's repos right now, what is the most likely hardcoded credential or critically vulnerable dependency you'd find, and how long do you think it has been sitting there unnoticed? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-**Push protection:** If a new secret is introduced in your branch, push protection should block it before it lands. Treat that block as part of the validation for this challenge.
+**Push protection:** If a new secret is introduced in your branch, push protection should block it before it lands. Treat that block as part of the validation for this activity.
 
 ## Learning Resources
 

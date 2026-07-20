@@ -1,10 +1,10 @@
-# Coach Guide: Challenge 3-01 — The Relay
+# Coach Guide: Activity 3-01 — The Relay
 
 ---
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — what complex automation are you tempted to build as one giant agent that would be safer split into a producer and a consumer passing state, and where would you put the checkpoint between them? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -13,9 +13,9 @@ Use these follow-ups to steer the conversation:
 - Surface where splitting it into producer and consumer adds safety, and where the state checkpoint belongs.
 - Have them sketch one producer-consumer split they'll prototype for that system next week.
 
-## Coaching Philosophy for This Challenge
+## Coaching Philosophy for This Activity
 
-This is the **first Advanced challenge**. Squads coming from Track 2 have seen event triggers, safe-outputs variety, and basic AI integration. Now you're asking them to think in **systems**—multiple workflows talking to each other.
+This is the **first Advanced activity**. Squads coming from Track 2 have seen event triggers, safe-outputs variety, and basic AI integration. Now you're asking them to think in **systems**—multiple workflows talking to each other.
 
 Your job: Build confidence that workflow chaining is not magic, it's just data + contracts. One workflow writes JSON, another reads it. They don't know about each other, but they work together.
 
@@ -67,7 +67,7 @@ Squads will vary in how they compute metrics. All of these are fine:
 Producer: Just counts open issues, doesn't compute time-to-close. Consumer: Shows open-count trend.
 
 **Pros:** Fast, easy to understand, focuses on the pattern not the sophistication
-**Cons:** Doesn't showcase the full potential (but that's OK for an intro challenge)
+**Cons:** Doesn't showcase the full potential (but that's OK for an intro activity)
 
 ### Approach 2: "Full Analytics"
 Producer: Computes multiple metrics including time-to-close, label distribution, etc. Consumer: Multi-chart analysis.

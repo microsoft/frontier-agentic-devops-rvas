@@ -1,8 +1,8 @@
-# Challenge 2-05: Welcome Wagon
+# Activity 2-05: Welcome Wagon
 
 **Track:** Repo Concierge (Intermediate 🟡)  
 **Estimated time:** 30 minutes  
-**Prerequisites:** Complete at least 2 challenges from Track 1
+**Prerequisites:** Complete at least 2 activities from Track 1
 
 ---
 
@@ -29,7 +29,7 @@ By the end, your squad will:
 > [!IMPORTANT]
 > **Bring your own repo (do this first)**
 >
-> This challenge is most valuable when Welcome Wagon uses **your own repository's** contributor flow, links, and tone, so first-time contributors keep getting useful guidance after the session. Treat the setup sample as practice, not the default destination.
+> This activity is most valuable when Welcome Wagon uses **your own repository's** contributor flow, links, and tone, so first-time contributors keep getting useful guidance after the session. Treat the setup sample as practice, not the default destination.
 >
 > - **Have a candidate repo?** Install or point `welcome-wagon.md` at that repo everywhere the guide references the sample repo, and use real CONTRIBUTING, docs, code of conduct, issue, or support links.
 > - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
@@ -38,7 +38,7 @@ By the end, your squad will:
 
 ---
 
-## Challenge
+## Activity
 
 Create a gh-aw workflow named `welcome-wagon.md` in `.github/workflows/` that:
 

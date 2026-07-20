@@ -1,7 +1,7 @@
 # GHAS Reference Fixtures
 
 This directory contains GitHub Advanced Security (GHAS) configuration files that participants apply
-to the org-owned Juice Shop repository provisioned in Challenge S00 to light up GHAS scanning
+to the org-owned Juice Shop repository provisioned in Activity S00 to light up GHAS scanning
 features during the delivery session.
 
 These fixtures are maintained in this repository and are
@@ -17,7 +17,7 @@ now vendored here so that repository can be retired.
 
 ## How to apply
 
-Challenge S00's `setup.sh`/`setup.ps1` automation applies these files for you. If you need to apply
+Activity S00's `setup.sh`/`setup.ps1` automation applies these files for you. If you need to apply
 them manually, copy them into the `.github/` folder of the org-owned Juice Shop repository:
 
 ```bash

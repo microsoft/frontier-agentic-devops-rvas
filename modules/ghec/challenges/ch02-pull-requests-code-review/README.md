@@ -1,24 +1,24 @@
 # Ch02 — Branches, Pull Requests & Code Review
 
-> By the end of this challenge you can drive a professional pull-request lifecycle — feature branches, reviews, `CODEOWNERS`, required reviewers, merge-conflict resolution, and the three merge strategies — entirely from an org-owner token.
+> By the end of this activity you can drive a professional pull-request lifecycle — feature branches, reviews, `CODEOWNERS`, required reviewers, merge-conflict resolution, and the three merge strategies — entirely from an org-owner token.
 
 | | |
 |---|---|
 | **Track** | Developer Flow |
 | **Difficulty** | Foundational *(per-track ramp)* |
 | **Duration** | ~3–4 hrs total, multi-session |
-| **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
+| **Minimum input** | An **org** + an **org-owner token**. *(All activities are org-scoped — no enterprise owner required.)* |
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes |
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch02 --org <org>` (least-privilege; for this challenge: `repo` + `read:org`).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch02 --org <org>` (least-privilege; for this activity: `repo` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
-- A second account or teammate helps demonstrate *real* review approvals, but the challenge is completable solo (the coach guide explains the self-review caveat).
+- A second account or teammate helps demonstrate *real* review approvals, but the activity is completable solo (the coach guide explains the self-review caveat).
 
 ## Scenario objectives
-By completing this challenge you will:
+By completing this activity you will:
 - Use a clean **branch-per-change** workflow and open **pull requests** from the CLI and UI.
 - Run a **code review**: line comments, review threads, suggested changes, approve / request-changes.
 - Define ownership with a **`CODEOWNERS`** file and require owner review through branch protection.
@@ -32,7 +32,7 @@ A GHEC customer's team keeps pushing straight to `main`, breaking each other's w
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This challenge is most valuable when the result *outlives the delivery session*. Pick a real repository with a pull-request review flow you can improve and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> This activity is most valuable when the result *outlives the delivery session*. Pick a real repository with a pull-request review flow you can improve and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch02-pull-requests-code-review`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded sample repo with PRs and review settings to configure.

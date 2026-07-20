@@ -9,7 +9,7 @@ modules/
 ├── _TEMPLATE/           ← copy this when authoring a new challenge
 │   └── challenge/
 │       ├── meta.yml     ← all fields with comments
-│       ├── README.md    ← student guide template
+│       ├── README.md    ← customer delivery team guide template
 │       └── COACH.md     ← coach guide template
 │
 ├── ghec/                ← GitHub Enterprise Cloud (27 challenges)
@@ -31,7 +31,7 @@ modules/
     └── challenges/
 ```
 
-## Challenge Directory Naming
+## Activity Directory Naming
 
 Use a short, descriptive, kebab-case slug as the directory name. Examples:
 - `ch01-issues-labels-projects`
@@ -41,11 +41,11 @@ Use a short, descriptive, kebab-case slug as the directory name. Examples:
 
 The directory name is used only for human navigation. The canonical identifier is `id` in `meta.yml`.
 
-## Adding a Challenge
+## Adding a Activity
 
 1. Copy `_TEMPLATE/challenge/` to `modules/<moduleId>/challenges/<your-slug>/`.
 2. Fill in `meta.yml` (see [`CONTRIBUTING.md`](../CONTRIBUTING.md) for the full field contract).
-3. Write `README.md` (student guide) and `COACH.md` (coach guide).
+3. Write `README.md` (customer delivery team guide) and `COACH.md` (coach guide).
 4. Run `node docs/build.js` to validate.
 
 ## Module Attributions

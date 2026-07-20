@@ -10,8 +10,8 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-- Repository provisioned via challenge setup script
-description: By the end of this challenge you can stand up and govern an organization the way a GHEC admin does on day one — member & outside-collaborator management, base member privileges, repository-creation and visibility policies, default member permissions, security defaults, and a verification pass via the org-settings API — using nothing but an org and an org-owner token.
+- Repository provisioned via activity setup script
+description: By the end of this activity you can stand up and govern an organization the way a GHEC admin does on day one — member & outside-collaborator management, base member privileges, repository-creation and visibility policies, default member permissions, security defaults, and a verification pass via the org-settings API — using nothing but an org and an org-owner token.
 success_criteria:
 - '`default_repository_permission` is `read` or `none` (verifiable: `gh api /orgs/<org> --jq ''.default_repository_permission''`).'
 - Members **cannot** create public repositories (`members_can_create_public_repositories == false`, or EMU platform policy prevents public repositories entirely).
@@ -20,9 +20,6 @@ success_criteria:
 - At least one sample repo's **visibility was changed** where the org permits it; on EMU, the public-repo block is documented and you can explain public vs internal vs private.
 - Default **Actions workflow permissions** are set to read-only at the org.
 - A **before/after API diff** exists and a **`POLICY.md`/baseline doc** records every setting + rationale.
-take_home_action: In your own org or tenant, set the enterprise baseline for member privileges, repository creation, visibility, fork policy, Actions permissions, and security defaults.
-take_home_owner: platform-governance
-take_home_signal: The org settings API and baseline policy document show the approved defaults enforced with before-and-after evidence.
 tags:
 - enterprise
 - organization-settings

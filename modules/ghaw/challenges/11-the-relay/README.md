@@ -1,9 +1,9 @@
-# Challenge 3-01: The Relay
+# Activity 3-01: The Relay
 
 **Track:** Continuous Intelligence (Advanced)  
 **Difficulty:** 🔴 Advanced  
 **Estimated time:** 30 minutes  
-**Prerequisites:** Track 2, completed ≥3 challenges
+**Prerequisites:** Track 2, completed ≥3 activities
 
 ---
 
@@ -19,7 +19,7 @@ By default, each workflow runs independently — it triggers, does its work, and
 
 ## Goals
 
-By the end of this challenge, your squad will:
+By the end of this activity, your squad will:
 
 1. ✅ Build a **producer workflow** that writes structured data to `repo-memory`
 2. ✅ Build a **consumer workflow** that reads from `repo-memory` and takes action
@@ -31,7 +31,7 @@ By the end of this challenge, your squad will:
 > [!IMPORTANT]
 > **Bring your own repo (do this first)**
 >
-> This challenge is most valuable when the producer and consumer workflows exchange **your own repository's** real metrics, so `repo-memory` becomes a durable signal your team can keep using after the session. Treat the setup sample as practice, not the default destination.
+> This activity is most valuable when the producer and consumer workflows exchange **your own repository's** real metrics, so `repo-memory` becomes a durable signal your team can keep using after the session. Treat the setup sample as practice, not the default destination.
 >
 > - **Have a candidate repo?** Install or point both relay workflows at that repo everywhere the guide references the sample repo, and collect metrics from its real issues, labels, closure history, and Discussions audience.
 > - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
@@ -40,7 +40,7 @@ By the end of this challenge, your squad will:
 
 ---
 
-## Challenge
+## Activity
 
 Build two workflows that work together:
 

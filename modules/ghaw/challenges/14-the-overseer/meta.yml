@@ -19,9 +19,6 @@ success_criteria:
   - Issue created with structured data (table + alerts)
   - Old issues auto-close (via `close-older-issues: true`)
   - At least one alert or recommendation is triggered
-take_home_action: In a repository you own, deploy the overseer on your workflow fleet with safe alert issues and thresholds tied to failure rate, cost, or run spikes.
-take_home_owner: platform-governance
-take_home_signal: The real repo gets structured automation-health alerts only when monitored thresholds are crossed.
 tags:
   - meta-workflows
   - observability

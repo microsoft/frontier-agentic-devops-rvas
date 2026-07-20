@@ -20,9 +20,6 @@ success_criteria:
   - When you push changes to the watched directory, the workflow runs
   - A comment appears on the commit summarizing the changes (e.g., "Modified 3 files in docs/")
   - Logs show the agent detected which files were changed
-take_home_action: In a repository you own, deploy the push watcher against one high-risk directory and limit it to safe commit comments on changed files.
-take_home_owner: developer
-take_home_signal: New commits touching the watched path receive accurate automated comments and unrelated commits stay silent.
 tags:
   - push-events
   - path-filters

@@ -1,10 +1,10 @@
-# Challenge 01: Deploy Grubify and Create the Azure SRE Agent
+# Activity 01: Deploy Grubify and Create the Azure SRE Agent
 
 ## Scenario
 
 Now deploy the official Azure SRE Agent starter lab. This creates the monitored Grubify sample application and the Azure SRE Agent context needed for the rest of the track.
 
-This challenge is Azure-first. GitHub is optional at this stage; the primary outcome is that the SRE Agent can see Azure resources, observability data, incidents, and knowledge.
+This activity is Azure-first. GitHub is optional at this stage; the primary outcome is that the SRE Agent can see Azure resources, observability data, incidents, and knowledge.
 
 ## Goals
 
@@ -21,7 +21,7 @@ This challenge is Azure-first. GitHub is optional at this stage; the primary out
 > [!IMPORTANT]
 > **Bring your own service (do this first)**
 >
-> This challenge is most valuable when the Azure SRE Agent is connected to an Azure service or application your team will keep operating after the session. If you have a candidate workload in a subscription you control, point the SRE Agent at **that** service everywhere this guide references Grubify so the setup, telemetry, incidents, and context live in your tenant.
+> This activity is most valuable when the Azure SRE Agent is connected to an Azure service or application your team will keep operating after the session. If you have a candidate workload in a subscription you control, point the SRE Agent at **that** service everywhere this guide references Grubify so the setup, telemetry, incidents, and context live in your tenant.
 >
 > - **Have a candidate?** Use an existing Azure service that is already deployed, observable, and approved for the agent to access. Confirm the agent has permission to read the resource group, logs, metrics, traces, alerts, and any knowledge sources you want it to use; skip deploying Grubify unless your coach asks for a parallel practice target.
 > - **No suitable Azure service yet?** Deploy Grubify below as the safe fallback target for learning the workflow.
@@ -38,7 +38,7 @@ cd external/sre-agent/labs/starter-lab
 bash scripts/setup.sh
 ```
 
-When the setup script asks for a GitHub username, press **Enter** unless your coach has already provided a lab GitHub repository. Challenge 01 does not require GitHub; skipping it still deploys Grubify, Azure Monitor, Log Analytics, Application Insights, knowledge files, and the Azure SRE Agent.
+When the setup script asks for a GitHub username, press **Enter** unless your coach has already provided a lab GitHub repository. Activity 01 does not require GitHub; skipping it still deploys Grubify, Azure Monitor, Log Analytics, Application Insights, knowledge files, and the Azure SRE Agent.
 
 If your coach provides a GitHub repository for source-code scenarios, the current starter lab expects a repository named `grubify` under the owner you enter. For example, for `https://github.com/contoso-team-01/grubify`, enter `contoso-team-01`. Do not enter an email address, token, `@handle`, full repository URL, or the original sample owner.
 
@@ -59,7 +59,7 @@ azd up
 bash scripts/post-provision.sh
 ```
 
-For manual Challenge 01 setup, leave `GITHUB_USER` unset unless your coach tells you to connect source code now.
+For manual Activity 01 setup, leave `GITHUB_USER` unset unless your coach tells you to connect source code now.
 
 Deployment can take several minutes. If deployment fails because of role, policy, region, or cost restrictions, switch to the coach fallback packet.
 
@@ -111,7 +111,7 @@ Then ask:
 Summarize the Grubify app architecture and the HTTP error runbook you have available.
 ```
 
-Treat the answers as orientation. You will validate investigation claims in later challenges.
+Treat the answers as orientation. You will validate investigation claims in later activities.
 
 ## Deliverables
 

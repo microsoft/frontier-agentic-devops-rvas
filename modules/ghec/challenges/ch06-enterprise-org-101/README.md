@@ -1,25 +1,25 @@
 # Ch06 — Enterprise & Organization 101
 
-> By the end of this challenge you can stand up and govern an organization the way a GHEC admin does on day one — member & outside-collaborator management, base member privileges, repository-creation and visibility policies, default member permissions, security defaults, and a verification pass via the org-settings API — using nothing but an org and an org-owner token.
+> By the end of this activity you can stand up and govern an organization the way a GHEC admin does on day one — member & outside-collaborator management, base member privileges, repository-creation and visibility policies, default member permissions, security defaults, and a verification pass via the org-settings API — using nothing but an org and an org-owner token.
 
 | | |
 |---|---|
 | **Track** | Admin/Governance |
 | **Difficulty** | Foundational *(per-track ramp)* |
 | **Duration** | ~3–4 hrs total, multi-session |
-| **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
+| **Minimum input** | An **org** + an **org-owner token**. *(All activities are org-scoped — no enterprise owner required.)* |
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes |
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch06 --org <org>` (least-privilege; for this challenge: `admin:org` + `repo` + `read:org`).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch06 --org <org>` (least-privilege; for this activity: `admin:org` + `repo` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
-- No GHAS, Codespaces, or enterprise-owner features are required. Every setting in this challenge lives at **organization** scope.
+- No GHAS, Codespaces, or enterprise-owner features are required. Every setting in this activity lives at **organization** scope.
 - **EMU note:** Enterprise Managed Users cannot create public repositories. In EMU orgs, setup requests `ghec-ch06-public-sample` as public but GitHub rejects that visibility, so the provisioner falls back to a private repo and prints a warning. The governance lesson still applies: public visibility is platform-blocked, and you verify/document that constraint instead of changing that repo to public.
 
 ## Scenario objectives
-By completing this challenge you will:
+By completing this activity you will:
 - Read and reason about an organization's **member privileges** baseline (default repository permission, repo creation, page/visibility, fork policy).
 - Configure **repository creation, visibility, and deletion/transfer** policies for members.
 - Manage **members vs outside collaborators** and understand how each gets access.
@@ -33,7 +33,7 @@ You're the first platform admin hired at a fast-growing GHEC customer. The organ
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This challenge is most valuable when the result *outlives the delivery session*. Pick a real organization policy or repository-default setting you are allowed to assess and improve and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> This activity is most valuable when the result *outlives the delivery session*. Pick a real organization policy or repository-default setting you are allowed to assess and improve and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 >
 > - **Have a candidate?** Use your real org settings and repos wherever this guide names `ghec-ch06-public-sample` or the sibling `ghec-ch06-*` repos. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: seeded visibility sample repos plus a starter team for safe policy practice. In EMU, the public sample is created as private because public repositories are not allowed.
@@ -106,7 +106,7 @@ You are done when ALL of the following are true:
 - Add a second team `ghec-ch06-readonly` and demonstrate how base permission + team permission combine (the **more permissive** of the two wins).
 - Research and document, in one paragraph each, **three** settings that only exist at the **enterprise** tier (e.g., enterprise-wide policy enforcement, allowed org visibility, SSO requirement) — see "At enterprise scale" below.
 
-> **At enterprise scale (awareness only):** An **enterprise account** sits above organizations and can *enforce* many of these same controls across every org at once — base permission ceilings, repository visibility allow-lists, 2FA requirements, and more — so an individual org owner can't loosen them. In this challenge you configure the **org-level** equivalents, which are the real, day-to-day controls. No enterprise owner is required.
+> **At enterprise scale (awareness only):** An **enterprise account** sits above organizations and can *enforce* many of these same controls across every org at once — base permission ceilings, repository visibility allow-lists, 2FA requirements, and more — so an individual org owner can't loosen them. In this activity you configure the **org-level** equivalents, which are the real, day-to-day controls. No enterprise owner is required.
 
 ## Reference links
 - About organizations — https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations

@@ -10,8 +10,8 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-- Repository provisioned via challenge setup script
-description: By the end of this challenge you can build a real CI pipeline with GitHub Actions — triggers, jobs, a build matrix, dependency caching, artifacts, environments, and a required status check that gates merges — using an org and an org-owner token.
+- Repository provisioned via activity setup script
+description: By the end of this activity you can build a real CI pipeline with GitHub Actions — triggers, jobs, a build matrix, dependency caching, artifacts, environments, and a required status check that gates merges — using an org and an org-owner token.
 success_criteria:
 - '`.github/workflows/ci.yml` triggers on **push and pull_request** and runs lint + test + build as distinct steps.'
 - 'A **matrix** runs across ≥3 Node versions with `fail-fast: false`.'
@@ -20,9 +20,6 @@ success_criteria:
 - A second job uses **`needs`** and a **conditional** so it only runs on `main`.
 - An **environment** `staging` exists with a protection rule and a variable + secret wired into a job.
 - The **`build-test` check is required** on `main`; a red run **blocks merge**, a green run unblocks it.
-take_home_action: In your own org, convert one manual build or test path into a required GitHub Actions CI workflow with caching, artifacts, environments, and branch-gating status checks.
-take_home_owner: developer
-take_home_signal: A real pull request cannot merge until the Actions check passes and the workflow produces the expected build, test, cache, and artifact evidence.
 tags:
 - github-actions
 - ci
@@ -37,7 +34,7 @@ provision_creates:
 - repo ghec-ch04-actions-ci-fundamentals (seeded Node app)
 - passing test suite + one flag-gated failing test (for red/green gating)
 - package.json with test/build/lint scripts
-- minimal starter workflow .github/workflows/ci.yml (echo only; student replaces)
+- minimal starter workflow .github/workflows/ci.yml (echo only; a delivery team member replaces it)
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/ch04-actions-ci-fundamentals/meta.yml

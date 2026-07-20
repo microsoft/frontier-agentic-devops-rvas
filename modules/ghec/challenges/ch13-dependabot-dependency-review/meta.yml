@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: By the end of this challenge you can enable the dependency graph and Dependabot, triage real vulnerable-dependency alerts on OWASP Juice Shop, take Dependabot security-update PRs, configure scheduled version updates, and block risky dependencies at PR time with dependency review — all org-scoped on a public repo.
+description: By the end of this activity you can enable the dependency graph and Dependabot, triage real vulnerable-dependency alerts on OWASP Juice Shop, take Dependabot security-update PRs, configure scheduled version updates, and block risky dependencies at PR time with dependency review — all org-scoped on a public repo.
 success_criteria:
 - '**Dependency graph** is on and you exported an **SBOM** (verifiable via the `dependency-graph/sbom` API).'
 - '**Dependabot alerts** and **security updates** are enabled and the repo has **open alerts** with severities (verifiable via the `dependabot/alerts` API).'
@@ -19,9 +19,6 @@ success_criteria:
 - At least one **Dependabot security-update PR** was merged and its alert moved to **fixed**.
 - '`.github/dependabot.yml` configures **scheduled npm version updates** with a limit and a group.'
 - A **dependency-review** workflow exists, is **required** on `main`, and **blocks** the seeded risky PR.
-take_home_action: In your own org, enable the dependency graph, Dependabot alerts, grouped update PRs, and required dependency review on a production repository.
-take_home_owner: platform-governance
-take_home_signal: Vulnerable dependency alerts create tracked remediation PRs and dependency review blocks a risky pull request before merge.
 tags:
 - ghas
 - dependabot

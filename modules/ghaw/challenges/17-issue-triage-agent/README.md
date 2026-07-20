@@ -21,7 +21,7 @@ Source: [`github/gh-aw/.github/workflows/issue-triage-agent.md`](https://github.
 > [!IMPORTANT]
 > **Bring your own repo (do this first)**
 >
-> This challenge is most valuable when the triage agent learns your real label taxonomy and keeps working on your team's incoming issues. Pick a repository in an org you control where unlabelled or inconsistently labelled issues create real backlog noise.
+> This activity is most valuable when the triage agent learns your real label taxonomy and keeps working on your team's incoming issues. Pick a repository in an org you control where unlabelled or inconsistently labelled issues create real backlog noise.
 >
 > - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and customise the workflow with that repo's real labels, issue patterns, and classification comment style.
 > - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.

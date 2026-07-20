@@ -1,14 +1,14 @@
 # Ch16 — REST & GraphQL API Automation — Coach Guide
 
-> Audience: facilitators and graders. Pair with the student `README.md`.
+> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — what manual GitHub task does someone on your team do by clicking through the UI every week that a twenty-line API script could eliminate, and what is the organizational cost (time, error rate, toil) of not automating it? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
-> **Bring-your-own grading:** prefer students who ran this on a **real artifact they own** over the `ghec-ch16-rest-graphql-automation` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+> **Bring-your-own grading:** prefer customer delivery team members who ran this on a **real artifact they own** over the `ghec-ch16-rest-graphql-automation` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
 
 Use these follow-ups to steer the conversation:
 - Describe the specific manual click-through task — who does it, how often, and how long does it take?
@@ -16,8 +16,8 @@ Use these follow-ups to steer the conversation:
 - What is the smallest working script you could write and share with your team before next week?
 
 ## Facilitation notes
-- **Goal in one line:** the student drives GitHub entirely from its APIs — REST and GraphQL reads/writes — and ships an **idempotent, rate-limit-aware** reconcile script.
-- **Where students get stuck:**
+- **Goal in one line:** the delivery team member drives GitHub entirely from its APIs — REST and GraphQL reads/writes — and ships an **idempotent, rate-limit-aware** reconcile script.
+- **Where customer delivery team members get stuck:**
   - **Pagination stops at page 1.** The classic bug: they read 30/100 issues and think they're done. Make them compare their count to the seeded total — if it's short, they're not paginating.
   - **GraphQL node IDs vs REST numbers.** Projects v2 mutations need **node IDs** (`gh api graphql … id`), not issue numbers. This trips everyone the first time.
   - **`-f` vs `-F`.** `-f` sends strings; `-F` sends typed/JSON values (and reads `@file`). GraphQL variables usually want `-F`.
@@ -38,7 +38,7 @@ Use these follow-ups to steer the conversation:
 
 ## Automated verification hints
 ```bash
-ORG=<org>; REPO=ghec-ch16-rest-graphql-automation   # swap REPO for the student's own repo if they brought one
+ORG=<org>; REPO=ghec-ch16-rest-graphql-automation   # swap REPO for the delivery team member's own repo if they brought one
 
 # Repo exists and issue volume is there
 gh api repos/$ORG/$REPO --jq '{name, open_issues_count}'
@@ -60,7 +60,7 @@ gh api graphql -F org=$ORG -f query='
 gh api rate_limit --jq '.resources.core, .resources.graphql'
 ```
 - The fastest mastery signal is the **"unlabeled issues" query returning empty** plus **board items present** — proves both REST writes and GraphQL mutations ran across the full set.
-- Ask the student to run their reconcile script twice and show the second run printing **"0 changes"** — that's the idempotency proof.
+- Ask the delivery team member to run their reconcile script twice and show the second run printing **"0 changes"** — that's the idempotency proof.
 
 ## Common pitfalls
 - **Single-page reads** mistaken for complete — always reconcile count vs seeded total.

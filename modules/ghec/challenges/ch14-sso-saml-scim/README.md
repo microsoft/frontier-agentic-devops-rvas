@@ -1,25 +1,25 @@
 # Ch14 — SSO, SAML & SCIM Identity
 
-> By the end of this challenge you can configure SAML single sign-on for an organization, connect a real identity provider in test mode, provision and de-provision members automatically with SCIM, and audit who is linked to which external identity — all org-scoped, with the enterprise-level model as an awareness callout.
+> By the end of this activity you can configure SAML single sign-on for an organization, connect a real identity provider in test mode, provision and de-provision members automatically with SCIM, and audit who is linked to which external identity — all org-scoped, with the enterprise-level model as an awareness callout.
 
 | | |
 |---|---|
 | **Track** | Security |
 | **Difficulty** | Advanced *(per-track ramp)* |
 | **Duration** | ~5 hrs total, multi-session |
-| **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
+| **Minimum input** | An **org** + an **org-owner token**. *(All activities are org-scoped — no enterprise owner required.)* |
 | **App** | none *(identity & access configuration — no application repo)* |
 | **EMU compatible** | no *(organizations inside an Enterprise Managed Users enterprise authenticate at the enterprise level; org-level SAML SSO and org-level SCIM are not available to EMU orgs — use a non-EMU org)* |
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch14 --org <org>` (least-privilege; for this challenge: `admin:org` + `read:org` + `scim`).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch14 --org <org>` (least-privilege; for this activity: `admin:org` + `read:org` + `scim`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - **A test IdP you control.** A free **Microsoft Entra ID** tenant (or an Okta developer org) is recommended — you'll register a SAML app and a SCIM provisioning connector against your test org. You can complete most tasks with a single IdP test app.
 - **⚠️ Identity is disruptive.** Enabling enforced SAML on an org you depend on can lock out members who haven't linked. Use a **dedicated test org** (the provisioner creates supporting test members) and keep SSO in **test/non-enforced** mode until the final step.
 
 ## Scenario objectives
-By completing this challenge you will:
+By completing this activity you will:
 - Explain the three GHEC auth models — **personal accounts**, **SAML-restricted orgs/enterprises**, and **EMU + SCIM** — and where org-level SSO fits.
 - Configure **SAML SSO** for an organization against a real IdP (Entra ID / Okta), validate it in **test mode**, then enforce it.
 - Authorize a **PAT/SSH key for SSO** so API and git access keep working under SAML.
@@ -29,11 +29,11 @@ By completing this challenge you will:
 ## Scenario
 A GHEC customer runs identity centrally in their IdP and wants GitHub to obey it: people sign in through corporate SSO, joiners are provisioned automatically, and leavers lose access the moment HR disables them — no orphaned accounts, no manual offboarding. You'll stand this up at the **organization** level (the primary, most common GHEC pattern), connecting a test IdP, proving the SCIM join/leave lifecycle, and auditing the identity links. The enterprise-account variant (centralized across many orgs, and EMU where GitHub identities are fully managed) is covered as an awareness callout so you know when to reach for it.
 
-> **Awareness callout — enterprise vs org:** SAML and SCIM can be configured at the **enterprise** level (applies across all orgs) or, as here, at a **single org**. **Enterprise Managed Users (EMU)** go further — every member is a managed user created only via SCIM at the **enterprise** level, with no personal account. Because EMU authenticates and provisions at the enterprise tier, the **org-level** SAML SSO and org-level SCIM you configure in this challenge are **not available inside an EMU organization** — run it in a non-EMU org. EMU and enterprise-level SSO require an **enterprise owner** and are out of scope for the hands-on tasks; this challenge delivers the org-scoped experience that any org owner can complete. Note the trade-offs where relevant, but you are **not required** to configure anything at the enterprise tier.
+> **Awareness callout — enterprise vs org:** SAML and SCIM can be configured at the **enterprise** level (applies across all orgs) or, as here, at a **single org**. **Enterprise Managed Users (EMU)** go further — every member is a managed user created only via SCIM at the **enterprise** level, with no personal account. Because EMU authenticates and provisions at the enterprise tier, the **org-level** SAML SSO and org-level SCIM you configure in this activity are **not available inside an EMU organization** — run it in a non-EMU org. EMU and enterprise-level SSO require an **enterprise owner** and are out of scope for the hands-on tasks; this activity delivers the org-scoped experience that any org owner can complete. Note the trade-offs where relevant, but you are **not required** to configure anything at the enterprise tier.
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
-> This challenge is most valuable when the result *outlives the delivery session*. Pick a real identity runbook, SAML/SCIM rollout plan, or org authentication setting you can improve and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> This activity is most valuable when the result *outlives the delivery session*. Pick a real identity runbook, SAML/SCIM rollout plan, or org authentication setting you can improve and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch14-identity-runbook`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded identity-runbook repo and validation helpers.

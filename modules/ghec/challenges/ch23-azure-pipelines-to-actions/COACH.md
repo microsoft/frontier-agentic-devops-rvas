@@ -1,10 +1,10 @@
 # Ch23 — Convert Azure Pipelines to GitHub Actions — Coach Guide
 
-> Audience: facilitators and graders. Pair with the student `README.md`.
+> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
 
 ## Intent
 
-Students learn that repository migration and CI/CD migration are separate workstreams. GitHub Enterprise Importer and `ado2gh` do not migrate Azure Pipelines; GitHub Actions Importer inventories, forecasts, converts, and opens pull requests for CI/CD workflows. The important learning outcome is not blind conversion: it is reviewing generated workflow YAML, identifying the manual gaps, and validating a green GitHub Actions run.
+Customer delivery team members learn that repository migration and CI/CD migration are separate workstreams. GitHub Enterprise Importer and `ado2gh` do not migrate Azure Pipelines; GitHub Actions Importer inventories, forecasts, converts, and opens pull requests for CI/CD workflows. The important learning outcome is not blind conversion: it is reviewing generated workflow YAML, identifying the manual gaps, and validating a green GitHub Actions run.
 
 ## Timing (reference)
 
@@ -19,13 +19,13 @@ Students learn that repository migration and CI/CD migration are separate workst
 
 ## Expected Outputs
 
-When a student completes this challenge successfully, you should see:
+When a delivery team member completes this activity successfully, you should see:
 
 - A local `actions-importer-output/audit/audit_summary.md` report.
 - A local `actions-importer-output/forecast/forecast_report.md` report.
 - A dry-run output directory containing converted GitHub Actions workflow YAML and logs.
 - A GitHub pull request opened by `gh actions-importer migrate azure-devops pipeline` or `release`.
-- A generated `.github/workflows/*.yml` file reviewed by the student.
+- A generated `.github/workflows/*.yml` file reviewed by the delivery team member.
 - Written notes identifying at least one manual conversion gap and the fix or owner.
 - A successful GitHub Actions run from the migrated workflow.
 
@@ -57,7 +57,7 @@ When a student completes this challenge successfully, you should see:
 
 ## Progressive Hints
 
-Use these in order — give the first hint, wait, then give the next only if the student is still stuck.
+Use these in order — give the first hint, wait, then give the next only if the delivery team member is still stuck.
 
 1. **Gentle:** Start with `audit` and `forecast`; do not convert a single pipeline until you know the size, unsupported-task count, secrets, and runner footprint.
 2. **Medium:** For a build pipeline, the command shape is `gh actions-importer dry-run azure-devops pipeline --pipeline-id <id> --output-dir <dir>`. Use `release` only for Azure DevOps release pipelines.
@@ -73,7 +73,7 @@ Use these in order — give the first hint, wait, then give the next only if the
 
 ## Grading Notes
 
-Give full credit only when the student can show evidence, not just commands copied into notes. The minimum evidence is an audit report, forecast report, dry-run workflow YAML, migrate PR, documented manual gap, and a green Actions run. For bring-your-own repositories, prefer a real production-adjacent pipeline over a toy pipeline, but accept a safe pilot if access constraints prevent production use.
+Give full credit only when the delivery team member can show evidence, not just commands copied into notes. The minimum evidence is an audit report, forecast report, dry-run workflow YAML, migrate PR, documented manual gap, and a green Actions run. For bring-your-own repositories, prefer a real production-adjacent pipeline over a toy pipeline, but accept a safe pilot if access constraints prevent production use.
 
 ## Reference Links
 

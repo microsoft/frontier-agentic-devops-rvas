@@ -1,10 +1,10 @@
-# Coach Guide: Challenge 2-02 — Review Buddy
+# Coach Guide: Activity 2-02 — Review Buddy
 
 ---
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — which parts of your code review are mechanical enough to delegate to a first-pass bot, and which judgment calls must always stay with a human reviewer? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -15,7 +15,7 @@ Use these follow-ups to steer the conversation:
 
 ## Coaching Philosophy
 
-This challenge deepens the event-driven pattern from 2-01 while teaching **PR-specific context access**. Squads move from issue analysis to pull request diff analysis—a natural progression. Your role: help them see that analyzing *metadata* (file count, line changes) is easier and cheaper than analyzing code semantics.
+This activity deepens the event-driven pattern from 2-01 while teaching **PR-specific context access**. Squads move from issue analysis to pull request diff analysis—a natural progression. Your role: help them see that analyzing *metadata* (file count, line changes) is easier and cheaper than analyzing code semantics.
 
 **Key rule:** By minute 25, every squad should see a comment on a test PR. The comment should feel like a helpful colleague, not a bot.
 
@@ -227,7 +227,7 @@ Tone: helpful colleague, not gatekeeper.
 
 | Phase | Time | What to Do |
 |-------|------|-----------|
-| Read & orient | 3 min | Read challenge, understand PR triggers |
+| Read & orient | 3 min | Read activity, understand PR triggers |
 | Write frontmatter | 4 min | Set up `on: pull_request:`, `permissions`, `safe-outputs`, `engine` |
 | Write body | 6 min | Draft observations + comment template |
 | Compile & test | 8 min | Compile, create test PR, watch Actions tab |

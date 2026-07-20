@@ -23,7 +23,7 @@ Source: [`github/gh-aw/.github/workflows/security-compliance.md`](https://github
 > [!IMPORTANT]
 > **Bring your own repo (do this first)**
 >
-> This challenge is most valuable when the compliance workflow reflects your team's real vulnerability policy. Pick a repository in an org you control with Dependabot alerts, dependency risk, or security SLAs that need visible tracking.
+> This activity is most valuable when the compliance workflow reflects your team's real vulnerability policy. Pick a repository in an org you control with Dependabot alerts, dependency risk, or security SLAs that need visible tracking.
 >
 > - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and configure the workflow with that repo's real alert sources, severity thresholds, SLA windows, and escalation targets.
 > - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
@@ -91,7 +91,7 @@ Source: [`github/gh-aw/.github/workflows/security-compliance.md`](https://github
 → Dependabot alerts are per-repo (your dependencies). The [GitHub Advisory Database](https://docs.github.com/en/code-security/security-advisories/working-with-global-security-advisories-from-the-github-advisory-database/about-the-github-advisory-database) is global. The agent can work with both — scope it to whichever is relevant.
 
 **"Should this workflow also open PRs to fix vulnerabilities?"**
-→ That's an extension. For this challenge, start with issue-creation-only (signal before action). Combine with Dependabot auto-merge or a separate fix workflow for the full automation.
+→ That's an extension. For this activity, start with issue-creation-only (signal before action). Combine with Dependabot auto-merge or a separate fix workflow for the full automation.
 
 </details>
 

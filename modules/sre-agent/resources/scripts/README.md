@@ -8,7 +8,7 @@ https://github.com/microsoft/sre-agent/tree/main/labs/starter-lab
 
 ## Doctor
 
-Run the local preflight before Challenge 00 or Challenge 01:
+Run the local preflight before Activity 00 or Activity 01:
 
 ```bash
 npm run setup:sre-agent

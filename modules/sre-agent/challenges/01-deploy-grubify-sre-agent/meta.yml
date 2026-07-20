@@ -17,9 +17,6 @@ success_criteria:
   - Log Analytics, Application Insights, Azure Monitor alerting, and managed identity are identified.
   - The team records the frontend URL, API URL, resource group, agent name, and region.
   - The team can explain what telemetry the agent can use before source code is connected.
-take_home_action: In your own Azure subscription, deploy or connect one production-like workload to Azure SRE Agent and record the monitored URLs, resource group, agent name, and region.
-take_home_owner: solution-architect
-take_home_signal: Azure SRE Agent appears in the portal with live Azure Monitor, Application Insights, Log Analytics, and managed identity context for the workload.
 tags:
   - azure-sre-agent
   - grubify

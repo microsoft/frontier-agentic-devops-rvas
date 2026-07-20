@@ -1,10 +1,10 @@
-# Coach Guide: Challenge 2-04 — Stale Patrol
+# Coach Guide: Activity 2-04 — Stale Patrol
 
 ---
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — where would you draw the line between an agent warning about stale work and actually closing it on your behalf, and what grace period earns your trust? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -15,7 +15,7 @@ Use these follow-ups to steer the conversation:
 
 ## Coaching Philosophy
 
-This challenge teaches **scheduled + conditional logic**, the foundation for maintenance automation. Squads encounter real constraints: "Don't close too fast," "Respect exemptions," "Handle edge cases." Your job: help them see that automation with guardrails is safer than chaotic deletion.
+This activity teaches **scheduled + conditional logic**, the foundation for maintenance automation. Squads encounter real constraints: "Don't close too fast," "Respect exemptions," "Handle edge cases." Your job: help them see that automation with guardrails is safer than chaotic deletion.
 
 **Key rule:** By minute 25, the squad should understand the 3-phase pattern: warn → wait → close. This restraint is what makes automation trustworthy.
 
@@ -211,7 +211,7 @@ Be respectful and helpful. These might be contributors' important work.
 
 | Phase | Time | What to Do |
 |-------|------|-----------|
-| Read & orient | 3 min | Read challenge, understand scheduled triggers |
+| Read & orient | 3 min | Read activity, understand scheduled triggers |
 | Write frontmatter | 4 min | Set up `on: schedule:`, `permissions`, `safe-outputs`, `engine` |
 | Write body | 10 min | Draft stale issue query + warn/close logic |
 | Compile & test | 9 min | Compile, manually trigger with `workflow_dispatch`, verify logic |

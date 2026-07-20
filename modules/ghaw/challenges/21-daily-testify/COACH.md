@@ -2,7 +2,7 @@
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the learner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
 **Their question:** Coach conversation — what does good test quality really mean for one codebase you own, and which of those judgments would you encode into an agent that files daily testing issues? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -11,12 +11,12 @@ Use these follow-ups to steer the conversation:
 - Surface which of those judgments they'd encode into an agent versus keep human.
 - Have them commit to one repo where they'll trial daily test-quality issues next week.
 
-## What This Challenge Teaches
+## What This Activity Teaches
 
 Two linked concepts: embedding domain expertise in workflow prompts (the "uber expert" pattern), and the causal chain architecture where one workflow creates issues and another acts on them. Participants learn that the quality of an AI agent is largely the quality of its context — and that decoupling analysis from action produces better, more reviewable outcomes.
 
 
-Official grounding: when students are unsure whether a frontmatter field or permission is valid, anchor them in the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions) and [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) docs before they tune the agent prompt.
+Official grounding: when customer delivery team members are unsure whether a frontmatter field or permission is valid, anchor them in the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions) and [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) docs before they tune the agent prompt.
 
 ---
 

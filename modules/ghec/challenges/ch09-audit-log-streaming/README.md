@@ -1,24 +1,24 @@
 # Ch09 — Audit Log & Streaming
 
-> By the end of this challenge you can investigate what happened in an organization using the **org audit log** UI, the **audit-log search syntax**, and the **audit-log REST API** — generating real events, querying them precisely, and building a lightweight "export" pipeline — all from an org and an org-owner token.
+> By the end of this activity you can investigate what happened in an organization using the **org audit log** UI, the **audit-log search syntax**, and the **audit-log REST API** — generating real events, querying them precisely, and building a lightweight "export" pipeline — all from an org and an org-owner token.
 
 | | |
 |---|---|
 | **Track** | Admin/Governance |
 | **Difficulty** | Advanced *(per-track ramp)* |
 | **Duration** | ~4–5 hrs total, multi-session |
-| **Minimum input** | An **org** + an **org-owner token**. *(All challenges are org-scoped — no enterprise owner required.)* |
+| **Minimum input** | An **org** + an **org-owner token**. *(All activities are org-scoped — no enterprise owner required.)* |
 | **App** | none |
 | **EMU compatible** | yes |
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud. The **org audit log** is a GHEC organization feature.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch09 --org <org>` (least-privilege; for this challenge: `admin:org` + `read:audit_log` + `repo`).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch09 --org <org>` (least-privilege; for this activity: `admin:org` + `read:audit_log` + `repo`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - No GHAS or Codespaces required. **Enterprise audit-log streaming** is awareness-only here (see callout) — the real, gradable work uses the **org** audit log + API.
 
 ## Scenario objectives
-By completing this challenge you will:
+By completing this activity you will:
 - Read the **organization audit log** and understand its event model (actor, action, timestamp, repo).
 - Use the **audit-log search syntax** (`action:`, `actor:`, `created:`, `repo:`) to answer real investigative questions.
 - Query the audit log via the **REST API** (`gh api /orgs/<org>/audit-log`) with phrase filters and pagination.
@@ -32,7 +32,7 @@ A GHEC customer's security team asks the question every audit eventually asks: *
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This challenge is most valuable when the result *outlives the delivery session*. Pick a real org audit question or repository where you can generate and investigate known events and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> This activity is most valuable when the result *outlives the delivery session*. Pick a real org audit question or repository where you can generate and investigate known events and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch09-audit-target`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded audit-target repo and auditors team for safe event generation.

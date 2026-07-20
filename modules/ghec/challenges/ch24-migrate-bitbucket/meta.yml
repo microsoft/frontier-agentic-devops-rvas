@@ -16,14 +16,11 @@ description: Learn the supported Bitbucket Server/Data Center migration path wit
 success_criteria:
 - A Bitbucket Server/Data Center repository with pull request history is migrated with gh bbs2gh and its pull requests, reviews, line comments, required reviewers, and attachments are visible in GitHub.
 - Blob storage using AWS S3, Azure Blob, or GitHub-owned storage is configured and used as the staging location for the Server/Data Center migration archive.
-- The learner can explain the multi-hop bbs2gh flow from Bitbucket export API to SFTP/SMB download, blob upload, and GEI import into GitHub Enterprise Cloud.
-- Bulk migration evidence exists from gh bbs2gh generate-script or the learner can explain why the single-repo command was used instead.
+- A customer practitioner can explain the multi-hop bbs2gh flow from Bitbucket export API to SFTP/SMB download, blob upload, and GEI import into GitHub Enterprise Cloud.
+- Bulk migration evidence exists from gh bbs2gh generate-script or a customer practitioner can explain why the single-repo command was used instead.
 - The two-phase manual archive path is practiced or documented, including where the .tar archive is produced under BITBUCKET_SHARED_HOME.
 - A Bitbucket Cloud repository is mirror-pushed to GitHub and all Git branches and tags are present in the destination repository.
-- The learner documents which Bitbucket data does not migrate for Server/Data Center and which collaboration metadata is lost for Bitbucket Cloud.
-take_home_action: In your own tenant, define the Bitbucket Server, Data Center, or Cloud migration wave with staging storage, validation evidence, rollback, and retry procedures.
-take_home_owner: solution-architect
-take_home_signal: A migrated GitHub repository preserves expected branches, tags, pull request metadata where supported, and a wave runbook records cutover risks and fallback steps.
+- A customer practitioner documents which Bitbucket data does not migrate for Server/Data Center and which collaboration metadata is lost for Bitbucket Cloud.
 tags:
 - bitbucket
 - github-enterprise-importer
@@ -35,7 +32,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
-- GitHub destination repositories created by the learner during migration
+- GitHub destination repositories created by a customer practitioner during migration
 - Temporary migration archive in Bitbucket shared home for Server/Data Center exports
 - Temporary staging objects in AWS S3, Azure Blob, or GitHub-owned blob storage
 source_repo: microsoft/frontier-agentic-devops-rvas

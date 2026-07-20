@@ -26,7 +26,7 @@ PROJECT_TITLE="ghec-${CHID}-board"
 _ch01_repo_full() { printf '%s/%s' "$ORG" "$REPO"; }
 
 # ---------------------------------------------------------------------------
-# labels — intentionally incomplete taxonomy (the "gap" the student fixes)
+# labels — intentionally incomplete taxonomy (the "gap" the delivery team fixes)
 # ---------------------------------------------------------------------------
 _ch01_seed_labels() {
   log_step "seeding label taxonomy (intentionally incomplete)"

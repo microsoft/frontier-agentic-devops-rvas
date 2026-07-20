@@ -1,12 +1,12 @@
 # Build Agentic Workflows
 
-This folder is the local home for Peli's Factory and GitHub Agentic Workflows assets used in Challenge 05, with supporting patterns that also reinforce Challenge 03 orchestration. These assets give coaches and students a practical way to design GitHub Agentic Workflows-inspired automation from scratch. They are safe by default and useful even when the `gh aw` extension is unavailable, blocked by policy, or not yet installed in the delivery environment.
+This folder is the local home for Peli's Factory and GitHub Agentic Workflows assets used in Activity 05, with supporting patterns that also reinforce Activity 03 orchestration. These assets give coaches and customer delivery team members a practical way to design GitHub Agentic Workflows-inspired automation from scratch. They are safe by default and useful even when the `gh aw` extension is unavailable, blocked by policy, or not yet installed in the delivery environment.
 
 The templates are written as markdown workflow specifications. Teams can review them as design artifacts, adapt them into live GitHub Agentic Workflows with the `gh-aw` Quick Start path, or use them as fallback specs for simulated agent behavior during a workshop.
 
 ## How This Maps To Peli's Factory
 
-Peli's Agent Factory pattern encourages small, named agents with clear jobs, constrained tools, visible handoffs, and human review gates. These templates apply that pattern to Peli's Factory challenge work:
+Peli's Agent Factory pattern encourages small, named agents with clear jobs, constrained tools, visible handoffs, and human review gates. These templates apply that pattern to Peli's Factory activity work:
 
 | Agent | Factory Pattern | What It Practices |
 | --- | --- | --- |
@@ -41,7 +41,7 @@ These workshop specs intentionally do not require that flow. Participants can st
 
 ## Workshop Use
 
-Use these assets in Challenge 03 when teams design agent coordination patterns, and in Challenge 05 when teams compare cloud coding agents with repository automation agents.
+Use these assets in Activity 03 when teams design agent coordination patterns, and in Activity 05 when teams compare cloud coding agents with repository automation agents.
 
 Suggested flow:
 

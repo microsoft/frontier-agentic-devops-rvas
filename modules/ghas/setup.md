@@ -1,6 +1,6 @@
 # GHAS Module Setup
 
-The GHAS challenges use [OWASP Juice Shop](https://owasp.org/www-project-juice-shop/), an intentionally vulnerable Node.js application used for hands-on web security training. The module has two environments:
+The GHAS activities use [OWASP Juice Shop](https://owasp.org/www-project-juice-shop/), an intentionally vulnerable Node.js application used for hands-on web security training. The module has two environments:
 
 1. **Local Juice Shop runtime** — where you perform manual exploit testing.
 2. **Org-owned Juice Shop repository** — where GitHub Advanced Security (CodeQL, Dependabot, secret scanning) runs and produces alerts.
@@ -9,7 +9,7 @@ These are **separate**. You run Juice Shop locally for testing; the org reposito
 
 ## GHAS Target Repository
 
-For Challenge S00, a participant, team lead, or organizer should create the GHAS target in an org they control. Use the provided setup scripts:
+For Activity S00, a participant, team lead, or organizer should create the GHAS target in an org they control. Use the provided setup scripts:
 
 ```bash
 cd modules/ghec/resources/provisioning/scripts
@@ -54,7 +54,7 @@ docker run -p 3000:3000 bkimminich/juice-shop
 
 ### Option C: Organizer-hosted
 
-A coach or organizer can provision a shared Juice Shop instance on a cloud VM and hand out the URL to participants. This is useful when students do not have Docker locally or when a workshop wants a prewarmed environment for everyone.
+A coach or organizer can provision a shared Juice Shop instance on a cloud VM and hand out the URL to participants. This is useful when customer delivery team members do not have Docker locally or when a workshop wants a prewarmed environment for everyone.
 
 ## Verification
 
@@ -64,7 +64,7 @@ Open [http://localhost:3000](http://localhost:3000) if you are running locally, 
 
 CodeQL, Dependabot, and secret scanning are configured on the **org repo provisioned in S00**, **not** on your local Juice Shop runtime. Your local or hosted Juice Shop instance is **only for manual testing** and exploit verification.
 
-The **alerts**, **PR checks**, and **Security tab workflows** referenced in the challenges come from the **organization repository provisioned in S00**. All GHAS features (code scanning, dependency analysis, secret detection) operate there, not on your local instance.
+The **alerts**, **PR checks**, and **Security tab workflows** referenced in the activities come from the **organization repository provisioned in S00**. All GHAS features (code scanning, dependency analysis, secret detection) operate there, not on your local instance.
 
 **Summary:**
 - **Local Juice Shop (port 3000)** → manual exploit testing, learning the app

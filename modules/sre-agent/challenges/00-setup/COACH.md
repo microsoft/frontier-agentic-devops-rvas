@@ -1,4 +1,4 @@
-# Coach Guide: Challenge 00 — Prepare the Azure SRE Agent Lab
+# Coach Guide: Activity 00 — Prepare the Azure SRE Agent Lab
 
 ## Expected Outcome
 
@@ -25,7 +25,7 @@ Supported regions in the official lab docs include `eastus2`, `swedencentral`, a
 
 ## Common Gaps
 
-- Treating this as a GitHub/Codespaces setup challenge.
+- Treating this as a GitHub/Codespaces setup activity.
 - Spending too long on subscription policy.
 - Missing `Microsoft.App` provider registration.
 - Not distinguishing live lab from fallback evidence.
