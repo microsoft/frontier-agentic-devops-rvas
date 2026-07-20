@@ -1,6 +1,6 @@
 # Ch06 — Enterprise & Organization 101
 
-> By the end of this activity you can stand up and govern an organization the way a GHEC admin does on day one — member & outside-collaborator management, base member privileges, repository-creation and visibility policies, default member permissions, security defaults, and a verification pass via the org-settings API — using nothing but an org and an org-owner token.
+> Deliver an organisation governance baseline: membership, privileges, repository-creation and visibility policies, security defaults, and API-verifiable evidence.
 
 | | |
 |---|---|
@@ -11,6 +11,15 @@
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes |
 
+## Customer delivery target
+
+- **Customer objective:** establish a defensible organisation governance baseline in the customer tenant.
+- **Customer-tenant target:** approved member-privilege, repository-creation, visibility, security-default, and workflow-permission settings.
+- **Approval and safety boundary:** governance changes proceed in the customer organisation only when the accountable organisation owner approves them; otherwise produce an approved rollout proposal and risk decision from the controlled sample.
+- **Enduring evidence:** retain before/after API snapshots, the baseline policy, rationale, and any EMU constraints.
+- **Adoption owner / handover:** the customer organisation owner accepts the baseline and assigns ongoing policy ownership.
+- **Accountable next action:** approve the change window and apply the agreed baseline, or hand over the signed rollout proposal.
+
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch06 --org <org>` (least-privilege; for this activity: `admin:org` + `repo` + `read:org`).
@@ -18,8 +27,8 @@
 - No GHAS, Codespaces, or enterprise-owner features are required. Every setting in this activity lives at **organization** scope.
 - **EMU note:** Enterprise Managed Users cannot create public repositories. In EMU orgs, setup requests `ghec-ch06-public-sample` as public but GitHub rejects that visibility, so the provisioner falls back to a private repo and prints a warning. The governance lesson still applies: public visibility is platform-blocked, and you verify/document that constraint instead of changing that repo to public.
 
-## Scenario objectives
-By completing this activity you will:
+## Customer delivery objectives
+This delivery engagement establishes:
 - Read and reason about an organization's **member privileges** baseline (default repository permission, repo creation, page/visibility, fork policy).
 - Configure **repository creation, visibility, and deletion/transfer** policies for members.
 - Manage **members vs outside collaborators** and understand how each gets access.
@@ -33,14 +42,14 @@ You're the first platform admin hired at a fast-growing GHEC customer. The organ
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This activity is most valuable when the result *outlives the delivery session*. Pick a real organization policy or repository-default setting you are allowed to assess and improve and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> Default to an authorised customer organisation policy or repository-default setting. Complete the work on **that** artefact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use your real org settings and repos wherever this guide names `ghec-ch06-public-sample` or the sibling `ghec-ch06-*` repos. Skip the Setup step below entirely.
-> - **No suitable one?** Use the fallback below: seeded visibility sample repos plus a starter team for safe policy practice. In EMU, the public sample is created as private because public repositories are not allowed.
+> - **No suitable one?** Use the fallback below: seeded visibility sample repos plus a starter team for controlled policy validation. In EMU, the public sample is created as private because public repositories are not allowed.
 >
-> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+> Record the selected target, organisation owner, risk decision, and accountable next action. The sample is only a controlled proving ground; move the validated proposal to an approved customer organisation.
 
-## Setup (fallback sample)
+## Controlled proving ground (when tenant delivery is constrained)
 Skip this if you brought your own org/repo policy target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -97,11 +106,11 @@ You are done when ALL of the following are true:
 - [ ] Default **Actions workflow permissions** are set to read-only at the org.
 - [ ] A **before/after API diff** exists and a **`POLICY.md`/baseline doc** records every setting + rationale.
 - [ ] Real-outcome check — if you brought your own org/repo target, a real policy baseline or default setting is documented and improved; if you used the sample, you can name the org setting you will propose changing next.
-- [ ] Coach conversation — if you were the org owner of your team's GitHub organization today, what is the first enterprise policy or default repository setting you would change, and what risk or inefficiency is it currently causing? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] **Adoption handover** — record the customer organisation owner, highest-priority policy decision, risk addressed, and approved implementation or proposal next action.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 
-## Stretch goals
+## Operational extensions
 - Write a small script that pulls the full `/orgs/<org>` settings object and renders a Markdown policy table automatically — turn governance into a repeatable report.
 - Add a second team `ghec-ch06-readonly` and demonstrate how base permission + team permission combine (the **more permissive** of the two wins).
 - Research and document, in one paragraph each, **three** settings that only exist at the **enterprise** tier (e.g., enterprise-wide policy enforcement, allowed org visibility, SSO requirement) — see "At enterprise scale" below.

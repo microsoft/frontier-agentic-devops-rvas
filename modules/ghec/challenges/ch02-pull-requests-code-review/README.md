@@ -1,6 +1,6 @@
 # Ch02 — Branches, Pull Requests & Code Review
 
-> By the end of this activity you can drive a professional pull-request lifecycle — feature branches, reviews, `CODEOWNERS`, required reviewers, merge-conflict resolution, and the three merge strategies — entirely from an org-owner token.
+> Deliver a governed pull-request lifecycle: feature branches, reviews, `CODEOWNERS`, required reviewers, conflict resolution, and merge-strategy controls.
 
 | | |
 |---|---|
@@ -11,14 +11,23 @@
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes |
 
+## Customer delivery target
+
+- **Customer objective:** make review and merge controls reliable for a customer engineering team.
+- **Customer-tenant target:** an approved repository’s PR template, `CODEOWNERS`, review rules, and branch/ruleset configuration.
+- **Approval and safety boundary:** apply customer controls when the repository owner authorises them; use the seeded repository only to validate a proposed change without affecting live delivery.
+- **Enduring evidence:** retain the approved policy, validation PRs, and merge-strategy decision.
+- **Adoption owner / handover:** the repository maintainer owns the controls and accepts the documented merge policy.
+- **Accountable next action:** the maintainer schedules rollout to the next approved repository or approves the validated proposal.
+
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch02 --org <org>` (least-privilege; for this activity: `repo` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - A second account or teammate helps demonstrate *real* review approvals, but the activity is completable solo (the coach guide explains the self-review caveat).
 
-## Scenario objectives
-By completing this activity you will:
+## Customer delivery objectives
+This delivery engagement establishes:
 - Use a clean **branch-per-change** workflow and open **pull requests** from the CLI and UI.
 - Run a **code review**: line comments, review threads, suggested changes, approve / request-changes.
 - Define ownership with a **`CODEOWNERS`** file and require owner review through branch protection.
@@ -32,14 +41,14 @@ A GHEC customer's team keeps pushing straight to `main`, breaking each other's w
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This activity is most valuable when the result *outlives the delivery session*. Pick a real repository with a pull-request review flow you can improve and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> Default to an authorised customer repository whose pull-request review flow needs improvement. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch02-pull-requests-code-review`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded sample repo with PRs and review settings to configure.
 >
-> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+> Record the selected target, customer adoption owner, and accountable next action. The sample is only a controlled proving ground; move the validated configuration to an approved customer target.
 
-## Setup (fallback sample)
+## Controlled proving ground (when tenant delivery is constrained)
 Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -101,11 +110,11 @@ You are done when ALL of the following are true:
 - [ ] **All three merge strategies are enabled** and each was used at least once (verifiable from commit history).
 - [ ] `docs/merge-strategy.md` documents the chosen default.
 - [ ] Real-outcome check — if you brought your own repo, its PR template, review rules, and branch protections now improve a live review flow; if you used the sample, you can name the real repo you will harden next.
-- [ ] Coach conversation — think about the last pull request that sat open too long or had a painful review cycle on your team: which of the branch protection rules, required reviewers, or PR templates you just configured would have shortened it, and what's still missing? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] **Adoption handover** — name the repository owner, the review-flow bottleneck, the approved control to address it, and the next rollout action.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 
-## Stretch goals
+## Operational extensions
 - Add a **PR template** with a checklist and a "screenshots" section; confirm new PRs pre-fill it.
 - Add **auto-request** of a whole team via `CODEOWNERS` and require **2** approvals for `/src/`.
 - Enable **"require linear history"** on `main` and observe how it forbids merge commits — reconcile that with your strategy choice.

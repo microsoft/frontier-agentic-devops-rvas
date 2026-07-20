@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: By the end of this activity you can enable the dependency graph and Dependabot, triage real vulnerable-dependency alerts on OWASP Juice Shop, take Dependabot security-update PRs, configure scheduled version updates, and block risky dependencies at PR time with dependency review — all org-scoped on a public repo.
+description: "Implement authorized customer dependency governance: dependency graph and Dependabot configuration, vulnerability-alert triage, security updates, scheduled version updates, and dependency-review gating. Preserve customer-owned evidence and the rollout decision."
 success_criteria:
 - '**Dependency graph** is on and you exported an **SBOM** (verifiable via the `dependency-graph/sbom` API).'
 - '**Dependabot alerts** and **security updates** are enabled and the repo has **open alerts** with severities (verifiable via the `dependabot/alerts` API).'
@@ -19,6 +19,7 @@ success_criteria:
 - At least one **Dependabot security-update PR** was merged and its alert moved to **fixed**.
 - '`.github/dependabot.yml` configures **scheduled npm version updates** with a limit and a group.'
 - A **dependency-review** workflow exists, is **required** on `main`, and **blocks** the seeded risky PR.
+- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - ghas
 - dependabot

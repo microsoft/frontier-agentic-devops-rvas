@@ -1,29 +1,32 @@
 id: ghaw-21
-title: The Uber Expert (Daily Testify)
+title: Test Quality Improvement Pipeline
 module: ghaw
 track: production-patterns
 difficulty: advanced
-duration_minutes: 30
+duration_minutes: 60
 prerequisites:
   - ghaw-00
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: Embed deep testing expertise in a workflow that analyses test quality daily and creates actionable issues. The first half of a causal chain that drove 13 merged PRs from 19 issues.
+description: Deploy a governed two-workflow pipeline: a test-quality expert creates actionable issues, then a test improver opens focused test-only pull requests for reviewed issues.
 success_criteria:
   - `.github/workflows/daily-testify-uber-super-expert.md` exists with valid frontmatter
   - `schedule: cron` trigger is set
   - Expert persona is established in the body (specific, not generic)
-  - `safe-outputs: create-issue` is declared — **no** `create-pull-request` here
-  - `.lock.yml` compiles without errors
-  - Manually triggered run creates at least one actionable issue
-  - Issue body is specific: names a file, a function, or a concrete gap — not "add more tests"
+  - Testify has `safe-outputs: create-issue` and creates only specific `test-improvement` issues
+  - Test Improver has `safe-outputs: create-pull-request`, reads reviewed `test-improvement` issues, and changes test files only
+  - Both `.lock.yml` files compile without errors
+  - The workflows run in order, with Testify scheduled before Test Improver
+  - A manually reviewed issue produces one syntactically valid, focused test pull request
 tags:
   - testing
   - issue-creation
+  - create-pull-request
   - causal-chain
   - expertise
+  - test-quality
   - production
 app_dependency: none
 emu_compatible: true
@@ -35,5 +38,6 @@ license: MIT
 references:
   - https://github.com/github/gh-aw
   - https://github.com/github/gh-aw/blob/main/.github/workflows/daily-testify-uber-super-expert.md
+  - https://github.com/githubnext/agentics/blob/main/workflows/daily-test-improver.md
   - https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
   - https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication

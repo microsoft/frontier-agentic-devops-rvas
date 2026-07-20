@@ -1,26 +1,27 @@
-# Activity Title
+# Delivery Work Package Title
 
-> **Module:** REPLACE | **Track:** REPLACE | **Difficulty:** beginner | **Time:** ~60 min
+> **Module:** REPLACE | **Track:** REPLACE | **Complexity:** beginner | **Delivery time:** ~60 min
 
-## Goal
+## Customer outcome
 
-REPLACE: One sentence describing what the delivery team member will build or achieve.
+REPLACE: One sentence describing the customer-owned capability, guardrail, or workflow this work package will establish.
 
 ## Prerequisites
 
-**Activities:** _(none — this activity is self-contained)_
+**Prior work packages:** _(none — this work package is self-contained)_
 
-**Skills you should have:**
+**Delivery readiness:**
 - GitHub account with organization access
 - Basic Git knowledge
+- Customer owner approval for the intended tenant change, where applicable
 
-## Setup
+## Customer target and safety boundary
 
-> Run the provision script before starting: `bash provision.sh` (or follow the setup activity for this module).
+> Run the provision script before starting: `bash provision.sh` (or follow the environment-readiness work package for this module).
 
-REPLACE: Describe any repos, apps, or resources the delivery team member needs before they begin.
+REPLACE: Name the customer-owned repository, organisation setting, workflow, or operating artefact to improve. State the approval and rollback boundary. Use a provisioned fallback only when a customer target is not yet available, then record the accountable next step for applying the outcome in the customer tenant.
 
-## Instructions
+## Implementation
 
 ### Step 1: REPLACE
 
@@ -34,10 +35,11 @@ REPLACE: Continue with numbered steps.
 
 REPLACE: Keep steps granular — one action per step where possible.
 
-## Success Criteria
+## Delivery evidence and handover
 
-- [ ] First observable success condition
-- [ ] Second observable success condition
+- [ ] First observable implementation or governance outcome
+- [ ] Second observable evidence or operational artefact
+- [ ] The customer owner and next adoption action are recorded
 
 ## References
 

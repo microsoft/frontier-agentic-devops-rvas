@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: 'By the end of this activity you can govern many repositories at once: define **custom repository properties**, create **organization rulesets** that **target repos by property**, layer repo-level rules, and verify enforcement from the API — all from an org and an org-owner token.'
+description: "Implement authorized customer repository governance at scale: define custom repository properties, create organization rulesets that target repositories by property, layer repository rules, and verify enforcement. Preserve approved policy evidence, ownership, and rollout boundaries."
 success_criteria:
 - Two **custom properties** exist (`compliance` single-select, `prod` true/false), verifiable via `gh api /orgs/<org>/properties/schema`.
 - The four repos carry **deliberate property values** (two prod repos `compliance = high`), verifiable via `gh api /orgs/<org>/properties/values`.
@@ -19,6 +19,7 @@ success_criteria:
 - The org ruleset governs **both** `high`-compliance repos (proven by a rejected direct push on the second repo).
 - A **repository ruleset** on one prod repo layers a stricter rule (e.g., 2 approvals) on top of the org ruleset.
 - A **`GOVERNANCE.md`** documents the schema, values, and ruleset targeting.
+- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - rulesets
 - custom-properties

@@ -1,6 +1,6 @@
 # Ch10 — Billing, Cost Centers & Usage
 
-> By the end of this activity you can read and govern an organization's spend — inspect **Actions/Packages/Storage usage**, set **budgets with alerts** (including budgets that stop spend), pull **billing usage from the API**, and produce a cost report — all from an org and an org-owner token.
+> Deliver an organisation cost-governance baseline: usage visibility, budget alerts, API reconciliation, and a cost report.
 
 | | |
 |---|---|
@@ -11,14 +11,23 @@
 | **App** | none |
 | **EMU compatible** | yes |
 
+## Customer delivery target
+
+- **Customer objective:** give the customer an owned, explainable cost-governance baseline.
+- **Customer-tenant target:** approved billing views, budget/alert configuration, and cost-reporting repository or operational record.
+- **Approval and safety boundary:** create budgets or generate metered usage only with the billing owner’s approval; otherwise use the small seeded workload as a controlled proving ground and record a proposal.
+- **Enduring evidence:** retain the API snapshots, reconciliation script, `COST-REPORT.md`, and budget decision.
+- **Adoption owner / handover:** the customer billing or platform owner accepts the report and alert responsibility.
+- **Accountable next action:** approve the budget configuration and reporting cadence, or hand over the cost-control proposal for decision.
+
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud, with **billing manager** access (org owners have it by default).
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch10 --org <org>` (least-privilege; for this activity: `admin:org` + `repo`, plus the read access the **billing usage** endpoints require).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - No GHAS or Codespaces required. **Enterprise cost centers** are awareness-only here (see callout) — the real, gradable work uses **org-level billing, budgets, and usage**.
 
-## Scenario objectives
-By completing this activity you will:
+## Customer delivery objectives
+This delivery engagement establishes:
 - Navigate the org's **billing & licensing** views and read **included vs metered** usage for Actions, Packages, and Storage.
 - Generate a **small, controlled amount of metered usage** (a few Actions runs) and watch it appear in usage.
 - Set **budgets with alert thresholds** so spend can't surprise you.
@@ -32,14 +41,14 @@ A GHEC customer just got a bigger-than-expected Actions bill and nobody can expl
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This activity is most valuable when the result *outlives the delivery session*. Pick a real org usage, budget, or cost-reporting artifact someone will rely on after the delivery session and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> Default to an authorised customer usage, budget, or cost-reporting artifact that an accountable owner will operate after delivery. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use your real usage source and reporting repo wherever this guide names `ghec-ch10-usage-generator` or `ghec-ch10-cost-report`. Skip the Setup step below entirely.
-> - **No suitable one?** Use the fallback below: a tiny usage-generator repo and cost-report repo for safe metered practice.
+> - **No suitable one?** Use the fallback below: a tiny usage-generator repo and cost-report repo for controlled metered validation.
 >
-> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+> Record the selected target, customer billing owner, and accountable next action. The sample is only a controlled proving ground; move the validated budget or report to an approved customer organisation.
 
-## Setup (fallback sample)
+## Controlled proving ground (when tenant delivery is constrained)
 Skip this if you brought your own usage/cost artifact. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -95,11 +104,11 @@ You are done when ALL of the following are true:
 - [ ] A committed **cost-report script** runs and produces a product/used/included/billable table.
 - [ ] A **`COST-REPORT.md`** exists with the before/after delta and a budget recommendation.
 - [ ] Real-outcome check — if you brought your own usage data, a real budget or cost report now exists for someone to use; if you used the sample, you can name the org/team cost view you will build next.
-- [ ] Coach conversation — look at your team's actual GitHub usage right now: where is spend invisible or unattributed, and who in your org should own cost accountability for Actions minutes, Codespaces, or storage but currently does not? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] **Adoption handover** — record the customer billing owner, unattributed spend area, budget/reporting decision, and next approved action.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 
-## Stretch goals
+## Operational extensions
 - Schedule the cost-report script as a **GitHub Actions workflow** that runs monthly and uploads `COST-REPORT.md` as an artifact.
 - Add **Packages/Storage** and **Codespaces** lines to the report so it covers every metered product, not just Actions.
 - Model a **chargeback**: split the generated Actions minutes across two notional teams and show how you'd bill each — the org-level rehearsal for enterprise cost centers.

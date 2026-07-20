@@ -1,6 +1,6 @@
 # Ch05 — Advanced PR Automation & Rulesets
 
-> By the end of this activity you can run a hands-off, governed merge pipeline — repo & org **rulesets**, required status checks + required reviewers, **auto-merge**, **CODEOWNERS**, draft-PR gating, and Actions-driven PR automation (labeling, assignment, stale handling) — all from an org and an org-owner token.
+> Deliver a governed merge pipeline with repository and organisation rulesets, required checks and reviewers, auto-merge, `CODEOWNERS`, and PR automation.
 
 | | |
 |---|---|
@@ -11,14 +11,23 @@
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes |
 
+## Customer delivery target
+
+- **Customer objective:** remove merge toil while preserving approved quality and ownership controls.
+- **Customer-tenant target:** an approved repository or organisation ruleset, `CODEOWNERS`, PR template, and PR-automation workflows.
+- **Approval and safety boundary:** activate rulesets and bypass settings only with the accountable customer owner’s approval; the seeded repository is a controlled proving ground for proposed policy.
+- **Enduring evidence:** retain the ruleset export, bypass rationale, workflow files, and validation PR history.
+- **Adoption owner / handover:** the repository and platform owners accept the automation and the bypass governance.
+- **Accountable next action:** the owner authorises activation in the selected customer repository or records a rollout decision.
+
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch05 --org <org>` (least-privilege; for this activity: `repo` + `workflow` + `admin:org` for org rulesets).
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
 - Recommended: you've done the *concepts* in Ch02 (PRs/CODEOWNERS) and Ch04 (Actions/required checks) — but this activity is **independent** and its setup creates everything it needs.
 
-## Scenario objectives
-By completing this activity you will:
+## Customer delivery objectives
+This delivery engagement establishes:
 - Define **repository rulesets** and an **organization ruleset** and understand how they layer with classic branch protection.
 - Require **status checks**, **pull requests**, **linear history**, and **signed commits** via rules.
 - Configure **CODEOWNERS** + **required reviewers** and **bypass actors** correctly.
@@ -32,14 +41,14 @@ A GHEC platform team is drowning in manual merge babysitting: pinging reviewers,
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This activity is most valuable when the result *outlives the delivery session*. Pick a real repository where PR automation would remove review toil and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> Default to an authorised customer repository where PR automation will remove review toil. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch05-advanced-pr-automation`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded sample repo with PR automation hooks to build on.
 >
-> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+> Record the selected target, customer adoption owner, and accountable next action. The sample is only a controlled proving ground; move the validated configuration to an approved customer target.
 
-## Setup (fallback sample)
+## Controlled proving ground (when tenant delivery is constrained)
 Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -102,11 +111,11 @@ You are done when ALL of the following are true:
 - [ ] **Auto-labeling** assigns `area:` labels by path; an **open-PR comment** workflow fires; a **stale** workflow labels/closes inactive PRs.
 - [ ] An **organization ruleset** targeting `ghec-ch05-*` is active and layers with the repo ruleset.
 - [ ] Real-outcome check — if you brought your own repo, PR automation now removes a real review chore; if you used the sample, you can name the team repo where you will install it next.
-- [ ] Coach conversation — which repetitive PR task on your current team (auto-labeling, reviewer assignment, size checks, changelog enforcement) costs the most human time per week, and what could a composite action or reusable workflow replace? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] **Adoption handover** — name the customer PR bottleneck, accountable owner, automation candidate, and next approved rollout action.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 
-## Stretch goals
+## Operational extensions
 - Add **required signed commits** to the ruleset and demonstrate a rejected unsigned push, then a passing signed one.
 - Add a **merge queue** for `main` and route auto-merge through it.
 - Write a small **GitHub Script** (`actions/github-script`) step that posts a PR size label (`size: S/M/L`) computed from the diff.

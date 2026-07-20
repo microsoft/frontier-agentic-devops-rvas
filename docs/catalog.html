@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>Outcome Catalog — Agentic DevOps</title>
-  <meta name="description" content="Browse GitHub adoption, migration, GHAS, agentic workflow, and cloud DevOps outcome journeys across all activities." />
+  <meta name="description" content="Browse GitHub adoption, migration, GHAS, agentic workflow, and cloud DevOps outcome journeys across delivery work packages." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -44,12 +44,12 @@
       <div class="wrap">
         <span class="eyebrow">Outcome catalog</span>
         <h1 id="catalogHeading" style="margin-top:14px">Find the right path.</h1>
-        <p>Filter by business outcome, module, or level. Every card is data-driven from <span class="mono">platform.json</span>, including journey membership and activity metadata.</p>
+        <p>Filter by business outcome, module, or delivery complexity. Every card is data-driven from <span class="mono">platform.json</span>, including journey membership and work-package metadata.</p>
         <p style="margin-top:18px"><a class="btn btn-primary btn-sm" href="builder.html">⊞ Build a custom set for your delivery team →</a></p>
       </div>
     </section>
 
-    <div class="filters" role="search" aria-label="Filter activities">
+    <div class="filters" role="search" aria-label="Filter delivery work packages">
       <div class="wrap filters-inner">
         <div class="filter-group filter-group-wide">
           <span class="filter-label" id="outcomeFilterLabel">Outcome</span>
@@ -66,7 +66,7 @@
         <div class="filter-group" style="margin-left:auto;flex-wrap:nowrap">
           <label class="search-box" for="searchInput">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
-            <input id="searchInput" type="search" placeholder="Search activities…" autocomplete="off" />
+            <input id="searchInput" type="search" placeholder="Search work packages…" autocomplete="off" />
           </label>
           <button class="chip" id="clearBtn" type="button">Clear</button>
           <span class="result-count" id="count" aria-live="polite" aria-atomic="true">—</span>
@@ -76,9 +76,9 @@
 
     <section class="section-tight" aria-labelledby="gridLabel">
       <div class="wrap">
-        <h2 class="sr-only" id="gridLabel">Activity list</h2>
-        <div id="grid" role="list" aria-label="Activities">
-          <div class="empty" role="status">Loading activities…</div>
+        <h2 class="sr-only" id="gridLabel">Delivery work package list</h2>
+        <div id="grid" role="list" aria-label="Delivery work packages">
+          <div class="empty" role="status">Loading work packages…</div>
         </div>
       </div>
     </section>

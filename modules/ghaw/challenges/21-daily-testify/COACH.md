@@ -1,91 +1,45 @@
 ---
 
-## Grounding conversation (you will be called)
+## Grounding conversation
 
-**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+**Required coach check-in:** agree the production boundary before the workflows are enabled on a schedule.
 
-**Their question:** Coach conversation — what does good test quality really mean for one codebase you own, and which of those judgments would you encode into an agent that files daily testing issues? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+Ask the customer delivery team:
 
-Use these follow-ups to steer the conversation:
-- Ask them to define what 'good test quality' means for a specific codebase they own.
-- Surface which of those judgments they'd encode into an agent versus keep human.
-- Have them commit to one repo where they'll trial daily test-quality issues next week.
+- Which repository has enough real test debt to justify this pipeline?
+- What makes a test valuable for that repository beyond increasing coverage?
+- Who reviews Testify issues, who reviews Test Improver pull requests, and who can pause each workflow?
+- Which test directories may the Improver modify, and which production paths are off limits?
 
-## What This Activity Teaches
+The team should name the test owner, maintainer, label, schedule, issue limit, pull-request limit, and rollback action before enabling the daily schedules.
 
-Two linked concepts: embedding domain expertise in workflow prompts (the "uber expert" pattern), and the causal chain architecture where one workflow creates issues and another acts on them. Participants learn that the quality of an AI agent is largely the quality of its context — and that decoupling analysis from action produces better, more reviewable outcomes.
+## Delivery guidance
 
+This activity installs two coordinated workflows, not a fully autonomous coding agent:
 
-Official grounding: when customer delivery team members are unsure whether a frontmatter field or permission is valid, anchor them in the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions) and [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) docs before they tune the agent prompt.
+1. **Testify** is the analyst. It has read access and can create bounded, specific issues.
+2. **A human** accepts or rejects the analysis by reviewing the issue.
+3. **Test Improver** is the implementer. It can read issues and create one test-only pull request.
+4. **A maintainer** validates the test and merges or closes the pull request.
 
----
+The issue is the contract between analyst and implementer. If it does not identify a concrete test gap, do not let the Improver act on it. Tighten Testify's prompt instead.
 
-## Expected Solution Shape
+When customer delivery team members are unsure whether a frontmatter field or permission is valid, use the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions) and [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) documentation.
 
-```markdown
----
-on:
-  schedule:
-    - cron: "0 9 * * *"
-  workflow_dispatch: {}
+## Common blockers
 
-permissions:
-  issues: write
-  contents: read
+| Symptom | Coaching response |
+|---|---|
+| Generic test-quality advice | Ask for the team's own framework, test conventions, failure modes, and quality bar. Add those facts to Testify's prompt. |
+| Issue flood | Reduce Testify to three issues per run and require high-confidence, file-specific findings. |
+| The Improver writes weak tests | Require a precise assertion and an error or edge case. Have the maintainer reject tests that only execute code. |
+| The Improver changes source code | Narrow the prompt and repository path constraints to test directories only. |
+| The workflow is not ready for scheduling | Keep both workflows on `workflow_dispatch` until one reviewed issue-to-pull-request cycle succeeds. |
 
-safe-outputs:
-  create-issue: {}
+## How to verify delivery
 
-engine: copilot
----
-
-# Daily Testify — Uber Expert
-
-You are an expert in JavaScript testing with Jest. You understand:
-- The difference between unit, integration, and end-to-end tests
-- That `expect.assertions(n)` prevents silent passes in async tests
-- That snapshot tests without meaningful assertions are noise
-- That 100% line coverage does not imply good test coverage
-- Common anti-patterns: testing implementation details, over-mocking, not testing error paths
-
-Review the test suite in `src/__tests__/` and `tests/`.
-
-For each concrete improvement opportunity, create a GitHub issue with:
-- Title: "[Testify] <specific file>: <specific gap>"
-- Body: exact file path, function/method name, what is missing, one-sentence fix suggestion
-- Label: `test-improvement`
-
-Only create issues for gaps that are specific and actionable. Do not create issues for general advice.
-Limit to 3 issues per run to avoid flooding.
-```
-
----
-
-## Common Blockers
-
-| Symptom | Fix |
-|---------|-----|
-| Issues are vague ("add more tests to utils.js") | Enforce specificity: "Each issue must name the exact function and what's missing" |
-| Agent creates 20 issues at once | Add hard limit: "Create at most 3 issues per run" |
-| Expert persona feels generic | Push for specificity: what does the expert know that a junior dev doesn't? Name it explicitly |
-| `create-pull-request` used instead of `create-issue` | Redirect: this is intentional — the Improver handles PRs; Testify only identifies |
-
----
-
-## How to Verify It's Working
-
-1. Trigger `workflow_dispatch`
-2. Check that issues are created with the `test-improvement` label
-3. Open one issue — is it specific enough to act on without guessing?
-4. Check that the issue names a real file and a real function in the repo
-5. Confirm no PRs were opened (issues only)
-
----
-
-## Coaching Notes
-
-The "uber expert" concept is the most transferable lesson in Track 4. Participants often write generic prompts; the nudge is: _"What would a 10-year testing veteran notice that the model wouldn't without this context? Write those observations into the prompt."_
-
-The causal chain architecture matters: explain that the issue is a _contract_ between the analyst (Testify) and the implementer (Test Improver). If the issue isn't specific enough, the Improver can't act on it. That's why `create-issue` only — the human review gate enforces quality.
-
-If they're building both 4-05 and 4-06: ask them to run Testify first, review the issues, then configure the Improver to consume them.
+1. Trigger Testify manually and inspect each issue for specificity and the agreed label.
+2. Have the customer owner review one issue; close or relabel weak issues rather than passing them to the Improver.
+3. Dry-run Test Improver against an accepted issue.
+4. Review the proposed pull request: it must change tests only, link the issue, and prove a meaningful behavior.
+5. Enable the 09:00 and 10:00 schedules only after the team agrees the output remains useful and manageable.

@@ -2,19 +2,21 @@
 
 ## Objectives
 
-- Help every participant reach a verified working environment (Codespaces or local clone).
+- Facilitate a governed GHAS baseline in `modules/ghas/resources/ghas-governance-practice.template.md`, not merely a completed setup.
+- Help the delivery team select a real repository or service, or explicitly use Juice Shop as the fallback practice target.
+- Ensure the baseline records scope and criticality, enabled and missing GHAS capabilities, and the repository or service owner, security partner, and delivery team.
+- Ensure the baseline records least privilege, human accountability for approval and merge, and normal GHAS and PR validation for agent-originated changes.
 - Ensure the GHAS target repository is created in a participant/team/organizer-owned org, not a Microsoft-provided shared repo.
-- Ensure GHAS features are enabled, with any script warnings followed up manually.
-- Ensure participants who need access are manually added to that repo.
-- Confirm `gh` CLI authentication, working branch creation, and Juice Shop running on port 3000.
-- Surface and document access blockers early; apply fallback paths before Activity S01.
+- Verify GHAS enablement, access, `gh` authentication, branch creation, and the Codespaces or local environment; validate Juice Shop on port 3000 when used as the fallback.
+- Surface access and licensing blockers early, assign each an owner and target date, and apply fallback paths before Activity S01.
 
 ---
 
 ## Facilitation Hints
 
 - **Push Codespaces first.** If local setup consumes more than 10 minutes, redirect to Codespaces.
-- Ask for a show-of-hands "green terminal + Juice Shop storefront" check after the first 10 minutes.
+- Start with the governed baseline. Ask which real repository or service is in scope, why its criticality matters, and whether Juice Shop is only the fallback practice target.
+- Ask for a show-of-hands "green terminal + accountable baseline" check after the first 10 minutes.
 - Pair any blocked participant with a working neighbor; one blocker should not stall the group.
 - Start by having the responsible participant, team lead, or organizer run:
   `./setup.sh provision ghas-00 --org <org>` or `./setup.ps1 provision ghas-00 -Org <org>`.
@@ -22,6 +24,8 @@
 - If Copilot is not yet licensed for all participants, pair them so every team still practices the Copilot-assisted review loop in S01–S06.
 - Confirm **GHAS is enabled** on the provisioned org repo (Settings → Code security and analysis). CodeQL, secret scanning, Dependabot alerts, and push protection must all be on — these are the backbone of S01–S06.
 - Confirm the repository access list includes every participant or team that needs to push a branch. The script creates/configures the repo; it does not guess workshop roster membership.
+- Do not accept a feature toggle or a running storefront as completion by itself. Validate that enabled and missing GHAS capabilities, accountable roles, agentic delivery principles, and blocker ownership and dates are recorded in the baseline.
+- When discussing agentic delivery, keep the scope to the documented principles: least privilege; humans remain accountable for approval and merge; and agent-originated changes receive normal GHAS and PR validation.
 
 ---
 
@@ -43,17 +47,17 @@
 
 ## Success Check
 
-Before releasing the group to Activity S01, confirm per participant:
+Before releasing the group to Activity S01, validate the following evidence with the
+delivery team:
 
-- [ ] `gh auth status` exits 0 and shows the correct username
-- [ ] `<org>/ghec-ghas-00-juice-shop` exists
-- [ ] CodeQL workflow and Dependabot config exist under `.github/`
-- [ ] CodeQL, Dependabot alerts, secret scanning, and push protection are enabled or recorded as manual follow-up
-- [ ] Required participants/teams have been added to the repo
-- [ ] `git push` for their branch succeeded (no "rejected" errors)
-- [ ] Juice Shop homepage loads at port 3000 (Codespace forwarded URL or localhost)
-- [ ] `gh repo view` returns repo metadata without error
-- [ ] GHAS alerts visible in the repo Security tab (confirms GHAS is enabled and first scan ran)
+- [ ] A real repository or service is selected, or Juice Shop is recorded as the fallback practice target
+- [ ] `modules/ghas/resources/ghas-governance-practice.template.md` records the in-scope repository or service and its criticality
+- [ ] Enabled and missing GHAS capabilities are recorded
+- [ ] The repository or service owner, security partner, and delivery team are recorded as accountable roles
+- [ ] The baseline records least privilege, human accountability for approval and merge, and normal GHAS and PR validation for agent-originated changes
+- [ ] Access or licensing blockers are recorded with an owner and target date
+- [ ] The target repository is accessible, GHAS enablement is verified or recorded as missing, and the working branch is pushed
+- [ ] The delivery environment is usable: `gh auth status` and `gh repo view` succeed, and Juice Shop loads on port 3000 when using the fallback
 
 ---
 

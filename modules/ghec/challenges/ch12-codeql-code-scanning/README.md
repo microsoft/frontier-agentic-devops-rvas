@@ -1,6 +1,6 @@
 # Ch12 — Code Scanning with CodeQL & Autofix
 
-> By the end of this activity you can turn on CodeQL code scanning two ways (default setup and an advanced workflow), triage real vulnerability alerts in OWASP Juice Shop, apply Copilot Autofix, and gate pull requests on clean code-scanning results — all org-scoped on a public repo.
+> Deliver CodeQL code scanning, vulnerability triage, Autofix review, and a pull-request security gate for an approved application repository.
 
 | | |
 |---|---|
@@ -11,14 +11,23 @@
 | **App** | juice-shop *(imported at pinned ref `v20.0.0`; see `docs/EXTERNAL-REPOS.md`)* |
 | **EMU compatible** | yes |
 
+## Customer delivery target
+
+- **Customer objective:** establish an owned code-scanning signal and a governed vulnerability-triage path.
+- **Customer-tenant target:** an approved application repository’s CodeQL workflow, alert handling, and PR gate.
+- **Approval and safety boundary:** enable scanning and enforce merge gates in the customer tenant when the repository/security owner authorises it; otherwise use Juice Shop only as a controlled proving ground and leave an approved rollout proposal.
+- **Enduring evidence:** retain the workflow, alert-triage record, Autofix review evidence, and required-check decision.
+- **Adoption owner / handover:** the application owner accepts remediation ownership; the security owner accepts the triage and gate policy.
+- **Accountable next action:** approve customer-repository activation or assign the owner and date for the documented rollout.
+
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch12 --org <org>` (least-privilege; for this activity: `repo` + `workflow` + `security_events`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - **GHAS note:** code scanning with CodeQL is **free on public repos**. Setup provisions the Juice Shop import as **public**. On private/internal repos CodeQL needs a paid Code Security license — `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns. Actions minutes are consumed by scan runs (free on public).
 
-## Scenario objectives
-By completing this activity you will:
+## Customer delivery objectives
+This delivery engagement establishes:
 - Enable **CodeQL default setup** and confirm an initial scan runs and produces alerts.
 - Replace it with an **advanced CodeQL workflow** so you control the language matrix, query suite, and triggers.
 - Target the correct language pack — **`javascript-typescript`** — for Juice Shop's Angular + Node/Express stack.
@@ -32,14 +41,14 @@ A GHEC customer ships a Node/Angular app with a backlog of latent vulnerabilitie
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This activity is most valuable when the result *outlives the delivery session*. Pick a real application repository your organization owns so CodeQL findings and gates matter after today and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> Default to an authorised application repository the customer organisation owns so CodeQL findings and gates persist. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch12-juice-shop`. Skip the Setup step below entirely.
-> - **No suitable one?** Use the fallback below: an OWASP Juice Shop import with known vulnerable code for safe CodeQL practice.
+> - **No suitable one?** Use the fallback below: an OWASP Juice Shop import with known vulnerable code for controlled CodeQL validation.
 >
-> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+> Record the selected target, customer security and repository owners, and accountable next action. The sample is only a controlled proving ground; move the validated controls to an approved customer repository.
 
-## Setup (fallback sample)
+## Controlled proving ground (when tenant delivery is constrained)
 Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -105,11 +114,11 @@ You are done when ALL of the following are true:
 - [ ] You applied **Copilot Autofix** to at least one alert and reviewed the suggested patch.
 - [ ] The **code-scanning check is required** on `main`, and the seeded vulnerable PR is **blocked** until the alert is resolved/dismissed.
 - [ ] Real-outcome check — if you brought your own repo, CodeQL analysis and PR gating now protect code you actually ship; if you used the sample, you can name the application repo you will enable next.
-- [ ] Coach conversation — pick a codebase you own or contribute to: what class of vulnerability (injection, path traversal, auth bypass) do you most fear is hiding there right now, and how would a CodeQL custom query surface it before your next release? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] **Adoption handover** — record the customer application and security owners, priority vulnerability class, proposed scanning control, and next approved action.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 
-## Stretch goals
+## Operational extensions
 - Add a **custom CodeQL query** (or a query filter) and run it through the advanced workflow.
 - Use **`category`** in the workflow to scan multiple configurations and keep their alerts separate.
 - Upload **third-party SARIF** alongside CodeQL and confirm both tools' alerts coexist in the Security tab.

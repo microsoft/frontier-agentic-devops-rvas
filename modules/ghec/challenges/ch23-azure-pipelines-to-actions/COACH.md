@@ -1,31 +1,33 @@
-# Ch23 — Convert Azure Pipelines to GitHub Actions — Coach Guide
+# Ch23 — Convert Azure Pipelines to GitHub Actions — Delivery Assurance Guide
+> **Customer authorization and rollout boundary:** Apply changes in a customer-owned tenant or repository only after the named customer owner authorizes the scope. A sample or safe fallback is a controlled proving ground, not the destination: record its evidence, risks and controls, accountable owner, handover, and the explicit tenant adoption, cutover, or rollout decision.
 
-> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
+
+> Audience: delivery assurance leads and authorized customer implementation owners. Pair with the corresponding customer implementation `README.md`.
 
 ## Intent
 
-Customer delivery team members learn that repository migration and CI/CD migration are separate workstreams. GitHub Enterprise Importer and `ado2gh` do not migrate Azure Pipelines; GitHub Actions Importer inventories, forecasts, converts, and opens pull requests for CI/CD workflows. The important learning outcome is not blind conversion: it is reviewing generated workflow YAML, identifying the manual gaps, and validating a green GitHub Actions run.
+Treat repository migration and CI/CD migration as separate customer implementation workstreams. GitHub Enterprise Importer and `ado2gh` do not migrate Azure Pipelines; GitHub Actions Importer inventories, forecasts, converts, and opens pull requests for CI/CD workflows. The required outcome is not blind conversion: it is customer-owned review evidence for generated workflow YAML, identified manual gaps with owners, and a validated green GitHub Actions run that supports a rollout decision.
 
 ## Timing (reference)
 
 | Phase | Duration |
 |---|---:|
-| Orientation, credentials, Docker, extension install | ~30 min |
+| Authorized scope, credentials, Docker, extension install | ~30 min |
 | Audit and forecast | ~35 min |
-| Dry-run conversion and YAML review | ~45 min |
-| Migrate PR, manual cleanup, and validation run | ~55 min |
-| Debrief | ~15 min |
+| Dry-run conversion and customer YAML review | ~45 min |
+| Migrate PR, owned manual remediation, and validation run | ~55 min |
+| Adoption decision and handover | ~15 min |
 | **Total** | **~180 min** |
 
 ## Expected Outputs
 
-When a delivery team member completes this activity successfully, you should see:
+For delivery assurance, collect the following customer-owned evidence:
 
 - A local `actions-importer-output/audit/audit_summary.md` report.
 - A local `actions-importer-output/forecast/forecast_report.md` report.
 - A dry-run output directory containing converted GitHub Actions workflow YAML and logs.
 - A GitHub pull request opened by `gh actions-importer migrate azure-devops pipeline` or `release`.
-- A generated `.github/workflows/*.yml` file reviewed by the delivery team member.
+- A generated `.github/workflows/*.yml` file reviewed by the customer implementation owner.
 - Written notes identifying at least one manual conversion gap and the fix or owner.
 - A successful GitHub Actions run from the migrated workflow.
 
@@ -55,15 +57,15 @@ When a delivery team member completes this activity successfully, you should see
 **Symptom:** Deploy steps that used Azure DevOps service connections, environments, approvals, or gates fail or are omitted.  
 **Fix:** Decide the GitHub equivalent: OIDC cloud federation, GitHub environments and reviewers, repository or organization secrets, or a manually rebuilt deployment process. Unsupported gates and some approvals must be redesigned.
 
-## Progressive Hints
+## Implementation troubleshooting prompts
 
-Use these in order — give the first hint, wait, then give the next only if the delivery team member is still stuck.
+Use these progressively to resolve an implementation blocker while preserving customer ownership and the rollout boundary.
 
 1. **Gentle:** Start with `audit` and `forecast`; do not convert a single pipeline until you know the size, unsupported-task count, secrets, and runner footprint.
 2. **Medium:** For a build pipeline, the command shape is `gh actions-importer dry-run azure-devops pipeline --pipeline-id <id> --output-dir <dir>`. Use `release` only for Azure DevOps release pipelines.
 3. **Specific:** If the migrated workflow fails, compare three sources: `audit_summary.md`, the PR **Manual steps** section, and the failing Actions log. Most first failures are missing secrets, missing variables, service connection replacements, or self-hosted runner labels.
 
-## Debrief Questions
+## Customer adoption decision
 
 - Which part of the Azure DevOps pipeline converted cleanly, and which part required human judgment?
 - What does the forecast report imply for Actions minutes, runner sizing, or concurrency during cutover?
@@ -71,9 +73,9 @@ Use these in order — give the first hint, wait, then give the next only if the
 - How would you sequence repository migration, pipeline migration, validation, and final cutover for a real application team?
 - What should be standardized across many pipeline migrations: reusable workflows, approved actions, runner labels, OIDC patterns, or environment names?
 
-## Grading Notes
+## Delivery assurance evidence
 
-Give full credit only when the delivery team member can show evidence, not just commands copied into notes. The minimum evidence is an audit report, forecast report, dry-run workflow YAML, migrate PR, documented manual gap, and a green Actions run. For bring-your-own repositories, prefer a real production-adjacent pipeline over a toy pipeline, but accept a safe pilot if access constraints prevent production use.
+Accept implementation readiness only when the customer owner can show evidence, not just commands copied into notes. The minimum evidence is an audit report, forecast report, dry-run workflow YAML, migrate PR, documented manual gap, and a green Actions run. Prefer an authorized production-adjacent pipeline; a safe pilot is acceptable when access constraints prevent production use, provided it records the target tenant, owner, controls, and cutover or rollout decision.
 
 ## Reference Links
 

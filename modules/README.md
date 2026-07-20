@@ -23,7 +23,7 @@ modules/
 │   ├── setup.md         ← how to run Juice Shop
 │   └── challenges/
 │
-├── ghaw/                ← GitHub Agentic Workflows (25 challenges)
+├── ghaw/                ← GitHub Agentic Workflows (19 activities)
 │   └── challenges/
 │
 └── sre-agent/           ← SRE Agent (5 challenges)
@@ -40,6 +40,8 @@ Use a short, descriptive, kebab-case slug as the directory name. Examples:
 - `00-setup`
 
 The directory name is used only for human navigation. The canonical identifier is `id` in `meta.yml`.
+
+The curated GHAW catalog intentionally has gaps at `ghaw-04`, `ghaw-05`, `ghaw-13`, and `ghaw-15`; IDs remain stable when activities are removed.
 
 ## Adding a Activity
 

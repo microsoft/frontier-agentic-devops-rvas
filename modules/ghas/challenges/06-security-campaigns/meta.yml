@@ -12,12 +12,14 @@ prerequisite_capabilities:
   - GitHub Copilot license assigned
   - Completed at least one of S02–S05 recommended (to have fixed alerts to reference)
   - Org-level Security Overview access (or ability to write a campaign plan if unavailable)
-description: Design and create a GitHub Security Campaign to coordinate systematic remediation of a vulnerability class at scale; scope alerts, assign to developers, set a deadline, and track progress in the Security Overview dashboard.
+description: Establish an ongoing GHAS operating cadence for a customer-owned application or organization: prioritize accountable security debt, run a campaign or equivalent plan, govern accepted risk, measure progress, and escalate overdue risk through Security Overview evidence.
 success_criteria:
-  - Campaign scope defined and justified with rationale (risk, volume, effort)
+  - Operating cadence documented with triage and campaign review frequency, participants, escalation, reporting path, and measures
+  - Campaign scope defined and justified with risk, business impact, volume, effort, and accountable ownership
   - 'Option A: Security campaign created with name, due date, and at least 5 alerts scoped — progress tracked in the campaign view'
-  - 'Option B (no org access): Written campaign plan covering scope, assignees, timeline, and definition of done'
-  - 'Reflection written: what would you prioritize in a real production codebase, and why?'
+  - 'Option B (no org access): Shared governance practice records scope, assignees, timeline, definition of done, and tracking approach'
+  - Accepted-risk and overdue findings have an accountable owner, rationale, and review or expiry date
+  - Human- and agent-authored changes have the same accountable-owner, pull-request, and GHAS validation expectations
 tags:
   - ghas
   - security-campaigns

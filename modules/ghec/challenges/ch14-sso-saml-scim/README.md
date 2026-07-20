@@ -1,6 +1,6 @@
 # Ch14 — SSO, SAML & SCIM Identity
 
-> By the end of this activity you can configure SAML single sign-on for an organization, connect a real identity provider in test mode, provision and de-provision members automatically with SCIM, and audit who is linked to which external identity — all org-scoped, with the enterprise-level model as an awareness callout.
+> Deliver an approved SAML/SCIM identity-lifecycle configuration with IdP validation, lifecycle evidence, and external-identity auditability.
 
 | | |
 |---|---|
@@ -11,6 +11,15 @@
 | **App** | none *(identity & access configuration — no application repo)* |
 | **EMU compatible** | no *(organizations inside an Enterprise Managed Users enterprise authenticate at the enterprise level; org-level SAML SSO and org-level SCIM are not available to EMU orgs — use a non-EMU org)* |
 
+## Customer delivery target
+
+- **Customer objective:** deliver an authorised, safe identity-lifecycle rollout rather than a standalone SSO demonstration.
+- **Customer-tenant target:** the customer’s approved SAML/SCIM configuration, IdP application, lifecycle runbook, and external-identity audit.
+- **Approval and safety boundary:** disruptive identity changes proceed in the customer tenant only with the accountable identity and organisation owners’ approval, a tested rollback, and an agreed change window; otherwise validate in the controlled test organisation and leave the approved rollout/cutover proposal.
+- **Enduring evidence:** retain IdP settings, join/leave evidence, external-identity audit, rollback record, risk decision, and owner.
+- **Adoption owner / handover:** the customer identity owner accepts the runbook and the organisation owner accepts enforcement and rollback accountability.
+- **Accountable next action:** authorise the production rollout window or formally hand over the risk-approved cutover proposal.
+
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch14 --org <org>` (least-privilege; for this activity: `admin:org` + `read:org` + `scim`).
@@ -18,8 +27,8 @@
 - **A test IdP you control.** A free **Microsoft Entra ID** tenant (or an Okta developer org) is recommended — you'll register a SAML app and a SCIM provisioning connector against your test org. You can complete most tasks with a single IdP test app.
 - **⚠️ Identity is disruptive.** Enabling enforced SAML on an org you depend on can lock out members who haven't linked. Use a **dedicated test org** (the provisioner creates supporting test members) and keep SSO in **test/non-enforced** mode until the final step.
 
-## Scenario objectives
-By completing this activity you will:
+## Customer delivery objectives
+This delivery engagement establishes:
 - Explain the three GHEC auth models — **personal accounts**, **SAML-restricted orgs/enterprises**, and **EMU + SCIM** — and where org-level SSO fits.
 - Configure **SAML SSO** for an organization against a real IdP (Entra ID / Okta), validate it in **test mode**, then enforce it.
 - Authorize a **PAT/SSH key for SSO** so API and git access keep working under SAML.
@@ -33,14 +42,14 @@ A GHEC customer runs identity centrally in their IdP and wants GitHub to obey it
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
-> This activity is most valuable when the result *outlives the delivery session*. Pick a real identity runbook, SAML/SCIM rollout plan, or org authentication setting you can improve and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> Default to an authorised customer identity runbook, SAML/SCIM rollout plan, or organisation authentication setting. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch14-identity-runbook`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded identity-runbook repo and validation helpers.
 >
-> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+> Record the selected target, customer identity owner, risk decision, and accountable next action. The sample is only a controlled proving ground; move the validated rollout package to an approved customer organisation.
 
-## Setup (fallback sample)
+## Controlled proving ground (when tenant delivery is constrained)
 Skip this if you brought your own identity runbook or org setting. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -54,7 +63,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch14 --org <org>
 
 **What setup creates** (all artifacts namespaced `ghec-ch14-*`, idempotent, prefix-guarded teardown):
 - A `ghec-ch14-identity-runbook` **repo** containing a **runbook** you fill in as you go: the IdP app settings (entity ID, ACL/ACS URL, certificate fingerprint), a SCIM rollout checklist, and a join/leave test script.
-- A documented list of the **org-scoped identity settings** you'll touch (the org's **Authentication security** page) — the provisioner does **not** flip SSO on for you (that's the learning), it stages the runbook and validation helpers.
+- A documented list of the **org-scoped identity settings** you'll touch (the org's **Authentication security** page) — the provisioner does **not** flip SSO on for you; it stages the runbook and validation helpers.
 - A printed **Next steps** block, including the exact org **Settings → Authentication security** URL and the SCIM API base.
 
 
@@ -94,7 +103,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch14 --org <org>
 
 ### Part E — Enforce (capstone) and roll back safely
 12. **Enforce SAML SSO.** Now check **Require SAML SSO** for the org. Confirm that a member without a linked identity is prompted to authenticate via the IdP, and that unauthorized tokens are rejected on org resources.
-13. **Practice safe rollback.** Document (and, in the test org, perform) the rollback: un-enforce SAML, revoke the SCIM token, and remove the IdP app — capturing why each step matters so a real rollout has a tested exit.
+13. **Validate safe rollback.** Document (and, in the test org, perform) the rollback: un-enforce SAML, revoke the SCIM token, and remove the IdP app — capturing why each step matters so a real rollout has a tested exit.
 
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
@@ -105,11 +114,11 @@ You are done when ALL of the following are true:
 - [ ] You produced an **external-identity audit** listing GitHub logins ↔ IdP identities.
 - [ ] **SAML SSO is enforced** on the org (and you documented a tested rollback).
 - [ ] Real-outcome check — if you brought your own identity target, the runbook or SAML/SCIM plan now reflects a real lifecycle gap; if you used the sample, you can name the org rollout you will plan next.
-- [ ] Coach conversation — think about your org's identity lifecycle right now: when a developer joins or leaves your company, how many hours does it take for their GitHub access to be correctly provisioned or deprovisioned, and where is the manual step that SCIM would remove? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] **Adoption handover** — record the customer identity owner, lifecycle gap, approved rollback-aware rollout decision, and next action.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 
-## Stretch goals
+## Operational extensions
 - Configure **team sync** (Entra/Okta groups → GitHub org teams) so group membership drives team membership.
 - Add a **conditional access / MFA** policy in the IdP and confirm GitHub honors the IdP's MFA outcome.
 - Compare org-level SSO with the **enterprise-level** model in writing: what changes, what EMU adds, and which customers need each (awareness only — no enterprise config required).

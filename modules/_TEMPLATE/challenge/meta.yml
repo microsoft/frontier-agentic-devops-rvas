@@ -5,20 +5,20 @@ title: "REPLACE: Short Activity Title"
 module: REPLACE                  # One of: ghec | ghas | ghaw | sre-agent
 track: REPLACE-track-slug        # See CONTRIBUTING.md for the module → track table
 difficulty: beginner             # beginner | intermediate | advanced
-duration_minutes: 60             # Estimated time for a delivery team member in minutes
+duration_minutes: 60             # Estimated delivery time for a delivery team member in minutes
 
 # === Independence fields ===
 prerequisites:                   # Challenge IDs that must be done first. Empty = none.
   []
-prerequisite_capabilities:       # Skills a delivery team member must KNOW (not activities to complete).
+prerequisite_capabilities:       # Capabilities a delivery team member needs (not work packages to complete).
   - "GitHub account"
   - "Basic Git knowledge"
 
 # === Descriptive ===
-description: "REPLACE: One-sentence description shown in the catalog card."
+description: "REPLACE: One-sentence customer-adoption outcome shown in the catalog card."
 success_criteria:
-  - "REPLACE: First observable success condition"
-  - "REPLACE: Second observable success condition"
+  - "REPLACE: First observable implementation or governance outcome"
+  - "REPLACE: Second observable customer-owned evidence or artefact"
 
 tags:
   - REPLACE-tag-1

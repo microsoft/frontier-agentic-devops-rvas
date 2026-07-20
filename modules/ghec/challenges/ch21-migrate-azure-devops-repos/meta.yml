@@ -14,7 +14,7 @@ prerequisite_capabilities:
 - Classic GitHub personal access token available for migration
 - Azure DevOps personal access token available for migration
 - Ability to authorize a GitHub PAT for SAML SSO when the destination organization enforces SAML
-description: Learn to migrate an Azure DevOps Services Git repository, pull request metadata, work item links, branch policies, and user attribution into GitHub Enterprise Cloud using GitHub Enterprise Importer and gh ado2gh.
+description: "Execute an authorized Azure DevOps repository migration pilot with GitHub Enterprise Importer and `gh ado2gh`, preserving customer-owned evidence for Git history, pull-request metadata, work-item links, policies, attribution, handover, and cutover decisions."
 success_criteria:
 - An Azure DevOps Services Git repository with at least one pull request is migrated into the target GitHub organization.
 - '`gh ado2gh inventory-report` produced `repos.csv`, and the selected repository row was reviewed for pull request count and migration risk.'
@@ -23,6 +23,7 @@ success_criteria:
 - The migrated repository is private by default or its visibility was intentionally set with `--target-repo-visibility` and verified after migration.
 - Migration logs were downloaded within the 24-hour availability window or a customer practitioner documented the exact command and migration ID needed to retrieve them.
 - At least one mannequin was reclaimed, or the mannequin CSV was generated and an org-owner-approved reclaim plan was documented.
+- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - azure-devops
 - github-enterprise-importer

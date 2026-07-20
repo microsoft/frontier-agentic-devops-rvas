@@ -1,6 +1,6 @@
 # Ch03 — Codespaces & Dev Containers
 
-> By the end of this activity you can define a reproducible cloud dev environment with `devcontainer.json`, launch and customize Codespaces, forward ports, configure org-level Codespaces policy, and speed everything up with prebuilds — all from an org and an org-owner token.
+> Deliver a reproducible cloud development environment with `devcontainer.json`, Codespaces policy, port controls, and prebuilds.
 
 | | |
 |---|---|
@@ -11,14 +11,23 @@
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes |
 
+## Customer delivery target
+
+- **Customer objective:** reduce customer developer onboarding time while governing Codespaces spend.
+- **Customer-tenant target:** a customer repository’s committed dev-container configuration, Codespaces policy, and prebuild.
+- **Approval and safety boundary:** create or change Codespaces configurations and billing-bearing resources only with the repository and organisation owner’s approval; use the sample as a controlled proving ground when approval is constrained.
+- **Enduring evidence:** retain the committed `.devcontainer` configuration, policy settings, prebuild result, and cost/retention decision.
+- **Adoption owner / handover:** the repository maintainer and platform owner accept the configuration and operating limits.
+- **Accountable next action:** the owner authorises a production repository rollout or records the approved rollout proposal.
+
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch03 --org <org>` (least-privilege; for this activity: `repo` + `codespace` + `admin:org` for org policy).
 - Local tooling: `gh >= 2.x` (with the **Codespaces** extension available), `git`, `jq`.
 - **Cost note:** Codespaces is a **metered** product. This activity consumes Codespaces minutes/storage on the participant account. Use the smallest machine type (2-core) and **stop** codespaces when idle. `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns about cost-bearing activities.
 
-## Scenario objectives
-By completing this activity you will:
+## Customer delivery objectives
+This delivery engagement establishes:
 - Author a **`devcontainer.json`** that pins a base image, installs features, and runs setup commands.
 - **Launch a Codespace** from the UI and the CLI, and understand the create/stop/delete lifecycle.
 - Add **lifecycle scripts** (`postCreateCommand`, `postStartCommand`) and **dev-container Features**.
@@ -32,14 +41,14 @@ A GHEC customer onboards new engineers slowly — each spends a day fighting loc
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This activity is most valuable when the result *outlives the delivery session*. Pick a real repository whose onboarding or local setup is painful today and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> Default to an authorised customer repository whose onboarding or local setup needs improvement. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch03-codespaces-dev-containers`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded sample repo ready for a devcontainer and Codespace.
 >
-> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+> Record the selected target, customer adoption owner, and accountable next action. The sample is only a controlled proving ground; move the validated configuration to an approved customer target.
 
-## Setup (fallback sample)
+## Controlled proving ground (when tenant delivery is constrained)
 Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -93,11 +102,11 @@ You are done when ALL of the following are true:
 - [ ] A **prebuild** is configured and a new Codespace reports **prebuilt**.
 - [ ] All your Codespaces are **stopped/deleted** at the end.
 - [ ] Real-outcome check — if you brought your own repo, it now has a Codespace/devcontainer path that reduces real onboarding friction; if you used the sample, you can name the repo whose setup you will standardize next.
-- [ ] Coach conversation — what is the most painful or inconsistent part of onboarding a new developer (or yourself after a fresh machine) onto your current project, and how would a Codespace with a locked devcontainer.json change that? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] **Adoption handover** — name the repository owner, onboarding bottleneck, approved dev-container change, and next rollout action.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 
-## Stretch goals
+## Operational extensions
 - Replace the base image with a **custom `Dockerfile`** referenced from `devcontainer.json` and reproduce the same environment.
 - Add a **`docker-compose.yml`** dev container that runs the app + a database service together.
 - Add a **secret** via Codespaces org secrets and read it inside the environment (`echo $MY_SECRET`) without committing it.

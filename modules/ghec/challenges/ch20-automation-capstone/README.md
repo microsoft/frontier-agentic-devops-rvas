@@ -1,6 +1,6 @@
 # Ch20 — Automation Capstone
 
-> By the end of this activity you have built one **end-to-end automation** that ties the whole track together: a **GitHub App** authenticates against the **REST and GraphQL APIs**, a **webhook** drives it in real time, and **Actions** runs the glue — all on a self-contained seeded repo using an org and an org-owner token.
+> Deliver one secure, end-to-end automation: a GitHub App uses REST and GraphQL, a webhook drives the flow, and Actions orchestrates it.
 
 | | |
 |---|---|
@@ -11,6 +11,15 @@
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes — all steps run on org-owned, prefix-namespaced resources. |
 
+## Customer delivery target
+
+- **Customer objective:** deliver one owned, secure, end-to-end automation for a customer workflow.
+- **Customer-tenant target:** an approved customer App, webhook, Actions workflow, API automation, and project-board integration.
+- **Approval and safety boundary:** create Apps, secrets, webhooks, and write automation in the customer tenant only with accountable owner approval; otherwise use the seeded capstone as a controlled proving ground and leave an implementation proposal.
+- **Enduring evidence:** retain the source-controlled automation, permission matrix, secret-handling record, event trace, idempotency evidence, and failure-mode notes.
+- **Adoption owner / handover:** the customer integration owner accepts operations and rotation; the workflow owner accepts business outcomes.
+- **Accountable next action:** authorise production enablement for the selected workflow or assign the owner and decision date for the rollout proposal.
+
 > **Independent by design.** This capstone **stands alone** — it provisions all its own `ghec-ch20-*` state and requires **no other activity to have been run**. It *revisits the skills* from ch16 (REST/GraphQL), ch17 (webhooks + GitHub App), and ch18 (Actions runners) conceptually, but you do **not** need their artifacts.
 
 ## Prerequisites
@@ -20,8 +29,8 @@
 - A way to receive webhook deliveries during development: **`smee.io`** for local relay, **or** the provided **Actions `repository_dispatch` receiver** for a no-public-endpoint path.
 - Comfort with the building blocks from earlier in the track (API calls, HMAC signature verification, installation tokens, Actions workflows). This capstone assumes them rather than re-teaching from zero.
 
-## Scenario objectives
-By completing this activity you will:
+## Customer delivery objectives
+This delivery engagement establishes:
 - **Register and install a GitHub App** in the org and authenticate as an **installation**.
 - Call both the **REST API** and the **GraphQL API** (including a **Projects v2** mutation) from the App's installation token.
 - **Verify inbound webhook signatures** (HMAC-SHA256, `X-Hub-Signature-256`) and route events to handlers.
@@ -30,18 +39,18 @@ By completing this activity you will:
 - Reason about **least-privilege**, **secret handling**, and **failure modes** across the whole automation.
 
 ## Scenario
-Your org wants a single automation that reacts to activity and keeps a project board honest without anyone touching it manually. When an issue is opened on the seeded repo, a webhook fires → your **GitHub App** (authenticated as an installation) **labels and triages** the issue via REST, **adds it to a Projects v2 board** via GraphQL, and an **Actions** workflow records the result and posts a summary. You'll build this from the seeded scaffold, prove it runs end to end, and make it **idempotent** so replays don't create duplicates. This is the track's payoff: every primitive you practiced, working together.
+Your org wants a single automation that reacts to activity and keeps a project board honest without anyone touching it manually. When an issue is opened on the seeded repo, a webhook fires → your **GitHub App** (authenticated as an installation) **labels and triages** the issue via REST, **adds it to a Projects v2 board** via GraphQL, and an **Actions** workflow records the result and posts a summary. Validate the seeded scaffold end to end and make it **idempotent** so replays do not create duplicates. This is an integrated delivery pattern for the customer tenant.
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
-> This activity is most valuable when the result *outlives the delivery session*. Pick a real workflow that combines Actions, API automation, and security controls into a lasting delivery artifact and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> Default to an authorised customer workflow that combines Actions, API automation, and security controls into a lasting delivery artifact. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch20-automation-capstone`. Skip the Setup step below entirely.
-> - **No suitable one?** Use the fallback below: a seeded capstone repo for end-to-end automation practice.
+> - **No suitable one?** Use the fallback below: a seeded capstone repo for controlled end-to-end automation validation.
 >
-> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+> Record the selected target, customer integration owner, and accountable next action. The sample is only a controlled proving ground; move the validated automation to an approved customer tenant.
 
-## Setup (fallback sample)
+## Controlled proving ground (when tenant delivery is constrained)
 Skip this if you brought your own workflow/repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported): the `setup.sh` / `setup.ps1` scripts in `modules/ghec/resources/provisioning/scripts/`.
 
 ```bash
@@ -107,11 +116,11 @@ You are done when ALL of the following are true:
 - [ ] **Actions** orchestrates the flow and records a **run summary**, with all credentials in **Actions secrets**.
 - [ ] You demonstrated the **full end-to-end loop** from a single fresh issue and documented its **failure modes**.
 - [ ] Real-outcome check — if you brought your own workflow, the capstone automation now leaves behind a reusable delivery artifact; if you used the sample, you can name the production workflow you will automate next.
-- [ ] Coach conversation — looking across everything you've automated in this activity, what is the single workflow in your real org that is still entirely manual and would benefit most from combining the Actions, API, and security layers you just built? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] **Adoption handover** — record the customer workflow owner, highest-value manual workflow, security boundary, and next approved action.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 
-## Stretch goals
+## Operational extensions
 - Extend the automation to **close-out**: on `issues.closed`, move the board item to `Done` and remove the triage label.
 - Add a **reconcile** Actions job (scheduled) that re-syncs board state from issues, proving convergence after missed deliveries.
 - Swap the single seeded event for **two event types** and route them to different handlers cleanly.

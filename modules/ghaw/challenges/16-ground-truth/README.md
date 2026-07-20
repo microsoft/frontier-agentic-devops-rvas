@@ -170,5 +170,3 @@ The dry-run will execute `pre-agent-steps:` and show you the values captured —
 Ask your coach.
 
 ---
-
-*Next: 3-05 Ship It — Capstone — connect everything into an end-to-end pipeline.*

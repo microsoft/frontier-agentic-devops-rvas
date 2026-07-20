@@ -17,32 +17,40 @@ Use these follow-ups to steer the conversation:
 - Reinforce that secrets belong in runtime configuration, not source control.
 - Help customer delivery team members connect secret scanning and Dependabot as two complementary supply-chain/security hygiene workflows.
 - Keep validation grounded in branch checks, push protection behavior, and application startup testing.
+- Require an exposure response decision, accountable owner, and expiry for every exception recorded in the shared governance practice.
+- Reinforce that agent-authored changes do not receive a weaker path around push protection, review, or human accountability.
 
 ## Common delivery team member blockers
 - Customer delivery team members may remove a hardcoded value without wiring a replacement environment variable; remind them to preserve app functionality.
 - Some treat Dependabot alerts as just version bumps; ask them to read the advisory and explain the actual risk.
 - Push protection behavior can surprise customer delivery team members; frame a block as useful feedback, not a failure.
+- Customer delivery team members can mistake deleting a value for resolving an exposure; ask whether the credential must be revoked or rotated and who owns that action.
 
 ## Facilitation hints
 - Ask customer delivery team members to inventory where the secret is consumed before changing the code.
 - Encourage documenting required environment variables in the PR or activity notes.
 - Have them review at least two high/critical advisories deeply enough to explain exploit impact.
 - After the changes, make sure they can still start the app and exercise an auth-related path.
+- Have them complete the **Secret and Dependency Response** section of `modules/ghas/resources/ghas-governance-practice.template.md` without copying secrets, alert payloads, or sensitive customer data into it.
+- Ask who can approve an exception, when it expires, and how that decision appears in the team's next triage review.
 
 ## Validation checklist
 Verify each success criterion from the customer delivery team guide:
-- [ ] No hardcoded secrets, passwords, or credentials remain in source code files
-- [ ] Secrets replaced with environment variable references (process.env.VARIABLE_NAME)
+- [ ] Exposed secret removed from the affected path; revocation or rotation assessed and recorded
+- [ ] Replacement configuration uses environment variable references (process.env.VARIABLE_NAME)
 - [ ] At least 2 high or critical Dependabot alerts reviewed and understood
 - [ ] Pull request checks and security annotations reviewed for branch changes
 - [ ] Secret scanning alerts relevant to changes addressed or explained
 - [ ] Application still starts and authenticates correctly after secrets migration
+- [ ] Shared governance practice records an accountable owner, remediation route, and time-bound exception where applicable
+- [ ] Agent-authored changes follow the same push-protection, PR, and accountable-owner expectations
 
 ## Assessment rubric (100 pts)
 | Criterion | Points | What "full marks" looks like |
 |---|---:|---|
 | Alert triage | 25 | Separates secrets, dependency alerts, severity, exploitability, and ownership without conflating the workflows. |
-| Secret remediation | 25 | Removes or rotates exposed material, documents exposure handling, and avoids committing replacement secrets. |
+| Secret remediation | 25 | Removes the affected value, assesses revocation or rotation, documents exposure handling, and avoids committing replacement secrets. |
 | Dependency remediation | 20 | Updates vulnerable packages safely and confirms the application still works. |
-| Verification evidence | 15 | Confirms secret scanning, Dependabot, and PR checks reflect the remediation. |
-| Grounding conversation | 15 | Connects alert fatigue, ownership, and response SLA to a real repo. |
+| Governance evidence | 15 | Records ownership, remediation route, exception expiry, and the same guardrails for human- and agent-authored changes. |
+| Verification evidence | 10 | Confirms secret scanning, Dependabot, and PR checks reflect the remediation. |
+| Grounding conversation | 10 | Connects alert fatigue, ownership, and response SLA to a real repo. |

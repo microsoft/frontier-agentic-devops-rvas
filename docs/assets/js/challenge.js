@@ -16,7 +16,7 @@
 
   async function init() {
     const challengeId = FP.qp('id');
-    if (!challengeId) { showError('No activity ID specified.'); return; }
+    if (!challengeId) { showError('No work package ID specified.'); return; }
 
     _kiosk = FP.kioskParams();
 
@@ -25,7 +25,7 @@
     catch (e) { showError(e.message); return; }
 
     const challenge = (data.challenges || []).find((c) => c.id === challengeId);
-    if (!challenge) { showError('Activity "' + challengeId + '" not found.'); return; }
+    if (!challenge) { showError('Work package "' + challengeId + '" not found.'); return; }
 
     const mod = (data.modules || []).find((m) => m.id === challenge.module);
     const allChallenges = data.challenges || [];
@@ -135,7 +135,7 @@
     if (criteriaList) {
       criteriaList.innerHTML = (c.success_criteria || [])
         .map((s) => `<li class="criteria-item"><span>${FP.renderInlineMd(s)}</span></li>`)
-        .join('') || '<li class="cap-item">See the activity guide.</li>';
+        .join('') || '<li class="cap-item">See the delivery guide.</li>';
     }
 
     // Fact rows

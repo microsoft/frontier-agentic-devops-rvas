@@ -1,6 +1,6 @@
 # Ch25 — Migrate from GitLab to GitHub
 
-> Migrate a GitLab repository's source and Git history to GitHub with Git CLI, then convert its GitLab CI pipeline to GitHub Actions with GitHub Actions Importer.
+> Deliver an approved GitLab source-and-history migration to GitHub with Git CLI, then convert its GitLab CI pipeline to GitHub Actions with GitHub Actions Importer.
 
 | | |
 |---|---|
@@ -10,6 +10,15 @@
 | **Minimum input** | A GitLab repository and an empty GitHub repository target |
 | **App** | None |
 | **EMU compatible** | yes |
+
+## Customer delivery target
+
+- **Customer objective:** deliver a controlled GitLab-to-GitHub pilot with an honest metadata and CI cutover plan.
+- **Customer-tenant target:** a selected customer GitLab source, GitHub destination repository, Actions conversion, and migration-gap register.
+- **Approval and safety boundary:** mirror and cut over customer repositories only with approved owner, source-freeze, and change-window decisions; a pilot validates the path and must conclude with a customer cutover or Expert Services decision.
+- **Enduring evidence:** retain ref validation, Actions conversion output, gap register, LFS/package decisions, and cutover evidence.
+- **Adoption owner / handover:** the customer migration owner accepts cutover accountability; repository and CI owners accept post-migration operations.
+- **Accountable next action:** approve the production cutover, or assign the owner and date for the Expert Services or follow-up decision.
 
 ## Critical framing
 
@@ -31,12 +40,12 @@ Your team is piloting a GitLab-to-GitHub move. The business wants fast cutover e
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
-> This activity is most valuable when the result *outlives the delivery session*. Pick a real GitLab repository you own and complete every task on **that** source and target. You leave with a migrated repo, Git history, pipelines-as-Actions, settings evidence, and gap notes genuinely standing up in your GitHub organization.
+> Default to an approved customer GitLab repository. Complete the work on **that** source and target, retaining the migrated repository, Git history, Actions workflow, settings evidence, and gap record.
 >
 > - **Have a candidate?** Use it everywhere this guide references the sample GitLab repository, CI file, or target repository. Skip the sample Setup path entirely.
 > - **No suitable one?** Use the fallback below: a provided sample GitLab source repository you can migrate safely.
 >
-> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+> Record the selected target, customer migration owner, approval boundary, and accountable next action. The fallback is only a controlled proving ground; move the validated path to an approved customer cutover.
 
 ## Tasks
 
@@ -167,7 +176,7 @@ You are done when all of the following are true:
 - [ ] You documented the GitLab data that did not migrate in this self-serve path.
 - [ ] GitHub Actions Importer produced a dry-run workflow or opened a PR that adds `.github/workflows/*.yml`.
 - [ ] You identified manual fixes required before the converted workflow can run reliably.
-- [ ] Coach conversation — explain why GitLab metadata migration requires Expert Services, when `gl-exporter` → `ghe-migrator` applies, and what cutover risks remain for your pilot.
+- [ ] **Adoption handover** — record the customer migration owner, Expert Services decision, applicable `gl-exporter` → `ghe-migrator` path, remaining cutover risks, and next action.
 
 ## Reference links
 

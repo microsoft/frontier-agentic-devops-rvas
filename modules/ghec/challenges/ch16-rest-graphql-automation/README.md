@@ -1,6 +1,6 @@
 # Ch16 — REST & GraphQL API Automation
 
-> By the end of this activity you can drive GitHub end-to-end from its APIs — read and mutate with the REST API, run typed GraphQL queries and mutations, page through large result sets, and stay inside rate limits — using an org and an org-owner token.
+> Deliver safe, idempotent GitHub automation using REST and GraphQL APIs, complete pagination, and rate-limit-aware operation.
 
 | | |
 |---|---|
@@ -10,6 +10,15 @@
 | **Minimum input** | An **org** + an **org-owner token**. *(All activities are org-scoped — no enterprise owner required.)* |
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes |
+
+## Customer delivery target
+
+- **Customer objective:** eliminate a defined recurring customer-tenant task with safe, idempotent automation.
+- **Customer-tenant target:** an approved repository or organisation automation script, its API scope, and its operational runbook.
+- **Approval and safety boundary:** run write operations against customer resources only with the accountable owner’s approval; use the seeded repository to validate reconciliation and rate-limit behaviour when access is constrained.
+- **Enduring evidence:** retain source-controlled automation, API outputs, rate-limit handling, idempotency evidence, and runbook.
+- **Adoption owner / handover:** the platform or repository owner accepts the script, permissions, schedule, and failure handling.
+- **Accountable next action:** authorise production execution or hand over the validated automation proposal and named owner.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -22,8 +31,8 @@ If setup fails at the project step with missing scopes, add them in place and re
 gh auth refresh -h github.com -s project,read:project
 ```
 
-## Scenario objectives
-By completing this activity you will:
+## Customer delivery objectives
+This delivery engagement establishes:
 - Call the **REST API** for reads and writes with `gh api` (verbs, paths, `--method`, `-f`/`-F` fields).
 - Write **GraphQL** queries and mutations against the single `graphql` endpoint, using variables and fragments.
 - Choose **REST vs GraphQL** deliberately — over-fetching, round-trips, and shape of the data.
@@ -36,14 +45,14 @@ A GHEC customer's platform team keeps doing the same triage by hand: relabeling 
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
-> This activity is most valuable when the result *outlives the delivery session*. Pick a real GitHub automation task or repository where an API script will save recurring toil and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> Default to an authorised customer GitHub automation task or repository where an API script will remove recurring toil. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch16-rest-graphql-automation`. Skip the Setup step below entirely.
-> - **No suitable one?** Use the fallback below: a seeded sample repo for REST and GraphQL automation practice.
+> - **No suitable one?** Use the fallback below: a seeded sample repo for controlled REST and GraphQL automation validation.
 >
-> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+> Record the selected target, customer automation owner, and accountable next action. The sample is only a controlled proving ground; move the validated script to an approved customer tenant.
 
-## Setup (fallback sample)
+## Controlled proving ground (when tenant delivery is constrained)
 Skip this if you brought your own automation target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -103,11 +112,11 @@ You are done when ALL of the following are true:
 - [ ] You inspected **`rate_limit`** and your reconcile script **backs off** when `remaining` is low.
 - [ ] Your reconcile script is **idempotent** — a second run produces **no changes**.
 - [ ] Real-outcome check — if you brought your own automation target, an API script now removes real recurring toil; if you used the sample, you can name the manual GitHub task you will automate next.
-- [ ] Coach conversation — what manual GitHub task does someone on your team do by clicking through the UI every week that a twenty-line API script could eliminate, and what is the organizational cost (time, error rate, toil) of not automating it? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] **Adoption handover** — record the customer automation owner, recurring manual task, expected benefit, approval boundary, and next action.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 
-## Stretch goals
+## Operational extensions
 - Re-implement the triage in **pure GraphQL** (issue search + `addLabelsToLabelable`) and compare the request count to the REST version.
 - Add **secondary-rate-limit** handling: detect a `403` with `Retry-After` and honor it.
 - Emit a **leadership report** (open/closed by label) as a single GraphQL query feeding a `jq` table.

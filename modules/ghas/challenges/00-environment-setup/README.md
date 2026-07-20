@@ -2,15 +2,21 @@
 
 ## Objectives
 
-By the end of this activity you will have:
+By the end of this activity, the delivery team will have:
 
-- A Juice Shop repository pushed into an org you control
-- GitHub Advanced Security features enabled on that repo
-- Any needed participants manually onboarded to that repo
+- Selected a real repository or service to govern, or recorded OWASP Juice Shop as the fallback practice target
+- Recorded a governed GHAS baseline in `modules/ghas/resources/ghas-governance-practice.template.md`
+- Defined the in-scope repository or service, its criticality, enabled and missing GHAS capabilities, and accountable roles
+- Recorded the repository or service owner, security partner, and delivery team accountable for the baseline
+- Recorded initial agentic delivery principles: least privilege; humans remain accountable for approval and merge; and agent-originated changes receive normal GHAS and PR validation
+- Recorded access or licensing blockers with an owner and target date
+- A Juice Shop repository pushed into an org the team controls when using the fallback
+- GHAS features enabled on the target repository, or missing capabilities recorded for follow-up
+- Any needed delivery team members manually onboarded to the repository
 - A working development environment (GitHub Codespaces or local clone)
 - OWASP Juice Shop running on port 3000 (for manual exploit testing)
 - An authenticated `gh` CLI session
-- A personal working branch created and pushed to the org repo
+- A personal or team working branch created and pushed to the org repo
 
 ---
 
@@ -26,6 +32,28 @@ By the end of this activity you will have:
 > A participant, team lead, or organizer pushes Juice Shop into an org they control,
 > enables GHAS features there, then manually adds any participants or teams that need
 > repo access.
+
+---
+
+## Establish the Governed GHAS Baseline
+
+Before treating setup as complete, create the first governance record in
+`modules/ghas/resources/ghas-governance-practice.template.md`. This is delivery
+evidence, not a setup checklist. Record:
+
+- the real repository or service selected for this work, or Juice Shop as the fallback;
+- the in-scope repository or service and its criticality;
+- which GHAS capabilities are enabled and which remain missing;
+- the repository or service owner, security partner, and delivery team accountable;
+- the initial agentic delivery principles: least privilege; humans remain accountable
+  for approval and merge; and agent-originated changes receive normal GHAS and PR
+  validation; and
+- every access or licensing blocker, its owner, and its target date.
+
+Use the rest of this activity to substantiate that baseline. If the selected real
+repository is not ready for hands-on work, use the Juice Shop repository below as the
+practice fallback and keep the real repository or service recorded as the delivery
+scope.
 
 ---
 
@@ -163,7 +191,7 @@ See [`modules/ghas/setup.md`](../../setup.md) for details on how these two envir
 
 ## Verify Your Setup
 
-Run each command and confirm it succeeds:
+Run each command and use the results to update the governed baseline:
 
 ```bash
 # 1. CLI version
@@ -183,5 +211,19 @@ git log --oneline -1
 Then open `http://localhost:3000` (or the Codespaces-forwarded URL) and confirm the
 Juice Shop homepage loads.
 
-> All checks must pass before you move on. If any fail, see **Common Blockers** in
-> the coach guide.
+> Do not let a green terminal close this activity. Before moving on, confirm the
+> governed baseline names the target and criticality, captures GHAS capability status
+> and accountable roles, records the agentic delivery principles, and assigns every
+> access or licensing blocker an owner and target date. See **Common Blockers** in the
+> coach guide when setup cannot yet be completed.
+
+## Success Criteria
+
+- [ ] A real repository or service is selected, or Juice Shop is recorded as the fallback practice target
+- [ ] The governed baseline in `modules/ghas/resources/ghas-governance-practice.template.md` records the in-scope repository or service and its criticality
+- [ ] Enabled and missing GHAS capabilities are recorded
+- [ ] The repository or service owner, security partner, and delivery team are recorded as accountable roles
+- [ ] The baseline records least privilege, human accountability for approval and merge, and normal GHAS and PR validation for agent-originated changes
+- [ ] Access or licensing blockers are recorded with an owner and target date
+- [ ] The target repository is accessible, GHAS enablement is verified or recorded as missing, and the working branch is pushed
+- [ ] The delivery environment is usable: `gh auth status` and `gh repo view` succeed, and Juice Shop loads on port 3000 when using the fallback

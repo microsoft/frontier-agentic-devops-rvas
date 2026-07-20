@@ -1,6 +1,6 @@
 # Ch13 — Dependabot & Dependency Review
 
-> By the end of this activity you can enable the dependency graph and Dependabot, triage real vulnerable-dependency alerts on OWASP Juice Shop, take Dependabot security-update PRs, configure scheduled version updates, and block risky dependencies at PR time with dependency review — all org-scoped on a public repo.
+> Deliver dependency visibility, Dependabot remediation, scheduled updates, and dependency-review protection for an approved application repository.
 
 | | |
 |---|---|
@@ -11,14 +11,23 @@
 | **App** | juice-shop *(imported at pinned ref `v20.0.0`; see `docs/EXTERNAL-REPOS.md`)* |
 | **EMU compatible** | yes |
 
+## Customer delivery target
+
+- **Customer objective:** establish an owned dependency-risk detection and remediation flow.
+- **Customer-tenant target:** an approved application repository’s dependency graph, Dependabot configuration, and dependency-review gate.
+- **Approval and safety boundary:** enable security features and merge dependency updates in the customer tenant only with repository/security-owner approval; use Juice Shop as a controlled proving ground when constrained.
+- **Enduring evidence:** retain the SBOM, alert decisions, `dependabot.yml`, review workflow, and merged-update evidence.
+- **Adoption owner / handover:** the application owner owns updates while the security owner owns alert policy and escalation.
+- **Accountable next action:** approve activation for the selected customer repository or hand over the validated configuration and owner decision.
+
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch13 --org <org>` (least-privilege; for this activity: `repo` + `security_events`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - **GHAS note:** the dependency graph, Dependabot alerts/updates, and dependency review are **free on public repos**. Setup provisions the Juice Shop import as **public**. On private/internal repos, dependency review needs a paid Code Security license — `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns.
 
-## Scenario objectives
-By completing this activity you will:
+## Customer delivery objectives
+This delivery engagement establishes:
 - Enable the **dependency graph** and **Dependabot alerts** + **security updates** on a repository.
 - Read the **dependency graph** and an **SBOM** export to understand what the app actually depends on.
 - Triage **Dependabot alerts** by severity and review the linked GitHub Advisory for each.
@@ -32,14 +41,14 @@ A GHEC customer's app drags a long tail of outdated, vulnerable npm packages —
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This activity is most valuable when the result *outlives the delivery session*. Pick a real application repository your organization owns so Dependabot alerts and dependency-review gates persist and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> Default to an authorised application repository the customer organisation owns so Dependabot alerts and dependency-review gates persist. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch13-juice-shop`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: an OWASP Juice Shop import with dependency material you can inspect safely.
 >
-> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+> Record the selected target, customer security and repository owners, and accountable next action. The sample is only a controlled proving ground; move the validated controls to an approved customer repository.
 
-## Setup (fallback sample)
+## Controlled proving ground (when tenant delivery is constrained)
 Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -114,11 +123,11 @@ You are done when ALL of the following are true:
 - [ ] `.github/dependabot.yml` configures **scheduled npm version updates** with a limit and a group.
 - [ ] A **dependency-review** workflow exists, is **required** on `main`, and **blocks** the seeded risky PR.
 - [ ] Real-outcome check — if you brought your own repo, Dependabot and dependency review now protect dependencies you actually ship; if you used the sample, you can name the application repo you will enable next.
-- [ ] Coach conversation — scan your real repos in your head: which project is most likely sitting on a critically vulnerable transitive dependency right now, and what would it take to make Dependabot auto-merge safe there? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] **Adoption handover** — record the customer application and security owners, priority dependency-risk target, update policy, and next approved action.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 
-## Stretch goals
+## Operational extensions
 - Add a second `dependabot.yml` ecosystem (e.g. `github-actions`) and keep its PRs grouped separately.
 - Configure **`dependency-review-action`** to also fail on a denied **license** and prove it blocks a GPL-only dependency.
 - Auto-merge Dependabot **patch** updates that pass CI using a workflow + auto-merge (pairs with ch05).

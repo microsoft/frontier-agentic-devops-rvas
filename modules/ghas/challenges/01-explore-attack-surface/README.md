@@ -6,17 +6,22 @@ Before you fix anything, you need to understand what you're dealing with. GHAS i
 
 Juice Shop is intentionally vulnerable. The alerts you'll see aren't theoretical — they're real exploitable flaws in real code. SQL injection that lets attackers bypass authentication. XSS that can hijack user sessions. Broken access control that exposes data it shouldn't. Your job in this activity is to read those alerts, open the affected files, and use Copilot to understand exactly what the code is doing wrong.
 
-This is your reconnaissance phase. Build a mental model of the vulnerability surface so the fix activities that follow have real context.
+This is your reconnaissance phase. Turn the alerts into an owned security-debt
+inventory that the delivery team can operate after the session, rather than a
+temporary mental model.
 
 > **Before this activity:** Make sure S00 is complete, the org repo exists, required participants have been added, GHAS features are enabled, and you've created your team branch. The Security tab is default-branch oriented. Your branch fixes will be validated later through PR CodeQL checks and code scanning annotations.
 
 ## Objectives
 
-- Navigate to **Security → Code scanning alerts** in the org repo provisioned in S00 and review the open default-branch alerts
-- Open at least 5 alerts and read the full alert detail — location, description, and the code path that triggers it
-- For each alert, open the affected file in your editor and ask Copilot Chat: *"What does this code do wrong, and how could an attacker exploit it?"*
-- Group your alerts by vulnerability class (injection, XSS, access control, secrets, etc.) to plan your fix order
-- Check **Security → Dependabot alerts** and note any critical or high-severity dependency vulnerabilities
+- Use your own application repository or service first; use the Juice Shop fallback only when no suitable delivery target is available
+- Navigate to the relevant GHAS alerts, including **Security → Code scanning alerts**, and review the open default-branch alerts
+- Review at least 5 alerts in full — location, description, and the code path that triggers each finding
+- For each reviewed alert, open the affected file in your editor, ask Copilot Chat: *"What does this code do wrong, and how could an attacker exploit it?"*, and verify the explanation against the alert and code path
+- Create an owned security-debt inventory in `modules/ghas/resources/ghas-governance-practice.template.md`
+- For every inventory item, record the alert category or class, affected repository, service, or component, business or security impact, remediation route, accountable owner or team, target date, current disposition (open, in progress, or accepted risk), and prioritization rationale
+- Use the five alert reviews as evidence supporting the inventory and its prioritization
+- Check **Security → Dependabot alerts** and record any critical or high-severity dependency vulnerabilities in the inventory
 
 > [!IMPORTANT]
 > **Bring your own application (do this first)**
@@ -31,11 +36,13 @@ This is your reconnaissance phase. Build a mental model of the vulnerability sur
 
 ## Success Criteria
 
-- [ ] At least 5 code scanning alerts reviewed with alert detail read
-- [ ] Each reviewed alert has a Copilot-generated explanation of: what the vulnerability is, what an attacker could do with it, and where in the code it lives
-- [ ] Alerts grouped by vulnerability class with a fix order documented
-- [ ] Dependabot alerts reviewed — any critical/high severity ones noted
-- [ ] Coach conversation — if GHAS were scanning your real production repos today the way it scanned Juice Shop, which vulnerability class do you think would have the most open alerts, and how would you even find out? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] A real application repository or service is used first, or Juice Shop is recorded as the fallback practice target
+- [ ] At least 5 alerts are reviewed with full alert detail read and used as evidence for the inventory
+- [ ] Each reviewed alert has a Copilot explanation of the vulnerability, attacker outcome, and code location that a human verifies against the alert and code path
+- [ ] The security-debt inventory in `modules/ghas/resources/ghas-governance-practice.template.md` records alert category or class, affected repository, service, or component, business or security impact, remediation route, accountable owner or team, target date, current disposition, and prioritization rationale for each item
+- [ ] Each inventory item has a current disposition of open, in progress, or accepted risk and a prioritization rationale
+- [ ] Dependabot alerts are reviewed and any critical or high-severity dependency vulnerabilities are recorded in the inventory
+- [ ] Coach conversation connects the inventory to a real project, accountable ownership, risk, and next action
 
 ## Copilot Tips
 

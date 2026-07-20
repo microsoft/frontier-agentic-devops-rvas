@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - Docker installed and running, because GitHub Actions Importer runs as a container
 - GitHub CLI installed with the GitHub Actions Importer extension available
 - Azure DevOps personal access token with read access to pipelines, code, releases, service connections, task groups, variable groups, and agent pools
-description: Convert an Azure DevOps Pipeline into a reviewable GitHub Actions workflow using GitHub Actions Importer audit, forecast, dry-run, and migrate commands.
+description: "Execute an authorized Azure Pipelines-to-GitHub Actions migration pilot using GitHub Actions Importer audit, forecast, dry-run, and migrate commands. Preserve reviewed workflow evidence, manual-gap ownership, risk controls, handover, and the cutover decision."
 success_criteria:
 - '`audit` produced a report summarizing the Azure DevOps pipeline footprint, conversion status, manual tasks, secrets, runners, and unsupported items.'
 - '`forecast` produced an Actions usage estimate from Azure DevOps pipeline history.'
@@ -19,6 +19,7 @@ success_criteria:
 - '`migrate` opened a pull request that adds a converted `.github/workflows/*.yml` file to the target GitHub repository.'
 - 'The generated workflow was reviewed and at least one unsupported, unknown, secret, variable, runner, or service-connection gap was documented with the required manual fix.'
 - 'The migrated workflow ran successfully in GitHub Actions after required cleanup.'
+- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - github-actions
 - actions-importer

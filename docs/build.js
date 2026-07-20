@@ -31,7 +31,7 @@ const path = require('path');
 const MODULE_CONFIG = {
   ghec: {
     name: 'GitHub Enterprise Cloud',
-    description: 'Master enterprise GitHub: planning, governance, security, and automation across a full SDLC.',
+    description: 'Accelerate governed GitHub Enterprise Cloud adoption through customer-owned planning, implementation, security, and automation outcomes.',
     color: '#0969da',
     icon: 'icon-ghec.svg',
     tracks: {

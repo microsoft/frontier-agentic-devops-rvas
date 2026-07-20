@@ -1,6 +1,6 @@
 # Ch09 — Audit Log & Streaming
 
-> By the end of this activity you can investigate what happened in an organization using the **org audit log** UI, the **audit-log search syntax**, and the **audit-log REST API** — generating real events, querying them precisely, and building a lightweight "export" pipeline — all from an org and an org-owner token.
+> Deliver an organisation audit-evidence path using the audit-log UI, search syntax, REST API, and a repeatable export pipeline.
 
 | | |
 |---|---|
@@ -11,14 +11,23 @@
 | **App** | none |
 | **EMU compatible** | yes |
 
+## Customer delivery target
+
+- **Customer objective:** make customer administrative events searchable, exportable, and operationally attributable.
+- **Customer-tenant target:** the customer organisation audit-log query set, export script, and findings record.
+- **Approval and safety boundary:** generate only owner-approved events in the customer tenant; use the seeded target for controlled event generation when live changes are not approved.
+- **Enduring evidence:** retain the export script, time-bounded JSON evidence, query filters, and findings.
+- **Adoption owner / handover:** the customer security or platform operations owner receives the evidence-collection runbook.
+- **Accountable next action:** schedule the approved export cadence or nominate the owner who will operationalise the validated script.
+
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud. The **org audit log** is a GHEC organization feature.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch09 --org <org>` (least-privilege; for this activity: `admin:org` + `read:audit_log` + `repo`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - No GHAS or Codespaces required. **Enterprise audit-log streaming** is awareness-only here (see callout) — the real, gradable work uses the **org** audit log + API.
 
-## Scenario objectives
-By completing this activity you will:
+## Customer delivery objectives
+This delivery engagement establishes:
 - Read the **organization audit log** and understand its event model (actor, action, timestamp, repo).
 - Use the **audit-log search syntax** (`action:`, `actor:`, `created:`, `repo:`) to answer real investigative questions.
 - Query the audit log via the **REST API** (`gh api /orgs/<org>/audit-log`) with phrase filters and pagination.
@@ -27,19 +36,19 @@ By completing this activity you will:
 - Understand where **enterprise-level audit-log streaming** fits (awareness) and why an org-scoped API pull is the org-owner equivalent.
 
 ## Scenario
-A GHEC customer's security team asks the question every audit eventually asks: *"Who changed that setting, and when?"* Right now nobody can answer it without guessing. You'll learn to treat the **organization audit log** as the source of truth — generate a controlled set of administrative actions, then reconstruct exactly what happened using search filters and the API. You'll finish with a repeatable script that exports a slice of the log, the seed of a real evidence-collection pipeline.
+A GHEC customer's security team asks the question every audit eventually asks: *"Who changed that setting, and when?"* Right now nobody can answer it without guessing. Establish the **organization audit log** as the source of truth: generate a controlled set of administrative actions, reconstruct what happened using search filters and the API, and retain a repeatable export script as the start of a real evidence-collection pipeline.
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This activity is most valuable when the result *outlives the delivery session*. Pick a real org audit question or repository where you can generate and investigate known events and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> Default to an authorised customer audit question or repository where known events can be generated and investigated. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch09-audit-target`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded audit-target repo and auditors team for safe event generation.
 >
-> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+> Record the selected target, customer operations owner, and accountable next action. The sample is only a controlled proving ground; move the validated export path to an approved customer organisation.
 
-## Setup (fallback sample)
+## Controlled proving ground (when tenant delivery is constrained)
 Skip this if you brought your own audit target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -61,7 +70,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch09 --org <org>
 ## Tasks
 > Throughout, **`ghec-ch09-audit-target` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
-### Part A — Read the log & learn the event model
+### Part A — Read the log and establish the event model
 1. **Open the org audit log** (**Org Settings → Archive → Logs → Audit log** — the "Logs" item is under the **Archive** section of the settings sidebar). Skim recent events; note each row's **actor**, **action** (e.g., `repo.create`, `org.update_member`), **time**, and affected object.
 2. **Pull the same data from the API:** `gh api /orgs/<org>/audit-log --jq '.[] | {action, actor, created_at, repo}'` (most-recent first). Compare it to the UI.
 3. **Identify the action namespaces** you see (`org.*`, `repo.*`, `team.*`, `protected_branch.*`, `repository_ruleset.*`) and write a one-line description of three of them.
@@ -100,11 +109,11 @@ You are done when ALL of the following are true:
 - [ ] An **export script** committed to the repo pulls a time-bounded slice to JSON and the output contains your events.
 - [ ] A **`FINDINGS.md`** answers three investigative questions with the exact filter used.
 - [ ] Real-outcome check — if you brought your own audit target, you now have real filters, evidence, or export scripts for an investigation you care about; if you used the sample, you can name the audit question you will answer next.
-- [ ] Coach conversation — if your org's GitHub audit log were streaming to your SIEM right now, what is the first alert or anomaly query you would write, and what event from the past six months do you wish you had been alerted to? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] **Adoption handover** — record the customer operations owner, first alert or anomaly query, evidence-retention path, and next approved action.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 
-## Stretch goals
+## Operational extensions
 - Extend the export script to emit **CSV** (actor, action, created_at, repo) suitable for a spreadsheet or SIEM import.
 - Query the **Git events** stream (`include=git` / `phrase='action:git.push'`) and discuss why Git events are higher-volume and time-limited.
 - Diagram how you'd turn the export script into a **scheduled GitHub Actions workflow** that pulls yesterday's audit slice nightly and uploads it as an artifact.

@@ -1,26 +1,28 @@
-# Ch26 — Migrate Legacy VCS (SVN, Mercurial, TFVC, Perforce) to GitHub — Coach Guide
+# Ch26 — Migrate Legacy VCS (SVN, Mercurial, TFVC, Perforce) — Delivery Assurance Guide
+> **Customer authorization and rollout boundary:** Apply changes in a customer-owned tenant or repository only after the named customer owner authorizes the scope. A sample or safe fallback is a controlled proving ground, not the destination: record its evidence, risks and controls, accountable owner, handover, and the explicit tenant adoption, cutover, or rollout decision.
 
-> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
+
+> Audience: delivery assurance leads and authorized customer implementation owners. Pair with the corresponding customer implementation `README.md`.
 
 ## Intent
 
-Customer delivery team members learn the practical source-and-history migration paths for legacy VCS sources that GitHub Enterprise Importer and the GitHub Importer web tool do not handle directly. The key outcome is not completing every possible source system in one sitting; it is proving one or more real conversions, correctly mapping authors, recognizing metadata loss, and planning safe pushes under GitHub size limits.
+Deliver practical source-and-history migration paths for legacy VCS sources that GitHub Enterprise Importer and the GitHub Importer web tool do not handle directly. The customer outcome is not completing every possible source system at once; it is an authorized migration decision supported by one or more proven conversions, correct author mapping, a metadata-loss record, and safe push and cutover controls under GitHub size limits.
 
 ## Timing (reference)
 
 | Phase | Duration |
 |---|---:|
-| Orientation, source inventory, tool checks | ~30 min |
+| Authorized scope, source inventory, tool checks | ~30 min |
 | SVN authors map and conversion | ~55 min |
 | Mercurial, TFVC, or Perforce conversion | ~65 min |
 | Large-file, LFS, and 2 GiB push planning | ~35 min |
-| GitHub push validation and evidence capture | ~35 min |
-| Debrief | ~20 min |
+| GitHub push validation, handover, and evidence capture | ~35 min |
+| Cutover decision and handover | ~20 min |
 | **Total** | **~240 min** |
 
 ## Expected Outputs
 
-When a delivery team member completes this activity successfully, you should see:
+For delivery assurance, collect the following customer-owned evidence:
 
 - A source-specific conversion directory containing a valid Git repository.
 - An `authors.txt` or equivalent author map with real names and email addresses.
@@ -49,7 +51,7 @@ When a delivery team member completes this activity successfully, you should see
 **Fix:** Use a supported Python runtime for the chosen `hg-fast-export` version, run from a fresh `git init` directory, and keep the Mercurial clone path separate from the output path.
 
 ### TFVC has no direct GitHub CLI conversion
-**Symptom:** Delivery team member searches for a `git tfvc` or GitHub Importer path and cannot find one.
+**Symptom:** Customer implementation owner searches for a `git tfvc` or GitHub Importer path and cannot find one.
 **Fix:** Reinforce the required sequence: TFVC to Azure Repos Git first, then Git push or the Azure Repos Git migration pattern. Cross-reference ch21 for Azure Repos Git repository migrations.
 
 ### Perforce depot scope is too broad
@@ -64,15 +66,15 @@ When a delivery team member completes this activity successfully, you should see
 **Symptom:** Converted files show unexpected diffs, mojibake, or scripts fail after migration.
 **Fix:** Sample old and new checkouts, verify `.gitattributes`, and document any source encoding assumptions before cutover.
 
-## Progressive Hints
+## Implementation troubleshooting prompts
 
-Use these in order — give the first hint, wait, then give the next only if the delivery team member is still stuck.
+Use these progressively to resolve an implementation blocker while preserving customer ownership and the cutover boundary.
 
 1. **Gentle:** Start by proving identity mapping. A conversion with bad authors is not a migration success even if the push works.
 2. **Medium:** If branches or tags look wrong, inspect refs with `git for-each-ref` before pushing. Legacy converters often create remote refs that need to become normal Git branches or tags.
 3. **Specific:** For large repositories, do not keep retrying `git push --mirror`. Scan blobs over 50 MiB, move binaries to LFS when appropriate, push the main branch in commit batches under the 2 GiB limit, then push remaining refs.
 
-## Debrief Questions
+## Customer adoption decision
 
 - Which legacy VCS source would you migrate first in a real program, and why?
 - What source metadata did your chosen conversion preserve, and what did it lose?
@@ -81,9 +83,9 @@ Use these in order — give the first hint, wait, then give the next only if the
 - Where would you freeze source writes, validate converted branches and tags, and communicate cutover timing?
 - For TFVC specifically, who owns the TFVC to Azure Repos Git step before GitHub migration begins?
 
-## Grading Notes
+## Delivery assurance evidence
 
-Accept a subset hands-on when access to every legacy VCS is unrealistic. Full credit requires at least one real converted GitHub repository plus credible end-to-end documentation for the other requested source systems. Do not award full credit for commands copied without evidence of author mapping, branch/tag review, size-limit checks, and a GitHub destination repository or documented blocker.
+Use a subset of controlled conversions when access to every legacy VCS is unrealistic. Accept implementation readiness only with at least one customer-owned converted GitHub repository plus credible end-to-end documentation for the other requested source systems. Do not accept copied commands without evidence of author mapping, branch/tag review, size-limit checks, a GitHub destination repository or documented blocker, and a customer cutover decision.
 
 ## Useful Verification Commands
 

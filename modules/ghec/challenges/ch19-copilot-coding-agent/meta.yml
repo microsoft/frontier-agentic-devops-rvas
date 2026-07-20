@@ -12,7 +12,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: By the end of this activity you can delegate a real bug to the GitHub Copilot cloud agent — assign it an issue, watch it open a draft pull request, and review, steer, and merge its work — on a small seeded repo using an org and an org-owner token.
+description: "Implement an authorized customer Copilot cloud-agent pilot for a bounded issue, with eligibility, review, and merge-gate evidence. Preserve the human-review boundary, accountable owner, and decision to expand, defer, or roll out."
 success_criteria:
 - You confirmed the **Copilot cloud agent is enabled** and the repo is **eligible (non-EMU)**.
 - You **assigned the seeded issue to Copilot** and it opened a **draft pull request**.
@@ -20,6 +20,7 @@ success_criteria:
 - You **steered the agent** with at least one review comment and it pushed **new commits** in response.
 - The **failing test is green** in the PR and the PR was **approved and merged** to `main`.
 - You captured a short **reflection** on where the agent fits (and where human review stays essential).
+- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - copilot
 - cloud-agent

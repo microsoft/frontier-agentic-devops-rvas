@@ -1,32 +1,34 @@
-# Ch03 — Codespaces & Dev Containers — Coach Guide
+# Ch03 — Codespaces & Dev Containers — Delivery Assurance Guide
 
-> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
+> Audience: delivery assurance leads and authorized customer implementation owners. Pair with the corresponding customer implementation `README.md`.
+> **Customer authorization and rollout boundary:** Apply changes in a customer-owned tenant or repository only after the named customer owner authorizes the scope. A sample or safe fallback is a controlled proving ground, not the destination: record its evidence, risks and controls, accountable owner, handover, and the explicit tenant adoption, cutover, or rollout decision.
 
-## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+## Customer adoption decision
 
-**Their question:** Coach conversation — what is the most painful or inconsistent part of onboarding a new developer (or yourself after a fresh machine) onto your current project, and how would a Codespace with a locked devcontainer.json change that? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+**Required delivery assurance check:** before implementation is accepted, confirm the authorized tenant scope, implementation evidence, risk controls, accountable owner, handover, and next adoption action.
 
-> **Bring-your-own grading:** prefer customer delivery team members who ran this on a **real artifact they own** over the `ghec-ch03-codespaces-dev-containers` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+**Decision prompt:** what is the most painful or inconsistent part of onboarding a new developer (or yourself after a fresh machine) onto your current project, and how would a Codespace with a locked devcontainer.json change that? Record the accountable owner, implementation evidence, risk or blocker, and next customer adoption action.
 
-Use these follow-ups to steer the conversation:
+> **Customer implementation preference:** prioritize an authorized customer tenant or artifact over the `ghec-ch03-codespaces-dev-containers` sample. If a sample is necessary, record the target tenant scope, accountable owner, authorization blocker, evidence to carry forward, and the adoption, cutover, or rollout decision. The sample is a safe fallback, not the destination.
+
+Use these prompts to verify customer ownership and the next action:
 - Tell me about a specific repo or project where environment setup causes the most friction — what usually breaks?
 - If you shipped a Codespace for that repo today, what would still not work out of the box?
 - What is the single .devcontainer change you could open a PR for before next week?
 
-## Facilitation notes
-- **Goal in one line:** the delivery team member makes "clone and code in 60 seconds" real — a committed, reproducible dev container, a prebuild for speed, and an org policy that controls spend.
-- **Where customer delivery team members get stuck:**
-  - **Features vs Dockerfile.** Customer delivery team members conflate the two. Features are composable add-ons layered onto a base image; a Dockerfile is a full custom image. Both are valid; start with Features.
-  - **Lifecycle command timing.** `postCreateCommand` runs once at create; `postStartCommand` runs on every start. Customer delivery team members put `npm ci` in the wrong hook and wonder why it's slow.
+## Delivery assurance notes
+- **Customer adoption outcome:** the customer implementation owner makes "clone and code in 60 seconds" real — a committed, reproducible dev container, a prebuild for speed, and an org policy that controls spend.
+- **Implementation risks to verify:**
+  - **Features vs Dockerfile.** Customer implementation owners conflate the two. Features are composable add-ons layered onto a base image; a Dockerfile is a full custom image. Both are valid; start with Features.
+  - **Lifecycle command timing.** `postCreateCommand` runs once at create; `postStartCommand` runs on every start. Customer implementation owners put `npm ci` in the wrong hook and wonder why it's slow.
   - **Prebuild ≠ instant.** The prebuild is a scheduled Action that must finish *before* a new Codespace shows "prebuilt." Have them wait for the prebuild run to go green.
   - **Cost anxiety / forgotten Codespaces.** Emphasize stop/delete. Idle Codespaces bill storage.
-- **How to unblock without giving the answer:** ask "what should every teammate get identically, and what's just *your* preference?" (→ devcontainer vs dotfiles), and "where did the time go on first start vs after a prebuild?"
-- **Org-scoped note:** runs with just an org + org-owner token. The org policy + prebuild steps need `admin:org`, which the org-owner token has. **This is a metered activity** — make participants aware before they launch.
+- **Delivery lead prompts:** ask "what should every teammate get identically, and what's just *your* preference?" (→ devcontainer vs dotfiles), and "where did the time go on first start vs after a prebuild?"
+- **Org-scoped note:** runs with just an org + org-owner token. The org policy + prebuild steps need `admin:org`, which the org-owner token has. **This is a metered implementation** — confirm cost ownership before launch.
 
-## Grading rubric (point-weighted, 100 pts)
-| Criterion | Points | What "full marks" looks like |
+## Implementation acceptance evidence
+| Criterion | Assurance weight | Customer-owned evidence |
 |---|---:|---|
 | devcontainer.json quality | 25 | Pinned base image, ≥2 Features, both lifecycle hooks, committed extensions |
 | Launch + verify (UI + CLI) | 20 | Codespace created both ways; node version, gh Feature, post-create install all verified inside |
@@ -34,11 +36,11 @@ Use these follow-ups to steer the conversation:
 | Personalization understanding | 10 | `docs/devcontainer-notes.md` correctly explains dotfiles vs devcontainer precedence |
 | Org policy | 15 | Machine-type restriction + retention set at org scope |
 | Prebuild + cleanup | 15 | Prebuild configured, new Codespace reports prebuilt; all Codespaces deleted at end |
-| **Total** | **100** | |
+| **Assurance coverage** | **100** | |
 
-## Automated verification hints
+## Implementation verification evidence
 ```bash
-ORG=<org>; REPO=ghec-ch03-codespaces-dev-containers   # swap REPO for the delivery team member's own repo if they brought one
+ORG=<org>; REPO=ghec-ch03-codespaces-dev-containers   # swap REPO for the customer implementation owner's own repo if they brought one
 
 # devcontainer.json present and pins an image + has features
 gh api repos/$ORG/$REPO/contents/.devcontainer/devcontainer.json --jq '.path'
@@ -56,7 +58,7 @@ gh run list --repo $ORG/$REPO --workflow "Create codespace prebuilds" --json sta
 gh api repos/$ORG/$REPO/contents/docs/devcontainer-notes.md --jq '.path'
 ```
 - The fastest mastery signal is the **raw devcontainer.json**: confirm `image` is version-pinned (not `:latest`), `features` has ≥2 entries, and both lifecycle hooks exist.
-- For the prebuild, look for a successful run of the **"Create codespace prebuilds"** workflow and have the delivery team member show a new Codespace's creation log saying *prebuilt*.
+- For the prebuild, look for a successful run of the **"Create codespace prebuilds"** workflow and have the customer implementation owner show a new Codespace's creation log saying *prebuilt*.
 
 ## Common pitfalls
 - **`:latest` base image** defeats reproducibility — dock points if not pinned.
@@ -64,7 +66,7 @@ gh api repos/$ORG/$REPO/contents/docs/devcontainer-notes.md --jq '.path'
 - **Leftover Codespaces** keep billing. Verify `gh codespace list` is empty at teardown.
 - **Token missing `codespace`/`admin:org`** — policy and codespace API calls 403.
 
-## Useful references for coaching
+## References for delivery leads
 
 - [Introduction to dev containers](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers), [devcontainer.json reference](https://containers.dev/implementors/json_reference/).
 
@@ -82,4 +84,4 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch03 --org <org> 
 - Parts B–C (launch, run, ports): ~1 hr
 - Part D (personalization notes): ~20 min
 - Part E (org policy + prebuild): ~1.5 hrs (prebuild Action wait)
-- **Total facilitated:** ~4–5 hrs across sessions.
+- **Indicative implementation effort:** ~4–5 hrs across sessions.

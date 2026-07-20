@@ -1,6 +1,6 @@
 # Ch08 — Repository Rulesets & Custom Properties
 
-> By the end of this activity you can govern many repositories at once: define **custom repository properties**, create **organization rulesets** that **target repos by property**, layer repo-level rules, and verify enforcement from the API — all from an org and an org-owner token.
+> Deliver metadata-driven governance across repositories with custom properties, organisation rulesets, repository overlays, and API-verifiable enforcement.
 
 | | |
 |---|---|
@@ -11,14 +11,23 @@
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes |
 
+## Customer delivery target
+
+- **Customer objective:** apply scalable, metadata-driven governance to the customer repository estate.
+- **Customer-tenant target:** approved custom-property schema, repository classifications, and property-targeted organisation rulesets.
+- **Approval and safety boundary:** activate policy controls in the customer tenant when the organisation owner approves them; otherwise validate targeting and enforcement on the controlled sample and leave a rollout proposal.
+- **Enduring evidence:** retain property inventory, ruleset export, bypass rationale, and enforcement results.
+- **Adoption owner / handover:** the platform governance owner accepts the schema and ruleset; repository owners receive their classifications.
+- **Accountable next action:** authorise the initial classified repository cohort or decide on the documented rollout proposal.
+
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch08 --org <org>` (least-privilege; for this activity: `admin:org` + `repo` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - This activity is **independent** of Ch05 (which also touches rulesets). The focus here is **org-wide governance via custom properties**, not the PR pipeline.
 
-## Scenario objectives
-By completing this activity you will:
+## Customer delivery objectives
+This delivery engagement establishes:
 - Define **custom repository properties** (single-select and true/false) at the organization.
 - Set property **values** on individual repositories and set **defaults** for new repos.
 - Create an **organization ruleset** whose **target** is a **property condition** (e.g., apply to every repo where `compliance = high`), not a name pattern.
@@ -32,14 +41,14 @@ A GHEC customer has 80 repositories and a compliance team that needs "all produc
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This activity is most valuable when the result *outlives the delivery session*. Pick a real production or compliance-sensitive repository set that needs rulesets and properties and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> Default to an authorised customer production or compliance-sensitive repository set that needs rulesets and properties. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use your real repos wherever this guide names `ghec-ch08-prod-payments` or the sibling `ghec-ch08-*` repos. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: seeded prod/internal/sandbox repos for property-targeted guardrails.
 >
-> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+> Record the selected target, customer governance owner, risk decision, and accountable next action. The sample is only a controlled proving ground; move the validated policy to an approved customer organisation.
 
-## Setup (fallback sample)
+## Controlled proving ground (when tenant delivery is constrained)
 Skip this if you brought your own repo set. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -101,11 +110,11 @@ You are done when ALL of the following are true:
 - [ ] A **repository ruleset** on one prod repo layers a stricter rule (e.g., 2 approvals) on top of the org ruleset.
 - [ ] A **`GOVERNANCE.md`** documents the schema, values, and ruleset targeting.
 - [ ] Real-outcome check — if you brought your own repo set, rulesets and properties now protect production or compliance-sensitive work; if you used the sample, you can name the real repo group you will target next.
-- [ ] Coach conversation — which of your repos is most likely to accept a direct push to main or merge without a review right now, and what ruleset targeting which repo property would close that gap at scale? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] **Adoption handover** — record the customer governance owner, priority repository risk, proposed property/ruleset control, and next approved action.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 
-## Stretch goals
+## Operational extensions
 - Add a property-targeted ruleset that applies **org-wide tag protection** (block deleting/force-updating release tags) only on `prod = true` repos.
 - Write a script that lists every repo and its property values as a Markdown compliance report, generated from `gh api /orgs/<org>/properties/values`.
 - Create a **second org ruleset** targeting `compliance = medium` with a lighter rule set, and show how a repo could match multiple property conditions.

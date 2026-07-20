@@ -1,94 +1,146 @@
 **Track:** Production Patterns (Advanced 🟣)
-**Estimated time:** 30 minutes
+**Estimated time:** 60 minutes
 **Tier:** Bonus
 
 ---
 
-## Background
+## Production outcome
 
-Most workflows are generalists. Daily Testify is a specialist: a workflow with deep testing expertise baked directly into its prompt, running every day to scrutinise your test suite and create issues for concrete improvement opportunities.
+Build a governed test-quality pipeline for one repository your customer delivery team owns:
 
-In `github/gh-aw`, this pattern produced 19 issues, 13 of which led to merged PRs — a **100% causal chain merge rate**. Every issue that got acted on resulted in merged code. This is the *producer* half of a causal chain: it creates the issues; the Test Improver (4-06) acts on them.
+1. **Daily Testify** reviews the test suite and opens a small number of specific `test-improvement` issues.
+2. A team member reviews those issues.
+3. **Daily Test Improver** reads approved issues and opens one focused, test-only pull request.
+4. A maintainer reviews and merges or closes the pull request.
 
-Source: [`github/gh-aw/.github/workflows/daily-testify-uber-super-expert.md`](https://github.com/github/gh-aw/blob/main/.github/workflows/daily-testify-uber-super-expert.md)
-
-## What It Does
-
-- Runs daily on a cron schedule
-- Analyses your test suite with embedded domain expertise (test quality, coverage gaps, anti-patterns)
-- Creates issues for specific, actionable improvements — not vague suggestions
-- Uses `create-issue` only (no PRs) — keeps the signal clean and human-reviewed before action
+The workflows are deliberately separate. Analysis can create issues, but it cannot write code. Code generation is limited to a reviewable pull request, using the reviewed issue as its contract.
 
 > [!IMPORTANT]
-> **Bring your own repo (do this first)**
+> **Use a real repository**
 >
-> This activity is most valuable when Testify studies a real test suite and files issues your team might actually act on. Pick a repository in an org you control where test quality, missing edge cases, or brittle tests matter.
->
-> - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and customise the expert persona around that repo's real language, framework, test layout, and quality bar.
-> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
->
-> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+> Choose a repository in an organization you control with established test conventions, a test owner, and a maintainer who will review the proposed pull requests. Configure the workflows for its language, framework, test directories, and quality bar. Use the sample repository only when no suitable customer repository is available.
 
-## What You'll Do
+## What you'll build
 
-1. **Install [`gh aw`](https://github.com/github/gh-aw)** (if not already done):
+| Workflow | Schedule | Safe output | Purpose |
+|---|---|---|---|
+| Daily Testify | 09:00 | `create-issue` | Finds concrete test-quality gaps and creates up to three actionable issues. |
+| Daily Test Improver | 10:00 | `create-pull-request` | Reads reviewed `test-improvement` issues and opens at most one test-only pull request. |
+
+The one-hour offset lets Testify create issues before the Improver evaluates them. The issue label and issue-body format are the contract between the workflows.
+
+## Build the pipeline
+
+1. Install [`gh aw`](https://github.com/github/gh-aw) if needed:
    ```bash
    curl -sL https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh | bash
    ```
 
-2. **Pull the production workflow**:
+2. Add the Testify workflow:
    ```bash
    gh aw add-wizard https://github.com/github/gh-aw/blob/main/.github/workflows/daily-testify-uber-super-expert.md
    ```
 
-3. **Read the prompt body carefully** — notice how the "uber expert" persona is established. This is the key technique: writing a rich, opinionated system prompt inside the workflow body.
+3. Adapt Testify to the repository:
+   - Define the test framework, test directories, quality standards, and relevant anti-patterns.
+   - Require every issue to name the file, function or test, exact gap, and a one-sentence fix suggestion.
+   - Apply the `test-improvement` label and limit the workflow to three issues per run.
+   - Keep `safe-outputs: create-issue`; it must not create pull requests.
 
-4. **Customise** the expertise to match your test framework and language.
-
-5. **Compile**:
+4. Add the Test Improver workflow:
    ```bash
-   gh aw compile daily-testify-uber-super-expert
+   gh aw add-wizard https://github.com/githubnext/agentics/blob/main/workflows/daily-test-improver.md
    ```
 
-6. **Trigger manually** and examine the first issue it creates — is it actionable?
+5. Adapt Test Improver to the repository:
+   - Read open, reviewed issues labelled `test-improvement` before doing any general gap scan.
+   - Specify the test framework and supported assertion patterns.
+   - Restrict changes to test files; do not modify production source files.
+   - Open one pull request per run, with no more than three new test cases.
+   - Keep `safe-outputs: create-pull-request` and configure the pull-request reviewer.
 
-## Customize It
+6. Compile both workflows:
+   ```bash
+   gh aw compile daily-testify-uber-super-expert
+   gh aw compile daily-test-improver
+   ```
 
-- Replace the test framework reference with yours: jest, pytest, rspec, vitest, go test, etc.
-- Add repo-specific context to the expert persona: _"This repo uses integration tests extensively; unit test coverage below service boundaries is low"_
-- Adjust what counts as "an improvement worth raising": _"Only create an issue if it covers: a missing edge case, an untested error path, or a test that passes for the wrong reason"_
-- Set the issue template: label `testing`, assign to a test owner, add to a project board
+7. Run Testify manually. Review one created issue before allowing the Improver to consume it.
 
-## Success Criteria
+8. Dry-run Test Improver:
+   ```bash
+   gh aw run daily-test-improver --dry-run
+   ```
+   Confirm that the proposed test is valid for the repository's framework and actually proves behavior rather than merely raising coverage.
 
-- [ ] `.github/workflows/daily-testify-uber-super-expert.md` exists with valid frontmatter
-- [ ] `schedule: cron` trigger is set
-- [ ] Expert persona is established in the body (specific, not generic)
-- [ ] `safe-outputs: create-issue` is declared — **no** `create-pull-request` here
-- [ ] `.lock.yml` compiles without errors
-- [ ] Manually triggered run creates at least one actionable issue
-- [ ] Issue body is specific: names a file, a function, or a concrete gap — not "add more tests"
-- [ ] Coach conversation — what does good test quality really mean for one codebase you own, and which of those judgments would you encode into an agent that files daily testing issues? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+## Expected workflow contracts
 
+### Daily Testify
+
+```markdown
 ---
+on:
+  schedule:
+    - cron: "0 9 * * *"
+  workflow_dispatch: {}
 
-<details>
-<summary>💡 Hints</summary>
+permissions:
+  issues: write
+  contents: read
 
-**"What makes a good 'uber expert' persona?"**
-→ Specificity. Don't write "you are a testing expert". Write: "You are an expert in Node.js testing with Jest. You know that `describe` nesting beyond 3 levels is a smell, that `expect.assertions(n)` prevents silent passes in async tests, and that snapshot tests without meaningful expectations are noise."
+safe-outputs:
+  create-issue: {}
 
-**"The issues it creates are too vague"**
-→ Add an output constraint: _"Each issue must name: 1) the file, 2) the function or test, 3) exactly what is missing or wrong, 4) a one-sentence fix suggestion."_
+engine: copilot
+---
+```
 
-**"How does this connect to Test Improver (4-06)?"**
-→ Test Improver watches for issues with a specific label (e.g., `test-improvement`) and turns them into PRs. Label your Testify issues consistently so the chain connects.
+The prompt must name the repository's test standards and require issues to use the `test-improvement` label. It must limit output to specific, actionable gaps.
 
-**"I don't have many tests yet"**
-→ That's fine — the agent will tell you _where_ tests are missing, which is useful signal even before the Test Improver acts.
+### Daily Test Improver
 
-**"Should I use create-pull-request instead?"**
-→ No. This is an intentional design: human review between analysis and action. The 100% merge rate comes from that review gate, not from skipping it.
+```markdown
+---
+on:
+  schedule:
+    - cron: "0 10 * * *"
+  workflow_dispatch: {}
 
-</details>
+permissions:
+  contents: write
+  pull-requests: write
+  issues: read
+
+safe-outputs:
+  create-pull-request: {}
+
+tools:
+  github:
+    toolsets: [issues]
+
+engine: copilot
+---
+```
+
+Its prompt must first select a reviewed `test-improvement` issue, write only the associated tests, and link the pull request to that issue. If no suitable issue exists, it may identify one bounded coverage gap; it must still open no more than one pull request.
+
+## Success criteria
+
+- [ ] Both workflow files have valid frontmatter and compile successfully.
+- [ ] Testify uses `create-issue` only, creates no more than three issues per run, and labels them `test-improvement`.
+- [ ] Each Testify issue identifies a real file, function or test gap, and an actionable fix.
+- [ ] Test Improver runs after Testify, reads the reviewed issue, and uses `create-pull-request`.
+- [ ] Test Improver changes tests only, opens at most one focused pull request, and links it to the issue.
+- [ ] The proposed test is syntactically valid and demonstrates behavior, an error path, or an edge case.
+- [ ] A named maintainer reviews both the issue and the pull request before adoption.
+
+## Common blockers
+
+| Symptom | Fix |
+|---|---|
+| Testify produces vague issues | Require the exact file, function, gap, and proposed test behavior in every issue. |
+| Too many issues or pull requests | Limit Testify to three issues and Test Improver to one pull request per run. |
+| Test Improver changes application code | State that it may modify only the configured test directories. |
+| Generated tests pass trivially | Require a concrete expected value, side effect, error condition, or edge case. |
+| The Improver cannot act on an issue | Improve the Testify issue contract before rerunning the pipeline. |
 

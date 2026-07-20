@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: By the end of this activity you can build a real CI pipeline with GitHub Actions — triggers, jobs, a build matrix, dependency caching, artifacts, environments, and a required status check that gates merges — using an org and an org-owner token.
+description: "Implement an authorized customer CI pipeline with GitHub Actions: triggers, jobs, a build matrix, dependency caching, artifacts, environments, and a required status check that gates merges. Preserve the workflow evidence, accountable owner, and rollout decision."
 success_criteria:
 - '`.github/workflows/ci.yml` triggers on **push and pull_request** and runs lint + test + build as distinct steps.'
 - 'A **matrix** runs across ≥3 Node versions with `fail-fast: false`.'
@@ -20,6 +20,7 @@ success_criteria:
 - A second job uses **`needs`** and a **conditional** so it only runs on `main`.
 - An **environment** `staging` exists with a protection rule and a variable + secret wired into a job.
 - The **`build-test` check is required** on `main`; a red run **blocks merge**, a green run unblocks it.
+- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - github-actions
 - ci

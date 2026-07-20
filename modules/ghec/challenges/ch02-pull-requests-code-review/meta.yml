@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: By the end of this activity you can drive a professional pull-request lifecycle — feature branches, reviews, `CODEOWNERS`, required reviewers, merge-conflict resolution, and the three merge strategies — entirely from an org-owner token.
+description: "Implement an authorized customer pull-request governance baseline: feature branches, reviews, `CODEOWNERS`, required reviewers, merge-conflict resolution, and chosen merge strategies. Preserve the policy evidence, accountable owner, and rollout decision."
 success_criteria:
 - At least **three pull requests** were opened against `main` (CLI or UI), one started as a **draft**.
 - A review contains **line comments, a thread, and a `suggestion` block**; at least one PR shows a **request-changes → fix → resolve** cycle.
@@ -20,6 +20,7 @@ success_criteria:
 - A **merge conflict was resolved** and that branch merged cleanly afterward.
 - '**All three merge strategies are enabled** and each was used at least once (verifiable from commit history).'
 - '`docs/merge-strategy.md` documents the chosen default.'
+- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - pull-requests
 - code-review

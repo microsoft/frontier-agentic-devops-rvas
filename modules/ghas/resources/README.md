@@ -14,6 +14,7 @@ now vendored here so that repository can be retired.
 | `github/workflows/codeql.yml` | CodeQL Analysis workflow — runs on push, PR, schedule, and manually. Scans JavaScript/TypeScript (Juice Shop's languages). |
 | `github/codeql/codeql-config.yml` | CodeQL config — excludes compiled output (`app/build/`), source maps, test fixtures, and vendored JS to avoid parse errors and duplicate findings. |
 | `github/dependabot.yml` | Dependabot config — weekly npm + GitHub Actions dependency checks, groups minor/patch updates, limits open PRs to 10. |
+| `ghas-governance-practice.template.md` | Progressive customer-safe template for the GHAS baseline, security-debt inventory, prevention patterns, response decisions, and operating cadence. |
 
 ## How to apply
 

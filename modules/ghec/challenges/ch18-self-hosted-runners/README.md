@@ -1,6 +1,6 @@
 # Ch18 — Self-Hosted & Larger Runners
 
-> By the end of this activity you can register, harden, and target a self-hosted runner through an **organization runner group**, route jobs to it with labels, and reason about scaling and isolation — all from an org and an org-owner token.
+> Deliver a hardened, scoped self-hosted runner capability with organisation runner groups, label routing, and an operating model.
 
 | | |
 |---|---|
@@ -11,15 +11,24 @@
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes |
 
+## Customer delivery target
+
+- **Customer objective:** provide a secure, supportable runner capability for a customer workload that requires it.
+- **Customer-tenant target:** an approved organisation runner group, selected repositories, runner-host design, workflow labels, and hardening controls.
+- **Approval and safety boundary:** register and expose runners in the customer tenant only with platform/security-owner approval and an agreed host risk model; otherwise use a disposable controlled proving ground and leave an approved rollout proposal.
+- **Enduring evidence:** retain runner-group scope, host hardening checklist, workflow evidence, egress decision, and runner-type decision matrix.
+- **Adoption owner / handover:** the customer platform owner accepts host operations; repository owners accept runner use and fork-PR boundaries.
+- **Accountable next action:** authorise the approved runner rollout or assign the owner and date for the risk-approved proposal.
+
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch18 --org <org>` (least-privilege; for this activity: `repo` + `admin:org` for runner-group + runner management).
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
-- A **machine to host the runner** — your laptop, a VM, or a throwaway container. Linux/macOS/Windows all work; a disposable VM is recommended so you can practice hardening and tear it down cleanly.
+- A **machine to host the runner** — your laptop, a VM, or a throwaway container. Linux/macOS/Windows all work; a disposable VM is recommended for controlled hardening validation and clean teardown.
 - **Org-scoped framing:** this activity configures runners at the **org** level (org runner group). **Enterprise runner groups** are covered as *awareness* only — no enterprise owner required to complete it.
 
-## Scenario objectives
-By completing this activity you will:
+## Customer delivery objectives
+This delivery engagement establishes:
 - Register a **self-hosted runner** at the **org** level and bring it online.
 - Organize runners with a **runner group** and control **which repos** may use it.
 - **Target** the runner from a workflow with `runs-on` **labels** (custom + default).
@@ -32,14 +41,14 @@ A GHEC customer needs CI on hardware GitHub doesn't host — a GPU box, a licens
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
-> This activity is most valuable when the result *outlives the delivery session*. Pick a real CI job or repository that needs a self-hosted runner because of network, hardware, compliance, or cost and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> Default to an authorised customer CI job or repository that needs a self-hosted runner for network, hardware, compliance, or cost reasons. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch18-self-hosted-runners`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded sample repo with runner workflows to validate safely.
 >
-> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+> Record the selected target, customer platform and security owners, risk decision, and accountable next action. The sample is only a controlled proving ground; move the validated runner design to an approved customer tenant.
 
-## Setup (fallback sample)
+## Controlled proving ground (when tenant delivery is constrained)
 Skip this if you brought your own runner target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -97,11 +106,11 @@ You are done when ALL of the following are true:
 - [ ] The runner runs under a **least-privilege account** and you demonstrated an **ephemeral** registration.
 - [ ] You documented the **fork-PR risk** and a **GitHub-hosted vs larger vs self-hosted** decision matrix, plus the **org-vs-enterprise runner group** note.
 - [ ] Real-outcome check — if you brought your own runner target, a real CI job now has a clearer self-hosted-runner path; if you used the sample, you can name the constrained job you will move next.
-- [ ] Coach conversation — what build or test job in your current CI pipeline is bottlenecked on GitHub-hosted runner constraints (network, hardware, compliance, cost), and what would a self-hosted runner in your own infrastructure unlock for that job? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] **Adoption handover** — record the customer platform owner, constrained job, host risk decision, and next approved runner action.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 
-## Stretch goals
+## Operational extensions
 - Install the runner as a **systemd/service** with the ephemeral flag and a wrapper that re-registers after each job.
 - Add a **labels-only** second runner and use `runs-on` matrix to fan a job across both.
 - Write a tiny **controller sketch** (pseudo-code) that watches the org's queued jobs and registers JIT runners on demand.

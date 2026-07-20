@@ -13,7 +13,7 @@ prerequisite_capabilities:
 - 'For TFVC: an Azure DevOps organization with Azure Repos access'
 - 'For Perforce: git-p4 and access to a Perforce depot'
 - GitHub CLI installed and authenticated
-description: Convert source and history from legacy version-control systems into Git repositories and push them to GitHub with author mapping, size-limit planning, and cutover evidence.
+description: "Execute an authorized legacy-VCS conversion pilot into Git repositories and GitHub with author mapping, size-limit planning, customer-owned validation evidence, accountable ownership, handover, and the cutover decision."
 success_criteria:
 - 'An SVN repository''s trunk, branches, and tags history was converted to Git with an authors map and pushed to GitHub, or the exact source-specific blocker was documented.'
 - 'A Mercurial repository was converted through hg-fast-export with an author map and pushed to GitHub with history intact, or the exact source-specific blocker was documented.'
@@ -22,6 +22,7 @@ success_criteria:
 - 'Author identities in converted commits resolve to real names and email addresses instead of unknown or raw source usernames.'
 - 'Large-file and large-push risks were checked, including 100 MiB file blocks, Git LFS candidates, and the 2 GiB single-push limit.'
 - 'At least one converted repository exists in GitHub with branches and tags visible and expected commit history preserved.'
+- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - migration
 - legacy-vcs

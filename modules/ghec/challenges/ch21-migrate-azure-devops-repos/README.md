@@ -1,6 +1,6 @@
 # Ch21 — Migrate Azure DevOps Repos with GitHub Enterprise Importer
 
-> By the end of this activity you can inventory, queue, run, validate, and clean up a real Azure DevOps Services Git repository migration into GitHub Enterprise Cloud using `gh ado2gh`.
+> Deliver an approved Azure DevOps Services Git migration into GitHub Enterprise Cloud using `gh ado2gh`: inventory, queue, execute, validate, and close out the cutover evidence.
 
 | | |
 |---|---|
@@ -11,9 +11,18 @@
 | **App** | None |
 | **EMU compatible** | yes |
 
+## Customer delivery target
+
+- **Customer objective:** complete a controlled Azure DevOps-to-GitHub cutover that the customer can operate.
+- **Customer-tenant target:** an approved customer pilot repository, destination organisation, migration queue/cutover plan, and follow-up backlog.
+- **Approval and safety boundary:** migrate customer repositories only in an approved change window with source-write freeze and named owners; otherwise queue-only validation must end with an approved cutover proposal, risk decision, and next action.
+- **Enduring evidence:** retain inventory, migration ID/logs, validation results, mannequin plan, cutover checklist, and gap backlog.
+- **Adoption owner / handover:** the customer migration owner accepts cutover accountability; repository and Boards/Pipelines owners accept their follow-ups.
+- **Accountable next action:** approve the pilot cutover or assign the named owner and date for the documented migration decision.
+
 ## Prerequisites
 
-**Activities:** _(none — this activity is self-contained)_
+**Dependencies:** none — this guide is self-contained.
 
 **Access and tools you need:**
 - GitHub Enterprise Cloud organization with **org-owner** rights.
@@ -23,9 +32,9 @@
 - An Azure DevOps PAT with `work item (read)`, `code (read)`, and `identity (read)` scopes. Use **Full access** if you need `inventory-report` to work across all projects.
 - If your GitHub org enforces SAML SSO, authorize the GitHub PAT for SSO before running migrations.
 
-## Scenario objectives
+## Customer delivery objectives
 
-By completing this activity you will:
+This delivery engagement establishes:
 - Install and verify the GitHub Enterprise Importer Azure DevOps extension.
 - Create and store the required `GH_PAT` and `ADO_PAT` environment variables safely.
 - Produce an Azure DevOps repository inventory and choose a realistic pilot repo based on PR count.
@@ -37,7 +46,7 @@ By completing this activity you will:
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> Pick a repository that belongs to a real team and has at least one pull request. A small pilot repo is better than a huge monorepo: migration timing is driven mainly by **pull request count**, not Git repository size.
+> Default to an approved customer repository that belongs to a real team and has at least one pull request. A small pilot repository is better than a huge monorepo: migration timing is driven mainly by **pull request count**, not Git repository size.
 >
 > Record these values before you start:
 >
@@ -266,9 +275,9 @@ You are done when ALL of the following are true:
 - [ ] Migration logs were downloaded within 24 hours or the download command and migration ID are documented.
 - [ ] At least one mannequin was reclaimed, or `mannequins.csv` and an org-owner reclaim plan exist.
 - [ ] A TFVC repo, if present, was correctly identified as unsupported and the TFVC-to-Git conversion path was documented.
-- [ ] Coach conversation — name the real repository, owning team, cutover window, and follow-up backlog for Boards, Pipelines, LFS, permissions, and branch policies.
+- [ ] **Adoption handover** — record the real repository, owning team, approved cutover window, and follow-up backlog for Boards, Pipelines, LFS, permissions, and branch policies.
 
-## Stretch goals
+## Operational extensions
 
 - Run a second migration without `--queue-only` and compare operational control versus direct execution.
 - Create a cutover checklist that freezes source writes because GEI does not perform delta migrations.

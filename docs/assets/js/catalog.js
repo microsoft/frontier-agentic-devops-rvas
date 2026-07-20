@@ -207,7 +207,7 @@
     if (countEl) countEl.textContent = items.length + ' activit' + (items.length === 1 ? 'y' : 'ies');
 
     if (!items.length) {
-      grid.innerHTML = '<div class="no-results">No activities match those filters. <button class="btn btn-ghost btn-sm" id="inlineClrBtn" type="button">Clear filters</button></div>';
+      grid.innerHTML = '<div class="no-results">No work packages match those filters. <button class="btn btn-ghost btn-sm" id="inlineClrBtn" type="button">Clear filters</button></div>';
       const b = document.getElementById('inlineClrBtn');
       if (b) b.addEventListener('click', () => document.getElementById('clearBtn')?.click());
       return;

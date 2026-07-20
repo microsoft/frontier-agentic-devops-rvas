@@ -1,6 +1,6 @@
 # Ch04 — GitHub Actions CI Fundamentals
 
-> By the end of this activity you can build a real CI pipeline with GitHub Actions — triggers, jobs, a build matrix, dependency caching, artifacts, environments, and a required status check that gates merges — using an org and an org-owner token.
+> Deliver a GitHub Actions CI pipeline with triggers, a build matrix, caching, artifacts, environments, and a required merge gate.
 
 | | |
 |---|---|
@@ -11,14 +11,23 @@
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes |
 
+## Customer delivery target
+
+- **Customer objective:** establish an enforceable CI signal for customer delivery work.
+- **Customer-tenant target:** an approved repository’s Actions workflow, environment, artifacts, and required check.
+- **Approval and safety boundary:** make workflows, secrets, environments, and merge-gate changes in the customer tenant when authorised; otherwise validate the design in the seeded repository.
+- **Enduring evidence:** retain the workflow, successful and failing run evidence, artifact, and required-check decision.
+- **Adoption owner / handover:** the repository maintainer owns the workflow and the platform owner owns its guardrail posture.
+- **Accountable next action:** approve the next repository’s CI rollout or hand over the validated implementation plan.
+
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch04 --org <org>` (least-privilege; for this activity: `repo` + `workflow`).
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
 - **Cost note:** Actions on GitHub-hosted runners consumes **Actions minutes** (free tier on public repos; metered on private). `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns. Keep matrices small.
 
-## Scenario objectives
-By completing this activity you will:
+## Customer delivery objectives
+This delivery engagement establishes:
 - Write a **workflow** from scratch: `on` triggers, `jobs`, `steps`, and `runs-on`.
 - Run tests across a **build matrix** (multiple Node versions / OSes).
 - Speed up runs with **dependency caching** (`actions/cache` or `setup-node` cache).
@@ -33,14 +42,14 @@ A GHEC customer's team merges first and finds out it's broken later — there's 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This activity is most valuable when the result *outlives the delivery session*. Pick a real repository with a build, test, or validation step that should run automatically and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> Default to an authorised customer repository with a build, test, or validation step that should run automatically. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch04-actions-ci-fundamentals`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded sample repo with code ready for a first CI workflow.
 >
-> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+> Record the selected target, customer adoption owner, and accountable next action. The sample is only a controlled proving ground; move the validated configuration to an approved customer target.
 
-## Setup (fallback sample)
+## Controlled proving ground (when tenant delivery is constrained)
 Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -95,11 +104,11 @@ You are done when ALL of the following are true:
 - [ ] An **environment** `staging` exists with a protection rule and a variable + secret wired into a job.
 - [ ] The **`build-test` check is required** on `main`; a red run **blocks merge**, a green run unblocks it.
 - [ ] Real-outcome check — if you brought your own repo, CI now runs against a real build or test path; if you used the sample, you can name the workflow you will automate next.
-- [ ] Coach conversation — pick one test suite or build process from your actual work that runs manually or inconsistently: what would an always-on, branch-triggered Actions workflow catch in the next two weeks that human discipline alone has missed? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] **Adoption handover** — name the customer test or build process, workflow owner, required gate, and next approved rollout action.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 
-## Stretch goals
+## Operational extensions
 - Extract the test job into a **reusable workflow** (`workflow_call`) and call it from `ci.yml`.
 - Add a **concurrency** group so superseded runs on the same branch cancel automatically.
 - Add **OIDC**-based cloud auth (no long-lived secret) to a deploy job (document, even if the cloud side is mocked).

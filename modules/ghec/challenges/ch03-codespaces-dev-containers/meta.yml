@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: By the end of this activity you can define a reproducible cloud dev environment with `devcontainer.json`, launch and customize Codespaces, forward ports, configure org-level Codespaces policy, and speed everything up with prebuilds — all from an org and an org-owner token.
+description: "Implement an authorized customer reproducible development environment with `devcontainer.json`, Codespaces, port forwarding, organization-level Codespaces policy, and prebuilds. Preserve the configuration, operating owner, cost controls, and rollout decision."
 success_criteria:
 - '`.devcontainer/devcontainer.json` exists, **pins a base image**, includes **≥2 Features**, and sets `postCreateCommand` + `postStartCommand`.'
 - A Codespace was launched from **both** the UI and the CLI (`gh codespace list` showed it).
@@ -21,6 +21,7 @@ success_criteria:
 - An **org Codespaces policy** restricts machine types and sets retention.
 - A **prebuild** is configured and a new Codespace reports **prebuilt**.
 - All your Codespaces are **stopped/deleted** at the end.
+- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - codespaces
 - devcontainers

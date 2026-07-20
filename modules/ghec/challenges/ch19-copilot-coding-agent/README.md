@@ -1,6 +1,6 @@
 # Ch19 — Copilot Cloud Agent
 
-> By the end of this activity you can delegate a real bug to the GitHub Copilot cloud agent — assign it an issue, watch it open a draft pull request, and review, steer, and merge its work — on a small seeded repo using an org and an org-owner token.
+> Deliver a governed Copilot cloud-agent flow: assign an approved issue, review and steer its draft pull request, then merge through customer controls.
 
 | | |
 |---|---|
@@ -11,6 +11,15 @@
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | **no** — the Copilot cloud agent is **not available on EMU-owned repositories**. Requires a **non-EMU enterprise** with the **Copilot cloud agent policy enabled**. **N/A for pure GHEMU customers** (see Prerequisites). |
 
+## Customer delivery target
+
+- **Customer objective:** establish a governed, reviewable use of Copilot cloud agent for a customer backlog.
+- **Customer-tenant target:** an approved eligible customer repository, Copilot policy, candidate issue, review gates, and operating guidance.
+- **Approval and safety boundary:** enable policy, grant bypasses, and assign customer issues only when the accountable Copilot, security, and repository owners approve; otherwise use the seeded repository as a controlled proving ground and leave an approved enablement proposal.
+- **Enduring evidence:** retain the policy decision, issue/PR/session evidence, review-gate design, and `AGENT-NOTES.md`.
+- **Adoption owner / handover:** the customer Copilot owner accepts policy and usage boundaries; the repository owner accepts review and merge responsibility.
+- **Accountable next action:** approve the first customer issue assignment or hand over the eligibility, risk, and rollout decision package.
+
 ## Prerequisites
 > ⚠️ **Read this before starting — this activity has a hard prerequisite the others don't.**
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -20,8 +29,8 @@
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
 - **Note on limits:** agent sessions are capped (~59 min) and run in an ephemeral Actions environment, consuming Actions minutes + Copilot premium requests.
 
-## Scenario objectives
-By completing this activity you will:
+## Customer delivery objectives
+This delivery engagement establishes:
 - Confirm the **Copilot cloud agent** is enabled and the repo is **eligible** (non-EMU).
 - **Assign an issue to Copilot** and trigger an autonomous agent session.
 - Read the agent's **draft pull request** and follow its **session log** as it works.
@@ -30,18 +39,18 @@ By completing this activity you will:
 - Add **Copilot as a ruleset bypass actor** where branch protections would otherwise block its PR flow.
 
 ## Scenario
-A GHEC customer has a backlog of small, well-scoped bugs that never reach the top of anyone's list. Instead of letting them rot, they want to hand the clear ones to the Copilot cloud agent and have engineers review the results. You'll do exactly that on a small seeded repo with a known bug: write a crisp issue, assign it to Copilot, watch it open a draft PR and work in an ephemeral environment, then review and steer it to a correct, merged fix. You'll learn where the agent shines (small, bounded changes) and where human review stays essential.
+A GHEC customer has a backlog of small, well-scoped bugs that never reach the top of anyone's list. Instead of letting them rot, they want to hand the clear ones to the Copilot cloud agent and have engineers review the results. Validate the flow on a small seeded repo with a known bug: write a crisp issue, assign it to Copilot, inspect its draft PR and ephemeral-environment work, then review and steer it to a correct, merged fix. The evidence defines where the agent fits (small, bounded changes) and where human review remains essential.
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
-> This activity is most valuable when the result *outlives the delivery session*. Pick a real repository issue that the Copilot coding agent could safely attempt with review gates and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> Default to an authorised customer repository issue that Copilot cloud agent can safely attempt with review gates. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch19-copilot-coding-agent`. Skip the Setup step below entirely.
-> - **No suitable one?** Use the fallback below: a seeded sample repo and issues for coding-agent practice.
+> - **No suitable one?** Use the fallback below: a seeded sample repo and issues for controlled coding-agent validation.
 >
-> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+> Record the selected target, customer Copilot and repository owners, risk decision, and accountable next action. The sample is only a controlled proving ground; move the validated operating model to an approved customer tenant.
 
-## Setup (fallback sample)
+## Controlled proving ground (when tenant delivery is constrained)
 Skip this if you brought your own repo/issue. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -90,7 +99,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch19 --org <org>
 14. **Confirm the fix landed.** On `main`, confirm the test suite is green and the issue auto-closed via the PR link.
 
 ### Part F — Reflect (write-up)
-15. **Capture the boundary.** In `docs/AGENT-NOTES.md`, write a short reflection: what the agent did well, where human review was essential, and which kinds of issues you'd delegate vs not.
+15. **Capture the operating boundary.** In `docs/AGENT-NOTES.md`, record what the agent did well, where human review was essential, and which issue types are approved for delegation.
 
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
@@ -99,13 +108,13 @@ You are done when ALL of the following are true:
 - [ ] You read the agent's **session log** and **reviewed its diff** against the acceptance criteria.
 - [ ] You **steered the agent** with at least one review comment and it pushed **new commits** in response.
 - [ ] The **failing test is green** in the PR and the PR was **approved and merged** to `main`.
-- [ ] You captured a short **reflection** on where the agent fits (and where human review stays essential).
+- [ ] `AGENT-NOTES.md` records where the agent fits and where human review remains essential.
 - [ ] Real-outcome check — if you brought your own repo issue, the Copilot coding agent now has a real candidate task and review gate; if you used the sample, you can name the issue class you will try next.
-- [ ] Coach conversation — which class of GitHub issues in your repos is well-defined enough that the Copilot coding agent could handle it unsupervised, and what review gate would you trust before merging its PR? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] **Adoption handover** — record the customer Copilot and repository owners, approved issue class, review gate, and next action.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 
-## Stretch goals
+## Operational extensions
 - Hand the agent a **second, slightly larger** issue and observe how it scopes a bigger change.
 - Add a **required ruleset** and walk the full **Copilot-as-bypass-actor** configuration end to end.
 - Write the issue so well the agent needs **zero** follow-up — measure how much prompt quality reduces iteration.

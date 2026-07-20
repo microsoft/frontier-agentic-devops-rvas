@@ -1,6 +1,6 @@
 # Ch17 — Webhooks & GitHub Apps
 
-> By the end of this activity you can receive GitHub events over webhooks, verify their payloads cryptographically, and register and install a minimal GitHub App that authenticates as an installation — all from an org and an org-owner token.
+> Deliver a secure customer event integration with verified webhooks and a least-privilege GitHub App installation.
 
 | | |
 |---|---|
@@ -11,14 +11,23 @@
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes |
 
+## Customer delivery target
+
+- **Customer objective:** deliver an approved, secure event integration that operates in the customer tenant.
+- **Customer-tenant target:** the customer webhook/App configuration, least-privilege permissions, receiver, and installation authentication path.
+- **Approval and safety boundary:** create webhooks, Apps, keys, and installations only with the accountable organisation owner’s approval; the seeded resources are a controlled proving ground for signature and permission validation.
+- **Enduring evidence:** retain the App registration details, permission/event matrix, signature-validation evidence, installation scope, and key-handling runbook.
+- **Adoption owner / handover:** the customer integration owner accepts credential rotation, receiver operations, and App permissions.
+- **Accountable next action:** approve the customer App installation or hand over the validated integration package and decision owner.
+
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch17 --org <org>` (least-privilege; for this activity: `repo` + `admin:org_hook` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq`, plus `openssl` (for HMAC verification). Node or Python for the receiver is optional — an Actions-based receiver works too.
 - A way to receive a public callback: a [`smee.io`](https://smee.io) channel (no install/account) **or** the Actions-based `repository_dispatch` receiver this activity seeds. Both paths are documented below.
 
-## Scenario objectives
-By completing this activity you will:
+## Customer delivery objectives
+This delivery engagement establishes:
 - Configure a **repository webhook** and an **organization webhook**, choosing events deliberately.
 - Read a **delivery payload** and the `X-GitHub-Event` / `X-GitHub-Delivery` headers.
 - **Verify payloads** by computing the `X-Hub-Signature-256` HMAC-SHA256 with a shared secret.
@@ -27,18 +36,18 @@ By completing this activity you will:
 - Understand **webhooks vs Apps**: when a passive listener is enough vs when you need to act back as an identity.
 
 ## Scenario
-A GHEC customer wants to react to activity in real time — auto-acknowledge new issues, notify on pushes, kick off downstream jobs — without polling the API on a timer. You'll wire up webhooks so GitHub pushes events to a receiver you control, prove each delivery is authentic by verifying its signature, and then graduate from a passive listener to a real **GitHub App** that can authenticate and act back on the org. By the end you'll know exactly when a webhook is enough and when you need an App.
+A GHEC customer wants to react to activity in real time — auto-acknowledge new issues, notify on pushes, kick off downstream jobs — without polling the API on a timer. Configure webhooks so GitHub pushes events to a controlled receiver, prove each delivery is authentic by verifying its signature, then use a **GitHub App** when the integration must authenticate and act back on the organisation.
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
-> This activity is most valuable when the result *outlives the delivery session*. Pick a real integration target where a GitHub event should update another system and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> Default to an authorised customer integration target where a GitHub event should update another system. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch17-webhooks-github-apps`. Skip the Setup step below entirely.
-> - **No suitable one?** Use the fallback below: a seeded sample repo and app/webhook practice target.
+> - **No suitable one?** Use the fallback below: a seeded sample repo and App/webhook controlled-validation target.
 >
-> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+> Record the selected target, customer integration owner, and accountable next action. The sample is only a controlled proving ground; move the validated integration to an approved customer tenant.
 
-## Setup (fallback sample)
+## Controlled proving ground (when tenant delivery is constrained)
 Skip this if you brought your own integration target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -125,11 +134,11 @@ You are done when ALL of the following are true:
 - [ ] You minted an **installation access token** and the App **posted a comment as a bot identity**.
 - [ ] **Automated reaction** — opening a new issue makes the running handler post a context-aware acknowledgement **on its own**, authored by the bot, and a bad-signature delivery is rejected.
 - [ ] Real-outcome check — if you brought your own integration target, a real GitHub event now drives another system or workflow; if you used the sample, you can name the webhook/App integration you will build next.
-- [ ] Coach conversation — which external system in your workflow (Jira, Slack, PagerDuty, a deployment dashboard) is updated by hand after a GitHub event, and what webhook payload or GitHub App permission would let you wire it up automatically? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] **Adoption handover** — record the customer integration owner, target external system, required event and App permissions, and next approved action.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 
-## Stretch goals
+## Operational extensions
 - **Triage, don't just acknowledge:** in `onIssueOpened()`, also **label** the issue by content (e.g. `bug` vs `question`) and **assign** or `@`-mention an owner — remember the App needs the matching permission, and labeling fires `issues.labeled`, so keep guarding against self-triggering.
 - Add **delivery retry handling** — make the handler idempotent on `X-GitHub-Delivery` (and check for an existing bot comment) so a redelivery doesn't double-act.
 - Convert `app/auth.js` into a tiny **reusable signer** package you can drop into Ch20.

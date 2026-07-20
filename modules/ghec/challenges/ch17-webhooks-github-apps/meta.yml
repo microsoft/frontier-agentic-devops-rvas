@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: By the end of this activity you can receive GitHub events over webhooks, verify their payloads cryptographically, and register and install a minimal GitHub App that authenticates as an installation — all from an org and an org-owner token.
+description: "Implement an authorized customer webhook and GitHub App integration with cryptographic payload verification and installation authentication. Preserve the scoped permissions, operational ownership, handover evidence, and rollout decision."
 success_criteria:
 - A **repository webhook** delivers **Issues** and **Push** events to your receiver (shown in Recent Deliveries).
 - You can identify `X-GitHub-Event`, `X-GitHub-Delivery`, and `X-Hub-Signature-256` on a delivery.
@@ -19,6 +19,7 @@ success_criteria:
 - An **organization webhook** exists and a real org event was delivered and verified.
 - A **GitHub App** is registered with scoped permissions + event subscriptions and **installed** on the org.
 - You minted an **installation access token** and the App **posted a comment as a bot identity**.
+- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - webhooks
 - github-apps

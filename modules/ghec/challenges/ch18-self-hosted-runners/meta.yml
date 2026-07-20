@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: By the end of this activity you can register, harden, and target a self-hosted runner through an **organization runner group**, route jobs to it with labels, and reason about scaling and isolation — all from an org and an org-owner token.
+description: "Implement an authorized customer self-hosted runner through an organization runner group, with label routing, hardening, scaling, and isolation evidence. Preserve the risk controls, operational owner, and safe rollout decision."
 success_criteria:
 - An **org runner group** `ghec-ch18-group` exists, scoped to **selected repos** (only `ghec-ch18-self-hosted-runners`).
 - A **self-hosted runner** is registered to that group with custom **labels** and shows **Idle/online**.
@@ -19,6 +19,7 @@ success_criteria:
 - A **mis-labeled** job stays **queued**, proving label routing.
 - The runner runs under a **least-privilege account** and you demonstrated an **ephemeral** registration.
 - You documented the **fork-PR risk** and a **GitHub-hosted vs larger vs self-hosted** decision matrix, plus the **org-vs-enterprise runner group** note.
+- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - actions
 - self-hosted-runners

@@ -1,10 +1,10 @@
 # Fix XSS & Unsafe Output — Coach Guide
 
-> Audience: facilitators and coaches. Pair with the delivery team member `README.md`.
+> Audience: facilitators and coaches. Pair with the delivery team's `README.md`.
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the delivery team member to connect the work to a service and review practice they own.
 
 **Their question:** Coach conversation — which pages or components in your own application render user-supplied content back into the browser, and do you know for certain what encoding is applied before each one hits the DOM? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -15,33 +15,36 @@ Use these follow-ups to steer the conversation:
 
 ## Facilitation objectives
 - Reinforce that XSS fixes depend on output context, not generic sanitization slogans.
-- Help customer delivery team members trace full source-to-sink data flows across frontend and backend code.
-- Keep customer delivery team members validating that the UI still behaves normally after secure rendering changes.
+- Help delivery team members trace full source-to-sink data flows across frontend and backend code.
+- Keep delivery team members validating that the UI still behaves normally after secure rendering changes.
+- Facilitate a reusable prevention pattern record in `modules/ghas/resources/ghas-governance-practice.template.md`, including its named owner and the expectation for human- and agent-authored changes.
+- Identify the reviewers and recurrence control that will catch unsafe output handling in comparable rendering changes.
 
 ## Common delivery team member blockers
-- Customer delivery team members often stop at the alert location without understanding where the data originates; ask them to trace both ends of the flow.
+- Delivery team members often stop at the alert location without understanding where the data originates; ask them to trace both ends of the flow.
 - Some try input filtering alone; remind them the preferred fix is safe rendering or context-appropriate encoding.
 - Security fixes can accidentally break page rendering; have them test the affected UI path after each change.
+- Copilot Autofix or assistance may be helpful but incomplete; coach the team to treat it as proposed work and review it through existing PR and GHAS controls.
 
 ## Facilitation hints
 - Ask whether the unsafe sink is HTML body, attribute, URL, or script context before suggesting a fix.
-- Encourage customer delivery team members to use framework defaults where possible instead of hand-rolling escaping logic.
+- Encourage delivery team members to use framework defaults where possible instead of hand-rolling escaping logic.
 - Have them describe reflected versus stored XSS in their own words before they open the PR.
 - If the CodeQL annotation persists, check whether another nearby sink is still unencoded.
+- Ask who reviews future rendering changes, where the prevention record applies, and how the owner will keep that expectation visible for human- and agent-authored changes.
 
 ## Validation checklist
 Verify each success criterion from the customer delivery team guide:
-- [ ] At least 2 XSS vulnerabilities fixed
-- [ ] Fixes use output encoding or safe framework APIs — not input filtering alone
-- [ ] PR descriptions explain the data flow: source (user input), sink (HTML output), and encoding applied
-- [ ] PR CodeQL/code scanning checks reviewed, with no remaining annotations for the fixed patterns
-- [ ] Application still renders correctly after the fixes
+- [ ] A technically validated XSS fix uses context-appropriate output encoding or a safe framework API — not input filtering alone — confirms the application renders expected content, and retains PR/review evidence plus relevant GHAS validation.
+- [ ] A reusable prevention pattern record in `modules/ghas/resources/ghas-governance-practice.template.md` states the unsafe pattern/finding class, approved safe pattern, where it applies, PR/review evidence, relevant GHAS validation, named owner, and how the expectation applies to human- and agent-authored changes.
+- [ ] Two independently reviewed fixes are used as a practical evidence threshold; completion depends on both the technically validated fix and the reusable prevention pattern record, not the count alone.
+- [ ] Any Copilot Autofix or other Copilot assistance is treated as proposed work, reviewed by a human, and handled through existing PR and GHAS controls.
 
 ## Assessment rubric (100 pts)
 | Criterion | Points | What "full marks" looks like |
 |---|---:|---|
 | Vulnerable flow identified | 20 | Explains where untrusted data reaches HTML, Markdown, or client-side rendering. |
 | Correct remediation | 30 | Uses context-appropriate escaping, sanitization, or safe rendering primitives without breaking legitimate output. |
-| Coverage | 20 | Fixes the required XSS paths and checks adjacent rendering paths for the same mistake. |
-| Verification evidence | 15 | Demonstrates the malicious payload no longer executes and code scanning/PR checks agree. |
-| Grounding conversation | 15 | Connects XSS risk to a real user-facing surface and ownership path. |
+| Recurrence controls | 20 | Uses two fixes as practical evidence, checks adjacent rendering paths, and identifies the reviewers who will catch the pattern in future changes. |
+| Evidence and governance record | 15 | Retains PR/review and relevant GHAS validation, and completes the shared prevention pattern record with an owner and human-/agent-authored expectation. |
+| Grounding conversation | 15 | Connects XSS risk and its prevention ownership to a real user-facing surface and review path. |

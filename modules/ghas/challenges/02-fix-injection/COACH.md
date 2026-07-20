@@ -1,10 +1,10 @@
 # Fix Injection Vulnerabilities — Coach Guide
 
-> Audience: facilitators and coaches. Pair with the delivery team member `README.md`.
+> Audience: facilitators and coaches. Pair with the delivery team's `README.md`.
 
 ## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+**Required coach check-in:** before completion, ask the delivery team member to connect the work to a service and review practice they own.
 
 **Their question:** Coach conversation — where in your own codebase is user-controlled input most likely reaching a database query without parameterization, and what data could an attacker extract or modify if they found that path before your team did? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
@@ -15,33 +15,35 @@ Use these follow-ups to steer the conversation:
 
 ## Facilitation objectives
 - Reinforce why parameterized queries and ORM-safe patterns are the real fix for injection flaws.
-- Help customer delivery team members distinguish between attacker-controlled input, query construction, and execution sinks.
-- Keep attention on verifying branch-level CodeQL results after the code change, not just editing until the app runs.
+- Help delivery team members distinguish between attacker-controlled input, query construction, and execution sinks.
+- Keep attention on technically validating the branch-level CodeQL results after the code change, not just editing until the app runs.
+- Facilitate a reusable prevention pattern record in `modules/ghas/resources/ghas-governance-practice.template.md`, including its named owner and the expectation for human- and agent-authored changes.
+- Identify the reviewers and recurrence control that will catch the unsafe query pattern in comparable changes.
 
 ## Common delivery team member blockers
-- Customer delivery team members may try input sanitization or regex filtering first; redirect them toward prepared statements or framework-supported parameter binding.
-- Some customer delivery team members fix one file but miss a parallel vulnerable path; ask them to search for the same unsafe query pattern elsewhere.
-- Autofix suggestions may be helpful but incomplete; coach them to review the patch, not accept it blindly.
+- Delivery team members may try input sanitization or regex filtering first; redirect them toward prepared statements or framework-supported parameter binding.
+- A team may fix one file but miss a parallel vulnerable path; ask them to search for the same unsafe query pattern elsewhere.
+- Copilot Autofix or assistance may be helpful but incomplete; coach the team to treat it as proposed work and review it through existing PR and GHAS controls.
 
 ## Facilitation hints
-- Ask customer delivery team members to point to the exact line where user input crosses into query construction.
+- Ask delivery team members to point to the exact line where user input crosses into query construction.
 - Encourage a small PR per fix if they are getting lost in multiple vulnerability paths.
 - Have them explain how the chosen API keeps data separate from code at execution time.
 - Remind them to inspect PR annotations after the scan completes, even if the local change looks correct.
+- Ask who reviews future query changes, where the prevention record applies, and how the owner will keep that expectation visible for human- and agent-authored changes.
 
 ## Validation checklist
 Verify each success criterion from the customer delivery team guide:
-- [ ] At least 2 injection vulnerabilities fixed in the code
-- [ ] Fixes use parameterized queries or equivalent safe patterns — not input sanitization alone
-- [ ] Pull requests to main opened with clear descriptions of the vulnerability and remediation
-- [ ] Copilot Autofix tried on at least one alert (click "Generate fix" in the Security tab)
-- [ ] PR CodeQL/code scanning checks reviewed, with no remaining annotations for the fixed patterns
+- [ ] A technically validated injection fix uses parameterized queries or an ORM-safe alternative — not input sanitization alone — confirms expected query behavior, and retains PR/review evidence plus relevant GHAS validation.
+- [ ] A reusable prevention pattern record in `modules/ghas/resources/ghas-governance-practice.template.md` states the unsafe pattern/finding class, approved safe pattern, where it applies, PR/review evidence, relevant GHAS validation, named owner, and how the expectation applies to human- and agent-authored changes.
+- [ ] Two independently reviewed fixes are used as a practical evidence threshold; completion depends on both the technically validated fix and the reusable prevention pattern record, not the count alone.
+- [ ] Any Copilot Autofix or other Copilot assistance is treated as proposed work, reviewed by a human, and handled through existing PR and GHAS controls.
 
 ## Assessment rubric (100 pts)
 | Criterion | Points | What "full marks" looks like |
 |---|---:|---|
 | Vulnerable flow identified | 20 | Points to the attacker-controlled input, query construction, and unsafe sink for each fixed alert. |
 | Correct remediation | 30 | Uses parameterized queries or equivalent safe APIs; does not rely on regex filtering or superficial sanitization. |
-| Coverage | 20 | Fixes the required injection paths and checks for sibling instances of the same pattern. |
-| Verification evidence | 15 | Reviews CodeQL/code scanning results on the PR and confirms the fixed patterns are no longer annotated. |
-| Grounding conversation | 15 | Connects injection risk to a real service, data type, and verification action. |
+| Recurrence controls | 20 | Uses two fixes as practical evidence, checks sibling instances, and identifies the reviewers who will catch the pattern in future changes. |
+| Evidence and governance record | 15 | Retains PR/review and relevant GHAS validation, and completes the shared prevention pattern record with an owner and human-/agent-authored expectation. |
+| Grounding conversation | 15 | Connects injection risk and its prevention ownership to a real service, data type, and verification action. |

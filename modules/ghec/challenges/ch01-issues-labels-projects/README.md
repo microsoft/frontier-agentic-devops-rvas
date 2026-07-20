@@ -1,6 +1,6 @@
 # Ch01 — Issues, Labels & Project Boards
 
-> By the end of this activity you can run a real piece of work end-to-end on GitHub — triaged with labels and milestones, tracked on a Projects (v2) board with custom fields, automated workflows, and an insight chart — using nothing but an org and an org-owner token.
+> Deliver a customer-owned work-management flow on GitHub: labels, milestones, a Projects (v2) board, automation, and an insight chart.
 
 | | |
 |---|---|
@@ -11,14 +11,23 @@
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes |
 
+## Customer delivery target
+
+- **Customer objective:** establish a durable, team-owned source of truth for delivery work.
+- **Customer-tenant target:** the customer repository’s issue forms, label taxonomy, milestones, and Projects (v2) board.
+- **Approval and safety boundary:** implement in the customer tenant when the product/repository owner authorises it; otherwise use the seeded repository only as a controlled proving ground.
+- **Enduring evidence:** retain the configured board, saved views, automation settings, and a triage operating note.
+- **Adoption owner / handover:** the backlog or engineering lead owns the board and receives the operating note.
+- **Accountable next action:** the owner selects the first live backlog and moves the configuration there after the proving-ground validation.
+
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch01 --org <org>` (least-privilege; for this activity: `repo` + `project` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - No GHAS, Codespaces, or enterprise features are required for this activity.
 
-## Scenario objectives
-By completing this activity you will:
+## Customer delivery objectives
+This delivery engagement establishes:
 - Create, triage, and close **issues** using templates (issue forms), assignees, and task lists.
 - Design a **label taxonomy** (type / priority / area / status) and apply it consistently.
 - Group work into **milestones** and track completion percentage.
@@ -31,14 +40,14 @@ You have just inherited the backlog for an internal developer-tools team at a GH
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This activity is most valuable when the result *outlives the delivery session*. Pick a real backlog, issue taxonomy, and Projects board your team will keep using and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> Default to an authorised customer backlog, taxonomy, and Projects board that the team will operate after delivery. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch01-issues-labels-projects` or `ghec-ch01-board`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded backlog repo and empty project board you can shape safely.
 >
-> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+> Record the selected target, customer adoption owner, and accountable next action. The sample is only a controlled proving ground; move the validated configuration to an approved customer target.
 
-## Setup (fallback sample)
+## Controlled proving ground (when tenant delivery is constrained)
 Skip this if you brought your own repo or project board. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -113,11 +122,11 @@ You are done when ALL of the following are true:
 - [ ] A **built-in workflow** is enabled and demonstrably moved a closed issue to `Done`.
 - [ ] An **Insights chart** grouped by `Priority` is saved on the project.
 - [ ] Real-outcome check — if you brought your own backlog, the labels, milestones, and project views now live where your team can keep using them; if you used the sample, you can name the real backlog or board you will migrate next.
-- [ ] Coach conversation — what real work item or backlog from your team would you model differently now that you understand GitHub's label taxonomy and Projects v2 automation, and what field or view are you missing today? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] **Adoption handover** — name the customer backlog owner, the first work item or backlog to adopt, and the missing taxonomy, field, or view to address.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 
-## Stretch goals
+## Operational extensions
 - Add a **third issue form** for "incident" with a required severity dropdown, and a `status: blocked` label that comments on the issue when applied.
 - Use the **GraphQL API** to bulk-set the `Estimate` field on every project item in a single scripted pass (`gh api graphql -f query=…`).
 - Add a project automation that **auto-archives** `Done` items older than 14 days.

@@ -1,25 +1,27 @@
-# Ch25 — Migrate from GitLab to GitHub — Coach Guide
+# Ch25 — Migrate from GitLab to GitHub — Delivery Assurance Guide
+> **Customer authorization and rollout boundary:** Apply changes in a customer-owned tenant or repository only after the named customer owner authorizes the scope. A sample or safe fallback is a controlled proving ground, not the destination: record its evidence, risks and controls, accountable owner, handover, and the explicit tenant adoption, cutover, or rollout decision.
 
-> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
+
+> Audience: delivery assurance leads and authorized customer implementation owners. Pair with the corresponding customer implementation `README.md`.
 
 ## Intent
 
-Customer delivery team members practice the accurate self-serve GitLab-to-GitHub path: Git source and history through `git clone --bare` plus `git push --mirror`, followed by GitLab CI conversion through GitHub Actions Importer. The key teaching point is fidelity: GitLab is not a self-serve GEI source, so Merge Requests, issues, and other metadata require GitHub Expert Services.
+Deliver the accurate self-serve GitLab-to-GitHub path: Git source and history through `git clone --bare` plus `git push --mirror`, followed by GitLab CI conversion through GitHub Actions Importer. The critical customer decision is fidelity: GitLab is not a self-serve GEI source, so Merge Requests, issues, and other metadata require GitHub Expert Services.
 
 ## Timing (reference)
 
 | Phase | Duration |
 |---|---:|
-| Framing, prerequisites, and target repo creation | ~25 min |
+| Authorized scope, prerequisites, and target repo creation | ~25 min |
 | Bare clone, mirror push, and ref validation | ~45 min |
 | Loss inventory and large-repo caveats | ~25 min |
 | Actions Importer audit, dry-run, and migrate | ~60 min |
-| Debrief and cutover-risk discussion | ~25 min |
+| Cutover-risk decision and handover | ~25 min |
 | **Total** | **~180 min** |
 
 ## Expected Outputs
 
-When a delivery team member completes this activity successfully, you should see:
+For delivery assurance, collect the following customer-owned evidence:
 
 - A GitHub repository containing the GitLab repository's migrated branches, tags, and commit history.
 - Evidence that commit authorship links correctly when GitLab commit emails are present on GitHub accounts.
@@ -31,7 +33,7 @@ When a delivery team member completes this activity successfully, you should see
 ## Common Pitfalls
 
 ### Expecting Merge Requests and issues to migrate
-**Symptom:** Delivery team member says GEI or `git push --mirror` migrated GitLab MRs, issues, labels, or milestones.
+**Symptom:** Customer implementation owner says GEI or `git push --mirror` migrated GitLab MRs, issues, labels, or milestones.
 **Fix:** Re-anchor on fidelity. The self-serve Git CLI path is source + history only. GitLab metadata migration to GHEC is GitHub Expert Services only.
 
 ### Commit authorship appears unattributed
@@ -52,21 +54,21 @@ When a delivery team member completes this activity successfully, you should see
 
 ### Actions Importer conversion is partial
 **Symptom:** Generated workflow contains TODOs, unsupported tasks, wrong runner labels, or missing secrets.
-**Fix:** Normalize expectations: Actions Importer targets about 80% automatic conversion. Customer delivery team members must review, test, and patch the workflow before production.
+**Fix:** Normalize expectations: Actions Importer targets about 80% automatic conversion. Customer implementation owners must review, test, and patch the workflow before an authorized rollout.
 
-## Progressive Hints
+## Implementation troubleshooting prompts
 
 1. **Gentle:** Ask what fidelity tier their command provides. Does `git push --mirror` know anything about GitLab Merge Requests or issues?
 2. **Medium:** Have them list refs with `git ls-remote --heads` and `git ls-remote --tags`, then compare that evidence to the missing metadata list.
 3. **Specific:** If the CI step stalls, run `gh actions-importer configure`, then repeat `audit gitlab`, `dry-run gitlab`, and `migrate gitlab` with `--source-file-path .gitlab-ci.yml` and a GitHub target URL.
 
-## Debrief Questions
+## Customer adoption decision
 
 - Which business requirement decides whether self-serve Git CLI is enough or Expert Services is required?
 - What user-communication step prevents surprises about missing MRs, issues, pipeline history, LFS, and packages after cutover?
 - How would you rehearse the final migration window so no GitLab commits land after the mirror push?
 - Which generated Actions workflow items must be manually validated before making the workflow a required check?
 
-## Grading Focus
+## Delivery assurance evidence
 
-Give full credit for accurate fidelity framing and observable evidence, not for a perfect production workflow. Customer delivery team members should leave able to say: "We migrated Git history self-serve; metadata did not move; CI was converted separately and needs review; full-fidelity GitLab migration requires Expert Services."
+Accept implementation readiness for accurate fidelity framing and observable evidence, not for a perfect production workflow. The customer owner should be able to state: "We migrated Git history self-serve; metadata did not move; CI was converted separately and needs review; full-fidelity GitLab migration requires Expert Services."

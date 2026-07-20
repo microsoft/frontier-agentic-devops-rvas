@@ -12,14 +12,19 @@ prerequisite_capabilities:
   - GitHub Copilot license assigned
   - Familiarity with Node.js environment variables and npm package management
   - Completed S01 (attack surface overview) recommended
-description: Remove hardcoded secrets from Juice Shop source code (replacing with environment variable references) and review critical Dependabot alerts; validate both through push protection and PR security checks.
+description: >
+  Respond to secret exposure and vulnerable dependencies in Juice Shop or a customer-owned
+  application: remove affected values from code, assess rotation or revocation, validate safe
+  replacement configuration, and record accountable remediation and time-bound exceptions
+  through GHAS checks.
 success_criteria:
-  - No hardcoded secrets, passwords, or credentials remain in source code files
-  - Secrets replaced with environment variable references (process.env.VARIABLE_NAME)
+  - Exposed secret removed from the affected code path, with revocation or rotation assessed and recorded
+  - Replacement configuration uses environment variable references (process.env.VARIABLE_NAME) and the application still starts and authenticates correctly
   - At least 2 high or critical Dependabot alerts reviewed and understood
   - Pull request checks and security annotations reviewed for branch changes
   - Secret scanning alerts relevant to changes addressed or explained
-  - Application still starts and authenticates correctly after secrets migration
+  - Shared governance practice records the response owner, dependency remediation route, and any approved exception with an expiry date
+  - Human- and agent-authored changes use the same push-protection, pull-request, and accountable-owner expectations
 tags:
   - ghas
   - secret-scanning

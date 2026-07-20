@@ -1,32 +1,34 @@
-# Ch16 — REST & GraphQL API Automation — Coach Guide
+# Ch16 — REST & GraphQL API Automation — Delivery Assurance Guide
 
-> Audience: facilitators and graders. Pair with the delivery team member `README.md`.
+> Audience: delivery assurance leads and authorized customer implementation owners. Pair with the corresponding customer implementation `README.md`.
+> **Customer authorization and rollout boundary:** Apply changes in a customer-owned tenant or repository only after the named customer owner authorizes the scope. A sample or safe fallback is a controlled proving ground, not the destination: record its evidence, risks and controls, accountable owner, handover, and the explicit tenant adoption, cutover, or rollout decision.
 
-## Grounding conversation (you will be called)
 
-**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+## Customer adoption decision
 
-**Their question:** Coach conversation — what manual GitHub task does someone on your team do by clicking through the UI every week that a twenty-line API script could eliminate, and what is the organizational cost (time, error rate, toil) of not automating it? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+**Required delivery assurance check:** before implementation is accepted, confirm the authorized tenant scope, implementation evidence, risk controls, accountable owner, handover, and next adoption action.
 
-> **Bring-your-own grading:** prefer customer delivery team members who ran this on a **real artifact they own** over the `ghec-ch16-rest-graphql-automation` sample. If they used the sample, confirm they can name the actual repo, team, project, or workflow they'll apply this to and any blockers. The lasting outcome is the goal; the sample is fallback.
+**Decision prompt:** what manual GitHub task does someone on your team do by clicking through the UI every week that a twenty-line API script could eliminate, and what is the organizational cost (time, error rate, toil) of not automating it? Record the accountable owner, implementation evidence, risk or blocker, and next customer adoption action.
 
-Use these follow-ups to steer the conversation:
+> **Customer implementation preference:** prioritize an authorized customer tenant or artifact over the `ghec-ch16-rest-graphql-automation` sample. If a sample is necessary, record the target tenant scope, accountable owner, authorization blocker, evidence to carry forward, and the adoption, cutover, or rollout decision. The sample is a safe fallback, not the destination.
+
+Use these prompts to verify customer ownership and the next action:
 - Describe the specific manual click-through task — who does it, how often, and how long does it take?
 - What API endpoint (REST or GraphQL) would replace the most time-consuming step?
 - What is the smallest working script you could write and share with your team before next week?
 
-## Facilitation notes
-- **Goal in one line:** the delivery team member drives GitHub entirely from its APIs — REST and GraphQL reads/writes — and ships an **idempotent, rate-limit-aware** reconcile script.
-- **Where customer delivery team members get stuck:**
+## Delivery assurance notes
+- **Customer adoption outcome:** the customer implementation owner drives GitHub entirely from its APIs — REST and GraphQL reads/writes — and ships an **idempotent, rate-limit-aware** reconcile script.
+- **Implementation risks to verify:**
   - **Pagination stops at page 1.** The classic bug: they read 30/100 issues and think they're done. Make them compare their count to the seeded total — if it's short, they're not paginating.
   - **GraphQL node IDs vs REST numbers.** Projects v2 mutations need **node IDs** (`gh api graphql … id`), not issue numbers. This trips everyone the first time.
   - **`-f` vs `-F`.** `-f` sends strings; `-F` sends typed/JSON values (and reads `@file`). GraphQL variables usually want `-F`.
   - **Idempotency.** Their first script double-posts comments / re-adds labels. Push them to "check-then-write."
-- **How to unblock without giving the answer:** ask "how do you *know* you've read every issue?" (→ count vs total, `pageInfo.hasNextPage`), and "what would happen if you ran this twice in a row?" (→ idempotency).
+- **Delivery lead prompts:** ask "how do you *know* you've read every issue?" (→ count vs total, `pageInfo.hasNextPage`), and "what would happen if you ran this twice in a row?" (→ idempotency).
 - **Org-scoped note:** runs with just an org + org-owner token. `project` scope is needed for Projects v2 GraphQL mutations; `read:org` to resolve the org and board.
 
-## Grading rubric (point-weighted, 100 pts)
-| Criterion | Points | What "full marks" looks like |
+## Implementation acceptance evidence
+| Criterion | Assurance weight | Customer-owned evidence |
 |---|---:|---|
 | REST reads | 15 | Identity confirmed; issues listed and shaped with `--jq` |
 | REST writes | 20 | Label created; unlabeled issues triaged; comment posted via API |
@@ -34,11 +36,11 @@ Use these follow-ups to steer the conversation:
 | GraphQL queries | 20 | Parameterized query with variables; cursor-paginated to completion |
 | GraphQL mutations + Projects v2 | 20 | Issues added to `ghec-ch16-board`; `Status` field set via `updateProjectV2ItemFieldValue` |
 | Rate limits + idempotency | 10 | `rate_limit` inspected; script backs off; second run = no changes |
-| **Total** | **100** | |
+| **Assurance coverage** | **100** | |
 
-## Automated verification hints
+## Implementation verification evidence
 ```bash
-ORG=<org>; REPO=ghec-ch16-rest-graphql-automation   # swap REPO for the delivery team member's own repo if they brought one
+ORG=<org>; REPO=ghec-ch16-rest-graphql-automation   # swap REPO for the customer implementation owner's own repo if they brought one
 
 # Repo exists and issue volume is there
 gh api repos/$ORG/$REPO --jq '{name, open_issues_count}'
@@ -60,7 +62,7 @@ gh api graphql -F org=$ORG -f query='
 gh api rate_limit --jq '.resources.core, .resources.graphql'
 ```
 - The fastest mastery signal is the **"unlabeled issues" query returning empty** plus **board items present** — proves both REST writes and GraphQL mutations ran across the full set.
-- Ask the delivery team member to run their reconcile script twice and show the second run printing **"0 changes"** — that's the idempotency proof.
+- Ask the customer implementation owner to run their reconcile script twice and show the second run printing **"0 changes"** — that's the idempotency proof.
 
 ## Common pitfalls
 - **Single-page reads** mistaken for complete — always reconcile count vs seeded total.
@@ -69,7 +71,7 @@ gh api rate_limit --jq '.resources.core, .resources.graphql'
 - **No back-off** — hammering the API trips the **secondary** rate limit (a `403` with `Retry-After`), which `rate_limit` core counters won't show. Honor `Retry-After`.
 - **Token scope** — missing `project` blocks Projects v2 mutations even when REST issue calls work.
 
-## Useful references for coaching
+## References for delivery leads
 
 - [About the REST API](https://docs.github.com/en/rest/about-the-rest-api/about-the-rest-api), [Using pagination in the REST API](https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api).
 
@@ -87,4 +89,4 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch16 --org <org> 
 - Part C (pagination): ~30 min
 - Parts D–E (GraphQL queries + Projects v2 mutations): ~1.5 hrs
 - Part F (rate limits + reconcile script): ~45 min
-- **Total facilitated:** ~3–4 hrs across sessions.
+- **Indicative implementation effort:** ~3–4 hrs across sessions.

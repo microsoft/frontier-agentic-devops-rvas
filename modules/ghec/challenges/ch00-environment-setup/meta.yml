@@ -11,15 +11,15 @@ prerequisite_capabilities:
   - GitHub organization with org-owner rights
   - GitHub CLI (gh >= 2.x) installed or available via Codespaces
 description: >
-  Provision your development environment for the GitHub Enterprise Cloud delivery session.
-  Open the shared org repository in Codespaces (or a local dev container), authenticate
-  the GitHub CLI, and verify you have org-owner rights before Activity 01.
+  Prepare an authorized customer implementation environment in the target GitHub Enterprise
+  Cloud organization. Open the shared org repository in Codespaces (or a local dev container),
+  authenticate the GitHub CLI, and verify org-owner rights before tenant implementation begins.
 success_criteria:
-  - "`gh auth status` exits 0 and shows your username"
+  - "`gh auth status` exits 0 and shows the authorized customer implementation owner"
   - "`gh --version` returns gh >= 2.x"
   - "`gh org list` returns the delivery session organization"
   - "`gh repo view <org>/<repo>` returns the repository metadata without error"
-  - "The Codespaces or dev container environment is open and the terminal is ready"
+  - "The Codespaces or dev container environment is open, the terminal is ready, and the customer owner can proceed with the authorized tenant implementation"
 tags:
   - setup
   - devcontainer

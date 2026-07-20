@@ -1,6 +1,6 @@
 # Ch11 — Secret Scanning & Push Protection
 
-> By the end of this activity you can turn on GitHub secret scanning, triage real leaked-credential alerts, block new secrets at `git push` with push protection, and wire up a custom pattern and a bypass-audit — all on a public OWASP Juice Shop repo seeded with high-confidence planted secrets.
+> Deliver secret scanning, push protection, custom patterns, and an auditable credential-triage path for an approved repository.
 
 | | |
 |---|---|
@@ -11,14 +11,23 @@
 | **App** | juice-shop *(imported at pinned ref `v20.0.0`; see `docs/EXTERNAL-REPOS.md`)* |
 | **EMU compatible** | yes |
 
+## Customer delivery target
+
+- **Customer objective:** reduce credential exposure with an owned alert-triage and prevention path.
+- **Customer-tenant target:** an approved customer repository’s secret-scanning, push-protection, custom-pattern, and bypass-audit configuration.
+- **Approval and safety boundary:** enable licensed security controls and perform bypass validation only with the repository/security owner’s approval; the planted-secret repository is a controlled proving ground, never a delivery destination.
+- **Enduring evidence:** retain alert resolutions, custom-pattern definition, bypass audit, and triage ownership record.
+- **Adoption owner / handover:** the customer security owner and repository maintainer accept alert and bypass handling.
+- **Accountable next action:** enable the approved controls in the target repository or hand over the evidence package and activation decision.
+
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch11 --org <org>` (least-privilege; for this activity: `repo` + `admin:org` + `security_events`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - **GHAS note:** **secret scanning** and **push protection** are **free on public repos**. Setup provisions the Juice Shop import as **public**, so no Code Security / Secret Protection license is required for Parts A–C and E. On private/internal repos these features need a paid license — `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns. **Custom secret-scanning patterns (Part D) are different:** they require **GitHub Secret Protection** on an organization-owned repo (GitHub Team or Enterprise) regardless of repo visibility, and are *not* part of the free public-repo feature set — see Part D.
 
-## Scenario objectives
-By completing this activity you will:
+## Customer delivery objectives
+This delivery engagement establishes:
 - Enable **secret scanning** and **push protection** on a repository from both the UI and the API.
 - Triage **secret-scanning alerts**: read the commit/blob location, then resolve each as revoked / false positive / used in tests.
 - Experience **push protection** blocking a brand-new secret at `git push`, and exercise the **bypass** flow with a documented reason.
@@ -31,14 +40,14 @@ A GHEC customer just discovered a hard-coded cloud key in a public repo — caug
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This activity is most valuable when the result *outlives the delivery session*. **Pick a real repository your organization owns** — ideally a public one, or a private/internal one if you have GitHub Secret Protection — and complete every task on **that** repo. You leave with secret scanning, push protection, a custom pattern, and a triage trail genuinely standing up on a project you care about.
+> Default to an authorised repository the customer organisation owns—ideally public, or private/internal with GitHub Secret Protection. Complete the work on **that** repository and retain secret scanning, push protection, a custom pattern, and a triage trail.
 >
 > - **Have a candidate repo?** Use it everywhere this guide says `ghec-ch11-juice-shop`. Skip the Setup step below entirely. You already have real history to triage — no planted secrets needed.
-> - **No suitable repo (or want a safe sandbox)?** Use the fallback below: we import OWASP Juice Shop with non-live planted secrets so you can practice without risk.
+> - **No suitable repo (or need a controlled proving ground)?** Use the fallback below: we import OWASP Juice Shop with non-live planted secrets for risk-free validation.
 >
-> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+> Record the selected target, customer security owner, and accountable next action. The sample is only a controlled proving ground; move the validated controls to an approved customer repository.
 
-## Setup (fallback sample)
+## Controlled proving ground (when tenant delivery is constrained)
 Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -112,11 +121,11 @@ You are done when ALL of the following are true:
 - [ ] A **custom secret-scanning pattern** is published and raised at least one alert.
 - [ ] A **triage summary** issue exists on the repo.
 - [ ] Real-outcome check — if you brought your own repo, scanning + push protection are now enabled on a project you actually own; if you used the sample, you can name the real repo you'll roll this out to next.
-- [ ] Coach conversation — if you turned push protection on across your real org tomorrow, whose workflow breaks first and what secret would it have caught in your last six months of commits? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] **Adoption handover** — record the customer security owner, push-protection rollout risk, affected workflow, and next approved action.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 
-## Stretch goals
+## Operational extensions
 - Enable scanning for **non-provider patterns / generic passwords** and triage the noisier results — discuss precision vs recall.
 - Configure secret scanning at the **org security configuration** level and apply it to all new repos, then confirm `ghec-ch11-juice-shop` inherits it.
 - Wire an **alert webhook** (`secret_scanning_alert` event) to a small endpoint and prove a new alert fires a notification (pairs with ch17).

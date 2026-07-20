@@ -4,17 +4,18 @@
 
 Injection is consistently the most exploited class of vulnerability in web applications. When user-controlled input reaches a database query, command interpreter, or template engine without proper sanitization, attackers can rewrite the logic — stealing data, bypassing authentication, or destroying records.
 
-Juice Shop contains real SQL injection and NoSQL injection vulnerabilities in its backend routes. CodeQL has already flagged them. In this activity you'll locate those alerts, open the affected code, understand exactly why it's exploitable, and write the fix. The goal isn't just to make the CodeQL alert disappear — it's to understand the safe coding pattern so you can apply it anywhere.
+Juice Shop contains real SQL injection and NoSQL injection vulnerabilities in its backend routes. CodeQL has already flagged them. In this activity you'll locate those alerts, open the affected code, understand exactly why it's exploitable, and write the fix. The work produces delivery evidence: a technically validated remediation and a reusable prevention pattern your team can apply to future changes.
 
-You're working as a developer fixing real application code. Not configuring tools. Not clicking settings. Writing code.
+You're working as a delivery team fixing real application code and establishing the review expectation that keeps the unsafe pattern from returning. Copilot Autofix or other Copilot assistance can propose work; it remains subject to human review and your existing PR and GHAS controls.
 
 ## Objectives
 
 - Filter **Security → Code scanning alerts** to show injection-related alerts (search for `sql` or `injection`)
 - Open each affected file in your editor and read the vulnerable code path with Copilot's help
-- Fix at least 2 injection vulnerabilities by replacing string concatenation with parameterized queries or ORM-safe alternatives
-- Open a pull request to `main` for each fix with a description of: what was wrong, what an attacker could have done, and how the fix addresses it
-- Review the PR CodeQL/code scanning check and annotations to confirm the fixed pattern is no longer flagged on your branch
+- Replace unsafe string construction with parameterized queries or ORM-safe alternatives, and technically validate the affected behavior
+- Open pull requests to `main` with the finding, impact, remediation, reviewer evidence, and relevant GHAS validation
+- Record the approved prevention pattern in `modules/ghas/resources/ghas-governance-practice.template.md`
+- Use two independently reviewed fixes as a practical evidence threshold, then check for the same unsafe pattern in comparable query paths
 
 > [!IMPORTANT]
 > **Bring your own application (do this first)**
@@ -29,18 +30,18 @@ You're working as a developer fixing real application code. Not configuring tool
 
 ## Success Criteria
 
-- [ ] At least 2 injection vulnerabilities fixed in the code
-- [ ] Fixes use parameterized queries or equivalent safe patterns — not input sanitization alone
-- [ ] Pull requests to `main` opened with clear descriptions of the vulnerability and remediation
-- [ ] Copilot Autofix tried on at least one alert (click "Generate fix" in the Security tab)
-- [ ] PR CodeQL/code scanning checks reviewed, with no remaining annotations for the fixed patterns
+- [ ] A technically validated injection fix uses parameterized queries or an ORM-safe alternative — not input sanitization alone — confirms expected query behavior, and retains PR/review evidence plus relevant GHAS validation.
+- [ ] A reusable prevention pattern record in `modules/ghas/resources/ghas-governance-practice.template.md` states the unsafe pattern/finding class, approved safe pattern, where it applies, PR/review evidence, relevant GHAS validation, named owner, and how the expectation applies to human- and agent-authored changes.
+- [ ] Two independently reviewed fixes are used as a practical evidence threshold; completion depends on both the technically validated fix and the reusable prevention pattern record, not the count alone.
+- [ ] Any Copilot Autofix or other Copilot assistance is treated as proposed work, reviewed by a human, and handled through existing PR and GHAS controls.
+- [ ] Coach conversation — where in your own codebase is user-controlled input most likely reaching a database query without parameterization, and what data could an attacker extract or modify if they found that path before your team did? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 - [ ] Coach conversation — where in your own codebase is user-controlled input most likely reaching a database query without parameterization, and what data could an attacker extract or modify if they found that path before your team did? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 ## Copilot Tips
 
 - Highlight the vulnerable query and ask: *"This query is vulnerable to SQL injection. Rewrite it using parameterized queries compatible with the Sequelize ORM already in use here."*
 - Ask: *"What's the difference between input sanitization and parameterization, and why is parameterization the right fix here?"*
-- Use Copilot Autofix in the Security tab — click an alert and hit **Generate fix** to see its proposed remediation, then review and refine it.
+- If you use Copilot Autofix or other Copilot assistance, treat its output as a proposed remediation: review it against the approved safe pattern and submit it through the normal PR and GHAS checks.
 
 **Power move:** Create a custom Copilot agent (or repository custom instructions) that always suggests parameterized queries when it sees raw string concatenation in a SQL context.
 

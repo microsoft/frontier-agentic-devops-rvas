@@ -1,6 +1,6 @@
 # Ch23 — Convert Azure Pipelines to GitHub Actions
 
-> Convert an Azure DevOps Pipeline into a GitHub Actions workflow with GitHub Actions Importer, then review, fix, and validate the generated workflow.
+> Convert an approved Azure DevOps Pipeline into a GitHub Actions workflow with GitHub Actions Importer, then review, remediate, validate, and hand it over.
 
 | | |
 |---|---|
@@ -11,9 +11,18 @@
 | **App** | None |
 | **EMU compatible** | yes |
 
+## Customer delivery target
+
+- **Customer objective:** convert an approved customer delivery pipeline into an operable GitHub Actions workflow.
+- **Customer-tenant target:** the selected customer repository’s imported workflow, manually resolved dependencies, runner/cost decisions, and validated PR.
+- **Approval and safety boundary:** create workflows, secrets, environments, or cutover changes in the customer tenant only with pipeline and repository-owner approval; a dry run is a controlled proving ground that must produce a cutover proposal.
+- **Enduring evidence:** retain Importer audit/forecast reports, conversion output, validation runs, unresolved-items register, and cutover decision.
+- **Adoption owner / handover:** the customer pipeline owner accepts the workflow and the platform owner accepts capacity/cost and secret decisions.
+- **Accountable next action:** approve the first pipeline cutover window or assign the owner and date for the documented proposal.
+
 ## Prerequisites
 
-**Activities:** none. This is independent, but it is recommended after the Azure DevOps repository migration activity (ch21) and complements ch04 Actions CI fundamentals.
+**Dependencies:** none. This guide is independent, but it is recommended after the Azure DevOps repository migration guide (ch21) and complements ch04 Actions CI fundamentals.
 
 **Access and tooling:**
 - A GitHub organization and target repository, ideally the repository migrated from Azure DevOps in ch21.
@@ -31,12 +40,12 @@ In this activity you will inventory the Azure DevOps CI/CD footprint, estimate f
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
-> This activity is most valuable when the result *outlives the delivery session*. Pick a real Azure DevOps project and pipeline you own and complete every task on **that** source and target. You leave with a migrated repo, pipelines-as-Actions, history, settings, evidence, and cleanup decisions genuinely standing up in your GitHub organization.
+> Default to an approved customer Azure DevOps project and pipeline. Complete the work on **that** source and target, retaining the workflow, settings, evidence, unresolved items, and cutover decision in the customer tenant.
 >
 > - **Have a candidate?** Use it everywhere this guide references the sample Azure DevOps project, pipeline, or target repository. Skip the sample Setup path entirely.
 > - **No suitable one?** Use the fallback below: a provided sample Azure DevOps source project and pipeline you can convert safely.
 >
-> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+> Record the selected target, customer pipeline owner, approval boundary, and accountable next action. The fallback is only a controlled proving ground; move the validated workflow to an approved customer target.
 
 ## Setup
 
@@ -164,11 +173,11 @@ You are done when all of the following are true:
 - [ ] `migrate` opened a pull request that adds a converted `.github/workflows/*.yml` file to the target GitHub repository.
 - [ ] You reviewed the generated workflow and documented at least one unsupported, unknown, secret, variable, runner, or service-connection gap with the manual fix.
 - [ ] The migrated workflow ran successfully in GitHub Actions after required cleanup.
-- [ ] Coach conversation — explain why GEI or `ado2gh` does not migrate Azure Pipelines and where Actions Importer fits in the migration cutover plan.
+- [ ] **Adoption handover** — record the customer pipeline owner, Actions Importer scope, cutover dependencies, and next approved action.
 
 ## Cleanup
 
-Keep the pull request and reports if they are evidence for your migration plan. If you used a workshop-only repository, delete the local `actions-importer-output/` directory after you have captured required evidence. Remove any test-only secrets, variables, or workflows you created in GitHub.
+Keep the pull request and reports if they are evidence for the migration plan. If you used a controlled proving-ground repository, delete the local `actions-importer-output/` directory after capturing required evidence. Remove any test-only secrets, variables, or workflows created in GitHub.
 
 ## Reference links
 

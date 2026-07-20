@@ -1,6 +1,6 @@
 # Ch22 — Connect Azure Boards to GitHub
 
-> By the end of this activity you can restore post-migration traceability between Azure Boards work items and GitHub code activity by installing the Azure Boards GitHub App, connecting a migrated repository, and proving `AB#` links and PR-driven state transitions work.
+> Restore customer post-migration traceability between Azure Boards work items and GitHub code activity with an approved Azure Boards App installation, repository connection, and verified `AB#` links.
 
 | | |
 |---|---|
@@ -11,6 +11,15 @@
 | **App** | None |
 | **EMU compatible** | yes, if your enterprise/org policy permits GitHub App installation or an org owner approves the request |
 
+## Customer delivery target
+
+- **Customer objective:** restore accountable work-item traceability after a customer migration.
+- **Customer-tenant target:** an approved migrated customer repository, Azure Boards connection, scoped Azure Boards App installation, and work-item linkage.
+- **Approval and safety boundary:** install and authorise the App only within the customer’s approved repository scope; if approval is pending, retain the request and connection plan rather than treating a validation link as the destination.
+- **Enduring evidence:** retain App-installation scope, connection confirmation, linked commit/PR, state-transition evidence, and ownership record.
+- **Adoption owner / handover:** the customer Boards owner and repository owner accept the integration and operating responsibilities.
+- **Accountable next action:** approve the production connection or submit the scoped App approval request to the named owner.
+
 ## Prerequisites
 - GitHub organization with org-owner rights, or repository admin rights plus a path to request GitHub App installation approval.
 - An Azure DevOps Services organization with an Azure Boards project and at least one work item you can edit.
@@ -20,8 +29,9 @@
 
 **Recommended sequence:** do this after the migration planning/cutover activity for Azure DevOps-to-GitHub migrations, because this activity assumes the repository now lives in GitHub and Azure Boards remains the system of record for work items.
 
-## Scenario objectives
-By completing this activity you will:
+## Customer delivery objectives
+
+This delivery engagement establishes:
 - Explain why GitHub Enterprise Importer (GEI) does not migrate Azure Boards work items: it migrates Git repos, PRs, and existing work-item links on PRs, but not the Boards backlog itself.
 - Install and configure the **Azure Boards** GitHub Marketplace app for selected migrated repositories.
 - Connect one Azure Boards project to the GitHub repository from **Project settings > GitHub connections**.
@@ -34,7 +44,7 @@ GEI preserves only work-item links that already existed on Azure DevOps pull req
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
-> Pick one migrated repository and one Azure Boards work item from a real team. The activity is complete only when that real repository is connected and a real work item shows a GitHub commit or PR link.
+> Default to one approved migrated customer repository and one Azure Boards work item from its owning team. Delivery is complete when the repository is connected and the work item shows a GitHub commit or PR link.
 >
 > Use these variables in the commands below:
 >
@@ -141,7 +151,7 @@ You are done when ALL of the following are true:
 - [ ] A PR description containing `Fixes AB#<work-item-id>` was merged into the default branch and transitioned the linked work item to the expected Resolved/Completed workflow-category state, or you documented why the process template maps differently.
 - [ ] The GitHub PR **Development** section shows the linked Azure Boards work item.
 - [ ] You can explain how to troubleshoot wrong-org connections, missing app permissions, malformed `AB#` mentions, and EMU app-install policy blocks.
-- [ ] Coach conversation — identify one migrated team that still plans in Azure Boards: which repositories must be connected first, who owns the GitHub app installation approval, and what evidence proves traceability survived cutover? Talk it through with your coach.
+- [ ] **Adoption handover** — record the customer Boards owner, repositories to connect, App approval owner, traceability evidence, and next action.
 
 ## Cleanup
 Keep the connection if this is a production migration bridge. If you used a disposable test repository, remove the connection from Azure DevOps **Project settings > GitHub connections > More options > Remove repositories** or remove the app repository access from GitHub **Installed GitHub Apps > Azure Boards > Configure**.

@@ -1,28 +1,29 @@
-# Coach Guide — Activity Title
+# Delivery Assurance Guide — Work Package Title
 
-> **For facilitators only.** This guide contains expected outputs, common pitfalls, and progressive hints. Do not share with customer delivery team members before they attempt the activity.
+> **For delivery leads only.** This guide contains expected evidence, risk controls, and progressive support. Do not share with customer delivery team members before they attempt the work package.
 
-## Overview
+## Delivery intent
 
-REPLACE: One paragraph summary of what customer delivery team members are doing and why it matters in a workshop context.
+REPLACE: One paragraph on the customer outcome, approved change boundary, evidence required for assurance, and accountable handover.
 
-## Timing (reference)
+## Delivery checkpoints (reference)
 
 | Phase | Duration |
 |---|---|
-| Setup / orientation | ~10 min |
-| Core work | ~40 min |
-| Wrap-up / debrief | ~10 min |
+| Scope, ownership, and approval | ~10 min |
+| Implementation and evidence | ~40 min |
+| Assurance, handover, and next action | ~10 min |
 | **Total** | ~60 min |
 
-## Expected Outputs
+## Expected evidence
 
-When a delivery team member completes this activity successfully, you should see:
+At the end of this work package, verify:
 
 - REPLACE: First concrete, observable output
 - REPLACE: Second concrete, observable output
+- REPLACE: Customer owner, adoption decision, and next action
 
-## Common Pitfalls
+## Delivery risks and recovery
 
 ### REPLACE: Pitfall title
 **Symptom:** REPLACE  
@@ -32,21 +33,21 @@ When a delivery team member completes this activity successfully, you should see
 **Symptom:** REPLACE  
 **Fix:** REPLACE
 
-## Progressive Hints
+## Progressive support
 
-Use these in order — give the first hint, wait, then give the next only if the delivery team member is still stuck.
+Use these in order. Preserve customer ownership: give the first prompt, wait, then increase specificity only if the delivery team is blocked.
 
 1. **Hint 1 (gentle):** REPLACE — a nudge in the right direction without revealing the answer.
 2. **Hint 2 (medium):** REPLACE — more specific guidance.
 3. **Hint 3 (specific):** REPLACE — points almost directly to the solution.
 
-## Debrief Questions
+## Handover questions
 
-Ask these after the activity to reinforce learning:
+Use these to confirm the adoption decision and accountable next step:
 
 - REPLACE: Question 1
 - REPLACE: Question 2
 
-## Notes for This Module
+## Delivery notes
 
-REPLACE: Any module-specific context (e.g., environment requirements, known GitHub org settings that affect this activity).
+REPLACE: Any module-specific context, such as environment requirements, known GitHub org settings, approval boundaries, or rollback constraints.

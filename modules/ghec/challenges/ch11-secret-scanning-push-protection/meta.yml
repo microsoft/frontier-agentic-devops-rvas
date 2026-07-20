@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: By the end of this activity you can turn on GitHub secret scanning, triage real leaked-credential alerts, block new secrets at `git push` with push protection, and wire up a custom pattern and a bypass-audit — all on a public OWASP Juice Shop repo seeded with high-confidence planted secrets.
+description: "Implement authorized customer secret-scanning and push-protection controls, triage leaked-credential alerts, and preserve bypass-audit evidence. Use the public seeded repository only as a safe proving ground and record the approved tenant rollout decision."
 success_criteria:
 - '`secret_scanning` **and** `secret_scanning_push_protection` both read `enabled` on `ghec-ch11-juice-shop` (verifiable via the `security_and_analysis` API).'
 - '**Every planted secret in `SECRETS-MANIFEST.md` has a corresponding secret-scanning alert** (count + types reconcile).'
@@ -20,6 +20,7 @@ success_criteria:
 - At least **one push-protection bypass** exists with a recorded actor and reason (verifiable via the alerts API).
 - A **custom secret-scanning pattern** is published and raised at least one alert.
 - A **triage summary** issue exists on the repo.
+- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - ghas
 - secret-scanning

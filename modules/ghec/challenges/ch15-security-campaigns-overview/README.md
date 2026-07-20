@@ -1,6 +1,6 @@
 # Ch15 — Security Campaigns & Overview
 
-> By the end of this activity you can read the org-level security overview dashboards, roll GHAS out across repos with a security configuration, launch a security campaign that hands prioritized alerts to developers with a deadline, and track remediation to completion — using OWASP Juice Shop's real alert volume as the campaign target.
+> Deliver an organisation security configuration and an owned campaign that turns prioritised findings into tracked remediation.
 
 | | |
 |---|---|
@@ -11,6 +11,15 @@
 | **App** | juice-shop *(imported at pinned ref `v20.0.0`; see `docs/EXTERNAL-REPOS.md`)* |
 | **EMU compatible** | yes |
 
+## Customer delivery target
+
+- **Customer objective:** turn customer security findings into a finite, owned remediation programme.
+- **Customer-tenant target:** approved organisation security configuration, campaign scope, guidance, due date, and remediation report.
+- **Approval and safety boundary:** apply security configurations and launch campaigns in the customer tenant when the security owner authorises them; otherwise use the fallback corpus as a controlled proving ground and leave an approved campaign proposal.
+- **Enduring evidence:** retain coverage/risk snapshots, configuration, campaign record, burn-down, residual-risk report, and named owners.
+- **Adoption owner / handover:** the customer security programme owner accepts campaign governance; repository owners accept their remediation actions.
+- **Accountable next action:** launch the approved customer campaign or assign the manager and decision date for the proposal.
+
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch15 --org <org>` (least-privilege; for this activity: `repo` + `admin:org` + `security_events`).
@@ -18,8 +27,8 @@
 - **GHAS note:** security overview, configurations, and campaigns operate on GHAS alert data. The Juice Shop import is provisioned **public** so CodeQL/Dependabot/secret scanning **alerts** run free. **However**, the security overview's advanced views (**Risk**, **Coverage**, **Campaigns**) **and security campaigns themselves require a GitHub Code Security or GitHub Secret Protection license at the organization level** — a public repo's free scanning does *not* unlock them. If your org has no GHAS product, you can still generate and triage alerts (Part A) but Parts B–E need a licensed org. `modules/ghec/resources/provisioning/scripts/setup.sh doctor` confirms availability.
 - **Soft-link note (independence preserved):** this activity does **not** depend on ch12/ch13 having run — setup creates its **own** `ghec-ch15-juice-shop` and enables scanning so the alert corpus exists standalone.
 
-## Scenario objectives
-By completing this activity you will:
+## Customer delivery objectives
+This delivery engagement establishes:
 - Navigate the org **Security overview**: the risk and coverage views, and filter alerts across repos.
 - Create an **organization security configuration** and apply it so GHAS features roll out consistently to repos.
 - Read **coverage** (which repos have which features on) vs **risk** (where the open alerts are).
@@ -31,14 +40,14 @@ A GHEC customer has GHAS switched on but no program around it — alerts pile up
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
-> This activity is most valuable when the result *outlives the delivery session*. Pick a real application repository or security campaign candidate your organization owns and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> Default to an authorised customer application repository or security-campaign candidate. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch15-juice-shop`. Skip the Setup step below entirely.
-> - **No suitable one?** Use the fallback below: an OWASP Juice Shop import with security findings suitable for campaign practice.
+> - **No suitable one?** Use the fallback below: an OWASP Juice Shop import with security findings suitable for controlled campaign validation.
 >
-> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+> Record the selected target, customer security programme owner, and accountable next action. The sample is only a controlled proving ground; move the validated campaign package to an approved customer organisation.
 
-## Setup (fallback sample)
+## Controlled proving ground (when tenant delivery is constrained)
 Skip this if you brought your own repo/campaign target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -99,11 +108,11 @@ You are done when ALL of the following are true:
 - [ ] The campaign shows **remediation burn-down** (open count dropped after you fixed/dismissed targeted alerts).
 - [ ] A **remediation report** issue exists with before/after numbers.
 - [ ] Real-outcome check — if you brought your own repo/campaign target, the campaign view now maps to real owners and alerts; if you used the sample, you can name the repo group you will campaign against next.
-- [ ] Coach conversation — if you ran a security campaign across your org's repos today targeting the most common CWE your stack is exposed to, which three repo owners would you expect to push back hardest on fixing their alerts, and what would make the campaign succeed anyway? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] **Adoption handover** — record the customer security programme owner, campaign scope, repository owners, success measure, and next approved action.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 
-## Stretch goals
+## Operational extensions
 - Apply the security configuration as the **org default** and create a second repo to prove new repos inherit it.
 - Build a small **burn-down chart** by scripting the org alerts API on two dates and diffing open counts.
 - Add a **second campaign** for secret-scanning alerts with a tighter deadline and compare manager workflows.

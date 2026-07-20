@@ -1,24 +1,33 @@
-# Activity 00 — Environment Setup
+# Ch00 — Customer Delivery Readiness
 
-> Provision your development environment for the GitHub Enterprise Cloud delivery session, authenticate the GitHub CLI, and confirm org access before you begin track work.
+> Verify the customer-delivery environment, authenticate the GitHub CLI, and confirm approved organisation access before selecting the first implementation target.
 
 | | |
 |---|---|
 | **Track** | Developer Flow |
 | **Difficulty** | Beginner |
 | **Duration** | ~25 min |
-| **Minimum input** | A GitHub account + org-owner rights on the delivery session org |
+| **Minimum input** | A GitHub account + approved access to the customer delivery organisation |
 | **App** | none |
 | **EMU compatible** | yes |
 
+## Customer delivery target
+
+- **Customer objective:** establish delivery readiness before any tenant change.
+- **Customer-tenant target:** the authorised customer organisation, repository, access path, and first adoption target—not a production configuration change.
+- **Approval and safety boundary:** verify only the access the customer owner has approved; do not create, change, or elevate tenant resources during this readiness guide.
+- **Enduring evidence:** retain the verification summary, selected first target, named customer owner, and any access blockers in the delivery record.
+- **Adoption owner / handover:** the customer owner confirms the target and ownership boundary; the delivery team hands over verified access and blockers.
+- **Accountable next action:** the named owner authorises and schedules the first customer-tenant implementation guide.
+
 ## Objectives
 
-By the end of this activity you will have:
+Delivery readiness is complete when you have:
 
 - A working development environment (GitHub Codespaces or local dev container)
 - An authenticated `gh` CLI session pointing at your GitHub account
-- Confirmed org-owner rights on the delivery session organization
-- Access verified to the GHEC delivery session repository
+- Confirmed access approved for the customer delivery organisation
+- Access verified to the agreed delivery or customer repository
 
 ---
 
@@ -26,7 +35,7 @@ By the end of this activity you will have:
 
 - GitHub account
 - Basic Git and CLI usage
-- Org-owner rights on the shared GHEC delivery session organization (ask your coach if you have not been added yet)
+- Access approved by the customer owner for the agreed delivery or customer organisation
 
 > **Branch workflow (not fork):** This module uses a shared org repository. Do **not** fork. Clone directly and work on a personal branch:
 > ```bash
@@ -37,7 +46,7 @@ By the end of this activity you will have:
 
 ## Option A: GitHub Codespaces (Recommended)
 
-1. Open the delivery session repository in your browser (your coach will share the URL, e.g. `https://github.com/<org>/<repo>`).
+1. Open the agreed delivery or customer repository in your browser (the delivery lead or customer owner supplies the URL, e.g. `https://github.com/<org>/<repo>`).
 2. Click **Code → Codespaces → Create codespace on main**.
 3. Wait ~30 seconds for the dev container to build. The terminal opens automatically when the container is ready.
 4. Continue to **Authenticate the GitHub CLI** below.
@@ -71,7 +80,7 @@ gh auth login
 
 Choose **GitHub.com**, then **HTTPS**, and follow the device-code prompt in your browser. Grant the requested permissions (at minimum: `repo`, `read:org`).
 
-> Some later activities (Projects v2 automation, including ch16) also need `project` and `read:project`. You can add missing scopes later without re-login: `gh auth refresh -h github.com -s project,read:project`.
+> Some later delivery guides (Projects v2 automation, including ch16) also need `project` and `read:project`. You can add missing scopes later without re-login: `gh auth refresh -h github.com -s project,read:project`.
 
 Verify the session is active:
 
@@ -94,14 +103,14 @@ gh --version
 # 2. Authentication
 gh auth status
 
-# 3. Org access — must list the delivery session org
+# 3. Org access — must list the approved target org
 gh org list
 
 # 4. Repository access
 gh repo view <org>/<repo>
 ```
 
-> All four commands must succeed. If any fail, see **Common Blockers** in the coach guide.
+> All four commands must succeed. Record any failure as an access blocker for the customer owner or delivery lead.
 
 ### Verification summary
 
@@ -109,16 +118,16 @@ gh repo view <org>/<repo>
 |---|---|---|
 | CLI installed | `gh --version` | `gh version 2.x.x` |
 | Authenticated | `gh auth status` | Shows your username |
-| Org visible | `gh org list` | Lists the delivery session org |
+| Org visible | `gh org list` | Lists the approved target org |
 | Repo accessible | `gh repo view <org>/<repo>` | Returns repository metadata |
 
 ---
 
 ## Provisioning preflight (optional)
 
-The GHEC delivery session ships provisioning scripts (`setup.sh` / `setup.ps1`) that set up starting state for each activity.
+The GHEC delivery environment ships provisioning scripts (`setup.sh` / `setup.ps1`) that set up controlled starting state for each guide.
 The scripts live in-tree at `modules/ghec/resources/provisioning/`. You do not need them for this
-activity, but you can run a preflight check now (from the repo root):
+guide, but you can run a preflight check now (from the repo root):
 
 ```bash
 # Bash
@@ -128,4 +137,4 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh doctor ch01 --org <org
 modules/ghec/resources/provisioning/scripts/setup.ps1 doctor ch01 --org <org>
 ```
 
-A clean `doctor` output confirms your token scopes and tooling are ready for the whole module.
+A clean `doctor` output confirms that your token scopes and tooling are ready for the selected delivery guides.

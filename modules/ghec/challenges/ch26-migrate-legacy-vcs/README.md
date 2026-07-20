@@ -11,9 +11,18 @@
 | **App** | None |
 | **EMU compatible** | yes |
 
+## Customer delivery target
+
+- **Customer objective:** establish an approved, evidence-backed legacy-VCS conversion and GitHub cutover path.
+- **Customer-tenant target:** a selected customer legacy source, author map, converted Git repository, GitHub destination, and metadata-gap/cutover record.
+- **Approval and safety boundary:** convert and push customer history only with the source owner’s and destination owner’s approval; inaccessible sources and controlled samples must end in a named execution owner and next step.
+- **Enduring evidence:** retain author maps, conversion commands, large-file checks, ref validation, gap notes, and cutover decision.
+- **Adoption owner / handover:** the customer migration owner accepts source/cutover accountability; repository owners accept the converted destination and gaps.
+- **Accountable next action:** approve the source-specific cutover or hand over the blocker, owner, and dated execution plan.
+
 ## Prerequisites
 
-**Activities:** none. This activity is self-contained. For Azure Repos Git migration after TFVC conversion, ch21 is a useful cross-reference but not required.
+**Dependencies:** none. This guide is self-contained. For Azure Repos Git migration after TFVC conversion, ch21 is a useful cross-reference but not required.
 
 **Access and tooling:**
 - GitHub organization with repository create rights.
@@ -30,16 +39,16 @@ Your migration team has legacy source systems that GitHub Enterprise Importer do
 
 The GitHub Importer web tool is now **Git-only**, imports code and commit history only, works on **GitHub.com only**, and does not import LFS, issues, pull requests, or other metadata. SVN, Mercurial, TFVC, and Perforce must be converted to Git with CLI tooling first, then pushed to GitHub.
 
-> Hands-on scope: complete SVN plus at least one of Mercurial, TFVC, or Perforce if you have source access. For systems you cannot access in the workshop, document the exact commands, source URL shape, identity map, and blocker so a real migration owner can execute it later.
+> Delivery scope: complete SVN plus at least one of Mercurial, TFVC, or Perforce when authorised source access is available. For inaccessible systems, document the exact commands, source URL shape, identity map, blocker, and named execution owner.
 
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
-> This activity is most valuable when the result *outlives the delivery session*. Pick a real legacy VCS source you own, such as SVN, Mercurial, TFVC, or Perforce, and complete every task on **that** source and target. You leave with a converted Git repo, source history, author mapping, large-file checks, settings evidence, and gap notes genuinely standing up in your GitHub organization.
+> Default to an approved customer legacy-VCS source, such as SVN, Mercurial, TFVC, or Perforce. Complete the work on **that** source and target, retaining the converted Git repository, source history, author map, large-file checks, evidence, and gap record.
 >
 > - **Have a candidate?** Use it everywhere this guide references the sample legacy VCS source, converted Git directory, or target repository. Skip the sample Setup path entirely.
 > - **No suitable one?** Use the fallback below: a provided sample legacy VCS source you can convert safely.
 >
-> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+> Record the selected target, customer migration owner, approval boundary, and accountable next action. The fallback is only a controlled proving ground; move the validated path to an approved customer cutover.
 
 ## Setup
 
@@ -243,17 +252,17 @@ You are done when the applicable evidence is true:
 - [ ] Author identities in converted commits resolve to real names and emails instead of `unknown` or raw source usernames.
 - [ ] Large-file and large-push risks were checked, including 100 MiB file blocks, Git LFS candidates, and the 2 GiB single-push limit.
 - [ ] At least one converted repository exists in GitHub with branches, tags, and expected commit history visible.
-- [ ] Coach conversation — explain which legacy VCS source you would migrate first in a real program, which metadata will not come across, and how you would reduce cutover risk.
+- [ ] **Adoption handover** — record the customer migration owner, first legacy source, metadata gaps, cutover-risk treatment, and next action.
 
 ## Cleanup
 
-Delete only workshop-created GitHub repositories and local conversion directories when you no longer need the evidence.
+Delete only controlled-proving-ground GitHub repositories and local conversion directories when you no longer need the evidence.
 
 ```bash
 gh repo delete "$GITHUB_ORG/$DEST_REPO" --yes
 ```
 
-Do not delete or rewrite the original legacy source system during the workshop.
+Do not delete or rewrite the original legacy source system during controlled validation.
 
 ## Reference links
 

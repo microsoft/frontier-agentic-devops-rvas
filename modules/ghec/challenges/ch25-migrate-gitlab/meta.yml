@@ -12,14 +12,15 @@ prerequisite_capabilities:
 - Docker installed and running, because GitHub Actions Importer runs as a container
 - GitHub CLI installed
 - GitLab personal access token with read access to the source repository and CI configuration
-description: Migrate a GitLab repository's source and Git history to GitHub with Git CLI, then convert its GitLab CI pipeline to GitHub Actions with GitHub Actions Importer.
+description: "Execute an authorized GitLab migration pilot for source and Git history with Git CLI, then convert GitLab CI with GitHub Actions Importer. Preserve fidelity limits, reviewed CI evidence, accountable ownership, handover, and the cutover decision."
 success_criteria:
 - "An empty GitHub repository was created as the migration target."
 - "A GitLab repository's full branch and tag history was mirror-pushed to the GitHub repository."
 - "Commit authorship resolves to the correct GitHub user where the GitLab commit email is present on the GitHub account."
 - "GitLab CI was converted into a reviewable or runnable GitHub Actions workflow using GitHub Actions Importer."
-- "A delivery team member documented which GitLab data did not migrate in the self-serve Git CLI path."
-- "A delivery team member identified when GitHub Expert Services or the GHES gl-exporter to ghe-migrator path is required."
+- "A customer implementation owner documented which GitLab data did not migrate in the self-serve Git CLI path."
+- "A customer implementation owner identified when GitHub Expert Services or the GHES gl-exporter to ghe-migrator path is required."
+- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - gitlab
 - migration

@@ -9,7 +9,7 @@ prerequisite_capabilities:
 - GitHub organization with org-owner/admin rights on the target repository
 - Azure DevOps Services organization with an Azure Boards project
 - Ability to install or request installation of a GitHub Marketplace organization app
-description: Restore post-migration work-item-to-code traceability by connecting an Azure Boards project to migrated GitHub repositories and validating AB# links from commits and pull requests.
+description: "Implement an authorized post-migration Azure Boards-to-GitHub integration and validate customer-owned work-item-to-code traceability from commits and pull requests, with accountable ownership and a rollout decision."
 success_criteria:
 - The **Azure Boards** GitHub Marketplace app is installed for the GitHub organization and the migrated repository is selected for repository access.
 - The Azure Boards project shows a **GitHub connection** to the migrated repository under **Project settings > GitHub connections**.
@@ -17,6 +17,7 @@ success_criteria:
 - A pull request description using a supported transition phrase such as **`Fixes AB#<work-item-id>`** is merged into the default branch and transitions the linked work item to the expected Resolved/Completed workflow-category state.
 - The GitHub pull request shows the linked Azure Boards work item in its **Development** section when `AB#` is present in the pull request description.
 - You can explain and fix at least one failed-link scenario, such as wrong Azure DevOps organization, missing app permissions, or malformed `AB#` syntax.
+- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - azure-boards
 - github-apps

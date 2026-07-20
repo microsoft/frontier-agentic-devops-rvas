@@ -1,6 +1,6 @@
 # Ch07 — Teams, Roles & Base Permissions
 
-> By the end of this activity you can model a real organization's access with **nested teams**, **base permissions**, **predefined repository roles**, and a **custom repository role** — granting least-privilege access that's verifiable from the API, all from an org and an org-owner token.
+> Deliver a verifiable least-privilege access model with nested teams, base permissions, predefined roles, and a custom repository role.
 
 | | |
 |---|---|
@@ -11,14 +11,23 @@
 | **App** | Provisioned starter repository (created by setup) |
 | **EMU compatible** | yes |
 
+## Customer delivery target
+
+- **Customer objective:** replace ad-hoc repository access with a verifiable least-privilege team model.
+- **Customer-tenant target:** the customer organisation’s approved team hierarchy, repository grants, custom role, and access matrix.
+- **Approval and safety boundary:** change memberships, roles, and grants only with the accountable organisation owner’s approval; use the seeded structure as a controlled proving ground when access is constrained.
+- **Enduring evidence:** retain API-derived before/after snapshots, the access matrix, and role rationale.
+- **Adoption owner / handover:** the customer access owner accepts the model and the team/repository maintainers receive the matrix.
+- **Accountable next action:** approve tenant implementation for the selected teams or deliver the access-model proposal for owner decision.
+
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch07 --org <org>` (least-privilege; for this activity: `admin:org` + `repo` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - No GHAS, Codespaces, or enterprise-owner features are required. Custom **repository** roles are an org capability available on GHEC.
 
-## Scenario objectives
-By completing this activity you will:
+## Customer delivery objectives
+This delivery engagement establishes:
 - Create a **team hierarchy** (parent + child teams) and understand how **nested teams inherit** access from their parent.
 - Grant teams access to repositories at the correct **predefined repository role** (Read / Triage / Write / Maintain / Admin).
 - Reason about how **base (org) permission** combines with **team grants** (the more permissive wins).
@@ -32,14 +41,14 @@ A GHEC customer's engineering org has grown past the point where ad-hoc collabor
 > [!IMPORTANT]
 > **Bring your own outcome (do this first)**
 >
-> This activity is most valuable when the result *outlives the delivery session*. Pick a real team structure and repository access model you can make clearer and complete every task on **that** artifact. You leave with evidence, guardrails, or automation genuinely standing up on something you care about.
+> Default to an authorised customer team structure and repository access model. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use your real teams and repos wherever this guide names `ghec-ch07-frontend` or the sibling `ghec-ch07-*` artifacts. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: seeded frontend/backend/platform repos and a starter engineering team.
 >
-> Tell your coach which path you took. "Bring your own" is the goal; the sample is the fallback.
+> Record the selected target, customer access owner, and accountable next action. The sample is only a controlled proving ground; move the validated access model to an approved customer organisation.
 
-## Setup (fallback sample)
+## Controlled proving ground (when tenant delivery is constrained)
 Skip this if you brought your own team/repo access model. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -98,11 +107,11 @@ You are done when ALL of the following are true:
 - [ ] A **custom repository role** exists (`gh api /orgs/<org>/custom-repository-roles` lists it) and is **assigned** to a team on a repo.
 - [ ] An **`ACCESS.md`** access matrix exists, generated from the API, and a before/after comparison shows the org is now team-modeled.
 - [ ] Real-outcome check — if you brought your own teams/repos, access is now clearer on a model people actually use; if you used the sample, you can name the real team or repo set you will map next.
-- [ ] Coach conversation — map your real team's structure onto GitHub Teams right now: where do people have more access than they need, and where is the absence of the right permission creating an actual bottleneck for someone? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] **Adoption handover** — record the customer access owner, priority excess-access or bottleneck finding, and next approved team-model action.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 
-## Stretch goals
+## Operational extensions
 - Add a **third level** of nesting (a sub-squad under a squad) and trace how a grant on the grandparent reaches the grandchild.
 - Script the entire access matrix as a Markdown table generated purely from `gh api` calls — turn "who can do what" into a one-command report.
 - Create a **second custom role** based on `Read` that adds *only* the "manage issues" permission (a "support" persona) and contrast it with Triage.
