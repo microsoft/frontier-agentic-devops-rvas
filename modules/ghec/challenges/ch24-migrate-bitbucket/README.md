@@ -4,21 +4,21 @@
 
 | | |
 |---|---|
-| **Track** | Migration |
-| **Difficulty** | Advanced |
-| **Duration** | ~4 hrs |
-| **Minimum input** | A GitHub org with org-owner rights and a classic GitHub PAT |
-| **App** | none |
-| **EMU compatible** | yes |
+| Track | Migration |
+| Difficulty | Advanced |
+| Duration | ~4 hrs |
+| Minimum input | A GitHub org with org-owner rights and a classic GitHub PAT |
+| App | none |
+| EMU compatible | yes |
 
 ## Customer delivery target
 
-- **Customer objective:** execute an approved Bitbucket migration path with explicit fidelity and cutover ownership.
-- **Customer-tenant target:** a selected customer Bitbucket repository, GitHub destination, migration staging/queue, and metadata-gap plan.
-- **Approval and safety boundary:** run customer migrations only in an approved change window with source-write controls and owner approval; a source-history fallback is a controlled proof that must end in a cutover decision, not the delivery destination.
-- **Records to keep:** retain inventory, script/queue output, migration logs, validation results, fidelity decision, and follow-up backlog.
-- **Adoption owner / handover:** the customer migration owner accepts cutover; repository and platform owners accept retained gaps and operating changes.
-- **Next action and owner:** authorise the selected migration path and cutover window or hand over the approved proposal and risk decision.
+- Customer objective: execute an approved Bitbucket migration path with explicit fidelity and cutover ownership.
+- Customer-tenant target: a selected customer Bitbucket repository, GitHub destination, migration staging/queue, and metadata-gap plan.
+- Approval and safety boundary: run customer migrations only in an approved change window with source-write controls and owner approval; a source-history fallback is a controlled proof that must end in a cutover decision, not the delivery destination.
+- Records to keep: retain inventory, script/queue output, migration logs, validation results, fidelity decision, and follow-up backlog.
+- Adoption owner / handover: the customer migration owner accepts cutover; repository and platform owners accept retained gaps and operating changes.
+- Next action and owner: authorise the selected migration path and cutover window or hand over the approved proposal and risk decision.
 
 ## Customer delivery objective
 
@@ -26,26 +26,26 @@ Migrate one Bitbucket Server/Data Center repository to GitHub Enterprise Cloud w
 
 ## Prerequisites
 
-**Activities:** _(none — this activity is self-contained)_
+Activities: _(none — this activity is self-contained)_
 
-**Access and tooling you need:**
+Access and tooling you need:
 - GitHub organization where you are an org owner.
 - Classic GitHub PAT available as `GH_PAT`.
 - GitHub CLI `gh >= 2.4.0`.
 - PowerShell, because `gh bbs2gh generate-script` emits `.ps1` scripts.
-- For **Path A**: Bitbucket Server/Data Center **5.14+**, a Bitbucket account with admin or super-admin rights, SSH/SFTP access for Linux servers or SMB access for Windows servers, and one staging store: AWS S3, Azure Blob, or GitHub-owned blob storage.
-- For **Path B**: a bitbucket.org repository and the `git` CLI.
+- For Path A: Bitbucket Server/Data Center 5.14+, a Bitbucket account with admin or super-admin rights, SSH/SFTP access for Linux servers or SMB access for Windows servers, and one staging store: AWS S3, Azure Blob, or GitHub-owned blob storage.
+- For Path B: a bitbucket.org repository and the `git` CLI.
 
 ## Scenario
 
 Your migration team has two Bitbucket populations. The production estate runs Bitbucket Server/Data Center and needs pull request history in GitHub. A smaller team uses Bitbucket Cloud, which has no first-party metadata migration path, so you must still preserve Git source and history and clearly communicate what will be lost.
 
 > [!IMPORTANT]
-> **Use an approved customer target (do this first)**
-> Default to an approved customer Bitbucket Server/Data Center or Bitbucket Cloud repository. Complete the work on **that** source and target, retaining the migrated repository, history, supported metadata, settings evidence, and gap record.
+> Use an approved customer target (do this first)
+> Default to an approved customer Bitbucket Server/Data Center or Bitbucket Cloud repository. Complete the work on that source and target, retaining the migrated repository, history, supported metadata, settings evidence, and gap record.
 >
-> - **Have a candidate?** Use it everywhere this guide references the Bitbucket project, repository, workspace, or target repository.
-> - **No suitable source and target?** Do not start a migration against an unapproved example; record the access constraint, accountable owner, and next action.
+> - Have a candidate? Use it everywhere this guide references the Bitbucket project, repository, workspace, or target repository.
+> - No suitable source and target? Do not start a migration against an unapproved example; record the access constraint, accountable owner, and next action.
 >
 > Record the selected target, customer migration owner, approval boundary, and next action and owner.
 
@@ -53,8 +53,8 @@ Your migration team has two Bitbucket populations. The production estate runs Bi
 
 Use the paths exactly as separated below:
 
-- **Path A — Bitbucket Server/Data Center via `gh bbs2gh`**: primary path for Git source, history, and pull request metadata.
-- **Path B — Bitbucket Cloud via Git CLI**: fallback path for source and history only. Bitbucket Cloud is **not supported** by GitHub Enterprise Importer or `gh bbs2gh`; pull requests, comments, issues, and pipelines cannot be auto-migrated by first-party tools.
+- Path A — Bitbucket Server/Data Center via `gh bbs2gh`: primary path for Git source, history, and pull request metadata.
+- Path B — Bitbucket Cloud via Git CLI: fallback path for source and history only. Bitbucket Cloud is not supported by GitHub Enterprise Importer or `gh bbs2gh`; pull requests, comments, issues, and pipelines cannot be auto-migrated by first-party tools.
 
 ## Path A — Bitbucket Server/Data Center via `gh bbs2gh`
 
@@ -74,17 +74,17 @@ For Windows Bitbucket Server/Data Center using SMB, also set:
 $env:SMB_PASSWORD = "smb-share-password"
 ```
 
-Your GitHub PAT must be a **classic** PAT. Fine-grained PATs are not supported for GEI migrations.
+Your GitHub PAT must be a classic PAT. Fine-grained PATs are not supported for GEI migrations.
 
 ### 2. Confirm Server/Data Center prerequisites
 
 Before running a migration, verify these operational requirements:
 
-- Bitbucket Server/Data Center is version **5.14 or later**.
+- Bitbucket Server/Data Center is version 5.14 or later.
 - The Bitbucket account has admin or super-admin permissions.
-- Linux Bitbucket instances expose the migration archive through **SFTP**.
-- Windows Bitbucket instances expose the migration archive through an **SMB** share.
-- The SSH private key used for SFTP has **no passphrase** and uses a supported cipher such as `aes256-ctr` or `aes256-cbc`.
+- Linux Bitbucket instances expose the migration archive through SFTP.
+- Windows Bitbucket instances expose the migration archive through an SMB share.
+- The SSH private key used for SFTP has no passphrase and uses a supported cipher such as `aes256-ctr` or `aes256-cbc`.
 - A clustered Bitbucket instance has a stable archive download host; pass it with `--archive-download-host`.
 - Blob staging is ready because Bitbucket is usually behind a firewall and GitHub Enterprise Importer must retrieve the archive from an internet-reachable store.
 
@@ -106,7 +106,7 @@ export AWS_ACCESS_KEY_ID="AKIAIOSFODNN7EXAMPLE"
 export AWS_SECRET_ACCESS_KEY="aws-secret-access-key"
 ```
 
-For Azure Blob Storage, use an **access-key connection string**, not a SAS connection string:
+For Azure Blob Storage, use an access-key connection string, not a SAS connection string:
 
 ```bash
 export AZURE_STORAGE_CONNECTION_STRING="DefaultEndpointsProtocol=https;AccountName=migrationstore;AccountKey=base64-account-key;EndpointSuffix=core.windows.net"
@@ -123,7 +123,7 @@ If you do not want to manage cloud storage, use GitHub-owned blob storage with `
 3. `bbs2gh` downloads that archive from the Bitbucket server through SFTP on Linux or SMB on Windows.
 4. `bbs2gh` uploads the archive to AWS S3, Azure Blob Storage, or GitHub-owned blob storage.
 5. GitHub Enterprise Importer reads the staged archive and imports it into GitHub Enterprise Cloud.
-6. The destination repository is created as **private**. If you do not pass a target name, the default is `projectKey-repositoryName`, such as `ENG-payments-api`.
+6. The destination repository is created as private. If you do not pass a target name, the default is `projectKey-repositoryName`, such as `ENG-payments-api`.
 
 ### 4. Run a single-repository migration with AWS S3
 
@@ -238,7 +238,7 @@ In GitHub, confirm the repository is private and inspect:
 - Required reviewers.
 - Pull request attachments.
 
-Document what did **not** migrate from Bitbucket Server/Data Center:
+Document what did not migrate from Bitbucket Server/Data Center:
 
 - Personal repositories owned by users.
 - Branch permissions.
@@ -251,7 +251,7 @@ Document what did **not** migrate from Bitbucket Server/Data Center:
 
 ### 1. State the limitation before migrating
 
-Bitbucket Cloud repositories on `bitbucket.org` are **not supported** by GitHub Enterprise Importer or `gh bbs2gh`. There is no first-party path that migrates Bitbucket Cloud pull requests, comments, issues, or pipeline history. The always-doable baseline is a Git mirror migration that preserves source code and Git history only. For GHE.com targets, Git CLI is also the only available source-history path.
+Bitbucket Cloud repositories on `bitbucket.org` are not supported by GitHub Enterprise Importer or `gh bbs2gh`. There is no first-party path that migrates Bitbucket Cloud pull requests, comments, issues, or pipeline history. The always-doable baseline is a Git mirror migration that preserves source code and Git history only. For GHE.com targets, Git CLI is also the only available source-history path.
 
 ### 2. Mirror-clone and mirror-push
 
@@ -300,7 +300,7 @@ You are done when all of the following are true:
 - [ ] You validated or documented the manual archive path with `--archive-path`.
 - [ ] A Bitbucket Cloud repository was mirror-pushed to GitHub and branch/tag history is present.
 - [ ] You documented exactly which Bitbucket Server/Data Center and Bitbucket Cloud data did not migrate.
-- [ ] **Adoption handover** — record the customer migration owner, migration-wave plan, cutover risk, evidence checks, and rollback or retry decision points.
+- [ ] Adoption handover — record the customer migration owner, migration-wave plan, cutover risk, evidence checks, and rollback or retry decision points.
 
 ## Cleanup
 

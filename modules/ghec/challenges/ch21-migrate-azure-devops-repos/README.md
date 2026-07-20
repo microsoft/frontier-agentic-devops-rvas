@@ -4,32 +4,32 @@
 
 | | |
 |---|---|
-| **Track** | Migration |
-| **Difficulty** | Intermediate *(per-track ramp)* |
-| **Duration** | ~4 hrs total, multi-session |
-| **Minimum input** | A GitHub org where you are **org owner**, plus an Azure DevOps Services org with a Git repo that has PR history |
-| **App** | None |
-| **EMU compatible** | yes |
+| Track | Migration |
+| Difficulty | Intermediate *(per-track ramp)* |
+| Duration | ~4 hrs total, multi-session |
+| Minimum input | A GitHub org where you are org owner, plus an Azure DevOps Services org with a Git repo that has PR history |
+| App | None |
+| EMU compatible | yes |
 
 ## Customer delivery target
 
-- **Customer objective:** complete a controlled Azure DevOps-to-GitHub cutover that the customer can operate.
-- **Customer-tenant target:** an approved customer pilot repository, destination organisation, migration queue/cutover plan, and follow-up backlog.
-- **Approval and safety boundary:** migrate customer repositories only in an approved change window with source-write freeze and named owners; otherwise queue-only validation must end with an approved cutover proposal, risk decision, and next action.
-- **Records to keep:** retain inventory, migration ID/logs, validation results, mannequin plan, cutover checklist, and gap backlog.
-- **Adoption owner / handover:** the customer migration owner accepts cutover accountability; repository and Boards/Pipelines owners accept their follow-ups.
-- **Next action and owner:** approve the pilot cutover or assign the named owner and date for the documented migration decision.
+- Customer objective: complete a controlled Azure DevOps-to-GitHub cutover that the customer can operate.
+- Customer-tenant target: an approved customer pilot repository, destination organisation, migration queue/cutover plan, and follow-up backlog.
+- Approval and safety boundary: migrate customer repositories only in an approved change window with source-write freeze and named owners; otherwise queue-only validation must end with an approved cutover proposal, risk decision, and next action.
+- Records to keep: retain inventory, migration ID/logs, validation results, mannequin plan, cutover checklist, and gap backlog.
+- Adoption owner / handover: the customer migration owner accepts cutover accountability; repository and Boards/Pipelines owners accept their follow-ups.
+- Next action and owner: approve the pilot cutover or assign the named owner and date for the documented migration decision.
 
 ## Prerequisites
 
-**Dependencies:** none — this guide is self-contained.
+Dependencies: none — this guide is self-contained.
 
-**Access and tools you need:**
-- GitHub Enterprise Cloud organization with **org-owner** rights.
-- Azure DevOps Services **Cloud** organization with at least one **Git** repo containing PR history. TFVC is not supported by GEI; convert TFVC to Git first.
+Access and tools you need:
+- GitHub Enterprise Cloud organization with org-owner rights.
+- Azure DevOps Services Cloud organization with at least one Git repo containing PR history. TFVC is not supported by GEI; convert TFVC to Git first.
 - `gh >= 2.4.0`, `git`, and PowerShell (`pwsh` or Windows PowerShell) installed.
-- A **classic GitHub PAT**. Fine-grained PATs are not supported for GEI. For an org owner, grant `repo`, `admin:org`, and `workflow` scopes.
-- An Azure DevOps PAT with `work item (read)`, `code (read)`, and `identity (read)` scopes. Use **Full access** if you need `inventory-report` to work across all projects.
+- A classic GitHub PAT. Fine-grained PATs are not supported for GEI. For an org owner, grant `repo`, `admin:org`, and `workflow` scopes.
+- An Azure DevOps PAT with `work item (read)`, `code (read)`, and `identity (read)` scopes. Use Full access if you need `inventory-report` to work across all projects.
 - If your GitHub org enforces SAML SSO, authorize the GitHub PAT for SSO before running migrations.
 
 ## Customer delivery objectives
@@ -44,9 +44,9 @@ This delivery engagement establishes:
 - Build a follow-up backlog for Azure Boards and Azure Pipelines work that GEI does not migrate.
 
 > [!IMPORTANT]
-> **Use an approved customer target (do this first)**
+> Use an approved customer target (do this first)
 >
-> Default to an approved customer repository that belongs to a real team and has at least one pull request. A small pilot repository is better than a huge monorepo: migration timing is driven mainly by **pull request count**, not Git repository size.
+> Default to an approved customer repository that belongs to a real team and has at least one pull request. A small pilot repository is better than a huge monorepo: migration timing is driven mainly by pull request count, not Git repository size.
 >
 > Record these values before you start:
 >
@@ -58,7 +58,7 @@ This delivery engagement establishes:
 > export TARGET_REPO="ado-pilot-migrated"
 > ```
 >
-> Recommended sequence: after this repo migration, continue with **ch22** for Azure Boards follow-up and **ch23** for Azure Pipelines / GitHub Actions migration. GEI migrates PR work item links, but not Azure Boards work items or Azure Pipelines definitions.
+> Recommended sequence: after this repo migration, continue with ch22 for Azure Boards follow-up and ch23 for Azure Pipelines / GitHub Actions migration. GEI migrates PR work item links, but not Azure Boards work items or Azure Pipelines definitions.
 
 ## Tasks
 
@@ -192,7 +192,7 @@ read -r -p "Migration ID: " MIGRATION_ID
 gh ado2gh wait-for-migration --migration-id "$MIGRATION_ID"
 ```
 
-12. Download logs before they expire. Migration logs are available for **24 hours only**.
+12. Download logs before they expire. Migration logs are available for 24 hours only.
 
 ```bash
 gh ado2gh download-logs \
@@ -201,11 +201,11 @@ gh ado2gh download-logs \
   --migration-log-file "$TARGET_REPO-migration.log"
 ```
 
-> Azure DevOps migrations do **not** require you to provide blob storage; GEI stages the migration internally.
+> Azure DevOps migrations do not require you to provide blob storage; GEI stages the migration internally.
 
 ### Part F — Validate migrated and non-migrated content
 
-13. Confirm the repository exists and note its visibility. Repositories arrive **private by default** unless you intentionally set visibility.
+13. Confirm the repository exists and note its visibility. Repositories arrive private by default unless you intentionally set visibility.
 
 ```bash
 gh repo view "$GITHUB_ORG/$TARGET_REPO" --json name,visibility,url --jq '{name, visibility, url}'
@@ -223,11 +223,11 @@ GEI migrates:
 - Git source and commit history.
 - Pull requests.
 - User history for pull requests.
-- Work item **links** on pull requests.
+- Work item links on pull requests.
 - Pull request attachments.
 - Repository branch policies, excluding user-scoped and cross-repo branch policies.
 
-GEI does **not** migrate:
+GEI does not migrate:
 - TFVC repositories. Convert TFVC to Git in Azure Repos first.
 - Azure Pipelines definitions.
 - Azure Boards work items. Only PR work item links migrate.
@@ -275,7 +275,7 @@ You are done when ALL of the following are true:
 - [ ] Migration logs were downloaded within 24 hours or the download command and migration ID are documented.
 - [ ] At least one mannequin was reclaimed, or `mannequins.csv` and an org-owner reclaim plan exist.
 - [ ] A TFVC repo, if present, was correctly identified as unsupported and the TFVC-to-Git conversion path was documented.
-- [ ] **Adoption handover** — record the real repository, owning team, approved cutover window, and follow-up backlog for Boards, Pipelines, LFS, permissions, and branch policies.
+- [ ] Adoption handover — record the real repository, owning team, approved cutover window, and follow-up backlog for Boards, Pipelines, LFS, permissions, and branch policies.
 
 ## Operational extensions
 

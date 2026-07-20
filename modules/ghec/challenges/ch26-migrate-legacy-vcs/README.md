@@ -4,27 +4,27 @@
 
 | | |
 |---|---|
-| **Track** | Migration |
-| **Difficulty** | Advanced |
-| **Duration** | ~4 hrs |
-| **Minimum input** | A GitHub org or repo destination plus at least one legacy VCS source |
-| **App** | None |
-| **EMU compatible** | yes |
+| Track | Migration |
+| Difficulty | Advanced |
+| Duration | ~4 hrs |
+| Minimum input | A GitHub org or repo destination plus at least one legacy VCS source |
+| App | None |
+| EMU compatible | yes |
 
 ## Customer delivery target
 
-- **Customer objective:** establish an approved, evidence-backed legacy-VCS conversion and GitHub cutover path.
-- **Customer-tenant target:** a selected customer legacy source, author map, converted Git repository, GitHub destination, and metadata-gap/cutover record.
-- **Approval and safety boundary:** convert and push customer history only with the source owner’s and destination owner’s approval; inaccessible sources and controlled samples must end in a named execution owner and next step.
-- **Records to keep:** retain author maps, conversion commands, large-file checks, ref validation, gap notes, and cutover decision.
-- **Adoption owner / handover:** the customer migration owner accepts source/cutover accountability; repository owners accept the converted destination and gaps.
-- **Next action and owner:** approve the source-specific cutover or hand over the blocker, owner, and dated execution plan.
+- Customer objective: establish an approved, evidence-backed legacy-VCS conversion and GitHub cutover path.
+- Customer-tenant target: a selected customer legacy source, author map, converted Git repository, GitHub destination, and metadata-gap/cutover record.
+- Approval and safety boundary: convert and push customer history only with the source owner’s and destination owner’s approval; inaccessible sources and controlled samples must end in a named execution owner and next step.
+- Records to keep: retain author maps, conversion commands, large-file checks, ref validation, gap notes, and cutover decision.
+- Adoption owner / handover: the customer migration owner accepts source/cutover accountability; repository owners accept the converted destination and gaps.
+- Next action and owner: approve the source-specific cutover or hand over the blocker, owner, and dated execution plan.
 
 ## Prerequisites
 
-**Dependencies:** none. This guide is self-contained. For Azure Repos Git migration after TFVC conversion, ch21 is a useful cross-reference but not required.
+Dependencies: none. This guide is self-contained. For Azure Repos Git migration after TFVC conversion, ch21 is a useful cross-reference but not required.
 
-**Access and tooling:**
+Access and tooling:
 - GitHub organization with repository create rights.
 - GitHub CLI authenticated with permission to create and push repositories.
 - `git` installed.
@@ -37,16 +37,16 @@
 
 Your migration team has legacy source systems that GitHub Enterprise Importer does not migrate directly. You need a reliable source-and-history path for Subversion, Mercurial, TFVC, and Perforce repositories.
 
-The GitHub Importer web tool is now **Git-only**, imports code and commit history only, works on **GitHub.com only**, and does not import LFS, issues, pull requests, or other metadata. SVN, Mercurial, TFVC, and Perforce must be converted to Git with CLI tooling first, then pushed to GitHub.
+The GitHub Importer web tool is now Git-only, imports code and commit history only, works on GitHub.com only, and does not import LFS, issues, pull requests, or other metadata. SVN, Mercurial, TFVC, and Perforce must be converted to Git with CLI tooling first, then pushed to GitHub.
 
 > Delivery scope: complete SVN plus at least one of Mercurial, TFVC, or Perforce when authorised source access is available. For inaccessible systems, document the exact commands, source URL shape, identity map, blocker, and named execution owner.
 
 > [!IMPORTANT]
-> **Use an approved customer target (do this first)**
-> Default to an approved customer legacy-VCS source, such as SVN, Mercurial, TFVC, or Perforce. Complete the work on **that** source and target, retaining the converted Git repository, source history, author map, large-file checks, evidence, and gap record.
+> Use an approved customer target (do this first)
+> Default to an approved customer legacy-VCS source, such as SVN, Mercurial, TFVC, or Perforce. Complete the work on that source and target, retaining the converted Git repository, source history, author map, large-file checks, evidence, and gap record.
 >
-> - **Have a candidate?** Use it everywhere this guide references the legacy VCS source, converted Git directory, or target repository.
-> - **No suitable source and target?** Do not start a migration against an unapproved example; record the access constraint, accountable owner, and next action.
+> - Have a candidate? Use it everywhere this guide references the legacy VCS source, converted Git directory, or target repository.
+> - No suitable source and target? Do not start a migration against an unapproved example; record the access constraint, accountable owner, and next action.
 >
 > Record the selected target, customer migration owner, approval boundary, and next action and owner.
 
@@ -156,7 +156,7 @@ git push --mirror origin
 
 ### Part C — TFVC: convert to Azure Repos Git first, then push to GitHub
 
-TFVC has no direct `git svn` equivalent in GitHub's migration tooling. Convert TFVC to Git inside Azure Repos first by using Azure DevOps **Repos > Import repository > TFVC** or the organization's approved TFVC-to-Git import process. After the Azure Repos Git repository exists, treat it as a Git source.
+TFVC has no direct `git svn` equivalent in GitHub's migration tooling. Convert TFVC to Git inside Azure Repos first by using Azure DevOps Repos > Import repository > TFVC or the organization's approved TFVC-to-Git import process. After the Azure Repos Git repository exists, treat it as a Git source.
 
 ```bash
 ADO_ORG=<azure-devops-org>
@@ -252,7 +252,7 @@ You are done when the applicable evidence is true:
 - [ ] Author identities in converted commits resolve to real names and emails instead of `unknown` or raw source usernames.
 - [ ] Large-file and large-push risks were checked, including 100 MiB file blocks, Git LFS candidates, and the 2 GiB single-push limit.
 - [ ] At least one converted repository exists in GitHub with branches, tags, and expected commit history visible.
-- [ ] **Adoption handover** — record the customer migration owner, first legacy source, metadata gaps, cutover-risk treatment, and next action.
+- [ ] Adoption handover — record the customer migration owner, first legacy source, metadata gaps, cutover-risk treatment, and next action.
 
 ## Cleanup
 

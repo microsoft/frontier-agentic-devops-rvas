@@ -1,16 +1,16 @@
 # Activity 2-05: Welcome Wagon
 
-**Track:** Repo Concierge (Intermediate 🟡)  
-**Estimated time:** 30 minutes  
-**Prerequisites:** Complete at least 2 activities from Track 1
+Track: Repo Concierge (Intermediate 🟡)  
+Estimated time: 30 minutes  
+Prerequisites: Complete at least 2 activities from Track 1
 
 ---
 
 ## What You'll Build
 
-A workflow that welcomes first-time contributors to your repo. When someone opens their first pull request, your Welcome Wagon posts a warm greeting and offers resources (contribution guide, code of conduct, and more). This teaches you **contributor detection** and turns automation into genuine community-building.
+A workflow that welcomes first-time contributors to your repo. When someone opens their first pull request, your Welcome Wagon posts a warm greeting and offers resources (contribution guide, code of conduct, and more). This teaches you contributor detection and turns automation into genuine community-building.
 
-**Why this matters:** First-time contributors may be unfamiliar with a project. A warm, helpful bot makes them feel welcome and reduces friction. Many open-source projects use this pattern to set expectations and direct new contributors to documentation.
+Why this matters: First-time contributors may be unfamiliar with a project. A warm, helpful bot makes them feel welcome and reduces friction. Many open-source projects use this pattern to set expectations and direct new contributors to documentation.
 
 ---
 
@@ -27,12 +27,12 @@ By the end, your squad will:
 ---
 
 > [!IMPORTANT]
-> **Bring your own repo (do this first)**
+> Bring your own repo (do this first)
 >
-> This activity is most valuable when Welcome Wagon uses **your own repository's** contributor flow, links, and tone, so first-time contributors keep getting useful guidance after the session. Treat the setup sample as practice, not the default destination.
+> This activity is most valuable when Welcome Wagon uses your own repository's contributor flow, links, and tone, so first-time contributors keep getting useful guidance after the session. Treat the setup sample as practice, not the default destination.
 >
-> - **Have a candidate repo?** Install or point `welcome-wagon.md` at that repo everywhere the guide references the sample repo, and use real CONTRIBUTING, docs, code of conduct, issue, or support links.
-> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+> - Have a candidate repo? Install or point `welcome-wagon.md` at that repo everywhere the guide references the sample repo, and use real CONTRIBUTING, docs, code of conduct, issue, or support links.
+> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
 >
 > Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
 
@@ -42,10 +42,10 @@ By the end, your squad will:
 
 Create a gh-aw workflow named `welcome-wagon.md` in `.github/workflows/` that:
 
-- **Triggers on:** Pull request opened
-- **Detects:** Is this the author's first PR to the repo? (use `author_association`)
-- **Only posts a comment if** it's a first-time contributor (skip if `author_association` is `COLLABORATOR`, `MEMBER`, or `OWNER`)
-- **Welcome comment includes:**
+- Triggers on: Pull request opened
+- Detects: Is this the author's first PR to the repo? (use `author_association`)
+- Only posts a comment if it's a first-time contributor (skip if `author_association` is `COLLABORATOR`, `MEMBER`, or `OWNER`)
+- Welcome comment includes:
   - A warm greeting (e.g., "Welcome to our community! 🎉")
   - Thank you for contributing
   - 2–3 helpful links (contribution guide, code of conduct, issue tracker, docs, etc.)
@@ -76,29 +76,29 @@ Create a gh-aw workflow named `welcome-wagon.md` in `.github/workflows/` that:
 
 ## Tips & Hints
 
-- **Author association field:** GitHub provides `github.event.pull_request.author_association` with values: `OWNER`, `MEMBER`, `COLLABORATOR`, `CONTRIBUTOR`, `NONE`
+- Author association field: GitHub provides `github.event.pull_request.author_association` with values: `OWNER`, `MEMBER`, `COLLABORATOR`, `CONTRIBUTOR`, `NONE`
   - `NONE` = first time they've interacted with this repo
   - Use this to detect first-timers
-- **Conditional logic:** Check: "Is `author_association == 'NONE'`? If yes, welcome. If no, do nothing."
-- **Resources to include:** Contribution guide (CONTRIBUTING.md), code of conduct (CODE_OF_CONDUCT.md), issue tracker, documentation URL, Discord/Slack channel (if you have one)
-- **Tone:** Enthusiastic, welcoming, not condescending. These are the people who make your project grow.
-- **Links:** Use GitHub's repo URLs where possible (they auto-resolve)
+- Conditional logic: Check: "Is `author_association == 'NONE'`? If yes, welcome. If no, do nothing."
+- Resources to include: Contribution guide (CONTRIBUTING.md), code of conduct (CODE_OF_CONDUCT.md), issue tracker, documentation URL, Discord/Slack channel (if you have one)
+- Tone: Enthusiastic, welcoming, not condescending. These are the people who make your project grow.
+- Links: Use GitHub's repo URLs where possible (they auto-resolve)
 
 ---
 
 ## References
 
-- **Pull Request Context (author_association):** https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
-- **Safe Outputs (add-comment):** https://github.github.com/gh-aw/reference/safe-outputs/
-- **GitHub tool permissions:** https://github.github.com/gh-aw/reference/permissions/
+- Pull Request Context (author_association): https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
+- Safe Outputs (add-comment): https://github.github.com/gh-aw/reference/safe-outputs/
+- GitHub tool permissions: https://github.github.com/gh-aw/reference/permissions/
 
 ---
 
 ## Stuck?
 
-- **"How do I detect first-time contributors?"** → Use `github.event.pull_request.author_association`. If it's `NONE`, they're new to the repo
-- **"How do I reference CONTRIBUTING.md?"** → Link to the actual `CONTRIBUTING.md` in your repository, using its owner, repository name, branch, and file path.
-- **"Workflow posts a comment even for existing contributors?"** → Add a check in the body: "If `author_association` is not `NONE`, do nothing"
-- **"How do I test this if I'm the repo owner?"** → Create a second test account (or use a friend's GitHub account) and have them open a PR
+- "How do I detect first-time contributors?" → Use `github.event.pull_request.author_association`. If it's `NONE`, they're new to the repo
+- "How do I reference CONTRIBUTING.md?" → Link to the actual `CONTRIBUTING.md` in your repository, using its owner, repository name, branch, and file path.
+- "Workflow posts a comment even for existing contributors?" → Add a check in the body: "If `author_association` is not `NONE`, do nothing"
+- "How do I test this if I'm the repo owner?" → Create a second test account (or use a friend's GitHub account) and have them open a PR
 
 Ask your coach.

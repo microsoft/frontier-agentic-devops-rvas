@@ -4,9 +4,9 @@
 
 ## Facilitated application
 
-**Required facilitator check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+Required facilitator check-in: before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Discuss:** Which parts of your code review are mechanical enough to delegate to a first-pass bot, and which judgment calls must always stay with a human reviewer? Connect it to a project, task, or workflow you own.
+Discuss: Which parts of your code review are mechanical enough to delegate to a first-pass bot, and which judgment calls must always stay with a human reviewer? Connect it to a project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Ask them to name a repo where a first-pass review bot would reduce reviewer load.
@@ -15,9 +15,9 @@ Use these follow-ups to steer the conversation:
 
 ## Coaching Philosophy
 
-This activity deepens the event-driven pattern from 2-01 while teaching **PR-specific context access**. Squads move from issue analysis to pull request diff analysis—a natural progression. Your role: help them see that analyzing *metadata* (file count, line changes) is easier and cheaper than analyzing code semantics.
+This activity deepens the event-driven pattern from 2-01 while teaching PR-specific context access. Squads move from issue analysis to pull request diff analysis—a natural progression. Your role: help them see that analyzing *metadata* (file count, line changes) is easier and cheaper than analyzing code semantics.
 
-**Key rule:** By minute 25, every squad should see a comment on a test PR. The comment should feel like a helpful colleague, not a bot.
+Key rule: By minute 25, every squad should see a comment on a test PR. The comment should feel like a helpful colleague, not a bot.
 
 ---
 
@@ -25,11 +25,11 @@ This activity deepens the event-driven pattern from 2-01 while teaching **PR-spe
 
 A finished solution has these characteristics:
 
-**File structure:**
+File structure:
 - `.github/workflows/review-buddy.md` — ~30–40 lines (frontmatter + body)
 - `.github/workflows/review-buddy.lock.yml` — auto-generated, ~70–90 lines
 
-**Behavior:**
+Behavior:
 - Workflow runs on PR open (visible in Actions tab)
 - A comment appears on the PR within 30 seconds
 - Comment includes:
@@ -38,7 +38,7 @@ A finished solution has these characteristics:
   - 2–3 observations (scope, test coverage, description quality)
   - Encouragement
 
-**Example outcome:**
+Example outcome:
 ```
 Thanks for opening this PR! Here's what I see:
 
@@ -70,8 +70,8 @@ Write a friendly review comment. Include observations about:
 - Whether the description is clear
 ```
 
-**Pros:** Simple, predictable, teaches metadata extraction  
-**Cons:** Less sophisticated reasoning
+Pros: Simple, predictable, teaches metadata extraction  
+Cons: Less sophisticated reasoning
 
 ### Approach 2: Guided Observations
 
@@ -86,8 +86,8 @@ Look at this PR and note:
 Then write a friendly comment with these observations.
 ```
 
-**Pros:** Clear, structured, good learning  
-**Cons:** Slightly prescriptive
+Pros: Clear, structured, good learning  
+Cons: Slightly prescriptive
 
 ### Approach 3: Diff Deep-Dive
 
@@ -103,8 +103,8 @@ checkout: true  # instead of false
 
 Then agent reads files and analyzes code quality.
 
-**Pros:** More sophisticated (educational for Track 3)  
-**Cons:** Slower (30–60s checkout overhead); overkill for 2-02
+Pros: More sophisticated (educational for Track 3)  
+Cons: Slower (30–60s checkout overhead); overkill for 2-02
 
 ---
 
@@ -112,65 +112,65 @@ Then agent reads files and analyzes code quality.
 
 ### Pitfall 1: Workflow Doesn't Trigger on PR
 
-**Symptom:** Squad creates test PR; nothing happens.
+Symptom: Squad creates test PR; nothing happens.
 
-**Root cause:** Used `on: issues:` instead of `on: pull_request:`, or typo in trigger.
+Root cause: Used `on: issues:` instead of `on: pull_request:`, or typo in trigger.
 
-**Coach response:**
+Coach response:
 - "You used `on: issues:` — but we're working with PRs now. Should be `on: pull_request:`"
 - Show difference: `issues` (for GitHub Issues), `pull_request` (for PRs)
 - Have them recompile and create a fresh test PR
 
 ### Pitfall 2: Comment Is Generic ("Good PR")
 
-**Symptom:** Comment appears, but it's vague or robotic.
+Symptom: Comment appears, but it's vague or robotic.
 
-**Root cause:** Squad didn't include specific observations.
+Root cause: Squad didn't include specific observations.
 
-**Coach response:**
+Coach response:
 - "Read the comment. Would you find this useful as a PR author?"
 - "Instead of 'Good PR', try: 'This is well-scoped — 3 files, clear intent'"
 - Ask: "What did you notice about this PR? Tell me three things."
 
 ### Pitfall 3: Agent Can't Access PR Stats
 
-**Symptom:** Comment doesn't mention file count or line changes.
+Symptom: Comment doesn't mention file count or line changes.
 
-**Root cause:** Squad doesn't know how to access `github.event.pull_request.*` context.
+Root cause: Squad doesn't know how to access `github.event.pull_request.*` context.
 
-**Coach response:**
+Coach response:
 - "The PR metadata is available in the GitHub context. In your instructions, reference `{files_changed}`, `{additions}`, `{deletions}`"
 - Point to: https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
 - Suggest starting sentence: "This PR modifies {N} files..."
 
 ### Pitfall 4: Checkout is Enabled but Not Needed
 
-**Symptom:** Workflow is slow (>60 seconds) or fails with permission errors.
+Symptom: Workflow is slow (>60 seconds) or fails with permission errors.
 
-**Root cause:** `checkout: true` is set unnecessarily (agent only needs metadata).
+Root cause: `checkout: true` is set unnecessarily (agent only needs metadata).
 
-**Coach response:**
+Coach response:
 - "Do you need to read the actual code files?"
 - If no: "Set `checkout: false`. It saves time and reduces permissions needed."
 - Emphasize: "Most PR analysis can happen with metadata alone"
 
 ### Pitfall 5: Multiple Comments Posted
 
-**Symptom:** Several copies of the same comment appear on the PR.
+Symptom: Several copies of the same comment appear on the PR.
 
-**Root cause:** Workflow ran multiple times (unlikely in practice), or body says "post a comment" multiple times.
+Root cause: Workflow ran multiple times (unlikely in practice), or body says "post a comment" multiple times.
 
-**Coach response:**
+Coach response:
 - "Check the Actions tab — did the workflow run more than once?"
 - Usually: "This is a known edge case. For now, you can manually delete duplicate comments. In production, workflows have concurrency controls."
 
 ### Pitfall 6: Overly Critical Tone
 
-**Symptom:** Comment reads harsh or discouraging (e.g., "This is too big" without balance).
+Symptom: Comment reads harsh or discouraging (e.g., "This is too big" without balance).
 
-**Root cause:** Squads forget this is a *buddy*, not a gatekeeper.
+Root cause: Squads forget this is a *buddy*, not a gatekeeper.
 
-**Coach response:**
+Coach response:
 - "You're being helpful, not judging. Rewrite tone to be collaborative."
 - Instead of: "This is too big", try: "This is a significant change — reviewers may take a bit longer, but it looks well-organized"
 
@@ -178,7 +178,7 @@ Then agent reads files and analyzes code quality.
 
 ## Sample Solution
 
-This is a complete, working `review-buddy.md`. Share **only after 20+ min of struggle**; ask them to type it out.
+This is a complete, working `review-buddy.md`. Share only after 20+ min of struggle; ask them to type it out.
 
 ```markdown
 ---
@@ -213,7 +213,7 @@ Write a warm, encouraging comment that:
 Tone: helpful colleague, not gatekeeper.
 ```
 
-**Why this works:**
+Why this works:
 - `on: pull_request: types: [opened]` — fires when new PR created
 - `permissions: pull-requests: read` — can read PR metadata
 - `checkout: false` (implicit) — doesn't need code, saves time
@@ -234,7 +234,7 @@ Tone: helpful colleague, not gatekeeper.
 | Refine tone | 6 min | Read comment, improve warmth/specificity |
 | Celebrate | 3 min | Discuss learnings |
 
-**Total: ~30 minutes.**
+Total: ~30 minutes.
 
 ---
 
@@ -242,20 +242,20 @@ Tone: helpful colleague, not gatekeeper.
 
 If finished in <20 minutes:
 
-1. **Add a label by PR size:** Use `safe-outputs: add-labels:` to tag PR with `size/small`, `size/medium`, `size/large`
-   - **Concept:** Combining event triggers with labeling
+1. Add a label by PR size: Use `safe-outputs: add-labels:` to tag PR with `size/small`, `size/medium`, `size/large`
+   - Concept: Combining event triggers with labeling
 
-2. **Check for test files:** If test files aren't touched, suggest adding tests
-   - **Concept:** Conditional suggestions based on analysis
+2. Check for test files: If test files aren't touched, suggest adding tests
+   - Concept: Conditional suggestions based on analysis
 
-3. **Draft message to commit:** Use `safe-outputs: create-comment:` on a PR commit directly (vs. the PR itself)
-   - **Concept:** Different safe-outputs targets
+3. Draft message to commit: Use `safe-outputs: create-comment:` on a PR commit directly (vs. the PR itself)
+   - Concept: Different safe-outputs targets
 
-4. **Schedule a follow-up review:** Have the workflow post a second comment 48h later asking "Any feedback from reviewers yet?"
-   - **Concept:** Combining `on: pull_request:` with `on: schedule:` in the same workflow
+4. Schedule a follow-up review: Have the workflow post a second comment 48h later asking "Any feedback from reviewers yet?"
+   - Concept: Combining `on: pull_request:` with `on: schedule:` in the same workflow
 
-5. **Port to issues:** Create a parallel workflow for issue descriptions (e.g., "Is this issue well-described?")
-   - **Concept:** Same logic, different event type
+5. Port to issues: Create a parallel workflow for issue descriptions (e.g., "Is this issue well-described?")
+   - Concept: Same logic, different event type
 
 ---
 
@@ -276,15 +276,15 @@ If a squad is stuck:
 
 ## Key Takeaways for Coaches
 
-- **Event variety:** Squads are now building for multiple GitHub events (`issues` vs `pull_request`). This is the foundation for Track 2's depth.
-- **Metadata > code:** Analyzing PR metadata (file count, line count) is fast and safe. Parsing code is for later.
-- **Personality in automation:** A friendly bot is more useful than a harsh one. Emphasize tone.
-- **PR as communication:** PRs tell stories (scope, intent, effort). The bot should read that story and reflect it back warmly.
+- Event variety: Squads are now building for multiple GitHub events (`issues` vs `pull_request`). This is the foundation for Track 2's depth.
+- Metadata > code: Analyzing PR metadata (file count, line count) is fast and safe. Parsing code is for later.
+- Personality in automation: A friendly bot is more useful than a harsh one. Emphasize tone.
+- PR as communication: PRs tell stories (scope, intent, effort). The bot should read that story and reflect it back warmly.
 
 ---
 
 ## Reference
 
-**Reference solution note:** This repository does not include separate committed sample-solution files; use the inline sample and validation checklist above.
-**PR Fix Workflow (Real):** https://github.com/githubnext/agentics/blob/main/workflows/pr-fix.md  
-**Pull Request Context:** https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
+Reference solution note: This repository does not include separate committed sample-solution files; use the inline sample and validation checklist above.
+PR Fix Workflow (Real): https://github.com/githubnext/agentics/blob/main/workflows/pr-fix.md  
+Pull Request Context: https://docs.github.com/en/actions/learn-github-actions/contexts#github-context

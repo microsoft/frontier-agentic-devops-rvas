@@ -4,9 +4,9 @@
 
 ## Facilitated application
 
-**Required facilitator check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+Required facilitator check-in: before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Discuss:** What daily status update do you or your team assemble by hand today that this scheduled briefing pattern could replace, and what would you trust it to send unsupervised? Connect it to a project, task, or workflow you own.
+Discuss: What daily status update do you or your team assemble by hand today that this scheduled briefing pattern could replace, and what would you trust it to send unsupervised? Connect it to a project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Ask them to name the exact repo, project, or team channel where a status update is assembled by hand today.
@@ -15,9 +15,9 @@ Use these follow-ups to steer the conversation:
 
 ## Coaching Philosophy
 
-This activity introduces **scheduled triggers** and the **GitHub MCP tool** for querying repo data. Your role is to guide squads through the mental model: cron schedules fire at fixed times, the GitHub tool reads data, and the agent synthesizes that into human-friendly output.
+This activity introduces scheduled triggers and the GitHub MCP tool for querying repo data. Your role is to guide squads through the mental model: cron schedules fire at fixed times, the GitHub tool reads data, and the agent synthesizes that into human-friendly output.
 
-**Key rule:** This should feel like building on Activity 00, not a leap. If a squad is stuck on cron syntax or the tool, that's on the system design—give them a cheat sheet and move on.
+Key rule: This should feel like building on Activity 00, not a leap. If a squad is stuck on cron syntax or the tool, that's on the system design—give them a cheat sheet and move on.
 
 ---
 
@@ -35,11 +35,11 @@ A coach can verify completion when the squad can show:
 ## Common Pitfalls & Coaching Responses
 
 ### Pitfall 1: Incorrect cron syntax
-**Symptom:** Workflow compiled fine, but it never fires at the expected time. Or it fires at the wrong time.
+Symptom: Workflow compiled fine, but it never fires at the expected time. Or it fires at the wrong time.
 
-**Root cause:** Cron expression typo or misunderstanding of day-of-week encoding (0=Sunday, 1-5=Mon-Fri, 6=Saturday).
+Root cause: Cron expression typo or misunderstanding of day-of-week encoding (0=Sunday, 1-5=Mon-Fri, 6=Saturday).
 
-**Coach response:**
+Coach response:
 - "Let's check your cron expression. What did you write?"
 - Have them verify on crontab.guru — it shows next 5 execution times.
 - Common fix: `0 9 * * 1-5` for weekdays at 9 AM UTC
@@ -48,11 +48,11 @@ A coach can verify completion when the squad can show:
 ---
 
 ### Pitfall 2: No `workflow_dispatch:` for testing
-**Symptom:** Squad can't test because they have to wait for the cron schedule to fire.
+Symptom: Squad can't test because they have to wait for the cron schedule to fire.
 
-**Root cause:** They only added `on: schedule:` but not `on: workflow_dispatch:`
+Root cause: They only added `on: schedule:` but not `on: workflow_dispatch:`
 
-**Coach response:**
+Coach response:
 - "You can add `workflow_dispatch:` alongside `schedule:` so you can test manually from the Actions tab."
 - Show them: in the Actions tab, there's a "Run workflow" button when `workflow_dispatch:` is present.
 - This is a best practice for schedulable workflows — always include manual trigger.
@@ -60,11 +60,11 @@ A coach can verify completion when the squad can show:
 ---
 
 ### Pitfall 3: Trying to call GitHub API directly instead of using the tool
-**Symptom:** They use `curl` or `gh api` in the workflow body.
+Symptom: They use `curl` or `gh api` in the workflow body.
 
-**Root cause:** They're thinking like a GitHub Actions user, not an agentic workflow user.
+Root cause: They're thinking like a GitHub Actions user, not an agentic workflow user.
 
-**Coach response:**
+Coach response:
 - "I notice you're calling `gh api` directly. That's not wrong, but gh-aw has a better pattern: the GitHub MCP tool."
 - Explain: "When you add `tools: github: toolsets: [issues, pull_requests]`, the AI agent can query those without you writing API calls. The agent knows how to ask for 'issues opened in the last 24 hours' and the tool gives it the answer."
 - Show the tool-permissions reference: https://github.github.com/gh-aw/reference/permissions/
@@ -72,11 +72,11 @@ A coach can verify completion when the squad can show:
 ---
 
 ### Pitfall 4: Overly complex summarization instructions
-**Symptom:** Agent produces a verbose, repetitive summary or gets confused about what counts as "high-priority".
+Symptom: Agent produces a verbose, repetitive summary or gets confused about what counts as "high-priority".
 
-**Root cause:** Prompt is too ambitious or uses undefined terms ("high-priority" to whom?).
+Root cause: Prompt is too ambitious or uses undefined terms ("high-priority" to whom?).
 
-**Coach response:**
+Coach response:
 - "What do you actually want the agent to tell your team in that briefing?"
 - Guide them to: "Tell them the count of opened issues, count of closed issues, count of opened PRs, and a 2-sentence note about any blockers if present."
 - Simpler prompts = more reliable results. They can iterate later.
@@ -84,11 +84,11 @@ A coach can verify completion when the squad can show:
 ---
 
 ### Pitfall 5: Permissions still set to `write-all`
-**Symptom:** Workflow has overly permissive permissions when it should be read-only.
+Symptom: Workflow has overly permissive permissions when it should be read-only.
 
-**Root cause:** Copy-paste from Activity 00 or misunderstanding that `safe-outputs` needs permissions too.
+Root cause: Copy-paste from Activity 00 or misunderstanding that `safe-outputs` needs permissions too.
 
-**Coach response:**
+Coach response:
 - "You have `permissions: write-all`. For this workflow, what do you need to write?"
 - Guide: "You read issues/PRs (read permission), and `safe-outputs: create-issue:` handles the write. So use `contents: read`."
 - Reinforce: "safe-outputs has its own permission model. Your workflow code = minimal permissions. safe-outputs = explicit, bounded writes."
@@ -96,11 +96,11 @@ A coach can verify completion when the squad can show:
 ---
 
 ### Pitfall 6: Missing the GitHub tool declaration
-**Symptom:** Workflow compiles, but the agent has no access to issue/PR data.
+Symptom: Workflow compiles, but the agent has no access to issue/PR data.
 
-**Root cause:** They forgot to add `tools: github: toolsets: [issues, pull_requests]` in frontmatter.
+Root cause: They forgot to add `tools: github: toolsets: [issues, pull_requests]` in frontmatter.
 
-**Coach response:**
+Coach response:
 - "How is the agent supposed to access issue/PR data?"
 - Guide them: "You need to declare which tools the agent can use. Add `tools: github: toolsets: [issues, pull_requests]` in your frontmatter."
 - Show them the tool reference and explain toolsets are like a permission model for the agent.
@@ -155,7 +155,7 @@ If there are any issues or PRs with high activity (more than 3 comments), mentio
 Keep the summary concise — 5-7 sentences total.
 ```
 
-**Why this works:**
+Why this works:
 - `on: schedule:` with cron + `workflow_dispatch:` for testing
 - `permissions: contents: read` — minimal and safe
 - `tools: github: toolsets: [issues, pull_requests]` — agent can query data
@@ -163,7 +163,7 @@ Keep the summary concise — 5-7 sentences total.
 - Body: clear, structured instructions with specific counts to gather and format
 - `engine: copilot` — free, reliable default
 
-**Reference solution note:** This repository does not include separate committed sample-solution files; use the inline sample and validation checklist above.
+Reference solution note: This repository does not include separate committed sample-solution files; use the inline sample and validation checklist above.
 ---
 
 ## Time Management
@@ -178,7 +178,7 @@ Suggest this breakdown:
 | Manual trigger | 10 min | Add `workflow_dispatch`, run manually to see results |
 | Debug & refine | 2 min | Adjust summary instructions if needed |
 
-**Total: ~30 minutes.**
+Total: ~30 minutes.
 
 If they finish early, offer extensions.
 
@@ -204,26 +204,26 @@ If a squad is stuck:
 
 If a squad finishes early:
 
-1. **Add time-of-day customization:** Parameterize the cron time (e.g., "9 AM on weekdays" → let them change the `0 9` part and redeploy)
+1. Add time-of-day customization: Parameterize the cron time (e.g., "9 AM on weekdays" → let them change the `0 9` part and redeploy)
    - Concept: understanding cron flexibility
 
-2. **Add a label to the briefing issue:** Use `safe-outputs: create-issue: labels: [briefing, automated]`
+2. Add a label to the briefing issue: Use `safe-outputs: create-issue: labels: [briefing, automated]`
    - Concept: structured safe-outputs configuration
 
-3. **Skip briefing if no activity:** Have the agent decide whether to create the issue (e.g., "only create if there were >0 changes in the last 24h")
+3. Skip briefing if no activity: Have the agent decide whether to create the issue (e.g., "only create if there were >0 changes in the last 24h")
    - Concept: conditional safe-output logic in natural language
 
-4. **Include code metrics:** Add `tools: bash: allow: [git log:*, wc:*]` and have the agent count commits/lines changed
+4. Include code metrics: Add `tools: bash: allow: [git log:*, wc:*]` and have the agent count commits/lines changed
    - Concept: multi-tool workflows
 
-5. **Post to Discussions instead of Issues:** Use `safe-outputs: create-discussion:` and make it a weekly (not daily) recurring briefing
+5. Post to Discussions instead of Issues: Use `safe-outputs: create-discussion:` and make it a weekly (not daily) recurring briefing
    - Concept: different safe-output types, weekly vs daily cadence
 
 ---
 
 ## Key Takeaways for Coaches
 
-- **Scheduled workflows are foundational:** Once this works, squads understand the heartbeat of automation.
-- **Tool queries are AI's superpower:** The GitHub tool frees them from API calls; the agent synthesizes meaning.
-- **Test manually first:** Don't let them wait for cron; use `workflow_dispatch` to iterate faster.
-- **Celebrate first automation:** When the morning briefing issue appears, that's the win — they just built recurring automation with natural language.
+- Scheduled workflows are foundational: Once this works, squads understand the heartbeat of automation.
+- Tool queries are AI's superpower: The GitHub tool frees them from API calls; the agent synthesizes meaning.
+- Test manually first: Don't let them wait for cron; use `workflow_dispatch` to iterate faster.
+- Celebrate first automation: When the morning briefing issue appears, that's the win — they just built recurring automation with natural language.

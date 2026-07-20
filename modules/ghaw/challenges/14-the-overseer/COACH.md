@@ -4,9 +4,9 @@
 
 ## Facilitated application
 
-**Required facilitator check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+Required facilitator check-in: before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Discuss:** Who or what watches your automations today, and at what failure rate or cost would you want an overseer agent to alert you before things spiral? Connect it to a project, task, or workflow you own.
+Discuss: Who or what watches your automations today, and at what failure rate or cost would you want an overseer agent to alert you before things spiral? Connect it to a project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Ask what watches their automations or pipelines today, and how failures surface.
@@ -15,11 +15,11 @@ Use these follow-ups to steer the conversation:
 
 ## Coaching Philosophy for This Activity
 
-This is the **meta-workflow intro**. Squads have built workflows that do things. Now teach them to build workflows that *watch other workflows*.
+This is the meta-workflow intro. Squads have built workflows that do things. Now teach them to build workflows that *watch other workflows*.
 
 Your job: Build the insight that observability is not optional—it's foundational. An unmonitored automation system is a liability. An agent watching all the other agents? That's professional.
 
-**Key rule:** When they get their first workflow health alert working, ask them what evidence the alert used and what action it would trigger.
+Key rule: When they get their first workflow health alert working, ask them what evidence the alert used and what action it would trigger.
 
 ---
 
@@ -27,14 +27,14 @@ Your job: Build the insight that observability is not optional—it's foundation
 
 A finished solution has:
 
-**Workflow (`workflow-health-monitor.md`)**
+Workflow (`workflow-health-monitor.md`)
 - ~40-50 lines (frontmatter + body)
 - Trigger: `on: schedule: cron: "0 10 * * 1"` (weekly)
 - Frontmatter includes: `tools: agentic-workflows`, `max-effective-tokens: 5000000` (or similar)
 - Uses `safe-outputs: create-issue` with `max: 1, close-older-issues: true`
 - Optional: `tracker-id: workflow-health-monitor`
 
-**Weekly Issue (Example):**
+Weekly Issue (Example):
 ```
 Title: Workflow Health Report — Week of 2026-05-28
 
@@ -81,91 +81,91 @@ Squads will vary in sophistication:
 ### Approach 1: "Simple Table" (most common)
 Agent fetches workflow summaries, creates a basic table with: workflow name, success rate, latest token count.
 
-**Pros:** Fast, clear, sufficient for learning
-**Cons:** Doesn't compute trends or detect spikes
+Pros: Fast, clear, sufficient for learning
+Cons: Doesn't compute trends or detect spikes
 
 ### Approach 2: "Full Analysis"
 Compares current week to previous week, flags spikes, computes failure rates, includes recommendations.
 
-**Pros:** Closest to an operational report when the thresholds come from the team's own baseline
-**Cons:** More complex prompt, requires more tokens
+Pros: Closest to an operational report when the thresholds come from the team's own baseline
+Cons: More complex prompt, requires more tokens
 
 ### Approach 3: "Minimal Output"
 Workflow runs but only creates an issue if something is broken (no issue if all is well).
 
-**Cons:** Misses the learning—participants should see the full report. Not ideal.
+Cons: Misses the learning—participants should see the full report. Not ideal.
 
-**Coach guidance:** Prefer Approach 1 or 2. Encourage at least a basic summary table.
+Coach guidance: Prefer Approach 1 or 2. Encourage at least a basic summary table.
 
 ---
 
 ## Common Pitfalls & Socratic Responses
 
 ### Pitfall 1: agentic-workflows tool not configured
-**Symptom:** Workflow logs show "Tool not found" or "agentic-workflows is not available".
+Symptom: Workflow logs show "Tool not found" or "agentic-workflows is not available".
 
-**Root cause:** Missing `tools: agentic-workflows` in frontmatter, or tool name typo.
+Root cause: Missing `tools: agentic-workflows` in frontmatter, or tool name typo.
 
-**Coach response:**
+Coach response:
 - "What's in your `tools:` section?"
 - "It should be `tools: agentic-workflows:` (yes, it's not a `toolsets` like GitHub—it's its own tool)."
 - Check the reference docs.
 
 ### Pitfall 2: No data returned
-**Symptom:** Workflow runs but agent says "No workflows found" or "Empty summary".
+Symptom: Workflow runs but agent says "No workflows found" or "Empty summary".
 
-**Root cause:** `agentic-workflows` didn't return data (maybe no workflows exist, or the query was wrong).
+Root cause: `agentic-workflows` didn't return data (maybe no workflows exist, or the query was wrong).
 
-**Coach response:**
+Coach response:
 - "First: do you have other workflows in this repo that have run in the past 7 days?"
 - "If yes, check the agent's instructions. Did it ask for a 7-day window? Try: 'Query the last 7 days of workflow runs using the agentic-workflows MCP tool.'"
 - This is a data-pipeline debugging moment.
 
 ### Pitfall 3: max-effective-tokens set too low
-**Symptom:** Issue is incomplete or agent says "Token budget exceeded".
+Symptom: Issue is incomplete or agent says "Token budget exceeded".
 
-**Root cause:** `max-effective-tokens` was too small for the analysis.
+Root cause: `max-effective-tokens` was too small for the analysis.
 
-**Coach response:**
+Coach response:
 - "How big is your data? 42 runs × 10 metrics per run = 420 data points. That's a lot for a small token budget."
 - "Try starting with 5,000,000 tokens. If the agent still gets cut off, increase to 10,000,000."
 - "Why do you think we need a high budget here?" → Guide them to understand: analyzing many workflows requires more reasoning tokens than a single task.
 
 ### Pitfall 4: Issue never closes
-**Symptom:** Multiple old health reports pile up in Issues.
+Symptom: Multiple old health reports pile up in Issues.
 
-**Root cause:** Missing `close-older-issues: true` or `max: 1` in safe-outputs.
+Root cause: Missing `close-older-issues: true` or `max: 1` in safe-outputs.
 
-**Coach response:**
+Coach response:
 - "Check your `safe-outputs: create-issue:` section. Include: `max: 1, close-older-issues: true`."
 - "This ensures only one active health report exists—when a new one is created, the old one auto-closes."
 - This is a "production safety" moment.
 
 ### Pitfall 5: No alerts or insights
-**Symptom:** Issue is just a table, no actual problems flagged or recommendations made.
+Symptom: Issue is just a table, no actual problems flagged or recommendations made.
 
-**Root cause:** Agent wasn't told to analyze, just report.
+Root cause: Agent wasn't told to analyze, just report.
 
-**Coach response:**
+Coach response:
 - "A good health report spots problems. If all your workflows are perfect, great! But if not, the report should highlight them."
 - "Your prompt should include the thresholds your team cares about, such as: 'Flag workflows above the team's failure-rate threshold, or those that doubled token usage compared with their previous baseline.'"
 - Guide them to add decision logic.
 
 ### Pitfall 6: Confused about failure rate calculation
-**Symptom:** Agent calculates failure rate wrong (e.g., "failed 3 times" but doesn't divide by total runs).
+Symptom: Agent calculates failure rate wrong (e.g., "failed 3 times" but doesn't divide by total runs).
 
-**Root cause:** Agent wasn't given clear instructions.
+Root cause: Agent wasn't given clear instructions.
 
-**Coach response:**
+Coach response:
 - "Failure rate = (# failed runs) / (# total runs). If a workflow ran 10 times and failed 2, rate is 2/10 = 20%."
 - "Your prompt should be explicit: 'Calculate the failure rate as: number of failed runs divided by total runs.'"
 
 ### Pitfall 7: No workflows to monitor
-**Symptom:** Overseer runs but says "No workflows found" because this is the first week and no other workflows exist.
+Symptom: Overseer runs but says "No workflows found" because this is the first week and no other workflows exist.
 
-**Root cause:** Squad is running activities in isolation, no other workflows exist.
+Root cause: Squad is running activities in isolation, no other workflows exist.
 
-**Coach response:**
+Coach response:
 - "That's OK! The activity is to build the *Overseer*, not to have a full farm of workflows to monitor."
 - "For testing, have them manually trigger the Overseer a few times to generate some run history. Then the Overseer has data to analyze."
 - Or: "If you want, create a dummy workflow that runs weekly and produces some data. Then the Overseer can monitor it."
@@ -174,20 +174,20 @@ Workflow runs but only creates an issue if something is broken (no issue if all 
 
 ## Coaching Questions
 
-1. **"What MCP tool are you using to get workflow data?"** → Should be `agentic-workflows`
-2. **"How high did you set `max-effective-tokens` and why?"** → Tests reasoning about token budgeting
-3. **"What counts as 'failure' in your monitor?"** → Did they define success criteria?
-4. **"Show me the issue. What problem does it surface?"** → Verification of output quality
-5. **"If all workflows are running great, what does your issue say?"** → Does it handle the happy path?
-6. **"How does the old issue auto-close?"** → Check for understanding of `close-older-issues: true`
+1. "What MCP tool are you using to get workflow data?" → Should be `agentic-workflows`
+2. "How high did you set `max-effective-tokens` and why?" → Tests reasoning about token budgeting
+3. "What counts as 'failure' in your monitor?" → Did they define success criteria?
+4. "Show me the issue. What problem does it surface?" → Verification of output quality
+5. "If all workflows are running great, what does your issue say?" → Does it handle the happy path?
+6. "How does the old issue auto-close?" → Check for understanding of `close-older-issues: true`
 
 ---
 
 ## Sample Solution
 
-Share **only if stuck >20 minutes**. Have them type it.
+Share only if stuck >20 minutes. Have them type it.
 
-**`workflow-health-monitor.md`:**
+`workflow-health-monitor.md`:
 
 ```markdown
 ---
@@ -247,10 +247,10 @@ If all workflows are below the chosen thresholds, still create the issue with a 
 
 ## Why This Works
 
-- **Frontmatter:** The `max-effective-tokens` value gives the sample dataset enough tokens to complete the analysis. Adjust it using real run counts and token budgets. The `agentic-workflows` MCP tool is configured, and `close-older-issues: true` keeps only the current report open.
-- **Meta-pattern:** The agent queries its own ecosystem—meta-thinking.
-- **Observability:** Production automation needs this layer.
-- **Decision-making:** Not just data, but insights and recommendations.
+- Frontmatter: The `max-effective-tokens` value gives the sample dataset enough tokens to complete the analysis. Adjust it using real run counts and token budgets. The `agentic-workflows` MCP tool is configured, and `close-older-issues: true` keeps only the current report open.
+- Meta-pattern: The agent queries its own ecosystem—meta-thinking.
+- Observability: Production automation needs this layer.
+- Decision-making: Not just data, but insights and recommendations.
 
 ---
 
@@ -269,17 +269,17 @@ If all workflows are below the chosen thresholds, still create the issue with a 
 | Test | 5 min | Run and verify issue is created |
 | Refine | 2 min | If needed, adjust the analysis or formatting |
 
-**Total: ~30 minutes.**
+Total: ~30 minutes.
 
 ---
 
 ## Extension Ideas
 
-1. **Slack notifications:** Mock sending alerts to a Slack channel (via a placeholder issue comment).
-2. **Multi-week trending:** Compare health metrics across 4 weeks—is the system getting better or worse?
-3. **Correlation analysis:** Detect if failures in workflow A cause failures in workflow B (dependency detection).
-4. **Cost predictions:** Estimate weekly cost based on 7-day trends; alert if predicted cost exceeds budget.
-5. **Per-engine metrics:** Break down tokens and failures by engine (Copilot vs Claude vs Codex).
+1. Slack notifications: Mock sending alerts to a Slack channel (via a placeholder issue comment).
+2. Multi-week trending: Compare health metrics across 4 weeks—is the system getting better or worse?
+3. Correlation analysis: Detect if failures in workflow A cause failures in workflow B (dependency detection).
+4. Cost predictions: Estimate weekly cost based on 7-day trends; alert if predicted cost exceeds budget.
+5. Per-engine metrics: Break down tokens and failures by engine (Copilot vs Claude vs Codex).
 
 ---
 
@@ -297,7 +297,7 @@ If all workflows are below the chosen thresholds, still create the issue with a 
 
 ## Key Takeaways
 
-- **Meta-workflows are powerful:** An agent watching other agents is the observability layer.
-- **Token budgets are real:** Analyzing many workflows requires a planned token limit.
-- **Insights > raw data:** A good health report surfaces problems and recommends actions.
-- **Production mindset:** Real teams have automated monitoring. You now do too.
+- Meta-workflows are powerful: An agent watching other agents is the observability layer.
+- Token budgets are real: Analyzing many workflows requires a planned token limit.
+- Insights > raw data: A good health report surfaces problems and recommends actions.
+- Production mindset: Real teams have automated monitoring. You now do too.

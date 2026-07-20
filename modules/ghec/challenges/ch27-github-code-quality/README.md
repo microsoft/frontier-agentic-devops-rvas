@@ -4,34 +4,34 @@
 
 | | |
 |---|---|
-| **Track** | Security |
-| **Difficulty** | Intermediate |
-| **Duration** | ~5 hrs total, multi-session |
-| **Minimum input** | An authorized customer repository in a GitHub Team or Enterprise Cloud organization with Code Quality available |
-| **App** | Customer repository |
-| **EMU compatible** | yes |
+| Track | Security |
+| Difficulty | Intermediate |
+| Duration | ~5 hrs total, multi-session |
+| Minimum input | An authorized customer repository in a GitHub Team or Enterprise Cloud organization with Code Quality available |
+| App | Customer repository |
+| EMU compatible | yes |
 
 ## Customer delivery target
 
-- **Customer objective:** give delivery teams actionable, native GitHub evidence for maintainability, reliability, and test coverage before changes merge.
-- **Customer-tenant target:** an authorized repository's Code Quality configuration, CI coverage upload, PR feedback, threshold decision, and rollout evidence.
-- **Approval and safety boundary:** enable Code Quality and change workflow permissions or rulesets only with the repository or organization owner's approval. Use a controlled pilot repository if production rollout is not yet authorized.
-- **Records to keep:** initial Code Health scores, workflow and coverage evidence, pull-request finding decision, threshold decision, and organization pilot proposal.
-- **Adoption owner / handover:** the repository owner owns the repository configuration; the engineering and platform owners agree the triage and rollout cadence.
-- **Next action and owner:** approve the pilot cohort, extend the rollout, or document the blocker and rollback decision.
+- Customer objective: give delivery teams actionable, native GitHub evidence for maintainability, reliability, and test coverage before changes merge.
+- Customer-tenant target: an authorized repository's Code Quality configuration, CI coverage upload, PR feedback, threshold decision, and rollout evidence.
+- Approval and safety boundary: enable Code Quality and change workflow permissions or rulesets only with the repository or organization owner's approval. Use a controlled pilot repository if production rollout is not yet authorized.
+- Records to keep: initial Code Health scores, workflow and coverage evidence, pull-request finding decision, threshold decision, and organization pilot proposal.
+- Adoption owner / handover: the repository owner owns the repository configuration; the engineering and platform owners agree the triage and rollout cadence.
+- Next action and owner: approve the pilot cohort, extend the rollout, or document the blocker and rollback decision.
 
 ## Prerequisites
 
-- A GitHub Team or GitHub Enterprise Cloud organization where **GitHub Code Quality** is available. If the organization belongs to an enterprise, confirm the enterprise owner has allowed the product.
+- A GitHub Team or GitHub Enterprise Cloud organization where GitHub Code Quality is available. If the organization belongs to an enterprise, confirm the enterprise owner has allowed the product.
 - An authorized repository with GitHub Actions enabled and at least one Code Quality-supported language.
-- A test suite that can emit a **Cobertura XML** report. `ghec-ch04` is a useful preparation activity when the repository does not yet have CI, but it is not required for this session.
+- A test suite that can emit a Cobertura XML report. `ghec-ch04` is a useful preparation activity when the repository does not yet have CI, but it is not required for this session.
 - Repository administrator or organization owner access, plus `gh >= 2.x`, `git`, and `jq`.
 - A named customer repository, accountable repository owner, and authorization to change its Code Quality, workflow, and merge-control configuration.
 
 > [!IMPORTANT]
-> **Use an approved customer target**
+> Use an approved customer target
 >
-> GitHub Code Quality should be evaluated against a repository the customer plans to operate. Do not treat CodeQL security scanning, a generic lint job, or an agent review workflow as a substitute: this activity configures the **GitHub Code Quality product**.
+> GitHub Code Quality should be evaluated against a repository the customer plans to operate. Do not treat CodeQL security scanning, a generic lint job, or an agent review workflow as a substitute: this activity configures the GitHub Code Quality product.
 
 ## Scenario
 
@@ -43,14 +43,14 @@ A customer team has test runs and code review, but cannot see whether a pull req
 
 1. Confirm the selected repository uses a language supported by Code Quality and that GitHub Actions is enabled. Record the repository, default branch, repository owner, engineering owner, and approval boundary.
 2. Confirm product availability in the customer tenant. If the organization belongs to an enterprise, ask the enterprise owner to allow Code Quality before attempting repository enablement.
-3. Identify the existing test command and the coverage tool for the repository. It must produce **Cobertura XML**; choose a converter when the current tool only creates another format.
+3. Identify the existing test command and the coverage tool for the repository. It must produce Cobertura XML; choose a converter when the current tool only creates another format.
 4. Record whether the team has Copilot licenses and AI features enabled. This affects optional Copilot review findings, not the rules-based Code Quality baseline.
 
 ### Part B - Enable Code Quality and record the baseline
 
-5. In the selected repository, go to **Settings -> Security -> Code quality** and select **Enable code quality**.
+5. In the selected repository, go to Settings -> Security -> Code quality and select Enable code quality.
 6. Review the detected languages and runner configuration. Disable only languages the customer has explicitly excluded; save the configuration.
-7. Wait for the initial analysis, then open **Security and quality -> Code quality -> Standard findings**. Record:
+7. Wait for the initial analysis, then open Security and quality -> Code quality -> Standard findings. Record:
    - maintainability score;
    - reliability score;
    - number of Error, Warning, and Note findings;
@@ -82,13 +82,13 @@ permissions:
 
 ### Part D - Triage quality feedback in a pull request
 
-13. Use a focused pull request that changes supported-language code. In **Files changed**, identify whether each comment comes from `github-code-quality[bot]` (rules-based) or Copilot (AI-powered).
+13. Use a focused pull request that changes supported-language code. In Files changed, identify whether each comment comes from `github-code-quality[bot]` (rules-based) or Copilot (AI-powered).
 14. For at least one rules-based finding, read the severity and choose one action:
     - fix it manually;
     - review and commit an Autofix only when the patch is correct for the customer codebase; or
     - dismiss it with a specific rationale when the finding is intentional or does not apply.
 15. Review optional Copilot findings separately. They do not carry the Code Quality Error/Warning/Note severity and do not independently satisfy a Code Quality merge gate. Do not merge any generated patch without normal pull-request review.
-16. Return to **Standard findings** and record the before/after effect on the backlog and scores. Scores must be interpreted in repository context; generated code and small supported-language footprints can skew them.
+16. Return to Standard findings and record the before/after effect on the backlog and scores. Scores must be interpreted in repository context; generated code and small supported-language footprints can skew them.
 
 ### Part E - Make the merge and rollout decision
 
@@ -108,7 +108,7 @@ You are done when ALL of the following are true:
 - [ ] A rules-based Code Quality finding was fixed or dismissed with a reviewable decision; any Autofix was reviewed before commit.
 - [ ] The customer decided and evidenced whether a native Code Quality severity threshold blocks merges.
 - [ ] An organization pilot proposal identifies the selected cohort, owners, measures, licensing/cost review, and rollout or rollback decision.
-- [ ] **Adoption handover:** the customer repository owner, platform owner, triage cadence, and next authorized action are recorded.
+- [ ] Adoption handover: the customer repository owner, platform owner, triage cadence, and next authorized action are recorded.
 
 ## Operational extensions
 

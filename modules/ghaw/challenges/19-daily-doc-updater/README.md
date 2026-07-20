@@ -1,6 +1,6 @@
-**Track:** Production Patterns (Advanced 🟣)
-**Estimated time:** 30 minutes
-**Tier:** Bonus
+Track: Production Patterns (Advanced 🟣)
+Estimated time: 30 minutes
+Tier: Bonus
 
 ---
 
@@ -18,37 +18,37 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
 - Opens PRs with targeted, reviewable corrections
 
 > [!IMPORTANT]
-> **Bring your own repo (do this first)**
+> Bring your own repo (do this first)
 >
 > This activity is most valuable when the updater reviews docs that can keep serving your users after the session. Pick a repository in an org you control where `README.md`, `docs/`, API docs, or runbooks drift as the code changes.
 >
-> - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and point the workflow at that repo's real docs and code paths so proposed PRs fix production documentation drift.
-> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+> - Have a candidate repo? Use it everywhere this guide references the sample repo, and point the workflow at that repo's real docs and code paths so proposed PRs fix production documentation drift.
+> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
 >
 > Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
 
 ## What You'll Do
 
-1. **Install [`gh aw`](https://github.com/github/gh-aw)** (if not already done):
+1. Install [`gh aw`](https://github.com/github/gh-aw) (if not already done):
    ```bash
    curl -sL https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh | bash
    ```
 
-2. **Pull the production workflow**:
+2. Pull the production workflow:
    ```bash
    gh aw add-wizard https://github.com/githubnext/agentics/blob/main/workflows/daily-doc-updater.md
    ```
 
-3. **Read the [scheduled workflow](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule) cron expression** in the frontmatter — understand how `schedule: - cron: "0 9 * * *"` works and what time it fires in UTC.
+3. Read the [scheduled workflow](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule) cron expression in the frontmatter — understand how `schedule: - cron: "0 9 * * *"` works and what time it fires in UTC.
 
-4. **Customise** the docs scope and review depth for your repository.
+4. Customise the docs scope and review depth for your repository.
 
-5. **Compile**:
+5. Compile:
    ```bash
    gh aw compile daily-doc-updater
    ```
 
-6. **Dry-run** to see what it would propose:
+6. Dry-run to see what it would propose:
    ```bash
    gh aw run daily-doc-updater --dry-run
    ```
@@ -78,19 +78,19 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
 <details>
 <summary>💡 Hints</summary>
 
-**"How do I trigger a scheduled workflow manually for testing?"**
+"How do I trigger a scheduled workflow manually for testing?"
 → Add `workflow_dispatch: {}` to your `on:` block. Then use GitHub's [manual workflow run](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow) flow from the Actions tab.
 
-**"The PR diff is too large / changes too many files"**
+"The PR diff is too large / changes too many files"
 → Constrain the body: _"Review only `docs/api.md`. Open a single PR per file. Each PR should change no more than 10 lines."_ This keeps the proposed review scope narrow.
 
-**"How do I make sure it doesn't overwrite things it shouldn't?"**
+"How do I make sure it doesn't overwrite things it shouldn't?"
 → `safe-outputs: create-pull-request` still requires a human to merge. The agent can propose; humans approve.
 
-**"What cron syntax do I use?"**
+"What cron syntax do I use?"
 → GitHub Actions uses UTC. `0 9 * * *` = 9am UTC daily. Use https://crontab.guru to validate your expression.
 
-**"The agent keeps proposing the same change every day"**
+"The agent keeps proposing the same change every day"
 → The PR merging is the fix. Once merged, the drift disappears. Add a check in the prompt: _"Do not open a PR if an identical open PR already exists."_
 
 </details>

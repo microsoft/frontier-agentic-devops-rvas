@@ -4,9 +4,9 @@
 
 ## Required coach check-in
 
-**Required coach check-in:** before completion, ask the delivery team member to connect the work to a service and review practice they own.
+Required coach check-in: before completion, ask the delivery team member to connect the work to a service and review practice they own.
 
-**Their question:** Coach conversation — where in your own codebase is user-controlled input most likely reaching a database query without parameterization, and what data could an attacker extract or modify if they found that path before your team did? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+Their question: Coach conversation — where in your own codebase is user-controlled input most likely reaching a database query without parameterization, and what data could an attacker extract or modify if they found that path before your team did? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Name a specific API endpoint or query in your own codebase where dynamic data flows into a database call — how confident are you that it uses parameterization, and when did you last verify it?

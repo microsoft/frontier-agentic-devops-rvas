@@ -2,9 +2,9 @@
 
 ## Facilitated application
 
-**Required facilitator check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+Required facilitator check-in: before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Discuss:** How much time does your team lose investigating broken CI by hand, and how far would you trust an agent's root-cause diagnosis before a human confirms the fix? Connect it to a project, task, or workflow you own.
+Discuss: How much time does your team lose investigating broken CI by hand, and how far would you trust an agent's root-cause diagnosis before a human confirms the fix? Connect it to a project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Ask how much time their team currently spends diagnosing broken CI by hand.

@@ -1,5 +1,5 @@
 # Ch24 — Migrate Bitbucket to GitHub (Server & Cloud) — Delivery Assurance Guide
-> **Customer authorization and rollout boundary:** Apply changes in a customer-owned tenant or repository only after the named customer owner authorizes the scope. A fallback is a sample test repository or environment, not the destination: record its evidence, risks and controls, accountable owner, handover, and the explicit tenant adoption, cutover, or rollout decision.
+> Customer authorization and rollout boundary: Apply changes in a customer-owned tenant or repository only after the named customer owner authorizes the scope. A fallback is a sample test repository or environment, not the destination: record its evidence, risks and controls, accountable owner, handover, and the explicit tenant adoption, cutover, or rollout decision.
 
 > Audience: delivery assurance leads and authorized customer migration owners. Pair with the corresponding customer implementation `README.md`.
 
@@ -17,7 +17,7 @@ Choose the authorized Bitbucket migration path rather than treating all Bitbucke
 | Bulk script and manual archive walkthrough | ~35 min |
 | Bitbucket Cloud mirror fallback | ~35 min |
 | Validation, handover, and cutover decision | ~40 min |
-| **Total** | **~240 min** |
+| Total | ~240 min |
 
 ## Expected Outputs
 
@@ -42,42 +42,42 @@ Do not let delivery stall if a Server/Data Center instance is unavailable. The B
 ## Common Pitfalls
 
 ### SSH cipher error: `aes256-ctr not supported`
-**Symptom:** `bbs2gh` fails during SFTP negotiation or reports an unsupported cipher.
-**Fix:** Regenerate the migration SSH key with no passphrase and configure the server/client to use a supported cipher such as `aes256-ctr` or `aes256-cbc`.
+Symptom: `bbs2gh` fails during SFTP negotiation or reports an unsupported cipher.
+Fix: Regenerate the migration SSH key with no passphrase and configure the server/client to use a supported cipher such as `aes256-ctr` or `aes256-cbc`.
 
 ### SFTP subsystem disabled
-**Symptom:** The Bitbucket export succeeds, but archive download fails with `Subsystem 'sftp' could not be executed`.
-**Fix:** Enable the OpenSSH SFTP subsystem on the Bitbucket server or use the manual archive path.
+Symptom: The Bitbucket export succeeds, but archive download fails with `Subsystem 'sftp' could not be executed`.
+Fix: Enable the OpenSSH SFTP subsystem on the Bitbucket server or use the manual archive path.
 
 ### Wrong `--bbs-shared-home` or archive location
-**Symptom:** The generated archive cannot be found or the manual archive path points at an empty directory.
-**Fix:** Confirm the effective `$BITBUCKET_SHARED_HOME` for the Bitbucket node and look under `data/migration/export`.
+Symptom: The generated archive cannot be found or the manual archive path points at an empty directory.
+Fix: Confirm the effective `$BITBUCKET_SHARED_HOME` for the Bitbucket node and look under `data/migration/export`.
 
 ### Azure SAS connection string rejected
-**Symptom:** Azure Blob upload fails even though the storage URL looks valid.
-**Fix:** Use an access-key connection string in `AZURE_STORAGE_CONNECTION_STRING`; SAS connection strings are not supported.
+Symptom: Azure Blob upload fails even though the storage URL looks valid.
+Fix: Use an access-key connection string in `AZURE_STORAGE_CONNECTION_STRING`; SAS connection strings are not supported.
 
 ### Destination ruleset blocks migration with `GH013`
-**Symptom:** GEI reports repository rule violations during import.
-**Fix:** Add `Repository migrations` to the destination organization ruleset bypass list or relax the blocking rule during the migration wave.
+Symptom: GEI reports repository rule violations during import.
+Fix: Add `Repository migrations` to the destination organization ruleset bypass list or relax the blocking rule during the migration wave.
 
 ### Private email push protection blocks Cloud fallback with `GH007`
-**Symptom:** `git push --mirror` fails because a commit would publish a private email address.
-**Fix:** Decide whether to rewrite commit author emails before cutover or temporarily change the destination setting with explicit owner approval.
+Symptom: `git push --mirror` fails because a commit would publish a private email address.
+Fix: Decide whether to rewrite commit author emails before cutover or temporarily change the destination setting with explicit owner approval.
 
 ### Cloud users expect pull requests to migrate
-**Symptom:** Customer implementation owners ask for a `bbs2gh` command for bitbucket.org or expect PRs to appear after a mirror push.
-**Fix:** Restate the product boundary: Bitbucket Cloud is not supported by GEI or `bbs2gh`; first-party migration preserves source and history only.
+Symptom: Customer implementation owners ask for a `bbs2gh` command for bitbucket.org or expect PRs to appear after a mirror push.
+Fix: Restate the product boundary: Bitbucket Cloud is not supported by GEI or `bbs2gh`; first-party migration preserves source and history only.
 
 ### Clustered Bitbucket archive download fails
-**Symptom:** Export works through the Bitbucket base URL, but archive download fails or downloads from the wrong node.
-**Fix:** Use `--archive-download-host` to point at the node that can serve the archive.
+Symptom: Export works through the Bitbucket base URL, but archive download fails or downloads from the wrong node.
+Fix: Use `--archive-download-host` to point at the node that can serve the archive.
 
 ## Implementation troubleshooting prompts
 
-1. **Gentle:** First identify your source type. If the URL is `bitbucket.org`, you are not on the `bbs2gh` metadata path.
-2. **Medium:** For Server/Data Center, trace the archive handoff. Can `bbs2gh` cause Bitbucket to export, reach the archive over SFTP or SMB, and then upload it to internet-reachable blob storage?
-3. **Specific:** If the export exists but import does not start, inspect `$BITBUCKET_SHARED_HOME/data/migration/export`, verify the storage flag (`--aws-bucket-name`, Azure connection string, or `--use-github-storage`), and retry with `--archive-download-host` for clustered deployments.
+1. Gentle: First identify your source type. If the URL is `bitbucket.org`, you are not on the `bbs2gh` metadata path.
+2. Medium: For Server/Data Center, trace the archive handoff. Can `bbs2gh` cause Bitbucket to export, reach the archive over SFTP or SMB, and then upload it to internet-reachable blob storage?
+3. Specific: If the export exists but import does not start, inspect `$BITBUCKET_SHARED_HOME/data/migration/export`, verify the storage flag (`--aws-bucket-name`, Azure connection string, or `--use-github-storage`), and retry with `--archive-download-host` for clustered deployments.
 
 ## Customer adoption decision
 

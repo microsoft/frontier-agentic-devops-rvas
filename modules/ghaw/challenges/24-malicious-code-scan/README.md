@@ -1,6 +1,6 @@
-**Track:** Production Patterns (Advanced 🟣)
-**Estimated time:** 30 minutes
-**Tier:** Bonus
+Track: Production Patterns (Advanced 🟣)
+Estimated time: 30 minutes
+Tier: Bonus
 
 ---
 
@@ -20,37 +20,37 @@ Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://g
 - Opens a `create-issue` alert for anything worth investigating — with the specific commit, file, and line number
 
 > [!IMPORTANT]
-> **Bring your own repo (do this first)**
+> Bring your own repo (do this first)
 >
 > This activity is most valuable when the scan watches code changes and threat patterns that matter to your team. Pick a repository in an org you control with recent commits, dependency updates, or sensitive code paths where supply-chain review would be useful.
 >
-> - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and tune the workflow to that repo's real languages, recent commits, suspicious pattern categories, and false-positive rules.
-> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+> - Have a candidate repo? Use it everywhere this guide references the sample repo, and tune the workflow to that repo's real languages, recent commits, suspicious pattern categories, and false-positive rules.
+> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
 >
 > Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
 
 ## What You'll Do
 
-1. **Install [`gh aw`](https://github.com/github/gh-aw)** (if not already done):
+1. Install [`gh aw`](https://github.com/github/gh-aw) (if not already done):
    ```bash
    curl -sL https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh | bash
    ```
 
-2. **Pull the production workflow**:
+2. Pull the production workflow:
    ```bash
    gh aw add-wizard https://github.com/githubnext/agentics/blob/main/workflows/daily-malicious-code-scan.md
    ```
 
-3. **Read the suspicious-pattern definitions** in the body — these are the heuristics the AI uses to flag code.
+3. Read the suspicious-pattern definitions in the body — these are the heuristics the AI uses to flag code.
 
-4. **Customise** the patterns for your language and threat model.
+4. Customise the patterns for your language and threat model.
 
-5. **Compile**:
+5. Compile:
    ```bash
    gh aw compile daily-malicious-code-scan
    ```
 
-6. **Test it** by adding a benign-but-flaggable pattern to a branch (e.g., a base64-encoded eval), then manually triggering the scan.
+6. Test it by adding a benign-but-flaggable pattern to a branch (e.g., a base64-encoded eval), then manually triggering the scan.
 
 7. Verify the alert issue contains enough detail to act on.
 
@@ -78,7 +78,7 @@ Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://g
 <details>
 <summary>💡 Hints</summary>
 
-**"What patterns should I tell it to look for?"**
+"What patterns should I tell it to look for?"
 → Start with the classic supply-chain indicators:
 - Base64/hex encoded strings being evaluated
 - `fetch`, `http.request`, or `curl` calls to external URLs added in the last week
@@ -86,16 +86,16 @@ Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://g
 - Dynamic `require`/`import` with non-string arguments
 - New files added to `.github/workflows/` that weren't in a PR
 
-**"How do I test this without writing real malicious code?"**
+"How do I test this without writing real malicious code?"
 → Add a clearly fake pattern: `// SCAN-TEST: eval(Buffer.from('dGVzdA==').toString)` — the comment marks it as intentional, but the pattern is flaggable. Remove it after testing.
 
-**"This will have too many false positives"**
+"This will have too many false positives"
 → Constrain aggressively: _"Only flag code added by commits from outside the organisation (check author's membership). Internal contributors are pre-screened."_
 
-**"How is this different from CodeQL / SAST tools?"**
+"How is this different from CodeQL / SAST tools?"
 → Complementary, not competing. [CodeQL code scanning](https://docs.github.com/en/code-security/code-scanning/introduction-to-code-scanning/about-code-scanning-with-codeql) knows ASTs and known CVE patterns. This agent reasons about intent, context, and novel patterns that rule-based tools miss. Run both.
 
-**"Should alerts auto-revert the commit?"**
+"Should alerts auto-revert the commit?"
 → Not in this activity. Issue creation + human review is the right gate here. Auto-revert is a more advanced pattern with revert-commit safe-output — that's an extension.
 
 </details>

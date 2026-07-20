@@ -1,9 +1,9 @@
 # Activity 3-04: The Overseer
 
-**Track:** Continuous Intelligence (Advanced)  
-**Difficulty:** 🔴 Advanced  
-**Estimated time:** 30 minutes  
-**Prerequisites:** Track 2, completed ≥3 activities
+Track: Continuous Intelligence (Advanced)  
+Difficulty: 🔴 Advanced  
+Estimated time: 30 minutes  
+Prerequisites: Track 2, completed ≥3 activities
 
 ---
 
@@ -11,15 +11,15 @@
 
 When you have multiple workflows running, who watches the watchers?
 
-**The Overseer** is about **meta-workflows**: agents that monitor, audit, and report on other agents. Imagine a supervisor workflow that checks:
+The Overseer is about meta-workflows: agents that monitor, audit, and report on other agents. Imagine a supervisor workflow that checks:
 - *Are my other workflows running successfully?*
 - *How many tokens did each workflow burn?*
 - *Which workflows are failing repeatedly?*
 - *Should I alert someone?*
 
-This is an **observability layer** for agentic workflows. Useful automation does not just execute; it reports what happened and makes failures visible.
+This is an observability layer for agentic workflows. Useful automation does not just execute; it reports what happened and makes failures visible.
 
-**Why this matters:** As your automation system grows, built-in health monitoring helps the team spot repeated failures, token spikes, and stale workflows before they become expensive habits.
+Why this matters: As your automation system grows, built-in health monitoring helps the team spot repeated failures, token spikes, and stale workflows before they become expensive habits.
 
 ---
 
@@ -35,36 +35,36 @@ By the end of this activity, your squad will:
 ---
 
 > [!IMPORTANT]
-> **Bring your own repo (do this first)**
+> Bring your own repo (do this first)
 >
 > This activity is most valuable when the overseer watches workflow history your team will keep caring about after the session. Pick a repository in an org you control that already has, or will soon have, multiple agentic workflows whose failures, token use, and alerts matter.
 >
-> - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and point the health monitor at that repo's real agentic workflow runs, failure patterns, and token history.
-> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+> - Have a candidate repo? Use it everywhere this guide references the sample repo, and point the health monitor at that repo's real agentic workflow runs, failure patterns, and token history.
+> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
 >
 > Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
 
 ## Activity
 
-Build a **workflow health monitor** that runs weekly and reports on all agentic workflows:
+Build a workflow health monitor that runs weekly and reports on all agentic workflows:
 
 ### The Data Collection
 
 Use the `agentic-workflows` MCP tool to gather:
-- **Last 7 days** of workflow run summaries (name, success/failure, tokens, cost)
-- **Failure rate** per workflow (# failed / # total)
-- **Token efficiency** per workflow (avg tokens per run)
+- Last 7 days of workflow run summaries (name, success/failure, tokens, cost)
+- Failure rate per workflow (# failed / # total)
+- Token efficiency per workflow (avg tokens per run)
 
 ### The Analysis
 
 Identify:
-1. **Top 3 most expensive workflows** (by total tokens burned in the past 7 days)
-2. **Top 3 failing workflows** (highest failure rate)
-3. **Unexpected spikes** (a workflow that was stable but suddenly started failing or using 10× tokens)
+1. Top 3 most expensive workflows (by total tokens burned in the past 7 days)
+2. Top 3 failing workflows (highest failure rate)
+3. Unexpected spikes (a workflow that was stable but suddenly started failing or using 10× tokens)
 
 ### The Output
 
-Create an **issue** with:
+Create an issue with:
 - A summary table: Workflow name, success rate, avg tokens, trend
 - Alerts for workflows above the failure-rate threshold your team chose
 - Recommendations tied to evidence, such as pagination fixes for API timeouts or prompt splitting when token use doubles after a new scan is added
@@ -73,7 +73,7 @@ Use `safe-outputs: create-issue: expires: 7d, max: 1, close-older-issues: true` 
 
 ### The Trick
 
-Use a concrete **`max-effective-tokens`** value because analyzing workflow history requires enough token budget to complete. Document in your solution *why* that value fits the number of runs you expect to analyze.
+Use a concrete `max-effective-tokens` value because analyzing workflow history requires enough token budget to complete. Document in your solution *why* that value fits the number of runs you expect to analyze.
 
 ---
 
@@ -103,11 +103,11 @@ Use a concrete **`max-effective-tokens`** value because analyzing workflow histo
 
 ## References
 
-- **Workflow frontmatter:** https://github.github.com/gh-aw/reference/frontmatter/
-- **max-effective-tokens Guide:** https://github.github.com/gh-aw/reference/frontmatter/#max-effective-tokens
-- **Audit Workflows Example:** https://github.com/github/gh-aw/blob/main/.github/workflows/audit-workflows.md
-- **Workflow Health Manager Example:** https://github.com/github/gh-aw/blob/main/.github/workflows/workflow-health-manager.md
-- **Safe Outputs (create-issue):** https://github.github.com/gh-aw/reference/safe-outputs/#create-issue
+- Workflow frontmatter: https://github.github.com/gh-aw/reference/frontmatter/
+- max-effective-tokens Guide: https://github.github.com/gh-aw/reference/frontmatter/#max-effective-tokens
+- Audit Workflows Example: https://github.com/github/gh-aw/blob/main/.github/workflows/audit-workflows.md
+- Workflow Health Manager Example: https://github.com/github/gh-aw/blob/main/.github/workflows/workflow-health-manager.md
+- Safe Outputs (create-issue): https://github.github.com/gh-aw/reference/safe-outputs/#create-issue
 
 ---
 
@@ -115,10 +115,10 @@ Use a concrete **`max-effective-tokens`** value because analyzing workflow histo
 
 Stuck? Here's how to escalate:
 
-- **"agentic-workflows tool not found?"** → Check your `tools: agentic-workflows` in frontmatter. Verify the tool is configured.
-- **"Max-effective-tokens—how high is too high?"** → Estimate the number of workflow runs and fields you ask the agent to inspect. If the agent gets cut off mid-analysis, reduce scope first, then raise the budget with a note explaining why.
-- **"How do I compute failure rate?"** → # failed runs / # total runs. Simple division.
-- **"How do I detect unexpected spikes?"** → Compare latest run tokens to average of previous 5 runs. If >2× average, flag it.
-- **"The issue is too long?"** → Use a table instead of prose. Tables are compact and scannable.
+- "agentic-workflows tool not found?" → Check your `tools: agentic-workflows` in frontmatter. Verify the tool is configured.
+- "Max-effective-tokens—how high is too high?" → Estimate the number of workflow runs and fields you ask the agent to inspect. If the agent gets cut off mid-analysis, reduce scope first, then raise the budget with a note explaining why.
+- "How do I compute failure rate?" → # failed runs / # total runs. Simple division.
+- "How do I detect unexpected spikes?" → Compare latest run tokens to average of previous 5 runs. If >2× average, flag it.
+- "The issue is too long?" → Use a table instead of prose. Tables are compact and scannable.
 
 Still stuck after 20 minutes? Raise your hand for your coach.

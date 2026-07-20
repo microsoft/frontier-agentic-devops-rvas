@@ -10,7 +10,7 @@ You're working as a delivery team fixing real application code and establishing 
 
 ## Objectives
 
-- Filter **Security → Code scanning alerts** to show injection-related alerts (search for `sql` or `injection`)
+- Filter Security → Code scanning alerts to show injection-related alerts (search for `sql` or `injection`)
 - Open each affected file in your editor and read the vulnerable code path with Copilot's help
 - Replace unsafe query construction with parameterized queries or ORM-safe alternatives; for command or template injection, use the corresponding sink-specific safe API or design rather than input sanitization alone; then technically validate the affected behavior
 - Open pull requests to `main` with the finding, impact, remediation, reviewer evidence, and relevant GHAS validation
@@ -18,12 +18,12 @@ You're working as a delivery team fixing real application code and establishing 
 - Use two independently reviewed fixes to confirm the pattern, then check for the same unsafe pattern in comparable query paths
 
 > [!IMPORTANT]
-> **Bring your own application (do this first)**
+> Bring your own application (do this first)
 >
 > This activity is most valuable when the injection fixes *outlive the delivery session*. Use the real application repository you want to secure so the CodeQL findings, pull requests, and safer query patterns land in code your team keeps.
 >
-> - **Have a candidate?** If you have an application repo in an organization you control with GHAS enabled, use it everywhere this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice-Shop-specific setup and pick real SQL, NoSQL, command, or template-injection alerts from your own repo instead of the Juice Shop examples.
-> - **No suitable one?** Use the fallback from S00: OWASP Juice Shop as a safe practice target for fixing known injection flaws.
+> - Have a candidate? If you have an application repo in an organization you control with GHAS enabled, use it everywhere this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice-Shop-specific setup and pick real SQL, NoSQL, command, or template-injection alerts from your own repo instead of the Juice Shop examples.
+> - No suitable one? Use the fallback from S00: OWASP Juice Shop as a safe practice target for fixing known injection flaws.
 >
 > Tell your coach which path you took — bringing your own is the goal; Juice Shop is the fallback.
 >
@@ -42,7 +42,7 @@ You're working as a delivery team fixing real application code and establishing 
 - Ask: *"What's the difference between input sanitization and parameterization, and why is parameterization the right fix here?"*
 - If you use Copilot Autofix or other Copilot assistance, treat its output as a proposed remediation: review it against the approved safe pattern and submit it through the normal PR and GHAS checks.
 
-**Try this:** Create a custom Copilot agent (or repository custom instructions) that always suggests parameterized queries when it sees raw string concatenation in a SQL context.
+Try this: Create a custom Copilot agent (or repository custom instructions) that always suggests parameterized queries when it sees raw string concatenation in a SQL context.
 
 ## Learning Resources
 

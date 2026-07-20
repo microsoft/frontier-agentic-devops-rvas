@@ -4,9 +4,9 @@
 
 ## Required coach check-in
 
-**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+Required coach check-in: before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Their question:** Coach conversation — which inventory item creates the most important
+Their question: Coach conversation — which inventory item creates the most important
 business or security risk for the real project, who is accountable for it, and what
 should its next action and target date be?
 

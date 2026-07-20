@@ -1,6 +1,6 @@
 # Delivery Work Package Title
 
-> **Module:** REPLACE | **Track:** REPLACE | **Complexity:** beginner | **Delivery time:** ~60 min
+> Module: REPLACE | Track: REPLACE | Complexity: beginner | Delivery time: ~60 min
 
 ## Customer outcome
 
@@ -8,9 +8,9 @@ REPLACE: One sentence describing the customer-owned capability, guardrail, or wo
 
 ## Prerequisites
 
-**Prior work packages:** _(none — this work package is self-contained)_
+Prior work packages: _(none — this work package is self-contained)_
 
-**Delivery readiness:**
+Delivery readiness:
 - GitHub account with organization access
 - Basic Git knowledge
 - Customer owner approval for the intended tenant change, where applicable

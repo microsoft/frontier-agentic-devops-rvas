@@ -2,7 +2,7 @@
 
 ## Facilitated application
 
-**Required facilitator check-in:** agree the production boundary before the workflows are enabled on a schedule.
+Required facilitator check-in: agree the production boundary before the workflows are enabled on a schedule.
 
 Ask the customer delivery team:
 
@@ -17,10 +17,10 @@ The team should name the test owner, maintainer, label, schedule, issue limit, p
 
 This activity installs two coordinated workflows, not a fully autonomous coding agent:
 
-1. **Testify** is the analyst. It has read access and can create bounded, specific issues.
-2. **A human** accepts or rejects the analysis by reviewing the issue.
-3. **Test Improver** is the implementer. It can read issues and create one test-only pull request.
-4. **A maintainer** validates the test and merges or closes the pull request.
+1. Testify is the analyst. It has read access and can create bounded, specific issues.
+2. A human accepts or rejects the analysis by reviewing the issue.
+3. Test Improver is the implementer. It can read issues and create one test-only pull request.
+4. A maintainer validates the test and merges or closes the pull request.
 
 The issue is the contract between analyst and implementer. If it does not identify a concrete test gap, do not let the Improver act on it. Tighten Testify's prompt instead.
 

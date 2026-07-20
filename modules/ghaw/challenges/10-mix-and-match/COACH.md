@@ -4,9 +4,9 @@
 
 ## Facilitated application
 
-**Required facilitator check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+Required facilitator check-in: before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Discuss:** Which prompt guidance or context do you keep copy-pasting across your automations, and what would change if you maintained it as one shared, imported library? Connect it to a project, task, or workflow you own.
+Discuss: Which prompt guidance or context do you keep copy-pasting across your automations, and what would change if you maintained it as one shared, imported library? Connect it to a project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Ask which prompt guidance, tone, or context they keep copy-pasting across automations.
@@ -15,11 +15,11 @@ Use these follow-ups to steer the conversation:
 
 ## Coaching Philosophy
 
-This activity introduces two production-grade concepts in tandem: **workflow composition** (`imports:`) and **async reporting** (`create-discussion`). Neither is hard to use — but neither is obvious if you've only seen basic gh-aw examples.
+This activity introduces two production-grade concepts in tandem: workflow composition (`imports:`) and async reporting (`create-discussion`). Neither is hard to use — but neither is obvious if you've only seen basic gh-aw examples.
 
-**Key insight to surface:** Copy-pasting prompts across workflows is tech debt. `imports:` is the gh-aw answer to DRY (Don't Repeat Yourself). Help squads see that the helper file is a first-class artifact that deserves the same care as code.
+Key insight to surface: Copy-pasting prompts across workflows is tech debt. `imports:` is the gh-aw answer to DRY (Don't Repeat Yourself). Help squads see that the helper file is a first-class artifact that deserves the same care as code.
 
-**For `create-discussion`:** Discussions are the right channel for asynchronous reporting. Issues imply action required. A weekly repository-status digest is information, not a to-do item. That framing helps delivery teams choose the right output channel.
+For `create-discussion`: Discussions are the right channel for asynchronous reporting. Issues imply action required. A weekly repository-status digest is information, not a to-do item. That framing helps delivery teams choose the right output channel.
 
 ---
 
@@ -27,12 +27,12 @@ This activity introduces two production-grade concepts in tandem: **workflow com
 
 A finished solution has:
 
-**File structure:**
+File structure:
 - `lib/repo-stats-helper.md` — 10–25 lines of formatting/analysis instructions
 - `.github/workflows/10-mix-and-match.md` — ~25–35 lines
 - `.github/workflows/10-mix-and-match.lock.yml` — auto-generated
 
-**Frontmatter shape:**
+Frontmatter shape:
 ```yaml
 ---
 imports:
@@ -54,7 +54,7 @@ engine: copilot
 ---
 ```
 
-**Behavior:**
+Behavior:
 - Weekly schedule (or manual dispatch during testing)
 - Imports helper context before executing
 - Agent produces a repository-status digest
@@ -66,9 +66,9 @@ engine: copilot
 
 `imports:` causes the referenced Markdown file(s) to be prepended to the agent's context before the workflow body is evaluated. The helper content is not executed — it's context. Think of it as a system prompt extension.
 
-Import paths are relative to the **repository root**, not the workflow file location. So `./lib/repo-stats-helper.md` resolves from the root regardless of where the workflow lives.
+Import paths are relative to the repository root, not the workflow file location. So `./lib/repo-stats-helper.md` resolves from the root regardless of where the workflow lives.
 
-**Multiple imports are supported:**
+Multiple imports are supported:
 ```yaml
 imports:
   - ./lib/repo-stats-helper.md
@@ -81,54 +81,54 @@ imports:
 
 ### Blocker 1: Import path not found
 
-**Symptom:** Compile error — "import not found" or similar.
+Symptom: Compile error — "import not found" or similar.
 
-**Cause:** File is in the wrong location, or path is written relative to the workflow file instead of repo root.
+Cause: File is in the wrong location, or path is written relative to the workflow file instead of repo root.
 
-**Fix:** The path `./lib/repo-stats-helper.md` resolves to `lib/repo-stats-helper.md` from the repo root. Confirm with `ls lib/` from the repo root.
+Fix: The path `./lib/repo-stats-helper.md` resolves to `lib/repo-stats-helper.md` from the repo root. Confirm with `ls lib/` from the repo root.
 
-**Socratic response:** "Where did you create the helper file? Let's check `ls lib/` from the root and compare to your import path."
+Socratic response: "Where did you create the helper file? Let's check `ls lib/` from the root and compare to your import path."
 
 ---
 
 ### Blocker 2: Discussion category doesn't exist
 
-**Symptom:** Workflow runs, no Discussion appears, runtime logs show a category error.
+Symptom: Workflow runs, no Discussion appears, runtime logs show a category error.
 
-**Cause:** The category specified in `create-discussion: category:` doesn't exist in the repo's Discussion settings, or Discussions isn't enabled at all.
+Cause: The category specified in `create-discussion: category:` doesn't exist in the repo's Discussion settings, or Discussions isn't enabled at all.
 
-**Fix:**
+Fix:
 1. Enable Discussions: Settings → Features → Discussions ✓
 2. Add the category: Settings → Features → Discussions → Manage categories → New category
-3. Category name is **case-sensitive** — `"General"` ≠ `"general"`
+3. Category name is case-sensitive — `"General"` ≠ `"general"`
 
-**Socratic response:** "Is the Discussion category created in repo settings? Go to Settings → Discussions and check."
+Socratic response: "Is the Discussion category created in repo settings? Go to Settings → Discussions and check."
 
 ---
 
 ### Blocker 3: Missing `permissions: discussions: write`
 
-**Symptom:** Workflow compiles, runs, but no Discussion is created. Permission error in logs.
+Symptom: Workflow compiles, runs, but no Discussion is created. Permission error in logs.
 
-**Cause:** `discussions: write` is not declared in frontmatter.
+Cause: `discussions: write` is not declared in frontmatter.
 
-**Fix:** Add it explicitly:
+Fix: Add it explicitly:
 ```yaml
 permissions:
   discussions: write
 ```
 
-**Note:** This is separate from `issues: write` and `pull-requests: write`. It's easy to forget.
+Note: This is separate from `issues: write` and `pull-requests: write`. It's easy to forget.
 
 ---
 
 ### Blocker 4: Helper file has frontmatter (causes parse errors)
 
-**Symptom:** Import succeeds but agent context is noisy, or compile warns about unexpected YAML.
+Symptom: Import succeeds but agent context is noisy, or compile warns about unexpected YAML.
 
-**Cause:** Squad added `---` frontmatter to the helper file, treating it like a workflow.
+Cause: Squad added `---` frontmatter to the helper file, treating it like a workflow.
 
-**Fix:** Helper files are plain Markdown — no frontmatter, no `---` delimiters. Just content.
+Fix: Helper files are plain Markdown — no frontmatter, no `---` delimiters. Just content.
 
 ---
 
@@ -152,11 +152,11 @@ A correct `10-mix-and-match.md`:
 
 ## How to Verify It's Working
 
-1. **Compile check:** `gh aw compile 10-mix-and-match` — no errors
-2. **Import check:** Inspect the compiled `.lock.yml` — the helper's content should appear merged into the agent context
-3. **Manual trigger:** Run via `workflow_dispatch` from the Actions tab
-4. **Discussion created:** Navigate to the repo's Discussions tab — a new post should appear in "General" within seconds of the workflow completing
-5. **Content check:** The Discussion should follow the formatting rules defined in the helper (not arbitrary formatting)
+1. Compile check: `gh aw compile 10-mix-and-match` — no errors
+2. Import check: Inspect the compiled `.lock.yml` — the helper's content should appear merged into the agent context
+3. Manual trigger: Run via `workflow_dispatch` from the Actions tab
+4. Discussion created: Navigate to the repo's Discussions tab — a new post should appear in "General" within seconds of the workflow completing
+5. Content check: The Discussion should follow the formatting rules defined in the helper (not arbitrary formatting)
 
 ---
 
@@ -171,30 +171,30 @@ A correct `10-mix-and-match.md`:
 | Compile & test | 10 min | Compile, trigger manually, verify Discussion appears |
 | Refine | 2 min | Adjust helper content if output format is off |
 
-**Total: ~30 minutes.**
+Total: ~30 minutes.
 
 ---
 
 ## Extension Ideas (Fast Squads)
 
-1. **Multiple helpers:** Import both a tone guide and a stats guide. Does composition work as expected?
-2. **Separate category:** Create a "Weekly Digest" Discussion category and route there instead of "General"
-3. **Compare:** Write the same workflow without `imports:` — copy the helper content inline. Is the output different? Better or worse?
-4. **Chain the digest:** Have another workflow react to the Discussion being created (using `discussion` event trigger)
+1. Multiple helpers: Import both a tone guide and a stats guide. Does composition work as expected?
+2. Separate category: Create a "Weekly Digest" Discussion category and route there instead of "General"
+3. Compare: Write the same workflow without `imports:` — copy the helper content inline. Is the output different? Better or worse?
+4. Chain the digest: Have another workflow react to the Discussion being created (using `discussion` event trigger)
 
 ---
 
 ## Key Takeaways for Coaches
 
-- **`imports:` = DRY for AI context.** It's not magic — it's just context prepending. But it's powerful: one helper update propagates to every workflow that imports it.
-- **`create-discussion` = right channel for right content.** Not everything should be an issue. Help squads build the habit of matching output type to content type.
-- **Helper quality matters.** A vague helper produces vague output. A specific helper (with concrete formatting rules) produces structured, consistent Discussions.
+- `imports:` = DRY for AI context. It's not magic — it's just context prepending. But it's powerful: one helper update propagates to every workflow that imports it.
+- `create-discussion` = right channel for right content. Not everything should be an issue. Help squads build the habit of matching output type to content type.
+- Helper quality matters. A vague helper produces vague output. A specific helper (with concrete formatting rules) produces structured, consistent Discussions.
 
 ---
 
 ## Reference
 
-**Reference solution note:** This repository does not include separate committed sample-solution files; use the inline sample and validation checklist above.
-**imports:** https://github.github.com/gh-aw/reference/frontmatter/#imports  
-**create-discussion:** https://github.github.com/gh-aw/reference/safe-outputs/#create-discussion  
-**GitHub Discussions API:** https://docs.github.com/en/graphql/guides/using-the-graphql-api-for-discussions
+Reference solution note: This repository does not include separate committed sample-solution files; use the inline sample and validation checklist above.
+imports: https://github.github.com/gh-aw/reference/frontmatter/#imports  
+create-discussion: https://github.github.com/gh-aw/reference/safe-outputs/#create-discussion  
+GitHub Discussions API: https://docs.github.com/en/graphql/guides/using-the-graphql-api-for-discussions

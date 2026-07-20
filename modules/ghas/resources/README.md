@@ -31,16 +31,16 @@ git commit -m "chore: add GHAS scanning configs (CodeQL + Dependabot)"
 git push
 ```
 
-> **Note:** If the target repo is a direct Juice Shop import created by the setup script, npm
+> Note: If the target repo is a direct Juice Shop import created by the setup script, npm
 > manifests live at repository root. The setup script adjusts `.github/dependabot.yml` from
 > `directory: "/app"` to `directory: "/"` automatically. Make the same edit when applying these
 > files manually to a direct Juice Shop import.
 
 Once pushed:
 
-- **CodeQL alerts** appear under **Security → Code scanning alerts** in the target repository.
-- **Dependabot alerts** appear under **Security → Dependabot alerts**.
+- CodeQL alerts appear under Security → Code scanning alerts in the target repository.
+- Dependabot alerts appear under Security → Dependabot alerts.
 - Copilot Autofix will offer suggested fixes for many CodeQL findings.
 
-> **Note:** Juice Shop intentionally ships with vulnerable dependencies — a high alert count is
+> Note: Juice Shop intentionally ships with vulnerable dependencies — a high alert count is
 > expected and is the learning material, not a problem to immediately resolve.

@@ -19,12 +19,12 @@ The fix pattern: for every operation that touches user-owned or role-restricted 
 - Use two independently reviewed fixes to confirm the pattern, then check comparable endpoints for repeat issues
 
 > [!IMPORTANT]
-> **Bring your own application (do this first)**
+> Bring your own application (do this first)
 >
 > This activity is most valuable when the access-control fixes *outlive the delivery session*. Use the real application repository you want to secure so the route reviews, CodeQL findings, pull requests, and authorization checks land in code your team keeps.
 >
-> - **Have a candidate?** If you have an application repo in an organization you control with GHAS enabled, use it everywhere this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice-Shop-specific setup and pick real authorization, IDOR, missing-middleware, or role-enforcement findings from your own app instead of the Juice Shop examples.
-> - **No suitable one?** Use the fallback from S00: OWASP Juice Shop as a safe practice target for finding and fixing broken access control.
+> - Have a candidate? If you have an application repo in an organization you control with GHAS enabled, use it everywhere this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice-Shop-specific setup and pick real authorization, IDOR, missing-middleware, or role-enforcement findings from your own app instead of the Juice Shop examples.
+> - No suitable one? Use the fallback from S00: OWASP Juice Shop as a safe practice target for finding and fixing broken access control.
 >
 > Tell your coach which path you took — bringing your own is the goal; Juice Shop is the fallback.
 >

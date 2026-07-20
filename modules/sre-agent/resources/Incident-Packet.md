@@ -4,22 +4,22 @@ Use this packet when live Azure SRE Agent access is not available. Replace place
 
 ## Incident Summary
 
-- **Service:** Grubify
-- **Detected by:** Azure Monitor alert, synthetic check, or coach-provided signal
-- **Start time:** `<timestamp>`
-- **Affected flow:** Add to Cart / Grubify API
-- **Customer impact:** `<brief customer-safe impact statement>`
-- **Current status:** Investigating
+- Service: Grubify
+- Detected by: Azure Monitor alert, synthetic check, or coach-provided signal
+- Start time: `<timestamp>`
+- Affected flow: Add to Cart / Grubify API
+- Customer impact: `<brief customer-safe impact statement>`
+- Current status: Investigating
 
 ## Azure Context
 
-- **Azure SRE Agent:** `<agent name or simulated>`
-- **Resource group:** `<resource group>`
-- **Region:** `<region>`
-- **Container App:** `<name>`
-- **Log Analytics workspace:** `<name>`
-- **Application Insights resource:** `<name>`
-- **Alert rule:** `<name>`
+- Azure SRE Agent: `<agent name or simulated>`
+- Resource group: `<resource group>`
+- Region: `<region>`
+- Container App: `<name>`
+- Log Analytics workspace: `<name>`
+- Application Insights resource: `<name>`
+- Alert rule: `<name>`
 
 ## Observed Signals
 
@@ -52,10 +52,10 @@ Use this section only when source context is part of the exercise.
 
 ## Remediation Path
 
-- **GitHub issue:** `<link or simulated issue>`
-- **Pull request:** `<link or simulated packet>`
-- **Human reviewer role:** `<role>`
-- **Validation before acceptance:** `<endpoint, metric, test, or log check>`
+- GitHub issue: `<link or simulated issue>`
+- Pull request: `<link or simulated packet>`
+- Human reviewer role: `<role>`
+- Validation before acceptance: `<endpoint, metric, test, or log check>`
 
 ## Customer-Safe Update
 

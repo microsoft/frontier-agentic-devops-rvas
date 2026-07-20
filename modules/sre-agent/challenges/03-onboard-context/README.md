@@ -17,12 +17,12 @@ Azure SRE Agent is only useful when it has the right starting context. In this a
 45 minutes.
 
 > [!IMPORTANT]
-> **Bring your own service (do this first)**
+> Bring your own service (do this first)
 >
-> This activity is most valuable when Azure SRE Agent learns the context for a service your team will keep operating after the session. If you have a candidate Azure workload in a subscription you control, onboard **that** service everywhere this guide references Grubify so its real runbooks, architecture notes, telemetry, response plans, and ownership context stay useful in your tenant.
+> This activity is most valuable when Azure SRE Agent learns the context for a service your team will keep operating after the session. If you have a candidate Azure workload in a subscription you control, onboard that service everywhere this guide references Grubify so its real runbooks, architecture notes, telemetry, response plans, and ownership context stay useful in your tenant.
 >
-> - **Have a candidate?** Inspect and improve the context for your own service: connected Azure resources, alert routes, knowledge files, response plans, custom agents, and safe team memory. Use real operational context, but do not paste secrets, private contacts, or sensitive tenant details into notes or chat.
-> - **No suitable Azure service yet?** Use Grubify below as the safe fallback target for practicing context onboarding.
+> - Have a candidate? Inspect and improve the context for your own service: connected Azure resources, alert routes, knowledge files, response plans, custom agents, and safe team memory. Use real operational context, but do not paste secrets, private contacts, or sensitive tenant details into notes or chat.
+> - No suitable Azure service yet? Use Grubify below as the safe fallback target for practicing context onboarding.
 >
 > Tell your coach which path you took — bringing your own is the goal; Grubify is the fallback.
 

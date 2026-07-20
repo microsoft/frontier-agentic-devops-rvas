@@ -10,10 +10,10 @@
 > Audience: facilitators and graders. Pair with the delivery team member `README.md`.
 
 ## Facilitation notes
-- **Goal in one line:** <what mastery looks like.>
-- **Where customer delivery team members get stuck:** <the 1–2 conceptual humps to watch for.>
-- **How to unblock without giving the answer:** <nudge prompts.>
-- **Org-scoped note:** this activity runs with just an org + org-owner token; no enterprise owner needed.
+- Goal in one line: <what mastery looks like.>
+- Where customer delivery team members get stuck: <the 1–2 conceptual humps to watch for.>
+- How to unblock without giving the answer: <nudge prompts.>
+- Org-scoped note: this activity runs with just an org + org-owner token; no enterprise owner needed.
 
 ## Grading rubric (point-weighted, 100 pts)
 | Criterion | Points | What "full marks" looks like |
@@ -22,7 +22,7 @@
 | <Core outcome 2> | 30 | <…> |
 | <Quality / correctness> | 20 | <…> |
 | <Stretch / polish> | 10 | <optional goals attempted> |
-| **Total** | **100** | |
+| Total | 100 | |
 
 ## Automated verification hints
 Use these to check Definition of Done quickly (prefer `gh` CLI / Actions over manual clicks):
@@ -46,10 +46,10 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch## --org <o
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch## --org <org> --yes     # PowerShell
 ```
 - Removes only `ghec-ch##-*` artifacts (prefix-guarded).
-- **Manual cleanup (if any):** <org/enterprise settings that scripts can't cleanly revert, e.g., audit stream config.>
+- Manual cleanup (if any): <org/enterprise settings that scripts can't cleanly revert, e.g., audit stream config.>
 
 ## Time budget
 - Setup + read: <~30 min>
 - Core tasks: <~X hrs>
 - Stretch: <~Y hrs>
-- **Total facilitated:** <3–8 hrs across sessions.>
+- Total facilitated: <3–8 hrs across sessions.>

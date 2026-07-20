@@ -4,27 +4,27 @@
 
 | | |
 |---|---|
-| **Track** | Migration |
-| **Difficulty** | Intermediate |
-| **Duration** | ~3 hrs |
-| **Minimum input** | A GitLab repository and an empty GitHub repository target |
-| **App** | None |
-| **EMU compatible** | yes |
+| Track | Migration |
+| Difficulty | Intermediate |
+| Duration | ~3 hrs |
+| Minimum input | A GitLab repository and an empty GitHub repository target |
+| App | None |
+| EMU compatible | yes |
 
 ## Customer delivery target
 
-- **Customer objective:** deliver a controlled GitLab-to-GitHub pilot with an honest metadata and CI cutover plan.
-- **Customer-tenant target:** a selected customer GitLab source, GitHub destination repository, Actions conversion, and migration-gap register.
-- **Approval and safety boundary:** mirror and cut over customer repositories only with approved owner, source-freeze, and change-window decisions; a pilot validates the path and must conclude with a customer cutover or Expert Services decision.
-- **Records to keep:** retain ref validation, Actions conversion output, gap register, LFS/package decisions, and cutover evidence.
-- **Adoption owner / handover:** the customer migration owner accepts cutover accountability; repository and CI owners accept post-migration operations.
-- **Next action and owner:** approve the production cutover, or assign the owner and date for the Expert Services or follow-up decision.
+- Customer objective: deliver a controlled GitLab-to-GitHub pilot with an honest metadata and CI cutover plan.
+- Customer-tenant target: a selected customer GitLab source, GitHub destination repository, Actions conversion, and migration-gap register.
+- Approval and safety boundary: mirror and cut over customer repositories only with approved owner, source-freeze, and change-window decisions; a pilot validates the path and must conclude with a customer cutover or Expert Services decision.
+- Records to keep: retain ref validation, Actions conversion output, gap register, LFS/package decisions, and cutover evidence.
+- Adoption owner / handover: the customer migration owner accepts cutover accountability; repository and CI owners accept post-migration operations.
+- Next action and owner: approve the production cutover, or assign the owner and date for the Expert Services or follow-up decision.
 
 ## Critical framing
 
-GitLab is **not** a self-serve source for GitHub Enterprise Importer. A full GitLab migration that preserves metadata such as Merge Requests and issues through GEI is a **GitHub Expert Services** engagement.
+GitLab is not a self-serve source for GitHub Enterprise Importer. A full GitLab migration that preserves metadata such as Merge Requests and issues through GEI is a GitHub Expert Services engagement.
 
-This hands-on activity uses the self-serve path that is available to any Git repository: **source + Git history** via Git CLI. You will then convert GitLab CI separately with GitHub Actions Importer. Treat this as a pilot cutover pattern, not a full metadata migration.
+This hands-on activity uses the self-serve path that is available to any Git repository: source + Git history via Git CLI. You will then convert GitLab CI separately with GitHub Actions Importer. Treat this as a pilot cutover pattern, not a full metadata migration.
 
 ## Prerequisites
 
@@ -36,14 +36,14 @@ This hands-on activity uses the self-serve path that is available to any Git rep
 
 ## Scenario
 
-Your team is piloting a GitLab-to-GitHub move. The business wants fast cutover evidence, but also an honest inventory of what the self-serve path does **not** preserve. You will mirror Git history into GitHub, convert the CI definition, and document follow-up work for metadata, LFS, packages, and cutover risk.
+Your team is piloting a GitLab-to-GitHub move. The business wants fast cutover evidence, but also an honest inventory of what the self-serve path does not preserve. You will mirror Git history into GitHub, convert the CI definition, and document follow-up work for metadata, LFS, packages, and cutover risk.
 
 > [!IMPORTANT]
-> **Use an approved customer target (do this first)**
-> Default to an approved customer GitLab repository. Complete the work on **that** source and target, retaining the migrated repository, Git history, Actions workflow, settings evidence, and gap record.
+> Use an approved customer target (do this first)
+> Default to an approved customer GitLab repository. Complete the work on that source and target, retaining the migrated repository, Git history, Actions workflow, settings evidence, and gap record.
 >
-> - **Have a candidate?** Use it everywhere this guide references the GitLab repository, CI file, or target repository.
-> - **No suitable source and target?** Do not start a migration against an unapproved example; record the access constraint, accountable owner, and next action.
+> - Have a candidate? Use it everywhere this guide references the GitLab repository, CI file, or target repository.
+> - No suitable source and target? Do not start a migration against an unapproved example; record the access constraint, accountable owner, and next action.
 >
 > Record the selected target, customer migration owner, approval boundary, and next action and owner.
 
@@ -100,7 +100,7 @@ Your team is piloting a GitLab-to-GitHub move. The business wants fast cutover e
 
 ### Part C — Document what did not migrate
 
-The Git CLI path does **not** migrate GitLab metadata or platform services. Record these as explicit follow-up items in your cutover notes:
+The Git CLI path does not migrate GitLab metadata or platform services. Record these as explicit follow-up items in your cutover notes:
 
 - Merge Requests, MR comments, reviews, approvals, and discussions.
 - Issues, labels, and milestones.
@@ -109,11 +109,11 @@ The Git CLI path does **not** migrate GitLab metadata or platform services. Reco
 - Packages, container registry data, job artifacts, and release artifacts.
 - Git LFS objects, unless you migrate LFS separately.
 
-If the customer requires Merge Request, issue, or other metadata fidelity, engage **GitHub Expert Services** for the GitLab-to-GHEC path. For GitLab into GitHub Enterprise Server, the expert-led path is `gl-exporter` → `ghe-migrator`.
+If the customer requires Merge Request, issue, or other metadata fidelity, engage GitHub Expert Services for the GitLab-to-GHEC path. For GitLab into GitHub Enterprise Server, the expert-led path is `gl-exporter` → `ghe-migrator`.
 
 ### Part D — Plan around large repository limits
 
-GitHub blocks individual files above **100 MiB** and limits a single push to **2 GiB**. If the first mirror push fails with `remote: fatal: pack exceeds maximum allowed size`, push the default branch in batches and finish with a mirror push.
+GitHub blocks individual files above 100 MiB and limits a single push to 2 GiB. If the first mirror push fails with `remote: fatal: pack exceeds maximum allowed size`, push the default branch in batches and finish with a mirror push.
 
 ```bash
 git clone --bare "$GITLAB_REPO_URL"
@@ -176,7 +176,7 @@ You are done when all of the following are true:
 - [ ] You documented the GitLab data that did not migrate in this self-serve path.
 - [ ] GitHub Actions Importer produced a dry-run workflow or opened a PR that adds `.github/workflows/*.yml`.
 - [ ] You identified manual fixes required before the converted workflow can run reliably.
-- [ ] **Adoption handover** — record the customer migration owner, Expert Services decision, applicable `gl-exporter` → `ghe-migrator` path, remaining cutover risks, and next action.
+- [ ] Adoption handover — record the customer migration owner, Expert Services decision, applicable `gl-exporter` → `ghe-migrator` path, remaining cutover risks, and next action.
 
 ## Reference links
 

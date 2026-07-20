@@ -10,7 +10,7 @@ The fix pattern is usually: encode output before rendering it, or use framework 
 
 ## Objectives
 
-- Filter **Security → Code scanning alerts** for XSS-related alerts
+- Filter Security → Code scanning alerts for XSS-related alerts
 - Open the affected files and trace the data flow: where does user input enter, and where does it reach HTML output?
 - Apply context-appropriate output encoding or safe framework APIs, and technically validate the affected rendering behavior
 - Identify whether each vulnerability is reflected or stored, and explain the difference in your PR description
@@ -19,12 +19,12 @@ The fix pattern is usually: encode output before rendering it, or use framework 
 - Use two independently reviewed fixes to confirm the pattern, then check comparable rendering paths for repeat issues
 
 > [!IMPORTANT]
-> **Bring your own application (do this first)**
+> Bring your own application (do this first)
 >
 > This activity is most valuable when the XSS fixes *outlive the delivery session*. Use the real application repository you want to secure so the CodeQL data-flow findings, pull requests, and output-encoding changes land where your team can keep them.
 >
-> - **Have a candidate?** If you have an application repo in an organization you control with GHAS enabled, use it everywhere this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice-Shop-specific setup and pick real reflected or stored XSS findings, unsafe HTML rendering, or equivalent output-encoding alerts from your own repo instead of the Juice Shop examples.
-> - **No suitable one?** Use the fallback from S00: OWASP Juice Shop as a safe practice target for fixing known XSS flaws.
+> - Have a candidate? If you have an application repo in an organization you control with GHAS enabled, use it everywhere this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice-Shop-specific setup and pick real reflected or stored XSS findings, unsafe HTML rendering, or equivalent output-encoding alerts from your own repo instead of the Juice Shop examples.
+> - No suitable one? Use the fallback from S00: OWASP Juice Shop as a safe practice target for fixing known XSS flaws.
 >
 > Tell your coach which path you took — bringing your own is the goal; Juice Shop is the fallback.
 >
@@ -44,7 +44,7 @@ The fix pattern is usually: encode output before rendering it, or use framework 
 - Ask: *"What encoding is needed for data going into an HTML attribute versus HTML body versus a JavaScript string?"*
 - If you use Copilot Autofix or other Copilot assistance, treat its output as a proposed remediation: review it against the required output context and submit it through the normal PR and GHAS checks.
 
-**Try this:** Open the running app, trigger the XSS manually (try `<script>alert(1)</script>` in a search or input field), then fix the code and verify the same input is now safely rendered as text.
+Try this: Open the running app, trigger the XSS manually (try `<script>alert(1)</script>` in a search or input field), then fix the code and verify the same input is now safely rendered as text.
 
 ## Learning Resources
 

@@ -13,12 +13,12 @@
 
 | | |
 |---|---|
-| **Track** | <Developer Flow \| Admin/Governance \| Security \| Automation & AI> |
-| **Difficulty** | <Foundational \| Intermediate \| Advanced> *(per-track ramp)* |
-| **Duration** | <3–8 hrs total, multi-session> |
-| **Minimum input** | An **org** + an **org-owner token**. *(All activities are org-scoped — no enterprise owner required.)* |
-| **App** | <juice-shop \| seed \| none> |
-| **EMU compatible** | <yes \| no — if no, state why + the prerequisite> |
+| Track | <Developer Flow \| Admin/Governance \| Security \| Automation & AI> |
+| Difficulty | <Foundational \| Intermediate \| Advanced> *(per-track ramp)* |
+| Duration | <3–8 hrs total, multi-session> |
+| Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
+| App | <juice-shop \| seed \| none> |
+| EMU compatible | <yes \| no — if no, state why + the prerequisite> |
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -48,17 +48,17 @@ Run the provisioning entrypoint (Bash or PowerShell — both supported):
 ./scripts/setup.ps1 ch## --org <org>
 ```
 
-**What setup creates** (all artifacts namespaced `ghec-ch##-*`, idempotent, prefix-guarded teardown):
+What setup creates (all artifacts namespaced `ghec-ch##-*`, idempotent, prefix-guarded teardown):
 - <e.g., repo `ghec-ch##-<slug>` seeded with starting content.>
 - <e.g., labels / issues / branch protection / ruleset / Juice Shop import at pinned ref v20.0.0.>
-- A printed **Next steps** block telling you where to start.
+- A printed Next steps block telling you where to start.
 
 
 ## Tasks
-1. **<Task 1 title>** — <what to do; link to the exact UI path or `gh` command.>
-2. **<Task 2 title>** — <…>
-3. **<Task 3 title>** — <…>
-4. **<Task 4 title>** — <…>
+1. <Task 1 title> — <what to do; link to the exact UI path or `gh` command.>
+2. <Task 2 title> — <…>
+3. <Task 3 title> — <…>
+4. <Task 4 title> — <…>
 <!-- Long-form activity: aim for enough numbered tasks to fill the duration. -->
 
 ## Validation / Definition of Done

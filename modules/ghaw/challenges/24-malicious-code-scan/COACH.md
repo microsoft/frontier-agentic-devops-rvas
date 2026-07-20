@@ -2,9 +2,9 @@
 
 ## Facilitated application
 
-**Required facilitator check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+Required facilitator check-in: before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Discuss:** What would it take for you to rely on a daily agent scanning your code changes for supply-chain red flags, and how would you handle false positives without tuning out the real threats? Connect it to a project, task, or workflow you own.
+Discuss: What would it take for you to rely on a daily agent scanning your code changes for supply-chain red flags, and how would you handle false positives without tuning out the real threats? Connect it to a project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Ask which of their repos or dependencies carry real supply-chain exposure.

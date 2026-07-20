@@ -19,12 +19,12 @@ This activity is Azure-first. GitHub is optional at this stage; the primary outc
 75 minutes.
 
 > [!IMPORTANT]
-> **Bring your own service (do this first)**
+> Bring your own service (do this first)
 >
-> This activity is most valuable when the Azure SRE Agent is connected to an Azure service or application your team will keep operating after the session. If you have a candidate workload in a subscription you control, point the SRE Agent at **that** service everywhere this guide references Grubify so the setup, telemetry, incidents, and context live in your tenant.
+> This activity is most valuable when the Azure SRE Agent is connected to an Azure service or application your team will keep operating after the session. If you have a candidate workload in a subscription you control, point the SRE Agent at that service everywhere this guide references Grubify so the setup, telemetry, incidents, and context live in your tenant.
 >
-> - **Have a candidate?** Use an existing Azure service that is already deployed, observable, and approved for the agent to access. Confirm the agent has permission to read the resource group, logs, metrics, traces, alerts, and any knowledge sources you want it to use; skip deploying Grubify unless your coach asks for a parallel practice target.
-> - **No suitable Azure service yet?** Deploy Grubify below as the safe fallback target for learning the workflow.
+> - Have a candidate? Use an existing Azure service that is already deployed, observable, and approved for the agent to access. Confirm the agent has permission to read the resource group, logs, metrics, traces, alerts, and any knowledge sources you want it to use; skip deploying Grubify unless your coach asks for a parallel practice target.
+> - No suitable Azure service yet? Deploy Grubify below as the safe fallback target for learning the workflow.
 >
 > Tell your coach which path you took — bringing your own is the goal; Grubify is the fallback.
 
@@ -38,7 +38,7 @@ cd external/sre-agent/labs/starter-lab
 bash scripts/setup.sh
 ```
 
-When the setup script asks for a GitHub username, press **Enter** unless your coach has already provided a lab GitHub repository. Activity 01 does not require GitHub; skipping it still deploys Grubify, Azure Monitor, Log Analytics, Application Insights, knowledge files, and the Azure SRE Agent.
+When the setup script asks for a GitHub username, press Enter unless your coach has already provided a lab GitHub repository. Activity 01 does not require GitHub; skipping it still deploys Grubify, Azure Monitor, Log Analytics, Application Insights, knowledge files, and the Azure SRE Agent.
 
 If your coach provides a GitHub repository for source-code scenarios, the current starter lab expects a repository named `grubify` under the owner you enter. For example, for `https://github.com/contoso-team-01/grubify`, enter `contoso-team-01`. Do not enter an email address, token, `@handle`, full repository URL, or the original sample owner.
 
@@ -71,7 +71,7 @@ Open the Azure SRE Agent portal:
 https://sre.azure.com
 ```
 
-In **Full setup**, confirm the available cards:
+In Full setup, confirm the available cards:
 
 | Card | Expected result |
 | --- | --- |

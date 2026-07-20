@@ -1,6 +1,6 @@
-**Track:** Production Patterns (Advanced 🟣)
-**Estimated time:** 60 minutes
-**Tier:** Bonus
+Track: Production Patterns (Advanced 🟣)
+Estimated time: 60 minutes
+Tier: Bonus
 
 ---
 
@@ -8,15 +8,15 @@
 
 Build a governed test-quality pipeline for one repository your customer delivery team owns:
 
-1. **Daily Testify** reviews the test suite and opens a small number of specific `test-improvement` issues.
+1. Daily Testify reviews the test suite and opens a small number of specific `test-improvement` issues.
 2. A team member reviews those issues.
-3. **Daily Test Improver** reads approved issues and opens one focused, test-only pull request.
+3. Daily Test Improver reads approved issues and opens one focused, test-only pull request.
 4. A maintainer reviews and merges or closes the pull request.
 
 The workflows are deliberately separate. Analysis can create issues, but it cannot write code. Code generation is limited to a reviewable pull request, using the reviewed issue as its contract.
 
 > [!IMPORTANT]
-> **Use a real repository**
+> Use a real repository
 >
 > Choose a repository in an organization you control with established test conventions, a test owner, and a maintainer who will review the proposed pull requests. Configure the workflows for its language, framework, test directories, and quality bar. Use the sample repository only when no suitable customer repository is available.
 

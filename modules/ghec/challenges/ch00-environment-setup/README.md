@@ -4,21 +4,21 @@
 
 | | |
 |---|---|
-| **Track** | Developer Flow |
-| **Difficulty** | Beginner |
-| **Duration** | ~25 min |
-| **Minimum input** | A GitHub account + approved access to the customer delivery organisation |
-| **App** | none |
-| **EMU compatible** | yes |
+| Track | Developer Flow |
+| Difficulty | Beginner |
+| Duration | ~25 min |
+| Minimum input | A GitHub account + approved access to the customer delivery organisation |
+| App | none |
+| EMU compatible | yes |
 
 ## Customer delivery target
 
-- **Customer objective:** establish delivery readiness before any tenant change.
-- **Customer-tenant target:** the authorised customer organisation, repository, access path, and first adoption target—not a production configuration change.
-- **Approval and safety boundary:** verify only the access the customer owner has approved; do not create, change, or elevate tenant resources during this readiness guide.
-- **Records to keep:** retain the verification summary, selected first target, named customer owner, and any access blockers in the delivery record.
-- **Adoption owner / handover:** the customer owner confirms the target and ownership boundary; the delivery team hands over verified access and blockers.
-- **Next action and owner:** the named owner authorises and schedules the first customer-tenant implementation guide.
+- Customer objective: establish delivery readiness before any tenant change.
+- Customer-tenant target: the authorised customer organisation, repository, access path, and first adoption target—not a production configuration change.
+- Approval and safety boundary: verify only the access the customer owner has approved; do not create, change, or elevate tenant resources during this readiness guide.
+- Records to keep: retain the verification summary, selected first target, named customer owner, and any access blockers in the delivery record.
+- Adoption owner / handover: the customer owner confirms the target and ownership boundary; the delivery team hands over verified access and blockers.
+- Next action and owner: the named owner authorises and schedules the first customer-tenant implementation guide.
 
 ## Objectives
 
@@ -37,7 +37,7 @@ Delivery readiness is complete when you have:
 - Basic Git and CLI usage
 - Access approved by the customer owner for the agreed delivery or customer organisation
 
-> **Branch workflow (not fork):** This module uses a shared org repository. Do **not** fork. Clone directly and work on a personal branch:
+> Branch workflow (not fork): This module uses a shared org repository. Do not fork. Clone directly and work on a personal branch:
 > ```bash
 > git checkout -b setup/<your-github-handle>
 > ```
@@ -47,11 +47,11 @@ Delivery readiness is complete when you have:
 ## Option A: GitHub Codespaces (Recommended)
 
 1. Open the agreed delivery or customer repository in your browser (the delivery lead or customer owner supplies the URL, e.g. `https://github.com/<org>/<repo>`).
-2. Click **Code → Codespaces → Create codespace on main**.
+2. Click Code → Codespaces → Create codespace on main.
 3. Wait ~30 seconds for the dev container to build. The terminal opens automatically when the container is ready.
-4. Continue to **Authenticate the GitHub CLI** below.
+4. Continue to Authenticate the GitHub CLI below.
 
-> **Tip:** Codespaces pre-installs `gh`, `git`, and `jq` — no local tooling required.
+> Tip: Codespaces pre-installs `gh`, `git`, and `jq` — no local tooling required.
 
 ---
 
@@ -63,10 +63,10 @@ Delivery readiness is complete when you have:
    git clone https://github.com/<org>/<repo>
    cd <repo>
    ```
-3. Open VS Code in the cloned folder (`code .`) and choose **Dev Containers: Reopen in Container** from the Command Palette (`Ctrl+Shift+P`).
+3. Open VS Code in the cloned folder (`code .`) and choose Dev Containers: Reopen in Container from the Command Palette (`Ctrl+Shift+P`).
 4. Wait for the container to build, then continue below.
 
-> **Windows note:** PowerShell users can also run `modules/ghec/resources/provisioning/scripts/setup.ps1 doctor --org <org>` to verify tooling instead of the Bash equivalent.
+> Windows note: PowerShell users can also run `modules/ghec/resources/provisioning/scripts/setup.ps1 doctor --org <org>` to verify tooling instead of the Bash equivalent.
 
 ---
 
@@ -78,7 +78,7 @@ Your container does not have your GitHub credentials pre-loaded. Run:
 gh auth login
 ```
 
-Choose **GitHub.com**, then **HTTPS**, and follow the device-code prompt in your browser. Grant the requested permissions (at minimum: `repo`, `read:org`).
+Choose GitHub.com, then HTTPS, and follow the device-code prompt in your browser. Grant the requested permissions (at minimum: `repo`, `read:org`).
 
 > Some later delivery guides (Projects v2 automation, including ch16) also need `project` and `read:project`. You can add missing scopes later without re-login: `gh auth refresh -h github.com -s project,read:project`.
 

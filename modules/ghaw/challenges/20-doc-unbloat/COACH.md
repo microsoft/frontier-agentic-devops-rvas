@@ -2,9 +2,9 @@
 
 ## Facilitated application
 
-**Required facilitator check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+Required facilitator check-in: before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Discuss:** Where has documentation bloat in your projects pushed contributors away, and how would you keep an agent from removing something important? Connect it to a project, task, or workflow you own.
+Discuss: Where has documentation bloat in your projects pushed contributors away, and how would you keep an agent from removing something important? Connect it to a project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Ask where documentation bloat has actually pushed contributors away in their world.

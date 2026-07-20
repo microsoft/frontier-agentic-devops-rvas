@@ -4,14 +4,14 @@ Use one of these supported environment paths before starting `ghaw-00`:
 
 ## Roles used in the activities
 
-- **Delivery team:** the customer team completing an activity and adapting it to a repository they own.
-- **Facilitator:** the person guiding the session, helping the delivery team test and connect the exercise to their work. Files named `COACH.md` are facilitator guides.
+- Delivery team: the customer team completing an activity and adapting it to a repository they own.
+- Facilitator: the person guiding the session, helping the delivery team test and connect the exercise to their work. Files named `COACH.md` are facilitator guides.
 
-Some older activity text uses **squad** for the delivery team and **coach** for the facilitator. Read those terms using the roles defined above.
+Some older activity text uses squad for the delivery team and coach for the facilitator. Read those terms using the roles defined above.
 
 ## Option 1: GitHub Codespaces
-1. Open **this repository** (`microsoft/frontier-agentic-devops-rvas`) on GitHub.
-2. Click **Code** → **Codespaces** → **Create codespace on main**.
+1. Open this repository (`microsoft/frontier-agentic-devops-rvas`) on GitHub.
+2. Click Code → Codespaces → Create codespace on main.
 3. Wait for the dev container to finish building. `gh-aw` installs automatically via `postCreate.sh`.
 
 ## Option 2: Local dev container
@@ -21,8 +21,8 @@ Some older activity text uses **squad** for the delivery team and **coach** for 
    git clone https://github.com/microsoft/frontier-agentic-devops-rvas.git
    cd frontier-agentic-devops-rvas
    ```
-3. Install the **Dev Containers** extension in VS Code.
-4. Run **Dev Containers: Reopen in Container**. `gh-aw` installs automatically via `postCreate.sh`.
+3. Install the Dev Containers extension in VS Code.
+4. Run Dev Containers: Reopen in Container. `gh-aw` installs automatically via `postCreate.sh`.
 
 ## Verify the toolchain
 ```bash

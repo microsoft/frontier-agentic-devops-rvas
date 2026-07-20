@@ -2,9 +2,9 @@
 
 ## Facilitated application
 
-**Required facilitator check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+Required facilitator check-in: before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Discuss:** If you deployed this triage agent on your busiest repo tomorrow, what would you measure to decide whether it is helping the team rather than adding noise? Connect it to a project, task, or workflow you own.
+Discuss: If you deployed this triage agent on your busiest repo tomorrow, what would you measure to decide whether it is helping the team rather than adding noise? Connect it to a project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Ask them to name their busiest repo and the volume of incoming issues there.

@@ -4,9 +4,9 @@
 
 ## Facilitated application
 
-**Required facilitator check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+Required facilitator check-in: before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Discuss:** Where would you draw the line between an agent warning about stale work and actually closing it on your behalf, and what grace period earns your trust? Connect it to a project, task, or workflow you own.
+Discuss: Where would you draw the line between an agent warning about stale work and actually closing it on your behalf, and what grace period earns your trust? Connect it to a project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Ask them to describe how their team handles stale issues or PRs today.
@@ -15,9 +15,9 @@ Use these follow-ups to steer the conversation:
 
 ## Coaching Philosophy
 
-This activity teaches **scheduled + conditional logic**, the foundation for maintenance automation. Squads encounter real constraints: "Don't close too fast," "Respect exemptions," "Handle edge cases." Your job: help them see that automation with guardrails is safer than chaotic deletion.
+This activity teaches scheduled + conditional logic, the foundation for maintenance automation. Squads encounter real constraints: "Don't close too fast," "Respect exemptions," "Handle edge cases." Your job: help them see that automation with guardrails is safer than chaotic deletion.
 
-**Key rule:** By minute 25, the squad should understand the 3-phase pattern: warn → wait → close. This restraint is what makes automation trustworthy.
+Key rule: By minute 25, the squad should understand the 3-phase pattern: warn → wait → close. This restraint is what makes automation trustworthy.
 
 ---
 
@@ -25,11 +25,11 @@ This activity teaches **scheduled + conditional logic**, the foundation for main
 
 A finished solution has these characteristics:
 
-**File structure:**
+File structure:
 - `.github/workflows/stale-patrol.md` — ~40–60 lines (frontmatter + body)
 - `.github/workflows/stale-patrol.lock.yml` — auto-generated, ~90–120 lines
 
-**Behavior:**
+Behavior:
 - Runs daily at scheduled time (visible in Actions tab)
 - Queries stale issues (open >60 days, no recent activity)
 - Posts warning comment: "This will be closed in 3 days if no activity"
@@ -37,7 +37,7 @@ A finished solution has these characteristics:
 - Skips issues with `keep-alive` or `long-term` labels
 - Skips already-closed issues (idempotent)
 
-**Example outcome:**
+Example outcome:
 ```
 Issue: "Support for NodeJS v16" (opened 90 days ago, last activity 70 days ago)
 [Stale Patrol runs — first time]
@@ -62,8 +62,8 @@ Workflow checks:
 2. If already has `stale` label + >3 days old: close
 3. If no `stale` label: warn and apply `stale` label
 
-**Pros:** Simple, teachable, safe  
-**Cons:** Doesn't perfectly track "3 runs" (just uses time-based logic)
+Pros: Simple, teachable, safe  
+Cons: Doesn't perfectly track "3 runs" (just uses time-based logic)
 
 ### Approach 2: Strict 3-Run Counter
 
@@ -74,15 +74,15 @@ Write to repo-memory: {issue_id: marked_stale_on: 2025-01-01}
 On subsequent runs, check: is marked_stale_on >3 days old? Then close.
 ```
 
-**Pros:** Exact, professional  
-**Cons:** Requires `tools: repo-memory` (introduces complexity)
+Pros: Exact, professional  
+Cons: Requires `tools: repo-memory` (introduces complexity)
 
 ### Approach 3: Multiple Exclusions
 
 Expand exempt labels: `keep-alive`, `long-term`, `backlog`, `planned`, `stale/false-positive`
 
-**Pros:** Flexible, team can opt out easily  
-**Cons:** More maintenance overhead
+Pros: Flexible, team can opt out easily  
+Cons: More maintenance overhead
 
 ---
 
@@ -90,11 +90,11 @@ Expand exempt labels: `keep-alive`, `long-term`, `backlog`, `planned`, `stale/fa
 
 ### Pitfall 1: Workflow Doesn't Run on Schedule
 
-**Symptom:** Scheduled workflow never appears in Actions tab.
+Symptom: Scheduled workflow never appears in Actions tab.
 
-**Root cause:** Cron syntax is wrong, or `on: schedule:` is malformed.
+Root cause: Cron syntax is wrong, or `on: schedule:` is malformed.
 
-**Coach response:**
+Coach response:
 - "Let's check your cron. Does it look like `0 9 * * *`?"
 - Explain: `0 9 * * *` = 9 AM UTC, every day
 - Point to cron reference: https://crontab.guru/
@@ -102,54 +102,54 @@ Expand exempt labels: `keep-alive`, `long-term`, `backlog`, `planned`, `stale/fa
 
 ### Pitfall 2: Closes Issues Too Aggressively
 
-**Symptom:** Issues with `keep-alive` label still get closed, or recent activity is ignored.
+Symptom: Issues with `keep-alive` label still get closed, or recent activity is ignored.
 
-**Root cause:** Missing exemption check or age calculation is wrong.
+Root cause: Missing exemption check or age calculation is wrong.
 
-**Coach response:**
+Coach response:
 - "Before closing, always check: does this issue have `keep-alive`?"
 - "Also check: has anyone commented in the last 3 days? If yes, skip."
 - Guide: "Your logic should be: is open? no recent activity? no exempt labels? Then warn/close"
 
 ### Pitfall 3: Closes Already-Closed Issues
 
-**Symptom:** Workflow tries to close issues that are already closed, causing errors.
+Symptom: Workflow tries to close issues that are already closed, causing errors.
 
-**Root cause:** No state check before closing.
+Root cause: No state check before closing.
 
-**Coach response:**
+Coach response:
 - "Before updating an issue, always check: `if state == 'closed', do nothing`"
 - Emphasize: "This is idempotency—running the workflow twice should be safe"
 
 ### Pitfall 4: Query Is Too Broad or Too Narrow
 
-**Symptom:** Workflow finds no stale issues (too narrow) or finds everything (too broad).
+Symptom: Workflow finds no stale issues (too narrow) or finds everything (too broad).
 
-**Root cause:** Date filtering is off, or exemption checks too strict.
+Root cause: Date filtering is off, or exemption checks too strict.
 
-**Coach response:**
+Coach response:
 - "Let's test the query. Can you manually query for issues updated before 60 days ago?"
 - Suggest: "Use the GitHub Issues API with `updated:<date>` filter"
 - Show: "For testing, set the threshold lower: 7 days instead of 60, so you see results faster"
 
 ### Pitfall 5: Comment Tone Is Harsh
 
-**Symptom:** Comment feels like a threat ("Your issue is useless and I'm deleting it").
+Symptom: Comment feels like a threat ("Your issue is useless and I'm deleting it").
 
-**Root cause:** Squads forget these might be users' important work.
+Root cause: Squads forget these might be users' important work.
 
-**Coach response:**
+Coach response:
 - "Rewrite the comment. This is a courtesy notice, not a warning."
 - Suggest: "Instead of 'This issue is useless', try: 'This hasn't been active recently. If you're still working on it, please let us know!'"
 - Model empathy: "Contributors care about their issues. Your bot should too."
 
 ### Pitfall 6: No Test Strategy
 
-**Symptom:** Squad doesn't know how to test (can't wait 60 days for an issue to age).
+Symptom: Squad doesn't know how to test (can't wait 60 days for an issue to age).
 
-**Root cause:** Not thinking about testing patterns early.
+Root cause: Not thinking about testing patterns early.
 
-**Coach response:**
+Coach response:
 - "For testing, you have options:"
   - Create a fake issue by mocking the date in the agent prompt
   - Use `workflow_dispatch` to run manually, then instruct agent: "Assume this issue was last updated on [date 70 days ago]"
@@ -159,7 +159,7 @@ Expand exempt labels: `keep-alive`, `long-term`, `backlog`, `planned`, `stale/fa
 
 ## Sample Solution
 
-This is a complete, working `stale-patrol.md`. Share **only after 20+ min of struggle**; ask them to type it out.
+This is a complete, working `stale-patrol.md`. Share only after 20+ min of struggle; ask them to type it out.
 
 ```markdown
 ---
@@ -197,7 +197,7 @@ For each stale issue:
 Be respectful and helpful. These might be contributors' important work.
 ```
 
-**Why this works:**
+Why this works:
 - `on: schedule: - cron: '0 9 * * *'` — runs daily at 9 AM UTC
 - `workflow_dispatch` — can be triggered manually for testing
 - `permissions: issues: read` — can query issues
@@ -218,7 +218,7 @@ Be respectful and helpful. These might be contributors' important work.
 | Refine | 3 min | Adjust dates/exemptions if needed |
 | Celebrate | 1 min | Discuss |
 
-**Total: ~30 minutes.**
+Total: ~30 minutes.
 
 ---
 
@@ -226,20 +226,20 @@ Be respectful and helpful. These might be contributors' important work.
 
 If finished in <20 minutes:
 
-1. **Add a `stale-no-issue` workflow:** Also closes stale PRs
-   - **Concept:** Reusing logic across different event types
+1. Add a `stale-no-issue` workflow: Also closes stale PRs
+   - Concept: Reusing logic across different event types
 
-2. **Escalate before closing:** Post to a maintainer team issue instead of auto-closing
-   - **Concept:** `create-issue` + `mention` pattern
+2. Escalate before closing: Post to a maintainer team issue instead of auto-closing
+   - Concept: `create-issue` + `mention` pattern
 
-3. **Notify author:** Reply to the issue mentioning the original author, giving them a chance to respond
-   - **Concept:** `@mention` in comments
+3. Notify author: Reply to the issue mentioning the original author, giving them a chance to respond
+   - Concept: `@mention` in comments
 
-4. **Customizable exemptions:** Use `repo-memory` to store a list of exempt issue IDs
-   - **Concept:** Dynamic configuration via `repo-memory`
+4. Customizable exemptions: Use `repo-memory` to store a list of exempt issue IDs
+   - Concept: Dynamic configuration via `repo-memory`
 
-5. **Weekly summary:** Post a discussion summarizing which issues were closed this week
-   - **Concept:** Combining `close-issue` with `create-discussion`
+5. Weekly summary: Post a discussion summarizing which issues were closed this week
+   - Concept: Combining `close-issue` with `create-discussion`
 
 ---
 
@@ -260,16 +260,16 @@ If a squad is stuck:
 
 ## Key Takeaways for Coaches
 
-- **Scheduled automation is powerful:** Runs on a clock, no human trigger needed. This scales maintenance.
-- **Guardrails matter:** Warn-then-close is better than delete-on-sight. Automation needs to earn trust.
-- **Idempotency is key:** Workflows may run twice. Squads should always ask: "Is it safe to run this twice?"
-- **Respectful tone:** Automation that feels harsh breaks team trust. Emphasize empathy in bot design.
+- Scheduled automation is powerful: Runs on a clock, no human trigger needed. This scales maintenance.
+- Guardrails matter: Warn-then-close is better than delete-on-sight. Automation needs to earn trust.
+- Idempotency is key: Workflows may run twice. Squads should always ask: "Is it safe to run this twice?"
+- Respectful tone: Automation that feels harsh breaks team trust. Emphasize empathy in bot design.
 
 ---
 
 ## Reference
 
-**Reference solution note:** This repository does not include separate committed sample-solution files; use the inline sample and validation checklist above.
-**GitHub Next Agentics examples:** https://github.com/githubnext/agentics  
-**Cron Reference:** https://crontab.guru/  
-**Schedule Trigger:** https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
+Reference solution note: This repository does not include separate committed sample-solution files; use the inline sample and validation checklist above.
+GitHub Next Agentics examples: https://github.com/githubnext/agentics  
+Cron Reference: https://crontab.guru/  
+Schedule Trigger: https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule

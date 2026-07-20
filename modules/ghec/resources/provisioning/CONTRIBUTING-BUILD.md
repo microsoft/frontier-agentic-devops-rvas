@@ -1,6 +1,6 @@
 # CONTRIBUTING — Build Guide (Linus · Yen · Basher)
 
-This is the **foundation contract**. It tells each builder exactly where content goes and how the
+This is the foundation contract. It tells each builder exactly where content goes and how the
 pieces fit. Rusty (Lead/Architect) owns this structure; propose changes via a decision in
 `.squad/decisions/inbox/` before deviating.
 
@@ -23,8 +23,8 @@ docs/                                 ← GitHub Pages site source (Basher)
 
 ### Folder + file naming (HARD RULES)
 - Activity folder = `ch##-<slug>` where `##` is zero-padded (`ch00`, …, `ch26`) and `<slug>` is
-  **kebab-case**, matching `slug:` in `meta.yml` exactly.
-- The canonical slugs are fixed (see table below). **Do not rename** — the site, scripts, and links
+  kebab-case, matching `slug:` in `meta.yml` exactly.
+- The canonical slugs are fixed (see table below). Do not rename — the site, scripts, and links
   all key off them.
 - Inside each folder: `README.md` (delivery team member), `COACH.md` (coach), `meta.yml` (data). Exact filenames.
 - Any dates written in content use ISO format `YYYY-MM-DD`.
@@ -62,7 +62,7 @@ docs/                                 ← GitHub Pages site source (Basher)
 
 ## `meta.yml` is the contract between everyone
 
-`meta.yml` is the **canonical machine-readable definition**. Both the site and the scripts read it.
+`meta.yml` is the canonical machine-readable definition. Both the site and the scripts read it.
 Never duplicate this data in prose — render or read it from here.
 
 | Field | Type | Used by | Notes |
@@ -73,11 +73,11 @@ Never duplicate this data in prose — render or read it from here.
 | `track` | enum | site (grouping/filter) | `developer-flow\|admin-governance\|security\|automation-ai`. |
 | `difficulty` | enum | site (badge) | `foundational\|intermediate\|advanced` (per-track ramp). |
 | `duration_hours` | int (3–8) | site | Total, multi-session. |
-| `min_input` | `org` | scripts (`doctor`) | **Always `org`.** Never stricter. |
+| `min_input` | `org` | scripts (`doctor`) | Always `org`. Never stricter. |
 | `app` | enum | scripts (setup) | `juice-shop\|seed\|none`. |
 | `juice_shop_ref` | `v20.0.0` | scripts | Only when `app: juice-shop`. Pinned for reproducibility. |
 | `requires` | list | scripts (`doctor` preflight) | Always includes `org`; add `ghas`/`copilot`. |
-| `emu_compatible` | bool | site (badge), scripts (`doctor` warn) | `false` **only** for ch19. |
+| `emu_compatible` | bool | site (badge), scripts (`doctor` warn) | `false` only for ch19. |
 | `provision_creates` | list | site (Setup summary), scripts | All artifacts `ghec-ch##-*`. |
 | `references` | list of URLs | site | Official docs.github.com links. |
 
@@ -85,8 +85,8 @@ Never duplicate this data in prose — render or read it from here.
 
 ### 📚 Linus — activity content (delivery team member + coach guides)
 - For each `ch##-<slug>/`: copy `_TEMPLATE/README.md` → `README.md` and `_TEMPLATE/COACH.md` → `COACH.md`.
-- Fill **every** section; keep all headings in the template order (the site + coach filter depend on them).
-- Use the **exact titles/tracks** from the table in the root `README.md`.
+- Fill every section; keep all headings in the template order (the site + coach filter depend on them).
+- Use the exact titles/tracks from the table in the root `README.md`.
 - Keep `meta.yml` in sync with the guide (title, app, requires, emu_compatible).
 - Apply Marco's decisions: org-scoped framing everywhere; GHAS activities target Juice Shop at `v20.0.0`;
   ch19 carries the EMU prerequisite and is N/A for pure GHEMU.
@@ -95,13 +95,13 @@ Never duplicate this data in prose — render or read it from here.
 - Own `scripts/setup.sh` + `scripts/setup.ps1` (and `teardown`, `doctor`, `status`) over one shared gh/jq core.
 - Per-activity logic reads `challenges/ch##-<slug>/meta.yml` for `app`, `requires`, `provision_creates`.
 - Command surface: `setup.sh` / `setup.ps1` `<doctor|setup|status|teardown> ch## --org <org> [--dry-run] [--yes]`.
-- Namespace **everything** `ghec-ch##-*`; teardown refuses to touch anything without that prefix.
+- Namespace everything `ghec-ch##-*`; teardown refuses to touch anything without that prefix.
 - `doctor` verifies tooling (`gh`/`git`/`jq`), auth, and the `requires` capabilities; warns on EMU for ch19.
 - Juice Shop: pull pinned `v20.0.0` release tarball → fresh git init → push to `ghec-ch##-juice-shop`. Never vendor.
 
 ### 🌐 Basher — GitHub Pages site (`docs/`)
 - Use each `meta.yml` for cards, filters, and badges — read it, don't hand-copy.
-- Render delivery team member `README.md` per activity; **exclude `COACH.md`** from the public delivery team member view (coach view separate).
+- Render delivery team member `README.md` per activity; exclude `COACH.md` from the public delivery team member view (coach view separate).
 - Group by `track`; show `difficulty`, `app`, and `emu_compatible` badges; surface `references`.
 - Link the site from the root `README.md` and back.
 
@@ -110,5 +110,5 @@ Never duplicate this data in prose — render or read it from here.
 - Soft-links are optional only and must be re-created by provisioning, never assumed.
 
 ## Changing the contract
-The structure, slugs, and `meta.yml` schema are **locked**. To change them, write a decision to
+The structure, slugs, and `meta.yml` schema are locked. To change them, write a decision to
 `.squad/decisions/inbox/` and get Rusty's sign-off so the site and scripts stay in lockstep.

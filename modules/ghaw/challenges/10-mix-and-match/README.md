@@ -1,16 +1,16 @@
 # Activity 2-06: Mix & Match
 
-**Track:** Repo Concierge (Intermediate 🟡)  
-**Estimated time:** 30 minutes  
-**Prerequisites:** Activity 00, at least 2 Track 1 activities, Activity 2-01
+Track: Repo Concierge (Intermediate 🟡)  
+Estimated time: 30 minutes  
+Prerequisites: Activity 00, at least 2 Track 1 activities, Activity 2-01
 
 ---
 
 ## What You'll Build
 
-A weekly-scheduled gh-aw workflow that uses reusable parts. Instead of writing every prompt from scratch, you'll author a shared helper snippet — `lib/repo-stats-helper.md` — and `imports:` it into your workflow. The agent reads the helper, analyzes repository status, and posts a digest as a GitHub **Discussion** using the `create-discussion` safe-output.
+A weekly-scheduled gh-aw workflow that uses reusable parts. Instead of writing every prompt from scratch, you'll author a shared helper snippet — `lib/repo-stats-helper.md` — and `imports:` it into your workflow. The agent reads the helper, analyzes repository status, and posts a digest as a GitHub Discussion using the `create-discussion` safe-output.
 
-**Why this matters:** In production, teams maintain shared prompt libraries: tone guidelines, formatting rules, domain context. `imports:` lets you reference those without copy-pasting them into every workflow. And `create-discussion` keeps stakeholders informed through async, searchable posts — not a stream of noisy issues.
+Why this matters: In production, teams maintain shared prompt libraries: tone guidelines, formatting rules, domain context. `imports:` lets you reference those without copy-pasting them into every workflow. And `create-discussion` keeps stakeholders informed through async, searchable posts — not a stream of noisy issues.
 
 ---
 
@@ -27,12 +27,12 @@ By the end, your squad will:
 ---
 
 > [!IMPORTANT]
-> **Bring your own repo (do this first)**
+> Bring your own repo (do this first)
 >
-> This activity is most valuable when the imported helper and weekly digest describe **your own repository's** real health signals, Discussions category, and stakeholder audience, so the pattern survives after the session. Treat the setup sample as practice, not the default destination.
+> This activity is most valuable when the imported helper and weekly digest describe your own repository's real health signals, Discussions category, and stakeholder audience, so the pattern survives after the session. Treat the setup sample as practice, not the default destination.
 >
-> - **Have a candidate repo?** Install or point `10-mix-and-match.md` at that repo everywhere the guide references the sample repo, and write `lib/repo-stats-helper.md` around its real issues, PRs, tests, docs, and reporting tone.
-> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+> - Have a candidate repo? Install or point `10-mix-and-match.md` at that repo everywhere the guide references the sample repo, and write `lib/repo-stats-helper.md` around its real issues, PRs, tests, docs, and reporting tone.
+> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
 >
 > Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
 
@@ -49,7 +49,7 @@ imports:
 
 Paths are relative to the repository root. The helper file is plain Markdown — no special syntax, no frontmatter. It's just context you want every workflow that imports it to share.
 
-**Use cases:** shared formatting instructions, org-wide tone guidelines, reusable analysis templates, domain vocabulary.
+Use cases: shared formatting instructions, org-wide tone guidelines, reusable analysis templates, domain vocabulary.
 
 ---
 
@@ -63,7 +63,7 @@ safe-outputs:
     category: "General"
 ```
 
-The `category` must match a Discussion category that **already exists** in the repo's Discussion settings. The agent needs `permissions: discussions: write` for this to work.
+The `category` must match a Discussion category that already exists in the repo's Discussion settings. The agent needs `permissions: discussions: write` for this to work.
 
 ---
 
@@ -83,11 +83,11 @@ Keep it focused. A good helper is 10–20 lines of clear instructions that any w
 
 Create `.github/workflows/10-mix-and-match.md` with:
 
-- **`imports:`** referencing your helper: `./lib/repo-stats-helper.md`
-- **`on:`** scheduled weekly (e.g., every Monday at 9am UTC)
-- **`permissions:`** including `discussions: write`
-- **`safe-outputs:`** with `create-discussion: category: "General"`
-- **Agent body:** Ask the agent to analyze the repository's status and produce a digest. Tell it the output will be posted as a Discussion.
+- `imports:` referencing your helper: `./lib/repo-stats-helper.md`
+- `on:` scheduled weekly (e.g., every Monday at 9am UTC)
+- `permissions:` including `discussions: write`
+- `safe-outputs:` with `create-discussion: category: "General"`
+- Agent body: Ask the agent to analyze the repository's status and produce a digest. Tell it the output will be posted as a Discussion.
 
 ### Step 3: Enable Discussions
 
@@ -119,27 +119,27 @@ No errors? You're ready to test. Trigger manually with `workflow_dispatch` to ve
 
 ## Tips & Hints
 
-- **Import paths are relative to the repo root**, not to the workflow file. `./lib/repo-stats-helper.md` works from any workflow in `.github/workflows/`.
-- **Discussion category must exist first.** If the category doesn't exist in your repo settings, the runtime will error. Create it manually before testing.
-- **Add `workflow_dispatch:` alongside your schedule** during development so you can trigger the workflow manually without waiting for Monday.
-- **The helper is context, not code.** Write it like you're briefing a smart colleague: "When summarizing repository status, start with a plain status marker: green (on track), yellow (needs attention), or red (blocked)."
+- Import paths are relative to the repo root, not to the workflow file. `./lib/repo-stats-helper.md` works from any workflow in `.github/workflows/`.
+- Discussion category must exist first. If the category doesn't exist in your repo settings, the runtime will error. Create it manually before testing.
+- Add `workflow_dispatch:` alongside your schedule during development so you can trigger the workflow manually without waiting for Monday.
+- The helper is context, not code. Write it like you're briefing a smart colleague: "When summarizing repository status, start with a plain status marker: green (on track), yellow (needs attention), or red (blocked)."
 
 ---
 
 ## References
 
-- **imports:** https://github.github.com/gh-aw/reference/frontmatter/#imports
-- **create-discussion safe-output:** https://github.github.com/gh-aw/reference/safe-outputs/#create-discussion
-- **GitHub Discussions:** https://docs.github.com/en/discussions
+- imports: https://github.github.com/gh-aw/reference/frontmatter/#imports
+- create-discussion safe-output: https://github.github.com/gh-aw/reference/safe-outputs/#create-discussion
+- GitHub Discussions: https://docs.github.com/en/discussions
 
 ---
 
 ## Stuck?
 
-- **"Compile says import not found"** → Double-check the path. It's relative to repo root, so `./lib/repo-stats-helper.md` means the file lives at `lib/repo-stats-helper.md` from the root.
-- **"Discussion not appearing"** → Verify `permissions: discussions: write` is in frontmatter and the category name matches exactly (case-sensitive).
-- **"Category doesn't exist"** → Go to your repo → Settings → Features → Discussions → Manage. Add a "General" category.
-- **"How do I test the schedule without waiting a week?"** → Add `on: workflow_dispatch: {}` to your trigger block and run it manually from the Actions tab.
+- "Compile says import not found" → Double-check the path. It's relative to repo root, so `./lib/repo-stats-helper.md` means the file lives at `lib/repo-stats-helper.md` from the root.
+- "Discussion not appearing" → Verify `permissions: discussions: write` is in frontmatter and the category name matches exactly (case-sensitive).
+- "Category doesn't exist" → Go to your repo → Settings → Features → Discussions → Manage. Add a "General" category.
+- "How do I test the schedule without waiting a week?" → Add `on: workflow_dispatch: {}` to your trigger block and run it manually from the Actions tab.
 
 Ask your coach.
 

@@ -4,21 +4,21 @@
 
 | | |
 |---|---|
-| **Track** | Developer Flow |
-| **Difficulty** | Foundational *(per-track ramp)* |
-| **Duration** | ~3–4 hrs total, multi-session |
-| **Minimum input** | An **org** + an **org-owner token**. *(All activities are org-scoped — no enterprise owner required.)* |
-| **App** | Provisioned starter repository (created by setup) |
-| **EMU compatible** | yes |
+| Track | Developer Flow |
+| Difficulty | Foundational *(per-track ramp)* |
+| Duration | ~3–4 hrs total, multi-session |
+| Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
+| App | Provisioned starter repository (created by setup) |
+| EMU compatible | yes |
 
 ## Customer delivery target
 
-- **Customer objective:** establish a durable, team-owned delivery system.
-- **Customer-tenant target:** the customer repository’s issue forms, label taxonomy, milestones, and Projects (v2) board.
-- **Approval and safety boundary:** implement in the customer tenant when the product/repository owner authorises it; otherwise use the seeded repository only as a sample test repository.
-- **Records to keep:** retain the configured board, saved views, automation settings, and a triage operating note.
-- **Adoption owner / handover:** the backlog or engineering lead owns the board and receives the operating note.
-- **Next action and owner:** the owner selects the first live backlog and moves the configuration there after sample testing.
+- Customer objective: establish a durable, team-owned delivery system.
+- Customer-tenant target: the customer repository’s issue forms, label taxonomy, milestones, and Projects (v2) board.
+- Approval and safety boundary: implement in the customer tenant when the product/repository owner authorises it; otherwise use the seeded repository only as a sample test repository.
+- Records to keep: retain the configured board, saved views, automation settings, and a triage operating note.
+- Adoption owner / handover: the backlog or engineering lead owns the board and receives the operating note.
+- Next action and owner: the owner selects the first live backlog and moves the configuration there after sample testing.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -28,22 +28,22 @@
 
 ## Customer delivery objectives
 This delivery engagement establishes:
-- Create, triage, and close **issues** using templates (issue forms), assignees, and task lists.
-- Design a **label taxonomy** (type / priority / area / status) and apply it consistently.
-- Group work into **milestones** and track completion percentage.
-- Build a **Projects (v2)** board with custom fields, saved views (board + table + roadmap), and **built-in workflows** that auto-move items.
-- Drive the whole flow from both the **UI** and the **`gh` CLI / GraphQL API** so you can automate it later.
+- Create, triage, and close issues using templates (issue forms), assignees, and task lists.
+- Design a label taxonomy (type / priority / area / status) and apply it consistently.
+- Group work into milestones and track completion percentage.
+- Build a Projects (v2) board with custom fields, saved views (board + table + roadmap), and built-in workflows that auto-move items.
+- Drive the whole flow from both the UI and the `gh` CLI / GraphQL API so you can automate it later.
 
 ## Scenario
 You have just inherited the backlog for an internal developer-tools team at a GHEC customer. Work is scattered across chat threads, spreadsheets, and people's heads. Leadership wants one shared delivery record: every request becomes an issue, every issue is triaged within a day, and a live board shows what's in flight, what's blocked, and what ships this sprint. Your job is to stand that system up on GitHub the way you'd hand it to a real team on Monday morning.
 
 > [!IMPORTANT]
-> **Use an approved customer target (do this first)**
+> Use an approved customer target (do this first)
 >
-> Default to an authorised customer backlog, taxonomy, and Projects board that the team will operate after delivery. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
+> Default to an authorised customer backlog, taxonomy, and Projects board that the team will operate after delivery. Complete the work on that artifact and retain the evidence, guardrails, or automation.
 >
-> - **Have a candidate?** Use it everywhere this guide says `ghec-ch01-issues-labels-projects` or `ghec-ch01-board`. Skip the Setup step below entirely.
-> - **No suitable one?** Use the fallback below: a seeded backlog repo and empty project board you can shape safely.
+> - Have a candidate? Use it everywhere this guide says `ghec-ch01-issues-labels-projects` or `ghec-ch01-board`. Skip the Setup step below entirely.
+> - No suitable one? Use the fallback below: a seeded backlog repo and empty project board you can shape safely.
 >
 > Record the selected target, customer adoption owner, and next action and owner. Use the sample only for testing; move the validated configuration to an approved customer target.
 
@@ -59,42 +59,42 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch01 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch01 --org <org>
 ```
 
-**What setup creates** (all artifacts namespaced `ghec-ch01-*`, idempotent, prefix-guarded teardown):
-- A seeded repo **`ghec-ch01-issues-labels-projects`** with a realistic `README`, a small source tree, and a `.github/ISSUE_TEMPLATE/` directory you will extend.
-- **~26 seeded issues** describing a backlog (bugs, features, chores) — deliberately messy: inconsistent or missing labels, no milestone, no assignee.
-- An **intentionally messy, incomplete label set** (`bug`, `Bug`, `enhancement`, `urgent`, `wontfix`, `question`, `backend`, `frontend` — note the duplicate `bug`/`Bug` casing) so you can feel the gap and design a real taxonomy.
-- An **empty Projects (v2) board** `ghec-ch01-board` linked to the repo, with no custom fields yet.
-- A printed **Next steps** block telling you where to start.
+What setup creates (all artifacts namespaced `ghec-ch01-*`, idempotent, prefix-guarded teardown):
+- A seeded repo `ghec-ch01-issues-labels-projects` with a realistic `README`, a small source tree, and a `.github/ISSUE_TEMPLATE/` directory you will extend.
+- ~26 seeded issues describing a backlog (bugs, features, chores) — deliberately messy: inconsistent or missing labels, no milestone, no assignee.
+- An intentionally messy, incomplete label set (`bug`, `Bug`, `enhancement`, `urgent`, `wontfix`, `question`, `backend`, `frontend` — note the duplicate `bug`/`Bug` casing) so you can feel the gap and design a real taxonomy.
+- An empty Projects (v2) board `ghec-ch01-board` linked to the repo, with no custom fields yet.
+- A printed Next steps block telling you where to start.
 
 
 ## Tasks
-> Throughout, **`ghec-ch01-issues-labels-projects` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
+> Throughout, `ghec-ch01-issues-labels-projects` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Issues & issue management
-1. **Read the backlog.** Open the repo's **Issues** tab and skim every seeded issue. Note that they are inconsistently labeled and none are assigned or milestoned — this is your raw material.
-2. **Add issue forms.** In `.github/ISSUE_TEMPLATE/`, add a **bug report** form and a **feature request** form using GitHub's **issue forms** (`.yml`) schema (not plain markdown). Each form must collect a title, a structured body, and at least one dropdown (e.g., area or severity). Open the **New issue** chooser and confirm both forms render.
-3. **File one issue through your new form** to prove it works. Use a task list (`- [ ]`) in the body with at least three sub-tasks, and reference another issue with `#<number>` so the timeline cross-links.
-4. **Triage assignment.** Assign yourself to at least 5 issues. Use `gh issue edit <n> --add-assignee @me` to do it in bulk where that's faster than clicking.
+1. Read the backlog. Open the repo's Issues tab and skim every seeded issue. Note that they are inconsistently labeled and none are assigned or milestoned — this is your raw material.
+2. Add issue forms. In `.github/ISSUE_TEMPLATE/`, add a bug report form and a feature request form using GitHub's issue forms (`.yml`) schema (not plain markdown). Each form must collect a title, a structured body, and at least one dropdown (e.g., area or severity). Open the New issue chooser and confirm both forms render.
+3. File one issue through your new form to prove it works. Use a task list (`- [ ]`) in the body with at least three sub-tasks, and reference another issue with `#<number>` so the timeline cross-links.
+4. Triage assignment. Assign yourself to at least 5 issues. Use `gh issue edit <n> --add-assignee @me` to do it in bulk where that's faster than clicking.
 
 ### Part B — Label taxonomy
-5. **Design a label scheme.** Create labels across four dimensions, each with a distinct color family:
+5. Design a label scheme. Create labels across four dimensions, each with a distinct color family:
    - `type:` → `type: bug`, `type: feature`, `type: chore`, `type: docs`
    - `priority:` → `priority: p0`, `priority: p1`, `priority: p2`
    - `area:` → `area: frontend`, `area: backend`, `area: ci`
    - `status:` → `status: needs-triage`, `status: blocked`, `status: in-review`
 
-   Create them via the UI **or** the CLI, e.g.:
+   Create them via the UI or the CLI, e.g.:
    ```bash
    gh label create "type: bug" --color B60205 --description "Defect in existing behavior"
    ```
-6. **Apply labels to the whole backlog.** Every seeded issue must end with at least a `type:` and a `priority:` label:
+6. Apply labels to the whole backlog. Every seeded issue must end with at least a `type:` and a `priority:` label:
    ```bash
    gh issue edit <n> --add-label "type: bug,priority: p1"
    ```
-7. **Prove consistency.** Run `gh issue list --label "priority: p0"` and confirm the highest-priority items surface correctly.
+7. Prove consistency. Run `gh issue list --label "priority: p0"` and confirm the highest-priority items surface correctly.
 
 ### Part C — Milestones
-8. **Create two milestones:** set `Sprint 1` due two weeks after your delivery start and `Sprint 2` due four weeks after it. Use the UI, or calculate ISO 8601 due dates for the current run and create the milestones with the API:
+8. Create two milestones: set `Sprint 1` due two weeks after your delivery start and `Sprint 2` due four weeks after it. Use the UI, or calculate ISO 8601 due dates for the current run and create the milestones with the API:
    ```bash
    RUN_DATE=$(date -u +%F)
    SPRINT_1_DUE=$(date -u -d "$RUN_DATE +14 days" +%FT00:00:00Z)
@@ -105,41 +105,41 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch01 --org <org>
    gh api repos/<org>/ghec-ch01-issues-labels-projects/milestones \
      -f title='Sprint 2' -f due_on="$SPRINT_2_DUE"
    ```
-9. **Assign issues to milestones** so each sprint has a realistic, finite scope (4–6 issues each). Open a milestone and confirm the **progress bar** reflects open/closed counts.
+9. Assign issues to milestones so each sprint has a realistic, finite scope (4–6 issues each). Open a milestone and confirm the progress bar reflects open/closed counts.
 
 ### Part D — Projects (v2) board
-10. **Add custom fields** to `ghec-ch01-board`:
-    - a **single-select** `Status` field (`Todo`, `In Progress`, `In Review`, `Done`)
-    - a **single-select** `Priority` field (`P0`, `P1`, `P2`)
-    - an **Iteration** field with two iterations matching your milestones
-    - a **number** field `Estimate`
-11. **Add all backlog issues to the board** (`gh project item-add <project-number> --owner <org> --url <issue-url>`), then set `Status` and `Priority` for each item.
-12. **Create three saved views:** a **Board** view grouped by `Status`, a **Table** view grouped by `Priority`, and a **Roadmap** view laid out on the `Iteration` field.
-13. **Turn on built-in workflows.** In the project's **Workflows** settings, enable:
+10. Add custom fields to `ghec-ch01-board`:
+    - a single-select `Status` field (`Todo`, `In Progress`, `In Review`, `Done`)
+    - a single-select `Priority` field (`P0`, `P1`, `P2`)
+    - an Iteration field with two iterations matching your milestones
+    - a number field `Estimate`
+11. Add all backlog issues to the board (`gh project item-add <project-number> --owner <org> --url <issue-url>`), then set `Status` and `Priority` for each item.
+12. Create three saved views: a Board view grouped by `Status`, a Table view grouped by `Priority`, and a Roadmap view laid out on the `Iteration` field.
+13. Turn on built-in workflows. In the project's Workflows settings, enable:
     - *Item added to project* → set `Status = Todo`
     - *Item closed* → set `Status = Done`
 
-    Then close one issue and confirm the board moves it to **Done** automatically.
-14. **Add an insight chart.** In the project's **Insights**, create a chart that counts open items grouped by `Priority`, and save it.
+    Then close one issue and confirm the board moves it to Done automatically.
+14. Add an insight chart. In the project's Insights, create a chart that counts open items grouped by `Priority`, and save it.
 
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
-- [ ] The repo has **two working issue forms** under `.github/ISSUE_TEMPLATE/` and both appear in the New-issue chooser.
-- [ ] **Every** seeded issue carries at least a `type:` and a `priority:` label (verifiable: `gh issue list --json number,labels` shows no issue with fewer than 2 labels).
-- [ ] At least **13 distinct labels** exist following the `dimension: value` convention.
-- [ ] **Two milestones** exist with due dates and a non-zero set of assigned issues each.
-- [ ] The **Projects (v2)** board has the four custom fields, all backlog issues added, and **three saved views** (board / table / roadmap).
-- [ ] A **built-in workflow** is enabled and demonstrably moved a closed issue to `Done`.
-- [ ] An **Insights chart** grouped by `Priority` is saved on the project.
+- [ ] The repo has two working issue forms under `.github/ISSUE_TEMPLATE/` and both appear in the New-issue chooser.
+- [ ] Every seeded issue carries at least a `type:` and a `priority:` label (verifiable: `gh issue list --json number,labels` shows no issue with fewer than 2 labels).
+- [ ] At least 13 distinct labels exist following the `dimension: value` convention.
+- [ ] Two milestones exist with due dates and a non-zero set of assigned issues each.
+- [ ] The Projects (v2) board has the four custom fields, all backlog issues added, and three saved views (board / table / roadmap).
+- [ ] A built-in workflow is enabled and demonstrably moved a closed issue to `Done`.
+- [ ] An Insights chart grouped by `Priority` is saved on the project.
 - [ ] Real-outcome check — if you brought your own backlog, the labels, milestones, and project views now live where your team can keep using them; if you used the sample, you can name the real backlog or board you will migrate next.
-- [ ] **Adoption handover** — name the customer backlog owner, the first work item or backlog to adopt, and the missing taxonomy, field, or view to address.
+- [ ] Adoption handover — name the customer backlog owner, the first work item or backlog to adopt, and the missing taxonomy, field, or view to address.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 
 ## Operational extensions
-- Add a **third issue form** for "incident" with a required severity dropdown, and a `status: blocked` label that comments on the issue when applied.
-- Use the **GraphQL API** to bulk-set the `Estimate` field on every project item in a single scripted pass (`gh api graphql -f query=…`).
-- Add a project automation that **auto-archives** `Done` items older than 14 days.
+- Add a third issue form for "incident" with a required severity dropdown, and a `status: blocked` label that comments on the issue when applied.
+- Use the GraphQL API to bulk-set the `Estimate` field on every project item in a single scripted pass (`gh api graphql -f query=…`).
+- Add a project automation that auto-archives `Done` items older than 14 days.
 
 ## Reference links
 - About issues — https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues

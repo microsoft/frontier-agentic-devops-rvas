@@ -1,6 +1,6 @@
-**Track:** Production Patterns (Advanced 🟣)
-**Estimated time:** 30 minutes
-**Tier:** Core
+Track: Production Patterns (Advanced 🟣)
+Estimated time: 30 minutes
+Tier: Core
 
 ---
 
@@ -19,37 +19,37 @@ Source: [`github/gh-aw/.github/workflows/issue-triage-agent.md`](https://github.
 - Posts a short classification comment explaining the categorisation
 
 > [!IMPORTANT]
-> **Bring your own repo (do this first)**
+> Bring your own repo (do this first)
 >
 > This activity is most valuable when the triage agent learns your real label taxonomy and keeps working on your team's incoming issues. Pick a repository in an org you control where unlabelled or inconsistently labelled issues create real backlog noise.
 >
-> - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and customise the workflow with that repo's real labels, issue patterns, and classification comment style.
-> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+> - Have a candidate repo? Use it everywhere this guide references the sample repo, and customise the workflow with that repo's real labels, issue patterns, and classification comment style.
+> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
 >
 > Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
 
 ## What You'll Do
 
-1. **Install [`gh aw`](https://github.com/github/gh-aw)** (if not already done):
+1. Install [`gh aw`](https://github.com/github/gh-aw) (if not already done):
    ```bash
    curl -sL https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh | bash
    ```
 
-2. **Pull the production workflow** as your starting point:
+2. Pull the production workflow as your starting point:
    ```bash
    gh aw add-wizard https://github.com/github/gh-aw/blob/main/.github/workflows/issue-triage-agent.md
    ```
 
-3. **Inspect the downloaded file** in `.github/workflows/issue-triage-agent.md`. Compare its frontmatter with the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions): `on:`, `permissions:`, `safe-outputs:`, and `tools:`.
+3. Inspect the downloaded file in `.github/workflows/issue-triage-agent.md`. Compare its frontmatter with the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions): `on:`, `permissions:`, `safe-outputs:`, and `tools:`.
 
-4. **Customise** the workflow for your repo (see below).
+4. Customise the workflow for your repo (see below).
 
-5. **Compile** the workflow:
+5. Compile the workflow:
    ```bash
    gh aw compile issue-triage-agent
    ```
 
-6. **Dry-run** the workflow:
+6. Dry-run the workflow:
    ```bash
    gh aw run issue-triage-agent --dry-run
    ```
@@ -81,19 +81,19 @@ Replace the default allowlist with your repo's actual labels:
 <details>
 <summary>💡 Hints</summary>
 
-**"The agent is applying labels that don't exist in my repo"**
+"The agent is applying labels that don't exist in my repo"
 → Your allowlist is the guard. Add explicit instructions: _"Only apply labels from this list: [bug, enhancement, docs, question]. Never invent labels."_
 
-**"How do I see what labels I have?"**
-→ `gh label list` — or open the repository's **Issues** → **Labels** page in GitHub.
+"How do I see what labels I have?"
+→ `gh label list` — or open the repository's Issues → Labels page in GitHub.
 
-**"Workflow runs but nothing happens"**
+"Workflow runs but nothing happens"
 → Check the Actions tab for the run log. Permissions might be missing: use the [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) model and grant at minimum `issues: write` for `add-labels` and `add-comment`.
 
-**"Can I add more than one comment type?"**
+"Can I add more than one comment type?"
 → Yes. `safe-outputs: add-comment: {}` allows multiple comment calls in a single run.
 
-**"What's the difference between `add-labels` and `set-labels`?"**
+"What's the difference between `add-labels` and `set-labels`?"
 → `add-labels` appends to existing labels; `set-labels` replaces them. Use `add-labels` unless you want to own the full label set.
 
 </details>

@@ -1,5 +1,5 @@
 # Ch23 — Convert Azure Pipelines to GitHub Actions — Delivery Assurance Guide
-> **Customer authorization and rollout boundary:** Apply changes in a customer-owned tenant or repository only after the named customer owner authorizes the scope. A fallback is a sample test repository or environment, not the destination: record its evidence, risks and controls, accountable owner, handover, and the explicit tenant adoption, cutover, or rollout decision.
+> Customer authorization and rollout boundary: Apply changes in a customer-owned tenant or repository only after the named customer owner authorizes the scope. A fallback is a sample test repository or environment, not the destination: record its evidence, risks and controls, accountable owner, handover, and the explicit tenant adoption, cutover, or rollout decision.
 
 
 > Audience: delivery assurance leads and authorized customer implementation owners. Pair with the corresponding customer implementation `README.md`.
@@ -17,7 +17,7 @@ Treat repository migration and CI/CD migration as separate customer implementati
 | Dry-run conversion and customer YAML review | ~45 min |
 | Migrate PR, owned manual remediation, and validation run | ~55 min |
 | Adoption decision and handover | ~15 min |
-| **Total** | **~180 min** |
+| Total | ~180 min |
 
 ## Expected Outputs
 
@@ -34,36 +34,36 @@ For delivery assurance, collect the following customer-owned evidence:
 ## Common Pitfalls
 
 ### Docker is not running
-**Symptom:** `gh actions-importer update`, `audit`, `dry-run`, or `migrate` fails before conversion starts or cannot reach the Actions Importer container.  
-**Fix:** Start Docker Desktop or the Docker daemon, then run `docker ps` and `gh actions-importer update` again.
+Symptom: `gh actions-importer update`, `audit`, `dry-run`, or `migrate` fails before conversion starts or cannot reach the Actions Importer container.  
+Fix: Start Docker Desktop or the Docker daemon, then run `docker ps` and `gh actions-importer update` again.
 
 ### Azure DevOps PAT lacks required scopes
-**Symptom:** Audit reports missing projects or pipelines, or conversion fails with authorization errors.  
-**Fix:** Recreate or update the Azure DevOps PAT with read access for Agent Pools, Build, Code, Release, Service Connections, Task Groups, and Variable Groups. Re-run `gh actions-importer configure`.
+Symptom: Audit reports missing projects or pipelines, or conversion fails with authorization errors.  
+Fix: Recreate or update the Azure DevOps PAT with read access for Agent Pools, Build, Code, Release, Service Connections, Task Groups, and Variable Groups. Re-run `gh actions-importer configure`.
 
 ### GitHub token cannot create workflow PRs
-**Symptom:** `migrate` converts locally but fails to open a PR or push `.github/workflows/*`.  
-**Fix:** Use a GitHub personal access token (classic) with `workflow` scope and repository access to the target repo.
+Symptom: `migrate` converts locally but fails to open a PR or push `.github/workflows/*`.  
+Fix: Use a GitHub personal access token (classic) with `workflow` scope and repository access to the target repo.
 
 ### Partial conversions need manual fixes
-**Symptom:** The generated workflow contains comments, placeholder commands, unknown tasks, or fails on first run.  
-**Fix:** Use the audit manual-tasks section and PR description to identify unsupported items. Replace each with a maintained action, a shell equivalent, a reusable workflow, or an explicit manual migration task.
+Symptom: The generated workflow contains comments, placeholder commands, unknown tasks, or fails on first run.  
+Fix: Use the audit manual-tasks section and PR description to identify unsupported items. Replace each with a maintained action, a shell equivalent, a reusable workflow, or an explicit manual migration task.
 
 ### Secrets and variables are not carried over
-**Symptom:** The workflow references secrets or variables that do not exist in GitHub Actions.  
-**Fix:** Recreate required secrets and variables at the correct repository, environment, or organization scope. Never copy secret values into YAML or notes.
+Symptom: The workflow references secrets or variables that do not exist in GitHub Actions.  
+Fix: Recreate required secrets and variables at the correct repository, environment, or organization scope. Never copy secret values into YAML or notes.
 
 ### Service connections and environments do not translate directly
-**Symptom:** Deploy steps that used Azure DevOps service connections, environments, approvals, or gates fail or are omitted.  
-**Fix:** Decide the GitHub equivalent: OIDC cloud federation, GitHub environments and reviewers, repository or organization secrets, or a manually rebuilt deployment process. Unsupported gates and some approvals must be redesigned.
+Symptom: Deploy steps that used Azure DevOps service connections, environments, approvals, or gates fail or are omitted.  
+Fix: Decide the GitHub equivalent: OIDC cloud federation, GitHub environments and reviewers, repository or organization secrets, or a manually rebuilt deployment process. Unsupported gates and some approvals must be redesigned.
 
 ## Implementation troubleshooting prompts
 
 Use these progressively to resolve an implementation blocker while preserving customer ownership and the rollout boundary.
 
-1. **Gentle:** Start with `audit` and `forecast`; do not convert a single pipeline until you know the size, unsupported-task count, secrets, and runner footprint.
-2. **Medium:** For a build pipeline, the command shape is `gh actions-importer dry-run azure-devops pipeline --pipeline-id <id> --output-dir <dir>`. Use `release` only for Azure DevOps release pipelines.
-3. **Specific:** If the migrated workflow fails, compare three sources: `audit_summary.md`, the PR **Manual steps** section, and the failing Actions log. Most first failures are missing secrets, missing variables, service connection replacements, or self-hosted runner labels.
+1. Gentle: Start with `audit` and `forecast`; do not convert a single pipeline until you know the size, unsupported-task count, secrets, and runner footprint.
+2. Medium: For a build pipeline, the command shape is `gh actions-importer dry-run azure-devops pipeline --pipeline-id <id> --output-dir <dir>`. Use `release` only for Azure DevOps release pipelines.
+3. Specific: If the migrated workflow fails, compare three sources: `audit_summary.md`, the PR Manual steps section, and the failing Actions log. Most first failures are missing secrets, missing variables, service connection replacements, or self-hosted runner labels.
 
 ## Customer adoption decision
 

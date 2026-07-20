@@ -4,9 +4,9 @@
 
 ## Required coach check-in
 
-**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+Required coach check-in: before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Their question:** Coach conversation — if you had to pitch a security campaign for your own team's codebase today, which vulnerability class would you tackle first, how would you make the case to your engineering lead, and what would your definition of done actually be? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+Their question: Coach conversation — if you had to pitch a security campaign for your own team's codebase today, which vulnerability class would you tackle first, how would you make the case to your engineering lead, and what would your definition of done actually be? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Name the production codebase or repository you'd target — roughly how many open security alerts does it have today, and are they triaged by severity or just accumulating in a backlog?
@@ -31,7 +31,7 @@ Use these follow-ups to steer the conversation:
 - Encourage realistic deadlines and ownership instead of aspirational, vague timelines.
 - Have them define what counts as done: fixed, dismissed with reason, or deferred with risk acceptance.
 - Use prior activity experience to estimate effort and identify which fixes are easy wins versus deep refactors.
-- Complete the **Operating Cadence** section of `modules/ghas/resources/ghas-governance-practice.template.md`; do not allow real alerts, credentials, or customer-sensitive details in the template.
+- Complete the Operating Cadence section of `modules/ghas/resources/ghas-governance-practice.template.md`; do not allow real alerts, credentials, or customer-sensitive details in the template.
 - Ask which measures are reviewed, who receives overdue-risk escalation, and how agent-authored changes are held to the same PR and GHAS evidence.
 
 ## Validation checklist

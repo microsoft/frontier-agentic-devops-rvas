@@ -1,6 +1,6 @@
 # Modules
 
-This directory contains the **source content** for each delivery session module. The build script (`docs/build.js`) reads from here — never from `docs/` directly.
+This directory contains the source content for each delivery session module. The build script (`docs/build.js`) reads from here — never from `docs/` directly.
 
 ## Layout
 

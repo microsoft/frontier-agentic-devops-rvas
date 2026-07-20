@@ -1,6 +1,6 @@
-**Track:** Production Patterns (Advanced 🟣)
-**Estimated time:** 30 minutes
-**Tier:** Bonus
+Track: Production Patterns (Advanced 🟣)
+Estimated time: 30 minutes
+Tier: Bonus
 
 ---
 
@@ -21,39 +21,39 @@ Source: [`github/gh-aw/.github/workflows/security-compliance.md`](https://github
 - Opens structured issues for any vulnerability at or approaching deadline
 
 > [!IMPORTANT]
-> **Bring your own repo (do this first)**
+> Bring your own repo (do this first)
 >
 > This activity is most valuable when the compliance workflow reflects your team's real vulnerability policy. Pick a repository in an org you control with Dependabot alerts, dependency risk, or security SLAs that need visible tracking.
 >
-> - **Have a candidate repo?** Use it everywhere this guide references the sample repo, and configure the workflow with that repo's real alert sources, severity thresholds, SLA windows, and escalation targets.
-> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+> - Have a candidate repo? Use it everywhere this guide references the sample repo, and configure the workflow with that repo's real alert sources, severity thresholds, SLA windows, and escalation targets.
+> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
 >
 > Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
 
 ## What You'll Do
 
-1. **Install [`gh aw`](https://github.com/github/gh-aw)** (if not already done):
+1. Install [`gh aw`](https://github.com/github/gh-aw) (if not already done):
    ```bash
    curl -sL https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh | bash
    ```
 
-2. **Pull the production workflow**:
+2. Pull the production workflow:
    ```bash
    gh aw add-wizard https://github.com/github/gh-aw/blob/main/.github/workflows/security-compliance.md
    ```
 
-3. **Read the SLA definitions** in the frontmatter or body — note how severity maps to days-to-fix.
+3. Read the SLA definitions in the frontmatter or body — note how severity maps to days-to-fix.
 
-4. **Customise** the SLA windows, severity thresholds, and notification targets for your repo's policy.
+4. Customise the SLA windows, severity thresholds, and notification targets for your repo's policy.
 
-5. **Compile**:
+5. Compile:
    ```bash
    gh aw compile security-compliance
    ```
 
-6. **Enable [Dependabot alerts](https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts)** on your repo (Settings > Security > Dependabot alerts) if not already enabled — give the workflow something to find.
+6. Enable [Dependabot alerts](https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts) on your repo (Settings > Security > Dependabot alerts) if not already enabled — give the workflow something to find.
 
-7. **Manually trigger** and check if it surfaces any alerts.
+7. Manually trigger and check if it surfaces any alerts.
 
 ## Customize It
 
@@ -78,19 +78,19 @@ Source: [`github/gh-aw/.github/workflows/security-compliance.md`](https://github
 <details>
 <summary>💡 Hints</summary>
 
-**"There are no Dependabot alerts in my test repo"**
+"There are no Dependabot alerts in my test repo"
 → Add an intentionally vulnerable dependency (e.g., `lodash@4.17.4` is a known CVE), or mock the scan by giving the body an inline list of fake alerts and asking it to classify them.
 
-**"How does the agent access Dependabot alerts?"**
+"How does the agent access Dependabot alerts?"
 → Use `tools: github: toolsets: [security]` — this gives the agent access to the security advisories API. Include that in your frontmatter.
 
-**"I want it to comment on existing issues instead of opening new ones"**
+"I want it to comment on existing issues instead of opening new ones"
 → Replace `create-issue` with `add-comment` and add issue-lookup logic in the body: _"If an open issue already exists for this CVE, add a comment with the updated deadline. Only open a new issue if none exists."_
 
-**"What's the difference between a Dependabot alert and a GHSA advisory?"**
+"What's the difference between a Dependabot alert and a GHSA advisory?"
 → Dependabot alerts are per-repo (your dependencies). The [GitHub Advisory Database](https://docs.github.com/en/code-security/security-advisories/working-with-global-security-advisories-from-the-github-advisory-database/about-the-github-advisory-database) is global. The agent can work with both — scope it to whichever is relevant.
 
-**"Should this workflow also open PRs to fix vulnerabilities?"**
+"Should this workflow also open PRs to fix vulnerabilities?"
 → That's an extension. For this activity, start with issue-creation-only (signal before action). Combine with Dependabot auto-merge or a separate fix workflow for the full automation.
 
 </details>

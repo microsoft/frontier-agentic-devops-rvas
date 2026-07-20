@@ -4,9 +4,9 @@
 
 ## Required coach check-in
 
-**Required coach check-in:** before completion, ask the delivery team member to connect the work to a service and review practice they own.
+Required coach check-in: before completion, ask the delivery team member to connect the work to a service and review practice they own.
 
-**Their question:** Coach conversation — which pages or components in your own application render user-supplied content back into the browser, and do you know for certain what encoding is applied before each one hits the DOM? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+Their question: Coach conversation — which pages or components in your own application render user-supplied content back into the browser, and do you know for certain what encoding is applied before each one hits the DOM? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Name a specific page or component in your application that displays user-generated content — comments, names, messages, search terms — and describe what you actually know about the encoding applied before rendering.

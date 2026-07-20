@@ -4,9 +4,9 @@
 
 ## Required coach check-in
 
-**Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+Required coach check-in: before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Their question:** Coach conversation — if you searched your team's repos right now, what is the most likely hardcoded credential or critically vulnerable dependency you'd find, and how long do you think it has been sitting there unnoticed? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+Their question: Coach conversation — if you searched your team's repos right now, what is the most likely hardcoded credential or critically vulnerable dependency you'd find, and how long do you think it has been sitting there unnoticed? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Name a real repo your team owns — does it have push protection and Dependabot alerts enabled today, and who is actually reviewing and acting on those alerts?
@@ -31,7 +31,7 @@ Use these follow-ups to steer the conversation:
 - Encourage documenting required environment variables in the PR or activity notes.
 - Have them review at least two high/critical advisories deeply enough to explain exploit impact.
 - After the changes, make sure they can still start the app and exercise an auth-related path.
-- Have them complete the **Secret and Dependency Response** section of `modules/ghas/resources/ghas-governance-practice.template.md` without copying secrets, alert payloads, or sensitive customer data into it.
+- Have them complete the Secret and Dependency Response section of `modules/ghas/resources/ghas-governance-practice.template.md` without copying secrets, alert payloads, or sensitive customer data into it.
 - Ask who can approve an exception, when it expires, and how that decision appears in the team's next triage review.
 
 ## Validation checklist

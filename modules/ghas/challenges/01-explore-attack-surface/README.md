@@ -10,26 +10,26 @@ This is your reconnaissance phase. Turn the alerts into an owned security-debt
 findings register that the delivery team can operate after the session, rather than a
 temporary mental model.
 
-> **Before this activity:** Make sure S00 is complete, the org repo exists, required participants have been added, GHAS features are enabled, and you've created your team branch. The Security tab is default-branch oriented. Your branch fixes will be validated later through PR CodeQL checks and code scanning annotations.
+> Before this activity: Make sure S00 is complete, the org repo exists, required participants have been added, GHAS features are enabled, and you've created your team branch. The Security tab is default-branch oriented. Your branch fixes will be validated later through PR CodeQL checks and code scanning annotations.
 
 ## Objectives
 
 - Use your own application repository or service first; use the Juice Shop fallback only when no suitable delivery target is available
-- Navigate to the relevant GHAS alerts, including **Security → Code scanning alerts**, and review the open default-branch alerts
+- Navigate to the relevant GHAS alerts, including Security → Code scanning alerts, and review the open default-branch alerts
 - Review at least 5 alerts in full — location, description, and the code path that triggers each finding
 - For each reviewed alert, open the affected file in your editor, ask Copilot Chat: *"What does this code do wrong, and how could an attacker exploit it?"*, and verify the explanation against the alert and code path
 - Create a security findings register with named owners in `modules/ghas/resources/ghas-governance-practice.template.md`
 - For every inventory item, record the alert category or class, affected repository, service, or component, business or security impact, remediation route, accountable owner or team, target date, current disposition (open, in progress, or accepted risk), and prioritization rationale
 - Use the five alert reviews as evidence supporting the inventory and its prioritization
-- Check **Security → Dependabot alerts** and record any critical or high-severity dependency vulnerabilities in the inventory
+- Check Security → Dependabot alerts and record any critical or high-severity dependency vulnerabilities in the inventory
 
 > [!IMPORTANT]
-> **Bring your own application (do this first)**
+> Bring your own application (do this first)
 >
 > This activity is most valuable when the attack-surface picture *outlives the delivery session*. Use a real application repository you want to secure so the CodeQL, Dependabot, and secret scanning results you review become evidence your team can keep acting on after today.
 >
-> - **Have a candidate?** If you have an application repo in an organization you control with GHAS enabled, use it everywhere this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice-Shop-specific setup from S00 and review the Security tab for your own repo instead.
-> - **No suitable one?** Use the fallback from S00: OWASP Juice Shop as a safe practice target for learning how to inspect alerts.
+> - Have a candidate? If you have an application repo in an organization you control with GHAS enabled, use it everywhere this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice-Shop-specific setup from S00 and review the Security tab for your own repo instead.
+> - No suitable one? Use the fallback from S00: OWASP Juice Shop as a safe practice target for learning how to inspect alerts.
 >
 > Tell your coach which path you took — bringing your own is the goal; Juice Shop is the fallback.
 >

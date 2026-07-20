@@ -2,9 +2,9 @@
 
 ## Facilitated application
 
-**Required facilitator check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+Required facilitator check-in: before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Discuss:** How does your team track vulnerabilities and SLA deadlines today, and where would deadline-aware agent-filed issues close a real gap versus create excessive findings that would undermine the process? Connect it to a project, task, or workflow you own.
+Discuss: How does your team track vulnerabilities and SLA deadlines today, and where would deadline-aware agent-filed issues close a real gap versus create excessive findings that would undermine the process? Connect it to a project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Ask how their team tracks vulnerabilities and SLA deadlines today.

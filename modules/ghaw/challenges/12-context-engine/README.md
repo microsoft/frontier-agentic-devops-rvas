@@ -1,17 +1,17 @@
 # Activity 3-02: Context Engine
 
-**Track:** Continuous Intelligence (Advanced)  
-**Difficulty:** 🔴 Advanced  
-**Estimated time:** 30 minutes  
-**Prerequisites:** Track 2, completed ≥3 activities
+Track: Continuous Intelligence (Advanced)  
+Difficulty: 🔴 Advanced  
+Estimated time: 30 minutes  
+Prerequisites: Track 2, completed ≥3 activities
 
 ---
 
 ## Background
 
-Without external data, an agent can only reason about what's already in the prompt. **Context Engine** is about closing that gap with **MCP tools** (Model Context Protocol). You'll connect the agent to external data sources — GitHub labels, repository metrics, upstream service status — using gh-aw's `tools:` configuration, so its decisions are grounded in real state rather than inferred from incomplete context.
+Without external data, an agent can only reason about what's already in the prompt. Context Engine is about closing that gap with MCP tools (Model Context Protocol). You'll connect the agent to external data sources — GitHub labels, repository metrics, upstream service status — using gh-aw's `tools:` configuration, so its decisions are grounded in real state rather than inferred from incomplete context.
 
-**Why this matters:** Ask an agent to review a PR without giving it your repo's coding standards and it will apply generic heuristics. Give it a `repo-memory` file with your actual conventions and it applies those instead. This activity teaches you to identify what information an agent needs before it can make a useful decision, and how to supply that information through `tools:` configuration.
+Why this matters: Ask an agent to review a PR without giving it your repo's coding standards and it will apply generic heuristics. Give it a `repo-memory` file with your actual conventions and it applies those instead. This activity teaches you to identify what information an agent needs before it can make a useful decision, and how to supply that information through `tools:` configuration.
 
 ---
 
@@ -27,12 +27,12 @@ By the end of this activity, your squad will:
 ---
 
 > [!IMPORTANT]
-> **Bring your own repo (do this first)**
+> Bring your own repo (do this first)
 >
-> This activity is most valuable when the context engine reads **your own repository's** real PRs, CONTRIBUTING guidance, architecture notes, docs, and tests, so its review-focus comments stay useful after the session. Treat the setup sample as practice, not the default destination.
+> This activity is most valuable when the context engine reads your own repository's real PRs, CONTRIBUTING guidance, architecture notes, docs, and tests, so its review-focus comments stay useful after the session. Treat the setup sample as practice, not the default destination.
 >
-> - **Have a candidate repo?** Install or point the workflow at that repo everywhere the guide references the sample repo, and use real PRs plus repo-specific context files such as `CONTRIBUTING.md`, `ARCHITECTURE.md`, docs, or test conventions.
-> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+> - Have a candidate repo? Install or point the workflow at that repo everywhere the guide references the sample repo, and use real PRs plus repo-specific context files such as `CONTRIBUTING.md`, `ARCHITECTURE.md`, docs, or test conventions.
+> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
 >
 > Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
 
@@ -40,23 +40,23 @@ By the end of this activity, your squad will:
 
 ## Activity
 
-Build a workflow that **enriches PR analysis with external context**:
+Build a workflow that enriches PR analysis with external context:
 
 ### The Setup
 
-Trigger on **`pull_request: [opened, synchronize]`** (when a PR opens or gets new commits).
+Trigger on `pull_request: [opened, synchronize]` (when a PR opens or gets new commits).
 
 ### The Context Sources
 
 Your agent needs to access:
 
-1. **PR metadata** (files changed, lines added/removed, title, author) — use `tools: github: toolsets: [pull_requests]`
-2. **Issue templates or style guide** stored in the repo (e.g., a `.github/CONTRIBUTING.md`) — use `tools: github: toolsets: [contents]`
-3. **Codebase metadata** (e.g., a `ARCHITECTURE.md` file describing project structure) — again, `tools: github: toolsets: [contents]`
+1. PR metadata (files changed, lines added/removed, title, author) — use `tools: github: toolsets: [pull_requests]`
+2. Issue templates or style guide stored in the repo (e.g., a `.github/CONTRIBUTING.md`) — use `tools: github: toolsets: [contents]`
+3. Codebase metadata (e.g., a `ARCHITECTURE.md` file describing project structure) — again, `tools: github: toolsets: [contents]`
 
 ### The Decision
 
-Use that context to decide: **"What kind of review does this PR need?"**
+Use that context to decide: "What kind of review does this PR need?"
 
 Examples:
 - If PR touches `src/auth/**`, suggest "Security review needed"
@@ -66,7 +66,7 @@ Examples:
 
 ### The Output
 
-Use **`safe-outputs: add-comment`** to post a structured comment on the PR. The comment should:
+Use `safe-outputs: add-comment` to post a structured comment on the PR. The comment should:
 - Summarize what you found (3 things: file patterns, size, compliance check)
 - Suggest a review focus based on the context
 - Include a checklist of items the author should verify
@@ -99,11 +99,11 @@ Use **`safe-outputs: add-comment`** to post a structured comment on the PR. The 
 
 ## References
 
-- **GitHub tool permissions:** https://github.github.com/gh-aw/reference/permissions/
-- **Workflow frontmatter:** https://github.github.com/gh-aw/reference/frontmatter/
-- **PR Analysis Example:** https://github.com/github/gh-aw/blob/main/.github/workflows/issue-triage-agent.md (triage agent pattern adapted for PRs)
-- **Safe Outputs (add-comment):** https://github.github.com/gh-aw/reference/safe-outputs/#add-comment
-- **Workflow Syntax — on.pull_request:** https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpull_request
+- GitHub tool permissions: https://github.github.com/gh-aw/reference/permissions/
+- Workflow frontmatter: https://github.github.com/gh-aw/reference/frontmatter/
+- PR Analysis Example: https://github.com/github/gh-aw/blob/main/.github/workflows/issue-triage-agent.md (triage agent pattern adapted for PRs)
+- Safe Outputs (add-comment): https://github.github.com/gh-aw/reference/safe-outputs/#add-comment
+- Workflow Syntax — on.pull_request: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpull_request
 
 ---
 
@@ -111,9 +111,9 @@ Use **`safe-outputs: add-comment`** to post a structured comment on the PR. The 
 
 Stuck? Here's how to escalate:
 
-- **"Agent can't read CONTRIBUTING.md?"** → Check your `tools: github: toolsets: [contents]` is configured. Then verify the file exists at `.github/CONTRIBUTING.md`.
-- **"Comment won't post?"** → Check `safe-outputs: add-comment:` frontmatter is indented correctly. Look at the workflow logs for the exact error.
-- **"Agent gives generic advice, not specific to our repo?"** → You may need to make your CONTRIBUTING.md or ARCHITECTURE.md more explicit. Or your prompt doesn't tell the agent to read them. Try: "Read the CONTRIBUTING.md file first. Then analyze the PR against those rules."
-- **"Toolsets list not working?"** → Verify the toolset names (e.g., `pull_requests`, not `prs`). Reference the docs.
+- "Agent can't read CONTRIBUTING.md?" → Check your `tools: github: toolsets: [contents]` is configured. Then verify the file exists at `.github/CONTRIBUTING.md`.
+- "Comment won't post?" → Check `safe-outputs: add-comment:` frontmatter is indented correctly. Look at the workflow logs for the exact error.
+- "Agent gives generic advice, not specific to our repo?" → You may need to make your CONTRIBUTING.md or ARCHITECTURE.md more explicit. Or your prompt doesn't tell the agent to read them. Try: "Read the CONTRIBUTING.md file first. Then analyze the PR against those rules."
+- "Toolsets list not working?" → Verify the toolset names (e.g., `pull_requests`, not `prs`). Reference the docs.
 
 Still stuck after 20 minutes? Raise your hand for your coach.

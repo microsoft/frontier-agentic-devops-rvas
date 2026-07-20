@@ -14,15 +14,15 @@
 
 ## Facilitation Hints
 
-- **Push Codespaces first.** If local setup consumes more than 10 minutes, redirect to Codespaces.
+- Push Codespaces first. If local setup consumes more than 10 minutes, redirect to Codespaces.
 - Start with the GHAS configuration and ownership record. Ask which real repository or service is in scope, why its criticality matters, and whether Juice Shop is only the fallback practice target.
 - Ask for a show-of-hands check after the first 10 minutes: successful commands and a completed record with named owners.
 - Pair any blocked participant with a working neighbor; one blocker should not stall the group.
 - Start by having the responsible participant, team lead, or organizer run:
   `./setup.sh provision ghas-00 --org <org>` or `./setup.ps1 provision ghas-00 -Org <org>`.
-- Verify that **Codespaces is enabled for the org** before the event starts (org Settings → Codespaces → Allow for all members). If not enabled, participants see no Codespace option.
+- Verify that Codespaces is enabled for the org before the event starts (org Settings → Codespaces → Allow for all members). If not enabled, participants see no Codespace option.
 - If Copilot is not yet licensed for all participants, pair them so every team still practices the Copilot-assisted review loop in S01–S06.
-- Confirm **GHAS is enabled** on the provisioned org repo (Settings → Code security and analysis). CodeQL, secret scanning, Dependabot alerts, and push protection must all be on — S01–S06 depend on them.
+- Confirm GHAS is enabled on the provisioned org repo (Settings → Code security and analysis). CodeQL, secret scanning, Dependabot alerts, and push protection must all be on — S01–S06 depend on them.
 - Confirm the repository access list includes every participant or team that needs to push a branch. The script creates/configures the repo; it does not guess workshop roster membership.
 - Do not accept a feature toggle or a running storefront as completion by itself. Validate that enabled and missing GHAS capabilities, accountable roles, agentic delivery principles, and blocker ownership and dates are recorded in the baseline.
 - When discussing agentic delivery, keep the scope to the documented principles: least privilege; humans remain accountable for approval and merge; and agent-originated changes receive normal GHAS and PR validation.
@@ -65,13 +65,13 @@ delivery team:
 
 If a participant cannot reach the full environment, apply the smallest unblock:
 
-1. **Codespaces quota:** Use a local clone with Node.js installed, or request org Codespaces billing before the event.
-2. **Org access:** Coach adds participant to the repo or org team, or provides a pre-cloned repo baseline branch via `git bundle`.
-3. **Juice Shop unavailable (Docker blocked locally, Codespace quota exhausted):**
+1. Codespaces quota: Use a local clone with Node.js installed, or request org Codespaces billing before the event.
+2. Org access: Coach adds participant to the repo or org team, or provides a pre-cloned repo baseline branch via `git bundle`.
+3. Juice Shop unavailable (Docker blocked locally, Codespace quota exhausted):
    - Participants can still complete S01–S06 review steps by reading the pre-populated alert corpus in the Security tab — no live app required for the code-review loop.
-   - Coach provides a **pre-scanned results packet**: export of CodeQL SARIF results + Dependabot alert JSON + secret scanning summary so participants can proceed with the analysis tasks even without a running app.
+   - Coach provides a pre-scanned results packet: export of CodeQL SARIF results + Dependabot alert JSON + secret scanning summary so participants can proceed with the analysis tasks even without a running app.
    - For fixes: participants write and submit PRs; CodeQL runs on the PR branch in GitHub Actions and validates the fix without needing a local running instance.
-4. **GitHub Actions / CodeQL not running:** Coach triggers a manual workflow run (`gh workflow run codeql.yml`) or shares pre-generated SARIF results for the alert-reading portion.
+4. GitHub Actions / CodeQL not running: Coach triggers a manual workflow run (`gh workflow run codeql.yml`) or shares pre-generated SARIF results for the alert-reading portion.
 
 ## Useful references for coaching
 

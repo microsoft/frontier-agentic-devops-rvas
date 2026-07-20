@@ -4,9 +4,9 @@
 
 ## Facilitated application
 
-**Required facilitator check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
+Required facilitator check-in: before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Discuss:** What complex automation are you tempted to build as one giant agent that would be safer split into a producer and a consumer passing state, and where would you put the checkpoint between them? Connect it to a project, task, or workflow you own.
+Discuss: What complex automation are you tempted to build as one giant agent that would be safer split into a producer and a consumer passing state, and where would you put the checkpoint between them? Connect it to a project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Ask them to describe a complex automation they're tempted to build as a single agent.
@@ -15,11 +15,11 @@ Use these follow-ups to steer the conversation:
 
 ## Coaching Philosophy for This Activity
 
-This is the **first Advanced activity**. Squads coming from Track 2 have seen event triggers, safe-outputs variety, and basic AI integration. Now you're asking them to think in **systems**—multiple workflows talking to each other.
+This is the first Advanced activity. Squads coming from Track 2 have seen event triggers, safe-outputs variety, and basic AI integration. Now you're asking them to think in systems—multiple workflows talking to each other.
 
 Your job: Build confidence that workflow chaining is not magic, it's just data + contracts. One workflow writes JSON, another reads it. They don't know about each other, but they work together.
 
-**Key rule:** Ask for proof that the consumer read the producer's data: the repo-memory file path, the matching glob, and the report output.
+Key rule: Ask for proof that the consumer read the producer's data: the repo-memory file path, the matching glob, and the report output.
 
 ---
 
@@ -27,7 +27,7 @@ Your job: Build confidence that workflow chaining is not magic, it's just data +
 
 A finished solution has:
 
-**Producer Workflow (`daily-metrics-collector.md`)**
+Producer Workflow (`daily-metrics-collector.md`)
 - ~25-35 lines (frontmatter + body)
 - Runs daily via `on: schedule: cron: "0 9 * * *"` (or similar)
 - Uses `tools: github: toolsets: [issues]` to fetch counts
@@ -35,7 +35,7 @@ A finished solution has:
 - Calls `safe-outputs: noop`
 - Logs confirm: "Wrote snapshot to repo-memory"
 
-**Consumer Workflow (`weekly-metrics-report.md`)**
+Consumer Workflow (`weekly-metrics-report.md`)
 - ~30-40 lines
 - Runs weekly via `on: schedule: cron: "0 10 * * 1"` (Monday at 10 AM)
 - Uses `tools: repo-memory: file-glob: metrics/**/*.json`
@@ -43,7 +43,7 @@ A finished solution has:
 - Creates discussion with: "This week we closed {X} issues. Trend: {up|down|stable}."
 - Uses `safe-outputs: create-discussion: expires: 7d`
 
-**Example output (Discussion):**
+Example output (Discussion):
 ```
 Title: Weekly Metrics Report
 Category: Reports
@@ -66,93 +66,93 @@ Squads will vary in how they compute metrics. All of these are fine:
 ### Approach 1: "Simple Count" (most common)
 Producer: Just counts open issues, doesn't compute time-to-close. Consumer: Shows open-count trend.
 
-**Pros:** Fast, easy to understand, focuses on the pattern not the sophistication
-**Cons:** Doesn't showcase the full potential (but that's OK for an intro activity)
+Pros: Fast, easy to understand, focuses on the pattern not the sophistication
+Cons: Doesn't showcase the full potential (but that's OK for an intro activity)
 
 ### Approach 2: "Full Analytics"
 Producer: Computes multiple metrics including time-to-close, label distribution, etc. Consumer: Multi-chart analysis.
 
-**Pros:** Richer data, better demo
-**Cons:** More complexity, but not wrong
+Pros: Richer data, better demo
+Cons: More complexity, but not wrong
 
 ### Approach 3: "CSV Instead of JSON"
 Producer writes a single CSV file instead of per-day JSON files.
 
-**Pros:** Still demonstrates repo-memory persistence
-**Cons:** Harder to trend (less idiomatic for gh-aw)
+Pros: Still demonstrates repo-memory persistence
+Cons: Harder to trend (less idiomatic for gh-aw)
 
-**Coach guidance:** Prefer JSON over CSV, but don't penalize CSV if they get it working.
+Coach guidance: Prefer JSON over CSV, but don't penalize CSV if they get it working.
 
 ---
 
 ## Common Pitfalls & Socratic Responses
 
 ### Pitfall 1: `repo-memory` branch doesn't show up
-**Symptom:** Producer runs successfully (logs say "noop called"), but no `repo-memory/` branch appears in GitHub.
+Symptom: Producer runs successfully (logs say "noop called"), but no `repo-memory/` branch appears in GitHub.
 
-**Root cause:** `safe-outputs: noop` was called, but no `create-*` output wrote data, or the file glob filtered it out.
+Root cause: `safe-outputs: noop` was called, but no `create-*` output wrote data, or the file glob filtered it out.
 
-**Coach response:**
+Coach response:
 - "Let's check: did your workflow actually write the JSON file before calling noop?"
 - Have them add a `echo $JSON_DATA` to the logs so we can see what was written
 - "Does the file path match your `file-glob` pattern? Show me the pattern in the frontmatter."
 
 ### Pitfall 2: File glob filter silently drops files
-**Symptom:** Producer is writing files to `repo-memory/`, but consumer can't read them. Logs show "No files matched glob."
+Symptom: Producer is writing files to `repo-memory/`, but consumer can't read them. Logs show "No files matched glob."
 
-**Root cause:** The `file-glob` in `tools: repo-memory:` doesn't match the file paths the producer is writing.
+Root cause: The `file-glob` in `tools: repo-memory:` doesn't match the file paths the producer is writing.
 
-**Coach response:**
+Coach response:
 - This is the "critical gotcha" in the dossier. Point it out explicitly.
 - "repo-memory has a glob filter. If your file path doesn't match, it gets silently dropped—no error, no warning. Classic silent failure."
 - Have them verify: "What path did the producer write? What glob did you specify?"
 - Example fix: Producer writes to `repo-memory/metrics/2026-05-28.json`, consumer uses `file-glob: metrics/**/*.json`
 
 ### Pitfall 3: Consumer can't parse the JSON
-**Symptom:** Consumer workflow runs, but agent errors with "Invalid JSON" or "Can't read files".
+Symptom: Consumer workflow runs, but agent errors with "Invalid JSON" or "Can't read files".
 
-**Root cause:** Producer generated malformed JSON, or consumer's instructions didn't tell it how to read the files.
+Root cause: Producer generated malformed JSON, or consumer's instructions didn't tell it how to read the files.
 
-**Coach response:**
+Coach response:
 - "Let's look at what the producer wrote. Can you manually check a file in the repo-memory branch?"
 - If malformed: "Have the agent print the first 50 lines of each file before parsing."
 - If consumer isn't looking for files: "Your instructions need to tell the agent: 'Read all JSON files from repo-memory and compare the values.' Be explicit."
 
 ### Pitfall 4: Trend analysis is vague
-**Symptom:** Consumer creates a discussion but the trend is confused or missing.
+Symptom: Consumer creates a discussion but the trend is confused or missing.
 
-**Root cause:** Agent wasn't given clear instructions on how to compute trend (compare first to last, look at slope, etc.).
+Root cause: Agent wasn't given clear instructions on how to compute trend (compare first to last, look at slope, etc.).
 
-**Coach response:**
+Coach response:
 - "What does 'trend' mean to your agent? Is it clear in the prompt?"
 - Suggest: "If the latest value is higher than the first, write 'up'. Lower = 'down'. Same ±10% = 'stable'."
 - Simple heuristics work great here.
 
 ### Pitfall 5: Forgot to use `noop` on producer
-**Symptom:** Producer workflow fails with "No output generated" error.
+Symptom: Producer workflow fails with "No output generated" error.
 
-**Root cause:** Agent produced no safe-output. Even data-collection workflows **must** call a safe-output (usually `noop`).
+Root cause: Agent produced no safe-output. Even data-collection workflows must call a safe-output (usually `noop`).
 
-**Coach response:**
+Coach response:
 - "Every gh-aw workflow must call a safe-output before exiting. For a data-collection workflow, that's `noop`."
 - Show the sample solution (below): `safe-outputs: noop:` in frontmatter, and the agent should end with "Task complete. Calling noop."
 
 ### Pitfall 6: Multiple instances of consumer conflict
-**Symptom:** Two weekly runs start at the same time and create duplicate discussions.
+Symptom: Two weekly runs start at the same time and create duplicate discussions.
 
-**Root cause:** No `lock-for-agent` protection, and `close-older-discussions: false`.
+Root cause: No `lock-for-agent` protection, and `close-older-discussions: false`.
 
-**Coach response:**
+Coach response:
 - "This is a scheduling issue. If the consumer runs twice simultaneously, it creates duplicate reports."
 - "Use `safe-outputs: create-discussion: max: 1, close-older-discussions: true` to ensure only one active report."
 - "Or add `lock-for-agent: true` to the trigger (though for a scheduled workflow, max/close-older is better)."
 
 ### Pitfall 7: Hardcoded assumptions about 7 days of data
-**Symptom:** Consumer assumes exactly 7 files exist, crashes if there are fewer (e.g., first week running).
+Symptom: Consumer assumes exactly 7 files exist, crashes if there are fewer (e.g., first week running).
 
-**Root cause:** No defensive check for available data.
+Root cause: No defensive check for available data.
 
-**Coach response:**
+Coach response:
 - "What if this is the first week and there's only 1 data file?"
 - Guide: "Your agent should check how many files exist and adjust. E.g., 'If fewer than 3 files, say "Not enough data yet"'."
 - This is good defensive programming.
@@ -161,21 +161,21 @@ Producer writes a single CSV file instead of per-day JSON files.
 
 ## Coaching Questions (Use These if Squad is Stuck)
 
-1. **"Have you verified the producer wrote any files?"** → Check the Actions logs for the echo/print statement
-2. **"What's the file path the producer is writing?"** → Have them show the code
-3. **"What glob pattern did you use?"** → Have them show the frontmatter
-4. **"Does the glob match the path?"** → Walk through the pattern matching (e.g., `metrics/**/*.json` matches `metrics/2026-05-28.json`? Yes.)
-5. **"Did you call `safe-outputs: noop:` on the producer?"** → Check for the mandatory output
-6. **"Can you manually browse the `repo-memory` branch and see the files?"** → GitHub UI verification
-7. **"What does your agent instruction say about reading the JSON?"** → Read their prompt out loud; it often reveals vague instructions
+1. "Have you verified the producer wrote any files?" → Check the Actions logs for the echo/print statement
+2. "What's the file path the producer is writing?" → Have them show the code
+3. "What glob pattern did you use?" → Have them show the frontmatter
+4. "Does the glob match the path?" → Walk through the pattern matching (e.g., `metrics/**/*.json` matches `metrics/2026-05-28.json`? Yes.)
+5. "Did you call `safe-outputs: noop:` on the producer?" → Check for the mandatory output
+6. "Can you manually browse the `repo-memory` branch and see the files?" → GitHub UI verification
+7. "What does your agent instruction say about reading the JSON?" → Read their prompt out loud; it often reveals vague instructions
 
 ---
 
 ## Sample Solution
 
-Share this **only if a squad is stuck for >20 minutes**. Have them type it, not copy-paste.
+Share this only if a squad is stuck for >20 minutes. Have them type it, not copy-paste.
 
-**Producer: `daily-metrics-collector.md`**
+Producer: `daily-metrics-collector.md`
 
 ```markdown
 ---
@@ -223,7 +223,7 @@ Write this to a file in repo-memory at `metrics/{date}.json` where {date} is tod
 After writing the file, call the noop safe-output to complete the workflow.
 ```
 
-**Consumer: `weekly-metrics-report.md`**
+Consumer: `weekly-metrics-report.md`
 
 ```markdown
 ---
@@ -271,10 +271,10 @@ Keep the body to 5-10 sentences. Use bullet points for readability.
 
 ## Why This Works
 
-- **Producer frontmatter:** Minimal permissions (read-only), clear `tools: repo-memory`, `safe-outputs: noop`
-- **Consumer frontmatter:** Also read-only, matches the producer's `file-glob`, creates a discussion with `expires: 7d`
-- **Architecture:** Producer writes daily, consumer reads weekly—no coupling, they don't know about each other
-- **Pattern:** This is the "infrastructure agent" pattern—write once, read many times
+- Producer frontmatter: Minimal permissions (read-only), clear `tools: repo-memory`, `safe-outputs: noop`
+- Consumer frontmatter: Also read-only, matches the producer's `file-glob`, creates a discussion with `expires: 7d`
+- Architecture: Producer writes daily, consumer reads weekly—no coupling, they don't know about each other
+- Pattern: This is the "infrastructure agent" pattern—write once, read many times
 
 ---
 
@@ -294,7 +294,7 @@ Suggest this breakdown:
 | Write consumer | 8 min | Build and test the reading+analysis workflow |
 | Verify end-to-end | 2 min | Run producer, wait for data, run consumer, check discussion |
 
-**Total: ~30 minutes.**
+Total: ~30 minutes.
 
 If done early: offer extensions (see below).
 
@@ -302,15 +302,15 @@ If done early: offer extensions (see below).
 
 ## Extension Ideas (for Fast Squads)
 
-1. **Add a `pre-agent-step` that computes statistics:** Use Python + pandas in a pre-step to generate charts (matplotlib) before the agent even runs.
+1. Add a `pre-agent-step` that computes statistics: Use Python + pandas in a pre-step to generate charts (matplotlib) before the agent even runs.
 
-2. **Deploy a 3-workflow chain:** Add a third workflow that reads the consumer's discussion and sends a Slack message (simulated with an issue).
+2. Deploy a 3-workflow chain: Add a third workflow that reads the consumer's discussion and sends a Slack message (simulated with an issue).
 
-3. **Experiment with different `max-effective-tokens`:** The consumer reads multiple files; see how the model responds with 5000 vs 20000 tokens.
+3. Experiment with different `max-effective-tokens`: The consumer reads multiple files; see how the model responds with 5000 vs 20000 tokens.
 
-4. **Add confidence scoring:** Have the consumer note how confident it is in the trend ("Trend: UP with 90% confidence based on 7 data points").
+4. Add confidence scoring: Have the consumer note how confident it is in the trend ("Trend: UP with 90% confidence based on 7 data points").
 
-5. **Cross-repo metrics:** If they're ambitious, have the producer fetch metrics from 2-3 other repos and aggregate them into a single snapshot.
+5. Cross-repo metrics: If they're ambitious, have the producer fetch metrics from 2-3 other repos and aggregate them into a single snapshot.
 
 ---
 
@@ -332,7 +332,7 @@ If a squad is truly stuck:
 
 ## Key Takeaways for Coaches
 
-- **Evidence over vibes:** When the consumer creates a report, have the squad point to the exact producer JSON file and the glob that selected it.
-- **Silent failures are the enemy:** The `repo-memory` glob filter is the biggest gotcha—it silently drops files. Point it out explicitly.
-- **Simplicity wins:** A squad that writes 5 JSON fields and reads them correctly is better than one that tries to be fancy and fails. Celebrate the simple wins.
-- **This is the foundation:** Producer-consumer patterns unlock everything ahead — meta-workflows, orchestration, state machines. Build confidence here.
+- Evidence over vibes: When the consumer creates a report, have the squad point to the exact producer JSON file and the glob that selected it.
+- Silent failures are the enemy: The `repo-memory` glob filter is the biggest gotcha—it silently drops files. Point it out explicitly.
+- Simplicity wins: A squad that writes 5 JSON fields and reads them correctly is better than one that tries to be fancy and fails. Celebrate the simple wins.
+- This is the foundation: Producer-consumer patterns unlock everything ahead — meta-workflows, orchestration, state machines. Build confidence here.

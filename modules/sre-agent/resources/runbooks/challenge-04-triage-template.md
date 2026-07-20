@@ -2,11 +2,11 @@
 
 ## Incident Summary
 
-- **Incident ID:**
-- **Service:** Grubify
-- **Detected at:**
-- **Current status:**
-- **Customer impact:**
+- Incident ID:
+- Service: Grubify
+- Detected at:
+- Current status:
+- Customer impact:
 
 ## Evidence Collected
 
@@ -21,26 +21,26 @@
 
 ## Working Theory
 
-- **Likely cause:**
-- **Confidence:** Low / Medium / High
-- **Why this theory fits:**
-- **Alternative hypothesis:**
-- **What would disprove it:**
+- Likely cause:
+- Confidence: Low / Medium / High
+- Why this theory fits:
+- Alternative hypothesis:
+- What would disprove it:
 
 ## Azure SRE Agent Notes
 
-- **Azure SRE Agent available?** Yes / No / Fallback transcript
-- **Response plan or custom agent used?**
-- **Evidence cited by the agent:**
-- **Suggested mitigation:**
-- **Suggested issue or pull request:**
+- Azure SRE Agent available? Yes / No / Fallback transcript
+- Response plan or custom agent used?
+- Evidence cited by the agent:
+- Suggested mitigation:
+- Suggested issue or pull request:
 
 ## Response Plan
 
-- **Immediate mitigation:**
-- **Human approval required:**
-- **Validation check:**
-- **Rollback or forward-fix decision:**
+- Immediate mitigation:
+- Human approval required:
+- Validation check:
+- Rollback or forward-fix decision:
 
 ## Customer-Safe Update
 

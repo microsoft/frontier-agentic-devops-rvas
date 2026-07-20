@@ -1,14 +1,14 @@
 # Ch21 — Migrate Azure DevOps Repos with GitHub Enterprise Importer — Delivery Assurance Guide
 
 > Audience: delivery assurance leads and authorized customer migration owners. Pair with the corresponding customer implementation `README.md`.
-> **Customer authorization and rollout boundary:** Apply changes in a customer-owned tenant or repository only after the named customer owner authorizes the scope. A fallback is a sample test repository or environment, not the destination: record its evidence, risks and controls, accountable owner, handover, and the explicit tenant adoption, cutover, or rollout decision.
+> Customer authorization and rollout boundary: Apply changes in a customer-owned tenant or repository only after the named customer owner authorizes the scope. A fallback is a sample test repository or environment, not the destination: record its evidence, risks and controls, accountable owner, handover, and the explicit tenant adoption, cutover, or rollout decision.
 
 
 ## Customer migration decision
 
-**Required delivery assurance check:** confirm the authorized migration wave, accountable owners, evidence, risk controls, handover, and the next pilot, cutover, or rollout decision.
+Required delivery assurance check: confirm the authorized migration wave, accountable owners, evidence, risk controls, handover, and the next pilot, cutover, or rollout decision.
 
-**Decision prompt:** name the real repository, owning team, cutover window, and follow-up backlog for Boards, Pipelines, LFS, permissions, and branch policies.
+Decision prompt: name the real repository, owning team, cutover window, and follow-up backlog for Boards, Pipelines, LFS, permissions, and branch policies.
 
 Use these prompts to verify ownership and the next action:
 - What is the smallest ADO Git repo with real PR history that proves the path without risking a critical cutover?
@@ -30,7 +30,7 @@ The customer objective is an authorized migration decision supported by the full
 | Validation of migrated and non-migrated content | ~35 min |
 | Mannequin reclaim plan or execution | ~25 min |
 | Decision and handover backlog | ~15 min |
-| **Total** | **~240 min** |
+| Total | ~240 min |
 
 ## Expected outputs / evidence
 
@@ -66,40 +66,40 @@ Ask the customer implementation owner to show the source ADO PR and the migrated
 ## Common pitfalls
 
 ### Fine-grained GitHub PAT rejected
-**Symptom:** GEI permission errors or migration creation failure even though the PAT appears valid.
-**Fix:** Create a **classic** PAT. For org-owner migrations use `repo`, `admin:org`, and `workflow` scopes.
+Symptom: GEI permission errors or migration creation failure even though the PAT appears valid.
+Fix: Create a classic PAT. For org-owner migrations use `repo`, `admin:org`, and `workflow` scopes.
 
 ### SAML PAT not authorized
-**Symptom:** `Resource is protected by organization SAML enforcement`.
-**Fix:** Authorize the classic PAT for SAML SSO in GitHub token settings for the destination org.
+Symptom: `Resource is protected by organization SAML enforcement`.
+Fix: Authorize the classic PAT for SAML SSO in GitHub token settings for the destination org.
 
 ### Destination rulesets block migrated history
-**Symptom:** `GH013: Repository rule violations found`.
-**Fix:** Add **Repository migrations** to the ruleset bypass list during migration, then remove temporary bypasses after validation.
+Symptom: `GH013: Repository rule violations found`.
+Fix: Add Repository migrations to the ruleset bypass list during migration, then remove temporary bypasses after validation.
 
 ### Private email blocks migrated commits
-**Symptom:** `GH007: push would publish a private email address`.
-**Fix:** Disable the email-block setting for the migration window or rewrite the affected history before migration.
+Symptom: `GH007: push would publish a private email address`.
+Fix: Disable the email-block setting for the migration window or rewrite the affected history before migration.
 
 ### Repository metadata too big
-**Symptom:** `Repository metadata too big to migrate`.
-**Fix:** Re-run with `--skip-releases`; large release metadata is a common cause.
+Symptom: `Repository metadata too big to migrate`.
+Fix: Re-run with `--skip-releases`; large release metadata is a common cause.
 
 ### TFVC mistaken for Git
-**Symptom:** The repo is absent from supported migration paths or fails because it is not a Git repo.
-**Fix:** GEI supports Azure DevOps Services **Git** repositories only. Convert TFVC to Git in Azure Repos first, then migrate the Git repo.
+Symptom: The repo is absent from supported migration paths or fails because it is not a Git repo.
+Fix: GEI supports Azure DevOps Services Git repositories only. Convert TFVC to Git in Azure Repos first, then migrate the Git repo.
 
 ### Missing Azure DevOps data after migration
-**Symptom:** Customer implementation owner expects Boards work items, Azure Pipelines, Git LFS objects, or repo permissions to appear in GitHub.
-**Fix:** Clarify scope: GEI migrates source, commit history, PRs, PR user history, PR work item links, PR attachments, and repo branch policies. Boards items, Pipelines, LFS objects, permissions, user-scoped policies, and cross-repo policies need follow-up work.
+Symptom: Customer implementation owner expects Boards work items, Azure Pipelines, Git LFS objects, or repo permissions to appear in GitHub.
+Fix: Clarify scope: GEI migrates source, commit history, PRs, PR user history, PR work item links, PR attachments, and repo branch policies. Boards items, Pipelines, LFS objects, permissions, user-scoped policies, and cross-repo policies need follow-up work.
 
 ## Progressive hints
 
 Use these progressively to resolve an implementation blocker while preserving customer ownership and the cutover boundary.
 
-1. **Hint 1 (gentle):** Start with evidence. What did `inventory-report` say about this repository's PR count and type?
-2. **Hint 2 (medium):** If the migration fails early, check token type, scopes, SAML SSO authorization, and org-owner rights before changing migration commands.
-3. **Hint 3 (specific):** For a controlled pilot, run `gh ado2gh migrate-repo ... --queue-only --skip-releases --target-repo-visibility private`, copy the `RM_...` migration ID, then use `wait-for-migration` and `download-logs`.
+1. Hint 1 (gentle): Start with evidence. What did `inventory-report` say about this repository's PR count and type?
+2. Hint 2 (medium): If the migration fails early, check token type, scopes, SAML SSO authorization, and org-owner rights before changing migration commands.
+3. Hint 3 (specific): For a controlled pilot, run `gh ado2gh migrate-repo ... --queue-only --skip-releases --target-repo-visibility private`, copy the `RM_...` migration ID, then use `wait-for-migration` and `download-logs`.
 
 ## Customer adoption decision
 
@@ -120,7 +120,7 @@ Use these progressively to resolve an implementation blocker while preserving cu
 | Logs and failure handling | 10 | Logs downloaded within 24h; common errors mapped to correct fixes |
 | Mannequin reclaim | 10 | CSV generated and at least one reclaim completed or responsibly planned by org owner |
 | Follow-up backlog and adoption decision | 5 | Real repo, owner, cutover window, handover, and ch22/ch23 follow-ups are named |
-| **Assurance coverage** | **100** | |
+| Assurance coverage | 100 | |
 
 ## Notes for this module
 

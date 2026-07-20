@@ -2,10 +2,10 @@
 
 The GHAS activities use [OWASP Juice Shop](https://owasp.org/www-project-juice-shop/), an intentionally vulnerable Node.js application used for hands-on web security training. The module has two environments:
 
-1. **Local Juice Shop runtime** — where you perform manual exploit testing.
-2. **Org-owned Juice Shop repository** — where GitHub Advanced Security (CodeQL, Dependabot, secret scanning) runs and produces alerts.
+1. Local Juice Shop runtime — where you perform manual exploit testing.
+2. Org-owned Juice Shop repository — where GitHub Advanced Security (CodeQL, Dependabot, secret scanning) runs and produces alerts.
 
-These are **separate**. You run Juice Shop locally for testing; the org repository is where GHAS features operate.
+These are separate. You run Juice Shop locally for testing; the org repository is where GHAS features operate.
 
 ## GHAS Target Repository
 
@@ -25,9 +25,9 @@ cd modules/ghec/resources/provisioning/scripts
 ./setup.ps1 provision ghas-00 -Org <your-org>
 ```
 
-This creates `<your-org>/ghec-ghas-00-juice-shop`, imports the pinned Juice Shop release, commits the CodeQL and Dependabot configuration, and attempts to enable Actions, code scanning, Dependabot alerts, secret scanning, and push protection. If any feature cannot be enabled automatically, an org owner or repo admin must enable it manually in **Settings → Code security and analysis**.
+This creates `<your-org>/ghec-ghas-00-juice-shop`, imports the pinned Juice Shop release, commits the CodeQL and Dependabot configuration, and attempts to enable Actions, code scanning, Dependabot alerts, secret scanning, and push protection. If any feature cannot be enabled automatically, an org owner or repo admin must enable it manually in Settings → Code security and analysis.
 
-After the repo is ready, manually onboard any participants or teams that need access under **Settings → Collaborators and teams**. Participants should clone this org repo directly and work on personal/team branches rather than forking.
+After the repo is ready, manually onboard any participants or teams that need access under Settings → Collaborators and teams. Participants should clone this org repo directly and work on personal/team branches rather than forking.
 
 ## Local Juice Shop Runtime
 
@@ -35,7 +35,7 @@ After the repo is ready, manually onboard any participants or teams that need ac
 
 Open the provisioned Juice Shop repo in a Codespace.
 
-1. Open `<your-org>/ghec-ghas-00-juice-shop` on GitHub and click **Code → Codespaces → Create codespace on main**.
+1. Open `<your-org>/ghec-ghas-00-juice-shop` on GitHub and click Code → Codespaces → Create codespace on main.
 2. Wait for the devcontainer to finish provisioning.
 3. Install dependencies and start Juice Shop:
    ```bash
@@ -62,12 +62,12 @@ Open [http://localhost:3000](http://localhost:3000) if you are running locally, 
 
 ## Important: GHAS Alerts Run on the Org Repository
 
-CodeQL, Dependabot, and secret scanning are configured on the **org repo provisioned in S00**, **not** on your local Juice Shop runtime. Your local or hosted Juice Shop instance is **only for manual testing** and exploit verification.
+CodeQL, Dependabot, and secret scanning are configured on the org repo provisioned in S00, not on your local Juice Shop runtime. Your local or hosted Juice Shop instance is only for manual testing and exploit verification.
 
-The **alerts**, **PR checks**, and **Security tab workflows** referenced in the activities come from the **organization repository provisioned in S00**. All GHAS features (code scanning, dependency analysis, secret detection) operate there, not on your local instance.
+The alerts, PR checks, and Security tab workflows referenced in the activities come from the organization repository provisioned in S00. All GHAS features (code scanning, dependency analysis, secret detection) operate there, not on your local instance.
 
-**Summary:**
-- **Local Juice Shop (port 3000)** → manual exploit testing, learning the app
-- **Org-owned Juice Shop repository** → GHAS alerts, security dashboards, PR checks
+Summary:
+- Local Juice Shop (port 3000) → manual exploit testing, learning the app
+- Org-owned Juice Shop repository → GHAS alerts, security dashboards, PR checks
 
 See [`docs/EXTERNAL-REPOS.md`](../../docs/EXTERNAL-REPOS.md) for how Juice Shop and other external dependencies are managed and pinned.

@@ -20,11 +20,11 @@ By the end of this activity you will have:
 
 ## Option A: GitHub Codespaces (Recommended)
 
-1. Open **this repository** (`microsoft/frontier-agentic-devops-rvas`) on GitHub.
-2. Click **Code → Codespaces → Create codespace on main**.
+1. Open this repository (`microsoft/frontier-agentic-devops-rvas`) on GitHub.
+2. Click Code → Codespaces → Create codespace on main.
 3. Wait ~30 seconds for the dev container to build.
    The `postCreate.sh` script installs `gh-aw` automatically.
-4. When the terminal appears, continue to **Authenticate the GitHub CLI** below.
+4. When the terminal appears, continue to Authenticate the GitHub CLI below.
 
 ---
 
@@ -36,7 +36,7 @@ By the end of this activity you will have:
    git clone https://github.com/microsoft/frontier-agentic-devops-rvas.git
    cd frontier-agentic-devops-rvas
    ```
-3. Open VS Code in the cloned folder and choose **Dev Containers: Reopen in Container**.
+3. Open VS Code in the cloned folder and choose Dev Containers: Reopen in Container.
 4. Wait for the container to build — `postCreate.sh` installs `gh-aw` automatically.
 5. Continue below.
 
@@ -50,7 +50,7 @@ Your container does not have your GitHub credentials pre-loaded. Run:
 gh auth login
 ```
 
-Choose **HTTPS**, follow the device-code prompt in your browser, and grant the requested permissions.
+Choose HTTPS, follow the device-code prompt in your browser, and grant the requested permissions.
 
 Verify:
 ```bash
@@ -77,7 +77,7 @@ gh aw --version
 gh aw trial modules/ghaw/resources/examples/hello-world.md --logical-repo microsoft/frontier-agentic-devops-rvas --dry-run --yes
 ```
 
-> All four commands must succeed before you move on. If any fail, see **Common Blockers** in the coach guide.
+> All four commands must succeed before you move on. If any fail, see Common Blockers in the coach guide.
 
 The smoke test uses `--logical-repo` so `gh-aw` does not need to infer the simulated repository from your local Git remote. This is especially useful if your clone uses an SSH host alias instead of `github.com`.
 

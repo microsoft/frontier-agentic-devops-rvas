@@ -1,8 +1,8 @@
 # Activity 2-02: Review Buddy
 
-**Track:** Repo Concierge (Intermediate 🟡)  
-**Estimated time:** 30 minutes  
-**Prerequisites:** Complete at least 2 activities from Track 1
+Track: Repo Concierge (Intermediate 🟡)  
+Estimated time: 30 minutes  
+Prerequisites: Complete at least 2 activities from Track 1
 
 ---
 
@@ -10,7 +10,7 @@
 
 A workflow that reviews pull requests as soon as they're opened. Your Review Buddy analyzes the diff, spots obvious issues (large changes, missing tests, incomplete descriptions), and posts a structured comment with observations and suggestions. It doesn't merge or reject anything—it's a friendly reviewer helping the PR author make their code better.
 
-**Why this matters:** PR reviews are where code quality gatekeeping happens. An automated first pass that flags common issues (large files, test coverage gaps) saves reviewers time and helps new contributors write better code from the start.
+Why this matters: PR reviews are where code quality gatekeeping happens. An automated first pass that flags common issues (large files, test coverage gaps) saves reviewers time and helps new contributors write better code from the start.
 
 ---
 
@@ -29,12 +29,12 @@ By the end, your squad will:
 ---
 
 > [!IMPORTANT]
-> **Bring your own repo (do this first)**
+> Bring your own repo (do this first)
 >
-> This activity is most valuable when Review Buddy comments on **your own repository's** real PRs, diffs, tests, and review expectations, so the first-pass review keeps helping after the session. Treat the setup sample as practice, not the default destination.
+> This activity is most valuable when Review Buddy comments on your own repository's real PRs, diffs, tests, and review expectations, so the first-pass review keeps helping after the session. Treat the setup sample as practice, not the default destination.
 >
-> - **Have a candidate repo?** Install or point `review-buddy.md` at that repo everywhere the guide references the sample repo, and test it on a real or representative pull request.
-> - **No suitable repo yet?** Use the provided sample repo from setup as the safe practice target.
+> - Have a candidate repo? Install or point `review-buddy.md` at that repo everywhere the guide references the sample repo, and test it on a real or representative pull request.
+> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
 >
 > Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
 
@@ -44,13 +44,13 @@ By the end, your squad will:
 
 Create a gh-aw workflow named `review-buddy.md` in `.github/workflows/` that:
 
-- **Triggers on:** Pull request opened
-- **Analyzes:**
+- Triggers on: Pull request opened
+- Analyzes:
   - Number of files changed
   - Total lines added/deleted
   - File types (code, tests, docs)
   - PR title and description quality (e.g., "Is there a meaningful description?")
-- **Posts a comment** with:
+- Posts a comment with:
   - A friendly greeting thanking the author
   - A summary of what changed (e.g., "This PR modifies 5 files with 200 additions and 50 deletions")
   - At least 2 observations about the PR (e.g., "Good — test files are included" or "⚠️ This is a large change; reviewers may take longer")
@@ -79,29 +79,29 @@ Create a gh-aw workflow named `review-buddy.md` in `.github/workflows/` that:
 
 ## Tips & Hints
 
-- **Pull request metadata:** Use `github.event.pull_request` context variables to get file count, diff stats, title, description. You don't need to clone the repo.
-- **Diff analysis:** The agent can read the PR description and reason about scope. You don't need deep code parsing for this activity.
-- **Observations matter:** Pick observations that are meaningful (e.g., "Tests included" is good; "5 lines of code" is less helpful). Aim for 2–3 key points.
-- **Keep it positive:** This is a friendly reviewer, not a harsh critic. Balance observations with encouragement.
-- **Large PR heuristic:** Generally >500 lines added = "big change worth flagging"
-- **Tone:** Conversational, helpful, avoiding jargon
+- Pull request metadata: Use `github.event.pull_request` context variables to get file count, diff stats, title, description. You don't need to clone the repo.
+- Diff analysis: The agent can read the PR description and reason about scope. You don't need deep code parsing for this activity.
+- Observations matter: Pick observations that are meaningful (e.g., "Tests included" is good; "5 lines of code" is less helpful). Aim for 2–3 key points.
+- Keep it positive: This is a friendly reviewer, not a harsh critic. Balance observations with encouragement.
+- Large PR heuristic: Generally >500 lines added = "big change worth flagging"
+- Tone: Conversational, helpful, avoiding jargon
 
 ---
 
 ## References
 
-- **GitHub tool permissions:** https://github.github.com/gh-aw/reference/permissions/
-- **Safe Outputs (add-comment):** https://github.github.com/gh-aw/reference/safe-outputs/
-- **Pull Request Context Variables:** https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
-- **Real-world example (PR Fix):** https://github.com/githubnext/agentics/blob/main/workflows/pr-fix.md
+- GitHub tool permissions: https://github.github.com/gh-aw/reference/permissions/
+- Safe Outputs (add-comment): https://github.github.com/gh-aw/reference/safe-outputs/
+- Pull Request Context Variables: https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
+- Real-world example (PR Fix): https://github.com/githubnext/agentics/blob/main/workflows/pr-fix.md
 
 ---
 
 ## Stuck?
 
-- **"Workflow doesn't trigger on PR?"** → Ensure `on: pull_request: types: [opened]` — not `issues`
-- **"Can't access PR stats?"** → The agent can read `github.event.pull_request.*` variables. In your body, reference: "There are {number of files} changed, {additions} added, {deletions} removed"
-- **"Comment is too generic?"** → Rewrite to be specific. Instead of "Good PR", try: "This PR is focused and well-scoped — just 3 files changed with clear intent"
-- **"Not sure what to observe?"** → Look for: file count (small/medium/large), test coverage (tests touched?), description quality (complete or vague?)
+- "Workflow doesn't trigger on PR?" → Ensure `on: pull_request: types: [opened]` — not `issues`
+- "Can't access PR stats?" → The agent can read `github.event.pull_request.*` variables. In your body, reference: "There are {number of files} changed, {additions} added, {deletions} removed"
+- "Comment is too generic?" → Rewrite to be specific. Instead of "Good PR", try: "This PR is focused and well-scoped — just 3 files changed with clear intent"
+- "Not sure what to observe?" → Look for: file count (small/medium/large), test coverage (tests touched?), description quality (complete or vague?)
 
 Raise your hand.
