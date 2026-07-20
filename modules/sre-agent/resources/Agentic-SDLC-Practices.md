@@ -40,7 +40,6 @@ This note connects the delivery session path to The Agentic SDLC Handbook withou
 
 ## Related Assets
 
-- [Build Agentic Workflows](agentic-workflows/README.md)
 - [Agentic SDLC Starter Kit](Agentic-SDLC-Starter-Kit.md)
 - [GitHub Agentic Workflows Starter](GitHub-Agentic-Workflows-Starter.md)
 - [Agent-Ready Issue Template](Agent-Ready-Issue-Template.md)
