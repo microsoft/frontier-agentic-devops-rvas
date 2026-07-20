@@ -16,9 +16,9 @@
 - **Customer objective:** make customer administrative events searchable, exportable, and operationally attributable.
 - **Customer-tenant target:** the customer organisation audit-log query set, export script, and findings record.
 - **Approval and safety boundary:** generate only owner-approved events in the customer tenant; use the seeded target for controlled event generation when live changes are not approved.
-- **Enduring evidence:** retain the export script, time-bounded JSON evidence, query filters, and findings.
+- **Records to keep:** retain the export script, time-bounded JSON evidence, query filters, and findings.
 - **Adoption owner / handover:** the customer security or platform operations owner receives the evidence-collection runbook.
-- **Accountable next action:** schedule the approved export cadence or nominate the owner who will operationalise the validated script.
+- **Next action and owner:** schedule the approved export cadence or nominate the owner who will operationalise the validated script.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud. The **org audit log** is a GHEC organization feature.
@@ -36,19 +36,19 @@ This delivery engagement establishes:
 - Understand where **enterprise-level audit-log streaming** fits (awareness) and why an org-scoped API pull is the org-owner equivalent.
 
 ## Scenario
-A GHEC customer's security team asks the question every audit eventually asks: *"Who changed that setting, and when?"* Right now nobody can answer it without guessing. Establish the **organization audit log** as the source of truth: generate a controlled set of administrative actions, reconstruct what happened using search filters and the API, and retain a repeatable export script as the start of a real evidence-collection pipeline.
+A GHEC customer's security team asks the question every audit eventually asks: *"Who changed that setting, and when?"* Right now nobody can answer it without guessing. Establish the **organization audit log** as the authoritative record: generate a controlled set of administrative actions, reconstruct what happened using search filters and the API, and retain a repeatable export script as the start of a real evidence-collection pipeline.
 
 > [!IMPORTANT]
-> **Bring your own outcome (do this first)**
+> **Use an approved customer target (do this first)**
 >
 > Default to an authorised customer audit question or repository where known events can be generated and investigated. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch09-audit-target`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded audit-target repo and auditors team for safe event generation.
 >
-> Record the selected target, customer operations owner, and accountable next action. The sample is only a controlled proving ground; move the validated export path to an approved customer organisation.
+> Record the selected target, customer operations owner, and next action and owner. Use the sample only for testing; move the validated export path to an approved customer organisation.
 
-## Controlled proving ground (when tenant delivery is constrained)
+## Sample test repository or environment (when tenant delivery is constrained)
 Skip this if you brought your own audit target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -85,20 +85,21 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch09 --org <org>
 
 ### Part C — Search syntax mastery
 6. **Filter by action:** in the audit-log UI search box, run `action:team.add_repository` and confirm your Part B grant appears.
-7. **Filter by actor + time:** `actor:<your-login> created:2026-06-01`. Adjust the date to today's run if different (ISO `YYYY-MM-DD`).
-8. **Filter by repo:** `repo:<org>/ghec-ch09-audit-target` to scope everything to the target.
-9. **Combine filters** to answer a specific question, e.g., "every ruleset change on the target today": `repo:<org>/ghec-ch09-audit-target action:repository_ruleset created:>=2026-06-01`.
+7. **Set the run date once:** run `RUN_DATE=$(date -u +%F)` and use the resulting ISO `YYYY-MM-DD` value in the UI filters below.
+8. **Filter by actor + time:** `actor:<your-login> created:<RUN_DATE>`, replacing `<RUN_DATE>` with the value you set in the previous step.
+9. **Filter by repo:** `repo:<org>/ghec-ch09-audit-target` to scope everything to the target.
+10. **Combine filters** to answer a specific question, e.g., "every ruleset change on the target today": `repo:<org>/ghec-ch09-audit-target action:repository_ruleset created:>=<RUN_DATE>`, replacing `<RUN_DATE>` with the value you set above.
 
 ### Part D — Audit log via the REST API
-10. **Phrase-query the API** with the same filters: `gh api -X GET /orgs/<org>/audit-log -f phrase='action:team.add_repository' --jq '.[] | {actor, created_at, repo}'`.
-11. **Time-bound a query:** `gh api -X GET /orgs/<org>/audit-log -f phrase='created:>=2026-06-01' --jq 'length'` to count today's events.
-12. **Handle pagination:** add `--paginate` and confirm you can pull more than one page when the slice is large.
-13. **Confirm every Part B action is findable** through the API — tie each generated event back to a query.
+11. **Phrase-query the API** with the same filters: `gh api -X GET /orgs/<org>/audit-log -f phrase='action:team.add_repository' --jq '.[] | {actor, created_at, repo}'`.
+12. **Time-bound a query:** `gh api -X GET /orgs/<org>/audit-log -f phrase="created:>=$RUN_DATE" --jq 'length'` to count the current run's events.
+13. **Handle pagination:** add `--paginate` and confirm you can pull more than one page when the slice is large.
+14. **Confirm every Part B action is findable** through the API — tie each generated event back to a query.
 
 ### Part E — Build an export pipeline
-14. **Write an export script** (`export-audit.sh` or `.ps1`, committed to `ghec-ch09-audit-target`) that pulls a time-bounded slice (`-f phrase='created:>=<date>'`, `--paginate`) and writes pretty JSON to a file.
-15. **Run it** and confirm the output contains your generated events. This is the org-owner equivalent of "streaming" — a repeatable pull you could schedule.
-16. **Write `FINDINGS.md`**: for three investigative questions (who added the team? who changed the ruleset? what happened today?), record the exact filter used and the answer.
+15. **Write an export script** (`export-audit.sh` or `.ps1`, committed to `ghec-ch09-audit-target`) that pulls a time-bounded slice (`-f phrase='created:>=<date>'`, `--paginate`) and writes pretty JSON to a file.
+16. **Run it** and confirm the output contains your generated events. This is the org-owner equivalent of "streaming" — a repeatable pull you could schedule.
+17. **Write `FINDINGS.md`**: for three investigative questions (who added the team? who changed the ruleset? what happened today?), record the exact filter used and the answer.
 
 ## Validation / Definition of Done
 You are done when ALL of the following are true:

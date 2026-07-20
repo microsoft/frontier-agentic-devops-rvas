@@ -16,7 +16,7 @@ description: Identify and fix broken access control vulnerabilities (IDOR, missi
 success_criteria:
   - A technically validated access-control fix enforces server-side ownership or role authorization — not UI restrictions alone — confirms authorized access works and unauthorized access is blocked, and retains PR/review evidence plus relevant GHAS validation.
   - A reusable prevention pattern record in `modules/ghas/resources/ghas-governance-practice.template.md` states the unsafe pattern/finding class, approved safe pattern, where it applies, PR/review evidence, relevant GHAS validation, named owner, and how the expectation applies to human- and agent-authored changes.
-  - Two independently reviewed fixes are used as a practical evidence threshold; completion depends on both the technically validated fix and the reusable prevention pattern record, not the count alone.
+  - Completion requires two independently reviewed fixes, a technically validated fix, and a reusable prevention pattern record; two fixes alone are not sufficient.
   - Any Copilot Autofix or other Copilot assistance is treated as proposed work, reviewed by a human, and handled through existing PR and GHAS controls.
 tags:
   - ghas

@@ -35,7 +35,7 @@ The source-code connection documentation says a connected GitHub or Azure DevOps
 - correlate production symptoms to code changes;
 - create pull requests when repository connection, run mode, permissions, and branch state allow it.
 
-The course should not require live PR creation in every environment. The baseline should be a source-aware investigation and a governed remediation issue or reviewed PR packet.
+The course should not require live PR creation in every environment. The baseline should be a source-aware investigation and either a remediation issue with evidence, validation, and human approval or a reviewed PR packet.
 
 ## Recipes and Plugins
 
@@ -45,7 +45,7 @@ The course should not require live PR creation in every environment. The baselin
 
 ## Delivery Caveats
 
-Live behavior depends on tenant policy, role assignments, region, connector availability, product access, and run mode. Coaches should always prepare a fallback evidence packet with the same learning shape: signal, Azure evidence, agent transcript, source lead, remediation work, recovery proof, and follow-up.
+Live behavior depends on tenant policy, role assignments, region, connector availability, product access, and run mode. Coaches should always prepare a fallback evidence packet with the same sequence: signal, Azure evidence, agent transcript, source lead, remediation work, recovery proof, and follow-up.
 
 ## Primary Sources
 

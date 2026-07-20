@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: When CI breaks, this agent investigates automatically. Pull logs, analyse root causes, and open a diagnostic issue — the workflow with a 69% merge rate in github/gh-aw.
+description: When CI breaks, this workflow can pull logs, analyse failure signals, and open a diagnostic issue with a likely cause and suggested next step.
 success_criteria:
   - `.github/workflows/ci-doctor.md` exists with valid gh-aw frontmatter
   - Trigger is `on: workflow_run` scoped to at least one named workflow

@@ -6,7 +6,7 @@
 
 ## Background
 
-The Issue Triage Agent is the _"hello world" of agentic workflows_ — it's the first example shown in Claude Code's documentation and the pattern that introduces thousands of developers to `gh aw`. When a new issue lands in your repo, it reads the body, matches it against your label taxonomy, and applies the right tags automatically. No more stale unlabelled backlogs.
+The Issue Triage Agent is a starter pattern for agentic workflows. When a new issue lands in your repo, it can read the body, compare it with your label taxonomy, and apply allowed labels automatically.
 
 Source: [`github/gh-aw/.github/workflows/issue-triage-agent.md`](https://github.com/github/gh-aw/blob/main/.github/workflows/issue-triage-agent.md)
 
@@ -74,7 +74,7 @@ Replace the default allowlist with your repo's actual labels:
 - [ ] `.github/workflows/issue-triage-agent.lock.yml` compiles without errors
 - [ ] Dry-run completes and shows expected label assignments in output
 - [ ] Live test: open a new issue and verify labels + comment appear
-- [ ] Coach conversation — if you deployed this proven triage agent on your busiest repo tomorrow, what would you measure to decide whether it is actually saving the team time rather than adding noise? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] Coach conversation — if you deployed this triage agent on your busiest repo tomorrow, what would you measure to decide whether it is helping the team rather than adding noise? Talk it through with your coach and connect it to a real project, task, or workflow you own.
 
 ---
 
@@ -97,4 +97,3 @@ Replace the default allowlist with your repo's actual labels:
 → `add-labels` appends to existing labels; `set-labels` replaces them. Use `add-labels` unless you want to own the full label set.
 
 </details>
-

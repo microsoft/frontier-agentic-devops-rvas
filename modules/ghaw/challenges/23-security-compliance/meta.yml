@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: Run vulnerability campaigns on a schedule — tracking CVEs by severity, enforcing SLA windows, and opening deadline-aware issues before vulnerabilities slip through the cracks.
+description: Run vulnerability reviews on a schedule — tracking CVEs by severity, evaluating configured SLA windows, and opening deadline-aware issues when thresholds are met.
 success_criteria:
   - `.github/workflows/security-compliance.md` exists with valid frontmatter
   - `schedule: cron` trigger is set

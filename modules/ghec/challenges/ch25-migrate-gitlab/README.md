@@ -16,9 +16,9 @@
 - **Customer objective:** deliver a controlled GitLab-to-GitHub pilot with an honest metadata and CI cutover plan.
 - **Customer-tenant target:** a selected customer GitLab source, GitHub destination repository, Actions conversion, and migration-gap register.
 - **Approval and safety boundary:** mirror and cut over customer repositories only with approved owner, source-freeze, and change-window decisions; a pilot validates the path and must conclude with a customer cutover or Expert Services decision.
-- **Enduring evidence:** retain ref validation, Actions conversion output, gap register, LFS/package decisions, and cutover evidence.
+- **Records to keep:** retain ref validation, Actions conversion output, gap register, LFS/package decisions, and cutover evidence.
 - **Adoption owner / handover:** the customer migration owner accepts cutover accountability; repository and CI owners accept post-migration operations.
-- **Accountable next action:** approve the production cutover, or assign the owner and date for the Expert Services or follow-up decision.
+- **Next action and owner:** approve the production cutover, or assign the owner and date for the Expert Services or follow-up decision.
 
 ## Critical framing
 
@@ -39,13 +39,13 @@ This hands-on activity uses the self-serve path that is available to any Git rep
 Your team is piloting a GitLab-to-GitHub move. The business wants fast cutover evidence, but also an honest inventory of what the self-serve path does **not** preserve. You will mirror Git history into GitHub, convert the CI definition, and document follow-up work for metadata, LFS, packages, and cutover risk.
 
 > [!IMPORTANT]
-> **Bring your own outcome (do this first)**
+> **Use an approved customer target (do this first)**
 > Default to an approved customer GitLab repository. Complete the work on **that** source and target, retaining the migrated repository, Git history, Actions workflow, settings evidence, and gap record.
 >
-> - **Have a candidate?** Use it everywhere this guide references the sample GitLab repository, CI file, or target repository. Skip the sample Setup path entirely.
-> - **No suitable one?** Use the fallback below: a provided sample GitLab source repository you can migrate safely.
+> - **Have a candidate?** Use it everywhere this guide references the GitLab repository, CI file, or target repository.
+> - **No suitable source and target?** Do not start a migration against an unapproved example; record the access constraint, accountable owner, and next action.
 >
-> Record the selected target, customer migration owner, approval boundary, and accountable next action. The fallback is only a controlled proving ground; move the validated path to an approved customer cutover.
+> Record the selected target, customer migration owner, approval boundary, and next action and owner.
 
 ## Tasks
 

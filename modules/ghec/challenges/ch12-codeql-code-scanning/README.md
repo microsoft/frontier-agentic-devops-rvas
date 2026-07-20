@@ -15,10 +15,10 @@
 
 - **Customer objective:** establish an owned code-scanning signal and a governed vulnerability-triage path.
 - **Customer-tenant target:** an approved application repository’s CodeQL workflow, alert handling, and PR gate.
-- **Approval and safety boundary:** enable scanning and enforce merge gates in the customer tenant when the repository/security owner authorises it; otherwise use Juice Shop only as a controlled proving ground and leave an approved rollout proposal.
-- **Enduring evidence:** retain the workflow, alert-triage record, Autofix review evidence, and required-check decision.
+- **Approval and safety boundary:** enable scanning and enforce merge gates in the customer tenant when the repository/security owner authorises it; otherwise use Juice Shop only as a sample test repository and leave an approved rollout proposal.
+- **Records to keep:** retain the workflow, alert-triage record, Autofix review evidence, and required-check decision.
 - **Adoption owner / handover:** the application owner accepts remediation ownership; the security owner accepts the triage and gate policy.
-- **Accountable next action:** approve customer-repository activation or assign the owner and date for the documented rollout.
+- **Next action and owner:** approve customer-repository activation or assign the owner and date for the documented rollout.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -39,16 +39,16 @@ This delivery engagement establishes:
 A GHEC customer ships a Node/Angular app with a backlog of latent vulnerabilities — SQL injection, XSS, broken auth, path traversal — none of them visible until something breaks in production. You'll give them static analysis that finds these on every push and every PR, explains each via its data-flow path, suggests fixes, and stops new vulnerabilities from merging. OWASP Juice Shop is the ideal target: it's intentionally riddled with the full OWASP Top 10, so CodeQL has genuine findings to surface — not toy examples.
 
 > [!IMPORTANT]
-> **Bring your own outcome (do this first)**
+> **Use an approved customer target (do this first)**
 >
 > Default to an authorised application repository the customer organisation owns so CodeQL findings and gates persist. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch12-juice-shop`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: an OWASP Juice Shop import with known vulnerable code for controlled CodeQL validation.
 >
-> Record the selected target, customer security and repository owners, and accountable next action. The sample is only a controlled proving ground; move the validated controls to an approved customer repository.
+> Record the selected target, customer security and repository owners, and next action and owner. Use the sample only for testing; move the validated controls to an approved customer repository.
 
-## Controlled proving ground (when tenant delivery is constrained)
+## Sample test repository or environment (when tenant delivery is constrained)
 Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash

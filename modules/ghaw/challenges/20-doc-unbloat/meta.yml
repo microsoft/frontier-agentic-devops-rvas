@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: Bloated docs scare contributors away. Deploy a workflow that identifies verbose, redundant, or outdated documentation and trims it — 85% of its PRs merge straight to main.
+description: Deploy a workflow that identifies verbose, redundant, or outdated documentation and proposes focused trims.
 success_criteria:
   - `.github/workflows/unbloat-docs.md` exists with valid gh-aw frontmatter
   - Target document is explicitly named in the workflow body

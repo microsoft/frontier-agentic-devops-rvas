@@ -11,7 +11,7 @@
 |---|---|
 | `setup.sh` | Bash entrypoint (macOS / Linux). |
 | `setup.ps1` | PowerShell entrypoint (Windows / cross-platform `pwsh`). |
-| `versions.lock` | Pinned versions (Juice Shop `v20.0.0`, min `gh`). Single source of truth. |
+| `versions.lock` | Pinned versions (Juice Shop `v20.0.0`, min `gh`). Canonical version list. |
 | `lib/*.sh` / `lib/*.ps1` | Shared helpers: `log`, `common` (dry-run + meta reader), `auth`, `guards`, `gh`, `juice-shop-import`. |
 | `../challenges/<chid>-<slug>/provision.sh` | Per-activity provisioning logic (`.ps1` twin alongside). |
 

@@ -16,9 +16,9 @@
 - **Customer objective:** execute an approved Bitbucket migration path with explicit fidelity and cutover ownership.
 - **Customer-tenant target:** a selected customer Bitbucket repository, GitHub destination, migration staging/queue, and metadata-gap plan.
 - **Approval and safety boundary:** run customer migrations only in an approved change window with source-write controls and owner approval; a source-history fallback is a controlled proof that must end in a cutover decision, not the delivery destination.
-- **Enduring evidence:** retain inventory, script/queue output, migration logs, validation results, fidelity decision, and follow-up backlog.
+- **Records to keep:** retain inventory, script/queue output, migration logs, validation results, fidelity decision, and follow-up backlog.
 - **Adoption owner / handover:** the customer migration owner accepts cutover; repository and platform owners accept retained gaps and operating changes.
-- **Accountable next action:** authorise the selected migration path and cutover window or hand over the approved proposal and risk decision.
+- **Next action and owner:** authorise the selected migration path and cutover window or hand over the approved proposal and risk decision.
 
 ## Customer delivery objective
 
@@ -41,13 +41,13 @@ Migrate one Bitbucket Server/Data Center repository to GitHub Enterprise Cloud w
 Your migration team has two Bitbucket populations. The production estate runs Bitbucket Server/Data Center and needs pull request history in GitHub. A smaller team uses Bitbucket Cloud, which has no first-party metadata migration path, so you must still preserve Git source and history and clearly communicate what will be lost.
 
 > [!IMPORTANT]
-> **Bring your own outcome (do this first)**
+> **Use an approved customer target (do this first)**
 > Default to an approved customer Bitbucket Server/Data Center or Bitbucket Cloud repository. Complete the work on **that** source and target, retaining the migrated repository, history, supported metadata, settings evidence, and gap record.
 >
-> - **Have a candidate?** Use it everywhere this guide references the sample Bitbucket project, repository, workspace, or target repository. Skip the sample Setup path entirely.
-> - **No suitable one?** Use the fallback below: a provided sample Bitbucket source repository you can migrate safely.
+> - **Have a candidate?** Use it everywhere this guide references the Bitbucket project, repository, workspace, or target repository.
+> - **No suitable source and target?** Do not start a migration against an unapproved example; record the access constraint, accountable owner, and next action.
 >
-> Record the selected target, customer migration owner, approval boundary, and accountable next action. The fallback is only a controlled proving ground; move the validated path to an approved customer cutover.
+> Record the selected target, customer migration owner, approval boundary, and next action and owner.
 
 ## Important fidelity decision
 
@@ -63,7 +63,7 @@ Use the paths exactly as separated below:
 ```bash
 gh extension install github/gh-bbs2gh
 gh extension list | grep bbs2gh
-export GH_PAT="github_pat_classic_value"
+export GH_PAT="ghp_your_classic_token"
 export BBS_USERNAME="bitbucket-admin"
 export BBS_PASSWORD="bitbucket-admin-password"
 ```

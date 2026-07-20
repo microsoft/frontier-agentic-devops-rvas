@@ -15,10 +15,10 @@
 
 - **Customer objective:** deliver an approved, secure event integration that operates in the customer tenant.
 - **Customer-tenant target:** the customer webhook/App configuration, least-privilege permissions, receiver, and installation authentication path.
-- **Approval and safety boundary:** create webhooks, Apps, keys, and installations only with the accountable organisation owner’s approval; the seeded resources are a controlled proving ground for signature and permission validation.
-- **Enduring evidence:** retain the App registration details, permission/event matrix, signature-validation evidence, installation scope, and key-handling runbook.
+- **Approval and safety boundary:** create webhooks, Apps, keys, and installations only with the accountable organisation owner’s approval; the seeded resources are a sample test environment for signature and permission validation.
+- **Records to keep:** retain the App registration details, permission/event matrix, signature-validation evidence, installation scope, and key-handling runbook.
 - **Adoption owner / handover:** the customer integration owner accepts credential rotation, receiver operations, and App permissions.
-- **Accountable next action:** approve the customer App installation or hand over the validated integration package and decision owner.
+- **Next action and owner:** approve the customer App installation or hand over the validated integration package and decision owner.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -39,15 +39,15 @@ This delivery engagement establishes:
 A GHEC customer wants to react to activity in real time — auto-acknowledge new issues, notify on pushes, kick off downstream jobs — without polling the API on a timer. Configure webhooks so GitHub pushes events to a controlled receiver, prove each delivery is authentic by verifying its signature, then use a **GitHub App** when the integration must authenticate and act back on the organisation.
 
 > [!IMPORTANT]
-> **Bring your own outcome (do this first)**
+> **Use an approved customer target (do this first)**
 > Default to an authorised customer integration target where a GitHub event should update another system. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch17-webhooks-github-apps`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded sample repo and App/webhook controlled-validation target.
 >
-> Record the selected target, customer integration owner, and accountable next action. The sample is only a controlled proving ground; move the validated integration to an approved customer tenant.
+> Record the selected target, customer integration owner, and next action and owner. Use the sample only for testing; move the validated integration to an approved customer tenant.
 
-## Controlled proving ground (when tenant delivery is constrained)
+## Sample test repository or environment (when tenant delivery is constrained)
 Skip this if you brought your own integration target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash

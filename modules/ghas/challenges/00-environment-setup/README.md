@@ -5,7 +5,7 @@
 By the end of this activity, the delivery team will have:
 
 - Selected a real repository or service to govern, or recorded OWASP Juice Shop as the fallback practice target
-- Recorded a governed GHAS baseline in `modules/ghas/resources/ghas-governance-practice.template.md`
+- Recorded GHAS configuration, scope, and ownership in `modules/ghas/resources/ghas-governance-practice.template.md`
 - Defined the in-scope repository or service, its criticality, enabled and missing GHAS capabilities, and accountable roles
 - Recorded the repository or service owner, security partner, and delivery team accountable for the baseline
 - Recorded initial agentic delivery principles: least privilege; humans remain accountable for approval and merge; and agent-originated changes receive normal GHAS and PR validation
@@ -35,11 +35,11 @@ By the end of this activity, the delivery team will have:
 
 ---
 
-## Establish the Governed GHAS Baseline
+## Record GHAS Configuration and Ownership
 
 Before treating setup as complete, create the first governance record in
 `modules/ghas/resources/ghas-governance-practice.template.md`. This is delivery
-evidence, not a setup checklist. Record:
+record, not a setup checklist. Record:
 
 - the real repository or service selected for this work, or Juice Shop as the fallback;
 - the in-scope repository or service and its criticality;
@@ -50,7 +50,7 @@ evidence, not a setup checklist. Record:
   validation; and
 - every access or licensing blocker, its owner, and its target date.
 
-Use the rest of this activity to substantiate that baseline. If the selected real
+Use the rest of this activity to complete that record. If the selected real
 repository is not ready for hands-on work, use the Juice Shop repository below as the
 practice fallback and keep the real repository or service recorded as the delivery
 scope.
@@ -191,7 +191,7 @@ See [`modules/ghas/setup.md`](../../setup.md) for details on how these two envir
 
 ## Verify Your Setup
 
-Run each command and use the results to update the governed baseline:
+Run each command and use the results to update the GHAS configuration and ownership record:
 
 ```bash
 # 1. CLI version
@@ -211,8 +211,8 @@ git log --oneline -1
 Then open `http://localhost:3000` (or the Codespaces-forwarded URL) and confirm the
 Juice Shop homepage loads.
 
-> Do not let a green terminal close this activity. Before moving on, confirm the
-> governed baseline names the target and criticality, captures GHAS capability status
+> Successful commands alone do not complete this activity. Before moving on, confirm the
+> GHAS configuration and ownership record names the target and criticality, captures GHAS capability status
 > and accountable roles, records the agentic delivery principles, and assigns every
 > access or licensing blocker an owner and target date. See **Common Blockers** in the
 > coach guide when setup cannot yet be completed.
@@ -220,7 +220,7 @@ Juice Shop homepage loads.
 ## Success Criteria
 
 - [ ] A real repository or service is selected, or Juice Shop is recorded as the fallback practice target
-- [ ] The governed baseline in `modules/ghas/resources/ghas-governance-practice.template.md` records the in-scope repository or service and its criticality
+- [ ] The GHAS configuration and ownership record in `modules/ghas/resources/ghas-governance-practice.template.md` records the in-scope repository or service and its criticality
 - [ ] Enabled and missing GHAS capabilities are recorded
 - [ ] The repository or service owner, security partner, and delivery team are recorded as accountable roles
 - [ ] The baseline records least privilege, human accountability for approval and merge, and normal GHAS and PR validation for agent-originated changes

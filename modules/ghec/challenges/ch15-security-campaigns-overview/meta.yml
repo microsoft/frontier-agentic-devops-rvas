@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: "Implement an authorized customer security-overview rollout with a security configuration, an owned and time-bounded campaign, and remediation evidence. Use OWASP Juice Shop only as a safe proving ground and preserve the tenant adoption decision."
+description: "Implement an authorized customer security-overview rollout with a security configuration, an owned and time-bounded campaign, and remediation evidence. Use OWASP Juice Shop only as a sample test repository and preserve the tenant adoption decision."
 success_criteria:
 - '`ghec-ch15-juice-shop` has a **multi-tool alert corpus** (CodeQL **and** Dependabot alerts present, verifiable via the alerts APIs).'
 - You used the org **Security overview** Risk and Coverage views and produced an **org-wide alert slice** via the API.

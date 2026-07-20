@@ -16,9 +16,9 @@
 - **Customer objective:** deliver an authorised, safe identity-lifecycle rollout rather than a standalone SSO demonstration.
 - **Customer-tenant target:** the customer’s approved SAML/SCIM configuration, IdP application, lifecycle runbook, and external-identity audit.
 - **Approval and safety boundary:** disruptive identity changes proceed in the customer tenant only with the accountable identity and organisation owners’ approval, a tested rollback, and an agreed change window; otherwise validate in the controlled test organisation and leave the approved rollout/cutover proposal.
-- **Enduring evidence:** retain IdP settings, join/leave evidence, external-identity audit, rollback record, risk decision, and owner.
+- **Records to keep:** retain IdP settings, join/leave evidence, external-identity audit, rollback record, risk decision, and owner.
 - **Adoption owner / handover:** the customer identity owner accepts the runbook and the organisation owner accepts enforcement and rollback accountability.
-- **Accountable next action:** authorise the production rollout window or formally hand over the risk-approved cutover proposal.
+- **Next action and owner:** authorise the production rollout window or formally hand over the risk-approved cutover proposal.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -41,15 +41,15 @@ A GHEC customer runs identity centrally in their IdP and wants GitHub to obey it
 > **Awareness callout — enterprise vs org:** SAML and SCIM can be configured at the **enterprise** level (applies across all orgs) or, as here, at a **single org**. **Enterprise Managed Users (EMU)** go further — every member is a managed user created only via SCIM at the **enterprise** level, with no personal account. Because EMU authenticates and provisions at the enterprise tier, the **org-level** SAML SSO and org-level SCIM you configure in this activity are **not available inside an EMU organization** — run it in a non-EMU org. EMU and enterprise-level SSO require an **enterprise owner** and are out of scope for the hands-on tasks; this activity delivers the org-scoped experience that any org owner can complete. Note the trade-offs where relevant, but you are **not required** to configure anything at the enterprise tier.
 
 > [!IMPORTANT]
-> **Bring your own outcome (do this first)**
+> **Use an approved customer target (do this first)**
 > Default to an authorised customer identity runbook, SAML/SCIM rollout plan, or organisation authentication setting. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch14-identity-runbook`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded identity-runbook repo and validation helpers.
 >
-> Record the selected target, customer identity owner, risk decision, and accountable next action. The sample is only a controlled proving ground; move the validated rollout package to an approved customer organisation.
+> Record the selected target, customer identity owner, risk decision, and next action and owner. Use the sample only for testing; move the validated rollout package to an approved customer organisation.
 
-## Controlled proving ground (when tenant delivery is constrained)
+## Sample test repository or environment (when tenant delivery is constrained)
 Skip this if you brought your own identity runbook or org setting. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash

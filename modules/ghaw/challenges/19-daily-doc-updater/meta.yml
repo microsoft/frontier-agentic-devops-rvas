@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: Your docs rot silently while your code evolves. Fix that with a scheduled workflow that reviews docs against code and proposes PRs — achieving a 96% merge rate in production.
+description: Use a scheduled workflow to review docs against code and propose focused updates when documentation appears out of date.
 success_criteria:
   - `.github/workflows/daily-doc-updater.md` exists with valid gh-aw frontmatter
   - Trigger is `schedule: cron` (valid cron expression)

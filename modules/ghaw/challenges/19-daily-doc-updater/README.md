@@ -6,9 +6,7 @@
 
 ## Background
 
-Code evolves. Docs don't — not unless someone makes them a first-class concern. The Daily Documentation Updater runs on a cron schedule, reviews your docs directory against the actual codebase, and opens PRs for content that has drifted out of sync.
-
-The production version in `githubnext/agentics` achieved roughly a **96% merge rate** (57 of 59 proposed PRs merged, as a point-in-time sample). When the agent proposes a doc fix, maintainers almost always agree with it.
+Code evolves, and documentation can drift unless someone makes it a first-class concern. The Daily Documentation Updater runs on a cron schedule, reviews your docs directory against the codebase, and can open PRs for content that appears out of sync.
 
 Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.com/githubnext/agentics/blob/main/workflows/daily-doc-updater.md)
 
@@ -84,7 +82,7 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
 → Add `workflow_dispatch: {}` to your `on:` block. Then use GitHub's [manual workflow run](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow) flow from the Actions tab.
 
 **"The PR diff is too large / changes too many files"**
-→ Constrain the body: _"Review only `docs/api.md`. Open a single PR per file. Each PR should change no more than 10 lines."_ Smaller PRs get merged faster.
+→ Constrain the body: _"Review only `docs/api.md`. Open a single PR per file. Each PR should change no more than 10 lines."_ This keeps the proposed review scope narrow.
 
 **"How do I make sure it doesn't overwrite things it shouldn't?"**
 → `safe-outputs: create-pull-request` still requires a human to merge. The agent can propose; humans approve.
@@ -96,4 +94,3 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
 → The PR merging is the fix. Once merged, the drift disappears. Add a check in the prompt: _"Do not open a PR if an identical open PR already exists."_
 
 </details>
-

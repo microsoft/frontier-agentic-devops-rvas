@@ -2,7 +2,7 @@
 
 > Audience: facilitators and coaches. Pair with the delivery team member `README.md`.
 
-## Grounding conversation (you will be called)
+## Required coach check-in
 
 **Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
@@ -50,4 +50,4 @@ Verify each success criterion from the customer delivery team guide:
 | Campaign scope | 20 | Defines a focused alert class, affected repositories or owners, and the reason this set is worth campaigning. |
 | Prioritization model | 20 | Uses severity, reachability, business impact, remediation effort, and accountable ownership to order work. |
 | Execution and evidence | 20 | Produces owner-ready campaign or equivalent tracking, with measurable progress and remaining risk. |
-| Grounding conversation | 15 | Connects campaign design to a real organizational rollout path. |
+| Coach check-in | 15 | Connects campaign design to a real organizational rollout path. |

@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: Supply-chain attacks hide in plain sight. Deploy a daily workflow that reviews recent code changes for suspicious patterns — your automated defence against code-injection campaigns.
+description: Deploy a daily workflow that reviews recent code changes for suspicious patterns and reports findings for human investigation.
 success_criteria:
   - `.github/workflows/daily-malicious-code-scan.md` exists with valid frontmatter
   - `schedule: cron` trigger is set

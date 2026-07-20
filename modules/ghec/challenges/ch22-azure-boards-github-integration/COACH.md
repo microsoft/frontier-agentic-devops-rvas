@@ -1,7 +1,7 @@
 # Ch22 — Connect Azure Boards to GitHub — Delivery Assurance Guide
 
 > Audience: delivery assurance leads and authorized customer migration owners. Pair with the corresponding customer implementation `README.md`.
-> **Customer authorization and rollout boundary:** Apply changes in a customer-owned tenant or repository only after the named customer owner authorizes the scope. A sample or safe fallback is a controlled proving ground, not the destination: record its evidence, risks and controls, accountable owner, handover, and the explicit tenant adoption, cutover, or rollout decision.
+> **Customer authorization and rollout boundary:** Apply changes in a customer-owned tenant or repository only after the named customer owner authorizes the scope. A fallback is a sample test repository or environment, not the destination: record its evidence, risks and controls, accountable owner, handover, and the explicit tenant adoption, cutover, or rollout decision.
 
 
 ## Customer migration decision
@@ -18,7 +18,7 @@ Use these prompts to verify ownership and the next action:
 ## Delivery assurance notes
 - **Customer adoption outcome:** the customer implementation owner wires the live Azure Boards-GitHub integration so post-migration commits and PRs in GitHub keep linking back to Azure Boards work items.
 - **Why now:** GEI migrates Git source, PRs, and existing work-item links on PRs from Azure DevOps, but it does not migrate Azure Boards work items. This activity is the post-migration bridge for teams that keep planning in Azure Boards.
-- **Preferred artifact:** a real migrated repository and a real, low-risk Azure Boards work item. A disposable work item is an acceptable controlled proving ground if the production project is not authorized; its result must drive a documented rollout decision.
+- **Preferred artifact:** a real migrated repository and a real, low-risk Azure Boards work item. If the production project is not authorized, use a disposable work item only for testing; its result must drive a documented rollout decision.
 - **Evidence standard:** verify both sides. Azure Boards should show GitHub artifacts in the work item's **Development** section, and the GitHub PR should show the Azure Boards work item when `AB#` is present in the PR description.
 
 ## Timing (reference)
@@ -127,7 +127,7 @@ Delivery assurance lead should also visually verify:
 
 ## Teardown
 
-For production migrations, do not tear down the connection. For controlled proving-ground validation:
+For production migrations, do not tear down the connection. For sample test validation:
 
 1. In Azure DevOps, open **Project settings > GitHub connections**.
 2. Select the connection **More options** menu and choose **Remove repositories** for only the test repo, or **Remove connection** if the entire connection was temporary.

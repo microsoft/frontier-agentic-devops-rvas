@@ -13,7 +13,7 @@ Use these follow-ups to steer the conversation:
 
 ## What This Activity Teaches
 
-Supply-chain threat modelling expressed as an agentic workflow. Participants learn to define threat patterns precisely (not just "look for bad code"), scope reviews to recent changes (not the entire codebase), and structure alerts with enough context for a security reviewer to act immediately. This is the most security-engineering-adjacent activity in Track 4.
+Supply-chain threat modelling expressed as an agentic workflow. Participants learn to define threat patterns precisely (not just "look for bad code"), scope reviews to recent changes (not the entire codebase), and structure alerts with enough context for a security reviewer to investigate. This is a detective aid, not a preventive control or replacement for code review and other security controls.
 
 
 Official grounding: when customer delivery team members are unsure whether a frontmatter field or permission is valid, anchor them in the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions) and [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) docs before they tune the agent prompt.
@@ -91,7 +91,7 @@ If nothing suspicious is found, do nothing.
 
 ## Coaching Notes
 
-The most important framing: this is a _defence layer_, not a replacement for code review. Socratic prompt: _"A CodeQL rule can detect known patterns. What can this agent detect that CodeQL can't?"_ Answer: novel patterns, contextual intent, cross-file reasoning, and things that "look wrong" in context even without a CVE.
+The most important framing: this is an additional detection signal, not a replacement for code review. Socratic prompt: _"A CodeQL rule can detect known patterns. What could this workflow be prompted to examine beyond those rules?"_ Answer: novel patterns, contextual intent, cross-file reasoning, and things that may look unusual in context even without a CVE. Findings still require human review.
 
 The "likely benign vs suspicious" classification step is critical for reducing alert fatigue. Without it, every eval in a test file generates noise. Ask participants: _"If this fires every day with 50 findings, what happens to the team's trust in the tool?"_ Then have them add the likelihood gate.
 

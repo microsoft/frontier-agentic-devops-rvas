@@ -17,7 +17,7 @@ Use these follow-ups to steer the conversation:
 
 This is the **event-driven trigger activity**. The mental model shift: instead of workflows running on a schedule or manually, they react to repository events (pushes, PRs, issues). Your job is to help squads understand that `on: push:` is a powerful and simple trigger.
 
-**Key rule:** Path filters can be tricky. If a squad's workflow isn't firing, the path filter is 90% of the time the culprit.
+**Key rule:** Path filters can be tricky. If a squad's workflow isn't firing, check the path filter first.
 
 ---
 

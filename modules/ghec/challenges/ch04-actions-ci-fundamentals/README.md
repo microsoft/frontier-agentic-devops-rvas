@@ -16,9 +16,9 @@
 - **Customer objective:** establish an enforceable CI signal for customer delivery work.
 - **Customer-tenant target:** an approved repository’s Actions workflow, environment, artifacts, and required check.
 - **Approval and safety boundary:** make workflows, secrets, environments, and merge-gate changes in the customer tenant when authorised; otherwise validate the design in the seeded repository.
-- **Enduring evidence:** retain the workflow, successful and failing run evidence, artifact, and required-check decision.
+- **Records to keep:** retain the workflow, successful and failing run evidence, artifact, and required-check decision.
 - **Adoption owner / handover:** the repository maintainer owns the workflow and the platform owner owns its guardrail posture.
-- **Accountable next action:** approve the next repository’s CI rollout or hand over the validated implementation plan.
+- **Next action and owner:** approve the next repository’s CI rollout or hand over the validated implementation plan.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -40,16 +40,16 @@ This delivery engagement establishes:
 A GHEC customer's team merges first and finds out it's broken later — there's no automated gate. You'll give them continuous integration: every push and PR builds and tests the app across supported runtimes, caches dependencies so it's fast, publishes a test report you can download, and — critically — blocks merges to `main` when the build is red.
 
 > [!IMPORTANT]
-> **Bring your own outcome (do this first)**
+> **Use an approved customer target (do this first)**
 >
 > Default to an authorised customer repository with a build, test, or validation step that should run automatically. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch04-actions-ci-fundamentals`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded sample repo with code ready for a first CI workflow.
 >
-> Record the selected target, customer adoption owner, and accountable next action. The sample is only a controlled proving ground; move the validated configuration to an approved customer target.
+> Record the selected target, customer adoption owner, and next action and owner. Use the sample only for testing; move the validated configuration to an approved customer target.
 
-## Controlled proving ground (when tenant delivery is constrained)
+## Sample test repository or environment (when tenant delivery is constrained)
 Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash

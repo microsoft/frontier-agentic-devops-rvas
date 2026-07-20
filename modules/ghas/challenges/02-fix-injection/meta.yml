@@ -14,9 +14,9 @@ prerequisite_capabilities:
   - Completed S01 (attack surface overview) recommended
 description: Fix real SQL injection and NoSQL injection vulnerabilities in Juice Shop backend routes identified by CodeQL using parameterized queries and ORM-safe patterns; retain a technically validated fix and a reusable prevention pattern record in `modules/ghas/resources/ghas-governance-practice.template.md` that covers the unsafe finding, approved pattern, applicability, evidence, GHAS validation, owner, and human-/agent-authored expectation.
 success_criteria:
-  - A technically validated injection fix uses parameterized queries or an ORM-safe alternative — not input sanitization alone — confirms expected query behavior, and retains PR/review evidence plus relevant GHAS validation.
+  - A technically validated injection fix uses a safe pattern for its execution sink — parameterized queries or an ORM-safe alternative for database operations, or APIs/designs that keep data separate from command or template interpretation for other sinks — not input sanitization alone; confirms expected behavior, and retains PR/review evidence plus relevant GHAS validation.
   - A reusable prevention pattern record in `modules/ghas/resources/ghas-governance-practice.template.md` states the unsafe pattern/finding class, approved safe pattern, where it applies, PR/review evidence, relevant GHAS validation, named owner, and how the expectation applies to human- and agent-authored changes.
-  - Two independently reviewed fixes are used as a practical evidence threshold; completion depends on both the technically validated fix and the reusable prevention pattern record, not the count alone.
+  - Completion requires two independently reviewed fixes, a technically validated fix, and a reusable prevention pattern record; two fixes alone are not sufficient.
   - Any Copilot Autofix or other Copilot assistance is treated as proposed work, reviewed by a human, and handled through existing PR and GHAS controls.
 tags:
   - ghas

@@ -2,7 +2,7 @@
 
 ## Expected Outcome
 
-Teams connect or simulate source-code context and use Azure SRE Agent to turn operational evidence into a governed remediation issue or reviewed pull request.
+Teams connect or simulate source-code context and use Azure SRE Agent to turn operational evidence into a remediation issue with evidence, validation, and human approval, or a reviewed pull request.
 
 ## Coach Prep
 

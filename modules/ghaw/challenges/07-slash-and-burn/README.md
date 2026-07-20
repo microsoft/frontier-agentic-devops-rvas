@@ -1,4 +1,4 @@
-# Activity 2-03: Slash & Burn
+# Activity 2-03: Issue Comment Commands
 
 **Track:** Repo Concierge (Intermediate 🟡)  
 **Estimated time:** 30 minutes  
@@ -8,7 +8,7 @@
 
 ## What You'll Build
 
-A workflow that responds to slash commands in issue comments. When a team member comments `/summarize` on an issue, your workflow reads the entire issue thread and posts a concise summary. This is the gateway to interactive automation—using comments as a command interface for your agent.
+A workflow that responds to slash commands in issue comments. When a team member comments `/summarize` on an issue, your workflow reads the entire issue thread and posts a concise summary. It introduces interactive automation: comments become a command interface for your agent.
 
 **Why this matters:** Slash commands are how you turn your agents into tools your team *actively uses* during their daily work. Instead of running on a schedule, they respond to intent. `/summarize` is a perfect example: reviewers need quick context without scrolling 50 comments.
 

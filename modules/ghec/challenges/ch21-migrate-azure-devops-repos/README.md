@@ -16,9 +16,9 @@
 - **Customer objective:** complete a controlled Azure DevOps-to-GitHub cutover that the customer can operate.
 - **Customer-tenant target:** an approved customer pilot repository, destination organisation, migration queue/cutover plan, and follow-up backlog.
 - **Approval and safety boundary:** migrate customer repositories only in an approved change window with source-write freeze and named owners; otherwise queue-only validation must end with an approved cutover proposal, risk decision, and next action.
-- **Enduring evidence:** retain inventory, migration ID/logs, validation results, mannequin plan, cutover checklist, and gap backlog.
+- **Records to keep:** retain inventory, migration ID/logs, validation results, mannequin plan, cutover checklist, and gap backlog.
 - **Adoption owner / handover:** the customer migration owner accepts cutover accountability; repository and Boards/Pipelines owners accept their follow-ups.
-- **Accountable next action:** approve the pilot cutover or assign the named owner and date for the documented migration decision.
+- **Next action and owner:** approve the pilot cutover or assign the named owner and date for the documented migration decision.
 
 ## Prerequisites
 
@@ -44,7 +44,7 @@ This delivery engagement establishes:
 - Build a follow-up backlog for Azure Boards and Azure Pipelines work that GEI does not migrate.
 
 > [!IMPORTANT]
-> **Bring your own outcome (do this first)**
+> **Use an approved customer target (do this first)**
 >
 > Default to an approved customer repository that belongs to a real team and has at least one pull request. A small pilot repository is better than a huge monorepo: migration timing is driven mainly by **pull request count**, not Git repository size.
 >

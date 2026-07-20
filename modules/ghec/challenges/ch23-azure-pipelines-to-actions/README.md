@@ -15,10 +15,10 @@
 
 - **Customer objective:** convert an approved customer delivery pipeline into an operable GitHub Actions workflow.
 - **Customer-tenant target:** the selected customer repository’s imported workflow, manually resolved dependencies, runner/cost decisions, and validated PR.
-- **Approval and safety boundary:** create workflows, secrets, environments, or cutover changes in the customer tenant only with pipeline and repository-owner approval; a dry run is a controlled proving ground that must produce a cutover proposal.
-- **Enduring evidence:** retain Importer audit/forecast reports, conversion output, validation runs, unresolved-items register, and cutover decision.
+- **Approval and safety boundary:** create workflows, secrets, environments, or cutover changes in the customer tenant only with pipeline and repository-owner approval; a dry run uses a sample test environment and must produce a cutover proposal.
+- **Records to keep:** retain Importer audit/forecast reports, conversion output, validation runs, unresolved-items register, and cutover decision.
 - **Adoption owner / handover:** the customer pipeline owner accepts the workflow and the platform owner accepts capacity/cost and secret decisions.
-- **Accountable next action:** approve the first pipeline cutover window or assign the owner and date for the documented proposal.
+- **Next action and owner:** approve the first pipeline cutover window or assign the owner and date for the documented proposal.
 
 ## Prerequisites
 
@@ -39,13 +39,13 @@ Repository migration tools such as GitHub Enterprise Importer and `ado2gh` move 
 In this activity you will inventory the Azure DevOps CI/CD footprint, estimate future Actions usage, convert one pipeline locally, open a pull request with the converted workflow, and validate the migrated workflow in GitHub Actions.
 
 > [!IMPORTANT]
-> **Bring your own outcome (do this first)**
+> **Use an approved customer target (do this first)**
 > Default to an approved customer Azure DevOps project and pipeline. Complete the work on **that** source and target, retaining the workflow, settings, evidence, unresolved items, and cutover decision in the customer tenant.
 >
-> - **Have a candidate?** Use it everywhere this guide references the sample Azure DevOps project, pipeline, or target repository. Skip the sample Setup path entirely.
-> - **No suitable one?** Use the fallback below: a provided sample Azure DevOps source project and pipeline you can convert safely.
+> - **Have a candidate?** Use it everywhere this guide references the Azure DevOps project, pipeline, or target repository.
+> - **No suitable source and target?** Do not start a migration against an unapproved example; record the access constraint, accountable owner, and next action.
 >
-> Record the selected target, customer pipeline owner, approval boundary, and accountable next action. The fallback is only a controlled proving ground; move the validated workflow to an approved customer target.
+> Record the selected target, customer pipeline owner, approval boundary, and next action and owner.
 
 ## Setup
 
@@ -177,7 +177,7 @@ You are done when all of the following are true:
 
 ## Cleanup
 
-Keep the pull request and reports if they are evidence for the migration plan. If you used a controlled proving-ground repository, delete the local `actions-importer-output/` directory after capturing required evidence. Remove any test-only secrets, variables, or workflows created in GitHub.
+Keep the pull request and reports if they are evidence for the migration plan. If you used a sample test repository, delete the local `actions-importer-output/` directory after capturing required evidence. Remove any test-only secrets, variables, or workflows created in GitHub.
 
 ## Reference links
 

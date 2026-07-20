@@ -2,7 +2,7 @@
 
 > Audience: facilitators and coaches. Pair with the delivery team member `README.md`.
 
-## Grounding conversation (you will be called)
+## Required coach check-in
 
 **Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
@@ -15,7 +15,7 @@ Use these follow-ups to steer the conversation:
 
 ## Facilitation objectives
 - Reinforce that secrets belong in runtime configuration, not source control.
-- Help customer delivery team members connect secret scanning and Dependabot as two complementary supply-chain/security hygiene workflows.
+- Help customer delivery team members connect secret scanning and Dependabot as two complementary processes for securing dependencies and credentials.
 - Keep validation grounded in branch checks, push protection behavior, and application startup testing.
 - Require an exposure response decision, accountable owner, and expiry for every exception recorded in the shared governance practice.
 - Reinforce that agent-authored changes do not receive a weaker path around push protection, review, or human accountability.
@@ -53,4 +53,4 @@ Verify each success criterion from the customer delivery team guide:
 | Dependency remediation | 20 | Updates vulnerable packages safely and confirms the application still works. |
 | Governance evidence | 15 | Records ownership, remediation route, exception expiry, and the same guardrails for human- and agent-authored changes. |
 | Verification evidence | 10 | Confirms secret scanning, Dependabot, and PR checks reflect the remediation. |
-| Grounding conversation | 10 | Connects alert fatigue, ownership, and response SLA to a real repo. |
+| Coach check-in | 10 | Connects a high volume of alerts, ownership, and a response time target to a real repo. |

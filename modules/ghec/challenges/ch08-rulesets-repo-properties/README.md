@@ -16,9 +16,9 @@
 - **Customer objective:** apply scalable, metadata-driven governance to the customer repository estate.
 - **Customer-tenant target:** approved custom-property schema, repository classifications, and property-targeted organisation rulesets.
 - **Approval and safety boundary:** activate policy controls in the customer tenant when the organisation owner approves them; otherwise validate targeting and enforcement on the controlled sample and leave a rollout proposal.
-- **Enduring evidence:** retain property inventory, ruleset export, bypass rationale, and enforcement results.
+- **Records to keep:** retain property inventory, ruleset export, bypass rationale, and enforcement results.
 - **Adoption owner / handover:** the platform governance owner accepts the schema and ruleset; repository owners receive their classifications.
-- **Accountable next action:** authorise the initial classified repository cohort or decide on the documented rollout proposal.
+- **Next action and owner:** authorise the initial classified repository cohort or decide on the documented rollout proposal.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -39,16 +39,16 @@ This delivery engagement establishes:
 A GHEC customer has 80 repositories and a compliance team that needs "all production repos must require PRs, signed commits, and a passing check — automatically, forever, even on repos created next week." Naming conventions won't scale and people forget them. You'll attach a **`compliance` custom property** to repos, then write an **org ruleset targeted by that property** so governance follows the *metadata*, not the repo name. New repos that get tagged `compliance = high` inherit the rules with zero extra work. That's policy that scales.
 
 > [!IMPORTANT]
-> **Bring your own outcome (do this first)**
+> **Use an approved customer target (do this first)**
 >
 > Default to an authorised customer production or compliance-sensitive repository set that needs rulesets and properties. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use your real repos wherever this guide names `ghec-ch08-prod-payments` or the sibling `ghec-ch08-*` repos. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: seeded prod/internal/sandbox repos for property-targeted guardrails.
 >
-> Record the selected target, customer governance owner, risk decision, and accountable next action. The sample is only a controlled proving ground; move the validated policy to an approved customer organisation.
+> Record the selected target, customer governance owner, risk decision, and next action and owner. Use the sample only for testing; move the validated policy to an approved customer organisation.
 
-## Controlled proving ground (when tenant delivery is constrained)
+## Sample test repository or environment (when tenant delivery is constrained)
 Skip this if you brought your own repo set. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash

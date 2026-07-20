@@ -247,7 +247,7 @@ If all workflows are below the chosen thresholds, still create the issue with a 
 
 ## Why This Works
 
-- **Frontmatter:** The `max-effective-tokens` value gives enough headroom for the classroom dataset. Tune it down or up against real run counts and token budgets. `agentic-workflows` MCP tool configured. `close-older-issues: true` prevents report spam.
+- **Frontmatter:** The `max-effective-tokens` value gives the sample dataset enough tokens to complete the analysis. Adjust it using real run counts and token budgets. The `agentic-workflows` MCP tool is configured, and `close-older-issues: true` keeps only the current report open.
 - **Meta-pattern:** The agent queries its own ecosystem—meta-thinking.
 - **Observability:** Production automation needs this layer.
 - **Decision-making:** Not just data, but insights and recommendations.
@@ -298,6 +298,6 @@ If all workflows are below the chosen thresholds, still create the issue with a 
 ## Key Takeaways
 
 - **Meta-workflows are powerful:** An agent watching other agents is the observability layer.
-- **Token budgets are real:** Analyzing many workflows requires planning headroom.
+- **Token budgets are real:** Analyzing many workflows requires a planned token limit.
 - **Insights > raw data:** A good health report surfaces problems and recommends actions.
 - **Production mindset:** Real teams have automated monitoring. You now do too.

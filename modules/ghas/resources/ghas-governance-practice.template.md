@@ -4,7 +4,7 @@ Use this template with a customer-owned repository or service whenever possible.
 Use the Juice Shop fallback only for safe practice. Do not record credentials,
 full alert payloads, customer data, or other sensitive information here.
 
-## 1. Governed GHAS Baseline
+## 1. GHAS Configuration and Ownership
 
 | Field | Decision or evidence |
 |---|---|
@@ -26,7 +26,7 @@ full alert payloads, customer data, or other sensitive information here.
   expected of human-authored changes.
 - Exceptions are recorded, time-bound, and approved by the accountable owner.
 
-## 2. Security-Debt Inventory
+## 2. Security Findings Register
 
 | Finding class / alert category | Repository, service, or component | Impact | Remediation route | Accountable owner or team | Target date | Disposition | Prioritization rationale |
 |---|---|---|---|---|---|---|---|

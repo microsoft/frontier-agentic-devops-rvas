@@ -6,9 +6,9 @@
 
 ## Background
 
-Security vulnerabilities don't respect your sprint schedule. They land in your dependency tree on a Tuesday and quietly age past their SLA window while the team ships features. Security Compliance encodes your vulnerability policy as an agentic workflow: it scans on a schedule, tracks SLA deadlines by severity, and opens deadline-aware issues before anything slips.
+Security vulnerabilities don't respect your sprint schedule. They can land in your dependency tree and age past their SLA window while the team ships features. Security Compliance encodes your vulnerability policy as an agentic workflow: it scans on a schedule, tracks SLA deadlines by severity, and opens deadline-aware issues when configured thresholds are met. It detects and reports potential policy violations; remediation still requires a team response.
 
-This is security-as-code — your SLAs, escalation logic, and severity thresholds live in the workflow file alongside your other infrastructure.
+This workflow keeps your security policy in version-controlled configuration: its service-level agreements, escalation logic, and severity thresholds live alongside your other infrastructure.
 
 Source: [`github/gh-aw/.github/workflows/security-compliance.md`](https://github.com/github/gh-aw/blob/main/.github/workflows/security-compliance.md)
 
@@ -94,4 +94,3 @@ Source: [`github/gh-aw/.github/workflows/security-compliance.md`](https://github
 → That's an extension. For this activity, start with issue-creation-only (signal before action). Combine with Dependabot auto-merge or a separate fix workflow for the full automation.
 
 </details>
-

@@ -1,7 +1,7 @@
 # Ch01 — Issues, Labels & Project Boards — Delivery Assurance Guide
 
 > Audience: delivery assurance leads and authorized customer implementation owners. Pair with the corresponding customer implementation `README.md`.
-> **Customer authorization and rollout boundary:** Apply changes in a customer-owned tenant or repository only after the named customer owner authorizes the scope. A sample or safe fallback is a controlled proving ground, not the destination: record its evidence, risks and controls, accountable owner, handover, and the explicit tenant adoption, cutover, or rollout decision.
+> **Customer authorization and rollout boundary:** Apply changes in a customer-owned tenant or repository only after the named customer owner authorizes the scope. A fallback is a sample test repository or environment, not the destination: record its evidence, risks and controls, accountable owner, handover, and the explicit tenant adoption, cutover, or rollout decision.
 
 
 ## Customer adoption decision
@@ -29,7 +29,7 @@ Use these prompts to verify customer ownership and the next action:
 ## Implementation acceptance evidence
 | Criterion | Assurance weight | Customer-owned evidence |
 |---|---:|---|
-| Issue hygiene (forms + task lists + assignees) | 20 | Two valid issue forms render; a new issue filed through one; task list + cross-reference present; ≥5 issues assigned |
+| Issue management (forms + task lists + assignees) | 20 | Two valid issue forms render; a new issue filed through one; task list + cross-reference present; ≥5 issues assigned |
 | Label taxonomy | 25 | ≥13 labels in `dimension: value` form; every backlog issue has ≥ `type:` and `priority:` |
 | Milestones | 15 | Two milestones with due dates; 4–6 issues each; progress bars populated |
 | Projects (v2) board + fields + views | 25 | Four custom fields; all issues added; three saved views (board/table/roadmap) |

@@ -6,7 +6,7 @@ This folder contains reference material for the Azure SRE Agent track. The prima
 https://github.com/microsoft/sre-agent/tree/main/labs/starter-lab
 ```
 
-The course should use the Microsoft-provided Grubify starter lab whenever live Azure access is available. Local files in this folder are supporting curriculum assets and fallback templates, not the canonical application.
+The course should use the Microsoft-provided Grubify starter lab whenever live Azure access is available. Local files in this folder are supporting curriculum assets and fallback templates, not the official live lab.
 
 ## Resource Index
 

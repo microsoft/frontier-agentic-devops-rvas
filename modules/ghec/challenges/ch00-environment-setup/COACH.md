@@ -52,6 +52,6 @@ Apply the smallest unblock first:
 1. **Codespaces quota / billing:** Switch to a local dev container, or request the org owner to enable Codespaces billing for the implementation owner's account under **Enterprise/Org Settings → Codespaces**.
 2. **Org access not granted:** The authorized org owner adds the implementation owner to the relevant team. If provisioning is genuinely blocked (e.g. SCIM/EMU policy), use an authorized org-owner screen share for Activity 01 while the access issue is escalated.
 3. **Token scope issues:** Run `gh auth refresh -s repo,read:org` to add missing scopes without a full re-login.
-4. **No internet / firewall blocks GitHub.com:** Coordinate with the customer's network owner. As a last resort, use a read-only repository export as a controlled proving ground; record the target tenant, access blocker, accountable owner, and explicit decision to adopt, defer, or roll out once access is restored.
+4. **No internet / firewall blocks GitHub.com:** Coordinate with the customer's network owner. As a last resort, use a read-only repository export as a sample test repository or environment; record the target tenant, access blocker, accountable owner, and explicit decision to adopt, defer, or roll out once access is restored.
 
 > **EMU orgs:** All GHEC activities (including ch00) are EMU-compatible. If the org is EMU-managed, implementation owners authenticate via their enterprise IdP — the `gh auth login` flow redirects to the SAML SSO endpoint after they enter their org name.

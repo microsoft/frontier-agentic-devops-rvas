@@ -51,7 +51,7 @@ The agent should not:
 - Escalation path if the agent output is risky: `<person or role>`
 - Merge gate: `<test, approval, or manual validation required>`
 
-## PROSE Check
+## PROSE Constraints Check
 
 - Progressive Disclosure: `<what context is provided now, and what is deferred>`
 - Reduced Scope: `<what is intentionally out of scope>`

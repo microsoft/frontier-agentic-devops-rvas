@@ -16,9 +16,9 @@
 - **Customer objective:** establish an approved, evidence-backed legacy-VCS conversion and GitHub cutover path.
 - **Customer-tenant target:** a selected customer legacy source, author map, converted Git repository, GitHub destination, and metadata-gap/cutover record.
 - **Approval and safety boundary:** convert and push customer history only with the source owner’s and destination owner’s approval; inaccessible sources and controlled samples must end in a named execution owner and next step.
-- **Enduring evidence:** retain author maps, conversion commands, large-file checks, ref validation, gap notes, and cutover decision.
+- **Records to keep:** retain author maps, conversion commands, large-file checks, ref validation, gap notes, and cutover decision.
 - **Adoption owner / handover:** the customer migration owner accepts source/cutover accountability; repository owners accept the converted destination and gaps.
-- **Accountable next action:** approve the source-specific cutover or hand over the blocker, owner, and dated execution plan.
+- **Next action and owner:** approve the source-specific cutover or hand over the blocker, owner, and dated execution plan.
 
 ## Prerequisites
 
@@ -42,13 +42,13 @@ The GitHub Importer web tool is now **Git-only**, imports code and commit histor
 > Delivery scope: complete SVN plus at least one of Mercurial, TFVC, or Perforce when authorised source access is available. For inaccessible systems, document the exact commands, source URL shape, identity map, blocker, and named execution owner.
 
 > [!IMPORTANT]
-> **Bring your own outcome (do this first)**
+> **Use an approved customer target (do this first)**
 > Default to an approved customer legacy-VCS source, such as SVN, Mercurial, TFVC, or Perforce. Complete the work on **that** source and target, retaining the converted Git repository, source history, author map, large-file checks, evidence, and gap record.
 >
-> - **Have a candidate?** Use it everywhere this guide references the sample legacy VCS source, converted Git directory, or target repository. Skip the sample Setup path entirely.
-> - **No suitable one?** Use the fallback below: a provided sample legacy VCS source you can convert safely.
+> - **Have a candidate?** Use it everywhere this guide references the legacy VCS source, converted Git directory, or target repository.
+> - **No suitable source and target?** Do not start a migration against an unapproved example; record the access constraint, accountable owner, and next action.
 >
-> Record the selected target, customer migration owner, approval boundary, and accountable next action. The fallback is only a controlled proving ground; move the validated path to an approved customer cutover.
+> Record the selected target, customer migration owner, approval boundary, and next action and owner.
 
 ## Setup
 
@@ -256,7 +256,7 @@ You are done when the applicable evidence is true:
 
 ## Cleanup
 
-Delete only controlled-proving-ground GitHub repositories and local conversion directories when you no longer need the evidence.
+Delete only sample test GitHub repositories and local conversion directories when you no longer need the evidence.
 
 ```bash
 gh repo delete "$GITHUB_ORG/$DEST_REPO" --yes

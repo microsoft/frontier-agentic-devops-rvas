@@ -15,10 +15,10 @@
 
 - **Customer objective:** give the customer an owned, explainable cost-governance baseline.
 - **Customer-tenant target:** approved billing views, budget/alert configuration, and cost-reporting repository or operational record.
-- **Approval and safety boundary:** create budgets or generate metered usage only with the billing owner’s approval; otherwise use the small seeded workload as a controlled proving ground and record a proposal.
-- **Enduring evidence:** retain the API snapshots, reconciliation script, `COST-REPORT.md`, and budget decision.
+- **Approval and safety boundary:** create budgets or generate metered usage only with the billing owner’s approval; otherwise use the small seeded workload in a sample test environment and record a proposal.
+- **Records to keep:** retain the API snapshots, reconciliation script, `COST-REPORT.md`, and budget decision.
 - **Adoption owner / handover:** the customer billing or platform owner accepts the report and alert responsibility.
-- **Accountable next action:** approve the budget configuration and reporting cadence, or hand over the cost-control proposal for decision.
+- **Next action and owner:** approve the budget configuration and reporting cadence, or hand over the cost-control proposal for decision.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud, with **billing manager** access (org owners have it by default).
@@ -39,16 +39,16 @@ This delivery engagement establishes:
 A GHEC customer just got a bigger-than-expected Actions bill and nobody can explain it. Finance wants guardrails: a budget with an alert before money is spent, a clear view of which repos burn the most minutes, and a report they can pull on demand. You'll stand up exactly that at the **organization** level — generate a little real usage, wire up a budget with alerts, and reconcile the API against the billing UI so the numbers are trustworthy. The output is the cost-governance baseline a real customer keeps.
 
 > [!IMPORTANT]
-> **Bring your own outcome (do this first)**
+> **Use an approved customer target (do this first)**
 >
 > Default to an authorised customer usage, budget, or cost-reporting artifact that an accountable owner will operate after delivery. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use your real usage source and reporting repo wherever this guide names `ghec-ch10-usage-generator` or `ghec-ch10-cost-report`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a tiny usage-generator repo and cost-report repo for controlled metered validation.
 >
-> Record the selected target, customer billing owner, and accountable next action. The sample is only a controlled proving ground; move the validated budget or report to an approved customer organisation.
+> Record the selected target, customer billing owner, and next action and owner. Use the sample only for testing; move the validated budget or report to an approved customer organisation.
 
-## Controlled proving ground (when tenant delivery is constrained)
+## Sample test repository or environment (when tenant delivery is constrained)
 Skip this if you brought your own usage/cost artifact. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash

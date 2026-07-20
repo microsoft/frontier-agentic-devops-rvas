@@ -4,16 +4,16 @@
 
 **Required coach check-in:** before completion, ask the customer practitioner to connect the exercise to work they actually own.
 
-**Their question:** Coach conversation — where has documentation bloat in your projects actually pushed contributors away, and how would you keep an agent from cutting something important while it trims the fat? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+**Their question:** Facilitator conversation — where has documentation bloat in your projects pushed contributors away, and how would you keep an agent from removing something important? Discuss it with your facilitator and connect it to a real project, task, or workflow you own.
 
 Use these follow-ups to steer the conversation:
 - Ask where documentation bloat has actually pushed contributors away in their world.
-- Probe how they'd stop an agent from cutting something important while trimming the fat.
+- Probe how they would stop an agent from removing something important.
 - Get them to pick one bloated doc they'll let an unbloat agent propose trims for next week.
 
 ## What This Activity Teaches
 
-The difference between correctness (what Doc Updater fixes) and quality (what Unbloat improves). Participants learn to write specificity into simplification prompts — "be concise" produces garbage, "remove sentences starting with 'Note that'" produces precise diffs. They also practice PR discipline: one file, one concern, reviewable in under 60 seconds.
+The difference between correctness (what Doc Updater fixes) and quality (what Unbloat improves). Participants learn to write specificity into simplification prompts — "be concise" produces unreliable results, while "remove sentences starting with 'Note that'" gives the workflow a concrete criterion. They also practice PR discipline: one file, one concern, and a reviewable scope.
 
 
 Official grounding: when customer delivery team members are unsure whether a frontmatter field or permission is valid, anchor them in the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions) and [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) docs before they tune the agent prompt.

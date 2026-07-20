@@ -15,17 +15,17 @@
 
 - **Customer objective:** turn customer security findings into a finite, owned remediation programme.
 - **Customer-tenant target:** approved organisation security configuration, campaign scope, guidance, due date, and remediation report.
-- **Approval and safety boundary:** apply security configurations and launch campaigns in the customer tenant when the security owner authorises them; otherwise use the fallback corpus as a controlled proving ground and leave an approved campaign proposal.
-- **Enduring evidence:** retain coverage/risk snapshots, configuration, campaign record, burn-down, residual-risk report, and named owners.
+- **Approval and safety boundary:** apply security configurations and launch campaigns in the customer tenant when the security owner authorises them; otherwise use the fallback corpus in a sample test environment and leave an approved campaign proposal.
+- **Records to keep:** retain coverage/risk snapshots, configuration, campaign record, burn-down, residual-risk report, and named owners.
 - **Adoption owner / handover:** the customer security programme owner accepts campaign governance; repository owners accept their remediation actions.
-- **Accountable next action:** launch the approved customer campaign or assign the manager and decision date for the proposal.
+- **Next action and owner:** launch the approved customer campaign or assign the manager and decision date for the proposal.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch15 --org <org>` (least-privilege; for this activity: `repo` + `admin:org` + `security_events`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - **GHAS note:** security overview, configurations, and campaigns operate on GHAS alert data. The Juice Shop import is provisioned **public** so CodeQL/Dependabot/secret scanning **alerts** run free. **However**, the security overview's advanced views (**Risk**, **Coverage**, **Campaigns**) **and security campaigns themselves require a GitHub Code Security or GitHub Secret Protection license at the organization level** — a public repo's free scanning does *not* unlock them. If your org has no GHAS product, you can still generate and triage alerts (Part A) but Parts B–E need a licensed org. `modules/ghec/resources/provisioning/scripts/setup.sh doctor` confirms availability.
-- **Soft-link note (independence preserved):** this activity does **not** depend on ch12/ch13 having run — setup creates its **own** `ghec-ch15-juice-shop` and enables scanning so the alert corpus exists standalone.
+- **Standalone setup note:** this activity does **not** depend on ch12/ch13 having run — setup creates its **own** `ghec-ch15-juice-shop` and enables scanning so the alert corpus exists standalone.
 
 ## Customer delivery objectives
 This delivery engagement establishes:
@@ -39,15 +39,15 @@ This delivery engagement establishes:
 A GHEC customer has GHAS switched on but no program around it — alerts pile up, nobody owns them, and leadership can't answer "are we getting safer?" You'll give them the management layer: a security overview that shows risk and coverage at a glance, a security configuration that applies GHAS uniformly, and a **security campaign** that turns a wall of alerts into a finite, owned, time-boxed remediation effort developers can actually act on. OWASP Juice Shop supplies the realistic alert volume — CodeQL findings, Dependabot alerts, and secret-scanning hits — that a campaign needs to be meaningful.
 
 > [!IMPORTANT]
-> **Bring your own outcome (do this first)**
+> **Use an approved customer target (do this first)**
 > Default to an authorised customer application repository or security-campaign candidate. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch15-juice-shop`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: an OWASP Juice Shop import with security findings suitable for controlled campaign validation.
 >
-> Record the selected target, customer security programme owner, and accountable next action. The sample is only a controlled proving ground; move the validated campaign package to an approved customer organisation.
+> Record the selected target, customer security programme owner, and next action and owner. Use the sample only for testing; move the validated campaign package to an approved customer organisation.
 
-## Controlled proving ground (when tenant delivery is constrained)
+## Sample test repository or environment (when tenant delivery is constrained)
 Skip this if you brought your own repo/campaign target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash

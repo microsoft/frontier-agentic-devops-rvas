@@ -19,7 +19,7 @@ This activity introduces two production-grade concepts in tandem: **workflow com
 
 **Key insight to surface:** Copy-pasting prompts across workflows is tech debt. `imports:` is the gh-aw answer to DRY (Don't Repeat Yourself). Help squads see that the helper file is a first-class artifact that deserves the same care as code.
 
-**For `create-discussion`:** Discussions are the right channel for async reporting. Issues imply action required. A weekly repo health digest is not a to-do item — it's information. That framing helps squads make better output-routing decisions.
+**For `create-discussion`:** Discussions are the right channel for asynchronous reporting. Issues imply action required. A weekly repository-status digest is information, not a to-do item. That framing helps delivery teams choose the right output channel.
 
 ---
 
@@ -57,7 +57,7 @@ engine: copilot
 **Behavior:**
 - Weekly schedule (or manual dispatch during testing)
 - Imports helper context before executing
-- Agent produces a repo health digest
+- Agent produces a repository-status digest
 - Output is posted as a Discussion in the "General" category
 
 ---
@@ -138,7 +138,7 @@ Don't give squads the full answer; describe what a correct solution looks like.
 
 A correct `lib/repo-stats-helper.md`:
 - Plain Markdown (no frontmatter)
-- Defines: what sections to include in a health digest, what tone and length to use, any formatting rules (tables, emojis, traffic-light indicators)
+- Defines: what sections to include in a status digest, what tone and length to use, and formatting rules such as tables, emojis, or plain status markers.
 - 10–25 lines — specific enough to be useful, short enough to stay focused
 
 A correct `10-mix-and-match.md`:
@@ -146,7 +146,7 @@ A correct `10-mix-and-match.md`:
 - `on: schedule:` with a valid weekly cron, plus `workflow_dispatch:` for testing
 - `permissions: discussions: write`
 - `safe-outputs: create-discussion: category: "General"`
-- Body: instructs the agent to analyze repo health and produce a digest in the format described by the imported helper
+- Body: instructs the agent to analyze repository status and produce a digest in the format described by the imported helper.
 
 ---
 

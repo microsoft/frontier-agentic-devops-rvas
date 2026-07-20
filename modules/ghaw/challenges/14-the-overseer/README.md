@@ -73,7 +73,7 @@ Use `safe-outputs: create-issue: expires: 7d, max: 1, close-older-issues: true` 
 
 ### The Trick
 
-Use a concrete **`max-effective-tokens`** value because analyzing workflow history requires headroom. Document in your solution *why* that value fits the number of runs you expect to analyze.
+Use a concrete **`max-effective-tokens`** value because analyzing workflow history requires enough token budget to complete. Document in your solution *why* that value fits the number of runs you expect to analyze.
 
 ---
 
@@ -93,7 +93,7 @@ Use a concrete **`max-effective-tokens`** value because analyzing workflow histo
 ## Tips & Hints
 
 - The `agentic-workflows` MCP tool is special—it only works in gh-aw workflows and gives you read-only access to all workflow runs in *this* repo.
-- `max-effective-tokens` is about **cost-normalized tokens**; set it high enough that the agent can finish the analysis, and document why the expected run count needs that headroom.
+- `max-effective-tokens` limits the tokens available to the workflow. Set it high enough for the expected analysis, and document how the expected run count informed the limit.
 - Failure rate: If a workflow ran 5 times and failed 1 time, that's 20% failure rate. Choose the alert threshold before the run so the report is not tuned after seeing the data.
 - Token efficiency: If a workflow's latest run used 2× more tokens than average, flag it. Could be a prompt regression or a real data spike.
 - Use `tracker-id: workflow-health-monitor` in frontmatter—this helps other workflows correlate issues back to this specific monitor.

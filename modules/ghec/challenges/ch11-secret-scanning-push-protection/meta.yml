@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: "Implement authorized customer secret-scanning and push-protection controls, triage leaked-credential alerts, and preserve bypass-audit evidence. Use the public seeded repository only as a safe proving ground and record the approved tenant rollout decision."
+description: "Implement authorized customer secret-scanning and push-protection controls, triage leaked-credential alerts, and preserve bypass-audit evidence. Use the public seeded repository only as a sample test repository and record the approved tenant rollout decision."
 success_criteria:
 - '`secret_scanning` **and** `secret_scanning_push_protection` both read `enabled` on `ghec-ch11-juice-shop` (verifiable via the `security_and_analysis` API).'
 - '**Every planted secret in `SECRETS-MANIFEST.md` has a corresponding secret-scanning alert** (count + types reconcile).'

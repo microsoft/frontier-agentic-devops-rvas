@@ -69,7 +69,7 @@ By the end of this activity, your squad will:
 - **GitHub tool permissions:** https://github.github.com/gh-aw/reference/permissions/
 - **Cron Syntax Guide:** https://crontab.guru/
 - **Safe Outputs — Create Issue:** https://github.github.com/gh-aw/reference/safe-outputs/#create-issue
-- **Dossier Reference:** See Category B (Continuous Documentation) for `org-health-report.md` and `auto-triage-issues.md` patterns in Activity Research Dossier
+- **Related examples:** See Category B (Continuous Documentation) in the activity research materials for the `org-health-report.md` and `auto-triage-issues.md` patterns.
 - **Related Blog:** [Peli's Agent Factory Part 9: Metrics & Analytics](https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-metrics-analytics/)
 
 ---

@@ -15,10 +15,10 @@
 
 - **Customer objective:** reduce customer developer onboarding time while governing Codespaces spend.
 - **Customer-tenant target:** a customer repository’s committed dev-container configuration, Codespaces policy, and prebuild.
-- **Approval and safety boundary:** create or change Codespaces configurations and billing-bearing resources only with the repository and organisation owner’s approval; use the sample as a controlled proving ground when approval is constrained.
-- **Enduring evidence:** retain the committed `.devcontainer` configuration, policy settings, prebuild result, and cost/retention decision.
+- **Approval and safety boundary:** create or change Codespaces configurations and billing-bearing resources only with the repository and organisation owner’s approval; use a sample test repository or environment when approval is constrained.
+- **Records to keep:** retain the committed `.devcontainer` configuration, policy settings, prebuild result, and cost/retention decision.
 - **Adoption owner / handover:** the repository maintainer and platform owner accept the configuration and operating limits.
-- **Accountable next action:** the owner authorises a production repository rollout or records the approved rollout proposal.
+- **Next action and owner:** the owner authorises a production repository rollout or records the approved rollout proposal.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -39,16 +39,16 @@ This delivery engagement establishes:
 A GHEC customer onboards new engineers slowly — each spends a day fighting local toolchains before they can run the app. You've been asked to make "clone and code in 60 seconds" real: a committed dev container that gives everyone the identical environment, a prebuild so it starts fast, and an org policy that keeps spend sane. You'll prove it on a seeded Node service.
 
 > [!IMPORTANT]
-> **Bring your own outcome (do this first)**
+> **Use an approved customer target (do this first)**
 >
 > Default to an authorised customer repository whose onboarding or local setup needs improvement. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch03-codespaces-dev-containers`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded sample repo ready for a devcontainer and Codespace.
 >
-> Record the selected target, customer adoption owner, and accountable next action. The sample is only a controlled proving ground; move the validated configuration to an approved customer target.
+> Record the selected target, customer adoption owner, and next action and owner. Use the sample only for testing; move the validated configuration to an approved customer target.
 
-## Controlled proving ground (when tenant delivery is constrained)
+## Sample test repository or environment (when tenant delivery is constrained)
 Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash

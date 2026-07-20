@@ -14,13 +14,13 @@ description: >
   Use a real application repository or service first, with Juice Shop as the fallback
   practice target. Review GHAS alerts, verify Copilot explanations against the alert
   and code path, and turn at least five alert reviews into evidence for an owned
-  security-debt inventory in `modules/ghas/resources/ghas-governance-practice.template.md`
+  security findings register in `modules/ghas/resources/ghas-governance-practice.template.md`
   with impact, remediation, ownership, dates, disposition, and prioritization rationale.
 success_criteria:
   - A real application repository or service is used first, or Juice Shop is recorded as the fallback practice target
   - At least 5 alerts are reviewed with full alert detail read and used as evidence for the inventory
   - Each reviewed alert has a Copilot explanation of the vulnerability, attacker outcome, and code location that a human verifies against the alert and code path
-  - The security-debt inventory in `modules/ghas/resources/ghas-governance-practice.template.md` records alert category or class, affected repository, service, or component, business or security impact, remediation route, accountable owner or team, target date, current disposition, and prioritization rationale for each item
+  - The security findings register in `modules/ghas/resources/ghas-governance-practice.template.md` records alert category or class, affected repository, service, or component, business or security impact, remediation route, accountable owner or team, target date, current disposition, and prioritization rationale for each item
   - Each inventory item has a current disposition of open, in progress, or accepted risk and a prioritization rationale
   - Dependabot alerts are reviewed and any critical or high-severity dependency vulnerabilities are recorded in the inventory
   - Coach conversation connects the inventory to a real project, accountable ownership, risk, and next action

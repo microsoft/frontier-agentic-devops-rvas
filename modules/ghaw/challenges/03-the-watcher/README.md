@@ -70,7 +70,7 @@ By the end of this activity, your squad will:
 - **Path Filters:** https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpushpullrequestpaths
 - **GitHub tool permissions:** https://github.github.com/gh-aw/reference/permissions/
 - **Safe Outputs — Add Comment:** https://github.github.com/gh-aw/reference/safe-outputs/#add-comment
-- **Dossier Reference:** See Category C (Continuous Improvement) — `breaking-change-checker.md` pattern for `bash` tool + git inspection
+- **Related example:** See the Category C (Continuous Improvement) `breaking-change-checker.md` pattern for using the `bash` tool and inspecting Git history.
 - **Related Blog:** [Peli's Agent Factory Part 2: Continuous Simplicity](https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-continuous-simplicity/)
 
 ---

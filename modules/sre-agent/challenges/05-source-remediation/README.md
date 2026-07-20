@@ -2,7 +2,7 @@
 
 ## Scenario
 
-Azure evidence can explain what failed. Source-code context helps explain where the failure may live and how engineering work should be tracked. In this activity, connect or simulate source-code context so Azure SRE Agent can move from operational investigation to governed remediation.
+Azure evidence can explain what failed. Source-code context helps explain where the failure may live and how engineering work should be tracked. In this activity, connect or simulate source-code context so Azure SRE Agent can move from operational investigation to remediation work with evidence, validation, and human approval.
 
 ## Goals
 

@@ -1,21 +1,21 @@
 # Agentic SDLC Starter Kit
 
-Use this resource during Activities 00-06 to turn implicit team knowledge into repo-visible artifacts. Do not build everything. Build the smallest useful starter set and improve it as the day exposes gaps.
+Use this resource as optional coach material for the implemented Activity 03 context review and Activity 05 remediation handoff. Do not build everything. Build the smallest useful starter set and improve it only where the activity exposes a gap.
 
 ## Why This Exists
 
-The handbook's core warning is that agents fail on real codebases when team knowledge is implicit. In this delivery session, participants should avoid that cliff by externalizing intent, conventions, boundaries, and review gates before assigning more autonomous work.
+Agents fail on real codebases when team knowledge is undocumented. In this delivery session, participants should document intent, conventions, boundaries, and review gates before assigning more autonomous work.
 
 ## Starter Instrumentation Set
 
-| Primitive | Minimum Artifact | Activity |
+| Artifact type | Minimum Artifact | Relevant Activity |
 | --- | --- | --- |
-| Instructions | A short repo guidance note with coding rules, review rules, and denied actions. | 00, 03 |
-| Agent persona | A role card for one assistant, such as reviewer, tester, CI Doctor, or triage helper. | 03 |
-| Skill or prompt | One reusable prompt for a repeated task. | 03 |
-| Memory or decision note | One versioned convention, risk, or operating rule discovered during the day. | 03, 06 |
-| Specs and orchestration | Agent-ready issues, plans, checklists, and handoff notes. | 01, 03, 05 |
-| Hooks and gates | Tests, workflow checks, schemas, allowlists, approvals, or manual gates. | 04, 05 |
+| Instructions | A short repo guidance note with coding rules, review rules, and denied actions. | Optional companion to 03 or 05; not a required activity output. |
+| Agent persona | A role card for one assistant, such as reviewer, tester, CI Doctor, or triage helper. | Optional companion to 03 role and response-plan review. |
+| Skill or prompt | One reusable prompt for a repeated task. | Optional companion to 04 investigation or 05 remediation review. |
+| Memory or decision note | One versioned convention, risk, or operating rule discovered during the day. | 03 safe team memory; 05 remediation follow-up where appropriate. |
+| Specs and orchestration | Agent-ready issues, plans, checklists, and handoff notes. | 05 remediation work item and human review handoff. |
+| Hooks and gates | Tests, workflow checks, schemas, allowlists, approvals, or manual gates. | Use existing evidence and approval gates in 04 and 05; the activities do not ask participants to implement them. |
 
 ## Suggested Files or GitHub Artifacts
 
@@ -29,7 +29,7 @@ Use whatever the workshop repository allows. Good options include:
 
 When a file path is unavailable or inappropriate for the customer's environment, use an issue, pull request comment, or project note. The key is durability and reviewability.
 
-## PROSE Checklist
+## PROSE Constraints Checklist
 
 Use this before asking an agent to act.
 
@@ -41,7 +41,7 @@ Use this before asking an agent to act.
 | Safety Boundaries | Did we deny risky actions and require validation? |
 | Explicit Hierarchy | Did we state which instruction wins when guidance conflicts? |
 
-## Load Lifecycle Debugging
+## Checking Whether Agent Guidance Is Available
 
 When an instruction, persona, prompt, skill, or memory note seems ignored, debug it in this order:
 
@@ -52,16 +52,16 @@ When an instruction, persona, prompt, skill, or memory note seems ignored, debug
 | Bind | Did it attach to the right task, file, agent, or workflow event? |
 | Activate | Did the agent behavior or workflow output actually reflect it? |
 
-## Attention Economy Patterns
+## Keeping Context Focused
 
 - Prefer small files and linked artifacts over one large prompt.
 - Use subagent isolation or separate review roles when context is noisy.
 - Plan, write the plan to a durable artifact, then reload from that artifact before execution.
 - Treat context window as capacity, not attention. The most important instruction still needs to be clear, local, and activated.
 
-## Deterministic/Probabilistic Seam
+## Separating Agent Suggestions from Enforced Controls
 
-For consequential effects, use the rule: model proposes, deterministic substrate disposes.
+For consequential effects, let the model propose actions, then use automated controls and human approval to decide whether to proceed.
 
 | Agent May Propose | Deterministic or Human Gate Decides |
 | --- | --- |
@@ -70,13 +70,13 @@ For consequential effects, use the rule: model proposes, deterministic substrate
 | Deployment | CI success, allowlists, environment approval, runtime validation. |
 | Incident remediation | Evidence review, customer-safe summary, owner approval. |
 
-## ADAPT Loop
+## Five-Step Execution Process
 
 Use this meta-process when work spans more than one prompt or agent.
 
 1. Audit the current artifacts and evidence.
 2. Plan the next smallest safe action.
-3. Wave through scoped execution, one chunk at a time.
+3. Execute one scoped task at a time.
 4. Validate with tests, reviews, gates, or evidence.
 5. Ship only when the human checkpoint is satisfied.
 

@@ -16,9 +16,9 @@
 - **Customer objective:** establish delivery readiness before any tenant change.
 - **Customer-tenant target:** the authorised customer organisation, repository, access path, and first adoption target—not a production configuration change.
 - **Approval and safety boundary:** verify only the access the customer owner has approved; do not create, change, or elevate tenant resources during this readiness guide.
-- **Enduring evidence:** retain the verification summary, selected first target, named customer owner, and any access blockers in the delivery record.
+- **Records to keep:** retain the verification summary, selected first target, named customer owner, and any access blockers in the delivery record.
 - **Adoption owner / handover:** the customer owner confirms the target and ownership boundary; the delivery team hands over verified access and blockers.
-- **Accountable next action:** the named owner authorises and schedules the first customer-tenant implementation guide.
+- **Next action and owner:** the named owner authorises and schedules the first customer-tenant implementation guide.
 
 ## Objectives
 

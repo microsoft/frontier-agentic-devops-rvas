@@ -16,9 +16,9 @@
 - **Customer objective:** establish a defensible organisation governance baseline in the customer tenant.
 - **Customer-tenant target:** approved member-privilege, repository-creation, visibility, security-default, and workflow-permission settings.
 - **Approval and safety boundary:** governance changes proceed in the customer organisation only when the accountable organisation owner approves them; otherwise produce an approved rollout proposal and risk decision from the controlled sample.
-- **Enduring evidence:** retain before/after API snapshots, the baseline policy, rationale, and any EMU constraints.
+- **Records to keep:** retain before/after API snapshots, the baseline policy, rationale, and any EMU constraints.
 - **Adoption owner / handover:** the customer organisation owner accepts the baseline and assigns ongoing policy ownership.
-- **Accountable next action:** approve the change window and apply the agreed baseline, or hand over the signed rollout proposal.
+- **Next action and owner:** approve the change window and apply the agreed baseline, or hand over the signed rollout proposal.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -40,16 +40,16 @@ This delivery engagement establishes:
 You're the first platform admin hired at a fast-growing GHEC customer. The organization was created in a hurry: defaults are wide open, public repo creation may be allowed in standard GHEC or platform-blocked in EMU, base permissions are too generous, and nobody can say what the current policy actually is. Leadership wants a documented, defensible baseline — least-privilege member access, controlled repository creation, sensible security defaults — and they want it **verifiable from the API**, not from screenshots. Your job is to bring order to the org and prove it.
 
 > [!IMPORTANT]
-> **Bring your own outcome (do this first)**
+> **Use an approved customer target (do this first)**
 >
 > Default to an authorised customer organisation policy or repository-default setting. Complete the work on **that** artefact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use your real org settings and repos wherever this guide names `ghec-ch06-public-sample` or the sibling `ghec-ch06-*` repos. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: seeded visibility sample repos plus a starter team for controlled policy validation. In EMU, the public sample is created as private because public repositories are not allowed.
 >
-> Record the selected target, organisation owner, risk decision, and accountable next action. The sample is only a controlled proving ground; move the validated proposal to an approved customer organisation.
+> Record the selected target, organisation owner, risk decision, and next action and owner. Use the sample only for testing; move the validated proposal to an approved customer organisation.
 
-## Controlled proving ground (when tenant delivery is constrained)
+## Sample test repository or environment (when tenant delivery is constrained)
 Skip this if you brought your own org/repo policy target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash

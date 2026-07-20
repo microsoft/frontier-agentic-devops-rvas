@@ -7,29 +7,28 @@ This note connects the delivery session path to The Agentic SDLC Handbook withou
 - External reference: [The Agentic SDLC Handbook](https://danielmeppiel.github.io/agentic-sdlc-handbook/)
 - Workshop anchor: keep every agent-assisted step tied to a GitHub issue, pull request, review, deployment signal, or incident artifact.
 - Delivery stance: prefer small, reviewable changes with visible human ownership over broad autonomous rewrites.
-- Operating warning: avoid the Vibe Coding Cliff by externalizing implicit team knowledge before increasing agent autonomy.
-- Primitive stance: treat instructions, agents, skills, prompts, memory, specs, orchestration, and hooks as code that can be versioned, reviewed, tested, packaged, and pinned.
+- Operating warning: document team knowledge before granting an agent more autonomy.
+- Treat instructions, agents, skills, prompts, memory, specifications, coordination rules, and hooks as versioned artifacts that can be reviewed and tested.
 
 ## Where It Fits
 
 | Moment | Practice |
 | --- | --- |
-| Activity 00 | Choose human accountability roles and create a starter context artifact. |
-| Activity 01 | Turn vague intent into an issue with acceptance criteria, boundaries, validation commands, and human checkpoints. |
-| Activity 03 | Use PROSE-style coordination prompts, validate agent output, and externalize one discovered convention as starter repo instrumentation: instructions, persona, reusable prompt or skill, and memory or decision note. |
-| Activity 04 | Treat CI, environments, approvals, schemas, allowlists, and deployment logs as the deterministic substrate. |
-| Activity 05 | Build safe GitHub Agentic Workflows style specs and review cloud-agent work like teammate work. |
-| Activity 05 | Convert incident learning into a follow-up issue or pull request with operational context and instrumentation improvements. |
+| Activity 00 | Confirm the supported Azure environment, access prerequisites, and coach fallback path before assigning work to an agent. |
+| Activity 01 | Deploy or inspect the service environment, identify the connected Azure resources, and record healthy baseline evidence. |
+| Activity 03 | Verify the knowledge, runbooks, response plans, alert routes, roles, and safe team memory that inform Azure SRE Agent. |
+| Activity 04 | Use alerts, logs, metrics, traces, runbooks, and resource state as evidence; keep mitigation behind human or coach review. |
+| Activity 05 | Correlate validated operational evidence with source-code leads, then create or review a remediation work item with uncertainty, validation, and a human decision gate. |
 
 ## Quick Checks
 
 | Lens | Question |
 | --- | --- |
-| PROSE | Is the work progressively disclosed, reduced in scope, composed intentionally, bounded for safety, and governed by explicit hierarchy? |
-| Load lifecycle | Did the artifact resolve, materialize, bind, and activate? |
-| Attention economy | Did the team avoid context dumping and preserve only the context needed for the next step? |
-| Deterministic/probabilistic seam | What can the model propose, and what do tests, schemas, allowlists, permissions, or humans decide? |
-| Orchestration | Is one agent enough, or does the task need writer/reviewer/tester, audit/execute/validate, one-file-one-agent, waves, or checkpoints? |
+| PROSE constraints (Progressive Disclosure, Reduced Scope, Orchestrated Composition, Safety Boundaries, Explicit Hierarchy) | Did the team provide only needed context, state protected areas and non-goals, define roles, require validation, and say which instruction takes precedence? |
+| Instruction availability | Can the system find the artifact, load its content, attach it to the correct task, and apply it? |
+| Focused context | Did the team preserve only the context needed for the next step? |
+| Agent proposals and enforced gates | What can the model propose, and what do tests, schemas, allowlists, permissions, or humans decide? |
+| Task coordination | Is one agent enough, or does the task need writer/reviewer/tester, audit/execute/validate, one-file-one-agent, or staged checkpoints? |
 
 ## Coach Prompts
 

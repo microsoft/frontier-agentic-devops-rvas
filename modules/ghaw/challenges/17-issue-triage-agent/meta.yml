@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: Deploy the 'hello world' of agentic workflows — the same issue-triage pattern used as the starter example in Claude Code. Label, categorise, and respond to new issues automatically.
+description: Build an issue-triage workflow that labels, categorises, and responds to new issues using your repository's label taxonomy.
 success_criteria:
   - `.github/workflows/issue-triage-agent.md` exists and has valid gh-aw frontmatter
   - Trigger is `on: issues: types: [opened, reopened]`

@@ -6,9 +6,7 @@
 
 ## Background
 
-Every project accumulates doc debt: verbose intros, duplicate sections, outdated warnings, nested caveats-of-caveats. The Documentation Unbloat workflow finds this bloat and opens focused PRs that trim it — no rewrites, just surgical simplification.
-
-The production version in `githubnext/agentics` achieved roughly an **85% merge rate** (88 of 103 proposed PRs merged, as a point-in-time sample). Maintainers love it because each PR is small, targeted, and easy to review.
+Every project can accumulate documentation that is verbose, duplicated, outdated, or overloaded with caveats. The Documentation Unbloat workflow reviews a target document and can open focused pull requests that remove or shorten unnecessary content without rewriting the document.
 
 Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/githubnext/agentics/blob/main/workflows/unbloat-docs.md)
 
@@ -73,7 +71,7 @@ Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/git
 - [ ] `.github/workflows/unbloat-docs.lock.yml` compiles without errors
 - [ ] Dry-run proposes at least one real simplification
 - [ ] Proposed PR diff is focused (one file, clean changes)
-- [ ] Coach conversation — where has documentation bloat in your projects actually pushed contributors away, and how would you keep an agent from cutting something important while it trims the fat? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] Facilitator conversation — where has documentation bloat in your projects pushed contributors away, and how would you keep an agent from removing something important? Discuss it with your facilitator and connect it to a real project, task, or workflow you own.
 
 ---
 
@@ -84,7 +82,7 @@ Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/git
 → Add a preservation rule to the body: _"Do not remove: examples, API references, or any section starting with `## Quick Start`."_
 
 **"How is Unbloat different from Doc Updater?"**
-→ Doc Updater fixes accuracy (code changed, docs didn't). Unbloat fixes verbosity (doc was always too long). They compose well — run Updater first, then Unbloat.
+→ Doc Updater fixes accuracy (code changed, documentation did not). Unbloat reduces unnecessary length (the document was always too long). Use them in sequence: run Updater first, then Unbloat.
 
 **"My docs don't have obvious bloat"**
 → Look for: sentences starting with "Note that", "Please be aware", "It is important to". These almost always can be cut or rewritten more directly.
@@ -96,4 +94,3 @@ Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/git
 → Start with `workflow_dispatch` so you control when it runs. Graduate to a weekly cron once you trust the output.
 
 </details>
-

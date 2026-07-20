@@ -56,7 +56,7 @@ permissions:
   pull-requests: write
 
 pre-agent-steps:
-  - name: Fetch repo health metrics
+  - name: Fetch repository metrics
     run: |
       gh api "/repos/$/issues?state=open&per_page=100" \
         --jq 'length' > /tmp/open-issues.txt
@@ -121,7 +121,7 @@ permissions:
 **Fix:** Add a validation step:
 ```yaml
 pre-agent-steps:
-  - name: Fetch repo health metrics
+  - name: Fetch repository metrics
     run: |
       gh api "/repos/$/issues?state=open&per_page=100" \
         --jq 'length' > /tmp/open-issues.txt

@@ -15,10 +15,10 @@
 
 - **Customer objective:** provide a secure, supportable runner capability for a customer workload that requires it.
 - **Customer-tenant target:** an approved organisation runner group, selected repositories, runner-host design, workflow labels, and hardening controls.
-- **Approval and safety boundary:** register and expose runners in the customer tenant only with platform/security-owner approval and an agreed host risk model; otherwise use a disposable controlled proving ground and leave an approved rollout proposal.
-- **Enduring evidence:** retain runner-group scope, host hardening checklist, workflow evidence, egress decision, and runner-type decision matrix.
+- **Approval and safety boundary:** register and expose runners in the customer tenant only with platform/security-owner approval and an agreed host risk model; otherwise use a disposable sample test environment and leave an approved rollout proposal.
+- **Records to keep:** retain runner-group scope, host hardening checklist, workflow evidence, egress decision, and runner-type decision matrix.
 - **Adoption owner / handover:** the customer platform owner accepts host operations; repository owners accept runner use and fork-PR boundaries.
-- **Accountable next action:** authorise the approved runner rollout or assign the owner and date for the risk-approved proposal.
+- **Next action and owner:** authorise the approved runner rollout or assign the owner and date for the risk-approved proposal.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -40,15 +40,15 @@ This delivery engagement establishes:
 A GHEC customer needs CI on hardware GitHub doesn't host — a GPU box, a license-locked toolchain, or a network-isolated build host. You'll stand up a self-hosted runner the right way: registered to an **org runner group** scoped to just the repos that should use it, targeted by labels, and hardened so a malicious PR can't turn your build host into a foothold. You'll finish knowing exactly when self-hosted is worth the operational cost versus GitHub-hosted or larger runners.
 
 > [!IMPORTANT]
-> **Bring your own outcome (do this first)**
+> **Use an approved customer target (do this first)**
 > Default to an authorised customer CI job or repository that needs a self-hosted runner for network, hardware, compliance, or cost reasons. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch18-self-hosted-runners`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded sample repo with runner workflows to validate safely.
 >
-> Record the selected target, customer platform and security owners, risk decision, and accountable next action. The sample is only a controlled proving ground; move the validated runner design to an approved customer tenant.
+> Record the selected target, customer platform and security owners, risk decision, and next action and owner. Use the sample only for testing; move the validated runner design to an approved customer tenant.
 
-## Controlled proving ground (when tenant delivery is constrained)
+## Sample test repository or environment (when tenant delivery is constrained)
 Skip this if you brought your own runner target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash

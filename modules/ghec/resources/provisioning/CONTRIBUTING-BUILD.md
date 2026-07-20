@@ -12,7 +12,7 @@ challenges/
     README.md   (customer delivery team guide)
     COACH.md    (coach guide)
     meta.yml    (machine-readable contract)
-  ch##-<slug>/                        ← one per challenge, numbers ch01..ch20
+  ch##-<slug>/                        ← one per challenge, numbers ch00..ch26
     README.md   ← copied from _TEMPLATE, all sections filled
     COACH.md    ← copied from _TEMPLATE, all sections filled
     meta.yml    ← copied from _TEMPLATE, all fields filled
@@ -22,7 +22,7 @@ docs/                                 ← GitHub Pages site source (Basher)
 ```
 
 ### Folder + file naming (HARD RULES)
-- Activity folder = `ch##-<slug>` where `##` is zero-padded (`ch01`, …, `ch20`) and `<slug>` is
+- Activity folder = `ch##-<slug>` where `##` is zero-padded (`ch00`, …, `ch26`) and `<slug>` is
   **kebab-case**, matching `slug:` in `meta.yml` exactly.
 - The canonical slugs are fixed (see table below). **Do not rename** — the site, scripts, and links
   all key off them.
@@ -32,6 +32,7 @@ docs/                                 ← GitHub Pages site source (Basher)
 ### Canonical activity slugs (locked)
 | id | folder |
 |---|---|
+| ch00 | `ch00-environment-setup` |
 | ch01 | `ch01-issues-labels-projects` |
 | ch02 | `ch02-pull-requests-code-review` |
 | ch03 | `ch03-codespaces-dev-containers` |
@@ -52,15 +53,21 @@ docs/                                 ← GitHub Pages site source (Basher)
 | ch18 | `ch18-self-hosted-runners` |
 | ch19 | `ch19-copilot-coding-agent` |
 | ch20 | `ch20-automation-capstone` |
+| ch21 | `ch21-migrate-azure-devops-repos` |
+| ch22 | `ch22-azure-boards-github-integration` |
+| ch23 | `ch23-azure-pipelines-to-actions` |
+| ch24 | `ch24-migrate-bitbucket` |
+| ch25 | `ch25-migrate-gitlab` |
+| ch26 | `ch26-migrate-legacy-vcs` |
 
 ## `meta.yml` is the contract between everyone
 
-`meta.yml` is the **single machine-readable source of truth**. Both the site and the scripts read it.
+`meta.yml` is the **canonical machine-readable definition**. Both the site and the scripts read it.
 Never duplicate this data in prose — render or read it from here.
 
 | Field | Type | Used by | Notes |
 |---|---|---|---|
-| `id` | `ch01..ch20` | site, scripts | Must match folder number. |
+| `id` | `ch00..ch26` | site, scripts | Must match folder number. |
 | `slug` | kebab-case | site, scripts | Must match folder slug. |
 | `title` | string | site | Matches README H1. |
 | `track` | enum | site (grouping/filter) | `developer-flow\|admin-governance\|security\|automation-ai`. |
@@ -93,7 +100,7 @@ Never duplicate this data in prose — render or read it from here.
 - Juice Shop: pull pinned `v20.0.0` release tarball → fresh git init → push to `ghec-ch##-juice-shop`. Never vendor.
 
 ### 🌐 Basher — GitHub Pages site (`docs/`)
-- Source of truth for cards/filters/badges is each `meta.yml` — read it, don't hand-copy.
+- Use each `meta.yml` for cards, filters, and badges — read it, don't hand-copy.
 - Render delivery team member `README.md` per activity; **exclude `COACH.md`** from the public delivery team member view (coach view separate).
 - Group by `track`; show `difficulty`, `app`, and `emu_compatible` badges; surface `references`.
 - Link the site from the root `README.md` and back.

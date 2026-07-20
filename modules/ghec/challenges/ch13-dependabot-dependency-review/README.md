@@ -15,10 +15,10 @@
 
 - **Customer objective:** establish an owned dependency-risk detection and remediation flow.
 - **Customer-tenant target:** an approved application repository’s dependency graph, Dependabot configuration, and dependency-review gate.
-- **Approval and safety boundary:** enable security features and merge dependency updates in the customer tenant only with repository/security-owner approval; use Juice Shop as a controlled proving ground when constrained.
-- **Enduring evidence:** retain the SBOM, alert decisions, `dependabot.yml`, review workflow, and merged-update evidence.
+- **Approval and safety boundary:** enable security features and merge dependency updates in the customer tenant only with repository/security-owner approval; use Juice Shop as a sample test repository when constrained.
+- **Records to keep:** retain the SBOM, alert decisions, `dependabot.yml`, review workflow, and merged-update evidence.
 - **Adoption owner / handover:** the application owner owns updates while the security owner owns alert policy and escalation.
-- **Accountable next action:** approve activation for the selected customer repository or hand over the validated configuration and owner decision.
+- **Next action and owner:** approve activation for the selected customer repository or hand over the validated configuration and owner decision.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -39,16 +39,16 @@ This delivery engagement establishes:
 A GHEC customer's app drags a long tail of outdated, vulnerable npm packages — the kind of supply-chain risk that doesn't show up until a CVE makes the news. You'll give them an early-warning system: the dependency graph maps what they depend on, Dependabot opens PRs to fix known-vulnerable packages automatically, and dependency review stops a new risky dependency from sneaking in via a pull request. OWASP Juice Shop is purpose-built for this — its dependency tree is intentionally vulnerable (old Angular libraries, a deliberately risky `ftp` package, a `.dependabot/` directory), so there's genuine alert and PR material to work with.
 
 > [!IMPORTANT]
-> **Bring your own outcome (do this first)**
+> **Use an approved customer target (do this first)**
 >
 > Default to an authorised application repository the customer organisation owns so Dependabot alerts and dependency-review gates persist. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch13-juice-shop`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: an OWASP Juice Shop import with dependency material you can inspect safely.
 >
-> Record the selected target, customer security and repository owners, and accountable next action. The sample is only a controlled proving ground; move the validated controls to an approved customer repository.
+> Record the selected target, customer security and repository owners, and next action and owner. Use the sample only for testing; move the validated controls to an approved customer repository.
 
-## Controlled proving ground (when tenant delivery is constrained)
+## Sample test repository or environment (when tenant delivery is constrained)
 Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash

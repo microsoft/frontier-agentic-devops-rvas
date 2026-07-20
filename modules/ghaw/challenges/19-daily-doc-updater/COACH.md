@@ -82,6 +82,6 @@ The key elements: `workflow_dispatch` alongside cron (for testing), `contents: w
 
 ## Coaching Notes
 
-The 96% merge rate comes from PR focus. Participants often produce one big PR that rewrites everything. Redirect: _"Would you review and merge a 200-file PR? How small does a PR need to be to get merged in 60 seconds?"_
+Focused PRs are easier to review than one large rewrite. Participants often produce one big PR that rewrites everything. Redirect: _"Would you review and merge a 200-file PR? What scope would make this change practical to review?"_
 
 The "if nothing found, do nothing" instruction is important — without it, the agent may open empty PRs or cosmetic changes just to have output. Ask participants: _"What happens if the agent runs every day but there's nothing to fix?"_

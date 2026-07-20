@@ -15,10 +15,10 @@
 
 - **Customer objective:** replace ad-hoc repository access with a verifiable least-privilege team model.
 - **Customer-tenant target:** the customer organisation’s approved team hierarchy, repository grants, custom role, and access matrix.
-- **Approval and safety boundary:** change memberships, roles, and grants only with the accountable organisation owner’s approval; use the seeded structure as a controlled proving ground when access is constrained.
-- **Enduring evidence:** retain API-derived before/after snapshots, the access matrix, and role rationale.
+- **Approval and safety boundary:** change memberships, roles, and grants only with the accountable organisation owner’s approval; use the seeded structure as a sample test environment when access is constrained.
+- **Records to keep:** retain API-derived before/after snapshots, the access matrix, and role rationale.
 - **Adoption owner / handover:** the customer access owner accepts the model and the team/repository maintainers receive the matrix.
-- **Accountable next action:** approve tenant implementation for the selected teams or deliver the access-model proposal for owner decision.
+- **Next action and owner:** approve tenant implementation for the selected teams or deliver the access-model proposal for owner decision.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -39,16 +39,16 @@ This delivery engagement establishes:
 A GHEC customer's engineering org has grown past the point where ad-hoc collaborator adds make sense. People are added directly to repos, leavers keep access, and nobody can answer "who can merge to the payments repo?" You'll replace the chaos with a **team-based** model: a parent team for the whole department, child teams per squad, repository access granted to teams (never to individuals), and one **custom role** for a contractor pattern that the built-in roles don't capture. Access becomes something you can read from an org chart — and from the API.
 
 > [!IMPORTANT]
-> **Bring your own outcome (do this first)**
+> **Use an approved customer target (do this first)**
 >
 > Default to an authorised customer team structure and repository access model. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use your real teams and repos wherever this guide names `ghec-ch07-frontend` or the sibling `ghec-ch07-*` artifacts. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: seeded frontend/backend/platform repos and a starter engineering team.
 >
-> Record the selected target, customer access owner, and accountable next action. The sample is only a controlled proving ground; move the validated access model to an approved customer organisation.
+> Record the selected target, customer access owner, and next action and owner. Use the sample only for testing; move the validated access model to an approved customer organisation.
 
-## Controlled proving ground (when tenant delivery is constrained)
+## Sample test repository or environment (when tenant delivery is constrained)
 Skip this if you brought your own team/repo access model. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash

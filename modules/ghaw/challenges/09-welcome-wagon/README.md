@@ -8,9 +8,9 @@
 
 ## What You'll Build
 
-A workflow that welcomes first-time contributors to your repo. When someone opens their first pull request, your Welcome Wagon springs into action, posting a warm greeting and offering resources (contribution guide, code of conduct, etc.). This teaches you **contributor detection** and turns automation into genuine community-building.
+A workflow that welcomes first-time contributors to your repo. When someone opens their first pull request, your Welcome Wagon posts a warm greeting and offers resources (contribution guide, code of conduct, and more). This teaches you **contributor detection** and turns automation into genuine community-building.
 
-**Why this matters:** First-time contributors are nervous. A warm, helpful bot makes them feel welcome and reduces friction. Many open-source projects use this pattern to set tone and direct newbies to docs.
+**Why this matters:** First-time contributors may be unfamiliar with a project. A warm, helpful bot makes them feel welcome and reduces friction. Many open-source projects use this pattern to set expectations and direct new contributors to documentation.
 
 ---
 

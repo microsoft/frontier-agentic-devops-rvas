@@ -1,6 +1,6 @@
 # CANONICAL PER-CHALLENGE METADATA CONTRACT
 # Copy into challenges/ch##-<slug>/meta.yml and fill for the specific challenge.
-# This file is the single machine-readable source of truth consumed by BOTH:
+# This file is the canonical machine-readable definition consumed by BOTH:
 #   - Basher's GitHub Pages site (renders cards, filters, badges)
 #   - Yen's provisioning scripts (`./setup.sh doctor/provision/status/teardown`)
 # Keep it small and stable. Do not add fields without updating CONTRIBUTING-BUILD.md.

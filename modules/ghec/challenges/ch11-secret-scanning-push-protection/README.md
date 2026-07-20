@@ -15,10 +15,10 @@
 
 - **Customer objective:** reduce credential exposure with an owned alert-triage and prevention path.
 - **Customer-tenant target:** an approved customer repository’s secret-scanning, push-protection, custom-pattern, and bypass-audit configuration.
-- **Approval and safety boundary:** enable licensed security controls and perform bypass validation only with the repository/security owner’s approval; the planted-secret repository is a controlled proving ground, never a delivery destination.
-- **Enduring evidence:** retain alert resolutions, custom-pattern definition, bypass audit, and triage ownership record.
+- **Approval and safety boundary:** enable licensed security controls and perform bypass validation only with the repository/security owner’s approval; the planted-secret repository is a sample test repository, never a delivery destination.
+- **Records to keep:** retain alert resolutions, custom-pattern definition, bypass audit, and triage ownership record.
 - **Adoption owner / handover:** the customer security owner and repository maintainer accept alert and bypass handling.
-- **Accountable next action:** enable the approved controls in the target repository or hand over the evidence package and activation decision.
+- **Next action and owner:** enable the approved controls in the target repository or hand over the evidence package and activation decision.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -38,16 +38,16 @@ This delivery engagement establishes:
 A GHEC customer just discovered a hard-coded cloud key in a public repo — caught by an outside researcher, not by them. Leadership wants two guarantees: (1) every credential already sitting in history is surfaced and triaged, and (2) the *next* secret never lands on `main` in the first place. You'll prove both on a deliberately leaky app: the provisioner imports OWASP Juice Shop and plants a set of **non-live, high-confidence test secrets** (fake AWS keys, GitHub-style tokens) so secret scanning has real, partner-pattern material to detect — Juice Shop's own app secrets are internal and won't reliably trip detection on their own.
 
 > [!IMPORTANT]
-> **Bring your own outcome (do this first)**
+> **Use an approved customer target (do this first)**
 >
 > Default to an authorised repository the customer organisation owns—ideally public, or private/internal with GitHub Secret Protection. Complete the work on **that** repository and retain secret scanning, push protection, a custom pattern, and a triage trail.
 >
 > - **Have a candidate repo?** Use it everywhere this guide says `ghec-ch11-juice-shop`. Skip the Setup step below entirely. You already have real history to triage — no planted secrets needed.
-> - **No suitable repo (or need a controlled proving ground)?** Use the fallback below: we import OWASP Juice Shop with non-live planted secrets for risk-free validation.
+> - **No suitable repo (or need a sample test repository or environment)?** Use the fallback below: we import OWASP Juice Shop with non-live planted secrets for risk-free validation.
 >
-> Record the selected target, customer security owner, and accountable next action. The sample is only a controlled proving ground; move the validated controls to an approved customer repository.
+> Record the selected target, customer security owner, and next action and owner. Use the sample only for testing; move the validated controls to an approved customer repository.
 
-## Controlled proving ground (when tenant delivery is constrained)
+## Sample test repository or environment (when tenant delivery is constrained)
 Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash

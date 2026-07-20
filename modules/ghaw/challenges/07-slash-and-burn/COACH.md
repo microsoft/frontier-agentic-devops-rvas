@@ -1,4 +1,4 @@
-# Coach Guide: Activity 2-03 — Slash & Burn
+# Facilitator Guide: Activity 2-03 — Issue Comment Commands
 
 ---
 

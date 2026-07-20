@@ -13,12 +13,12 @@
 
 ## Customer delivery target
 
-- **Customer objective:** establish a durable, team-owned source of truth for delivery work.
+- **Customer objective:** establish a durable, team-owned delivery system.
 - **Customer-tenant target:** the customer repository’s issue forms, label taxonomy, milestones, and Projects (v2) board.
-- **Approval and safety boundary:** implement in the customer tenant when the product/repository owner authorises it; otherwise use the seeded repository only as a controlled proving ground.
-- **Enduring evidence:** retain the configured board, saved views, automation settings, and a triage operating note.
+- **Approval and safety boundary:** implement in the customer tenant when the product/repository owner authorises it; otherwise use the seeded repository only as a sample test repository.
+- **Records to keep:** retain the configured board, saved views, automation settings, and a triage operating note.
 - **Adoption owner / handover:** the backlog or engineering lead owns the board and receives the operating note.
-- **Accountable next action:** the owner selects the first live backlog and moves the configuration there after the proving-ground validation.
+- **Next action and owner:** the owner selects the first live backlog and moves the configuration there after sample testing.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -35,19 +35,19 @@ This delivery engagement establishes:
 - Drive the whole flow from both the **UI** and the **`gh` CLI / GraphQL API** so you can automate it later.
 
 ## Scenario
-You have just inherited the backlog for an internal developer-tools team at a GHEC customer. Work is scattered across chat threads, spreadsheets, and people's heads. Leadership wants a single source of truth: every request becomes an issue, every issue is triaged within a day, and a live board shows what's in flight, what's blocked, and what ships this sprint. Your job is to stand that system up on GitHub the way you'd hand it to a real team on Monday morning.
+You have just inherited the backlog for an internal developer-tools team at a GHEC customer. Work is scattered across chat threads, spreadsheets, and people's heads. Leadership wants one shared delivery record: every request becomes an issue, every issue is triaged within a day, and a live board shows what's in flight, what's blocked, and what ships this sprint. Your job is to stand that system up on GitHub the way you'd hand it to a real team on Monday morning.
 
 > [!IMPORTANT]
-> **Bring your own outcome (do this first)**
+> **Use an approved customer target (do this first)**
 >
 > Default to an authorised customer backlog, taxonomy, and Projects board that the team will operate after delivery. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch01-issues-labels-projects` or `ghec-ch01-board`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded backlog repo and empty project board you can shape safely.
 >
-> Record the selected target, customer adoption owner, and accountable next action. The sample is only a controlled proving ground; move the validated configuration to an approved customer target.
+> Record the selected target, customer adoption owner, and next action and owner. Use the sample only for testing; move the validated configuration to an approved customer target.
 
-## Controlled proving ground (when tenant delivery is constrained)
+## Sample test repository or environment (when tenant delivery is constrained)
 Skip this if you brought your own repo or project board. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -70,7 +70,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch01 --org <org>
 ## Tasks
 > Throughout, **`ghec-ch01-issues-labels-projects` is the fallback sample**. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
-### Part A — Issues & issue hygiene
+### Part A — Issues & issue management
 1. **Read the backlog.** Open the repo's **Issues** tab and skim every seeded issue. Note that they are inconsistently labeled and none are assigned or milestoned — this is your raw material.
 2. **Add issue forms.** In `.github/ISSUE_TEMPLATE/`, add a **bug report** form and a **feature request** form using GitHub's **issue forms** (`.yml`) schema (not plain markdown). Each form must collect a title, a structured body, and at least one dropdown (e.g., area or severity). Open the **New issue** chooser and confirm both forms render.
 3. **File one issue through your new form** to prove it works. Use a task list (`- [ ]`) in the body with at least three sub-tasks, and reference another issue with `#<number>` so the timeline cross-links.
@@ -94,7 +94,17 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch01 --org <org>
 7. **Prove consistency.** Run `gh issue list --label "priority: p0"` and confirm the highest-priority items surface correctly.
 
 ### Part C — Milestones
-8. **Create two milestones:** `Sprint 1` (due 2026-06-15) and `Sprint 2` (due 2026-06-29) — via the UI or `gh api repos/<org>/ghec-ch01-issues-labels-projects/milestones -f title='Sprint 1' -f due_on='2026-06-15T00:00:00Z'`.
+8. **Create two milestones:** set `Sprint 1` due two weeks after your delivery start and `Sprint 2` due four weeks after it. Use the UI, or calculate ISO 8601 due dates for the current run and create the milestones with the API:
+   ```bash
+   RUN_DATE=$(date -u +%F)
+   SPRINT_1_DUE=$(date -u -d "$RUN_DATE +14 days" +%FT00:00:00Z)
+   SPRINT_2_DUE=$(date -u -d "$RUN_DATE +28 days" +%FT00:00:00Z)
+
+   gh api repos/<org>/ghec-ch01-issues-labels-projects/milestones \
+     -f title='Sprint 1' -f due_on="$SPRINT_1_DUE"
+   gh api repos/<org>/ghec-ch01-issues-labels-projects/milestones \
+     -f title='Sprint 2' -f due_on="$SPRINT_2_DUE"
+   ```
 9. **Assign issues to milestones** so each sprint has a realistic, finite scope (4–6 issues each). Open a milestone and confirm the **progress bar** reflects open/closed counts.
 
 ### Part D — Projects (v2) board

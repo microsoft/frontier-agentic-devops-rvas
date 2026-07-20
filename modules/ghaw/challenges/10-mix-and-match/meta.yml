@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: Stop copy-pasting. Use imports: to compose reusable workflow snippets and create-discussion to post async digests instead of noisy issues.
+description: Stop copy-pasting. Use imports: to combine reusable workflow snippets and create-discussion to post asynchronous digests instead of noisy issues.
 success_criteria:
   - `lib/repo-stats-helper.md` exists and contains meaningful formatting instructions
   - `.github/workflows/10-mix-and-match.md` has `imports: [./lib/repo-stats-helper.md]` in frontmatter

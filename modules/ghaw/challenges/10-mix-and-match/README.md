@@ -8,7 +8,7 @@
 
 ## What You'll Build
 
-A weekly-scheduled gh-aw workflow that composes itself from reusable parts. Instead of writing every prompt from scratch, you'll author a shared helper snippet — `lib/repo-stats-helper.md` — and `imports:` it into your workflow. The agent reads the helper, analyzes repo health, and posts a digest as a GitHub **Discussion** using the `create-discussion` safe-output.
+A weekly-scheduled gh-aw workflow that uses reusable parts. Instead of writing every prompt from scratch, you'll author a shared helper snippet — `lib/repo-stats-helper.md` — and `imports:` it into your workflow. The agent reads the helper, analyzes repository status, and posts a digest as a GitHub **Discussion** using the `create-discussion` safe-output.
 
 **Why this matters:** In production, teams maintain shared prompt libraries: tone guidelines, formatting rules, domain context. `imports:` lets you reference those without copy-pasting them into every workflow. And `create-discussion` keeps stakeholders informed through async, searchable posts — not a stream of noisy issues.
 
@@ -21,7 +21,7 @@ By the end, your squad will:
 1. ✅ Author a reusable Markdown snippet in `lib/`
 2. ✅ Import it into a workflow using `imports:`
 3. ✅ Schedule the workflow to run weekly
-4. ✅ Post a repo health digest as a GitHub Discussion (not an issue)
+4. ✅ Post a repository-status digest as a GitHub Discussion (not an issue)
 5. ✅ Compile and validate with `gh aw compile`
 
 ---
@@ -71,7 +71,7 @@ The `category` must match a Discussion category that **already exists** in the r
 
 ### Step 1: Create the helper snippet
 
-Create `lib/repo-stats-helper.md` in your repository. This file should contain instructions for how the agent should format a repo health summary — for example:
+Create `lib/repo-stats-helper.md` in your repository. This file should contain instructions for how the agent should format a repository-status summary — for example:
 
 - What sections to include (open issues, open PRs, recent activity, health rating)
 - The tone and length of the summary
@@ -87,7 +87,7 @@ Create `.github/workflows/10-mix-and-match.md` with:
 - **`on:`** scheduled weekly (e.g., every Monday at 9am UTC)
 - **`permissions:`** including `discussions: write`
 - **`safe-outputs:`** with `create-discussion: category: "General"`
-- **Agent body:** Ask the agent to analyze the repo's health and produce a digest. Tell it the output will be posted as a Discussion.
+- **Agent body:** Ask the agent to analyze the repository's status and produce a digest. Tell it the output will be posted as a Discussion.
 
 ### Step 3: Enable Discussions
 
@@ -122,7 +122,7 @@ No errors? You're ready to test. Trigger manually with `workflow_dispatch` to ve
 - **Import paths are relative to the repo root**, not to the workflow file. `./lib/repo-stats-helper.md` works from any workflow in `.github/workflows/`.
 - **Discussion category must exist first.** If the category doesn't exist in your repo settings, the runtime will error. Create it manually before testing.
 - **Add `workflow_dispatch:` alongside your schedule** during development so you can trigger the workflow manually without waiting for Monday.
-- **The helper is context, not code.** Write it like you're briefing a smart colleague: "When summarizing repo health, always include a traffic-light rating (🟢/🟡/🔴) at the top."
+- **The helper is context, not code.** Write it like you're briefing a smart colleague: "When summarizing repository status, start with a plain status marker: green (on track), yellow (needs attention), or red (blocked)."
 
 ---
 

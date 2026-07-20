@@ -15,10 +15,10 @@
 
 - **Customer objective:** deliver one owned, secure, end-to-end automation for a customer workflow.
 - **Customer-tenant target:** an approved customer App, webhook, Actions workflow, API automation, and project-board integration.
-- **Approval and safety boundary:** create Apps, secrets, webhooks, and write automation in the customer tenant only with accountable owner approval; otherwise use the seeded capstone as a controlled proving ground and leave an implementation proposal.
-- **Enduring evidence:** retain the source-controlled automation, permission matrix, secret-handling record, event trace, idempotency evidence, and failure-mode notes.
+- **Approval and safety boundary:** create Apps, secrets, webhooks, and write automation in the customer tenant only with accountable owner approval; otherwise use the seeded capstone as a sample test environment and leave an implementation proposal.
+- **Records to keep:** retain the source-controlled automation, permission matrix, secret-handling record, event trace, idempotency evidence, and failure-mode notes.
 - **Adoption owner / handover:** the customer integration owner accepts operations and rotation; the workflow owner accepts business outcomes.
-- **Accountable next action:** authorise production enablement for the selected workflow or assign the owner and decision date for the rollout proposal.
+- **Next action and owner:** authorise production enablement for the selected workflow or assign the owner and decision date for the rollout proposal.
 
 > **Independent by design.** This capstone **stands alone** — it provisions all its own `ghec-ch20-*` state and requires **no other activity to have been run**. It *revisits the skills* from ch16 (REST/GraphQL), ch17 (webhooks + GitHub App), and ch18 (Actions runners) conceptually, but you do **not** need their artifacts.
 
@@ -42,15 +42,15 @@ This delivery engagement establishes:
 Your org wants a single automation that reacts to activity and keeps a project board honest without anyone touching it manually. When an issue is opened on the seeded repo, a webhook fires → your **GitHub App** (authenticated as an installation) **labels and triages** the issue via REST, **adds it to a Projects v2 board** via GraphQL, and an **Actions** workflow records the result and posts a summary. Validate the seeded scaffold end to end and make it **idempotent** so replays do not create duplicates. This is an integrated delivery pattern for the customer tenant.
 
 > [!IMPORTANT]
-> **Bring your own outcome (do this first)**
+> **Use an approved customer target (do this first)**
 > Default to an authorised customer workflow that combines Actions, API automation, and security controls into a lasting delivery artifact. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch20-automation-capstone`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded capstone repo for controlled end-to-end automation validation.
 >
-> Record the selected target, customer integration owner, and accountable next action. The sample is only a controlled proving ground; move the validated automation to an approved customer tenant.
+> Record the selected target, customer integration owner, and next action and owner. Use the sample only for testing; move the validated automation to an approved customer tenant.
 
-## Controlled proving ground (when tenant delivery is constrained)
+## Sample test repository or environment (when tenant delivery is constrained)
 Skip this if you brought your own workflow/repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported): the `setup.sh` / `setup.ps1` scripts in `modules/ghec/resources/provisioning/scripts/`.
 
 ```bash

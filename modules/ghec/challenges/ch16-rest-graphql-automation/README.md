@@ -16,9 +16,9 @@
 - **Customer objective:** eliminate a defined recurring customer-tenant task with safe, idempotent automation.
 - **Customer-tenant target:** an approved repository or organisation automation script, its API scope, and its operational runbook.
 - **Approval and safety boundary:** run write operations against customer resources only with the accountable owner’s approval; use the seeded repository to validate reconciliation and rate-limit behaviour when access is constrained.
-- **Enduring evidence:** retain source-controlled automation, API outputs, rate-limit handling, idempotency evidence, and runbook.
+- **Records to keep:** retain source-controlled automation, API outputs, rate-limit handling, idempotency evidence, and runbook.
 - **Adoption owner / handover:** the platform or repository owner accepts the script, permissions, schedule, and failure handling.
-- **Accountable next action:** authorise production execution or hand over the validated automation proposal and named owner.
+- **Next action and owner:** authorise production execution or hand over the validated automation proposal and named owner.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -44,15 +44,15 @@ This delivery engagement establishes:
 A GHEC customer's platform team keeps doing the same triage by hand: relabeling issues, posting status comments, rolling items onto a project board, and exporting reports for leadership. Clicking doesn't scale. You'll rebuild that work as API automation — REST where it's simplest, GraphQL where it saves round-trips — that pages through everything, stays under rate limits, and can be re-run safely any day of the week.
 
 > [!IMPORTANT]
-> **Bring your own outcome (do this first)**
+> **Use an approved customer target (do this first)**
 > Default to an authorised customer GitHub automation task or repository where an API script will remove recurring toil. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch16-rest-graphql-automation`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded sample repo for controlled REST and GraphQL automation validation.
 >
-> Record the selected target, customer automation owner, and accountable next action. The sample is only a controlled proving ground; move the validated script to an approved customer tenant.
+> Record the selected target, customer automation owner, and next action and owner. Use the sample only for testing; move the validated script to an approved customer tenant.
 
-## Controlled proving ground (when tenant delivery is constrained)
+## Sample test repository or environment (when tenant delivery is constrained)
 Skip this if you brought your own automation target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash

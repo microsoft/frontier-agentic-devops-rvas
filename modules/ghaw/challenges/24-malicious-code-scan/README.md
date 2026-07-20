@@ -6,9 +6,9 @@
 
 ## Background
 
-Supply-chain attacks are subtle: malicious code appears as a normal dependency update or an innocent-looking refactor. By the time a human reviewer notices, it may have already shipped. The Malicious Code Scan runs daily, reviews recent code changes for suspicious patterns, and alerts before anything reaches production.
+Supply-chain attacks can be subtle: malicious code may appear as a normal dependency update or an innocent-looking refactor. The Malicious Code Scan runs daily, reviews recent code changes for suspicious patterns, and opens alerts for human investigation.
 
-This is your automated defence layer against code-injection campaigns, compromised contributors, and dependency poisoning. Sourced from `githubnext/agentics`.
+This is an additional detection signal for code-injection campaigns, compromised contributors, and dependency poisoning. It does not block changes, prevent deployment, or replace review and security controls. Sourced from `githubnext/agentics`.
 
 Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://github.com/githubnext/agentics/blob/main/workflows/daily-malicious-code-scan.md)
 
@@ -99,4 +99,3 @@ Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://g
 → Not in this activity. Issue creation + human review is the right gate here. Auto-revert is a more advanced pattern with revert-commit safe-output — that's an extension.
 
 </details>
-

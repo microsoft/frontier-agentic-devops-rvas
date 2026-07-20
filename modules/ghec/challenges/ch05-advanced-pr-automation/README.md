@@ -15,10 +15,10 @@
 
 - **Customer objective:** remove merge toil while preserving approved quality and ownership controls.
 - **Customer-tenant target:** an approved repository or organisation ruleset, `CODEOWNERS`, PR template, and PR-automation workflows.
-- **Approval and safety boundary:** activate rulesets and bypass settings only with the accountable customer owner’s approval; the seeded repository is a controlled proving ground for proposed policy.
-- **Enduring evidence:** retain the ruleset export, bypass rationale, workflow files, and validation PR history.
+- **Approval and safety boundary:** activate rulesets and bypass settings only with the accountable customer owner’s approval; the seeded repository is a sample test repository for proposed policy.
+- **Records to keep:** retain the ruleset export, bypass rationale, workflow files, and validation PR history.
 - **Adoption owner / handover:** the repository and platform owners accept the automation and the bypass governance.
-- **Accountable next action:** the owner authorises activation in the selected customer repository or records a rollout decision.
+- **Next action and owner:** the owner authorises activation in the selected customer repository or records a rollout decision.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -39,16 +39,16 @@ This delivery engagement establishes:
 A GHEC platform team is drowning in manual merge babysitting: pinging reviewers, re-checking CI, merging PRs by hand at odd hours, and chasing stale branches. You'll replace all of that with policy and automation: rulesets that enforce quality at the org and repo level, auto-merge that ships the moment gates pass, and workflows that label, route, and tidy PRs without a human. The result is a merge pipeline that runs itself — safely.
 
 > [!IMPORTANT]
-> **Bring your own outcome (do this first)**
+> **Use an approved customer target (do this first)**
 >
 > Default to an authorised customer repository where PR automation will remove review toil. Complete the work on **that** artifact and retain the evidence, guardrails, or automation.
 >
 > - **Have a candidate?** Use it everywhere this guide says `ghec-ch05-advanced-pr-automation`. Skip the Setup step below entirely.
 > - **No suitable one?** Use the fallback below: a seeded sample repo with PR automation hooks to build on.
 >
-> Record the selected target, customer adoption owner, and accountable next action. The sample is only a controlled proving ground; move the validated configuration to an approved customer target.
+> Record the selected target, customer adoption owner, and next action and owner. Use the sample only for testing; move the validated configuration to an approved customer target.
 
-## Controlled proving ground (when tenant delivery is constrained)
+## Sample test repository or environment (when tenant delivery is constrained)
 Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash

@@ -1,7 +1,7 @@
 # Ch09 — Audit Log & Streaming — Delivery Assurance Guide
 
 > Audience: delivery assurance leads and authorized customer implementation owners. Pair with the corresponding customer implementation `README.md`.
-> **Customer authorization and rollout boundary:** Apply changes in a customer-owned tenant or repository only after the named customer owner authorizes the scope. A sample or safe fallback is a controlled proving ground, not the destination: record its evidence, risks and controls, accountable owner, handover, and the explicit tenant adoption, cutover, or rollout decision.
+> **Customer authorization and rollout boundary:** Apply changes in a customer-owned tenant or repository only after the named customer owner authorizes the scope. A fallback is a sample test repository or environment, not the destination: record its evidence, risks and controls, accountable owner, handover, and the explicit tenant adoption, cutover, or rollout decision.
 
 
 ## Customer adoption decision
@@ -18,7 +18,7 @@ Use these prompts to verify customer ownership and the next action:
 - What is the single jq/Splunk/Sentinel query you'd write first once the stream is live?
 
 ## Delivery assurance notes
-- **Customer adoption outcome:** the customer implementation owner treats the org audit log as a source of truth — generates a controlled event set, then reconstructs exactly what happened using search syntax and the API, finishing with a repeatable export.
+- **Customer adoption outcome:** the customer implementation owner treats the org audit log as the authoritative record — generates a controlled event set, then reconstructs exactly what happened using search syntax and the API, finishing with a repeatable export.
 - **Implementation risks to verify:**
   - **Audit events are eventually-consistent.** A generated action can take a short while to appear. If a search returns nothing immediately, wait and retry rather than assuming failure.
   - **Search syntax precision.** `action:team.add_repository` is exact; `action:team` is a prefix match. `created:` accepts ranges (`>=2026-06-01`). Customer implementation owners often guess action names — point them at the "audit log events" reference for the canonical list.
@@ -41,6 +41,7 @@ Use these prompts to verify customer ownership and the next action:
 Use these to verify the customer implementation evidence (prefer `gh` CLI / API over manual clicks):
 ```bash
 ORG=<org>
+RUN_DATE=<run-date-in-YYYY-MM-DD>
 
 # Recent events exist and have the expected shape
 gh api /orgs/$ORG/audit-log --jq '.[0] | {action, actor, created_at, repo}'
@@ -49,15 +50,15 @@ gh api /orgs/$ORG/audit-log --jq '.[0] | {action, actor, created_at, repo}'
 gh api -X GET /orgs/$ORG/audit-log -f phrase='action:team.add_repository' \
   --jq '.[] | {actor, created_at, repo}'
 
-# Today's events, counted (adjust date to the run date, ISO YYYY-MM-DD)
-gh api -X GET /orgs/$ORG/audit-log -f phrase='created:>=2026-06-01' --jq 'length'
+# Events from the delivery run date, counted
+gh api -X GET /orgs/$ORG/audit-log -f phrase="created:>=$RUN_DATE" --jq 'length'
 
 # Scope to the target repo
 gh api -X GET /orgs/$ORG/audit-log -f phrase='repo:'"$ORG"'/ghec-ch09-audit-target' \
   --jq '.[] | {action, actor, created_at}'
 
 # Pagination sanity (large slices)
-gh api -X GET /orgs/$ORG/audit-log -f phrase='created:>=2026-06-01' --paginate --jq 'length'
+gh api -X GET /orgs/$ORG/audit-log -f phrase="created:>=$RUN_DATE" --paginate --jq 'length'
 ```
 - The fastest mastery signal is a **phrase query that returns the exact event** the customer implementation owner generated (e.g., `team.add_repository`) with the right actor and repo.
 - For the export, open the committed JSON file and confirm it contains the generated actions — not just that the script ran.
