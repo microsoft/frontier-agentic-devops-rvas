@@ -81,6 +81,8 @@ const OUT_DATA_DIR   = path.join(__dirname, 'assets', 'data');
 const OUT_GUIDES_DIR = path.join(OUT_DATA_DIR, 'challenges');
 const OUT_RESOURCES_DIR = path.join(__dirname, 'resources');
 const OUTCOMES_PATH  = path.join(ROOT, 'outcomes.json');
+const CURRENT_SOURCE_REPO = 'microsoft/frontier-agentic-devops-rvas';
+const CURRENT_SOURCE_REF = process.env.SOURCE_REF || 'main';
 
 /* ─── Minimal YAML parser ────────────────────────────────────────────────────
  * Handles only the locked meta.yml contract: scalar key-value pairs, block
@@ -229,6 +231,21 @@ function normaliseMeta(raw, moduleId, slug) {
 function readDirSafe(p) {
   try { return fs.readdirSync(p, { withFileTypes: true }); }
   catch { return []; }
+}
+
+function relativeSourcePath(file) {
+  return path.relative(ROOT, file).replace(/\\/g, '/');
+}
+
+function validateLocalSourceAttribution(meta, metaPath) {
+  if (meta.source_repo !== CURRENT_SOURCE_REPO) return null;
+
+  const sourcePath = String(meta.source_path || '');
+  const resolved = path.resolve(ROOT, sourcePath);
+  if (!sourcePath || !resolved.startsWith(`${ROOT}${path.sep}`) || !fs.existsSync(resolved)) {
+    return `${relativeSourcePath(metaPath)}: source_path "${sourcePath}" does not resolve in ${CURRENT_SOURCE_REPO}`;
+  }
+  return null;
 }
 
 function rewriteResourceLinksForPages(text, moduleId) {
@@ -407,6 +424,11 @@ function main() {
 
       const raw  = parseMeta(fs.readFileSync(metaPath, 'utf8'));
       const meta = normaliseMeta(raw, moduleId, slug);
+      const sourceAttributionError = validateLocalSourceAttribution(meta, metaPath);
+      if (sourceAttributionError) {
+        console.error(`  ✗ ${sourceAttributionError}`);
+        errors++;
+      }
 
       // Warn on missing recommended fields
       const warnFields = ['description', 'title', 'track', 'difficulty', 'duration_minutes'];
@@ -429,8 +451,8 @@ function main() {
       const hasReadme = copyGuideForPages(path.join(dir, 'README.md'), path.join(guideDir, 'README.md'), moduleId, meta.tier !== 'setup');
       const hasCoach  = copyGuideForPages(path.join(dir, 'COACH.md'),  path.join(guideDir, 'COACH.md'), moduleId);
 
-      if (!hasReadme) { console.warn(`  ! ${meta.id}: no README.md (delivery guide)`); warnings++; }
-      if (!hasCoach)  { console.warn(`  ! ${meta.id}: no COACH.md (coach guide)`);   warnings++; }
+      if (!hasReadme) { console.error(`  ✗ ${meta.id}: no README.md (delivery guide)`); errors++; }
+      if (!hasCoach)  { console.error(`  ✗ ${meta.id}: no COACH.md (coach guide)`);   errors++; }
 
       const trackCfg = (moduleCfg.tracks && moduleCfg.tracks[meta.track]) || {};
 
@@ -456,6 +478,11 @@ function main() {
         references:              meta.references.filter(r => r && r !== 'TODO'),
         source_repo:             meta.source_repo  || '',
         source_path:             meta.source_path  || '',
+        source_ref:              CURRENT_SOURCE_REF,
+        student_source_repo:     CURRENT_SOURCE_REPO,
+        student_source_path:     relativeSourcePath(path.join(dir, 'README.md')),
+        coach_source_repo:       CURRENT_SOURCE_REPO,
+        coach_source_path:       relativeSourcePath(path.join(dir, 'COACH.md')),
         license:                 meta.license,
         student_path:            `assets/data/challenges/${meta.id}/README.md`,
         coach_path:              `assets/data/challenges/${meta.id}/COACH.md`,

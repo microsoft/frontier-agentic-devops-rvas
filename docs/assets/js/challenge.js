@@ -2,11 +2,6 @@
 (function () {
   'use strict';
 
-  // Home-repo slugs (this live consolidated repo); render as plain text without a hyperlink.
-  const SELF_SOURCE_REPOS = new Set([
-    'microsoft/frontier-agentic-devops-rvas',
-  ]);
-
   let _kiosk = null;
 
   /* Internal challenge link that preserves kiosk state when active */
@@ -91,11 +86,9 @@
     // Attribution
     const attr = document.getElementById('attribution');
     if (attr && c.source_repo) {
-      if (SELF_SOURCE_REPOS.has(c.source_repo)) {
-        attr.innerHTML = `Source: ${FP.esc(c.source_repo)} · ${FP.esc(c.license || 'MIT')} License`;
-      } else {
-        attr.innerHTML = `Source: <a href="https://github.com/${FP.esc(c.source_repo)}" target="_blank" rel="noopener">${FP.esc(c.source_repo)}</a> · ${FP.esc(c.license || 'MIT')} License`;
-      }
+      const sourceUrl = FP.githubSourceUrl(c.source_repo, c.source_path, c.source_ref);
+      const sourceLabel = FP.esc(c.source_repo + (c.source_path ? ` / ${c.source_path}` : ''));
+      attr.innerHTML = `Origin: <a href="${sourceUrl}" target="_blank" rel="noopener">${sourceLabel}</a> · ${FP.esc(c.license || 'MIT')} License`;
     }
   }
 
@@ -168,6 +161,24 @@
       tagsList.innerHTML = (c.tags || [])
         .map((t) => `<span class="badge badge-tag">${FP.esc(t)}</span>`)
         .join('') || '<span class="text-dim" style="font-size:0.8rem">No tags</span>';
+    }
+
+    // Exact source files for the two rendered guide views.
+    const sourcePanel = document.getElementById('sourcePanel');
+    const sourceList = document.getElementById('sourceList');
+    if (sourcePanel && sourceList) {
+      const sources = [
+        ['Delivery guide', c.student_source_repo, c.student_source_path],
+        ['Delivery assurance', c.coach_source_repo, c.coach_source_path],
+      ].filter(([, repo, sourcePath]) => repo && sourcePath);
+
+      if (!sources.length) {
+        sourcePanel.style.display = 'none';
+      } else {
+        sourceList.innerHTML = sources.map(([label, repo, sourcePath]) =>
+          `<a href="${FP.githubSourceUrl(repo, sourcePath, c.source_ref)}" target="_blank" rel="noopener" class="attribution" style="display:block;margin-bottom:5px">${FP.esc(label)} ↗</a>`
+        ).join('');
+      }
     }
 
     // References

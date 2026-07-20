@@ -79,6 +79,13 @@
   FP.catalogOutcomeUrl = function (id) {
     return 'catalog.html?outcome=' + encodeURIComponent(id);
   };
+  FP.githubSourceUrl = function (repo, sourcePath, ref) {
+    const base = 'https://github.com/' +
+      String(repo || '').split('/').map(encodeURIComponent).join('/');
+    if (!sourcePath) return base;
+    return base + '/blob/' + encodeURIComponent(ref || 'main') + '/' +
+      String(sourcePath).split('/').map(encodeURIComponent).join('/');
+  };
   FP.outcomeName = function (outcomeId, outcomes) {
     const o = (outcomes || []).find((x) => x.id === outcomeId);
     return o ? o.name : outcomeId;

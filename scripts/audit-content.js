@@ -21,6 +21,7 @@ const CHECK_TERMINOLOGY = process.argv.includes('--terminology');
 const CHECK_REMOVAL = process.argv.includes('--removal');
 const PAGES_HOSTS = new Set(['microsoft.github.io']);
 const PROJECT_SLUG = 'frontier-agentic-devops-rvas';
+const CURRENT_SOURCE_REPO = `microsoft/${PROJECT_SLUG}`;
 
 const state = {
   errors: [],
@@ -264,6 +265,7 @@ function auditGuideSurfaces(challenges) {
       if (titleNeedle && h1 && !titleMatchesHeading(titleNeedle, h1)) {
         addWarning(rel(readmePath), 1, `README title does not include meta title "${c.meta.title}"`);
       }
+
       if (!/^##\s+(Success Criteria|Acceptance Criteria|Verify|Verification)\b/im.test(readme)
         && (!Array.isArray(c.meta.success_criteria) || c.meta.success_criteria.length === 0)) {
         addWarning(rel(readmePath), 0, 'delivery guide has no visible success/verification surface');
@@ -274,6 +276,26 @@ function auditGuideSurfaces(challenges) {
       const coach = readText(coachPath);
       const hasAssessmentSurface = /(grading rubric|rubric|expected (outputs?|outcomes?|solution shape)|strong evidence|how to verify|verification|success check|acceptance checklist|common (gaps|blockers|pitfalls))/i.test(coach);
       if (!hasAssessmentSurface) addWarning(rel(coachPath), 0, 'coach guide lacks an expected-output, verification, or rubric surface');
+    }
+  }
+}
+
+function auditSourceAttribution(challenges) {
+  for (const c of challenges) {
+    const fileRel = rel(c.metaPath);
+    const sourceRepo = String(c.rawMeta.source_repo || '');
+    const sourcePath = String(c.rawMeta.source_path || '');
+
+    if (!/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(sourceRepo)) {
+      addError(fileRel, 0, `source_repo must use owner/repository form: "${sourceRepo}"`);
+      continue;
+    }
+
+    if (sourceRepo !== CURRENT_SOURCE_REPO) continue;
+
+    const resolved = path.resolve(ROOT, sourcePath);
+    if (!sourcePath || !resolved.startsWith(`${ROOT}${path.sep}`) || !fs.existsSync(resolved)) {
+      addError(fileRel, 0, `source_path does not resolve in this repository: "${sourcePath}"`);
     }
   }
 }
@@ -790,6 +812,7 @@ async function main() {
   auditMetaContract(challenges);
   auditPlaceholders(files);
   auditGuideSurfaces(challenges);
+  auditSourceAttribution(challenges);
   auditNumberingGaps(challenges);
   auditCodeFencesAndCommands(files);
   auditLinks(files);
