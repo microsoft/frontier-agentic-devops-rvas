@@ -1,6 +1,6 @@
 # Agentic DevOps
 
-One repo. One GitHub Pages site. Five adoption journeys, four delivery session modules, 64 activities, zero configuration drama.
+One repo. One GitHub Pages site. Five adoption journeys, four delivery session modules, 59 activities, zero configuration drama.
 
 > **Bring your own.** These activities are built to run on **your** tenant — work each one
 > against your own applications, repositories, and data so the result keeps running in
@@ -25,12 +25,12 @@ The site is organized around customer adoption outcomes first, then platform mod
 
 | Module ID | Name | Activities | Tracks |
 |---|---|---|---|
-| `ghec` | GitHub Enterprise Cloud | 27 | Developer Flow, Admin & Governance, Security, Automation & AI, Migration |
+| `ghec` | GitHub Enterprise Cloud | 28 | Developer Flow, Admin & Governance, Security, Automation & AI, Migration |
 | `ghas` | GitHub Advanced Security | 7 | Security |
-| `ghaw` | GitHub Agentic Workflows | 25 | Hello, Agent, Repo Concierge, Continuous Intelligence, Production Patterns |
+| `ghaw` | GitHub Agentic Workflows | 19 | Hello, Agent, Repo Concierge, Continuous Intelligence, Production Patterns |
 | `sre-agent` | SRE Agent | 5 | Azure SRE Agent |
 
-> **Total:** 64 activities across 4 modules.
+> **Total:** 59 activities across 4 modules.
 
 ## Architecture
 

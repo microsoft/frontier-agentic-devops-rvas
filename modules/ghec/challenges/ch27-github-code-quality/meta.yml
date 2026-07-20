@@ -1,0 +1,48 @@
+id: ghec-ch27
+title: GitHub Code Quality: Code Health & Coverage
+module: ghec
+track: security
+difficulty: intermediate
+duration_minutes: 300
+prerequisites: []
+prerequisite_capabilities:
+  - GitHub Team or GitHub Enterprise Cloud organization where GitHub Code Quality is available
+  - Enterprise approval for GitHub Code Quality when the organization belongs to an enterprise
+  - Organization owner or repository administrator authorization for the selected customer repository
+  - GitHub Actions enabled for the repository
+  - A repository with a supported Code Quality language and a test suite that can produce Cobertura XML coverage
+  - GitHub CLI (gh >= 2.x) installed
+  - git installed
+  - jq installed
+description: "Implement GitHub Code Quality on an authorized customer repository: enable Code Health analysis, upload CI coverage, triage pull-request findings, govern thresholds, and prepare an evidence-based organization rollout."
+success_criteria:
+  - GitHub Code Quality is enabled on the authorized customer repository with the selected languages and runner configuration recorded.
+  - The delivery team recorded the initial maintainability and reliability scores and reviewed the Standard findings backlog in Security and quality.
+  - A GitHub Actions workflow produces a Cobertura XML report and uploads it with the least-privilege code-quality write permission on the default branch and on pull requests.
+  - A pull request shows Code Quality coverage feedback, including the branch comparison and per-file coverage change where applicable.
+  - A rules-based Code Quality finding is fixed or dismissed with documented rationale; any Autofix suggestion is reviewed before commit.
+  - The customer recorded which Code Quality severity threshold, if any, should block merges and demonstrated or documented the resulting merge decision.
+  - An organization owner has an approved pilot cohort, accountable owners, rollout or rollback criteria, and an evidence-based next action for native Code Quality organization targeting.
+tags:
+  - github-code-quality
+  - code-health
+  - maintainability
+  - reliability
+  - code-coverage
+  - pull-requests
+  - codeql
+app_dependency: none
+emu_compatible: true
+min_environment: org
+provision_creates: []
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/ch27-github-code-quality/meta.yml
+license: MIT
+references:
+  - https://docs.github.com/en/code-security/concepts/about-code-quality
+  - https://docs.github.com/en/code-security/how-tos/maintain-quality-code/enable-code-quality
+  - https://docs.github.com/en/code-security/how-tos/maintain-quality-code/set-up-code-coverage
+  - https://docs.github.com/en/code-security/how-tos/maintain-quality-code/interpret-results
+  - https://docs.github.com/en/code-security/tutorials/improve-code-quality/catch-issues-before-merge
+  - https://docs.github.com/en/code-security/reference/code-quality/metrics-and-ratings
