@@ -101,6 +101,15 @@ What setup creates (all artifacts namespaced `ghec-ch19-*`, idempotent, prefix-g
 ### Part F — Reflect (write-up)
 15. Capture the operating boundary. In `docs/AGENT-NOTES.md`, record what the agent did well, where human review was essential, and which issue types are approved for delegation.
 
+### Part G — Governance controls contributed
+
+Use the existing governance register. Inspect the effective inherited setting, use
+`approved pilot` only for a customer-authorized live control (otherwise
+`inspect-and-propose`), and attach objective evidence. See
+`modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`.
+
+- `COP-CLOUD-AGENT`: Copilot cloud-agent policy, repository eligibility, issue boundary, and review gates. Not applicable for EMU-owned repositories.
+
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
 - [ ] You confirmed the Copilot cloud agent is enabled and the repo is eligible (non-EMU).
@@ -109,6 +118,7 @@ You are done when ALL of the following are true:
 - [ ] You steered the agent with at least one review comment and it pushed new commits in response.
 - [ ] The failing test is green in the PR and the PR was approved and merged to `main`.
 - [ ] `AGENT-NOTES.md` records where the agent fits and where human review remains essential.
+- [ ] The existing governance register records `COP-CLOUD-AGENT` with policy/eligibility and review evidence, or marks it not applicable for an EMU-owned repository.
 - [ ] Real-outcome check — if you brought your own repo issue, the Copilot coding agent now has a real candidate task and review gate; if you used the sample, you can name the issue class you will try next.
 - [ ] Adoption handover — record the customer Copilot and repository owners, approved issue class, review gate, and next action.
 

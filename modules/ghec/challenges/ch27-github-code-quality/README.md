@@ -97,15 +97,13 @@ permissions:
 19. At the organization level, use Code Quality's native repository access targeting to select a small authorized pilot cohort. Do not substitute a generic repository ruleset for product enablement.
 20. Record the pilot cohort, repository owners, cost/license review, expected baseline date, success measures, opt-out or rollback criteria, and decision date.
 
-### Part F - Governance register: Code Quality rollout & quality gates
+### Part F - Control-catalogue evidence
 
-Capture Code Quality governance in the register.
+Use `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md` for control
+terminology; do not copy catalogue rows into this guide. Contribute to the
+existing customer register:
 
-1. **Inspect Code Quality configuration and baseline.** In the selected repository Settings → Security → Code quality, confirm the feature is enabled and review the detected languages and runner configuration. From the Standard findings page, pull the baseline scores (maintainability, reliability) and alert count by severity, accounting for generated code and test-code filters. Record the effective level (`repo` for pilot, `org` for rollout decision), implementation path (`approved pilot`), and engineering/platform owner name.
-
-2. **Document Code Health baseline, coverage upload, and gate decision.** Record: initial maintainability and reliability scores, Code Quality findings count by severity, coverage % from CI (if any), and the approved merge-gate threshold (e.g., "Error severity blocks merge; Warning is informational") or, if no gate, the review cadence (e.g., "weekly triage by tech lead"). Note the distinction from security code scanning (Ch12) — Code Quality assesses code health/maintainability, not vulnerabilities.
-
-3. **Add governance-register row.** Add one row: **Code Quality baseline & merge gates** (domain: `security`/`development`, effective level: `repo`/`org`, implementation path: `approved pilot`, evidence: baseline scores export + coverage upload proof + PR gate configuration + before/after quality metrics from test PR, accountable owner: tech lead/platform team, pilot cohort: listed repos, decision date: provided). Record rollout decision (approve pilot cohort expansion, hold for additional repos, or schedule quarterly review) and leave Next Decision blank pending org rollout approval.
+- `QLT-CODE-QUALITY-GATES` — inspect Code Quality availability and the effective threshold or review-cadence setting → record `approved pilot` → attach baseline scores, coverage-upload proof, PR-gate result, and pilot decision as objective evidence.
 
 ## Validation / Definition of Done
 
@@ -118,6 +116,7 @@ You are done when ALL of the following are true:
 - [ ] A rules-based Code Quality finding was fixed or dismissed with a reviewable decision; any Autofix was reviewed before commit.
 - [ ] The customer decided and evidenced whether a native Code Quality severity threshold blocks merges.
 - [ ] An organization pilot proposal identifies the selected cohort, owners, measures, licensing/cost review, and rollout or rollback decision.
+- [ ] The existing customer register contains `QLT-CODE-QUALITY-GATES` with the inspected effective setting, `approved pilot` status, and the required objective evidence.
 - [ ] Adoption handover: the customer repository owner, platform owner, triage cadence, and next authorized action are recorded.
 
 ## Operational extensions

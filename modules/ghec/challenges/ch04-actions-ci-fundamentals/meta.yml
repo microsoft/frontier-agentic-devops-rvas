@@ -20,7 +20,7 @@ success_criteria:
 - A second job uses **`needs`** and a **conditional** so it only runs on `main`.
 - An **environment** `staging` exists with a protection rule and a variable + secret wired into a job.
 - The **`build-test` check is required** on `main`; a red run **blocks merge**, a green run unblocks it.
-- '**Governance register updated:** Added Actions policy, token/fork posture, and artifact/log-retention rows with effective level, implementation path, owner, and CI compatibility evidence.'
+- '**Governance register updated:** Added Actions enablement/policy, token/fork posture, and artifact/log-retention rows with effective level, implementation path, owner, and CI compatibility evidence; retained the approved `docs/actions-governance-decision.md` choice.'
 - Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - github-actions

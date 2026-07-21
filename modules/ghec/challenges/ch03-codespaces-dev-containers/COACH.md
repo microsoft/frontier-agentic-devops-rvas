@@ -13,4 +13,6 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 - Prebuild-aware setup belongs in `onCreateCommand` or `updateContentCommand`; do not accept dependency installation only in `postCreateCommand`.
 - Confirm the recorded trigger, regions, retained versions, and freshness behavior match the customer team's cost and dependency-freshness needs.
-- Inspect the successful prebuild workflow and a new **Prebuild ready** Codespace, then confirm both development rows are recorded in the governance register.
+- Inspect the successful prebuild workflow and a new **Prebuild ready**
+  Codespace, then confirm `CSP-DEVCONTAINER` and `CSP-PREBUILDS` are recorded
+  in the governance register with effective-setting evidence.

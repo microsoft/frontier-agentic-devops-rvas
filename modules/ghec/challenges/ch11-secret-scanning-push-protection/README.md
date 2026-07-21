@@ -111,15 +111,14 @@ What setup creates (all artifacts namespaced `ghec-ch11-*`, idempotent, prefix-g
     ```
 14. Write a one-paragraph triage summary (drop it in an issue on the repo): how many secrets were found, how each was resolved, that push protection blocked a fresh secret, and who bypassed it and why. This is the artifact a real security review would ask for.
 
-### Part F — Governance register: Secret scanning & push protection
+### Part F — Control-catalogue evidence
 
-Capture secret-scanning governance in the register.
+Use `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md` for control
+terminology; do not copy catalogue rows into this guide. Contribute to the
+existing customer register:
 
-1. **Inspect secret-scanning, push-protection, and custom-pattern rollout scope.** Check the repo Settings → Code security: confirm Secret scanning and Push protection are both Enabled. List any custom patterns created: `gh api /orgs/<org>/secret-scanning/custom-patterns --jq '.patterns[] | {name, pattern: .regex}'`. Record the effective level (`repo` for standard patterns; `org` for custom patterns), implementation path (`approved pilot`), and security owner name.
-
-2. **Document alert triage and bypass governance.** In the triage summary (issue on `ghec-ch11-juice-shop`), record: alert count per type (AWS, GitHub token, custom pattern), resolution method per alert (revoked/used-in-tests/false-positive), and the bypass audit from Part E (who bypassed, why, secret type). Document the bypass policy: under what conditions is a developer allowed to use the bypass flow, and who reviews bypasses?
-
-3. **Add governance-register rows.** Add two rows: (i) **Secret scanning & push protection** (domain: `security`, effective level: `repo`, implementation path: `approved pilot`, evidence: settings screenshot + alert triage summary in issue), (ii) **Custom secret-scanning patterns** (domain: `security`, effective level: `org`, implementation path: `approved pilot` if patterns exist, evidence: pattern list + test-detection proof). Identify owner (security/SecOps team) and leave Next Decision blank pending org review of custom patterns and bypass policy.
+- `SEC-SECRET-SCANNING` — inspect the effective repository secret-scanning setting → record `approved pilot` → attach the settings API response, alert-triage issue, and custom-pattern test as objective evidence.
+- `SEC-PUSH-PROTECTION` — inspect the effective repository push-protection setting → record `approved pilot` → attach the settings API response and bypass audit as objective evidence.
 
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
@@ -130,6 +129,7 @@ You are done when ALL of the following are true:
 - [ ] At least one push-protection bypass exists with a recorded actor and reason (verifiable via the alerts API).
 - [ ] A custom secret-scanning pattern is published and raised at least one alert.
 - [ ] A triage summary issue exists on the repo.
+- [ ] The existing customer register contains `SEC-SECRET-SCANNING` and `SEC-PUSH-PROTECTION` with the inspected effective settings, `approved pilot` status, and the required objective evidence.
 - [ ] Real-outcome check — if you brought your own repo, scanning + push protection are now enabled on a project you actually own; if you used the sample, you can name the real repo you'll roll this out to next.
 - [ ] Adoption handover — record the customer security owner, push-protection rollout risk, affected workflow, and next approved action.
 

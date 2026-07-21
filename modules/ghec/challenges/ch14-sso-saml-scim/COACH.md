@@ -12,6 +12,6 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 ## Session-specific reviewer focus
 
 - Customer adoption outcome: the customer implementation owner wires a real IdP to GitHub org via SAML, proves the SCIM join/leave lifecycle, audits identity links, and demonstrates SSO-enforced access control.
-- **Governance register row:** Confirm one register row added for SSO / SAML enforcement (linked IdP with attribute mappings, SCIM provisioning configured, IdP test connectivity). Row uses `inspect-and-propose` status (enterprise feature, not org-scoped deployment) with links to SAML config export and IdP team contacts.
+- **Governance controls:** Confirm `ENT-IDENTITY-MODEL`, conditional `ENT-EMU-LIFECYCLE`, and applicable `ORG-SAML-SCIM` in the existing register with objective identity-lifecycle evidence.
 - Implementation risks to verify: ask "what happens to an API token the moment SAML is enforced?" (→ must authorize for SSO or token becomes invalid) and "how does HR disabling someone reach GitHub?" (→ SCIM deprovisioning removes org membership).
 - Delivery lead prompts: ask "what's the rollback plan if the IdP breaks?" (→ org owner override path, testing in non-prod first).

@@ -101,15 +101,16 @@ What setup creates (all artifacts namespaced `ghec-ch08-*`, idempotent, prefix-g
 14. Demonstrate enforcement: open a PR on `ghec-ch08-prod-payments` and show it cannot merge without 2 approvals + the `build` check + signed commits. Open a PR on `ghec-ch08-sandbox` (compliance `low`) and show it is not gated by the org ruleset.
 15. Document the model: write `GOVERNANCE.md` in `ghec-ch08-internal-tools` describing the property schema, which repos carry which values, the org ruleset's property target, and the repo-level overlay.
 
-### Part F — Governance register: Custom properties & rulesets
+### Part F — Governance controls contributed
 
-Capture the metadata-driven governance model in the register.
+Use the existing governance register. Inspect the effective inherited setting, use
+`approved pilot` only for a customer-authorized live control (otherwise
+`inspect-and-propose`), and attach objective evidence. See
+`modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`.
 
-1. **Inspect property schema and ruleset targeting.** Pull the org's custom-properties schema: `gh api /orgs/<org>/properties/schema --jq '.[].property_name'`. For each property, pull the values set across repos: `gh api /orgs/<org>/properties/values --jq '.repository_properties'`. Verify that the org ruleset targets repos by property condition (not name pattern). Record the effective level (`org`), implementation path (`approved pilot`), and governance owner name.
-
-2. **Document bypass rationale & enforcement.** List every bypass actor on the org ruleset (who can skip the rules and why) and any repository-ruleset overrides (e.g., higher approval count on production repos). For each, note the risk accepted and the compensating control (e.g., "admins can bypass, compensated by audit log review").
-
-3. **Add governance-register rows.** Add three rows: (i) **Custom repository properties** (domain: `repo-governance`, effective level: `org`, implementation path: `approved pilot`, evidence: schema export + property-values export + `GOVERNANCE.md`), (ii) **Organization rulesets (property-targeted)** (domain: `repo-governance`, effective level: `org`, implementation path: `approved pilot`, evidence: ruleset export + PR enforcement proof + bypass audit), (iii) **Repository-layered rulesets** (domain: `repo-governance`, effective level: `repo`, implementation path: `approved pilot`, evidence: ruleset listing + PR showing stricter enforcement on a high-compliance repo). Identify owner (governance team) and leave Next Decision blank.
+- `REP-PROPERTY-SCHEMA`: property schema and assigned values.
+- `REP-ORG-RULESETS`: property-targeted organization rulesets, enforcement, and bypasses.
+- `REP-REPO-RULESETS`: repository ruleset overlays.
 
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
@@ -119,7 +120,7 @@ You are done when ALL of the following are true:
 - [ ] The org ruleset governs both `high`-compliance repos (proven by a rejected direct push on the second repo).
 - [ ] A repository ruleset on one prod repo layers a stricter rule (e.g., 2 approvals) on top of the org ruleset.
 - [ ] A `GOVERNANCE.md` documents the schema, values, and ruleset targeting.
-- [ ] **Governance register updated:** Added rows for custom repository properties (schema, property values set on repos) and organization rulesets (property-targeted rules, enforcement, bypass logs) with API snapshot links to `/orgs/<org>/properties/schema`, `/orgs/<org>/properties/values`, and `/orgs/<org>/rulesets`.
+- [ ] **Governance register updated:** `REP-PROPERTY-SCHEMA`, `REP-ORG-RULESETS`, and `REP-REPO-RULESETS` include effective-setting evidence and the selected path.
 - [ ] Real-outcome check — if you brought your own repo set, rulesets and properties now protect production or compliance-sensitive work; if you used the sample, you can name the real repo group you will target next.
 - [ ] Adoption handover — record the customer governance owner, priority repository risk, proposed property/ruleset control, and next approved action.
 

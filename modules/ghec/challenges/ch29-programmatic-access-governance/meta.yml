@@ -1,0 +1,43 @@
+id: ghec-ch29
+title: Programmatic Access Governance
+module: ghec
+track: admin-governance
+difficulty: advanced
+duration_minutes: 180
+prerequisites: []
+prerequisite_capabilities:
+  - GitHub Enterprise Cloud organization with organization-owner access for inspection
+  - GitHub CLI (gh >= 2.x) and jq installed for optional read-only API evidence
+  - Enterprise owner or authorized enterprise PAT-policy export when enterprise PAT policy is in scope
+description: "Govern customer programmatic access with an evidence-backed inventory and policy decision for OAuth Apps, installed GitHub Apps, fine-grained PATs, and classic PATs. Establish effective policy source, accountable ownership, migration or exception plan, and review cadence without provisioning an App or changing production controls by default."
+success_criteria:
+  - A customer-owned inventory covers OAuth Apps, installed GitHub Apps, fine-grained PATs, and classic PATs with owners, purpose, access reach, permissions/scopes, status, and evidence.
+  - Effective organization, enterprise/inherited, or unavailable policy source is recorded for each relevant control.
+  - Third-party access, installed-App, PAT-policy, active-token, and pending-request surfaces are inspected, with audit or read-only API evidence where available.
+  - Each installed GitHub App has an installation-authority decision, scope assessment, accountable owner, and recurring review cadence.
+  - OAuth first-enable disruption is distinguished from GitHub App review; fine-grained PAT approval/lifetime is distinguished from classic-PAT restriction and migration.
+  - The customer completes the inventory plus an authorized non-production fine-grained-PAT approval pilot or an inspect-and-propose package.
+  - The existing customer register records INT-OAUTH-RESTRICTIONS, INT-APP-REVIEW, INT-FINE-GRAINED-PATS, and INT-CLASSIC-PATS with evidence, owner, selected path, and review date.
+tags:
+  - governance
+  - programmatic-access
+  - oauth-apps
+  - github-apps
+  - fine-grained-pats
+  - classic-pats
+app_dependency: none
+emu_compatible: true
+min_environment: org
+provision_creates: []
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/ch29-programmatic-access-governance/meta.yml
+license: MIT
+references:
+  - https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-oauth-access-to-your-organizations-data/about-oauth-app-access-restrictions
+  - https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-programmatic-access-to-your-organization/reviewing-github-apps-installed-in-your-organization
+  - https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-programmatic-access-to-your-organization/limiting-oauth-app-and-github-app-access-requests-and-installations
+  - https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-programmatic-access-to-your-organization/setting-a-personal-access-token-policy-for-your-organization
+  - https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/enforcing-policies-for-personal-access-tokens-in-your-enterprise
+  - https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-programmatic-access-to-your-organization/managing-requests-for-personal-access-tokens-in-your-organization
+  - https://docs.github.com/en/enterprise-cloud@latest/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens

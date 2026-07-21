@@ -22,7 +22,7 @@ success_criteria:
 - '`docs/prebuild-decision.md` records the branch/configuration, trigger, regions, retained versions, failure-notification owner, freshness behavior, and customer-specific cost/freshness rationale.'
 - A **prebuild** is configured, its workflow succeeds, and a new Codespace reports **Prebuild ready** with dependencies already installed.
 - All your Codespaces are **stopped/deleted** at the end.
-- '**Governance register updated:** Added rows for development (dev-container standardization and prebuild strategy) with links to `devcontainer.json`, `docs/prebuild-decision.md`, and org Codespaces policy.'
+- '**Governance register updated:** Added `CSP-ENABLEMENT`, `CSP-DEVCONTAINER`, and `CSP-PREBUILDS` with links to `devcontainer.json`, `docs/prebuild-decision.md`, and org Codespaces policy.'
 - Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - codespaces

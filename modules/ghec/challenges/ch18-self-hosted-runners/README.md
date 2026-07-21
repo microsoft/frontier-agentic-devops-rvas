@@ -97,15 +97,20 @@ What setup creates (all artifacts namespaced `ghec-ch18-*`, idempotent, prefix-g
 ### Part F — Enterprise awareness (read + write-up)
 15. Map org → enterprise. In `docs/RUNNER-CHOICES.md`, add a short note: how an org runner group differs from an enterprise runner group (enterprise groups span multiple orgs; require enterprise-owner), and when you'd reach for each. No enterprise actions required.
 
-### Part G — Governance register: Self-hosted runner policy & lifecycle
+### Part G — Governance controls contributed
 
-Capture runner governance with detail appropriate for platform / operations ownership.
+Use the existing governance register. Inspect the effective inherited setting, use
+`approved pilot` only for a customer-authorized live control (otherwise
+`inspect-and-propose`), and attach objective evidence. See
+`modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`.
+If an enterprise runner policy is not visible to the org owner, record
+`proposed` or `not applicable`, the named enterprise owner/export request, and
+the reason; complete the org runner-group and host-hardening work normally.
 
-1. **Inspect runner group, repository access, and labels.** Pull the org runner group: `gh api orgs/<org>/actions/runner-groups --jq '.runner_groups[] | {name, selected_repositories_url, allows_public_repositories}'`. List runners: `gh api orgs/<org>/actions/runners --jq '.runners[] | {id, name, status, labels: [.labels[].name], runner_group_id}'`. Confirm the group is scoped to only approved repos, fork-PR execution on self-hosted is restricted (repo/org Settings → Actions), and custom labels route jobs correctly. Record the effective level (`org`), implementation path (`approved pilot`), and platform/ops owner name.
-
-2. **Document runner host hardening and fork-PR boundary.** Summarize in `HARDENING.md` and `RUNNER-CHOICES.md`: service account privilege level (non-admin), ephemeral-runner configuration (just-in-time registration per job to defeat job-to-job cross-contamination), network egress constraints (list of required destinations + firewall rules), and the fork-PR risk mitigation (why untrusted fork code cannot run on self-hosted without explicit approval, and what approval process exists). Include the runner decision matrix (GitHub-hosted vs larger runners vs self-hosted — cost, isolation, latency, hardware, maintenance) and the org/enterprise runner-group distinction.
-
-3. **Add governance-register rows.** Add two rows: (i) **Self-hosted runner groups & access** (domain: `workflow`, effective level: `org`, implementation path: `approved pilot`, evidence: runner group export + repo scope confirmation + label routing proof), (ii) **Runner host hardening & lifecycle** (domain: `workflow`, effective level: `org`/`host`, implementation path: `approved pilot`, evidence: host account documentation + ephemeral configuration + `HARDENING.md` + fork-PR restriction proof + egress list + `RUNNER-CHOICES.md` decision matrix). Identify owner (platform/ops team) and leave Next Decision blank pending rollout approval and host-operations handover.
+- `RUN-RUNNER-GROUPS`: runner-group repository scope, labels, and routing.
+- `RUN-HOST-HARDENING`: host privilege, ephemeral lifecycle, egress, and fork-PR boundary.
+- `RUN-REPOSITORY-RUNNERS`: inspect the effective enterprise policy and record runner-group compatibility and its owner.
+- `RUN-HOSTED-RUNNERS`: inspect the effective enterprise policy and record hosted-runner/host-hardening compatibility and its owner. An enterprise change is an inspect-and-propose proposal unless authorized.
 
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
@@ -115,6 +120,7 @@ You are done when ALL of the following are true:
 - [ ] A mis-labeled job stays queued, proving label routing.
 - [ ] The runner runs under a least-privilege account and you demonstrated an ephemeral registration.
 - [ ] You documented the fork-PR risk and a GitHub-hosted vs larger vs self-hosted decision matrix, plus the org-vs-enterprise runner group note.
+- [ ] The existing governance register records `RUN-RUNNER-GROUPS`, `RUN-HOST-HARDENING`, `RUN-REPOSITORY-RUNNERS`, and `RUN-HOSTED-RUNNERS` with effective-setting or authorized-unavailable evidence, compatibility, owner, and selected-path evidence; any unauthorized enterprise change is a proposal.
 - [ ] Real-outcome check — if you brought your own runner target, a real CI job now has a clearer self-hosted-runner path; if you used the sample, you can name the constrained job you will move next.
 - [ ] Adoption handover — record the customer platform owner, constrained job, host risk decision, and next approved runner action.
 

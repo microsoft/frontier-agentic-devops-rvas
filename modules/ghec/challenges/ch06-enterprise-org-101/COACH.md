@@ -11,7 +11,8 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- **Governance register:** Confirm the customer team initialized the register from the template (docs/GOVERNANCE-SETTINGS-REGISTER.md or equivalent). Verify rows for all settings from Parts A–E; Evidence column links real artifacts (policy doc, API snapshots, screenshots).
+- **Governance register:** Confirm the customer team initialized the register from the template and catalogue (`docs/GOVERNANCE-SETTINGS-REGISTER.md` or equivalent). Verify applicable `ORG-*`, `REP-*`, and `ACT-*` rows for Parts A–E have a Control ID, effective source level, Delivery Status, and real evidence.
 - **API verification:** Every setting in the Definition of Done must be verifiable via `gh api /orgs/<org> --jq ...` command, not UI screenshots. Spot-check 3–5 settings; re-run the jq filter yourself.
 - **Customer-owned baseline:** Confirm `POLICY.md` or equivalent is stored in a customer-owned location (real repo, not sample). Rationale one-liners must be specific to customer risk posture, not generic ("reduces attack surface" → "blocks external fork-to-public per security team request").
 - **Scope clarity:** If using sample repos, confirm handover plan states the org and timeline to move validated settings to customer production org. If using real org, confirm org owner approved the baseline and assigned ongoing ownership.
+- **Default branch:** Confirm `REP-DEFAULT-BRANCH` identifies the effective enterprise/org policy and records the migration/tooling exception or inspect-and-propose owner.

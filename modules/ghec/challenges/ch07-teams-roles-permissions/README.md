@@ -98,19 +98,19 @@ What setup creates (all artifacts namespaced `ghec-ch07-*`, idempotent, prefix-g
 14. Produce an access matrix: for each repo, list which teams have which role, pulled from the API. Save it as `ACCESS.md` in `ghec-ch07-platform`.
 15. Diff against the "before" snapshot from setup to prove the org went from flat to modeled.
 
-### Part F — Governance register: Team hierarchy & repository roles
+### Part F — Governance controls contributed
 
-Capture the team-based access decisions as a repeatable, auditable model for the org.
+Use the existing governance register. Inspect the effective inherited setting, use
+`approved pilot` only for a customer-authorized live control (otherwise
+`inspect-and-propose`), and attach objective evidence. See
+`modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`.
 
-1. **Inspect team hierarchy and role assignments.** From the API, pull the current org teams and their nested structure: `gh api /orgs/<org>/teams?nested=true --jq '.[] | {name, parent: .parent.name, repos: .repositories_url}'`. List each team's repository grants (role per repo). Verify that the parent team's grants flow down to children (inheritance). Record the effective level (`org`), implementation path (`approved pilot` — team-based access is live), and customer owner name.
-
-2. **Record role decision rationale.** For each squad, document why it holds the chosen predefined role (Read/Triage/Write/Maintain/Admin) on its assigned repos in a one-sentence rationale (e.g., "Backend squad gets Write on backend repo only to own CI and merge decisions; Read everywhere else for visibility"). For the custom role, record which permissions were removed and why (e.g., "contractor role: Write + Triage minus webhook and deploy-key management to block unauthorized integrations").
-
-3. **Add governance-register rows.** Add two rows to the register: (i) **Org teams and hierarchy** (domain: `org-teams`, effective level: `org`, implementation path: `approved pilot`, evidence: API dump showing team structure + `ACCESS.md` matrix), (ii) **Custom repository roles** (domain: `repo-policy`, effective level: `org`, implementation path: `approved pilot`, evidence: API response listing the custom role + assignment proof on a team/repo pair). Identify the accountable owner (usually the org owner or access manager) and leave Next Decision blank.
+- `ORG-TEAM-ACCESS`: team hierarchy, inherited repository access, and the access matrix.
+- `ORG-CUSTOM-ROLES`: custom repository-role definition and assignment.
 
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
-- [ ] **Governance register updated:** Added rows for org-teams (hierarchy, inheritance) and custom-roles with links to API snapshots and your `ACCESS.md` matrix.
+- [ ] **Governance register updated:** `ORG-TEAM-ACCESS` and `ORG-CUSTOM-ROLES` record the effective settings, selected path, and API/access-matrix evidence.
 - [ ] A parent team has two child teams, confirmed nested via the API (`.parent.name` is non-null).
 - [ ] The parent grants `Read` on all three repos and that access inherits to the children (verifiable on a child team's repo permissions).
 - [ ] Each squad has `Write` on its own repo only; neither has Write on `ghec-ch07-platform`.

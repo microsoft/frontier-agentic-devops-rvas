@@ -101,15 +101,19 @@ What setup creates (all artifacts namespaced `ghec-ch09-*`, idempotent, prefix-g
 16. Run it and confirm the output contains your generated events. This is the org-owner equivalent of "streaming" — a repeatable pull you could schedule.
 17. Write `FINDINGS.md`: for three investigative questions (who added the team? who changed the ruleset? what happened today?), record the exact filter used and the answer.
 
-### Part F — Governance register: Audit log retention & export
+### Part F — Governance controls contributed
 
-Capture the audit-log evidence path and retention in the register.
+Use the existing governance register. Inspect the effective inherited setting, use
+`approved pilot` only for a customer-authorized live control (otherwise
+`inspect-and-propose`), and attach objective evidence. See
+`modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`.
+If enterprise streaming or IP-display settings are not visible to the org
+owner, record `proposed` or `not applicable`, the named enterprise owner/export
+request, and the reason; complete the organization export work normally.
 
-1. **Inspect audit-event scope and retention.** Check Org Settings → Audit log → Retention. Document the retention period (days kept) and which event namespaces are captured by default (`org.*`, `repo.*`, `team.*`, `protected_branch.*`, `repository_ruleset.*` — all enabled by default). Record the effective level (`org`), implementation path (`approved pilot`), and audit owner name.
-
-2. **Document export strategy and schedule.** The org audit log is accessible at org scope (export script pulls from `/orgs/<org>/audit-log`). Record the export script path (`export-audit.sh` or `.ps1`), the time-bound query filters it uses, and how often a customer team would run it (e.g., weekly to Splunk, daily internal exports). Note that enterprise-level audit-log *streaming* (webhook auto-delivery) is a separate, enterprise-scoped feature — mark as `inspect-and-propose` awareness for your scenario.
-
-3. **Add governance-register rows.** Add two rows: (i) **Audit log retention & export** (domain: `audit`, effective level: `org`, implementation path: `approved pilot`, evidence: retention screenshot + export script + `FINDINGS.md` with three investigative queries and answers), (ii) **Enterprise audit-log streaming** (domain: `audit`, effective level: `enterprise`, implementation path: `inspect-and-propose` — this requires enterprise owner, document as future consideration). Identify owner (security/compliance team) and leave Next Decision blank.
+- `AUD-LOG-EXPORT`: organization audit-log retention and repeatable export.
+- `AUD-LOG-STREAMING`: distinguish the existing organization export work from the enterprise streaming decision; record the destination, retention, and owner evidence.
+- `AUD-IP-DISPLAY`: inspect the enterprise IP-address-display decision and retain the privacy and investigation rationale.
 
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
@@ -119,6 +123,7 @@ You are done when ALL of the following are true:
 - [ ] A combined, time-bounded API query returns a sensible count for today's events.
 - [ ] An export script committed to the repo pulls a time-bounded slice to JSON and the output contains your events.
 - [ ] A `FINDINGS.md` answers three investigative questions with the exact filter used.
+- [ ] The existing governance register distinguishes `AUD-LOG-EXPORT` from `AUD-LOG-STREAMING` and `AUD-IP-DISPLAY`, with enterprise evidence or an authorized-unavailable record, destination/retention, privacy, and owner evidence.
 - [ ] Real-outcome check — if you brought your own audit target, you now have real filters, evidence, or export scripts for an investigation you care about; if you used the sample, you can name the audit question you will answer next.
 - [ ] Adoption handover — record the customer operations owner, first alert or anomaly query, evidence-retention path, and next approved action.
 

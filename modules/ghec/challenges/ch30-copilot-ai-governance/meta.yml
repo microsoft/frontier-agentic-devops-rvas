@@ -1,0 +1,45 @@
+id: ghec-ch30
+title: Copilot & AI Governance
+module: ghec
+track: admin-governance
+difficulty: advanced
+duration_minutes: 240
+prerequisites: []
+prerequisite_capabilities:
+  - Enterprise owner, AI manager, or an authorized Enterprise AI Controls export
+  - Copilot Business or Copilot Enterprise availability to inspect
+  - Named enterprise AI-controls, identity, security/privacy, third-party-risk, and organization-policy owners
+  - Customer-owned governance settings register and non-secret evidence location
+description: "Create an enterprise or organization Copilot and AI-control decision package covering policy inheritance, seat lifecycle, code/data exposure, third-party agents, MCP boundaries, and conditional agentic-activity monitoring."
+success_criteria:
+  - Copilot Business or Enterprise availability, authorized scope, and the Enterprise AI Controls or organization-policy evidence source were recorded.
+  - The effective enterprise and organization policy, inheritance source, delegated choices, named owners, and review cadence were recorded for all seven assigned controls.
+  - The customer documented the immediate removal achieved by enterprise-team removal and the billing-cycle delay for organization-level Copilot license revocation.
+  - Public-code matching and GitHub.com feature/data-feedback posture were separately decided with privacy, security, and IP/licensing rationale.
+  - Third-party coding-agent policy and agent-app installation governance were assessed as separate decision surfaces.
+  - MCP policy, registry, repository configurations, tool/data scope, and third-party-host boundaries were inventoried or explicitly prohibited without enabling a server.
+  - Agentic activity streaming was assessed as a conditional public-preview watch decision for eligible EMU or data-residency enterprises, not a mandatory pilot.
+  - The existing customer governance register contains `COP-SEAT-MANAGEMENT`, `COP-POLICY-DELEGATION`, `COP-PUBLIC-CODE-MATCHING`, `COP-GITHUB-COM`, `COP-THIRD-PARTY-AGENTS`, `COP-MCP-SERVERS`, and `COP-AGENTIC-STREAMING` with evidence, owner, cadence, exception/rollback, and next decision.
+tags:
+  - copilot
+  - ai-governance
+  - enterprise-policy
+  - access-governance
+  - mcp
+  - agent-governance
+  - compliance
+app_dependency: none
+emu_compatible: true
+min_environment: enterprise
+provision_creates: []
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/ch30-copilot-ai-governance/meta.yml
+license: MIT
+references:
+  - https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/administer-copilot/manage-for-organization/manage-policies
+  - https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/administer-copilot/manage-for-organization/manage-access
+  - https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-enterprise-policies
+  - https://docs.github.com/en/enterprise-cloud@latest/copilot/concepts/agents/agent-apps
+  - https://docs.github.com/en/enterprise-cloud@latest/copilot/concepts/agents/cloud-agent/mcp-and-cloud-agent
+  - https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-agents/monitor-agentic-activity

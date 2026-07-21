@@ -114,15 +114,15 @@ What setup creates (all artifacts namespaced `ghec-ch13-*`, idempotent, prefix-g
 12. Open the seeded risky PR. Create a PR from `feature/add-risky-dep` into `main`. The dependency-review check should flag the vulnerable dependency on the PR.
 13. Make it a required check. Mark the dependency-review check as required on `main` and confirm the risky PR is blocked until the dependency is removed or the alert is otherwise resolved.
 
-### Part F — Governance register: Dependabot & dependency review
+### Part F — Control-catalogue evidence
 
-Capture dependency-security governance in the register.
+Use `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md` for control
+terminology; do not copy catalogue rows into this guide. Contribute to the
+existing customer register:
 
-1. **Inspect Dependabot and dependency-review configuration.** Check the repo Settings → Code security: confirm Dependabot alerts and Dependabot security updates are Enabled. List the `dependabot.yml` configuration (ecosystem, schedule, grouping, auto-merge policy if any): `gh api repos/<org>/ghec-ch13-juice-shop/contents/.github/dependabot.yml --jq '.content | @base64d'` (or read it directly). Confirm the dependency-review workflow is in place. Record the effective level (`repo`), implementation path (`approved pilot`), and security owner name.
-
-2. **Document SBOM, alert triage, and auto-merge decision.** Record: dependency graph enabled (yes), SBOM available (yes), Dependabot alert count by severity, how many security-update PRs were merged (auto or manual), and the version-update schedule (frequency, grouping strategy). Document the auto-merge policy: which dependency types auto-merge (e.g., patch updates for direct deps only) and why, and which require manual review (transitive, minor, major).
-
-3. **Add governance-register rows.** Add two rows: (i) **Dependency graph & SBOM** (domain: `security`, effective level: `repo`, implementation path: `approved pilot`, evidence: SBOM export), (ii) **Dependabot & dependency review** (domain: `security`, effective level: `repo`, implementation path: `approved pilot`, evidence: `dependabot.yml` export + alert count + merged security PR evidence + dependency-review workflow proof). Identify owner (AppSec/DevSec team) and leave Next Decision blank pending org rollout.
+- `SCM-DEPENDENCY-GRAPH` — inspect the effective dependency-graph setting → record `approved pilot` → attach the SBOM export as objective evidence.
+- `SCM-DEPENDABOT` — inspect the effective Dependabot alerts, security-updates, and schedule settings → record `approved pilot` → attach the settings evidence, alert triage, merged security-update PR, and `dependabot.yml` as objective evidence.
+- `SCM-DEPENDENCY-REVIEW` — inspect the effective dependency-review workflow and required-check setting → record `approved pilot` → attach the workflow and blocked-PR result as objective evidence.
 
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
@@ -132,6 +132,7 @@ You are done when ALL of the following are true:
 - [ ] At least one Dependabot security-update PR was merged and its alert moved to fixed.
 - [ ] `.github/dependabot.yml` configures scheduled npm version updates with a limit and a group.
 - [ ] A dependency-review workflow exists, is required on `main`, and blocks the seeded risky PR.
+- [ ] The existing customer register contains `SCM-DEPENDENCY-GRAPH`, `SCM-DEPENDABOT`, and `SCM-DEPENDENCY-REVIEW` with the inspected effective settings, `approved pilot` status, and the required objective evidence.
 - [ ] Real-outcome check — if you brought your own repo, Dependabot and dependency review now protect dependencies you actually ship; if you used the sample, you can name the application repo you will enable next.
 - [ ] Adoption handover — record the customer application and security owners, priority dependency-risk target, update policy, and next approved action.
 

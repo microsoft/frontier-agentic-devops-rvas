@@ -1,0 +1,42 @@
+id: ghec-ch28
+title: Enterprise Identity & Network Governance
+module: ghec
+track: admin-governance
+difficulty: advanced
+duration_minutes: 180
+prerequisites: []
+prerequisite_capabilities:
+  - Enterprise owner access or an authorized enterprise-policy export
+  - Named customer IdP owner
+  - Named enterprise governance owner and break-glass owner
+description: "Produce an evidence-based enterprise identity and network governance decision package for conditional access, IP allow lists, SSH certificate authorities, and enterprise roles. Default to inspect-and-propose; approved pilots are safe and bounded."
+success_criteria:
+  - The customer register records `ENT-IDP-CONDITIONAL-ACCESS`, `ENT-IP-ALLOW-LIST`, `ENT-SSH-CA`, and `ENT-OWNER-ROLES` with effective level, objective evidence, accountable owner, lifecycle state, and next decision.
+  - CAP eligibility is evidenced as EMU with OIDC and Microsoft Entra ID, with the mutually exclusive CAP-versus-GitHub-IP-allow-list decision recorded.
+  - The IP allow-list decision records effective inheritance, service and break-glass exceptions, and any approved pilot adds and removes one test-org entry without enforcement.
+  - SSH CA remains inspect-and-propose unless a customer-approved pilot is limited to test-org CA registration and does not require SSH certificates.
+  - Enterprise owners are minimized, delegated roles are named, and two owners or an approved exception plus a break-glass process is evidenced.
+  - No production-disruptive action or user provisioning is required; the enterprise owner and IdP owner have an accountable next decision.
+tags:
+  - enterprise-governance
+  - enterprise-managed-users
+  - oidc
+  - conditional-access
+  - ip-allow-list
+  - ssh-certificate-authority
+  - enterprise-roles
+app_dependency: none
+emu_compatible: true
+min_environment: enterprise
+provision_creates: []
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/ch28-enterprise-identity-network-governance/meta.yml
+license: MIT
+references:
+  - https://docs.github.com/en/enterprise-cloud@latest/admin/concepts/identity-and-access-management/enterprise-managed-users
+  - https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/configuring-authentication-for-enterprise-managed-users/configuring-oidc-for-enterprise-managed-users
+  - https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/configuring-authentication-for-enterprise-managed-users/about-support-for-your-idps-conditional-access-policy
+  - https://docs.github.com/en/enterprise-cloud@latest/admin/configuring-settings/hardening-security-for-your-enterprise/restricting-network-traffic-to-your-enterprise-with-an-ip-allow-list
+  - https://docs.github.com/en/enterprise-cloud@latest/authentication/connecting-to-github-with-ssh/about-ssh-certificate-authorities
+  - https://docs.github.com/en/enterprise-cloud@latest/admin/concepts/enterprise-fundamentals/roles-in-an-enterprise

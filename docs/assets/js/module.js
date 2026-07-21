@@ -18,6 +18,7 @@
     document.title = mod.name + ' — Agentic DevSecOps';
     updateMeta(mod);
     renderHero(mod, challenges);
+    renderGovernanceStart(mod);
     renderTracks(mod, challenges);
     renderChallenges(challenges, mod);
   }
@@ -54,6 +55,11 @@
       hero.style.background =
         `radial-gradient(700px 500px at 90% 50%, color-mix(in srgb, ${color} 8%, transparent), transparent)`;
     }
+  }
+
+  function renderGovernanceStart(mod) {
+    const panel = document.getElementById('governanceStart');
+    if (panel) panel.hidden = mod.id !== 'ghec';
   }
 
   function renderTracks(mod, challenges) {

@@ -21,6 +21,7 @@ success_criteria:
 - At least one sample repo's **visibility was changed** where the org permits it; on EMU, the public-repo block is documented and you can explain public vs internal vs private.
 - Default **Actions workflow permissions** are set to read-only at the org.
 - A **before/after API diff** exists and a **`POLICY.md`/baseline doc** records every setting + rationale. Register rows include links to this evidence.
+- '`REP-DEFAULT-BRANCH` records the effective enterprise/org default-branch policy and a migration/tooling exception or inspect-and-propose proposal.'
 - Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - enterprise

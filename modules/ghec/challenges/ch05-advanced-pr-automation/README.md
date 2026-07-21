@@ -102,6 +102,19 @@ What setup creates (all artifacts namespaced `ghec-ch05-*`, idempotent, prefix-g
 ### Part F — Organization ruleset
 15. Create an org-level ruleset (Org Settings → Repository → Rulesets) named `ghec-ch05-org` targeting repos matching `ghec-ch05-*`, requiring a PR + the `build` check across all matching repos. See [managing rulesets for organizations](https://docs.github.com/en/organizations/managing-organization-settings/creating-rulesets-for-repositories-in-your-organization). Confirm it layers on top of the repo ruleset (the stricter wins) and verify via `gh api /orgs/<org>/rulesets`.
 
+### Governance controls contributed
+
+Use the existing governance register. Inspect the effective inherited setting,
+use `approved pilot` only for a customer-authorized live control (otherwise
+`inspect-and-propose`), and attach objective evidence. See
+`modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`.
+
+- `REP-MERGE-GOVERNANCE`: required reviews, CODEOWNERS, status checks,
+  auto-merge, and the documented bypass boundary.
+- `REP-ORG-RULESETS`: organization-level targeting and layered enforcement.
+- `REP-REPO-RULESETS`: repository overlay and its evidence of stricter-wins
+  behavior.
+
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
 - [ ] An active repository ruleset on `main` requires PR + ≥1 approval + code-owner review + the `build` status check + linear history, and blocks direct pushes (demonstrated).
@@ -110,6 +123,9 @@ You are done when ALL of the following are true:
 - [ ] A PR template pre-fills new PRs; a draft PR demonstrably blocks auto-merge/reviewers until marked ready.
 - [ ] Auto-labeling assigns `area:` labels by path; an open-PR comment workflow fires; a stale workflow labels/closes inactive PRs.
 - [ ] An organization ruleset targeting `ghec-ch05-*` is active and layers with the repo ruleset.
+- [ ] The existing governance register has `REP-MERGE-GOVERNANCE`,
+  `REP-ORG-RULESETS`, and `REP-REPO-RULESETS` with effective-setting and
+  enforcement evidence.
 - [ ] Real-outcome check — if you brought your own repo, PR automation now removes a real review chore; if you used the sample, you can name the team repo where you will install it next.
 - [ ] Adoption handover — name the customer PR bottleneck, accountable owner, automation candidate, and next approved rollout action.
 

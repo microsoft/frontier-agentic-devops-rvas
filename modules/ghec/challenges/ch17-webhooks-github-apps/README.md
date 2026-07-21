@@ -124,15 +124,19 @@ What setup creates (all artifacts namespaced `ghec-ch17-*`, idempotent, prefix-g
 18. Fill in the TODO. In `onIssueOpened()`, build a context-aware acknowledgement from the payload (greet `issue.user.login`, restate `issue.title`, say what happens next) and `POST` it to `issues/<number>/comments` with the installation `token`. Everything else — verification, routing, auth — is already done.
 19. Prove it end to end. Open a new issue and watch the App comment automatically, authored by your bot (`user.type: Bot`). Tamper with the secret and confirm the handler rejects the delivery instead of acting.
 
-### Part G — Governance register: Webhooks & GitHub Apps
+### Part G — Governance controls contributed
 
-Capture event-integration governance in the register.
+Use the existing governance register. Inspect the effective inherited setting, use
+`approved pilot` only for a customer-authorized live control (otherwise
+`inspect-and-propose`), and attach objective evidence. See
+`modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`.
+If enterprise hooks are not visible to the org owner, record `proposed` or
+`not applicable`, the named enterprise owner/export request, and the reason;
+the repository and organization webhook work remains complete.
 
-1. **Inspect webhook and App permissions, scope, and secret rotation.** List org and repo webhooks: `gh api repos/<org>/ghec-ch17-webhooks-github-apps/hooks --jq '.[] | {id, name, events}'`. Pull the App's installed permissions: `gh api app/installations --jq '.[] | {app_id, app_slug, permissions}'` (when authed as the App). Confirm signature verification is in place (HMAC-SHA256 with shared secret). Record the effective level (webhook: `repo`/`org`, App installation: `org`), implementation path (`approved pilot`), and integration owner name.
-
-2. **Document integration scope and secret handling.** Describe what the webhook triggers on (events subscribed) and what the App is allowed to do (permissions granted). Note the secret-rotation plan (how often to rotate webhook secrets and App private keys) and who owns that rotation (ops/platform team).
-
-3. **Add governance-register rows.** Add two rows: (i) **Repository/organization webhooks** (domain: `automation`, effective level: `repo`/`org`, implementation path: `approved pilot`, evidence: webhook config export + signature verification proof), (ii) **GitHub App installation** (domain: `automation`, effective level: `org`, implementation path: `approved pilot`, evidence: App registration details + permissions export + installation proof + end-to-end test showing authed action). Identify owner (integration/platform team) and leave Next Decision blank pending approval of secret-rotation cadence.
+- `INT-WEBHOOKS`: repository/organization webhook scope, events, and signature verification.
+- `INT-GITHUB-APPS`: App permissions, installation scope, and credential rotation.
+- `AUD-GLOBAL-WEBHOOKS`: distinguish enterprise hook scope from the repository/organization webhooks above; record event scope, receiver, HMAC verification, retention, and owner evidence.
 
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
@@ -143,7 +147,8 @@ You are done when ALL of the following are true:
 - [ ] A GitHub App is registered with scoped permissions + event subscriptions and installed on the org.
 - [ ] You minted an installation access token and the App posted a comment as a bot identity.
 - [ ] Automated reaction — opening a new issue makes the running handler post a context-aware acknowledgement on its own, authored by the bot, and a bad-signature delivery is rejected.
-- [ ] **Governance register updated:** Added row for webhooks and GitHub Apps (org and repo webhook configuration, App permissions/subscriptions, signature verification requirement, installation scope, credential handling/rotation) with API snapshot links and deployment readiness assessment. Row uses `approved pilot` or `inspect-and-propose` status depending on installation scope.
+- [ ] **Governance register updated:** `INT-WEBHOOKS` and `INT-GITHUB-APPS` record effective settings, the selected path, and objective integration evidence.
+- [ ] `AUD-GLOBAL-WEBHOOKS` distinguishes enterprise hooks from the existing repository/organization hooks and records event scope, receiver, HMAC, retention, owner evidence, or an authorized-unavailable record.
 - [ ] Real-outcome check — if you brought your own integration target, a real GitHub event now drives another system or workflow; if you used the sample, you can name the webhook/App integration you will build next.
 - [ ] Adoption handover — record the customer integration owner, target external system, required event and App permissions, and next approved action.
 

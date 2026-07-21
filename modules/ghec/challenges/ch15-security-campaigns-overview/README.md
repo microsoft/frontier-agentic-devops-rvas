@@ -99,15 +99,13 @@ What setup creates (all artifacts namespaced `ghec-ch15-*`, idempotent, prefix-g
 12. Track progress. Re-open the campaign and the overview; confirm the open-alert count for the campaign has dropped. Capture before/after numbers.
 13. Write a remediation report. In an issue on `ghec-ch15-juice-shop`, summarize: starting alert count by type, the campaign scope and deadline, what was remediated, and the residual risk — the report leadership asked for at the start.
 
-### Part F — Governance register: Security configuration & campaign governance
+### Part F — Control-catalogue evidence
 
-Capture security-program governance in the register.
+Use `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md` for control
+terminology; do not copy catalogue rows into this guide. Contribute to the
+existing customer register:
 
-1. **Inspect organization security configuration and coverage.** Pull the org's applied security configuration (if any): Org Settings → Code security → Configurations. Confirm which GHAS features are enabled org-wide or per-repo (code scanning, Dependabot, secret scanning, dependency review). From the Security overview, capture a coverage snapshot (which repos have which features) and a risk snapshot (alert count by type/severity). Record the effective level (`org`), implementation path (`approved pilot`), and security program owner name.
-
-2. **Document campaign scope, burn-down, and residual risk.** In the remediation report, record: campaign name, manager, due date, starting alert count by tool (CodeQL/Dependabot/secret-scanning), number remediated, dismissals + rationale, residual risk (remaining open alerts), and recommended next action (extended campaign, acceptance threshold, or escalation).
-
-3. **Add governance-register rows.** Add two rows: (i) **Organization security configuration** (domain: `security`, effective level: `org`, implementation path: `approved pilot`, evidence: configuration export + coverage screenshot), (ii) **Security campaigns & alert governance** (domain: `security`, effective level: `org`, implementation path: `approved pilot`, evidence: campaign definition + remediation report in issue + before/after alert counts). Identify owner (security program manager) and leave Next Decision blank pending org review of next campaign or escalation actions.
+- `SEC-SECURITY-CAMPAIGNS` — inspect the effective organisation campaign availability and configuration → record `approved pilot` → attach the coverage/risk snapshot, campaign definition, and remediation burn-down report as objective evidence.
 
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
@@ -117,6 +115,7 @@ You are done when ALL of the following are true:
 - [ ] A security campaign exists with a name, a manager, a due date, and guidance, scoped to a finite alert slice.
 - [ ] The campaign shows remediation burn-down (open count dropped after you fixed/dismissed targeted alerts).
 - [ ] A remediation report issue exists with before/after numbers.
+- [ ] The existing customer register contains `SEC-SECURITY-CAMPAIGNS` with the inspected effective setting, `approved pilot` status, and the required objective evidence.
 - [ ] Real-outcome check — if you brought your own repo/campaign target, the campaign view now maps to real owners and alerts; if you used the sample, you can name the repo group you will campaign against next.
 - [ ] Adoption handover — record the customer security programme owner, campaign scope, repository owners, success measure, and next approved action.
 

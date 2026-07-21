@@ -19,7 +19,7 @@ success_criteria:
 - An **organization webhook** exists and a real org event was delivered and verified.
 - A **GitHub App** is registered with scoped permissions + event subscriptions and **installed** on the org.
 - You minted an **installation access token** and the App **posted a comment as a bot identity**.
-- '**Governance register updated:** Added row for webhooks and GitHub Apps (webhook config, App permissions/events, signature verification, installation scope, secret rotation) with API snapshot links.'
+- '**Governance register updated:** Added repository/org webhook and GitHub App evidence plus a distinct enterprise `AUD-GLOBAL-WEBHOOKS` decision with event scope, receiver, HMAC, retention, and owner.'
 - Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - webhooks
