@@ -787,7 +787,21 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
 .chip.active[data-module="ghaw"]        { background: var(--c-ghaw); }
 .chip.active[data-module="agentic-devops"] { background: var(--c-agentic); }
 .chip.active[data-module="sre-agent"] { background: var(--c-agentic); }
-.chip-outcome { max-width: 260px; overflow: hidden; text-overflow: ellipsis; }
+.chip-outcome {
+  --outcome-color: var(--c-gold);
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--outcome-color);
+  border-color: color-mix(in srgb, var(--outcome-color) 42%, var(--c-line));
+  background: color-mix(in srgb, var(--outcome-color) 9%, var(--c-800));
+}
+.chip-outcome:hover,
+.chip-outcome.active {
+  color: #fff;
+  border-color: transparent;
+  background: var(--outcome-color);
+}
 
 /* Search box */
 .search-box {

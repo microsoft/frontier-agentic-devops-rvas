@@ -95,8 +95,8 @@
     },
     {
       "id": "agentic-workflows",
-      "name": "Adopt agentic workflows",
-      "tagline": "Put safe agentic workflows into GitHub issues, pull requests, and CI.",
+      "name": "Adopt agentic workflows for your SDLC",
+      "tagline": "Change how you build software and deliver it throughout your Software Development Lifecycle.",
       "description": "Build and operate GitHub-native agents in the customer's repositories for issue triage, pull-request review, CI diagnosis, documentation, testing, security, and continuous intelligence with reviewable outputs.",
       "personas": ["customer-developer", "platform-engineer", "solution-architect", "platform-governance"],
       "adoption_stage": ["pilot", "scale", "operate"],

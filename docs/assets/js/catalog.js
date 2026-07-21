@@ -6,7 +6,6 @@
   let _modules = [];
   let _outcomes = [];
   let _activeOutcome = null;
-  let _activeModule = null;
   let _activeDiff = null;
   let _activeTrack = null;
   let _query = '';
@@ -21,7 +20,6 @@
     _outcomes = data.outcomes || [];
 
     buildOutcomeChips();
-    buildModuleChips();
     buildDiffChips();
     initSearch();
     applyUrlState();
@@ -30,13 +28,10 @@
 
   const DIFFS = ['beginner', 'intermediate', 'advanced'];
 
-  /* Seed filter state from the URL query string (?module=&difficulty=&q=) and
+  /* Seed filter state from the URL query string (?outcome=&difficulty=&q=) and
      reflect it on the chips + search input before the first render. Invalid
      values are ignored rather than applied. */
   function applyUrlState() {
-    const mod = FP.qp('module');
-    if (mod && _modules.some((m) => m.id === mod)) _activeModule = mod;
-
     const outcome = FP.qp('outcome');
     if (outcome && _outcomes.some((o) => o.id === outcome)) _activeOutcome = outcome;
 
@@ -54,13 +49,8 @@
     syncUrl();
   }
 
-  /* Reflect _activeModule / _activeDiff onto the rendered chips. */
+  /* Reflect the active filters onto the rendered chips. */
   function syncChipState() {
-    document.querySelectorAll('#moduleChips .chip').forEach((b) => {
-      const on = b.dataset.module === _activeModule;
-      b.classList.toggle('active', on);
-      b.setAttribute('aria-pressed', String(on));
-    });
     document.querySelectorAll('#outcomeChips .chip').forEach((b) => {
       const on = b.dataset.outcome === _activeOutcome;
       b.classList.toggle('active', on);
@@ -77,7 +67,6 @@
      shareable. replaceState avoids polluting back/forward history. */
   function syncUrl() {
     const q = new URLSearchParams();
-    if (_activeModule) q.set('module', _activeModule);
     if (_activeOutcome) q.set('outcome', _activeOutcome);
     if (_activeDiff) q.set('difficulty', _activeDiff);
     if (_query) q.set('q', _query);
@@ -86,38 +75,13 @@
     window.history.replaceState(null, '', url);
   }
 
-  function buildModuleChips() {
-    const container = document.getElementById('moduleChips');
-    if (!container) return;
-
-    container.innerHTML = _modules.map((m) =>
-      `<button class="chip" data-module="${FP.esc(m.id)}"
-         aria-pressed="false" type="button"
-         style="--mod-color:${FP.moduleColor(m.id)}">
-         ${FP.esc(m.name.replace('GitHub ', ''))}
-       </button>`
-    ).join('');
-
-    container.querySelectorAll('.chip').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const id = btn.dataset.module;
-        _activeModule = _activeModule === id ? null : id;
-        container.querySelectorAll('.chip').forEach((b) => {
-          b.classList.toggle('active', b.dataset.module === _activeModule);
-          b.setAttribute('aria-pressed', String(b.dataset.module === _activeModule));
-        });
-        syncUrl();
-        render();
-      });
-    });
-  }
-
   function buildOutcomeChips() {
     const container = document.getElementById('outcomeChips');
     if (!container) return;
     container.innerHTML = _outcomes.map((o) =>
       `<button class="chip chip-outcome" data-outcome="${FP.esc(o.id)}"
-         aria-pressed="false" type="button">
+         aria-pressed="false" type="button"
+         style="--outcome-color:${FP.moduleColor(outcomeModule(o.id))}">
          ${FP.esc(o.name)}
        </button>`
     ).join('');
@@ -131,6 +95,17 @@
         render();
       });
     });
+  }
+
+  function outcomeModule(outcomeId) {
+    const moduleByOutcome = {
+      'github-adoption': 'ghec',
+      'platform-migration': 'ghec',
+      'ghas-adoption': 'ghas',
+      'agentic-workflows': 'ghaw',
+      'agentic-devops-cloud': 'sre-agent',
+    };
+    return moduleByOutcome[outcomeId];
   }
 
   function buildDiffChips() {
@@ -170,7 +145,6 @@
         _query = '';
         input.value = '';
         _activeOutcome = null;
-        _activeModule = null;
         _activeDiff = null;
         document.querySelectorAll('.chip').forEach((b) => {
           b.classList.remove('active');
@@ -184,7 +158,6 @@
 
   function filtered() {
     return _all.filter((c) => {
-      if (_activeModule && c.module !== _activeModule) return false;
       if (_activeOutcome && !(c.outcomes || []).includes(_activeOutcome)) return false;
       if (_activeDiff   && c.difficulty !== _activeDiff) return false;
       if (_query) {
