@@ -2,100 +2,67 @@
 
 ## Project Context
 
-- **Project:** frontier-ghplatform-hackathon — "The Frontier GitHub Platform Hackathon"
-- **Goal:** One repo + one beautiful GitHub Pages site aggregating four hackathons as independent modules: GitHub Enterprise Cloud (frontier-ghec), GitHub Advanced Security (frontier-ghas), GitHub Agentic Workflows (frontier-ghaw), Agentic DevOps & Azure SRE (frontier-agentic-devops). GitHub Actions threads through all four. The ghcp/Copilot hackathon is intentionally excluded.
-- **Key constraint:** Each challenge must be independently runnable (explicit prereqs, no hidden cross-dependencies). Students may do the full journey or cherry-pick.
-- **Tech:** Static GitHub Pages site (lean toward GHEC dependency-free meta.yml -> build.js -> docs/ model, pending Phase 0 decision).
-- **Requested by:** Marco (@olivomarco)
-- **Created:** 2026-06-15
-- **Universe:** Firefly (resonance: frontier, crew, independence)
+- **Project:** frontier-ghplatform-hackathon — Unified GitHub platform aggregating 4 hackathons (GHEC, GHAS, GHAW, SRE Agent) as independent modules
+- **Goal:** 59 challenges (GHEC 21, GHAS 7, GHAW 25, SRE 6), 38 prerequisite edges, deterministic build, GitHub Pages site
+- **Zoe role:** Content/Curriculum Engineer — Phase 2 (GHAW + SRE port), QA fixes, environment setup implementation, governance integration
+- **Universe:** Firefly
 
+## Session Summaries
 
-## Session Summary (2026-06-15)
+### 2026-06-15 — Phase 1–3: Port GHAW/SRE, Fix QA, Environment Setup Template
 
-**Delivered:** Phase 1 (GHEC + GHAS port, 27 challenges), Phase 2 (GHAW + SRE port, 32 challenges, linear agentic chain), Phase 3 QA fixes (D-001 YAML indentation, D-003/D-004 broken links, D-005 tier fix), track rename (agentic-arc → agentic-lifecycle), module id rename (agentic-devops → sre-agent), ch02 removal (Copilot engineering), Environment Setup template implementation (GHEC ch00 new, GHAS renumber 00..05→01..06+new 00, GHAW 0-00 refresh, SRE 00 refactor), doc table updates (57→59 challenges).
+**Delivered:** Phase 2 (GHAW 25 + SRE 7 port) with track assignment and linear prerequisites; Phase 3 QA fixes (YAML indentation D-001, link repair D-003/004, tier fix D-005); track rename agentic-arc → agentic-lifecycle; ch02 removal (Copilot engineering); agentic-devops → sre-agent module rename; environment setup template across 4 modules (ch00 new/refresh, GHAS renumber 01–06, doc updates).
 
-**Final State:** 59 challenges (GHEC 21, GHAS 7, GHAW 25, SRE 6), 36 prerequisite edges, 0 cross-module, 0 cycles, all setup challenges tier:setup+prereqs:[], all first-real-challenges prereqs:[].
+**Final state:** 59 challenges, 36 edges, 0 cross-module, 0 cycles. All setup challenges have tier:setup + prereqs:[]. All first-real-challenges inherit no technical blockers.
 
-**Key Principles Established:**
-- Independence rule: Setup challenges never block first-real-challenges technically (only prerequisite_capabilities).
-- Overlap by design: GHEC security (enterprise governance) ≠ GHAS security (code fix on Juice Shop). Different audiences.
-- Vendored resources: Contoso Claims scenario + Tools vendored; source links preserved via attribution.
-- Tier semantics: setup (infrastructure/auth), core (entry content), stretch (extended learning).
+**Key principles:** Independence guarantee (setup never blocks first-real-challenge technically), overlap by design (GHEC security ≠ GHAS security), vendored resources + attribution, tier semantics (setup/core/stretch).
 
-## Detailed Learnings (Archived)
+**Validation:** `npm run build` passed; no cycles; deterministic.
 
-(See git history for detailed session-by-session notes. 12 comprehensive entries 2026-06-15.)
+### 2026-06-16 — Fix Internal Resource 404s
 
-### 2026-06-15 — Phase 1, 2, 3 — Archived Detail Sections
+**Delivered:** Resolved generated challenge page resource links. Build now copies module bundles to `docs/resources/<moduleId>/` and rewrites relative links (e.g., `../../resources/...`) to site-root-relative paths during guide generation.
 
-Session delivered 59 challenges across 4 modules via 12 sequential decisions:
-1. Phase 1 (GHEC 20/GHAS 6 port) — track/difficulty mapping, prerequisites strategy, emu_compatible flags
-2. Phase 2 (GHAW 25/SRE 7 port) — track assignment, linear agentic arc prerequisites  
-3. Phase 3 QA (D-001/003/004/005) — YAML indentation fix, link repair, tier correction
-4. Track rename (agentic-arc → agentic-lifecycle) — eliminate Azure Arc collision
-5. Ch02 removal (Copilot engineering) — scoped out, no blast radius
-6. agentic-devops → sre-agent rename — module id clarity, repo brand "Agentic DevOps"
-7-12. Environment Setup template (4-module implementation, doc updates) — independence guarantee, setup-first ordering
+**Validation:** Generated-link script confirmed 0 invalid resource links remain.
 
-See `.squad/decisions.md` for merged decision records and git log for commit details per task.
+### 2026-06-19 — Embed Official GitHub Docs + Content QA
 
-## Session Summary (2026-06-16)
+**Delivered:** Added contextual official GitHub documentation links throughout GHEC ch05 (11 verified sources: CODEOWNERS, auto-merge, Labeler, Stale, rulesets, org scopes). Scored all 59 challenges against QA rubric; fixed P0/P1/P2 issues (metadata, coach guides, placeholder URLs).
 
-**Delivered:** Fixed confirmed internal resource 404s in generated challenge pages. The Pages build now copies module resource bundles to `docs/resources/<moduleId>/` and rewrites challenge guide resource links such as `../../resources/Agent-Ready-Issue-Template.md` to site-root-relative-in-docs links like `resources/sre-agent/Agent-Ready-Issue-Template.md` during guide generation.
+**Key learning:** Embed references where students/coaches need them, not end-of-document. Verify all URLs before adding.
 
-**Validation:** `npm run build` passed (4 modules, 59 challenges, 35 edges). A generated-link validation script confirmed no `olivomarco.github.io/resources`, `/resources`, or parent-relative resource links remain in generated challenge guides and every `resources/...` target exists under `docs/`.
+**Validation:** `npm run audit:content` passed (220 files, 59 challenges, 0 errors).
 
-## Session Summary (2026-06-19)
+### 2026-06-23 — Embed GHAW Examples + Remove Dead Upstream Repos
 
-**Delivered:** Embedded official GitHub documentation links naturally throughout GHEC ch05 student and coach materials, replacing a static end-of-document reference dump. All URLs verified against docs.github.com, cli.github.com, and official GitHub Actions repositories. Meta.yml references updated with 11 verified sources including CODEOWNERS, auto-merge, Actions Labeler, Actions Stale, and org ruleset guidance.
+**Delivered:** Deleted private upstream repos (retired-private-predecessor, etc.) are no longer referenced. Embedded GHAW starter example (hello-world.md) in-tree at `modules/ghaw/resources/examples/`. All setup docs (GHAW, SRE, GHAS) rewritten to reference THIS consolidated repo only. Removed `gh repo fork` steps; updated success criteria to local/Codespace checks.
 
-**Changes made:**
-- README.md: Inline links placed in 6 task sections (Parts A–F) linking to rulesets, auto-merge, CODEOWNERS, PR templates, and org ruleset docs
-- COACH.md: Concise reference links embedded in facilitation notes and common pitfalls sections to clarify rulesets vs. classic protection, auto-merge behavior, labeler permissions, and org scope matching
-- meta.yml: Consolidated references list expanded from 7 to 11 items, adding CODEOWNERS docs, Actions/Stale, and gh CLI manuals
-- README.md Reference links section: Consolidated to acknowledge in-text links and reserve the section for CLI references only
-
-**Validation:** `npm run audit:content` passed (220 files, 1055 URLs, 59 challenges, 0 errors). All embedded links are official GitHub sources; no fabricated or unverified URLs added.
-
-**Key principles reinforced:**
-- Student-friendly link placement: Embed references contextually near the task they explain, not in a separate section
-- Coach guidance: Provide just-in-time URLs that clarify common misconceptions (rulesets vs. protection, auto-merge prerequisites, security nuances)
-- Meta accuracy: Ensure references metadata matches actual links embedded in content
-
-## Learnings
-
-### 2026-06-19 — Global official documentation links
-
-- Official references should be placed where students or coaches need them, then mirrored in `meta.yml`; avoid end-of-file resource dumps and avoid linking every repeated noun.
-- The highest-value gaps were sparse challenge sets (`ghaw` Track 4 and `sre-agent` 01/03/04/05/06), while GHEC/GHAS already had broad metadata coverage.
-- Verify added URLs before editing; `npm run audit:external` may still report inherited source-attribution 404s and placeholder/local URLs, so distinguish pre-existing warnings from new official links.
-- Coach guides need the same factual support as student guides. A short, coach-facing reference line is enough; reuse challenge README/meta references only after checking they are real URLs and not placeholders.
-
-### 2026-06-19 — Content QA workstream
-
-- Scored all 59 challenges with the saved QA rubric and fixed high-confidence P0/P1/P2 content issues surfaced by the pass.
-- Normalized GHAS coach assessment with point-weighted rubrics, added missing SRE metadata tags, repaired SRE Challenge 02 references after the intentional numbering gap, and removed concrete placeholder URLs from GHAW examples/templates.
-- Validation: `npm run audit:content` passed; `npm run audit:external` passed with warnings only for unresolved external/private/source or localhost references.
-
-### 2026-06-23 — Embed GHAW example content + remove dead upstream-repo dependencies
-
-**Context:** Private upstream repos (`retired-private-predecessor`, `frontier-agenticdevops-hackathon`, `retired-private-predecessor`) are being deleted. Setup instructions and success criteria still pointed at those repos for clone/fork/`gh repo view` steps.
-
-**What changed:**
-
-- **`modules/ghaw/resources/examples/hello-world.md`** — NEW FILE. Faithful copy of `examples/hello-world.md` from `retired-private-predecessor`. This is the canonical gh-aw smoke-test workflow used by all setup docs.
-- **`modules/ghaw/resources/examples/README.md`** — NEW FILE. Copy of the examples README from the upstream repo.
-- **`modules/ghaw/challenges/00-setup/README.md`** — Option A now opens THIS repo's Codespace (not upstream). Option B clones this repo (not `gh repo fork retired private predecessor repo`). Smoke test updated: `gh aw run modules/ghaw/resources/examples/hello-world.md --dry-run` (embedded path). `gh repo view retired private predecessor repo` success step removed (5→4 checks).
-- **`modules/ghaw/challenges/00-setup/COACH.md`** — Troubleshooting table: removed "Fork not created / `gh repo fork`" row; replaced with "confirm Codespace is for this repo" row. Access-blocked fallback section: removed fork-access paragraph, replaced with "work directly in this repo" guidance. Success checklist: updated dry-run path.
-- **`modules/ghaw/challenges/00-setup/meta.yml`** — Success criteria: replaced `gh repo view retired private predecessor repo` with `ls modules/ghaw/resources/examples/hello-world.md` (local existence check). Updated dry-run path.
-- **`modules/ghaw/setup.md`** — Options 1 and 2 now reference this repo entirely; no more upstream clone or fork.
-- **`modules/sre-agent/challenges/00-setup/README.md`** — Option A and B already pointed at this repo by name; clarified "this repository" language. Success criteria: removed `gh repo view microsoft/frontier-agentic-devops-rvas` (3rd check); added `npm install` before `npm test` for freshness. 4→3 checks.
-- **`modules/sre-agent/challenges/00-setup/meta.yml`** — Success criteria: removed `gh repo view microsoft/frontier-agentic-devops-rvas`; updated sample-app check to include `npm install`.
-- **`modules/ghas/setup.md`** — Option A: replaced "open `retired private predecessor repo` source repo and create Codespace" with "open THIS repo in a Codespace + `npm run setup:juice-shop` + `cd app && npm install && npm start`". Preserves Option B (Docker) and Option C (organizer-hosted) unchanged.
-
-**New GHAW workspace model:** Participants work in a Codespace (or local dev container) of THIS consolidated repo (`microsoft/frontier-agentic-devops-rvas`). The devcontainer's `postCreate.sh` already installs `gh-aw`. The starter example workflow is vendored at `modules/ghaw/resources/examples/hello-world.md` and all setup docs reference that path.
+**New workspace model:** Participants work in THIS repo (microsoft/frontier-agentic-devops-rvas). Devcontainer installs gh-aw. Starter examples are vendored.
 
 **Validation:** `npm run audit:content` passed (231 files, 59 challenges, 0 errors).
 
-**KEY DECISION:** This repo's origin = microsoft/frontier-agentic-devops-rvas = the LIVE consolidated repo (KEPT). Only frontier-ghas/ghaw/ghec-hackathon + private Contoso sources deleted. The agenticdevops slug must never be presented as archived.
+### 2026-07-21 — Enterprise Governance Settings Register
+
+**Delivered:** Implemented customer-owned governance settings register template (GOVERNANCE-SETTINGS-REGISTER-TEMPLATE.md, 14K). Initialized in Ch06; added focused governance rows to 11 GHEC activities (Ch03, Ch04, Ch06–09, Ch11–15, Ch18, Ch27). Each row: domain, setting, level, value, rationale, implementation path (approved pilot | inspect-and-propose), evidence, owner, review cadence, exceptions, next decision.
+
+**Template design:** 25-row matrix covering org-membership, security, policy, teams, repos, workflow, identity, audit, development. Fields for evidence (API snapshots, docs, test runs), status, accountability. Integration checklist showing where each activity contributes rows.
+
+**Customer model:** Register lives in customer repos (not samples), ensuring governance becomes a customer artifact. Links point to customer evidence. Cumulative design: activities add rows; register becomes master inventory of all governance decisions.
+
+**Changes:** New file (template); Ch06 foundational section + success_criteria refresh; 10 contributing activities integrated with governance rows. Terminology: "challenges" → "activities" (3 places).
+
+**Validation:** `npm run build` passed (4 modules, 59 challenges, 27 edges); `npm run audit:terminology` passed (0 new errors); no broken links.
+
+**Key principles:** Customer ownership (register survives engagement), auditability (evidence links, not screenshots), cumulative (one register per org), honest status (approved pilot vs. needs approval), scope clarity (enterprise/org/repo levels).
+
+## Active Patterns
+
+- **Content strategy:** Contextual links + cumulative artifacts (register, not one-off docs)
+- **Student mindset:** Shift from "check the box" to "prove it with evidence"
+- **Coach facilitation:** Spot-check evidence links, verify they're real customer artifacts, not samples
+- **Customer delivery:** Governance becomes a handover artifact; learners pass it forward with decision rationale and review schedule
+
+## Remaining Coverage Gaps
+
+- Approval/codeowner rules, branch protection beyond rulesets, SAML-driven team sync (enterprise-only), cost optimization dashboards
+- Future: Ch17 (webhooks/apps governance) when scope clarified
