@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Agentic DevOps — build step (dependency-free, Node core only).
+ * Agentic DevSecOps — build step (dependency-free, Node core only).
  *
  * Reads every  modules/<moduleId>/challenges/<slug>/meta.yml  as the single
  * source of truth and emits site-consumable data + copied guides under docs/assets/data/.

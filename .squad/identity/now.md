@@ -6,4 +6,4 @@ active_issues: []
 
 # What We're Focused On
 
-Building one repo + one GitHub Pages site that aggregates four hackathons (GHEC, GHAS, GHAW, Agentic DevOps/Azure SRE) as independent modules. Phase 0: Mal defines the information architecture, challenge/module schema, site-engine choice, and dedupe strategy.
+Building one repo + one GitHub Pages site that aggregates four hackathons (GHEC, GHAS, GHAW, Agentic DevSecOps/Azure SRE) as independent modules. Phase 0: Mal defines the information architecture, challenge/module schema, site-engine choice, and dedupe strategy.

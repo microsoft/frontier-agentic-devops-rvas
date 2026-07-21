@@ -1,4 +1,4 @@
-/* Agentic DevOps — catalog page: filterable + searchable cross-module grid */
+/* Agentic DevSecOps — catalog page: filterable + searchable cross-module grid */
 (function () {
   'use strict';
 

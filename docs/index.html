@@ -1,23 +1,28 @@
 <!doctype html>
 <html lang="en" data-theme="light">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>Agentic DevOps — Outcome Journeys</title>
-  <meta name="description" content="Production adoption paths for GitHub — Enterprise Cloud, migrations, Advanced Security, agentic workflows, and cloud DevOps. Hands-on activities your teams run in their own organization." />
+  <title>Agentic DevSecOps — Outcome Journeys</title>
+  <meta name="description"
+    content="Production adoption paths for GitHub — Enterprise Cloud, migrations, Advanced Security, agentic workflows, and cloud DevOps. Hands-on activities your teams run in their own organization." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link rel="stylesheet" href="assets/css/shell.css" />
   <link rel="icon" href="assets/img/logo-mark-white.png" />
 </head>
+
 <body>
 
   <header class="nav" role="banner">
     <div class="nav-inner">
-      <a class="brand" href="index.html" aria-label="RVAS — Agentic DevOps">
+      <a class="brand" href="index.html" aria-label="RVAS — Agentic DevSecOps">
         <img src="assets/img/logo-full.png" alt="RVAP" class="rvap-nav-logo" height="32">
       </a>
       <nav class="nav-links" aria-label="Primary">
@@ -28,11 +33,16 @@
         <a href="module.html?m=ghaw">GHAW</a>
         <a href="module.html?m=sre-agent">SRE Agent</a>
         <a class="cta" href="catalog.html">Browse all activities →</a>
-              <a class="gh" href="https://github.com/microsoft/frontier-agentic-devops-rvas" target="_blank" rel="noopener" aria-label="View source on GitHub">GitHub ↗</a>
+        <a class="gh" href="https://github.com/microsoft/frontier-agentic-devops-rvas" target="_blank" rel="noopener"
+          aria-label="View source on GitHub">GitHub ↗</a>
       </nav>
       <div class="nav-actions">
-        <button class="icon-btn nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        <button class="icon-btn nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false"
+          aria-controls="navLinks">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <path d="M3 6h18M3 12h18M3 18h18" />
+          </svg>
         </button>
       </div>
     </div>
@@ -44,38 +54,44 @@
     <section class="hero" aria-labelledby="heroHeading">
 
       <!-- Compass rose backdrop (signature element) -->
-      <svg class="hero-compass" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <svg class="hero-compass" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+        focusable="false">
         <!-- Outer ring -->
-        <circle cx="200" cy="200" r="180" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.15" stroke-dasharray="4 8"/>
-        <circle cx="200" cy="200" r="140" stroke="currentColor" stroke-width="0.4" stroke-opacity="0.10"/>
-        <circle cx="200" cy="200" r="80"  stroke="currentColor" stroke-width="0.4" stroke-opacity="0.12"/>
+        <circle cx="200" cy="200" r="180" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.15"
+          stroke-dasharray="4 8" />
+        <circle cx="200" cy="200" r="140" stroke="currentColor" stroke-width="0.4" stroke-opacity="0.10" />
+        <circle cx="200" cy="200" r="80" stroke="currentColor" stroke-width="0.4" stroke-opacity="0.12" />
         <!-- Cardinal arcs per module -->
-        <path d="M200 60 A140 140 0 0 1 340 200" stroke="#38bdf8" stroke-width="2" stroke-opacity="0.5" stroke-linecap="round"/>
-        <path d="M340 200 A140 140 0 0 1 200 340" stroke="#f87171" stroke-width="2" stroke-opacity="0.5" stroke-linecap="round"/>
-        <path d="M200 340 A140 140 0 0 1 60 200"  stroke="#a78bfa" stroke-width="2" stroke-opacity="0.5" stroke-linecap="round"/>
-        <path d="M60 200 A140 140 0 0 1 200 60"   stroke="#fb923c" stroke-width="2" stroke-opacity="0.5" stroke-linecap="round"/>
+        <path d="M200 60 A140 140 0 0 1 340 200" stroke="#38bdf8" stroke-width="2" stroke-opacity="0.5"
+          stroke-linecap="round" />
+        <path d="M340 200 A140 140 0 0 1 200 340" stroke="#f87171" stroke-width="2" stroke-opacity="0.5"
+          stroke-linecap="round" />
+        <path d="M200 340 A140 140 0 0 1 60 200" stroke="#a78bfa" stroke-width="2" stroke-opacity="0.5"
+          stroke-linecap="round" />
+        <path d="M60 200 A140 140 0 0 1 200 60" stroke="#fb923c" stroke-width="2" stroke-opacity="0.5"
+          stroke-linecap="round" />
         <!-- Axis lines -->
-        <line x1="200" y1="20"  x2="200" y2="380" stroke="currentColor" stroke-width="0.5" stroke-opacity="0.10"/>
-        <line x1="20"  y1="200" x2="380" y2="200" stroke="currentColor" stroke-width="0.5" stroke-opacity="0.10"/>
+        <line x1="200" y1="20" x2="200" y2="380" stroke="currentColor" stroke-width="0.5" stroke-opacity="0.10" />
+        <line x1="20" y1="200" x2="380" y2="200" stroke="currentColor" stroke-width="0.5" stroke-opacity="0.10" />
         <!-- Center star -->
-        <circle cx="200" cy="200" r="5" fill="#1A77E3" fill-opacity="0.8"/>
-        <circle cx="200" cy="200" r="12" stroke="#1A77E3" stroke-width="1" stroke-opacity="0.3"/>
+        <circle cx="200" cy="200" r="5" fill="#1A77E3" fill-opacity="0.8" />
+        <circle cx="200" cy="200" r="12" stroke="#1A77E3" stroke-width="1" stroke-opacity="0.3" />
         <!-- Module dots -->
-        <circle cx="200" cy="60"  r="5" fill="#38bdf8" fill-opacity="0.7"/>
-        <circle cx="340" cy="200" r="5" fill="#f87171" fill-opacity="0.7"/>
-        <circle cx="200" cy="340" r="5" fill="#a78bfa" fill-opacity="0.7"/>
-        <circle cx="60"  cy="200" r="5" fill="#fb923c" fill-opacity="0.7"/>
+        <circle cx="200" cy="60" r="5" fill="#38bdf8" fill-opacity="0.7" />
+        <circle cx="340" cy="200" r="5" fill="#f87171" fill-opacity="0.7" />
+        <circle cx="200" cy="340" r="5" fill="#a78bfa" fill-opacity="0.7" />
+        <circle cx="60" cy="200" r="5" fill="#fb923c" fill-opacity="0.7" />
         <!-- Tick marks -->
-        <line x1="200" y1="55" x2="200" y2="65" stroke="#38bdf8" stroke-width="1.5" stroke-opacity="0.6"/>
-        <line x1="335" y1="200" x2="345" y2="200" stroke="#f87171" stroke-width="1.5" stroke-opacity="0.6"/>
-        <line x1="200" y1="335" x2="200" y2="345" stroke="#a78bfa" stroke-width="1.5" stroke-opacity="0.6"/>
-        <line x1="55" y1="200" x2="65" y2="200" stroke="#fb923c" stroke-width="1.5" stroke-opacity="0.6"/>
+        <line x1="200" y1="55" x2="200" y2="65" stroke="#38bdf8" stroke-width="1.5" stroke-opacity="0.6" />
+        <line x1="335" y1="200" x2="345" y2="200" stroke="#f87171" stroke-width="1.5" stroke-opacity="0.6" />
+        <line x1="200" y1="335" x2="200" y2="345" stroke="#a78bfa" stroke-width="1.5" stroke-opacity="0.6" />
+        <line x1="55" y1="200" x2="65" y2="200" stroke="#fb923c" stroke-width="1.5" stroke-opacity="0.6" />
       </svg>
 
       <div class="wrap hero-grid">
         <div>
-          <span class="eyebrow">Agentic DevOps SDLC</span>
-          <h1 id="heroHeading">Build Your<br><span class="accent">Agentic DevOps Practice</span></h1>
+          <span class="eyebrow">Agentic DevSecOps SDLC</span>
+          <h1 id="heroHeading">Build Your<br><span class="accent">Agentic DevSecOps Practice</span></h1>
           <p class="lede">
             Pick what your teams will stand up in production, then use GitHub to get there:
             enterprise adoption, platform migration, Advanced Security rollout, agentic
@@ -89,7 +105,10 @@
           <div class="hero-actions">
             <a class="btn btn-primary" href="#outcomes">
               Pick an adoption path
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
             </a>
             <a class="btn btn-ghost" href="catalog.html">Explore the catalog</a>
           </div>
@@ -147,11 +166,15 @@
           <div>
             <span class="eyebrow">Adoption paths</span>
             <h2 id="outcomesHeading" style="margin-top:14px">Start with what you'll put into production.</h2>
-            <p>Each path curates activities across modules into a practical route to adopt GitHub, migrate, secure, automate with agents, or operate in the cloud.</p>
+            <p>Each path curates activities across modules into a practical route to adopt GitHub, migrate, secure,
+              automate with agents, or operate in the cloud.</p>
           </div>
           <a class="link" href="builder.html">
             Build a custom set
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
           </a>
         </div>
         <div class="outcome-grid" id="outcomeGrid">
@@ -167,11 +190,15 @@
           <div>
             <span class="eyebrow">Capability modules</span>
             <h2 id="modulesHeading" style="margin-top:14px">Or browse by platform capability.</h2>
-            <p>Modules remain the source content structure: GHEC, GHAS, Agentic Workflows, and SRE Agent. Outcome journeys compose these modules into adoption paths.</p>
+            <p>Modules remain the source content structure: GHEC, GHAS, Agentic Workflows, and SRE Agent. Outcome
+              journeys compose these modules into adoption paths.</p>
           </div>
           <a class="link" href="catalog.html">
             See all activities
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
           </a>
         </div>
         <div class="module-grid" id="moduleGrid">
@@ -187,29 +214,35 @@
           <div>
             <span class="eyebrow">The experience</span>
             <h2 id="howHeading" style="margin-top:14px">How it works.</h2>
-            <p>Activities bring together the customer delivery team, which does the work in its own environment, and coaches, who facilitate and verify. Everything is data-driven from a single metadata contract, so the site always reflects what's actually in the repository.</p>
+            <p>Activities bring together the customer delivery team, which does the work in its own environment, and
+              coaches, who facilitate and verify. Everything is data-driven from a single metadata contract, so the site
+              always reflects what's actually in the repository.</p>
           </div>
         </div>
         <div class="steps-grid reveal">
           <div class="step-item">
             <div class="step-num">01</div>
             <div class="step-title">Pick an activity</div>
-            <p class="step-desc">Browse the catalog. Filter by module, difficulty, or tags. Every card tells you exactly how long it takes and what you need to know.</p>
+            <p class="step-desc">Browse the catalog. Filter by module, difficulty, or tags. Every card tells you exactly
+              how long it takes and what you need to know.</p>
           </div>
           <div class="step-item">
             <div class="step-num">02</div>
             <div class="step-title">Provision your env</div>
-            <p class="step-desc">Each activity creates its own namespaced resources — repos, boards, workflows. Bring an org, run the setup script, and you're ready.</p>
+            <p class="step-desc">Each activity creates its own namespaced resources — repos, boards, workflows. Bring an
+              org, run the setup script, and you're ready.</p>
           </div>
           <div class="step-item">
             <div class="step-num">03</div>
             <div class="step-title">Do the work</div>
-            <p class="step-desc">The delivery guide walks your team through each step. When you're done, the success criteria tell you exactly what "done" means.</p>
+            <p class="step-desc">The delivery guide walks your team through each step. When you're done, the success
+              criteria tell you exactly what "done" means.</p>
           </div>
           <div class="step-item">
             <div class="step-num">04</div>
             <div class="step-title">Coach validates</div>
-            <p class="step-desc">The coach guide (behind a toggle) has the rubric, verification commands, and facilitation notes. No guesswork on either side.</p>
+            <p class="step-desc">The coach guide (behind a toggle) has the rubric, verification commands, and
+              facilitation notes. No guesswork on either side.</p>
           </div>
         </div>
       </div>
@@ -236,51 +269,60 @@
           <div>
             <span class="eyebrow">Before you begin</span>
             <h2 id="setupHeading" style="margin-top:14px">Environment setup.</h2>
-            <p>Each module has a dedicated setup activity. Complete the one for your module before tackling any other activity — it provisions the resources every subsequent exercise depends on.</p>
+            <p>Each module has a dedicated setup activity. Complete the one for your module before tackling any other
+              activity — it provisions the resources every subsequent exercise depends on.</p>
           </div>
           <a class="link" href="catalog.html">See all activities →</a>
         </div>
         <div class="challenge-grid reveal" style="margin-top:28px" aria-label="Setup activities by module">
-          <a class="ch-card" href="challenge.html?id=ghec-ch00" style="--mod-color:var(--c-ghec)" aria-label="GHEC Environment Setup">
+          <a class="ch-card" href="challenge.html?id=ghec-ch00" style="--mod-color:var(--c-ghec)"
+            aria-label="GHEC Environment Setup">
             <div class="ch-card-top">
               <span class="ch-mod-dot"></span>
               <span class="ch-module-label">GHEC · setup</span>
             </div>
             <div class="ch-title">Environment Setup</div>
-            <div class="ch-desc">Provision your GitHub Enterprise Cloud org, enable required features, and confirm you're ready for all GHEC activities.</div>
+            <div class="ch-desc">Provision your GitHub Enterprise Cloud org, enable required features, and confirm
+              you're ready for all GHEC activities.</div>
             <div class="ch-footer">
               <span class="badge badge-difficulty-beginner">setup</span>
             </div>
           </a>
-          <a class="ch-card" href="challenge.html?id=ghas-00" style="--mod-color:var(--c-ghas)" aria-label="GHAS Environment Setup">
+          <a class="ch-card" href="challenge.html?id=ghas-00" style="--mod-color:var(--c-ghas)"
+            aria-label="GHAS Environment Setup">
             <div class="ch-card-top">
               <span class="ch-mod-dot"></span>
               <span class="ch-module-label">GHAS · setup</span>
             </div>
             <div class="ch-title">Environment Setup</div>
-            <div class="ch-desc">Enable GitHub Advanced Security on your org and configure the baseline settings required by every GHAS activity.</div>
+            <div class="ch-desc">Enable GitHub Advanced Security on your org and configure the baseline settings
+              required by every GHAS activity.</div>
             <div class="ch-footer">
               <span class="badge badge-difficulty-beginner">setup</span>
             </div>
           </a>
-          <a class="ch-card" href="challenge.html?id=ghaw-00" style="--mod-color:var(--c-ghaw)" aria-label="GHAW Environment Setup">
+          <a class="ch-card" href="challenge.html?id=ghaw-00" style="--mod-color:var(--c-ghaw)"
+            aria-label="GHAW Environment Setup">
             <div class="ch-card-top">
               <span class="ch-mod-dot"></span>
               <span class="ch-module-label">GHAW · setup</span>
             </div>
             <div class="ch-title">Environment Setup</div>
-            <div class="ch-desc">Set up your Agentic Workflows environment — repos, secrets, and toolchain — so Copilot-driven automation exercises run without friction.</div>
+            <div class="ch-desc">Set up your Agentic Workflows environment — repos, secrets, and toolchain — so
+              Copilot-driven automation exercises run without friction.</div>
             <div class="ch-footer">
               <span class="badge badge-difficulty-beginner">setup</span>
             </div>
           </a>
-          <a class="ch-card" href="challenge.html?id=sre-agent-00" style="--mod-color:var(--c-agentic)" aria-label="SRE Agent Environment Setup">
+          <a class="ch-card" href="challenge.html?id=sre-agent-00" style="--mod-color:var(--c-agentic)"
+            aria-label="SRE Agent Environment Setup">
             <div class="ch-card-top">
               <span class="ch-mod-dot"></span>
               <span class="ch-module-label">SRE Agent · setup</span>
             </div>
             <div class="ch-title">Environment Setup</div>
-            <div class="ch-desc">Bootstrap the Agentic DevOps &amp; Azure SRE environment — Azure subscription, service principal, and GitHub integration — before any SRE activities.</div>
+            <div class="ch-desc">Bootstrap the Agentic DevSecOps &amp; Azure SRE environment — Azure subscription,
+              service principal, and GitHub integration — before any SRE activities.</div>
             <div class="ch-footer">
               <span class="badge badge-difficulty-beginner">setup</span>
             </div>
@@ -293,7 +335,7 @@
 
   <footer class="footer" role="contentinfo">
     <div class="wrap footer-inner">
-      <a class="brand" href="index.html" aria-label="RVAS — Agentic DevOps">
+      <a class="brand" href="index.html" aria-label="RVAS — Agentic DevSecOps">
         <img src="assets/img/logo-full.png" alt="RVAP" class="rvap-nav-logo" height="32">
       </a>
       <p>Content sourced from four Microsoft delivery session repositories under MIT license.</p>
@@ -311,4 +353,5 @@
   <script src="assets/js/home.js"></script>
   <script src="assets/js/shell.js"></script>
 </body>
+
 </html>

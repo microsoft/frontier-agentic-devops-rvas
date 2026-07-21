@@ -23,7 +23,7 @@
 ## Project Context
 
 - **Project:** frontier-ghplatform-hackathon
-- **Goal:** One repo + one beautiful GitHub Pages site aggregating four hackathons as independent modules — GitHub Enterprise Cloud, GitHub Advanced Security, GitHub Agentic Workflows, and Agentic DevOps & Azure SRE. GitHub Actions threads through all. The ghcp/Copilot hackathon is excluded.
+- **Goal:** One repo + one beautiful GitHub Pages site aggregating four hackathons as independent modules — GitHub Enterprise Cloud, GitHub Advanced Security, GitHub Agentic Workflows, and Agentic DevSecOps & Azure SRE. GitHub Actions threads through all. The ghcp/Copilot hackathon is excluded.
 - **Key constraint:** Every challenge is independently runnable.
 - **Universe:** Firefly (frontier · crew · independence)
 - **Requested by:** Marco (@olivomarco)

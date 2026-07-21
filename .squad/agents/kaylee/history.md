@@ -3,7 +3,7 @@
 ## Project Context
 
 - **Project:** frontier-ghplatform-hackathon — "The Frontier GitHub Platform Hackathon"
-- **Goal:** One repo + one beautiful GitHub Pages site aggregating four hackathons as independent modules: GitHub Enterprise Cloud (frontier-ghec), GitHub Advanced Security (frontier-ghas), GitHub Agentic Workflows (frontier-ghaw), Agentic DevOps & Azure SRE (frontier-agentic-devops). GitHub Actions threads through all four. The ghcp/Copilot hackathon is intentionally excluded.
+- **Goal:** One repo + one beautiful GitHub Pages site aggregating four hackathons as independent modules: GitHub Enterprise Cloud (frontier-ghec), GitHub Advanced Security (frontier-ghas), GitHub Agentic Workflows (frontier-ghaw), Agentic DevSecOps & Azure SRE (frontier-agentic-devops). GitHub Actions threads through all four. The ghcp/Copilot hackathon is intentionally excluded.
 - **Key constraint:** Each challenge must be independently runnable (explicit prereqs, no hidden cross-dependencies). Students may do the full journey or cherry-pick.
 - **Tech:** Static GitHub Pages site (lean toward GHEC dependency-free meta.yml -> build.js -> docs/ model, pending Phase 0 decision).
 - **Requested by:** Marco (@olivomarco)
@@ -12,14 +12,14 @@
 
 ## Session Summary (2026-06-15)
 
-**Delivered:** Complete site UI design system, component patterns, and bug fixes. Design: frontier gold compass brand with module-specific accent colors (sky-blue GHEC, red GHAS, violet GHAW, orange Agentic DevOps). Chakra Petch display + DM Sans body + JetBrains Mono code. Vendored marked.js (35KB) for Markdown rendering. Fixed 5 UI defects: icon paths, title font, track card anchors, featured card clickability, theme FOUC flash, global rebrand (product "Agentic DevOps" vs module "SRE Agent"), and setup challenge ordering. All 4 setup challenges render first per module via lexicographic sort. Challenge cards must be `<a>` elements (no plain divs).
+**Delivered:** Complete site UI design system, component patterns, and bug fixes. Design: frontier gold compass brand with module-specific accent colors (sky-blue GHEC, red GHAS, violet GHAW, orange Agentic DevSecOps). Chakra Petch display + DM Sans body + JetBrains Mono code. Vendored marked.js (35KB) for Markdown rendering. Fixed 5 UI defects: icon paths, title font, track card anchors, featured card clickability, theme FOUC flash, global rebrand (product "Agentic DevSecOps" vs module "SRE Agent"), and setup challenge ordering. All 4 setup challenges render first per module via lexicographic sort. Challenge cards must be `<a>` elements (no plain divs).
 
 **Detailed phase notes (12+ decisions, 2026-06-15):** Archived in git history for reference. Key archived learnings:
 1. Design system palette, typography, component patterns (Phase 1)
 2. Icon convention: `icon-<moduleId>.svg` in `MODULE_CONFIG` (Phase 2)
 3. Track card anchor pattern with scroll-margin-top (Phase 4)
 4. Featured card: all `.ch-card` must be `<a>` elements (Phase 5)
-5. Brand collision rule: product "Agentic DevOps" ≠ module "SRE Agent" (Phase 5)
+5. Brand collision rule: product "Agentic DevSecOps" ≠ module "SRE Agent" (Phase 5)
 6. Anti-FOUC inline script in `<head>` using `fp-theme` storage key (Phase 6)
 7. Challenge ordering: lexicographic slug sort, no JS secondary sort (Phase 7)
 

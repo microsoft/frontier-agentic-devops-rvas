@@ -1,4 +1,4 @@
-/* Agentic DevOps — module detail page (?m=<moduleId>) */
+/* Agentic DevSecOps — module detail page (?m=<moduleId>) */
 (function () {
   'use strict';
 
@@ -15,7 +15,7 @@
 
     const challenges = (data.challenges || []).filter((c) => c.module === moduleId);
 
-    document.title = mod.name + ' — Agentic DevOps';
+    document.title = mod.name + ' — Agentic DevSecOps';
     updateMeta(mod);
     renderHero(mod, challenges);
     renderTracks(mod, challenges);

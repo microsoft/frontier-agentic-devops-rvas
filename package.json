@@ -1,7 +1,7 @@
 {
   "name": "frontier-agentic-devops-rvas",
   "version": "1.0.0",
-  "description": "Agentic DevOps — unified delivery session site builder",
+  "description": "Agentic DevSecOps — unified delivery session site builder",
   "scripts": {
     "build": "node docs/build.js",
     "audit": "node scripts/audit-content.js",

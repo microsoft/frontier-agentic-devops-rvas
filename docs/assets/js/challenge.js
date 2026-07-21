@@ -1,4 +1,4 @@
-/* Agentic DevOps — challenge detail page (?id=<challengeId>) */
+/* Agentic DevSecOps — challenge detail page (?id=<challengeId>) */
 (function () {
   'use strict';
 
@@ -25,7 +25,7 @@
     const mod = (data.modules || []).find((m) => m.id === challenge.module);
     const allChallenges = data.challenges || [];
 
-    document.title = challenge.title + ' — Agentic DevOps';
+    document.title = challenge.title + ' — Agentic DevSecOps';
     applyModuleColor(challenge.module);
     renderHero(challenge, mod);
     renderFacts(challenge, mod, allChallenges, data.outcomes || []);

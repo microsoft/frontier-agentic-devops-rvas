@@ -2,7 +2,7 @@
 
 ## Active Decisions
 
-### Agentic DevOps: Challenge QA rubric and missing-candidate policy (2026-06-19)
+### Agentic DevSecOps: Challenge QA rubric and missing-candidate policy (2026-06-19)
 
 **Status:** ✅ Implemented as repo contribution contract
 
@@ -20,7 +20,7 @@
 
 **Status:** ✅ APPROVED by Marco (2026-06-15)
 
-**Summary:** Four-module information architecture aggregating **58 challenges** (final count after GHAS scoped to security-only S00–S05) from four source hackathons (GHEC 20, GHAS 6, GHAW 25, Agentic DevOps 7). Single metadata contract (`meta.yml`) per challenge; extended GHEC build engine; no heavy assets; all content kept intact (no deduplication). Prerequisite edges: 38 (0 cross-module). Build deterministic; no cycles.
+**Summary:** Four-module information architecture aggregating **58 challenges** (final count after GHAS scoped to security-only S00–S05) from four source hackathons (GHEC 20, GHAS 6, GHAW 25, Agentic DevSecOps 7). Single metadata contract (`meta.yml`) per challenge; extended GHEC build engine; no heavy assets; all content kept intact (no deduplication). Prerequisite edges: 38 (0 cross-module). Build deterministic; no cycles.
 
 **Owner:** Mal (sign-off), Marco (approval)
 
@@ -58,7 +58,7 @@
 
 **Status:** Complete
 
-**Summary:** GHAW (25 challenges, 4 tracks: hello-agent 5, repo-concierge 6, continuous-intelligence 6, production-patterns 8) and Agentic DevOps (7 challenges, linear arc 00→01,02→03→04,05→06) ported to modules. Prerequisites: GHAW all non-setup challenges require ghaw-00; ghaw-22 additionally requires ghaw-21 (causal consumer). Agentic-DevOps prerequisites justified by content: both SDLC and Copilot experience feed into challenge 03 (coordinate workflows), deployed infra from 04 required for 06 (SRE agent). Resources vendored (212KB). Coach guides derived from source challenge solutions. Tier mapping: source core→core, bonus/extension→stretch.
+**Summary:** GHAW (25 challenges, 4 tracks: hello-agent 5, repo-concierge 6, continuous-intelligence 6, production-patterns 8) and Agentic DevSecOps (7 challenges, linear arc 00→01,02→03→04,05→06) ported to modules. Prerequisites: GHAW all non-setup challenges require ghaw-00; ghaw-22 additionally requires ghaw-21 (causal consumer). Agentic-DevOps prerequisites justified by content: both SDLC and Copilot experience feed into challenge 03 (coordinate workflows), deployed infra from 04 required for 06 (SRE agent). Resources vendored (212KB). Coach guides derived from source challenge solutions. Tier mapping: source core→core, bonus/extension→stretch.
 
 **Owner:** Zoe
 
@@ -221,19 +221,19 @@ Typography adjustments:
 
 **Summary:** Two coordinated changes implemented:
 
-**A) Module id rename:** `agentic-devops` → `sre-agent`, display name "Agentic DevOps & Azure SRE" → "SRE Agent".
+**A) Module id rename:** `agentic-devops` → `sre-agent`, display name "Agentic DevSecOps & Azure SRE" → "SRE Agent".
 
-**B) Repo/product rebrand:** "The Frontier GitHub Platform Hackathon" → **"Agentic DevOps"** (non-HTML/JS by Zoe, HTML/JS brand by Kaylee).
+**B) Repo/product rebrand:** "The Frontier GitHub Platform Hackathon" → **"Agentic DevSecOps"** (non-HTML/JS by Zoe, HTML/JS brand by Kaylee).
 
-**Motivation:** The module name was confusing with the product brand. Marco decided to give the module a tighter name ("SRE Agent") and reserve "Agentic DevOps" for the product.
+**Motivation:** The module name was confusing with the product brand. Marco decided to give the module a tighter name ("SRE Agent") and reserve "Agentic DevSecOps" for the product.
 
 **Naming After Change:**
 - Module id: `agentic-devops` → `sre-agent`
-- Module display name: "Agentic DevOps & Azure SRE" → "SRE Agent"
+- Module display name: "Agentic DevSecOps & Azure SRE" → "SRE Agent"
 - Challenge ids: `agentic-devops-NN` → `sre-agent-NN`
-- Product/repo brand: "The Frontier GitHub Platform Hackathon" → **"Agentic DevOps"**
+- Product/repo brand: "The Frontier GitHub Platform Hackathon" → **"Agentic DevSecOps"**
 
-**Collision rule:** "Agentic DevOps" = product brand. "SRE Agent" (id: `sre-agent`) = module. Do not call the module "Agentic DevOps".
+**Collision rule:** "Agentic DevSecOps" = product brand. "SRE Agent" (id: `sre-agent`) = module. Do not call the module "Agentic DevSecOps".
 
 **Files Changed (Zoe):**
 - `modules/agentic-devops/` → `modules/sre-agent/`
@@ -253,15 +253,15 @@ Typography adjustments:
 
 **Files Changed (Kaylee):**
 - All four pages (`index.html`, `catalog.html`, `challenge.html`, `module.html`)
-  - `<title>` elements: "… — Frontier …" → "… — Agentic DevOps"
+  - `<title>` elements: "… — Frontier …" → "… — Agentic DevSecOps"
   - `<meta name="description">` reworded
-  - Header wordmark: "Frontier · GitHub Platform" → "Agentic DevOps"
-  - Aria labels: "Frontier — Home" → "Agentic DevOps — Home"
+  - Header wordmark: "Frontier · GitHub Platform" → "Agentic DevSecOps"
+  - Aria labels: "Frontier — Home" → "Agentic DevSecOps — Home"
   - Footer brand text
   - Favicon letter: `F` → `A` (inline SVG data URI)
   - Hero section (index.html): eyebrow, h1, lede rewritten
 - `docs/assets/js/` — `document.title` strings, file header comments updated
-- Module nav links: `m=agentic-devops` → `m=sre-agent`, label "Agentic DevOps" → "SRE Agent"
+- Module nav links: `m=agentic-devops` → `m=sre-agent`, label "Agentic DevSecOps" → "SRE Agent"
 
 **Intentionally NOT Changed (Kaylee):**
 - `docs/assets/img/icon-agentic-devops.svg` — filename and `<img src>` kept

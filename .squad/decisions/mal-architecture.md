@@ -15,7 +15,7 @@ Four top-level **modules**, each mapping 1:1 to a source hackathon. Modules cont
 | `ghec` | GitHub Enterprise Cloud | retired-private-predecessor | 4 (Developer Flow, Admin/Governance, Security, Automation & AI) | 20 |
 | `ghas` | GitHub Advanced Security & Copilot | retired-private-predecessor | 4 (Copilot Customization, Security, Frontend, Backend) | 15 |
 | `ghaw` | GitHub Agentic Workflows | retired-private-predecessor | 4 (Hello Agent, MCP Integration, Production Patterns, Safe Outputs) | 24 (excl. setup) |
-| `agentic-devops` | Agentic DevOps & Azure SRE | frontier-agentic-devops-hackathon | 1 (linear arc) | 7 |
+| `agentic-devops` | Agentic DevSecOps & Azure SRE | frontier-agentic-devops-hackathon | 1 (linear arc) | 7 |
 
 **Total: 66 challenges across 13 tracks in 4 modules.**
 

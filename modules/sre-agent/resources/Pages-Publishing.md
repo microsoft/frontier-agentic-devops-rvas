@@ -18,7 +18,7 @@ This repository can be published with GitHub Pages so participants have a simple
 
 ## Content Freshness
 
-Agentic DevOps capabilities change quickly. Before each delivery, review these areas for accuracy:
+Agentic DevSecOps capabilities change quickly. Before each delivery, review these areas for accuracy:
 
 - GitHub Copilot and coding agent availability.
 - GitHub Actions and environment protection behavior.

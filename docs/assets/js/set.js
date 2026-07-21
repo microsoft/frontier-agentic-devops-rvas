@@ -1,4 +1,4 @@
-/* Agentic DevOps — curated set view (?ids=a,b,c&name=…), opens in kiosk mode */
+/* Agentic DevSecOps — curated set view (?ids=a,b,c&name=…), opens in kiosk mode */
 (function () {
   'use strict';
 
@@ -29,7 +29,7 @@
 
   function renderHeading(name, n) {
     const title = name || 'Your activities';
-    document.title = title + ' — Agentic DevOps';
+    document.title = title + ' — Agentic DevSecOps';
     const h = document.getElementById('setHeading');
     if (h) h.textContent = name ? name : 'Your activities.';
     const intro = document.getElementById('setIntro');

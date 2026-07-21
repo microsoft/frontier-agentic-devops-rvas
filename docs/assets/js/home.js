@@ -1,4 +1,4 @@
-/* Agentic DevOps — home page */
+/* Agentic DevSecOps — home page */
 (function () {
   'use strict';
 

@@ -1,6 +1,6 @@
 # Research Links
 
-Curated references for the Frontier Agentic DevOps Delivery session. Prefer these links when writing activity guides, coach notes, and setup instructions.
+Curated references for the Frontier Agentic DevSecOps Delivery session. Prefer these links when writing activity guides, coach notes, and setup instructions.
 
 ## Azure SRE Agent
 
