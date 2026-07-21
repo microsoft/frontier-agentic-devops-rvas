@@ -1,4 +1,4 @@
-# Agentic DevOps
+# Agentic DevSecOps
 
 One repo. One GitHub Pages site. Five adoption journeys, four delivery session modules, 59 activities, zero configuration drama.
 
