@@ -11,6 +11,7 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer implementation owner receives real webhook deliveries, verifies them cryptographically, and graduates from a passive listener to an...
-- Implementation risks to verify:
-- Delivery lead prompts: ask "what exact bytes did you sign, and what exact bytes did GitHub sign?" (→ raw body), and "which of your three credentials is allowed to comment?" (→...
+- Customer adoption outcome: the customer implementation owner receives real webhook deliveries, verifies them cryptographically, and graduates from passive listener (webhooks) to active responder (GitHub App identity).
+- **Governance register row:** Confirm one register row added for webhooks/GitHub Apps: webhook scope (repo + org), App permissions (granular per use case), signature verification requirement documented, installation scope and credential rotation policy recorded. Row uses `approved pilot` or `inspect-and-propose` depending on App scope (org-wide vs repo-specific).
+- Implementation risks to verify: ask "what exact bytes did you sign, and what exact bytes did GitHub sign?" (→ raw request body) and "what happens if a bad actor replays an old delivery?" (→ duplicate-check on X-GitHub-Delivery).
+- Delivery lead prompts: ask "which of your three credentials is allowed to comment?" (→ App installation token only, not personal token or webhook).

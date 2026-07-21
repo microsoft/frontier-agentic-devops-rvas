@@ -30,7 +30,7 @@
 This delivery engagement establishes:
 - Author a `devcontainer.json` that pins a base image, installs features, and runs setup commands.
 - Launch a Codespace from the UI and the CLI, and understand the create/stop/delete lifecycle.
-- Add lifecycle scripts (`postCreateCommand`, `postStartCommand`) and dev-container Features.
+- Use prebuild-aware lifecycle scripts (`onCreateCommand`, `postStartCommand`) and dev-container Features.
 - Forward and label ports, set port visibility, and run the seeded app inside the Codespace.
 - Apply personalization (dotfiles) vs project config, and understand the precedence.
 - Configure org-level Codespaces policy (machine-type limits, retention) and create a prebuild to cut start time.
@@ -72,11 +72,11 @@ What setup creates (all artifacts namespaced `ghec-ch03-*`, idempotent, prefix-g
 ### Part A — Author the dev container
 1. Inspect and extend `.devcontainer/devcontainer.json`. The fallback sample includes a minimal baseline with a pinned Node image, dependency install, and port 3000 forwarding. Keep the pinned base image suitable for the app (e.g., `mcr.microsoft.com/devcontainers/javascript-node:22`) and improve it.
 2. Add Features. Include at least two dev-container Features, e.g. `ghcr.io/devcontainers/features/github-cli:1` and `ghcr.io/devcontainers/features/node:1`. Understand Features vs baking tools into a custom Dockerfile.
-3. Add lifecycle commands. Set `postCreateCommand` to install dependencies (`npm ci`) and `postStartCommand` to print a ready message. Add a `customizations.vscode.extensions` list with at least one extension.
+3. Add lifecycle commands. Keep deterministic shared setup in `onCreateCommand` (`npm install` for the seeded app) and add `postStartCommand` to print a ready message. Prebuilds run `onCreateCommand`, but not `postCreateCommand`, so do not put the dependency install in `postCreateCommand`. Add a `customizations.vscode.extensions` list with at least one extension.
 
 ### Part B — Launch & run
 4. Open a Codespace from the repo's Code → Codespaces menu *and* from the CLI: `gh codespace create -R <org>/ghec-ch03-codespaces-dev-containers -m basicLinux32gb` (use the smallest available). List it with `gh codespace list`.
-5. Verify the environment inside the Codespace: `node -v` matches the pinned image, `gh --version` works (proves the Feature installed), and `npm ci` already ran (proves `postCreateCommand`).
+5. Verify the environment inside the Codespace: `node -v` matches the pinned image, `gh --version` works (proves the Feature installed), and `node_modules/express` exists (proves `onCreateCommand` installed dependencies).
 6. Run the app (`npm start`). Confirm it boots.
 
 ### Part C — Ports
@@ -88,18 +88,28 @@ What setup creates (all artifacts namespaced `ghec-ch03-*`, idempotent, prefix-g
 
 ### Part E — Org policy & prebuilds
 10. Set an org Codespaces policy. In Org settings → Codespaces, restrict the allowed machine types (e.g., disallow the largest) and set a retention period. Confirm the policy is visible via `gh api /orgs/<org>/codespaces` or the settings UI.
-11. Create a prebuild. Configure a Codespaces prebuild for the repo's default branch (Settings → Codespaces → Set up prebuild). Trigger it, wait for the prebuild Action run to succeed, then create a *new* Codespace and confirm it reports "prebuilt" and starts noticeably faster.
-12. Clean up running Codespaces with `gh codespace delete` to stop billing.
+11. Design the prebuild before creating it. In `docs/prebuild-decision.md`, record the repository branch and `devcontainer.json` you are targeting; the developer regions; the trigger you choose; the number of versions to retain; the owner for failed-prebuild notifications; and the rationale. Select the settings for this customer:
+   - **Every push** keeps dependencies current but consumes more Actions minutes.
+   - **On configuration change** reduces Actions usage but may leave dependencies stale until a developer updates them.
+   - **Scheduled** suits a deliberate refresh cadence, with the same freshness trade-off.
+   - Limit regions to where the delivery team works. Each enabled region and retained version consumes prebuild storage.
+   - Retain only the number of versions needed for rollback or investigation (1–5). Decide whether developers should be blocked from a fallback when the latest prebuild is running or failed.
+12. Create the prebuild from the recorded decision (Settings → Codespaces → Set up prebuild). Select the branch and configuration file, trigger, regions, retained versions, failure-notification owner, and advanced freshness behavior. Wait for the GitHub Actions prebuild workflow to succeed.
+13. Validate the result. Create a *new* Codespace for the configured branch and configuration. Confirm the machine picker shows **Prebuild ready**, `node_modules/express` is already present, and the repository settings show the successful configuration and its next update trigger. Record the workflow URL or run ID in `docs/prebuild-decision.md`.
+14. Clean up running Codespaces with `gh codespace delete` to stop billing.
+15. Update the governance register initialized in Ch06. Add two `development` rows: **dev-container standardization** (effective level: `repo`; evidence: `.devcontainer/devcontainer.json` and a successful Codespace) and **prebuild strategy** (effective level: `org`/`repo`; evidence: `docs/prebuild-decision.md`, the prebuild workflow run, and the policy setting). Record the platform owner, implementation path (`approved pilot` or `inspect-and-propose`), review cadence, and next decision.
 
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
-- [ ] `.devcontainer/devcontainer.json` exists, pins a base image, includes ≥2 Features, and sets `postCreateCommand` + `postStartCommand`.
+- [ ] `.devcontainer/devcontainer.json` exists, pins a base image, includes ≥2 Features, and sets `onCreateCommand` + `postStartCommand`.
 - [ ] A Codespace was launched from both the UI and the CLI (`gh codespace list` showed it).
 - [ ] Inside the Codespace, the pinned Node version, the gh CLI Feature, and the post-create install are all verifiable.
 - [ ] The app runs and its port is forwarded + labeled, with `forwardPorts`/`portsAttributes` committed to config.
 - [ ] `docs/devcontainer-notes.md` explains dotfiles vs devcontainer.json precedence.
 - [ ] An org Codespaces policy restricts machine types and sets retention.
-- [ ] A prebuild is configured and a new Codespace reports prebuilt.
+- [ ] `docs/prebuild-decision.md` records the branch/configuration, trigger, regions, retained versions, failure-notification owner, freshness behavior, and customer-specific cost/freshness rationale.
+- [ ] A prebuild is configured; its GitHub Actions workflow succeeds; and a new Codespace reports **Prebuild ready** with dependencies already installed.
+- [ ] The governance register contains development rows for the dev-container standard and prebuild strategy, with effective level, evidence, owner, implementation path, and next decision.
 - [ ] All your Codespaces are stopped/deleted at the end.
 - [ ] Real-outcome check — if you brought your own repo, it now has a Codespace/devcontainer path that reduces real onboarding friction; if you used the sample, you can name the repo whose setup you will standardize next.
 - [ ] Adoption handover — name the repository owner, onboarding bottleneck, approved dev-container change, and next rollout action.
@@ -118,5 +128,6 @@ You are done when ALL of the following are true:
 - Forwarding ports in your codespace — https://docs.github.com/en/codespaces/developing-in-a-codespace/forwarding-ports-in-your-codespace
 - Managing Codespaces for your organization — https://docs.github.com/en/codespaces/managing-codespaces-for-your-organization/managing-repository-access-for-your-organizations-codespaces
 - Configuring prebuilds — https://docs.github.com/en/codespaces/prebuilding-your-codespaces/configuring-prebuilds
+- About Codespaces prebuilds — https://docs.github.com/en/codespaces/prebuilding-your-codespaces/about-github-codespaces-prebuilds
 - Personalizing Codespaces with dotfiles — https://docs.github.com/en/codespaces/customizing-your-codespace/personalizing-github-codespaces-for-your-account
 - `gh codespace` CLI manual — https://cli.github.com/manual/gh_codespace

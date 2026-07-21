@@ -23,6 +23,7 @@ success_criteria:
   - A rules-based Code Quality finding is fixed or dismissed with documented rationale; any Autofix suggestion is reviewed before commit.
   - The customer recorded which Code Quality severity threshold, if any, should block merges and demonstrated or documented the resulting merge decision.
   - An organization owner has an approved pilot cohort, accountable owners, rollout or rollback criteria, and an evidence-based next action for native Code Quality organization targeting.
+  - '**Governance register updated:** Added a row for security (code quality gates and coverage) with links to baseline scores, pilot proposal, and rollout decision.'
 tags:
   - github-code-quality
   - code-health

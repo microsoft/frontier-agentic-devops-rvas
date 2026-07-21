@@ -95,6 +95,16 @@ What setup creates (all artifacts namespaced `ghec-ch10-*`, idempotent, prefix-g
 14. Run it and save the output as `COST-REPORT.md`, including the before/after Actions-minutes delta you generated in Part B.
 15. Write a one-paragraph recommendation: given the usage shape, what budget + alert thresholds would you set for this org, and would you add a hard spending limit?
 
+### Part F — Governance register: Budget, alerts & cost ownership
+
+Capture billing governance in the register.
+
+1. **Inspect current usage baseline and budget configuration.** Pull the org's current usage from the billing API and note the before reading (Actions minutes, storage). Check Org Settings → Billing & licensing → Budgets and alerts: record whether budgets exist, what their caps are (per product), and which email recipients receive alerts. Record the effective level (`org`), implementation path (`approved pilot` if budgets are live), and billing owner name.
+
+2. **Document cost-attribution and alert strategy.** In `COST-REPORT.md`, record which repositories or workflows drive the highest usage. Document the alert threshold strategy (e.g., alert at 75%, 90%, 100% of budget) and the spending-limit decision (should the org hard-stop metered usage at the cap, or just alert?). Note the cost model differences by runner OS and whether the org prefers Linux to save on per-minute overage costs.
+
+3. **Add governance-register row.** Add one row: **Budgets & usage alerts** (domain: `billing`, effective level: `org`, implementation path: `approved pilot`, evidence: budget configuration screenshot + `COST-REPORT.md` with reconciliation, usage attribution, and recommendation, accountable owner: billing/finance team). Leave Next Decision blank pending org approval of the budget caps and alert recipients.
+
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
 - [ ] A before usage snapshot was captured from the billing API (Actions minutes + storage).
@@ -103,6 +113,7 @@ You are done when ALL of the following are true:
 - [ ] You can reconcile the API usage total against the UI Usage page and explain the cost model (included vs metered; per-minute price varies by runner OS/SKU).
 - [ ] A committed cost-report script runs and produces a product/used/included/billable table.
 - [ ] A `COST-REPORT.md` exists with the before/after delta and a budget recommendation.
+- [ ] **Governance register updated:** Added row for billing domain (budgets, usage alerts, cost-reconciliation baseline) with API snapshot links to `/organizations/<org>/settings/billing/usage` and configured budget settings. Row uses `approved pilot` status.
 - [ ] Real-outcome check — if you brought your own usage data, a real budget or cost report now exists for someone to use; if you used the sample, you can name the org/team cost view you will build next.
 - [ ] Adoption handover — record the customer billing owner, unattributed spend area, budget/reporting decision, and next approved action.
 

@@ -49,6 +49,18 @@ You're the first platform admin hired at a fast-growing GHEC customer. The organ
 >
 > Record the selected target, organisation owner, risk decision, and next action and owner. Use the sample only for testing; move the validated proposal to an approved customer organisation.
 
+## Initialize the Governance Settings Register
+
+This activity is the foundation for all subsequent governance activities. Before you start Part A, you'll create the customer-owned governance settings register — a living inventory of every governance setting, its current state, desired value, and evidence.
+
+**What you'll do:**
+1. Copy `modules/ghec/resources/GOVERNANCE-SETTINGS-REGISTER-TEMPLATE.md` to your customer-owned location (e.g., `docs/GOVERNANCE-SETTINGS-REGISTER.md` in your real repo, or `docs/customer-governance-register.md` in the sample).
+2. **Scope the register:** Record customer scope (org name, team, approvers, review cadence).
+3. **Initialize the first section:** Add rows for every setting you will touch in Part A–E below (org-membership, security defaults, workflow defaults).
+4. **Reference this register during the activity:** As you complete each part, fill in the Evidence and Next Decision columns. You'll pass this register to subsequent activities so they can add their domain-specific rows.
+
+This ensures governance is cumulative, auditable, and tied to real customer decisions — not a one-off exercise.
+
 ## Sample test repository or environment (when tenant delivery is constrained)
 Skip this if you brought your own org/repo policy target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 

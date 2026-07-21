@@ -11,16 +11,18 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Implement an authorized customer reproducible development environment with `devcontainer.json`, Codespaces, port forwarding, organization-level Codespaces policy, and prebuilds. Preserve the configuration, operating owner, cost controls, and rollout decision."
+description: "Implement an authorized customer reproducible development environment with `devcontainer.json`, Codespaces, port forwarding, organization-level Codespaces policy, and tuned prebuilds. Preserve the configuration, prebuild operating decision, cost controls, and rollout decision."
 success_criteria:
-- '`.devcontainer/devcontainer.json` exists, **pins a base image**, includes **≥2 Features**, and sets `postCreateCommand` + `postStartCommand`.'
+- '`.devcontainer/devcontainer.json` exists, **pins a base image**, includes **≥2 Features**, and sets `onCreateCommand` + `postStartCommand`.'
 - A Codespace was launched from **both** the UI and the CLI (`gh codespace list` showed it).
 - Inside the Codespace, the pinned **Node version**, the **gh CLI Feature**, and the **post-create install** are all verifiable.
 - The app **runs** and its port is **forwarded + labeled**, with `forwardPorts`/`portsAttributes` committed to config.
 - '`docs/devcontainer-notes.md` explains **dotfiles vs devcontainer.json** precedence.'
 - An **org Codespaces policy** restricts machine types and sets retention.
-- A **prebuild** is configured and a new Codespace reports **prebuilt**.
+- '`docs/prebuild-decision.md` records the branch/configuration, trigger, regions, retained versions, failure-notification owner, freshness behavior, and customer-specific cost/freshness rationale.'
+- A **prebuild** is configured, its workflow succeeds, and a new Codespace reports **Prebuild ready** with dependencies already installed.
 - All your Codespaces are **stopped/deleted** at the end.
+- '**Governance register updated:** Added rows for development (dev-container standardization and prebuild strategy) with links to `devcontainer.json`, `docs/prebuild-decision.md`, and org Codespaces policy.'
 - Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - codespaces
@@ -44,6 +46,7 @@ references:
 - https://docs.github.com/en/codespaces/overview
 - https://docs.github.com/en/codespaces/developing-in-a-codespace/forwarding-ports-in-your-codespace
 - https://docs.github.com/en/codespaces/prebuilding-your-codespaces/configuring-prebuilds
+- https://docs.github.com/en/codespaces/prebuilding-your-codespaces/about-github-codespaces-prebuilds
 - https://docs.github.com/en/codespaces/managing-codespaces-for-your-organization/managing-repository-access-for-your-organizations-codespaces
 - https://docs.github.com/en/codespaces/customizing-your-codespace/personalizing-github-codespaces-for-your-account
 - https://containers.dev/implementors/json_reference/

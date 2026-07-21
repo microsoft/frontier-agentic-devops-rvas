@@ -11,6 +11,7 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer implementation owner surfaces and triages every leaked credential in a repo's history, then proves push protection stops the next secret...
-- Implementation risks to verify:
-- Delivery lead prompts: ask "what makes a secret detectable by a partner — what shape does GitHub recognize?" (→ provider prefixes like AKIA/ghp), and "where does the block...
+- Customer adoption outcome: the customer implementation owner surfaces and triages every leaked credential in a repo's history, enables push protection to block future leaks, and customizes detection patterns for company-internal secrets.
+- **Governance register row:** Confirm one register row added for Secret scanning (push protection enabled, custom patterns defined per team, alert triage baseline). Row uses `approved pilot` status with links to alert report, custom pattern test case, and policy document.
+- Implementation risks to verify: ask "what makes a secret detectable by a partner — what shape does GitHub recognize?" (→ provider prefixes like AKIA, ghp_, etc.) and "where does the block happen?" (→ pre-commit, before push).
+- Delivery lead prompts: ask "what's the false-positive risk of custom patterns?" (→ too broad catches legit strings) and "what's the team adoption friction if push protection is ON by default?"

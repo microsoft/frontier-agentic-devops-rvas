@@ -13,4 +13,5 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 - Keep the product boundary clear
 - Product and tenant constraints
-- Threshold and remediation guardrails
+- **Governance register row:** Confirm one register row added for code quality gates (approved thresholds like min 80% coverage + no new issues, status check configured on merge gate). Row uses `approved pilot` status with links to build reports and quality score baseline.
+- Threshold and remediation guardrails: ask "what's too strict that would block legitimate code?" (→ coverage % targets, severity thresholds) and "what team budget exists to fix tech-debt alerts?"

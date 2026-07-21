@@ -105,6 +105,16 @@ What setup creates (all artifacts namespaced `ghec-ch12-*`, idempotent, prefix-g
 13. Open the seeded vulnerable PR. Create a PR from `feature/insecure-endpoint` into `main`. The PR-triggered CodeQL run should flag the new vulnerability inline on the diff.
 14. Make code scanning required. In branch protection / a ruleset on `main`, mark the CodeQL code-scanning results check as required. Confirm the vulnerable PR is now blocked from merging while the alert is open, and that fixing/dismissing it clears the gate.
 
+### Part F — Governance register: CodeQL rollout & triage
+
+Capture code-scanning governance in the register.
+
+1. **Inspect CodeQL configuration and language coverage.** Check the repo's Code scanning settings and the active workflow (default or advanced): `gh api repos/<org>/ghec-ch12-juice-shop/code-scanning/analyses --jq '.[0] | {tool: .tool.name, language_count}'`. Document which languages are scanned (JavaScript/TypeScript for Juice Shop), whether custom query suites (default vs security-extended) are in use, and alert suppression/dismissal rationale. Record the effective level (`repo` for this repo; can be rolled up to org level), implementation path (`approved pilot`), and AppSec owner name.
+
+2. **Document alert governance and Autofix policy.** Summarize: critical/high alert count, how many were fixed manually vs auto-merged (Autofix), and the triage criteria (what makes an alert dismissible vs must-fix). Note the gate: code-scanning check is required on `main` so no new alerts merge unaddressed.
+
+3. **Add governance-register row.** Add one row: **Code scanning (CodeQL)** (domain: `security`, effective level: `repo`/`org`, implementation path: `approved pilot`, evidence: workflow export + CodeQL analyses + alert triage summary + PR gate proof). Identify owner (AppSec/DevSec team) and leave Next Decision blank pending org rollout decision to other repos.
+
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
 - [ ] CodeQL is enabled via an advanced workflow scanning `javascript-typescript` with the `security-extended` suite (visible in `.github/workflows/codeql.yml`).

@@ -71,7 +71,7 @@ npm-debug.log
 "{
   \"name\": \"ghec-${CHID}\",
   \"image\": \"mcr.microsoft.com/devcontainers/javascript-node:22\",
-  \"postCreateCommand\": \"npm install\",
+  \"onCreateCommand\": \"npm install\",
   \"forwardPorts\": [3000],
   \"portsAttributes\": {
     \"3000\": {
@@ -95,7 +95,7 @@ ghec_provision() {
   log_info "  - inspect the seeded .devcontainer/devcontainer.json baseline"
   log_info "  - add dev-container Features, postStartCommand, and VS Code customizations"
   log_info "  - open the repo in a Codespace and run 'npm start'"
-  log_info "  - configure a prebuild for faster boots"
+  log_info "  - tune a prebuild for freshness, cost, and developer regions"
 }
 
 ghec_teardown() {

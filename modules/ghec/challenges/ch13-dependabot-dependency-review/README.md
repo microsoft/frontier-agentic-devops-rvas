@@ -114,6 +114,16 @@ What setup creates (all artifacts namespaced `ghec-ch13-*`, idempotent, prefix-g
 12. Open the seeded risky PR. Create a PR from `feature/add-risky-dep` into `main`. The dependency-review check should flag the vulnerable dependency on the PR.
 13. Make it a required check. Mark the dependency-review check as required on `main` and confirm the risky PR is blocked until the dependency is removed or the alert is otherwise resolved.
 
+### Part F — Governance register: Dependabot & dependency review
+
+Capture dependency-security governance in the register.
+
+1. **Inspect Dependabot and dependency-review configuration.** Check the repo Settings → Code security: confirm Dependabot alerts and Dependabot security updates are Enabled. List the `dependabot.yml` configuration (ecosystem, schedule, grouping, auto-merge policy if any): `gh api repos/<org>/ghec-ch13-juice-shop/contents/.github/dependabot.yml --jq '.content | @base64d'` (or read it directly). Confirm the dependency-review workflow is in place. Record the effective level (`repo`), implementation path (`approved pilot`), and security owner name.
+
+2. **Document SBOM, alert triage, and auto-merge decision.** Record: dependency graph enabled (yes), SBOM available (yes), Dependabot alert count by severity, how many security-update PRs were merged (auto or manual), and the version-update schedule (frequency, grouping strategy). Document the auto-merge policy: which dependency types auto-merge (e.g., patch updates for direct deps only) and why, and which require manual review (transitive, minor, major).
+
+3. **Add governance-register rows.** Add two rows: (i) **Dependency graph & SBOM** (domain: `security`, effective level: `repo`, implementation path: `approved pilot`, evidence: SBOM export), (ii) **Dependabot & dependency review** (domain: `security`, effective level: `repo`, implementation path: `approved pilot`, evidence: `dependabot.yml` export + alert count + merged security PR evidence + dependency-review workflow proof). Identify owner (AppSec/DevSec team) and leave Next Decision blank pending org rollout.
+
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
 - [ ] Dependency graph is on and you exported an SBOM (verifiable via the `dependency-graph/sbom` API).

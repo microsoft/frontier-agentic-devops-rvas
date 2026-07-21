@@ -18,6 +18,7 @@ success_criteria:
 - '**SCIM provisioning is enabled** and you demonstrated a **join** (user created via SCIM) and a **leave** (user suspended via SCIM), verifiable via the SCIM API.'
 - You produced an **external-identity audit** listing GitHub logins ↔ IdP identities.
 - '**SAML SSO is enforced** on the org (and you documented a tested rollback).'
+- '**Governance register updated:** Added a row for identity (SSO/SAML enforcement) with links to runbook, IdP configuration, and rollback procedure.'
 - Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - sso

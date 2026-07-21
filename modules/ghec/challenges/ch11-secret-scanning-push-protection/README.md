@@ -111,6 +111,16 @@ What setup creates (all artifacts namespaced `ghec-ch11-*`, idempotent, prefix-g
     ```
 14. Write a one-paragraph triage summary (drop it in an issue on the repo): how many secrets were found, how each was resolved, that push protection blocked a fresh secret, and who bypassed it and why. This is the artifact a real security review would ask for.
 
+### Part F — Governance register: Secret scanning & push protection
+
+Capture secret-scanning governance in the register.
+
+1. **Inspect secret-scanning, push-protection, and custom-pattern rollout scope.** Check the repo Settings → Code security: confirm Secret scanning and Push protection are both Enabled. List any custom patterns created: `gh api /orgs/<org>/secret-scanning/custom-patterns --jq '.patterns[] | {name, pattern: .regex}'`. Record the effective level (`repo` for standard patterns; `org` for custom patterns), implementation path (`approved pilot`), and security owner name.
+
+2. **Document alert triage and bypass governance.** In the triage summary (issue on `ghec-ch11-juice-shop`), record: alert count per type (AWS, GitHub token, custom pattern), resolution method per alert (revoked/used-in-tests/false-positive), and the bypass audit from Part E (who bypassed, why, secret type). Document the bypass policy: under what conditions is a developer allowed to use the bypass flow, and who reviews bypasses?
+
+3. **Add governance-register rows.** Add two rows: (i) **Secret scanning & push protection** (domain: `security`, effective level: `repo`, implementation path: `approved pilot`, evidence: settings screenshot + alert triage summary in issue), (ii) **Custom secret-scanning patterns** (domain: `security`, effective level: `org`, implementation path: `approved pilot` if patterns exist, evidence: pattern list + test-detection proof). Identify owner (security/SecOps team) and leave Next Decision blank pending org review of custom patterns and bypass policy.
+
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
 - [ ] `secret_scanning` and `secret_scanning_push_protection` both read `enabled` on `ghec-ch11-juice-shop` (verifiable via the `security_and_analysis` API).

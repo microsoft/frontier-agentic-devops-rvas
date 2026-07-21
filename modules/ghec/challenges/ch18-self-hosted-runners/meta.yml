@@ -19,6 +19,7 @@ success_criteria:
 - A **mis-labeled** job stays **queued**, proving label routing.
 - The runner runs under a **least-privilege account** and you demonstrated an **ephemeral** registration.
 - You documented the **fork-PR risk** and a **GitHub-hosted vs larger vs self-hosted** decision matrix, plus the **org-vs-enterprise runner group** note.
+- '**Governance register updated:** Added a row for workflow (self-hosted runner policy) with links to runner group configuration, decision matrix, and risk documentation.'
 - Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - actions

@@ -19,6 +19,7 @@ success_criteria:
 - A **security campaign** exists with a name, a **manager**, a **due date**, and **guidance**, scoped to a finite alert slice.
 - The campaign shows **remediation burn-down** (open count dropped after you fixed/dismissed targeted alerts).
 - A **remediation report** issue exists with before/after numbers.
+- '**Governance register updated:** Added a row for security (campaigns) with links to org security overview, campaign configuration, and remediation report.'
 - Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - ghas

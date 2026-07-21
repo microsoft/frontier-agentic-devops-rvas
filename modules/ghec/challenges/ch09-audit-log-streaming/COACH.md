@@ -11,6 +11,7 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer implementation owner treats the org audit log as the authoritative record — generates a controlled event set, then reconstructs exactly...
-- Implementation risks to verify:
-- Delivery lead prompts: ask "what exact action: string did the docs say a team-to-repo grant emits?" and "how would you scope a query to only today's events?" (→ created:>=<today>).
+- Customer adoption outcome: the customer implementation owner treats the org audit log as the authoritative record — reads standard events, configures streaming for long-term retention, and verifies audit capture accuracy.
+- **Governance register rows:** Confirm two register rows added: (1) audit log retention & streaming (retention policy, streaming target/SIEM endpoint configured, export script committed) with API snapshot links; (2) standard event capture (all events enabled by default, sample filters like `action:team.add_member` documented). Both rows use `approved pilot` or `inspect-and-propose` depending on streaming scope (org-scoped).
+- Implementation risks to verify: ask "what exact action: string did the docs say a team-to-repo grant emits?" (→ `team.add_member` or `team_repository.added`) and "how would you reconstruct yesterday's changes?" (→ `created:>=<yesterday>` filter).
+- Delivery lead prompts: ask "what's lost if retention expires?" (→ forensics window closes; what's the compliance baseline?).

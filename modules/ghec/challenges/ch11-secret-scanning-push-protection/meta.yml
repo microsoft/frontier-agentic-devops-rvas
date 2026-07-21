@@ -20,6 +20,7 @@ success_criteria:
 - At least **one push-protection bypass** exists with a recorded actor and reason (verifiable via the alerts API).
 - A **custom secret-scanning pattern** is published and raised at least one alert.
 - A **triage summary** issue exists on the repo.
+- '**Governance register updated:** Added a row for secret-scanning with push-protection enabled, evidence links to triage summary and alert report.'
 - Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - ghas

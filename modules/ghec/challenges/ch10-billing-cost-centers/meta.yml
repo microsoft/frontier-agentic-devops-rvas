@@ -18,6 +18,7 @@ success_criteria:
 - You can **reconcile** the API usage total against the UI Usage page and explain the cost model (included vs metered; per-minute price varies by runner OS/SKU).
 - A committed **cost-report script** runs and produces a product/used/included/billable table.
 - A **`COST-REPORT.md`** exists with the before/after delta and a budget recommendation.
+- '**Governance register updated:** Added row for billing domain (budgets, usage alerts, cost-reconciliation baseline) with API snapshot links and configured budget settings.'
 - Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - billing

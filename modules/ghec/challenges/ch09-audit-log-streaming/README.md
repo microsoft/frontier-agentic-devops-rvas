@@ -101,6 +101,16 @@ What setup creates (all artifacts namespaced `ghec-ch09-*`, idempotent, prefix-g
 16. Run it and confirm the output contains your generated events. This is the org-owner equivalent of "streaming" — a repeatable pull you could schedule.
 17. Write `FINDINGS.md`: for three investigative questions (who added the team? who changed the ruleset? what happened today?), record the exact filter used and the answer.
 
+### Part F — Governance register: Audit log retention & export
+
+Capture the audit-log evidence path and retention in the register.
+
+1. **Inspect audit-event scope and retention.** Check Org Settings → Audit log → Retention. Document the retention period (days kept) and which event namespaces are captured by default (`org.*`, `repo.*`, `team.*`, `protected_branch.*`, `repository_ruleset.*` — all enabled by default). Record the effective level (`org`), implementation path (`approved pilot`), and audit owner name.
+
+2. **Document export strategy and schedule.** The org audit log is accessible at org scope (export script pulls from `/orgs/<org>/audit-log`). Record the export script path (`export-audit.sh` or `.ps1`), the time-bound query filters it uses, and how often a customer team would run it (e.g., weekly to Splunk, daily internal exports). Note that enterprise-level audit-log *streaming* (webhook auto-delivery) is a separate, enterprise-scoped feature — mark as `inspect-and-propose` awareness for your scenario.
+
+3. **Add governance-register rows.** Add two rows: (i) **Audit log retention & export** (domain: `audit`, effective level: `org`, implementation path: `approved pilot`, evidence: retention screenshot + export script + `FINDINGS.md` with three investigative queries and answers), (ii) **Enterprise audit-log streaming** (domain: `audit`, effective level: `enterprise`, implementation path: `inspect-and-propose` — this requires enterprise owner, document as future consideration). Identify owner (security/compliance team) and leave Next Decision blank.
+
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
 - [ ] You can pull recent org audit events from the API (`gh api /orgs/<org>/audit-log` returns events with `action`/`actor`/`created_at`).

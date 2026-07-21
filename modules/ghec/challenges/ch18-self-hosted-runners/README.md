@@ -97,6 +97,16 @@ What setup creates (all artifacts namespaced `ghec-ch18-*`, idempotent, prefix-g
 ### Part F — Enterprise awareness (read + write-up)
 15. Map org → enterprise. In `docs/RUNNER-CHOICES.md`, add a short note: how an org runner group differs from an enterprise runner group (enterprise groups span multiple orgs; require enterprise-owner), and when you'd reach for each. No enterprise actions required.
 
+### Part G — Governance register: Self-hosted runner policy & lifecycle
+
+Capture runner governance with detail appropriate for platform / operations ownership.
+
+1. **Inspect runner group, repository access, and labels.** Pull the org runner group: `gh api orgs/<org>/actions/runner-groups --jq '.runner_groups[] | {name, selected_repositories_url, allows_public_repositories}'`. List runners: `gh api orgs/<org>/actions/runners --jq '.runners[] | {id, name, status, labels: [.labels[].name], runner_group_id}'`. Confirm the group is scoped to only approved repos, fork-PR execution on self-hosted is restricted (repo/org Settings → Actions), and custom labels route jobs correctly. Record the effective level (`org`), implementation path (`approved pilot`), and platform/ops owner name.
+
+2. **Document runner host hardening and fork-PR boundary.** Summarize in `HARDENING.md` and `RUNNER-CHOICES.md`: service account privilege level (non-admin), ephemeral-runner configuration (just-in-time registration per job to defeat job-to-job cross-contamination), network egress constraints (list of required destinations + firewall rules), and the fork-PR risk mitigation (why untrusted fork code cannot run on self-hosted without explicit approval, and what approval process exists). Include the runner decision matrix (GitHub-hosted vs larger runners vs self-hosted — cost, isolation, latency, hardware, maintenance) and the org/enterprise runner-group distinction.
+
+3. **Add governance-register rows.** Add two rows: (i) **Self-hosted runner groups & access** (domain: `workflow`, effective level: `org`, implementation path: `approved pilot`, evidence: runner group export + repo scope confirmation + label routing proof), (ii) **Runner host hardening & lifecycle** (domain: `workflow`, effective level: `org`/`host`, implementation path: `approved pilot`, evidence: host account documentation + ephemeral configuration + `HARDENING.md` + fork-PR restriction proof + egress list + `RUNNER-CHOICES.md` decision matrix). Identify owner (platform/ops team) and leave Next Decision blank pending rollout approval and host-operations handover.
+
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
 - [ ] An org runner group `ghec-ch18-group` exists, scoped to selected repos (only `ghec-ch18-self-hosted-runners`).

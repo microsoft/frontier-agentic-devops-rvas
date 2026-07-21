@@ -18,6 +18,7 @@ success_criteria:
 - A **combined, time-bounded API query** returns a sensible count for today's events.
 - An **export script** committed to the repo pulls a time-bounded slice to JSON and the output contains your events.
 - A **`FINDINGS.md`** answers three investigative questions with the exact filter used.
+- '**Governance register updated:** Added a row for audit log retention/streaming with links to export script, findings document, and retention policy.'
 - Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - audit-log

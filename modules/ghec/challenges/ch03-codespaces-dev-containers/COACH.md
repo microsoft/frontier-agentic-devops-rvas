@@ -11,6 +11,6 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer implementation owner makes "clone and code in 60 seconds" real — a committed, reproducible dev container, a prebuild for speed, and an...
-- Implementation risks to verify:
-- Delivery lead prompts: ask "what should every teammate get identically, and what's just your preference?" (→ devcontainer vs dotfiles), and "where did the time go on first...
+- Prebuild-aware setup belongs in `onCreateCommand` or `updateContentCommand`; do not accept dependency installation only in `postCreateCommand`.
+- Confirm the recorded trigger, regions, retained versions, and freshness behavior match the customer team's cost and dependency-freshness needs.
+- Inspect the successful prebuild workflow and a new **Prebuild ready** Codespace, then confirm both development rows are recorded in the governance register.

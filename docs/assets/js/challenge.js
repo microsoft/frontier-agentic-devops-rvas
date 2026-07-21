@@ -86,9 +86,8 @@
     // Attribution
     const attr = document.getElementById('attribution');
     if (attr && c.source_repo) {
-      const sourceUrl = FP.githubSourceUrl(c.source_repo, c.source_path, c.source_ref);
-      const sourceLabel = FP.esc(c.source_repo + (c.source_path ? ` / ${c.source_path}` : ''));
-      attr.innerHTML = `Origin: <a href="${sourceUrl}" target="_blank" rel="noopener">${sourceLabel}</a> · ${FP.esc(c.license || 'MIT')} License`;
+      const sourceUrl = FP.githubSourceUrl(c.source_repo);
+      attr.innerHTML = `Origin: <a href="${sourceUrl}" target="_blank" rel="noopener">${FP.esc(c.source_repo)}</a>`;
     }
   }
 

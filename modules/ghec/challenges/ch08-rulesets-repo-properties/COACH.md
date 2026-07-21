@@ -11,6 +11,7 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer implementation owner makes governance follow metadata instead of repo names — custom properties drive a property-targeted org ruleset...
-- Implementation risks to verify:
-- Delivery lead prompts: ask "what makes a repo created next week automatically inherit these rules without anyone editing the ruleset?" (→ the property condition + a default...
+- Customer adoption outcome: the customer implementation owner makes governance follow metadata instead of repo names — custom properties drive a property-targeted org ruleset.
+- **Governance register rows:** Confirm two register rows added: (1) custom repository properties (schema defined, values set on repos) with links to API schema export; (2) organization rulesets (property-targeted, enforcement active, bypass logs documented). Both rows use `approved pilot` status and link to API snapshots.
+- Implementation risks to verify: ask "what makes a repo created next week automatically inherit these rules without anyone editing the ruleset?" (→ the property condition + a default property value on new repos).
+- Delivery lead prompts: ask "which two rules would stack if a repo matched multiple property conditions?" and "what's the difference between disabling a ruleset and adding a bypass actor?"

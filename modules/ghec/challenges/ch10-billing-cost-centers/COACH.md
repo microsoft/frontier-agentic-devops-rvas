@@ -11,6 +11,7 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer implementation owner builds the org's cost-governance baseline — read usage, generate a little real metered usage, wire a budget with...
-- Implementation risks to verify:
-- Delivery lead prompts: ask "what's the difference between getting warned at 90% and being stopped at 100%?" and "which runner OS would blow the budget fastest for the same...
+- Customer adoption outcome: the customer implementation owner builds the org's cost-governance baseline — read usage, generate a little real metered usage, wire a budget with alerts.
+- **Governance register row:** Confirm one register row added for billing domain: budgets configured (alert thresholds), usage reconciliation (before/after API snapshots), cost-report script committed. Row uses `approved pilot` status and documents owner + review cadence.
+- Implementation risks to verify: ask "what's the difference between getting warned at 90% and being stopped at 100%?" and "which runner OS would blow the budget fastest for the same dollar spend?" (→ Windows and macOS cost more per minute than Linux).
+- Delivery lead prompts: ask "what attribution gap would surprise the billing owner?" (→ unattributed spend in shared repos / cross-team runners).

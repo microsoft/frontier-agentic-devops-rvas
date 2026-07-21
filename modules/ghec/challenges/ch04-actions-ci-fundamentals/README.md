@@ -94,6 +94,18 @@ What setup creates (all artifacts namespaced `ghec-ch04-*`, idempotent, prefix-g
 10. Create an environment named `staging` with a required reviewer protection rule. Add an environment variable and a secret; have the `package` job reference the `staging` environment and echo the variable (never the secret).
 11. Make CI required. In branch protection / a ruleset on `main`, mark the `build-test` status check as required. Then flip the seeded failing test on, push, and confirm the PR is blocked from merging. Flip it back to green and confirm the block clears.
 
+### Part G — Governance register: Actions policy & CI posture
+
+Capture the governance decisions that make CI repeatable and safe across the org. This activity is 4 steps: inspect enterprise/org policy override, make one approved pilot decision on the allowed-actions boundary, prove CI compatibility, and record the decision.
+
+1. **Inspect effective Actions policy & dependencies.** Read the enterprise and org Actions policy by checking Org Settings → Actions → General → Allowed actions and reusable workflows. Record whether the setting reads "All actions and reusable workflows" (permissive) or "Allow specified actions and reusable workflows" (restricted). List the Actions and reusable-workflow dependencies in `.github/workflows/ci.yml` (e.g., `actions/setup-node`, `actions/upload-artifact`, `actions/cache`, any custom actions). Record which ones are first-party (owned by GitHub) vs third-party.
+
+2. **Make ONE approved policy pilot.** Choose and execute exactly one: **(a) Approved pilot:** If your org policy will restrict Actions, document the approved allowlist in the `Allowed actions` field. Include every dependency the workflow needs, for example `actions/checkout`, `actions/setup-*`, `actions/upload-*`, `actions/cache`, and any custom actions you identified. Record the effective level (`org`), implementation path (`approved pilot`), and customer-owned evidence (a screenshot or API dump showing the restricted setting + its value). **OR (b) Inspect-and-propose fallback:** If you lack authority to change the policy, record the current org policy, the identified Actions dependencies, and a one-paragraph rationale for a proposed allowlist in `docs/ACTIONS-POLICY.md`, with the effective level (`org`), implementation path (`inspect-and-propose`), and customer owner name.
+
+3. **Prove CI compatibility & capture token posture.** Run the workflow twice (push a branch and open a PR). Confirm both runs complete successfully and all steps execute (setup, lint, test, build, cache, artifacts all pass). Document the `GITHUB_TOKEN` permission scope used in the workflow (check the `permissions:` block in `.github/workflows/ci.yml`) and whether fork PRs have the same token scope. Record artifact retention (default or custom) and whether logs are retained or deleted.
+
+4. **Write the governance-register decision record.** Open the governance register you initialized in Ch06 (or create one now from `modules/ghec/resources/GOVERNANCE-SETTINGS-REGISTER-TEMPLATE.md`). Add rows for: (i) **Actions policy / allowed-actions boundary** (domain: `workflow`, effective level: `org`, implementation path from step 2, customer owner name, evidence: policy screenshot + `docs/ACTIONS-POLICY.md` or allowlist export); (ii) **Workflow token permissions** (domain: `workflow`, effective level: `org`, implementation path: `approved pilot`, desired value: `read` for standard workflows, evidence: workflow run with read-only token confirmed in logs); (iii) **Artifact/log retention** (domain: `workflow`, effective level: `org`/`repo`, implementation path: `approved pilot` if custom, evidence: retention setting + test artifact download evidence). Leave Next Decision blank for the next review.
+
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
 - [ ] `.github/workflows/ci.yml` triggers on push and pull_request and runs lint + test + build as distinct steps.
@@ -103,6 +115,7 @@ You are done when ALL of the following are true:
 - [ ] A second job uses `needs` and a conditional so it only runs on `main`.
 - [ ] An environment `staging` exists with a protection rule and a variable + secret wired into a job.
 - [ ] The `build-test` check is required on `main`; a red run blocks merge, a green run unblocks it.
+- [ ] The governance register records the effective Actions/reusable-workflow policy, workflow-token and fork-PR posture, and artifact/log retention decision, with compatibility evidence from the CI pilot.
 - [ ] Real-outcome check — if you brought your own repo, CI now runs against a real build or test path; if you used the sample, you can name the workflow you will automate next.
 - [ ] Adoption handover — name the customer test or build process, workflow owner, required gate, and next approved rollout action.
 

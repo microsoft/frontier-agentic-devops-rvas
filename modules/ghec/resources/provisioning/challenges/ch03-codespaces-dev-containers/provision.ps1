@@ -67,7 +67,7 @@ npm-debug.log
 {
   "name": "ghec-$ch",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
-  "postCreateCommand": "npm install",
+  "onCreateCommand": "npm install",
   "forwardPorts": [3000],
   "portsAttributes": {
     "3000": {
@@ -91,7 +91,7 @@ function Invoke-GhecProvision {
   Write-GhecInfo '  - inspect the seeded .devcontainer/devcontainer.json baseline'
   Write-GhecInfo '  - add dev-container Features, postStartCommand, and VS Code customizations'
   Write-GhecInfo "  - open the repo in a Codespace and run 'npm start'"
-  Write-GhecInfo '  - configure a prebuild for faster boots'
+  Write-GhecInfo '  - tune a prebuild for freshness, cost, and developer regions'
 }
 
 function Invoke-GhecTeardown {

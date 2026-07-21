@@ -13,13 +13,14 @@ prerequisite_capabilities:
 - Repository provisioned via activity setup script
 description: "Implement an authorized customer organization governance baseline: member and outside-collaborator management, base privileges, repository-creation and visibility policies, security defaults, and API-verified settings. Preserve the approved baseline, accountable owner, and handover."
 success_criteria:
+- '**Governance register initialized:** Copy and scope the register template to the customer-owned location; add rows for all org-membership, security-defaults, and workflow-permissions settings from Parts A–E.'
 - '`default_repository_permission` is `read` or `none` (verifiable: `gh api /orgs/<org> --jq ''.default_repository_permission''`).'
 - Members **cannot** create public repositories (`members_can_create_public_repositories == false`, or EMU platform policy prevents public repositories entirely).
 - Members **cannot** delete or transfer repositories (confirmed in Member privileges).
 - The fork policy for private/internal repos is set deliberately and verified via the API.
 - At least one sample repo's **visibility was changed** where the org permits it; on EMU, the public-repo block is documented and you can explain public vs internal vs private.
 - Default **Actions workflow permissions** are set to read-only at the org.
-- A **before/after API diff** exists and a **`POLICY.md`/baseline doc** records every setting + rationale.
+- A **before/after API diff** exists and a **`POLICY.md`/baseline doc** records every setting + rationale. Register rows include links to this evidence.
 - Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - enterprise
