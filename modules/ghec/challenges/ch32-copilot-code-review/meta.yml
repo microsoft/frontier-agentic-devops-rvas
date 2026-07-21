@@ -1,0 +1,45 @@
+id: ghec-ch32
+title: Copilot Code Review
+module: ghec
+track: automation-ai
+difficulty: intermediate
+duration_minutes: 180
+prerequisites: []
+prerequisite_capabilities:
+  - GitHub organization with an organization owner and a named repository owner
+  - GitHub Copilot code review enabled by the effective enterprise or organization policy
+  - GitHub CLI (gh >= 2.x), git, and jq for the optional fallback setup
+  - An approved customer repository, or permission to create the isolated fallback repository
+description: "Establish an evidence-backed Copilot code review operating model: request a manual review, assess automatic review through repository or organization rulesets, preserve human reviewer and CODEOWNERS gates, and document rollback."
+success_criteria:
+  - A customer repository was selected first, or the isolated `ghec-ch32-*` fallback repository was used and the next customer decision was recorded.
+  - A pull request received a manually requested Copilot review, and its comments were triaged by accountable human reviewers.
+  - The effective Copilot policy, human-review and CODEOWNERS controls, review scope, and review-on-new-push/draft choices were recorded.
+  - A repository or organization ruleset automatic-review configuration was inspected, proposed, or authorized for a bounded pilot; it was not treated as a merge approval gate.
+  - Shared Copilot setup configuration and any optional dedicated `copilot-code-review.yml` environment configuration were assessed without requiring either preview capability.
+  - Evidence, cost/runner considerations, rollback, owner, cadence, and next decision were captured in the customer decision package.
+tags:
+  - copilot
+  - code-review
+  - pull-requests
+  - rulesets
+  - codeowners
+  - governance
+app_dependency: none
+emu_compatible: true
+min_environment: org
+provision_creates:
+  - isolated repo ghec-ch32-copilot-code-review with a small review candidate pull request
+  - repository-wide Copilot review instructions and a non-secret decision-package template
+  - no Copilot policy, ruleset, CODEOWNERS rule, or automatic review configuration
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/ch32-copilot-code-review/meta.yml
+license: MIT
+references:
+  - https://docs.github.com/en/copilot/concepts/agents/code-review
+  - https://docs.github.com/en/copilot/how-tos/use-copilot-agents/request-a-code-review/use-code-review
+  - https://docs.github.com/en/copilot/how-tos/copilot-on-github/set-up-copilot/configure-automatic-review
+  - https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/customize-the-agent-environment
+  - https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions
+  - https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-organization-settings/managing-rulesets-for-repositories-in-your-organization

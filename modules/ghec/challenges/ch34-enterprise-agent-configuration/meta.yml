@@ -1,0 +1,46 @@
+id: ghec-ch34
+title: Enterprise Agent Configuration
+module: ghec
+track: admin-governance
+difficulty: advanced
+duration_minutes: 240
+prerequisites: []
+prerequisite_capabilities:
+  - Enterprise owner access to AI Controls, or a named enterprise owner who can approve and apply the implementation
+  - A customer organization in the enterprise to own the designated .github-private configuration source
+  - Copilot Business or Copilot Enterprise availability for the intended organizations
+  - Named enterprise AI-controls, security, platform, and organization-policy owners
+  - A customer-owned change record, evidence location, and rollback approver
+description: "Establish an enterprise-governed Copilot custom-agent source, with protected .github-private changes, an Agentic DevSecOps agent, organization instructions, and evidence-backed propagation and rollback."
+success_criteria:
+  - The customer selected an approved organization and created or assessed its .github-private repository as the enterprise AI Controls configuration source.
+  - CODEOWNERS and a ruleset protect enterprise agent configuration changes with named owners, required review, and deliberate bypass governance.
+  - An enterprise custom agent named Agentic DevSecOps is implemented or represented by an approval-ready pull request with a least-privilege configuration.
+  - Organization custom instructions and the applicable custom-instruction and custom-agent precedence are recorded without claiming that an organization setting overrides a more specific instruction.
+  - A dated change record contains approval, source commit, propagation validation, evidence, rollback commit, owner, and next review date.
+  - Customers without enterprise access deliver an approval-ready decision package and implementation pull request or patch; they do not claim enterprise configuration was completed.
+tags:
+  - copilot
+  - custom-agents
+  - ai-controls
+  - enterprise-governance
+  - codeowners
+  - rulesets
+  - custom-instructions
+  - change-management
+app_dependency: none
+emu_compatible: true
+min_environment: enterprise
+provision_creates:
+  - ghec-ch34-enterprise-agent-configuration
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/ch34-enterprise-agent-configuration/meta.yml
+license: MIT
+references:
+  - https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-agents/create-github-private-repo
+  - https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-agents/prepare-for-custom-agents
+  - https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/create-custom-agents
+  - https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-organization-instructions
+  - https://docs.github.com/en/enterprise-cloud@latest/copilot/concepts/prompting/response-customization
+  - https://docs.github.com/en/enterprise-cloud@latest/copilot/reference/custom-agents-configuration

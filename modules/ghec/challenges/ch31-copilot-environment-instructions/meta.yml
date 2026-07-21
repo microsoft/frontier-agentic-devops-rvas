@@ -1,0 +1,46 @@
+id: ghec-ch31
+title: Copilot Environment & Instructions
+module: ghec
+track: automation-ai
+difficulty: advanced
+duration_minutes: 180
+prerequisites: []
+prerequisite_capabilities:
+  - Authorized customer repository and accountable repository owner
+  - Repository administrator access, or a customer owner who can merge workflow and instruction changes to the default branch
+  - Copilot Business or Copilot Enterprise availability and the applicable cloud-agent or code-review policy view
+  - GitHub CLI (gh >= 2.x), git, and jq for the optional seeded fallback
+description: "Deliver a customer-approved Copilot environment and instruction decision package: default-branch setup steps, scoped instructions, runner and secret boundaries, and visible validation evidence for Copilot cloud agent and/or code review."
+success_criteria:
+  - The authorized customer repository, accountable owners, approved scope, feature availability, and fallback decision were recorded.
+  - A valid `.github/workflows/copilot-setup-steps.yml` with one `copilot-setup-steps` job was merged to the target default branch and its visible Actions run succeeded.
+  - Repository-wide and path-specific instruction files were reviewed or implemented, with applicable organization instructions and their precedence recorded.
+  - The team documented that cloud agent and code review share setup steps by default, and created `copilot-code-review.yml` only when review requires a different environment.
+  - Least-privilege permissions, runner/network posture, services, 59-minute timeout limit, and Agents secret/variable boundary were recorded.
+  - A cloud-agent session log and/or code-review result provided visible evidence that the intended setup and instructions were used, with limitations recorded.
+  - When policy or feature access was unavailable, the customer received a decision package instead of an unauthorized enablement attempt.
+tags:
+  - copilot
+  - cloud-agent
+  - code-review
+  - custom-instructions
+  - github-actions
+  - automation
+app_dependency: none
+emu_compatible: true
+min_environment: org
+provision_creates:
+  - repo ghec-ch31-copilot-environment-instructions (safe fallback only; no secrets, runners, or Copilot policy changes)
+  - default-branch Copilot setup workflow, repository and path-specific instructions, and a small Node.js validation fixture
+  - a bounded issue for optional cloud-agent or code-review validation
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/ch31-copilot-environment-instructions/meta.yml
+license: MIT
+references:
+  - https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/customize-the-agent-environment
+  - https://docs.github.com/en/copilot/concepts/prompting/response-customization?tool=webui
+  - https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions
+  - https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-organization-instructions
+  - https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/configure-secrets-and-variables
+  - https://docs.github.com/en/copilot/how-tos/copilot-on-github/set-up-copilot/configure-runners

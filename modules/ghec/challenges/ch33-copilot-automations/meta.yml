@@ -1,0 +1,46 @@
+id: ghec-ch33
+title: Copilot Automations
+module: ghec
+track: automation-ai
+difficulty: advanced
+duration_minutes: 240
+prerequisites: []
+prerequisite_capabilities:
+  - A customer-approved private or internal repository with a named repository owner
+  - Write access for the automation creator and an independent reviewer able to approve pull requests
+  - A GitHub Copilot plan that includes Copilot cloud agent, with cloud agent and automations allowed for the repository
+  - A non-EMU repository eligible for Copilot cloud agent
+  - Named Copilot, security, repository, and audit-evidence owners
+description: "Deliver a customer-owned, least-privilege Copilot automation that is triggered on a schedule or repository event, retains session and audit evidence, and preserves independent human review."
+success_criteria:
+  - A customer private or internal repository, named owners, licensing and policy eligibility, and approved automation scope were recorded before configuration.
+  - One approved scheduled or event-triggered Copilot automation was configured with least-privilege tools; event-trigger filters and the default untrusted-trigger guardrail were recorded where applicable.
+  - The automation was tested with Run now or an approved controlled trigger, and the resulting Copilot cloud-agent session log and outcome were retained as evidence.
+  - Any pull request or code push was attributed to the automation creator and independently reviewed; the creator did not approve their attributed output.
+  - Audit-log evidence, session evidence, tool scope, trigger/filter configuration, cost owner, and disable or rollback path were captured in the customer decision package.
+  - If licensing, policy, repository eligibility, or approval was unavailable, no automation was enabled and a decision package recorded the blocker, owner, evidence, and next decision.
+tags:
+  - copilot
+  - cloud-agent
+  - automations
+  - scheduled-automation
+  - event-driven
+  - prompt-injection
+  - auditability
+app_dependency: none
+emu_compatible: false
+min_environment: org
+provision_creates:
+  - private fallback repo ghec-ch33-copilot-automations with an automation decision-package template and no enabled automation
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/ch33-copilot-automations/meta.yml
+license: MIT
+references:
+  - https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-automations
+  - https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/create-automations
+  - https://docs.github.com/en/copilot/concepts/agents/cloud-agent/access-management
+  - https://docs.github.com/en/copilot/concepts/agents/cloud-agent/risks-and-mitigations
+  - https://docs.github.com/en/copilot/how-tos/copilot-on-github/use-copilot-agents/manage-and-track-agents
+  - https://docs.github.com/en/copilot/how-tos/copilot-on-github/set-up-copilot/configure-automatic-review
+  - https://docs.github.com/en/copilot/concepts/agents/about-github-agentic-workflows
