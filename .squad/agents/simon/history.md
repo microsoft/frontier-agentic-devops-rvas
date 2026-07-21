@@ -171,3 +171,64 @@ Re-reviewed `scripts/provision-app.sh` and `package.json` after Mal applied fixe
 **Verdict: REJECTED — D1–D3 (three challenges entirely missing) + D4 (COACH.md gap) must be fixed.**
 
 **Revision owner: Mal** (Lead/Architect) — not Zoe (original author per rejection protocol).
+
+---
+
+### 2026-07-21 — Enterprise Governance Settings Register: RE-REVIEW (Mal's revision)
+
+**Scope:** Mal addressed all five defects from the prior rejection (D1–D5).
+
+**Automated checks:**
+- `git diff --check`: ✓ clean (exit 0, no whitespace errors)
+- `npm run build`: ✓ (4 modules, 59 challenges, 27 edges)
+- `npm run audit:terminology`: ✓ (0 errors; 4 pre-existing warnings unrelated)
+
+**D1 fix (Ch08):** meta.yml success criterion added (custom properties + org rulesets rows), README checklist item with API snapshot links, COACH.md reviewer bullet with two-row verification. ✓
+
+**D2 fix (Ch10):** meta.yml success criterion added (billing domain row), README checklist item with billing API link, COACH.md reviewer bullet with budget/usage reconciliation. Template now has pre-seeded `billing | Budgets & usage alerts` row referencing Ch10 Part A–C. ✓
+
+**D3 fix (Ch17):** meta.yml success criterion added (webhooks/Apps row), README checklist item with granular scope (permissions, signature verification, installation scope, credential rotation), COACH.md reviewer bullet with `approved pilot` / `inspect-and-propose` nuance. ✓
+
+**D4 fix (COACH.md gaps):** All 10 formerly-omitted COACH.md files updated: Ch04, Ch07, Ch09, Ch11, Ch12, Ch13, Ch14, Ch15, Ch18, Ch27. Each has a compact **Governance register row(s)** bullet specifying which rows to verify and what status to expect. ✓
+
+**D5 fix (whitespace):** `git diff --check` clean — no trailing whitespace in any file. ✓
+
+**Additional checks:**
+- Ch06 remains foundation-only: register initialization + org-membership/security baseline rows. No downstream domain content. ✓
+- Ch04 retains detailed Actions policy (Part G added in README). ✓
+- Ch18 retains runner operation detail (meta.yml + COACH stay in Ch18). ✓
+- All register rows use `approved pilot` or `inspect-and-propose` per domain risk; Ch14 (SSO) and Ch18 (runners) correctly use `inspect-and-propose`. ✓
+- Effective Level column present in template; rows document enterprise/org/repo scope. ✓
+- Customer-owned / customer delivery team language consistent throughout. ✓
+- Pre-existing user changes preserved: docs/index.html, docs/assets/js/challenge.js, ch03 provisioning scripts all intact in working tree. ✓
+- No banned "challenge" terminology in affected content files. ✓
+
+**Verdict: APPROVED — all five defects resolved, no new defects introduced.**
+
+---
+
+### 2026-07-21 — Enterprise Governance Settings Register: Re-review approval (Simon)
+
+**Scope:** Mal's revision addressing D1–D5 defects from prior rejection.
+
+**Validation summary:**
+- `git diff --check`: ✓ clean
+- `npm run build`: ✓ (4 modules, 59 challenges, 27 edges)
+- `npm run audit:terminology`: ✓ (0 new errors; 4 pre-existing warnings preserved)
+
+**All five defects fixed:**
+- D1 (Ch08 missing) — ✓ Added with success_criteria, README checklist, COACH.md guidance
+- D2 (Ch10 missing) — ✓ Added with billing domain, budget/usage verification, template pre-seeding
+- D3 (Ch17 missing) — ✓ Added with webhooks/Apps scope, approval risk clarity
+- D4 (COACH.md gaps) — ✓ All 10 omitted files updated (12/12 now complete)
+- D5 (whitespace) — ✓ Cleaned (git diff --check exits 0)
+
+**Additional verification:**
+- Customer-owned evidence model maintained across all 12 contributing challenges
+- No new prerequisites introduced; dependency topology unchanged
+- Pre-existing user edits (Ch03 postCreateCommand fix, external resources) preserved
+- Ch06 remains initialization-only; downstream challenges cumulative
+
+**Verdict: APPROVED — revision gate cleared. Ready for merge to main per team protocol.**
+
+**Evidence:** Full detailed checks documented in orchestration-log/2026-07-21T0858Z-simon-governance-approval.md

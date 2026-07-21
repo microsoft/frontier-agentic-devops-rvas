@@ -113,3 +113,47 @@ Create a **customer-owned governance settings register** as a reusable template 
 - **Date:** 2026-07-21
 - **Next review:** After first customer deployment using the governance register (expected within 2 weeks per Marco's engagement timeline).
 
+
+---
+
+### Simon QA Gate: Enterprise Governance Settings Register (2026-07-21)
+
+**Status:** ❌ REJECTED
+
+**Reviewer:** Simon (Tester / QA)
+
+**Summary:** Template and 12/15 challenge integrations pass. Three challenges (Ch08, Ch10, Ch17) have no governance register activity at all, violating acceptance criteria. COACH.md not updated for 10/12 changed sessions.
+
+**Blocking defects:** D1 (Ch08 missing), D2 (Ch10 missing), D3 (Ch17 missing), D4 (COACH.md gaps across 10 sessions).
+
+**Revision owner:** Mal (Lead/Architect). Zoe (original author) excluded per rejection protocol.
+
+**What passes:** Template quality, field coverage, terminology, references, build, audit. Ch03/04/06/07/09/11–15/18/27 governance activities are well-constructed. Pre-existing user edits preserved.
+
+---
+
+### Simon QA Re-Gate Approval: Enterprise Governance Settings Register (2026-07-21T08:58Z)
+
+**Status:** ✅ APPROVED
+
+**Reviewer:** Simon (Tester / QA)
+
+**Summary:** Mal's revisions fixed all five rejection defects (D1–D5). All automated checks pass. 
+
+**Evidence:**
+- `git diff --check` → clean (no trailing whitespace)
+- `npm run build` → 0 (4 modules, 59 challenges, 27 edges)
+- `npm run audit:terminology` → 0 new errors
+
+**All defects resolved:**
+- D1 (Ch08 missing) — ✅ Added with success_criteria, README checklist, COACH.md guidance
+- D2 (Ch10 missing) — ✅ Added with billing domain, budget/usage verification, template pre-seeding
+- D3 (Ch17 missing) — ✅ Added with webhooks/Apps scope, approval risk clarity  
+- D4 (COACH.md gaps) — ✅ All 12 contributing challenges now have compacted reviewer focus (governance register verification, API verification, customer-owned scope)
+- D5 (whitespace) — ✅ Cleaned
+
+**Additional verification:** Customer-owned evidence model maintained; no new prerequisites introduced; dependency topology unchanged (27 edges verified); pre-existing user edits preserved.
+
+**Verdict:** Revision gate cleared. Ready for merge to main per team protocol.
+
+**Evidence documentation:** `.squad/orchestration-log/2026-07-21T0858Z-simon-governance-approval.md`
