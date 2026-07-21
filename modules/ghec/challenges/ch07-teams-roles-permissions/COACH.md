@@ -1,95 +1,16 @@
-# Ch07 — Teams, Roles & Base Permissions — Delivery Assurance Guide
+# Ch07 — Teams, Roles & Base Permissions — Delivery Assurance
 
-> Audience: delivery assurance leads and authorized customer implementation owners. Pair with the corresponding customer implementation `README.md`.
-> Customer authorization and rollout boundary: Apply changes in a customer-owned tenant or repository only after the named customer owner authorizes the scope. A fallback is a sample test repository or environment, not the destination: record its evidence, risks and controls, accountable owner, handover, and the explicit tenant adoption, cutover, or rollout decision.
+This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
 
+## Assurance record
 
-## Customer adoption decision
+- **Authorized scope:** record the customer target and approving owner.
+- **Evidence:** inspect the completed Definition of Done in `README.md`; link or attach the evidence.
+- **Open risk:** record the unresolved risk and accountable owner, or `none`.
+- **Next decision:** record the handover, pilot, rollout, cutover, or follow-up action with owner and date.
 
-Required delivery assurance check: before implementation is accepted, confirm the authorized tenant scope, implementation evidence, risk controls, accountable owner, handover, and next adoption action.
+## Session-specific reviewer focus
 
-Decision prompt: map your real team's structure onto GitHub Teams right now: where do people have more access than they need, and where is the absence of the right permission creating an actual bottleneck for someone? Record the accountable owner, implementation evidence, risk or blocker, and next customer adoption action.
-
-> Customer implementation preference: prioritize an authorized customer tenant or artifact over the `ghec-ch07-frontend` sample. If a sample is necessary, record the target tenant scope, accountable owner, authorization blocker, evidence to carry forward, and the adoption, cutover, or rollout decision. The sample is a safe fallback, not the destination.
-
-Use these prompts to verify customer ownership and the next action:
-- Name the GitHub teams or individual collaborator grants that exist in your main org — were they designed or just accumulated?
-- Tell me one concrete case where over-permission or under-permission has caused a mistake or a delay in the last year.
-- What specific team permission change will you put in a PR or ticket this week?
-
-## Delivery assurance notes
-- Customer adoption outcome: the customer implementation owner replaces ad-hoc collaborator adds with a nested team model, grants repo access through teams at the right predefined role, and builds one custom role the built-ins can't express — all verifiable from the API.
+- Customer adoption outcome: the customer implementation owner replaces ad-hoc collaborator adds with a nested team model, grants repo access through teams at the right...
 - Implementation risks to verify:
-  - Inheritance direction. Nested teams inherit access down from the parent, not up. A grant on the parent reaches children; a grant on a child does *not* reach siblings or the parent.
-  - "More permissive wins." Effective access = the maximum of base org permission, any team grant, and any direct collaborator grant. Customer implementation owners expect a strict ceiling; there isn't one without enterprise policy.
-  - Predefined role names map to API permission strings. Read=`pull`, Write=`push`, Admin=`admin`; Triage and Maintain use their own names. The mismatch (push≠Push-button) trips people up.
-  - Custom roles are org-scoped repository roles, not org roles. They're created once at the org and assigned per repo/team.
-- Delivery lead prompts: ask "if the parent has Read and the child has Write on the same repo, what can a child member do?" (→ Write) and "which built-in role lets a lead manage settings but not delete the repo?" (→ Maintain).
-- Org-scoped note: runs with an org + org-owner token. `admin:org` is required to create teams, grant repo roles, and create custom repository roles. No enterprise owner needed.
-
-## Implementation acceptance evidence
-| Criterion | Assurance weight | Customer-owned evidence |
-|---|---:|---|
-| Team hierarchy (Part A) | 20 | Parent + two children created; nesting confirmed via `.parent.name`; inheritance explained |
-| Team repo access (Part B) | 20 | Parent grants Read on all three; each squad has Write on its own repo only; verified via API |
-| Predefined roles (Part C) | 20 | Maintain granted on platform with rationale; Triage demonstrated; five roles mapped to personas |
-| Custom repository role (Part D) | 25 | Custom role created (base Write minus sensitive perms), assigned to a team, boundary documented |
-| Members + verification (Part E) | 15 | Members added to squads; `ACCESS.md` matrix generated from API; before/after diff shown |
-| Assurance coverage | 100 | |
-
-## Implementation verification evidence
-Use these to verify the customer implementation evidence (prefer `gh` CLI / API over manual clicks):
-```bash
-ORG=<org>
-
-# Team list + nesting (child should report a parent)
-gh api /orgs/$ORG/teams --jq '.[] | {slug, parent: .parent.slug}'
-gh api /orgs/$ORG/teams/ghec-ch07-frontend-squad --jq '.parent.name'   # non-null
-
-# Effective repo permission for a team on a repo
-gh api /orgs/$ORG/teams/ghec-ch07-frontend-squad/repos/$ORG/ghec-ch07-frontend --jq '.role_name, .permissions'
-
-# Parent grant should appear (inherited) on a child for the shared repos
-gh api /orgs/$ORG/teams/ghec-ch07-engineering/repos/$ORG/ghec-ch07-platform --jq '.permissions'
-
-# Custom repository roles defined at the org
-gh api /orgs/$ORG/custom-repository-roles --jq '.custom_roles[] | {name, base_role}'
-
-# Which teams have access to a given repo, and at what role
-gh api /repos/$ORG/ghec-ch07-platform/teams --jq '.[] | {slug, permission}'
-
-# Team membership
-gh api /orgs/$ORG/teams/ghec-ch07-backend-squad/members --jq '.[].login'
-```
-- The `role_name` field on the team→repo endpoint is the fastest mastery signal — it shows `read`/`write`/`maintain` or the custom role name directly.
-- For the custom role, confirm `base_role` is `push`/`write` and that the sensitive permissions were removed (the role's `permissions` array shouldn't include webhook/deploy-key management).
-- `ACCESS.md` should be reproducible from the API calls above, not hand-typed guesses.
-
-## Common pitfalls
-- Granting access to individuals instead of teams. The whole point is team-based access — direct collaborator grants defeat it. Require team-based grants.
-- Expecting base permission to cap team grants. It doesn't; the more permissive wins. Enterprise policy would be needed to enforce a ceiling.
-- Wrong API permission string. `permission=read` is invalid for the team→repo PUT; use `pull`/`triage`/`push`/`maintain`/`admin` or the custom role name.
-- Custom role assigned but role name typo'd in the PUT — the grant 422s or silently falls back.
-- Token missing `admin:org`. Team creation and custom-role creation fail. Fix: `gh auth refresh -s admin:org,repo,read:org`.
-
-## References for delivery leads
-
-- [About teams](https://docs.github.com/en/organizations/organizing-members-into-teams/about-teams), [Creating a team / adding a parent team](https://docs.github.com/en/organizations/organizing-members-into-teams/creating-a-team).
-
-## Teardown
-```bash
-bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch07 --org <org> --yes   # Bash
-modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch07 --org <org> --yes  # PowerShell
-```
-- Removes only `ghec-ch07-*` artifacts (prefix-guarded): the three sample repos and all `ghec-ch07-*` teams.
-- Manual cleanup (required): the custom repository role the customer implementation owner created is org-scoped and not `ghec-ch07-*` prefixed, so teardown leaves it in place. Have the customer implementation owner delete it by hand (Org Settings → Repository roles, or `gh api -X DELETE /orgs/<org>/custom-repository-roles/<role-id>`) if the org is a reusable sandbox.
-
-## Time budget
-- Setup + access snapshot: ~30 min
-- Part A (hierarchy): ~45 min
-- Part B (team grants): ~45 min
-- Part C (predefined roles): ~45 min
-- Part D (custom role): ~1 hr
-- Part E (members + matrix): ~30 min
-- Stretch: ~45 min
-- Indicative implementation effort: ~4–5 hrs across sessions.
+- Delivery lead prompts: ask "if the parent has Read and the child has Write on the same repo, what can a child member do?" (→ Write) and "which built-in role lets a lead manage...

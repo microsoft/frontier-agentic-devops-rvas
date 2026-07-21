@@ -5,6 +5,7 @@
   "scripts": {
     "build": "node docs/build.js",
     "audit": "node scripts/audit-content.js",
+    "format:assurance": "node scripts/compact-assurance-guides.js --write",
     "audit:terminology": "node scripts/audit-content.js --terminology --removal",
     "audit:external": "node scripts/audit-content.js --external",
     "audit:content": "npm run build && node scripts/audit-content.js --terminology --removal",

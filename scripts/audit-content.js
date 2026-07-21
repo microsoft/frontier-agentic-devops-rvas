@@ -274,7 +274,7 @@ function auditGuideSurfaces(challenges) {
 
     if (fs.existsSync(coachPath)) {
       const coach = readText(coachPath);
-      const hasAssessmentSurface = /(grading rubric|rubric|expected (outputs?|outcomes?|solution shape)|strong evidence|how to verify|verification|success check|acceptance checklist|common (gaps|blockers|pitfalls))/i.test(coach);
+      const hasAssessmentSurface = /(assurance record|grading rubric|rubric|expected (outputs?|outcomes?|solution shape)|strong evidence|how to verify|verification|success check|acceptance checklist|common (gaps|blockers|pitfalls))/i.test(coach);
       if (!hasAssessmentSurface) addWarning(rel(coachPath), 0, 'coach guide lacks an expected-output, verification, or rubric surface');
     }
   }

@@ -1,93 +1,14 @@
----
+# CI Doctor — Delivery Assurance
 
-## Facilitated application
+This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
 
-Required facilitator check-in: before completion, ask the customer practitioner to connect the exercise to work they actually own.
+## Assurance record
 
-Discuss: How much time does your team lose investigating broken CI by hand, and how far would you trust an agent's root-cause diagnosis before a human confirms the fix? Connect it to a project, task, or workflow you own.
+- **Authorized scope:** record the customer target and approving owner.
+- **Evidence:** inspect the completed Definition of Done in `README.md`; link or attach the evidence.
+- **Open risk:** record the unresolved risk and accountable owner, or `none`.
+- **Next decision:** record the handover, pilot, rollout, cutover, or follow-up action with owner and date.
 
-Use these follow-ups to steer the conversation:
-- Ask how much time their team currently spends diagnosing broken CI by hand.
-- Surface how far they'd trust an agent's root-cause diagnosis before a human confirms the fix.
-- Get them to pick one flaky or noisy pipeline they'll point a CI doctor at next week.
+## Session-specific reviewer focus
 
-## What This Activity Teaches
-
-The `workflow_run` trigger — one of the most powerful and least-understood triggers in GitHub Actions. Participants learn how to react to another workflow's outcome (not just code events), how to access run logs programmatically, and how to structure a diagnostic issue that's actually useful to a maintainer.
-
-
-Official grounding: when customer delivery team members are unsure whether a frontmatter field or permission is valid, anchor them in the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions) and [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) docs before they tune the agent prompt.
-
----
-
-## Expected Solution Shape
-
-```markdown
----
-on:
-  workflow_run:
-    workflows: ["CI", "tests"]
-    types: [completed]
-
-permissions:
-  actions: read
-  issues: write
-
-safe-outputs:
-  create-issue: {}
-
-tools:
-  github:
-    toolsets: [actions]
-
-engine: copilot
----
-
-# CI Doctor
-
-This workflow fires when a monitored CI workflow completes.
-
-Only proceed if `github.event.workflow_run.conclusion == "failure"`.
-
-If the run failed:
-1. Fetch the run logs using the actions toolset
-2. Identify the failure type: compile error, test failure, flaky test, env issue, or other
-3. Find the specific error message and failing step
-4. Open an issue titled "CI Failure: [workflow name] — [brief description]" with:
-   - What failed (step name, error message)
-   - Most likely root cause (1-2 sentences)
-   - Suggested fix or next investigation step
-   - Link to the failing run: `github.event.workflow_run.html_url`
-```
-
----
-
-## Common Blockers
-
-| Symptom | Fix |
-|---------|-----|
-| Workflow never fires | Check `workflows:` names match exact workflow names in `name:` field of target `.yml` files |
-| "Could not access logs" | Needs `actions: read` permission + `toolsets: [actions]` |
-| Fires on successful runs too | Add conclusion check in body: "Only investigate if conclusion is 'failure'" |
-| Issue body is too long / noisy | Add word limit to body: "Keep issue body under 200 words" |
-| No workflow failures to test against | Have participant add `run: exit 1` to a test workflow temporarily |
-
----
-
-## How to Verify It's Working
-
-1. Break a CI workflow intentionally (add `run: exit 1` to a step)
-2. Push to a branch — let CI fail
-3. Confirm Doctor fires after CI completes
-4. Check the opened issue — does it name the failing step? Is the root-cause diagnosis reasonable?
-5. Fix the CI — confirm Doctor doesn't fire on the successful re-run
-
----
-
-## Coaching Notes
-
-The `workflow_run` trigger confuses participants because it's asynchronous and crosses workflow boundaries. Key concept to reinforce: the Doctor runs in a *separate* workflow from CI — it's observing CI from the outside, not running inside it.
-
-Common mistake: nesting this inside the CI workflow itself (using `on: push`). Redirect: _"The Doctor needs to fire after CI completes, not during. Which trigger lets you react to another workflow's result?"_
-
-Participants who finish early can extend: add a second `workflows:` entry, or add an `if:` condition to only run on `main` branch failures.
+- No additional assurance exception: review the delivery guide’s Definition of Done.

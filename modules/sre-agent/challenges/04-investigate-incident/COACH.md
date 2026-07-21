@@ -1,44 +1,14 @@
-# Coach Guide: Activity 04 — Investigate a Controlled Azure Incident
+# Activity 04 — Investigate a Controlled Azure Incident — Delivery Assurance
 
-## Expected Outcome
+This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
 
-Teams intentionally trigger or inspect a controlled Grubify incident, then use Azure SRE Agent to gather evidence from Azure telemetry and runbooks before choosing a mitigation.
+## Assurance record
 
-## Coach Prep
+- **Authorized scope:** record the customer target and approving owner.
+- **Evidence:** inspect the completed Definition of Done in `README.md`; link or attach the evidence.
+- **Open risk:** record the unresolved risk and accountable owner, or `none`.
+- **Next decision:** record the handover, pilot, rollout, cutover, or follow-up action with owner and date.
 
-Have one break path ready:
+## Session-specific reviewer focus
 
-| Path | Artifacts |
-| --- | --- |
-| Live | `bash scripts/break-app.sh`, Azure Monitor incident, portal access |
-| Shared | Coach-triggered incident and shared agent view |
-| Fallback | Alert text, KQL/log excerpt, App Insights exception, transcript |
-
-Prepare a known recovery path so the activity does not stall after investigation.
-
-## Strong Evidence
-
-- Teams capture symptom, start time, affected action, and alert.
-- Agent output cites logs, metrics, traces, runbook, or resource state.
-- Likely cause, alternatives, and unknowns are separate.
-- Mitigation is reviewed before execution.
-- Recovery is proven with UI or endpoint evidence.
-
-## Common Gaps
-
-- Jumping straight to source code before confirming Azure symptoms.
-- Treating the agent's likely cause as proof.
-- Not capturing the first signal.
-- Forgetting to recover the lab environment.
-
-## Coach Hints
-
-Ask:
-
-- What evidence would make this hypothesis wrong?
-- Which signal is user-impacting and which is supporting evidence?
-- What validation proves the mitigation worked?
-
-## Final Demo Pattern
-
-Teams should show an incident note, the agent investigation, one inspectable telemetry artifact, and recovery evidence.
+- No additional assurance exception: review the delivery guide’s Definition of Done.

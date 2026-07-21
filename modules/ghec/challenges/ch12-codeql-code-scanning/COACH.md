@@ -1,97 +1,16 @@
-# Ch12 — Code Scanning with CodeQL & Autofix — Delivery Assurance Guide
+# Ch12 — Code Scanning with CodeQL & Autofix — Delivery Assurance
 
-> Audience: delivery assurance leads and authorized customer implementation owners. Pair with the corresponding customer implementation `README.md`.
-> Customer authorization and rollout boundary: Apply changes in a customer-owned tenant or repository only after the named customer owner authorizes the scope. A fallback is a sample test repository or environment, not the destination: record its evidence, risks and controls, accountable owner, handover, and the explicit tenant adoption, cutover, or rollout decision.
+This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
 
+## Assurance record
 
-## Customer adoption decision
+- **Authorized scope:** record the customer target and approving owner.
+- **Evidence:** inspect the completed Definition of Done in `README.md`; link or attach the evidence.
+- **Open risk:** record the unresolved risk and accountable owner, or `none`.
+- **Next decision:** record the handover, pilot, rollout, cutover, or follow-up action with owner and date.
 
-Required delivery assurance check: before implementation is accepted, confirm the authorized tenant scope, implementation evidence, risk controls, accountable owner, handover, and next adoption action.
+## Session-specific reviewer focus
 
-Decision prompt: pick a codebase you own or contribute to: what class of vulnerability (injection, path traversal, auth bypass) do you most fear is hiding there right now, and how would a CodeQL custom query surface it before your next release? Record the accountable owner, implementation evidence, risk or blocker, and next customer adoption action.
-
-> Customer implementation preference: prioritize an authorized customer tenant or artifact over the `ghec-ch12-juice-shop` sample. If a sample is necessary, record the target tenant scope, accountable owner, authorization blocker, evidence to carry forward, and the adoption, cutover, or rollout decision. The sample is a safe fallback, not the destination.
-
-Use these prompts to verify customer ownership and the next action:
-- Name the specific codebase — what language, how old, and what's your current static analysis story for it?
-- What is the data-flow or taint path you'd want CodeQL to trace in that repo?
-- What is one QL query or built-in suite you could add to that repo's Actions workflow before next week?
-
-## Delivery assurance notes
-- Customer adoption outcome: the customer implementation owner stands up CodeQL (default *and* advanced), reads real vulnerability findings via their data-flow paths, applies Autofix with judgment, and makes scanning a merge gate.
+- Customer adoption outcome: the customer implementation owner stands up CodeQL (default and advanced), reads real vulnerability findings via their data-flow paths, applies...
 - Implementation risks to verify:
-  - Default vs advanced confusion. Default setup is one-click but opaque; advanced is a workflow they own. Make sure they *replace* default with advanced (you can't run both default and advanced for the same language).
-  - Wrong language pack. Juice Shop is TS/JS — the pack is `javascript-typescript` (one combined pack), not separate `javascript` + `typescript`. The Web3/Solidity bits are out of scope.
-  - Required-check name. The required context is the CodeQL results check, not the Actions job name. Show them the real check name on a PR.
-  - Autofix over-trust. Customer implementation owners can click "commit suggestion" without reading it. Require review evidence that explains the patch and when Autofix is inappropriate.
-  - Scan latency. `security-extended` runs longer than the default suite. Set expectations — the first advanced run can take several minutes.
-- Delivery lead prompts: ask "what's the path from user input to the dangerous sink?" (→ data-flow), and "what *exact* check does the merge gate wait for?" (→ the code-scanning results context).
-- Org-scoped note: runs with just an org + org-owner token. Public repo = free CodeQL. `security_events` scope is needed for the alerts/analyses API; `workflow` to push the advanced workflow.
-
-## Implementation acceptance evidence
-| Criterion | Assurance weight | Customer-owned evidence |
-|---|---:|---|
-| Default setup + first scan (Part A) | 15 | Default setup ran; at least one analysis recorded |
-| Advanced workflow (Part B) | 25 | `codeql.yml` scans `javascript-typescript` with `security-extended`; run is green and produces alerts |
-| Alert triage (Part C) | 25 | ≥3 alerts triaged; one dismissed with a reason via API; data-flow understood |
-| Copilot Autofix (Part D) | 15 | Autofix applied to ≥1 alert; customer implementation owner can explain the patch |
-| Required-check gating (Part E) | 20 | Code-scanning check required on main; seeded vulnerable PR blocked until resolved |
-| Assurance coverage | 100 | |
-
-## Implementation verification evidence
-Use these to verify the customer implementation evidence (prefer `gh` CLI / API over manual clicks):
-```bash
-ORG=<org>; REPO=ghec-ch12-juice-shop   # swap REPO for the customer implementation owner's own repo if they brought one
-
-# Repo exists and is public
-gh repo view $ORG/$REPO --json name,visibility
-
-# Advanced workflow present and pinned to the right pack + suite
-gh api repos/$ORG/$REPO/contents/.github/workflows/codeql.yml -H "Accept: application/vnd.github.raw" \
-  | grep -E "javascript-typescript|security-extended|languages:|queries:"
-
-# CodeQL analyses exist (tool name = CodeQL)
-gh api repos/$ORG/$REPO/code-scanning/analyses --jq '.[0] | {tool: .tool.name, ref, created_at}'
-
-# Open alerts with rule + severity (expect injection/XSS findings)
-gh api repos/$ORG/$REPO/code-scanning/alerts --paginate \
-  --jq '.[] | select(.state=="open") | {number, rule: .rule.id, severity: .rule.security_severity_level}'
-
-# Dismissed alerts (triage evidence)
-gh api repos/$ORG/$REPO/code-scanning/alerts --paginate \
-  --jq '.[] | select(.state=="dismissed") | {number, reason: .dismissed_reason}'
-
-# Required status checks on main (expect the CodeQL results context)
-gh api repos/$ORG/$REPO/branches/main/protection/required_status_checks --jq '.contexts'
-```
-- Pack check: the workflow grep must show `javascript-typescript`. Separate `javascript`/`typescript` entries → partial credit; wrong language → no marks for Part B.
-- Gating check: the `required_status_checks/.contexts` list must include the code-scanning context, and the customer implementation owner should demonstrate the vulnerable PR's merge button disabled.
-- Autofix: look for a commit on a branch authored via Autofix or a resolved alert that traces to a suggestion reviewed by a customer implementation owner.
-
-## Common pitfalls
-- Running default + advanced together for the same language → conflicting analyses. Disable default before advanced.
-- `security_events` scope missing → alerts/analyses API 403. Fix: `gh auth refresh -s security_events`.
-- Required check never satisfied because they required the Actions job name instead of the code-scanning results context.
-- Expecting instant alerts — `security-extended` is slower; wait for the run to finish.
-- Private repo without a license → CodeQL won't run. Keep the repo public.
-
-## References for delivery leads
-
-- [About code scanning](https://docs.github.com/en/code-security/code-scanning/introduction-to-code-scanning/about-code-scanning), [Configuring default setup for code scanning](https://docs.github.com/en/code-security/code-scanning/enabling-code-scanning/configuring-default-setup-for-code-scanning).
-
-## Teardown
-```bash
-bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch12 --org <org> --yes   # Bash
-modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch12 --org <org> --yes  # PowerShell
-```
-- Removes only `ghec-ch12-*` artifacts (prefix-guarded): the imported `ghec-ch12-juice-shop` repo (which carries its workflows, analyses, and alerts).
-- Manual cleanup (if any): none. Deleting the repo removes its CodeQL configuration, runs, and alerts.
-
-## Time budget
-- Setup + read: ~30 min
-- Part A (default setup): ~30 min
-- Part B (advanced workflow): ~1 hr
-- Part C (triage): ~1.25 hrs
-- Part D (Autofix): ~45 min
-- Part E (required-check gating): ~1 hr
-- Indicative implementation effort: ~5 hrs across sessions.
+- Delivery lead prompts: ask "what's the path from user input to the dangerous sink?" (→ data-flow), and "what exact check does the merge gate wait for?" (→ the code-scanning...

@@ -1,42 +1,14 @@
-# Coach Guide: Activity 01 — Deploy Grubify and Create the Azure SRE Agent
+# Activity 01 — Deploy Grubify and Create the Azure SRE Agent — Delivery Assurance
 
-## Expected Outcome
+This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
 
-Teams deploy or inspect the official Grubify starter lab and can identify the Azure SRE Agent, app resources, observability stores, alerting path, and baseline healthy evidence.
+## Assurance record
 
-## Coach Prep
+- **Authorized scope:** record the customer target and approving owner.
+- **Evidence:** inspect the completed Definition of Done in `README.md`; link or attach the evidence.
+- **Open risk:** record the unresolved risk and accountable owner, or `none`.
+- **Next decision:** record the handover, pilot, rollout, cutover, or follow-up action with owner and date.
 
-Have the official lab ready:
+## Session-specific reviewer focus
 
-- `microsoft/sre-agent/labs/starter-lab`
-- `bash scripts/setup.sh` or a pre-provisioned equivalent
-- Azure SRE Agent portal access
-- Frontend/API URLs
-- Resource group name
-- Fallback screenshots for Full setup cards
-
-## Strong Evidence
-
-- Azure SRE Agent is visible in `https://sre.azure.com`.
-- Teams can name Log Analytics, Application Insights, Azure Monitor, and Container Apps resources.
-- Teams capture baseline Grubify health before breaking it.
-- Teams can state what the agent knows before GitHub/source-code connection.
-
-## Common Gaps
-
-- Participants assume GitHub PR remediation is already available.
-- Teams skip baseline evidence and go straight to breaking the app.
-- Teams cannot find the agent portal or Full setup status.
-- Teams confuse agent telemetry with app telemetry.
-
-## Coach Hints
-
-Ask:
-
-- What evidence would prove the app was healthy before the incident?
-- Which telemetry source would you expect the agent to query first?
-- What does the agent not know yet without source code?
-
-## Final Demo Pattern
-
-Each team should show the agent in the portal, the Grubify endpoint, the resource inventory, and a short baseline note.
+- No additional assurance exception: review the delivery guide’s Definition of Done.

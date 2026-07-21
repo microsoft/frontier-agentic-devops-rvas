@@ -12,6 +12,7 @@
  *   docs/assets/data/dependency-graph.json               — prereq graph (nodes + edges)
  *   docs/assets/data/challenges/<id>/README.md           — delivery guide copy
  *   docs/assets/data/challenges/<id>/COACH.md            — coach guide copy
+ *   docs/assets/data/delivery-assurance.md               — shared assurance standard
  *   docs/resources/<moduleId>/...                        — module resource files
  *
  * Validation (exits non-zero on errors):
@@ -79,6 +80,7 @@ const ROOT           = path.resolve(__dirname, '..');
 const MODULES_DIR    = path.join(ROOT, 'modules');
 const OUT_DATA_DIR   = path.join(__dirname, 'assets', 'data');
 const OUT_GUIDES_DIR = path.join(OUT_DATA_DIR, 'challenges');
+const ASSURANCE_STANDARD_PATH = path.join(ROOT, 'modules', 'DELIVERY_ASSURANCE.md');
 const OUT_RESOURCES_DIR = path.join(__dirname, 'resources');
 const OUTCOMES_PATH  = path.join(ROOT, 'outcomes.json');
 const CURRENT_SOURCE_REPO = 'microsoft/frontier-agentic-devops-rvas';
@@ -251,6 +253,9 @@ function validateLocalSourceAttribution(meta, metaPath) {
 function rewriteResourceLinksForPages(text, moduleId) {
   const moduleResources = `resources/${moduleId}/`;
   return text.replace(
+    /(\]\()(?:\.\.\/)+DELIVERY_ASSURANCE\.md/g,
+    '$1delivery-assurance.html',
+  ).replace(
     /(\]\()(https:\/\/microsoft\.github\.io\/resources\/|(?:\.\.\/)+[Rr]esources\/|\/[Rr]esources\/|(?:\.\/)?[Rr]esources\/)/g,
     `$1${moduleResources}`,
   ).replace(
@@ -401,6 +406,8 @@ function main() {
   fs.rmSync(OUT_RESOURCES_DIR, { recursive: true, force: true });
   fs.rmSync(OUT_GUIDES_DIR, { recursive: true, force: true });
   fs.mkdirSync(OUT_RESOURCES_DIR, { recursive: true });
+  fs.mkdirSync(OUT_DATA_DIR, { recursive: true });
+  fs.copyFileSync(ASSURANCE_STANDARD_PATH, path.join(OUT_DATA_DIR, 'delivery-assurance.md'));
 
   /* ── 1. Collect all challenges from all modules ── */
   for (const [moduleId, moduleCfg] of Object.entries(MODULE_CONFIG)) {
