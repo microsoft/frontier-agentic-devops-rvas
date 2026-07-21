@@ -135,3 +135,47 @@
 **Validation result:** `npm run verify:repos` and `npm run verify:repos:external` both exit 0. External check count: 2 (juice-shop HEAD + tag). Retired/vendored count: 7/7.
 
 **KEY DECISION:** This repo's origin = microsoft/frontier-agentic-devops-rvas = the LIVE consolidated repo (KEPT). Only frontier-ghas/ghaw/ghec-hackathon + private Contoso sources deleted. The agenticdevops slug must never be presented as archived.
+
+### 2026-07-21 — Enterprise Governance Settings Register — Revision (Simon Rejection Recovery)
+
+**Context:** Zoe's governance register implementation was rejected by Simon (QA gate, 2026-07-21) for two defects:
+- D1: Ch08, Ch10, Ch17 had no governance register contributions.
+- D2: COACH.md not updated for 10/12 contributing challenges.
+
+**Revision mandate:** Mal (per protocol) takes ownership; Zoe excluded.
+
+**Defects fixed:**
+
+- **D1a (Ch08):** Added governance register success_criteria: "Added rows for custom repository properties (schema, property values) and organization rulesets (property-targeted rules, enforcement, bypass logs) with API snapshot links to `/orgs/<org>/properties/schema`, `/orgs/<org>/properties/values`, `/orgs/<org>/rulesets`."
+
+- **D1b (Ch10):** Added governance register success_criteria: "Added row for billing domain (budgets, usage alerts, cost-reconciliation baseline) with API snapshot links to `/organizations/<org>/settings/billing/usage` and configured budget settings. Row uses `approved pilot` status."
+
+- **D1c (Ch17):** Added governance register success_criteria: "Added row for webhooks and GitHub Apps (org and repo webhook configuration, App permissions/subscriptions, signature verification requirement, installation scope, credential handling/rotation) with API snapshot links and deployment readiness assessment. Row uses `approved pilot` or `inspect-and-propose` depending on installation scope."
+
+- **D2 (COACH.md overhaul):** Refactored reviewer focus across 12 contributing challenges (Ch03, Ch04, Ch06–09, Ch11–15, Ch17). Replaced generic language with three concrete bullets per session:
+  1. Governance register initialization/row verification (with evidence-link spots)
+  2. API-based verification (jq filters, spot-check 3–5 settings, not UI)
+  3. Customer-owned vs sample artifacts (lifecycle/handover clarity)
+  4. Scope clarity (real/sample org transition timeline, customer owner confirmation)
+
+**Side fix:** Removed trailing whitespace in Ch06 COACH.md (linter compliance).
+
+**Validation:** ✓ `npm run build` (59 challenges), ✓ `npm run audit:terminology` (0 new errors), ✓ diff isolated to challenges/, ✓ all links verified, ✓ pre-existing edits preserved.
+
+**Ready for Simon re-review.** Governance register completeness now spans 12/12 contributing challenges with consistent, focused COACH guidance.
+
+---
+
+## Learnings
+
+**Revision protocol in action:**
+- Reviewer gate rejects on scope/completeness defects (not just bugs).
+- Revision owner fixes all defects + any scope gaps in same session.
+- Original author excluded to avoid design-by-committee creep.
+- Cycle time: same-day turnaround expected; if author needs to iterate, escalate to lead (Marco).
+
+**Governance register pattern emergent behavior:**
+- Register rows drive both learner success_criteria AND coach verification.
+- COACH compaction (from 3→3 lines with generic language to 3 focused bullets) doesn't reduce rigor; it clarifies.
+- Customer-owned evidence (API snapshots, not sample UI) is the single gate for assurance — everything else flows from that principle.
+- Cumulative-by-challenge design means each activity owns its domain; no re-teaching, no overlap.

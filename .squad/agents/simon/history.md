@@ -124,3 +124,50 @@ Re-reviewed `scripts/provision-app.sh` and `package.json` after Mal applied fixe
 **Verdict: APPROVED — all four defects correctly fixed, no new defects introduced.**
 
 **KEY DECISION:** This repo's origin = microsoft/frontier-agentic-devops-rvas = the LIVE consolidated repo (KEPT). Only frontier-ghas/ghaw/ghec-hackathon + private Contoso sources deleted. The agenticdevops slug must never be presented as archived.
+
+---
+
+### 2026-07-21 — Enterprise Governance Settings Register: Reviewer Gate
+
+**Scope:** Governance settings register template + 15 challenge integrations (Ch03–Ch27).
+
+**Validation passes:**
+- `git diff --check`: 2 trailing-whitespace warnings (zoe history + Ch06 COACH.md trailing blank line). Minor.
+- `npm run build`: ✓ (4 modules, 59 challenges, 0 errors)
+- `npm run audit:terminology`: ✓ (229 files, 0 errors, 4 pre-existing warnings unrelated to this work)
+
+**Template quality (GOVERNANCE-SETTINGS-REGISTER-TEMPLATE.md):**
+- All 11 mandatory fields present: Domain, Setting, Effective Level, Desired Value, Rationale, Implementation Path, Evidence, Accountable Owner, Review Cadence, Exception/Rollback, Next Decision. ✓
+- 22 pre-seeded rows covering org-membership, org-security, org-policy, org-teams, repo-policy, repo-governance, workflow, identity, audit, security, development. ✓
+- Uses both `approved pilot` and `inspect-and-propose` implementation paths appropriately. ✓
+- Customer delivery team terminology preserved. ✓
+- 3 official GitHub Docs references (Orgs REST API, Audit Log, Enterprise Accounts). ✓
+- Integration matrix and Adding New Rows guidance are concise. ✓
+- Does NOT imply universal enterprise-owner access; scoped to org-level. ✓
+
+**Ch06 initialization:** Register init section added to README (copy template, scope register, initialize first section, reference during activity). Meta.yml adds "Governance register initialized" success criterion. COACH.md updated with governance-register, API-verification, customer-owned, and scope-clarity reviewer bullets. ✓
+
+**Challenges with governance register activity (meta.yml + README where substantial):**
+- Ch03: ✓ (meta.yml + README prebuild-decision integration)
+- Ch04: ✓ (meta.yml + README Part G section)
+- Ch07: ✓ (meta.yml + README validation item)
+- Ch09: ✓ (meta.yml one-liner)
+- Ch11: ✓ (meta.yml one-liner)
+- Ch12: ✓ (meta.yml one-liner)
+- Ch13: ✓ (meta.yml one-liner)
+- Ch14: ✓ (meta.yml one-liner)
+- Ch15: ✓ (meta.yml one-liner)
+- Ch18: ✓ (meta.yml one-liner)
+- Ch27: ✓ (meta.yml one-liner)
+
+**DEFECTS FOUND:**
+
+- **D1 (P1): Ch08 — completely missing.** Rulesets & Custom Properties has no governance register activity in its meta.yml or README. The template pre-seeds rows referencing Ch08 Part A/B–C and the integration section mentions Ch08, but the challenge itself was not updated. Acceptance criteria explicitly require Ch08.
+- **D2 (P1): Ch10 — completely missing.** Billing, Cost Centers & Usage has no governance register activity. The template has no billing-domain row either. Acceptance criteria explicitly require Ch10.
+- **D3 (P1): Ch17 — completely missing.** Webhooks & GitHub Apps has no governance register activity. Template mentions "Ch17: Add apps/webhooks row (future)" in the integration section but no actual template row exists and the challenge itself was not updated. Acceptance criteria explicitly require Ch17.
+- **D4 (P2): COACH.md not updated for 10/12 changed sessions.** Only Ch03 and Ch06 have COACH.md updates. Ch04, Ch07, Ch09, Ch11–15, Ch18, and Ch27 had meta.yml changes but no COACH.md reviewer-focus update. Acceptance criteria: "Every changed session's meta.yml success criteria and COACH.md reviewer focus were updated compactly."
+- **D5 (P3): Trailing blank line in Ch06 COACH.md** per `git diff --check`.
+
+**Verdict: REJECTED — D1–D3 (three challenges entirely missing) + D4 (COACH.md gap) must be fixed.**
+
+**Revision owner: Mal** (Lead/Architect) — not Zoe (original author per rejection protocol).
