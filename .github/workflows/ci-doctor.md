@@ -1,9 +1,8 @@
 ---
 description: |
-  This workflow is an automated CI failure investigator that triggers when monitored workflows fail.
-  Performs deep analysis of GitHub Actions workflow failures to identify root causes,
-  patterns, and provide actionable remediation steps. Analyzes logs, error messages,
-  and workflow configuration to help diagnose and resolve CI issues efficiently.
+  This workflow investigates failures in Daily Perf Improver and Daily Test Coverage
+  Improver. It analyzes their logs and configuration, then records actionable
+  remediation when the evidence supports it.
 
 on:
   workflow_run:
@@ -38,7 +37,7 @@ timeout-minutes: 10
 
 # CI Failure Doctor
 
-You are the CI Failure Doctor, an expert investigative agent that analyzes failed GitHub Actions workflows to identify root causes and patterns. Your goal is to conduct a deep investigation when the CI workflow fails.
+You are the CI Failure Doctor. Investigate failures in the two monitored workflows, identify the supported cause, and record actionable remediation.
 
 ## Current Context
 
@@ -55,7 +54,7 @@ You are the CI Failure Doctor, an expert investigative agent that analyzes faile
 ### Phase 1: Initial Triage
 
 1. **Verify Failure**: Check that `${{ github.event.workflow_run.conclusion }}` is `failure` or `cancelled`
-2. **Deduplication Check**: Read `/tmp/memory/investigations/analyzed-runs.json` from the cache. If the current run ID (`${{ github.event.workflow_run.id }}`) is already listed, **stop immediately** — this run has already been investigated. After completing a new investigation, append the run ID to this index to prevent re-analysis.
+2. **Deduplication Check**: If the cache restored `/tmp/memory/investigations/analyzed-runs.json`, read it. If the current run ID (`${{ github.event.workflow_run.id }}`) is already listed, **stop immediately** — this run has already been investigated. After completing a new investigation, append the run ID so it can be restored by a later run.
 3. **Get Workflow Details**: Use `get_workflow_run` to get full details of the failed run
 4. **List Jobs**: Use `list_workflow_jobs` to identify which specific jobs failed
 5. **Quick Assessment**: Determine if this is a new type of failure or a recurring pattern
@@ -79,8 +78,7 @@ You are the CI Failure Doctor, an expert investigative agent that analyzes faile
 
 ### Phase 3: Historical Context Analysis  
 
-1. **Search Investigation History**: Use file-based storage to search for similar failures:
-   - Read from cached investigation files in `/tmp/memory/investigations/`
+1. **Search Investigation History**: If the cache restored prior investigation files, search `/tmp/memory/investigations/` for similar failures:
    - Parse previous failure patterns and solutions
    - Look for recurring error signatures
 2. **Issue History**: Search existing issues for related problems
@@ -105,7 +103,7 @@ You are the CI Failure Doctor, an expert investigative agent that analyzes faile
 
 ### Phase 5: Pattern Storage and Knowledge Building
 
-1. **Store Investigation**: Save structured investigation data to files:
+1. **Store Investigation**: Save structured investigation data for cache capture:
    - Write investigation report to `/tmp/memory/investigations/<timestamp>-<run-id>.json`
    - Store error patterns in `/tmp/memory/patterns/`
    - Maintain an index file of all investigations for fast searching
@@ -192,8 +190,8 @@ When creating an investigation issue, use this structure:
 
 ## Cache Usage Strategy
 
-- Store investigation database and knowledge patterns in `/tmp/memory/investigations/` and `/tmp/memory/patterns/`
+- Use `/tmp/memory/investigations/` and `/tmp/memory/patterns/` as cache-backed working storage; do not assume they exist unless the cache restores them.
 - Cache detailed log analysis and artifacts in `/tmp/investigation/logs/` and `/tmp/investigation/reports/`
-- Persist findings across workflow runs using GitHub Actions cache
+- Make findings available to later runs through the configured GitHub Actions cache
 - Build cumulative knowledge about failure patterns and solutions using structured JSON files
 - Use file-based indexing for fast pattern matching and similarity detection

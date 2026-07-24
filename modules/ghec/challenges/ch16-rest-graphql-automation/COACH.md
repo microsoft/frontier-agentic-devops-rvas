@@ -11,6 +11,6 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer implementation owner drives GitHub entirely from its APIs — REST and GraphQL reads/writes — and ships an idempotent, rate-limit-aware...
-- Implementation risks to verify:
-- Delivery lead prompts: ask "how do you know you've read every issue?" (→ count vs total, pageInfo.hasNextPage), and "what would happen if you ran this twice in a row?" (→...
+- Customer adoption outcome: the customer implementation owner uses REST and GraphQL reads and writes to deliver an idempotent, rate-limit-aware reconciliation script.
+- Implementation risks to verify: REST and GraphQL pagination finish completely, the script respects rate limits, and a second run makes no changes.
+- Delivery lead prompts: ask "how do you know you've read every issue?" (compare the count with the total and check `pageInfo.hasNextPage`), and "what would happen if you ran this twice in a row?" (the reconcile script should make no changes).

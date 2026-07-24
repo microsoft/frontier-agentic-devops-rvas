@@ -94,9 +94,8 @@ What setup creates (all artifacts namespaced `ghec-ch14-*`, idempotent, prefix-g
 9. De-provision (leave). Unassign/disable the test user in the IdP; confirm SCIM suspends the membership and the user loses org access. Re-query the SCIM API and confirm `active: false` (or the user is gone).
 
 ### Part D — Audit external identities
-10. List external identities. Pull the SAML/SCIM identity links so you can answer "who is this GitHub login in our IdP?":
+10. List SCIM identities. Use the SCIM user record to map the IdP `userName` and `externalId` to the GitHub account and confirm whether the identity is active:
     ```bash
-    gh api orgs/<org>/team/... 2>/dev/null; \
     gh api scim/v2/organizations/<org>/Users --jq '.Resources[] | {githubLogin: .userName, externalId, active}'
     ```
 11. Document the offboarding guarantee. In the runbook, record the SCIM join/leave evidence (timestamps, API output) — this is the proof a security/compliance reviewer asks for.

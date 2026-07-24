@@ -21,9 +21,9 @@ success_criteria:
   - The workflow runs (visible in Actions tab)
   - A summary comment appears within 30 seconds
   - Summary includes:
-  - Issue title and current state
-  - At least 2 key points from the discussion
-  - Next steps or recommendation
+    - Issue title and current state
+    - At least 2 key points from the discussion
+    - Next steps or recommendation
   - Only authorized users (repo members) can trigger the command
 tags:
   - slash-commands

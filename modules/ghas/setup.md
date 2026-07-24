@@ -9,7 +9,7 @@ These are separate. You run Juice Shop locally for testing; the org repository i
 
 ## GHAS Target Repository
 
-For Activity S00, a participant, team lead, or organizer should create the GHAS target in an org they control. Use the provided setup scripts:
+For Activity S00, a participant, team lead, or organizer should create the GHAS target in an org they control. GHAS reuses the shared GHEC provisioning scripts because they provide the common org setup and safety checks. Use the provided setup scripts:
 
 ```bash
 cd modules/ghec/resources/provisioning/scripts

@@ -1,6 +1,6 @@
 # Agentic DevSecOps
 
-One repo. One GitHub Pages site. Five adoption journeys, four delivery session modules, 59 activities, zero configuration drama.
+One GitHub Pages curriculum with five adoption journeys, four delivery-session modules, and 59 activities.
 
 > **Bring your own.** These activities are built to run on **your** tenant — work each one
 > against your own applications, repositories, and data so the result keeps running in

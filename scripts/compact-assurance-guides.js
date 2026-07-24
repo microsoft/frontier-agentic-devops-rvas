@@ -77,10 +77,7 @@ function conciseRisks(markdown) {
       .replace(/\s+/g, ' ')
       .trim();
     if (text.length >= 18 && !items.includes(text)) {
-      const concise = text.length > 180
-        ? `${text.slice(0, 177).replace(/\s+\S*$/, '')}...`
-        : text;
-      items.push(concise);
+      items.push(text);
     }
     if (items.length === 3) break;
   }

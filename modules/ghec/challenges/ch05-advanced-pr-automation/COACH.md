@@ -11,9 +11,9 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer implementation owner replaces manual merge babysitting with policy + automation — layered rulesets, auto-merge, and Actions-driven PR...
+- Customer adoption outcome: the customer implementation owner replaces manual merge work with layered rulesets, auto-merge, and Actions-driven PR housekeeping.
 - **Control-catalogue evidence:** Confirm `REP-MERGE-GOVERNANCE`,
   `REP-ORG-RULESETS`, and `REP-REPO-RULESETS` in the existing register have
   effective-setting, bypass, and enforcement evidence.
-- Implementation risks to verify:
+- Implementation risks to verify: the strictest applicable rule wins, bypass access is limited and documented, and auto-merge waits for every required gate.
 - Delivery lead prompts: ask "if two policies disagree, which one applies?" (→ strictest), and "what conditions must be pending for auto-merge to wait rather than merge now?"

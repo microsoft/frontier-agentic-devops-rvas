@@ -11,6 +11,6 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer implementation owner delivers one end-to-end automation where a GitHub App (installation auth) reacts to a signature-verified webhook,...
-- Independence matters. This implementation must stand alone. It creates all its own ghec-ch20- state and assumes no other activity was run. If a customer implementation owner...
-- Implementation risks to verify:
+- Customer adoption outcome: the customer implementation owner delivers one end-to-end automation in which a GitHub App reacts to a signature-verified webhook, updates GitHub through REST and GraphQL, and is orchestrated by Actions.
+- Independence matters. This implementation creates its own `ghec-ch20-*` state and requires no earlier activity. Learners may reuse concepts from earlier activities, but must provision and validate the Ch20 artifacts independently.
+- Implementation risks to verify: the handler verifies the raw request body, uses an installation token for API calls, prevents duplicate actions on redelivery, and stores secrets only in Actions secrets.

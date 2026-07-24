@@ -12,5 +12,5 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 ## Session-specific reviewer focus
 
 - Pitfall 1: Incorrect cron syntax
-- Pitfall 2: No workflowdispatch: for testing
+- Pitfall 2: No `workflow_dispatch` trigger for testing
 - Pitfall 3: Trying to call GitHub API directly instead of using the tool

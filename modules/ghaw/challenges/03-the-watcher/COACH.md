@@ -12,5 +12,5 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 ## Session-specific reviewer focus
 
 - Pitfall 1: Path filter is too specific or wrong
-- Pitfall 2: Forgot to include workflowdispatch
+- Pitfall 2: Forgot to include `workflow_dispatch`
 - Pitfall 3: Trying to read commit diff directly instead of using GitHub MCP

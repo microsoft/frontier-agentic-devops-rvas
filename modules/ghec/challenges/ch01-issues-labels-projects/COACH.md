@@ -11,6 +11,6 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer implementation owner turns a raw, untriaged backlog into a governed system — labeled, milestoned, and tracked on a Projects (v2) board...
-- Implementation risks to verify:
-- Delivery lead prompts: ask "what typed input would stop a reporter from forgetting the severity?" (→ dropdown), and "where would a new item's status get set without you...
+- Customer adoption outcome: the customer implementation owner turns a raw backlog into a governed system with labels, milestones, and a Projects (v2) board.
+- Implementation risks to verify: issue forms require the needed fields, labels use consistent dimensions, and project workflows set item status automatically.
+- Delivery lead prompts: ask "what typed input would stop a reporter from forgetting the severity?" (a dropdown), and "where would a new item's status get set without manual work?" (a project workflow).

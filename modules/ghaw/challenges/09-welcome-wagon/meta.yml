@@ -21,11 +21,11 @@ success_criteria:
   - Verify: comment appears ONLY for first-time contributors
   - Verify: comment does NOT appear if you (repo owner) open a PR
   - Comment includes:
-  - Warm greeting
-  - Thank you message
-  - At least 2 helpful links or resources
-  - Encouragement
-  - Comment is friendly, not robotic
+    - Warm greeting
+    - Thank you message
+    - At least 2 helpful links or resources
+    - Encouragement
+    - Comment is friendly, not robotic
 tags:
   - pull-requests
   - first-time-contributors

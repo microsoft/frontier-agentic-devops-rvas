@@ -11,6 +11,7 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer implementation owner wires the live Azure Boards-GitHub integration so post-migration commits and PRs in GitHub keep linking back to...
-- Why now: GEI migrates Git source, PRs, and existing work-item links on PRs from Azure DevOps, but it does not migrate Azure Boards work items. This activity is the...
-- Preferred artifact: a real migrated repository and a real, low-risk Azure Boards work item. If the production project is not authorized, use a disposable work item only for...
+- Customer adoption outcome: the customer implementation owner connects Azure Boards to GitHub so post-migration commits and pull requests continue to link to work items.
+- Why now: GitHub Enterprise Importer migrates Git source, pull requests, and existing work-item links, but not Azure Boards work items or backlog state. This activity restores the link for new work after cutover.
+- Preferred artifact: use a real migrated repository and a low-risk Azure Boards work item. If the production project is not authorized, validate with a disposable work item and record the production connection plan.
+- Implementation risks to verify: the Azure Boards App is scoped to the selected repository, the repository connects to only one Azure DevOps project, and a merged PR with `Fixes AB#<id>` creates the expected state transition.

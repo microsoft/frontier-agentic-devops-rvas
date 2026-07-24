@@ -11,6 +11,6 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer implementation owner establishes a real review culture — branch-per-change, required owner review, clean conflict resolution, and a...
-- Implementation risks to verify:
+- Customer adoption outcome: the customer implementation owner establishes a review culture with feature branches, required code-owner review, conflict resolution, and a documented merge strategy.
+- Implementation risks to verify: branch rules require reviews and code-owner approval, and the team can explain the history produced by each merge strategy.
 - Delivery lead prompts: ask "who must look at this code before it ships?" (→ CODEOWNERS), and "what does the history look like after each merge type?" (→ git log --graph).
