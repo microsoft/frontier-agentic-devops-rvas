@@ -132,7 +132,7 @@ You are done when ALL of the following are true:
 ## Reference links
 - About Copilot cloud agent — https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent
 - Managing access to Copilot cloud agent — https://docs.github.com/en/copilot/concepts/agents/cloud-agent/access-management
-- Using Copilot to work on an issue — https://docs.github.com/en/copilot/using-github-copilot/coding-agent/using-copilot-to-work-on-an-issue
+- Using Copilot to work on an issue — https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/start-copilot-sessions
 - Customizing or restricting Copilot cloud agent — https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent
 - Managing GitHub Copilot policies in your organization — https://docs.github.com/en/copilot/managing-copilot/managing-github-copilot-in-your-organization/managing-policies-for-copilot-in-your-organization
 - `gh pr` CLI manual — https://cli.github.com/manual/gh_pr
