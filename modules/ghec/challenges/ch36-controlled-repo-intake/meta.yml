@@ -1,0 +1,46 @@
+id: ghec-ch36
+title: Controlled Repository Intake
+module: ghec
+track: admin-governance
+difficulty: advanced
+duration_minutes: 240
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+- Ability to configure a GitHub App or fine-grained PAT as an Actions secret
+- Repository provisioned via activity setup script
+description: "Replace unmanaged repository creation with an authorized intake flow: a custom issue form, maintainer-applied approval label, and GitHub Actions provisioning workflow with auditable evidence."
+success_criteria:
+- Members cannot create repositories directly, or an approved rollout proposal records why the production setting was not changed during the session.
+- The intake repository has a working repository-request issue form.
+- A maintainer-applied approval label triggers the provisioning workflow.
+- The workflow creates a requested repository with the approved baseline settings and fails closed for invalid requests.
+- The intake issue is updated with provisioning evidence and a final provisioned or failed label.
+- Governance evidence records the owner, approval route, workflow identity, baseline controls, audit evidence, and next review.
+- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+tags:
+- repository-creation
+- governance
+- issue-forms
+- actions
+- provisioning
+app_dependency: none
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo ghec-ch36-repo-intake (seeded issue form, labels, and provisioning workflow scaffold)
+- sample repository request issue
+- printed organization repository-creation policy snapshot
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/ch36-controlled-repo-intake/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/organizations/managing-organization-settings/restricting-repository-creation-in-your-organization
+- https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository
+- https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions
+- https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/authenticating-as-a-github-app-installation
+- https://docs.github.com/en/rest/repos/repos
