@@ -1,6 +1,6 @@
 # Agentic DevSecOps
 
-One GitHub Pages curriculum with five adoption journeys, four delivery-session modules, and 68 activities.
+One GitHub Pages curriculum with five adoption journeys, four delivery-session modules, and 69 activities.
 
 > **Bring your own.** These activities are built to run on **your** tenant — work each one
 > against your own applications, repositories, and data so the result keeps running in
@@ -25,12 +25,12 @@ The site is organized around customer adoption outcomes first, then platform mod
 
 | Module ID | Name | Activities | Tracks |
 |---|---|---|---|
-| `ghec` | GitHub Enterprise Cloud | 37 | Developer Flow, Admin & Governance, Security, Automation & AI, Migration |
+| `ghec` | GitHub Enterprise Cloud | 38 | Developer Flow, Admin & Governance, Security, Automation & AI, Migration |
 | `ghas` | GitHub Advanced Security | 7 | Security |
 | `ghaw` | GitHub Agentic Workflows | 19 | Hello, Agent, Repo Concierge, Continuous Intelligence, Production Patterns |
 | `sre-agent` | SRE Agent | 5 | Azure SRE Agent |
 
-> **Total:** 68 activities across 4 modules.
+> **Total:** 69 activities across 4 modules.
 
 ## Architecture
 

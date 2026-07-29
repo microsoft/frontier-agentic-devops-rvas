@@ -12,7 +12,7 @@ modules/
 │       ├── README.md    ← customer delivery team guide template
 │       └── COACH.md     ← coach guide template
 │
-├── ghec/                ← GitHub Enterprise Cloud (37 activities)
+├── ghec/                ← GitHub Enterprise Cloud (38 activities)
 │   └── challenges/
 │       └── <slug>/      ← one directory per challenge
 │           ├── meta.yml

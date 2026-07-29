@@ -1,0 +1,45 @@
+id: ghec-ch37
+title: Governance Quick Review with ghqr
+module: ghec
+track: admin-governance
+difficulty: advanced
+duration_minutes: 180
+prerequisites: []
+prerequisite_capabilities:
+  - GitHub Enterprise Cloud organization with organization-owner or authorized governance-review access
+  - GitHub CLI (gh >= 2.x) installed for evidence handoff and optional API corroboration
+  - ghqr CLI or Docker image available
+  - jq installed for optional JSON triage
+  - Customer-owned governance settings register and non-secret evidence location
+  - Optional enterprise owner or authorized enterprise-policy reviewer when the enterprise scan is in scope
+description: "Run an authorized ghqr posture review against a customer GitHub organization, preserve non-secret evidence, and convert findings into governance-register decisions without changing settings by default."
+success_criteria:
+  - Authorized organization scope, reviewer role, token boundary, evidence location, and report-retention decision are recorded before the scan.
+  - ghqr is installed or selected through Docker, and its version/help output is captured as execution evidence.
+  - An organization scan completes with `ghqr scan -o <org>` and produces retained JSON plus Markdown or XLSX evidence.
+  - Enterprise scan applicability is explicitly recorded: completed with approval and `read:enterprise`, or marked not authorized/not applicable without inferring enterprise settings.
+  - Top ghqr findings are triaged to existing governance catalogue controls, with effective source level, objective evidence link, severity, accountable owner, implementation path, exception/rollback, and review date.
+  - At least one finding is corroborated with a GitHub setting, audit, or API evidence surface where available.
+  - No production setting is changed by default; remediation is captured as inspect-and-propose or a separately approved pilot/change.
+  - Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+tags:
+  - ghqr
+  - governance
+  - posture-review
+  - settings-review
+  - evidence
+  - compliance
+app_dependency: none
+emu_compatible: true
+min_environment: org
+provision_creates: []
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/ch37-ghqr-governance-quick-review/meta.yml
+license: MIT
+references:
+  - https://github.com/microsoft/ghqr
+  - https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise
+  - https://docs.github.com/en/rest/orgs/orgs
+  - https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization
+  - https://docs.github.com/en/enterprise-cloud@latest/admin/data-residency/about-github-enterprise-cloud-with-data-residency
