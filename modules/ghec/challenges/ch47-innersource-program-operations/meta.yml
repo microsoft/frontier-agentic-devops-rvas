@@ -1,0 +1,42 @@
+id: ghec-ch47
+title: InnerSource Program Operations
+module: ghec
+track: developer-flow
+difficulty: intermediate
+duration_minutes: 210
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner or repository admin rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+- Repository provisioned via activity setup script
+description: "Operate an InnerSource program with discoverable project metadata, contributor onboarding, maintainer response expectations, issue labels, and governance evidence."
+success_criteria:
+- An InnerSource program charter names scope, owner, participating repositories, maintainer expectations, and success metrics.
+- A hub or pilot repository exposes README, CONTRIBUTING, CODEOWNERS, support path, and good-first-contribution guidance.
+- Issues or discussions are labeled and triaged for contribution readiness, maintainers, and response SLA.
+- Repository access, branch protection, and review expectations are documented without weakening production controls.
+- Governance evidence records program owner, onboarding path, adoption metrics, exceptions, and next review.
+- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+tags:
+- innersource
+- governance
+- maintainers
+- contributor-experience
+- program-operations
+app_dependency: none
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo ghec-ch47-innersource-hub (seeded InnerSource hub files, labels, and program issues)
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/ch47-innersource-program-operations/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/enterprise-cloud@latest/admin/concepts/enterprise-best-practices/use-innersource
+- https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+- https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/setting-guidelines-for-repository-contributors
+- https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels
+- https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-repository-readmes

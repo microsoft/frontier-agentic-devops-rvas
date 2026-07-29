@@ -1,0 +1,45 @@
+id: ghec-ch42
+title: Repository Lifecycle Governance
+module: ghec
+track: admin-governance
+difficulty: advanced
+duration_minutes: 240
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+- Repository provisioned via activity setup script
+description: "Define and apply repository lifecycle governance: active, deprecated, transfer, archive, and delete decisions with owner-backed evidence and guarded execution."
+success_criteria:
+- A repository lifecycle policy exists with states, owners, review cadence, decision criteria, and exception path.
+- Sample repositories are classified as active, deprecated, archive candidate, transfer candidate, or delete candidate with evidence.
+- Archive, visibility, transfer, and deletion actions are treated as explicit participant-approved steps, not setup mutations.
+- At least one safe lifecycle marker is applied to a sample repository.
+- Governance evidence records decisions, approvals, retention considerations, and next review.
+- Customer-owned implementation evidence identifies authorized scope, accountable owner, handover artifact, and next lifecycle review.
+tags:
+- repository-lifecycle
+- governance
+- archive
+- retention
+- ownership
+app_dependency: none
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo ghec-ch42-active-service (active sample)
+- repo ghec-ch42-deprecated-service (deprecated sample)
+- repo ghec-ch42-archive-candidate (archive-review sample)
+- seeded lifecycle review issues and README markers
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/ch42-repository-lifecycle-governance/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/repositories/archiving-a-github-repository/archiving-repositories
+- https://docs.github.com/en/repositories/creating-and-managing-repositories/transferring-a-repository
+- https://docs.github.com/en/repositories/creating-and-managing-repositories/deleting-a-repository
+- https://docs.github.com/en/rest/repos/repos
+- https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics

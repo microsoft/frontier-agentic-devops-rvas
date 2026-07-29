@@ -1,0 +1,43 @@
+id: ghec-ch41
+title: Required Reusable Workflows
+module: ghec
+track: automation-ai
+difficulty: advanced
+duration_minutes: 240
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner or repository admin rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+- Repository provisioned via activity setup script
+description: "Publish an organization-owned reusable workflow and require it through an approved ruleset or required-workflow control so repositories inherit a consistent CI/security gate."
+success_criteria:
+- Reusable workflow repository contains a versioned `workflow_call` workflow with pinned actions and least-privilege permissions.
+- Consumer repository can call the reusable workflow successfully.
+- Required workflow or repository ruleset is approved and configured explicitly by the participant for the authorized repository cohort.
+- Pull request evidence shows the required workflow blocks merge until it passes.
+- Exception, versioning, ownership, and rollout evidence is recorded.
+- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+tags:
+- actions
+- reusable-workflows
+- required-workflows
+- rulesets
+- governance
+app_dependency: none
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo ghec-ch41-workflow-library (seeded reusable workflow)
+- repo ghec-ch41-consumer-service (seeded caller workflow and sample source)
+- printed repository ruleset and Actions workflow snapshot
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/ch41-required-reusable-workflows/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows
+- https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets
+- https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets
+- https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions

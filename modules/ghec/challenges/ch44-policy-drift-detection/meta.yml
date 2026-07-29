@@ -1,0 +1,44 @@
+id: ghec-ch44
+title: Policy Drift Detection
+module: ghec
+track: admin-governance
+difficulty: advanced
+duration_minutes: 240
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+- Repository provisioned via activity setup script
+description: "Detect repository policy drift by comparing a baseline repository contract to live repository settings, labels, topics, and required files, then record remediation decisions."
+success_criteria:
+- A policy baseline is defined for required files, labels, topics, visibility, features, and ownership evidence.
+- A drift detection check compares at least two repositories against the baseline.
+- Detected drift is reported with severity, owner, remediation, exception, and next review.
+- At least one safe drift remediation is applied or an approved exception is recorded.
+- High-impact org settings and restrictive policies are explicit participant steps, not setup mutations.
+- Customer-owned implementation evidence identifies authorized scope, accountable owner, handover artifact, and next automation decision.
+tags:
+- policy-drift
+- governance
+- repository-settings
+- automation
+- compliance
+app_dependency: none
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo ghec-ch44-policy-baseline (baseline contract sample)
+- repo ghec-ch44-drifted-service (intentional drift sample)
+- seeded baseline file, labels, topics, and drift review issue
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/ch44-policy-drift-detection/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/rest/repos/repos
+- https://docs.github.com/en/rest/issues/labels
+- https://docs.github.com/en/rest/repos/contents
+- https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics
+- https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule

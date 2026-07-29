@@ -1,0 +1,43 @@
+id: ghec-ch45
+title: Packages and Container Registry Governance
+module: ghec
+track: automation-ai
+difficulty: intermediate
+duration_minutes: 180
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with package admin and repository admin rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+- Container tooling such as Docker or Podman for the participant validation step
+- Repository provisioned via activity setup script
+description: "Govern GitHub Packages and GHCR container images: define package visibility, access, retention, provenance, and cleanup controls for organization-owned artifacts."
+success_criteria:
+- Package governance standard records approved visibility, access model, naming, retention, provenance, and deletion/restore process.
+- A sample container image is published to GHCR by the participant under the approved `ghec-ch45-*` namespace.
+- Package access is connected to the intended repository or team and avoids unintended public exposure.
+- Container package metadata, README, labels, and version tags meet the approved standard.
+- Cleanup or retention evidence records what is deleted, retained, or transferred and why.
+- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+tags:
+- packages
+- ghcr
+- container-registry
+- governance
+- supply-chain
+app_dependency: none
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo ghec-ch45-container-governance (seeded Containerfile, workflow scaffold, and package policy checklist)
+- printed package namespace discovery commands (no packages pushed by setup)
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/ch45-packages-container-registry-governance/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry
+- https://docs.github.com/en/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility
+- https://docs.github.com/en/packages/learn-github-packages/deleting-and-restoring-a-package
+- https://docs.github.com/en/actions/publishing-packages/publishing-docker-images

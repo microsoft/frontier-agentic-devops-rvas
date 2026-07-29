@@ -1,0 +1,43 @@
+id: ghec-ch39
+title: Actions Secrets and Environments
+module: ghec
+track: automation-ai
+difficulty: intermediate
+duration_minutes: 180
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner or repository admin rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+- Repository provisioned via activity setup script
+description: "Govern GitHub Actions secrets and deployment environments: inventory current usage, move deployment credentials behind protected environments, and produce ownership and rotation evidence without exposing secret values."
+success_criteria:
+- Repository and organization secret inventory records names, scopes, owners, rotation cadence, and consumers without recording secret values.
+- Deployment credentials are moved to protected environments with reviewers, branch restrictions, and wait timers where appropriate.
+- Workflow jobs reference environment-scoped secrets only after the environment protection gate.
+- A test deployment demonstrates that unauthorized branches or missing reviewers cannot access production secrets.
+- Governance evidence records owners, exception path, rotation dates, and next review.
+- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+tags:
+- actions
+- secrets
+- environments
+- deployment-protection
+- governance
+app_dependency: none
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo ghec-ch39-actions-secrets-envs (seeded workflow and environment governance checklist)
+- repo environments ghec-ch39-dev and ghec-ch39-prod (no secrets created)
+- printed repository Actions secret and environment snapshot
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/ch39-actions-secrets-environments/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions
+- https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment
+- https://docs.github.com/en/rest/actions/secrets
+- https://docs.github.com/en/rest/deployments/environments

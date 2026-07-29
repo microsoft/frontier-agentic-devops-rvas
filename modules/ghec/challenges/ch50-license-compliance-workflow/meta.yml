@@ -1,0 +1,45 @@
+id: ghec-ch50
+title: License Compliance Workflow
+module: ghec
+track: security
+difficulty: advanced
+duration_minutes: 240
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with repository administrator rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+- Repository provisioned via activity setup script, or an approved production repository with dependencies
+description: "Implement a license compliance workflow using dependency graph evidence, dependency review guidance, exception intake, and owner-approved policy decisions without mutating enterprise or organization license policies during setup."
+success_criteria:
+- A license compliance policy identifies allowed, review-required, and prohibited license families with owner, exception path, and review cadence.
+- Dependency inventory evidence is captured from dependency graph, manifests, or a customer-approved SBOM source.
+- A dependency review or equivalent pull-request checkpoint is documented for license changes.
+- A license exception issue captures package, license, usage, business owner, legal/security decision, expiry, and remediation path.
+- High-impact enterprise or organization policy changes are recorded as explicit participant steps and not performed by setup.
+- Customer-owned implementation evidence identifies authorized scope, accountable owner, relevant risk controls, handover artefact, and next rollout decision.
+tags:
+- license-compliance
+- dependency-graph
+- dependency-review
+- governance
+- open-source
+app_dependency: none
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo ghec-ch50-license-compliance-workflow (seeded dependency manifests and compliance workflow materials)
+- labels and sample license exception issue
+- dependency review guidance and Dependabot scaffold
+- printed dependency graph and policy inspection commands
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/ch50-license-compliance-workflow/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph
+- https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review
+- https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/configuring-dependency-review
+- https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuring-dependabot-version-updates
+- https://docs.github.com/en/rest/dependency-graph/dependency-review

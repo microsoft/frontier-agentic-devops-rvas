@@ -1,0 +1,45 @@
+id: ghec-ch51
+title: LFS and Monorepo Governance
+module: ghec
+track: developer-flow
+difficulty: advanced
+duration_minutes: 240
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with repository administrator rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+- Repository provisioned via activity setup script, or an approved monorepo target
+description: "Implement Git LFS and monorepo governance: storage patterns, CODEOWNERS boundaries, repository health evidence, large-file intake, and explicit owner-approved quota or policy decisions."
+success_criteria:
+- A monorepo governance policy identifies ownership boundaries, CODEOWNERS strategy, LFS patterns, large-file exception path, storage/quota owner, and review cadence.
+- Repository evidence captures current size, large-file patterns, branch/tag risk, and LFS tracking configuration.
+- A `.gitattributes` plan or implementation tracks approved binary patterns with Git LFS and avoids committing large binaries during setup.
+- CODEOWNERS or equivalent ownership evidence maps monorepo areas to accountable reviewers.
+- High-impact storage, retention, or migration decisions are recorded as explicit participant steps and not hidden setup mutations.
+- Customer-owned implementation evidence identifies authorized scope, accountable owner, relevant risk controls, handover artefact, and next rollout decision.
+tags:
+- git-lfs
+- monorepo
+- codeowners
+- repository-governance
+- storage
+app_dependency: none
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo ghec-ch51-lfs-monorepo-governance (seeded monorepo governance sample)
+- `.gitattributes`, CODEOWNERS, package folders, and governance docs
+- labels and sample large-file intake issue
+- printed repository size, LFS, and ruleset inspection commands
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/ch51-lfs-monorepo-governance/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage
+- https://docs.github.com/en/repositories/working-with-files/managing-large-files/configuring-git-large-file-storage
+- https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+- https://docs.github.com/en/repositories/working-with-files/managing-files/about-large-files-on-github
+- https://docs.github.com/en/repositories/creating-and-managing-repositories/repository-limits

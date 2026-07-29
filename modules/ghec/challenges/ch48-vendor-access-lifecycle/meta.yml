@@ -1,0 +1,45 @@
+id: ghec-ch48
+title: Vendor Access Lifecycle
+module: ghec
+track: admin-governance
+difficulty: advanced
+duration_minutes: 240
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+- Repository provisioned via activity setup script
+description: "Operate vendor and outside-collaborator access from request through approval, least-privilege grant, periodic review, offboarding, and audit evidence."
+success_criteria:
+- A vendor access register captures business owner, repository scope, permission level, start/end dates, reviewer, and offboarding trigger.
+- Current outside collaborators and pending invitations are reviewed, or a documented API/UI limitation records how the review was performed.
+- New vendor access is granted only through an explicit participant step after approval; setup does not invite users or mutate org access settings.
+- Repository permissions follow least privilege and time-bound review expectations.
+- Offboarding removes or validates removal of vendor access and records audit evidence.
+- Governance evidence records owner, approval path, review cadence, audit log evidence, exceptions, and next review.
+- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+tags:
+- outside-collaborators
+- vendors
+- access-review
+- governance
+- audit-log
+app_dependency: none
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo ghec-ch48-vendor-access-register (seeded access request/review issue forms, labels, and sample request)
+- printed outside-collaborator and pending-invitation snapshots when readable
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/ch48-vendor-access-lifecycle/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-outside-collaborators
+- https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-outside-collaborators/adding-outside-collaborators-to-repositories-in-your-organization
+- https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-user-access-to-your-organizations-repositories/managing-outside-collaborators/removing-an-outside-collaborator-from-an-organization-repository
+- https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-organization-settings/setting-permissions-for-adding-outside-collaborators
+- https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization
+- https://docs.github.com/en/rest/orgs/outside-collaborators

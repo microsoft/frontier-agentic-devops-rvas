@@ -1,0 +1,44 @@
+id: ghec-ch38
+title: Golden-Path Repository Bootstrap
+module: ghec
+track: admin-governance
+difficulty: advanced
+duration_minutes: 240
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+- Repository provisioned via activity setup script
+description: "Create a governed golden-path repository bootstrap: an approved template, baseline files, ownership evidence, and a repeatable first-repository validation."
+success_criteria:
+- A golden-path bootstrap standard exists with owner, scope, required repository settings, files, and exception path.
+- The sample template repository contains baseline README, CODEOWNERS, issue form, pull request template, and starter workflow guidance.
+- A new repository is created from the approved template or a customer-owned equivalent.
+- The new repository is validated against the baseline and gaps are recorded with owners.
+- High-impact organization defaults or member-creation controls are changed only as explicit participant-approved steps, not by setup.
+- Customer-owned implementation evidence identifies authorized scope, accountable owner, handover artifact, and next rollout decision.
+tags:
+- repository-templates
+- bootstrap
+- governance
+- developer-experience
+- repository-settings
+app_dependency: none
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo ghec-ch38-golden-path-template (seeded template candidate with baseline files)
+- repo ghec-ch38-bootstrap-candidate (empty validation target)
+- printed template and repository baseline next steps
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/ch38-golden-path-repo-bootstrap/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository
+- https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template
+- https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+- https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository
+- https://docs.github.com/en/rest/repos/repos

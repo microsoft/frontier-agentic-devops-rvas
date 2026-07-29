@@ -1,0 +1,44 @@
+id: ghec-ch43
+title: Repository Inventory Cleanup
+module: ghec
+track: admin-governance
+difficulty: intermediate
+duration_minutes: 180
+prerequisites: []
+prerequisite_capabilities:
+- GitHub organization with org-owner rights
+- GitHub CLI (gh >= 2.x) installed
+- git installed
+- jq installed
+- Repository provisioned via activity setup script
+description: "Build a repository inventory cleanup workflow: discover repositories, identify ownership and metadata gaps, triage cleanup decisions, and record evidence."
+success_criteria:
+- Repository inventory fields are defined for owner, purpose, visibility, lifecycle state, topics, risk, and cleanup decision.
+- A sample or customer cohort is exported and reviewed for missing metadata, duplicate purpose, and unowned repositories.
+- Cleanup decisions are recorded with owner, approval, and next action.
+- Safe metadata improvements are applied to at least one repository.
+- Archive/delete/transfer and org-level settings are explicit participant-approved steps, not setup mutations.
+- Customer-owned implementation evidence identifies authorized scope, accountable owner, handover artifact, and next cleanup cohort.
+tags:
+- repository-inventory
+- cleanup
+- governance
+- metadata
+- ownership
+app_dependency: none
+emu_compatible: true
+min_environment: org
+provision_creates:
+- repo ghec-ch43-owned-service (healthy inventory sample)
+- repo ghec-ch43-orphan-tool (missing owner sample)
+- repo ghec-ch43-duplicate-api (duplicate-purpose sample)
+- seeded inventory review issues and topics
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/ch43-repository-inventory-cleanup/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/rest/repos/repos
+- https://docs.github.com/en/search-github/searching-on-github/searching-for-repositories
+- https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics
+- https://docs.github.com/en/repositories/archiving-a-github-repository/archiving-repositories
