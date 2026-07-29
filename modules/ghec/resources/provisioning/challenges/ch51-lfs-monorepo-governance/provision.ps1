@@ -48,7 +48,7 @@ large binaries, rewrite history, or change storage quotas.
   Set-GhecFile -Org $Global:GhecOrg -Repo $Global:GhecRepo -Path 'docs/lfs-monorepo-governance.md' -Message 'Add LFS monorepo governance template' -Content $policy
   $form = @'
 name: Large-file intake
-about: Request approval for a large file pattern or LFS tracking change
+description: Request approval for a large file pattern or LFS tracking change
 title: "Large-file intake: <pattern>"
 labels: ["lfs: review"]
 body:

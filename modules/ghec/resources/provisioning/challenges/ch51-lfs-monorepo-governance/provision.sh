@@ -58,7 +58,7 @@ EOF
 )"
   gh_put_file "$ORG" "$REPO" ".github/ISSUE_TEMPLATE/large-file-intake.yml" "Add large-file intake issue form" "$(cat <<'EOF'
 name: Large-file intake
-about: Request approval for a large file pattern or LFS tracking change
+description: Request approval for a large file pattern or LFS tracking change
 title: "Large-file intake: <pattern>"
 labels: ["lfs: review"]
 body:

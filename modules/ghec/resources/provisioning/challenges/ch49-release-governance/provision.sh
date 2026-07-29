@@ -38,7 +38,7 @@ EOF
 )"
   gh_put_file "$ORG" "$REPO" ".github/ISSUE_TEMPLATE/release-readiness.yml" "Add release readiness issue form" "$(cat <<'EOF'
 name: Release readiness
-about: Capture approval and evidence for a release candidate
+description: Capture approval and evidence for a release candidate
 title: "Release candidate: <tag>"
 labels: ["release: candidate"]
 body:

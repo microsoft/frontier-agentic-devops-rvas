@@ -37,7 +37,7 @@ form, and a manual evidence workflow.
   Set-GhecFile -Org $Global:GhecOrg -Repo $Global:GhecRepo -Path 'docs/release-governance.md' -Message 'Add release governance policy template' -Content $policy
   $form = @'
 name: Release readiness
-about: Capture approval and evidence for a release candidate
+description: Capture approval and evidence for a release candidate
 title: "Release candidate: <tag>"
 labels: ["release: candidate"]
 body:

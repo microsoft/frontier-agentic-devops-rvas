@@ -129,6 +129,7 @@ ghec_provision() {
   echo >&2
   log_info "Next steps for the participant:"
   log_info "  - review and version the reusable workflow"
+  log_info "  - allow approved org repositories to call workflows from $CH41_LIBRARY in Settings > Actions > General > Access"
   log_info "  - validate the consumer caller workflow"
   log_info "  - configure required workflow or ruleset manually for the approved cohort"
 }

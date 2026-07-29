@@ -58,7 +58,7 @@ updates:
   Set-GhecFile -Org $Global:GhecOrg -Repo $Global:GhecRepo -Path '.github/dependabot.yml' -Message 'Add Dependabot scaffold' -Content $dependabot
   $form = @'
 name: License exception
-about: Request a time-bound exception for a dependency license
+description: Request a time-bound exception for a dependency license
 title: "License exception: <package>"
 labels: ["license: review"]
 body:

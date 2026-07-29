@@ -63,7 +63,7 @@ EOF
 )"
   gh_put_file "$ORG" "$REPO" ".github/ISSUE_TEMPLATE/license-exception.yml" "Add license exception issue form" "$(cat <<'EOF'
 name: License exception
-about: Request a time-bound exception for a dependency license
+description: Request a time-bound exception for a dependency license
 title: "License exception: <package>"
 labels: ["license: review"]
 body:

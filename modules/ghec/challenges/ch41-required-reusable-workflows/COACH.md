@@ -13,5 +13,6 @@ Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); `README
 
 - Confirm setup did not enforce org-wide controls.
 - Verify the reusable workflow is called by immutable tag or SHA where required by policy.
+- Confirm private workflow-library Actions **Access** is configured before the consumer run; otherwise the caller fails even when the YAML is correct.
 - Ask how teams request exceptions and how library changes are rolled out.
 - Confirm the merge gate actually blocks when the reusable workflow fails or is absent.

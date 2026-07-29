@@ -123,6 +123,7 @@ function Invoke-GhecProvision {
   Write-Host ''
   Write-GhecInfo 'Next steps for the participant:'
   Write-GhecInfo '  - review and version the reusable workflow'
+  Write-GhecInfo "  - allow approved org repositories to call workflows from $($Global:GhecCh41Library) in Settings > Actions > General > Access"
   Write-GhecInfo '  - validate the consumer caller workflow'
   Write-GhecInfo '  - configure required workflow or ruleset manually for the approved cohort'
 }
