@@ -19,11 +19,11 @@
       "skillPath": "skills/grilling/SKILL.md",
       "computedHash": "ef685a6fa0bbe73b05bbd8dc1ec97258191587f07c6aa7dbc9006675ceb8f90f"
     },
-    "humanizer": {
-      "source": "blader/humanizer",
+    "humanize-writing": {
+      "source": "lguz/humanize-writing-skill",
       "sourceType": "github",
-      "skillPath": "SKILL.md",
-      "computedHash": "0f4d9a7fbd645b9ac77e5f2f7eeac5026fdcc0c5bac9da004aa27762833780b9"
+      "skillPath": "skills/humanize-writing/SKILL.md",
+      "computedHash": "bd0c9bf9dbb1c1117a831edfc7a566d9b09cace1aff42fcf6e2068d272c44593"
     },
     "skill-creator": {
       "source": "anthropics/skills",
