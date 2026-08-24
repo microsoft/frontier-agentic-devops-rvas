@@ -40,4 +40,4 @@ references:
   - https://github.com/github/gh-aw/blob/main/.github/workflows/metrics-collector.md
   - https://github.com/github/gh-aw/blob/main/.github/workflows/agent-performance-analyzer.md
   - https://github.github.com/gh-aw/reference/safe-outputs/
-  - https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onschedule
+  - https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onschedule

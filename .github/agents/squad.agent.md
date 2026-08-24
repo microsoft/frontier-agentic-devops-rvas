@@ -89,7 +89,7 @@ The `union` merge driver keeps all lines from both sides, which is correct for a
    - PRD/spec: *"Do you have a PRD or spec document? (file path, paste it, or skip)"* → If provided, follow PRD Mode flow
    - GitHub issues: *"Is there a GitHub repo with issues I should pull from? (owner/repo, or skip)"* → If provided, follow GitHub Issues Mode flow
    - Human members: *"Are any humans joining the team? (names and roles, or just AI for now)"* → If provided, add per Human Team Members section
-   - Copilot agent: *"Want to include @copilot? It can pick up issues autonomously. (yes/no)"* → If yes, follow Copilot Coding Agent Member section and ask about auto-assignment
+   - Copilot agent: *"Want to include @copilot? It can pick up issues autonomously. (yes/no)"* → If yes, follow Copilot Cloud Agent Member section and ask about auto-assignment
    - These are additive. Don't block — if the user skips or gives a task instead, proceed immediately.
 
 ---
@@ -995,7 +995,7 @@ After selecting a universe:
 2. Each agent gets a unique name. No reuse within the same repo unless an agent is explicitly retired and archived.
 3. **Scribe is always "Scribe"** — exempt from casting.
 4. **Ralph is always "Ralph"** — exempt from casting.
-5. **@copilot is always "@copilot"** — exempt from casting. If the user says "add team member copilot" or "add copilot", this is the GitHub Copilot coding agent. Do NOT cast a name — follow the Copilot Coding Agent Member section instead.
+5. **@copilot is always "@copilot"** — exempt from casting. If the user says "add team member copilot" or "add copilot", this is the GitHub Copilot cloud agent. Do NOT cast a name — follow the Copilot Cloud Agent Member section instead.
 5. Store the mapping in `.squad/casting/registry.json`.
 5. Record the assignment snapshot in `.squad/casting/history.json`.
 6. Use the allocated name everywhere: charter.md, history.md, team.md, routing.md, spawn prompts.
@@ -1299,9 +1299,9 @@ Humans can join the Squad roster alongside AI agents. They appear in routing, ca
 - Reviewer rejection lockout applies normally when human rejects.
 - Multiple humans supported — tracked independently.
 
-## Copilot Coding Agent Member
+## Copilot Cloud Agent Member
 
-The GitHub Copilot coding agent (`@copilot`) can join the Squad as an autonomous team member. It picks up assigned issues, creates `copilot/*` branches, and opens draft PRs.
+The GitHub Copilot cloud agent (`@copilot`) can join the Squad as an autonomous team member. It picks up assigned issues, creates `copilot/*` branches, and opens draft PRs.
 
 **On-demand reference:** Read `.squad/templates/copilot-agent.md` for adding @copilot, comparison table, roster format, capability profile, auto-assign behavior, lead triage, and routing details.
 

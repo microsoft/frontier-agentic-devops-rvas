@@ -37,4 +37,4 @@ references:
   - https://github.com/github/gh-aw/blob/main/.github/workflows/security-compliance.md
   - https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts
   - https://docs.github.com/en/code-security/security-advisories/working-with-global-security-advisories-from-the-github-advisory-database/about-the-github-advisory-database
-  - https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication
+  - https://docs.github.com/en/actions/tutorials/authenticate-with-github_token

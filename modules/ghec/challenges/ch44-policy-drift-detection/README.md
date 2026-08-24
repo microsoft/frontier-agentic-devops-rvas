@@ -93,4 +93,4 @@ Setup creates `ghec-ch44-policy-baseline` and `ghec-ch44-drifted-service`. The d
 - Labels REST API — https://docs.github.com/en/rest/issues/labels
 - Repository contents API — https://docs.github.com/en/rest/repos/contents
 - Repository topics — https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics
-- Scheduled workflows — https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
+- Scheduled workflows — https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule

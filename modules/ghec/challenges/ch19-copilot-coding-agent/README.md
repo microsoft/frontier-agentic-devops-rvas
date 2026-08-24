@@ -119,7 +119,7 @@ You are done when ALL of the following are true:
 - [ ] The failing test is green in the PR and the PR was approved and merged to `main`.
 - [ ] `AGENT-NOTES.md` records where the agent fits and where human review remains essential.
 - [ ] The existing governance register records `COP-CLOUD-AGENT` with policy/eligibility and review evidence, or marks it not applicable for an EMU-owned repository.
-- [ ] Real-outcome check — if you brought your own repo issue, the Copilot coding agent now has a real candidate task and review gate; if you used the sample, you can name the issue class you will try next.
+- [ ] Real-outcome check — if you brought your own repo issue, the Copilot cloud agent now has a real candidate task and review gate; if you used the sample, you can name the issue class you will try next.
 - [ ] Adoption handover — record the customer Copilot and repository owners, approved issue class, review gate, and next action.
 
 > Coaches verify these via the automated hints in `COACH.md`.
@@ -134,5 +134,5 @@ You are done when ALL of the following are true:
 - Managing access to Copilot cloud agent — https://docs.github.com/en/copilot/concepts/agents/cloud-agent/access-management
 - Using Copilot to work on an issue — https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/start-copilot-sessions
 - Customizing or restricting Copilot cloud agent — https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent
-- Managing GitHub Copilot policies in your organization — https://docs.github.com/en/copilot/managing-copilot/managing-github-copilot-in-your-organization/managing-policies-for-copilot-in-your-organization
+- Managing GitHub Copilot policies in your organization — https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-policies
 - `gh pr` CLI manual — https://cli.github.com/manual/gh_pr

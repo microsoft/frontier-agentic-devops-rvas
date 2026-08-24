@@ -24,7 +24,7 @@
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch## --org <org>` (least-privilege; documented per activity).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
-- <Any activity-specific prerequisite, e.g., "Copilot coding agent policy enabled (NOT available on EMU repos)".>
+- <Any activity-specific prerequisite, e.g., "Copilot cloud agent policy enabled (NOT available on EMU repos)".>
 
 ## Scenario objectives
 By completing this activity you will:

@@ -135,7 +135,7 @@ You are done when ALL of the following are true:
 - About self-hosted runners — https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners
 - Adding self-hosted runners — https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/adding-self-hosted-runners
 - Managing access with runner groups — https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/managing-access-to-self-hosted-runners-using-groups
-- Security hardening for self-hosted runners — https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions#hardening-for-self-hosted-runners
+- Security hardening for self-hosted runners — https://docs.github.com/en/actions/reference/security/secure-use#hardening-for-self-hosted-runners
 - Autoscaling with self-hosted runners — https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/autoscaling-with-self-hosted-runners
 - About larger runners — https://docs.github.com/en/actions/using-github-hosted-runners/using-larger-runners/about-larger-runners
 - `gh api` CLI manual — https://cli.github.com/manual/gh_api

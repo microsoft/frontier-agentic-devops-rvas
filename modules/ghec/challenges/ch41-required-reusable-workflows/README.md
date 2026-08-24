@@ -99,4 +99,4 @@ Setup creates:
 - Reusing workflows — https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows
 - Required workflows — https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets
 - Organization rulesets — https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets
-- Security hardening for GitHub Actions — https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions
+- Security hardening for GitHub Actions — https://docs.github.com/en/actions/reference/security/secure-use

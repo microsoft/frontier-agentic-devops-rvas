@@ -32,5 +32,5 @@ source_path: modules/ghaw/challenges/00-setup/meta.yml
 license: MIT
 references:
   - https://github.com/github/gh-aw
-  - https://docs.github.com/en/codespaces/getting-started/quickstart
+  - https://docs.github.com/en/codespaces/quickstart
   - https://cli.github.com/manual/

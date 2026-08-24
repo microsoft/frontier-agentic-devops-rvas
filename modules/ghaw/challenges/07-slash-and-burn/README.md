@@ -100,7 +100,7 @@ Create a gh-aw workflow named `slash-commands.md` in `.github/workflows/` that:
 - GitHub tool permissions: https://github.github.com/gh-aw/reference/permissions/
 - Safe Outputs (add-comment): https://github.github.com/gh-aw/reference/safe-outputs/
 - Slash Command Pattern: https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-interactive-chatops/
-- Issue Comment Context: https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
+- Issue Comment Context: https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#github-context
 - Real-world example: `/q` slash command at https://github.com/githubnext/agentics/blob/main/workflows/q.md
 
 ---

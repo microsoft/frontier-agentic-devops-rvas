@@ -36,4 +36,4 @@ references:
   - https://github.github.com/gh-aw/reference/frontmatter/
   - https://github.com/github/gh-aw/blob/main/.github/workflows/issue-triage-agent.md
   - https://github.github.com/gh-aw/reference/safe-outputs/#add-comment
-  - https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpull_request
+  - https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onpull_request

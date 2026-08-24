@@ -21,9 +21,9 @@ juice_shop_ref: v20.0.0        # ONLY when app: juice-shop — pinned for reprod
 requires:                      # capabilities `doctor` must verify before setup
   - org                        # always present
   # - ghas                     # add for GHAS challenges (public repos make it free)
-  # - copilot                  # add for Copilot coding agent challenges
+  # - copilot                  # add for Copilot cloud agent challenges
 
-emu_compatible: true           # false ONLY for ch19 (Copilot coding agent not available on EMU repos)
+emu_compatible: true           # false ONLY for ch19 (Copilot cloud agent not available on EMU repos)
 
 provision_creates:             # exact artifacts setup creates (all `ghec-ch##-*` namespaced)
   - <e.g., repo ghec-ch##-<slug>>

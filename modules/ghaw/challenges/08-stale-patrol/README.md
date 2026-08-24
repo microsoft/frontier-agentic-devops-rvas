@@ -87,7 +87,7 @@ Create a gh-aw workflow named `stale-patrol.md` in `.github/workflows/` that:
 
 ## References
 
-- Schedule Syntax: https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
+- Schedule Syntax: https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule
 - GitHub tool permissions: https://github.github.com/gh-aw/reference/permissions/
 - Safe Outputs (update-issue): https://github.github.com/gh-aw/reference/safe-outputs/
 - Real-world example: the GitHub Next Agentics examples at https://github.com/githubnext/agentics

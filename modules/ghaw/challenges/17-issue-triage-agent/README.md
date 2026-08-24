@@ -40,7 +40,7 @@ Source: [`github/gh-aw/.github/workflows/issue-triage-agent.md`](https://github.
    gh aw add-wizard https://github.com/github/gh-aw/blob/main/.github/workflows/issue-triage-agent.md
    ```
 
-3. Inspect the downloaded file in `.github/workflows/issue-triage-agent.md`. Compare its frontmatter with the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions): `on:`, `permissions:`, `safe-outputs:`, and `tools:`.
+3. Inspect the downloaded file in `.github/workflows/issue-triage-agent.md`. Compare its frontmatter with the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax): `on:`, `permissions:`, `safe-outputs:`, and `tools:`.
 
 4. Customise the workflow for your repo (see below).
 
@@ -88,7 +88,7 @@ Replace the default allowlist with your repo's actual labels:
 → `gh label list` — or open the repository's Issues → Labels page in GitHub.
 
 "Workflow runs but nothing happens"
-→ Check the Actions tab for the run log. Permissions might be missing: use the [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) model and grant at minimum `issues: write` for `add-labels` and `add-comment`.
+→ Check the Actions tab for the run log. Permissions might be missing: use the [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/tutorials/authenticate-with-github_token) model and grant at minimum `issues: write` for `add-labels` and `add-comment`.
 
 "Can I add more than one comment type?"
 → Yes. `safe-outputs: add-comment: {}` allows multiple comment calls in a single run.

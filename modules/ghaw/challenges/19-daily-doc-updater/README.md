@@ -39,7 +39,7 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
    gh aw add-wizard https://github.com/githubnext/agentics/blob/main/workflows/daily-doc-updater.md
    ```
 
-3. Read the [scheduled workflow](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule) cron expression in the frontmatter — understand how `schedule: - cron: "0 9 * * *"` works and what time it fires in UTC.
+3. Read the [scheduled workflow](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule) cron expression in the frontmatter — understand how `schedule: - cron: "0 9 * * *"` works and what time it fires in UTC.
 
 4. Customise the docs scope and review depth for your repository.
 
@@ -79,7 +79,7 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
 <summary>💡 Hints</summary>
 
 "How do I trigger a scheduled workflow manually for testing?"
-→ Add `workflow_dispatch: {}` to your `on:` block. Then use GitHub's [manual workflow run](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow) flow from the Actions tab.
+→ Add `workflow_dispatch: {}` to your `on:` block. Then use GitHub's [manual workflow run](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow) flow from the Actions tab.
 
 "The PR diff is too large / changes too many files"
 → Constrain the body: _"Review only `docs/api.md`. Open a single PR per file. Each PR should change no more than 10 lines."_ This keeps the proposed review scope narrow.

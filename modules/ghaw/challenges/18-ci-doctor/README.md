@@ -39,7 +39,7 @@ Source: [`githubnext/agentics/workflows/ci-doctor.md`](https://github.com/github
    gh aw add-wizard https://github.com/githubnext/agentics/blob/main/workflows/ci-doctor.md
    ```
 
-3. Inspect the frontmatter — note how the [`workflow_run` event](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#workflow_run) names the workflows it watches, and what `workflows:` / `types: [completed]` + a condition on `conclusion` looks like.
+3. Inspect the frontmatter — note how the [`workflow_run` event](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#workflow_run) names the workflows it watches, and what `workflows:` / `types: [completed]` + a condition on `conclusion` looks like.
 
 4. Customise for your repo — change `workflows:` to list the actual CI workflow names you want to watch (e.g., `[CI, tests, build]`).
 
@@ -48,7 +48,7 @@ Source: [`githubnext/agentics/workflows/ci-doctor.md`](https://github.com/github
    gh aw compile ci-doctor
    ```
 
-6. Trigger a test failure (break a test intentionally in a branch, push, let CI fail) and inspect the [workflow run logs](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/using-workflow-run-logs) as the Doctor fires.
+6. Trigger a test failure (break a test intentionally in a branch, push, let CI fail) and inspect the [workflow run logs](https://docs.github.com/en/actions/how-tos/monitor-workflows/use-workflow-run-logs) as the Doctor fires.
 
 7. Commit both the workflow and its `.lock.yml`.
 

@@ -67,7 +67,7 @@ By the end of this activity, your squad will:
 ## References
 
 - Push Event Trigger: https://github.github.com/gh-aw/reference/triggers/#push
-- Path Filters: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpushpullrequestpaths
+- Path Filters: https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onpushpullrequestpaths
 - GitHub tool permissions: https://github.github.com/gh-aw/reference/permissions/
 - Safe Outputs — Add Comment: https://github.github.com/gh-aw/reference/safe-outputs/#add-comment
 - Related example: See the Category C (Continuous Improvement) `breaking-change-checker.md` pattern for using the `bash` tool and inspecting Git history.

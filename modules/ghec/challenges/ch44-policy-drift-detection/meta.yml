@@ -41,4 +41,4 @@ references:
 - https://docs.github.com/en/rest/issues/labels
 - https://docs.github.com/en/rest/repos/contents
 - https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics
-- https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
+- https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule

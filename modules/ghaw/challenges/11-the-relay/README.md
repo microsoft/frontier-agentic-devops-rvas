@@ -109,7 +109,7 @@ Together:
 - Metrics Collector Example: https://github.com/github/gh-aw/blob/main/.github/workflows/metrics-collector.md
 - Agent Performance Analyzer (Consumer Example): https://github.com/github/gh-aw/blob/main/.github/workflows/agent-performance-analyzer.md
 - Safe Outputs Reference: https://github.github.com/gh-aw/reference/safe-outputs/
-- Schedule Syntax: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onschedule
+- Schedule Syntax: https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onschedule
 
 ---
 

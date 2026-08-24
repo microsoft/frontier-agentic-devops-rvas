@@ -88,7 +88,7 @@ Create a gh-aw workflow named `welcome-wagon.md` in `.github/workflows/` that:
 
 ## References
 
-- Pull Request Context (author_association): https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
+- Pull Request Context (author_association): https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#github-context
 - Safe Outputs (add-comment): https://github.github.com/gh-aw/reference/safe-outputs/
 - GitHub tool permissions: https://github.github.com/gh-aw/reference/permissions/
 

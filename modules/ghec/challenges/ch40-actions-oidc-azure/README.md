@@ -90,5 +90,5 @@ Setup creates `ghec-ch40-oidc-azure`, a `ghec-ch40-prod` environment when possib
 
 - Configuring OpenID Connect in Azure — https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-azure
 - About security hardening with OpenID Connect — https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect
-- Automatic token authentication — https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication
+- Automatic token authentication — https://docs.github.com/en/actions/tutorials/authenticate-with-github_token
 - Azure Login with OpenID Connect — https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure-openid-connect

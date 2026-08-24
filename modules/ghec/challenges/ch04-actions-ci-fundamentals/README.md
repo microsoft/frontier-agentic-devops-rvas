@@ -132,7 +132,7 @@ You are done when ALL of the following are true:
 
 ## Reference links
 - Understanding GitHub Actions — https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions
-- Workflow syntax for GitHub Actions — https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
+- Workflow syntax for GitHub Actions — https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax
 - Running variations of jobs in a workflow (matrix) — https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
 - Caching dependencies to speed up workflows — https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows
 - Storing and sharing data with workflow artifacts — https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts
