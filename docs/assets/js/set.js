@@ -35,7 +35,7 @@
     const intro = document.getElementById('setIntro');
     if (intro) {
       intro.textContent =
-        `A focused selection of ${n} activit${n === 1 ? 'y' : 'ies'} prepared for you. ` +
+        `This set has ${n} activit${n === 1 ? 'y' : 'ies'} chosen for your team. ` +
         'Work through them at your own pace.';
     }
   }

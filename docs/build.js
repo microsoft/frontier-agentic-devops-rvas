@@ -32,45 +32,45 @@ const path = require('path');
 const MODULE_CONFIG = {
   ghec: {
     name: 'GitHub Enterprise Cloud',
-    description: 'Accelerate governed GitHub Enterprise Cloud adoption through customer-owned planning, implementation, security, and automation outcomes.',
+    description: 'Set up GitHub Enterprise Cloud in your organization, then put the policies and workflows your teams need into practice.',
     color: '#0969da',
     icon: 'icon-ghec.svg',
     tracks: {
-      'developer-flow':   { name: 'Developer Flow',       description: 'Issues, pull requests, Codespaces, and developer ergonomics at scale.' },
-      'admin-governance': { name: 'Admin & Governance',   description: 'Org structure, policies, SAML/SSO, audit logs, and enterprise compliance.' },
-      'security':         { name: 'Security',             description: 'Code scanning, secret scanning, Dependabot, and supply-chain protection.' },
-      'automation-ai':    { name: 'Automation & AI',      description: 'Actions, REST/GraphQL, webhooks, GitHub Apps, and AI-assisted workflows.' },
-      'migration':        { name: 'Migration',            description: 'Move repos, history, and metadata from Azure DevOps, Bitbucket, GitLab, and legacy VCS into GitHub Enterprise Cloud.' },
+      'developer-flow':   { name: 'Developer Flow',       description: 'Help developers plan work, review code, and use Codespaces across the organization.' },
+      'admin-governance': { name: 'Admin & Governance',   description: 'Set up organization policies, identity, audit logs, and compliance controls.' },
+      'security':         { name: 'Security',             description: 'Protect code with scanning, Dependabot, and supply-chain controls.' },
+      'automation-ai':    { name: 'Automation & AI',      description: 'Build automation with Actions, GitHub APIs, webhooks, apps, and AI-assisted workflows.' },
+      'migration':        { name: 'Migration',             description: 'Move repositories and their history into GitHub Enterprise Cloud from another platform.' },
     },
   },
   ghas: {
     name: 'GitHub Advanced Security',
-    description: 'Deep-dive security: exploit a vulnerable app, then fix it using GHAS tooling.',
+    description: 'Find real security problems in a vulnerable app, then fix them with GitHub Advanced Security.',
     color: '#cf222e',
     icon: 'icon-ghas.svg',
     tracks: {
-      'security': { name: 'Security', description: 'SAST, secret scanning, Dependabot, and hands-on Juice Shop exploitation + remediation.' },
+      'security': { name: 'Security', description: 'Use code scanning, secret scanning, and Dependabot against a vulnerable application.' },
     },
   },
   ghaw: {
     name: 'GitHub Agentic Workflows',
-    description: 'Build, compose, and harden AI agent workflows on top of GitHub Actions.',
+    description: 'Build AI agent workflows on GitHub Actions and learn how to run them safely.',
     color: '#8250df',
     icon: 'icon-ghaw.svg',
     tracks: {
-      'hello-agent':              { name: 'Hello, Agent', description: 'First agents: scheduled briefings, safe outputs, and basic triggers.' },
-      'repo-concierge':           { name: 'Repo Concierge', description: 'Event-driven automation: issue triage, PR review, and slash commands.' },
-      'continuous-intelligence': { name: 'Continuous Intelligence', description: 'Multi-workflow coordination, MCP tools, custom engines, and advanced patterns.' },
-      'production-patterns':      { name: 'Production Patterns', description: 'Battle-tested agents from the Agent Factory — remix for your repo and ship.' },
+      'hello-agent':              { name: 'Hello, Agent', description: 'Build your first agents with schedules, triggers, and controlled outputs.' },
+      'repo-concierge':           { name: 'Repo Concierge', description: 'Automate issue triage and pull request review from repository events.' },
+      'continuous-intelligence': { name: 'Continuous Intelligence', description: 'Connect workflows, MCP tools, and custom engines to handle larger jobs.' },
+      'production-patterns':      { name: 'Production Patterns', description: 'Adapt proven Agent Factory examples to work in your own repository.' },
     },
   },
   'sre-agent': {
     name: 'SRE Agent',
-    description: 'Use Azure SRE Agent to investigate Azure signals, connect evidence to source, and drive governed remediation.',
+    description: 'Use Azure SRE Agent to investigate service problems, trace evidence back to source code, and make reviewed fixes.',
     color: '#1a7f37',
     icon: 'icon-agentic-devops.svg',
     tracks: {
-      'azure-sre-agent': { name: 'Azure SRE Agent', description: 'A focused journey through setup, service onboarding, alert investigation, code-context RCA, and governed remediation.' },
+      'azure-sre-agent': { name: 'Azure SRE Agent', description: 'Set up the agent, connect a service, investigate an alert, and review a fix.' },
     },
   },
 };
@@ -284,9 +284,9 @@ function challengeIdFromSlug(moduleId, slug) {
 // Source READMEs stay untouched.
 const BYO_CALLOUT = [
   '> [!IMPORTANT]',
-  '> **This is your tenant — bring your own.**',
+  '> **Use your own environment.**',
   '>',
-  '> Run every step against your **own** application, repository, and data so the result keeps running in production after the session. The sample below is only a fallback so no one is blocked — start from your real work whenever you can.',
+  '> Work with your **own** application, repository, and data whenever you can. Use the sample only when you need a fallback. Anything you build with your own resources can keep running after the session.',
   '',
 ].join('\n');
 
