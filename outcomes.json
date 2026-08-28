@@ -138,7 +138,8 @@
         "ghaw-20",
         "ghaw-21",
         "ghaw-23",
-        "ghaw-24"
+        "ghaw-24",
+        "ghaw-25"
       ],
       "success_metrics": [
         "An agent workflow runs from a real issue, pull request, or CI failure in the customer's GitHub organization.",
