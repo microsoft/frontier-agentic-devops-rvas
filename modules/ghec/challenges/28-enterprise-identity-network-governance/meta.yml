@@ -31,7 +31,7 @@ min_environment: enterprise
 provision_creates: []
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch28-enterprise-identity-network-governance/meta.yml
+source_path: modules/ghec/challenges/28-enterprise-identity-network-governance/meta.yml
 license: MIT
 references:
   - https://docs.github.com/en/enterprise-cloud@latest/admin/concepts/identity-and-access-management/enterprise-managed-users

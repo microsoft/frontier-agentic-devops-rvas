@@ -35,7 +35,7 @@ min_environment: org
 provision_creates: []
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch37-ghqr-governance-quick-review/meta.yml
+source_path: modules/ghec/challenges/37-ghqr-governance-quick-review/meta.yml
 license: MIT
 references:
   - https://github.com/microsoft/ghqr

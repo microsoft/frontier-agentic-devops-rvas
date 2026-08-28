@@ -1,4 +1,4 @@
-# challenges/ch08-rulesets-repo-properties/provision.ps1
+# challenges/08-rulesets-repo-properties/provision.ps1
 #
 # Dot-sourced by scripts/setup.ps1. CONTRACT:
 #   Invoke-GhecProvision / Invoke-GhecTeardown / Invoke-GhecStatus

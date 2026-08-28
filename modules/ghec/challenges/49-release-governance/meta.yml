@@ -35,7 +35,7 @@ provision_creates:
 - printed repository release settings inspection commands
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch49-release-governance/meta.yml
+source_path: modules/ghec/challenges/49-release-governance/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases

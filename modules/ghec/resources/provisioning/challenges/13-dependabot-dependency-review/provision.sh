@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch13-dependabot-dependency-review/provision.sh
+# challenges/13-dependabot-dependency-review/provision.sh
 #
 # ch13 imports a PUBLIC OWASP Juice Shop copy (its npm tree is intentionally
 # vulnerable — genuine Dependabot alerts + security-update PRs) and adds a

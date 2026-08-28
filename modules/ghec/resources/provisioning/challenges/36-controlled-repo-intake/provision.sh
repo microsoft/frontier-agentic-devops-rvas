@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch36-controlled-repo-intake/provision.sh
+# challenges/36-controlled-repo-intake/provision.sh
 #
 # Seeds a repository-intake repo with an issue form, labels, and a workflow
 # scaffold. The workflow requires a participant-provided secret; setup never

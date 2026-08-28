@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch08-rulesets-repo-properties/provision.sh
+# challenges/08-rulesets-repo-properties/provision.sh
 #
 # Sourced by scripts/setup.sh. CONTRACT: ghec_provision / ghec_teardown / ghec_status.
 #

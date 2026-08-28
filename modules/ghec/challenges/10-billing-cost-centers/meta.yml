@@ -35,7 +35,7 @@ provision_creates:
 - printed current usage snapshot (Actions minutes / storage from the API)
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch10-billing-cost-centers/meta.yml
+source_path: modules/ghec/challenges/10-billing-cost-centers/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/billing/get-started/introduction-to-billing

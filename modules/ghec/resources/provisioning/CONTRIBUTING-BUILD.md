@@ -12,7 +12,7 @@ challenges/
     README.md   (customer delivery team guide)
     COACH.md    (coach guide)
     meta.yml    (machine-readable contract)
-  ch##-<slug>/                        ← one per challenge, numbers ch00..ch26
+  ##-<slug>/                          ← one per challenge, numbers 00..51
     README.md   ← copied from _TEMPLATE, all sections filled
     COACH.md    ← copied from _TEMPLATE, all sections filled
     meta.yml    ← copied from _TEMPLATE, all fields filled
@@ -22,7 +22,7 @@ docs/                                 ← GitHub Pages site source (Basher)
 ```
 
 ### Folder + file naming (HARD RULES)
-- Activity folder = `ch##-<slug>` where `##` is zero-padded (`ch00`, …, `ch26`) and `<slug>` is
+- Activity folder = `##-<slug>` where `##` is zero-padded (`00`, …, `51`) and `<slug>` is
   kebab-case, matching `slug:` in `meta.yml` exactly.
 - The canonical slugs are fixed (see table below). Do not rename — the site, scripts, and links
   all key off them.
@@ -32,33 +32,33 @@ docs/                                 ← GitHub Pages site source (Basher)
 ### Canonical activity slugs (locked)
 | id | folder |
 |---|---|
-| ch00 | `ch00-environment-setup` |
-| ch01 | `ch01-issues-labels-projects` |
-| ch02 | `ch02-pull-requests-code-review` |
-| ch03 | `ch03-codespaces-dev-containers` |
-| ch04 | `ch04-actions-ci-fundamentals` |
-| ch05 | `ch05-advanced-pr-automation` |
-| ch06 | `ch06-enterprise-org-101` |
-| ch07 | `ch07-teams-roles-permissions` |
-| ch08 | `ch08-rulesets-repo-properties` |
-| ch09 | `ch09-audit-log-streaming` |
-| ch10 | `ch10-billing-cost-centers` |
-| ch11 | `ch11-secret-scanning-push-protection` |
-| ch12 | `ch12-codeql-code-scanning` |
-| ch13 | `ch13-dependabot-dependency-review` |
-| ch14 | `ch14-sso-saml-scim` |
-| ch15 | `ch15-security-campaigns-overview` |
-| ch16 | `ch16-rest-graphql-automation` |
-| ch17 | `ch17-webhooks-github-apps` |
-| ch18 | `ch18-self-hosted-runners` |
-| ch19 | `ch19-copilot-coding-agent` |
-| ch20 | `ch20-automation-capstone` |
-| ch21 | `ch21-migrate-azure-devops-repos` |
-| ch22 | `ch22-azure-boards-github-integration` |
-| ch23 | `ch23-azure-pipelines-to-actions` |
-| ch24 | `ch24-migrate-bitbucket` |
-| ch25 | `ch25-migrate-gitlab` |
-| ch26 | `ch26-migrate-legacy-vcs` |
+| ch00 | `00-environment-setup` |
+| ch01 | `01-issues-labels-projects` |
+| ch02 | `02-pull-requests-code-review` |
+| ch03 | `03-codespaces-dev-containers` |
+| ch04 | `04-actions-ci-fundamentals` |
+| ch05 | `05-advanced-pr-automation` |
+| ch06 | `06-enterprise-org-101` |
+| ch07 | `07-teams-roles-permissions` |
+| ch08 | `08-rulesets-repo-properties` |
+| ch09 | `09-audit-log-streaming` |
+| ch10 | `10-billing-cost-centers` |
+| ch11 | `11-secret-scanning-push-protection` |
+| ch12 | `12-codeql-code-scanning` |
+| ch13 | `13-dependabot-dependency-review` |
+| ch14 | `14-sso-saml-scim` |
+| ch15 | `15-security-campaigns-overview` |
+| ch16 | `16-rest-graphql-automation` |
+| ch17 | `17-webhooks-github-apps` |
+| ch18 | `18-self-hosted-runners` |
+| ch19 | `19-copilot-coding-agent` |
+| ch20 | `20-automation-capstone` |
+| ch21 | `21-migrate-azure-devops-repos` |
+| ch22 | `22-azure-boards-github-integration` |
+| ch23 | `23-azure-pipelines-to-actions` |
+| ch24 | `24-migrate-bitbucket` |
+| ch25 | `25-migrate-gitlab` |
+| ch26 | `26-migrate-legacy-vcs` |
 
 ## `meta.yml` is the contract between everyone
 
@@ -84,7 +84,7 @@ Never duplicate this data in prose — render or read it from here.
 ## Who owns what
 
 ### 📚 Linus — activity content (delivery team member + coach guides)
-- For each `ch##-<slug>/`: copy `_TEMPLATE/README.md` → `README.md` and `_TEMPLATE/COACH.md` → `COACH.md`.
+- For each `##-<slug>/`: copy `_TEMPLATE/README.md` → `README.md` and `_TEMPLATE/COACH.md` → `COACH.md`.
 - Fill every section; keep all headings in the template order (the site + coach filter depend on them).
 - Use the exact titles/tracks from the table in the root `README.md`.
 - Keep `meta.yml` in sync with the guide (title, app, requires, emu_compatible).
@@ -93,7 +93,7 @@ Never duplicate this data in prose — render or read it from here.
 
 ### ⚙️ Yen — provisioning scripts (`scripts/`)
 - Own `scripts/setup.sh` + `scripts/setup.ps1` (and `teardown`, `doctor`, `status`) over one shared gh/jq core.
-- Per-activity logic reads `challenges/ch##-<slug>/meta.yml` for `app`, `requires`, `provision_creates`.
+- Per-activity logic reads `challenges/##-<slug>/meta.yml` for `app`, `requires`, `provision_creates`.
 - Command surface: `setup.sh` / `setup.ps1` `<doctor|setup|status|teardown> ch## --org <org> [--dry-run] [--yes]`.
 - Namespace everything `ghec-ch##-*`; teardown refuses to touch anything without that prefix.
 - `doctor` verifies tooling (`gh`/`git`/`jq`), auth, and the `requires` capabilities; warns on EMU for ch19.

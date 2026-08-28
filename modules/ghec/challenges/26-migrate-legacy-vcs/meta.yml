@@ -46,7 +46,7 @@ business_value:
 - reduce-migration-risk
 adoption_stage: assess
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch26-migrate-legacy-vcs/meta.yml
+source_path: modules/ghec/challenges/26-migrate-legacy-vcs/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/about-source-code-imports-using-the-command-line

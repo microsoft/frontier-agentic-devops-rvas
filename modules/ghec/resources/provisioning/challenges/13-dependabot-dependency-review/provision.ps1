@@ -1,4 +1,4 @@
-# challenges/ch13-dependabot-dependency-review/provision.ps1
+# challenges/13-dependabot-dependency-review/provision.ps1
 #
 # PowerShell twin of ch13.
 

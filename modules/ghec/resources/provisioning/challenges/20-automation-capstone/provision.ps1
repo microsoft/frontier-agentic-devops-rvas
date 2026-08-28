@@ -1,4 +1,4 @@
-# challenges/ch20-automation-capstone/provision.ps1
+# challenges/20-automation-capstone/provision.ps1
 #
 # PowerShell twin of ch20 — capstone scaffold and org board.
 

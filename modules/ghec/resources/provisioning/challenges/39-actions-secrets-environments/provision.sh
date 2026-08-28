@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch39-actions-secrets-environments/provision.sh
+# challenges/39-actions-secrets-environments/provision.sh
 #
 # Seeds a repository for Actions secrets/environments governance. Setup creates
 # no secrets and does not apply high-impact production protection choices.

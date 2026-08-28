@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch11-secret-scanning-push-protection/provision.sh
+# challenges/11-secret-scanning-push-protection/provision.sh
 #
 # Sourced by scripts/setup.sh (exports ORG CHID SLUG APP JUICE_SHOP_REF DRY_RUN
 # ASSUME_YES NAMESPACE REPO META; provides log_*, run_mutation, gh_*,

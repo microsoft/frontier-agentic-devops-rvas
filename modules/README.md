@@ -34,7 +34,7 @@ modules/
 ## Activity Directory Naming
 
 Use a short, descriptive, kebab-case slug as the directory name. Examples:
-- `ch01-issues-labels-projects`
+- `01-issues-labels-projects`
 - `01-explore-attack-surface`
 - `01-morning-briefing`
 - `00-setup`

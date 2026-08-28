@@ -39,7 +39,8 @@ function Get-GhecMetaList {
 
 function Resolve-GhecChallengeDir {
   param([string]$Chid, [string]$Base)
-  $m = Get-ChildItem -LiteralPath $Base -Directory -Filter "$Chid-*" | Select-Object -First 1
+  $folderPrefix = $Chid -replace '^ch', ''
+  $m = Get-ChildItem -LiteralPath $Base -Directory -Filter "$folderPrefix-*" | Select-Object -First 1
   if ($m) { return $m.FullName }
   return $null
 }

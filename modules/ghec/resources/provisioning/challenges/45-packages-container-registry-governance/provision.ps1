@@ -1,4 +1,4 @@
-# challenges/ch45-packages-container-registry-governance/provision.ps1
+# challenges/45-packages-container-registry-governance/provision.ps1
 
 $Global:GhecCh45Repo = "ghec-$($Global:GhecChid)-container-governance"
 

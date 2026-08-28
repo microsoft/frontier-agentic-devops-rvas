@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch15-security-campaigns-overview/provision.sh
+# challenges/15-security-campaigns-overview/provision.sh
 #
 # ch15 imports a PUBLIC OWASP Juice Shop copy and seeds a deliberately RICH,
 # MULTI-TOOL alert corpus so a security campaign has cross-tool material to

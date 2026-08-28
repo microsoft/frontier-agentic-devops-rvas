@@ -1,4 +1,4 @@
-# challenges/ch38-golden-path-repo-bootstrap/provision.ps1
+# challenges/38-golden-path-repo-bootstrap/provision.ps1
 
 $Global:GhecCh38TemplateRepo = "ghec-$($Global:GhecChid)-golden-path-template"
 $Global:GhecCh38CandidateRepo = "ghec-$($Global:GhecChid)-bootstrap-candidate"

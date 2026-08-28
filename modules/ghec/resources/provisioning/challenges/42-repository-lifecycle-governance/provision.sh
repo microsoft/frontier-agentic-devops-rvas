@@ -1,5 +1,5 @@
 # shellcheck shell=bash
-# challenges/ch42-repository-lifecycle-governance/provision.sh
+# challenges/42-repository-lifecycle-governance/provision.sh
 # Seeds lifecycle sample repositories. Archive, transfer, delete, visibility, and
 # organization-wide settings remain explicit participant-approved steps.
 

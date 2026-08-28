@@ -1,4 +1,4 @@
-# challenges/ch18-self-hosted-runners/provision.ps1
+# challenges/18-self-hosted-runners/provision.ps1
 #
 # PowerShell twin of ch18 — runner workflows, docs, and an org runner group.
 

@@ -31,7 +31,7 @@ min_environment: org
 provision_creates: []
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch29-programmatic-access-governance/meta.yml
+source_path: modules/ghec/challenges/29-programmatic-access-governance/meta.yml
 license: MIT
 references:
   - https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-oauth-access-to-your-organizations-data/about-oauth-app-access-restrictions

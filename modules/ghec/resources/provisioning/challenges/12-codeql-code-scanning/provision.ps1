@@ -1,4 +1,4 @@
-# challenges/ch12-codeql-code-scanning/provision.ps1
+# challenges/12-codeql-code-scanning/provision.ps1
 #
 # PowerShell twin of ch12.
 

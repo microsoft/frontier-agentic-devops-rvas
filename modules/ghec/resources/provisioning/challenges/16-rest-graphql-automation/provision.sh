@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch16-rest-graphql-automation/provision.sh
+# challenges/16-rest-graphql-automation/provision.sh
 #
 # ch16 seeds a plain automation target — a repo with a small src/ + docs/
 # layout, a starter (intentionally incomplete) label set, ~60 loop-generated

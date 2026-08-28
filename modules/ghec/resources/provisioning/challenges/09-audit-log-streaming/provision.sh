@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch09-audit-log-streaming/provision.sh
+# challenges/09-audit-log-streaming/provision.sh
 #
 # Sourced by scripts/setup.sh. CONTRACT: ghec_provision / ghec_teardown / ghec_status.
 #

@@ -1,4 +1,4 @@
-# challenges/ch42-repository-lifecycle-governance/provision.ps1
+# challenges/42-repository-lifecycle-governance/provision.ps1
 
 $Global:GhecCh42ActiveRepo = "ghec-$($Global:GhecChid)-active-service"
 $Global:GhecCh42DeprecatedRepo = "ghec-$($Global:GhecChid)-deprecated-service"

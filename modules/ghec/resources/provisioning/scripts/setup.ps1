@@ -101,6 +101,8 @@ $Slug = Get-GhecMetaScalar -File $Meta -Key 'slug'
 if (-not $Slug) {
   if (-not $ChFolder) { $ChFolder = Split-Path -Leaf $ChDir }
   $Slug = $ChFolder -replace "^$([regex]::Escape($Chid))-", ''
+  $FolderPrefix = $Chid -replace '^ch', ''
+  $Slug = $Slug -replace "^$([regex]::Escape($FolderPrefix))-", ''
 }
 $App  = Get-GhecMetaScalar -File $Meta -Key 'app'
 if (-not $App) { $App = Get-GhecMetaScalar -File $Meta -Key 'app_dependency' }

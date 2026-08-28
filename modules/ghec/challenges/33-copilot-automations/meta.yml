@@ -34,7 +34,7 @@ provision_creates:
   - private fallback repo ghec-ch33-copilot-automations with an automation decision-package template and no enabled automation
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch33-copilot-automations/meta.yml
+source_path: modules/ghec/challenges/33-copilot-automations/meta.yml
 license: MIT
 references:
   - https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-automations

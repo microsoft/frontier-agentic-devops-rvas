@@ -114,7 +114,9 @@ fi
 
 SLUG="$(meta_scalar "$META" slug)"
 [[ -n "$SLUG" ]] || SLUG="${CH_FOLDER:-$(basename "$CH_DIR")}"
+FOLDER_PREFIX="${CHID#ch}"
 SLUG="${SLUG#${CHID}-}"
+SLUG="${SLUG#${FOLDER_PREFIX}-}"
 APP="$(meta_scalar "$META" app)"
 [[ -n "$APP" ]] || APP="$(meta_scalar "$META" app_dependency)"
 EMU_COMPAT="$(meta_scalar "$META" emu_compatible)"

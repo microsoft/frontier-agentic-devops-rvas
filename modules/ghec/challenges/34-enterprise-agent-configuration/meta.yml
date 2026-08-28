@@ -35,7 +35,7 @@ provision_creates:
   - ghec-ch34-enterprise-agent-configuration
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch34-enterprise-agent-configuration/meta.yml
+source_path: modules/ghec/challenges/34-enterprise-agent-configuration/meta.yml
 license: MIT
 references:
   - https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-agents/create-github-private-repo

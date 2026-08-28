@@ -1,4 +1,4 @@
-# challenges/ch03-codespaces-dev-containers/provision.ps1
+# challenges/03-codespaces-dev-containers/provision.ps1
 #
 # Dot-sourced by scripts/setup.ps1. CONTRACT:
 #   Invoke-GhecProvision / Invoke-GhecTeardown / Invoke-GhecStatus

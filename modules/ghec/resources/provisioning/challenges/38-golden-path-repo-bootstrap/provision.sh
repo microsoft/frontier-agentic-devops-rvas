@@ -1,5 +1,5 @@
 # shellcheck shell=bash
-# challenges/ch38-golden-path-repo-bootstrap/provision.sh
+# challenges/38-golden-path-repo-bootstrap/provision.sh
 # Seeds a template candidate and bootstrap validation repo. Organization-wide
 # defaults and repository-creation controls are participant-approved steps only.
 

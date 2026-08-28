@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch14-sso-saml-scim/provision.sh
+# challenges/14-sso-saml-scim/provision.sh
 #
 # ch14 has NO Juice Shop and does NOT touch live identity settings. It seeds a
 # ghec-ch14-identity-runbook repo (SAML app runbook, SCIM rollout checklist,

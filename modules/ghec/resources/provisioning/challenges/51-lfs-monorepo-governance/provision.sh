@@ -1,5 +1,5 @@
 # shellcheck shell=bash
-# challenges/ch51-lfs-monorepo-governance/provision.sh
+# challenges/51-lfs-monorepo-governance/provision.sh
 
 _ch51_repo_full() { printf '%s/%s' "$ORG" "$REPO"; }
 

@@ -1,5 +1,5 @@
 # shellcheck shell=bash
-# challenges/ch44-policy-drift-detection/provision.sh
+# challenges/44-policy-drift-detection/provision.sh
 # Seeds a baseline repo and an intentionally drifted repo. Organization rules,
 # default permissions, and high-impact controls are participant-approved only.
 

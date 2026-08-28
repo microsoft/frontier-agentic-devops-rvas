@@ -1,4 +1,4 @@
-# challenges/ch16-rest-graphql-automation/provision.ps1
+# challenges/16-rest-graphql-automation/provision.ps1
 #
 # PowerShell twin of ch16 — large messy automation target.
 

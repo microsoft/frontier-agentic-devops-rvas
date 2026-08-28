@@ -1,4 +1,4 @@
-# challenges/ch47-innersource-program-operations/provision.ps1
+# challenges/47-innersource-program-operations/provision.ps1
 #
 # Seeds an InnerSource hub repository with discoverability files, labels, and
 # program-operation issues. Setup does not mutate access or branch protection.

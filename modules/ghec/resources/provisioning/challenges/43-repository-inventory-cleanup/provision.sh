@@ -1,5 +1,5 @@
 # shellcheck shell=bash
-# challenges/ch43-repository-inventory-cleanup/provision.sh
+# challenges/43-repository-inventory-cleanup/provision.sh
 # Seeds inventory cleanup sample repositories. Archive, transfer, delete,
 # visibility, and organization settings are participant-approved actions only.
 

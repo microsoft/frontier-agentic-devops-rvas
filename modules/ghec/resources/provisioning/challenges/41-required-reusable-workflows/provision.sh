@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch41-required-reusable-workflows/provision.sh
+# challenges/41-required-reusable-workflows/provision.sh
 #
 # Seeds reusable workflow library and consumer repositories. Required workflows
 # or org rulesets are participant-owned governance changes, not setup mutations.

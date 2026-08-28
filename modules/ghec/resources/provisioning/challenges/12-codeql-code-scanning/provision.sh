@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch12-codeql-code-scanning/provision.sh
+# challenges/12-codeql-code-scanning/provision.sh
 #
 # ch12 imports a PUBLIC OWASP Juice Shop copy (real OWASP Top 10 vulns ship with
 # the app — CodeQL detects them) and adds an advanced-setup CodeQL workflow plus

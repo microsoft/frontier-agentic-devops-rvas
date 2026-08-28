@@ -1,4 +1,4 @@
-# challenges/ch02-pull-requests-code-review/provision.ps1
+# challenges/02-pull-requests-code-review/provision.ps1
 #
 # Dot-sourced by scripts/setup.ps1 (globals: Ghec*; lib: Write-Ghec*,
 # Invoke-GhecMutation, *-GhecRepo/File/Branch/Pr, Confirm-GhecPrefix).

@@ -1,5 +1,5 @@
 # shellcheck shell=bash
-# challenges/ch49-release-governance/provision.sh
+# challenges/49-release-governance/provision.sh
 
 _ch49_repo_full() { printf '%s/%s' "$ORG" "$REPO"; }
 

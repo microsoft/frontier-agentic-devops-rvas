@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch05-advanced-pr-automation/provision.sh
+# challenges/05-advanced-pr-automation/provision.sh
 #
 # Sourced by scripts/setup.sh. CONTRACT: ghec_provision / ghec_teardown / ghec_status.
 #

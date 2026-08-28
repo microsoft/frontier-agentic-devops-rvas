@@ -35,7 +35,7 @@ provision_creates:
 - printed sample of recent org audit events from the API
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch09-audit-log-streaming/meta.yml
+source_path: modules/ghec/challenges/09-audit-log-streaming/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization

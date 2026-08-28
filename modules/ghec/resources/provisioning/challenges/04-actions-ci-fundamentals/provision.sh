@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch04-actions-ci-fundamentals/provision.sh
+# challenges/04-actions-ci-fundamentals/provision.sh
 #
 # Sourced by scripts/setup.sh. CONTRACT: ghec_provision / ghec_teardown / ghec_status.
 #

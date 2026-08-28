@@ -1,4 +1,4 @@
-# challenges/ch10-billing-cost-centers/provision.ps1
+# challenges/10-billing-cost-centers/provision.ps1
 #
 # Dot-sourced by scripts/setup.ps1. CONTRACT:
 #   Invoke-GhecProvision / Invoke-GhecTeardown / Invoke-GhecStatus

@@ -1,4 +1,4 @@
-# challenges/ch36-controlled-repo-intake/provision.ps1
+# challenges/36-controlled-repo-intake/provision.ps1
 
 $Global:GhecCh36IntakeRepo = "ghec-$($Global:GhecChid)-repo-intake"
 

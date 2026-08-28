@@ -42,7 +42,7 @@ business_value:
 - automate-repetitive-work
 adoption_stage: pilot
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch23-azure-pipelines-to-actions/meta.yml
+source_path: modules/ghec/challenges/23-azure-pipelines-to-actions/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/actions/tutorials/migrate-to-github-actions/automated-migrations/use-github-actions-importer

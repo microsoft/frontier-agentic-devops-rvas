@@ -34,7 +34,7 @@ provision_creates:
 - printed repository ruleset and Actions workflow snapshot
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch41-required-reusable-workflows/meta.yml
+source_path: modules/ghec/challenges/41-required-reusable-workflows/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows

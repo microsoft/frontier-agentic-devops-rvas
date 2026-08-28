@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch45-packages-container-registry-governance/provision.sh
+# challenges/45-packages-container-registry-governance/provision.sh
 #
 # Seeds a package governance sample repository. Setup does not push packages,
 # change package visibility, grant package access, or delete package versions.

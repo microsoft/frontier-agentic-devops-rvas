@@ -1,4 +1,4 @@
-# challenges/ch19-copilot-coding-agent/provision.ps1
+# challenges/19-copilot-coding-agent/provision.ps1
 #
 # PowerShell twin of ch19 — small buggy repo sized for the Copilot cloud agent.
 

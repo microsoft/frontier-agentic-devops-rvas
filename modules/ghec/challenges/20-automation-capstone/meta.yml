@@ -35,7 +35,7 @@ provision_creates:
 - empty org Projects v2 board ghec-ch20-board for the GraphQL step to populate
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch20-automation-capstone/meta.yml
+source_path: modules/ghec/challenges/20-automation-capstone/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/rest/quickstart

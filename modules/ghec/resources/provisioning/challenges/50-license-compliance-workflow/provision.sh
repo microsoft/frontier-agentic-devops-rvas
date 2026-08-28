@@ -1,5 +1,5 @@
 # shellcheck shell=bash
-# challenges/ch50-license-compliance-workflow/provision.sh
+# challenges/50-license-compliance-workflow/provision.sh
 
 _ch50_repo_full() { printf '%s/%s' "$ORG" "$REPO"; }
 

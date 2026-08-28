@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch35-org-label-standards/provision.sh
+# challenges/35-org-label-standards/provision.sh
 #
 # Seeds a brownfield repo with inconsistent labels and a clean repo for
 # organization default-label validation. Organization default labels themselves

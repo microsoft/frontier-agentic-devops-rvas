@@ -36,7 +36,7 @@ provision_creates:
 - a well-framed seeded issue (repro + acceptance criteria) ready to assign to Copilot
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch19-copilot-coding-agent/meta.yml
+source_path: modules/ghec/challenges/19-copilot-coding-agent/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent

@@ -1,4 +1,4 @@
-# challenges/ch09-audit-log-streaming/provision.ps1
+# challenges/09-audit-log-streaming/provision.ps1
 #
 # Dot-sourced by scripts/setup.ps1. CONTRACT:
 #   Invoke-GhecProvision / Invoke-GhecTeardown / Invoke-GhecStatus

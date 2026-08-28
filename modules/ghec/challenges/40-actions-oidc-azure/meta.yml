@@ -36,7 +36,7 @@ provision_creates:
 - printed repository environment and Actions permissions snapshot
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch40-actions-oidc-azure/meta.yml
+source_path: modules/ghec/challenges/40-actions-oidc-azure/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-azure

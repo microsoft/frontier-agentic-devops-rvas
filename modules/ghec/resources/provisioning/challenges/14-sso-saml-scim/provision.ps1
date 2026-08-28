@@ -1,4 +1,4 @@
-# challenges/ch14-sso-saml-scim/provision.ps1
+# challenges/14-sso-saml-scim/provision.ps1
 #
 # PowerShell twin of ch14. No Juice Shop; seeds an identity runbook repo and
 # prints staged identity-settings references. SSO/SCIM are NOT auto-enabled.

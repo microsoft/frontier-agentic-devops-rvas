@@ -1,5 +1,5 @@
 # shellcheck shell=bash
-# challenges/ch46-pages-publishing-governance/provision.sh
+# challenges/46-pages-publishing-governance/provision.sh
 #
 # Seeds a Pages candidate repo with static content and a governance issue.
 # Organization Pages publication settings are participant-controlled governance

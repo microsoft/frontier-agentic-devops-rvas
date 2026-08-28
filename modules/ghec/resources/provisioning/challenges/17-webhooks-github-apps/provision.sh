@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch17-webhooks-github-apps/provision.sh
+# challenges/17-webhooks-github-apps/provision.sh
 #
 # ch17 seeds a webhook + GitHub App practice repo: an HMAC-verifying receiver
 # scaffold (Bash + Node), a repository_dispatch workflow that the receiver can

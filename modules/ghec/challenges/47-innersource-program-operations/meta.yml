@@ -32,7 +32,7 @@ provision_creates:
 - repo ghec-ch47-innersource-hub (seeded InnerSource hub files, labels, and program issues)
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch47-innersource-program-operations/meta.yml
+source_path: modules/ghec/challenges/47-innersource-program-operations/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/enterprise-cloud@latest/admin/concepts/enterprise-best-practices/use-innersource

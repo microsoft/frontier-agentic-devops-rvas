@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch02-pull-requests-code-review/provision.sh
+# challenges/02-pull-requests-code-review/provision.sh
 #
 # Sourced by scripts/setup.sh, which exports:
 #   ORG CHID SLUG APP JUICE_SHOP_REF DRY_RUN ASSUME_YES NAMESPACE REPO META

@@ -1,4 +1,4 @@
-# challenges/ch35-org-label-standards/provision.ps1
+# challenges/35-org-label-standards/provision.ps1
 
 $Global:GhecCh35ExistingRepo = "ghec-$($Global:GhecChid)-existing-service"
 $Global:GhecCh35NewRepo = "ghec-$($Global:GhecChid)-new-service"

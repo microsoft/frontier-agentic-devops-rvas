@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch20-automation-capstone/provision.sh
+# challenges/20-automation-capstone/provision.sh
 #
 # ch20 is the capstone: it seeds a repo with a GitHub App webhook-handler
 # scaffold, an automation workflow, and a CAPSTONE.md brief. It also creates an

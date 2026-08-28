@@ -1,4 +1,4 @@
-# challenges/ch07-teams-roles-permissions/provision.ps1
+# challenges/07-teams-roles-permissions/provision.ps1
 #
 # Dot-sourced by scripts/setup.ps1. CONTRACT:
 #   Invoke-GhecProvision / Invoke-GhecTeardown / Invoke-GhecStatus

@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch10-billing-cost-centers/provision.sh
+# challenges/10-billing-cost-centers/provision.sh
 #
 # Sourced by scripts/setup.sh. CONTRACT: ghec_provision / ghec_teardown / ghec_status.
 #

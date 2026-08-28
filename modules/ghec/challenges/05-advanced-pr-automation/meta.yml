@@ -38,7 +38,7 @@ provision_creates:
 - no rulesets yet (a delivery team member creates repository and organization rulesets)
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch05-advanced-pr-automation/meta.yml
+source_path: modules/ghec/challenges/05-advanced-pr-automation/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets

@@ -34,7 +34,7 @@ provision_creates:
 - printed repository Actions secret and environment snapshot
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch39-actions-secrets-environments/meta.yml
+source_path: modules/ghec/challenges/39-actions-secrets-environments/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions

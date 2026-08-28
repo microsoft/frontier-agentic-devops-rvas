@@ -1,4 +1,4 @@
-# challenges/ch01-issues-labels-projects/provision.ps1
+# challenges/01-issues-labels-projects/provision.ps1
 #
 # REFERENCE per-challenge provisioner (PowerShell twin). Dot-sourced by
 # scripts/setup.ps1, which sets these globals:

@@ -36,7 +36,7 @@ provision_creates:
 - printed organization repository-creation policy snapshot
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch36-controlled-repo-intake/meta.yml
+source_path: modules/ghec/challenges/36-controlled-repo-intake/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/organizations/managing-organization-settings/restricting-repository-creation-in-your-organization

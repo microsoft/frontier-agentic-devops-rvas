@@ -1,4 +1,4 @@
-# challenges/ch51-lfs-monorepo-governance/provision.ps1
+# challenges/51-lfs-monorepo-governance/provision.ps1
 
 function _Ch51-RepoFull { "$($Global:GhecOrg)/$($Global:GhecRepo)" }
 

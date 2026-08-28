@@ -1,4 +1,4 @@
-# challenges/ch11-secret-scanning-push-protection/provision.ps1
+# challenges/11-secret-scanning-push-protection/provision.ps1
 #
 # PowerShell twin. Dot-sourced by scripts/setup.ps1 (globals Ghec*; helpers
 # Write-Ghec*, Invoke-GhecMutation, *-GhecRepo, Set-GhecFile, New-GhecBranch,

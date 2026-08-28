@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch40-actions-oidc-azure/provision.sh
+# challenges/40-actions-oidc-azure/provision.sh
 #
 # Seeds an OIDC-with-Azure workflow scaffold. Setup creates no Azure resources,
 # credentials, federated credentials, or role assignments.

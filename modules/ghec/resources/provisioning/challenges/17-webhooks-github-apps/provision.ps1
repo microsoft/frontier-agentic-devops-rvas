@@ -1,4 +1,4 @@
-# challenges/ch17-webhooks-github-apps/provision.ps1
+# challenges/17-webhooks-github-apps/provision.ps1
 #
 # PowerShell twin of ch17 — webhook receiver scaffold.
 

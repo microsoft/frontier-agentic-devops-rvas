@@ -34,7 +34,7 @@ provision_creates:
 - seeded baseline file, labels, topics, and drift review issue
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch44-policy-drift-detection/meta.yml
+source_path: modules/ghec/challenges/44-policy-drift-detection/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/rest/repos/repos

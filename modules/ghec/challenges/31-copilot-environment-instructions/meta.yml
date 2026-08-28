@@ -35,7 +35,7 @@ provision_creates:
   - a bounded issue for optional cloud-agent or code-review validation
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch31-copilot-environment-instructions/meta.yml
+source_path: modules/ghec/challenges/31-copilot-environment-instructions/meta.yml
 license: MIT
 references:
   - https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/customize-the-agent-environment

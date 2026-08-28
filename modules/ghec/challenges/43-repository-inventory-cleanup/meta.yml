@@ -35,7 +35,7 @@ provision_creates:
 - seeded inventory review issues and topics
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch43-repository-inventory-cleanup/meta.yml
+source_path: modules/ghec/challenges/43-repository-inventory-cleanup/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/rest/repos/repos

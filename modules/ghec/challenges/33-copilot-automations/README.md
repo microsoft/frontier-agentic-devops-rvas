@@ -50,11 +50,11 @@ An **Agentic DevSecOps** team wants to reduce routine repository work without al
 Create the safe fallback only when needed:
 
 ```bash
-bash modules/ghec/challenges/ch33-copilot-automations/provision.sh --org <org>
+bash modules/ghec/challenges/33-copilot-automations/provision.sh --org <org>
 ```
 
 ```powershell
-pwsh -File modules/ghec/challenges/ch33-copilot-automations/provision.ps1 -Org <org>
+pwsh -File modules/ghec/challenges/33-copilot-automations/provision.ps1 -Org <org>
 ```
 
 Both scripts create or reconcile only the private `ghec-ch33-copilot-automations`
@@ -62,11 +62,11 @@ decision-package repository. They do not enable Copilot, create an automation,
 change policy, add a secret, or start a session. Teardown is prefix-guarded:
 
 ```bash
-bash modules/ghec/challenges/ch33-copilot-automations/provision.sh --org <org> --teardown
+bash modules/ghec/challenges/33-copilot-automations/provision.sh --org <org> --teardown
 ```
 
 ```powershell
-pwsh -File modules/ghec/challenges/ch33-copilot-automations/provision.ps1 -Org <org> -Teardown
+pwsh -File modules/ghec/challenges/33-copilot-automations/provision.ps1 -Org <org> -Teardown
 ```
 
 ## Scope boundary

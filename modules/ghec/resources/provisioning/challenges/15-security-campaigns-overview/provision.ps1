@@ -1,4 +1,4 @@
-# challenges/ch15-security-campaigns-overview/provision.ps1
+# challenges/15-security-campaigns-overview/provision.ps1
 #
 # PowerShell twin of ch15 — multi-tool alert corpus over a Juice Shop import.
 

@@ -39,7 +39,7 @@ provision_creates:
 - README documenting local-run steps (contrast with Codespaces)
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch03-codespaces-dev-containers/meta.yml
+source_path: modules/ghec/challenges/03-codespaces-dev-containers/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers

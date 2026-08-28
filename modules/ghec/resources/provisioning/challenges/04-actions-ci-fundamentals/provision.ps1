@@ -1,4 +1,4 @@
-# challenges/ch04-actions-ci-fundamentals/provision.ps1
+# challenges/04-actions-ci-fundamentals/provision.ps1
 #
 # Dot-sourced by scripts/setup.ps1. CONTRACT:
 #   Invoke-GhecProvision / Invoke-GhecTeardown / Invoke-GhecStatus

@@ -1,5 +1,5 @@
 # shellcheck shell=bash
-# challenges/ch47-innersource-program-operations/provision.sh
+# challenges/47-innersource-program-operations/provision.sh
 #
 # Seeds an InnerSource hub repository with discoverability files, labels, and
 # program-operation issues. Setup does not mutate access or branch protection.

@@ -1,4 +1,4 @@
-# challenges/ch46-pages-publishing-governance/provision.ps1
+# challenges/46-pages-publishing-governance/provision.ps1
 #
 # Seeds a Pages candidate repo with static content and a governance issue.
 # Organization Pages publication settings are participant-controlled governance

@@ -1,4 +1,4 @@
-# challenges/ch44-policy-drift-detection/provision.ps1
+# challenges/44-policy-drift-detection/provision.ps1
 
 $Global:GhecCh44BaselineRepo = "ghec-$($Global:GhecChid)-policy-baseline"
 $Global:GhecCh44DriftRepo = "ghec-$($Global:GhecChid)-drifted-service"

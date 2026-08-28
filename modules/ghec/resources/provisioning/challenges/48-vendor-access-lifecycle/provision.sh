@@ -1,5 +1,5 @@
 # shellcheck shell=bash
-# challenges/ch48-vendor-access-lifecycle/provision.sh
+# challenges/48-vendor-access-lifecycle/provision.sh
 #
 # Seeds a vendor access register. Setup never invites or removes collaborators
 # and never changes organization-wide collaborator settings.

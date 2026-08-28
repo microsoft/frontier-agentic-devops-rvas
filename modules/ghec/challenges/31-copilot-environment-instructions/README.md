@@ -38,21 +38,21 @@ The customer wants **Agentic DevSecOps** teams to use Copilot cloud agent and Co
 Use this only if no approved customer target is available:
 
 ```bash
-bash modules/ghec/challenges/ch31-copilot-environment-instructions/provision.sh --org <org>
+bash modules/ghec/challenges/31-copilot-environment-instructions/provision.sh --org <org>
 ```
 
 ```powershell
-pwsh -File modules/ghec/challenges/ch31-copilot-environment-instructions/provision.ps1 -Org <org>
+pwsh -File modules/ghec/challenges/31-copilot-environment-instructions/provision.ps1 -Org <org>
 ```
 
 It creates `ghec-ch31-copilot-environment-instructions`, a tiny Node.js fixture, a default-branch `.github/workflows/copilot-setup-steps.yml`, repository/path instructions, and a bounded issue. The repository contains no secret, service, self-hosted runner, policy update, or production material. Teardown is prefix-guarded:
 
 ```bash
-bash modules/ghec/challenges/ch31-copilot-environment-instructions/provision.sh --org <org> --teardown
+bash modules/ghec/challenges/31-copilot-environment-instructions/provision.sh --org <org> --teardown
 ```
 
 ```powershell
-pwsh -File modules/ghec/challenges/ch31-copilot-environment-instructions/provision.ps1 -Org <org> -Teardown
+pwsh -File modules/ghec/challenges/31-copilot-environment-instructions/provision.ps1 -Org <org> -Teardown
 ```
 
 ## Tasks

@@ -35,7 +35,7 @@ provision_creates:
 - seeded lifecycle review issues and README markers
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch42-repository-lifecycle-governance/meta.yml
+source_path: modules/ghec/challenges/42-repository-lifecycle-governance/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/repositories/archiving-a-github-repository/archiving-repositories

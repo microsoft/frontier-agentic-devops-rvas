@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch01-issues-labels-projects/provision.sh
+# challenges/01-issues-labels-projects/provision.sh
 #
 # REFERENCE per-challenge provisioner. Sourced by scripts/setup.sh, which
 # exports: ORG CHID SLUG APP JUICE_SHOP_REF DRY_RUN ASSUME_YES NAMESPACE REPO META

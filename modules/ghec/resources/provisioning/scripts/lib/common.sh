@@ -48,8 +48,9 @@ meta_list() {
 
 # resolve_challenge_dir <chid> <challenges-base> -> prints matching dir, or returns 1.
 resolve_challenge_dir() {
-  local chid="$1" base="$2" match
-  match="$(find "$base" -maxdepth 1 -type d -name "${chid}-*" 2>/dev/null | sort | head -n1)"
+  local chid="$1" base="$2" folder_prefix match
+  folder_prefix="${chid#ch}"
+  match="$(find "$base" -maxdepth 1 -type d -name "${folder_prefix}-*" 2>/dev/null | sort | head -n1)"
   [[ -n "$match" ]] || return 1
   printf '%s\n' "$match"
 }

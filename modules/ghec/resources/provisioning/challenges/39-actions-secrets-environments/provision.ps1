@@ -1,4 +1,4 @@
-# challenges/ch39-actions-secrets-environments/provision.ps1
+# challenges/39-actions-secrets-environments/provision.ps1
 
 $Global:GhecCh39Repo = "ghec-$($Global:GhecChid)-actions-secrets-envs"
 $Global:GhecCh39EnvDev = "ghec-$($Global:GhecChid)-dev"

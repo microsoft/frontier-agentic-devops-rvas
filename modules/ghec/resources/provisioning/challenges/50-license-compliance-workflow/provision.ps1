@@ -1,4 +1,4 @@
-# challenges/ch50-license-compliance-workflow/provision.ps1
+# challenges/50-license-compliance-workflow/provision.ps1
 
 function _Ch50-RepoFull { "$($Global:GhecOrg)/$($Global:GhecRepo)" }
 

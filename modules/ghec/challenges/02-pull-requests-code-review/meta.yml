@@ -37,7 +37,7 @@ provision_creates:
 - directory layout mapping cleanly to CODEOWNERS paths (no branch protection yet)
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch02-pull-requests-code-review/meta.yml
+source_path: modules/ghec/challenges/02-pull-requests-code-review/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests

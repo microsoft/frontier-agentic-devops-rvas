@@ -34,7 +34,7 @@ provision_creates:
 - printed template and repository baseline next steps
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch38-golden-path-repo-bootstrap/meta.yml
+source_path: modules/ghec/challenges/38-golden-path-repo-bootstrap/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository

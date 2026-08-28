@@ -1,4 +1,4 @@
-# challenges/ch49-release-governance/provision.ps1
+# challenges/49-release-governance/provision.ps1
 
 function _Ch49-RepoFull { "$($Global:GhecOrg)/$($Global:GhecRepo)" }
 

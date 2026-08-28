@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch07-teams-roles-permissions/provision.sh
+# challenges/07-teams-roles-permissions/provision.sh
 #
 # Sourced by scripts/setup.sh. CONTRACT: ghec_provision / ghec_teardown / ghec_status.
 #

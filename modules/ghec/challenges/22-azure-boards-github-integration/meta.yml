@@ -43,7 +43,7 @@ business_value:
 adoption_stage: pilot
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch22-azure-boards-github-integration/meta.yml
+source_path: modules/ghec/challenges/22-azure-boards-github-integration/meta.yml
 license: MIT
 references:
 - https://learn.microsoft.com/en-us/azure/devops/boards/github/?view=azure-devops

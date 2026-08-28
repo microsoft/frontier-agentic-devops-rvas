@@ -1,4 +1,4 @@
-# challenges/ch40-actions-oidc-azure/provision.ps1
+# challenges/40-actions-oidc-azure/provision.ps1
 
 $Global:GhecCh40Repo = "ghec-$($Global:GhecChid)-oidc-azure"
 $Global:GhecCh40Env = "ghec-$($Global:GhecChid)-prod"

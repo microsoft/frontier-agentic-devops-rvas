@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch18-self-hosted-runners/provision.sh
+# challenges/18-self-hosted-runners/provision.sh
 #
 # ch18 seeds a self-hosted runner practice repo: a hosted workflow (ubuntu-
 # latest) and a self-hosted workflow (label-targeted), RUNNER-SETUP.md and

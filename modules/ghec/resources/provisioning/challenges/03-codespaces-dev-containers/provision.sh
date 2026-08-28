@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch03-codespaces-dev-containers/provision.sh
+# challenges/03-codespaces-dev-containers/provision.sh
 #
 # Sourced by scripts/setup.sh (exports ORG CHID SLUG ... REPO; lib helpers
 # log_*, run_mutation, gh_*, guard_prefix, meta_*).

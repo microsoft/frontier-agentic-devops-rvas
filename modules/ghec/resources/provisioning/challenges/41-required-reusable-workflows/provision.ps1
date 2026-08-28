@@ -1,4 +1,4 @@
-# challenges/ch41-required-reusable-workflows/provision.ps1
+# challenges/41-required-reusable-workflows/provision.ps1
 
 $Global:GhecCh41Library = "ghec-$($Global:GhecChid)-workflow-library"
 $Global:GhecCh41Consumer = "ghec-$($Global:GhecChid)-consumer-service"

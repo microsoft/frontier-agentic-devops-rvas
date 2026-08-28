@@ -1,4 +1,4 @@
-# challenges/ch48-vendor-access-lifecycle/provision.ps1
+# challenges/48-vendor-access-lifecycle/provision.ps1
 #
 # Seeds a vendor access register. Setup never invites or removes collaborators
 # and never changes organization-wide collaborator settings.

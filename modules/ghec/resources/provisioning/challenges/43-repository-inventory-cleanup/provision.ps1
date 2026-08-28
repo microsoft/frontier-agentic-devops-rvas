@@ -1,4 +1,4 @@
-# challenges/ch43-repository-inventory-cleanup/provision.ps1
+# challenges/43-repository-inventory-cleanup/provision.ps1
 
 $Global:GhecCh43OwnedRepo = "ghec-$($Global:GhecChid)-owned-service"
 $Global:GhecCh43OrphanRepo = "ghec-$($Global:GhecChid)-orphan-tool"

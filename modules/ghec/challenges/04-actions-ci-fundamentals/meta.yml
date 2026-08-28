@@ -39,7 +39,7 @@ provision_creates:
 - minimal starter workflow .github/workflows/ci.yml (echo only; a delivery team member replaces it)
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch04-actions-ci-fundamentals/meta.yml
+source_path: modules/ghec/challenges/04-actions-ci-fundamentals/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions

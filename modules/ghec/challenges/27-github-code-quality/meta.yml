@@ -38,7 +38,7 @@ min_environment: org
 provision_creates: []
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
-source_path: modules/ghec/challenges/ch27-github-code-quality/meta.yml
+source_path: modules/ghec/challenges/27-github-code-quality/meta.yml
 license: MIT
 references:
   - https://docs.github.com/en/code-security/concepts/about-code-quality

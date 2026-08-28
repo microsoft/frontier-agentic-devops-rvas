@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 #
-# challenges/ch19-copilot-coding-agent/provision.sh
+# challenges/19-copilot-coding-agent/provision.sh
 #
 # ch19 seeds a SMALL buggy repo (NOT Juice Shop) sized for the Copilot cloud
 # agent: a tiny app with one clear bug, a failing test that pins the bug, a CI

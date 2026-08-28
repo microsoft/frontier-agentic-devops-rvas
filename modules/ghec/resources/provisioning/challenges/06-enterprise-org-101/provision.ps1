@@ -1,4 +1,4 @@
-# challenges/ch06-enterprise-org-101/provision.ps1
+# challenges/06-enterprise-org-101/provision.ps1
 #
 # Dot-sourced by scripts/setup.ps1. CONTRACT:
 #   Invoke-GhecProvision / Invoke-GhecTeardown / Invoke-GhecStatus
