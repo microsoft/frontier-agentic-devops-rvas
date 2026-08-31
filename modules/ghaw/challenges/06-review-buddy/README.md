@@ -47,12 +47,14 @@ Create a gh-aw workflow named `review-buddy.md` in `.github/workflows/` that:
 
 ---
 
-## Tips & Hints
+## Tips & Troubleshooting
 
 - Pull request metadata: Use `github.event.pull_request` context variables to get file count, diff stats, title, description. You don't need to clone the repo.
 - Observations matter: Pick observations that are meaningful (e.g., "Tests included" is good; "5 lines of code" is less helpful). Aim for 2–3 key points.
 - Tone: Conversational and encouraging, not a harsh critic.
 - Large PR heuristic: Generally >500 lines added = "big change worth flagging"
+- Workflow does not trigger on a PR: ensure `on: pull_request: types: [opened]`, not `issues`.
+- Comment too generic? Name the evidence, for example "This PR is focused: three files changed with clear intent."
 
 ---
 
@@ -62,11 +64,3 @@ Create a gh-aw workflow named `review-buddy.md` in `.github/workflows/` that:
 - Safe Outputs (add-comment): https://github.github.com/gh-aw/reference/safe-outputs/
 - Pull Request Context Variables: https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#github-context
 - Real-world example (PR Fix): https://github.com/githubnext/agentics/blob/main/workflows/pr-fix.md
-
----
-
-## Help
-
-- **Workflow does not trigger on a PR:** Ensure `on: pull_request: types: [opened]`, not `issues`.
-- **Can't access PR stats:** Reference `github.event.pull_request.*` context variables (files changed, additions, deletions) in your instructions.
-- **Comment is too generic:** Name the evidence, e.g. "This PR is focused: three files changed with clear intent," instead of vague praise.

@@ -46,7 +46,7 @@ A GHEC customer's platform team keeps doing the same triage by hand: relabeling 
 > Have a candidate? Use it everywhere this guide says `ghec-ch16-rest-graphql-automation`, and skip Setup below. Otherwise use the seeded sample below for validation only, then hand the validated script and its owner off for production execution.
 
 ## Sample test repository or environment
-Skip this if you brought your own automation target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
+Skip if you brought your own automation target.
 
 ```bash
 # Bash

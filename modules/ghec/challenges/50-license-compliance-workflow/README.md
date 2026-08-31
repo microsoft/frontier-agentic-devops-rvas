@@ -38,14 +38,9 @@
 A customer adds dependencies quickly, but license reviews happen late or inconsistently. Build a workflow that inventories current dependencies, classifies license risk, reviews changes before merge, and records exceptions. Legal and platform owners must be able to run it after handover.
 
 > [!IMPORTANT]
-> Choose the target before setup
+> Choose the target before setup. If you have an authorised repository or cohort with real dependency manifests, use it wherever this guide names `ghec-ch50-license-compliance-workflow` and skip setup. Otherwise use the seeded repository below, which ships sample manifests, compliance docs, an issue form, labels, and a Dependabot scaffold.
 >
-> Start with an authorised customer repository or cohort that has real dependency manifests. Complete the work there and keep the evidence.
->
-> - Have a candidate? Use the real repository wherever this guide names `ghec-ch50-license-compliance-workflow`. Skip setup.
-> - No suitable one? Use the fallback below: a seeded repository with sample manifests, compliance docs, issue form, labels, and Dependabot scaffold.
->
-> Record the selected target, compliance owner, legal/security approver, exception owner, policy boundary, and next action.
+> Record the selected target, compliance owner, legal and security approver, exception owner, policy boundary, and next action.
 
 ## Sample test repository or environment
 

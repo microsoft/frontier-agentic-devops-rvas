@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Optional ghec-ch52 approved identity-model decision (personal accounts vs SAML-restricted org vs EMU), when already established for the customer
-description: "Set up an authorized SAML and SCIM identity integration in test mode before enforcement, with provisioning/deprovisioning evidence, identity audit, and tested rollback. Prefer ghec-ch52's identity-model decision for the org-vs-EMU determination when available; otherwise determine independently. This organization-scoped work does not substitute for an enterprise SSO/SCIM or EMU decision."
+description: "Set up an authorized SAML and SCIM identity integration in test mode before enforcement, with provisioning and deprovisioning evidence, an identity audit, and a tested rollback. This organization-scoped work does not substitute for an enterprise SSO, SCIM, or EMU decision."
 tags:
 - sso
 - saml

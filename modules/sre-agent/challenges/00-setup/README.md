@@ -14,10 +14,6 @@ Use the Microsoft sample instead of building an app. The work stays focused on A
 - Select a supported Azure SRE Agent region.
 - Decide whether your team will run the live lab or use prepared fallback evidence.
 
-## Estimated Time
-
-45 minutes.
-
 ## Official Lab Source
 
 Use the Microsoft Azure SRE Agent repository:

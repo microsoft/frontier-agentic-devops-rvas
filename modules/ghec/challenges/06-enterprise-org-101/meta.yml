@@ -12,7 +12,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Set up an authorized customer organization governance baseline: member and outside-collaborator management, base privileges, repository-creation and visibility policies, security defaults, and API-verified settings. Source enterprise-level decisions from Ch52's landing-zone register (or an authorized enterprise export) when available, distinct from this organization's implementation; otherwise record them as not available. Preserve the approved baseline, accountable owner, and handover."
+description: "Set up an authorized organization governance baseline: member and outside-collaborator management, base privileges, repository-creation and visibility policies, security defaults, and API-verified settings. Enterprise-level decisions come from Ch52's register or an authorized export, and are recorded as not available when neither exists."
 tags:
 - enterprise
 - organization-settings

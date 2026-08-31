@@ -30,14 +30,15 @@ A workflow triggered by `on: push`. It detects changes in a chosen directory, su
 
 ---
 
-## Tips & Hints
+## Tips & Troubleshooting
 
 - Path filters: Use `on: push: paths: ['docs/**']` to only run when files matching that glob are touched. Adjust the path to a meaningful directory in your repo.
 - Commit metadata: The agent has access to the commit message, changed files, and author. Use that in your instructions.
-- Test locally first: You can test by making a commit to the watched directory, then pushing and watching the Actions tab.
 - Safe-outputs: add-comment: This posts a comment on the commit itself (not an issue). Useful for inline feedback.
 - Workflow_dispatch for testing: Add it so you can test without actually committing.
 - Conditional instructions: You might say: "If the commit changed >5 files in docs/, comment 'Large documentation update detected.' Otherwise, call noop."
+- Path filters are exact. If the workflow doesn't trigger, confirm you pushed to the watched path, then test with a throwaway `.trigger` file.
+- Review the commit data in the run logs. If changed files aren't listed, the path filter didn't match.
 
 ---
 
@@ -48,13 +49,3 @@ A workflow triggered by `on: push`. It detects changes in a chosen directory, su
 - GitHub tool permissions: https://github.github.com/gh-aw/reference/permissions/
 - Safe Outputs — Add Comment: https://github.github.com/gh-aw/reference/safe-outputs/#add-comment
 - Related Blog: [Peli's Agent Factory Part 2: Continuous Simplicity](https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-continuous-simplicity/)
-
----
-
-## Help
-
-If you're blocked:
-
-1. Path filters are exact. If the workflow doesn't trigger, confirm you pushed to the watched path (e.g. `docs/**` matches all files under `docs/`) and add `workflow_dispatch:` so you can test without committing.
-2. Test with a dummy push: add a `.trigger` file to the watched directory, commit, and push to confirm the workflow runs.
-3. Review the commit data in the run logs. If changed files aren't listed, the path filter likely didn't match.

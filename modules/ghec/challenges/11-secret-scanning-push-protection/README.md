@@ -35,14 +35,12 @@
 A GHEC customer just discovered a hard-coded cloud key in a public repo — caught by an outside researcher, not by them. Leadership wants every credential already in history surfaced and triaged, and the *next* secret blocked before it lands on `main`. The provisioner imports OWASP Juice Shop and plants non-live, high-confidence test secrets (fake AWS keys, GitHub-style tokens) so secret scanning has real, partner-pattern material to detect.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> Use an approved customer target first. If you have a candidate repository, use it everywhere this guide says `ghec-ch11-juice-shop`, skip Setup, and skip the manifest steps — real history is the triage material. Otherwise use the fallback seeded repo below.
 >
-> Default to an authorised repository the customer organisation owns. Have a candidate? Use it everywhere this guide says `ghec-ch11-juice-shop`, skip Setup, and skip the manifest steps — real history is the triage material. No candidate? Use the Setup fallback below.
->
-> Record the selected target, customer security owner, and next action and owner.
+> Record the selected target, security owner, and next action.
 
 ## Sample test repository or environment
-Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
+Skip if you brought your own repo.
 
 ```bash
 # Bash

@@ -43,7 +43,7 @@ A GHEC customer needs CI on hardware GitHub doesn't host, such as a GPU box, a l
 > Have a candidate? Use it everywhere this guide says `ghec-ch18-self-hosted-runners`, and skip Setup below. Otherwise use the seeded sample below for validation only, then hand the validated runner design off to the risk-approved owner.
 
 ## Sample test repository or environment
-Skip this if you brought your own runner target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
+Skip if you brought your own runner target.
 
 ```bash
 # Bash

@@ -1,4 +1,4 @@
-# Ch00 — Customer Delivery Readiness
+# Ch00 — Environment Setup
 
 > Verify the customer-delivery environment, authenticate the GitHub CLI, and confirm approved organisation access before selecting the first implementation target.
 

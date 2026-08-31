@@ -41,7 +41,7 @@ A GHEC customer wants to react to activity in real time — auto-acknowledge new
 > Have a candidate? Use it everywhere this guide says `ghec-ch17-webhooks-github-apps`, and skip Setup below. Otherwise use the seeded sample below for validation only, then hand the validated integration off to the customer owner.
 
 ## Sample test repository or environment
-Skip this if you brought your own integration target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
+Skip if you brought your own integration target.
 
 ```bash
 # Bash

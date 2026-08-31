@@ -38,17 +38,12 @@
 A GHEC customer's engineering org has grown past the point where ad-hoc collaborator adds make sense. People are added directly to repos, leavers keep access, and nobody can answer "who can merge to the payments repo?" You'll replace the chaos with a team-based model: a parent team for the whole department, child teams per squad, repository access granted to teams (never to individuals), and one custom role for a contractor pattern that the built-in roles don't capture. Access becomes something you can read from an org chart — and from the API.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> Use an approved customer target first. If you have a candidate team structure and repository access model, use it wherever this guide names `ghec-ch07-frontend` or the sibling `ghec-ch07-*` artifacts, and skip Setup. Otherwise use the fallback seeded repos and starter team below, then move the validated access model to an approved customer organisation.
 >
-> Default to an authorised customer team structure and repository access model. Do the work there and keep the evidence, guardrails, or automation.
->
-> - Have a candidate? Use your real teams and repos wherever this guide names `ghec-ch07-frontend` or the sibling `ghec-ch07-*` artifacts. Skip the Setup step below entirely.
-> - No suitable one? Use the fallback below: seeded frontend/backend/platform repos and a starter engineering team.
->
-> Record the selected target, customer access owner, and next action and owner. Use the sample only for testing; move the validated access model to an approved customer organisation.
+> Record the selected target, access owner, and next action.
 
 ## Sample test repository or environment
-Skip this if you brought your own team/repo access model. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
+Skip if you brought your own team/repo access model.
 
 ```bash
 # Bash

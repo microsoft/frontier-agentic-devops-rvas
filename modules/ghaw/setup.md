@@ -7,8 +7,6 @@ Choose one of these environments before starting `ghaw-00`.
 - Delivery team: the customer team completing an activity and adapting it to a repository they own.
 - Organizer: the person guiding the session, helping the delivery team test and connect the exercise to their work.
 
-Some older activity text uses squad for the delivery team. Read that term using the roles defined above.
-
 ## Bring your own repo
 
 Run each activity against a repository the delivery team actually owns when one is available — real issues, PRs, and history make the exercise meaningful. Point the workflow file at that repo everywhere the activity references the sample repo. If no candidate repo exists yet, use the sample repo from this setup as the practice target.

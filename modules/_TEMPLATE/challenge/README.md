@@ -1,41 +1,36 @@
-# Delivery Work Package Title
+# Activity Title
 
-> Module: REPLACE | Track: REPLACE | Complexity: beginner | Delivery time: ~60 min
+> One sentence: what the delivery team can do after finishing this activity.
 
-## Customer outcome
+## Delivery target
 
-REPLACE: State in one sentence the customer-owned capability, guardrail, or workflow this work package establishes.
+- Delivery target: the customer repository, organisation setting, workflow, or operating artefact this activity changes.
+- Safety boundary: what needs owner approval, and what to do instead when approval is missing. Name the sample fallback here if there is one.
+- Evidence: the artefacts the customer keeps afterwards.
+- Owner: who accepts the result and operates it.
+- Next decision: what that owner decides next. Drop this bullet when the owner bullet already covers it.
 
 ## Prerequisites
 
-Prior work packages: _(none; this work package is self-contained)_
+- Prior activities: none, or the activity ids listed in `meta.yml`.
+- Access, licences, and local tooling the delivery team needs.
 
-Delivery readiness:
+## Sample test repository or environment
 
-- GitHub account with organization access
-- Basic Git knowledge
-- Customer owner approval for the intended tenant change, where applicable
+Skip this if you brought your own target. Otherwise provision the sample, for example:
 
-## Customer target and safety boundary
+```bash
+bash modules/<module>/resources/provisioning/scripts/setup.sh provision <activity-id> --org <org>
+```
 
-> Run the provision script before starting: `bash provision.sh` (or follow the environment-readiness work package for this module).
+Delete this section for activities that create no sample resources.
 
-REPLACE: Name the customer-owned repository, organisation setting, workflow, or operating artefact to change. Record the approver and rollback boundary. Use a provisioned fallback only when no customer target is available, then record the owner and next step for applying the outcome in the customer tenant.
+## Tasks
 
-## Implementation
+1. One action per step. Include the GitHub UI path, CLI command, or YAML snippet the step needs.
+2. Keep verification in the step that produces the result.
+3. Close with the record or hand-off the owner needs.
 
-### Step 1: REPLACE
-
-REPLACE: Describe the first step. Include any required GitHub UI paths, CLI commands, or YAML snippets.
-
-### Step 2: REPLACE
-
-REPLACE: Add the next action.
-
-### Step 3: REPLACE
-
-REPLACE: Keep each step to one action where possible.
-
-## References
+## Reference links
 
 - [GitHub Docs](https://docs.github.com/)

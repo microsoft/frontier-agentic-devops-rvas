@@ -14,19 +14,8 @@ Start with Azure; GitHub is optional. The SRE Agent must be able to read Azure r
 - Capture the baseline healthy app URLs and resource names.
 - Explain what the agent can investigate before source code is connected.
 
-## Estimated Time
-
-75 minutes.
-
-> [!IMPORTANT]
-> Bring your own service (do this first)
->
-> Connect Azure SRE Agent to a service your team will operate after the session if you can. Use that workload wherever this guide references Grubify so the setup, telemetry, incidents, and context remain useful in your tenant.
->
-> - If you have a candidate, use an existing Azure service that is deployed, observable, and approved for agent access. Confirm that the agent can read the resource group, logs, metrics, traces, alerts, and approved knowledge sources. Skip Grubify unless you want a separate practice target.
-> - If you do not have a suitable service, deploy Grubify as the practice target.
->
-> **Prefer your own service; use Grubify as the fallback.**
+> [!TIP]
+> **Bring your own service:** connect Azure SRE Agent to a service your team will operate after the session, wherever this guide references Grubify. It must be deployed, observable, and approved for agent access to the resource group, logs, metrics, traces, alerts, and knowledge sources. No suitable service? Deploy Grubify as the practice target.
 
 ## Deploy
 

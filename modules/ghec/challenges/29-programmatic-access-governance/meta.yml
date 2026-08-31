@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - GitHub CLI (gh >= 2.x) and jq installed for optional read-only API evidence
   - Enterprise owner or authorized enterprise PAT-policy export when enterprise PAT policy is in scope
   - Optional ghec-ch52 approved app-governance boundary and organization-scope decision, when already established for the customer
-description: "Review customer programmatic access and make a policy decision for OAuth Apps, installed GitHub Apps, fine-grained PATs, and classic PATs. Record the effective policy source, owner, migration or exception plan, and review cadence without provisioning an App or changing production controls by default. Reuse ghec-ch52's approved app-governance boundary and register when available; fall back to an independent boundary and inventory when ghec-ch52 has not been completed."
+description: "Review programmatic access and make a policy decision for OAuth Apps, installed GitHub Apps, fine-grained PATs, and classic PATs. Record the effective policy source, owner, migration or exception plan, and review cadence without provisioning an App or changing production controls."
 tags:
   - governance
   - programmatic-access

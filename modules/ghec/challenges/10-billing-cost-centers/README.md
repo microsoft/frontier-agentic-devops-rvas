@@ -38,17 +38,12 @@
 A GHEC customer just got a bigger-than-expected Actions bill and nobody can explain it. Finance wants guardrails: a budget with an alert before money is spent, a clear view of which repos burn the most minutes, and a report they can pull on demand. You'll stand up exactly that at the organization level — generate a little real usage, wire up a budget with alerts, and reconcile the API against the billing UI so the numbers are trustworthy. The output is the cost-governance baseline a real customer keeps.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> Use an approved customer target first. If you have a candidate usage source and reporting repo, use them wherever this guide names `ghec-ch10-usage-generator` or `ghec-ch10-cost-report`, and skip Setup. Otherwise use the fallback seeded repos below, then move the validated budget and report to an approved customer organisation.
 >
-> Default to an authorised customer usage, budget, or cost-reporting artifact that an accountable owner will operate after delivery. Do the work there and keep the evidence, guardrails, or automation.
->
-> - Have a candidate? Use your real usage source and reporting repo wherever this guide names `ghec-ch10-usage-generator` or `ghec-ch10-cost-report`. Skip the Setup step below entirely.
-> - No suitable one? Use the fallback below: a tiny usage-generator repo and cost-report repo for controlled metered validation.
->
-> Record the selected target, customer billing owner, and next action and owner. Use the sample only for testing; move the validated budget or report to an approved customer organisation.
+> Record the selected target, billing owner, and next action.
 
 ## Sample test repository or environment
-Skip this if you brought your own usage/cost artifact. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
+Skip if you brought your own usage/cost artifact.
 
 ```bash
 # Bash

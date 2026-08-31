@@ -40,18 +40,13 @@ You will:
 A customer has dozens of repositories with labels such as `bug`, `Bug`, `urgent`, `sev1`, `backend`, and `needs review`. Their meanings overlap, reports cannot be trusted, and each new repository repeats the problem. Define one organization taxonomy, apply it to new repositories, and clean up an existing repository. Then hand ownership to the team that will maintain it.
 
 > [!IMPORTANT]
-> Choose the target before setup
+> Choose the target before setup. If you have an authorised organization and repository cohort that will keep using the taxonomy, use its real default labels and one real repository wherever this guide names `ghec-ch35-existing-service` or `ghec-ch35-new-service`, and skip Setup. Otherwise use the two seeded repositories below, then move the approved taxonomy to an authorized customer target.
 >
-> Start with an authorised customer organization and repository cohort that will keep using the taxonomy. Complete the work there and keep the evidence and automation.
->
-> - Have a candidate? Use your real organization default labels and one real repository wherever this guide names `ghec-ch35-existing-service` or `ghec-ch35-new-service`. Skip the Setup step below entirely.
-> - No suitable one? Use the fallback below: two seeded repositories, one deliberately inconsistent and one clean validation target.
->
-> Record the selected target, taxonomy owner, exception owner, and next action. Use the sample only for testing; move the approved taxonomy to an authorized customer target.
+> Record the selected target, taxonomy owner, exception owner, and next action.
 
 ## Sample test repository or environment
 
-Skip this if you brought your own org/repo target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
+Skip if you brought your own org/repo target.
 
 ```bash
 # Bash

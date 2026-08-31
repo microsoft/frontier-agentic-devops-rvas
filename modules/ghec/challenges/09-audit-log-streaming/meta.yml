@@ -10,7 +10,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: "Set up an authorized customer audit-log investigation and export path using the organization audit-log UI, search syntax, and REST API. Source the enterprise-level streaming/retention decision from Ch52's landing-zone register (or an authorized enterprise export) when available, distinct from this organization's implementation; otherwise record it as not available. Preserve the repeatable query/export artefacts, accountable owner, and next adoption action."
+description: "Build an authorized audit-log investigation and export path using the organization audit-log UI, search syntax, and REST API, and keep the repeatable query and export artefacts. Enterprise streaming and retention decisions come from Ch52's register when available."
 tags:
 - audit-log
 - api

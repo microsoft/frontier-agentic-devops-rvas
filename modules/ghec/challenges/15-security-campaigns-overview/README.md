@@ -36,16 +36,12 @@
 A GHEC customer has GHAS switched on but no program around it — alerts pile up, nobody owns them, and leadership can't answer "are we getting safer?" You'll give them the management layer: a security overview showing risk and coverage at a glance, a security configuration that applies GHAS uniformly, and a security campaign that turns a wall of alerts into a finite, owned, time-boxed remediation effort. OWASP Juice Shop supplies the realistic alert volume — CodeQL, Dependabot, and secret-scanning hits — that a campaign needs to be meaningful.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
-> Default to an authorised customer application repository or security-campaign candidate.
+> Use an approved customer target first. If you have a candidate application repository or campaign candidate, use it everywhere this guide says `ghec-ch15-juice-shop` and skip Setup. Otherwise use the fallback OWASP Juice Shop import below, which carries security findings suitable for controlled campaign validation.
 >
-> - Have a candidate? Use it everywhere this guide says `ghec-ch15-juice-shop`. Skip Setup.
-> - No suitable one? Use the fallback below: an OWASP Juice Shop import with security findings suitable for controlled campaign validation.
->
-> Record the selected target, customer security programme owner, and next action and owner.
+> Record the selected target, security programme owner, and next action.
 
 ## Sample test repository or environment
-Skip this if you brought your own repo/campaign target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
+Skip if you brought your own repo/campaign target.
 
 ```bash
 # Bash

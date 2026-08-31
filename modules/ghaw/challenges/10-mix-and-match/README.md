@@ -94,10 +94,12 @@ No errors? You're ready to test. Trigger manually with `workflow_dispatch` to ve
 
 ---
 
-## Tips & Hints
+## Tips & Troubleshooting
 
 - The helper is context, not code. Write it like you're briefing a smart colleague: "When summarizing repository status, start with a plain status marker: green (on track), yellow (needs attention), or red (blocked)."
 - Add `workflow_dispatch:` alongside your schedule during development so you can trigger the workflow manually without waiting for Monday.
+- "Import not found" means the path is wrong: it is relative to the repo root, so `./lib/repo-stats-helper.md` lives at `lib/repo-stats-helper.md`.
+- Discussion not appearing? Check `permissions: discussions: write` and that the category name matches exactly (case-sensitive). Create the category in Settings → Features → Discussions → Manage if it does not exist.
 
 ---
 
@@ -106,11 +108,3 @@ No errors? You're ready to test. Trigger manually with `workflow_dispatch` to ve
 - imports: https://github.github.com/gh-aw/reference/frontmatter/#imports
 - create-discussion safe-output: https://github.github.com/gh-aw/reference/safe-outputs/#create-discussion
 - GitHub Discussions: https://docs.github.com/en/discussions
-
----
-
-## Help
-
-- "Compile says import not found" → The path is relative to the repo root: `./lib/repo-stats-helper.md` means the file lives at `lib/repo-stats-helper.md`.
-- "Discussion not appearing" → Verify `permissions: discussions: write` is in frontmatter and the category name matches exactly (case-sensitive).
-- "Category doesn't exist" → Go to your repo → Settings → Features → Discussions → Manage. Add a "General" category.

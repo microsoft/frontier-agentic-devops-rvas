@@ -8,9 +8,9 @@ difficulty: beginner             # beginner | intermediate | advanced
 duration_minutes: 60             # Estimated completion time for a delivery team member, in minutes
 
 # === Independence fields ===
-prerequisites:                   # Challenge IDs that must be completed first. An empty list means none.
+prerequisites:                   # Activity IDs that must be completed first. An empty list means none.
   []
-prerequisite_capabilities:       # Required skills or access. Do not list work packages.
+prerequisite_capabilities:       # Required skills or access. Do not list activity IDs here.
   - "GitHub account"
   - "Basic Git knowledge"
 
@@ -24,7 +24,7 @@ tags:
 # === Operational ===
 app_dependency: none             # none | juice-shop | grubify-starter-lab | seed-repo
 emu_compatible: true             # Can this run in an EMU-controlled organization?
-min_environment: org             # org | repo | codespace
+min_environment: org             # org | repo | codespace | enterprise
 provision_creates:               # Resources created by the setup script.
   - "REPLACE: describe any repos, boards, or resources created"
 
@@ -35,5 +35,8 @@ license: MIT
 
 # === Optional ===
 tier: core                       # core | stretch | bonus | setup
+display_order: 10                # Catalog position when the activity ID order is not the intended order.
 references:
   - https://docs.github.com/
+# Other optional fields (outcomes, personas, business_value, adoption_stage) are
+# documented in CONTRIBUTING.md. Add them only when the activity needs them.

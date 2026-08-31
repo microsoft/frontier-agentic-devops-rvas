@@ -11,12 +11,7 @@ prerequisite_capabilities:
   - Organization where you can create a repository and enable code security features
   - GitHub Advanced Security available for the repository visibility you choose
   - GitHub Copilot license assigned
-description: >
-  Set the GHAS scope and ownership for a real repository or service, using OWASP
-  Juice Shop only as a fallback. Record criticality, capability status, accountable
-  roles, agentic delivery principles, and owned access or licensing blockers in
-  `modules/ghas/resources/ghas-governance-practice.template.md`. Prepare the
-  org-owned repository, development environment, and working branch for Activity S01.
+description: "Set the GHAS scope and ownership for a real repository or service, using OWASP Juice Shop only as a fallback. Record criticality, capability status, accountable roles, and access or licensing blockers in `modules/ghas/resources/ghas-governance-practice.template.md`, then prepare the org repository and working branch for S01."
 tags:
   - setup
   - devcontainer

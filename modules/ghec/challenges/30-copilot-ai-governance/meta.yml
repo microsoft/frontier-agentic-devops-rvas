@@ -11,7 +11,7 @@ prerequisite_capabilities:
   - Named enterprise AI-controls, identity, security/privacy, third-party-risk, and organization-policy owners
   - Customer-approved non-secret evidence location
   - Optional ghec-ch52 approved identity-model, data-residency, and app-governance decisions and register, when already established for the customer
-description: "Inspect enterprise and organization Copilot controls, including policy inheritance, seat lifecycle, code/data exposure, third-party agents, MCP boundaries, and conditional agentic-activity monitoring. Reuse ghec-ch52's approved identity-model, data-residency, and app-governance decisions and register when available; fall back to an independent determination when ghec-ch52 has not been completed."
+description: "Inspect enterprise and organization Copilot controls: policy inheritance, seat lifecycle, code and data exposure, third-party agents, MCP boundaries, and conditional agentic-activity monitoring."
 tags:
   - copilot
   - ai-governance

@@ -12,19 +12,8 @@ Azure SRE Agent needs accurate context. Inspect the service knowledge, response 
 - Inspect how Azure Monitor alerts route to the agent.
 - Add safe team memory for ownership and escalation.
 
-## Estimated Time
-
-45 minutes.
-
-> [!IMPORTANT]
-> Bring your own service (do this first)
->
-> Use a service your team will operate after the session if you can. Onboard it wherever this guide references Grubify so its runbooks, architecture notes, telemetry, response plans, and ownership context remain useful in your tenant.
->
-> - If you have a candidate, inspect and improve its connected resources, alert routes, knowledge files, response plans, custom agents, and safe team memory. Use real operational context. **Do not paste secrets, private contacts, or sensitive tenant details into notes or chat.**
-> - If you do not have a suitable service, use Grubify to practice context onboarding.
->
-> **Prefer your own service; use Grubify as the fallback.**
+> [!TIP]
+> **Bring your own service:** onboard a service your team will operate after the session, wherever this guide references Grubify, using its real runbooks, architecture notes, alert routes, response plans, and ownership context. **Do not paste secrets, private contacts, or sensitive tenant details into notes or chat.** No suitable service? Use Grubify to practise context onboarding.
 
 ## Inspect Connected Context
 

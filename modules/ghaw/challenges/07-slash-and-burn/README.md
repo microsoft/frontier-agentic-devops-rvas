@@ -50,7 +50,7 @@ Create a gh-aw workflow named `slash-commands.md` in `.github/workflows/` that:
 
 ---
 
-## Tips & Hints
+## Tips & Troubleshooting
 
 - Slash command pattern: Check if `github.event.comment.body` contains `/summarize`. In the workflow body, reference: "If the comment includes `/summarize`, read the issue..."
 - Lock for agent: Always use `lock-for-agent: true` on comment-triggered workflows to prevent simultaneous runs on the same issue
@@ -61,6 +61,9 @@ Create a gh-aw workflow named `slash-commands.md` in `.github/workflows/` that:
   - Blockers ("This is blocked by...")
   - Action items ("TODO:", "@mention", "next step")
 - Summary tone: Professional, clear, scannable (use lists and bold text)
+- Triggering on every comment? Add an `if:` condition that checks for `/summarize` in the comment body.
+- Duplicate summaries mean concurrent runs — confirm `lock-for-agent: true` is set.
+- Missing key points? Name the keywords to look for: decisions, blockers, next steps.
 
 ---
 
@@ -71,13 +74,3 @@ Create a gh-aw workflow named `slash-commands.md` in `.github/workflows/` that:
 - Slash Command Pattern: https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-interactive-chatops/
 - Issue Comment Context: https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#github-context
 - Real-world example: `/q` slash command at https://github.com/githubnext/agentics/blob/main/workflows/q.md
-
----
-
-## Help
-
-- "Workflow triggers on every comment?" → Add `if:` condition to check for `/summarize` in comment body
-- "How do I access the issue body and comments?" → Use the GitHub API to fetch the issue and its comments. The agent can call these via the `tools: github:` toolset
-- "Duplicate summaries appearing?" → Add `lock-for-agent: true` to the trigger to prevent concurrent runs
-- "Unauthorized users can trigger the command?" → Use `min-integrity: approved` in permissions to restrict to repo members
-- "Summary is missing key points?" → Instruct the AI to look for specific keywords: "Decisions", "Blockers", "Next Steps"

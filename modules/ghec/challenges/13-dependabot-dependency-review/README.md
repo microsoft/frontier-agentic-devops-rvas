@@ -36,17 +36,12 @@
 A GHEC customer's app drags a long tail of outdated, vulnerable npm packages — the kind of supply-chain risk that doesn't surface until a CVE makes the news. You'll give them an early-warning system: the dependency graph maps what they depend on, Dependabot opens PRs to fix known-vulnerable packages, and dependency review stops a new risky dependency sneaking in via a pull request. OWASP Juice Shop's dependency tree is intentionally vulnerable (old Angular libraries, a risky `ftp` package), giving genuine alert and PR material to work with.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> Use an approved customer target first. If you have a candidate application repository, use it everywhere this guide says `ghec-ch13-juice-shop` and skip Setup, so Dependabot alerts and dependency-review gates persist. Otherwise use the fallback OWASP Juice Shop import below.
 >
-> Default to an authorised application repository the customer organisation owns so Dependabot alerts and dependency-review gates persist.
->
-> - Have a candidate? Use it everywhere this guide says `ghec-ch13-juice-shop`. Skip Setup.
-> - No suitable one? Use the fallback below: an OWASP Juice Shop import with dependency material you can inspect safely.
->
-> Record the selected target, customer security and repository owners, and next action and owner.
+> Record the selected target, security and repository owners, and next action.
 
 ## Sample test repository or environment
-Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
+Skip if you brought your own repo.
 
 ```bash
 # Bash

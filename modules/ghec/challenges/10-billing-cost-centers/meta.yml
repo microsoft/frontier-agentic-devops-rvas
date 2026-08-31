@@ -10,7 +10,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: "Set up an authorized customer cost-governance baseline: inspect Actions, Packages, and Storage usage; set budgets and alerts; retrieve billing usage from the API; and produce a customer-owned cost report with an accountable owner. Source the enterprise-level cost-center allocation from Ch52's landing-zone register (or an authorized enterprise export) when available, distinct from this organization's implementation; otherwise record it as not available."
+description: "Set up a cost-governance baseline: inspect Actions, Packages, and Storage usage, set budgets and alerts, retrieve billing usage from the API, and produce an owned cost report. Enterprise cost-center allocation comes from Ch52's register when available."
 tags:
 - billing
 - usage

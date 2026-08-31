@@ -12,19 +12,8 @@ Intentionally break Grubify, then use Azure SRE Agent to investigate the Azure s
 - Separate likely cause, alternatives, and unknowns.
 - Mitigate or recover only after evidence supports the action.
 
-## Estimated Time
-
-60 minutes.
-
-> [!IMPORTANT]
-> Bring your own service (do this first)
->
-> Investigate a service your team will operate after the session if you can. Use it wherever this guide references Grubify, working from a real or recent incident and your own telemetry.
->
-> - If you have a candidate, start from a real alert, customer symptom, recent incident, or safely reproducible failure. Use the service's Azure Monitor signal, logs, metrics, traces, runbooks, and recovery process. **Do not break production without an approved test path.**
-> - If you do not have a suitable service or incident, trigger the Grubify failure below.
->
-> **Prefer your own service; use Grubify as the fallback.**
+> [!TIP]
+> **Bring your own service:** investigate a service your team will operate after the session, wherever this guide references Grubify, starting from a real alert, customer symptom, recent incident, or safely reproducible failure and its own Azure Monitor signal, logs, metrics, traces, and runbooks. **Do not break production without an approved test path.** No suitable service or incident? Trigger the Grubify failure below.
 
 ## Trigger the Incident
 

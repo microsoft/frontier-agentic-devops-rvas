@@ -44,16 +44,12 @@ A GHEC customer runs identity centrally in their IdP and wants GitHub to obey it
 This is an **organization-scoped identity** activity. Completing it — even the enforcement step in Part E — is evidence of an organization's SAML/SCIM lifecycle only. It does not prove, satisfy, or substitute for an enterprise-level SSO/SCIM decision, an EMU determination, or `ghec-ch52`'s identity-model record, and it is not enterprise identity-governance evidence for Ch28. Route any enterprise-level SAML/SCIM, CAP, or EMU decision to `ghec-ch52` or Ch28.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
-> Default to an authorised customer identity runbook, SAML/SCIM rollout plan, or organisation authentication setting.
+> Use an approved customer target first. If you have a candidate identity runbook, SAML/SCIM rollout plan, or organisation authentication setting, use it everywhere this guide says `ghec-ch14-identity-runbook` and skip Setup. Otherwise use the fallback seeded runbook repo and validation helpers below.
 >
-> - Have a candidate? Use it everywhere this guide says `ghec-ch14-identity-runbook`. Skip Setup.
-> - No suitable one? Use the fallback below: a seeded identity-runbook repo and validation helpers.
->
-> Record the selected target, customer identity owner, risk decision, and next action and owner.
+> Record the selected target, identity owner, risk decision, and next action.
 
 ## Sample test repository or environment
-Skip this if you brought your own identity runbook or org setting. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
+Skip if you brought your own identity runbook or org setting.
 
 ```bash
 # Bash

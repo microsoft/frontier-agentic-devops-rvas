@@ -47,7 +47,7 @@ Create a gh-aw workflow named `stale-patrol.md` in `.github/workflows/` that:
 
 ---
 
-## Tips & Hints
+## Tips & Troubleshooting
 
 - Schedule syntax: Use `on: schedule: - cron: '0 9 * * *'` for 9 AM UTC daily
 - Age calculation: The agent can calculate days since last activity. Provide: "Consider an issue stale if last comment was >60 days ago"
@@ -55,6 +55,9 @@ Create a gh-aw workflow named `stale-patrol.md` in `.github/workflows/` that:
 - Testing: Since the workflow runs on a 60-day clock, you can mock this: "Assume this issue was last updated on [date 70 days ago]"
 - Idempotency: Don't close an already-closed issue. Check state first
 - Tone in closing comment: Friendly and respectful, not harsh. Offer reopening if needed
+- Query stale issues through the GitHub API search syntax: `state:open updated:<2024-01-01`.
+- No stale issues found is the correct result in a young repo. Mock a date to test the path.
+- Permission error when closing? Set `permissions: issues: write` (or let safe-outputs handle the write).
 
 ---
 
@@ -64,11 +67,3 @@ Create a gh-aw workflow named `stale-patrol.md` in `.github/workflows/` that:
 - GitHub tool permissions: https://github.github.com/gh-aw/reference/permissions/
 - Safe Outputs (update-issue): https://github.github.com/gh-aw/reference/safe-outputs/
 - Real-world example: the GitHub Next Agentics examples at https://github.com/githubnext/agentics
-
----
-
-## Help
-
-- "How do I query for stale issues?" → Use the GitHub API to search: `state:open updated:<2024-01-01` (dates in the past)
-- "Workflow runs but doesn't find any stale issues?" → This is correct if your repo is young! Mock it: "For testing, assume this issue was last updated on [old date]"
-- "Permission error when trying to close?" → Ensure `permissions: issues: write` is set (or safe-outputs handles it)

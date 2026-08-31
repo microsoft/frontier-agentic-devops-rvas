@@ -105,4 +105,4 @@ and the lib helpers are in scope: `log_*`, `run_mutation`, `gh_*`, `guard_prefix
 Rules every provisioner upholds: route mutations through `run_mutation` / `Invoke-GhecMutation`;
 check-then-create for idempotency; name everything `ghec-<chid>-*`; `guard_prefix` before any delete.
 
-See [../CONTRIBUTING-BUILD.md](../CONTRIBUTING-BUILD.md) for the full build contract.
+See [`CONTRIBUTING.md`](../../../../../CONTRIBUTING.md) for the content and `meta.yml` contract.

@@ -38,17 +38,12 @@
 A GHEC customer's security team asks the question every audit eventually asks: *"Who changed that setting, and when?"* Right now nobody can answer it without guessing. Establish the organization audit log as the authoritative record: generate a controlled set of administrative actions, reconstruct what happened using search filters and the API, and retain a repeatable export script as the start of a real evidence-collection pipeline.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> Use an approved customer target first. If you have a candidate audit question or repository where known events can be generated safely, use it everywhere this guide says `ghec-ch09-audit-target` and skip Setup. Otherwise use the fallback seeded repo and auditors team below, then move the validated export path to an approved customer organisation.
 >
-> Default to an authorised customer audit question or repository where known events can be generated and investigated. Do the work there and keep the evidence, guardrails, or automation.
->
-> - Have a candidate? Use it everywhere this guide says `ghec-ch09-audit-target`. Skip the Setup step below entirely.
-> - No suitable one? Use the fallback below: a seeded audit-target repo and auditors team for safe event generation.
->
-> Record the selected target, customer operations owner, and next action and owner. Use the sample only for testing; move the validated export path to an approved customer organisation.
+> Record the selected target, operations owner, and next action.
 
 ## Sample test repository or environment
-Skip this if you brought your own audit target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
+Skip if you brought your own audit target.
 
 ```bash
 # Bash

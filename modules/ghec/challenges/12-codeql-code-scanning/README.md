@@ -36,17 +36,12 @@
 A GHEC customer ships a Node/Angular app with a backlog of latent vulnerabilities — SQL injection, XSS, broken auth, path traversal — invisible until something breaks in production. You'll give them static analysis that finds these on every push and PR, explains each via its data-flow path, suggests fixes, and stops new vulnerabilities from merging. OWASP Juice Shop is intentionally riddled with the OWASP Top 10, so CodeQL has genuine findings to surface.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> Use an approved customer target first. If you have a candidate application repository, use it everywhere this guide says `ghec-ch12-juice-shop` and skip Setup, so CodeQL findings and gates persist. Otherwise use the fallback OWASP Juice Shop import below.
 >
-> Default to an authorised application repository the customer organisation owns so CodeQL findings and gates persist.
->
-> - Have a candidate? Use it everywhere this guide says `ghec-ch12-juice-shop`. Skip Setup.
-> - No suitable one? Use the fallback below: an OWASP Juice Shop import with known vulnerable code.
->
-> Record the selected target, customer security and repository owners, and next action and owner.
+> Record the selected target, security and repository owners, and next action.
 
 ## Sample test repository or environment
-Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
+Skip if you brought your own repo.
 
 ```bash
 # Bash

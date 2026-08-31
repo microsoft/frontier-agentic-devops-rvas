@@ -12,19 +12,8 @@ Azure evidence explains what failed. Source-code context points to the likely fa
 - Optionally review an agent-proposed pull request.
 - Keep human review visible before any change is treated as production-ready.
 
-## Estimated Time
-
-60 minutes.
-
-> [!IMPORTANT]
-> Bring your own service (do this first)
->
-> Connect operational evidence to a repository your team will keep using after the session if you can. Use that workload wherever this guide references Grubify, and route remediation through the team's normal engineering workflow.
->
-> - If you have a candidate, use a real or recent incident and the repository that owns the suspected code path. Ask the agent to create or draft work through your normal issue or pull request process. Require evidence, uncertainty, validation, and human review.
-> - If you do not have a suitable service, incident, or repository, connect the Grubify repository or use the fallback source packet.
->
-> **Prefer your own service; use Grubify as the fallback.**
+> [!TIP]
+> **Bring your own service:** use a real or recent incident and the repository that owns the suspected code path, wherever this guide references Grubify. Route remediation through the team's normal issue or pull request process, and require evidence, stated uncertainty, validation, and human review. No suitable service, incident, or repository? Connect the Grubify repository or use the fallback source packet.
 
 ## Connect Source Code
 

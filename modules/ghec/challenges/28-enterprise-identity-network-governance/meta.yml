@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - Named customer IdP owner
   - Named enterprise governance owner and break-glass owner
   - Optional ghec-ch52 approved enterprise role/delegation matrix and register, when already established for the customer
-description: "Inspect enterprise conditional access, IP allow lists, SSH certificate authorities, and enterprise roles, retaining direct evidence without disrupting production. Deepens rather than repeats ghec-ch52's topology and delegation baseline: prefer its enterprise role/delegation matrix and register when available, and fall back to an independent enterprise-role baseline when ghec-ch52 has not been completed."
+description: "Inspect enterprise conditional access, IP allow lists, SSH certificate authorities, and enterprise roles, retaining direct evidence without disrupting production. Deepens ghec-ch52's topology and delegation baseline rather than repeating it."
 tags:
   - enterprise-governance
   - enterprise-managed-users

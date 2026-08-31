@@ -45,18 +45,13 @@ You will:
 A customer wants fewer shadow repositories and more consistent baselines. Today, members can create a repository without required metadata, an owner, or standard settings. Replace that path with an issue form, maintainer approval, and an automated build that applies the agreed baseline.
 
 > [!IMPORTANT]
-> Choose the target before setup
+> Choose the target before setup. If you have an authorised intake repository and organization policy decision, use it wherever this guide names `ghec-ch36-repo-intake` and skip Setup. Otherwise use the seeded intake repository below, then move the validated intake flow to an approved customer target.
 >
-> Start with an authorised customer intake repository and organization policy decision. Complete the work there and keep the evidence and automation.
->
-> - Have a candidate? Use the customer's real intake repository and policy target wherever this guide names `ghec-ch36-repo-intake`. Skip the Setup step below entirely.
-> - No suitable one? Use the fallback below: a seeded intake repository with labels, issue form, workflow scaffold, and sample request.
->
-> Record the selected target, policy owner, workflow owner, approval label, and next action. Use the sample only for testing; move the validated intake flow to an approved customer target.
+> Record the selected target, policy owner, workflow owner, approval label, and next action.
 
 ## Sample test repository or environment
 
-Skip this if you brought your own intake target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
+Skip if you brought your own intake target.
 
 ```bash
 # Bash

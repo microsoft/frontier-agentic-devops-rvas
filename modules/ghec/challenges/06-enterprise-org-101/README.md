@@ -39,17 +39,12 @@
 You're the first platform admin hired at a fast-growing GHEC customer. The organization was created in a hurry: defaults are wide open, public repo creation may be allowed in standard GHEC or platform-blocked in EMU, base permissions are too generous, and nobody can say what the current policy actually is. Leadership wants a documented, defensible baseline — least-privilege member access, controlled repository creation, sensible security defaults — and they want it verifiable from the API, not from screenshots. Your job is to bring order to the org and prove it.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> Use an approved customer target first. If you have candidate organisation settings and repos, use them wherever this guide names `ghec-ch06-public-sample` or the sibling `ghec-ch06-*` repos, and skip Setup. Otherwise use the fallback seeded repos below, then move the validated proposal to an approved customer organisation.
 >
-> Default to an authorised customer organisation policy or repository-default setting. Do the work there and keep the evidence, guardrails, or automation.
->
-> - Have a candidate? Use your real org settings and repos wherever this guide names `ghec-ch06-public-sample` or the sibling `ghec-ch06-*` repos. Skip the Setup step below entirely.
-> - No suitable one? Use the fallback below: seeded visibility sample repos plus a starter team for controlled policy validation. In EMU, the public sample is created as private because public repositories are not allowed.
->
-> Record the selected target, organisation owner, risk decision, and next action and owner. Use the sample only for testing; move the validated proposal to an approved customer organisation.
+> Record the selected target, organisation owner, risk decision, and next action.
 
 ## Sample test repository or environment
-Skip this if you brought your own org/repo policy target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
+Skip if you brought your own org/repo policy target.
 
 ```bash
 # Bash
