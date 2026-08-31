@@ -91,6 +91,17 @@
     return o ? o.name : outcomeId;
   };
 
+  FP.orderActivities = function (activities, outcomeId, outcomes) {
+    if (!outcomeId) return activities;
+    const outcome = (outcomes || []).find((o) => o.id === outcomeId);
+    if (!outcome) return activities;
+    const positions = new Map((outcome.challenge_ids || []).map((id, index) => [id, index]));
+    return activities.slice().sort((a, b) =>
+      (positions.get(a.id) ?? Number.MAX_SAFE_INTEGER)
+      - (positions.get(b.id) ?? Number.MAX_SAFE_INTEGER)
+    );
+  };
+
   /* ─────────────────────────── Query params ─────────────────────── */
   FP.qp = function (name) {
     return new URLSearchParams(window.location.search).get(name);

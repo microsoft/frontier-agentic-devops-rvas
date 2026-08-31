@@ -57,6 +57,7 @@ Optional fields:
 
 | Field | Contract |
 |---|---|
+| `display_order` | Optional numeric position within the module catalog. Use only when stable activity IDs do not match the intended presentation order. |
 | `tier` | `setup`, `core`, `stretch`, or `bonus`. Defaults to `core` in the build. |
 | `references` | Source-backed docs and product links used by customer delivery team members. |
 | `outcomes` | Outcome ids from `outcomes.json` when a activity needs explicit membership beyond journey curation. |

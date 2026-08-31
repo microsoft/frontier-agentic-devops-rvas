@@ -175,7 +175,7 @@
     const countEl = document.getElementById('count');
     if (!grid) return;
 
-    const items = filtered();
+    const items = FP.orderActivities(filtered(), _activeOutcome, _outcomes);
     if (countEl) countEl.textContent = items.length + ' activit' + (items.length === 1 ? 'y' : 'ies');
 
     if (!items.length) {
@@ -185,10 +185,15 @@
     }
 
     const groups = {};
-    _modules.forEach((m) => { groups[m.id] = { mod: m, items: [] }; });
+    if (!_activeOutcome) {
+      _modules.forEach((m) => { groups[m.id] = { mod: m, items: [] }; });
+    }
     items.forEach((c) => {
-      if (groups[c.module]) groups[c.module].items.push(c);
-      else groups[c.module] = { mod: { id: c.module, name: c.module }, items: [c] };
+      if (!groups[c.module]) {
+        const mod = _modules.find((m) => m.id === c.module);
+        groups[c.module] = { mod: mod || { id: c.module, name: c.module }, items: [] };
+      }
+      groups[c.module].items.push(c);
     });
 
     let html = '';

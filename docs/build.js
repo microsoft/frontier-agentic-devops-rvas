@@ -180,6 +180,12 @@ function normaliseMeta(raw, moduleId, slug) {
   if (!m.id) m.id = `${moduleId}-${slug}`;
   if (!String(m.id).includes('-')) m.id = `${moduleId}-${m.id}`;
 
+  const explicitOrder = Number(m.display_order);
+  const idOrder = String(m.id).match(/(?:ch)?(\d+)$/);
+  m.display_order = Number.isFinite(explicitOrder)
+    ? explicitOrder
+    : idOrder ? Number(idOrder[1]) : Number.MAX_SAFE_INTEGER;
+
   // module: inject if absent
   if (!m.module) m.module = moduleId;
 
@@ -460,6 +466,7 @@ function main() {
         track:                   meta.track        || '',
         difficulty:              meta.difficulty   || 'beginner',
         duration_minutes:        meta.duration_minutes || null,
+        display_order:           meta.display_order,
         description:             meta.description  || '',
         prerequisites:           meta.prerequisites,
         prerequisite_capabilities: meta.prerequisite_capabilities,
@@ -484,6 +491,13 @@ function main() {
       });
     }
   }
+
+  const moduleOrder = new Map(Object.keys(MODULE_CONFIG).map((id, index) => [id, index]));
+  allChallenges.sort((a, b) =>
+    (moduleOrder.get(a.module) - moduleOrder.get(b.module))
+    || (a.display_order - b.display_order)
+    || a.id.localeCompare(b.id)
+  );
 
   /* ── 2. Validate prerequisites ── */
   const allIds = new Set(allChallenges.map(c => c.id));
