@@ -86,7 +86,7 @@ instead of silently omitting it.
 
 | Control ID | Recommended baseline and conditional alternative | Level / availability | Delivery ownership | Evidence surface | Official documentation |
 |---|---|---|---|---|---|
-| `FIN-BUDGETS-ALERTS` | Set product-appropriate budgets and threshold alerts with named recipients; reconcile usage against the owner’s cost report. Use a hard spending limit only after the customer accepts the delivery-impact trade-off. | Enterprise or org; billing-plan dependent | **Primary:** Ch10. **Supporting:** Ch03, Ch04. | Budget configuration, billing usage export, alert-recipient list, and cost report. | [Managing spending limits](https://docs.github.com/en/billing/managing-your-github-billing-settings/managing-your-spending-limit) |
+| `FIN-BUDGETS-ALERTS` | Set product-appropriate budgets and threshold alerts with named recipients; reconcile usage against the owner’s cost report. Use a hard spending limit only after the customer accepts the delivery-impact trade-off. | Enterprise or org; billing-plan dependent | **Primary:** Ch10. **Supporting:** Ch03, Ch04. | Budget configuration, billing usage export, alert-recipient list, and cost report. | [Managing spending limits](https://docs.github.com/en/billing/concepts/budgets-and-alerts) |
 
 ## Security and software supply chain
 
