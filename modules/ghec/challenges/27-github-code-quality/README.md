@@ -6,7 +6,7 @@
 |---|---|
 | Track | Security |
 | Difficulty | Intermediate |
-| Duration | 120 min |
+| Duration | 135 min |
 | Minimum input | An authorized customer repository in a GitHub Team or Enterprise Cloud organization with Code Quality available |
 | App | Customer repository |
 | EMU compatible | yes |

@@ -6,7 +6,7 @@
 |---|---|
 | Track | Migration |
 | Difficulty | Intermediate |
-| Duration | ~120 min |
+| Duration | 120 min |
 | Minimum input | A GitLab repository and an empty GitHub repository target |
 | App | None |
 | EMU compatible | yes |

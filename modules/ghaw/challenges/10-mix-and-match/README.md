@@ -1,7 +1,7 @@
 # Activity 2-06: Mix & Match
 
-Track: Repo Concierge (Intermediate 🟡)  
-Estimated time: 105 minutes  
+Track: Repo Concierge (Intermediate 🟡)<br>
+Estimated time: 75 minutes<br>
 Prerequisites: Activity 00, at least 2 Track 1 activities, Activity 2-01
 
 ---

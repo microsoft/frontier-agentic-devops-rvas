@@ -6,7 +6,7 @@
 |---|---|
 | Track | Automation & AI |
 | Difficulty | Advanced |
-| Duration | 2 hr 30 min |
+| Duration | 150 min |
 | Minimum input | An org + permission to manage repository workflows and rulesets. |
 | App | Provisioned workflow library and consumer repositories |
 | EMU compatible | yes |

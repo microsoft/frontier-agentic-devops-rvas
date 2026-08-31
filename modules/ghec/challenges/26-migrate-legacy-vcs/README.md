@@ -6,7 +6,7 @@
 |---|---|
 | Track | Migration |
 | Difficulty | Advanced |
-| Duration | ~210 min |
+| Duration | 210 min |
 | Minimum input | A GitHub org or repo destination plus at least one legacy VCS source |
 | App | None |
 | EMU compatible | yes |

@@ -6,7 +6,7 @@
 |---|---|
 | Track | Migration |
 | Difficulty | Intermediate |
-| Duration | ~150 min |
+| Duration | 150 min |
 | Minimum input | A GitHub repo + an Azure DevOps project with at least one Pipeline |
 | App | None |
 | EMU compatible | yes |

@@ -6,7 +6,7 @@
 |---|---|
 | Track | Migration |
 | Difficulty | Advanced |
-| Duration | ~195 min |
+| Duration | 195 min |
 | Minimum input | A GitHub org with org-owner rights and a classic GitHub PAT |
 | App | none |
 | EMU compatible | yes |

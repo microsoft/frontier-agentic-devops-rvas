@@ -13,7 +13,12 @@
     const mod = (data.modules || []).find((m) => m.id === moduleId);
     if (!mod) { showError('Module "' + moduleId + '" not found.'); return; }
 
-    const challenges = (data.challenges || []).filter((c) => c.module === moduleId);
+    const challenges = FP.orderModuleActivities(
+      (data.challenges || []).filter((c) => c.module === moduleId),
+      moduleId,
+      data.outcomes || [],
+      mod
+    );
 
     document.title = mod.name + ' — Agentic DevSecOps';
     updateMeta(mod);

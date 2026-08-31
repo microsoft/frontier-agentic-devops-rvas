@@ -6,7 +6,7 @@
 |---|---|
 | Track | Automation & AI |
 | Difficulty | Advanced *(capstone — hardest in the track)* |
-| Duration | 3 hr 15 min |
+| Duration | 195 min |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes — all steps run on org-owned, prefix-namespaced resources. |

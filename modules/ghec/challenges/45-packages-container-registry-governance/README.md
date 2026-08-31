@@ -6,7 +6,7 @@
 |---|---|
 | Track | Automation & AI |
 | Difficulty | Intermediate |
-| Duration | 2 hr 15 min |
+| Duration | 135 min |
 | Minimum input | An org + package and repository admin rights. |
 | App | Provisioned container sample repository |
 | EMU compatible | yes |

@@ -6,7 +6,7 @@
 |---|---|
 | Track | Migration |
 | Difficulty | Intermediate *(post-migration bridge)* |
-| Duration | ~120 min |
+| Duration | 120 min |
 | Minimum input | A GitHub org/repo you administer, an Azure DevOps Services org/project, and permission to install a GitHub Marketplace app. |
 | App | None |
 | EMU compatible | yes, if your enterprise/org policy permits GitHub App installation or an org owner approves the request |

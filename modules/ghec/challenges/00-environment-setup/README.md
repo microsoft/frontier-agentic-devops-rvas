@@ -6,7 +6,7 @@
 |---|---|
 | Track | Developer Flow |
 | Difficulty | Beginner |
-| Duration | ~30 min, single session |
+| Duration | 30 min |
 | Minimum input | A GitHub account + approved access to the customer delivery organisation |
 | App | none |
 | EMU compatible | yes |

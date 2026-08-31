@@ -91,15 +91,99 @@
     return o ? o.name : outcomeId;
   };
 
-  FP.orderActivities = function (activities, outcomeId, outcomes) {
-    if (!outcomeId) return activities;
+  /* ─────────────────────── Activity ordering ─────────────────────
+     Every module has one primary outcome journey: the sequence a delivery
+     team follows when they work through that module end to end. Unfiltered
+     views lead with that journey, then append the remaining module
+     activities by declared track order and display_order. An explicit
+     outcome filter always wins and uses that outcome's exact sequence. */
+
+  FP.MODULE_PRIMARY_OUTCOME = {
+    ghec: 'github-adoption',
+    ghas: 'ghas-adoption',
+    ghaw: 'agentic-workflows',
+    'sre-agent': 'agentic-devops-cloud',
+  };
+
+  FP.primaryOutcomeId = function (moduleId) {
+    return FP.MODULE_PRIMARY_OUTCOME[moduleId] || null;
+  };
+
+  const LAST = Number.MAX_SAFE_INTEGER;
+
+  function outcomePositions(outcomeId, outcomes) {
     const outcome = (outcomes || []).find((o) => o.id === outcomeId);
-    if (!outcome) return activities;
-    const positions = new Map((outcome.challenge_ids || []).map((id, index) => [id, index]));
-    return activities.slice().sort((a, b) =>
-      (positions.get(a.id) ?? Number.MAX_SAFE_INTEGER)
-      - (positions.get(b.id) ?? Number.MAX_SAFE_INTEGER)
+    if (!outcome) return null;
+    return new Map((outcome.challenge_ids || []).map((id, index) => [id, index]));
+  }
+
+  /* Order one module's activities: primary journey first, then the rest by
+     the module's declared track order, display_order, then id. */
+  FP.orderModuleActivities = function (activities, moduleId, outcomes, moduleMeta) {
+    const list = Array.isArray(activities) ? activities.slice() : [];
+    const positions = outcomePositions(FP.primaryOutcomeId(moduleId), outcomes);
+    const trackOrder = new Map(
+      ((moduleMeta && moduleMeta.tracks) || []).map((t, index) => [t.id, index])
     );
+
+    const journey = [];
+    const rest = [];
+    list.forEach((c) => {
+      if (positions && positions.has(c.id)) journey.push(c);
+      else rest.push(c);
+    });
+
+    journey.sort((a, b) => positions.get(a.id) - positions.get(b.id));
+    rest.sort((a, b) =>
+      trackRank(a, trackOrder) - trackRank(b, trackOrder)
+      || displayOrder(a) - displayOrder(b)
+      || String(a.id).localeCompare(String(b.id))
+    );
+
+    return journey.concat(rest);
+  };
+
+  function trackRank(c, trackOrder) {
+    const rank = trackOrder.get(c.track);
+    return rank == null ? LAST : rank;
+  }
+
+  function displayOrder(c) {
+    return Number.isFinite(c.display_order) ? c.display_order : LAST;
+  }
+
+  /* Order a cross-module activity list for display.
+     With an outcome filter: that outcome's exact challenge_ids order.
+     Without one: each module's primary journey order, modules kept in
+     their first-appearance order. */
+  FP.orderActivities = function (activities, outcomeId, outcomes, modules) {
+    const list = Array.isArray(activities) ? activities.slice() : [];
+
+    if (outcomeId) {
+      const positions = outcomePositions(outcomeId, outcomes);
+      if (!positions) return list;
+      return list
+        .map((c, index) => ({ c, index }))
+        .sort((a, b) =>
+          (positions.has(a.c.id) ? positions.get(a.c.id) : LAST)
+          - (positions.has(b.c.id) ? positions.get(b.c.id) : LAST)
+          || a.index - b.index
+        )
+        .map((entry) => entry.c);
+    }
+
+    const byModule = new Map();
+    list.forEach((c) => {
+      if (!byModule.has(c.module)) byModule.set(c.module, []);
+      byModule.get(c.module).push(c);
+    });
+
+    const out = [];
+    byModule.forEach((items, moduleId) => {
+      const meta = (modules || []).find((m) => m.id === moduleId);
+      out.push(...FP.orderModuleActivities(items, moduleId, outcomes, meta));
+    });
+    return out;
   };
 
   /* ─────────────────────────── Query params ─────────────────────── */

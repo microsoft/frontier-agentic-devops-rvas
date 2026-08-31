@@ -6,7 +6,7 @@
 |---|---|
 | Track | Automation & AI |
 | Difficulty | Foundational *(per-track ramp)* |
-| Duration | 2 hr 15 min |
+| Duration | 135 min |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |

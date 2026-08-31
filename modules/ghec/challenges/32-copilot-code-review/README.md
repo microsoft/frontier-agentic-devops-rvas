@@ -6,7 +6,7 @@
 |---|---|
 | Track | Automation & AI |
 | Difficulty | Intermediate |
-| Duration | 3 hr |
+| Duration | 180 min |
 | Minimum input | An organization, a named repository owner, and effective Copilot code review availability |
 | App | none |
 | EMU compatible | yes — confirm the effective policy and repository eligibility |

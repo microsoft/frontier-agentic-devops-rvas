@@ -6,7 +6,7 @@
 |---|---|
 | Track | Admin/Governance |
 | Difficulty | Foundational *(per-track ramp)* |
-| Duration | 90 min |
+| Duration | 105 min |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |

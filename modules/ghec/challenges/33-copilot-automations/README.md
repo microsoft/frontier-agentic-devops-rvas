@@ -6,7 +6,7 @@
 |---|---|
 | Track | Automation & AI |
 | Difficulty | Advanced |
-| Duration | 3 hr 45 min |
+| Duration | 225 min |
 | Minimum input | Customer-approved private or internal repository; a licensed, eligible automation creator; an independent reviewer; and named Copilot, security, repository, and audit-evidence owners |
 | App | none |
 | EMU compatible | no — Copilot cloud agent is not available on EMU-owned repositories |

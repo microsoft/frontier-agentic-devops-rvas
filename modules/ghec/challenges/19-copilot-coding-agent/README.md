@@ -6,7 +6,7 @@
 |---|---|
 | Track | Automation & AI |
 | Difficulty | Advanced *(per-track ramp)* |
-| Duration | 2 hr 30 min |
+| Duration | 150 min |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | no — the Copilot cloud agent is not available on EMU-owned repositories. Requires a non-EMU enterprise with the Copilot cloud agent policy enabled. N/A for pure GHEMU customers (see Prerequisites). |

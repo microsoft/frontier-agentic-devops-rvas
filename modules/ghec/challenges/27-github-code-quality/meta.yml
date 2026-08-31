@@ -3,7 +3,7 @@ title: "GitHub Code Quality: Code Health & Coverage"
 module: ghec
 track: security
 difficulty: intermediate
-duration_minutes: 120
+duration_minutes: 135
 prerequisites: []
 prerequisite_capabilities:
   - GitHub Team or GitHub Enterprise Cloud organization where GitHub Code Quality is available

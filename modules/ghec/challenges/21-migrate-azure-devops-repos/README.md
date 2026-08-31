@@ -6,7 +6,7 @@
 |---|---|
 | Track | Migration |
 | Difficulty | Intermediate *(per-track ramp)* |
-| Duration | ~150 min |
+| Duration | 150 min |
 | Minimum input | A GitHub org where you are org owner, plus an Azure DevOps Services org with a Git repo that has PR history |
 | App | None |
 | EMU compatible | yes |

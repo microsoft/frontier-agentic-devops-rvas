@@ -6,7 +6,7 @@
 |---|---|
 | Track | Developer Flow |
 | Difficulty | Advanced |
-| Duration | ~1 hr 45 min, single session |
+| Duration | 105 min |
 | Minimum input | An org + repo administrator rights. |
 | App | Provisioned release governance repository (created by setup) |
 | EMU compatible | yes |

@@ -3,7 +3,7 @@ title: Mix & Match
 module: ghaw
 track: repo-concierge
 difficulty: intermediate
-duration_minutes: 105
+duration_minutes: 75
 prerequisites:
   - ghaw-00
 prerequisite_capabilities:

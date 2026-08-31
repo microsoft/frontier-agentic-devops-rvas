@@ -175,7 +175,7 @@
     const countEl = document.getElementById('count');
     if (!grid) return;
 
-    const items = FP.orderActivities(filtered(), _activeOutcome, _outcomes);
+    const items = FP.orderActivities(filtered(), _activeOutcome, _outcomes, _modules);
 
     if (countEl) countEl.textContent = items.length + ' activit' + (items.length === 1 ? 'y' : 'ies');
 

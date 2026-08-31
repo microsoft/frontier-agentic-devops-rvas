@@ -3,7 +3,7 @@ title: Connect Source Code and Create Remediation Work
 module: sre-agent
 track: azure-sre-agent
 difficulty: advanced
-duration_minutes: 45
+duration_minutes: 60
 prerequisites:
   - sre-agent-04
 prerequisite_capabilities:

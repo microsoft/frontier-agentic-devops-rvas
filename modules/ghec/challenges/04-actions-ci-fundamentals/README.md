@@ -6,7 +6,7 @@
 |---|---|
 | Track | Developer Flow |
 | Difficulty | Intermediate *(per-track ramp)* |
-| Duration | ~3 hr, single session |
+| Duration | 180 min |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |

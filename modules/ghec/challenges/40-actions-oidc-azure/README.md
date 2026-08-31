@@ -6,7 +6,7 @@
 |---|---|
 | Track | Automation & AI |
 | Difficulty | Advanced |
-| Duration | 2 hr 45 min |
+| Duration | 165 min |
 | Minimum input | A GitHub repo + Azure permissions to configure a federated credential. |
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |

@@ -6,7 +6,7 @@
 |---|---|
 | Track | Developer Flow |
 | Difficulty | Intermediate |
-| Duration | ~1 hr 30 min, single session |
+| Duration | 90 min |
 | Minimum input | An org + an org-owner token. |
 | App | Provisioned Pages candidate repository (created by setup) |
 | EMU compatible | yes |

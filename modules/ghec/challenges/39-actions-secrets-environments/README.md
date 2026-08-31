@@ -6,7 +6,7 @@
 |---|---|
 | Track | Automation & AI |
 | Difficulty | Intermediate |
-| Duration | 2 hr |
+| Duration | 120 min |
 | Minimum input | An org + repository admin rights. |
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |

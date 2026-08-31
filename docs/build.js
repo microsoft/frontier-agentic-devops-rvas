@@ -15,6 +15,7 @@
  *
  * Validation (exits non-zero on errors):
  *   - Every prerequisites[] entry must reference a real challenge id in the catalog.
+ *   - display_order must be unique within a module.
  *   - No circular dependencies.
  *   - Warns on missing optional fields.
  */
@@ -499,7 +500,24 @@ function main() {
     || a.id.localeCompare(b.id)
   );
 
-  /* ── 2. Validate prerequisites ── */
+  /* ── 2. Validate display_order uniqueness within each module ──
+   * Ordering falls back to display_order whenever an activity sits outside a
+   * journey, so duplicates inside a module make that fallback ambiguous. */
+  const seenOrder = new Map();
+  for (const c of allChallenges) {
+    const key = `${c.module}\u0000${c.display_order}`;
+    if (seenOrder.has(key)) {
+      console.error(
+        `  ✗ ${c.id}: duplicate display_order ${c.display_order} in module "${c.module}" ` +
+        `(already used by ${seenOrder.get(key)}). Give each activity in a module a unique display_order.`
+      );
+      errors++;
+    } else {
+      seenOrder.set(key, c.id);
+    }
+  }
+
+  /* ── 3. Validate prerequisites ── */
   const allIds = new Set(allChallenges.map(c => c.id));
   const outcomeIds = new Set(outcomes.map(o => o.id));
 
@@ -531,7 +549,7 @@ function main() {
     }
   }
 
-  /* ── 3. Detect cycles ── */
+  /* ── 4. Detect cycles ── */
   const cycles = detectCycles(allChallenges);
   for (const cycle of cycles) {
     console.error(`  ✗ cycle detected: ${cycle.join(' → ')}`);
@@ -543,7 +561,7 @@ function main() {
     process.exit(1);
   }
 
-  /* ── 4. Enrich challenges with outcome journey membership ── */
+  /* ── 5. Enrich challenges with outcome journey membership ── */
   const challengeById = new Map(allChallenges.map(c => [c.id, c]));
   for (const outcome of outcomes) {
     for (const challengeId of outcome.challenge_ids || []) {
@@ -555,7 +573,7 @@ function main() {
     }
   }
 
-  /* ── 5. Build modules metadata ── */
+  /* ── 6. Build modules metadata ── */
   const modules = Object.entries(MODULE_CONFIG).map(([moduleId, cfg]) => {
     const moduleChallenges = allChallenges.filter(c => c.module === moduleId);
     const trackSet         = {};
@@ -596,7 +614,7 @@ function main() {
     });
   });
 
-  /* ── 6. Build dependency graph ── */
+  /* ── 7. Build dependency graph ── */
   const graphNodes = allChallenges.map(c => ({
     id:     c.id,
     title:  c.title,
@@ -613,14 +631,14 @@ function main() {
     }
   }
 
-  /* ── 7. Strip internal fields before writing ── */
+  /* ── 8. Strip internal fields before writing ── */
   const outputChallenges = allChallenges.map(c => {
     const out = Object.assign({}, c);
     delete out._has_student_guide;
     return out;
   });
 
-  /* ── 8. Write outputs ── */
+  /* ── 9. Write outputs ── */
   fs.mkdirSync(OUT_DATA_DIR, { recursive: true });
 
   const platform = {

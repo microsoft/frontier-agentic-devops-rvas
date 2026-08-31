@@ -175,7 +175,7 @@
     const countEl = document.getElementById('count');
     if (!grid) return;
 
-    const items = FP.orderActivities(filtered(), _activeOutcome, _outcomes);
+    const items = FP.orderActivities(filtered(), _activeOutcome, _outcomes, _modules);
     if (countEl) countEl.textContent = items.length + ' activit' + (items.length === 1 ? 'y' : 'ies');
 
     if (!items.length) {
@@ -265,7 +265,9 @@
 
   /* Preserve catalog order so the delivery-team view reads top-to-bottom by module */
   function orderedIds() {
-    return _all.filter((c) => _selected.has(c.id)).map((c) => c.id);
+    return FP.orderActivities(_all, null, _outcomes, _modules)
+      .filter((c) => _selected.has(c.id))
+      .map((c) => c.id);
   }
 
   function generateLink() {

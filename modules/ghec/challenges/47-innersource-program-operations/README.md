@@ -6,7 +6,7 @@
 |---|---|
 | Track | Developer Flow |
 | Difficulty | Intermediate |
-| Duration | ~1 hr 45 min, single session |
+| Duration | 105 min |
 | Minimum input | An org + repository admin rights. |
 | App | Provisioned InnerSource hub repository (created by setup) |
 | EMU compatible | yes |

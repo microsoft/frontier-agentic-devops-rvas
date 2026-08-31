@@ -1,7 +1,7 @@
 # Activity 2-02: Review Buddy
 
-Track: Repo Concierge (Intermediate 🟡)  
-Estimated time: 75 minutes  
+Track: Repo Concierge (Intermediate 🟡)<br>
+Estimated time: 60 minutes<br>
 Prerequisites: Complete at least 2 activities from Track 1
 
 ---
