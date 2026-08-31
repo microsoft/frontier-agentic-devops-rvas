@@ -12,9 +12,9 @@ prerequisite_capabilities:
   - GitHub Copilot license assigned
   - Basic familiarity with Node.js/Express route middleware and authentication patterns
   - Completed S01 (attack surface overview) recommended
-description: Identify and fix broken access control vulnerabilities (IDOR, missing authorization middleware) in Juice Shop backend routes using server-side ownership and role enforcement; retain a technically validated fix and a reusable prevention pattern record in `modules/ghas/resources/ghas-governance-practice.template.md` that covers the unsafe finding, approved pattern, applicability, evidence, GHAS validation, owner, and human-/agent-authored expectation.
+description: Find and fix broken access control vulnerabilities, including IDOR and missing authorization middleware, in Juice Shop backend routes. Enforce ownership and roles on the server, validate the fix, and record its scope, evidence, GHAS validation, owner, and expectations for human- and agent-authored changes in `modules/ghas/resources/ghas-governance-practice.template.md`.
 success_criteria:
-  - A technically validated access-control fix enforces server-side ownership or role authorization — not UI restrictions alone — confirms authorized access works and unauthorized access is blocked, and retains PR/review evidence plus relevant GHAS validation.
+  - A technically validated access-control fix enforces server-side ownership or role authorization. UI restrictions alone do not meet this requirement. The fix confirms that authorized access works, blocks unauthorized access, and retains PR/review evidence plus relevant GHAS validation.
   - A reusable prevention pattern record in `modules/ghas/resources/ghas-governance-practice.template.md` states the unsafe pattern/finding class, approved safe pattern, where it applies, PR/review evidence, relevant GHAS validation, named owner, and how the expectation applies to human- and agent-authored changes.
   - Completion requires two independently reviewed fixes, a technically validated fix, and a reusable prevention pattern record; two fixes alone are not sufficient.
   - Any Copilot Autofix or other Copilot assistance is treated as proposed work, reviewed by a human, and handled through existing PR and GHAS controls.
@@ -31,7 +31,7 @@ app_dependency: juice-shop
 emu_compatible: true
 min_environment: org
 provision_creates:
-  - Shared org repo with Juice Shop (OWASP Juice Shop v20+) — provisioned by organizer setup
+  - Shared org repo with Juice Shop (OWASP Juice Shop v20+), provisioned by organizer setup
   - CodeQL scanning active with access-control-class alerts on default branch
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas

@@ -1,4 +1,4 @@
-# Ch48 — Vendor Access Lifecycle
+# Ch48: Vendor Access Lifecycle
 
 > Deliver a governed vendor access lifecycle: request, approval, least-privilege grant, periodic review, offboarding, and audit evidence.
 
@@ -13,12 +13,12 @@
 
 ## Customer delivery target
 
-- Customer objective: replace informal vendor repository access with a time-bound, reviewable lifecycle.
-- Customer-tenant target: an access register and one vendor access review or offboarding proof.
-- Approval and safety boundary: setup never invites users, removes users, or changes org-wide collaborator settings. Those are explicit participant actions after approval.
-- Records to keep: request, approver, repository scope, permission, start/end dates, review evidence, audit log evidence, and offboarding result.
-- Adoption owner / handover: security operations, platform governance, or vendor manager accepts ongoing access reviews.
-- Next action and owner: remediate stale access, complete the next review, or approve settings rollout.
+- Objective: replace informal vendor repository access with a time-bound, reviewable lifecycle.
+- Delivery target: an access register and one vendor access review or offboarding proof.
+- Safety boundary: setup never invites or removes users and never changes org-wide collaborator settings. Those changes require explicit approval.
+- Evidence: request, approver, repository scope, permission, start/end dates, review and audit-log evidence, and offboarding result.
+- Owner: security operations, platform governance, or the vendor manager.
+- Next decision: remediate stale access, complete the next review, or approve settings rollout.
 
 ## Prerequisites
 
@@ -29,7 +29,7 @@
 
 ## Customer delivery objectives
 
-This delivery engagement establishes:
+You will:
 
 - Inventory outside collaborators and pending invitations.
 - Create an access register with owner, scope, permission, start/end date, and review cadence.
@@ -39,7 +39,7 @@ This delivery engagement establishes:
 
 ## Scenario
 
-A customer uses outside collaborators for vendor work, but access is granted by repository admins, rarely reviewed, and hard to connect to business approvals. Your job is to install a lifecycle that makes every vendor grant scoped, time-bound, reviewable, and removable.
+A customer uses outside collaborators for vendor work. Repository admins grant access, reviews are rare, and business approvals are hard to trace. Create a lifecycle that makes each vendor grant scoped, time-bound, reviewable, and removable.
 
 > [!IMPORTANT]
 > Use a real approved access review if available. If not, use `ghec-ch48-vendor-access-register` to practice the workflow. Do not invite, remove, or change vendor access unless the customer explicitly approves the participant step.

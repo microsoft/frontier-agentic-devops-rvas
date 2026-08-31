@@ -1,6 +1,6 @@
 # Ch33 — Copilot Automations — Delivery Assurance
 
-Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The paired `README.md` is the canonical task, evidence, and Definition of Done guide.
+Review the completed work against the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md) and the paired `README.md` Definition of Done.
 
 ## Assurance record
 
@@ -9,7 +9,7 @@ Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The pai
 - **Open risk:** record the unresolved licensing, policy, cost, prompt-injection, untrusted-trigger, review, or data-exposure risk and accountable owner; record `none` only when none remains.
 - **Next decision:** record approved pilot, inspect-and-propose, unavailable, or not-applicable decision with owner and target date.
 
-## Session-specific reviewer focus
+## Reviewer focus
 
 - Confirm the target is private or internal and eligible for Copilot cloud agent; public repositories and EMU-owned repositories are not valid live targets.
 - Confirm the default guardrail remains: event-triggered automations ignore users without repository write access. An exception is not part of this session.

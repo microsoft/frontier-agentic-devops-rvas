@@ -10,7 +10,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: "Implement an authorized customer SAML and SCIM identity integration in test mode before enforcement, with provisioning and deprovisioning evidence, identity audit, and tested rollback. Preserve approval, ownership, and safe rollout evidence."
+description: "Set up an authorized customer SAML and SCIM identity integration in test mode before enforcement, with provisioning and deprovisioning evidence, identity audit, and tested rollback. Preserve approval, ownership, and safe rollout evidence."
 success_criteria:
 - The runbook explains the **three auth models** and records your IdP app's SAML settings.
 - '**SAML SSO is configured** for the org and **validated in test mode** (test round-trip succeeded before enforcement).'
@@ -19,7 +19,7 @@ success_criteria:
 - You produced an **external-identity audit** listing GitHub logins ↔ IdP identities.
 - '**SAML SSO is enforced** on the org (and you documented a tested rollback).'
 - '**Governance register updated:** Added a row for identity (SSO/SAML enforcement) with links to runbook, IdP configuration, and rollback procedure.'
-- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+- Customer evidence records the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - sso
 - saml

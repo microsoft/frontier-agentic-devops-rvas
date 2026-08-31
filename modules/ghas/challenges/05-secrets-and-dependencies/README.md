@@ -1,14 +1,16 @@
-# Activity S05 — Secure Secrets & Dependencies
+# Activity S05: Secure Secrets & Dependencies
 
 ## Description
 
-Two different attack surfaces. Same urgency.
+Hardcoded API keys, database passwords, JWT signing keys, and other credentials are
+preventable security failures. Secret scanning alerts apply at the repository
+level; push protection and pull request security signals validate your branch.
+Remove the exposed value, decide whether to revoke or rotate it, move replacement
+configuration out of source control, and confirm that the application still works.
 
-Hardcoded secrets: API keys, database passwords, JWT signing keys, and credentials committed to source code are one of the most common and most preventable security failures. Secret scanning alerts are shared at the repository level, while your branch is validated through push protection and pull request security signals. Your job is to remove the exposed value from the code path, determine whether it needs revocation or rotation, move replacement configuration out of source control, and make sure the application still works.
+Dependencies can also expose the application. Dependabot alerts and security update pull requests are shared repository and default-branch signals. Review high and critical alerts, understand each package vulnerability, and validate dependency changes through your pull request.
 
-Vulnerable dependencies: Every package in `package.json` is a potential attack vector. Dependabot alerts and Dependabot security update pull requests are shared repo/default-branch signals. Your job is to review the high and critical severity alerts, understand what the vulnerability in each package actually is, and validate any dependency changes your team makes through your pull request.
-
-Both issues need accountable response, not just a one-time edit. Record the response in `modules/ghas/resources/ghas-governance-practice.template.md`: who owns it, what was validated, whether risk is accepted, and when that exception expires.
+Both issues need an accountable response. Record the owner, validation, accepted risk, and exception expiry in `modules/ghas/resources/ghas-governance-practice.template.md`.
 
 ## Objectives
 
@@ -22,14 +24,12 @@ Both issues need accountable response, not just a one-time edit. Record the resp
 - Apply the same expectation to human- and agent-authored changes: no bypass or exception is complete without an accountable human owner and evidence
 
 > [!IMPORTANT]
-> Bring your own application (do this first)
+> Use your own application first
 >
-> This activity is most valuable when the secrets and dependency work *outlives the delivery session*. Use the real application repository you want to secure so secret scanning, push protection, Dependabot alerts, and dependency fixes improve a repo your team keeps.
+> - **Real application available:** Use it wherever this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice Shop setup and review your own secret scanning alerts, high or critical Dependabot alerts, and configuration files so the work improves a repository your team maintains.
+> - **No suitable application:** Use the S00 OWASP Juice Shop fallback to practice the secret and dependency remediation workflow.
 >
-> - Have a candidate? If you have an application repo in an organization you control with GHAS enabled, use it everywhere this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice-Shop-specific setup and review your own secret scanning alerts, high or critical Dependabot alerts, and configuration files instead.
-> - No suitable one? Use the fallback from S00: OWASP Juice Shop as a safe practice target for learning the secret and dependency remediation workflow.
->
-> Tell your coach which path you took — bringing your own is the goal; Juice Shop is the fallback.
+> Tell your coach which path you chose.
 >
 
 ## Success Criteria
@@ -41,9 +41,9 @@ Both issues need accountable response, not just a one-time edit. Record the resp
 - [ ] Secret scanning alerts relevant to your changes addressed or explained
 - [ ] The shared governance practice records the response owner, dependency remediation route, and any approved exception with an expiry date
 - [ ] Human- and agent-authored changes use the same push-protection, pull-request, and accountable-owner expectations
-- [ ] Coach conversation — if you searched your team's repos right now, what is the most likely hardcoded credential or critically vulnerable dependency you'd find, and how long do you think it has been sitting there unnoticed? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] Coach conversation: Identify the hardcoded credential or critically vulnerable dependency you are most likely to find in your team's repositories. Estimate how long it may have gone unnoticed, then discuss a real project, task, or workflow with your coach.
 
-Push protection: If a new secret is introduced in your branch, push protection should block it before it lands. Treat that block as part of the validation for this activity.
+**Push protection:** If your branch introduces a new secret, push protection should block it before it lands. Treat the block as validation evidence.
 
 ## Learning Resources
 

@@ -1,6 +1,6 @@
-# Ch37 — Governance Quick Review with ghqr — Delivery Assurance
+# Ch37: Governance Quick Review with ghqr Delivery Assurance
 
-This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
+Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The paired `README.md` defines the tasks, evidence, commands, and Definition of Done.
 
 ## Assurance record
 
@@ -11,10 +11,10 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer governance owner has a broad, read-only GitHub posture review and a prioritized decision backlog tied to existing governance controls.
+- Confirm that the governance owner has a read-only GitHub posture review and a prioritized decision backlog tied to existing controls.
 - **Governance controls:** Confirm findings are mapped to existing catalogue Control IDs where possible. Do not accept invented control IDs or a parallel findings spreadsheet as the source of truth.
-- Implementation risks to verify: ask "which checks were unavailable, and why?" and "which settings came from organization scope versus enterprise scope?"
-- Delivery lead prompts: ask "what would change if this finding became an approved pilot?" and "what evidence would prove the finding was resolved at the next review?"
+- Ask which checks were unavailable and why. Separate organization settings from enterprise settings.
+- Ask what an approved pilot would change and what evidence would prove that the finding was resolved.
 
 ## Expected evidence
 
@@ -52,7 +52,7 @@ Fix: Use `--hostname <customer>.ghe.com` or set `GH_HOST=<customer>.ghe.com`, th
 
 ## Progressive support
 
-Use these in order. Preserve customer ownership: give the first prompt, wait, then increase specificity only if the delivery team is blocked.
+Use these in order. Give the first prompt, wait, and add detail only when the delivery team is blocked.
 
 1. Hint 1 (gentle): Start by writing down what you are allowed to inspect before you run the tool.
 2. Hint 2 (medium): Keep the organization scan mandatory, and treat enterprise as optional unless the enterprise owner has authorized it.
@@ -69,6 +69,6 @@ Use these to confirm the adoption decision and accountable next step:
 
 ## Delivery notes
 
-- This activity is intentionally read-only by default. The value is in evidence quality, control mapping, and customer-owned decisions.
+- This activity is read-only by default. Focus on sound evidence, control mapping, and customer-owned decisions.
 - Mock or replay output can be useful for facilitation, but customer evidence must come from the authorized customer scan unless clearly labelled otherwise.
 - If a finding maps to an existing specialized lesson, route follow-up work there: Ch06 for organization baseline, Ch08 for rulesets/properties, Ch09 for audit evidence, Ch28 for enterprise identity/network, Ch29 for programmatic access, Ch30 for Copilot/AI governance, Ch34 for enterprise agent configuration, or Ch36 for repository intake.

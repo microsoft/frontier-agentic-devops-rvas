@@ -1,6 +1,6 @@
 # Ch13 — Dependabot & Dependency Review — Delivery Assurance
 
-This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
+Use this review overlay with the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The paired `README.md` defines the tasks, evidence, commands, and Definition of Done.
 
 ## Assurance record
 
@@ -11,7 +11,7 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer implementation owner turns a vulnerable dependency tree into a managed supply chain — enables Dependabot, triages alerts, auto-merges safe patches, and gates PRs on dependency review.
+- Expected outcome: the customer owner enables Dependabot, triages alerts, merges safe patches, and gates pull requests on dependency review.
 - **Control-catalogue evidence:** Using `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`, confirm `SCM-DEPENDENCY-GRAPH`, `SCM-DEPENDABOT`, and `SCM-DEPENDENCY-REVIEW` are `approved pilot` only after effective-setting inspection, with SBOM, Dependabot, and required-check evidence.
-- Implementation risks to verify: ask "which Dependabot feature opens a PR, and which just notifies?" (→ security alerts open PR, version updates notify only) and "where does dependency review run?" (→ on the PR diff, not the alert list).
-- Delivery lead prompts: ask "what's the risk of auto-merging without review?" (→ rare bad updates, but catch quickly via test failures) and "how do you handle dependencies a team won't upgrade?"
+- Ask "which Dependabot feature opens a PR, and which just notifies?" (→ security alerts open PRs; version updates only notify) and "where does dependency review run?" (→ on the PR diff, not the alert list).
+- Ask "what's the risk of auto-merging without review?" (→ a bad update can merge, though tests may catch it) and "how do you handle dependencies a team won't upgrade?"

@@ -27,8 +27,7 @@
 - A test IdP you control. A free Microsoft Entra ID tenant (or an Okta developer org) is recommended — you'll register a SAML app and a SCIM provisioning connector against your test org. You can complete most tasks with a single IdP test app.
 - ⚠️ Identity is disruptive. Enabling enforced SAML on an org you depend on can lock out members who haven't linked. Use a dedicated test org (the provisioner creates supporting test members) and keep SSO in test/non-enforced mode until the final step.
 
-## Customer delivery objectives
-This delivery engagement establishes:
+## What you will deliver
 - Explain the three GHEC auth models — personal accounts, SAML-restricted orgs/enterprises, and EMU + SCIM — and where org-level SSO fits.
 - Configure SAML SSO for an organization against a real IdP (Entra ID / Okta), validate it in test mode, then enforce it.
 - Authorize a PAT/SSH key for SSO so API and git access keep working under SAML.
@@ -42,7 +41,7 @@ A GHEC customer runs identity centrally in their IdP and wants GitHub to obey it
 
 > [!IMPORTANT]
 > Use an approved customer target (do this first)
-> Default to an authorised customer identity runbook, SAML/SCIM rollout plan, or organisation authentication setting. Complete the work on that artifact and retain the evidence, guardrails, or automation.
+> Default to an authorised customer identity runbook, SAML/SCIM rollout plan, or organisation authentication setting. Do the work there and keep the evidence, guardrails, or automation.
 >
 > - Have a candidate? Use it everywhere this guide says `ghec-ch14-identity-runbook`. Skip the Setup step below entirely.
 > - No suitable one? Use the fallback below: a seeded identity-runbook repo and validation helpers.
@@ -61,7 +60,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch14 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch14 --org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch14-*`, idempotent, prefix-guarded teardown):
+Setup creates these resources (all names use the `ghec-ch14-*` prefix, and teardown is prefix-guarded):
 - A `ghec-ch14-identity-runbook` repo containing a runbook you fill in as you go: the IdP app settings (entity ID, ACL/ACS URL, certificate fingerprint), a SCIM rollout checklist, and a join/leave test script.
 - A documented list of the org-scoped identity settings you'll touch (the org's Authentication security page) — the provisioner does not flip SSO on for you; it stages the runbook and validation helpers.
 - A printed Next steps block, including the exact org Settings → Authentication security URL and the SCIM API base.
@@ -116,7 +115,7 @@ Use the existing governance register. Inspect the effective inherited setting, u
 - `ORG-SAML-SCIM`: organization SAML/SCIM lifecycle; not applicable for EMU organizations.
 
 ## Validation / Definition of Done
-You are done when ALL of the following are true:
+**Done means:**
 - [ ] The runbook explains the three auth models and records your IdP app's SAML settings.
 - [ ] SAML SSO is configured for the org and validated in test mode (test round-trip succeeded before enforcement).
 - [ ] A token is SSO-authorized and works against org resources under SAML (`gh api orgs/<org>/members` succeeds).
@@ -127,7 +126,7 @@ You are done when ALL of the following are true:
 - [ ] Real-outcome check — if you brought your own identity target, the runbook or SAML/SCIM plan now reflects a real lifecycle gap; if you used the sample, you can name the org rollout you will plan next.
 - [ ] Adoption handover — record the customer identity owner, lifecycle gap, approved rollback-aware rollout decision, and next action.
 
-> Coaches verify these via the automated hints in `COACH.md`.
+> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Configure team sync (Entra/Okta groups → GitHub org teams) so group membership drives team membership.

@@ -10,16 +10,16 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: Build an issue-triage workflow that labels, categorises, and responds to new issues using your repository's label taxonomy.
+description: Build an issue-triage workflow that labels and responds to new issues using the repository's label taxonomy.
 success_criteria:
-  - `.github/workflows/issue-triage-agent.md` exists and has valid gh-aw frontmatter
-  - Trigger is `on: issues: types: [opened, reopened]`
-  - `tools: github: toolsets: [issues, labels]` is present
-  - `safe-outputs` includes `add-labels` and `add-comment`
+  - "`.github/workflows/issue-triage-agent.md` exists and has valid gh-aw frontmatter"
+  - "Trigger is `on: issues: types: [opened, reopened]`"
+  - "`tools: github: toolsets: [issues, labels]` is present"
+  - "`safe-outputs` includes `add-labels` and `add-comment`"
   - Allowlist contains only labels that exist in your repo
-  - `.github/workflows/issue-triage-agent.lock.yml` compiles without errors
+  - "`.github/workflows/issue-triage-agent.lock.yml` compiles without errors"
   - Dry-run completes and shows expected label assignments in output
-  - Live test: open a new issue and verify labels + comment appear
+  - "Live test: open a new issue and verify labels + comment appear"
 tags:
   - issues
   - triage

@@ -1,8 +1,8 @@
 # Agent-Ready Issue Template
 
-Use this template when creating issues for cloud coding agents or simulated agent workflows.
+Use this template for cloud coding agent issues and simulated agent workflows.
 
-The issue should externalize enough context that an assistant can work without private chat. Keep it small, scoped, and reviewable.
+Put enough context in the issue for an assistant to work without private chat. Keep the work small and easy to review.
 
 ## Title
 
@@ -10,7 +10,7 @@ The issue should externalize enough context that an assistant can work without p
 
 ## Problem
 
-Describe the user or operator problem in two to four sentences. Include why the change matters.
+Describe the user or operator problem in two to four sentences and explain why it matters.
 
 ## Context
 
@@ -61,7 +61,7 @@ The agent should not:
 
 ## Review Focus
 
-Reviewers should inspect:
+Review:
 
 - Scope control.
 - Correctness against acceptance criteria.

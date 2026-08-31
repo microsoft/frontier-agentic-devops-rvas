@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: Supercharge your agent with external context — wire multiple MCP toolsets so it can read live PR diffs, contribution guidelines, and architecture docs before making decisions.
+description: Connect multiple MCP toolsets so an agent can read PR diffs and repository guidance before making decisions.
 success_criteria:
   - Workflow triggers on PR open/push
   - Agent reads PR diff (GitHub toolset)
@@ -18,7 +18,7 @@ success_criteria:
   - Agent produces a structured comment with context-aware insights
   - Comment appears on the PR
   - Comment avoids generic advice—it's specific to *this* repo's standards
-  - `safe-outputs: add-comment` is used correctly
+  - "`safe-outputs: add-comment` is used correctly"
 tags:
   - mcp-tools
   - external-context

@@ -31,8 +31,7 @@ If setup fails at the project step with missing scopes, add them in place and re
 gh auth refresh -h github.com -s project,read:project
 ```
 
-## Customer delivery objectives
-This delivery engagement establishes:
+## What you will deliver
 - Call the REST API for reads and writes with `gh api` (verbs, paths, `--method`, `-f`/`-F` fields).
 - Write GraphQL queries and mutations against the single `graphql` endpoint, using variables and fragments.
 - Choose REST vs GraphQL deliberately — over-fetching, round-trips, and shape of the data.
@@ -45,7 +44,7 @@ A GHEC customer's platform team keeps doing the same triage by hand: relabeling 
 
 > [!IMPORTANT]
 > Use an approved customer target (do this first)
-> Default to an authorised customer GitHub automation task or repository where an API script will remove recurring toil. Complete the work on that artifact and retain the evidence, guardrails, or automation.
+> Default to an authorised customer GitHub automation task or repository where an API script will remove recurring toil. Do the work there and keep the evidence, guardrails, or automation.
 >
 > - Have a candidate? Use it everywhere this guide says `ghec-ch16-rest-graphql-automation`. Skip the Setup step below entirely.
 > - No suitable one? Use the fallback below: a seeded sample repo for controlled REST and GraphQL automation validation.
@@ -64,7 +63,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch16 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch16 --org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch16-*`, idempotent, prefix-guarded teardown):
+Setup creates these resources (all names use the `ghec-ch16-*` prefix, and teardown is prefix-guarded):
 - A seeded repo `ghec-ch16-rest-graphql-automation` with a README and a `src/`/`docs/` layout.
 - ~60 seeded issues in mixed states (open/closed, some labeled, many unlabeled) — enough volume to force real pagination.
 - A starter label set (`bug`, `enhancement`, `triage`, `area: backend`, `area: docs`) plus deliberate label gaps you'll fill via API.
@@ -104,7 +103,7 @@ What setup creates (all artifacts namespaced `ghec-ch16-*`, idempotent, prefix-g
 16. Build a small reconcile script (Bash or PowerShell) that: pages all issues, ensures every issue has at least one label, adds untracked issues to the board, and checks `rate_limit` between batches, sleeping until `reset` if `remaining` is low. Re-run it twice and confirm the second run makes no changes (pure reconcile).
 
 ## Validation / Definition of Done
-You are done when ALL of the following are true:
+**Done means:**
 - [ ] You performed both a REST read and a REST write (label created, issues labeled, comment posted) via `gh api`.
 - [ ] You paged through all seeded issues with REST `--paginate` and the count matches the seeded total.
 - [ ] You ran a parameterized GraphQL query with variables and cursor-paginated it to completion.
@@ -114,7 +113,7 @@ You are done when ALL of the following are true:
 - [ ] Real-outcome check — if you brought your own automation target, an API script now removes real recurring toil; if you used the sample, you can name the manual GitHub task you will automate next.
 - [ ] Adoption handover — record the customer automation owner, recurring manual task, expected benefit, approval boundary, and next action.
 
-> Coaches verify these via the automated hints in `COACH.md`.
+> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Re-implement the triage in pure GraphQL (issue search + `addLabelsToLabelable`) and compare the request count to the REST version.

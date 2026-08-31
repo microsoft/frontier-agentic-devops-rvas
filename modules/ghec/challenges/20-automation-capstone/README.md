@@ -13,14 +13,14 @@
 
 ## Customer delivery target
 
-- Customer objective: deliver one owned, secure, end-to-end automation for a customer workflow.
-- Customer-tenant target: an approved customer App, webhook, Actions workflow, API automation, and project-board integration.
-- Approval and safety boundary: create Apps, secrets, webhooks, and write automation in the customer tenant only with accountable owner approval; otherwise use the seeded capstone as a sample test environment and leave an implementation proposal.
-- Records to keep: retain the source-controlled automation, permission matrix, secret-handling record, event trace, idempotency evidence, and failure-mode notes.
-- Adoption owner / handover: the customer integration owner accepts operations and rotation; the workflow owner accepts business outcomes.
-- Next action and owner: authorise production enablement for the selected workflow or assign the owner and decision date for the rollout proposal.
+- **Goal:** deliver one owned, secure, end-to-end automation for a customer workflow.
+- **Target:** an approved customer App, webhook, Actions workflow, API automation, and project-board integration.
+- **Boundary:** create Apps, secrets, webhooks, and write automation in the customer tenant only with accountable owner approval. Otherwise, use the seeded capstone for testing and leave an implementation proposal.
+- **Keep:** the source-controlled automation, permission matrix, secret-handling record, event trace, idempotency evidence, and failure-mode notes.
+- **Owners:** the customer integration owner accepts operations and rotation. The workflow owner accepts business outcomes.
+- **Next:** authorise production enablement for the selected workflow or assign an owner and decision date to the rollout proposal.
 
-> Independent by design. This capstone stands alone — it provisions all its own `ghec-ch20-*` state and requires no other activity to have been run. It *revisits the skills* from ch16 (REST/GraphQL), ch17 (webhooks + GitHub App), and ch18 (Actions runners) conceptually, but you do not need their artifacts.
+> This capstone provisions its own `ghec-ch20-*` state and does not require artifacts from another activity. It uses concepts from ch16 (REST/GraphQL), ch17 (webhooks + GitHub App), and ch18 (Actions runners).
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -29,20 +29,19 @@
 - A way to receive webhook deliveries during development: `smee.io` for local relay, or the provided Actions `repository_dispatch` receiver for a no-public-endpoint path.
 - Comfort with the building blocks from earlier in the track (API calls, HMAC signature verification, installation tokens, Actions workflows). This capstone assumes them rather than re-teaching from zero.
 
-## Customer delivery objectives
-This delivery engagement establishes:
+## What you'll do
 - Register and install a GitHub App in the org and authenticate as an installation.
 - Call both the REST API and the GraphQL API (including a Projects v2 mutation) from the App's installation token.
 - Verify inbound webhook signatures (HMAC-SHA256, `X-Hub-Signature-256`) and route events to handlers.
 - Wire Actions as the orchestration layer that ties the pieces together and runs on push/dispatch.
-- Compose all four into one reliable, idempotent, end-to-end flow triggered by a real repo event.
+- Combine them into one reliable, idempotent flow triggered by a real repository event.
 - Reason about least-privilege, secret handling, and failure modes across the whole automation.
 
 ## Scenario
-Your org wants a single automation that reacts to activity and keeps a project board honest without anyone touching it manually. When an issue is opened on the seeded repo, a webhook fires → your GitHub App (authenticated as an installation) labels and triages the issue via REST, adds it to a Projects v2 board via GraphQL, and an Actions workflow records the result and posts a summary. Validate the seeded scaffold end to end and make it idempotent so replays do not create duplicates. This is an integrated delivery pattern for the customer tenant.
+Your org wants one automation that keeps a project board aligned with issue activity. When an issue opens in the seeded repository, a webhook fires. The GitHub App authenticates as an installation, labels and triages the issue through REST, adds it to a Projects v2 board through GraphQL, and records the result in GitHub Actions. Validate the full flow and make it idempotent so replays do not create duplicates.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> **Start with an approved customer target.**
 > Default to an authorised customer workflow that combines Actions, API automation, and security controls into a lasting delivery artifact. Complete the work on that artifact and retain the evidence, guardrails, or automation.
 >
 > - Have a candidate? Use it everywhere this guide says `ghec-ch20-automation-capstone`. Skip the Setup step below entirely.

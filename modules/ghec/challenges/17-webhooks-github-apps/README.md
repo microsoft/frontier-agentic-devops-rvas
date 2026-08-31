@@ -26,8 +26,7 @@
 - Local tooling: `gh >= 2.x`, `git`, `jq`, plus `openssl` (for HMAC verification). Node or Python for the receiver is optional — an Actions-based receiver works too.
 - A way to receive a public callback: a [`smee.io`](https://smee.io) channel (no install/account) or the Actions-based `repository_dispatch` receiver this activity seeds. Both paths are documented below.
 
-## Customer delivery objectives
-This delivery engagement establishes:
+## What you will deliver
 - Configure a repository webhook and an organization webhook, choosing events deliberately.
 - Read a delivery payload and the `X-GitHub-Event` / `X-GitHub-Delivery` headers.
 - Verify payloads by computing the `X-Hub-Signature-256` HMAC-SHA256 with a shared secret.
@@ -40,7 +39,7 @@ A GHEC customer wants to react to activity in real time — auto-acknowledge new
 
 > [!IMPORTANT]
 > Use an approved customer target (do this first)
-> Default to an authorised customer integration target where a GitHub event should update another system. Complete the work on that artifact and retain the evidence, guardrails, or automation.
+> Default to an authorised customer integration target where a GitHub event should update another system. Do the work there and keep the evidence, guardrails, or automation.
 >
 > - Have a candidate? Use it everywhere this guide says `ghec-ch17-webhooks-github-apps`. Skip the Setup step below entirely.
 > - No suitable one? Use the fallback below: a seeded sample repo and App/webhook controlled-validation target.
@@ -59,7 +58,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch17 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch17 --org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch17-*`, idempotent, prefix-guarded teardown):
+Setup creates these resources (all names use the `ghec-ch17-*` prefix, and teardown is prefix-guarded):
 - A seeded repo `ghec-ch17-webhooks-github-apps` containing a receiver scaffold: a tiny webhook-verification snippet (Bash + Node) and an Actions workflow `receiver.yml` triggered by `repository_dispatch` for the no-public-host path.
 - An App handler accelerator (`app/handler.js` + `app/auth.js`, zero dependencies) that already does signature verification, event routing, and App→installation-token auth — leaving one TODO for Part G.
 - A populated `WEBHOOK-SETUP.md` walking the smee.io and Actions receiver options.
@@ -139,7 +138,7 @@ the repository and organization webhook work remains complete.
 - `AUD-GLOBAL-WEBHOOKS`: distinguish enterprise hook scope from the repository/organization webhooks above; record event scope, receiver, HMAC verification, retention, and owner evidence.
 
 ## Validation / Definition of Done
-You are done when ALL of the following are true:
+**Done means:**
 - [ ] A repository webhook delivers Issues and Push events to your receiver (shown in Recent Deliveries).
 - [ ] You can identify `X-GitHub-Event`, `X-GitHub-Delivery`, and `X-Hub-Signature-256` on a delivery.
 - [ ] Your receiver verifies the HMAC-SHA256 signature and rejects a tampered/wrong-secret payload (demonstrated).
@@ -152,7 +151,7 @@ You are done when ALL of the following are true:
 - [ ] Real-outcome check — if you brought your own integration target, a real GitHub event now drives another system or workflow; if you used the sample, you can name the webhook/App integration you will build next.
 - [ ] Adoption handover — record the customer integration owner, target external system, required event and App permissions, and next approved action.
 
-> Coaches verify these via the automated hints in `COACH.md`.
+> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Triage, don't just acknowledge: in `onIssueOpened()`, also label the issue by content (e.g. `bug` vs `question`) and assign or `@`-mention an owner — remember the App needs the matching permission, and labeling fires `issues.labeled`, so keep guarding against self-triggering.

@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Implement authorized customer repository governance at scale: define custom repository properties, create organization rulesets that target repositories by property, layer repository rules, and verify enforcement. Preserve approved policy evidence, ownership, and rollout boundaries."
+description: "Set up authorized customer repository governance at scale: define custom repository properties, create organization rulesets that target repositories by property, layer repository rules, and verify enforcement. Preserve approved policy evidence, ownership, and rollout boundaries."
 success_criteria:
 - Two **custom properties** exist (`compliance` single-select, `prod` true/false), verifiable via `gh api /orgs/<org>/properties/schema`.
 - The four repos carry **deliberate property values** (two prod repos `compliance = high`), verifiable via `gh api /orgs/<org>/properties/values`.
@@ -20,7 +20,7 @@ success_criteria:
 - A **repository ruleset** on one prod repo layers a stricter rule (e.g., 2 approvals) on top of the org ruleset.
 - A **`GOVERNANCE.md`** documents the schema, values, and ruleset targeting.
 - '**Governance register updated:** Added rows for custom repository properties (schema, property values set on repos) and organization rulesets (property-targeted rules, enforcement, bypass logs) with API snapshot links.'
-- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+- Customer evidence records the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - rulesets
 - custom-properties

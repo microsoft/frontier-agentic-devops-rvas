@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Implement an authorized customer self-hosted runner through an organization runner group, with label routing, hardening, scaling, and isolation evidence. Preserve the risk controls, operational owner, and safe rollout decision."
+description: "Implement an authorized self-hosted runner in an organization runner group. Record label routing, hardening, scaling, isolation, ownership, and the rollout decision."
 success_criteria:
 - An **org runner group** `ghec-ch18-group` exists, scoped to **selected repos** (only `ghec-ch18-self-hosted-runners`).
 - A **self-hosted runner** is registered to that group with custom **labels** and shows **Idle/online**.
@@ -20,7 +20,7 @@ success_criteria:
 - The runner runs under a **least-privilege account** and you demonstrated an **ephemeral** registration.
 - You documented the **fork-PR risk** and a **GitHub-hosted vs larger vs self-hosted** decision matrix, plus the **org-vs-enterprise runner group** note.
 - '**Governance register updated:** Added runner-group and host-hardening evidence plus `RUN-REPOSITORY-RUNNERS`/`RUN-HOSTED-RUNNERS` enterprise-policy compatibility, owner, and authorized-pilot or proposal decision.'
-- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+- Evidence names the authorized scope, accountable owner, risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - actions
 - self-hosted-runners

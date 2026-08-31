@@ -11,7 +11,7 @@ prerequisite_capabilities:
   - Copilot Business or Copilot Enterprise availability for the intended organizations
   - Named enterprise AI-controls, security, platform, and organization-policy owners
   - A customer-owned change record, evidence location, and rollback approver
-description: "Establish an enterprise-governed Copilot custom-agent source, with protected .github-private changes, an Agentic DevSecOps agent, organization instructions, and evidence-backed propagation and rollback."
+description: "Set up an enterprise-governed Copilot custom-agent source with protected .github-private changes, an Agentic DevSecOps agent, organization instructions, and evidence-backed propagation and rollback."
 success_criteria:
   - The customer selected an approved organization and created or assessed its .github-private repository as the enterprise AI Controls configuration source.
   - CODEOWNERS and a ruleset protect enterprise agent configuration changes with named owners, required review, and deliberate bypass governance.

@@ -1,6 +1,6 @@
 # Ch02 — Branches, Pull Requests & Code Review — Delivery Assurance
 
-This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
+Use this review overlay with the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The paired `README.md` defines the tasks, evidence, commands, and Definition of Done.
 
 ## Assurance record
 
@@ -11,6 +11,6 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer implementation owner establishes a review culture with feature branches, required code-owner review, conflict resolution, and a documented merge strategy.
-- Implementation risks to verify: branch rules require reviews and code-owner approval, and the team can explain the history produced by each merge strategy.
-- Delivery lead prompts: ask "who must look at this code before it ships?" (→ CODEOWNERS), and "what does the history look like after each merge type?" (→ git log --graph).
+- Expected outcome: the customer owner establishes a review culture with feature branches, required code-owner review, conflict resolution, and a documented merge strategy.
+- Check that branch rules require reviews and code-owner approval. The team must also explain the history produced by each merge strategy.
+- Ask "who must look at this code before it ships?" (→ CODEOWNERS), and "what does the history look like after each merge type?" (→ git log --graph).

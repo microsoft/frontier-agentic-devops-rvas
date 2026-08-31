@@ -26,8 +26,7 @@
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - This activity is independent of Ch05 (which also touches rulesets). The focus here is org-wide governance via custom properties, not the PR pipeline.
 
-## Customer delivery objectives
-This delivery engagement establishes:
+## What you will deliver
 - Define custom repository properties (single-select and true/false) at the organization.
 - Set property values on individual repositories and set defaults for new repos.
 - Create an organization ruleset whose target is a property condition (e.g., apply to every repo where `compliance = high`), not a name pattern.
@@ -41,7 +40,7 @@ A GHEC customer has 80 repositories and a compliance team that needs "all produc
 > [!IMPORTANT]
 > Use an approved customer target (do this first)
 >
-> Default to an authorised customer production or compliance-sensitive repository set that needs rulesets and properties. Complete the work on that artifact and retain the evidence, guardrails, or automation.
+> Default to an authorised customer production or compliance-sensitive repository set that needs rulesets and properties. Do the work there and keep the evidence, guardrails, or automation.
 >
 > - Have a candidate? Use your real repos wherever this guide names `ghec-ch08-prod-payments` or the sibling `ghec-ch08-*` repos. Skip the Setup step below entirely.
 > - No suitable one? Use the fallback below: seeded prod/internal/sandbox repos for property-targeted guardrails.
@@ -60,7 +59,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch08 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch08 --org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch08-*`, idempotent, prefix-guarded teardown):
+Setup creates these resources (all names use the `ghec-ch08-*` prefix, and teardown is prefix-guarded):
 - Four seeded repos — `ghec-ch08-prod-payments`, `ghec-ch08-prod-identity`, `ghec-ch08-internal-tools`, and `ghec-ch08-sandbox` — each with a populated `main` and a CI workflow that emits a `build` status check so required-check rules have something to bind to.
 - No custom properties and no rulesets yet — you create them.
 - A printed inventory of the four repos (from the API) so you can tag and target them.
@@ -113,7 +112,7 @@ Use the existing governance register. Inspect the effective inherited setting, u
 - `REP-REPO-RULESETS`: repository ruleset overlays.
 
 ## Validation / Definition of Done
-You are done when ALL of the following are true:
+**Done means:**
 - [ ] Two custom properties exist (`compliance` single-select, `prod` true/false), verifiable via `gh api /orgs/<org>/properties/schema`.
 - [ ] The four repos carry deliberate property values (two prod repos `compliance = high`), verifiable via `gh api /orgs/<org>/properties/values`.
 - [ ] An organization ruleset is Active and targets repos by property condition (`repository_property`, not `repository_name`).
@@ -124,7 +123,7 @@ You are done when ALL of the following are true:
 - [ ] Real-outcome check — if you brought your own repo set, rulesets and properties now protect production or compliance-sensitive work; if you used the sample, you can name the real repo group you will target next.
 - [ ] Adoption handover — record the customer governance owner, priority repository risk, proposed property/ruleset control, and next approved action.
 
-> Coaches verify these via the automated hints in `COACH.md`.
+> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Add a property-targeted ruleset that applies org-wide tag protection (block deleting/force-updating release tags) only on `prod = true` repos.

@@ -5,17 +5,17 @@ title: "REPLACE: Short Activity Title"
 module: REPLACE                  # One of: ghec | ghas | ghaw | sre-agent
 track: REPLACE-track-slug        # See CONTRIBUTING.md for the module → track table
 difficulty: beginner             # beginner | intermediate | advanced
-duration_minutes: 60             # Estimated delivery time for a delivery team member in minutes
+duration_minutes: 60             # Estimated completion time for a delivery team member, in minutes
 
 # === Independence fields ===
-prerequisites:                   # Challenge IDs that must be done first. Empty = none.
+prerequisites:                   # Challenge IDs that must be completed first. An empty list means none.
   []
-prerequisite_capabilities:       # Capabilities a delivery team member needs (not work packages to complete).
+prerequisite_capabilities:       # Required skills or access. Do not list work packages.
   - "GitHub account"
   - "Basic Git knowledge"
 
 # === Descriptive ===
-description: "REPLACE: One-sentence customer-adoption outcome shown in the catalog card."
+description: "REPLACE: One-sentence customer adoption outcome for the catalog card."
 success_criteria:
   - "REPLACE: First observable implementation or governance outcome"
   - "REPLACE: Second observable customer-owned evidence or artefact"
@@ -26,9 +26,9 @@ tags:
 
 # === Operational ===
 app_dependency: none             # none | juice-shop | grubify-starter-lab | seed-repo
-emu_compatible: true             # Can this run in an EMU-controlled org?
+emu_compatible: true             # Can this run in an EMU-controlled organization?
 min_environment: org             # org | repo | codespace
-provision_creates:               # Resources the setup script creates (human-readable).
+provision_creates:               # Resources created by the setup script.
   - "REPLACE: describe any repos, boards, or resources created"
 
 # === Attribution ===

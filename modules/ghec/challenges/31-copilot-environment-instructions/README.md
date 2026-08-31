@@ -13,10 +13,10 @@
 
 ## Customer delivery target
 
-- **Customer objective:** make Copilot cloud-agent and code-review work reproducibly in an approved repository without widening access, runner, service, or secret exposure.
-- **Customer-tenant target:** a default-branch setup workflow, concise repository and path instructions, and a record of the effective organization, runner, network, and secret boundaries.
-- **Approval boundary:** work in an approved customer repository first. A repository owner approves workflow/instruction changes; the Copilot owner confirms feature policy; security approves any private-network runner, service, or Agents secret. Do not enable a policy, add a secret, or attach an internal runner merely to complete this activity.
-- **Records to keep:** target and owners, policy/availability evidence, merged default-branch commit and Actions URL, instruction inventory and precedence review, runner/secrets decision, agent/session or review evidence, open risks, and next decision.
+- **Goal:** make Copilot cloud-agent and code-review work reproducibly in an approved repository without widening access, runner, service, or secret exposure.
+- **Target:** a default-branch setup workflow, concise repository and path instructions, and a record of the effective organization, runner, network, and secret boundaries.
+- **Boundary:** work in an approved customer repository first. A repository owner approves workflow and instruction changes. The Copilot owner confirms feature policy. Security approves any private-network runner, service, or Agents secret. Do not enable a policy, add a secret, or attach an internal runner merely to complete this activity.
+- **Keep:** target and owners, policy/availability evidence, merged default-branch commit and Actions URL, instruction inventory and precedence review, runner/secrets decision, agent/session or review evidence, open risks, and next decision.
 - **Fallback:** if policy or feature access is unavailable, produce the decision package in Part H. Use `ghec-ch31-*` only as a safe, non-production seed to validate repository files; it is never a substitute for customer approval.
 
 ## Prerequisites and availability
@@ -28,7 +28,7 @@
 
 ## Scenario
 
-The customer wants **Agentic DevSecOps** teams to use Copilot cloud agent and Copilot code review predictably. Today, an agent may spend time rediscovering dependencies, reviewers lack repository context, and no one can say which instructions, runner, or credentials are in scope. Establish a small, reviewable baseline on a customer target, prove what happened in GitHub's UI, and retain a decision package when the required capability cannot be used.
+The customer wants **Agentic DevSecOps** teams to use Copilot cloud agent and Copilot code review with a known setup and clear boundaries. Establish a reviewable baseline on a customer repository, verify it in GitHub's UI, and retain a decision package when the required capability is unavailable.
 
 > [!IMPORTANT]
 > **Start with the customer target.** Substitute its name for `ghec-ch31-copilot-environment-instructions` throughout. Do not put a production secret, internal endpoint, or customer data in the fallback repository.

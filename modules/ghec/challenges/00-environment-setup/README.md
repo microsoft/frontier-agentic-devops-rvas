@@ -22,7 +22,7 @@
 
 ## Objectives
 
-Delivery readiness is complete when you have:
+**You are ready when:**
 
 - A working development environment (GitHub Codespaces or local dev container)
 - An authenticated `gh` CLI session pointing at your GitHub account
@@ -44,7 +44,7 @@ Delivery readiness is complete when you have:
 
 ---
 
-## Option A: GitHub Codespaces (Recommended)
+## Option A: GitHub Codespaces
 
 1. Open the agreed delivery or customer repository in your browser (the delivery lead or customer owner supplies the URL, e.g. `https://github.com/<org>/<repo>`).
 2. Click Code → Codespaces → Create codespace on main.
@@ -94,7 +94,7 @@ Expected output includes your username and `Logged in to github.com`.
 
 ## Verify Your Setup
 
-Run each command and confirm it succeeds before moving on:
+Run each command. Do not continue until all four succeed:
 
 ```bash
 # 1. CLI version — must be >= 2.x
@@ -137,4 +137,4 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh doctor ch01 --org <org
 modules/ghec/resources/provisioning/scripts/setup.ps1 doctor ch01 --org <org>
 ```
 
-A clean `doctor` output confirms that your token scopes and tooling are ready for the selected delivery guides.
+A clean `doctor` result confirms that your token scopes and tools meet the selected guides’ requirements.

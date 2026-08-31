@@ -1,6 +1,6 @@
 # Azure SRE Agent Incident Packet Template
 
-Use this packet when live Azure SRE Agent access is not available. Replace placeholders with sanitized workshop-specific values before delivery.
+Use this packet when live Azure SRE Agent access is unavailable. Replace each placeholder with a sanitized workshop value before delivery.
 
 ## Incident Summary
 
@@ -33,7 +33,7 @@ Use this packet when live Azure SRE Agent access is not available. Replace place
 
 ## Azure SRE Agent Transcript
 
-Include or link to a sanitized transcript that shows:
+Include or link to a sanitized transcript with:
 
 - evidence gathered;
 - runbook or knowledge used;

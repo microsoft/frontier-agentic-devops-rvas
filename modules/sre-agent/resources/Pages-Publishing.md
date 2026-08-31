@@ -1,10 +1,10 @@
 # GitHub Pages Publishing
 
-This repository can be published with GitHub Pages so participants have a simple front door during the event.
+Publish this repository with GitHub Pages when participants need a single event entry point.
 
 ## Recommended Pages Entry Points
 
-- [activities/00-setup/README.md](../challenges/00-setup/README.md) as the first participant action.
+- [activities/00-setup/README.md](../challenges/00-setup/README.md) for the first participant action.
 - [resources/README.md](README.md) for templates and fallback packets.
 
 ## Publishing Checklist
@@ -18,7 +18,7 @@ This repository can be published with GitHub Pages so participants have a simple
 
 ## Content Freshness
 
-Agentic DevSecOps capabilities change quickly. Before each delivery, review these areas for accuracy:
+Agentic DevSecOps capabilities change quickly. Check these areas before each delivery:
 
 - GitHub Copilot and coding agent availability.
 - GitHub Actions and environment protection behavior.

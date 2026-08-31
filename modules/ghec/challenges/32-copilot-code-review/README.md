@@ -13,9 +13,9 @@
 
 ## Customer delivery target
 
-- **Customer objective:** improve pull-request signal without replacing accountable human review.
-- **Customer-tenant target:** a customer-approved review scope, manual-review evidence, an automatic-review decision, and a rollback-ready operating record.
-- **Approval boundary:** start with **inspect-and-propose**. Enable an automatic-review ruleset only through a customer-authorized, bounded pilot.
+- **Goal:** improve pull-request signal without replacing accountable human review.
+- **Target:** a customer-approved review scope, manual-review evidence, an automatic-review decision, and a rollback-ready operating record.
+- **Boundary:** start with **inspect-and-propose**. Enable an automatic-review ruleset only through a customer-authorized, bounded pilot.
 - **Handover:** the repository owner accepts the review configuration; engineering leads and `CODEOWNERS` reviewers retain code-quality and merge responsibility.
 - **Brand:** retain the **Agentic DevSecOps** name in customer handover material.
 

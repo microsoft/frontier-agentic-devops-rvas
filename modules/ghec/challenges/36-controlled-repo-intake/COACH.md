@@ -1,6 +1,6 @@
-# Ch36 — Controlled Repository Intake — Delivery Assurance
+# Ch36: Controlled Repository Intake Delivery Assurance
 
-This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
+Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The paired `README.md` defines the tasks, evidence, commands, and Definition of Done.
 
 ## Assurance record
 
@@ -11,7 +11,7 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: direct repo creation is controlled by policy or a signed rollout proposal, and repo creation now has an auditable request/approval/provisioning trail.
-- **Governance controls:** Confirm the approval label owner, workflow identity, credential rotation owner, baseline repository controls, and exception path.
-- Implementation risks to verify: ask "what prevents a non-maintainer from self-approving?" and "what happens if the requested repository already exists or the name is invalid?"
-- Delivery lead prompts: ask "where is the created repo linked back to its approved request?" and "which baseline controls are created now versus listed as next hardening work?"
+- Confirm that policy or a signed rollout proposal controls direct repository creation. The intake path must record the request, approval, and provisioning result.
+- **Governance controls:** Confirm the approval-label owner, workflow identity, credential-rotation owner, baseline controls, and exception path.
+- Ask what prevents self-approval by a non-maintainer. Check how the workflow handles an existing or invalid repository name.
+- Ask where the created repository links back to its approved request. Separate current baseline controls from later hardening work.

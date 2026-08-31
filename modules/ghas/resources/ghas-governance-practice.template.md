@@ -1,8 +1,8 @@
 # GHAS Governance Practice
 
-Use this template with a customer-owned repository or service whenever possible.
-Use the Juice Shop fallback only for safe practice. Do not record credentials,
-full alert payloads, customer data, or other sensitive information here.
+Use this template with a customer-owned repository or service when possible. Use
+Juice Shop only for safe practice. **Do not record credentials, full alert
+payloads, customer data, or other sensitive information.**
 
 ## 1. GHAS Configuration and Ownership
 
@@ -37,7 +37,7 @@ against the alert trace and the affected code before recording a decision.
 
 ## 3. Prevention Patterns
 
-Add one entry when remediation establishes a practice the team can reuse.
+Add an entry when a remediation establishes a reusable team practice.
 
 | Finding class / unsafe pattern | Approved safe pattern | Applies to | PR and review evidence | GHAS or test validation | Accountable owner | Human and agent change expectation |
 |---|---|---|---|---|---|---|

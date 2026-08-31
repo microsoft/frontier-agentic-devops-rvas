@@ -7,7 +7,7 @@
   Date convention for any dates in content: ISO (YYYY-MM-DD).
 -->
 
-# Ch## — <Activity Title>
+# Ch##: <Activity Title>
 
 > One-sentence hook: what the delivery team member will be able to do by the end.
 
@@ -27,14 +27,14 @@
 - <Any activity-specific prerequisite, e.g., "Copilot cloud agent policy enabled (NOT available on EMU repos)".>
 
 ## Scenario objectives
-By completing this activity you will:
+This activity will:
 - <Objective 1 — verb-first, observable.>
 - <Objective 2.>
 - <Objective 3.>
 
 ## Scenario
-<2–4 sentences of narrative framing. Why does this matter to a real GHEC customer?
-Set the stakes so the tasks feel purposeful, not academic.>
+<In 2–4 sentences, explain the customer problem and why the work matters. Keep
+the scenario practical.>
 
 ## Setup
 Run the provisioning entrypoint (Bash or PowerShell — both supported):
@@ -48,7 +48,7 @@ Run the provisioning entrypoint (Bash or PowerShell — both supported):
 ./scripts/setup.ps1 ch## --org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch##-*`, idempotent, prefix-guarded teardown):
+Setup creates the following artifacts. All names use `ghec-ch##-*`. Provisioning is idempotent, and teardown checks the prefix.
 - <e.g., repo `ghec-ch##-<slug>` seeded with starting content.>
 - <e.g., labels / issues / branch protection / ruleset / Juice Shop import at pinned ref v20.0.0.>
 - A printed Next steps block telling you where to start.
@@ -62,7 +62,7 @@ What setup creates (all artifacts namespaced `ghec-ch##-*`, idempotent, prefix-g
 <!-- Long-form activity: aim for enough numbered tasks to fill the duration. -->
 
 ## Validation / Definition of Done
-You are done when ALL of the following are true:
+You are done when all of the following are true:
 - [ ] <Observable, checkable outcome 1 — ideally verifiable via `gh` / Actions.>
 - [ ] <Outcome 2.>
 - [ ] <Outcome 3.>

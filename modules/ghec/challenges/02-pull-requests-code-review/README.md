@@ -26,8 +26,7 @@
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - A second account or teammate helps demonstrate *real* review approvals, but the activity is completable solo (the coach guide explains the self-review caveat).
 
-## Customer delivery objectives
-This delivery engagement establishes:
+## What you will deliver
 - Use a clean branch-per-change workflow and open pull requests from the CLI and UI.
 - Run a code review: line comments, review threads, suggested changes, approve / request-changes.
 - Define ownership with a `CODEOWNERS` file and require owner review through branch protection.
@@ -41,7 +40,7 @@ A GHEC customer's team keeps pushing straight to `main`, breaking each other's w
 > [!IMPORTANT]
 > Use an approved customer target (do this first)
 >
-> Default to an authorised customer repository whose pull-request review flow needs improvement. Complete the work on that artifact and retain the evidence, guardrails, or automation.
+> Default to an authorised customer repository whose pull-request review flow needs improvement. Do the work there and keep the evidence, guardrails, or automation.
 >
 > - Have a candidate? Use it everywhere this guide says `ghec-ch02-pull-requests-code-review`. Skip the Setup step below entirely.
 > - No suitable one? Use the fallback below: a seeded sample repo with PRs and review settings to configure.
@@ -60,7 +59,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch02 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch02 --org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch02-*`, idempotent, prefix-guarded teardown):
+Setup creates these resources (all names use the `ghec-ch02-*` prefix, and teardown is prefix-guarded):
 - A seeded repo `ghec-ch02-pull-requests-code-review` containing a small multi-file app (e.g., `src/`, `docs/`, `.github/`) and a populated `main` branch.
 - Two pre-existing feature branches with open pull requests that need review (one clean, one that will conflict).
 - A `.github/pull_request_template.md` placeholder you will improve.
@@ -101,7 +100,7 @@ What setup creates (all artifacts namespaced `ghec-ch02-*`, idempotent, prefix-g
 13. Write a one-paragraph note in the repo (`docs/merge-strategy.md`) stating which strategy the team should default to and why (hint: squash for clean linear history is a common GHEC recommendation).
 
 ## Validation / Definition of Done
-You are done when ALL of the following are true:
+**Done means:**
 - [ ] At least three pull requests were opened against `main` (CLI or UI), one started as a draft.
 - [ ] A review contains line comments, a thread, and a `suggestion` block; at least one PR shows a request-changes → fix → resolve cycle.
 - [ ] A valid `.github/CODEOWNERS` exists and a PR touching an owned path auto-requested the owner.
@@ -112,7 +111,7 @@ You are done when ALL of the following are true:
 - [ ] Real-outcome check — if you brought your own repo, its PR template, review rules, and branch protections now improve a live review flow; if you used the sample, you can name the real repo you will harden next.
 - [ ] Adoption handover — name the repository owner, the review-flow bottleneck, the approved control to address it, and the next rollout action.
 
-> Coaches verify these via the automated hints in `COACH.md`.
+> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Add a PR template with a checklist and a "screenshots" section; confirm new PRs pre-fill it.

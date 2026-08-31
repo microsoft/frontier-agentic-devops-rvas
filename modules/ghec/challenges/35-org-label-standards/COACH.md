@@ -1,6 +1,6 @@
-# Ch35 — Organization Label Standards — Delivery Assurance
+# Ch35: Organization Label Standards Delivery Assurance
 
-This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
+Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The paired `README.md` defines the tasks, evidence, commands, and Definition of Done.
 
 ## Assurance record
 
@@ -11,7 +11,7 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: new repositories inherit a consistent label baseline and at least one existing repository has been reconciled to it.
-- **Governance controls:** Confirm the label taxonomy owner, exception process, review cadence, and evidence location in the customer register.
-- Implementation risks to verify: ask "what happens when a team wants a new label next month?" and "which labels are intentionally repository-local rather than organization defaults?"
-- Delivery lead prompts: ask "how did you prove a repository created after the change inherited the labels?" and "which old labels were merged, renamed, or retained as exceptions?"
+- Confirm that new repositories inherit the label baseline and that the team reconciled at least one existing repository.
+- **Governance controls:** Confirm the taxonomy owner, exception process, review cadence, and evidence location.
+- Ask what happens when a team requests a new label. Check which labels stay repository-local.
+- Ask for proof that a new repository inherited the labels. Check which old labels were merged, renamed, or kept as exceptions.

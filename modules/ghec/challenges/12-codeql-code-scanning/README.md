@@ -26,8 +26,7 @@
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - GHAS note: code scanning with CodeQL is free on public repos. Setup provisions the Juice Shop import as public. On private/internal repos CodeQL needs a paid Code Security license — `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns. Actions minutes are consumed by scan runs (free on public).
 
-## Customer delivery objectives
-This delivery engagement establishes:
+## What you will deliver
 - Enable CodeQL default setup and confirm an initial scan runs and produces alerts.
 - Replace it with an advanced CodeQL workflow so you control the language matrix, query suite, and triggers.
 - Target the correct language pack — `javascript-typescript` — for Juice Shop's Angular + Node/Express stack.
@@ -41,7 +40,7 @@ A GHEC customer ships a Node/Angular app with a backlog of latent vulnerabilitie
 > [!IMPORTANT]
 > Use an approved customer target (do this first)
 >
-> Default to an authorised application repository the customer organisation owns so CodeQL findings and gates persist. Complete the work on that artifact and retain the evidence, guardrails, or automation.
+> Default to an authorised application repository the customer organisation owns so CodeQL findings and gates persist. Do the work there and keep the evidence, guardrails, or automation.
 >
 > - Have a candidate? Use it everywhere this guide says `ghec-ch12-juice-shop`. Skip the Setup step below entirely.
 > - No suitable one? Use the fallback below: an OWASP Juice Shop import with known vulnerable code for controlled CodeQL validation.
@@ -60,7 +59,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch12 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch12 --org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch12-*`, idempotent, prefix-guarded teardown):
+Setup creates these resources (all names use the `ghec-ch12-*` prefix, and teardown is prefix-guarded):
 - A public repo `ghec-ch12-juice-shop` — OWASP Juice Shop imported at pinned ref `v20.0.0` (pulled from the official source, never vendored into this repo). The codebase carries real, intentional OWASP Top 10 vulnerabilities (SQLi, XSS, broken auth/JWT, path traversal, SSRF, and more).
 - A `feature/insecure-endpoint` branch with a small deliberately vulnerable change you'll open as a PR to demonstrate PR-time scanning and required-check gating.
 - A printed Next steps block telling you where to start.
@@ -114,7 +113,7 @@ existing customer register:
 - `SEC-CODE-SCANNING` — inspect the effective CodeQL workflow and required-check setting → record `approved pilot` → attach the workflow, completed analysis, triage summary, and PR-gate result as objective evidence.
 
 ## Validation / Definition of Done
-You are done when ALL of the following are true:
+**Done means:**
 - [ ] CodeQL is enabled via an advanced workflow scanning `javascript-typescript` with the `security-extended` suite (visible in `.github/workflows/codeql.yml`).
 - [ ] At least one completed CodeQL analysis exists (verifiable via the `code-scanning/analyses` API).
 - [ ] The repo has open code-scanning alerts including at least one injection/XSS finding with a readable data-flow path.
@@ -125,7 +124,7 @@ You are done when ALL of the following are true:
 - [ ] Real-outcome check — if you brought your own repo, CodeQL analysis and PR gating now protect code you actually ship; if you used the sample, you can name the application repo you will enable next.
 - [ ] Adoption handover — record the customer application and security owners, priority vulnerability class, proposed scanning control, and next approved action.
 
-> Coaches verify these via the automated hints in `COACH.md`.
+> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Add a custom CodeQL query (or a query filter) and run it through the advanced workflow.

@@ -1,6 +1,6 @@
-# Ch50 — License Compliance Workflow — Delivery Assurance
+# Ch50: License Compliance Workflow Delivery Assurance
 
-This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
+Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The paired `README.md` defines the tasks, evidence, commands, and Definition of Done.
 
 ## Assurance record
 
@@ -11,7 +11,7 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: new or changed dependencies now have a reviewable license decision path.
+- Confirm that new or changed dependencies follow a reviewable license decision path.
 - **Governance controls:** Confirm license policy owner, exception approver, expiry requirements, dependency review enforcement plan, and evidence retention location.
-- Implementation risks to verify: ask "what blocks an unreviewed prohibited license from merging?" and "how are transitive dependencies handled?"
-- Delivery lead prompts: ask "where is the dependency inventory evidence?" and "which policy changes require explicit enterprise or org owner approval?"
+- Ask what blocks an unreviewed prohibited license from merging and how the process handles transitive dependencies.
+- Ask where the dependency inventory evidence lives and which policy changes require enterprise or organization owner approval.

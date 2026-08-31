@@ -9,10 +9,9 @@ prerequisite_capabilities:
   - GitHub account
   - Basic Git and CLI usage
 description: >
-  Provision your development environment for the GitHub Agentic Workflows delivery session.
-  Open the delivery session repository in Codespaces (or a local dev container), authenticate
-  the GitHub CLI, install and verify the gh-aw extension, and run a dry-run smoke test
-  before Activity 1-01.
+  Set up the GitHub Agentic Workflows delivery environment. Open the repository in
+  Codespaces or a local dev container, authenticate the GitHub CLI, verify the gh-aw
+  extension, and run a dry-run smoke test before Activity 1-01.
 success_criteria:
   - "`gh auth status` exits 0 and shows your username"
   - "`gh --version` returns gh >= 2.x"

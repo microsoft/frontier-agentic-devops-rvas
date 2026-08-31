@@ -13,12 +13,12 @@
 
 ## Customer delivery target
 
-- Customer objective: convert an approved customer delivery pipeline into an operable GitHub Actions workflow.
-- Customer-tenant target: the selected customer repository’s imported workflow, manually resolved dependencies, runner/cost decisions, and validated PR.
-- Approval and safety boundary: create workflows, secrets, environments, or cutover changes in the customer tenant only with pipeline and repository-owner approval; a dry run uses a sample test environment and must produce a cutover proposal.
-- Records to keep: retain Importer audit/forecast reports, conversion output, validation runs, unresolved-items register, and cutover decision.
-- Adoption owner / handover: the customer pipeline owner accepts the workflow and the platform owner accepts capacity/cost and secret decisions.
-- Next action and owner: approve the first pipeline cutover window or assign the owner and date for the documented proposal.
+- **Goal:** convert an approved customer delivery pipeline into an operable GitHub Actions workflow.
+- **Target:** the selected customer repository’s imported workflow, resolved dependencies, runner/cost decisions, and validated PR.
+- **Boundary:** create workflows, secrets, environments, or cutover changes in the customer tenant only with pipeline and repository-owner approval. A dry run uses a test environment and must produce a cutover proposal.
+- **Keep:** Importer audit/forecast reports, conversion output, validation runs, unresolved-items register, and cutover decision.
+- **Owners:** the customer pipeline owner accepts the workflow. The platform owner accepts capacity, cost, and secret decisions.
+- **Next:** approve the first pipeline cutover window or assign an owner and date to the proposal.
 
 ## Prerequisites
 
@@ -34,12 +34,10 @@ Access and tooling:
 
 ## Scenario
 
-Repository migration tools such as GitHub Enterprise Importer and `ado2gh` move repository source, history, and supported metadata. They do not migrate Azure Pipelines. CI/CD migration is a separate cutover concern handled by GitHub Actions Importer.
-
-In this activity you will inventory the Azure DevOps CI/CD footprint, estimate future Actions usage, convert one pipeline locally, open a pull request with the converted workflow, and validate the migrated workflow in GitHub Actions.
+GitHub Enterprise Importer and `ado2gh` move repository source, history, and supported metadata, but not Azure Pipelines. Use GitHub Actions Importer to inventory the CI/CD footprint, estimate Actions usage, convert one pipeline, open a pull request, and validate the migrated workflow.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> **Start with an approved customer target.**
 > Default to an approved customer Azure DevOps project and pipeline. Complete the work on that source and target, retaining the workflow, settings, evidence, unresolved items, and cutover decision in the customer tenant.
 >
 > - Have a candidate? Use it everywhere this guide references the Azure DevOps project, pipeline, or target repository.

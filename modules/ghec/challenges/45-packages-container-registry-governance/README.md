@@ -1,4 +1,4 @@
-# Ch45 — Packages and Container Registry Governance
+# Ch45: Packages and Container Registry Governance
 
 > Govern GitHub Packages and GHCR container images with approved naming, visibility, access, retention, provenance, and cleanup evidence.
 
@@ -13,12 +13,12 @@
 
 ## Customer delivery target
 
-- Customer objective: prevent unmanaged package sprawl and accidental container exposure.
-- Customer-tenant target: one package namespace with approved access, visibility, metadata, and retention decisions.
-- Approval and safety boundary: package visibility changes, deletes, restores, and team access changes are explicit participant steps.
-- Records to keep: package owner, source repository, visibility, access grants, retention rule, provenance evidence, and cleanup decision.
-- Adoption owner / handover: platform engineering or supply-chain owner accepts package governance.
-- Next action and owner: apply the standard to the next package family.
+- Objective: prevent unmanaged package sprawl and accidental container exposure.
+- Delivery target: one package namespace with approved access, visibility, metadata, and retention decisions.
+- Safety boundary: package visibility, deletion, restore, and team-access changes require explicit approval.
+- Evidence: package owner, source repository, visibility, access grants, retention rule, provenance, and cleanup decision.
+- Owner: platform engineering or the supply-chain owner.
+- Next decision: apply the standard to the next package family.
 
 ## Prerequisites
 
@@ -29,7 +29,7 @@
 
 ## Scenario
 
-A customer publishes containers to GHCR, but visibility, ownership, and retention are inconsistent. You will define a package governance standard, publish a sample image under an approved namespace, connect package access to the intended repository/team, and record retention or cleanup evidence.
+A customer publishes containers to GHCR, but visibility, ownership, and retention vary. Define a package standard and publish a sample image under an approved namespace. Connect package access to the intended repository or team, then record retention or cleanup evidence.
 
 > [!IMPORTANT]
 > Use an approved customer package if one exists. If not, use the sample `ghec-ch45-*` namespace and avoid changing production package visibility or deleting production packages.

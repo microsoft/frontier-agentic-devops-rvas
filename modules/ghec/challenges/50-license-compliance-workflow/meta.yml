@@ -11,14 +11,14 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script, or an approved production repository with dependencies
-description: "Implement a license compliance workflow using dependency graph evidence, dependency review guidance, exception intake, and owner-approved policy decisions without mutating enterprise or organization license policies during setup."
+description: "Build a license compliance workflow with dependency evidence, review guidance, exception intake, and owner-approved policy decisions. Setup does not change enterprise or organization license policies."
 success_criteria:
 - A license compliance policy identifies allowed, review-required, and prohibited license families with owner, exception path, and review cadence.
 - Dependency inventory evidence is captured from dependency graph, manifests, or a customer-approved SBOM source.
 - A dependency review or equivalent pull-request checkpoint is documented for license changes.
 - A license exception issue captures package, license, usage, business owner, legal/security decision, expiry, and remediation path.
 - High-impact enterprise or organization policy changes are recorded as explicit participant steps and not performed by setup.
-- Customer-owned implementation evidence identifies authorized scope, accountable owner, relevant risk controls, handover artefact, and next rollout decision.
+- Customer evidence names the authorized scope and owner, links the relevant controls and handover record, and states the next policy decision.
 tags:
 - license-compliance
 - dependency-graph

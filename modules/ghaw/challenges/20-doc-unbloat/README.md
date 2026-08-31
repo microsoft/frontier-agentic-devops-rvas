@@ -6,28 +6,28 @@ Tier: Bonus
 
 ## Background
 
-Every project can accumulate documentation that is verbose, duplicated, outdated, or overloaded with caveats. The Documentation Unbloat workflow reviews a target document and can open focused pull requests that remove or shorten unnecessary content without rewriting the document.
+Documentation often accumulates repeated text, stale warnings, and long examples. The Documentation Unbloat workflow reviews one target document and opens a focused pull request that cuts unnecessary text without rewriting the whole file.
 
 Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/githubnext/agentics/blob/main/workflows/unbloat-docs.md)
 
-## What It Does
+## Behavior
 
 - Targets specific documentation files for simplification review
-- Identifies: redundancy, excessive hedging, outdated warnings, over-long examples
-- Opens focused PRs with verbosity removed and clarity improved
+- Finds repeated text, excessive hedging, outdated warnings, and over-long examples
+- Opens focused PRs that remove unnecessary text
 - Each PR is intentionally small (one file, one concern)
 
 > [!IMPORTANT]
 > Bring your own repo (do this first)
 >
-> This activity is most valuable when the simplification lands on documentation your team will keep maintaining. Pick a repository in an org you control with a bloated README, contributing guide, runbook, or product doc that would benefit from a focused cleanup PR.
+> Use a repository in an organization you control. Choose a README, contributing guide, runbook, or product document that the team will keep maintaining.
 >
 > - Have a candidate repo? Use it everywhere this guide references the sample repo, and target that repo's real docs with your own preservation rules, simplification criteria, and PR labels.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
 >
-> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+> Tell the facilitator which repository and document you chose.
 
-## What You'll Do
+## Steps
 
 1. Install [`gh aw`](https://github.com/github/gh-aw) (if not already done):
    ```bash
@@ -39,7 +39,7 @@ Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/git
    gh aw add-wizard https://github.com/githubnext/agentics/blob/main/workflows/unbloat-docs.md
    ```
 
-3. Identify a bloated doc in your repo — README.md, a long CONTRIBUTING.md, or any doc with "Note:", "Warning:", "Important:" every third paragraph.
+3. Choose one bloated document, such as README.md, a long CONTRIBUTING.md, or a file crowded with notes and warnings.
 
 4. Customise the workflow to target that file and define your project's simplification rules.
 
@@ -53,11 +53,11 @@ Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/git
    gh aw run unbloat-docs --dry-run
    ```
 
-7. Review the proposed PR diff — does it match what you'd have cut manually?
+7. Review the proposed PR diff. Confirm that it matches what you would cut manually.
 
-## Customize It
+## Adapt it
 
-- Set the target file explicitly in the body: _"Review `docs/getting-started.md` only"_ — single-file focus produces better diffs
+- Set one target file in the body: _"Review `docs/getting-started.md` only."_ A single-file scope produces better diffs.
 - Define what "simplify" means for your project: _"Remove duplicate notes, shorten examples to the minimum that demonstrates the point, delete any section that duplicates the README"_
 - Add PR label `docs-unbloat` so these PRs are filterable
 - Adjust the schedule or make it `workflow_dispatch` only if you want manual control
@@ -67,11 +67,11 @@ Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/git
 - [ ] `.github/workflows/unbloat-docs.md` exists with valid gh-aw frontmatter
 - [ ] Target document is explicitly named in the workflow body
 - [ ] `safe-outputs: create-pull-request` is declared
-- [ ] Simplification criteria are specific, not vague ("make it shorter" is too vague — "remove duplicate warnings and shorten code examples to one line" is good)
+- [ ] Simplification criteria are specific. For example: "Remove duplicate warnings and shorten code examples to one line."
 - [ ] `.github/workflows/unbloat-docs.lock.yml` compiles without errors
 - [ ] Dry-run proposes at least one real simplification
 - [ ] Proposed PR diff is focused (one file, clean changes)
-- [ ] Discuss where documentation bloat in your projects has pushed contributors away, and how you would keep an agent from removing something important. Connect it to a project, task, or workflow you own.
+- [ ] Using a project, task, or workflow you own, identify harmful documentation bloat and define what the agent must preserve.
 
 ---
 

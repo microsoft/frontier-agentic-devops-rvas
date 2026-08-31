@@ -1,4 +1,4 @@
-# Ch44 — Policy Drift Detection
+# Ch44: Policy Drift Detection
 
 > Deliver a repeatable drift check that compares repository reality to an approved policy baseline and records remediation decisions.
 
@@ -13,11 +13,11 @@
 
 ## Customer delivery target
 
-- Customer objective: spot repository governance drift before audits or incidents expose it.
-- Customer-tenant target: an approved baseline and a drift report for a repository cohort.
-- Approval and safety boundary: setup creates sample repositories only. Organization rulesets, default permissions, and other high-impact controls are explicit participant steps.
-- Records to keep: baseline contract, drift output, remediation/exception decisions, owner, and next automation review.
-- Adoption owner / handover: platform governance or compliance owner accepts the drift check.
+- Objective: spot repository governance drift before an audit or incident does.
+- Delivery target: an approved baseline and a drift report for a repository cohort.
+- Safety boundary: setup creates sample repositories only. Organization rulesets, default permissions, and other high-impact controls require explicit approval.
+- Evidence: baseline contract, drift output, remediation or exception decisions, owner, and next automation review.
+- Owner: platform governance or compliance.
 
 ## Prerequisites
 
@@ -27,7 +27,7 @@
 
 ## Scenario
 
-A baseline says repositories should have ownership, required files, labels, topics, and safe feature settings. Over time, repositories drift. Your job is to define the baseline, detect drift, and record remediation without silently applying broad org policy.
+A baseline defines repository ownership, required files, labels, topics, and safe feature settings. Repositories drift from it over time. Define the baseline, detect the differences, and record remediation without silently applying broad organization policy.
 
 ## Sample setup
 

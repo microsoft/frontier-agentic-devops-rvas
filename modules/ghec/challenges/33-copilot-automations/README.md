@@ -13,14 +13,14 @@
 
 ## Customer delivery target
 
-- **Customer objective:** safely automate one repetitive repository task without converting an untrusted event into an unreviewed code change.
-- **Customer-tenant target:** one approved Copilot automation in a private or internal customer repository, its evidence package, and its operating/disable decision.
-- **Approval and safety boundary:** default to **inspect-and-propose** until the customer repository owner, Copilot owner, and security owner approve the target, prompt, tools, trigger, filters, budget owner, and review path. Do not broaden repository access, enable a preview capability, grant bypasses, or include secrets in a prompt.
-- **Records to keep:** eligibility and policy evidence; automation owner; private/internal repository evidence; trigger and filter configuration; prompt and selected tools; session-log URL; outcome/PR URL; independent-review evidence; audit-log evidence; costs; and disable/rollback path.
-- **Adoption owner / handover:** the automation creator owns operation and cost; the repository owner owns repository scope and merge controls; the security owner owns the untrusted-trigger and prompt-injection decision.
-- **Next action and owner:** approve one narrowly bounded automation, retain the decision package without enablement, or schedule a licensing/policy decision with its owner and date.
+- **Goal:** safely automate one repetitive repository task without converting an untrusted event into an unreviewed code change.
+- **Target:** one approved Copilot automation in a private or internal customer repository, its evidence package, and its operating/disable decision.
+- **Boundary:** default to **inspect-and-propose** until the customer repository owner, Copilot owner, and security owner approve the target, prompt, tools, trigger, filters, budget owner, and review path. Do not broaden repository access, enable a preview capability, grant bypasses, or include secrets in a prompt.
+- **Keep:** eligibility and policy evidence; automation owner; private/internal repository evidence; trigger and filter configuration; prompt and selected tools; session-log URL; outcome/PR URL; independent-review evidence; audit-log evidence; costs; and disable/rollback path.
+- **Owners:** the automation creator owns operation and cost. The repository owner owns repository scope and merge controls. The security owner owns the untrusted-trigger and prompt-injection decision.
+- **Next:** approve one narrowly bounded automation, retain the decision package without enablement, or schedule a licensing/policy decision with its owner and date.
 
-> Independent by design. This core activity stands alone. It does not require another activity's repository, workflow, agent, or policy change.
+> This activity does not require another activity's repository, workflow, agent, or policy change.
 
 ## Prerequisites and hard gates
 

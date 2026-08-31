@@ -1,16 +1,16 @@
-# Explore the Attack Surface — Delivery Assurance
+# Explore the Attack Surface: Delivery Assurance
 
-This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
+Review this activity against the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The paired `README.md` contains the tasks, evidence, commands, and Definition of Done.
 
 ## Assurance record
 
-- **Authorized scope:** record the customer target and approving owner.
-- **Evidence:** inspect the completed Definition of Done in `README.md`; link or attach the evidence.
-- **Open risk:** record the unresolved risk and accountable owner, or `none`.
-- **Next decision:** record the handover, pilot, rollout, cutover, or follow-up action with owner and date.
+- **Authorized scope:** Name the customer target and approving owner.
+- **Evidence:** Check the Definition of Done in `README.md` and link or attach the evidence.
+- **Open risk:** Name each unresolved risk and accountable owner, or enter `none`.
+- **Next decision:** Name the next action, owner, and date.
 
 ## Session-specific reviewer focus
 
-- Customer delivery team members may confuse shared default-branch alerts with their personal branch work; remind them this activity is reconnaissance only and later PR checks...
-- Customer delivery team members often skim alert titles without opening full paths and traces; push them to inspect locations, flows, and surrounding code before summarizing.
-- Dependabot can feel separate from code scanning; frame it as another part of the same attack surface inventory.
+- Distinguish shared default-branch alerts from personal branch work. This activity maps the attack surface; later PR checks validate branch fixes.
+- Do not accept summaries based only on alert titles. Ask the team to inspect locations, traces, data flows, and surrounding code.
+- Treat Dependabot findings as part of the same attack-surface inventory as code scanning findings.

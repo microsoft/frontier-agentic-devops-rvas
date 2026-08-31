@@ -1,15 +1,17 @@
 # GHAS Module Setup
 
-The GHAS activities use [OWASP Juice Shop](https://owasp.org/www-project-juice-shop/), an intentionally vulnerable Node.js application used for hands-on web security training. The module has two environments:
+The GHAS activities use [OWASP Juice Shop](https://owasp.org/www-project-juice-shop/),
+an intentionally vulnerable Node.js application. The module uses two environments:
 
-1. Local Juice Shop runtime — where you perform manual exploit testing.
-2. Org-owned Juice Shop repository — where GitHub Advanced Security (CodeQL, Dependabot, secret scanning) runs and produces alerts.
+1. A local Juice Shop runtime for manual exploit testing.
+2. An org-owned Juice Shop repository where GitHub Advanced Security (CodeQL, Dependabot, and secret scanning) produces alerts.
 
-These are separate. You run Juice Shop locally for testing; the org repository is where GHAS features operate.
+Run Juice Shop locally for testing; use the org repository for GHAS features.
 
 ## GHAS Target Repository
 
-For Activity S00, a participant, team lead, or organizer should create the GHAS target in an org they control. GHAS reuses the shared GHEC provisioning scripts because they provide the common org setup and safety checks. Use the provided setup scripts:
+For Activity S00, a participant, team lead, or organizer creates the GHAS target
+in an org they control. Use the shared GHEC provisioning scripts:
 
 ```bash
 cd modules/ghec/resources/provisioning/scripts
@@ -25,9 +27,13 @@ cd modules/ghec/resources/provisioning/scripts
 ./setup.ps1 provision ghas-00 -Org <your-org>
 ```
 
-This creates `<your-org>/ghec-ghas-00-juice-shop`, imports the pinned Juice Shop release, commits the CodeQL and Dependabot configuration, and attempts to enable Actions, code scanning, Dependabot alerts, secret scanning, and push protection. If any feature cannot be enabled automatically, an org owner or repo admin must enable it manually in Settings → Code security and analysis.
+This creates `<your-org>/ghec-ghas-00-juice-shop`, imports the pinned Juice Shop
+release, and commits the CodeQL and Dependabot configuration. It also tries to
+enable Actions, code scanning, Dependabot alerts, secret scanning, and push
+protection. If that fails, an org owner or repo admin must enable the feature in
+Settings → Code security and analysis.
 
-After the repo is ready, manually onboard any participants or teams that need access under Settings → Collaborators and teams. Participants should clone this org repo directly and work on personal/team branches rather than forking.
+After the repo is ready, add participants or teams under Settings → Collaborators and teams. Participants should clone the org repo and work on personal or team branches. Do not fork it.
 
 ## Local Juice Shop Runtime
 
@@ -46,7 +52,7 @@ Open the provisioned Juice Shop repo in a Codespace.
 
 ### Option B: Local Docker
 
-If you want a quick local runtime without cloning the full app, run Juice Shop directly with Docker:
+To run Juice Shop locally without cloning the app, use Docker:
 
 ```bash
 docker run -p 3000:3000 bkimminich/juice-shop
@@ -54,20 +60,21 @@ docker run -p 3000:3000 bkimminich/juice-shop
 
 ### Option C: Organizer-hosted
 
-A coach or organizer can provision a shared Juice Shop instance on a cloud VM and hand out the URL to participants. This is useful when customer delivery team members do not have Docker locally or when a workshop wants a prewarmed environment for everyone.
+A coach or organizer can run Juice Shop on a cloud VM and share the URL. Use this
+option when participants lack local Docker or need a ready-to-use environment.
 
 ## Verification
 
-Open [http://localhost:3000](http://localhost:3000) if you are running locally, or open the forwarded/hosted URL if you are using Codespaces or an organizer-hosted instance. The setup is ready when the Juice Shop UI loads in the browser.
+For a local runtime, open [http://localhost:3000](http://localhost:3000). For Codespaces or an organizer-hosted instance, open the forwarded or hosted URL. Setup is complete when the Juice Shop UI loads.
 
 ## Important: GHAS Alerts Run on the Org Repository
 
-CodeQL, Dependabot, and secret scanning are configured on the org repo provisioned in S00, not on your local Juice Shop runtime. Your local or hosted Juice Shop instance is only for manual testing and exploit verification.
+CodeQL, Dependabot, and secret scanning run on the org repo provisioned in S00,
+not the local Juice Shop runtime. Use the local or hosted instance only for manual
+testing and exploit verification. Use the org repository for alerts, PR checks,
+and Security tab workflows.
 
-The alerts, PR checks, and Security tab workflows referenced in the activities come from the organization repository provisioned in S00. All GHAS features (code scanning, dependency analysis, secret detection) operate there, not on your local instance.
-
-Summary:
-- Local Juice Shop (port 3000) → manual exploit testing, learning the app
-- Org-owned Juice Shop repository → GHAS alerts, security dashboards, PR checks
+- **Local Juice Shop (port 3000):** manual exploit testing and application exploration
+- **Org-owned Juice Shop repository:** GHAS alerts, security dashboards, and PR checks
 
 See [`docs/EXTERNAL-REPOS.md`](../../docs/EXTERNAL-REPOS.md) for how Juice Shop and other external dependencies are managed and pinned.

@@ -2,7 +2,7 @@
 
 ## Learning Architecture
 
-The SRE Agent track follows an Azure-first evidence chain:
+The SRE Agent track uses this Azure-first evidence chain:
 
 ```text
 Azure SRE Agent lab prerequisites
@@ -39,11 +39,11 @@ Azure SRE Agent lab prerequisites
 | Azure SRE Agent | Investigates, summarizes evidence, suggests mitigation, correlates symptoms to code, and drafts follow-up. |
 | Platform | Supplies inspectable evidence: alerts, logs, traces, metrics, source diffs, issues, pull requests, and recovery checks. |
 
-Agent output is useful evidence, not proof by itself. Teams should validate it against Azure telemetry, runbooks, source references, or recovery checks.
+Agent output is evidence, not proof. Validate it against Azure telemetry, runbooks, source references, or recovery checks.
 
 ## Fallback Model
 
-When live Azure access is blocked, coaches should preserve the same shape:
+When live Azure access is blocked, coaches provide the same evidence chain:
 
 | Live artifact | Fallback artifact |
 | --- | --- |
@@ -54,4 +54,4 @@ When live Azure access is blocked, coaches should preserve the same shape:
 | Source connector | File/line source packet |
 | GitHub issue/PR | Simulated issue or reviewed PR packet |
 
-The fallback should still require evidence, uncertainty, human review, recovery proof, and one improvement.
+The fallback still requires evidence, stated uncertainty, human review, recovery proof, and one improvement.

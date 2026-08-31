@@ -1,6 +1,6 @@
 # Ch16 — REST & GraphQL API Automation — Delivery Assurance
 
-This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
+Use this review overlay with the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The paired `README.md` defines the tasks, evidence, commands, and Definition of Done.
 
 ## Assurance record
 
@@ -11,6 +11,6 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer implementation owner uses REST and GraphQL reads and writes to deliver an idempotent, rate-limit-aware reconciliation script.
-- Implementation risks to verify: REST and GraphQL pagination finish completely, the script respects rate limits, and a second run makes no changes.
-- Delivery lead prompts: ask "how do you know you've read every issue?" (compare the count with the total and check `pageInfo.hasNextPage`), and "what would happen if you ran this twice in a row?" (the reconcile script should make no changes).
+- Expected outcome: the customer owner uses REST and GraphQL reads and writes to build an idempotent, rate-limit-aware reconciliation script.
+- Check that REST and GraphQL pagination finish, the script respects rate limits, and a second run makes no changes.
+- Ask "how do you know you've read every issue?" (compare the count with the total and check `pageInfo.hasNextPage`) and "what happens if you run this twice?" (the reconcile script should make no changes).

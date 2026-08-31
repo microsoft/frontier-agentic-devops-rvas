@@ -1,6 +1,6 @@
 # Ch12 — Code Scanning with CodeQL & Autofix — Delivery Assurance
 
-This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
+Use this review overlay with the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The paired `README.md` defines the tasks, evidence, commands, and Definition of Done.
 
 ## Assurance record
 
@@ -11,7 +11,7 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer implementation owner stands up CodeQL scans (default and advanced), reads real vulnerability findings via their data-flow paths, applies autofix where safe, and gates merges on scan status.
+- Expected outcome: the customer owner configures CodeQL, reads vulnerability data-flow paths, reviews Autofix patches, and gates merges on scan status.
 - **Control-catalogue evidence:** Using `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`, confirm `SEC-CODE-SCANNING` is `approved pilot` only after effective-setting inspection, with workflow, analysis, triage, and PR-gate evidence.
-- Implementation risks to verify: ask "what's the path from user input to the dangerous sink?" (→ data-flow from source to sink) and "how would you prioritize alerts?" (→ critical/high first, false-positive review cadence).
-- Delivery lead prompts: ask "what exact check does the merge gate wait for?" (→ the `code-scanning/codeql` check) and "what's the cost of scanning all repos vs high-risk only?"
+- Ask "what's the path from user input to the dangerous sink?" (→ data flow from source to sink) and "how would you prioritize alerts?" (→ critical/high first, with a false-positive review cadence).
+- Ask "what exact check does the merge gate wait for?" (→ the `code-scanning/codeql` check) and "what does it cost to scan all repositories rather than only high-risk ones?"

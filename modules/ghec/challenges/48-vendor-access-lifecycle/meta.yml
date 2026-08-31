@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Operate vendor and outside-collaborator access from request through approval, least-privilege grant, periodic review, offboarding, and audit evidence."
+description: "Manage vendor and outside-collaborator access from request and approval through a least-privilege grant, periodic review, offboarding, and audit evidence."
 success_criteria:
 - A vendor access register captures business owner, repository scope, permission level, start/end dates, reviewer, and offboarding trigger.
 - Current outside collaborators and pending invitations are reviewed, or a documented API/UI limitation records how the review was performed.
@@ -19,7 +19,7 @@ success_criteria:
 - Repository permissions follow least privilege and time-bound review expectations.
 - Offboarding removes or validates removal of vendor access and records audit evidence.
 - Governance evidence records owner, approval path, review cadence, audit log evidence, exceptions, and next review.
-- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+- Customer evidence names the authorized scope and owner, links the relevant controls and handover record, and states the next access-review decision.
 tags:
 - outside-collaborators
 - vendors

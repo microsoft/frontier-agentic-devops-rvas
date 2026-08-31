@@ -1,6 +1,6 @@
 # Ch14 — SSO, SAML & SCIM Identity — Delivery Assurance
 
-This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
+Use this review overlay with the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The paired `README.md` defines the tasks, evidence, commands, and Definition of Done.
 
 ## Assurance record
 
@@ -11,7 +11,7 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer implementation owner wires a real IdP to GitHub org via SAML, proves the SCIM join/leave lifecycle, audits identity links, and demonstrates SSO-enforced access control.
+- Expected outcome: the customer owner connects an IdP to a GitHub organization through SAML, proves the SCIM join/leave lifecycle, audits identity links, and tests SSO-enforced access.
 - **Governance controls:** Confirm `ENT-IDENTITY-MODEL`, conditional `ENT-EMU-LIFECYCLE`, and applicable `ORG-SAML-SCIM` in the existing register with objective identity-lifecycle evidence.
-- Implementation risks to verify: ask "what happens to an API token the moment SAML is enforced?" (→ must authorize for SSO or token becomes invalid) and "how does HR disabling someone reach GitHub?" (→ SCIM deprovisioning removes org membership).
-- Delivery lead prompts: ask "what's the rollback plan if the IdP breaks?" (→ org owner override path, testing in non-prod first).
+- Ask "what happens to an API token when SAML is enforced?" (→ it must be authorized for SSO) and "how does HR disabling someone reach GitHub?" (→ SCIM deprovisioning removes organization membership).
+- Ask "what's the rollback plan if the IdP breaks?" (→ use the organization owner override path and test in non-production first).

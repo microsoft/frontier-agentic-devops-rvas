@@ -1,12 +1,12 @@
 # Azure SRE Agent Resources
 
-This folder contains reference material for the Azure SRE Agent track. The primary lab source is the official Microsoft repository:
+The Azure SRE Agent track uses the official Microsoft repository for the live lab:
 
 ```text
 https://github.com/microsoft/sre-agent/tree/main/labs/starter-lab
 ```
 
-The course should use the Microsoft-provided Grubify starter lab whenever live Azure access is available. Local files in this folder are supporting curriculum assets and fallback templates, not the official live lab.
+Use the Microsoft Grubify starter lab when live Azure access is available. The local files support the course and provide fallback templates; they are not the live lab.
 
 ## Resource Index
 
@@ -28,7 +28,7 @@ The course should use the Microsoft-provided Grubify starter lab whenever live A
 - Optional GitHub connector/source-code evidence.
 - Simulated issue or pull request when live GitHub remediation is unavailable.
 
-Do not commit secrets, customer data, private tenant details, or live incident data to this folder.
+**Do not commit secrets, customer data, private tenant details, or live incident data to this folder.**
 
 ## Navigation
 

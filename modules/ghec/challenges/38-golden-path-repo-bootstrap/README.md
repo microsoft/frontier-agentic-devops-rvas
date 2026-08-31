@@ -1,4 +1,4 @@
-# Ch38 — Golden-Path Repository Bootstrap
+# Ch38: Golden-Path Repository Bootstrap
 
 > Deliver a governed starter path for new repositories: template, baseline files, validation, and handover evidence.
 
@@ -13,11 +13,11 @@
 
 ## Customer delivery target
 
-- Customer objective: make new repositories start from an approved, supportable baseline.
-- Customer-tenant target: a customer-owned template or bootstrap repository and one validated repository created from it.
-- Approval and safety boundary: organization-wide defaults, member repository creation policy, and required rules are explicit participant decisions. Setup only creates namespaced sample repositories.
-- Records to keep: baseline checklist, template URL, validation snapshots, exceptions, owner, and next rollout cohort.
-- Adoption owner / handover: developer experience or platform governance owner accepts maintenance of the golden path.
+- Objective: make new repositories start from an approved, supportable baseline.
+- Delivery target: a customer-owned template or bootstrap repository and one validated repository created from it.
+- Safety boundary: organization-wide defaults, member repository creation policy, and required rules need explicit approval. Setup creates only namespaced sample repositories.
+- Evidence: baseline checklist, template URL, validation snapshots, exceptions, owner, and next rollout cohort.
+- Owner: developer experience or platform governance.
 
 ## Prerequisites
 
@@ -27,7 +27,7 @@
 
 ## Scenario
 
-Teams create repositories by copying old projects, missing ownership, support files, and baseline controls. Your job is to define a golden path that makes the first commit predictable and auditable without silently changing organization-wide settings.
+Teams create repositories by copying old projects. The copies often lack owners, support files, or baseline controls. Define a golden path that makes the first commit predictable and auditable without silently changing organization-wide settings.
 
 > [!IMPORTANT]
 > Use a real customer template repository when available. If none is approved, run the setup and use `ghec-ch38-golden-path-template` plus `ghec-ch38-bootstrap-candidate` as fallback samples.

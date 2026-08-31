@@ -2,7 +2,7 @@
 
 ## Scenario
 
-Azure SRE Agent is only useful when it has the right starting context. In this activity, you inspect the service knowledge, response plans, custom agents, and team memory that shape how it responds to Grubify incidents.
+Azure SRE Agent needs accurate context. Inspect the service knowledge, response plans, custom agents, and team memory that guide its response to Grubify incidents.
 
 ## Goals
 
@@ -19,12 +19,12 @@ Azure SRE Agent is only useful when it has the right starting context. In this a
 > [!IMPORTANT]
 > Bring your own service (do this first)
 >
-> This activity is most valuable when Azure SRE Agent learns the context for a service your team will keep operating after the session. If you have a candidate Azure workload in a subscription you control, onboard that service everywhere this guide references Grubify so its real runbooks, architecture notes, telemetry, response plans, and ownership context stay useful in your tenant.
+> Use a service your team will operate after the session if you can. Onboard it wherever this guide references Grubify so its runbooks, architecture notes, telemetry, response plans, and ownership context remain useful in your tenant.
 >
-> - Have a candidate? Inspect and improve the context for your own service: connected Azure resources, alert routes, knowledge files, response plans, custom agents, and safe team memory. Use real operational context, but do not paste secrets, private contacts, or sensitive tenant details into notes or chat.
-> - No suitable Azure service yet? Use Grubify below as the safe fallback target for practicing context onboarding.
+> - If you have a candidate, inspect and improve its connected resources, alert routes, knowledge files, response plans, custom agents, and safe team memory. Use real operational context. **Do not paste secrets, private contacts, or sensitive tenant details into notes or chat.**
+> - If you do not have a suitable service, use Grubify to practice context onboarding.
 >
-> Tell your coach which path you took — bringing your own is the goal; Grubify is the fallback.
+> Tell your coach which path you chose. **Prefer your own service; use Grubify as the fallback.**
 
 ## Inspect Connected Context
 
@@ -57,7 +57,7 @@ Summarize the HTTP 500 errors runbook and the diagnostic steps it recommends.
 Which response plan or incident route would handle a Grubify HTTP error alert?
 ```
 
-Capture the parts of the answer that are grounded in connected resources or knowledge. Mark anything vague as an open question.
+Capture claims supported by connected resources or knowledge. Mark the rest as open questions.
 
 ## Add Safe Team Memory
 
@@ -67,7 +67,7 @@ Add a small, non-sensitive memory:
 Remember that for this lab, the operator validates recovery, the reviewer approves GitHub remediation work, and the escalation handler decides whether autonomous mitigation is allowed.
 ```
 
-Do not store real personal data, private escalation contacts, secrets, or tenant-specific details.
+**Do not store personal data, private escalation contacts, secrets, or tenant-specific details.**
 
 ## Build the Context Map
 

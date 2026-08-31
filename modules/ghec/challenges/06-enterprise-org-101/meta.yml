@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Implement an authorized customer organization governance baseline: member and outside-collaborator management, base privileges, repository-creation and visibility policies, security defaults, and API-verified settings. Preserve the approved baseline, accountable owner, and handover."
+description: "Set up an authorized customer organization governance baseline: member and outside-collaborator management, base privileges, repository-creation and visibility policies, security defaults, and API-verified settings. Preserve the approved baseline, accountable owner, and handover."
 success_criteria:
 - '**Governance register initialized:** Copy and scope the register template to the customer-owned location; add rows for all org-membership, security-defaults, and workflow-permissions settings from Parts A–E.'
 - '`default_repository_permission` is `read` or `none` (verifiable: `gh api /orgs/<org> --jq ''.default_repository_permission''`).'
@@ -22,7 +22,7 @@ success_criteria:
 - Default **Actions workflow permissions** are set to read-only at the org.
 - A **before/after API diff** exists and a **`POLICY.md`/baseline doc** records every setting + rationale. Register rows include links to this evidence.
 - '`REP-DEFAULT-BRANCH` records the effective enterprise/org default-branch policy and a migration/tooling exception or inspect-and-propose proposal.'
-- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+- Customer evidence records the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - enterprise
 - organization-settings

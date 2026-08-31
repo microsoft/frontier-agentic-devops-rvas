@@ -1,8 +1,8 @@
 # Activity 00 — Environment Setup
 
-## Objectives
+## Required outcome
 
-By the end of this activity you will have:
+Complete this activity with:
 
 - A working development environment (GitHub Codespaces or local dev container)
 - An authenticated `gh` CLI session
@@ -18,12 +18,12 @@ By the end of this activity you will have:
 
 ---
 
-## Option A: GitHub Codespaces (Recommended)
+## Option A: GitHub Codespaces
 
 1. Open this repository (`microsoft/frontier-agentic-devops-rvas`) on GitHub.
 2. Click Code → Codespaces → Create codespace on main.
 3. Wait ~30 seconds for the dev container to build.
-   The `postCreate.sh` script installs `gh-aw` automatically.
+   `postCreate.sh` installs `gh-aw` automatically.
 4. When the terminal appears, continue to Authenticate the GitHub CLI below.
 
 ---
@@ -59,7 +59,7 @@ gh auth status
 
 ---
 
-## Verify Your Setup
+## Verify the setup
 
 Run each command and confirm it exits successfully:
 

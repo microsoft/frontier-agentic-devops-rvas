@@ -1,10 +1,10 @@
-# Delivery Assurance Guide — Work Package Title
+# Delivery Assurance Guide: Work Package Title
 
-> For delivery leads only. This guide contains expected evidence, risk controls, and progressive support. Do not share with customer delivery team members before they attempt the work package.
+> **For delivery leads only.** This guide lists the expected evidence, risk controls, and support prompts. Do not share it with delivery team members before they attempt the work package.
 
 ## Delivery intent
 
-REPLACE: One paragraph on the customer outcome, approved change boundary, evidence required for assurance, and accountable handover.
+REPLACE: In one paragraph, state the customer outcome, approved change boundary, required evidence, and person accountable for handover.
 
 ## Delivery checkpoints (reference)
 
@@ -21,7 +21,7 @@ At the end of this work package, verify:
 
 - REPLACE: First concrete, observable output
 - REPLACE: Second concrete, observable output
-- REPLACE: Customer owner, adoption decision, and next action
+- REPLACE: Customer owner and adoption decision, including the next action
 
 ## Delivery risks and recovery
 
@@ -35,19 +35,19 @@ Fix: REPLACE
 
 ## Progressive support
 
-Use these in order. Preserve customer ownership: give the first prompt, wait, then increase specificity only if the delivery team is blocked.
+Give these prompts in order and wait after each one. Add detail only when the delivery team is blocked, so the team keeps ownership of the work.
 
-1. Hint 1 (gentle): REPLACE — a nudge in the right direction without revealing the answer.
-2. Hint 2 (medium): REPLACE — more specific guidance.
-3. Hint 3 (specific): REPLACE — points almost directly to the solution.
+1. Hint 1 (gentle): REPLACE: Point the team in the right direction without giving the answer.
+2. Hint 2 (medium): REPLACE: Narrow the problem.
+3. Hint 3 (specific): REPLACE: Point the team close to the solution.
 
 ## Handover questions
 
-Use these to confirm the adoption decision and accountable next step:
+Use these questions to confirm the adoption decision and assign the next action:
 
 - REPLACE: Question 1
 - REPLACE: Question 2
 
 ## Delivery notes
 
-REPLACE: Any module-specific context, such as environment requirements, known GitHub org settings, approval boundaries, or rollback constraints.
+REPLACE: Add only module-specific context, such as environment requirements, known GitHub org settings, approval boundaries, or rollback constraints.

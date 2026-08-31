@@ -1,16 +1,16 @@
 # Modules
 
-This directory contains the source content for each delivery session module. The build script (`docs/build.js`) reads from here — never from `docs/` directly.
+This directory holds the source files for each delivery session module. The build script (`docs/build.js`) reads from here, not `docs/`.
 
 ## Layout
 
 ```
 modules/
-├── _TEMPLATE/           ← copy this when authoring a new challenge
+├── _TEMPLATE/           ← copy this to create a challenge
 │   └── challenge/
-│       ├── meta.yml     ← all fields with comments
-│       ├── README.md    ← customer delivery team guide template
-│       └── COACH.md     ← coach guide template
+│       ├── meta.yml     ← field template with comments
+│       ├── README.md    ← delivery team guide template
+│       └── COACH.md     ← delivery assurance guide template
 │
 ├── ghec/                ← GitHub Enterprise Cloud (52 activities)
 │   └── challenges/
@@ -33,23 +33,24 @@ modules/
 
 ## Activity Directory Naming
 
-Use a short, descriptive, kebab-case slug as the directory name. Examples:
+Use a short, descriptive kebab-case slug for each activity directory. Examples:
+
 - `01-issues-labels-projects`
 - `01-explore-attack-surface`
 - `01-morning-briefing`
 - `00-setup`
 
-The directory name is used only for human navigation. The canonical identifier is `id` in `meta.yml`.
+The directory name is for browsing. The `id` field in `meta.yml` is the canonical identifier.
 
-The curated GHAW catalog intentionally has gaps at `ghaw-04`, `ghaw-05`, `ghaw-13`, and `ghaw-15`; IDs remain stable when activities are removed.
+The curated GHAW catalog has intentional gaps at `ghaw-04`, `ghaw-05`, `ghaw-13`, and `ghaw-15`. Removing an activity does not renumber the remaining IDs.
 
-## Adding a Activity
+## Add an Activity
 
 1. Copy `_TEMPLATE/challenge/` to `modules/<moduleId>/challenges/<your-slug>/`.
-2. Fill in `meta.yml` (see [`CONTRIBUTING.md`](../CONTRIBUTING.md) for the full field contract).
-3. Write `README.md` (customer delivery team guide) and `COACH.md` (coach guide).
+2. Complete `meta.yml`. See [`CONTRIBUTING.md`](../CONTRIBUTING.md) for the field contract.
+3. Write `README.md` for the delivery team and `COACH.md` for delivery assurance.
 4. Run `node docs/build.js` to validate.
 
 ## Module Attributions
 
-For information on how external dependencies (Juice Shop, source delivery session repos, sample apps) are managed and pinned, see [`docs/EXTERNAL-REPOS.md`](../docs/EXTERNAL-REPOS.md).
+See [`docs/EXTERNAL-REPOS.md`](../docs/EXTERNAL-REPOS.md) for how the project manages and pins Juice Shop, source delivery session repositories, sample apps, and other external dependencies.

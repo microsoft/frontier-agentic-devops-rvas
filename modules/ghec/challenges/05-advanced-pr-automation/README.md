@@ -26,8 +26,7 @@
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
 - Recommended: you've done the *concepts* in Ch02 (PRs/CODEOWNERS) and Ch04 (Actions/required checks) — but this activity is independent and its setup creates everything it needs.
 
-## Customer delivery objectives
-This delivery engagement establishes:
+## What you will deliver
 - Define repository rulesets and an organization ruleset and understand how they layer with classic branch protection.
 - Require status checks, pull requests, linear history, and signed commits via rules.
 - Configure CODEOWNERS + required reviewers and bypass actors correctly.
@@ -41,7 +40,7 @@ A GHEC platform team is drowning in manual merge babysitting: pinging reviewers,
 > [!IMPORTANT]
 > Use an approved customer target (do this first)
 >
-> Default to an authorised customer repository where PR automation will remove review toil. Complete the work on that artifact and retain the evidence, guardrails, or automation.
+> Default to an authorised customer repository where PR automation will remove review toil. Do the work there and keep the evidence, guardrails, or automation.
 >
 > - Have a candidate? Use it everywhere this guide says `ghec-ch05-advanced-pr-automation`. Skip the Setup step below entirely.
 > - No suitable one? Use the fallback below: a seeded sample repo with PR automation hooks to build on.
@@ -60,7 +59,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch05 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch05 --org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch05-*`, idempotent, prefix-guarded teardown):
+Setup creates these resources (all names use the `ghec-ch05-*` prefix, and teardown is prefix-guarded):
 - A seeded repo `ghec-ch05-advanced-pr-automation` with a small app, a working CI workflow that emits a `build` status check, a populated `main`, and a `src/` + `docs/` layout for CODEOWNERS paths.
 - Several open PRs in different states (clean, failing-CI, draft, missing-owner-review) so every rule has something to act on.
 - A starter `.github/CODEOWNERS` and a placeholder `.github/pull_request_template.md`.
@@ -116,7 +115,7 @@ use `approved pilot` only for a customer-authorized live control (otherwise
   behavior.
 
 ## Validation / Definition of Done
-You are done when ALL of the following are true:
+**Done means:**
 - [ ] An active repository ruleset on `main` requires PR + ≥1 approval + code-owner review + the `build` status check + linear history, and blocks direct pushes (demonstrated).
 - [ ] CODEOWNERS is valid; a `/src/` PR auto-requests the owner; a bypass actor is configured and documented.
 - [ ] Auto-merge is enabled and a clean PR merged itself once gates passed; a failing PR did not.
@@ -129,7 +128,7 @@ You are done when ALL of the following are true:
 - [ ] Real-outcome check — if you brought your own repo, PR automation now removes a real review chore; if you used the sample, you can name the team repo where you will install it next.
 - [ ] Adoption handover — name the customer PR bottleneck, accountable owner, automation candidate, and next approved rollout action.
 
-> Coaches verify these via the automated hints in `COACH.md`.
+> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Add required signed commits to the ruleset and demonstrate a rejected unsigned push, then a passing signed one.

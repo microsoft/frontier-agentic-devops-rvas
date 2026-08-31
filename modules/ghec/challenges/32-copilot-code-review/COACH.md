@@ -1,6 +1,6 @@
 # Ch32 — Copilot Code Review — Delivery Assurance
 
-Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The paired `README.md` is the canonical task, evidence, and rollback guide.
+Review the completed work against the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md) and the paired `README.md`.
 
 ## Assurance record
 
@@ -9,7 +9,7 @@ Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The pai
 - **Open risk:** false positives, missed findings, review latency/noise, runner/network/cost exposure, or unavailable policy—with an accountable owner.
 - **Next decision:** retain manual review, approve/expand/revert a bounded automatic-review pilot, or retain the decision-package fallback.
 
-## Session-specific reviewer focus
+## Reviewer focus
 
 - Confirm the team chose a customer target first. The `ghec-ch32-*` repository is a safe fallback, not proof of customer rollout.
 - Verify that Copilot was manually requested on a PR and that a human reviewer triaged its comments. Copilot must not be represented as an approver or merge gate.

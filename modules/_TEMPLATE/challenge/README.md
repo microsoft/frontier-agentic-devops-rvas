@@ -4,13 +4,14 @@
 
 ## Customer outcome
 
-REPLACE: One sentence describing the customer-owned capability, guardrail, or workflow this work package will establish.
+REPLACE: State in one sentence the customer-owned capability, guardrail, or workflow this work package establishes.
 
 ## Prerequisites
 
-Prior work packages: _(none — this work package is self-contained)_
+Prior work packages: _(none; this work package is self-contained)_
 
 Delivery readiness:
+
 - GitHub account with organization access
 - Basic Git knowledge
 - Customer owner approval for the intended tenant change, where applicable
@@ -19,21 +20,21 @@ Delivery readiness:
 
 > Run the provision script before starting: `bash provision.sh` (or follow the environment-readiness work package for this module).
 
-REPLACE: Name the customer-owned repository, organisation setting, workflow, or operating artefact to improve. State the approval and rollback boundary. Use a provisioned fallback only when a customer target is not yet available, then record the accountable next step for applying the outcome in the customer tenant.
+REPLACE: Name the customer-owned repository, organisation setting, workflow, or operating artefact to change. Record the approver and rollback boundary. Use a provisioned fallback only when no customer target is available, then record the owner and next step for applying the outcome in the customer tenant.
 
 ## Implementation
 
 ### Step 1: REPLACE
 
-REPLACE: Describe the first step clearly. Include any GitHub UI paths, CLI commands, or YAML snippets needed.
+REPLACE: Describe the first step. Include any required GitHub UI paths, CLI commands, or YAML snippets.
 
 ### Step 2: REPLACE
 
-REPLACE: Continue with numbered steps.
+REPLACE: Add the next action.
 
 ### Step 3: REPLACE
 
-REPLACE: Keep steps granular — one action per step where possible.
+REPLACE: Keep each step to one action where possible.
 
 ## Implementation record and handover
 

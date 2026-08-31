@@ -6,28 +6,28 @@ Tier: Core
 
 ## Background
 
-CI failures often require someone to open the Actions tab, review logs, and investigate the cause. CI Doctor can assist that investigation: it fires on a failed workflow run, pulls the logs, analyses them, and opens a structured diagnostic issue with a likely cause and suggested next step.
+CI Doctor runs after a failed workflow. It fetches the logs and opens a diagnostic issue with a likely cause and suggested next step.
 
 Source: [`githubnext/agentics/workflows/ci-doctor.md`](https://github.com/githubnext/agentics/blob/main/workflows/ci-doctor.md)
 
-## What It Does
+## Behavior
 
 - Triggers on `on: workflow_run` when a target CI workflow completes with `conclusion: failure`
 - Fetches the run logs from the GitHub API
-- Analyses log output for the failure pattern (compile error, test failure, flaky test, etc.)
-- Opens a `create-issue` with structured root-cause analysis and a suggested remediation
+- Reads the logs to identify compile errors, test failures, flaky tests, and other failure patterns
+- Opens a `create-issue` with the likely root cause and a suggested fix
 
 > [!IMPORTANT]
 > Bring your own repo (do this first)
 >
-> This activity is most valuable when CI Doctor investigates failures from CI your team already depends on. Pick a repository in an org you control with real build, test, or deployment workflows whose logs are worth turning into diagnostic issues.
+> Use a repository in an organization you control. Choose one with build, test, or deployment workflows that the team already depends on.
 >
 > - Have a candidate repo? Use it everywhere this guide references the sample repo, and configure the workflow to watch that repo's real CI workflow names, branches, logs, and failure patterns.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
 >
-> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+> Tell the facilitator which repository and workflows you chose.
 
-## What You'll Do
+## Steps
 
 1. Install [`gh aw`](https://github.com/github/gh-aw) (if not already done):
    ```bash
@@ -39,9 +39,9 @@ Source: [`githubnext/agentics/workflows/ci-doctor.md`](https://github.com/github
    gh aw add-wizard https://github.com/githubnext/agentics/blob/main/workflows/ci-doctor.md
    ```
 
-3. Inspect the frontmatter — note how the [`workflow_run` event](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#workflow_run) names the workflows it watches, and what `workflows:` / `types: [completed]` + a condition on `conclusion` looks like.
+3. Inspect the frontmatter. Note how the [`workflow_run` event](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#workflow_run) names watched workflows and combines `types: [completed]` with a `conclusion` check.
 
-4. Customise for your repo — change `workflows:` to list the actual CI workflow names you want to watch (e.g., `[CI, tests, build]`).
+4. Change `workflows:` to list the exact CI workflow names you want to watch, such as `[CI, tests, build]`.
 
 5. Compile:
    ```bash
@@ -52,11 +52,11 @@ Source: [`githubnext/agentics/workflows/ci-doctor.md`](https://github.com/github
 
 7. Commit both the workflow and its `.lock.yml`.
 
-## Customize It
+## Adapt it
 
 - Change the `workflows:` list to name exactly the CI workflows you want to monitor (use the exact workflow name from your `.github/workflows/` files)
 - Tune the diagnostic prompt: add repo-specific context like "this repo uses Node 20" or "tests run with vitest"
-- Adjust the issue template — add labels, assignees, or project board routing to the `create-issue` output
+- Adjust the issue template by adding labels, assignees, or project board routing to `create-issue`
 - Set `branches: [main]` if you only want to watch failures on main (not every branch)
 
 ## Success Criteria
@@ -68,7 +68,7 @@ Source: [`githubnext/agentics/workflows/ci-doctor.md`](https://github.com/github
 - [ ] `.github/workflows/ci-doctor.lock.yml` compiles without errors
 - [ ] Intentional CI failure causes Doctor to open a diagnostic issue
 - [ ] Issue contains: failure summary, likely root cause, suggested fix
-- [ ] Discuss how much time your team loses investigating broken CI by hand, and how far you would trust an agent's root-cause diagnosis before a human confirms the fix. Connect it to a project, task, or workflow you own.
+- [ ] Using a project, task, or workflow you own, estimate the cost of manual CI diagnosis and define how far you would trust the agent before human confirmation.
 
 ---
 

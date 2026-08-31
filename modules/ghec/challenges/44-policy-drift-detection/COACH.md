@@ -1,4 +1,4 @@
-# Ch44 — Policy Drift Detection — Delivery Assurance
+# Ch44: Policy Drift Detection Delivery Assurance
 
 Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); `README.md` is canonical.
 
@@ -11,7 +11,7 @@ Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); `README
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer can detect and triage drift repeatedly.
-- **Governance controls:** verify broad policy enforcement is not hidden in setup.
-- Implementation risks to verify: ask how exceptions expire and how false positives are handled.
-- Delivery prompts: ask for the drift report and proof of one safe remediation or approved exception.
+- Confirm that the customer can run the drift check and triage its results again.
+- **Governance controls:** Verify that setup does not hide broad policy enforcement.
+- Ask how exceptions expire and how the team handles false positives.
+- Ask for the drift report and proof of one safe remediation or approved exception.

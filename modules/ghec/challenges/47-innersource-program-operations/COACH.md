@@ -1,4 +1,4 @@
-# Ch47 — InnerSource Program Operations — Delivery Assurance
+# Ch47: InnerSource Program Operations Delivery Assurance
 
 Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is canonical for tasks and Definition of Done.
 
@@ -11,6 +11,6 @@ Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the pai
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: contributors can discover ready work and maintainers have an operating model.
-- Governance controls: confirm no setup step weakened access, branch protection, or review requirements.
-- Prompts: ask "who responds to a first-time contributor?" and "which metric proves this program is working?"
+- Confirm that contributors can find ready work and that maintainers have a clear operating model.
+- **Governance controls:** Confirm that setup did not weaken access, branch protection, or review requirements.
+- Ask who responds to a first-time contributor and which metric shows whether the program works.

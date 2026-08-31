@@ -26,8 +26,7 @@
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - No GHAS or Codespaces required. Enterprise audit-log streaming is awareness-only here (see callout) — the real, gradable work uses the org audit log + API.
 
-## Customer delivery objectives
-This delivery engagement establishes:
+## What you will deliver
 - Read the organization audit log and understand its event model (actor, action, timestamp, repo).
 - Use the audit-log search syntax (`action:`, `actor:`, `created:`, `repo:`) to answer real investigative questions.
 - Query the audit log via the REST API (`gh api /orgs/<org>/audit-log`) with phrase filters and pagination.
@@ -41,7 +40,7 @@ A GHEC customer's security team asks the question every audit eventually asks: *
 > [!IMPORTANT]
 > Use an approved customer target (do this first)
 >
-> Default to an authorised customer audit question or repository where known events can be generated and investigated. Complete the work on that artifact and retain the evidence, guardrails, or automation.
+> Default to an authorised customer audit question or repository where known events can be generated and investigated. Do the work there and keep the evidence, guardrails, or automation.
 >
 > - Have a candidate? Use it everywhere this guide says `ghec-ch09-audit-target`. Skip the Setup step below entirely.
 > - No suitable one? Use the fallback below: a seeded audit-target repo and auditors team for safe event generation.
@@ -60,7 +59,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch09 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch09 --org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch09-*`, idempotent, prefix-guarded teardown):
+Setup creates these resources (all names use the `ghec-ch09-*` prefix, and teardown is prefix-guarded):
 - A seeded repo `ghec-ch09-audit-target` with a populated `main` — a safe object to perform auditable actions against.
 - A starter team `ghec-ch09-auditors` so team-membership and permission-change events have somewhere to land.
 - A printed "recent activity" sample (the last few org audit events pulled from the API) so you can see the shape of an event immediately.
@@ -116,7 +115,7 @@ request, and the reason; complete the organization export work normally.
 - `AUD-IP-DISPLAY`: inspect the enterprise IP-address-display decision and retain the privacy and investigation rationale.
 
 ## Validation / Definition of Done
-You are done when ALL of the following are true:
+**Done means:**
 - [ ] You can pull recent org audit events from the API (`gh api /orgs/<org>/audit-log` returns events with `action`/`actor`/`created_at`).
 - [ ] A known event set was generated in Part B and every action is findable via search or API.
 - [ ] At least three distinct search filters (`action:`, `actor:`, `repo:`, or `created:`) were used and produced correct results.
@@ -127,7 +126,7 @@ You are done when ALL of the following are true:
 - [ ] Real-outcome check — if you brought your own audit target, you now have real filters, evidence, or export scripts for an investigation you care about; if you used the sample, you can name the audit question you will answer next.
 - [ ] Adoption handover — record the customer operations owner, first alert or anomaly query, evidence-retention path, and next approved action.
 
-> Coaches verify these via the automated hints in `COACH.md`.
+> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Extend the export script to emit CSV (actor, action, created_at, repo) suitable for a spreadsheet or SIEM import.

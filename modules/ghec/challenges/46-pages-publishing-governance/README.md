@@ -1,4 +1,4 @@
-# Ch46 — Pages Publishing Governance
+# Ch46: Pages Publishing Governance
 
 > Deliver an approved operating model for GitHub Pages publishing: org policy decision, repo publishing configuration, and evidence for visibility, ownership, exceptions, and rollback.
 
@@ -13,12 +13,12 @@
 
 ## Customer delivery target
 
-- Customer objective: prevent unmanaged Pages publication while enabling approved documentation sites.
-- Customer-tenant target: an approved organization Pages policy and one repository-level publishing proof.
-- Approval and safety boundary: organization Pages publication settings are org-wide controls. Change them only as an explicit participant step with org-owner approval; setup never mutates them.
-- Records to keep: before/after policy snapshots, site URL, source or workflow evidence, exception decision, rollback owner, and next review.
-- Adoption owner / handover: the platform governance or developer experience owner accepts Pages publishing operations.
-- Next action and owner: approve rollout, publish the first production site, or review exceptions.
+- Objective: prevent unmanaged Pages publication while allowing approved documentation sites.
+- Delivery target: an approved organization Pages policy and one repository-level publishing proof.
+- Safety boundary: organization Pages settings are org-wide controls. Change them only with org-owner approval; setup never changes them.
+- Evidence: before/after policy snapshots, site URL, source or workflow run, exception decision, rollback owner, and next review.
+- Owner: platform governance or developer experience.
+- Next decision: approve rollout, publish the first production site, or review exceptions.
 
 ## Prerequisites
 
@@ -29,7 +29,7 @@
 
 ## Customer delivery objectives
 
-This delivery engagement establishes:
+You will:
 
 - Inspect the current organization Pages publication policy.
 - Decide who may publish Pages sites and which visibilities are allowed.
@@ -39,7 +39,7 @@ This delivery engagement establishes:
 
 ## Scenario
 
-A customer wants to use GitHub Pages for engineering documentation, but org owners need guardrails before sites appear under the organization namespace. Your job is to capture the current policy, agree the allowed publishing model, configure one approved repository, and preserve evidence that the site can be operated safely.
+A customer wants to use GitHub Pages for engineering documentation. Organization owners need clear controls before sites appear under the organization namespace. Capture the current policy, agree on the publishing model, configure one approved repository, and keep evidence that operators can publish and roll back the site safely.
 
 > [!IMPORTANT]
 > Use an approved customer target first. If you have a real documentation repository, use it and skip setup. If not, use the fallback `ghec-ch46-pages-site` repository created by setup. Do not change organization Pages settings without explicit approval.
@@ -53,7 +53,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch46 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch46 --org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch46-*`, idempotent, prefix-guarded teardown):
+Setup is idempotent and creates only these namespaced artifacts. Teardown accepts only the `ghec-ch46-*` prefix.
 
 - `ghec-ch46-pages-site` with starter static content under `docs/`.
 - A governance issue listing the policy decision to complete.

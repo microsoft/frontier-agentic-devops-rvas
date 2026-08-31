@@ -11,14 +11,14 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Create a governed golden-path repository bootstrap: an approved template, baseline files, ownership evidence, and a repeatable first-repository validation."
+description: "Create a governed repository bootstrap with an approved template, baseline files, ownership evidence, and a repeatable validation."
 success_criteria:
 - A golden-path bootstrap standard exists with owner, scope, required repository settings, files, and exception path.
 - The sample template repository contains baseline README, CODEOWNERS, issue form, pull request template, and starter workflow guidance.
 - A new repository is created from the approved template or a customer-owned equivalent.
 - The new repository is validated against the baseline and gaps are recorded with owners.
 - High-impact organization defaults or member-creation controls are changed only as explicit participant-approved steps, not by setup.
-- Customer-owned implementation evidence identifies authorized scope, accountable owner, handover artifact, and next rollout decision.
+- Customer evidence names the authorized scope and owner, links the handover record, and states the next rollout decision.
 tags:
 - repository-templates
 - bootstrap

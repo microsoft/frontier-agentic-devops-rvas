@@ -1,14 +1,14 @@
 # Agentic SDLC Practices
 
-This note connects the delivery session path to The Agentic SDLC Handbook without adding a separate lecture track. Use it as a coach reference when teams need language for responsible agent-assisted delivery.
+This coach reference maps the session to The Agentic SDLC Handbook without adding a separate lecture.
 
 ## Handbook Integration
 
 - External reference: [The Agentic SDLC Handbook](https://danielmeppiel.github.io/agentic-sdlc-handbook/)
-- Workshop anchor: keep every agent-assisted step tied to a GitHub issue, pull request, review, deployment signal, or incident artifact.
-- Delivery stance: prefer small, reviewable changes with visible human ownership over broad autonomous rewrites.
-- Operating warning: document team knowledge before granting an agent more autonomy.
-- Treat instructions, agents, skills, prompts, memory, specifications, coordination rules, and hooks as versioned artifacts that can be reviewed and tested.
+- Tie each agent-assisted step to a GitHub issue, pull request, review, deployment signal, or incident artifact.
+- Prefer small changes with a clear human owner. Avoid broad autonomous rewrites.
+- Document team knowledge before granting an agent more autonomy.
+- Version instructions, agents, skills, prompts, memory, specifications, coordination rules, and hooks. Teams can then review and test them.
 
 ## Where It Fits
 

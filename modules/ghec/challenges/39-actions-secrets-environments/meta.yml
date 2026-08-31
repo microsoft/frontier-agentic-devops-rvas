@@ -11,14 +11,14 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Govern GitHub Actions secrets and deployment environments: inventory current usage, move deployment credentials behind protected environments, and produce ownership and rotation evidence without exposing secret values."
+description: "Inventory GitHub Actions secrets, move deployment credentials behind protected environments, and record ownership and rotation without exposing secret values."
 success_criteria:
 - Repository and organization secret inventory records names, scopes, owners, rotation cadence, and consumers without recording secret values.
 - Deployment credentials are moved to protected environments with reviewers, branch restrictions, and wait timers where appropriate.
 - Workflow jobs reference environment-scoped secrets only after the environment protection gate.
 - A test deployment demonstrates that unauthorized branches or missing reviewers cannot access production secrets.
 - Governance evidence records owners, exception path, rotation dates, and next review.
-- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+- Customer evidence names the authorized scope and owner, links the relevant controls and handover record, and states the next rollout decision.
 tags:
 - actions
 - secrets

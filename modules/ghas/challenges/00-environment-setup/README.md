@@ -1,22 +1,17 @@
-# Activity S00 — Environment Setup
+# Activity S00: Environment Setup
 
 ## Objectives
 
-By the end of this activity, the delivery team will have:
+Finish this activity with:
 
-- Selected a real repository or service to govern, or recorded OWASP Juice Shop as the fallback practice target
-- Recorded GHAS configuration, scope, and ownership in `modules/ghas/resources/ghas-governance-practice.template.md`
-- Defined the in-scope repository or service, its criticality, enabled and missing GHAS capabilities, and accountable roles
-- Recorded the repository or service owner, security partner, and delivery team accountable for the baseline
-- Recorded initial agentic delivery principles: least privilege; humans remain accountable for approval and merge; and agent-originated changes receive normal GHAS and PR validation
-- Recorded access or licensing blockers with an owner and target date
-- A Juice Shop repository pushed into an org the team controls when using the fallback
-- GHAS features enabled on the target repository, or missing capabilities recorded for follow-up
-- Any needed delivery team members manually onboarded to the repository
-- A working development environment (GitHub Codespaces or local clone)
-- OWASP Juice Shop running on port 3000 (for manual exploit testing)
-- An authenticated `gh` CLI session
-- A personal or team working branch created and pushed to the org repo
+- Select a real repository or service to govern, or record OWASP Juice Shop as the fallback practice target
+- Record the target, criticality, GHAS capability status, accountable roles, and access or licensing blockers in `modules/ghas/resources/ghas-governance-practice.template.md`
+- Record least privilege, human accountability for approval and merge, and normal GHAS and PR validation for agent-originated changes
+- When using the fallback, push a Juice Shop repository into an org the team controls and add the required participants
+- Enable GHAS features on the target repository, or record missing capabilities for follow-up
+- Prepare a working GitHub Codespaces or local development environment with an authenticated `gh` CLI session
+- Run OWASP Juice Shop on port 3000 for manual exploit testing
+- Create and push a personal or team working branch to the org repository
 
 ---
 
@@ -28,7 +23,7 @@ By the end of this activity, the delivery team will have:
 - GitHub Advanced Security available for the repository visibility you choose
 - GitHub Copilot license assigned
 
-> Own-org workflow: Do not rely on a preconfigured Microsoft or instructor repo.
+> **Own-org workflow:** Do not rely on a preconfigured Microsoft or instructor repo.
 > A participant, team lead, or organizer pushes Juice Shop into an org they control,
 > enables GHAS features there, then manually adds any participants or teams that need
 > repo access.
@@ -37,9 +32,8 @@ By the end of this activity, the delivery team will have:
 
 ## Record GHAS Configuration and Ownership
 
-Before treating setup as complete, create the first governance record in
-`modules/ghas/resources/ghas-governance-practice.template.md`. This is delivery
-record, not a setup checklist. Record:
+Before marking setup complete, create the first governance record in
+`modules/ghas/resources/ghas-governance-practice.template.md`. Record:
 
 - the real repository or service selected for this work, or Juice Shop as the fallback;
 - the in-scope repository or service and its criticality;
@@ -50,19 +44,18 @@ record, not a setup checklist. Record:
   validation; and
 - every access or licensing blocker, its owner, and its target date.
 
-Use the rest of this activity to complete that record. If the selected real
-repository is not ready for hands-on work, use the Juice Shop repository below as the
-practice fallback and keep the real repository or service recorded as the delivery
-scope.
+Update the record as you work. If the selected repository is not ready for hands-on
+work, use Juice Shop for practice but keep the real repository or service as the
+recorded delivery scope.
 
 ---
 
 ## Create the GHAS Target Repository
 
-Use the provided provisioning script from this curriculum repo. It imports the pinned
-OWASP Juice Shop release into your org, commits the CodeQL and Dependabot configuration,
-and attempts to enable Actions, code scanning, Dependabot alerts, secret scanning, and
-secret scanning push protection.
+Use the provisioning script in this curriculum repo. It imports the pinned OWASP
+Juice Shop release into your org and commits the CodeQL and Dependabot configuration.
+It then tries to enable Actions, code scanning, Dependabot alerts, secret scanning,
+and secret scanning push protection.
 
 ### macOS/Linux/Git Bash
 
@@ -88,9 +81,9 @@ The default repository name is:
 <your-org>/ghec-ghas-00-juice-shop
 ```
 
-If a feature cannot be enabled by automation because the org lacks the license or the
-authenticated user lacks permission, the script prints a warning. In that case, an org
-owner or repo admin must enable it manually in Settings → Code security and analysis.
+If the org lacks a license or the authenticated user lacks permission, the script
+prints a warning. An org owner or repo admin must then enable the feature in
+Settings → Code security and analysis.
 
 After provisioning, manually add any participants who need access:
 
@@ -98,7 +91,7 @@ After provisioning, manually add any participants who need access:
 2. Add the participant, team, or outside collaborator with the access level your event needs.
 3. Ask each participant to clone this org repo directly and work on a personal or team branch.
 
-> Branch workflow (not fork): This module uses the org repo you just created. Do not fork.
+> **Branch workflow (do not fork):** This module uses the org repo you just created.
 > Clone directly and work on a personal branch. Use `team-{your-team-name}/challenge-work`
 > for teams, or `participant/{your-name}` for individual participants.
 
@@ -106,7 +99,7 @@ After provisioning, manually add any participants who need access:
 
 ## Option A: GitHub Codespaces (Recommended)
 
-The fastest path — nothing to install locally.
+This option requires no local installation.
 
 1. Open the org repository created above on github.com.
 2. Click Code → Codespaces → Create codespace on main.
@@ -131,7 +124,7 @@ If you prefer working locally, use Git and Node.js directly.
 
 ## Authenticate the GitHub CLI
 
-Your container does not have your GitHub credentials pre-loaded. Run:
+Your container does not have your GitHub credentials. Run:
 
 ```bash
 gh auth login
@@ -164,15 +157,16 @@ git push -u origin participant/{your-github-handle}
 
 ## Start Juice Shop (Local Runtime)
 
-All GHAS activities work with OWASP Juice Shop for manual exploit testing. Because the setup script imports Juice Shop into your org repo, run the app from the repository root:
+The GHAS activities use OWASP Juice Shop for manual exploit testing. Run the app
+from the root of the repository created by the setup script:
 
 ```bash
 npm install
 npm start
 ```
 
-Juice Shop will be available at port 3000. In Codespaces, GitHub automatically
-port-forwards it — click the Ports tab and open the forwarded URL. Locally, open
+Juice Shop runs on port 3000. In Codespaces, GitHub forwards the port
+automatically. Open the Ports tab and select the forwarded URL. Locally, open
 `http://localhost:3000` in your browser.
 
 Confirm you see the Juice Shop storefront before moving on.
@@ -181,9 +175,9 @@ Confirm you see the Juice Shop storefront before moving on.
 
 ## Important: GHAS Alerts vs. Local Runtime
 
-Your local Juice Shop instance is for manual testing and learning the app — it has no GHAS alerts. 
-
-GHAS alerts (CodeQL, Dependabot, secret scanning) run on the org repository you provisioned in this activity. All activities reference alerts from that repo, not your local Juice Shop runtime.
+The local Juice Shop instance is only for manual testing and application
+exploration. CodeQL, Dependabot, and secret scanning alerts run on the org
+repository provisioned in this activity.
 
 See [`modules/ghas/setup.md`](../../setup.md) for details on how these two environments work together.
 
@@ -211,11 +205,11 @@ git log --oneline -1
 Then open `http://localhost:3000` (or the Codespaces-forwarded URL) and confirm the
 Juice Shop homepage loads.
 
-> Successful commands alone do not complete this activity. Before moving on, confirm the
-> GHAS configuration and ownership record names the target and criticality, captures GHAS capability status
-> and accountable roles, records the agentic delivery principles, and assigns every
-> access or licensing blocker an owner and target date. See Common Blockers in the
-> coach guide when setup cannot yet be completed.
+> **Commands alone do not complete this activity.** Before moving on, confirm the
+> governance record names the target and criticality, captures GHAS capability
+> status and accountable roles, records the agentic delivery principles, and
+> assigns every access or licensing blocker an owner and target date. See Common
+> Blockers in the coach guide when setup cannot yet be completed.
 
 ## Success Criteria
 

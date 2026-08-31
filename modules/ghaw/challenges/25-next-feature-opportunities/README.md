@@ -8,15 +8,12 @@ Tier: Core
 
 ## Background
 
-Teams often have code, requests, and delivery-session feedback spread across a
-repository without a repeatable way to turn that evidence into an ordered
-product-improvement conversation. This workflow reviews repository evidence on
-a weekly schedule and creates one current issue with only grounded,
-actionable feature opportunities.
+Product evidence often sits across code, issues, and delivery-session feedback.
+This workflow reviews that evidence each week and creates one current issue with
+specific feature opportunities.
 
-The workflow is intentionally read-only. It cannot edit the product or
-backlog directly: `safe-outputs` creates a reviewable issue, and the team
-decides whether to turn any recommendation into planned work.
+The workflow has read-only access. `safe-outputs` creates a reviewable issue,
+and the team decides whether a recommendation becomes planned work.
 
 > [!IMPORTANT]
 > Bring your own repository first

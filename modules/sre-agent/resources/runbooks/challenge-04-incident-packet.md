@@ -27,7 +27,7 @@ At `<timestamp>`, Azure Monitor detected elevated failures for the Grubify order
 
 ## Azure SRE Agent Transcript
 
-Provide a sanitized transcript or summary showing:
+Provide a sanitized transcript or summary with:
 
 - evidence gathered;
 - likely cause;
@@ -45,7 +45,7 @@ If source context is included:
 
 ## Expected Participant Outcome
 
-Teams should finish with:
+Teams produce:
 
 - incident timeline;
 - evidence-backed likely cause;

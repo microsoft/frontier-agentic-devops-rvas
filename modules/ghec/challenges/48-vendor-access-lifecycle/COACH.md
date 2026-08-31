@@ -1,4 +1,4 @@
-# Ch48 — Vendor Access Lifecycle — Delivery Assurance
+# Ch48: Vendor Access Lifecycle Delivery Assurance
 
 Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is canonical for tasks and Definition of Done.
 
@@ -11,6 +11,6 @@ Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the pai
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: vendor access is requestable, reviewable, and removable through an owned process.
-- Governance controls: confirm setup did not invite or remove users and did not mutate org-wide collaborator settings.
-- Prompts: ask "what expires next?" and "where is the audit evidence that access was removed or still approved?"
+- Confirm that an owned process covers vendor requests, reviews, and removals.
+- **Governance controls:** Confirm that setup did not invite or remove users or change organization-wide collaborator settings.
+- Ask which access expires next and where the audit evidence shows that access was removed or remains approved.

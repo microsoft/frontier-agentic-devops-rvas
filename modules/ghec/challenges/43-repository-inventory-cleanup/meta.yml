@@ -11,14 +11,14 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Build a repository inventory cleanup workflow: discover repositories, identify ownership and metadata gaps, triage cleanup decisions, and record evidence."
+description: "Build a repository inventory, find ownership and metadata gaps, decide cleanup actions, and record the evidence."
 success_criteria:
 - Repository inventory fields are defined for owner, purpose, visibility, lifecycle state, topics, risk, and cleanup decision.
 - A sample or customer cohort is exported and reviewed for missing metadata, duplicate purpose, and unowned repositories.
 - Cleanup decisions are recorded with owner, approval, and next action.
 - Safe metadata improvements are applied to at least one repository.
 - Archive/delete/transfer and org-level settings are explicit participant-approved steps, not setup mutations.
-- Customer-owned implementation evidence identifies authorized scope, accountable owner, handover artifact, and next cleanup cohort.
+- Customer evidence names the authorized scope and owner, links the handover record, and states the next cleanup cohort.
 tags:
 - repository-inventory
 - cleanup

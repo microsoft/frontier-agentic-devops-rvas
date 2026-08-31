@@ -12,14 +12,14 @@ prerequisite_capabilities:
 - jq installed
 - Container tooling such as Docker or Podman for the participant validation step
 - Repository provisioned via activity setup script
-description: "Govern GitHub Packages and GHCR container images: define package visibility, access, retention, provenance, and cleanup controls for organization-owned artifacts."
+description: "Define visibility, access, retention, provenance, and cleanup controls for organization-owned GitHub Packages and GHCR images."
 success_criteria:
 - Package governance standard records approved visibility, access model, naming, retention, provenance, and deletion/restore process.
 - A sample container image is published to GHCR by the participant under the approved `ghec-ch45-*` namespace.
 - Package access is connected to the intended repository or team and avoids unintended public exposure.
 - Container package metadata, README, labels, and version tags meet the approved standard.
 - Cleanup or retention evidence records what is deleted, retained, or transferred and why.
-- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+- Customer evidence names the authorized scope and owner, links the relevant controls and handover record, and states the next package rollout decision.
 tags:
 - packages
 - ghcr

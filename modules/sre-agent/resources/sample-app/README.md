@@ -1,6 +1,6 @@
 # Sample App
 
-This tiny Node.js service anchors the delivery session story: participants can make an AI-assisted code change, validate it locally, ship it through CI/CD, and then investigate a simulated checkout incident during the SRE activity. It has no runtime dependencies and uses Node's built-in test runner so it works cleanly on a laptop, in Codespaces, or in CI.
+This small Node.js service supports the delivery session. Participants can make an AI-assisted change, validate it locally, ship it through CI/CD, and investigate a simulated checkout incident. It has no runtime dependencies, uses Node's built-in test runner, and runs on a laptop, in Codespaces, or in CI.
 
 ## Run Locally
 
@@ -21,7 +21,7 @@ npm test
 
 ## Incident Mode
 
-The controlled incident activity can simulate a production symptom by setting `INCIDENT_MODE` before starting the service:
+Set `INCIDENT_MODE` before starting the service to simulate a production symptom:
 
 ```bash
 INCIDENT_MODE=checkout_latency npm start

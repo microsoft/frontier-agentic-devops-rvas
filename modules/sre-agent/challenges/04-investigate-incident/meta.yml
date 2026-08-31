@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - Azure SRE Agent portal access
   - Grubify deployed or fallback evidence packet available
   - Azure Monitor and Log Analytics basics
-description: Trigger the official Grubify break scenario, observe Azure Monitor incident routing, and use Azure SRE Agent to investigate runtime evidence before accepting any remediation.
+description: Trigger the official Grubify failure, observe Azure Monitor incident routing, and inspect runtime evidence with Azure SRE Agent before accepting remediation.
 success_criteria:
   - A controlled Grubify failure is triggered or represented through fallback evidence.
   - The team captures the starting symptom, timestamp, alert, and affected user action.

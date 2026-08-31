@@ -1,6 +1,6 @@
 # Ch15 — Security Campaigns & Overview — Delivery Assurance
 
-This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
+Use this review overlay with the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The paired `README.md` defines the tasks, evidence, commands, and Definition of Done.
 
 ## Assurance record
 
@@ -11,7 +11,7 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer implementation owner moves from "we have alerts" to "we run a security program" — measures coverage, prioritizes risky repos, and communicates remediation deadlines.
+- Expected outcome: the customer owner measures coverage, prioritizes risky repositories, and assigns remediation deadlines.
 - **Control-catalogue evidence:** Using `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`, confirm `SEC-SECURITY-CAMPAIGNS` is `approved pilot` only after effective-setting inspection, with coverage/risk, campaign, and remediation evidence.
-- Implementation risks to verify: ask "what's the difference between a repo being covered and being risky?" (→ covered means scans run, risky means high-severity findings or compliance scope) and "how would a developer know which alerts to fix by when?" (→ labeled by severity + SLA).
-- Delivery lead prompts: ask "what repos are you covering first?" (→ customer-prioritized based on risk) and "what's your backlog priority?" (→ critical/high findings, then medium, then tech-debt).
+- Ask "what's the difference between a repo being covered and being risky?" (→ covered means scans run; risky means high-severity findings or compliance scope) and "how would a developer know which alerts to fix by when?" (→ severity labels and an SLA).
+- Ask "which repositories are you covering first?" (→ customer priority based on risk) and "what's the backlog order?" (→ critical and high findings before medium findings and technical debt).

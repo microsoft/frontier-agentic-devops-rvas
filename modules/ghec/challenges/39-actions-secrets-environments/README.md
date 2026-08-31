@@ -1,4 +1,4 @@
-# Ch39 — Actions Secrets and Environments
+# Ch39: Actions Secrets and Environments
 
 > Govern deployment secrets by moving them behind protected GitHub Actions environments and recording ownership, rotation, and access evidence.
 
@@ -13,12 +13,12 @@
 
 ## Customer delivery target
 
-- Customer objective: prevent broad repository secrets from being available to every workflow path.
-- Customer-tenant target: one authorized repository with environment-scoped deployment secrets and protection rules.
-- Approval and safety boundary: do not read or copy secret values; change customer secrets and production environment rules only with explicit owner approval.
-- Records to keep: secret inventory by name/scope/owner, environment protection settings, workflow evidence, exceptions, and rotation dates.
-- Adoption owner / handover: platform security or DevOps owner accepts ongoing secret and environment governance.
-- Next action and owner: choose the next repository cohort for secret migration.
+- Objective: prevent broad repository secrets from being available to every workflow path.
+- Delivery target: one authorized repository with environment-scoped deployment secrets and protection rules.
+- Safety boundary: do not read or copy secret values. Change customer secrets and production environment rules only with owner approval.
+- Evidence: secret inventory by name, scope, and owner; environment protection settings; workflow evidence; exceptions; and rotation dates.
+- Owner: platform security or DevOps.
+- Next decision: choose the next repository cohort for secret migration.
 
 ## Prerequisites
 
@@ -29,7 +29,7 @@
 
 ## Scenario
 
-A deployment workflow currently uses repository-level secrets. Any workflow job that can reference those names can attempt to use production credentials. Your task is to inventory secrets without exposing values, create protected environments, move deployment credentials to environment scope, and prove that production access is gated by reviewers and branch rules.
+A deployment workflow uses repository-level secrets. Any job that can reference those names can try to use production credentials. Inventory the secrets without exposing values. Move deployment credentials to protected environments, then prove that reviewers and branch rules gate production access.
 
 > [!IMPORTANT]
 > Use an approved customer target first. If production changes are not approved, use the fallback sample repository and produce a rollout proposal instead of mutating production controls.

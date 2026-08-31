@@ -9,7 +9,7 @@ prerequisite_capabilities:
   - GitHub Enterprise Cloud organization with organization-owner access for inspection
   - GitHub CLI (gh >= 2.x) and jq installed for optional read-only API evidence
   - Enterprise owner or authorized enterprise PAT-policy export when enterprise PAT policy is in scope
-description: "Govern customer programmatic access with an evidence-backed inventory and policy decision for OAuth Apps, installed GitHub Apps, fine-grained PATs, and classic PATs. Establish effective policy source, accountable ownership, migration or exception plan, and review cadence without provisioning an App or changing production controls by default."
+description: "Review customer programmatic access and make a policy decision for OAuth Apps, installed GitHub Apps, fine-grained PATs, and classic PATs. Record the effective policy source, owner, migration or exception plan, and review cadence without provisioning an App or changing production controls by default."
 success_criteria:
   - A customer-owned inventory covers OAuth Apps, installed GitHub Apps, fine-grained PATs, and classic PATs with owners, purpose, access reach, permissions/scopes, status, and evidence.
   - Effective organization, enterprise/inherited, or unavailable policy source is recorded for each relevant control.

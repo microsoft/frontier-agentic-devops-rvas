@@ -1,4 +1,4 @@
-# Ch40 — Actions OIDC with Azure
+# Ch40: Actions OIDC with Azure
 
 > Replace long-lived Azure deployment secrets with GitHub Actions OpenID Connect and an explicitly approved Azure federated credential.
 
@@ -13,12 +13,12 @@
 
 ## Customer delivery target
 
-- Customer objective: remove static Azure client secrets from GitHub Actions deployments.
-- Customer-tenant target: one workflow authenticates to Azure using OIDC and least-privilege Azure RBAC.
-- Approval and safety boundary: Azure app registration, managed identity, federated credential, and role assignment changes are explicit participant steps, not setup mutations.
-- Records to keep: subject claim design, Azure credential evidence, workflow run URL, failed negative test, removed secret names, and owner approvals.
-- Adoption owner / handover: cloud platform and GitHub platform owners jointly accept the trust design.
-- Next action and owner: migrate the next deployment workflow or retire an old secret.
+- Objective: remove static Azure client secrets from GitHub Actions deployments.
+- Delivery target: one workflow authenticates to Azure using OIDC and least-privilege Azure RBAC.
+- Safety boundary: changes to Azure identities, federated credentials, and role assignments require explicit approval. Setup does not make them.
+- Evidence: subject claim design, Azure credential evidence, workflow run URL, failed negative test, removed secret names, and owner approvals.
+- Owner: cloud platform and GitHub platform jointly own the trust design.
+- Next decision: migrate the next deployment workflow or retire an old secret.
 
 ## Prerequisites
 
@@ -29,7 +29,7 @@
 
 ## Scenario
 
-A deployment workflow stores an Azure client secret in GitHub. The customer wants short-lived, auditable cloud authentication tied to a specific repository, branch, tag, or environment. You will design the OIDC subject, configure Azure manually, update the workflow, and prove that only the approved subject can deploy.
+A deployment workflow stores an Azure client secret in GitHub. The customer wants short-lived cloud authentication tied to a specific repository, branch, tag, or environment. Design the OIDC subject, configure Azure manually, update the workflow, and prove that only the approved subject can deploy.
 
 > [!IMPORTANT]
 > Use an approved customer target first. If Azure production changes are not approved, complete the sample workflow and produce the Azure trust design as the customer deliverable.

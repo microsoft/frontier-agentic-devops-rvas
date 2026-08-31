@@ -1,6 +1,6 @@
 # Activity 2-05 — Welcome Wagon — Delivery Assurance
 
-This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
+Review this activity against the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The paired `README.md` defines the tasks, evidence, commands, and Definition of Done.
 
 ## Assurance record
 
@@ -11,4 +11,4 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- No additional assurance exception: review the delivery guide’s Definition of Done.
+- No additional assurance exception. Review the delivery guide’s Definition of Done.

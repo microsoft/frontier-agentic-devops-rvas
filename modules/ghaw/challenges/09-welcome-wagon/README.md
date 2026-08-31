@@ -6,35 +6,33 @@ Prerequisites: Complete at least 2 activities from Track 1
 
 ---
 
-## What You'll Build
+## Build
 
-A workflow that welcomes first-time contributors to your repo. When someone opens their first pull request, your Welcome Wagon posts a warm greeting and offers resources (contribution guide, code of conduct, and more). This teaches you contributor detection and turns automation into genuine community-building.
+A workflow that welcomes first-time contributors. When someone opens their first pull request, Welcome Wagon posts a greeting and links to the contribution guide and code of conduct.
 
-Why this matters: First-time contributors may be unfamiliar with a project. A warm, helpful bot makes them feel welcome and reduces friction. Many open-source projects use this pattern to set expectations and direct new contributors to documentation.
+New contributors may not know the project's process. A short welcome can set expectations and point them to the right documentation.
 
 ---
 
-## Goals
+## What you'll practice
 
-By the end, your squad will:
-
-1. ✅ Build a workflow triggered by `on: pull_request: types: [opened]`
-2. ✅ Detect first-time contributors using `author_association` field
-3. ✅ Post a personalized welcome comment
-4. ✅ Include resources (links to contribution guide, code of conduct, etc.)
-5. ✅ Make new contributors feel valued and supported
+1. Build a workflow triggered by `on: pull_request: types: [opened]`
+2. Detect first-time contributors with `author_association`
+3. Post a personal welcome comment
+4. Link to the contribution guide, code of conduct, and other useful resources
+5. Set clear next steps for new contributors
 
 ---
 
 > [!IMPORTANT]
 > Bring your own repo (do this first)
 >
-> This activity is most valuable when Welcome Wagon uses your own repository's contributor flow, links, and tone, so first-time contributors keep getting useful guidance after the session. Treat the setup sample as practice, not the default destination.
+> Run Welcome Wagon on your own repository if possible. Use its real contributor links and preferred tone. Use the setup sample only for practice.
 >
 > - Have a candidate repo? Install or point `welcome-wagon.md` at that repo everywhere the guide references the sample repo, and use real CONTRIBUTING, docs, code of conduct, issue, or support links.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
 >
-> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+> Tell the facilitator which repository you chose.
 
 ---
 
@@ -70,7 +68,7 @@ Create a gh-aw workflow named `welcome-wagon.md` in `.github/workflows/` that:
   - At least 2 helpful links or resources
   - Encouragement
 - [ ] Comment is friendly, not robotic
-- [ ] Discuss what first impression new contributors get from your project today, and what you would trust an automated welcome to handle versus what should stay a personal touch. Connect it to a project, task, or workflow you own.
+- [ ] Using a project, task, or workflow you own, discuss the first impression new contributors get and what an automated welcome should or should not handle.
 
 ---
 
@@ -94,7 +92,7 @@ Create a gh-aw workflow named `welcome-wagon.md` in `.github/workflows/` that:
 
 ---
 
-## Stuck?
+## Help
 
 - "How do I detect first-time contributors?" → Use `github.event.pull_request.author_association`. If it's `NONE`, they're new to the repo
 - "How do I reference CONTRIBUTING.md?" → Link to the actual `CONTRIBUTING.md` in your repository, using its owner, repository name, branch, and file path.

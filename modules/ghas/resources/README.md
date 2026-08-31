@@ -1,26 +1,24 @@
 # GHAS Reference Fixtures
 
-This directory contains GitHub Advanced Security (GHAS) configuration files that participants apply
-to the org-owned Juice Shop repository provisioned in Activity S00 to enable GHAS scanning
-features during the delivery session.
+This directory contains the GitHub Advanced Security (GHAS) configuration for the
+org-owned Juice Shop repository created in Activity S00.
 
-These fixtures were moved here from a retired predecessor repository. Keeping
-them with the curriculum makes the setup reproducible without another source
-repository.
+The fixtures came from a retired predecessor repository and now live with the
+curriculum, removing that setup dependency.
 
 ## Files
 
 | File | Purpose |
 |------|---------|
-| `github/workflows/codeql.yml` | CodeQL Analysis workflow — runs on push, PR, schedule, and manually. Scans JavaScript/TypeScript (Juice Shop's languages). |
-| `github/codeql/codeql-config.yml` | CodeQL config — excludes compiled output (`app/build/`), source maps, test fixtures, and vendored JS to avoid parse errors and duplicate findings. |
-| `github/dependabot.yml` | Dependabot config — weekly npm + GitHub Actions dependency checks, groups minor/patch updates, limits open PRs to 10. |
-| `ghas-governance-practice.template.md` | Progressive customer-safe template for GHAS configuration and ownership, a security findings register, prevention patterns, response decisions, and operating cadence. |
+| `github/workflows/codeql.yml` | Runs CodeQL on pushes, PRs, a weekly schedule, and manual dispatch. Scans JavaScript and TypeScript. |
+| `github/codeql/codeql-config.yml` | Excludes compiled output (`app/build/`), source maps, test fixtures, and vendored JavaScript to prevent parse errors and duplicate findings. |
+| `github/dependabot.yml` | Checks npm and GitHub Actions dependencies weekly, groups minor and patch updates, and limits open PRs to 10. |
+| `ghas-governance-practice.template.md` | Records GHAS scope and ownership, findings, prevention patterns, response decisions, and operating cadence. |
 
 ## How to apply
 
-Activity S00's `setup.sh`/`setup.ps1` automation applies these files for you. If you need to apply
-them manually, copy them into the `.github/` folder of the org-owned Juice Shop repository:
+Activity S00's `setup.sh` or `setup.ps1` applies these files. For manual setup, copy
+them into the org-owned Juice Shop repository's `.github/` directory:
 
 ```bash
 # From the curriculum repo root — adjust <org>/<repo> to your delivery session org/repo
@@ -32,10 +30,10 @@ git commit -m "chore: add GHAS scanning configs (CodeQL + Dependabot)"
 git push
 ```
 
-> Note: If the target repo is a direct Juice Shop import created by the setup script, npm
-> manifests live at repository root. The setup script adjusts `.github/dependabot.yml` from
-> `directory: "/app"` to `directory: "/"` automatically. Make the same edit when applying these
-> files manually to a direct Juice Shop import.
+> **Direct Juice Shop imports:** If the setup script created the target repo, npm
+> manifests live at the repository root. The script changes
+> `.github/dependabot.yml` from `directory: "/app"` to `directory: "/"`
+> automatically. Make the same change for a manual direct import.
 
 Once pushed:
 
@@ -43,5 +41,5 @@ Once pushed:
 - Dependabot alerts appear under Security → Dependabot alerts.
 - Copilot Autofix will offer suggested fixes for many CodeQL findings.
 
-> Note: Juice Shop intentionally ships with vulnerable dependencies — a high alert count is
-> expected and is the learning material, not a problem to immediately resolve.
+> **Expected alerts:** Juice Shop intentionally includes vulnerable dependencies.
+> A high alert count is expected and does not require immediate resolution.

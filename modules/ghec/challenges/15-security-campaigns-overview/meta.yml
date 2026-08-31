@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: "Implement an authorized customer security-overview rollout with a security configuration, an owned and time-bounded campaign, and remediation evidence. Use OWASP Juice Shop only as a sample test repository and preserve the tenant adoption decision."
+description: "Set up an authorized customer security-overview rollout with a security configuration, an owned and time-bounded campaign, and remediation evidence. Use OWASP Juice Shop only as a sample test repository and preserve the tenant adoption decision."
 success_criteria:
 - '`ghec-ch15-juice-shop` has a **multi-tool alert corpus** (CodeQL **and** Dependabot alerts present, verifiable via the alerts APIs).'
 - You used the org **Security overview** Risk and Coverage views and produced an **org-wide alert slice** via the API.
@@ -20,7 +20,7 @@ success_criteria:
 - The campaign shows **remediation burn-down** (open count dropped after you fixed/dismissed targeted alerts).
 - A **remediation report** issue exists with before/after numbers.
 - '**Control-catalogue evidence:** The existing customer register records `SEC-SECURITY-CAMPAIGNS` as `approved pilot` after effective-setting inspection, with coverage/risk, campaign, and remediation evidence.'
-- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+- Customer evidence records the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - ghas
 - security-overview

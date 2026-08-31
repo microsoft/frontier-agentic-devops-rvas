@@ -11,14 +11,14 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script, or an approved production release repository
-description: "Implement release governance for GitHub Enterprise Cloud: protected release evidence, explicit approval gates, release notes, tagging standards, and rollback ownership without mutating high-impact organization settings during setup."
+description: "Define release evidence, approval gates, release notes, tag standards, and rollback ownership without changing high-impact organization settings during setup."
 success_criteria:
 - A release governance policy identifies release owners, approvers, protected evidence, tag naming, release-note requirements, rollback owner, and exception path.
 - A release candidate issue or equivalent record captures scope, risk, approver, validation evidence, and deployment decision.
 - Repository release artifacts include a changelog or release notes source, release readiness checklist, and documented tag/release naming standard.
 - Participants inspect available repository or organization settings and record which high-impact release controls require explicit owner approval before production rollout.
 - A dry-run or sample release demonstrates the evidence trail from candidate to approval to published release or rollback decision.
-- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next rollout decision.
+- Customer evidence names the authorized scope and owner, links the relevant controls and handover record, and states the next release decision.
 tags:
 - releases
 - governance

@@ -26,9 +26,8 @@
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - No GHAS or Codespaces required. Enterprise cost centers are awareness-only here (see callout) — the real, gradable work uses org-level billing, budgets, and usage.
 
-## Customer delivery objectives
-This delivery engagement establishes:
-- Navigate the org's billing & licensing views and read included vs metered usage for Actions, Packages, and Storage.
+## What you will deliver
+- Open the org's billing and licensing views and compare included with metered usage for Actions, Packages, and Storage.
 - Generate a small, controlled amount of metered usage (a few Actions runs) and watch it appear in usage.
 - Set budgets with alert thresholds so spend can't surprise you.
 - Pull billing/usage data from the REST API and reconcile it against the UI.
@@ -41,7 +40,7 @@ A GHEC customer just got a bigger-than-expected Actions bill and nobody can expl
 > [!IMPORTANT]
 > Use an approved customer target (do this first)
 >
-> Default to an authorised customer usage, budget, or cost-reporting artifact that an accountable owner will operate after delivery. Complete the work on that artifact and retain the evidence, guardrails, or automation.
+> Default to an authorised customer usage, budget, or cost-reporting artifact that an accountable owner will operate after delivery. Do the work there and keep the evidence, guardrails, or automation.
 >
 > - Have a candidate? Use your real usage source and reporting repo wherever this guide names `ghec-ch10-usage-generator` or `ghec-ch10-cost-report`. Skip the Setup step below entirely.
 > - No suitable one? Use the fallback below: a tiny usage-generator repo and cost-report repo for controlled metered validation.
@@ -60,7 +59,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch10 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch10 --org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch10-*`, idempotent, prefix-guarded teardown):
+Setup creates these resources (all names use the `ghec-ch10-*` prefix, and teardown is prefix-guarded):
 - A seeded repo `ghec-ch10-usage-generator` containing a tiny, fast GitHub Actions workflow (`workflow_dispatch`-triggered, a few seconds of runtime) so you can generate a *small* amount of metered Actions usage on demand.
 - A seeded repo `ghec-ch10-cost-report` to hold your reconciliation script and the final report.
 - A printed current usage snapshot (Actions minutes / storage from the API) so you have a "before" reading.
@@ -105,7 +104,7 @@ Use the existing governance register. Inspect the effective inherited setting, u
 - `FIN-BUDGETS-ALERTS`: budgets, alert recipients, usage reconciliation, and cost-report evidence.
 
 ## Validation / Definition of Done
-You are done when ALL of the following are true:
+**Done means:**
 - [ ] A before usage snapshot was captured from the billing API (Actions minutes + storage).
 - [ ] At least two Actions runs were generated and usage increased (verifiable via `gh run list` + the billing API delta).
 - [ ] A budget is configured at the org with at least one alert threshold below the cap.
@@ -116,7 +115,7 @@ You are done when ALL of the following are true:
 - [ ] Real-outcome check — if you brought your own usage data, a real budget or cost report now exists for someone to use; if you used the sample, you can name the org/team cost view you will build next.
 - [ ] Adoption handover — record the customer billing owner, unattributed spend area, budget/reporting decision, and next approved action.
 
-> Coaches verify these via the automated hints in `COACH.md`.
+> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Schedule the cost-report script as a GitHub Actions workflow that runs monthly and uploads `COST-REPORT.md` as an artifact.

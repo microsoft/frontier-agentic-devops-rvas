@@ -10,14 +10,14 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: Deploy a weekly, read-only workflow that reviews repository evidence and publishes one current, evidence-backed set of product feature opportunities.
+description: Build a weekly, read-only workflow that reviews repository evidence and publishes one current set of supported feature opportunities.
 success_criteria:
-  - `.github/workflows/next-feature-opportunities.md` exists with valid gh-aw frontmatter
+  - "`.github/workflows/next-feature-opportunities.md` exists with valid gh-aw frontmatter"
   - The workflow has a weekly schedule and `workflow_dispatch` trigger
   - The workflow uses read-only `contents` and `issues` permissions
   - The prompt requires recommendations to cite repository paths and relevant issue references
-  - `safe-outputs: create-issue` is configured with a single-issue limit and closes older reports
-  - `.github/workflows/next-feature-opportunities.lock.yml` compiles without errors
+  - "`safe-outputs: create-issue` is configured with a single-issue limit and closes older reports"
+  - "`.github/workflows/next-feature-opportunities.lock.yml` compiles without errors"
   - A dry run identifies only recommendations grounded in the selected repository
   - A manual run creates at most one current recommendation issue or reports a no-op when no material, untracked opportunities exist
 tags:

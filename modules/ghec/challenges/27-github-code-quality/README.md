@@ -13,12 +13,12 @@
 
 ## Customer delivery target
 
-- Customer objective: give delivery teams actionable, native GitHub evidence for maintainability, reliability, and test coverage before changes merge.
-- Customer-tenant target: an authorized repository's Code Quality configuration, CI coverage upload, PR feedback, threshold decision, and rollout evidence.
-- Approval and safety boundary: enable Code Quality and change workflow permissions or rulesets only with the repository or organization owner's approval. Use a controlled pilot repository if production rollout is not yet authorized.
-- Records to keep: initial Code Health scores, workflow and coverage evidence, pull-request finding decision, threshold decision, and organization pilot proposal.
-- Adoption owner / handover: the repository owner owns the repository configuration; the engineering and platform owners agree the triage and rollout cadence.
-- Next action and owner: approve the pilot cohort, extend the rollout, or document the blocker and rollback decision.
+- **Goal:** give delivery teams native GitHub evidence for maintainability, reliability, and test coverage before changes merge.
+- **Target:** an authorized repository's Code Quality configuration, CI coverage upload, PR feedback, threshold decision, and rollout evidence.
+- **Boundary:** enable Code Quality and change workflow permissions or rulesets only with the repository or organization owner's approval. Use a controlled pilot repository if production rollout is not yet authorized.
+- **Keep:** initial Code Health scores, workflow and coverage evidence, pull-request finding decision, threshold decision, and organization pilot proposal.
+- **Owners:** the repository owner owns the repository configuration. Engineering and platform owners agree the triage and rollout cadence.
+- **Next:** approve the pilot cohort, extend the rollout, or document the blocker and rollback decision.
 
 ## Prerequisites
 
@@ -35,7 +35,7 @@
 
 ## Scenario
 
-A customer team has test runs and code review, but cannot see whether a pull request lowers coverage or introduces reliability and maintainability problems until they become technical debt. You will enable GitHub Code Quality, establish a Code Health baseline, upload coverage from the team's own CI workflow, and use a focused pull request to agree how findings should be handled before the organization pilots the product more widely.
+A customer team runs tests and reviews code but cannot see coverage, reliability, or maintainability changes directly on a pull request. Enable GitHub Code Quality, establish a Code Health baseline, upload coverage from CI, and use a focused pull request to decide how findings should be handled before a wider pilot.
 
 ## Tasks
 

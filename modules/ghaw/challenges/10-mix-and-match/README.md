@@ -6,48 +6,46 @@ Prerequisites: Activity 00, at least 2 Track 1 activities, Activity 2-01
 
 ---
 
-## What You'll Build
+## Build
 
-A weekly-scheduled gh-aw workflow that uses reusable parts. Instead of writing every prompt from scratch, you'll author a shared helper snippet — `lib/repo-stats-helper.md` — and `imports:` it into your workflow. The agent reads the helper, analyzes repository status, and posts a digest as a GitHub Discussion using the `create-discussion` safe-output.
+A weekly gh-aw workflow that imports shared instructions from `lib/repo-stats-helper.md`. The agent uses the helper to analyze repository status and posts the digest as a GitHub Discussion through `create-discussion`.
 
-Why this matters: In production, teams maintain shared prompt libraries: tone guidelines, formatting rules, domain context. `imports:` lets you reference those without copy-pasting them into every workflow. And `create-discussion` keeps stakeholders informed through async, searchable posts — not a stream of noisy issues.
+Teams often repeat the same prompt rules across workflows. `imports:` keeps those rules in one file. `create-discussion` publishes a searchable digest without adding another issue to the backlog.
 
 ---
 
-## Goals
+## What you'll practice
 
-By the end, your squad will:
-
-1. ✅ Author a reusable Markdown snippet in `lib/`
-2. ✅ Import it into a workflow using `imports:`
-3. ✅ Schedule the workflow to run weekly
-4. ✅ Post a repository-status digest as a GitHub Discussion (not an issue)
-5. ✅ Compile and validate with `gh aw compile`
+1. Author a reusable Markdown snippet in `lib/`
+2. Import it into a workflow with `imports:`
+3. Schedule the workflow weekly
+4. Post a repository-status digest as a GitHub Discussion, not an issue
+5. Compile and validate it with `gh aw compile`
 
 ---
 
 > [!IMPORTANT]
 > Bring your own repo (do this first)
 >
-> This activity is most valuable when the imported helper and weekly digest describe your own repository's real health signals, Discussions category, and stakeholder audience, so the pattern survives after the session. Treat the setup sample as practice, not the default destination.
+> Use your own repository if possible. Base the helper and digest on its real health signals, Discussion category, and audience. Use the setup sample only for practice.
 >
 > - Have a candidate repo? Install or point `10-mix-and-match.md` at that repo everywhere the guide references the sample repo, and write `lib/repo-stats-helper.md` around its real issues, PRs, tests, docs, and reporting tone.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
 >
-> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+> Tell the facilitator which repository you chose.
 
 ---
 
 ## Background: `imports:`
 
-The `imports:` field in gh-aw frontmatter lets a workflow pull in one or more Markdown files before executing. The imported content is merged into the agent's context — as if you had written it inline.
+The `imports:` field loads one or more Markdown files before the workflow runs. gh-aw adds the imported content to the agent's context as inline instructions.
 
 ```yaml
 imports:
   - ./lib/repo-stats-helper.md
 ```
 
-Paths are relative to the repository root. The helper file is plain Markdown — no special syntax, no frontmatter. It's just context you want every workflow that imports it to share.
+Paths are relative to the repository root. The helper is plain Markdown with no frontmatter.
 
 Use cases: shared formatting instructions, org-wide tone guidelines, reusable analysis templates, domain vocabulary.
 
@@ -113,7 +111,7 @@ No errors? You're ready to test. Trigger manually with `workflow_dispatch` to ve
 - [ ] Compiled `.lock.yml` exists without errors
 - [ ] Running the workflow creates a Discussion post, not an issue
 - [ ] The Discussion content matches the format defined in your helper
-- [ ] Discuss which prompt guidance or context you keep copy-pasting across your automations, and what would change if you maintained it as one shared, imported library. Connect it to a project, task, or workflow you own.
+- [ ] Using a project, task, or workflow you own, identify repeated prompt guidance that belongs in a shared imported library.
 
 ---
 
@@ -134,7 +132,7 @@ No errors? You're ready to test. Trigger manually with `workflow_dispatch` to ve
 
 ---
 
-## Stuck?
+## Help
 
 - "Compile says import not found" → Double-check the path. It's relative to repo root, so `./lib/repo-stats-helper.md` means the file lives at `lib/repo-stats-helper.md` from the root.
 - "Discussion not appearing" → Verify `permissions: discussions: write` is in frontmatter and the category name matches exactly (case-sensitive).

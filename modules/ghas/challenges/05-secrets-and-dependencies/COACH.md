@@ -1,16 +1,16 @@
-# Secure Secrets & Dependencies — Delivery Assurance
+# Secure Secrets & Dependencies: Delivery Assurance
 
-This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
+Review this activity against the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The paired `README.md` contains the tasks, evidence, commands, and Definition of Done.
 
 ## Assurance record
 
-- **Authorized scope:** record the customer target and approving owner.
-- **Evidence:** inspect the completed Definition of Done in `README.md`; link or attach the evidence.
-- **Open risk:** record the unresolved risk and accountable owner, or `none`.
-- **Next decision:** record the handover, pilot, rollout, cutover, or follow-up action with owner and date.
+- **Authorized scope:** Name the customer target and approving owner.
+- **Evidence:** Check the Definition of Done in `README.md` and link or attach the evidence.
+- **Open risk:** Name each unresolved risk and accountable owner, or enter `none`.
+- **Next decision:** Name the next action, owner, and date.
 
 ## Session-specific reviewer focus
 
-- Customer delivery team members may remove a hardcoded value without wiring a replacement environment variable; remind them to preserve app functionality.
-- Some treat Dependabot alerts as just version bumps; ask them to read the advisory and explain the actual risk.
-- Push protection behavior can surprise customer delivery team members; frame a block as useful feedback, not a failure.
+- Removing a hardcoded value is incomplete without replacement configuration. Make sure the application still works.
+- Do not treat Dependabot alerts as routine version bumps. Ask the team to read the advisory and explain the actual risk.
+- Push protection may surprise participants. A blocked push is useful feedback, not a failure.

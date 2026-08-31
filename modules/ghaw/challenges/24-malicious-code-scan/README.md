@@ -6,30 +6,30 @@ Tier: Bonus
 
 ## Background
 
-Supply-chain attacks can be subtle: malicious code may appear as a normal dependency update or an innocent-looking refactor. The Malicious Code Scan runs daily, reviews recent code changes for suspicious patterns, and opens alerts for human investigation.
+Malicious code can arrive in a dependency update or an ordinary-looking refactor. The Malicious Code Scan reviews recent changes each day and opens alerts for human investigation.
 
 This is an additional detection signal for code-injection campaigns, compromised contributors, and dependency poisoning. It does not block changes, prevent deployment, or replace review and security controls. Sourced from `githubnext/agentics`.
 
 Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://github.com/githubnext/agentics/blob/main/workflows/daily-malicious-code-scan.md)
 
-## What It Does
+## Behavior
 
 - Runs daily on a cron schedule
 - Reviews commits from the past N days (configurable)
-- Analyses changes for: obfuscated logic, unexpected network calls, exfiltration patterns, eval/exec of dynamic strings, suspicious env variable access
-- Opens a `create-issue` alert for anything worth investigating — with the specific commit, file, and line number
+- Checks changes for obfuscated logic, unexpected network calls, exfiltration patterns, dynamic-string `eval`/`exec`, and suspicious environment-variable access
+- Opens a `create-issue` alert with the specific commit, file, and line number
 
 > [!IMPORTANT]
 > Bring your own repo (do this first)
 >
-> This activity is most valuable when the scan watches code changes and threat patterns that matter to your team. Pick a repository in an org you control with recent commits, dependency updates, or sensitive code paths where supply-chain review would be useful.
+> Use a repository in an organization you control. Choose one with recent commits, dependency updates, or sensitive code paths that need supply-chain review.
 >
 > - Have a candidate repo? Use it everywhere this guide references the sample repo, and tune the workflow to that repo's real languages, recent commits, suspicious pattern categories, and false-positive rules.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
 >
-> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+> Tell the facilitator which repository and threat patterns you chose.
 
-## What You'll Do
+## Steps
 
 1. Install [`gh aw`](https://github.com/github/gh-aw) (if not already done):
    ```bash
@@ -41,7 +41,7 @@ Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://g
    gh aw add-wizard https://github.com/githubnext/agentics/blob/main/workflows/daily-malicious-code-scan.md
    ```
 
-3. Read the suspicious-pattern definitions in the body — these are the heuristics the AI uses to flag code.
+3. Read the suspicious-pattern definitions in the body. The AI uses these rules to flag code.
 
 4. Customise the patterns for your language and threat model.
 
@@ -54,12 +54,12 @@ Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://g
 
 7. Verify the alert issue contains enough detail to act on.
 
-## Customize It
+## Adapt it
 
 - Scope the scan window: _"Review commits merged in the last 7 days"_ or _"Review all changes to `src/` since the last scan issue"_
 - Add language-specific patterns: for Python, flag `exec(compile(...))` and `__import__`; for Node.js, flag `child_process.exec` with dynamic strings
 - Set alert severity routing: critical patterns (exfiltration, credential access) open a high-priority issue; low-risk patterns (unusual imports) just add a comment
-- Restrict false-positive noise: _"Only flag if the pattern appears in code added or modified in the last 7 days — not in pre-existing code"_
+- Restrict false positives: _"Only flag the pattern in code added or modified in the last 7 days. Ignore pre-existing code."_
 
 ## Success Criteria
 
@@ -71,7 +71,7 @@ Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://g
 - [ ] `.lock.yml` compiles without errors
 - [ ] Test pattern (benign flaggable code) causes the scan to open an alert issue
 - [ ] Alert issue contains: file path, commit SHA, line number, and explanation of why it was flagged
-- [ ] Discuss what it would take for you to rely on a daily agent scanning your code changes for supply-chain red flags, and how you would handle false positives without tuning out the real threats. Connect it to a project, task, or workflow you own.
+- [ ] Using a project, task, or workflow you own, define what would make this scan trustworthy and how you would control false positives.
 
 ---
 
@@ -87,15 +87,15 @@ Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://g
 - New files added to `.github/workflows/` that weren't in a PR
 
 "How do I test this without writing real malicious code?"
-→ Add a clearly fake pattern: `// SCAN-TEST: eval(Buffer.from('dGVzdA==').toString)` — the comment marks it as intentional, but the pattern is flaggable. Remove it after testing.
+→ Add a clearly fake pattern: `// SCAN-TEST: eval(Buffer.from('dGVzdA==').toString)`. The comment marks it as intentional, but the scanner can still flag it. Remove it after testing.
 
 "This will have too many false positives"
 → Constrain aggressively: _"Only flag code added by commits from outside the organisation (check author's membership). Internal contributors are pre-screened."_
 
 "How is this different from CodeQL / SAST tools?"
-→ Complementary, not competing. [CodeQL code scanning](https://docs.github.com/en/code-security/code-scanning/introduction-to-code-scanning/about-code-scanning-with-codeql) knows ASTs and known CVE patterns. This agent reasons about intent, context, and novel patterns that rule-based tools miss. Run both.
+→ Use both. [CodeQL code scanning](https://docs.github.com/en/code-security/code-scanning/introduction-to-code-scanning/about-code-scanning-with-codeql) analyses code structure and known vulnerability patterns. This agent adds a contextual signal for suspicious changes, but its findings still need human review.
 
 "Should alerts auto-revert the commit?"
-→ Not in this activity. Issue creation + human review is the right gate here. Auto-revert is a more advanced pattern with revert-commit safe-output — that's an extension.
+→ Not in this activity. Use issue creation and human review as the gate. Auto-revert with the `revert-commit` safe output is an extension.
 
 </details>

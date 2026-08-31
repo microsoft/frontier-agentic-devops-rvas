@@ -1,6 +1,6 @@
 # Ch09 — Audit Log & Streaming — Delivery Assurance
 
-This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
+Use this review overlay with the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The paired `README.md` defines the tasks, evidence, commands, and Definition of Done.
 
 ## Assurance record
 
@@ -11,7 +11,7 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer implementation owner treats the org audit log as the authoritative record — reads standard events, exports evidence, and assesses enterprise streaming when applicable.
+- Expected outcome: the customer owner uses the organization audit log as the source for event searches and evidence exports, then assesses enterprise streaming where it applies.
 - **Governance controls:** Confirm org-scoped `AUD-LOG-EXPORT` is distinct from enterprise `AUD-LOG-STREAMING` and `AUD-IP-DISPLAY`; the latter records streaming destination/retention plus IP-display privacy, investigation, and owner evidence.
-- Implementation risks to verify: ask "what exact action: string did the docs say a team-to-repo grant emits?" (→ `team.add_member` or `team_repository.added`) and "how would you reconstruct yesterday's changes?" (→ `created:>=<yesterday>` filter).
-- Delivery lead prompts: ask "what's lost if retention expires?" (→ forensics window closes; what's the compliance baseline?).
+- Ask "what exact action: string did the docs say a team-to-repo grant emits?" (→ `team.add_member` or `team_repository.added`) and "how would you reconstruct yesterday's changes?" (→ `created:>=<yesterday>` filter).
+- Ask "what's lost if retention expires?" (→ the forensic window closes; compare it with the compliance baseline).

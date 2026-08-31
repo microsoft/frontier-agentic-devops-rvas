@@ -1,30 +1,11 @@
-# =============================================================================
 # CodeQL Analysis Workflow
-# =============================================================================
-# This workflow runs GitHub's CodeQL static analysis engine to find security
-# vulnerabilities and coding errors in your source code.
-#
-# HOW IT WORKS:
-#   1. CodeQL builds a database of your code's structure
-#   2. It runs a suite of security queries against that database
-#   3. Results appear in the "Security" tab > "Code scanning alerts"
-#
-# DELIVERY SESSION MODEL:
-#   Participants work in this shared repository on their own branches, then
-#   validate fixes by opening pull requests back into main.
-#
-# WHEN IT RUNS:
-#   - On every push to main
-#   - On pushes to participant/team work branches
-#   - On every pull request targeting main
-#   - When organizers run it manually from the Actions tab
-#   - On a weekly schedule (catches new vulnerability patterns as queries update)
-#
-# FOR DELIVERY SESSION PARTICIPANTS:
-#   Use branches like team-{your-team-name}/challenge-work or participant/{name}.
-#   CodeQL findings appear in PR checks and in the Security tab under
-#   "Code scanning alerts". Copilot Autofix can suggest fixes for many alerts.
-# =============================================================================
+# Builds a CodeQL database, runs security queries, and publishes results under
+# Security > Code scanning alerts.
+# Runs on main, participant and team branches, pull requests to main, manual
+# dispatch, and a weekly schedule.
+# Participants work in team-{your-team-name}/challenge-work or participant/{name}
+# branches and validate fixes through pull requests to main. Findings appear in
+# PR checks and Code scanning alerts; Copilot Autofix can suggest fixes.
 
 name: "CodeQL Analysis"
 
@@ -38,82 +19,58 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
   schedule:
-    # Runs every Monday at 9:00 UTC
-    # This catches newly-discovered vulnerability patterns even if code hasn't changed
+    # Catch new CodeQL patterns every Monday at 9:00 UTC.
     - cron: '0 9 * * 1'
 
 jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
-    # CodeQL runs on Ubuntu, Windows, and macOS
+    # CodeQL supports Ubuntu, Windows, and macOS. This job uses Ubuntu.
     runs-on: ubuntu-latest
 
-    # Required permissions for CodeQL to upload results to the Security tab
+    # Permissions required to upload CodeQL results to the Security tab.
     permissions:
-      security-events: write   # Needed to upload SARIF results
-      packages: read           # Needed if you use private packages
-      actions: read            # Needed for private repos (but we're public!)
-      contents: read           # Needed to check out the code
+      security-events: write   # Upload SARIF results
+      packages: read           # Read private packages when configured
+      actions: read            # Read Actions data for private repositories
+      contents: read           # Check out the code
 
     strategy:
       fail-fast: false
       matrix:
-        # ---------------------------------------------------------------
-        # LANGUAGES TO SCAN
-        # ---------------------------------------------------------------
-        # Juice Shop is a Node.js (Express) + Angular (TypeScript) app.
-        # CodeQL's "javascript-typescript" covers both JS and TS files.
-        #
-        # Other supported languages include:
-        #   python, java-kotlin, csharp, go, ruby, cpp, swift
-        # ---------------------------------------------------------------
+        # Juice Shop is a Node.js (Express) and Angular (TypeScript) app.
+        # CodeQL's "javascript-typescript" covers JavaScript and TypeScript.
+        # Other supported languages: python, java-kotlin, csharp, go, ruby,
+        # cpp, and swift.
         language: [ 'javascript-typescript' ]
 
     steps:
-      # ------------------------------------------------------------------
       # Step 1: Check out the repository code
-      # ------------------------------------------------------------------
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      # ------------------------------------------------------------------
       # Step 2: Initialize CodeQL
-      # ------------------------------------------------------------------
-      # This sets up the CodeQL tools and prepares to build the code database.
-      # The 'queries' parameter adds extra security queries beyond the default set.
-      #
-      # Query suites available:
-      #   - security-extended: More security queries (recommended for thorough scanning)
-      #   - security-and-quality: Security + code quality queries
-      # ------------------------------------------------------------------
+      # Set up CodeQL and prepare the code database.
+      # The 'queries' parameter adds queries beyond the default set.
+      # Available suites include security-extended and security-and-quality.
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v4
         with:
           languages: ${{ matrix.language }}
-          # security-extended includes more vulnerability patterns than the default
+          # Add vulnerability patterns beyond the default query set.
           queries: security-extended
-          # Use our custom config to exclude compiled output (app/build/) that
-          # causes parse errors and duplicates findings from source .ts files
+          # Exclude compiled output that causes parser errors and duplicate findings.
           config-file: ./.github/codeql/codeql-config.yml
 
-      # ------------------------------------------------------------------
       # Step 3: Auto-build the project
-      # ------------------------------------------------------------------
-      # For JavaScript/TypeScript, CodeQL doesn't need a traditional "build" —
-      # it extracts the code directly. For compiled languages (Java, C++, etc.),
-      # this step would compile the code so CodeQL can analyze it.
-      # ------------------------------------------------------------------
+      # CodeQL extracts JavaScript and TypeScript directly. For compiled
+      # languages, this step compiles the code before analysis.
       - name: Auto-build
         uses: github/codeql-action/autobuild@v4
 
-      # ------------------------------------------------------------------
       # Step 4: Run CodeQL Analysis
-      # ------------------------------------------------------------------
-      # This runs the actual security analysis and uploads results.
-      # Results appear in: Repository > Security tab > Code scanning alerts
-      #
-      # Copilot Autofix will automatically suggest fixes for many alerts!
-      # ------------------------------------------------------------------
+      # Run the analysis and upload results to Security > Code scanning alerts.
+      # Copilot Autofix can suggest fixes for many alerts.
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v4
         with:

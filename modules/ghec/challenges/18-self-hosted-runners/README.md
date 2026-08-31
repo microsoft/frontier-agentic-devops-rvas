@@ -13,12 +13,12 @@
 
 ## Customer delivery target
 
-- Customer objective: provide a secure, supportable runner capability for a customer workload that requires it.
-- Customer-tenant target: an approved organisation runner group, selected repositories, runner-host design, workflow labels, and hardening controls.
-- Approval and safety boundary: register and expose runners in the customer tenant only with platform/security-owner approval and an agreed host risk model; otherwise use a disposable sample test environment and leave an approved rollout proposal.
-- Records to keep: retain runner-group scope, host hardening checklist, workflow evidence, egress decision, and runner-type decision matrix.
-- Adoption owner / handover: the customer platform owner accepts host operations; repository owners accept runner use and fork-PR boundaries.
-- Next action and owner: authorise the approved runner rollout or assign the owner and date for the risk-approved proposal.
+- **Goal:** provide a secure, supportable runner for a customer workload that needs it.
+- **Target:** an approved organisation runner group, selected repositories, runner-host design, workflow labels, and hardening controls.
+- **Boundary:** register and expose runners in the customer tenant only with platform and security owner approval and an agreed host risk model. Otherwise, use a disposable test environment and leave an approved rollout proposal.
+- **Keep:** runner-group scope, host hardening checklist, workflow evidence, egress decision, and runner-type decision matrix.
+- **Owners:** the customer platform owner accepts host operations. Repository owners accept runner use and fork-PR boundaries.
+- **Next:** authorise the runner rollout or assign an owner and date to the risk-approved proposal.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -27,8 +27,7 @@
 - A machine to host the runner — your laptop, a VM, or a throwaway container. Linux/macOS/Windows all work; a disposable VM is recommended for controlled hardening validation and clean teardown.
 - Org-scoped framing: this activity configures runners at the org level (org runner group). Enterprise runner groups are covered as *awareness* only — no enterprise owner required to complete it.
 
-## Customer delivery objectives
-This delivery engagement establishes:
+## What you'll do
 - Register a self-hosted runner at the org level and bring it online.
 - Organize runners with a runner group and control which repos may use it.
 - Target the runner from a workflow with `runs-on` labels (custom + default).
@@ -37,10 +36,10 @@ This delivery engagement establishes:
 - Understand how org runner groups relate to enterprise runner groups (awareness).
 
 ## Scenario
-A GHEC customer needs CI on hardware GitHub doesn't host — a GPU box, a license-locked toolchain, or a network-isolated build host. You'll stand up a self-hosted runner the right way: registered to an org runner group scoped to just the repos that should use it, targeted by labels, and hardened so a malicious PR can't turn your build host into a foothold. You'll finish knowing exactly when self-hosted is worth the operational cost versus GitHub-hosted or larger runners.
+A GHEC customer needs CI on hardware GitHub doesn't host, such as a GPU box, a license-locked toolchain, or a network-isolated build host. Register a self-hosted runner in an org runner group, limit it to the repositories that need it, route jobs with labels, and harden it against untrusted pull requests. Then compare its operational cost with GitHub-hosted and larger runners.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> **Start with an approved customer target.**
 > Default to an authorised customer CI job or repository that needs a self-hosted runner for network, hardware, compliance, or cost reasons. Complete the work on that artifact and retain the evidence, guardrails, or automation.
 >
 > - Have a candidate? Use it everywhere this guide says `ghec-ch18-self-hosted-runners`. Skip the Setup step below entirely.

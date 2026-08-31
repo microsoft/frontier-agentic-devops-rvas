@@ -26,8 +26,7 @@
 - Local tooling: `gh >= 2.x` (with the Codespaces extension available), `git`, `jq`.
 - Cost note: Codespaces is a metered product. This activity consumes Codespaces minutes/storage on the participant account. Use the smallest machine type (2-core) and stop codespaces when idle. `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns about cost-bearing activities.
 
-## Customer delivery objectives
-This delivery engagement establishes:
+## What you will deliver
 - Author a `devcontainer.json` that pins a base image, installs features, and runs setup commands.
 - Launch a Codespace from the UI and the CLI, and understand the create/stop/delete lifecycle.
 - Use prebuild-aware lifecycle scripts (`onCreateCommand`, `postStartCommand`) and dev-container Features.
@@ -41,7 +40,7 @@ A GHEC customer onboards new engineers slowly — each spends a day fighting loc
 > [!IMPORTANT]
 > Use an approved customer target (do this first)
 >
-> Default to an authorised customer repository whose onboarding or local setup needs improvement. Complete the work on that artifact and retain the evidence, guardrails, or automation.
+> Default to an authorised customer repository whose onboarding or local setup needs improvement. Do the work there and keep the evidence, guardrails, or automation.
 >
 > - Have a candidate? Use it everywhere this guide says `ghec-ch03-codespaces-dev-containers`. Skip the Setup step below entirely.
 > - No suitable one? Use the fallback below: a seeded sample repo ready for a devcontainer and Codespace.
@@ -60,7 +59,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch03 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch03 --org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch03-*`, idempotent, prefix-guarded teardown):
+Setup creates these resources (all names use the `ghec-ch03-*` prefix, and teardown is prefix-guarded):
 - A seeded repo `ghec-ch03-codespaces-dev-containers` with a small Node/Express app, a `package.json`, and a deliberately minimal `.devcontainer/devcontainer.json` so you can extend it.
 - A `README` describing how to run the app *locally* (so the contrast with Codespaces is obvious).
 - A printed Next steps block telling you where to start.
@@ -108,7 +107,7 @@ What setup creates (all artifacts namespaced `ghec-ch03-*`, idempotent, prefix-g
    or `inspect-and-propose`), review cadence, and next decision.
 
 ## Validation / Definition of Done
-You are done when ALL of the following are true:
+**Done means:**
 - [ ] `.devcontainer/devcontainer.json` exists, pins a base image, includes ≥2 Features, and sets `onCreateCommand` + `postStartCommand`.
 - [ ] A Codespace was launched from both the UI and the CLI (`gh codespace list` showed it).
 - [ ] Inside the Codespace, the pinned Node version, the gh CLI Feature, and the post-create install are all verifiable.
@@ -124,7 +123,7 @@ You are done when ALL of the following are true:
 - [ ] Real-outcome check — if you brought your own repo, it now has a Codespace/devcontainer path that reduces real onboarding friction; if you used the sample, you can name the repo whose setup you will standardize next.
 - [ ] Adoption handover — name the repository owner, onboarding bottleneck, approved dev-container change, and next rollout action.
 
-> Coaches verify these via the automated hints in `COACH.md`.
+> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Replace the base image with a custom `Dockerfile` referenced from `devcontainer.json` and reproduce the same environment.

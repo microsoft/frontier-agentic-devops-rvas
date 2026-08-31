@@ -14,9 +14,9 @@ prerequisite_capabilities:
   - Python 3.10+
 description: >
   Prepare the official Microsoft Azure SRE Agent starter lab. Verify the tools,
-  Azure role assignments, supported region, and repository access needed to deploy
-  the Grubify sample application, Azure Monitor alerts, Log Analytics, Application
-  Insights, and an Azure SRE Agent.
+  Azure roles, supported region, and repository access needed to deploy the
+  Grubify sample app, Azure Monitor alerts, Log Analytics, Application Insights,
+  and Azure SRE Agent.
 success_criteria:
   - "`az account show` returns the intended subscription"
   - "The participant confirms Owner role or a coach-approved pre-provisioned environment"

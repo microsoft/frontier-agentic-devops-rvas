@@ -7,35 +7,33 @@ Prerequisites: Activity 00 — Setup & Hello, Agent
 
 ---
 
-## What You'll Build
+## Build
 
-A scheduled workflow that runs every weekday morning at 9 AM and creates a GitHub issue summarizing your repo's activity from the past 24 hours. The agent will read recent issues and PRs, generate a natural-language digest, and post it to your repo as an issue titled "📋 Morning Briefing".
+A scheduled workflow that runs every weekday at 9 AM. It reads recent issues and pull requests, then creates a "📋 Morning Briefing" issue that summarizes the past 24 hours.
 
-Why this matters: A scheduled workflow that queries your repo on a cron can replace a manual status-check ritual — no one needs to pull up the issues list before standup. The value depends entirely on whether you trust the summary enough to act on it; this activity is where you calibrate that trust by reading what the agent actually produces before relying on it.
+This can replace the manual status check before standup. Read the generated briefing before deciding whether the team can rely on it.
 
 ---
 
-## Goals
+## What you'll practice
 
-By the end of this activity, your squad will:
-
-1. ✅ Write a gh-aw workflow triggered by `on: schedule` (cron syntax)
-2. ✅ Use the GitHub MCP tool to query recent issues and PRs
-3. ✅ Instruct the AI agent to summarize activity in natural language
-4. ✅ Create an issue with structured, dated content using `safe-outputs: create-issue`
-5. ✅ Understand the time-based trigger pattern for automation
+1. Write a gh-aw workflow triggered by `on: schedule` (cron syntax)
+2. Use the GitHub MCP tool to query recent issues and PRs
+3. Tell the agent how to summarize activity
+4. Create a structured, dated issue with `safe-outputs: create-issue`
+5. Work with time-based automation triggers
 
 ---
 
 > [!IMPORTANT]
 > Bring your own repo (do this first)
 >
-> This activity is most valuable when the briefing runs on your own repository with real issues and PRs, so the workflow can keep informing your team after the session. Treat the setup sample as practice, not the default destination.
+> Run the briefing on your own repository if possible. Real issues and pull requests show whether the summary is useful. Use the setup sample only for practice.
 >
 > - Have a candidate repo? Install or point `morning-briefing.md` at that repo everywhere the guide references the sample repo, and use its real backlog and PR activity as the briefing material.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
 >
-> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+> Tell the facilitator which repository you chose.
 
 ---
 
@@ -49,7 +47,7 @@ By the end of this activity, your squad will:
 - [ ] `.github/workflows/morning-briefing.lock.yml` is generated after compiling
 - [ ] At least one issue was created when the workflow ran (or manual trigger via `workflow_dispatch`)
 - [ ] Issue body includes a summary of recent activity (issues opened, PRs, etc.)
-- [ ] Discuss what daily status update you or your team assemble by hand today that this scheduled briefing pattern could replace, and what you would trust it to send unsupervised. Connect it to a project, task, or workflow you own.
+- [ ] Using a project, task, or workflow you own, discuss which daily status update this briefing could replace and what you would trust it to send unsupervised.
 
 ---
 
@@ -74,11 +72,11 @@ By the end of this activity, your squad will:
 
 ---
 
-## Stuck?
+## Help
 
-If you're blocked for more than 15 minutes:
+If you're blocked:
 
-1. Check cron syntax: Verify your cron expression on crontab.guru — an off-by-one error in the day-of-week is common.
+1. Check cron syntax on crontab.guru. Day-of-week errors are common.
 2. Test with workflow_dispatch: Don't wait for the schedule; manually trigger from the Actions tab to see errors immediately.
 3. Read the agent logs: Click your workflow run in the Actions tab and scroll to see what the AI agent actually tried to do.
 4. Simplify instructions: If the agent isn't summarizing correctly, give it simpler guidance like "List all issues opened in the last 24 hours" before moving to complex summaries.

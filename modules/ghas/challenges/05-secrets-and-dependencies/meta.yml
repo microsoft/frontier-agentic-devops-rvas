@@ -13,10 +13,10 @@ prerequisite_capabilities:
   - Familiarity with Node.js environment variables and npm package management
   - Completed S01 (attack surface overview) recommended
 description: >
-  Respond to secret exposure and vulnerable dependencies in Juice Shop or a customer-owned
-  application: remove affected values from code, assess rotation or revocation, validate safe
-  replacement configuration, and record accountable remediation and time-bound exceptions
-  through GHAS checks.
+  Respond to exposed secrets and vulnerable dependencies in Juice Shop or a
+  customer-owned application. Remove exposed values, assess rotation or revocation,
+  validate replacement configuration, and use GHAS checks to record accountable
+  remediation and time-bound exceptions.
 success_criteria:
   - Exposed secret removed from the affected code path, with revocation or rotation assessed and recorded
   - Replacement configuration uses environment variable references (process.env.VARIABLE_NAME) and the application still starts and authenticates correctly
@@ -37,7 +37,7 @@ app_dependency: juice-shop
 emu_compatible: true
 min_environment: org
 provision_creates:
-  - Shared org repo with Juice Shop (OWASP Juice Shop v20+) — provisioned by organizer setup
+  - Shared org repo with Juice Shop (OWASP Juice Shop v20+), provisioned by organizer setup
   - Secret scanning and push protection active; Dependabot alerts pre-populated
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas

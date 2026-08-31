@@ -13,14 +13,14 @@
 
 ## Customer delivery target
 
-- Customer objective: execute an approved Bitbucket migration path with explicit fidelity and cutover ownership.
-- Customer-tenant target: a selected customer Bitbucket repository, GitHub destination, migration staging/queue, and metadata-gap plan.
-- Approval and safety boundary: run customer migrations only in an approved change window with source-write controls and owner approval; a source-history fallback is a controlled proof that must end in a cutover decision, not the delivery destination.
-- Records to keep: retain inventory, script/queue output, migration logs, validation results, fidelity decision, and follow-up backlog.
-- Adoption owner / handover: the customer migration owner accepts cutover; repository and platform owners accept retained gaps and operating changes.
-- Next action and owner: authorise the selected migration path and cutover window or hand over the approved proposal and risk decision.
+- **Goal:** run an approved Bitbucket migration path with explicit fidelity and cutover ownership.
+- **Target:** a selected customer Bitbucket repository, GitHub destination, migration staging/queue, and metadata-gap plan.
+- **Boundary:** run customer migrations only during an approved change window, with source-write controls and owner approval. A source-history fallback is a controlled proof, not the delivery destination, and must end in a cutover decision.
+- **Keep:** inventory, script/queue output, migration logs, validation results, fidelity decision, and follow-up backlog.
+- **Owners:** the customer migration owner accepts cutover. Repository and platform owners accept retained gaps and operating changes.
+- **Next:** authorise the selected migration path and cutover window or hand over the approved proposal and risk decision.
 
-## Customer delivery objective
+## Outcome
 
 Migrate one Bitbucket Server/Data Center repository to GitHub Enterprise Cloud with Git source, history, and pull request metadata, then validate the explicitly limited Bitbucket Cloud fallback that preserves only Git source and history.
 
@@ -41,7 +41,7 @@ Access and tooling you need:
 Your migration team has two Bitbucket populations. The production estate runs Bitbucket Server/Data Center and needs pull request history in GitHub. A smaller team uses Bitbucket Cloud, which has no first-party metadata migration path, so you must still preserve Git source and history and clearly communicate what will be lost.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> **Start with an approved customer target.**
 > Default to an approved customer Bitbucket Server/Data Center or Bitbucket Cloud repository. Complete the work on that source and target, retaining the migrated repository, history, supported metadata, settings evidence, and gap record.
 >
 > - Have a candidate? Use it everywhere this guide references the Bitbucket project, repository, workspace, or target repository.
@@ -114,7 +114,7 @@ export AZURE_STORAGE_CONNECTION_STRING="DefaultEndpointsProtocol=https;AccountNa
 
 If you do not want to manage cloud storage, use GitHub-owned blob storage with `--use-github-storage`. It requires `gh bbs2gh` v1.9.0 or later and GitHub deletes the uploaded archive after migration or after seven days.
 
-### 3. Understand the `bbs2gh` architecture
+### 3. Review the `bbs2gh` migration flow
 
 `gh bbs2gh` coordinates a multi-hop migration because GitHub cannot directly reach most Bitbucket Server/Data Center instances:
 
@@ -249,9 +249,9 @@ Document what did not migrate from Bitbucket Server/Data Center:
 
 ## Path B — Bitbucket Cloud fallback with Git CLI
 
-### 1. State the limitation before migrating
+### 1. Record the limitation before migrating
 
-Bitbucket Cloud repositories on `bitbucket.org` are not supported by GitHub Enterprise Importer or `gh bbs2gh`. There is no first-party path that migrates Bitbucket Cloud pull requests, comments, issues, or pipeline history. The always-doable baseline is a Git mirror migration that preserves source code and Git history only. For GHE.com targets, Git CLI is also the only available source-history path.
+Bitbucket Cloud repositories on `bitbucket.org` are not supported by GitHub Enterprise Importer or `gh bbs2gh`. No first-party path migrates Bitbucket Cloud pull requests, comments, issues, or pipeline history. The fallback is a Git mirror migration that preserves source code and Git history only. For GHE.com targets, Git CLI is also the only available source-history path.
 
 ### 2. Mirror-clone and mirror-push
 

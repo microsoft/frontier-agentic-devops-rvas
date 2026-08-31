@@ -10,15 +10,15 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: When CI breaks, this workflow can pull logs, analyse failure signals, and open a diagnostic issue with a likely cause and suggested next step.
+description: When CI fails, pull the logs and open a diagnostic issue with a likely cause and next step.
 success_criteria:
-  - `.github/workflows/ci-doctor.md` exists with valid gh-aw frontmatter
-  - Trigger is `on: workflow_run` scoped to at least one named workflow
-  - `types: [completed]` is present and the body handles the `conclusion: failure` check
-  - `safe-outputs: create-issue` is declared
-  - `.github/workflows/ci-doctor.lock.yml` compiles without errors
+  - "`.github/workflows/ci-doctor.md` exists with valid gh-aw frontmatter"
+  - "Trigger is `on: workflow_run` scoped to at least one named workflow"
+  - "`types: [completed]` is present and the body handles the `conclusion: failure` check"
+  - "`safe-outputs: create-issue` is declared"
+  - "`.github/workflows/ci-doctor.lock.yml` compiles without errors"
   - Intentional CI failure causes Doctor to open a diagnostic issue
-  - Issue contains: failure summary, likely root cause, suggested fix
+  - "Issue contains: failure summary, likely root cause, suggested fix"
 tags:
   - ci
   - workflow-run

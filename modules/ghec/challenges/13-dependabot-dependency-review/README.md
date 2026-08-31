@@ -26,8 +26,7 @@
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - GHAS note: the dependency graph, Dependabot alerts/updates, and dependency review are free on public repos. Setup provisions the Juice Shop import as public. On private/internal repos, dependency review needs a paid Code Security license — `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns.
 
-## Customer delivery objectives
-This delivery engagement establishes:
+## What you will deliver
 - Enable the dependency graph and Dependabot alerts + security updates on a repository.
 - Read the dependency graph and an SBOM export to understand what the app actually depends on.
 - Triage Dependabot alerts by severity and review the linked GitHub Advisory for each.
@@ -41,7 +40,7 @@ A GHEC customer's app drags a long tail of outdated, vulnerable npm packages —
 > [!IMPORTANT]
 > Use an approved customer target (do this first)
 >
-> Default to an authorised application repository the customer organisation owns so Dependabot alerts and dependency-review gates persist. Complete the work on that artifact and retain the evidence, guardrails, or automation.
+> Default to an authorised application repository the customer organisation owns so Dependabot alerts and dependency-review gates persist. Do the work there and keep the evidence, guardrails, or automation.
 >
 > - Have a candidate? Use it everywhere this guide says `ghec-ch13-juice-shop`. Skip the Setup step below entirely.
 > - No suitable one? Use the fallback below: an OWASP Juice Shop import with dependency material you can inspect safely.
@@ -60,7 +59,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch13 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch13 --org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch13-*`, idempotent, prefix-guarded teardown):
+Setup creates these resources (all names use the `ghec-ch13-*` prefix, and teardown is prefix-guarded):
 - A public repo `ghec-ch13-juice-shop` — OWASP Juice Shop imported at pinned ref `v20.0.0` (pulled from the official source, never vendored into this repo). Its npm dependency tree is intentionally vulnerable, giving Dependabot genuine alerts and security-update PRs to raise.
 - A `feature/add-risky-dep` branch that adds a known-vulnerable dependency to `package.json`, ready to open as a PR so you can watch dependency review flag it.
 - A printed Next steps block telling you where to start.
@@ -125,7 +124,7 @@ existing customer register:
 - `SCM-DEPENDENCY-REVIEW` — inspect the effective dependency-review workflow and required-check setting → record `approved pilot` → attach the workflow and blocked-PR result as objective evidence.
 
 ## Validation / Definition of Done
-You are done when ALL of the following are true:
+**Done means:**
 - [ ] Dependency graph is on and you exported an SBOM (verifiable via the `dependency-graph/sbom` API).
 - [ ] Dependabot alerts and security updates are enabled and the repo has open alerts with severities (verifiable via the `dependabot/alerts` API).
 - [ ] You triaged the backlog: reviewed an advisory and dismissed at least one alert with a reason.
@@ -136,7 +135,7 @@ You are done when ALL of the following are true:
 - [ ] Real-outcome check — if you brought your own repo, Dependabot and dependency review now protect dependencies you actually ship; if you used the sample, you can name the application repo you will enable next.
 - [ ] Adoption handover — record the customer application and security owners, priority dependency-risk target, update policy, and next approved action.
 
-> Coaches verify these via the automated hints in `COACH.md`.
+> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Add a second `dependabot.yml` ecosystem (e.g. `github-actions`) and keep its PRs grouped separately.

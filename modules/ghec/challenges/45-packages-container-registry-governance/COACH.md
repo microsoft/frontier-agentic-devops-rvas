@@ -1,4 +1,4 @@
-# Ch45 — Packages and Container Registry Governance — Delivery Assurance
+# Ch45: Packages and Container Registry Governance Delivery Assurance
 
 Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); `README.md` is canonical for tasks, evidence, commands, and Definition of Done.
 

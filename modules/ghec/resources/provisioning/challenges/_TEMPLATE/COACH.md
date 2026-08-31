@@ -5,7 +5,7 @@
   it is NOT shown to customer delivery team members on the Pages site (Basher filters COACH.md out).
 -->
 
-# Ch## — <Activity Title> — Coach Guide
+# Ch##: <Activity Title> Coach Guide
 
 > Audience: facilitators and graders. Pair with the delivery team member `README.md`.
 
@@ -25,7 +25,7 @@
 | Total | 100 | |
 
 ## Automated verification hints
-Use these to check Definition of Done quickly (prefer `gh` CLI / Actions over manual clicks):
+Use these commands to check the Definition of Done. Prefer the `gh` CLI or Actions evidence over manual clicks.
 ```bash
 # Example: confirm the seeded repo exists and is configured
 gh repo view <org>/ghec-ch##-<slug> --json name,visibility
@@ -45,7 +45,7 @@ gh api repos/<org>/ghec-ch##-<slug>/<endpoint>
 bash modules/ghec/resources/provisioning/scripts/setup.sh teardown ch## --org <org> --yes      # Bash
 modules/ghec/resources/provisioning/scripts/setup.ps1 teardown ch## --org <org> --yes     # PowerShell
 ```
-- Removes only `ghec-ch##-*` artifacts (prefix-guarded).
+- Removes only `ghec-ch##-*` artifacts. The prefix guard rejects anything else.
 - Manual cleanup (if any): <org/enterprise settings that scripts can't cleanly revert, e.g., audit stream config.>
 
 ## Time budget

@@ -1,6 +1,6 @@
 # Ch28 — Enterprise Identity & Network Governance
 
-> Deliver an evidence-based enterprise decision package for identity, network, SSH, and privileged-role controls—without configuring an IdP or disrupting production.
+> Create an evidence-based enterprise decision package for identity, network, SSH, and privileged-role controls. Do not configure an IdP or disrupt production.
 
 | | |
 |---|---|

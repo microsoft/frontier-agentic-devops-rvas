@@ -27,8 +27,7 @@
 - No GHAS, Codespaces, or enterprise-owner features are required. Every setting in this activity lives at organization scope.
 - EMU note: Enterprise Managed Users cannot create public repositories. In EMU orgs, setup requests `ghec-ch06-public-sample` as public but GitHub rejects that visibility, so the provisioner falls back to a private repo and prints a warning. The governance lesson still applies: public visibility is platform-blocked, and you verify/document that constraint instead of changing that repo to public.
 
-## Customer delivery objectives
-This delivery engagement establishes:
+## What you will deliver
 - Read and reason about an organization's member privileges baseline (default repository permission, repo creation, page/visibility, fork policy).
 - Configure repository creation, visibility, and deletion/transfer policies for members.
 - Manage members vs outside collaborators and understand how each gets access.
@@ -42,7 +41,7 @@ You're the first platform admin hired at a fast-growing GHEC customer. The organ
 > [!IMPORTANT]
 > Use an approved customer target (do this first)
 >
-> Default to an authorised customer organisation policy or repository-default setting. Complete the work on that artefact and retain the evidence, guardrails, or automation.
+> Default to an authorised customer organisation policy or repository-default setting. Do the work there and keep the evidence, guardrails, or automation.
 >
 > - Have a candidate? Use your real org settings and repos wherever this guide names `ghec-ch06-public-sample` or the sibling `ghec-ch06-*` repos. Skip the Setup step below entirely.
 > - No suitable one? Use the fallback below: seeded visibility sample repos plus a starter team for controlled policy validation. In EMU, the public sample is created as private because public repositories are not allowed.
@@ -51,7 +50,7 @@ You're the first platform admin hired at a fast-growing GHEC customer. The organ
 
 ## Initialize the Governance Settings Register
 
-This activity is the foundation for all subsequent governance activities. Before
+This activity starts the governance record used by later activities. Before
 you start Part A, create the customer-owned governance settings register — the
 customer's record of effective settings, decisions, and evidence. The
 `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md` catalogue selects the
@@ -70,8 +69,7 @@ customer's actual choice.
    `not applicable`, the enterprise owner/export request, and the reason; it
    is not an org-owner completion blocker.
 
-This ensures governance is cumulative, auditable, and tied to real customer
-decisions — not a one-off exercise.
+This keeps governance decisions and evidence in one customer-owned record.
 
 ## Sample test repository or environment (when tenant delivery is constrained)
 Skip this if you brought your own org/repo policy target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
@@ -85,7 +83,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch06 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch06 --org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch06-*`, idempotent, prefix-guarded teardown):
+Setup creates these resources (all names use the `ghec-ch06-*` prefix, and teardown is prefix-guarded):
 - Three seeded repos — `ghec-ch06-public-sample`, `ghec-ch06-private-sample`, and `ghec-ch06-internal-sample` — each with a short `README` so you have real objects to apply visibility/permission policy against. On EMU, `ghec-ch06-public-sample` is expected to fall back to private because public repos are blocked.
 - A starter team `ghec-ch06-members` with one of the sample repos attached at the default permission, so you can observe how base permissions flow.
 - A printed current baseline snapshot (the org's existing member-privilege settings dumped from the API) so you can see "before," then prove "after."
@@ -124,7 +122,7 @@ What setup creates (all artifacts namespaced `ghec-ch06-*`, idempotent, prefix-g
 16. Inspect the effective enterprise and organization default-branch policy for new repositories. Add `REP-DEFAULT-BRANCH` from `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md` to the register with the effective level and evidence; record a migration/tooling exception or an inspect-and-propose change proposal.
 
 ## Validation / Definition of Done
-You are done when ALL of the following are true:
+**Done means:**
 - [ ] `default_repository_permission` is `read` or `none` (verifiable: `gh api /orgs/<org> --jq '.default_repository_permission'`).
 - [ ] Members cannot create public repositories (`members_can_create_public_repositories == false`, or EMU platform policy prevents public repositories entirely).
 - [ ] Members cannot delete or transfer repositories (confirmed in Member privileges).
@@ -137,7 +135,7 @@ You are done when ALL of the following are true:
 - [ ] Real-outcome check — if you brought your own org/repo target, a real policy baseline or default setting is documented and improved; if you used the sample, you can name the org setting you will propose changing next.
 - [ ] Adoption handover — record the customer organisation owner, highest-priority policy decision, risk addressed, and approved implementation or proposal next action.
 
-> Coaches verify these via the automated hints in `COACH.md`.
+> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Write a small script that pulls the full `/orgs/<org>` settings object and renders a Markdown policy table automatically — turn governance into a repeatable report.

@@ -1,6 +1,6 @@
 # Ch28 — Enterprise Identity & Network Governance — Delivery Assurance
 
-This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); `README.md` is the canonical source for tasks, evidence, and Definition of Done.
+Review the completed work against the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md) and the `README.md` Definition of Done.
 
 ## Assurance record
 
@@ -9,7 +9,7 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 - **Open risk:** record the accountable owner or `none`.
 - **Next decision:** record the pilot, rollout, risk acceptance, or follow-up owner and date.
 
-## Session-specific reviewer focus
+## Reviewer focus
 
 - Confirm the boundary: Ch14's org SAML/SCIM and Ch07's org roles do not prove enterprise governance.
 - Confirm `ENT-IDP-CONDITIONAL-ACCESS` evidence shows EMU + OIDC + Microsoft Entra ID; CAP and the GitHub IP allow list are not combined.

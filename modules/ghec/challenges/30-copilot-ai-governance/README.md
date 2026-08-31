@@ -13,10 +13,10 @@
 
 ## Customer delivery target
 
-- **Customer objective:** make deliberate, auditable enterprise AI-control decisions rather than enabling Copilot capabilities by default.
-- **Customer-tenant target:** a decision package covering the seven controls below, their effective inheritance, named owners, review cadence, exceptions, and evidence in the customer governance register.
-- **Approval boundary:** default to **inspect-and-propose**. One narrowly scoped policy pilot is optional and requires customer approval; do not provision an app, assign a seat, install an agent, configure an MCP server, or start an agent session for this activity.
-- **Records to keep:** dated Enterprise AI Controls and organization-policy exports, seat/offboarding evidence, policy and risk decisions, approved MCP inventory, and an evidence link for every register row.
+- **Goal:** make deliberate, auditable enterprise AI-control decisions instead of enabling Copilot capabilities by default.
+- **Target:** a decision package covering the seven controls below, their effective inheritance, named owners, review cadence, exceptions, and evidence in the customer governance register.
+- **Boundary:** default to **inspect-and-propose**. One narrowly scoped policy pilot is optional and requires customer approval. Do not provision an app, assign a seat, install an agent, configure an MCP server, or start an agent session for this activity.
+- **Keep:** dated Enterprise AI Controls and organization-policy exports, seat/offboarding evidence, policy and risk decisions, approved MCP inventory, and an evidence link for every register row.
 - **Handover:** the enterprise AI-controls owner accepts the baseline; identity, legal/privacy, security, procurement, and organization owners accept their assigned decisions and cadence.
 
 ## Prerequisites

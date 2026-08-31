@@ -1,17 +1,17 @@
 # GHEC and EMU Governance Control Catalogue
 
-This catalogue is the delivery map for decision-impact GitHub Enterprise Cloud
-(GHEC) controls. It complements the
+This catalogue maps GitHub Enterprise Cloud (GHEC) controls to the work that
+defines or verifies them. Use it with the
 [customer governance register](GOVERNANCE-SETTINGS-REGISTER-TEMPLATE.md):
 
-- **Catalogue:** the recommended baseline, applicability, official source, and
+- **Catalogue:** Recommended baseline, applicability, official source, and
   owning activity.
-- **Customer register:** the effective inherited setting, approved customer
-  decision, evidence, owner, exception, and review date.
+- **Customer register:** Effective inherited setting, approved decision,
+  evidence, owner, exception, and review date.
 
-The catalogue is deliberately not an exhaustive list of preferences. It covers
-controls that materially affect access, security, compliance, cost, data
-retention, automation trust, or lifecycle governance.
+The catalogue does not list every preference. It covers controls that affect
+access, security, compliance, cost, data retention, automation trust, or
+lifecycle governance.
 
 ## Delivery contract
 
@@ -19,14 +19,13 @@ For every applicable control:
 
 1. **Inspect** the effective setting and its source (`enterprise`, `org`, or
    `repo`).
-2. **Tune** it only through an authorized, bounded pilot; otherwise write an
+2. **Change** it only through an authorized, bounded pilot. Otherwise, write an
    **inspect-and-propose** decision.
-3. **Evidence** the result in the customer register with a non-secret export,
+3. **Record** the result in the customer register with a non-secret export,
    audit event, workflow result, or access test.
 
-`Availability` identifies whether a control is available, conditional, or not
-applicable. A customer register row must record the reason for `not applicable`
-instead of silently omitting it.
+`Availability` states whether a control is available, conditional, or not
+applicable. For `not applicable`, record the reason in the customer register.
 
 | Delivery notation | Meaning |
 |---|---|
@@ -143,9 +142,9 @@ instead of silently omitting it.
 
 ## Catalogue maintenance
 
-- Revalidate official links and availability at least quarterly; GitHub administration
-  and Copilot documentation changes frequently.
+- Check official links and availability at least quarterly. GitHub administration
+  and Copilot documentation changes often.
 - Treat preview controls as `proposed` until the customer confirms production
   suitability and supportability.
-- When a gap becomes a coherent customer activity, move it from **Gap** to a
-  named primary activity and update its register evidence contract.
+- When a gap becomes a defined customer activity, replace **Gap** with the
+  primary activity and update the register evidence contract.

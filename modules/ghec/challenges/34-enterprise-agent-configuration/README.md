@@ -13,10 +13,10 @@
 
 ## Customer delivery target
 
-- **Customer objective:** establish a controlled, reviewable enterprise source for Copilot custom-agent configuration rather than distributing ungoverned agent files.
-- **Customer-tenant target:** an approved organization-owned `.github-private` repository, selected in Enterprise **AI Controls → Agents → Configuration source**, with protected agent changes and one enterprise custom agent named **Agentic DevSecOps**.
+- **Goal:** establish a controlled, reviewable enterprise source for Copilot custom-agent configuration rather than distributing ungoverned agent files.
+- **Target:** an approved organization-owned `.github-private` repository, selected in Enterprise **AI Controls → Agents → Configuration source**, with protected agent changes and one enterprise custom agent named **Agentic DevSecOps**.
 - **Safety boundary:** begin with an approved customer target. Do not substitute a training repository for the enterprise configuration source, broaden agent tools, add secrets, enable MCP servers, or change unrelated Copilot policy as part of this activity.
-- **Records to keep:** approved scope, source organization and repository, source commit and pull request, CODEOWNERS and ruleset evidence, AI Controls configuration-summary evidence, propagation test result, rollback commit, approvers, and review date.
+- **Keep:** approved scope, source organization and repository, source commit and pull request, CODEOWNERS and ruleset evidence, AI Controls configuration-summary evidence, propagation test result, rollback commit, approvers, and review date.
 - **Adoption handover:** the enterprise AI-controls owner accepts the source and propagation result; security/platform owners accept the agent boundary; each organization owner accepts its organization instructions.
 
 > [!IMPORTANT]

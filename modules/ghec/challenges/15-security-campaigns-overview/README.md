@@ -27,9 +27,8 @@
 - GHAS note: security overview, configurations, and campaigns operate on GHAS alert data. The Juice Shop import is provisioned public so CodeQL/Dependabot/secret scanning alerts run free. However, the security overview's advanced views (Risk, Coverage, Campaigns) and security campaigns themselves require a GitHub Code Security or GitHub Secret Protection license at the organization level — a public repo's free scanning does *not* unlock them. If your org has no GHAS product, you can still generate and triage alerts (Part A) but Parts B–E need a licensed org. `modules/ghec/resources/provisioning/scripts/setup.sh doctor` confirms availability.
 - Standalone setup note: this activity does not depend on ch12/ch13 having run — setup creates its own `ghec-ch15-juice-shop` and enables scanning so the alert corpus exists standalone.
 
-## Customer delivery objectives
-This delivery engagement establishes:
-- Navigate the org Security overview: the risk and coverage views, and filter alerts across repos.
+## What you will deliver
+- Open the organization Security overview, review risk and coverage, and filter alerts across repositories.
 - Create an organization security configuration and apply it so GHAS features roll out consistently to repos.
 - Read coverage (which repos have which features on) vs risk (where the open alerts are).
 - Launch a security campaign targeting a slice of alerts, assign a manager, set a due date, and add guidance.
@@ -40,7 +39,7 @@ A GHEC customer has GHAS switched on but no program around it — alerts pile up
 
 > [!IMPORTANT]
 > Use an approved customer target (do this first)
-> Default to an authorised customer application repository or security-campaign candidate. Complete the work on that artifact and retain the evidence, guardrails, or automation.
+> Default to an authorised customer application repository or security-campaign candidate. Do the work there and keep the evidence, guardrails, or automation.
 >
 > - Have a candidate? Use it everywhere this guide says `ghec-ch15-juice-shop`. Skip the Setup step below entirely.
 > - No suitable one? Use the fallback below: an OWASP Juice Shop import with security findings suitable for controlled campaign validation.
@@ -59,7 +58,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch15 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch15 --org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch15-*`, idempotent, prefix-guarded teardown):
+Setup creates these resources (all names use the `ghec-ch15-*` prefix, and teardown is prefix-guarded):
 - A public repo `ghec-ch15-juice-shop` — OWASP Juice Shop imported at pinned ref `v20.0.0` (pulled from the official source, never vendored into this repo).
 - The repo is staged so that enabling GHAS produces a rich alert corpus across CodeQL (OWASP Top 10), Dependabot (vulnerable npm tree), and secret scanning — the raw material a campaign targets. (Setup may enable default CodeQL and Dependabot so alerts exist out of the gate; you'll confirm and extend.)
 - A printed Next steps block pointing at the org Security tab (overview, configurations, campaigns).
@@ -108,7 +107,7 @@ existing customer register:
 - `SEC-SECURITY-CAMPAIGNS` — inspect the effective organisation campaign availability and configuration → record `approved pilot` → attach the coverage/risk snapshot, campaign definition, and remediation burn-down report as objective evidence.
 
 ## Validation / Definition of Done
-You are done when ALL of the following are true:
+**Done means:**
 - [ ] `ghec-ch15-juice-shop` has a multi-tool alert corpus (CodeQL and Dependabot alerts present, verifiable via the alerts APIs).
 - [ ] You used the org Security overview Risk and Coverage views and produced an org-wide alert slice via the API.
 - [ ] An org security configuration exists and is applied to the repo (features show enabled in Coverage).
@@ -119,7 +118,7 @@ You are done when ALL of the following are true:
 - [ ] Real-outcome check — if you brought your own repo/campaign target, the campaign view now maps to real owners and alerts; if you used the sample, you can name the repo group you will campaign against next.
 - [ ] Adoption handover — record the customer security programme owner, campaign scope, repository owners, success measure, and next approved action.
 
-> Coaches verify these via the automated hints in `COACH.md`.
+> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Apply the security configuration as the org default and create a second repo to prove new repos inherit it.

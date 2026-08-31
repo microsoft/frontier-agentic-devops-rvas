@@ -2,9 +2,9 @@
 
 ## Scenario
 
-Now deploy the official Azure SRE Agent starter lab. This creates the monitored Grubify sample application and the Azure SRE Agent context needed for the rest of the track.
+Deploy the official Azure SRE Agent starter lab. It creates the monitored Grubify sample app and the agent context used later.
 
-This activity is Azure-first. GitHub is optional at this stage; the primary outcome is that the SRE Agent can see Azure resources, observability data, incidents, and knowledge.
+Start with Azure; GitHub is optional. The SRE Agent must be able to read Azure resources, observability data, incidents, and knowledge.
 
 ## Goals
 
@@ -21,12 +21,12 @@ This activity is Azure-first. GitHub is optional at this stage; the primary outc
 > [!IMPORTANT]
 > Bring your own service (do this first)
 >
-> This activity is most valuable when the Azure SRE Agent is connected to an Azure service or application your team will keep operating after the session. If you have a candidate workload in a subscription you control, point the SRE Agent at that service everywhere this guide references Grubify so the setup, telemetry, incidents, and context live in your tenant.
+> Connect Azure SRE Agent to a service your team will operate after the session if you can. Use that workload wherever this guide references Grubify so the setup, telemetry, incidents, and context remain useful in your tenant.
 >
-> - Have a candidate? Use an existing Azure service that is already deployed, observable, and approved for the agent to access. Confirm the agent has permission to read the resource group, logs, metrics, traces, alerts, and any knowledge sources you want it to use; skip deploying Grubify unless your coach asks for a parallel practice target.
-> - No suitable Azure service yet? Deploy Grubify below as the safe fallback target for learning the workflow.
+> - If you have a candidate, use an existing Azure service that is deployed, observable, and approved for agent access. Confirm that the agent can read the resource group, logs, metrics, traces, alerts, and approved knowledge sources. Skip Grubify unless your coach wants a separate practice target.
+> - If you do not have a suitable service, deploy Grubify as the practice target.
 >
-> Tell your coach which path you took — bringing your own is the goal; Grubify is the fallback.
+> Tell your coach which path you chose. **Prefer your own service; use Grubify as the fallback.**
 
 ## Deploy
 
@@ -61,7 +61,7 @@ bash scripts/post-provision.sh
 
 For manual Activity 01 setup, leave `GITHUB_USER` unset unless your coach tells you to connect source code now.
 
-Deployment can take several minutes. If deployment fails because of role, policy, region, or cost restrictions, switch to the coach fallback packet.
+Deployment can take several minutes. If a role, policy, region, or cost restriction blocks it, use the coach fallback packet.
 
 ## Verify the Agent
 
@@ -111,7 +111,7 @@ Then ask:
 Summarize the Grubify app architecture and the HTTP error runbook you have available.
 ```
 
-Treat the answers as orientation. You will validate investigation claims in later activities.
+Use the answers for orientation. Validate any investigation claims later.
 
 ## Deliverables
 

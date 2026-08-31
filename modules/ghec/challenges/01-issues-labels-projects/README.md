@@ -26,8 +26,7 @@
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - No GHAS, Codespaces, or enterprise features are required for this activity.
 
-## Customer delivery objectives
-This delivery engagement establishes:
+## What you will deliver
 - Create, triage, and close issues using templates (issue forms), assignees, and task lists.
 - Design a label taxonomy (type / priority / area / status) and apply it consistently.
 - Group work into milestones and track completion percentage.
@@ -40,7 +39,7 @@ You have just inherited the backlog for an internal developer-tools team at a GH
 > [!IMPORTANT]
 > Use an approved customer target (do this first)
 >
-> Default to an authorised customer backlog, taxonomy, and Projects board that the team will operate after delivery. Complete the work on that artifact and retain the evidence, guardrails, or automation.
+> Default to an authorised customer backlog, taxonomy, and Projects board that the team will operate after delivery. Do the work there and keep the evidence, guardrails, or automation.
 >
 > - Have a candidate? Use it everywhere this guide says `ghec-ch01-issues-labels-projects` or `ghec-ch01-board`. Skip the Setup step below entirely.
 > - No suitable one? Use the fallback below: a seeded backlog repo and empty project board you can shape safely.
@@ -59,10 +58,10 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch01 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch01 --org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch01-*`, idempotent, prefix-guarded teardown):
+Setup creates these resources (all names use the `ghec-ch01-*` prefix, and teardown is prefix-guarded):
 - A seeded repo `ghec-ch01-issues-labels-projects` with a realistic `README`, a small source tree, and a `.github/ISSUE_TEMPLATE/` directory you will extend.
 - ~26 seeded issues describing a backlog (bugs, features, chores) — deliberately messy: inconsistent or missing labels, no milestone, no assignee.
-- An intentionally messy, incomplete label set (`bug`, `Bug`, `enhancement`, `urgent`, `wontfix`, `question`, `backend`, `frontend` — note the duplicate `bug`/`Bug` casing) so you can feel the gap and design a real taxonomy.
+- An intentionally incomplete label set (`bug`, `Bug`, `enhancement`, `urgent`, `wontfix`, `question`, `backend`, `frontend` — note the duplicate `bug`/`Bug` casing) that makes the taxonomy gaps visible.
 - An empty Projects (v2) board `ghec-ch01-board` linked to the repo, with no custom fields yet.
 - A printed Next steps block telling you where to start.
 
@@ -123,7 +122,7 @@ What setup creates (all artifacts namespaced `ghec-ch01-*`, idempotent, prefix-g
 14. Add an insight chart. In the project's Insights, create a chart that counts open items grouped by `Priority`, and save it.
 
 ## Validation / Definition of Done
-You are done when ALL of the following are true:
+**Done means:**
 - [ ] The repo has two working issue forms under `.github/ISSUE_TEMPLATE/` and both appear in the New-issue chooser.
 - [ ] Every seeded issue carries at least a `type:` and a `priority:` label (verifiable: `gh issue list --json number,labels` shows no issue with fewer than 2 labels).
 - [ ] At least 13 distinct labels exist following the `dimension: value` convention.
@@ -134,7 +133,7 @@ You are done when ALL of the following are true:
 - [ ] Real-outcome check — if you brought your own backlog, the labels, milestones, and project views now live where your team can keep using them; if you used the sample, you can name the real backlog or board you will migrate next.
 - [ ] Adoption handover — name the customer backlog owner, the first work item or backlog to adopt, and the missing taxonomy, field, or view to address.
 
-> Coaches verify these via the automated hints in `COACH.md`.
+> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Add a third issue form for "incident" with a required severity dropdown, and a `status: blocked` label that comments on the issue when applied.

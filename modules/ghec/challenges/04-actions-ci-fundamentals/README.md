@@ -26,8 +26,7 @@
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
 - Cost note: Actions on GitHub-hosted runners consumes Actions minutes (free tier on public repos; metered on private). `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns. Keep matrices small.
 
-## Customer delivery objectives
-This delivery engagement establishes:
+## What you will deliver
 - Write a workflow from scratch: `on` triggers, `jobs`, `steps`, and `runs-on`.
 - Run tests across a build matrix (multiple Node versions / OSes).
 - Speed up runs with dependency caching (`actions/cache` or `setup-node` cache).
@@ -42,7 +41,7 @@ A GHEC customer's team merges first and finds out it's broken later — there's 
 > [!IMPORTANT]
 > Use an approved customer target (do this first)
 >
-> Default to an authorised customer repository with a build, test, or validation step that should run automatically. Complete the work on that artifact and retain the evidence, guardrails, or automation.
+> Default to an authorised customer repository with a build, test, or validation step that should run automatically. Do the work there and keep the evidence, guardrails, or automation.
 >
 > - Have a candidate? Use it everywhere this guide says `ghec-ch04-actions-ci-fundamentals`. Skip the Setup step below entirely.
 > - No suitable one? Use the fallback below: a seeded sample repo with code ready for a first CI workflow.
@@ -61,7 +60,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch04 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch04 --org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch04-*`, idempotent, prefix-guarded teardown):
+Setup creates these resources (all names use the `ghec-ch04-*` prefix, and teardown is prefix-guarded):
 - A seeded repo `ghec-ch04-actions-ci-fundamentals` with a small Node app that has a passing test suite and at least one intentionally failing test behind a flag (so you can demonstrate red→green gating).
 - A `package.json` with `test`, `build`, and `lint` scripts.
 - A minimal starter workflow (`.github/workflows/ci.yml`) that just echoes — you will replace it with a real pipeline.
@@ -111,7 +110,7 @@ from whom an export is requested, and the reason instead.
 - `ACT-RETENTION`: artifact and log retention.
 
 ## Validation / Definition of Done
-You are done when ALL of the following are true:
+**Done means:**
 - [ ] `.github/workflows/ci.yml` triggers on push and pull_request and runs lint + test + build as distinct steps.
 - [ ] A matrix runs across ≥3 Node versions with `fail-fast: false`.
 - [ ] Caching is enabled and a run shows a cache hit on the second execution.
@@ -123,7 +122,7 @@ You are done when ALL of the following are true:
 - [ ] Real-outcome check — if you brought your own repo, CI now runs against a real build or test path; if you used the sample, you can name the workflow you will automate next.
 - [ ] Adoption handover — name the customer test or build process, workflow owner, required gate, and next approved rollout action.
 
-> Coaches verify these via the automated hints in `COACH.md`.
+> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Extract the test job into a reusable workflow (`workflow_call`) and call it from `ci.yml`.

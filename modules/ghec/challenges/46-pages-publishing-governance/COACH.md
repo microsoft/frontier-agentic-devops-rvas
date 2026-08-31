@@ -1,4 +1,4 @@
-# Ch46 — Pages Publishing Governance — Delivery Assurance
+# Ch46: Pages Publishing Governance Delivery Assurance
 
 Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is canonical for tasks and Definition of Done.
 
@@ -11,6 +11,6 @@ Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the pai
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: one approved repository can publish Pages under a documented org policy.
-- Governance controls: confirm org-wide Pages settings were not changed by setup and any production change was explicit.
-- Prompts: ask "who can publish the next site?" and "how do you disable or roll back this site?"
+- Confirm that one approved repository can publish Pages under a documented organization policy.
+- **Governance controls:** Confirm that setup did not change organization-wide Pages settings and that any production change was explicit.
+- Ask who can publish the next site and how the team disables or rolls back this one.

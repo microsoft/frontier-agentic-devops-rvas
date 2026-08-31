@@ -2,7 +2,7 @@
 
 ## Scenario
 
-Azure evidence can explain what failed. Source-code context helps explain where the failure may live and how engineering work should be tracked. In this activity, connect or simulate source-code context so Azure SRE Agent can move from operational investigation to remediation work with evidence, validation, and human approval.
+Azure evidence explains what failed. Source-code context points to the likely fault and gives the team a place to track the fix. Connect or simulate that context so Azure SRE Agent can draft remediation work backed by evidence, validation, and human approval.
 
 ## Goals
 
@@ -19,12 +19,12 @@ Azure evidence can explain what failed. Source-code context helps explain where 
 > [!IMPORTANT]
 > Bring your own service (do this first)
 >
-> This activity is most valuable when Azure SRE Agent connects operational evidence to the source repository your team will keep using after the session. If you have a candidate Azure workload in a subscription you control, use that service everywhere this guide references Grubify, and connect its own source repo so remediation work lands in the right engineering workflow.
+> Connect operational evidence to a repository your team will keep using after the session if you can. Use that workload wherever this guide references Grubify, and route remediation through the team's normal engineering workflow.
 >
-> - Have a candidate? Use a real or recent incident for your service and the repository that owns the suspected code path. Ask the agent to create or draft remediation work against your normal issue or pull request process, with evidence, uncertainty, validation, and human review gates.
-> - No suitable Azure service, incident, or source repo yet? Connect the Grubify repository or use the fallback source packet below as the safe practice target.
+> - If you have a candidate, use a real or recent incident and the repository that owns the suspected code path. Ask the agent to create or draft work through your normal issue or pull request process. Require evidence, uncertainty, validation, and human review.
+> - If you do not have a suitable service, incident, or repository, connect the Grubify repository or use the fallback source packet.
 >
-> Tell your coach which path you took — bringing your own is the goal; Grubify is the fallback.
+> Tell your coach which path you chose. **Prefer your own service; use Grubify as the fallback.**
 
 ## Connect Source Code
 
@@ -58,7 +58,7 @@ bash scripts/post-provision.sh --retry
 
 When the OAuth URL appears, open it in a browser and authorize with the GitHub account that has access to the lab repository. Do not paste GitHub tokens into chat or notes.
 
-You may also connect GitHub through the Azure SRE Agent portal. Use the least privilege option your coach approves.
+You can also connect GitHub through the Azure SRE Agent portal. Use the least-privilege option your coach approves.
 
 If GitHub connection is blocked, use the fallback packet with source snippets, file references, and a simulated issue or pull request.
 
@@ -108,7 +108,7 @@ If the agent or a coding assistant proposes a pull request:
 4. Confirm no secrets or tenant details are added.
 5. Decide: approve, request changes, or reject.
 
-Do not merge because the summary sounds confident.
+**Do not merge a change because its summary sounds confident.**
 
 ## Deliverables
 

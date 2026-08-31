@@ -1,8 +1,8 @@
 # CONTRIBUTING — Build Guide (Linus · Yen · Basher)
 
-This is the foundation contract. It tells each builder exactly where content goes and how the
-pieces fit. Rusty (Lead/Architect) owns this structure; propose changes via a decision in
-`.squad/decisions/inbox/` before deviating.
+This file defines where content goes and how the pieces fit. Rusty
+(Lead/Architect) owns the structure. Before changing it, add a decision to
+`.squad/decisions/inbox/`.
 
 ## The one canonical structure
 
@@ -60,10 +60,10 @@ docs/                                 ← GitHub Pages site source (Basher)
 | ch25 | `25-migrate-gitlab` |
 | ch26 | `26-migrate-legacy-vcs` |
 
-## `meta.yml` is the contract between everyone
+## `meta.yml` is the shared contract
 
-`meta.yml` is the canonical machine-readable definition. Both the site and the scripts read it.
-Never duplicate this data in prose — render or read it from here.
+`meta.yml` is the canonical machine-readable definition. The site and scripts
+both read it. Do not duplicate this data in prose. Render or read it from here.
 
 | Field | Type | Used by | Notes |
 |---|---|---|---|
@@ -105,10 +105,11 @@ Never duplicate this data in prose — render or read it from here.
 - Group by `track`; show `difficulty`, `app`, and `emu_compatible` badges; surface `references`.
 - Link the site from the root `README.md` and back.
 
-## Independence guarantee (everyone upholds)
+## Independence guarantee
 - No activity depends on another's output. Each `setup` creates all of its own `ghec-ch##-*` state.
 - Soft-links are optional only and must be re-created by provisioning, never assumed.
 
 ## Changing the contract
-The structure, slugs, and `meta.yml` schema are locked. To change them, write a decision to
-`.squad/decisions/inbox/` and get Rusty's sign-off so the site and scripts stay in lockstep.
+The structure, slugs, and `meta.yml` schema are locked. To change them, add a
+decision to `.squad/decisions/inbox/` and get Rusty's approval. The site and
+scripts must use the same contract.

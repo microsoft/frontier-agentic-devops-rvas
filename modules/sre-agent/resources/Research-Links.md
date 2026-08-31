@@ -1,6 +1,6 @@
 # Research Links
 
-Curated references for Agentic DevSecOps delivery. Prefer these links when writing activity guides, coach notes, and setup instructions.
+Use these Agentic DevSecOps references when writing activity guides, coach notes, and setup instructions.
 
 ## Azure SRE Agent
 
@@ -24,7 +24,7 @@ Curated references for Agentic DevSecOps delivery. Prefer these links when writi
 | Source | Use in Curriculum | Notes |
 | --- | --- | --- |
 | [The Agentic SDLC Handbook](https://danielmeppiel.github.io/agentic-sdlc-handbook/) | Methodology frame for AI-native software delivery. | Daniel Meppiel's handbook is a living pre-release under CC BY-NC-ND 4.0. Summarize and attribute; do not copy long passages. |
-| [The Agentic SDLC Thesis](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch01-the-agentic-sdlc-thesis.html) | Source for the claim that AI-native delivery needs an operating model, not only tool adoption. | Coach framing for the environment and operational-context arc across Activities 00, 01, and 03. |
+| [The Agentic SDLC Thesis](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch01-the-agentic-sdlc-thesis.html) | Source for the claim that AI-native delivery needs an operating model beyond tool adoption. | Coach framing for the environment and operational-context arc across Activities 00, 01, and 03. |
 | [The Reference Architecture](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch04-the-reference-architecture.html) | Source for human, agent, and platform separation. | Connect to the delivery session evidence chain and review gates. |
 | [Governance for AI-Assisted Delivery](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch05-governance-for-ai-assisted-delivery.html) | Source for governance and accountability language. | Use when explaining why humans still own policy, review, and release decisions. |
 | [The Practitioner's Mindset](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch10-the-practitioners-mindset.html) | Source for practitioner habits when working with agents. | Useful when Activity 04 evaluates evidence and uncertainty, and Activity 05 reviews remediation work. |
@@ -81,7 +81,7 @@ Curated references for Agentic DevSecOps delivery. Prefer these links when writi
 ## Source Caveats
 
 - The Agentic SDLC Handbook is licensed CC BY-NC-ND 4.0. Attribute Daniel Meppiel, summarize in your own words, and do not adapt or reproduce large sections in curriculum files.
-- GitHub Agentic Workflows and Peli's Agent Factory are early, evolving sources. Verify current setup, security, provider, and repository-permission requirements before delivery.
+- GitHub Agentic Workflows and Peli's Agent Factory continue to change. Verify current setup, security, provider, and repository-permission requirements before delivery.
 - Product docs can change quickly. Re-check Azure SRE Agent and GitHub Copilot agent docs before customer delivery.
 - Some features may require preview access, specific run modes, region availability, repository permissions, or tenant policy approval.
 - Use simulated packets when live access is blocked, but keep the same artifacts: signal, evidence, suspected cause, remediation path, and follow-up work item.

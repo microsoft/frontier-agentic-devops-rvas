@@ -6,7 +6,7 @@ Tier: Core
 
 ## Background
 
-The Issue Triage Agent is a starter pattern for agentic workflows. When a new issue lands in your repo, it can read the body, compare it with your label taxonomy, and apply allowed labels automatically.
+The Issue Triage Agent reads each new issue, compares it with the repository's label taxonomy, and applies allowed labels.
 
 Source: [`github/gh-aw/.github/workflows/issue-triage-agent.md`](https://github.com/github/gh-aw/blob/main/.github/workflows/issue-triage-agent.md)
 
@@ -21,14 +21,14 @@ Source: [`github/gh-aw/.github/workflows/issue-triage-agent.md`](https://github.
 > [!IMPORTANT]
 > Bring your own repo (do this first)
 >
-> This activity is most valuable when the triage agent learns your real label taxonomy and keeps working on your team's incoming issues. Pick a repository in an org you control where unlabelled or inconsistently labelled issues create real backlog noise.
+> Use a repository in an organization you control. Choose one where missing or inconsistent labels make the backlog harder to manage.
 >
 > - Have a candidate repo? Use it everywhere this guide references the sample repo, and customise the workflow with that repo's real labels, issue patterns, and classification comment style.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
 >
-> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+> Tell the facilitator which repository you chose.
 
-## What You'll Do
+## Steps
 
 1. Install [`gh aw`](https://github.com/github/gh-aw) (if not already done):
    ```bash
@@ -56,13 +56,13 @@ Source: [`github/gh-aw/.github/workflows/issue-triage-agent.md`](https://github.
 
 7. Commit both `.github/workflows/issue-triage-agent.md` and the generated `.lock.yml`.
 
-## Customize It
+## Adapt it
 
 Replace the default allowlist with your repo's actual labels:
 - Open your repo's Labels page and copy the exact label names
 - Edit the triage prompt to reference only those labels (prevents hallucination of non-existent tags)
 - Add a short description of each label so the agent understands when to apply it
-- Change the classification comment style — a one-liner "Categorised as: bug, backend" is fine
+- Change the classification comment style. A one-line comment such as "Categorised as: bug, backend" is enough.
 
 ## Success Criteria
 
@@ -74,7 +74,7 @@ Replace the default allowlist with your repo's actual labels:
 - [ ] `.github/workflows/issue-triage-agent.lock.yml` compiles without errors
 - [ ] Dry-run completes and shows expected label assignments in output
 - [ ] Live test: open a new issue and verify labels + comment appear
-- [ ] Discuss what you would measure if you deployed this triage agent on your busiest repo tomorrow to decide whether it is helping the team rather than adding noise. Connect it to a project, task, or workflow you own.
+- [ ] Using a project, task, or workflow you own, define the measures that would show whether this triage agent helps rather than adds noise.
 
 ---
 
@@ -85,7 +85,7 @@ Replace the default allowlist with your repo's actual labels:
 → Your allowlist is the guard. Add explicit instructions: _"Only apply labels from this list: [bug, enhancement, docs, question]. Never invent labels."_
 
 "How do I see what labels I have?"
-→ `gh label list` — or open the repository's Issues → Labels page in GitHub.
+→ Run `gh label list`, or open the repository's Issues → Labels page in GitHub.
 
 "Workflow runs but nothing happens"
 → Check the Actions tab for the run log. Permissions might be missing: use the [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/tutorials/authenticate-with-github_token) model and grant at minimum `issues: write` for `add-labels` and `add-comment`.

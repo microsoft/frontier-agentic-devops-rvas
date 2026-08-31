@@ -1,6 +1,6 @@
 # Ch01 — Issues, Labels & Project Boards — Delivery Assurance
 
-This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
+Use this review overlay with the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The paired `README.md` defines the tasks, evidence, commands, and Definition of Done.
 
 ## Assurance record
 
@@ -11,6 +11,6 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer implementation owner turns a raw backlog into a governed system with labels, milestones, and a Projects (v2) board.
-- Implementation risks to verify: issue forms require the needed fields, labels use consistent dimensions, and project workflows set item status automatically.
-- Delivery lead prompts: ask "what typed input would stop a reporter from forgetting the severity?" (a dropdown), and "where would a new item's status get set without manual work?" (a project workflow).
+- Expected outcome: the customer owner turns a raw backlog into a governed system with labels, milestones, and a Projects (v2) board.
+- Check that issue forms require the needed fields, labels use consistent dimensions, and project workflows set item status automatically.
+- Ask "what typed input would stop a reporter from forgetting the severity?" (a dropdown), and "where would a new item's status get set without manual work?" (a project workflow).

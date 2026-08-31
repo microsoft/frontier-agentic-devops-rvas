@@ -1,6 +1,6 @@
 # Ch24 — Migrate Bitbucket to GitHub (Server & Cloud) — Delivery Assurance
 
-This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
+Review the completed work against the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md) and the paired `README.md` Definition of Done.
 
 ## Assurance record
 
@@ -9,7 +9,7 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 - **Open risk:** record the unresolved risk and accountable owner, or `none`.
 - **Next decision:** record the handover, pilot, rollout, cutover, or follow-up action with owner and date.
 
-## Session-specific reviewer focus
+## Reviewer focus
 
 - SSH cipher error: aes256-ctr not supported
 - SFTP subsystem disabled

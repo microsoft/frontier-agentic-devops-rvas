@@ -12,7 +12,7 @@ prerequisite_capabilities:
 - jq installed
 - Ability to configure a GitHub App or fine-grained PAT as an Actions secret
 - Repository provisioned via activity setup script
-description: "Replace unmanaged repository creation with an authorized intake flow: a custom issue form, maintainer-applied approval label, and GitHub Actions provisioning workflow with auditable evidence."
+description: "Replace unmanaged repository creation with an authorized intake flow that uses a custom issue form, maintainer approval label, and GitHub Actions provisioning workflow."
 success_criteria:
 - Members cannot create repositories directly, or an approved rollout proposal records why the production setting was not changed during the session.
 - The intake repository has a working repository-request issue form.
@@ -20,7 +20,7 @@ success_criteria:
 - The workflow creates a requested repository with the approved baseline settings and fails closed for invalid requests.
 - The intake issue is updated with provisioning evidence and a final provisioned or failed label.
 - Governance evidence records the owner, approval route, workflow identity, baseline controls, audit evidence, and next review.
-- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+- Customer evidence names the authorized scope and owner, links the relevant controls and handover record, and states the next rollout decision.
 tags:
 - repository-creation
 - governance

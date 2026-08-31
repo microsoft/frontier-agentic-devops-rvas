@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Implement an authorized customer reproducible development environment with `devcontainer.json`, Codespaces, port forwarding, organization-level Codespaces policy, and tuned prebuilds. Preserve the configuration, prebuild operating decision, cost controls, and rollout decision."
+description: "Set up an authorized customer development environment with `devcontainer.json`, Codespaces, port forwarding, organization-level Codespaces policy, and tuned prebuilds. Preserve the configuration, prebuild operating decision, cost controls, and rollout decision."
 success_criteria:
 - '`.devcontainer/devcontainer.json` exists, **pins a base image**, includes **≥2 Features**, and sets `onCreateCommand` + `postStartCommand`.'
 - A Codespace was launched from **both** the UI and the CLI (`gh codespace list` showed it).
@@ -23,7 +23,7 @@ success_criteria:
 - A **prebuild** is configured, its workflow succeeds, and a new Codespace reports **Prebuild ready** with dependencies already installed.
 - All your Codespaces are **stopped/deleted** at the end.
 - '**Governance register updated:** Added `CSP-ENABLEMENT`, `CSP-DEVCONTAINER`, and `CSP-PREBUILDS` with links to `devcontainer.json`, `docs/prebuild-decision.md`, and org Codespaces policy.'
-- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+- Customer evidence records the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - codespaces
 - devcontainers

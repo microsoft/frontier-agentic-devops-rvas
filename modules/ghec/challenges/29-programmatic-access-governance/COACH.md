@@ -1,6 +1,6 @@
 # Ch29 — Programmatic Access Governance — Delivery Assurance
 
-Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The paired `README.md` is canonical.
+Review the completed work against the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md) and the paired `README.md`.
 
 ## Assurance record
 

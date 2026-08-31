@@ -11,14 +11,14 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Implement an authorized customer organization label taxonomy: define default labels for future repositories, reconcile an existing repository, and preserve ownership, exception, and rollout evidence."
+description: "Define an authorized organization label taxonomy, set defaults for new repositories, reconcile an existing repository, and record ownership, exceptions, and rollout evidence."
 success_criteria:
 - An approved organization label taxonomy exists with names, descriptions, colors, owner, review cadence, and exception path.
 - Organization default labels include the approved `type:`, `priority:`, `area:`, and `status:` dimensions.
 - A newly created repository inherits the approved organization default labels.
 - At least one existing repository is reconciled from inconsistent labels to the approved taxonomy.
 - Label governance evidence is recorded in the governance settings register with owner, scope, rollout decision, and next review.
-- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+- Customer evidence names the authorized scope and owner, links the relevant controls and handover record, and states the next rollout decision.
 tags:
 - labels
 - organization-settings

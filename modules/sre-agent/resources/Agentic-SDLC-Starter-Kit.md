@@ -1,10 +1,10 @@
 # Agentic SDLC Starter Kit
 
-Use this resource as optional coach material for the implemented Activity 03 context review and Activity 05 remediation handoff. Do not build everything. Build the smallest useful starter set and improve it only where the activity exposes a gap.
+This optional coach material supports the Activity 03 context review and Activity 05 remediation handoff. **Build only the smallest useful set.** Add an artifact when an activity exposes a gap.
 
 ## Why This Exists
 
-Agents fail on real codebases when team knowledge is undocumented. In this delivery session, participants should document intent, conventions, boundaries, and review gates before assigning more autonomous work.
+Agents fail on real codebases when team knowledge stays implicit. Document intent, conventions, boundaries, and review gates before assigning more autonomous work.
 
 ## Starter Instrumentation Set
 
@@ -19,7 +19,7 @@ Agents fail on real codebases when team knowledge is undocumented. In this deliv
 
 ## Suggested Files or GitHub Artifacts
 
-Use whatever the workshop repository allows. Good options include:
+Use the artifact type that fits the workshop repository:
 
 - `.github/copilot-instructions.md` or a repo instruction note.
 - `.github/prompts/<task>.prompt.md` or a reusable prompt in an issue comment.
@@ -27,11 +27,11 @@ Use whatever the workshop repository allows. Good options include:
 - `docs/decisions/<date>-<topic>.md` or a pinned issue comment.
 - Pull request templates, issue templates, workflow files, and runbooks.
 
-When a file path is unavailable or inappropriate for the customer's environment, use an issue, pull request comment, or project note. The key is durability and reviewability.
+If a file path does not fit the customer's environment, use an issue, pull request comment, or project note. The record must persist and remain easy to review.
 
 ## PROSE Constraints Checklist
 
-Use this before asking an agent to act.
+Check these constraints before asking an agent to act.
 
 | Constraint | Question |
 | --- | --- |
@@ -43,7 +43,7 @@ Use this before asking an agent to act.
 
 ## Checking Whether Agent Guidance Is Available
 
-When an instruction, persona, prompt, skill, or memory note seems ignored, debug it in this order:
+If an instruction, persona, prompt, skill, or memory note seems ignored, check each phase:
 
 | Phase | Debug Question |
 | --- | --- |
@@ -57,11 +57,11 @@ When an instruction, persona, prompt, skill, or memory note seems ignored, debug
 - Prefer small files and linked artifacts over one large prompt.
 - Use subagent isolation or separate review roles when context is noisy.
 - Plan, write the plan to a durable artifact, then reload from that artifact before execution.
-- Treat context window as capacity, not attention. The most important instruction still needs to be clear, local, and activated.
+- A large context window does not guarantee attention. Keep the most important instruction clear, local, and active.
 
 ## Separating Agent Suggestions from Enforced Controls
 
-For consequential effects, let the model propose actions, then use automated controls and human approval to decide whether to proceed.
+For consequential actions, let the model make a proposal. Automated controls and human approval decide whether it proceeds.
 
 | Agent May Propose | Deterministic or Human Gate Decides |
 | --- | --- |
@@ -72,7 +72,7 @@ For consequential effects, let the model propose actions, then use automated con
 
 ## Five-Step Execution Process
 
-Use this meta-process when work spans more than one prompt or agent.
+For work that spans more than one prompt or agent:
 
 1. Audit the current artifacts and evidence.
 2. Plan the next smallest safe action.

@@ -10,18 +10,18 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: Deploy a daily workflow that reviews recent code changes for suspicious patterns and reports findings for human investigation.
+description: Build a daily workflow that reviews recent code changes for suspicious patterns and reports findings for human investigation.
 success_criteria:
-  - `.github/workflows/daily-malicious-code-scan.md` exists with valid frontmatter
-  - `schedule: cron` trigger is set
+  - "`.github/workflows/daily-malicious-code-scan.md` exists with valid frontmatter"
+  - "`schedule: cron` trigger is set"
   - Scan window (days / commits) is defined in the body
   - At least 3 suspicious pattern categories are named in the body
-  - `safe-outputs: create-issue` is declared
-  - `.lock.yml` compiles without errors
+  - "`safe-outputs: create-issue` is declared"
+  - "`.lock.yml` compiles without errors"
   - Test pattern (benign flaggable code) causes the scan to open an alert issue
-  - Alert issue contains: file path, commit SHA, line number, and explanation of why it was flagged
+  - "Alert issue contains: file path, commit SHA, line number, and explanation of why it was flagged"
   - Base64/hex encoded strings being evaluated
-  - `fetch`, `http.request`, or `curl` calls to external URLs added in the last week
+  - "`fetch`, `http.request`, or `curl` calls to external URLs added in the last week"
   - Access to `process.env` / `os.environ` for keys like `TOKEN`, `SECRET`, `KEY`, `PASSWORD`
   - Dynamic `require`/`import` with non-string arguments
   - New files added to `.github/workflows/` that weren't in a PR

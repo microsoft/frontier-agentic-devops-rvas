@@ -26,8 +26,7 @@
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - No GHAS, Codespaces, or enterprise-owner features are required. Custom repository roles are an org capability available on GHEC.
 
-## Customer delivery objectives
-This delivery engagement establishes:
+## What you will deliver
 - Create a team hierarchy (parent + child teams) and understand how nested teams inherit access from their parent.
 - Grant teams access to repositories at the correct predefined repository role (Read / Triage / Write / Maintain / Admin).
 - Reason about how base (org) permission combines with team grants (the more permissive wins).
@@ -41,7 +40,7 @@ A GHEC customer's engineering org has grown past the point where ad-hoc collabor
 > [!IMPORTANT]
 > Use an approved customer target (do this first)
 >
-> Default to an authorised customer team structure and repository access model. Complete the work on that artifact and retain the evidence, guardrails, or automation.
+> Default to an authorised customer team structure and repository access model. Do the work there and keep the evidence, guardrails, or automation.
 >
 > - Have a candidate? Use your real teams and repos wherever this guide names `ghec-ch07-frontend` or the sibling `ghec-ch07-*` artifacts. Skip the Setup step below entirely.
 > - No suitable one? Use the fallback below: seeded frontend/backend/platform repos and a starter engineering team.
@@ -60,7 +59,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch07 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch07 --org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch07-*`, idempotent, prefix-guarded teardown):
+Setup creates these resources (all names use the `ghec-ch07-*` prefix, and teardown is prefix-guarded):
 - Three seeded repos — `ghec-ch07-frontend`, `ghec-ch07-backend`, and `ghec-ch07-platform` — each with a short `README` and a `src/` tree.
 - A single flat starter team `ghec-ch07-engineering` with one member (you) and no repository access yet, deliberately under-modeled so you build the hierarchy.
 - A printed access snapshot (current teams + repo grants from the API) so you can prove "before" → "after."
@@ -109,7 +108,7 @@ Use the existing governance register. Inspect the effective inherited setting, u
 - `ORG-CUSTOM-ROLES`: custom repository-role definition and assignment.
 
 ## Validation / Definition of Done
-You are done when ALL of the following are true:
+**Done means:**
 - [ ] **Governance register updated:** `ORG-TEAM-ACCESS` and `ORG-CUSTOM-ROLES` record the effective settings, selected path, and API/access-matrix evidence.
 - [ ] A parent team has two child teams, confirmed nested via the API (`.parent.name` is non-null).
 - [ ] The parent grants `Read` on all three repos and that access inherits to the children (verifiable on a child team's repo permissions).
@@ -120,7 +119,7 @@ You are done when ALL of the following are true:
 - [ ] Real-outcome check — if you brought your own teams/repos, access is now clearer on a model people actually use; if you used the sample, you can name the real team or repo set you will map next.
 - [ ] Adoption handover — record the customer access owner, priority excess-access or bottleneck finding, and next approved team-model action.
 
-> Coaches verify these via the automated hints in `COACH.md`.
+> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Add a third level of nesting (a sub-squad under a squad) and trace how a grant on the grandparent reaches the grandchild.

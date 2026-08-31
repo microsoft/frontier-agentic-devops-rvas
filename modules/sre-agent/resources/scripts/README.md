@@ -1,6 +1,6 @@
 # Scripts
 
-The rebuilt Azure SRE Agent track uses the official Microsoft starter lab as the live source. The setup command fetches the lab at a fixed revision only when it is needed:
+The Azure SRE Agent track uses the official Microsoft starter lab. The setup command fetches a fixed revision:
 
 ```text
 https://github.com/microsoft/sre-agent/tree/main/labs/starter-lab
@@ -40,4 +40,4 @@ bash scripts/setup-github.sh
 
 ## Legacy Local Utilities
 
-Some local scripts remain in this repository as fallback utilities for coaches, but they are no longer the primary SRE Agent track path. Prefer the official Microsoft lab for live delivery and use fallback packets when Azure access is unavailable.
+Some local scripts remain as coach fallback utilities. Use the official Microsoft lab for live delivery and a fallback packet when Azure access is unavailable.

@@ -1,4 +1,4 @@
-# Ch42 — Repository Lifecycle Governance — Delivery Assurance
+# Ch42: Repository Lifecycle Governance Delivery Assurance
 
 Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); `README.md` is canonical.
 
@@ -11,7 +11,7 @@ Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); `README
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: lifecycle decisions are repeatable and evidenced.
-- **Governance controls:** verify destructive actions require explicit approvals and retention checks.
-- Implementation risks to verify: ask what prevents an accidental delete or archive.
-- Delivery prompts: ask which repositories were marked safely and which high-impact actions were deferred.
+- Confirm that teams can repeat lifecycle decisions and trace the evidence.
+- **Governance controls:** Verify that destructive actions require explicit approval and retention checks.
+- Ask what prevents an accidental delete or archive.
+- Ask which repositories received safe markers and which high-impact actions were deferred.

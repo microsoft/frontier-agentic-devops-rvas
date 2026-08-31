@@ -6,36 +6,34 @@ Prerequisites: Complete at least 2 activities from Track 1
 
 ---
 
-## What You'll Build
+## Build
 
-A workflow that patrols your repo for stale issues and closes them automatically. Daily, it scans for issues open >60 days with no recent activity, warns the maintainers with a comment, and closes them if still stale 3 days later. This teaches you scheduled automation + conditional logic—the foundation for maintenance workflows.
+A daily workflow that finds issues open for more than 60 days with no recent activity. It warns maintainers, then closes an issue if it remains stale for three more days.
 
-Why this matters: Stale issues clutter backlogs and confuse new contributors. Automated cleanup keeps repos healthy. But you need judgment: warn first, close only after confirmation. This mirrors real team practices.
+Stale issues make backlogs harder to trust. The workflow warns before closing so maintainers have time to intervene.
 
 ---
 
-## Goals
+## What you'll practice
 
-By the end, your squad will:
-
-1. ✅ Build a workflow triggered daily on a schedule (`on: schedule:`)
-2. ✅ Use `tools: github:` to query stale issues
-3. ✅ Implement conditional logic (is an issue stale? how old is it?)
-4. ✅ Post a warning comment if stale
-5. ✅ Close the issue with a comment explaining why
-6. ✅ Avoid re-closing already-closed issues
+1. Build a daily workflow with `on: schedule:`
+2. Query stale issues with `tools: github:`
+3. Decide whether an issue is stale and how old it is
+4. Post a warning before closing
+5. Close the issue with an explanation
+6. Leave already-closed issues alone
 
 ---
 
 > [!IMPORTANT]
 > Bring your own repo (do this first)
 >
-> This activity is most valuable when Stale Patrol applies your own repository's backlog policy, exemption labels, and grace period, so maintenance can continue after the session. Treat the setup sample as practice, not the default destination.
+> Run Stale Patrol on your own repository if possible. Use the team's real exemption labels and grace period. Use the setup sample only for practice.
 >
 > - Have a candidate repo? Install or point `stale-patrol.md` at that repo everywhere the guide references the sample repo, and use real stale issues, labels such as `keep-alive`, and your team's closure language.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
 >
-> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+> Tell the facilitator which repository and policy you chose.
 
 ---
 
@@ -70,7 +68,7 @@ Create a gh-aw workflow named `stale-patrol.md` in `.github/workflows/` that:
 - [ ] A second run (simulated 3 days later) closes the issue
 - [ ] Issues labeled `keep-alive` are skipped (not closed)
 - [ ] No errors if repo has no stale issues
-- [ ] Discuss where you would draw the line between an agent warning about stale work and actually closing it on your behalf, and what grace period earns your trust. Connect it to a project, task, or workflow you own.
+- [ ] Using a project, task, or workflow you own, define when an agent may warn about or close stale work and what grace period you would require.
 
 ---
 
@@ -94,7 +92,7 @@ Create a gh-aw workflow named `stale-patrol.md` in `.github/workflows/` that:
 
 ---
 
-## Stuck?
+## Help
 
 - "How do I query for stale issues?" → Use the GitHub API to search: `state:open updated:<2024-01-01` (dates in the past)
 - "How do I avoid closing already-closed issues?" → Before updating, check the issue state: "If state is already 'closed', do nothing"

@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: "Implement authorized customer dependency governance: dependency graph and Dependabot configuration, vulnerability-alert triage, security updates, scheduled version updates, and dependency-review gating. Preserve customer-owned evidence and the rollout decision."
+description: "Set up authorized customer dependency governance: dependency graph and Dependabot configuration, vulnerability-alert triage, security updates, scheduled version updates, and dependency-review gating. Preserve customer-owned evidence and the rollout decision."
 success_criteria:
 - '**Dependency graph** is on and you exported an **SBOM** (verifiable via the `dependency-graph/sbom` API).'
 - '**Dependabot alerts** and **security updates** are enabled and the repo has **open alerts** with severities (verifiable via the `dependabot/alerts` API).'
@@ -20,7 +20,7 @@ success_criteria:
 - '`.github/dependabot.yml` configures **scheduled npm version updates** with a limit and a group.'
 - A **dependency-review** workflow exists, is **required** on `main`, and **blocks** the seeded risky PR.
 - '**Control-catalogue evidence:** The existing customer register records `SCM-DEPENDENCY-GRAPH`, `SCM-DEPENDABOT`, and `SCM-DEPENDENCY-REVIEW` as `approved pilot` after effective-setting inspection, with SBOM, Dependabot, and required-check evidence.'
-- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+- Customer evidence records the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - ghas
 - dependabot

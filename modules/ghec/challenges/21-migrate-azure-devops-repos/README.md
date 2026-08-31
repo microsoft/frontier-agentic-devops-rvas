@@ -13,12 +13,12 @@
 
 ## Customer delivery target
 
-- Customer objective: complete a controlled Azure DevOps-to-GitHub cutover that the customer can operate.
-- Customer-tenant target: an approved customer pilot repository, destination organisation, migration queue/cutover plan, and follow-up backlog.
-- Approval and safety boundary: migrate customer repositories only in an approved change window with source-write freeze and named owners; otherwise queue-only validation must end with an approved cutover proposal, risk decision, and next action.
-- Records to keep: retain inventory, migration ID/logs, validation results, mannequin plan, cutover checklist, and gap backlog.
-- Adoption owner / handover: the customer migration owner accepts cutover accountability; repository and Boards/Pipelines owners accept their follow-ups.
-- Next action and owner: approve the pilot cutover or assign the named owner and date for the documented migration decision.
+- **Goal:** complete a controlled Azure DevOps-to-GitHub cutover that the customer can operate.
+- **Target:** an approved customer pilot repository, destination organisation, migration queue/cutover plan, and follow-up backlog.
+- **Boundary:** migrate customer repositories only during an approved change window, with a source-write freeze and named owners. Otherwise, queue-only validation must end with an approved cutover proposal, risk decision, and next action.
+- **Keep:** inventory, migration ID/logs, validation results, mannequin plan, cutover checklist, and gap backlog.
+- **Owners:** the customer migration owner accepts cutover accountability. Repository and Boards/Pipelines owners accept their follow-up work.
+- **Next:** approve the pilot cutover or assign an owner and date to the migration decision.
 
 ## Prerequisites
 
@@ -32,9 +32,7 @@ Access and tools you need:
 - An Azure DevOps PAT with `work item (read)`, `code (read)`, and `identity (read)` scopes. Use Full access if you need `inventory-report` to work across all projects.
 - If your GitHub org enforces SAML SSO, authorize the GitHub PAT for SSO before running migrations.
 
-## Customer delivery objectives
-
-This delivery engagement establishes:
+## What you'll do
 - Install and verify the GitHub Enterprise Importer Azure DevOps extension.
 - Create and store the required `GH_PAT` and `ADO_PAT` environment variables safely.
 - Produce an Azure DevOps repository inventory and choose a realistic pilot repo based on PR count.
@@ -44,7 +42,7 @@ This delivery engagement establishes:
 - Build a follow-up backlog for Azure Boards and Azure Pipelines work that GEI does not migrate.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> **Start with an approved customer target.**
 >
 > Default to an approved customer repository that belongs to a real team and has at least one pull request. A small pilot repository is better than a huge monorepo: migration timing is driven mainly by pull request count, not Git repository size.
 >
@@ -168,7 +166,7 @@ If `pwsh` is unavailable on Windows, run this from PowerShell instead:
 .\migrate-ado-repos.ps1
 ```
 
-### Part E — Run a single-repo migration intentionally
+### Part E — Run a controlled single-repo migration
 
 10. For one selected pilot repo, run the direct command. Start with `--queue-only` if you want to inspect the migration ID and wait explicitly.
 

@@ -1,6 +1,6 @@
 # Ch31 — Copilot Environment & Instructions — Delivery Assurance
 
-Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). `README.md` is the canonical task, evidence, and Definition of Done guide.
+Review the completed work against the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md) and the `README.md` Definition of Done.
 
 ## Assurance record
 

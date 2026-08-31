@@ -1,4 +1,4 @@
-# Ch36 — Controlled Repository Intake
+# Ch36: Controlled Repository Intake
 
 > Deliver a governed repository request path: custom issue form, maintainer approval label, and GitHub Actions provisioning with auditable evidence.
 
@@ -13,12 +13,12 @@
 
 ## Customer delivery target
 
-- Customer objective: stop unmanaged repository sprawl while preserving a fast, reviewable request path.
-- Customer-tenant target: organization member-creation policy and a repository intake workflow.
-- Approval and safety boundary: disabling member repository creation is an org-wide governance change; apply it only with explicit org-owner approval. If not approved, produce a signed rollout proposal and prove the sample workflow instead.
-- Records to keep: retain policy snapshots, issue-form schema, workflow identity, approval label evidence, created repository URL, and failure handling evidence.
-- Adoption owner / handover: the platform governance owner accepts the intake process and operational runbook.
-- Next action and owner: approve production rollout, add repository baseline controls, or onboard the first real requester cohort.
+- Objective: stop unmanaged repository sprawl while keeping requests fast and reviewable.
+- Delivery target: organization member-creation policy and a repository intake workflow.
+- Safety boundary: disabling member repository creation is an org-wide change. Apply it only with explicit org-owner approval. Otherwise, produce a signed rollout proposal and prove the sample workflow.
+- Evidence: policy snapshots, issue-form schema, workflow identity, approval-label event, created repository URL, and failure handling.
+- Owner: platform governance.
+- Next decision: approve production rollout, add baseline controls, or onboard the first real requester cohort.
 
 ## Prerequisites
 
@@ -32,7 +32,7 @@
 
 ## Customer delivery objectives
 
-This delivery engagement establishes:
+You will:
 
 - Inspect and document the current repository-creation policy.
 - Restrict direct repository creation by members, or capture an approved rollout proposal when the production org cannot be changed during the session.
@@ -43,12 +43,12 @@ This delivery engagement establishes:
 
 ## Scenario
 
-A customer wants fewer shadow repositories and more consistent repository baselines. Today, anyone can create a repo, skip required metadata, forget ownership, and miss baseline settings. Your job is to replace that with a governed path: people request a repo through an issue form, maintainers approve with a label, and automation provisions the repo with an agreed baseline.
+A customer wants fewer shadow repositories and more consistent baselines. Today, members can create a repository without required metadata, an owner, or standard settings. Replace that path with an issue form, maintainer approval, and an automated build that applies the agreed baseline.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> Choose the target before setup
 >
-> Default to an authorised customer intake repository and org policy decision. Complete the work on that artifact and retain the evidence, guardrails, or automation.
+> Start with an authorised customer intake repository and organization policy decision. Complete the work there and keep the evidence and automation.
 >
 > - Have a candidate? Use the customer's real intake repository and policy target wherever this guide names `ghec-ch36-repo-intake`. Skip the Setup step below entirely.
 > - No suitable one? Use the fallback below: a seeded intake repository with labels, issue form, workflow scaffold, and sample request.
@@ -68,7 +68,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch36 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch36 --org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch36-*`, idempotent, prefix-guarded teardown):
+Setup is idempotent and creates only these namespaced artifacts. Teardown accepts only the `ghec-ch36-*` prefix.
 
 - `ghec-ch36-repo-intake` with a repository-request issue form.
 - Intake labels including `repo-intake: approved`, `repo-intake: provisioned`, and `repo-intake: failed`.
@@ -138,7 +138,7 @@ What setup creates (all artifacts namespaced `ghec-ch36-*`, idempotent, prefix-g
 
 ## Validation / Definition of Done
 
-You are done when ALL of the following are true:
+You are done when all of the following are true:
 
 - [ ] Members cannot create repositories directly, or an approved rollout proposal records why the production setting was not changed during the session.
 - [ ] The intake repository has a working repository-request issue form.
@@ -146,8 +146,8 @@ You are done when ALL of the following are true:
 - [ ] The workflow creates a requested repository with approved baseline settings and fails closed for invalid requests.
 - [ ] The intake issue is updated with provisioning evidence and a final provisioned or failed label.
 - [ ] Governance evidence records owner, approval route, workflow identity, baseline controls, audit evidence, and next review.
-- [ ] Real-outcome check — if you brought your own intake repo, a real team can request repos through it; if you used the sample, you can name the production intake repo or org policy decision to roll out next.
-- [ ] Adoption handover — name the intake process owner, credential owner, next repository baseline improvement, and review date.
+- [ ] If you used your own intake repository, a real team can request repositories through it. If you used the sample, name the production intake repository or policy decision that comes next.
+- [ ] Name the intake process owner, credential owner, next baseline improvement, and review date.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 

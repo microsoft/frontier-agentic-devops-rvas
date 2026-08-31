@@ -1,6 +1,6 @@
 # Ch17 — Webhooks & GitHub Apps — Delivery Assurance
 
-This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
+Use this review overlay with the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The paired `README.md` defines the tasks, evidence, commands, and Definition of Done.
 
 ## Assurance record
 
@@ -11,8 +11,8 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer implementation owner receives real webhook deliveries, verifies them cryptographically, and graduates from passive listener (webhooks) to active responder (GitHub App identity).
+- Expected outcome: the customer owner receives webhook deliveries, verifies their signatures, and uses a GitHub App when the integration must act on GitHub.
 - **Governance controls:** Confirm `INT-WEBHOOKS` and `INT-GITHUB-APPS` in the existing register with effective-setting evidence and the selected path.
 - **Enterprise hook boundary:** Confirm `AUD-GLOBAL-WEBHOOKS` is not conflated with repo/org hooks and includes event scope, receiver, HMAC verification, retention, and accountable owner.
-- Implementation risks to verify: ask "what exact bytes did you sign, and what exact bytes did GitHub sign?" (→ raw request body) and "what happens if a bad actor replays an old delivery?" (→ duplicate-check on X-GitHub-Delivery).
-- Delivery lead prompts: ask "which of your three credentials is allowed to comment?" (→ App installation token only, not personal token or webhook).
+- Ask "what exact bytes did you sign, and what exact bytes did GitHub sign?" (→ the raw request body) and "what happens if someone replays an old delivery?" (→ check for a duplicate `X-GitHub-Delivery`).
+- Ask "which credential is allowed to comment?" (→ the App installation token, not a personal token or webhook secret).

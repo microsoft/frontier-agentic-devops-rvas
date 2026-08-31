@@ -13,14 +13,14 @@
 
 ## Customer delivery target
 
-- Customer objective: deliver a controlled GitLab-to-GitHub pilot with an honest metadata and CI cutover plan.
-- Customer-tenant target: a selected customer GitLab source, GitHub destination repository, Actions conversion, and migration-gap register.
-- Approval and safety boundary: mirror and cut over customer repositories only with approved owner, source-freeze, and change-window decisions; a pilot validates the path and must conclude with a customer cutover or Expert Services decision.
-- Records to keep: retain ref validation, Actions conversion output, gap register, LFS/package decisions, and cutover evidence.
-- Adoption owner / handover: the customer migration owner accepts cutover accountability; repository and CI owners accept post-migration operations.
-- Next action and owner: approve the production cutover, or assign the owner and date for the Expert Services or follow-up decision.
+- **Goal:** deliver a controlled GitLab-to-GitHub pilot with an honest metadata and CI cutover plan.
+- **Target:** a selected customer GitLab source, GitHub destination repository, Actions conversion, and migration-gap register.
+- **Boundary:** mirror and cut over customer repositories only with an approved owner, source freeze, and change window. The pilot must end with a customer cutover or Expert Services decision.
+- **Keep:** ref validation, Actions conversion output, gap register, LFS/package decisions, and cutover evidence.
+- **Owners:** the customer migration owner accepts cutover accountability. Repository and CI owners accept post-migration operations.
+- **Next:** approve the production cutover or assign an owner and date to the Expert Services or follow-up decision.
 
-## Critical framing
+## Migration limits
 
 GitLab is not a self-serve source for GitHub Enterprise Importer. A full GitLab migration that preserves metadata such as Merge Requests and issues through GEI is a GitHub Expert Services engagement.
 
@@ -36,10 +36,10 @@ This hands-on activity uses the self-serve path that is available to any Git rep
 
 ## Scenario
 
-Your team is piloting a GitLab-to-GitHub move. The business wants fast cutover evidence, but also an honest inventory of what the self-serve path does not preserve. You will mirror Git history into GitHub, convert the CI definition, and document follow-up work for metadata, LFS, packages, and cutover risk.
+This pilot mirrors Git history into GitHub, converts the CI definition, and records what the self-serve path does not preserve. The follow-up plan must cover metadata, LFS, packages, and cutover risk.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> **Start with an approved customer target.**
 > Default to an approved customer GitLab repository. Complete the work on that source and target, retaining the migrated repository, Git history, Actions workflow, settings evidence, and gap record.
 >
 > - Have a candidate? Use it everywhere this guide references the GitLab repository, CI file, or target repository.

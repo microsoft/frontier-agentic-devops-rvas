@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - Repository administrator access, or a customer owner who can merge workflow and instruction changes to the default branch
   - Copilot Business or Copilot Enterprise availability and the applicable cloud-agent or code-review policy view
   - GitHub CLI (gh >= 2.x), git, and jq for the optional seeded fallback
-description: "Deliver a customer-approved Copilot environment and instruction decision package: default-branch setup steps, scoped instructions, runner and secret boundaries, and visible validation evidence for Copilot cloud agent and/or code review."
+description: "Create a customer-approved Copilot environment and instruction decision package. Include default-branch setup steps, scoped instructions, runner and secret boundaries, and visible validation evidence for Copilot cloud agent and/or code review."
 success_criteria:
   - The authorized customer repository, accountable owners, approved scope, feature availability, and fallback decision were recorded.
   - A valid `.github/workflows/copilot-setup-steps.yml` with one `copilot-setup-steps` job was merged to the target default branch and its visible Actions run succeeded.

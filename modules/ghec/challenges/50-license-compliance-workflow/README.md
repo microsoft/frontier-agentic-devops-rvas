@@ -1,4 +1,4 @@
-# Ch50 — License Compliance Workflow
+# Ch50: License Compliance Workflow
 
 > Deliver a repository-level license compliance workflow: dependency inventory, review checkpoint, exception intake, and owner-approved rollout decisions.
 
@@ -13,12 +13,12 @@
 
 ## Customer delivery target
 
-- Customer objective: make open source license risk visible and reviewable before dependency changes merge.
-- Customer-tenant target: an approved repository or repository cohort with dependency manifests and compliance evidence.
-- Approval and safety boundary: enterprise or organization license policies and required checks affect many teams; setup does not mutate them. Apply policy enforcement only after explicit owner/legal approval.
-- Records to keep: retain dependency inventory, dependency review evidence, exception decisions, expiry dates, remediation owners, and policy rollout decision.
-- Adoption owner / handover: the open source program, legal, security, or platform owner accepts the compliance workflow.
-- Next action and owner: select the next repository cohort or approve enforcement controls.
+- Objective: make open source license risk visible before dependency changes merge.
+- Delivery target: an approved repository or cohort with dependency manifests and compliance evidence.
+- Safety boundary: enterprise or organization license policies and required checks affect many teams. Setup does not change them; enforce policy only with owner and legal approval.
+- Evidence: dependency inventory, dependency-review results, exception decisions, expiry dates, remediation owners, and policy rollout decision.
+- Owner: the open source program, legal, security, or platform team.
+- Next decision: select the next repository cohort or approve enforcement controls.
 
 ## Prerequisites
 
@@ -29,7 +29,7 @@
 
 ## Customer delivery objectives
 
-This delivery engagement establishes:
+You will:
 
 - Define allowed, review-required, and prohibited license categories.
 - Capture dependency inventory evidence from dependency graph, manifests, or SBOMs.
@@ -39,12 +39,12 @@ This delivery engagement establishes:
 
 ## Scenario
 
-A customer is adding dependencies quickly, but license review happens late or inconsistently. Your job is to create a practical workflow: inventory current dependencies, classify license risk, review changes before merge, capture exceptions, and hand over an operating model that legal and platform owners can maintain.
+A customer adds dependencies quickly, but license reviews happen late or inconsistently. Build a workflow that inventories current dependencies, classifies license risk, reviews changes before merge, and records exceptions. Legal and platform owners must be able to run it after handover.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> Choose the target before setup
 >
-> Default to an authorised customer repository or cohort with real dependency manifests. Complete the work on that artifact and retain the evidence.
+> Start with an authorised customer repository or cohort that has real dependency manifests. Complete the work there and keep the evidence.
 >
 > - Have a candidate? Use the real repository wherever this guide names `ghec-ch50-license-compliance-workflow`. Skip setup.
 > - No suitable one? Use the fallback below: a seeded repository with sample manifests, compliance docs, issue form, labels, and Dependabot scaffold.
@@ -60,7 +60,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch50 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch50 -Org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch50-*`, idempotent, prefix-guarded teardown):
+Setup is idempotent and creates only these namespaced artifacts. Teardown accepts only the `ghec-ch50-*` prefix.
 
 - `ghec-ch50-license-compliance-workflow` with sample `package.json`, `requirements.txt`, and compliance documentation.
 - `.github/dependabot.yml` and `.github/ISSUE_TEMPLATE/license-exception.yml` scaffolds.

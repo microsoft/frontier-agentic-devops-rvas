@@ -26,8 +26,7 @@
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - GHAS note: secret scanning and push protection are free on public repos. Setup provisions the Juice Shop import as public, so no Code Security / Secret Protection license is required for Parts A–C and E. On private/internal repos these features need a paid license — `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns. Custom secret-scanning patterns (Part D) are different: they require GitHub Secret Protection on an organization-owned repo (GitHub Team or Enterprise) regardless of repo visibility, and are *not* part of the free public-repo feature set — see Part D.
 
-## Customer delivery objectives
-This delivery engagement establishes:
+## What you will deliver
 - Enable secret scanning and push protection on a repository from both the UI and the API.
 - Triage secret-scanning alerts: read the commit/blob location, then resolve each as revoked / false positive / used in tests.
 - Experience push protection blocking a brand-new secret at `git push`, and exercise the bypass flow with a documented reason.
@@ -40,7 +39,7 @@ A GHEC customer just discovered a hard-coded cloud key in a public repo — caug
 > [!IMPORTANT]
 > Use an approved customer target (do this first)
 >
-> Default to an authorised repository the customer organisation owns—ideally public, or private/internal with GitHub Secret Protection. Complete the work on that repository and retain secret scanning, push protection, a custom pattern, and a triage trail.
+> Default to an authorised repository the customer organisation owns, ideally public or private/internal with GitHub Secret Protection. Do the work there and keep the secret-scanning, push-protection, custom-pattern, and triage evidence.
 >
 > - Have a candidate repo? Use it everywhere this guide says `ghec-ch11-juice-shop`. Skip the Setup step below entirely. You already have real history to triage — no planted secrets needed.
 > - No suitable repo (or need a sample test repository or environment)? Use the fallback below: we import OWASP Juice Shop with non-live planted secrets for risk-free validation.
@@ -59,7 +58,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch11 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch11 --org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch11-*`, idempotent, prefix-guarded teardown):
+Setup creates these resources (all names use the `ghec-ch11-*` prefix, and teardown is prefix-guarded):
 - A public repo `ghec-ch11-juice-shop` — OWASP Juice Shop imported at pinned ref `v20.0.0` (pulled from the official source, never vendored into this repo).
 - Planted high-confidence test secrets committed across history so secret scanning has partner-pattern material to detect — for example a fake AWS access key (`AKIA…` paired with a fake secret access key) in an early commit and a GitHub-style token (`ghp_…`) in a later commit. All planted secrets are non-live / synthetic and exist only to trigger detection.
 - A small `SECRETS-MANIFEST.md` in the repo documenting which fake secrets were planted and where, so coaches and customer delivery team members can reconcile expected detections without guessing.
@@ -121,7 +120,7 @@ existing customer register:
 - `SEC-PUSH-PROTECTION` — inspect the effective repository push-protection setting → record `approved pilot` → attach the settings API response and bypass audit as objective evidence.
 
 ## Validation / Definition of Done
-You are done when ALL of the following are true:
+**Done means:**
 - [ ] `secret_scanning` and `secret_scanning_push_protection` both read `enabled` on `ghec-ch11-juice-shop` (verifiable via the `security_and_analysis` API).
 - [ ] Every planted secret in `SECRETS-MANIFEST.md` has a corresponding secret-scanning alert (count + types reconcile).
 - [ ] All alerts are resolved with an explicit, correct resolution reason (none left `open`).
@@ -133,7 +132,7 @@ You are done when ALL of the following are true:
 - [ ] Real-outcome check — if you brought your own repo, scanning + push protection are now enabled on a project you actually own; if you used the sample, you can name the real repo you'll roll this out to next.
 - [ ] Adoption handover — record the customer security owner, push-protection rollout risk, affected workflow, and next approved action.
 
-> Coaches verify these via the automated hints in `COACH.md`.
+> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Enable scanning for non-provider patterns / generic passwords and triage the noisier results — discuss precision vs recall.

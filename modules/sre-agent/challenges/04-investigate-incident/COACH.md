@@ -1,14 +1,14 @@
-# Activity 04 — Investigate a Controlled Azure Incident — Delivery Assurance
+# Activity 04 Delivery Assurance: Investigate a Controlled Azure Incident
 
-This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
+Review this activity against the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). Use `README.md` for the tasks, commands, required evidence, and Definition of Done.
 
 ## Assurance record
 
-- **Authorized scope:** record the customer target and approving owner.
-- **Evidence:** inspect the completed Definition of Done in `README.md`; link or attach the evidence.
-- **Open risk:** record the unresolved risk and accountable owner, or `none`.
-- **Next decision:** record the handover, pilot, rollout, cutover, or follow-up action with owner and date.
+- **Authorized scope:** Customer target and approving owner.
+- **Evidence:** Links or attachments that satisfy the Definition of Done in `README.md`.
+- **Open risk:** Any unresolved risk and its accountable owner, or `none`.
+- **Next decision:** The next action, owner, and date, such as a handover, pilot, rollout, cutover, or follow-up.
 
 ## Session-specific reviewer focus
 
-- No additional assurance exception: review the delivery guide’s Definition of Done.
+- No additional exception applies. Check the delivery guide's Definition of Done.

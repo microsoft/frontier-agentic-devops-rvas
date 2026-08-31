@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - GitHub Copilot code review enabled by the effective enterprise or organization policy
   - GitHub CLI (gh >= 2.x), git, and jq for the optional fallback setup
   - An approved customer repository, or permission to create the isolated fallback repository
-description: "Establish an evidence-backed Copilot code review operating model: request a manual review, assess automatic review through repository or organization rulesets, preserve human reviewer and CODEOWNERS gates, and document rollback."
+description: "Define an evidence-backed Copilot code review operating model: request a manual review, assess automatic review through repository or organization rulesets, preserve human reviewer and CODEOWNERS gates, and document rollback."
 success_criteria:
   - A customer repository was selected first, or the isolated `ghec-ch32-*` fallback repository was used and the next customer decision was recorded.
   - A pull request received a manually requested Copilot review, and its comments were triaged by accountable human reviewers.

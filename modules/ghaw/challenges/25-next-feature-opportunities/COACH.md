@@ -1,9 +1,8 @@
 # Next Feature Opportunities Agent — Delivery Assurance
 
-This is a concise review overlay. Apply the
-[Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired
-`README.md` is the canonical source for tasks, evidence, commands, and
-Definition of Done.
+Review the completed work against the
+[Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md) and the paired
+`README.md` Definition of Done.
 
 ## Assurance record
 

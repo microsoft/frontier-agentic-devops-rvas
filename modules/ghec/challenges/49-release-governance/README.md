@@ -1,4 +1,4 @@
-# Ch49 — Release Governance
+# Ch49: Release Governance
 
 > Deliver a governed release path: release candidates, explicit approval evidence, release notes, tag standards, and rollback ownership.
 
@@ -13,12 +13,12 @@
 
 ## Customer delivery target
 
-- Customer objective: make release publication a controlled business decision, not an ad hoc tag push.
-- Customer-tenant target: an approved release repository and release governance record.
-- Approval and safety boundary: repository rulesets, deployment environments, and org-wide release permissions can block teams; inspect and propose them, but change them only after explicit owner approval.
-- Records to keep: retain candidate issue, approval, release notes, tag/release proof, validation evidence, rollback owner, and exception decision.
-- Adoption owner / handover: the release management or platform owner accepts the release governance runbook.
-- Next action and owner: choose the first production release or approve enforcement controls.
+- Objective: make release publication a controlled business decision instead of an ad hoc tag push.
+- Delivery target: an approved release repository and governance record.
+- Safety boundary: rulesets, deployment environments, and org-wide release permissions can block teams. Inspect and propose them, but change them only with owner approval.
+- Evidence: candidate issue, approval, release notes, tag or release proof, validation results, rollback owner, and exception decision.
+- Owner: release management or platform engineering.
+- Next decision: choose the first production release or approve enforcement controls.
 
 ## Prerequisites
 
@@ -29,7 +29,7 @@
 
 ## Customer delivery objectives
 
-This delivery engagement establishes:
+You will:
 
 - Define release ownership, approval, release-note, tag, rollback, and exception standards.
 - Capture release candidate evidence before a release is published.
@@ -39,12 +39,12 @@ This delivery engagement establishes:
 
 ## Scenario
 
-A customer publishes releases from several repositories, but approvals live in chat, release notes are inconsistent, and rollback ownership is unclear. Your job is to convert releases into a governed workflow: define the control model, create a candidate record, collect validation evidence, approve or reject the release, and preserve the audit trail.
+A customer publishes releases from several repositories. Approvals live in chat, release notes vary, and nobody clearly owns rollback. Define the controls, create a candidate record, collect validation evidence, and record the approval or rejection with the release history.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> Choose the target before setup
 >
-> Default to an authorised customer release repository. Complete the work on that artifact and retain the evidence.
+> Start with an authorised customer release repository. Complete the work there and keep the evidence.
 >
 > - Have a candidate? Use the customer's real release repository wherever this guide names `ghec-ch49-release-governance`. Skip setup.
 > - No suitable one? Use the fallback below: a seeded repository with release governance docs, labels, issue template, evidence workflow scaffold, and sample candidate issue.
@@ -60,7 +60,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch49 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch49 -Org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch49-*`, idempotent, prefix-guarded teardown):
+Setup is idempotent and creates only these namespaced artifacts. Teardown accepts only the `ghec-ch49-*` prefix.
 
 - `ghec-ch49-release-governance` with release governance documentation, changelog, and release readiness issue form.
 - Labels for `release: candidate`, `release: approved`, `release: blocked`, and `release: rollback-ready`.

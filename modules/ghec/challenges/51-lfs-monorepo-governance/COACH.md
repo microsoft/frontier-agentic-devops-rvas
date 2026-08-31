@@ -1,6 +1,6 @@
-# Ch51 — LFS and Monorepo Governance — Delivery Assurance
+# Ch51: LFS and Monorepo Governance Delivery Assurance
 
-This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
+Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The paired `README.md` defines the tasks, evidence, commands, and Definition of Done.
 
 ## Assurance record
 
@@ -11,7 +11,7 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: monorepo growth has visible ownership boundaries and large-file decisions before storage risk compounds.
+- Confirm that monorepo ownership boundaries are visible and that teams review large files before storage risk grows.
 - **Governance controls:** Confirm CODEOWNERS owner model, approved LFS patterns, exception path, quota owner, migration approver, and evidence retention location.
-- Implementation risks to verify: ask "what happens when a team adds a 200 MB model or binary?" and "who approves history rewrites or LFS migrations?"
-- Delivery lead prompts: ask "where are package ownership boundaries enforced?" and "which large-file controls are documented versus enforced today?"
+- Ask what happens when a team adds a 200 MB model or binary and who approves history rewrites or LFS migrations.
+- Ask where package ownership boundaries are enforced. Separate documented large-file controls from enforced controls.

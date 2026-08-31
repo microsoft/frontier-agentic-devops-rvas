@@ -6,23 +6,21 @@ Prerequisites: Complete at least 2 activities from Track 1
 
 ---
 
-## What You'll Build
+## Build
 
-A workflow that responds to slash commands in issue comments. When a team member comments `/summarize` on an issue, your workflow reads the entire issue thread and posts a concise summary. It introduces interactive automation: comments become a command interface for your agent.
+A workflow that responds to slash commands in issue comments. When a team member comments `/summarize`, the workflow reads the issue thread and posts a short summary.
 
-Why this matters: Slash commands are how you turn your agents into tools your team *actively uses* during their daily work. Instead of running on a schedule, they respond to intent. `/summarize` is a perfect example: reviewers need quick context without scrolling 50 comments.
+Slash commands let teammates run an agent when they need it. `/summarize` gives reviewers context without making them read a long thread.
 
 ---
 
-## Goals
+## What you'll practice
 
-By the end, your squad will:
-
-1. ✅ Build a workflow triggered by `on: issue_comment: types: [created]`
-2. ✅ Implement slash-command detection (parsing the comment body for `/command`)
-3. ✅ Implement the `/summarize` command that reads issue + comments and posts a summary
-4. ✅ Handle rate limiting and prevent duplicate command runs (`lock-for-agent`)
-5. ✅ Post a summary comment with:
+1. Build a workflow triggered by `on: issue_comment: types: [created]`
+2. Detect slash commands in the comment body
+3. Implement `/summarize` by reading the issue and its comments
+4. Handle rate limits and prevent duplicate runs with `lock-for-agent`
+5. Post a summary comment with:
    - Issue title and status (open/closed)
    - Key decisions or blockers mentioned
    - List of action items or next steps (if any)
@@ -32,12 +30,12 @@ By the end, your squad will:
 > [!IMPORTANT]
 > Bring your own repo (do this first)
 >
-> This activity is most valuable when `/summarize` runs on your own repository's real issue threads, decisions, blockers, and action items, so teammates can keep using the command after the session. Treat the setup sample as practice, not the default destination.
+> Run `/summarize` on your own repository if possible. Choose an issue with enough discussion to test the summary. Use the setup sample only for practice.
 >
 > - Have a candidate repo? Install or point `slash-commands.md` at that repo everywhere the guide references the sample repo, and test on an issue where the discussion history is genuinely useful.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
 >
-> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+> Tell the facilitator which repository and issue you chose.
 
 ---
 
@@ -77,7 +75,7 @@ Create a gh-aw workflow named `slash-commands.md` in `.github/workflows/` that:
   - At least 2 key points from the discussion
   - Next steps or recommendation
 - [ ] Only authorized users (repo members) can trigger the command
-- [ ] Discuss what context you and your teammates rebuild by hand by scrolling long threads, and which on-demand slash command you would actually reach for in your daily work. Connect it to a project, task, or workflow you own.
+- [ ] Using a project, task, or workflow you own, discuss which context your team rebuilds from long threads and which slash command would help.
 
 ---
 
@@ -105,7 +103,7 @@ Create a gh-aw workflow named `slash-commands.md` in `.github/workflows/` that:
 
 ---
 
-## Stuck?
+## Help
 
 - "Workflow triggers on every comment?" → Add `if:` condition to check for `/summarize` in comment body
 - "How do I access the issue body and comments?" → Use the GitHub API to fetch the issue and its comments. The agent can call these via the `tools: github:` toolset

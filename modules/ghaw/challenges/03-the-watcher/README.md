@@ -7,35 +7,33 @@ Prerequisites: Activity 00 — Setup & Hello, Agent, Activity 1-01 — Morning B
 
 ---
 
-## What You'll Build
+## Build
 
-A workflow triggered by `on: push` that detects when files in a specific directory (e.g., `docs/` or `src/config/`) are modified and creates a comment on the commit summarizing what changed. This teaches you how to react to repository events in real-time.
+A workflow triggered by `on: push`. It detects changes in a chosen directory, such as `docs/` or `src/config/`, and comments on the commit with a summary.
 
-Why this matters: `on: push` fires inside the commit context — the agent can read the diff, the changed files, and the triggering commit. That makes it the right trigger for anything that needs to react to code: validating a config file format, checking for a required changelog entry, or annotating a PR with findings scoped to what actually changed.
+`on: push` gives the agent the triggering commit, changed files, and diff. Use it for checks that must react to code as it lands, such as config validation or changelog checks.
 
 ---
 
-## Goals
+## What you'll practice
 
-By the end of this activity, your squad will:
-
-1. ✅ Understand `on: push:` event triggers and how they fire
-2. ✅ Use `on: push: paths:` to filter which files trigger the workflow
-3. ✅ Access commit metadata (files changed, commit message, author)
-4. ✅ Create a commit comment using `safe-outputs: add-comment:`
-5. ✅ Test event-driven workflows using local git operations
+1. Use `on: push:` event triggers
+2. Filter triggers with `on: push: paths:`
+3. Read commit metadata (changed files, commit message, author)
+4. Create a commit comment with `safe-outputs: add-comment:`
+5. Test event-driven workflows with local Git operations
 
 ---
 
 > [!IMPORTANT]
 > Bring your own repo (do this first)
 >
-> This activity is most valuable when the watcher runs on your own repository and tracks a directory that matters in production, so push-time comments keep helping after the session. Treat the setup sample as practice, not the default destination.
+> Run the watcher on your own repository if possible. Track a directory that matters to the team. Use the setup sample only for practice.
 >
 > - Have a candidate repo? Install or point `the-watcher.md` at that repo everywhere the guide references the sample repo, and watch real paths such as `docs/**`, config, schemas, tests, or release files.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
 >
-> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+> Tell the facilitator which repository and path you chose.
 
 ---
 
@@ -49,7 +47,7 @@ By the end of this activity, your squad will:
 - [ ] When you push changes to the watched directory, the workflow runs
 - [ ] A comment appears on the commit summarizing the changes (e.g., "Modified 3 files in docs/")
 - [ ] Logs show the agent detected which files were changed
-- [ ] Discuss which repository events you currently notice only after the fact, and what would change if a push-triggered agent flagged risky file changes the moment they land. Connect it to a project, task, or workflow you own.
+- [ ] Using a project, task, or workflow you own, discuss which repository events you notice too late and what would change if an agent flagged risky files on push.
 
 ---
 
@@ -75,9 +73,9 @@ By the end of this activity, your squad will:
 
 ---
 
-## Stuck?
+## Help
 
-If you're blocked for more than 15 minutes:
+If you're blocked:
 
 1. Did you push to the watched directory? Path filters are exact; if your directory path is wrong, the workflow won't trigger.
 2. Check path filter syntax: Use `docs/**` for "all files in docs directory" or `*.md` for markdown files.

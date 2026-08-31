@@ -1,6 +1,6 @@
 # Ch08 — Repository Rulesets & Custom Properties — Delivery Assurance
 
-This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
+Use this review overlay with the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The paired `README.md` defines the tasks, evidence, commands, and Definition of Done.
 
 ## Assurance record
 
@@ -11,7 +11,7 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer implementation owner makes governance follow metadata instead of repo names — custom properties drive a property-targeted org ruleset.
+- Expected outcome: custom properties, rather than repository names, drive the customer’s organization ruleset.
 - **Governance controls:** Confirm `REP-PROPERTY-SCHEMA`, `REP-ORG-RULESETS`, and `REP-REPO-RULESETS` in the existing register with effective-setting evidence and the selected path.
-- Implementation risks to verify: ask "what makes a repo created next week automatically inherit these rules without anyone editing the ruleset?" (→ the property condition + a default property value on new repos).
-- Delivery lead prompts: ask "which two rules would stack if a repo matched multiple property conditions?" and "what's the difference between disabling a ruleset and adding a bypass actor?"
+- Ask "what makes a repo created next week automatically inherit these rules without anyone editing the ruleset?" (→ the property condition + a default property value on new repos).
+- Ask "which two rules would stack if a repo matched multiple property conditions?" and "what's the difference between disabling a ruleset and adding a bypass actor?"

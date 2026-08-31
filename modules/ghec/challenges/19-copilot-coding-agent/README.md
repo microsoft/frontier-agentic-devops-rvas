@@ -13,12 +13,12 @@
 
 ## Customer delivery target
 
-- Customer objective: establish a governed, reviewable use of Copilot cloud agent for a customer backlog.
-- Customer-tenant target: an approved eligible customer repository, Copilot policy, candidate issue, review gates, and operating guidance.
-- Approval and safety boundary: enable policy, grant bypasses, and assign customer issues only when the accountable Copilot, security, and repository owners approve; otherwise use the seeded repository as a sample test repository and leave an approved enablement proposal.
-- Records to keep: retain the policy decision, issue/PR/session evidence, review-gate design, and `AGENT-NOTES.md`.
-- Adoption owner / handover: the customer Copilot owner accepts policy and usage boundaries; the repository owner accepts review and merge responsibility.
-- Next action and owner: approve the first customer issue assignment or hand over the eligibility, risk, and rollout decision package.
+- **Goal:** establish governed, reviewable use of Copilot cloud agent for a customer backlog.
+- **Target:** an approved eligible customer repository, Copilot policy, candidate issue, review gates, and operating guidance.
+- **Boundary:** enable policy, grant bypasses, and assign customer issues only with approval from the accountable Copilot, security, and repository owners. Otherwise, use the seeded repository for testing and leave an approved enablement proposal.
+- **Keep:** the policy decision, issue/PR/session evidence, review-gate design, and `AGENT-NOTES.md`.
+- **Owners:** the customer Copilot owner accepts policy and usage boundaries. The repository owner accepts review and merge responsibility.
+- **Next:** approve the first customer issue assignment or hand over the eligibility, risk, and rollout decision package.
 
 ## Prerequisites
 > ⚠️ Read this before starting — this activity has a hard prerequisite the others don't.
@@ -29,8 +29,7 @@
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
 - Note on limits: agent sessions are capped (~59 min) and run in an ephemeral Actions environment, consuming Actions minutes + Copilot premium requests.
 
-## Customer delivery objectives
-This delivery engagement establishes:
+## What you'll do
 - Confirm the Copilot cloud agent is enabled and the repo is eligible (non-EMU).
 - Assign an issue to Copilot and trigger an autonomous agent session.
 - Read the agent's draft pull request and follow its session log as it works.
@@ -39,10 +38,10 @@ This delivery engagement establishes:
 - Add Copilot as a ruleset bypass actor where branch protections would otherwise block its PR flow.
 
 ## Scenario
-A GHEC customer has a backlog of small, well-scoped bugs that never reach the top of anyone's list. Instead of letting them rot, they want to hand the clear ones to the Copilot cloud agent and have engineers review the results. Validate the flow on a small seeded repo with a known bug: write a crisp issue, assign it to Copilot, inspect its draft PR and ephemeral-environment work, then review and steer it to a correct, merged fix. The evidence defines where the agent fits (small, bounded changes) and where human review remains essential.
+A GHEC customer wants engineers to delegate small, well-scoped bugs to the Copilot cloud agent and review the results. Validate that flow on a seeded repository with a known bug: write a precise issue, assign it to Copilot, inspect the draft PR and session log, then review and steer the change to a correct fix. The evidence should show which tasks suit the agent and where human review remains necessary.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> **Start with an approved customer target.**
 > Default to an authorised customer repository issue that Copilot cloud agent can safely attempt with review gates. Complete the work on that artifact and retain the evidence, guardrails, or automation.
 >
 > - Have a candidate? Use it everywhere this guide says `ghec-ch19-copilot-coding-agent`. Skip the Setup step below entirely.

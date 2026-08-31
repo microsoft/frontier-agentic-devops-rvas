@@ -1,4 +1,4 @@
-# Ch43 — Repository Inventory Cleanup
+# Ch43: Repository Inventory Cleanup
 
 > Deliver a practical inventory cleanup pass: discover, classify, fix safe metadata, and queue high-impact cleanup with approvals.
 
@@ -13,11 +13,11 @@
 
 ## Customer delivery target
 
-- Customer objective: make repository inventory trustworthy enough for ownership, reporting, and cleanup decisions.
-- Customer-tenant target: a reviewed repository cohort with owner and cleanup decisions.
-- Approval and safety boundary: setup creates sample repositories only. Archive, delete, transfer, visibility, and org settings require explicit participant approval.
-- Records to keep: inventory export, decision register, metadata changes, exceptions, and next cohort.
-- Adoption owner / handover: platform governance or developer experience owner accepts the cleanup workflow.
+- Objective: make repository inventory reliable enough for ownership, reporting, and cleanup decisions.
+- Delivery target: a reviewed repository cohort with owner and cleanup decisions.
+- Safety boundary: setup creates sample repositories only. Archive, delete, transfer, visibility, and org-setting changes require approval.
+- Evidence: inventory export, decision register, metadata changes, exceptions, and next cohort.
+- Owner: platform governance or developer experience.
 
 ## Prerequisites
 
@@ -27,7 +27,7 @@
 
 ## Scenario
 
-The organization has repositories with unclear owners, duplicate names, stale purpose, and inconsistent topics. Your job is to produce an inventory, classify cleanup decisions, improve safe metadata, and queue risky changes for approval.
+The organization has repositories with unclear owners, duplicate names, stale purposes, and inconsistent topics. Build an inventory, classify each cleanup decision, fix safe metadata, and send risky changes for approval.
 
 ## Sample setup
 

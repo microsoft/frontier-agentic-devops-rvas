@@ -9,32 +9,30 @@ Prerequisites: Track 2, completed ≥3 activities
 
 ## Background
 
-Without external data, an agent can only reason about what's already in the prompt. Context Engine is about closing that gap with MCP tools (Model Context Protocol). You'll connect the agent to external data sources — GitHub labels, repository metrics, upstream service status — using gh-aw's `tools:` configuration, so its decisions are grounded in real state rather than inferred from incomplete context.
+An agent can only reason from the context it receives. Use gh-aw's `tools:` configuration to give it live data through MCP tools (Model Context Protocol), such as GitHub labels, repository metrics, or service status.
 
-Why this matters: Ask an agent to review a PR without giving it your repo's coding standards and it will apply generic heuristics. Give it a `repo-memory` file with your actual conventions and it applies those instead. This activity teaches you to identify what information an agent needs before it can make a useful decision, and how to supply that information through `tools:` configuration.
+Without repository standards, a PR agent falls back to generic advice. Give it the actual conventions and it can check the pull request against them.
 
 ---
 
-## Goals
+## What you'll practice
 
-By the end of this activity, your squad will:
-
-1. ✅ Configure `tools:` section to grant an agent access to multiple MCP toolsets
-2. ✅ Build a workflow that uses external data (not just GitHub APIs) to enrich decisions
-3. ✅ Understand the difference between `tools: github` scoping and MCP extensions
-4. ✅ Write an agent that makes context-aware decisions (not generic AI)
+1. Configure `tools:` to grant access to multiple MCP toolsets
+2. Use external data, not only GitHub APIs, to inform decisions
+3. Distinguish `tools: github` scoping from MCP extensions
+4. Write instructions that produce repository-specific decisions
 
 ---
 
 > [!IMPORTANT]
 > Bring your own repo (do this first)
 >
-> This activity is most valuable when the context engine reads your own repository's real PRs, CONTRIBUTING guidance, architecture notes, docs, and tests, so its review-focus comments stay useful after the session. Treat the setup sample as practice, not the default destination.
+> Use your own repository if possible. Give the workflow real pull requests and repository guidance. Use the setup sample only for practice.
 >
 > - Have a candidate repo? Install or point the workflow at that repo everywhere the guide references the sample repo, and use real PRs plus repo-specific context files such as `CONTRIBUTING.md`, `ARCHITECTURE.md`, docs, or test conventions.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
 >
-> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+> Tell the facilitator which repository and context files you chose.
 
 ---
 
@@ -42,29 +40,29 @@ By the end of this activity, your squad will:
 
 Build a workflow that enriches PR analysis with external context:
 
-### The Setup
+### Trigger
 
 Trigger on `pull_request: [opened, synchronize]` (when a PR opens or gets new commits).
 
-### The Context Sources
+### Context sources
 
 Your agent needs to access:
 
-1. PR metadata (files changed, lines added/removed, title, author) — use `tools: github: toolsets: [pull_requests]`
-2. Issue templates or style guide stored in the repo (e.g., a `.github/CONTRIBUTING.md`) — use `tools: github: toolsets: [contents]`
-3. Codebase metadata (e.g., a `ARCHITECTURE.md` file describing project structure) — again, `tools: github: toolsets: [contents]`
+1. Use `tools: github: toolsets: [pull_requests]` for PR metadata such as changed files, line counts, title, and author.
+2. Use `tools: github: toolsets: [contents]` for repository guidance such as `.github/CONTRIBUTING.md`.
+3. Use the same `contents` toolset for codebase metadata such as `ARCHITECTURE.md`.
 
-### The Decision
+### Review decision
 
 Use that context to decide: "What kind of review does this PR need?"
 
 Examples:
 - If PR touches `src/auth/**`, suggest "Security review needed"
-- If PR adds tests, comment "Test additions detected—approver should verify coverage"
-- If PR is large (>500 lines), comment "Large PR—consider breaking into smaller chunks"
+- If the PR adds tests, comment "Test additions detected. The approver should verify coverage."
+- If the PR is large (>500 lines), comment "Large PR. Consider splitting it into smaller changes."
 - If CONTRIBUTING.md says "all PRs need docs", and this PR has no docs/, suggest "Please add documentation"
 
-### The Output
+### Comment
 
 Use `safe-outputs: add-comment` to post a structured comment on the PR. The comment should:
 - Summarize what you found (3 things: file patterns, size, compliance check)
@@ -80,9 +78,9 @@ Use `safe-outputs: add-comment` to post a structured comment on the PR. The comm
 - [ ] Agent reads repo files (CONTRIBUTING.md, ARCHITECTURE.md) to understand repo context
 - [ ] Agent produces a structured comment with context-aware insights
 - [ ] Comment appears on the PR
-- [ ] Comment avoids generic advice—it's specific to *this* repo's standards
+- [ ] Comment avoids generic advice and refers to *this* repo's standards
 - [ ] `safe-outputs: add-comment` is used correctly
-- [ ] Discuss what context an agent on your team needs before it can make a decision you would trust, and where it flies blind without that data today. Connect it to a project, task, or workflow you own.
+- [ ] Using a project, task, or workflow you own, identify the context an agent needs for a trusted decision and where it currently lacks that data.
 
 ---
 
@@ -91,7 +89,7 @@ Use `safe-outputs: add-comment` to post a structured comment on the PR. The comm
 - The `tools: github: toolsets: [...]` array lets you specify exactly which GitHub APIs the agent can use. Start with `[pull_requests, contents]` and add others if needed.
 - CONTRIBUTING.md and ARCHITECTURE.md are great context sources. Have the agent read them to understand repo conventions.
 - Avoid "code review" advice (that's what humans do). Instead, focus on: file patterns, size anomalies, and compliance with *your* specific standards.
-- If your repo doesn't have CONTRIBUTING.md, create a simple one during the activity—just a few bullet points about your project's rules.
+- If the repo has no CONTRIBUTING.md, create a short one with the project's rules.
 - Use `checkout: false` since the agent only needs API calls, not to check out the code.
 - The comment should be ~200 words max. A bulleted list + a focused suggestion is better than paragraphs.
 
@@ -109,11 +107,11 @@ Use `safe-outputs: add-comment` to post a structured comment on the PR. The comm
 
 ## Help
 
-Stuck? Here's how to escalate:
+Use these checks if the workflow fails:
 
 - "Agent can't read CONTRIBUTING.md?" → Check your `tools: github: toolsets: [contents]` is configured. Then verify the file exists at `.github/CONTRIBUTING.md`.
 - "Comment won't post?" → Check `safe-outputs: add-comment:` frontmatter is indented correctly. Look at the workflow logs for the exact error.
 - "Agent gives generic advice, not specific to our repo?" → You may need to make your CONTRIBUTING.md or ARCHITECTURE.md more explicit. Or your prompt doesn't tell the agent to read them. Try: "Read the CONTRIBUTING.md file first. Then analyze the PR against those rules."
 - "Toolsets list not working?" → Verify the toolset names (e.g., `pull_requests`, not `prs`). Reference the docs.
 
-Still stuck after 20 minutes? Raise your hand for your coach.
+After 20 minutes, ask your coach.

@@ -12,13 +12,11 @@ prerequisite_capabilities:
   - GitHub Advanced Security available for the repository visibility you choose
   - GitHub Copilot license assigned
 description: >
-  Document GHAS configuration, scope, and ownership for a real repository or service, or use OWASP
-  Juice Shop as the fallback practice target. Record scope, criticality, enabled and
-  missing GHAS capabilities, accountable roles, agentic delivery principles, and
-  access or licensing blockers with owners and target dates in
-  `modules/ghas/resources/ghas-governance-practice.template.md`. Then prepare the
-  org-owned target repository, development environment, and working branch before
-  Activity S01.
+  Set the GHAS scope and ownership for a real repository or service, using OWASP
+  Juice Shop only as a fallback. Record criticality, capability status, accountable
+  roles, agentic delivery principles, and owned access or licensing blockers in
+  `modules/ghas/resources/ghas-governance-practice.template.md`. Prepare the
+  org-owned repository, development environment, and working branch for Activity S01.
 success_criteria:
   - "A real repository or service is selected, or Juice Shop is recorded as the fallback practice target"
   - "The GHAS configuration and ownership record in `modules/ghas/resources/ghas-governance-practice.template.md` records the in-scope repository or service and its criticality"

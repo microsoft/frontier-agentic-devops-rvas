@@ -1,4 +1,4 @@
-# Ch43 — Repository Inventory Cleanup — Delivery Assurance
+# Ch43: Repository Inventory Cleanup Delivery Assurance
 
 Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); `README.md` is canonical.
 
@@ -11,7 +11,7 @@ Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); `README
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the inventory can drive ownership and cleanup decisions.
-- **Governance controls:** verify archive/delete/transfer are not treated as setup output.
-- Implementation risks to verify: ask how owner gaps are escalated and how duplicate-purpose repositories are resolved.
-- Delivery prompts: ask which safe metadata change was applied and where the decision register lives.
+- Confirm that the inventory supports ownership and cleanup decisions.
+- **Governance controls:** Verify that setup does not archive, delete, or transfer repositories.
+- Ask how teams escalate missing owners and resolve repositories with duplicate purposes.
+- Ask which safe metadata change was applied and where the decision register lives.

@@ -4,9 +4,9 @@ Tier: Bonus
 
 ---
 
-## Production outcome
+## Required outcome
 
-Build a governed test-quality pipeline for one repository your customer delivery team owns:
+Build a governed test-quality pipeline for a repository the delivery team owns:
 
 1. Daily Testify reviews the test suite and opens a small number of specific `test-improvement` issues.
 2. A team member reviews those issues.
@@ -20,7 +20,7 @@ The workflows are deliberately separate. Analysis can create issues, but it cann
 >
 > Choose a repository in an organization you control with established test conventions, a test owner, and a maintainer who will review the proposed pull requests. Configure the workflows for its language, framework, test directories, and quality bar. Use the sample repository only when no suitable customer repository is available.
 
-## What you'll build
+## Workflows
 
 | Workflow | Schedule | Safe output | Purpose |
 |---|---|---|---|
@@ -143,4 +143,3 @@ Its prompt must first select a reviewed `test-improvement` issue, write only the
 | Test Improver changes application code | State that it may modify only the configured test directories. |
 | Generated tests pass trivially | Require a concrete expected value, side effect, error condition, or edge case. |
 | The Improver cannot act on an issue | Improve the Testify issue contract before rerunning the pipeline. |
-

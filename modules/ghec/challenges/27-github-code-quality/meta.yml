@@ -1,5 +1,5 @@
 id: ghec-ch27
-title: GitHub Code Quality: Code Health & Coverage
+title: "GitHub Code Quality: Code Health & Coverage"
 module: ghec
 track: security
 difficulty: intermediate
@@ -14,7 +14,7 @@ prerequisite_capabilities:
   - GitHub CLI (gh >= 2.x) installed
   - git installed
   - jq installed
-description: "Implement GitHub Code Quality on an authorized customer repository: enable Code Health analysis, upload CI coverage, triage pull-request findings, govern thresholds, and prepare an evidence-based organization rollout."
+description: "Set up GitHub Code Quality on an authorized customer repository: enable Code Health analysis, upload CI coverage, triage pull-request findings, set thresholds, and prepare an evidence-based organization rollout."
 success_criteria:
   - GitHub Code Quality is enabled on the authorized customer repository with the selected languages and runner configuration recorded.
   - The delivery team recorded the initial maintainability and reliability scores and reviewed the Standard findings backlog in Security and quality.

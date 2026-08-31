@@ -13,10 +13,10 @@
 
 ## Customer delivery target
 
-- **Customer objective:** know which programmatic identities can access the organization, who owns them, and which controls can safely change.
-- **Customer-tenant target:** a programmatic-access inventory, effective-policy/source assessment, compatibility and migration or exception plan, review cadence, and an accountable decision.
+- **Goal:** know which programmatic identities can access the organization, who owns them, and which controls can safely change.
+- **Target:** a programmatic-access inventory, effective-policy/source assessment, compatibility and migration or exception plan, review cadence, and an accountable decision.
 - **Safety boundary:** this is governance, not an integration or API-development session. Do not create, install, provision, or reconfigure an App.
-- **Records to keep:** inventory snapshot, effective source level, owner and business purpose, permission/scope and repository reach, compatibility impact, exception or migration plan, policy decision, review cadence, and evidence links.
+- **Keep:** inventory snapshot, effective source level, owner and business purpose, permission/scope and repository reach, compatibility impact, exception or migration plan, policy decision, review cadence, and evidence links.
 - **Adoption handover:** the organization owner accepts the organization decision; the enterprise owner accepts an enterprise PAT-policy decision when applicable.
 
 > [!IMPORTANT]

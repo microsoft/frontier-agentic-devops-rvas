@@ -1,4 +1,4 @@
-# Ch47 — InnerSource Program Operations
+# Ch47: InnerSource Program Operations
 
 > Deliver an InnerSource operating model: program charter, discoverable pilot hub, maintainer expectations, contribution-ready backlog, and adoption evidence.
 
@@ -13,12 +13,12 @@
 
 ## Customer delivery target
 
-- Customer objective: turn ad hoc internal collaboration into an operated InnerSource program.
-- Customer-tenant target: a real hub or pilot repository that teams can discover and contribute to.
-- Approval and safety boundary: do not loosen production branch protections or repository access during setup; access decisions remain explicit participant work.
-- Records to keep: charter, maintainer roster, contribution guidelines, labels, pilot backlog, adoption metrics, and next review.
-- Adoption owner / handover: the InnerSource program owner or developer experience team accepts ongoing operations.
-- Next action and owner: onboard the first pilot repository cohort or publish the hub.
+- Objective: turn ad hoc internal collaboration into an operated InnerSource program.
+- Delivery target: a real hub or pilot repository that teams can find and contribute to.
+- Safety boundary: do not loosen production branch protections or repository access during setup. Access changes require explicit approval.
+- Evidence: charter, maintainer roster, contribution guidelines, labels, pilot backlog, adoption metrics, and next review.
+- Owner: the InnerSource program owner or developer experience team.
+- Next decision: onboard the first pilot repository cohort or publish the hub.
 
 ## Prerequisites
 
@@ -29,7 +29,7 @@
 
 ## Customer delivery objectives
 
-This delivery engagement establishes:
+You will:
 
 - Define a program charter with owner, scope, metrics, and operating cadence.
 - Make an InnerSource hub discoverable with README, CONTRIBUTING, CODEOWNERS, support path, and labels.
@@ -39,7 +39,7 @@ This delivery engagement establishes:
 
 ## Scenario
 
-Several teams want to share internal tools, but contributors cannot tell what is safe to change, who reviews pull requests, or how maintainers prioritize outside help. Your job is to create the operating layer: a hub, clear contribution paths, labeled work, maintainer expectations, and metrics.
+Several teams want to share internal tools. Contributors cannot tell what is safe to change, who reviews pull requests, or how maintainers prioritize outside help. Create a hub with clear contribution paths, labeled work, maintainer expectations, and useful metrics.
 
 > [!IMPORTANT]
 > Prefer a real customer hub or pilot repository. If none is available, use the `ghec-ch47-innersource-hub` fallback and transfer the operating model to the approved target after validation.

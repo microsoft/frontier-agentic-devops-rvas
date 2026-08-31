@@ -12,7 +12,7 @@ prerequisite_capabilities:
   - jq installed for optional JSON triage
   - Customer-owned governance settings register and non-secret evidence location
   - Optional enterprise owner or authorized enterprise-policy reviewer when the enterprise scan is in scope
-description: "Run an authorized ghqr posture review against a customer GitHub organization, preserve non-secret evidence, and convert findings into governance-register decisions without changing settings by default."
+description: "Run an authorized ghqr posture review of a customer GitHub organization, keep non-secret evidence, and turn findings into governance-register decisions without changing settings by default."
 success_criteria:
   - Authorized organization scope, reviewer role, token boundary, evidence location, and report-retention decision are recorded before the scan.
   - ghqr is installed or selected through Docker, and its version/help output is captured as execution evidence.
@@ -21,7 +21,7 @@ success_criteria:
   - Top ghqr findings are triaged to existing governance catalogue controls, with effective source level, objective evidence link, severity, accountable owner, implementation path, exception/rollback, and review date.
   - At least one finding is corroborated with a GitHub setting, audit, or API evidence surface where available.
   - No production setting is changed by default; remediation is captured as inspect-and-propose or a separately approved pilot/change.
-  - Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+  - Customer evidence names the authorized scope and owner, links the relevant controls and handover record, and states the next decision.
 tags:
   - ghqr
   - governance

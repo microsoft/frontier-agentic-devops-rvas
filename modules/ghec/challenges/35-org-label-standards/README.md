@@ -1,4 +1,4 @@
-# Ch35 — Organization Label Standards
+# Ch35: Organization Label Standards
 
 > Deliver an organization-owned label standard: default labels for new repositories, reconciliation for existing repositories, and accountable governance evidence.
 
@@ -13,12 +13,12 @@
 
 ## Customer delivery target
 
-- Customer objective: make labels a shared organization standard instead of a per-repository habit.
-- Customer-tenant target: approved organization default labels and one reconciled repository.
-- Approval and safety boundary: change organization default labels only when the accountable org owner approves them; otherwise produce an approved rollout proposal and test the sample repos.
-- Records to keep: retain the taxonomy, API snapshots, reconciliation notes, exception process, and review cadence.
-- Adoption owner / handover: the platform governance or developer experience owner accepts ongoing label taxonomy ownership.
-- Next action and owner: choose the next repository cohort to reconcile or approve the default-label rollout.
+- Objective: make labels an organization standard instead of a repository-by-repository habit.
+- Delivery target: approved organization default labels and one reconciled repository.
+- Safety boundary: change organization default labels only with accountable org-owner approval. Otherwise, produce an approved rollout proposal and test the sample repos.
+- Evidence: taxonomy, API snapshots, reconciliation notes, exception process, and review cadence.
+- Owner: platform governance or developer experience.
+- Next decision: choose the next repository cohort or approve the default-label rollout.
 
 ## Prerequisites
 
@@ -29,7 +29,7 @@
 
 ## Customer delivery objectives
 
-This delivery engagement establishes:
+You will:
 
 - Design an organization label taxonomy with stable dimensions, colors, descriptions, and ownership.
 - Configure organization default labels so future repositories start with the approved baseline.
@@ -39,12 +39,12 @@ This delivery engagement establishes:
 
 ## Scenario
 
-A customer has dozens of repositories with labels like `bug`, `Bug`, `urgent`, `sev1`, `backend`, and `needs review`, all meaning slightly different things. Reporting is unreliable and new repositories repeat the same drift. Your job is to turn labels into an organization standard: define the taxonomy, make new repositories inherit it, clean up one existing repository, and hand over an owner-backed operating model.
+A customer has dozens of repositories with labels such as `bug`, `Bug`, `urgent`, `sev1`, `backend`, and `needs review`. Their meanings overlap, reports cannot be trusted, and each new repository repeats the problem. Define one organization taxonomy, apply it to new repositories, and clean up an existing repository. Then hand ownership to the team that will maintain it.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> Choose the target before setup
 >
-> Default to an authorised customer organization and repository cohort that will keep using the taxonomy after delivery. Complete the work on that artifact and retain the evidence, guardrails, or automation.
+> Start with an authorised customer organization and repository cohort that will keep using the taxonomy. Complete the work there and keep the evidence and automation.
 >
 > - Have a candidate? Use your real organization default labels and one real repository wherever this guide names `ghec-ch35-existing-service` or `ghec-ch35-new-service`. Skip the Setup step below entirely.
 > - No suitable one? Use the fallback below: two seeded repositories, one deliberately inconsistent and one clean validation target.
@@ -64,7 +64,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch35 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch35 --org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch35-*`, idempotent, prefix-guarded teardown):
+Setup is idempotent and creates only these namespaced artifacts. Teardown accepts only the `ghec-ch35-*` prefix.
 
 - `ghec-ch35-existing-service` with deliberately inconsistent labels and a few issues to reconcile.
 - `ghec-ch35-new-service`, a clean repo you can delete/recreate or compare after organization default labels are changed.
@@ -139,15 +139,15 @@ What setup creates (all artifacts namespaced `ghec-ch35-*`, idempotent, prefix-g
 
 ## Validation / Definition of Done
 
-You are done when ALL of the following are true:
+You are done when all of the following are true:
 
 - [ ] An approved organization label taxonomy exists with names, descriptions, colors, owner, review cadence, and exception path.
 - [ ] Organization default labels include the approved `type:`, `priority:`, `area:`, and `status:` dimensions.
 - [ ] A newly created repository inherits the approved organization default labels.
 - [ ] At least one existing repository is reconciled from inconsistent labels to the approved taxonomy.
 - [ ] Governance register rows or an equivalent customer-owned record link to before/after snapshots and the next review decision.
-- [ ] Real-outcome check — if you brought your own repository, the taxonomy now applies where the team will keep using it; if you used the sample, you can name the repository cohort to reconcile next.
-- [ ] Adoption handover — name the taxonomy owner, exception approver, next repository cohort, and review date.
+- [ ] If you used your own repository, the team now uses the taxonomy there. If you used the sample, name the next repository cohort to reconcile.
+- [ ] Name the taxonomy owner, exception approver, next repository cohort, and review date.
 
 > Coaches verify these via the automated hints in `COACH.md`.
 

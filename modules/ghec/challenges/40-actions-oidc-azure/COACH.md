@@ -1,4 +1,4 @@
-# Ch40 — Actions OIDC with Azure — Delivery Assurance
+# Ch40: Actions OIDC with Azure Delivery Assurance
 
 Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); `README.md` is canonical for tasks, evidence, commands, and Definition of Done.
 

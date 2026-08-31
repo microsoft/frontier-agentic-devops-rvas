@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - Copilot Business or Copilot Enterprise availability to inspect
   - Named enterprise AI-controls, identity, security/privacy, third-party-risk, and organization-policy owners
   - Customer-owned governance settings register and non-secret evidence location
-description: "Create an enterprise or organization Copilot and AI-control decision package covering policy inheritance, seat lifecycle, code/data exposure, third-party agents, MCP boundaries, and conditional agentic-activity monitoring."
+description: "Create an enterprise or organization Copilot and AI-control decision package. Cover policy inheritance, seat lifecycle, code/data exposure, third-party agents, MCP boundaries, and conditional agentic-activity monitoring."
 success_criteria:
   - Copilot Business or Enterprise availability, authorized scope, and the Enterprise AI Controls or organization-policy evidence source were recorded.
   - The effective enterprise and organization policy, inheritance source, delegated choices, named owners, and review cadence were recorded for all seven assigned controls.

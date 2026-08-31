@@ -1,4 +1,4 @@
-# Ch42 — Repository Lifecycle Governance
+# Ch42: Repository Lifecycle Governance
 
 > Deliver owner-backed repository lifecycle decisions without letting setup archive, transfer, or delete anything.
 
@@ -13,11 +13,11 @@
 
 ## Customer delivery target
 
-- Customer objective: make repository end-of-life decisions explicit, reversible where possible, and evidenced.
-- Customer-tenant target: a lifecycle policy plus a reviewed repository cohort.
-- Approval and safety boundary: archive, transfer, visibility, and delete operations are high-impact participant steps requiring named approval. Setup only seeds sample repos and review material.
-- Records to keep: lifecycle criteria, repository decisions, approval evidence, retention notes, exceptions, and next review date.
-- Adoption owner / handover: platform governance or engineering operations accepts the lifecycle register.
+- Objective: make repository end-of-life decisions explicit, evidenced, and reversible where possible.
+- Delivery target: a lifecycle policy and a reviewed repository cohort.
+- Safety boundary: archive, transfer, visibility, and delete operations require named approval. Setup only seeds sample repos and review material.
+- Evidence: lifecycle criteria, repository decisions, approvals, retention notes, exceptions, and next review date.
+- Owner: platform governance or engineering operations.
 
 ## Prerequisites
 
@@ -27,7 +27,7 @@
 
 ## Scenario
 
-The organization has active services, deprecated prototypes, and repositories nobody wants to own. Your job is to turn lifecycle handling into a governed process with safe markers first and destructive actions only after explicit approval.
+The organization has active services, deprecated prototypes, and repositories with no owner. Create a lifecycle process that uses safe markers first. Allow destructive actions only after explicit approval.
 
 ## Sample setup
 

@@ -11,11 +11,10 @@ prerequisite_capabilities:
   - GitHub Copilot license assigned
   - Familiarity with GitHub Security tab navigation
 description: >
-  Use a real application repository or service first, with Juice Shop as the fallback
-  practice target. Review GHAS alerts, verify Copilot explanations against the alert
-  and code path, and turn at least five alert reviews into evidence for an owned
-  security findings register in `modules/ghas/resources/ghas-governance-practice.template.md`
-  with impact, remediation, ownership, dates, disposition, and prioritization rationale.
+  Review GHAS alerts in a real application repository or service, using Juice Shop
+  only as a fallback. Verify Copilot explanations against each alert and code path.
+  Use at least five reviews as evidence for the owned security findings register in
+  `modules/ghas/resources/ghas-governance-practice.template.md`.
 success_criteria:
   - A real application repository or service is used first, or Juice Shop is recorded as the fallback practice target
   - At least 5 alerts are reviewed with full alert detail read and used as evidence for the inventory
@@ -36,7 +35,7 @@ app_dependency: juice-shop
 emu_compatible: true
 min_environment: org
 provision_creates:
-  - Shared org repo with Juice Shop (OWASP Juice Shop v20+) — provisioned by organizer setup
+  - Shared org repo with Juice Shop (OWASP Juice Shop v20+), provisioned by organizer setup
   - 'GHAS features enabled: CodeQL scanning, Dependabot alerts, secret scanning'
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas

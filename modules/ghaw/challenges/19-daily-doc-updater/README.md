@@ -6,11 +6,11 @@ Tier: Bonus
 
 ## Background
 
-Code evolves, and documentation can drift unless someone makes it a first-class concern. The Daily Documentation Updater runs on a cron schedule, reviews your docs directory against the codebase, and can open PRs for content that appears out of sync.
+The Daily Documentation Updater runs on a cron schedule. It compares selected documentation with the codebase and opens pull requests for content that appears out of date.
 
 Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.com/githubnext/agentics/blob/main/workflows/daily-doc-updater.md)
 
-## What It Does
+## Behavior
 
 - Triggers on a daily `schedule: cron`
 - Scans a configured docs directory (e.g., `docs/`, `README.md`)
@@ -20,14 +20,14 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
 > [!IMPORTANT]
 > Bring your own repo (do this first)
 >
-> This activity is most valuable when the updater reviews docs that can keep serving your users after the session. Pick a repository in an org you control where `README.md`, `docs/`, API docs, or runbooks drift as the code changes.
+> Use a repository in an organization you control. Choose one where `README.md`, `docs/`, API docs, or runbooks tend to drift from the code.
 >
 > - Have a candidate repo? Use it everywhere this guide references the sample repo, and point the workflow at that repo's real docs and code paths so proposed PRs fix production documentation drift.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
 >
-> Tell your coach which path you took — bringing your own is the goal; the sample repo is the fallback.
+> Tell the facilitator which repository and documentation paths you chose.
 
-## What You'll Do
+## Steps
 
 1. Install [`gh aw`](https://github.com/github/gh-aw) (if not already done):
    ```bash
@@ -39,7 +39,7 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
    gh aw add-wizard https://github.com/githubnext/agentics/blob/main/workflows/daily-doc-updater.md
    ```
 
-3. Read the [scheduled workflow](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule) cron expression in the frontmatter — understand how `schedule: - cron: "0 9 * * *"` works and what time it fires in UTC.
+3. Read the [scheduled workflow](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule) cron expression in the frontmatter. Confirm when `schedule: - cron: "0 9 * * *"` runs in UTC.
 
 4. Customise the docs scope and review depth for your repository.
 
@@ -55,10 +55,10 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
 
 7. Commit both workflow and `.lock.yml`. Add a stale doc to trigger your first real PR.
 
-## Customize It
+## Adapt it
 
 - Change the target path in the prompt body: point at `docs/`, `README.md`, or a subdirectory specific to your project
-- Adjust the cron schedule — `0 9 * * 1-5` for weekdays only, or `0 9 * * 1` for Monday morning only
+- Adjust the cron schedule. Use `0 9 * * 1-5` for weekdays or `0 9 * * 1` for Monday morning.
 - Tune the review depth: "only check API endpoint docs" vs "review all docs for accuracy"
 - Add a PR template or label to the `create-pull-request` output so doc-update PRs are easy to filter
 
@@ -71,7 +71,7 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
 - [ ] `.github/workflows/daily-doc-updater.lock.yml` compiles without errors
 - [ ] Dry-run produces at least one proposed doc change
 - [ ] A manually triggered run opens a real PR with a focused, accurate diff
-- [ ] Discuss which docs in your projects silently rot as the code evolves, and what it would take for you to trust an agent's documentation PRs enough to review and merge them regularly. Connect it to a project, task, or workflow you own.
+- [ ] Using a project, task, or workflow you own, identify docs that drift from the code and define what an agent PR must show before you would merge it.
 
 ---
 
@@ -91,6 +91,6 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
 → GitHub Actions uses UTC. `0 9 * * *` = 9am UTC daily. Use https://crontab.guru to validate your expression.
 
 "The agent keeps proposing the same change every day"
-→ The PR merging is the fix. Once merged, the drift disappears. Add a check in the prompt: _"Do not open a PR if an identical open PR already exists."_
+→ Merge the correction so the drift disappears. Also add this check to the prompt: _"Do not open a PR if an identical open PR already exists."_
 
 </details>

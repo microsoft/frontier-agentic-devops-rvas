@@ -9,7 +9,7 @@ prerequisite_capabilities:
   - Enterprise owner access or an authorized enterprise-policy export
   - Named customer IdP owner
   - Named enterprise governance owner and break-glass owner
-description: "Produce an evidence-based enterprise identity and network governance decision package for conditional access, IP allow lists, SSH certificate authorities, and enterprise roles. Default to inspect-and-propose; approved pilots are safe and bounded."
+description: "Create an evidence-based enterprise identity and network governance decision package for conditional access, IP allow lists, SSH certificate authorities, and enterprise roles. Default to inspect-and-propose; approved pilots are safe and bounded."
 success_criteria:
   - The customer register records `ENT-IDP-CONDITIONAL-ACCESS`, `ENT-IP-ALLOW-LIST`, `ENT-SSH-CA`, and `ENT-OWNER-ROLES` with effective level, objective evidence, accountable owner, lifecycle state, and next decision.
   - CAP eligibility is evidenced as EMU with OIDC and Microsoft Entra ID, with the mutually exclusive CAP-versus-GitHub-IP-allow-list decision recorded.

@@ -1,4 +1,4 @@
-# Ch39 — Actions Secrets and Environments — Delivery Assurance
+# Ch39: Actions Secrets and Environments Delivery Assurance
 
 Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); `README.md` is canonical for tasks, evidence, commands, and Definition of Done.
 

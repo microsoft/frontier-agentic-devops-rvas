@@ -13,12 +13,12 @@
 
 ## Customer delivery target
 
-- Customer objective: establish an approved, evidence-backed legacy-VCS conversion and GitHub cutover path.
-- Customer-tenant target: a selected customer legacy source, author map, converted Git repository, GitHub destination, and metadata-gap/cutover record.
-- Approval and safety boundary: convert and push customer history only with the source owner’s and destination owner’s approval; inaccessible sources and controlled samples must end in a named execution owner and next step.
-- Records to keep: retain author maps, conversion commands, large-file checks, ref validation, gap notes, and cutover decision.
-- Adoption owner / handover: the customer migration owner accepts source/cutover accountability; repository owners accept the converted destination and gaps.
-- Next action and owner: approve the source-specific cutover or hand over the blocker, owner, and dated execution plan.
+- **Goal:** establish an approved, evidence-backed legacy-VCS conversion and GitHub cutover path.
+- **Target:** a selected customer legacy source, author map, converted Git repository, GitHub destination, and metadata-gap/cutover record.
+- **Boundary:** convert and push customer history only with approval from the source and destination owners. For inaccessible sources and controlled samples, name the execution owner and next step.
+- **Keep:** author maps, conversion commands, large-file checks, ref validation, gap notes, and cutover decision.
+- **Owners:** the customer migration owner accepts source and cutover accountability. Repository owners accept the converted destination and gaps.
+- **Next:** approve the source-specific cutover or hand over the blocker, owner, and dated execution plan.
 
 ## Prerequisites
 
@@ -35,14 +35,14 @@ Access and tooling:
 
 ## Scenario
 
-Your migration team has legacy source systems that GitHub Enterprise Importer does not migrate directly. You need a reliable source-and-history path for Subversion, Mercurial, TFVC, and Perforce repositories.
+GitHub Enterprise Importer does not directly migrate Subversion, Mercurial, TFVC, or Perforce repositories. Convert them to Git with CLI tooling, then push the converted history to GitHub.
 
-The GitHub Importer web tool is now Git-only, imports code and commit history only, works on GitHub.com only, and does not import LFS, issues, pull requests, or other metadata. SVN, Mercurial, TFVC, and Perforce must be converted to Git with CLI tooling first, then pushed to GitHub.
+The GitHub Importer web tool accepts Git sources only, works on GitHub.com only, and imports code and commit history without LFS, issues, pull requests, or other metadata.
 
 > Delivery scope: complete SVN plus at least one of Mercurial, TFVC, or Perforce when authorised source access is available. For inaccessible systems, document the exact commands, source URL shape, identity map, blocker, and named execution owner.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> **Start with an approved customer target.**
 > Default to an approved customer legacy-VCS source, such as SVN, Mercurial, TFVC, or Perforce. Complete the work on that source and target, retaining the converted Git repository, source history, author map, large-file checks, evidence, and gap record.
 >
 > - Have a candidate? Use it everywhere this guide references the legacy VCS source, converted Git directory, or target repository.

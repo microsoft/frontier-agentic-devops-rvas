@@ -10,7 +10,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: "Implement an authorized customer cost-governance baseline: inspect Actions, Packages, and Storage usage; set budgets and alerts; retrieve billing usage from the API; and produce a customer-owned cost report with an accountable owner."
+description: "Set up an authorized customer cost-governance baseline: inspect Actions, Packages, and Storage usage; set budgets and alerts; retrieve billing usage from the API; and produce a customer-owned cost report with an accountable owner."
 success_criteria:
 - A **before** usage snapshot was captured from the billing **API** (Actions minutes + storage).
 - At least **two Actions runs** were generated and **usage increased** (verifiable via `gh run list` + the billing API delta).
@@ -19,7 +19,7 @@ success_criteria:
 - A committed **cost-report script** runs and produces a product/used/included/billable table.
 - A **`COST-REPORT.md`** exists with the before/after delta and a budget recommendation.
 - '**Governance register updated:** Added row for billing domain (budgets, usage alerts, cost-reconciliation baseline) with API snapshot links and configured budget settings.'
-- Customer-owned implementation evidence identifies the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+- Customer evidence records the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - billing
 - usage

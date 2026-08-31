@@ -1,4 +1,4 @@
-# Ch41 — Required Reusable Workflows
+# Ch41: Required Reusable Workflows
 
 > Create an organization-owned reusable workflow and require it for a repository cohort through approved required-workflow or ruleset controls.
 
@@ -13,12 +13,12 @@
 
 ## Customer delivery target
 
-- Customer objective: make baseline CI/security checks consistent across repositories without copy-pasting workflow logic.
-- Customer-tenant target: one reusable workflow library and one authorized consumer cohort with a required gate.
-- Approval and safety boundary: organization rulesets or required-workflow controls are explicit participant changes after owner approval.
-- Records to keep: reusable workflow version, pinned action review, consumer evidence, required gate evidence, exceptions, and rollout plan.
-- Adoption owner / handover: developer experience or platform engineering owns the library and versioning model.
-- Next action and owner: expand the required gate to the next repository cohort.
+- Objective: make baseline CI and security checks consistent without copying workflow logic across repositories.
+- Delivery target: one reusable workflow library and one authorized consumer cohort with a required gate.
+- Safety boundary: organization rulesets or required-workflow controls change only after owner approval.
+- Evidence: reusable workflow version, pinned-action review, consumer and required-gate evidence, exceptions, and rollout plan.
+- Owner: developer experience or platform engineering.
+- Next decision: expand the required gate to the next repository cohort.
 
 ## Prerequisites
 
@@ -28,7 +28,7 @@
 
 ## Scenario
 
-Teams have different CI workflows, so baseline checks are inconsistent and hard to audit. You will publish a reusable workflow, prove one repository can call it, then configure an approved control that requires the workflow before merge.
+Teams use different CI workflows, so baseline checks vary and audits take longer. Publish a reusable workflow and prove that one repository can call it. Then configure an approved control that requires the workflow before merge.
 
 > [!IMPORTANT]
 > Do not use setup automation to enforce organization-wide rules. Required workflows and rulesets can block production teams, so configure them manually for the approved cohort only.

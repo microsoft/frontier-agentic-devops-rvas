@@ -2,9 +2,9 @@
 
 ## Scenario
 
-Your team is about to run an Azure SRE Agent lab using Microsoft's official Grubify starter environment. Before deploying anything, confirm that the tools, Azure access, region, and fallback path are ready.
+Your team will use Microsoft's official Grubify starter environment for the Azure SRE Agent lab. Before deploying, confirm the tools, Azure access, region, and fallback path.
 
-The goal is not to build a custom app. The goal is to use a known Microsoft-provided sample so the rest of the track can focus on Azure SRE Agent behavior: observability, alert investigation, runbooks, source-code context, remediation, and recovery.
+Use the Microsoft sample instead of building an app. The work stays focused on Azure SRE Agent: observability, alert investigation, runbooks, source-code context, remediation, and recovery.
 
 ## Goals
 
@@ -82,14 +82,14 @@ Confirm with your coach:
 | Shared coach lab | A coach owns the Azure environment | Inspect shared resources and run guided prompts |
 | Fallback packet | Azure access is blocked | Use prepared alerts, logs, screenshots, and source references |
 
-Do not spend the workshop debugging subscription policy. If access is blocked, switch to the fallback packet and preserve the learning objective.
+**Do not spend workshop time debugging subscription policy.** If access is blocked, switch to the fallback packet.
 
 ## Deliverables
 
 - Selected path: live, shared coach lab, or fallback packet.
 - Azure subscription, region, and resource group decision.
 - Tool prerequisite check results.
-- One note naming the Azure SRE Agent capabilities this track will exercise.
+- A note naming the Azure SRE Agent capabilities covered by this track.
 
 ## Success Criteria
 

@@ -1,4 +1,4 @@
-# Ch38 — Golden-Path Repository Bootstrap — Delivery Assurance
+# Ch38: Golden-Path Repository Bootstrap Delivery Assurance
 
 Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); `README.md` is canonical.
 
@@ -11,7 +11,7 @@ Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); `README
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: a team can start a new repository from the approved golden path.
-- **Governance controls:** verify owner, change process, exception path, and review cadence.
-- Implementation risks to verify: ask which controls are enforced in the template versus deferred as org-level policy.
-- Delivery prompts: ask for proof that a new repository inherited the baseline files and that no high-impact org setting was changed by setup.
+- Confirm that a team can start a repository from the approved golden path.
+- **Governance controls:** Verify the owner, change process, exception path, and review cadence.
+- Ask which controls the template applies and which require later organization policy.
+- Ask for proof that a new repository inherited the baseline files. Confirm that setup changed no high-impact organization setting.

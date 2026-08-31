@@ -1,6 +1,6 @@
 # Ch10 — Billing, Cost Centers & Usage — Delivery Assurance
 
-This is a concise review overlay. Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md); the paired `README.md` is the canonical source for tasks, evidence, commands, and Definition of Done.
+Use this review overlay with the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The paired `README.md` defines the tasks, evidence, commands, and Definition of Done.
 
 ## Assurance record
 
@@ -11,7 +11,7 @@ This is a concise review overlay. Apply the [Delivery Assurance Standard](../../
 
 ## Session-specific reviewer focus
 
-- Customer adoption outcome: the customer implementation owner builds the org's cost-governance baseline — read usage, generate a little real metered usage, wire a budget with alerts.
+- Expected outcome: the customer owner reads organization usage, generates a small amount of metered usage, and configures a budget with alerts.
 - **Governance controls:** Confirm `FIN-BUDGETS-ALERTS` in the existing register with effective-setting evidence and the selected path.
-- Implementation risks to verify: ask "what's the difference between getting warned at 90% and being stopped at 100%?" and "which runner OS would blow the budget fastest for the same dollar spend?" (→ Windows and macOS cost more per minute than Linux).
-- Delivery lead prompts: ask "what attribution gap would surprise the billing owner?" (→ unattributed spend in shared repos / cross-team runners).
+- Ask "what's the difference between getting warned at 90% and being stopped at 100%?" and "which runner OS would use the budget fastest?" (→ Windows and macOS cost more per minute than Linux).
+- Ask "what attribution gap would surprise the billing owner?" (→ unattributed spend in shared repos or cross-team runners).

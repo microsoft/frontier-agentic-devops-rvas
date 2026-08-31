@@ -1,4 +1,4 @@
-# Ch51 — LFS and Monorepo Governance
+# Ch51: LFS and Monorepo Governance
 
 > Deliver governance for a growing monorepo: ownership boundaries, Git LFS patterns, large-file intake, repository health evidence, and explicit storage decisions.
 
@@ -13,12 +13,12 @@
 
 ## Customer delivery target
 
-- Customer objective: prevent monorepo sprawl, unclear ownership, and large-file storage surprises.
-- Customer-tenant target: an approved monorepo or monorepo candidate.
-- Approval and safety boundary: history rewrites, LFS migrations, retention changes, and quota purchases are high-impact decisions; setup does not perform them. Execute only after explicit owner approval.
-- Records to keep: retain repository health evidence, `.gitattributes`, CODEOWNERS map, large-file exceptions, storage owner, and migration decisions.
-- Adoption owner / handover: the platform, source-control, or monorepo governance owner accepts ongoing operations.
-- Next action and owner: choose the next package area, LFS migration decision, or enforcement control.
+- Objective: prevent monorepo sprawl, unclear ownership, and large-file storage surprises.
+- Delivery target: an approved monorepo or monorepo candidate.
+- Safety boundary: history rewrites, LFS migrations, retention changes, and quota purchases are high-impact decisions. Setup does not perform them; proceed only with owner approval.
+- Evidence: repository health data, `.gitattributes`, CODEOWNERS map, large-file exceptions, storage owner, and migration decisions.
+- Owner: platform, source control, or monorepo governance.
+- Next decision: choose the next package area, LFS migration decision, or enforcement control.
 
 ## Prerequisites
 
@@ -29,7 +29,7 @@
 
 ## Customer delivery objectives
 
-This delivery engagement establishes:
+You will:
 
 - Inspect repository size, large-file risk, and existing LFS configuration.
 - Define approved LFS patterns and a large-file exception path.
@@ -39,12 +39,12 @@ This delivery engagement establishes:
 
 ## Scenario
 
-A customer wants one repository for many services, docs, generated assets, and models. The repo is growing, ownership is unclear, and teams sometimes commit binaries directly. Your job is to create the governance layer: package owners, approved LFS patterns, intake for exceptions, and an evidence-backed decision about when to enforce or migrate.
+A customer wants one repository for many services, docs, generated assets, and models. The repository is growing, ownership is unclear, and teams sometimes commit binaries directly. Define package owners, approved LFS patterns, and an exception intake path. Record when the team will enforce the policy or migrate existing files.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> Choose the target before setup
 >
-> Default to an authorised customer monorepo or monorepo candidate. Complete the work on that artifact and retain the evidence.
+> Start with an authorised customer monorepo or candidate. Complete the work there and keep the evidence.
 >
 > - Have a candidate? Use the real repository wherever this guide names `ghec-ch51-lfs-monorepo-governance`. Skip setup.
 > - No suitable one? Use the fallback below: a seeded monorepo-shaped repository with packages, `.gitattributes`, CODEOWNERS, governance docs, labels, and sample intake issue.
@@ -60,7 +60,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch51 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch51 -Org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch51-*`, idempotent, prefix-guarded teardown):
+Setup is idempotent and creates only these namespaced artifacts. Teardown accepts only the `ghec-ch51-*` prefix.
 
 - `ghec-ch51-lfs-monorepo-governance` with package folders, docs, `.gitattributes`, and `.github/CODEOWNERS`.
 - Labels for `monorepo: ownership`, `lfs: review`, `lfs: approved`, and `lfs: blocked`.

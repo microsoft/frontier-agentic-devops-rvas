@@ -1,22 +1,23 @@
-# Activity S01 — Explore the Attack Surface
+# Activity S01: Explore the Attack Surface
 
 ## Description
 
-Before you fix anything, you need to understand what you're dealing with. GHAS is already running on the org repository provisioned in S00. CodeQL has scanned the default branch, Dependabot has checked every dependency, and secret scanning has reviewed every commit. The results are waiting for you in the Security tab.
+Map the attack surface before fixing it. GHAS already runs on the org repository
+provisioned in S00: CodeQL scans the default branch, Dependabot checks dependencies,
+and secret scanning reviews commits. Open the Security tab to see the results.
 
-Juice Shop is intentionally vulnerable. The alerts you'll see aren't theoretical — they're real exploitable flaws in real code. SQL injection that lets attackers bypass authentication. XSS that can hijack user sessions. Broken access control that exposes data it shouldn't. Your job in this activity is to read those alerts, open the affected files, and use Copilot to understand exactly what the code is doing wrong.
+Juice Shop is intentionally vulnerable. Its alerts describe exploitable flaws in real code, including SQL injection, XSS, and broken access control. Read each alert, open the affected file, and use Copilot to understand the unsafe code.
 
-This is your reconnaissance phase. Turn the alerts into an owned security-debt
-findings register that the delivery team can operate after the session, rather than a
-temporary mental model.
+Turn the alerts into a security findings register with owners so the delivery team
+can maintain it after the session.
 
 > Before this activity: Make sure S00 is complete, the org repo exists, required participants have been added, GHAS features are enabled, and you've created your team branch. The Security tab is default-branch oriented. Your branch fixes will be validated later through PR CodeQL checks and code scanning annotations.
 
 ## Objectives
 
 - Use your own application repository or service first; use the Juice Shop fallback only when no suitable delivery target is available
-- Navigate to the relevant GHAS alerts, including Security → Code scanning alerts, and review the open default-branch alerts
-- Review at least 5 alerts in full — location, description, and the code path that triggers each finding
+- Open the relevant GHAS alerts, including Security → Code scanning alerts, and review the open default-branch alerts
+- Review at least 5 alerts in full, including the location, description, and code path that triggers each finding
 - For each reviewed alert, open the affected file in your editor, ask Copilot Chat: *"What does this code do wrong, and how could an attacker exploit it?"*, and verify the explanation against the alert and code path
 - Create a security findings register with named owners in `modules/ghas/resources/ghas-governance-practice.template.md`
 - For every inventory item, record the alert category or class, affected repository, service, or component, business or security impact, remediation route, accountable owner or team, target date, current disposition (open, in progress, or accepted risk), and prioritization rationale
@@ -24,14 +25,12 @@ temporary mental model.
 - Check Security → Dependabot alerts and record any critical or high-severity dependency vulnerabilities in the inventory
 
 > [!IMPORTANT]
-> Bring your own application (do this first)
+> Use your own application first
 >
-> This activity is most valuable when the attack-surface picture *outlives the delivery session*. Use a real application repository you want to secure so the CodeQL, Dependabot, and secret scanning results you review become evidence your team can keep acting on after today.
+> - **Real application available:** Use it wherever this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the S00 Juice Shop setup and review your repository's Security tab so the results remain useful after the session.
+> - **No suitable application:** Use the S00 OWASP Juice Shop fallback to practice inspecting alerts.
 >
-> - Have a candidate? If you have an application repo in an organization you control with GHAS enabled, use it everywhere this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice-Shop-specific setup from S00 and review the Security tab for your own repo instead.
-> - No suitable one? Use the fallback from S00: OWASP Juice Shop as a safe practice target for learning how to inspect alerts.
->
-> Tell your coach which path you took — bringing your own is the goal; Juice Shop is the fallback.
+> Tell your coach which path you chose.
 >
 
 ## Success Criteria
@@ -46,7 +45,7 @@ temporary mental model.
 
 ## Copilot Tips
 
-- Open the flagged file and highlight the vulnerable code snippet, then ask: *"Explain this vulnerability to me like I'm going to have to fix it"*
+- Open the flagged file, highlight the vulnerable code, and ask: *"Explain this vulnerability to me like I'm going to have to fix it"*
 - Ask: *"What OWASP category does this fall under, and what's the standard fix pattern?"*
 - Ask: *"If an attacker sent a crafted HTTP request to this endpoint, what could they achieve?"*
 

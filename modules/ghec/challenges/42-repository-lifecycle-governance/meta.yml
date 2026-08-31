@@ -11,14 +11,14 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Define and apply repository lifecycle governance: active, deprecated, transfer, archive, and delete decisions with owner-backed evidence and guarded execution."
+description: "Define repository lifecycle states and apply owner-approved transfer, archive, or delete decisions with recorded evidence."
 success_criteria:
 - A repository lifecycle policy exists with states, owners, review cadence, decision criteria, and exception path.
 - Sample repositories are classified as active, deprecated, archive candidate, transfer candidate, or delete candidate with evidence.
 - Archive, visibility, transfer, and deletion actions are treated as explicit participant-approved steps, not setup mutations.
 - At least one safe lifecycle marker is applied to a sample repository.
 - Governance evidence records decisions, approvals, retention considerations, and next review.
-- Customer-owned implementation evidence identifies authorized scope, accountable owner, handover artifact, and next lifecycle review.
+- Customer evidence names the authorized scope and owner, links the handover record, and states the next lifecycle review.
 tags:
 - repository-lifecycle
 - governance

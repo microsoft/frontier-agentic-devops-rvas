@@ -1,12 +1,15 @@
-# Activity S04 — Fix Broken Access Control
+# Activity S04: Fix Broken Access Control
 
 ## Description
 
-Broken access control is OWASP's number one web application vulnerability. It occurs when the application fails to enforce that users can only act within their intended permissions. The result: users can read other users' data, modify records they shouldn't own, access admin functionality without authorization, or escalate their own privileges.
+Broken access control occurs when an application fails to enforce user permissions.
+A user may read another user's data, modify records they do not own, access admin
+functions, or raise their own privileges. It ranks first in the OWASP web
+application vulnerability list.
 
-Juice Shop has multiple access control flaws. Some are insecure direct object references (IDOR) — where the app trusts a user-supplied ID to look up data without checking if that user actually owns it. Others are missing authorization middleware — routes that should require authentication or admin role but don't check. CodeQL flags some of these; others you'll find by reading the routes and thinking about who should and shouldn't be able to call each endpoint. Record the technically validated remediation and a reusable prevention pattern for future changes.
+Juice Shop has several access-control flaws. Some are insecure direct object references (IDOR), where the app trusts a user-supplied ID without checking ownership. Other routes omit required authorization middleware. CodeQL flags some cases. Find the rest by reading each route and deciding who may call it. Record the validated remediation and a prevention pattern for future changes.
 
-The fix pattern: for every operation that touches user-owned or role-restricted data, verify the requesting user's identity and permissions *in the route handler*. Don't rely on the frontend to hide links. Copilot Autofix or other Copilot assistance can propose work; it remains subject to human review and your existing PR and GHAS controls.
+For every operation on user-owned or role-restricted data, verify the requesting user's identity and permissions *in the route handler*. Do not rely on the frontend to hide links. Copilot Autofix or other Copilot assistance can propose a change. A human must review it through the existing PR and GHAS controls.
 
 ## Objectives
 
@@ -19,23 +22,21 @@ The fix pattern: for every operation that touches user-owned or role-restricted 
 - Use two independently reviewed fixes to confirm the pattern, then check comparable endpoints for repeat issues
 
 > [!IMPORTANT]
-> Bring your own application (do this first)
+> Use your own application first
 >
-> This activity is most valuable when the access-control fixes *outlive the delivery session*. Use the real application repository you want to secure so the route reviews, CodeQL findings, pull requests, and authorization checks land in code your team keeps.
+> - **Real application available:** Use it wherever this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice Shop setup and select real authorization, IDOR, missing-middleware, or role-enforcement findings so the fixes land in code your team maintains.
+> - **No suitable application:** Use the S00 OWASP Juice Shop fallback to practice finding and fixing broken access control.
 >
-> - Have a candidate? If you have an application repo in an organization you control with GHAS enabled, use it everywhere this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice-Shop-specific setup and pick real authorization, IDOR, missing-middleware, or role-enforcement findings from your own app instead of the Juice Shop examples.
-> - No suitable one? Use the fallback from S00: OWASP Juice Shop as a safe practice target for finding and fixing broken access control.
->
-> Tell your coach which path you took — bringing your own is the goal; Juice Shop is the fallback.
+> Tell your coach which path you chose.
 >
 
 ## Success Criteria
 
-- [ ] A technically validated access-control fix enforces server-side ownership or role authorization — not UI restrictions alone — confirms authorized access works and unauthorized access is blocked, and retains PR/review evidence plus relevant GHAS validation.
+- [ ] A technically validated access-control fix enforces server-side ownership or role authorization. UI restrictions alone do not meet this requirement. The fix confirms that authorized access works, blocks unauthorized access, and retains PR/review evidence plus relevant GHAS validation.
 - [ ] A reusable prevention pattern record in `modules/ghas/resources/ghas-governance-practice.template.md` states the unsafe pattern/finding class, approved safe pattern, where it applies, PR/review evidence, relevant GHAS validation, named owner, and how the expectation applies to human- and agent-authored changes.
 - [ ] Completion requires two independently reviewed fixes, a technically validated fix, and a reusable prevention pattern record; two fixes alone are not sufficient.
 - [ ] Any Copilot Autofix or other Copilot assistance is treated as proposed work, reviewed by a human, and handled through existing PR and GHAS controls.
-- [ ] Coach conversation — in your own backend services, are there routes that rely on the frontend to hide restricted actions instead of enforcing ownership server-side, and how would you even know if an authenticated user were calling them directly with a crafted request? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] Coach conversation: Find any backend routes that rely on the frontend to hide restricted actions instead of enforcing ownership on the server. Explain how you would detect an authenticated user calling them directly with a crafted request. Discuss a real project, task, or workflow with your coach.
 
 ## Copilot Tips
 

@@ -1,6 +1,6 @@
 # Azure SRE Agent Reference
 
-This note gives curriculum maintainers a source-backed baseline for the rebuilt Azure SRE Agent track.
+This is the sourced baseline for the Azure SRE Agent track.
 
 ## Official Microsoft Lab to Use
 
@@ -11,7 +11,7 @@ Use the official Microsoft repository:
 
 The starter lab deploys an Azure SRE Agent connected to the Grubify sample app. It includes Azure Container Apps, Log Analytics, Application Insights, Azure Monitor alerts, managed identity/RBAC, knowledge files, response plans, and optional GitHub connection.
 
-The lab scenarios are the right foundation for this course:
+Use these lab scenarios in the course:
 
 | Scenario | Why it fits |
 | --- | --- |
@@ -21,13 +21,13 @@ The lab scenarios are the right foundation for this course:
 
 ## What Azure SRE Agent Is
 
-Azure SRE Agent is a reliability assistant for operations work. The official community repo describes it as a hub for Azure SRE Agent resources, labs, sample environments, prompt guides, issue reporting, product docs, portal links, pricing, official plugins, discussions, and videos.
+Azure SRE Agent is a reliability assistant for operations work. Its official community repository links to labs, sample environments, prompt guides, issue reporting, product documentation, the portal, pricing, official plugins, discussions, and videos.
 
-For this track, Azure SRE Agent is the main product. GitHub is a supporting remediation target, not the primary learning objective.
+Azure SRE Agent is the main product in this track. GitHub supports remediation work.
 
 ## Source-Code Connection
 
-The source-code connection documentation says a connected GitHub or Azure DevOps repository can let Azure SRE Agent:
+With a connected GitHub or Azure DevOps repository, Azure SRE Agent can:
 
 - analyze source during investigations;
 - return file and line references for suspected problems;
@@ -35,7 +35,7 @@ The source-code connection documentation says a connected GitHub or Azure DevOps
 - correlate production symptoms to code changes;
 - create pull requests when repository connection, run mode, permissions, and branch state allow it.
 
-The course should not require live PR creation in every environment. The baseline should be a source-aware investigation and either a remediation issue with evidence, validation, and human approval or a reviewed PR packet.
+Do not require live pull request creation in every environment. Require a source-aware investigation and either a reviewed pull request packet or a remediation issue with evidence, validation, and human approval.
 
 ## Recipes and Plugins
 
@@ -45,7 +45,7 @@ The course should not require live PR creation in every environment. The baselin
 
 ## Delivery Caveats
 
-Live behavior depends on tenant policy, role assignments, region, connector availability, product access, and run mode. Coaches should always prepare a fallback evidence packet with the same sequence: signal, Azure evidence, agent transcript, source lead, remediation work, recovery proof, and follow-up.
+Live behavior depends on tenant policy, role assignments, region, connector availability, product access, and run mode. Coaches need a fallback packet with the same sequence: signal, Azure evidence, agent transcript, source lead, remediation work, recovery proof, and follow-up.
 
 ## Primary Sources
 

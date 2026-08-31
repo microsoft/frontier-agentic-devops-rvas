@@ -20,7 +20,7 @@ engine: copilot
 
 ## Goal
 
-Create a "Hello from gh-aw!" issue to confirm the workflow runtime is working correctly.
+Create a "Hello from gh-aw!" issue to confirm that the workflow runtime works.
 
 ## Steps
 

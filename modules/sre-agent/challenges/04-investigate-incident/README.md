@@ -2,7 +2,7 @@
 
 ## Scenario
 
-You will intentionally break Grubify and use Azure SRE Agent to investigate the resulting Azure signal. The point is to practice evidence-first operations: start from user impact and telemetry, then let the agent help collect and explain evidence.
+Intentionally break Grubify, then use Azure SRE Agent to investigate the Azure signal. Start with user impact and telemetry; use the agent to collect and explain evidence.
 
 ## Goals
 
@@ -19,12 +19,12 @@ You will intentionally break Grubify and use Azure SRE Agent to investigate the 
 > [!IMPORTANT]
 > Bring your own service (do this first)
 >
-> This activity is most valuable when Azure SRE Agent investigates a real service your team will keep operating after the session. If you have a candidate Azure workload in a subscription you control, use that service everywhere this guide references Grubify, and investigate a real or recent incident with your own telemetry and operational context.
+> Investigate a service your team will operate after the session if you can. Use it wherever this guide references Grubify, working from a real or recent incident and your own telemetry.
 >
-> - Have a candidate? Start from a real alert, customer symptom, recent incident, or safely reproducible failure for your own service. Use its Azure Monitor signal, logs, metrics, traces, runbooks, and recovery process; do not intentionally break production unless your team already has an approved safe test path.
-> - No suitable Azure service or incident yet? Trigger the Grubify failure below as the safe fallback target.
+> - If you have a candidate, start from a real alert, customer symptom, recent incident, or safely reproducible failure. Use the service's Azure Monitor signal, logs, metrics, traces, runbooks, and recovery process. **Do not break production without an approved test path.**
+> - If you do not have a suitable service or incident, trigger the Grubify failure below.
 >
-> Tell your coach which path you took — bringing your own is the goal; Grubify is the fallback.
+> Tell your coach which path you chose. **Prefer your own service; use Grubify as the fallback.**
 
 ## Trigger the Incident
 
@@ -60,7 +60,7 @@ Use a prompt like:
 The Grubify API is failing for the Add to Cart flow. Investigate using the connected Azure resources, logs, metrics, traces, and HTTP error runbook. Give me the evidence, likely cause, alternatives, and a safe mitigation plan.
 ```
 
-If an incident activity already exists, open it and review the agent's autonomous investigation.
+If an incident activity already exists, review the agent's investigation there.
 
 ## Validate the Evidence
 
@@ -84,7 +84,7 @@ Safe mitigation:
 Validation after mitigation:
 ```
 
-Do not accept a confident agent answer unless it cites evidence you can inspect.
+**Do not accept an agent answer unless it cites evidence you can inspect.**
 
 ## Mitigate and Recover
 

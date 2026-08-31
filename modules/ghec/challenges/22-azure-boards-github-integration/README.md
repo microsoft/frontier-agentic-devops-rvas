@@ -13,12 +13,12 @@
 
 ## Customer delivery target
 
-- Customer objective: restore accountable work-item traceability after a customer migration.
-- Customer-tenant target: an approved migrated customer repository, Azure Boards connection, scoped Azure Boards App installation, and work-item linkage.
-- Approval and safety boundary: install and authorise the App only within the customer’s approved repository scope; if approval is pending, retain the request and connection plan rather than treating a validation link as the destination.
-- Records to keep: retain App-installation scope, connection confirmation, linked commit/PR, state-transition evidence, and ownership record.
-- Adoption owner / handover: the customer Boards owner and repository owner accept the integration and operating responsibilities.
-- Next action and owner: approve the production connection or submit the scoped App approval request to the named owner.
+- **Goal:** restore accountable work-item traceability after a customer migration.
+- **Target:** an approved migrated customer repository, Azure Boards connection, scoped Azure Boards App installation, and work-item linkage.
+- **Boundary:** install and authorise the App only within the customer’s approved repository scope. If approval is pending, retain the request and connection plan instead of treating a validation link as the destination.
+- **Keep:** App-installation scope, connection confirmation, linked commit/PR, state-transition evidence, and ownership record.
+- **Owners:** the customer Boards owner and repository owner accept the integration and operating responsibilities.
+- **Next:** approve the production connection or submit the scoped App approval request to the named owner.
 
 ## Prerequisites
 - GitHub organization with org-owner rights, or repository admin rights plus a path to request GitHub App installation approval.
@@ -29,9 +29,7 @@
 
 Recommended sequence: do this after the migration planning/cutover activity for Azure DevOps-to-GitHub migrations, because this activity assumes the repository now lives in GitHub and Azure Boards remains the system of record for work items.
 
-## Customer delivery objectives
-
-This delivery engagement establishes:
+## What you'll do
 - Explain why GitHub Enterprise Importer (GEI) does not migrate Azure Boards work items: it migrates Git repos, PRs, and existing work-item links on PRs, but not the Boards backlog itself.
 - Install and configure the Azure Boards GitHub Marketplace app for selected migrated repositories.
 - Connect one Azure Boards project to the GitHub repository from Project settings > GitHub connections.
@@ -40,10 +38,10 @@ This delivery engagement establishes:
 - Validate the link from both sides: Azure Boards work item Development section and GitHub PR Development section.
 
 ## Why this matters
-GEI preserves only work-item links that already existed on Azure DevOps pull requests. It does not move Azure Boards work items, board columns, queries, or backlog state into GitHub. After cutover, teams that keep planning in Azure Boards need a live bridge so new GitHub commits and pull requests continue to appear on the work item. The Azure Boards GitHub App is that bridge.
+GEI preserves existing work-item links on Azure DevOps pull requests, but it does not move Azure Boards work items, queries, or backlog state. Teams that continue planning in Azure Boards need the Azure Boards GitHub App to link new GitHub commits and pull requests after cutover.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> **Start with an approved customer target.**
 > Default to one approved migrated customer repository and one Azure Boards work item from its owning team. Delivery is complete when the repository is connected and the work item shows a GitHub commit or PR link.
 >
 > Use these variables in the commands below:

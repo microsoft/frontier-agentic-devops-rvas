@@ -1,12 +1,16 @@
-# Activity S03 — Fix XSS & Unsafe Output
+# Activity S03: Fix XSS & Unsafe Output
 
 ## Description
 
-Cross-site scripting (XSS) happens when your application takes user-controlled data and includes it in an HTML response without encoding it. The browser can't tell the difference between your markup and the attacker's injected script — it runs both. The result: session hijacking, credential theft, malicious redirects.
+Cross-site scripting (XSS) happens when an application includes user-controlled data in an HTML response without the right encoding. The browser treats the attacker's script as application markup and runs it. An attacker can hijack sessions, steal credentials, or redirect users.
 
-Juice Shop has XSS vulnerabilities in its frontend and backend. Some are reflected (input immediately echoed back in the response), some are stored (input saved to the database and rendered to other users later). CodeQL has flagged locations where user data flows into HTML output unsanitized. Your job is to find those code paths and add the encoding layer that stops the injection, then record the validated remediation and how to prevent it in future changes.
+Juice Shop has XSS vulnerabilities in its frontend and backend. Reflected XSS
+returns input in the immediate response; stored XSS saves input and later renders
+it to other users. CodeQL has flagged paths where user data reaches HTML output
+without safe handling. Fix those paths and record the validated remediation and
+prevention pattern.
 
-The fix pattern is usually: encode output before rendering it, or use framework APIs that handle this automatically. The tricky part is understanding *which* context the data ends up in — HTML body, attribute, JavaScript, URL — because each requires a different encoding strategy.
+Encode output before rendering it, or use framework APIs that do so safely. First identify the output context, such as an HTML body, attribute, JavaScript string, or URL. Each context needs a different encoding strategy.
 
 ## Objectives
 
@@ -19,23 +23,21 @@ The fix pattern is usually: encode output before rendering it, or use framework 
 - Use two independently reviewed fixes to confirm the pattern, then check comparable rendering paths for repeat issues
 
 > [!IMPORTANT]
-> Bring your own application (do this first)
+> Use your own application first
 >
-> This activity is most valuable when the XSS fixes *outlive the delivery session*. Use the real application repository you want to secure so the CodeQL data-flow findings, pull requests, and output-encoding changes land where your team can keep them.
+> - **Real application available:** Use it wherever this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice Shop setup and select real reflected or stored XSS findings, unsafe HTML rendering, or related output-encoding alerts so the fixes land in code your team maintains.
+> - **No suitable application:** Use the S00 OWASP Juice Shop fallback to practice fixing known XSS flaws.
 >
-> - Have a candidate? If you have an application repo in an organization you control with GHAS enabled, use it everywhere this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice-Shop-specific setup and pick real reflected or stored XSS findings, unsafe HTML rendering, or equivalent output-encoding alerts from your own repo instead of the Juice Shop examples.
-> - No suitable one? Use the fallback from S00: OWASP Juice Shop as a safe practice target for fixing known XSS flaws.
->
-> Tell your coach which path you took — bringing your own is the goal; Juice Shop is the fallback.
+> Tell your coach which path you chose.
 >
 
 ## Success Criteria
 
-- [ ] A technically validated XSS fix uses context-appropriate output encoding or a safe framework API — not input filtering alone — confirms the application renders expected content, and retains PR/review evidence plus relevant GHAS validation.
+- [ ] A technically validated XSS fix uses context-appropriate output encoding or a safe framework API. Input filtering alone does not meet this requirement. The fix confirms that the application renders expected content and retains PR/review evidence plus relevant GHAS validation.
 - [ ] A reusable prevention pattern record in `modules/ghas/resources/ghas-governance-practice.template.md` states the unsafe pattern/finding class, approved safe pattern, where it applies, PR/review evidence, relevant GHAS validation, named owner, and how the expectation applies to human- and agent-authored changes.
 - [ ] Completion requires two independently reviewed fixes, a technically validated fix, and a reusable prevention pattern record; two fixes alone are not sufficient.
 - [ ] Any Copilot Autofix or other Copilot assistance is treated as proposed work, reviewed by a human, and handled through existing PR and GHAS controls.
-- [ ] Coach conversation — which pages or components in your own application render user-supplied content back into the browser, and do you know for certain what encoding is applied before each one hits the DOM? Talk it through with your coach and connect it to a real project, task, or workflow you own.
+- [ ] Coach conversation: Which pages or components in your application render user-supplied content in the browser? Confirm the encoding applied before each value reaches the DOM, then discuss a real project, task, or workflow with your coach.
 
 ## Copilot Tips
 
@@ -44,7 +46,7 @@ The fix pattern is usually: encode output before rendering it, or use framework 
 - Ask: *"What encoding is needed for data going into an HTML attribute versus HTML body versus a JavaScript string?"*
 - If you use Copilot Autofix or other Copilot assistance, treat its output as a proposed remediation: review it against the required output context and submit it through the normal PR and GHAS checks.
 
-Try this: Open the running app, trigger the XSS manually (try `<script>alert(1)</script>` in a search or input field), then fix the code and verify the same input is now safely rendered as text.
+Try triggering the XSS in the running app with `<script>alert(1)</script>` in a search or input field. Fix the code, then verify that the app renders the same input as text.
 
 ## Learning Resources
 

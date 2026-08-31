@@ -1,4 +1,4 @@
-# Ch37 — Governance Quick Review with ghqr
+# Ch37: Governance Quick Review with ghqr
 
 > Deliver a read-only GitHub governance posture review using `ghqr`, then convert the report into customer-owned register evidence and prioritized decisions.
 
@@ -13,12 +13,12 @@
 
 ## Customer delivery target
 
-- Customer objective: get a broad, evidence-backed view of GitHub organization settings, risks, and improvement opportunities.
-- Customer-tenant target: an authorized `ghqr` organization scan, retained non-secret report artifacts, and governance-register updates mapped to existing controls.
-- Approval and safety boundary: this activity is read-only by default. Do not change production settings while running the review. Any remediation becomes an inspect-and-propose decision or a separately approved pilot/change.
-- Records to keep: scan target, reviewer role, token boundary, `ghqr` version, report files, finding triage, corroborating evidence, register rows, exceptions, and next decisions.
-- Adoption owner / handover: the platform governance owner accepts the findings backlog, owners, review cadence, and next approved decision.
-- Next action and owner: approve a remediation pilot, request enterprise-level evidence, accept an exception, or schedule the next posture review.
+- Objective: produce an evidence-backed view of GitHub organization settings and risks.
+- Delivery target: an authorized `ghqr` organization scan, retained non-secret reports, and governance-register updates mapped to existing controls.
+- Safety boundary: the review is read-only by default. Remediation belongs in an inspect-and-propose decision or a separately approved pilot/change.
+- Evidence: scan target, reviewer role, token boundary, `ghqr` version, reports, finding triage, corroboration, register rows, exceptions, and next decisions.
+- Owner: platform governance.
+- Next decision: approve a remediation pilot, request enterprise evidence, accept an exception, or schedule the next posture review.
 
 > [!IMPORTANT]
 > Use the existing customer governance register. Do not create a parallel findings tracker. Map `ghqr` findings to the existing control catalogue where possible, and record gaps as inspect-and-propose decisions rather than inventing new control IDs.
@@ -34,19 +34,16 @@
 
 ## Customer delivery objectives
 
-This delivery engagement establishes:
+You will:
 
-- Install or select `ghqr` and capture the tool/version evidence used for the review.
-- Run an authorized organization scan with `ghqr scan -o <org>`.
-- Use the optional enterprise scan only when the customer authorizes it and the token has the necessary enterprise access.
-- Preserve non-secret scan output as review evidence.
-- Triage findings into the existing governance register and control catalogue.
-- Separate evidence, recommendations, and customer decisions so a scan result does not become an automatic policy change.
-- Produce a prioritized next-action backlog with owners, implementation path, exception/rollback, and review cadence.
+- Select `ghqr`, capture its version, and run the authorized organization scan.
+- Run the optional enterprise scan only with customer authorization and the required token access.
+- Preserve non-secret output and triage findings into the existing governance register and control catalogue.
+- Keep evidence, recommendations, and customer decisions separate. Build a prioritized backlog with owners, implementation path, exception/rollback, and review cadence.
 
 ## Scope and guardrails
 
-`ghqr` checks broad GitHub surfaces, including security settings, access control, branch protection, Copilot policy, governance settings, audit log posture, Actions policy, dependencies, repository metadata, and community-health files. Treat that breadth as an assessment accelerator, not a replacement for customer risk decisions.
+`ghqr` checks many GitHub surfaces, including security settings, access control, branch protection, Copilot policy, audit logs, Actions policy, dependencies, repository metadata, and community-health files. Use it to speed up assessment. It does not replace customer risk decisions.
 
 Use these guardrails throughout:
 
@@ -154,7 +151,7 @@ Use these guardrails throughout:
    gh api /orgs/<org>/rulesets --jq '.[] | {name, enforcement, target}'
    ```
 
-17. Build a short remediation backlog from the register rows. Keep it customer-owned: owner, risk, dependency, path, next decision date, and evidence link.
+17. Build a short remediation backlog from the register rows. Record the owner, risk, dependency, path, next decision date, and evidence link.
 
 ### Part F — Handover
 
@@ -168,7 +165,7 @@ Use these guardrails throughout:
 
 ## Validation / Definition of Done
 
-You are done when ALL of the following are true:
+You are done when all of the following are true:
 
 - [ ] Authorized organization scope, reviewer role, token boundary, evidence location, and report-retention decision are recorded before the scan.
 - [ ] `ghqr` is installed or selected through Docker, and its help/version output is captured as execution evidence.
@@ -177,8 +174,8 @@ You are done when ALL of the following are true:
 - [ ] Top `ghqr` findings are triaged to existing governance catalogue controls, with effective source level, objective evidence link, severity, accountable owner, implementation path, exception/rollback, and review date.
 - [ ] At least one finding is corroborated with a GitHub setting, audit, or API evidence surface where available.
 - [ ] No production setting is changed by default; remediation is captured as inspect-and-propose or a separately approved pilot/change.
-- [ ] Real-outcome check — the customer governance owner can name the highest-priority risk, owner, evidence link, and next decision.
-- [ ] Adoption handover — record the customer governance owner, posture-review cadence, accepted exceptions, and the next approved remediation or enterprise-evidence request.
+- [ ] The governance owner can name the highest-priority risk, its owner, the evidence link, and the next decision.
+- [ ] Record the governance owner, posture-review cadence, accepted exceptions, and next approved remediation or enterprise-evidence request.
 
 ## Operational extensions
 

@@ -1,6 +1,6 @@
 # GHAW Setup
 
-Use one of these supported environment paths before starting `ghaw-00`:
+Choose one of these environments before starting `ghaw-00`.
 
 ## Roles used in the activities
 
@@ -37,7 +37,7 @@ If `gh aw --version` fails in a local environment, reinstall with:
 curl -sL https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh | bash
 ```
 
-Expected outcome: GitHub authentication succeeds, `gh aw --version` prints a version, and the hello-world dry run completes without errors.
+**Expected result:** GitHub authentication succeeds, `gh aw --version` prints a version, and the hello-world dry run completes without errors.
 
 The `--logical-repo` flag tells `gh-aw` which repository to simulate. This avoids failures when your local clone uses an SSH host alias or another non-standard remote URL.
 
