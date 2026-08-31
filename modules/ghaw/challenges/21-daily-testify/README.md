@@ -18,7 +18,7 @@ The workflows are deliberately separate. Analysis can create issues, but it cann
 > [!IMPORTANT]
 > Use a real repository
 >
-> Choose a repository in an organization you control with established test conventions, a test owner, and a maintainer who will review the proposed pull requests. Configure the workflows for its language, framework, test directories, and quality bar. Use the sample repository only when no suitable customer repository is available.
+> Choose a repository with established test conventions, a test owner, and a maintainer who will review proposed pull requests. Configure the workflows for its language, framework, test directories, and quality bar. Use the sample repository only when no suitable repo is available.
 
 ## Workflows
 

@@ -11,17 +11,16 @@
 | App | none |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Customer objective: make customer administrative events searchable, exportable, and operationally attributable.
-- Customer-tenant target: the customer organisation audit-log query set, export script, and findings record.
-- Approval and safety boundary: generate only owner-approved events in the customer tenant; use the seeded target for controlled event generation when live changes are not approved.
-- Records to keep: retain the export script, time-bounded JSON evidence, query filters, and findings.
-- Adoption owner / handover: the customer security or platform operations owner receives the evidence-collection runbook.
-- Next action and owner: schedule the approved export cadence or nominate the owner who will operationalise the validated script.
+- Delivery target: the customer organisation audit-log query set, export script, and findings record.
+- Safety boundary: generate only owner-approved events in the customer tenant; use the seeded target for controlled event generation when live changes are not approved.
+- Evidence: retain the export script, time-bounded JSON evidence, query filters, and findings.
+- Owner: the customer security or platform operations owner receives the evidence-collection runbook.
+- Next decision: schedule the approved export cadence or nominate the owner who will operationalise the validated script.
 
 ## Prerequisites
-- Recommended: Ch52 (Enterprise Landing Zone & Organization Strategy) completed first. When available, its settings register is the **preferred** source for the enterprise-level streaming/retention item in this activity's Part F. If Ch52 was not completed, this activity's org-level export still stands independently — see "Enterprise vs. organization control" below for the fallback.
+- Recommended: Ch52 (Enterprise Landing Zone & Organization Strategy) completed first — its settings register is the preferred source for the enterprise-level streaming/retention item in Part F (see the closing note); otherwise this activity's org-level export stands on its own.
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud. The org audit log is a GHEC organization feature.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch09 --org <org>` (least-privilege; for this activity: `admin:org` + `read:audit_log` + `repo`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
@@ -48,7 +47,7 @@ A GHEC customer's security team asks the question every audit eventually asks: *
 >
 > Record the selected target, customer operations owner, and next action and owner. Use the sample only for testing; move the validated export path to an approved customer organisation.
 
-## Sample test repository or environment (when tenant delivery is constrained)
+## Sample test repository or environment
 Skip this if you brought your own audit target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -105,21 +104,13 @@ Setup creates these resources (all names use the `ghec-ch09-*` prefix, and teard
 18. Verify the organization audit-log access and retention used by the export.
     This is the org-level implementation, not the enterprise-level decision —
     keep the two distinct in your notes.
-19. Source the enterprise-level streaming destination, retention, and
-    IP-address-display decision: if Ch52 was completed, cite its landing-zone
-    settings register entry; otherwise, if you hold authorized enterprise-owner
-    access, pull an enterprise export/inspection and cite it. If neither is
-    available, record `enterprise policy not available / not applicable` in
-    `FINDINGS.md` — do not infer enterprise-wide streaming or retention policy
+19. Record the enterprise-level streaming destination, retention, and
+    IP-address-display decision in `FINDINGS.md`: cite Ch52's landing-zone
+    settings register entry, or an authorized enterprise export/inspection;
+    if neither exists, record `enterprise policy not available / not
+    applicable`. Don't infer enterprise-wide streaming or retention policy
     from this one organization's audit log, and complete the organization
-    export work normally regardless.
-
-## Operational extensions
-- Extend the export script to emit CSV (actor, action, created_at, repo) suitable for a spreadsheet or SIEM import.
-- Query the Git events stream (`include=git` / `phrase='action:git.push'`) and discuss why Git events are higher-volume and time-limited.
-- Diagram how you'd turn the export script into a scheduled GitHub Actions workflow that pulls yesterday's audit slice nightly and uploads it as an artifact.
-
-> Enterprise vs. organization control: An enterprise account can configure audit log streaming to push events continuously to an external sink (Amazon S3, Azure Blob Storage, Azure Event Hubs, Datadog, Google Cloud Storage, Splunk) with no polling, and controls the IP-address-display and retention settings for the enterprise. This activity implements and verifies the **organization-level** audit-log export path in Part E; it does not complete or substitute for the enterprise-level streaming/retention decision — the two are not the same data or the same control surface. Prefer Ch52's landing-zone settings register (or an authorized enterprise export/inspection you can cite) as the source for that decision. If Ch52 was not completed and no enterprise export is authorized, record it as `not available / not applicable` — do not infer enterprise-wide streaming or retention policy from this one organization. Configuring streaming also can't be cleanly "torn down" by our scripts, which is another reason it stays out of the hands-on scope here. No enterprise-owner access is required to complete the hands-on organization-level work in this activity.
+    export work normally regardless — see the closing note.
 
 ## Reference links
 - Reviewing the audit log for your organization — https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization

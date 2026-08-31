@@ -3,9 +3,6 @@
 This directory contains the GitHub Advanced Security (GHAS) configuration for the
 org-owned Juice Shop repository created in Activity S00.
 
-The fixtures came from a retired predecessor repository and now live with the
-curriculum, removing that setup dependency.
-
 ## Files
 
 | File | Purpose |

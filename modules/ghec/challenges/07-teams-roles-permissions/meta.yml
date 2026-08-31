@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Set up an authorized customer least-privilege access model with nested teams, base permissions, predefined repository roles, and a custom repository role. Prefer Ch52's landing-zone delegation register (or an authorized enterprise export) as the source for enterprise-level team/role delegation, distinct from this organization's implementation; fall back to an independent org-level model with an explicit not-available record when Ch52 was not completed. Preserve API-verifiable access evidence, accountable ownership, and the rollout decision."
+description: "Set up an authorized customer least-privilege access model with nested teams, base permissions, predefined repository roles, and a custom repository role. Source enterprise-level team/role delegation from Ch52's landing-zone register (or an authorized enterprise export) when available, distinct from this organization's implementation; otherwise record it as not available. Preserve API-verifiable access evidence, accountable ownership, and the rollout decision."
 tags:
 - teams
 - permissions

@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Set up an authorized customer merge pipeline with repository and organization rulesets, required checks and reviewers, auto-merge, `CODEOWNERS`, draft-PR gating, and Actions-driven PR automation. Preserve approval, safety, ownership, and rollout evidence."
+description: "Set up a merge pipeline with repository and organization rulesets, required checks and reviewers, auto-merge, `CODEOWNERS`, draft-PR gating, and Actions-driven PR automation."
 tags:
 - rulesets
 - pull-requests

@@ -24,13 +24,8 @@ New contributors may not know the project's process. A short welcome can set exp
 
 ---
 
-> [!IMPORTANT]
-> Bring your own repo (do this first)
->
-> Run Welcome Wagon on your own repository if possible. Use its real contributor links and preferred tone. Use the setup sample only for practice.
->
-> - Have a candidate repo? Install or point `welcome-wagon.md` at that repo everywhere the guide references the sample repo, and use real CONTRIBUTING, docs, code of conduct, issue, or support links.
-> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
+> [!TIP]
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point `welcome-wagon.md` at a repo you own and use its real CONTRIBUTING, code of conduct, and issue/support links. No candidate repo yet? Use the setup sample.
 
 ---
 
@@ -52,10 +47,7 @@ Create a gh-aw workflow named `welcome-wagon.md` in `.github/workflows/` that:
 
 ## Tips & Hints
 
-- Author association field: GitHub provides `github.event.pull_request.author_association` with values: `OWNER`, `MEMBER`, `COLLABORATOR`, `CONTRIBUTOR`, `NONE`
-  - `NONE` = first time they've interacted with this repo
-  - Use this to detect first-timers
-- Conditional logic: Check: "Is `author_association == 'NONE'`? If yes, welcome. If no, do nothing."
+- Author association field: `github.event.pull_request.author_association` is `NONE` for a contributor's first interaction with the repo (vs. `OWNER`, `MEMBER`, `COLLABORATOR`, `CONTRIBUTOR`). Check: "Is `author_association == 'NONE'`? If yes, welcome. If no, do nothing."
 - Resources to include: Contribution guide (CONTRIBUTING.md), code of conduct (CODE_OF_CONDUCT.md), issue tracker, documentation URL, Discord/Slack channel (if you have one)
 - Tone: Enthusiastic, welcoming, not condescending. These are the people who make your project grow.
 - Links: Use GitHub's repo URLs where possible (they auto-resolve)
@@ -72,7 +64,6 @@ Create a gh-aw workflow named `welcome-wagon.md` in `.github/workflows/` that:
 
 ## Help
 
-- "How do I detect first-time contributors?" → Use `github.event.pull_request.author_association`. If it's `NONE`, they're new to the repo
 - "How do I reference CONTRIBUTING.md?" → Link to the actual `CONTRIBUTING.md` in your repository, using its owner, repository name, branch, and file path.
 - "Workflow posts a comment even for existing contributors?" → Add a check in the body: "If `author_association` is not `NONE`, do nothing"
 - "How do I test this if I'm the repo owner?" → Create a second test account (or use a friend's GitHub account) and have them open a PR

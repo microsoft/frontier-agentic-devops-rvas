@@ -11,14 +11,12 @@
 | App | Provisioned workflow library and consumer repositories |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Objective: make baseline CI and security checks consistent without copying workflow logic across repositories.
 - Delivery target: one reusable workflow library and one authorized consumer cohort with a required gate.
-- Safety boundary: organization rulesets or required-workflow controls change only after owner approval.
-- Evidence: reusable workflow version, pinned-action review, consumer and required-gate evidence, exceptions, and rollout plan.
+- Safety boundary: organization rulesets and required-workflow controls change only after owner approval, and only for the approved cohort.
+- Evidence: reusable workflow version, pinned-action review, consumer and required-gate evidence, and exceptions.
 - Owner: developer experience or platform engineering.
-- Next decision: expand the required gate to the next repository cohort.
 
 ## Prerequisites
 
@@ -31,7 +29,7 @@
 Teams use different CI workflows, so baseline checks vary and audits take longer. Publish a reusable workflow and prove that one repository can call it. Then configure an approved control that requires the workflow before merge.
 
 > [!IMPORTANT]
-> Do not use setup automation to enforce organization-wide rules. Required workflows and rulesets can block production teams, so configure them manually for the approved cohort only.
+> Configure required workflows and rulesets manually for the approved cohort only — never via setup automation, since they can block production teams.
 
 ## Sample test repository or environment
 
@@ -77,12 +75,6 @@ Setup creates:
 11. Define an exception path for repositories that cannot adopt the workflow.
 12. Record how library changes are communicated and how breaking changes are prevented.
 13. Capture before/after evidence and next cohort decision.
-
-## Operational extensions
-
-- Add CodeQL, dependency review, or artifact attestation checks to the reusable workflow.
-- Publish a changelog and deprecation policy for workflow versions.
-- Use repository custom properties to target rulesets by repository class.
 
 ## Reference links
 

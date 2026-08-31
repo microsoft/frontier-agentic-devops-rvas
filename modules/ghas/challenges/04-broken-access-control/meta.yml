@@ -12,7 +12,7 @@ prerequisite_capabilities:
   - GitHub Copilot license assigned
   - Basic familiarity with Node.js/Express route middleware and authentication patterns
   - Completed S01 (attack surface overview) recommended
-description: Find and fix broken access control vulnerabilities, including IDOR and missing authorization middleware, in Juice Shop backend routes. Enforce ownership and roles on the server, validate the fix, and record its scope, evidence, GHAS validation, owner, and expectations for human- and agent-authored changes in `modules/ghas/resources/ghas-governance-practice.template.md`.
+description: Find and fix broken access control vulnerabilities, including IDOR and missing authorization middleware, in Juice Shop backend routes. Enforce ownership and roles on the server, validate the fix, and record the remediation and prevention pattern in `modules/ghas/resources/ghas-governance-practice.template.md`.
 tags:
   - ghas
   - codeql

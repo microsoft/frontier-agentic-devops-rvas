@@ -9,7 +9,7 @@ application vulnerability list.
 
 Juice Shop has several access-control flaws. Some are insecure direct object references (IDOR), where the app trusts a user-supplied ID without checking ownership. Other routes omit required authorization middleware. CodeQL flags some cases. Find the rest by reading each route and deciding who may call it. Record the validated remediation and a prevention pattern for future changes.
 
-For every operation on user-owned or role-restricted data, verify the requesting user's identity and permissions *in the route handler*. Do not rely on the frontend to hide links. Copilot Autofix or other Copilot assistance can propose a change. A human must review it through the existing PR and GHAS controls.
+For every operation on user-owned or role-restricted data, verify the requesting user's identity and permissions *in the route handler*. Do not rely on the frontend to hide links.
 
 ## Objectives
 
@@ -22,11 +22,9 @@ For every operation on user-owned or role-restricted data, verify the requesting
 - Use two independently reviewed fixes to confirm the pattern, then check comparable endpoints for repeat issues
 
 > [!IMPORTANT]
-> Use your own application first
->
-> - **Real application available:** Use it wherever this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice Shop setup and select real authorization, IDOR, missing-middleware, or role-enforcement findings so the fixes land in code your team maintains.
-> - **No suitable application:** Use the S00 OWASP Juice Shop fallback to practice finding and fixing broken access control.
->
+> Use a real application if you have one; select real authorization, IDOR,
+> missing-middleware, or role-enforcement findings instead of Juice Shop's. Otherwise
+> use the S00 Juice Shop fallback.
 
 ## Copilot Tips
 

@@ -18,12 +18,7 @@ and the team decides whether a recommendation becomes planned work.
 > [!IMPORTANT]
 > Bring your own repository first
 >
-> Select a repository where the code, documentation, and issue tracker together
-> represent a product that a team actively maintains. Agree with the product
-> owner that an automated recommendation issue is an appropriate input to
-> backlog refinement. A sample repository is useful only to learn the mechanics;
-> the intended outcome is a recommendation process the customer can continue
-> using.
+> Select a repository where the code, documentation, and issue tracker together represent a product a team actively maintains, and confirm with the product owner that a recommendation issue is a useful input to backlog refinement. Use the sample repository only to learn the mechanics.
 
 ## What you'll do
 

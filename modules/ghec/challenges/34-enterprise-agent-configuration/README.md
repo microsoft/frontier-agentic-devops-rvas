@@ -11,13 +11,12 @@
 | App | none |
 | EMU compatible | yes — this configures governance; do not create managed users or change identity settings |
 
-## Customer delivery target
+## Delivery target
 
-- **Goal:** establish a controlled, reviewable enterprise source for Copilot custom-agent configuration rather than distributing ungoverned agent files.
-- **Target:** an approved organization-owned `.github-private` repository, selected in Enterprise **AI Controls → Agents → Configuration source**, with protected agent changes and one enterprise custom agent named **Agentic DevSecOps**.
-- **Safety boundary:** begin with an approved customer target. Do not substitute a training repository for the enterprise configuration source, broaden agent tools, add secrets, enable MCP servers, or change unrelated Copilot policy as part of this activity.
-- **Keep:** approved scope, source organization and repository, source commit and pull request, CODEOWNERS and ruleset evidence, AI Controls configuration-summary evidence, propagation test result, rollback commit, approvers, and review date.
-- **Adoption handover:** the enterprise AI-controls owner accepts the source and propagation result; security/platform owners accept the agent boundary; each organization owner accepts its organization instructions.
+- Delivery target: an approved organization-owned `.github-private` repository, selected in Enterprise **AI Controls → Agents → Configuration source**, with protected agent changes and one enterprise custom agent named **Agentic DevSecOps**.
+- Safety boundary: begin with an approved customer target. Do not substitute a training repository for the enterprise configuration source, broaden agent tools, add secrets, enable MCP servers, or change unrelated Copilot policy as part of this activity.
+- Evidence: approved scope, source organization and repository, source commit and pull request, CODEOWNERS and ruleset evidence, AI Controls configuration-summary evidence, propagation test result, rollback commit, approvers, and review date.
+- Owner: the enterprise AI-controls owner accepts the source and propagation result; security/platform owners accept the agent boundary; each organization owner accepts its organization instructions.
 
 > [!IMPORTANT]
 > **Enterprise access is a real delivery path, not an optional screenshot exercise.** An authorized enterprise owner must create or select the actual `.github-private` repository and set it as the AI Controls configuration source. If that access is unavailable, deliver the approval-ready package and implementation pull request described in [Part F](#part-f--no-enterprise-access-decision-package); do **not** claim the enterprise agent or configuration source is active.

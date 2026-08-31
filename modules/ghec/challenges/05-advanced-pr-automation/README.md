@@ -11,14 +11,13 @@
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Customer objective: remove merge toil while preserving approved quality and ownership controls.
-- Customer-tenant target: an approved repository or organisation ruleset, `CODEOWNERS`, PR template, and PR-automation workflows.
-- Approval and safety boundary: activate rulesets and bypass settings only with the accountable customer owner’s approval; the seeded repository is a sample test repository for proposed policy.
-- Records to keep: retain the ruleset export, bypass rationale, workflow files, and validation PR history.
-- Adoption owner / handover: the repository and platform owners accept the automation and the bypass governance.
-- Next action and owner: the owner authorises activation in the selected customer repository or records a rollout decision.
+- Delivery target: a repository or organisation ruleset, `CODEOWNERS`, PR template, and PR-automation workflows.
+- Safety boundary: activate rulesets and bypass settings only with the accountable owner's approval; the seeded repository is a sample for proposed policy.
+- Evidence: the ruleset export, bypass rationale, workflow files, and validation PR history.
+- Owner: the repository and platform owners accept the automation and the bypass governance.
+- Next decision: the owner authorises activation in the selected repository or records a rollout decision.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -38,17 +37,12 @@
 A GHEC platform team is drowning in manual merge babysitting: pinging reviewers, re-checking CI, merging PRs by hand at odd hours, and chasing stale branches. You'll replace all of that with policy and automation: rulesets that enforce quality at the org and repo level, auto-merge that ships the moment gates pass, and workflows that label, route, and tidy PRs without a human. The result is a merge pipeline that runs itself — safely.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> Use an approved customer target first. If you have a candidate repository, use it everywhere this guide says `ghec-ch05-advanced-pr-automation` and skip Setup. Otherwise use the fallback seeded repo below for testing, then move the validated configuration to an approved customer target.
 >
-> Default to an authorised customer repository where PR automation will remove review toil. Do the work there and keep the evidence, guardrails, or automation.
->
-> - Have a candidate? Use it everywhere this guide says `ghec-ch05-advanced-pr-automation`. Skip the Setup step below entirely.
-> - No suitable one? Use the fallback below: a seeded sample repo with PR automation hooks to build on.
->
-> Record the selected target, customer adoption owner, and next action and owner. Use the sample only for testing; move the validated configuration to an approved customer target.
+> Record the selected target, adoption owner, and next action.
 
-## Sample test repository or environment (when tenant delivery is constrained)
-Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
+## Sample test repository or environment
+Skip if you brought your own repo.
 
 ```bash
 # Bash
@@ -67,7 +61,7 @@ Setup creates these resources (all names use the `ghec-ch05-*` prefix, and teard
 - A printed Next steps block telling you where to start.
 
 ## Tasks
-> Throughout, `ghec-ch05-advanced-pr-automation` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
+> `ghec-ch05-advanced-pr-automation` is the fallback sample name; substitute your own artifact's name if you brought one.
 
 ### Part A — Repository ruleset (replace classic protection)
 1. Create a repository ruleset targeting `main` (Settings → Rules → Rulesets → New branch ruleset). Name it `ghec-ch05-main`. Learn more about [repository rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository). Enable rules:
@@ -99,11 +93,6 @@ Setup creates these resources (all names use the `ghec-ch05-*` prefix, and teard
 
 ### Part F — Organization ruleset
 15. Create an org-level ruleset (Org Settings → Repository → Rulesets) named `ghec-ch05-org` targeting repos matching `ghec-ch05-*`, requiring a PR + the `build` check across all matching repos. See [managing rulesets for organizations](https://docs.github.com/en/organizations/managing-organization-settings/creating-rulesets-for-repositories-in-your-organization). Confirm it layers on top of the repo ruleset (the stricter wins) and verify via `gh api /orgs/<org>/rulesets`.
-
-## Operational extensions
-- Add required signed commits to the ruleset and demonstrate a rejected unsigned push, then a passing signed one.
-- Add a merge queue for `main` and route auto-merge through it.
-- Write a small GitHub Script (`actions/github-script`) step that posts a PR size label (`size: S/M/L`) computed from the diff.
 
 ## Reference links
 Official documentation links are embedded throughout the tasks above. Additional CLI references:

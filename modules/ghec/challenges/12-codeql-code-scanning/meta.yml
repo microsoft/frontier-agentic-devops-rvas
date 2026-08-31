@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: "Set up authorized customer CodeQL code scanning with the selected configuration, vulnerability triage, reviewed Copilot Autofix, and pull-request gating. Use the public repository only as a sample test repository and preserve evidence for the tenant rollout decision."
+description: "Set up authorized CodeQL code scanning with the selected configuration, vulnerability triage, reviewed Copilot Autofix, and pull-request gating. Use the public repository only as a sample test repository."
 tags:
 - ghas
 - codeql

@@ -11,17 +11,16 @@
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Customer objective: apply scalable, metadata-driven governance to the customer repository estate.
-- Customer-tenant target: approved custom-property schema, repository classifications, and property-targeted organisation rulesets.
-- Approval and safety boundary: activate policy controls in the customer tenant when the organisation owner approves them; otherwise validate targeting and enforcement on the controlled sample and leave a rollout proposal.
-- Records to keep: retain property inventory, ruleset export, bypass rationale, and enforcement results.
-- Adoption owner / handover: the platform governance owner accepts the schema and ruleset; repository owners receive their classifications.
-- Next action and owner: authorise the initial classified repository cohort or decide on the documented rollout proposal.
+- Delivery target: approved custom-property schema, repository classifications, and property-targeted organisation rulesets.
+- Safety boundary: activate policy controls in the customer tenant when the organisation owner approves them; otherwise validate targeting and enforcement on the controlled sample and leave a rollout proposal.
+- Evidence: retain property inventory, ruleset export, bypass rationale, and enforcement results.
+- Owner: the platform governance owner accepts the schema and ruleset; repository owners receive their classifications.
+- Next decision: authorise the initial classified repository cohort or decide on the documented rollout proposal.
 
 ## Prerequisites
-- Recommended: Ch52 (Enterprise Landing Zone & Organization Strategy) completed first. When available, use its settings register as the **preferred** source for enterprise-level property and ruleset decisions. If Ch52 was not completed, this activity's organization-level baseline still stands independently — see "Enterprise vs. organization control" below for the fallback.
+- Recommended: Ch52 (Enterprise Landing Zone & Organization Strategy) completed first — its settings register is the preferred source for enterprise-level property/ruleset decisions (see the closing note); otherwise this activity's organization-level baseline stands on its own.
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch08 --org <org>` (least-privilege; for this activity: `admin:org` + `repo` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
@@ -48,7 +47,7 @@ A GHEC customer has 80 repositories and a compliance team that needs "all produc
 >
 > Record the selected target, customer governance owner, risk decision, and next action and owner. Use the sample only for testing; move the validated policy to an approved customer organisation.
 
-## Sample test repository or environment (when tenant delivery is constrained)
+## Sample test repository or environment
 Skip this if you brought your own repo set. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -99,14 +98,7 @@ Setup creates these resources (all names use the `ghec-ch08-*` prefix, and teard
 ### Part E — Verify & demonstrate
 14. Demonstrate enforcement: open a PR on `ghec-ch08-prod-payments` and show it cannot merge without 2 approvals + the `build` check + signed commits. Open a PR on `ghec-ch08-sandbox` (compliance `low`) and show it is not gated by the org ruleset.
 15. Document the model: write `GOVERNANCE.md` in `ghec-ch08-internal-tools` describing the property schema, which repos carry which values, the org ruleset's property target, and the repo-level overlay.
-16. Source the enterprise-level enforcement scope (whether an enterprise account also defines properties/rulesets that apply across every org and can't be weakened by this org owner): if Ch52 was completed, cite its landing-zone settings register entry; otherwise, if you hold authorized enterprise-owner access, pull an enterprise export/inspection and cite it. If neither is available, record `enterprise policy not available / not applicable` in `GOVERNANCE.md` — do not infer enterprise-wide enforcement from this one organization's ruleset.
-
-## Operational extensions
-- Add a property-targeted ruleset that applies org-wide tag protection (block deleting/force-updating release tags) only on `prod = true` repos.
-- Write a script that lists every repo and its property values as a Markdown compliance report, generated from `gh api /orgs/<org>/properties/values`.
-- Create a second org ruleset targeting `compliance = medium` with a lighter rule set, and show how a repo could match multiple property conditions.
-
-> Enterprise vs. organization control: An enterprise account can define properties and rulesets that apply across every organization at once, and can prevent org owners from weakening them. This activity implements and verifies the **organization-level** property schema and property-targeted rulesets; it does not complete or substitute for the enterprise-level enforcement decision. Prefer Ch52's landing-zone settings register (or an authorized enterprise export you can cite) as the source for that decision. If Ch52 was not completed and no enterprise export is authorized, record it as `not available / not applicable` — do not infer enterprise-wide enforcement from this one organization. No enterprise-owner access is required to complete the hands-on organization-level work in this activity.
+16. Record the enterprise-level enforcement scope in `GOVERNANCE.md` (whether an enterprise account also defines properties/rulesets that apply across every org and can't be weakened by this org owner): cite Ch52's landing-zone settings register entry, or an authorized enterprise export/inspection; if neither exists, record `enterprise policy not available / not applicable`. Don't infer enterprise-wide enforcement from this one organization's ruleset — see the closing note.
 
 ## Reference links
 - About custom properties — https://docs.github.com/en/organizations/managing-organization-settings/managing-custom-properties-for-repositories-in-your-organization

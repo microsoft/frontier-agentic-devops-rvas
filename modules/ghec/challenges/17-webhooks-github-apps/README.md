@@ -11,14 +11,12 @@
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Customer objective: deliver an approved, secure event integration that operates in the customer tenant.
-- Customer-tenant target: the customer webhook/App configuration, least-privilege permissions, receiver, and installation authentication path.
-- Approval and safety boundary: create webhooks, Apps, keys, and installations only with the accountable organisation owner’s approval; the seeded resources are a sample test environment for signature and permission validation.
-- Records to keep: retain the App registration details, permission/event matrix, signature-validation evidence, installation scope, and key-handling runbook.
-- Adoption owner / handover: the customer integration owner accepts credential rotation, receiver operations, and App permissions.
-- Next action and owner: approve the customer App installation or hand over the validated integration package and decision owner.
+- Delivery target: the customer webhook and App configuration, least-privilege permissions, receiver, and installation authentication path.
+- Safety boundary: create webhooks, Apps, keys, and installations only with the accountable organisation owner's approval; the seeded resources are a sample environment for signature and permission validation.
+- Evidence: App registration details, permission and event matrix, signature-validation evidence, installation scope, and key-handling runbook.
+- Owner: the integration owner accepts credential rotation, receiver operations, and App permissions.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -38,15 +36,11 @@
 A GHEC customer wants to react to activity in real time — auto-acknowledge new issues, notify on pushes, kick off downstream jobs — without polling the API on a timer. Configure webhooks so GitHub pushes events to a controlled receiver, prove each delivery is authentic by verifying its signature, then use a GitHub App when the integration must authenticate and act back on the organisation.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
-> Default to an authorised customer integration target where a GitHub event should update another system. Do the work there and keep the evidence, guardrails, or automation.
+> Default to an authorised customer integration target where a GitHub event should update another system.
 >
-> - Have a candidate? Use it everywhere this guide says `ghec-ch17-webhooks-github-apps`. Skip the Setup step below entirely.
-> - No suitable one? Use the fallback below: a seeded sample repo and App/webhook controlled-validation target.
->
-> Record the selected target, customer integration owner, and next action and owner. Use the sample only for testing; move the validated integration to an approved customer tenant.
+> Have a candidate? Use it everywhere this guide says `ghec-ch17-webhooks-github-apps`, and skip Setup below. Otherwise use the seeded sample below for validation only, then hand the validated integration off to the customer owner.
 
-## Sample test repository or environment (when tenant delivery is constrained)
+## Sample test repository or environment
 Skip this if you brought your own integration target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -130,11 +124,6 @@ Setup creates these resources (all names use the `ghec-ch17-*` prefix, and teard
     inspect their event scope, receiver, HMAC verification, and retention. The
     repository and organization work remains complete when enterprise settings
     are outside the participant's access.
-
-## Operational extensions
-- Triage, don't just acknowledge: in `onIssueOpened()`, also label the issue by content (e.g. `bug` vs `question`) and assign or `@`-mention an owner — remember the App needs the matching permission, and labeling fires `issues.labeled`, so keep guarding against self-triggering.
-- Add delivery retry handling — make the handler idempotent on `X-GitHub-Delivery` (and check for an existing bot comment) so a redelivery doesn't double-act.
-- Convert `app/auth.js` into a tiny reusable signer package you can drop into Ch20.
 
 ## Reference links
 - About webhooks — https://docs.github.com/en/webhooks/about-webhooks

@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Set up an authorized customer development environment with `devcontainer.json`, Codespaces, port forwarding, organization-level Codespaces policy, and tuned prebuilds. Preserve the configuration, prebuild operating decision, cost controls, and rollout decision."
+description: "Set up a development environment with `devcontainer.json`, Codespaces, port forwarding, organization-level Codespaces policy, and tuned prebuilds."
 tags:
 - codespaces
 - devcontainers

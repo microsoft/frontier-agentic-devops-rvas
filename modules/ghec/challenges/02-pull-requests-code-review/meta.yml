@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Set up an authorized customer pull-request governance baseline: feature branches, reviews, `CODEOWNERS`, required reviewers, merge-conflict resolution, and chosen merge strategies. Preserve the policy evidence, accountable owner, and rollout decision."
+description: "Set up a pull-request governance baseline: feature branches, reviews, `CODEOWNERS`, required reviewers, merge-conflict resolution, and chosen merge strategies."
 tags:
 - pull-requests
 - code-review

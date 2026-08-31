@@ -11,14 +11,12 @@
 | App | none |
 | EMU compatible | no — Copilot cloud agent is not available on EMU-owned repositories |
 
-## Customer delivery target
+## Delivery target
 
-- **Goal:** safely automate one repetitive repository task without converting an untrusted event into an unreviewed code change.
-- **Target:** one approved Copilot automation in a private or internal customer repository, its evidence package, and its operating/disable decision.
-- **Boundary:** keep the automation disabled until the customer repository owner, Copilot owner, and security owner approve the target, prompt, tools, trigger, filters, budget owner, and review path. Do not broaden repository access, enable a preview capability, grant bypasses, or include secrets in a prompt.
-- **Keep:** eligibility and policy evidence; automation owner; private/internal repository evidence; trigger and filter configuration; prompt and selected tools; session-log URL; outcome/PR URL; independent-review evidence; audit-log evidence; costs; and disable/rollback path.
-- **Owners:** the automation creator owns operation and cost. The repository owner owns repository scope and merge controls. The security owner owns the untrusted-trigger and prompt-injection decision.
-- **Next:** approve one narrowly bounded automation, retain the decision package without enablement, or schedule a licensing/policy decision with its owner and date.
+- Delivery target: one approved Copilot automation in a private or internal customer repository, with its evidence package and operating or disable decision.
+- Safety boundary: keep the automation disabled until the repository owner, Copilot owner, and security owner approve the target, prompt, tools, trigger, filters, budget owner, and review path. Do not broaden repository access, enable a preview capability, grant bypasses, or include secrets in a prompt.
+- Evidence: eligibility and policy, private or internal repository, trigger and filter configuration, the prompt and selected tools, session-log and outcome URLs, independent-review and audit-log evidence, and the disable or rollback path.
+- Owner: the automation creator owns operation and cost; the repository owner owns repository scope and merge controls; the security owner owns the untrusted-trigger and prompt-injection decision.
 
 > This activity does not require another activity's repository, workflow, agent, or policy change.
 
@@ -119,27 +117,16 @@ This session covers **Copilot automations**: a Copilot cloud-agent task defined 
 
 ## Decision-package fallback
 
-When a live automation is unavailable, retain this minimum package in the customer evidence location (or in the fallback repository's `docs/AUTOMATION-DECISION-PACKAGE.md`):
-
-| Field | Record |
-|---|---|
-| Target and owner | Customer repository URL/visibility, repository owner, proposed creator, independent reviewer, security/Copilot owner |
-| Eligibility evidence | Copilot plan, cloud-agent policy, automations policy, write access, private/internal evidence, EMU result |
-| Proposed design | Task, schedule/event trigger, filter, prompt boundary, requested tools, data classification, cost owner |
-| Safety decisions | Untrusted-event default retained, prompt-injection controls, review/merge rule, workflow-run approval posture |
-| Blocker | Licensing, policy, authority, eligibility, or customer approval gap with dated evidence |
-| Decision | Leave disabled, unavailable, or not applicable; resolver, next decision date, and rollback/disable route |
+When a live automation is unavailable, retain this minimum package in the customer evidence location (or in the fallback repository's `docs/AUTOMATION-DECISION-PACKAGE.md`): the customer repository URL/visibility with owner, proposed creator, independent reviewer, and security/Copilot owner; eligibility evidence (Copilot plan, cloud-agent/automations policy, write access, private/internal result, EMU result); the proposed task, trigger, filter, prompt boundary, requested tools, and cost owner; the safety decisions retained (untrusted-event default, prompt-injection controls, review/merge rule, workflow-run approval posture); the blocker with dated evidence; and the decision (leave disabled/unavailable/not applicable, resolver, next decision date, rollback route).
 
 ## Evidence checklist
 
-| Evidence | Minimum content |
-|---|---|
-| Eligibility | Private/internal repository, non-EMU result, plan, cloud-agent and automations policy, write access, authorized scope |
-| Configuration | Automation owner, trigger cadence/event, filters and controlled test, prompt revision, selected/rejected tools, model if changed |
-| Safety | Default untrusted-event behavior retained, prompt-injection boundary, no secrets in prompt, no bypasses |
-| Session | Session-log URL, trigger/run time, actions, usage/cost owner, outcome, and PR/issue URLs if created |
-| Review | Attribution to creator, independent-review identity, required checks, merge decision, workflow-run approval where applicable |
-| Audit and operations | Audit-log collection evidence, evidence location, review cadence, stop conditions, disable/rollback and next decision |
+- **Eligibility** — private/internal repository, non-EMU result, plan, cloud-agent and automations policy, write access, authorized scope.
+- **Configuration** — automation owner, trigger cadence/event, filters and controlled test, prompt revision, selected/rejected tools, model if changed.
+- **Safety** — default untrusted-event behavior retained, prompt-injection boundary, no secrets in prompt, no bypasses.
+- **Session** — session-log URL, trigger/run time, actions, usage/cost owner, outcome, and PR/issue URLs if created.
+- **Review** — attribution to creator, independent-review identity, required checks, merge decision, workflow-run approval where applicable.
+- **Audit and operations** — audit-log collection evidence, evidence location, review cadence, stop conditions, disable/rollback and next decision.
 
 ## Reference links
 

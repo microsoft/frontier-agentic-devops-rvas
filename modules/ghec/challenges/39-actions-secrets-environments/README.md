@@ -11,14 +11,12 @@
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Objective: prevent broad repository secrets from being available to every workflow path.
 - Delivery target: one authorized repository with environment-scoped deployment secrets and protection rules.
 - Safety boundary: do not read or copy secret values. Change customer secrets and production environment rules only with owner approval.
-- Evidence: secret inventory by name, scope, and owner; environment protection settings; workflow evidence; exceptions; and rotation dates.
+- Evidence: secret inventory by name, scope, and owner; environment protection settings; workflow evidence; and rotation dates.
 - Owner: platform security or DevOps.
-- Next decision: choose the next repository cohort for secret migration.
 
 ## Prerequisites
 
@@ -80,12 +78,6 @@ Setup creates only namespaced sample artifacts:
 10. Update deployment jobs to declare the environment before referencing environment secrets.
 11. Run a non-production deployment and capture the workflow URL.
 12. Attempt a production deployment from an unauthorized branch or without approval and capture the blocked evidence.
-
-## Operational extensions
-
-- Script a report of repositories with production-like repository secrets.
-- Add secret rotation reminders through issues or projects.
-- Pair with Ch40 to replace long-lived cloud secrets with OIDC.
 
 ## Reference links
 

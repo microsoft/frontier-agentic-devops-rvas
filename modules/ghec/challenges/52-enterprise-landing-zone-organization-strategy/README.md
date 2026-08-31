@@ -11,12 +11,10 @@
 | App | none |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- **Objective:** turn an unstructured or ad-hoc enterprise into a landing zone with a justified organization boundary, an accountable roles/teams model, and a governed settings baseline.
-- **Target:** a topology map, a boundary decision, an org charter and intake/retirement process, a delegation/inheritance matrix, and a populated Governance Settings Register — not a new organization, migration, or production rollout.
-- **Default path:** inspect and propose. Change nothing in production by default; a bounded pilot (for example, a single test-organization setting) proceeds only with explicit customer authorization.
-- **Safety boundary:** setup creates no organizations, teams, repositories, or custom properties, and performs no production mutation.
+- Delivery target: a topology map, a boundary decision, an org charter and intake/retirement process, a delegation/inheritance matrix, and a populated Governance Settings Register — not a new organization, migration, or production rollout.
+- Safety boundary: inspect and propose. Change nothing in production by default; a bounded pilot (for example, a single test-organization setting) proceeds only with explicit customer authorization. Setup creates no organizations, teams, repositories, or custom properties.
 
 ## Scope boundary
 
@@ -94,12 +92,6 @@ This activity provisions nothing. There is no `setup.sh provision ch52` step, no
 18. Open `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`, copy `modules/ghec/resources/GOVERNANCE-SETTINGS-REGISTER-TEMPLATE.md` to the customer-owned evidence location, and populate that copy for every applicable control ID with the current value or effective source, decision, accountable owner, and review/expiry date.
 19. Build the follow-on activity map: for every open finding or deferred decision, name the existing chapter that will implement or deepen it (for example, route base-permission tuning to Ch06, the access matrix to Ch07, billing budgets to Ch10, SAML/SCIM to Ch14, enterprise identity/network detail to Ch28, drift detection to Ch44, packages policy to Ch45, Pages policy to Ch46, or vendor lifecycle to Ch48).
 20. Present the topology map, boundary decision, charter/lifecycle process, roles/teams model, delegation matrix, and populated register to the executive sponsor and enterprise governance owner. Record the next decision: accept the boundary, pilot one organization or setting, schedule a phased rollout, or accept/document a named risk.
-
-## Operational extensions
-
-- Automate topology and register refresh with a scheduled export against the enterprise API.
-- Wire the intake/retirement process into a request-and-approval workflow (issue form, ticketing system, or Actions workflow) once the customer approves the charter.
-- Extend the delegation/inheritance matrix into a policy-as-code check that flags drift from the approved boundary and register.
 
 ## Reference links
 

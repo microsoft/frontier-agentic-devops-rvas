@@ -11,9 +11,8 @@
 | App | Provisioned template candidate and validation repository |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Objective: make new repositories start from an approved, supportable baseline.
 - Delivery target: a customer-owned template or bootstrap repository and one validated repository created from it.
 - Safety boundary: organization-wide defaults, member repository creation policy, and required rules need explicit approval. Setup creates only namespaced sample repositories.
 - Evidence: baseline checklist, template URL, validation snapshots, exceptions, owner, and next rollout cohort.

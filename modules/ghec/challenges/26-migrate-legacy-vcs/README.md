@@ -11,14 +11,12 @@
 | App | None |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- **Goal:** establish an approved, evidence-backed legacy-VCS conversion and GitHub cutover path.
-- **Target:** a selected customer legacy source, author map, converted Git repository, GitHub destination, and metadata-gap/cutover record.
-- **Boundary:** convert and push customer history only with approval from the source and destination owners. For inaccessible sources and controlled samples, name the execution owner and next step.
-- **Keep:** author maps, conversion commands, large-file checks, ref validation, gap notes, and cutover decision.
-- **Owners:** the customer migration owner accepts source and cutover accountability. Repository owners accept the converted destination and gaps.
-- **Next:** approve the source-specific cutover or hand over the blocker, owner, and dated execution plan.
+- Delivery target: at least one approved legacy-VCS source (SVN, plus Mercurial, TFVC, or Perforce where access allows) converted to Git and pushed to GitHub.
+- Safety boundary: convert and push history only with source and destination owner approval. For inaccessible systems, document the exact commands, source shape, and blocker instead.
+- Evidence: author map, conversion commands, large-file checks, ref validation, and gap notes.
+- Owner: the migration owner accepts source and cutover accountability; repository owners accept the converted destination.
 
 ## Prerequisites
 
@@ -39,16 +37,8 @@ GitHub Enterprise Importer does not directly migrate Subversion, Mercurial, TFVC
 
 The GitHub Importer web tool accepts Git sources only, works on GitHub.com only, and imports code and commit history without LFS, issues, pull requests, or other metadata.
 
-> Delivery scope: complete SVN plus at least one of Mercurial, TFVC, or Perforce when authorised source access is available. For inaccessible systems, document the exact commands, source URL shape, identity map, blocker, and named execution owner.
-
 > [!IMPORTANT]
-> **Start with an approved customer target.**
-> Default to an approved customer legacy-VCS source, such as SVN, Mercurial, TFVC, or Perforce. Complete the work on that source and target, retaining the converted Git repository, source history, author map, large-file checks, evidence, and gap record.
->
-> - Have a candidate? Use it everywhere this guide references the legacy VCS source, converted Git directory, or target repository.
-> - No suitable source and target? Do not start a migration against an unapproved example; record the access constraint, accountable owner, and next action.
->
-> Record the selected target, customer migration owner, approval boundary, and next action and owner.
+> Use an approved legacy-VCS source (SVN, Mercurial, TFVC, or Perforce) as the source and target throughout this guide. Without one, record the access constraint and next action instead of migrating an unapproved example.
 
 ## Setup
 

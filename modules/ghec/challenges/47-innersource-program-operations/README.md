@@ -11,9 +11,8 @@
 | App | Provisioned InnerSource hub repository (created by setup) |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Objective: turn ad hoc internal collaboration into an operated InnerSource program.
 - Delivery target: a real hub or pilot repository that teams can find and contribute to.
 - Safety boundary: do not loosen production branch protections or repository access during setup. Access changes require explicit approval.
 - Evidence: charter, maintainer roster, contribution guidelines, labels, pilot backlog, adoption metrics, and next review.

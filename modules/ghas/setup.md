@@ -69,11 +69,6 @@ For a local runtime, open [http://localhost:3000](http://localhost:3000). For Co
 
 ## Important: GHAS Alerts Run on the Org Repository
 
-CodeQL, Dependabot, and secret scanning run on the org repo provisioned in S00,
-not the local Juice Shop runtime. Use the local or hosted instance only for manual
-testing and exploit verification. Use the org repository for alerts, PR checks,
-and Security tab workflows.
-
 - **Local Juice Shop (port 3000):** manual exploit testing and application exploration
 - **Org-owned Juice Shop repository:** GHAS alerts, security dashboards, and PR checks
 

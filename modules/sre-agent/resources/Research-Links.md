@@ -23,34 +23,13 @@ Use these Agentic DevSecOps references when writing activity guides and setup in
 
 | Source | Use in Curriculum | Notes |
 | --- | --- | --- |
-| [The Agentic SDLC Handbook](https://danielmeppiel.github.io/agentic-sdlc-handbook/) | Methodology frame for AI-native software delivery. | Daniel Meppiel's handbook is a living pre-release under CC BY-NC-ND 4.0. Summarize and attribute; do not copy long passages. |
-| [The Agentic SDLC Thesis](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch01-the-agentic-sdlc-thesis.html) | Source for the claim that AI-native delivery needs an operating model beyond tool adoption. | Framing for the environment and operational-context arc across Activities 00, 01, and 03. |
-| [The Reference Architecture](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch04-the-reference-architecture.html) | Source for human, agent, and platform separation. | Connect to the delivery session evidence chain and review gates. |
-| [Governance for AI-Assisted Delivery](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch05-governance-for-ai-assisted-delivery.html) | Source for governance and accountability language. | Use when explaining why humans still own policy, review, and release decisions. |
-| [The Practitioner's Mindset](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch10-the-practitioners-mindset.html) | Source for practitioner habits when working with agents. | Useful when Activity 04 evaluates evidence and uncertainty, and Activity 05 reviews remediation work. |
-| [The Runtime Machine](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch11-the-runtime-machine.html) | Source for agent runtime concepts. | Useful for Activity 03 review of connected context, response plans, roles, and memory. |
-| [The Instrumented Codebase](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch12-the-instrumented-codebase.html) | Source for repo instrumentation as an agent-enablement layer. | Connect to tests, scripts, workflow logs, and validation evidence. |
-| [The PROSE Specification](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch13-the-prose-specification.html) | Source for constraint-based specification practice. | Use as a lens for agent-ready issues and reviewable PRs. |
-| [The Load Lifecycle](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch14-the-load-lifecycle.html) | Source for how context is prepared for agent work. | Connect to concise issue context, relevant files, and acceptance criteria. |
-| [Attention and Context Economy](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch15-attention-and-context-economy.html) | Source for context-budget thinking. | Useful for keeping activity prompts and handoffs focused. |
-| [Deterministic/Probabilistic Boundary](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch16-deterministic-probabilistic-boundary.html) | Source for separating agent judgment from automated validation and human approval. | Connect Azure SRE Agent investigation evidence to human validation and remediation work with evidence and approval. |
-| [Multi-Agent Orchestration](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch17-multi-agent-orchestration.html) | Source for coordinating specialized agents. | Optional lens for the roles and escalation path inspected in Activity 03 and the review handoff in Activity 05. |
-| [The Execution Meta-Process](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch18-the-execution-meta-process.html) | Source for iterative execution around agent work. | Useful when explaining plan, act, validate, adapt cycles. |
-| [Architectural Patterns Rosetta Stone](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch19-architectural-patterns-rosetta-stone.html) | Source for naming recurring agentic architecture patterns. | Use lightly for session preparation, not as required delivery team member reading. |
-| [Anti-Patterns and Failure Modes](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch20-anti-patterns-and-failure-modes.html) | Source for warning signs in agentic delivery. | Useful for Activity 05 review and rejection discussion. |
-| [Primitives as Code](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch21-primitives-as-code.html) | Source for making agent primitives inspectable and reusable. | Connect to workflow specs, issue templates, prompts, and runbooks. |
-| [The Reference Architecture Earned](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch22-the-reference-architecture-earned.html) | Source for trust emerging from repeated evidence. | Good closing frame for the full activity arc. |
+| [The Agentic SDLC Handbook](https://danielmeppiel.github.io/agentic-sdlc-handbook/) | Background on separating human judgment, agent work, and platform controls; useful when framing Activities 03-05. | Daniel Meppiel's handbook is a living pre-release under CC BY-NC-ND 4.0. Summarize and attribute; do not copy long passages. |
 
-## GitHub Agentic Workflows and Peli's Agent Factory
+## GitHub Agentic Workflows
 
 | Source | Use in Curriculum | Notes |
 | --- | --- | --- |
-| [GitHub Agentic Workflows](https://github.github.com/gh-aw/) | Source for repository-level agentic automation concepts. | The site describes Markdown-authored workflows compiled into guarded GitHub Actions automation. Treat as early development and supervision-required. |
-| [Quick Start](https://github.github.com/gh-aw/setup/quick-start/) | Source for setup flow using the `gh aw` extension. | Useful for optional demos; requires compatible GitHub CLI, Actions, provider credentials, and repo permissions. |
-| [Welcome to Peli's Agent Factory](https://github.github.com/gh-aw/blog/2026-01-12-welcome-to-pelis-agent-factory/) | Source for the factory pattern: many specialized workflows tested in real repositories. | Optional conceptual companion to Activity 03 role review and Activity 05 remediation handoff. |
-| [Issue Triage Workflow](https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows/) | Source for a simple triage-agent pattern. | Background for the local triage template; it is not an Activity 01 deliverable. |
-| [Fault Investigation / CI Doctor](https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-quality-hygiene/) | Source for CI failure and fault-investigation workflow patterns. | Useful background for comparing GitHub workflow diagnostics with Azure SRE Agent incident investigation. |
-| [Project Coordination / Plan Command](https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-campaigns/) | Source for plan/decomposition workflows. | Background for the local planning template; it is not a required Activity 03 activity. |
+| [GitHub Agentic Workflows](https://github.github.com/gh-aw/) | Background on Markdown-authored workflows compiled into guarded GitHub Actions automation. | Early-stage technology; treat as supervision-required background, not a required activity dependency. |
 
 ## GitHub Actions and Delivery
 
@@ -80,8 +59,5 @@ Use these Agentic DevSecOps references when writing activity guides and setup in
 
 ## Source Caveats
 
-- The Agentic SDLC Handbook is licensed CC BY-NC-ND 4.0. Attribute Daniel Meppiel, summarize in your own words, and do not adapt or reproduce large sections in curriculum files.
-- GitHub Agentic Workflows and Peli's Agent Factory continue to change. Verify current setup, security, provider, and repository-permission requirements before delivery.
-- Product docs can change quickly. Re-check Azure SRE Agent and GitHub Copilot agent docs before customer delivery.
-- Some features may require preview access, specific run modes, region availability, repository permissions, or tenant policy approval.
-- Use simulated packets when live access is blocked, but keep the same artifacts: signal, evidence, suspected cause, remediation path, and follow-up work item.
+- Product docs can change quickly. Re-check Azure SRE Agent and GitHub Copilot agent docs before customer delivery; some features need preview access, specific run modes, region availability, repository permissions, or tenant policy approval.
+- Use a fallback packet when live access is blocked, but keep the same artifacts: signal, evidence, suspected cause, remediation path, and follow-up work item.

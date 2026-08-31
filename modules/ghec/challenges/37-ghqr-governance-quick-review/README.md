@@ -11,9 +11,8 @@
 | App | none |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Objective: produce an evidence-backed view of GitHub organization settings and risks.
 - Delivery target: an authorized `ghqr` organization scan, retained non-secret reports, corroborated findings, and a prioritized remediation backlog.
 - Safety boundary: the review is read-only by default. Any remediation requires separate customer approval.
 - Evidence: scan target, reviewer role, token boundary, `ghqr` version, reports, finding triage, corroboration, exceptions, and next decisions.
@@ -152,14 +151,6 @@ Use these guardrails throughout:
     - which findings require enterprise owner involvement;
     - which remediation candidates need separate approval.
 18. Confirm the next posture-review cadence. Record whether `ghqr` becomes a quarterly review input, an onboarding check for newly acquired orgs, or a one-time assessment artifact.
-
-## Operational extensions
-
-- Replay a previous scan JSON with `ghqr scan --from-json <file>` to re-render reports without re-querying GitHub. Label replay output clearly and keep the original scan timestamp.
-- Use `ghqr mock --render` only for demos or report-template walkthroughs. Do not use mock output as customer evidence.
-- Schedule an approved recurring posture review and compare report findings over time.
-- Pair this activity with Ch09 to preserve audit-log query/export evidence for material governance changes found during the review.
-- Pair this activity with ghec-ch52 when the customer has not yet completed an approved organization topology, delegation matrix, and register — treat this review's independent findings as candidate input to that work rather than a substitute for it.
 
 ## Reference links
 

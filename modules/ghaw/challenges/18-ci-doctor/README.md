@@ -20,10 +20,7 @@ Source: [`githubnext/agentics/workflows/ci-doctor.md`](https://github.com/github
 > [!IMPORTANT]
 > Bring your own repo (do this first)
 >
-> Use a repository in an organization you control. Choose one with build, test, or deployment workflows that the team already depends on.
->
-> - Have a candidate repo? Use it everywhere this guide references the sample repo, and configure the workflow to watch that repo's real CI workflow names, branches, logs, and failure patterns.
-> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
+> Use a repository in an organization you control with build, test, or deployment workflows the team already depends on. Configure the workflow to watch that repo's real CI workflow names, branches, and failure patterns. No candidate repo yet? Use the provided sample repo from setup.
 
 ## Steps
 
@@ -73,8 +70,5 @@ Source: [`githubnext/agentics/workflows/ci-doctor.md`](https://github.com/github
 
 "The issue body is too long / too noisy"
 → Constrain the prompt: _"Keep the issue body to 3 sections: 1) What failed, 2) Likely cause, 3) Suggested fix. Max 200 words."_
-
-"workflow_run vs push — what's the difference for this use case?"
-→ `workflow_run` lets you react to another workflow completing (including in other branches). `push` would fire before CI results are known.
 
 </details>

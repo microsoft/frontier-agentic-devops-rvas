@@ -8,9 +8,9 @@ Prerequisites: Activity 00, full Track 2, Activities 3-01 and 3-02
 
 ## Build
 
-A workflow that runs shell commands through `pre-agent-steps:` before the AI model starts. The commands fetch live repository metrics with the `gh` CLI. The agent uses those numbers to update the `## Project Health` section in `CONTRIBUTING.md`, then opens a pull request through `create-pull-request`.
+A workflow that runs shell commands through `pre-agent-steps:` before the AI model starts, fetching live repository metrics with the `gh` CLI. The agent uses those numbers to update the `## Project Health` section in `CONTRIBUTING.md`, then opens a pull request through `create-pull-request`.
 
-AI models may invent numbers when the prompt lacks data. `pre-agent-steps:` writes measured values to files before the model runs. The agent then reads those files instead of guessing.
+Without measured data, AI models may invent numbers. `pre-agent-steps:` writes real values to files first, so the agent reads facts instead of guessing.
 
 ---
 
@@ -27,10 +27,7 @@ AI models may invent numbers when the prompt lacks data. `pre-agent-steps:` writ
 > [!IMPORTANT]
 > Bring your own repo (do this first)
 >
-> Use a repository in an organization you control. Choose one where live issue, pull request, commit, or release metrics belong in `CONTRIBUTING.md`.
->
-> - Have a candidate repo? Use it everywhere this guide references the sample repo, and point the `pre-agent-steps:` commands at that repo's real issues, PRs, commits, and contribution docs.
-> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
+> Use a repository where live issue, PR, commit, or release metrics belong in `CONTRIBUTING.md`. Point `pre-agent-steps:` at that repo's real data. No candidate repo yet? Use the provided sample repo from setup.
 
 ## Background: `pre-agent-steps:`
 
@@ -114,22 +111,15 @@ The dry run executes `pre-agent-steps:` and shows the captured values. Check the
 
 ---
 
-## Gotchas
+## Gotchas & Troubleshooting
 
-- **Repository expression:** `$` resolves to `owner/repo` inside `pre-agent-steps:` run steps.
-- **Temporary files:** `/tmp/` files are created for each run and are not committed.
-- **Missing `CONTRIBUTING.md`:** The agent creates the file. The PR will contain a new file rather than a patch.
-- **Target branch:** `base-branch: main` assumes the default branch is `main`. Change it when needed.
-- **Permissions:** `create-pull-request` needs both `contents: write` and `pull-requests: write`.
-
----
-
-## Tips & Hints
-
-- Test `pre-agent-steps:` first. Add a step that `cat`s the `/tmp/` files and check the dry-run output. If the files are empty or missing, fix the fetch commands before involving the AI.
-- Name each file and its contents in the body. For example: "The file `/tmp/open-issues.txt` contains the open issue count."
-- Keep the PR small. Instruct the agent to only modify the `## Project Health` section, not rewrite the whole file. Smaller diffs are easier to review.
-- `workflow_dispatch:` for testing. Add it alongside your primary trigger so you can run on demand during development.
+- `$` resolves to `owner/repo` inside `pre-agent-steps:` run steps. Files written to `/tmp/` exist only for the run and are not committed.
+- Test `pre-agent-steps:` first: add a `cat` step for each `/tmp/` file and check the dry-run output before involving the AI model. If the agent uses wrong numbers later, this is the first thing to re-check.
+- `pre-agent-steps:` is a top-level frontmatter key, same indentation level as `on:` and `permissions:`.
+- If `CONTRIBUTING.md` is missing, the agent creates it — the PR will contain a new file rather than a patch.
+- `create-pull-request` requires both `contents: write` and `pull-requests: write`; a missing permission causes a PR permission error. `base-branch: main` assumes the default branch is `main` — change it if needed.
+- Keep the PR small: tell the agent explicitly to only add/replace the `## Project Health` section and leave the rest of the file untouched.
+- Add `workflow_dispatch:` alongside the primary trigger so you can run on demand while developing.
 
 ---
 
@@ -139,14 +129,3 @@ The dry run executes `pre-agent-steps:` and shows the captured values. Check the
 - create-pull-request safe-output: https://github.github.com/gh-aw/reference/safe-outputs-pull-requests/#create-pull-request
 - gh CLI — gh api: https://cli.github.com/manual/gh_api
 - gh CLI — gh pr list: https://cli.github.com/manual/gh_pr_list
-
----
-
-## Help
-
-- "`pre-agent-steps:` not running?" → Check indentation. `pre-agent-steps:` is a top-level frontmatter key, same level as `on:` and `permissions:`.
-- "Agent is using the wrong numbers" → Verify the `/tmp/` files contain what you expect. Add a `cat /tmp/open-issues.txt` step to `pre-agent-steps:` and check dry-run output.
-- **PR permission error:** Ensure `permissions:` includes both `contents: write` and `pull-requests: write`.
-- "Agent modified the wrong part of CONTRIBUTING.md" → Be more explicit in the body: "Only add or replace the section that begins with `## Project Health`. Do not modify any other section."
-
----

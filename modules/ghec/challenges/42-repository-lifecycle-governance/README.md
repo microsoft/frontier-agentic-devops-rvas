@@ -11,9 +11,8 @@
 | App | Provisioned lifecycle sample repositories |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Objective: make repository end-of-life decisions explicit, evidenced, and reversible where possible.
 - Delivery target: a lifecycle policy and a reviewed repository cohort.
 - Safety boundary: archive, transfer, visibility, and delete operations require named approval. Setup only seeds sample repos and review material.
 - Evidence: lifecycle criteria, repository decisions, approvals, retention notes, exceptions, and next review date.

@@ -6,9 +6,7 @@ Tier: Bonus
 
 ## Background
 
-Malicious code can arrive in a dependency update or an ordinary-looking refactor. The Malicious Code Scan reviews recent changes each day and opens alerts for human investigation.
-
-This is an additional detection signal for code-injection campaigns, compromised contributors, and dependency poisoning. It does not block changes, prevent deployment, or replace review and security controls. Sourced from `githubnext/agentics`.
+Malicious code can arrive in a dependency update or an ordinary-looking refactor. The Malicious Code Scan reviews recent changes each day and opens alerts for human investigation — an additional detection signal for code-injection campaigns, compromised contributors, and dependency poisoning. It does not block changes, prevent deployment, or replace review and security controls.
 
 Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://github.com/githubnext/agentics/blob/main/workflows/daily-malicious-code-scan.md)
 
@@ -22,10 +20,7 @@ Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://g
 > [!IMPORTANT]
 > Bring your own repo (do this first)
 >
-> Use a repository in an organization you control. Choose one with recent commits, dependency updates, or sensitive code paths that need supply-chain review.
->
-> - Have a candidate repo? Use it everywhere this guide references the sample repo, and tune the workflow to that repo's real languages, recent commits, suspicious pattern categories, and false-positive rules.
-> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
+> Use a repository in an organization you control with recent commits, dependency updates, or sensitive code paths that need supply-chain review. Tune the workflow to that repo's real languages, recent commits, and suspicious pattern categories. No candidate repo yet? Use the provided sample repo from setup.
 
 ## Steps
 
@@ -77,9 +72,6 @@ Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://g
 
 "This will have too many false positives"
 → Constrain aggressively: _"Only flag code added by commits from outside the organisation (check author's membership). Internal contributors are pre-screened."_
-
-"How is this different from CodeQL / SAST tools?"
-→ Use both. [CodeQL code scanning](https://docs.github.com/en/code-security/code-scanning/introduction-to-code-scanning/about-code-scanning-with-codeql) analyses code structure and known vulnerability patterns. This agent adds a contextual signal for suspicious changes, but its findings still need human review.
 
 "Should alerts auto-revert the commit?"
 → Not in this activity. Use issue creation and human review as the gate. Auto-revert with the `revert-commit` safe output is an extension.

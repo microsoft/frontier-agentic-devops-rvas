@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Set up authorized customer repository governance at scale: define custom repository properties, create organization rulesets that target repositories by property, layer repository rules, and verify enforcement. Prefer Ch52's landing-zone register (or an authorized enterprise export) as the source for enterprise-wide property/ruleset enforcement scope, distinct from this organization's implementation; fall back to an independent org-level baseline with an explicit not-available record when Ch52 was not completed. Preserve approved policy evidence, ownership, and rollout boundaries."
+description: "Set up authorized customer repository governance at scale: define custom repository properties, create organization rulesets that target repositories by property, layer repository rules, and verify enforcement. Source the enterprise-wide enforcement scope from Ch52's landing-zone register (or an authorized enterprise export) when available, distinct from this organization's implementation; otherwise record it as not available. Preserve approved policy evidence, ownership, and rollout boundaries."
 tags:
 - rulesets
 - custom-properties

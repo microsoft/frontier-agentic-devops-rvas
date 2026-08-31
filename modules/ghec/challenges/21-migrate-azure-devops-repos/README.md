@@ -11,14 +11,13 @@
 | App | None |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- **Goal:** complete a controlled Azure DevOps-to-GitHub cutover that the customer can operate.
-- **Target:** an approved customer pilot repository, destination organisation, migration queue/cutover plan, and follow-up backlog.
-- **Boundary:** migrate customer repositories only during an approved change window, with a source-write freeze and named owners. Otherwise, queue-only validation must end with an approved cutover proposal, risk decision, and next action.
-- **Keep:** inventory, migration ID/logs, validation results, mannequin plan, cutover checklist, and gap backlog.
-- **Owners:** the customer migration owner accepts cutover accountability. Repository and Boards/Pipelines owners accept their follow-up work.
-- **Next:** approve the pilot cutover or assign an owner and date to the migration decision.
+- Delivery target: one approved pilot repository, its GitHub destination, and the cutover plan.
+- Safety boundary: migrate only during an approved change window with source writes frozen. Without an approved repository, stop at `--queue-only` validation.
+- Evidence: inventory, migration ID and logs, validation results, mannequin plan, and gap backlog.
+- Owner: the migration owner accepts cutover; repository and Boards/Pipelines owners accept follow-up work.
+- Next decision: approve the pilot cutover or hand over the cutover proposal.
 
 ## Prerequisites
 
@@ -42,11 +41,9 @@ Access and tools you need:
 - Build a follow-up backlog for Azure Boards and Azure Pipelines work that GEI does not migrate.
 
 > [!IMPORTANT]
-> **Start with an approved customer target.**
+> Pick a pilot repository that belongs to a real team and has at least one pull request. A small repo is fine: migration timing is driven mainly by pull request count, not Git repository size.
 >
-> Default to an approved customer repository that belongs to a real team and has at least one pull request. A small pilot repository is better than a huge monorepo: migration timing is driven mainly by pull request count, not Git repository size.
->
-> Record these values before you start:
+> Set these before you start:
 >
 > ```bash
 > export ADO_ORG="YOUR_ADO_ORG"
@@ -261,12 +258,6 @@ gh ado2gh reclaim-mannequin \
 ```
 
 Commit authorship is separate from mannequin reclaiming: Git commits are attributed by email address when the email matches a GitHub account.
-
-## Operational extensions
-
-- Run a second migration without `--queue-only` and compare operational control versus direct execution.
-- Create a cutover checklist that freezes source writes because GEI does not perform delta migrations.
-- Recreate one repository permission model in GitHub teams and document which Azure DevOps access model it replaces.
 
 ## Reference links
 

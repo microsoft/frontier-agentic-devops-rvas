@@ -9,6 +9,10 @@ Choose one of these environments before starting `ghaw-00`.
 
 Some older activity text uses squad for the delivery team. Read that term using the roles defined above.
 
+## Bring your own repo
+
+Run each activity against a repository the delivery team actually owns when one is available — real issues, PRs, and history make the exercise meaningful. Point the workflow file at that repo everywhere the activity references the sample repo. If no candidate repo exists yet, use the sample repo from this setup as the practice target.
+
 ## Option 1: GitHub Codespaces
 1. Open this repository (`microsoft/frontier-agentic-devops-rvas`) on GitHub.
 2. Click Code → Codespaces → Create codespace on main.

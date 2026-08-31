@@ -11,17 +11,16 @@
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Customer objective: establish a defensible organisation governance baseline in the customer tenant.
-- Customer-tenant target: approved member-privilege, repository-creation, visibility, security-default, and workflow-permission settings.
-- Approval and safety boundary: governance changes proceed in the customer organisation only when the accountable organisation owner approves them; otherwise produce an approved rollout proposal and risk decision from the controlled sample.
-- Records to keep: retain before/after API snapshots and any EMU constraints.
-- Adoption owner / handover: the customer organisation owner accepts the baseline and assigns ongoing policy ownership.
-- Next action and owner: approve the change window and apply the agreed baseline, or hand over the signed rollout proposal.
+- Delivery target: approved member-privilege, repository-creation, visibility, security-default, and workflow-permission settings.
+- Safety boundary: governance changes proceed in the customer organisation only when the accountable organisation owner approves them; otherwise produce an approved rollout proposal and risk decision from the controlled sample.
+- Evidence: retain before/after API snapshots and any EMU constraints.
+- Owner: the customer organisation owner accepts the baseline and assigns ongoing policy ownership.
+- Next decision: approve the change window and apply the agreed baseline, or hand over the signed rollout proposal.
 
 ## Prerequisites
-- Recommended: Ch52 (Enterprise Landing Zone & Organization Strategy) completed first. When available, its topology map, delegated-admin model, and settings register are the **preferred** source for this activity's enterprise-level checks (Part F). If Ch52 was not completed, this activity's organization-level baseline still stands independently — see "Enterprise vs. organization control" below for the fallback.
+- Recommended: Ch52 (Enterprise Landing Zone & Organization Strategy) completed first — its topology map, delegated-admin model, and settings register are the preferred source for this activity's enterprise-level checks in Part F (see the closing note); otherwise this activity's organization-level baseline stands on its own.
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch06 --org <org>` (least-privilege; for this activity: `admin:org` + `repo` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
@@ -49,7 +48,7 @@ You're the first platform admin hired at a fast-growing GHEC customer. The organ
 >
 > Record the selected target, organisation owner, risk decision, and next action and owner. Use the sample only for testing; move the validated proposal to an approved customer organisation.
 
-## Sample test repository or environment (when tenant delivery is constrained)
+## Sample test repository or environment
 Skip this if you brought your own org/repo policy target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -96,14 +95,7 @@ Setup creates these resources (all names use the `ghec-ch06-*` prefix, and teard
 
 ### Part F — Default-branch policy (enterprise vs. organization)
 15. Inspect the effective **organization** default-branch policy for new repositories through the API or organization settings. This is the org-level implementation, not the enterprise-level decision — keep the two distinct in your notes.
-16. Source the enterprise-level default-branch and member-privilege decision: if Ch52 was completed, cite its landing-zone topology/delegation register entry; otherwise, if you hold authorized enterprise-owner access, pull an enterprise export/inspection and cite it. If neither is available, record `enterprise policy not available / not applicable` in your evidence — do not infer enterprise-wide policy from this one organization.
-
-## Operational extensions
-- Write a small script that pulls the full `/orgs/<org>` settings object and highlights changes from an earlier snapshot.
-- Add a second team `ghec-ch06-readonly` and demonstrate how base permission + team permission combine (the more permissive of the two wins).
-- Research and document, in one paragraph each, three settings that only exist at the enterprise tier (e.g., enterprise-wide policy enforcement, allowed org visibility, SSO requirement) — see "Enterprise vs. organization control" below.
-
-> Enterprise vs. organization control: An enterprise account sits above organizations and can *enforce* many of these same controls across every org at once — base-permission ceilings, repository-visibility allow-lists, 2FA requirements, and default-branch policy — so an individual org owner can't loosen them. This activity implements and verifies the **organization-level** settings; it does not complete or substitute for the enterprise-level decision. Prefer Ch52's landing-zone topology, delegation, and settings register (or an authorized enterprise export you can cite) as the source for any enterprise-scoped item. If Ch52 was not completed and no enterprise export is authorized, record the enterprise item as `not available / not applicable` — do not infer enterprise-wide policy from this one organization. No enterprise-owner access is required to complete the hands-on organization-level work in this activity.
+16. Source the enterprise-level default-branch and member-privilege decision: cite Ch52's landing-zone topology/delegation register entry, or an authorized enterprise export/inspection; if neither is available, record `enterprise policy not available / not applicable` in your evidence. Don't infer enterprise-wide policy from this one organization — see the closing note.
 
 ## Reference links
 - About organizations — https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations

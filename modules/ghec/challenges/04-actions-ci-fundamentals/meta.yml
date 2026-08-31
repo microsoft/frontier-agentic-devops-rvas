@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Set up an authorized customer CI pipeline with GitHub Actions: triggers, jobs, a build matrix, dependency caching, artifacts, environments, and a required status check that gates merges. Preserve the workflow evidence, accountable owner, and rollout decision."
+description: "Set up a CI pipeline with GitHub Actions: triggers, jobs, a build matrix, dependency caching, artifacts, environments, and a required status check that gates merges."
 tags:
 - github-actions
 - ci

@@ -11,20 +11,19 @@
 | App | Customer repository; optional safe fallback repository |
 | EMU compatible | yes — assess and record the actual availability of cloud agent and code review; do not assume either feature or policy is available |
 
-## Customer delivery target
+## Delivery target
 
-- **Goal:** make Copilot cloud-agent and code-review work reproducibly in an approved repository without widening access, runner, service, or secret exposure.
-- **Target:** a default-branch setup workflow, concise repository and path instructions, and a record of the effective organization, runner, network, and secret boundaries.
-- **Boundary:** work in an approved customer repository first. A repository owner approves workflow and instruction changes. The Copilot owner confirms feature policy. Security approves any private-network runner, service, or Agents secret. Do not enable a policy, add a secret, or attach an internal runner merely to complete this activity.
-- **Keep:** target and owners, policy/availability evidence, merged default-branch commit and Actions URL, instruction inventory and precedence review, runner/secrets decision, agent/session or review evidence, open risks, and next decision.
-- **Fallback:** if policy or feature access is unavailable, produce the decision package in Part H. Use `ghec-ch31-*` only as a safe, non-production seed to validate repository files; it is never a substitute for customer approval.
+- Delivery target: a default-branch setup workflow, concise repository and path instructions, and a record of the effective organization, runner, network, and secret boundaries.
+- Safety boundary: work in an approved customer repository. The repository owner approves workflow and instruction changes, the Copilot owner confirms feature policy, and security approves any private-network runner, service, or Agents secret. Do not enable a policy, add a secret, or attach an internal runner merely to complete this activity.
+- Evidence: target and owners, policy availability, the merged default-branch commit and Actions URL, instruction inventory and precedence review, runner and secrets decision, and agent or review results.
+- Fallback: if policy or feature access is unavailable, produce the decision package in Part H. `ghec-ch31-*` is a safe, non-production seed for validating file layout only, never a substitute for customer approval.
 
 ## Prerequisites and availability
 
 - An authorized customer repository and named repository, Copilot, security, and platform/runner owners.
-- Copilot Business or Copilot Enterprise availability must be inspected, not inferred. Cloud agent, code review, organization instructions, runner choices, and organization policy can vary by subscription, policy, repository, identity model, and current feature availability.
-- Repository administrator access is needed to set Agents secrets/variables; organization-owner access is needed for organization-level versions and policy/runner decisions. A contributor may prepare a pull request but must not self-approve a privileged change.
-- Optional fallback tooling: `gh >= 2.x`, `git`, and `jq`. The provisioning scripts create only a small public seed; they do **not** change Copilot policy, create a secret, configure a runner, or invoke an agent.
+- Copilot Business/Enterprise availability (cloud agent, code review, org instructions, runner choice) must be inspected, not inferred — it varies by subscription, policy, and repository.
+- Repository administrator access is needed to set Agents secrets/variables; organization-owner access is needed for org-level policy/runner decisions. A contributor must not self-approve a privileged change.
+- Optional fallback tooling: `gh >= 2.x`, `git`, `jq`. The provisioning scripts create only a small public seed; they do **not** change Copilot policy, create a secret, configure a runner, or invoke an agent.
 
 ## Scenario
 
@@ -140,12 +139,7 @@ Matching path-specific and repository-wide instructions are both used. At GitHub
 
 ### Part H — Decision-package fallback
 
-Use this path when an organization policy, license, entitlement, required owner, or feature is unavailable:
-
-1. Do not enable, bypass, or simulate a customer control. Capture the unavailable capability and dated source/evidence.
-2. Produce a decision package containing the target repository class, proposed default-branch setup and instructions, policy/runner/Agents-secret impact, named approver, risk/rollback, validation plan, and decision required.
-3. If allowed, run the safe `ghec-ch31-*` seed only to demonstrate a normal Actions workflow and file layout. Label its results **fallback evidence**, not customer-production evidence.
-4. Set the next action: approve an eligible pilot, obtain policy access, remain unavailable, or retire the proposal.
+Use this path when an organization policy, license, entitlement, required owner, or feature is unavailable. Do not enable, bypass, or simulate a customer control. Capture the unavailable capability with dated evidence, then produce a decision package: target repository class, proposed default-branch setup and instructions, policy/runner/secret impact, named approver, risk/rollback, and validation plan. If allowed, run the safe `ghec-ch31-*` seed only to demonstrate a normal Actions workflow and file layout, and label its results **fallback evidence**, not customer-production evidence. Set the next action: approve an eligible pilot, obtain policy access, remain unavailable, or retire the proposal.
 
 ## Reference links
 

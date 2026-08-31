@@ -9,11 +9,7 @@ Prerequisites: Track 2, completed ≥3 activities
 
 ## Background
 
-Each workflow normally runs on its own. To coordinate two workflows, the first must leave data that the second can read.
-
-Build a producer that writes structured data to `repo-memory` and a consumer that reads it on its next trigger.
-
-Workflow chaining splits automation into stages with explicit handoffs. You can test each stage separately, reuse producers, and see which stage failed.
+Workflows normally run in isolation. To coordinate two of them, the first must leave data the second can read. Build a producer that writes structured data to `repo-memory` and a consumer that reads it on its next trigger — splitting automation into stages with explicit, testable handoffs.
 
 ---
 
@@ -29,10 +25,7 @@ Workflow chaining splits automation into stages with explicit handoffs. You can 
 > [!IMPORTANT]
 > Bring your own repo (do this first)
 >
-> Use your own repository if possible. Exchange real metrics so `repo-memory` contains data the team may keep using. Use the setup sample only for practice.
->
-> - Have a candidate repo? Install or point both relay workflows at that repo everywhere the guide references the sample repo, and collect metrics from its real issues, labels, closure history, and Discussions audience.
-> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
+> Prefer your own repository so `repo-memory` holds real issue/label metrics the team can keep using. Point both relay workflows at it everywhere the guide references the sample repo. No candidate repo yet? Use the provided sample repo from setup.
 
 ---
 
@@ -66,14 +59,13 @@ Success: Discussion appears with the trend analysis.
 
 ---
 
-## Tips & Hints
+## Tips & Troubleshooting
 
-- `repo-memory` is a branch in your repo (`repo-memory`). You can browse it on GitHub to verify files were written.
-- The `file-glob` filter in the `tools: repo-memory:` block silently drops files that do not match. Check the glob carefully.
-- For the producer: use simple `gh api` calls or the GitHub MCP tool to fetch issue counts. You don't need to parse the entire repo.
-- For the consumer, summarize the JSON trend as "up," "down," or "stable."
-- Use `expires:` on the discussion to auto-close old reports (keeps the page clean).
-- The simplest producer outputs a 5-10 line JSON file. The consumer reads 7 of them and compares. That's it.
+- `repo-memory` is a real branch — browse it on GitHub to confirm files were written. If it's missing, check the workflow logs first.
+- The `file-glob` filter in `tools: repo-memory:` silently drops non-matching files; test the glob (e.g. `echo metrics/**/*.json`) if the consumer can't read anything.
+- Use simple `gh api` calls for the producer's issue counts — no need to parse the whole repo.
+- Compute the trend by comparing the first and last of the last 7 snapshots ("up"/"down"/"stable").
+- Use `expires:` on the discussion to auto-close old reports.
 
 ---
 
@@ -84,14 +76,3 @@ Success: Discussion appears with the trend analysis.
 - Agent Performance Analyzer (Consumer Example): https://github.com/github/gh-aw/blob/main/.github/workflows/agent-performance-analyzer.md
 - Safe Outputs Reference: https://github.github.com/gh-aw/reference/safe-outputs/
 - Schedule Syntax: https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onschedule
-
----
-
-## Help
-
-Use these checks if the workflow fails:
-
-- "repo-memory branch not showing up?" → Check the workflow logs. If `noop` or the safe-output succeeded, the branch should exist. Refresh the GitHub repo page.
-- "JSON file has the wrong structure?" → Print the JSON in the workflow logs (use `echo` before writing) so you can see what the agent generated.
-- "Consumer can't read the files?" → Verify the `file-glob` pattern matches. Run `echo metrics/**/*.json` to test the glob locally.
-- "I'm not sure how to compute the trend?" → Read the last N files, compare the first value to the last value. If latest > first, it's "up". Simple as that.

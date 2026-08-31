@@ -12,7 +12,7 @@ prerequisite_capabilities:
 - jq installed
 - Repository provisioned via activity setup script
 - Optional ghec-ch52 approved organization topology and cost/organization-scope decision, when already established for the customer
-description: "Implement an authorized self-hosted runner in an organization runner group. Record label routing, hardening, scaling, isolation, ownership, and the rollout decision. Prefer ghec-ch52's organization topology and cost/organization-scope decision as the source for the org-vs-enterprise runner-group call when available; fall back to an independent recommendation, with an explicit not-available record for any enterprise runner policy that cannot be inspected."
+description: "Implement an authorized self-hosted runner in an organization runner group. Record label routing, hardening, scaling, isolation, ownership, and the rollout decision. Use ghec-ch52's org-vs-enterprise runner-group decision as input when available, otherwise record an independent recommendation."
 tags:
 - actions
 - self-hosted-runners

@@ -25,13 +25,8 @@ Stale issues make backlogs harder to trust. The workflow warns before closing so
 
 ---
 
-> [!IMPORTANT]
-> Bring your own repo (do this first)
->
-> Run Stale Patrol on your own repository if possible. Use the team's real exemption labels and grace period. Use the setup sample only for practice.
->
-> - Have a candidate repo? Install or point `stale-patrol.md` at that repo everywhere the guide references the sample repo, and use real stale issues, labels such as `keep-alive`, and your team's closure language.
-> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
+> [!TIP]
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point `stale-patrol.md` at a repo you own and use its real exemption labels (e.g. `keep-alive`), grace period, and closure language. No candidate repo yet? Use the setup sample.
 
 ---
 
@@ -75,6 +70,5 @@ Create a gh-aw workflow named `stale-patrol.md` in `.github/workflows/` that:
 ## Help
 
 - "How do I query for stale issues?" → Use the GitHub API to search: `state:open updated:<2024-01-01` (dates in the past)
-- "How do I avoid closing already-closed issues?" → Before updating, check the issue state: "If state is already 'closed', do nothing"
-- "Workflow runs but doesn't find any stale issues?" → This is correct if your repo is young! Add a mock: "For testing, assume this issue was last updated on [old date]"
+- "Workflow runs but doesn't find any stale issues?" → This is correct if your repo is young! Mock it: "For testing, assume this issue was last updated on [old date]"
 - "Permission error when trying to close?" → Ensure `permissions: issues: write` is set (or safe-outputs handles it)

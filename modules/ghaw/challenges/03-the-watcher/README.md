@@ -25,13 +25,8 @@ A workflow triggered by `on: push`. It detects changes in a chosen directory, su
 
 ---
 
-> [!IMPORTANT]
-> Bring your own repo (do this first)
->
-> Run the watcher on your own repository if possible. Track a directory that matters to the team. Use the setup sample only for practice.
->
-> - Have a candidate repo? Install or point `the-watcher.md` at that repo everywhere the guide references the sample repo, and watch real paths such as `docs/**`, config, schemas, tests, or release files.
-> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
+> [!TIP]
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point `the-watcher.md` at a repo you own and watch a real path such as `docs/**`, config, schemas, tests, or release files. No candidate repo yet? Use the setup sample.
 
 ---
 
@@ -52,7 +47,6 @@ A workflow triggered by `on: push`. It detects changes in a chosen directory, su
 - Path Filters: https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onpushpullrequestpaths
 - GitHub tool permissions: https://github.github.com/gh-aw/reference/permissions/
 - Safe Outputs — Add Comment: https://github.github.com/gh-aw/reference/safe-outputs/#add-comment
-- Related example: See the Category C (Continuous Improvement) `breaking-change-checker.md` pattern for using the `bash` tool and inspecting Git history.
 - Related Blog: [Peli's Agent Factory Part 2: Continuous Simplicity](https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-continuous-simplicity/)
 
 ---
@@ -61,8 +55,6 @@ A workflow triggered by `on: push`. It detects changes in a chosen directory, su
 
 If you're blocked:
 
-1. Did you push to the watched directory? Path filters are exact; if your directory path is wrong, the workflow won't trigger.
-2. Check path filter syntax: Use `docs/**` for "all files in docs directory" or `*.md` for markdown files.
-3. Test with a dummy push: Add a `.trigger` file to your watched directory, commit, push, and see if the workflow runs.
-4. Review the commit data: In the logs, you should see what files changed. If you don't, the path filter may not have matched.
-5. Add workflow_dispatch: So you can test without actually committing. Then focus on the logic.
+1. Path filters are exact. If the workflow doesn't trigger, confirm you pushed to the watched path (e.g. `docs/**` matches all files under `docs/`) and add `workflow_dispatch:` so you can test without committing.
+2. Test with a dummy push: add a `.trigger` file to the watched directory, commit, and push to confirm the workflow runs.
+3. Review the commit data in the run logs. If changed files aren't listed, the path filter likely didn't match.

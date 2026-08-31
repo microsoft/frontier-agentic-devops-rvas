@@ -11,14 +11,12 @@
 | App | Customer repository |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- **Goal:** give delivery teams native GitHub evidence for maintainability, reliability, and test coverage before changes merge.
-- **Target:** an authorized repository's Code Quality configuration, CI coverage upload, PR feedback, threshold decision, and rollout evidence.
-- **Boundary:** enable Code Quality and change workflow permissions or rulesets only with the repository or organization owner's approval. Use a controlled pilot repository if production rollout is not yet authorized.
-- **Keep:** initial Code Health scores, workflow and coverage evidence, pull-request finding decision, threshold decision, and organization pilot proposal.
-- **Owners:** the repository owner owns the repository configuration. Engineering and platform owners agree the triage and rollout cadence.
-- **Next:** approve the pilot cohort, extend the rollout, or document the blocker and rollback decision.
+- Delivery target: an authorized repository's Code Quality configuration, CI coverage upload, PR feedback, threshold decision, and rollout evidence.
+- Safety boundary: enable Code Quality and change workflow permissions or rulesets only with the repository or organization owner's approval. Use a controlled pilot repository if production rollout is not yet authorized.
+- Evidence: initial Code Health scores, workflow and coverage evidence, pull-request finding decision, threshold decision, and organization pilot proposal.
+- Owner: the repository owner owns the configuration; engineering and platform owners agree the triage and rollout cadence.
 
 ## Prerequisites
 
@@ -95,13 +93,7 @@ permissions:
 17. With the customer owner, decide whether Code Quality is informational during the pilot or whether a severity threshold should block pull requests. If a gate is approved, configure the native Code Quality threshold in the applicable ruleset.
 18. Demonstrate the decision on the test pull request: a finding at or above the selected threshold blocks merge until it is fixed or dismissed; a finding below it does not. If the customer chooses no gate, document why and set the review cadence instead.
 19. At the organization level, use Code Quality's native repository access targeting to select a small authorized pilot cohort. Do not substitute a generic repository ruleset for product enablement.
-20. Record the pilot cohort, repository owners, cost/license review, expected baseline date, success measures, opt-out or rollback criteria, and decision date.
-
-## Operational extensions
-
-- Enable a second authorized repository through native organization targeting and compare its baseline after the first analysis completes.
-- Configure and prove a coverage threshold only after the team agrees how generated code, test scope, and temporary coverage changes will be handled.
-- Use the product API to export Code Quality status for the pilot cohort into the customer’s engineering-health reporting process.
+20. Record the pilot cohort, repository owners, expected baseline date, success measures, and rollback criteria.
 
 ## Reference links
 

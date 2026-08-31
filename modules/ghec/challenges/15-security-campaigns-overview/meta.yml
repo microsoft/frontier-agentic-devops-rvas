@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: "Set up an authorized customer security-overview rollout with a security configuration, an owned and time-bounded campaign, and remediation evidence. Use OWASP Juice Shop only as a sample test repository and preserve the tenant adoption decision."
+description: "Set up an authorized security-overview rollout with a security configuration, an owned and time-bounded campaign, and remediation evidence. Use OWASP Juice Shop only as a sample test repository and preserve the tenant adoption decision."
 tags:
 - ghas
 - security-overview

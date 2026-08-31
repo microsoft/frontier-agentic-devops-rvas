@@ -20,10 +20,7 @@ Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/git
 > [!IMPORTANT]
 > Bring your own repo (do this first)
 >
-> Use a repository in an organization you control. Choose a README, contributing guide, runbook, or product document that the team will keep maintaining.
->
-> - Have a candidate repo? Use it everywhere this guide references the sample repo, and target that repo's real docs with your own preservation rules, simplification criteria, and PR labels.
-> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
+> Use a repository in an organization you control with a README, contributing guide, runbook, or product document the team will keep maintaining. Target that repo's real docs with your own preservation rules. No candidate repo yet? Use the provided sample repo from setup.
 
 ## Steps
 
@@ -76,8 +73,5 @@ Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/git
 
 "The PR is huge — 50 files changed"
 → The production workflow targets one or two files per run. Narrow your scope in the body, and use `create-pull-request` with a focused branch name.
-
-"Should I run this on a schedule or manually?"
-→ Start with `workflow_dispatch` so you control when it runs. Graduate to a weekly cron once you trust the output.
 
 </details>

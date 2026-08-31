@@ -9,9 +9,7 @@ Prerequisites: Track 2, completed ≥3 activities
 
 ## Background
 
-An agent can only reason from the context it receives. Use gh-aw's `tools:` configuration to give it live data through MCP tools (Model Context Protocol), such as GitHub labels, repository metrics, or service status.
-
-Without repository standards, a PR agent falls back to generic advice. Give it the actual conventions and it can check the pull request against them.
+An agent can only reason from the context it receives. Use gh-aw's `tools:` configuration to give it live data through MCP tools (GitHub labels, repository metrics, service status, and similar). Without repository standards, a PR agent falls back to generic advice; give it the actual conventions and it can check the pull request against them.
 
 ---
 
@@ -27,10 +25,7 @@ Without repository standards, a PR agent falls back to generic advice. Give it t
 > [!IMPORTANT]
 > Bring your own repo (do this first)
 >
-> Use your own repository if possible. Give the workflow real pull requests and repository guidance. Use the setup sample only for practice.
->
-> - Have a candidate repo? Install or point the workflow at that repo everywhere the guide references the sample repo, and use real PRs plus repo-specific context files such as `CONTRIBUTING.md`, `ARCHITECTURE.md`, docs, or test conventions.
-> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
+> Prefer your own repository with real PRs and repo-specific context files (`CONTRIBUTING.md`, `ARCHITECTURE.md`, docs, test conventions). Point the workflow at it everywhere the guide references the sample repo. No candidate repo yet? Use the provided sample repo from setup.
 
 ---
 
@@ -69,14 +64,13 @@ Use `safe-outputs: add-comment` to post a structured comment on the PR. The comm
 
 ---
 
-## Tips & Hints
+## Tips & Troubleshooting
 
-- The `tools: github: toolsets: [...]` array lets you specify exactly which GitHub APIs the agent can use. Start with `[pull_requests, contents]` and add others if needed.
-- CONTRIBUTING.md and ARCHITECTURE.md are great context sources. Have the agent read them to understand repo conventions.
-- Avoid "code review" advice (that's what humans do). Instead, focus on: file patterns, size anomalies, and compliance with *your* specific standards.
-- If the repo has no CONTRIBUTING.md, create a short one with the project's rules.
-- Use `checkout: false` since the agent only needs API calls, not to check out the code.
-- The comment should be ~200 words max. A bulleted list + a focused suggestion is better than paragraphs.
+- The `tools: github: toolsets: [...]` array scopes exactly which GitHub APIs the agent can use. Start with `[pull_requests, contents]`.
+- Have the agent read `CONTRIBUTING.md`/`ARCHITECTURE.md` explicitly in the prompt — otherwise it defaults to generic advice. Verify the toolset name is correct (`pull_requests`, not `prs`) if reads fail.
+- Focus review comments on file patterns, size anomalies, and compliance with *your* standards, not generic code review. Keep the comment to ~200 words.
+- Use `checkout: false` since the agent only needs API calls, not a checkout.
+- If `add-comment` won't post, check `safe-outputs:` indentation and the workflow logs.
 
 ---
 
@@ -87,14 +81,3 @@ Use `safe-outputs: add-comment` to post a structured comment on the PR. The comm
 - PR Analysis Example: https://github.com/github/gh-aw/blob/main/.github/workflows/issue-triage-agent.md (triage agent pattern adapted for PRs)
 - Safe Outputs (add-comment): https://github.github.com/gh-aw/reference/safe-outputs/#add-comment
 - Workflow Syntax — on.pull_request: https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onpull_request
-
----
-
-## Help
-
-Use these checks if the workflow fails:
-
-- "Agent can't read CONTRIBUTING.md?" → Check your `tools: github: toolsets: [contents]` is configured. Then verify the file exists at `.github/CONTRIBUTING.md`.
-- "Comment won't post?" → Check `safe-outputs: add-comment:` frontmatter is indented correctly. Look at the workflow logs for the exact error.
-- "Agent gives generic advice, not specific to our repo?" → You may need to make your CONTRIBUTING.md or ARCHITECTURE.md more explicit. Or your prompt doesn't tell the agent to read them. Try: "Read the CONTRIBUTING.md file first. Then analyze the PR against those rules."
-- "Toolsets list not working?" → Verify the toolset names (e.g., `pull_requests`, not `prs`). Reference the docs.

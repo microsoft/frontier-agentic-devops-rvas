@@ -11,13 +11,12 @@
 | App | none |
 | EMU compatible | yes — assess features and constraints; no agent execution is required |
 
-## Customer delivery target
+## Delivery target
 
-- **Goal:** make deliberate, auditable enterprise AI-control decisions instead of enabling Copilot capabilities by default.
-- **Target:** verified effective inheritance, named owners, review cadence, exceptions, and evidence for the AI-control surfaces below.
-- **Boundary:** inspect without changing settings by default. One narrowly scoped policy test is optional and requires customer approval. Do not provision an app, assign a seat, install an agent, configure an MCP server, or start an agent session for this activity.
-- **Keep:** dated Enterprise AI Controls and organization-policy exports, seat/offboarding evidence, policy and risk decisions, and the MCP configuration inventory.
-- **Handover:** the enterprise AI-controls owner accepts the baseline; identity, legal/privacy, security, procurement, and organization owners accept their assigned decisions and cadence.
+- Delivery target: verified effective inheritance, named owners, review cadence, exceptions, and evidence for the AI-control surfaces below.
+- Safety boundary: inspect without changing settings by default. One narrowly scoped policy test is optional and requires customer approval. Do not provision an app, assign a seat, install an agent, configure an MCP server, or start an agent session for this activity.
+- Evidence: dated Enterprise AI Controls and organization-policy exports, seat/offboarding evidence, policy and risk decisions, and the MCP configuration inventory.
+- Owner: the enterprise AI-controls owner accepts the baseline; identity, legal/privacy, security, procurement, and organization owners accept their assigned decisions and cadence.
 
 ## Prerequisites
 
@@ -33,13 +32,13 @@
 - **Ch30 covers:** seat management, policy delegation, public-code matching, GitHub.com feature/data posture, third-party coding agents, MCP servers, and agentic-activity streaming.
 - **Ch19 owns Copilot cloud-agent usage.** Do not run an issue, session, pull request, or cloud-agent pilot here. Record that the cloud agent is unavailable on **EMU-owned repositories** and refer any eligible, approved usage pilot to Ch19.
 - Treat third-party coding agents, agent apps, MCP servers, and cloud agent as related but separate decision surfaces. An approval for one does not approve another.
-- Check whether `ghec-ch52` (Enterprise Landing Zone & Organization Strategy) has already established this customer's identity model (including EMU and data residency) and enterprise app-registration governance boundary. If so, reuse those decisions as the preferred input for scope and the agent-app authority review, and cite `ghec-ch52`'s register entry rather than re-deriving them. If `ghec-ch52` has not been completed, establish them independently in Part A/E and record that `ghec-ch52` was not available.
+- Check whether `ghec-ch52` (Enterprise Landing Zone & Organization Strategy) has already established this customer's identity model (including EMU and data residency) and enterprise app-registration governance boundary. If so, reuse and cite its register entry as the preferred input for scope and the agent-app authority review in Part A/E instead of re-deriving it. If `ghec-ch52` has not been completed, establish them independently and record that `ghec-ch52` was not available — apply the same rule wherever this activity references `ghec-ch52` below.
 
 ## Tasks
 
 ### Part A — Establish authority, availability, and the evidence baseline
 
-1. Record the enterprise and organizations in scope, identity model (including EMU and data residency where applicable), named owners, approvers, evidence location, and normal review cadence. Cite `ghec-ch52`'s identity-model and data-residency decision and register entry when available, or record that `ghec-ch52` was not available and the identity model was determined independently.
+1. Record the enterprise and organizations in scope, identity model (including EMU and data residency where applicable), named owners, approvers, evidence location, and normal review cadence (see the `ghec-ch52` note above for the identity-model/data-residency source).
 2. Inspect the Copilot subscription and availability. Record whether Copilot Business or Copilot Enterprise is available, which organizations are in scope, and any licensing, entitlement, or preview limitation.
 3. Obtain a dated, non-secret export or screenshots of Enterprise **AI Controls** and the relevant organization Copilot-policy pages. Record the collector, date, URL/page, and any settings that cannot be viewed.
 4. For each AI-control surface in scope, capture the effective value, source level, direct evidence, named owner, cadence, exception/rollback, and next decision.
@@ -65,7 +64,7 @@
 ### Part E — Separate third-party agent and agent-app governance
 
 14. Inspect the policy and effective availability for **third-party coding agents**. Keep them disabled until enterprise security and third-party-risk review approve a defined organization scope.
-15. Assess **agent apps separately**: they are GitHub Apps with an installation, permissions, selected-repository scope, vendor relationship, and app-review lifecycle. Record their installed/approved status and owner separately from the third-party coding-agent policy; neither decision implicitly enables the other. Reuse `ghec-ch52`'s approved enterprise app-registration governance boundary when available, extending its register rather than building a parallel inventory; if `ghec-ch52` has not been completed, assess agent-app authority independently and record that gap.
+15. Assess **agent apps separately**: they are GitHub Apps with an installation, permissions, selected-repository scope, vendor relationship, and app-review lifecycle. Record their installed/approved status and owner separately from the third-party coding-agent policy; neither decision implicitly enables the other. Reuse `ghec-ch52`'s app-registration register when available (see the note above), or assess agent-app authority independently and record the gap.
 16. Record vendor data handling, authorization scope, repository targeting, audit/evidence route, renewal cadence, and the condition that would disable or remove an approved agent or app.
 
 ### Part F — Assess MCP boundaries without enabling them

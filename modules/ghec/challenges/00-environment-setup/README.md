@@ -11,14 +11,13 @@
 | App | none |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Customer objective: establish delivery readiness before any tenant change.
-- Customer-tenant target: the authorised customer organisation, repository, access path, and first adoption target—not a production configuration change.
-- Approval and safety boundary: verify only the access the customer owner has approved; do not create, change, or elevate tenant resources during this readiness guide.
-- Records to keep: retain the verification summary, selected first target, named customer owner, and any access blockers in the delivery record.
-- Adoption owner / handover: the customer owner confirms the target and ownership boundary; the delivery team hands over verified access and blockers.
-- Next action and owner: the named owner authorises and schedules the first customer-tenant implementation guide.
+- Delivery target: the approved organization, repository, and access path — verification only, no configuration change.
+- Safety boundary: verify only approved access; do not create, change, or elevate tenant resources.
+- Evidence: verification summary, selected first target, and any access blockers.
+- Owner: the customer owner confirms the target; the delivery team hands over verified access.
+- Next decision: the owner authorises and schedules the first implementation guide.
 
 ## Objectives
 
@@ -114,9 +113,7 @@ gh repo view <org>/<repo>
 
 ## Provisioning preflight (optional)
 
-The GHEC delivery environment ships provisioning scripts (`setup.sh` / `setup.ps1`) that set up controlled starting state for each guide.
-The scripts live in-tree at `modules/ghec/resources/provisioning/`. You do not need them for this
-guide, but you can run a preflight check now (from the repo root):
+Optional: run a preflight check for the next guide (from the repo root). Scripts live at `modules/ghec/resources/provisioning/`.
 
 ```bash
 # Bash
@@ -126,4 +123,4 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh doctor ch01 --org <org
 modules/ghec/resources/provisioning/scripts/setup.ps1 doctor ch01 --org <org>
 ```
 
-A clean `doctor` result confirms that your token scopes and tools meet the selected guides’ requirements.
+A clean `doctor` result confirms your token scopes and tools meet the guide's requirements.

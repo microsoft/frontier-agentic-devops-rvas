@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: "Set up authorized customer dependency governance: dependency graph and Dependabot configuration, vulnerability-alert triage, security updates, scheduled version updates, and dependency-review gating. Preserve customer-owned evidence and the rollout decision."
+description: "Set up authorized dependency governance: dependency graph and Dependabot configuration, vulnerability-alert triage, security updates, scheduled version updates, and dependency-review gating. Preserve customer-owned evidence and the rollout decision."
 tags:
 - ghas
 - dependabot

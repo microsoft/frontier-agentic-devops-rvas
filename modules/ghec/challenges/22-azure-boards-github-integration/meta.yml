@@ -9,7 +9,7 @@ prerequisite_capabilities:
 - GitHub organization with org-owner/admin rights on the target repository
 - Azure DevOps Services organization with an Azure Boards project
 - Ability to install or request installation of a GitHub Marketplace organization app
-description: "Implement an authorized post-migration Azure Boards-to-GitHub integration and validate customer-owned work-item-to-code traceability from commits and pull requests, with accountable ownership and a rollout decision."
+description: "Install the Azure Boards GitHub App, connect a migrated repository, and validate AB# work-item links from commits and pull requests."
 tags:
 - azure-boards
 - github-apps
@@ -42,4 +42,3 @@ references:
 - https://learn.microsoft.com/en-us/azure/devops/boards/github/install-github-app?view=azure-devops
 - https://learn.microsoft.com/en-us/azure/devops/boards/github/connect-to-github?view=azure-devops
 - https://learn.microsoft.com/en-us/azure/devops/boards/github/link-to-from-github?view=azure-devops
-- /home/marco/.copilot/session-state/58bb295a-c8c1-42e1-b6f2-898549a9f8b8/research/all-migration-patterns-supported-to-github-enterpr.md#4-azure-devops--ghec-gh-ado2gh--deep-dive

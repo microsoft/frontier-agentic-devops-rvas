@@ -11,14 +11,12 @@
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes — all steps run on org-owned, prefix-namespaced resources. |
 
-## Customer delivery target
+## Delivery target
 
-- **Goal:** deliver one owned, secure, end-to-end automation for a customer workflow.
-- **Target:** an approved customer App, webhook, Actions workflow, API automation, and project-board integration.
-- **Boundary:** create Apps, secrets, webhooks, and write automation in the customer tenant only with accountable owner approval. Otherwise, use the seeded capstone for testing and leave an implementation proposal.
-- **Keep:** the source-controlled automation, permission matrix, secret-handling record, event trace, idempotency evidence, and failure-mode notes.
-- **Owners:** the customer integration owner accepts operations and rotation. The workflow owner accepts business outcomes.
-- **Next:** authorise production enablement for the selected workflow or assign an owner and decision date to the rollout proposal.
+- Delivery target: an approved App, webhook, Actions workflow, API automation, and project-board integration.
+- Safety boundary: create Apps, secrets, webhooks, and write automation in the customer tenant only with accountable owner approval; otherwise use the seeded capstone.
+- Evidence: the source-controlled automation, permission matrix, secret-handling record, event trace, idempotency evidence, and failure-mode notes.
+- Owner: the integration owner accepts operations and rotation; the workflow owner accepts business outcomes.
 
 > This capstone provisions its own `ghec-ch20-*` state and does not require artifacts from another activity. It uses concepts from ch16 (REST/GraphQL), ch17 (webhooks + GitHub App), and ch18 (Actions runners).
 
@@ -41,15 +39,11 @@
 Your org wants one automation that keeps a project board aligned with issue activity. When an issue opens in the seeded repository, a webhook fires. The GitHub App authenticates as an installation, labels and triages the issue through REST, adds it to a Projects v2 board through GraphQL, and records the result in GitHub Actions. Validate the full flow and make it idempotent so replays do not create duplicates.
 
 > [!IMPORTANT]
-> **Start with an approved customer target.**
-> Default to an authorised customer workflow that combines Actions, API automation, and security controls into a lasting delivery artifact. Complete the work on that artifact and retain the evidence, guardrails, or automation.
+> Default to an authorised customer workflow that combines Actions, API automation, and security controls into a lasting delivery artifact.
 >
-> - Have a candidate? Use it everywhere this guide says `ghec-ch20-automation-capstone`. Skip the Setup step below entirely.
-> - No suitable one? Use the fallback below: a seeded capstone repo for controlled end-to-end automation validation.
->
-> Record the selected target, customer integration owner, and next action and owner. Use the sample only for testing; move the validated automation to an approved customer tenant.
+> Have a candidate? Use it everywhere this guide says `ghec-ch20-automation-capstone`, and skip Setup below. Otherwise use the seeded capstone below for validation only, then hand the validated automation off to the customer owner.
 
-## Sample test repository or environment (when tenant delivery is constrained)
+## Sample test repository or environment
 Skip this if you brought your own workflow/repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported): the `setup.sh` / `setup.ps1` scripts in `modules/ghec/resources/provisioning/scripts/`.
 
 ```bash
@@ -104,11 +98,6 @@ What setup creates (all artifacts namespaced `ghec-ch20-*`, idempotent, prefix-g
 ### Part F — Prove end-to-end & harden
 14. Full-loop demo. Open a fresh issue → observe: signature verified → labeled + commented (REST) → added to board with status (GraphQL) → Actions summary recorded. Capture evidence of each hop.
 15. Failure modes. In `docs/CAPSTONE-NOTES.md`, document: what happens on a bad signature, an expired installation token, and a webhook redelivery — and how your design handles each. Note least-privilege choices.
-
-## Operational extensions
-- Extend the automation to close-out: on `issues.closed`, move the board item to `Done` and remove the triage label.
-- Add a reconcile Actions job (scheduled) that re-syncs board state from issues, proving convergence after missed deliveries.
-- Swap the single seeded event for two event types and route them to different handlers cleanly.
 
 ## Reference links
 - REST API quickstart — https://docs.github.com/en/rest/quickstart

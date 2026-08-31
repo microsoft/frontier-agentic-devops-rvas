@@ -11,14 +11,13 @@
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Customer objective: reduce customer developer onboarding time while governing Codespaces spend.
-- Customer-tenant target: a customer repository’s committed dev-container configuration, Codespaces policy, and prebuild.
-- Approval and safety boundary: create or change Codespaces configurations and billing-bearing resources only with the repository and organisation owner’s approval; use a sample test repository or environment when approval is constrained.
-- Records to keep: retain the committed `.devcontainer` configuration, policy settings, prebuild result, and cost/retention decision.
-- Adoption owner / handover: the repository maintainer and platform owner accept the configuration and operating limits.
-- Next action and owner: the owner authorises a production repository rollout or records the approved rollout proposal.
+- Delivery target: a repository's committed dev-container configuration, Codespaces policy, and prebuild.
+- Safety boundary: create or change Codespaces configurations and billing-bearing resources only with owner approval; use a sample repository when approval is constrained.
+- Evidence: the committed `.devcontainer` configuration, policy settings, prebuild result, and cost/retention decision.
+- Owner: the repository maintainer and platform owner accept the configuration and operating limits.
+- Next decision: the owner authorises a production rollout or records the approved rollout proposal.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -38,17 +37,12 @@
 A GHEC customer onboards new engineers slowly — each spends a day fighting local toolchains before they can run the app. You've been asked to make "clone and code in 60 seconds" real: a committed dev container that gives everyone the identical environment, a prebuild so it starts fast, and an org policy that keeps spend sane. You'll prove it on a seeded Node service.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> Use an approved customer target first. If you have a candidate repository, use it everywhere this guide says `ghec-ch03-codespaces-dev-containers` and skip Setup. Otherwise use the fallback seeded repo below for testing, then move the validated configuration to an approved customer target.
 >
-> Default to an authorised customer repository whose onboarding or local setup needs improvement. Do the work there and keep the evidence, guardrails, or automation.
->
-> - Have a candidate? Use it everywhere this guide says `ghec-ch03-codespaces-dev-containers`. Skip the Setup step below entirely.
-> - No suitable one? Use the fallback below: a seeded sample repo ready for a devcontainer and Codespace.
->
-> Record the selected target, customer adoption owner, and next action and owner. Use the sample only for testing; move the validated configuration to an approved customer target.
+> Record the selected target, adoption owner, and next action.
 
-## Sample test repository or environment (when tenant delivery is constrained)
-Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
+## Sample test repository or environment
+Skip if you brought your own repo.
 
 ```bash
 # Bash
@@ -65,7 +59,7 @@ Setup creates these resources (all names use the `ghec-ch03-*` prefix, and teard
 - A printed Next steps block telling you where to start.
 
 ## Tasks
-> Throughout, `ghec-ch03-codespaces-dev-containers` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
+> `ghec-ch03-codespaces-dev-containers` is the fallback sample name; substitute your own artifact's name if you brought one.
 
 ### Part A — Author the dev container
 1. Inspect and extend `.devcontainer/devcontainer.json`. The fallback sample includes a minimal baseline with a pinned Node image, dependency install, and port 3000 forwarding. Keep the pinned base image suitable for the app (e.g., `mcr.microsoft.com/devcontainers/javascript-node:22`) and improve it.
@@ -95,11 +89,6 @@ Setup creates these resources (all names use the `ghec-ch03-*` prefix, and teard
 12. Create the prebuild from the recorded decision (Settings → Codespaces → Set up prebuild). Select the branch and configuration file, trigger, regions, retained versions, failure-notification owner, and advanced freshness behavior. Wait for the GitHub Actions prebuild workflow to succeed.
 13. Validate the result. Create a *new* Codespace for the configured branch and configuration. Confirm the machine picker shows **Prebuild ready**, `node_modules/express` is already present, and the repository settings show the successful configuration and its next update trigger. Record the workflow URL or run ID in `docs/prebuild-decision.md`.
 14. Clean up running Codespaces with `gh codespace delete` to stop billing.
-
-## Operational extensions
-- Replace the base image with a custom `Dockerfile` referenced from `devcontainer.json` and reproduce the same environment.
-- Add a `docker-compose.yml` dev container that runs the app + a database service together.
-- Add a secret via Codespaces org secrets and read it inside the environment (`echo $MY_SECRET`) without committing it.
 
 ## Reference links
 - Introduction to dev containers — https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers

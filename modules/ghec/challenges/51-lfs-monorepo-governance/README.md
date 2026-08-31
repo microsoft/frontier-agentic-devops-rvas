@@ -11,9 +11,8 @@
 | App | Provisioned monorepo governance repository (created by setup) |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Objective: prevent monorepo sprawl, unclear ownership, and large-file storage surprises.
 - Delivery target: an approved monorepo or monorepo candidate.
 - Safety boundary: history rewrites, LFS migrations, retention changes, and quota purchases are high-impact decisions. Setup does not perform them; proceed only with owner approval.
 - Evidence: repository health data, `.gitattributes`, CODEOWNERS map, large-file exceptions, storage owner, and migration decisions.
@@ -42,16 +41,9 @@ You will:
 A customer wants one repository for many services, docs, generated assets, and models. The repository is growing, ownership is unclear, and teams sometimes commit binaries directly. Define package owners, approved LFS patterns, and an exception intake path. Record when the team will enforce the policy or migrate existing files.
 
 > [!IMPORTANT]
-> Choose the target before setup
->
-> Start with an authorised customer monorepo or candidate. Complete the work there and keep the evidence.
->
-> - Have a candidate? Use the real repository wherever this guide names `ghec-ch51-lfs-monorepo-governance`. Skip setup.
-> - No suitable one? Use the fallback below: a seeded monorepo-shaped repository with packages, `.gitattributes`, CODEOWNERS, governance docs, labels, and sample intake issue.
->
-> Record the selected target, storage owner, package owners, migration approver, exception owner, and next action.
+> Choose the target before setup. Use an authorised customer monorepo or candidate if you have one, wherever this guide names `ghec-ch51-lfs-monorepo-governance`, and skip setup. Otherwise use the fallback seeded repository below.
 
-## Sample test repository or environment (when tenant delivery is constrained)
+## Sample test repository or environment
 
 ```bash
 bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch51 --org <org>
@@ -109,12 +101,6 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 
 12. Record storage/quota owner, package owners, migration approver, exception owner, and next review date.
 13. Choose the next step: advisory policy, CODEOWNERS enforcement, LFS migration plan, repository split, or storage/quota decision.
-
-## Operational extensions
-
-- Add a CI check that rejects unapproved large files.
-- Enforce CODEOWNERS review through branch protection or repository rulesets after approval.
-- Build a migration plan with `git lfs migrate` only after explicit history rewrite approval.
 
 ## Reference links
 

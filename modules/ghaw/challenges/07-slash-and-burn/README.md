@@ -20,20 +20,12 @@ Slash commands let teammates run an agent when they need it. `/summarize` gives 
 2. Detect slash commands in the comment body
 3. Implement `/summarize` by reading the issue and its comments
 4. Handle rate limits and prevent duplicate runs with `lock-for-agent`
-5. Post a summary comment with:
-   - Issue title and status (open/closed)
-   - Key decisions or blockers mentioned
-   - List of action items or next steps (if any)
+5. Post a summary comment with issue status, key decisions/blockers, and action items (see Activity below)
 
 ---
 
-> [!IMPORTANT]
-> Bring your own repo (do this first)
->
-> Run `/summarize` on your own repository if possible. Choose an issue with enough discussion to test the summary. Use the setup sample only for practice.
->
-> - Have a candidate repo? Install or point `slash-commands.md` at that repo everywhere the guide references the sample repo, and test on an issue where the discussion history is genuinely useful.
-> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
+> [!TIP]
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point `slash-commands.md` at a repo you own and test `/summarize` on an issue with genuinely useful discussion history. No candidate repo yet? Use the setup sample.
 
 ---
 

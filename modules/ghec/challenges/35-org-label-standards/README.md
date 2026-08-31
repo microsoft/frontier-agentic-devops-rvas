@@ -11,9 +11,8 @@
 | App | Provisioned starter repositories (created by setup) |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Objective: make labels an organization standard instead of a repository-by-repository habit.
 - Delivery target: approved organization default labels and one reconciled repository.
 - Safety boundary: change organization default labels only with accountable org-owner approval. Otherwise, produce an approved rollout proposal and test the sample repos.
 - Evidence: taxonomy, API snapshots, reconciliation notes, exception process, and review cadence.
@@ -50,7 +49,7 @@ A customer has dozens of repositories with labels such as `bug`, `Bug`, `urgent`
 >
 > Record the selected target, taxonomy owner, exception owner, and next action. Use the sample only for testing; move the approved taxonomy to an authorized customer target.
 
-## Sample test repository or environment (when tenant delivery is constrained)
+## Sample test repository or environment
 
 Skip this if you brought your own org/repo target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
@@ -135,12 +134,6 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
       xargs -I{} gh issue edit {} --repo <org>/ghec-ch35-existing-service --add-label 'priority: p0'
     ```
 15. Keep a short reconciliation note: labels merged, labels intentionally retained, and exceptions with owners.
-
-## Operational extensions
-
-- Write a small reconcile script that compares organization default labels to every repository in a selected cohort.
-- Add a pull request template or issue form guidance telling teams when to request a new organization label.
-- Use repository custom properties from Ch08 to target reconciliation by repository class.
 
 ## Reference links
 

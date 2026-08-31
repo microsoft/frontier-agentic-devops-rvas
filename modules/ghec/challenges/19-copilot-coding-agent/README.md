@@ -11,14 +11,12 @@
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | no — the Copilot cloud agent is not available on EMU-owned repositories. Requires a non-EMU enterprise with the Copilot cloud agent policy enabled. N/A for pure GHEMU customers (see Prerequisites). |
 
-## Customer delivery target
+## Delivery target
 
-- **Goal:** establish governed, reviewable use of Copilot cloud agent for a customer backlog.
-- **Target:** an approved eligible customer repository, Copilot policy, candidate issue, review gates, and operating guidance.
-- **Boundary:** enable policy, grant bypasses, and assign customer issues only with approval from the accountable Copilot, security, and repository owners. Otherwise, use the seeded repository for testing and leave an approved enablement proposal.
-- **Keep:** the policy decision, issue/PR/session evidence, review-gate design, and `AGENT-NOTES.md`.
-- **Owners:** the customer Copilot owner accepts policy and usage boundaries. The repository owner accepts review and merge responsibility.
-- **Next:** approve the first customer issue assignment or hand over the eligibility, risk, and rollout decision package.
+- Delivery target: an approved repository issue that the Copilot cloud agent attempts under review gates.
+- Safety boundary: enable policy, grant bypasses, and assign issues only with approval from the accountable Copilot, security, and repository owners. Human review and merge approval stay with a person, never the agent.
+- Evidence: the issue, draft pull request, session log, review decisions, and the approved-delegation record.
+- Owner: the repository owner accepts merge control; the Copilot owner accepts policy and cost.
 
 ## Prerequisites
 > ⚠️ Read this before starting — this activity has a hard prerequisite the others don't.
@@ -41,15 +39,11 @@
 A GHEC customer wants engineers to delegate small, well-scoped bugs to the Copilot cloud agent and review the results. Validate that flow on a seeded repository with a known bug: write a precise issue, assign it to Copilot, inspect the draft PR and session log, then review and steer the change to a correct fix. The evidence should show which tasks suit the agent and where human review remains necessary.
 
 > [!IMPORTANT]
-> **Start with an approved customer target.**
-> Default to an authorised customer repository issue that Copilot cloud agent can safely attempt with review gates. Complete the work on that artifact and retain the evidence, guardrails, or automation.
+> Default to an authorised customer repository issue that the Copilot cloud agent can safely attempt with review gates.
 >
-> - Have a candidate? Use it everywhere this guide says `ghec-ch19-copilot-coding-agent`. Skip the Setup step below entirely.
-> - No suitable one? Use the fallback below: a seeded sample repo and issues for controlled coding-agent validation.
->
-> Record the selected target, customer Copilot and repository owners, risk decision, and next action and owner. Use the sample only for testing; move the validated operating model to an approved customer tenant.
+> Have a candidate? Use it everywhere this guide says `ghec-ch19-copilot-coding-agent`, and skip Setup below. Otherwise use the seeded sample below for validation only, then hand the validated operating model off to the customer owner.
 
-## Sample test repository or environment (when tenant delivery is constrained)
+## Sample test repository or environment
 Skip this if you brought your own repo/issue. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -98,11 +92,6 @@ What setup creates (all artifacts namespaced `ghec-ch19-*`, idempotent, prefix-g
 
 ### Part F — Reflect (write-up)
 15. Capture the operating boundary. In `docs/AGENT-NOTES.md`, record what the agent did well, where human review was essential, and which issue types are approved for delegation.
-
-## Operational extensions
-- Hand the agent a second, slightly larger issue and observe how it scopes a bigger change.
-- Add a required ruleset and walk the full Copilot-as-bypass-actor configuration end to end.
-- Write the issue so well the agent needs zero follow-up — measure how much prompt quality reduces iteration.
 
 ## Reference links
 - About Copilot cloud agent — https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent

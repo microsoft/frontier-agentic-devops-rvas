@@ -19,20 +19,12 @@ The workflow handles mechanical checks before a human review. Reviewers can spen
 1. Build a workflow triggered by `on: pull_request: types: [opened]`
 2. Analyze PR metadata (files changed, additions/deletions)
 3. Write review instructions that go beyond hardcoded rules
-4. Post a structured review comment with:
-   - Summary of changes (what files, how many lines)
-   - Observations (e.g., "This is a big change" or "Test files look complete")
-   - Suggestions for improvement (if any)
+4. Post a structured review comment with a summary, observations, and optional suggestions (see Activity below)
 
 ---
 
-> [!IMPORTANT]
-> Bring your own repo (do this first)
->
-> Run Review Buddy on your own repository if possible. Real pull requests and review rules make the test meaningful. Use the setup sample only for practice.
->
-> - Have a candidate repo? Install or point `review-buddy.md` at that repo everywhere the guide references the sample repo, and test it on a real or representative pull request.
-> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
+> [!TIP]
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point `review-buddy.md` at a repo you own and test it on a real or representative pull request. No candidate repo yet? Use the setup sample.
 
 ---
 
@@ -58,11 +50,9 @@ Create a gh-aw workflow named `review-buddy.md` in `.github/workflows/` that:
 ## Tips & Hints
 
 - Pull request metadata: Use `github.event.pull_request` context variables to get file count, diff stats, title, description. You don't need to clone the repo.
-- Diff analysis: The agent can read the PR description and reason about scope. You don't need deep code parsing for this activity.
 - Observations matter: Pick observations that are meaningful (e.g., "Tests included" is good; "5 lines of code" is less helpful). Aim for 2–3 key points.
-- Keep it positive: This is a friendly reviewer, not a harsh critic. Balance observations with encouragement.
+- Tone: Conversational and encouraging, not a harsh critic.
 - Large PR heuristic: Generally >500 lines added = "big change worth flagging"
-- Tone: Conversational, helpful, avoiding jargon
 
 ---
 
@@ -78,8 +68,5 @@ Create a gh-aw workflow named `review-buddy.md` in `.github/workflows/` that:
 ## Help
 
 - **Workflow does not trigger on a PR:** Ensure `on: pull_request: types: [opened]`, not `issues`.
-- "Can't access PR stats?" → The agent can read `github.event.pull_request.*` variables. In your body, reference: "There are {number of files} changed, {additions} added, {deletions} removed"
-- **Comment is too generic:** Name the evidence. For example: "This PR is focused: three files changed with clear intent."
-- "Not sure what to observe?" → Look for: file count (small/medium/large), test coverage (tests touched?), description quality (complete or vague?)
-
-Raise your hand.
+- **Can't access PR stats:** Reference `github.event.pull_request.*` context variables (files changed, additions, deletions) in your instructions.
+- **Comment is too generic:** Name the evidence, e.g. "This PR is focused: three files changed with clear intent," instead of vague praise.

@@ -22,11 +22,8 @@ Use your code and alert knowledge to define a campaign the team can finish. Base
 - Confirm that agent-authored changes remain subject to the same human accountability, pull-request, and GHAS evidence as other changes
 
 > [!IMPORTANT]
-> Use your own application first
->
-> - **Real application available:** Use it wherever this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice Shop setup and build the campaign around a real alert class from your Security Overview so the plan addresses security debt your team can reduce.
-> - **No suitable application:** Use the S00 OWASP Juice Shop fallback to practice designing or creating a security campaign.
->
+> Use a real application if you have one; build the campaign around a real alert
+> class from its Security Overview. Otherwise use the S00 Juice Shop fallback.
 
 ## Copilot Tips
 

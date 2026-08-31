@@ -11,14 +11,12 @@
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Customer objective: eliminate a defined recurring customer-tenant task with safe, idempotent automation.
-- Customer-tenant target: an approved repository or organisation automation script, its API scope, and its operational runbook.
-- Approval and safety boundary: run write operations against customer resources only with the accountable owner’s approval; use the seeded repository to validate reconciliation and rate-limit behaviour when access is constrained.
-- Records to keep: retain source-controlled automation, API outputs, rate-limit handling, idempotency evidence, and runbook.
-- Adoption owner / handover: the platform or repository owner accepts the script, permissions, schedule, and failure handling.
-- Next action and owner: authorise production execution or hand over the validated automation proposal and named owner.
+- Delivery target: an approved repository or organisation automation script, its API scope, and its operational runbook.
+- Safety boundary: run write operations against customer resources only with the accountable owner's approval; use the seeded repository to validate reconciliation and rate-limit behaviour when access is constrained.
+- Evidence: the source-controlled script, API output, rate-limit handling, idempotency evidence, and runbook.
+- Owner: the platform or repository owner accepts the script, permissions, schedule, and failure handling.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -43,15 +41,11 @@ gh auth refresh -h github.com -s project,read:project
 A GHEC customer's platform team keeps doing the same triage by hand: relabeling issues, posting status comments, rolling items onto a project board, and exporting reports for leadership. Clicking doesn't scale. You'll rebuild that work as API automation — REST where it's simplest, GraphQL where it saves round-trips — that pages through everything, stays under rate limits, and can be re-run safely any day of the week.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
-> Default to an authorised customer GitHub automation task or repository where an API script will remove recurring toil. Do the work there and keep the evidence, guardrails, or automation.
+> Default to an authorised customer repository or automation task where an API script will remove recurring toil.
 >
-> - Have a candidate? Use it everywhere this guide says `ghec-ch16-rest-graphql-automation`. Skip the Setup step below entirely.
-> - No suitable one? Use the fallback below: a seeded sample repo for controlled REST and GraphQL automation validation.
->
-> Record the selected target, customer automation owner, and next action and owner. Use the sample only for testing; move the validated script to an approved customer tenant.
+> Have a candidate? Use it everywhere this guide says `ghec-ch16-rest-graphql-automation`, and skip Setup below. Otherwise use the seeded sample below for validation only, then hand the validated script and its owner off for production execution.
 
-## Sample test repository or environment (when tenant delivery is constrained)
+## Sample test repository or environment
 Skip this if you brought your own automation target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -100,11 +94,6 @@ Setup creates these resources (all names use the `ghec-ch16-*` prefix, and teard
 ### Part F — Rate limits & a reconcile script
 15. Inspect your budget. `gh api rate_limit --jq '.resources.core, .resources.graphql'`. Note `remaining` and `reset`.
 16. Build a small reconcile script (Bash or PowerShell) that: pages all issues, ensures every issue has at least one label, adds untracked issues to the board, and checks `rate_limit` between batches, sleeping until `reset` if `remaining` is low. Re-run it twice and confirm the second run makes no changes (pure reconcile).
-
-## Operational extensions
-- Re-implement the triage in pure GraphQL (issue search + `addLabelsToLabelable`) and compare the request count to the REST version.
-- Add secondary-rate-limit handling: detect a `403` with `Retry-After` and honor it.
-- Emit a leadership report (open/closed by label) as a single GraphQL query feeding a `jq` table.
 
 ## Reference links
 - About the REST API — https://docs.github.com/en/rest/about-the-rest-api/about-the-rest-api

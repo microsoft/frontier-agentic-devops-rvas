@@ -11,14 +11,13 @@
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Customer objective: make review and merge controls reliable for a customer engineering team.
-- Customer-tenant target: an approved repository’s PR template, `CODEOWNERS`, review rules, and branch/ruleset configuration.
-- Approval and safety boundary: apply customer controls when the repository owner authorises them; use the seeded repository only to validate a proposed change without affecting live delivery.
-- Records to keep: retain the approved policy, validation PRs, and merge-strategy decision.
-- Adoption owner / handover: the repository maintainer owns the controls and accepts the documented merge policy.
-- Next action and owner: the maintainer schedules rollout to the next approved repository or approves the validated proposal.
+- Delivery target: the repository's PR template, `CODEOWNERS`, review rules, and branch/ruleset configuration.
+- Safety boundary: apply controls only when the repository owner authorises them; use the seeded repository only to validate a proposed change.
+- Evidence: the approved policy, validation PRs, and merge-strategy decision.
+- Owner: the repository maintainer owns the controls and accepts the documented merge policy.
+- Next decision: the maintainer schedules rollout or approves the validated proposal.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -38,17 +37,12 @@
 A GHEC customer's team keeps pushing straight to `main`, breaking each other's work, and shipping un-reviewed changes. You've been asked to introduce a real review culture: every change goes through a PR, the right people are required to review the code they own, and merges are clean and traceable. You'll build that workflow on a seeded service repo and prove it end-to-end.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> Use an approved customer target first. If you have a candidate repository, use it everywhere this guide says `ghec-ch02-pull-requests-code-review` and skip Setup. Otherwise use the fallback seeded repo below for testing, then move the validated configuration to an approved customer target.
 >
-> Default to an authorised customer repository whose pull-request review flow needs improvement. Do the work there and keep the evidence, guardrails, or automation.
->
-> - Have a candidate? Use it everywhere this guide says `ghec-ch02-pull-requests-code-review`. Skip the Setup step below entirely.
-> - No suitable one? Use the fallback below: a seeded sample repo with PRs and review settings to configure.
->
-> Record the selected target, customer adoption owner, and next action and owner. Use the sample only for testing; move the validated configuration to an approved customer target.
+> Record the selected target, adoption owner, and next action.
 
-## Sample test repository or environment (when tenant delivery is constrained)
-Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
+## Sample test repository or environment
+Skip if you brought your own repo.
 
 ```bash
 # Bash
@@ -67,7 +61,7 @@ Setup creates these resources (all names use the `ghec-ch02-*` prefix, and teard
 - A printed Next steps block telling you where to start.
 
 ## Tasks
-> Throughout, `ghec-ch02-pull-requests-code-review` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
+> `ghec-ch02-pull-requests-code-review` is the fallback sample name; substitute your own artifact's name if you brought one.
 
 ### Part A — Branch & open a PR
 1. Clone and branch. `gh repo clone <org>/ghec-ch02-pull-requests-code-review`, then create `feature/add-healthcheck` and add a small, real change (e.g., a `/health` endpoint or a new function + doc line).
@@ -97,11 +91,6 @@ Setup creates these resources (all names use the `ghec-ch02-*` prefix, and teard
 ### Part E — Merge strategies
 12. Configure allowed merges. In repo settings, enable all three: merge commit, squash, rebase. Then merge three different PRs using a *different* strategy each, and inspect the resulting history with `git log --oneline --graph`.
 13. Write a one-paragraph note in the repo (`docs/merge-strategy.md`) stating which strategy the team should default to and why (hint: squash for clean linear history is a common GHEC recommendation).
-
-## Operational extensions
-- Add a PR template with a checklist and a "screenshots" section; confirm new PRs pre-fill it.
-- Add auto-request of a whole team via `CODEOWNERS` and require 2 approvals for `/src/`.
-- Enable "require linear history" on `main` and observe how it forbids merge commits — reconcile that with your strategy choice.
 
 ## Reference links
 - About pull requests — https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests

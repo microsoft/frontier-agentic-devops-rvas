@@ -11,9 +11,8 @@
 | App | Provisioned baseline and drifted sample repositories |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Objective: spot repository governance drift before an audit or incident does.
 - Delivery target: an approved baseline and a drift report for a repository cohort.
 - Safety boundary: setup creates sample repositories only. Organization rulesets, default permissions, and other high-impact controls require explicit approval.
 - Evidence: baseline contract, drift output, remediation or exception decisions, owner, and next automation review.
@@ -28,7 +27,7 @@
 
 ## Scenario
 
-A baseline defines repository ownership, required files, labels, topics, and safe feature settings. Repositories drift from it over time. Define the baseline, detect the differences, and record remediation without silently applying broad organization policy. If ghec-ch52 (organization topology, delegation matrix, and control register) is already established for this customer, reuse its approved ownership and delegation expectations as baseline inputs; if it is not available, define the baseline independently within this activity's scope.
+A baseline defines repository ownership, required files, labels, topics, and safe feature settings. Repositories drift from it over time. Define the baseline, detect the differences, and record remediation without silently applying broad organization policy.
 
 ## Sample setup
 

@@ -11,9 +11,8 @@
 | App | Provisioned inventory sample repositories |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Objective: make repository inventory reliable enough for ownership, reporting, and cleanup decisions.
 - Delivery target: a reviewed repository cohort with owner and cleanup decisions.
 - Safety boundary: setup creates sample repositories only. Archive, delete, transfer, visibility, and org-setting changes require approval.
 - Evidence: inventory export with cleanup decisions, metadata changes, exceptions, and next cohort.

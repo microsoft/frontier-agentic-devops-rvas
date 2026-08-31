@@ -11,9 +11,8 @@
 | App | Provisioned intake repository (created by setup) |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Objective: stop unmanaged repository sprawl while keeping requests fast and reviewable.
 - Delivery target: organization member-creation policy and a repository intake workflow.
 - Safety boundary: disabling member repository creation is an org-wide change. Apply it only with explicit org-owner approval. Otherwise, produce a signed rollout proposal and prove the sample workflow.
 - Evidence: policy snapshots, issue-form schema, workflow identity, approval-label event, created repository URL, and failure handling.
@@ -55,7 +54,7 @@ A customer wants fewer shadow repositories and more consistent baselines. Today,
 >
 > Record the selected target, policy owner, workflow owner, approval label, and next action. Use the sample only for testing; move the validated intake flow to an approved customer target.
 
-## Sample test repository or environment (when tenant delivery is constrained)
+## Sample test repository or environment
 
 Skip this if you brought your own intake target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
@@ -135,13 +134,6 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
     ```
 16. Confirm the repo has the approved baseline: description, visibility, README, expected labels, and owner evidence in the request issue.
 17. Record the audit trail: request issue, approving actor, workflow run, created repo, and any exception.
-
-## Operational extensions
-
-- Replace the fallback PAT with a GitHub App token minted inside the workflow.
-- Add repository custom properties from Ch08 during provisioning.
-- Add rulesets, default branch policy, team permissions, and Actions default permissions to the created repo.
-- Add a scheduled audit that finds repos not linked to an approved intake issue.
 
 ## Reference links
 

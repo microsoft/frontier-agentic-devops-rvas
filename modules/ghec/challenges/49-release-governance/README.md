@@ -11,9 +11,8 @@
 | App | Provisioned release governance repository (created by setup) |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Objective: make release publication a controlled business decision instead of an ad hoc tag push.
 - Delivery target: an approved release repository and governance record.
 - Safety boundary: rulesets, deployment environments, and org-wide release permissions can block teams. Inspect and propose them, but change them only with owner approval.
 - Evidence: candidate issue, approval, release notes, tag or release proof, validation results, rollback owner, and exception decision.
@@ -42,16 +41,9 @@ You will:
 A customer publishes releases from several repositories. Approvals live in chat, release notes vary, and nobody clearly owns rollback. Define the controls, create a candidate record, collect validation evidence, and record the approval or rejection with the release history.
 
 > [!IMPORTANT]
-> Choose the target before setup
->
-> Start with an authorised customer release repository. Complete the work there and keep the evidence.
->
-> - Have a candidate? Use the customer's real release repository wherever this guide names `ghec-ch49-release-governance`. Skip setup.
-> - No suitable one? Use the fallback below: a seeded repository with release governance docs, labels, issue template, evidence workflow scaffold, and sample candidate issue.
->
-> Record the selected target, release owner, approver, rollback owner, production settings boundary, and next action.
+> Choose the target before setup. Use an authorised customer release repository if you have one, wherever this guide names `ghec-ch49-release-governance`, and skip setup. Otherwise use the fallback seeded repository below.
 
-## Sample test repository or environment (when tenant delivery is constrained)
+## Sample test repository or environment
 
 ```bash
 bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch49 --org <org>
@@ -118,12 +110,6 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
     ```
 13. If production release publication is not authorized, create a draft release or record a signed dry-run decision instead.
 14. Link the release, draft, or dry-run evidence back to the candidate issue.
-
-## Operational extensions
-
-- Add repository rulesets for tag patterns after owner approval.
-- Use environments with required reviewers for deployment approvals.
-- Subscribe to release webhooks for downstream change records.
 
 ## Reference links
 

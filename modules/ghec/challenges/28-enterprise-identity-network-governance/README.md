@@ -11,18 +11,16 @@
 | App | none |
 | EMU compatible | yes, subject to the control-specific constraints below |
 
-## Customer delivery target
+## Delivery target
 
-- **Objective:** inspect enterprise-level identity and network controls, identify the effective inherited setting and owner, and retain direct evidence.
-- **Target:** verified enterprise settings and, where authorized, a safe bounded test-organization check—not an IdP setup, provisioning exercise, or production rollout.
-- **Default path:** inspection only. Change a test organization only when the customer explicitly authorizes the bounded action.
-- **Safety boundary:** no production-disruptive action is required. Do not enable enforcement, change production IP access, provision users, or require SSH certificates.
+- Delivery target: verified enterprise settings and, where authorized, a safe bounded test-organization check—not an IdP setup, provisioning exercise, or production rollout.
+- Safety boundary: inspect only. Change a test organization only when the customer explicitly authorizes the bounded action. Do not enable enforcement, change production IP access, provision users, or require SSH certificates.
 
 ## Scope boundary
 
 This is an **enterprise governance** activity. Ch14 configures and evidences organization SAML/SCIM lifecycle controls; it is not a substitute for an enterprise identity-model, CAP, or network-policy decision. Ch07 models organization teams and repository roles; its evidence is not an enterprise-role review. Reuse their evidence where relevant, but record the enterprise effective level and accountable enterprise owner here.
 
-This activity **deepens** enterprise identity, network, SSH, and privileged-role controls; it does not repeat `ghec-ch52`'s (Enterprise Landing Zone & Organization Strategy) organization-topology, organization-count, or enterprise-role-model workshop. Check whether `ghec-ch52` has already been completed for this customer: if so, treat its enterprise role/delegation matrix, break-glass ownership, and register as the **preferred** baseline and cite it rather than re-deriving the same decisions, then use this activity to go deeper into CAP/IP allow-list enforcement, SSH CA, and recovery testing. If `ghec-ch52` has not been completed, establish the enterprise role and delegation baseline independently here, as documented below, and record that `ghec-ch52` was not available.
+This activity **deepens** enterprise identity, network, SSH, and privileged-role controls rather than repeating `ghec-ch52`'s (Enterprise Landing Zone & Organization Strategy) organization-topology and enterprise-role-model workshop. When `ghec-ch52` is already completed for this customer, treat its enterprise role/delegation matrix, break-glass ownership, and register as the preferred baseline — cite it instead of re-deriving the same decisions — and use this activity to go deeper on CAP/IP allow-list enforcement, SSH CA, and recovery testing. Otherwise, establish the enterprise role and delegation baseline independently here and record that `ghec-ch52` was not available.
 
 ## Prerequisites
 
@@ -35,7 +33,7 @@ This activity **deepens** enterprise identity, network, SSH, and privileged-role
 
 ### Part A — Establish the effective enterprise baseline
 
-1. Select the customer enterprise and record the source and date of the policy export or the approving enterprise owner. Name the IdP owner, enterprise governance owner, and break-glass owner. Check whether `ghec-ch52` has already named the enterprise governance owner, delegated roles, and break-glass owner for this customer; if so, cite its register entry instead of re-establishing them, and if not, name them independently here and record that `ghec-ch52` was not available.
+1. Select the customer enterprise and record the source and date of the policy export or the approving enterprise owner. Name the IdP owner, enterprise governance owner, and break-glass owner — reusing `ghec-ch52`'s register entry when available, or naming them independently and recording that `ghec-ch52` was not available.
 2. Inspect the identity model, enterprise authentication protocol, effective enterprise settings, organization-level additions, and existing exceptions. Capture immutable exports, setting screenshots, or API output rather than an assertion alone.
 3. Confirm inheritance explicitly: identify each setting's effective enterprise or organization level and whether an organization can add a stricter/additive entry. Do not infer enterprise coverage from a single organization.
 

@@ -20,10 +20,7 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
 > [!IMPORTANT]
 > Bring your own repo (do this first)
 >
-> Use a repository in an organization you control. Choose one where `README.md`, `docs/`, API docs, or runbooks tend to drift from the code.
->
-> - Have a candidate repo? Use it everywhere this guide references the sample repo, and point the workflow at that repo's real docs and code paths so proposed PRs fix production documentation drift.
-> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
+> Use a repository in an organization you control where `README.md`, `docs/`, API docs, or runbooks tend to drift from the code. Point the workflow at that repo's real docs and code paths. No candidate repo yet? Use the provided sample repo from setup.
 
 ## Steps
 
@@ -73,9 +70,6 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
 
 "How do I make sure it doesn't overwrite things it shouldn't?"
 → `safe-outputs: create-pull-request` still requires a human to merge. The agent can propose; humans approve.
-
-"What cron syntax do I use?"
-→ GitHub Actions uses UTC. `0 9 * * *` = 9am UTC daily. Use https://crontab.guru to validate your expression.
 
 "The agent keeps proposing the same change every day"
 → Merge the correction so the drift disappears. Also add this check to the prompt: _"Do not open a PR if an identical open PR already exists."_

@@ -9,9 +9,7 @@ an input policy, but it cannot reliably prevent injection. Stop it at the execut
 sink: use parameter binding or ORM-safe APIs for database operations, and keep data
 separate from interpretation at command or template sinks.
 
-Juice Shop contains SQL and NoSQL injection vulnerabilities in its backend routes. CodeQL has flagged them. Find those alerts, inspect the affected code, explain how an attacker can exploit it, and fix it. Record the validated remediation and a prevention pattern your team can reuse.
-
-Prevent the unsafe pattern from returning. Copilot Autofix or other Copilot assistance may propose a change, but a human must review it through the existing PR and GHAS controls.
+Juice Shop contains SQL and NoSQL injection vulnerabilities in its backend routes. CodeQL has flagged them. Find those alerts, inspect the affected code, explain how an attacker can exploit it, and fix it. Record the validated remediation and a prevention pattern your team can reuse, so the unsafe pattern does not return.
 
 ## Objectives
 
@@ -23,11 +21,8 @@ Prevent the unsafe pattern from returning. Copilot Autofix or other Copilot assi
 - Use two independently reviewed fixes to confirm the pattern, then check for the same unsafe pattern in comparable query paths
 
 > [!IMPORTANT]
-> Use your own application first
->
-> - **Real application available:** Use it wherever this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice Shop setup and select real SQL, NoSQL, command, or template injection alerts so the fixes land in code your team maintains.
-> - **No suitable application:** Use the S00 OWASP Juice Shop fallback to practice fixing known injection flaws.
->
+> Use a real application if you have one; select real SQL, NoSQL, command, or template
+> injection alerts instead of Juice Shop's. Otherwise use the S00 Juice Shop fallback.
 
 ## Copilot Tips
 

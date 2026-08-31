@@ -11,17 +11,16 @@
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Customer objective: replace ad-hoc repository access with a verifiable least-privilege team model.
-- Customer-tenant target: the customer organisation’s approved team hierarchy, repository grants, custom role, and access matrix.
-- Approval and safety boundary: change memberships, roles, and grants only with the accountable organisation owner’s approval; use the seeded structure as a sample test environment when access is constrained.
-- Records to keep: retain API-derived before/after snapshots, the access matrix, and role rationale.
-- Adoption owner / handover: the customer access owner accepts the model and the team/repository maintainers receive the matrix.
-- Next action and owner: approve tenant implementation for the selected teams or deliver the access-model proposal for owner decision.
+- Delivery target: the customer organisation’s approved team hierarchy, repository grants, custom role, and access matrix.
+- Safety boundary: change memberships, roles, and grants only with the accountable organisation owner’s approval; use the seeded structure as a sample test environment when access is constrained.
+- Evidence: retain API-derived before/after snapshots, the access matrix, and role rationale.
+- Owner: the customer access owner accepts the model and the team/repository maintainers receive the matrix.
+- Next decision: approve tenant implementation for the selected teams or deliver the access-model proposal for owner decision.
 
 ## Prerequisites
-- Recommended: Ch52 (Enterprise Landing Zone & Organization Strategy) completed first. When available, use its delegation register as the **preferred** source for the enterprise-level team and role decisions. If Ch52 was not completed, this activity's organization-level model still stands independently — see "Enterprise vs. organization control" below for the fallback.
+- Recommended: Ch52 (Enterprise Landing Zone & Organization Strategy) completed first — its delegation register is the preferred source for enterprise-level team/role decisions (see the closing note); otherwise this activity's organization-level model stands on its own.
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch07 --org <org>` (least-privilege; for this activity: `admin:org` + `repo` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
@@ -48,7 +47,7 @@ A GHEC customer's engineering org has grown past the point where ad-hoc collabor
 >
 > Record the selected target, customer access owner, and next action and owner. Use the sample only for testing; move the validated access model to an approved customer organisation.
 
-## Sample test repository or environment (when tenant delivery is constrained)
+## Sample test repository or environment
 Skip this if you brought your own team/repo access model. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -96,14 +95,7 @@ Setup creates these resources (all names use the `ghec-ch07-*` prefix, and teard
 13. Add at least one member to each squad (or model it with your own account across teams) and confirm membership: `gh api /orgs/<org>/teams/ghec-ch07-frontend-squad/members --jq '.[].login'`.
 14. Produce an access matrix: for each repo, list which teams have which role, pulled from the API. Save it as `ACCESS.md` in `ghec-ch07-platform`.
 15. Diff against the "before" snapshot from setup to prove the org went from flat to modeled.
-16. Source the enterprise-level team/role delegation decision (enterprise teams, custom organization roles, IdP-driven team sync): if Ch52 was completed, cite its landing-zone delegation register entry; otherwise, if you hold authorized enterprise-owner access, pull an enterprise export/inspection and cite it. If neither is available, record `enterprise policy not available / not applicable` in `ACCESS.md` — do not infer enterprise-wide delegation from this one organization's team model.
-
-## Operational extensions
-- Add a third level of nesting (a sub-squad under a squad) and trace how a grant on the grandparent reaches the grandchild.
-- Script the entire access matrix as a Markdown table generated purely from `gh api` calls — turn "who can do what" into a one-command report.
-- Create a second custom role based on `Read` that adds *only* the "manage issues" permission (a "support" persona) and contrast it with Triage.
-
-> Enterprise vs. organization control: An enterprise account adds enterprise teams and can define custom organization roles that span every org, plus team synchronization with an IdP so membership is driven by your identity provider. This activity implements and verifies the **organization-level** team hierarchy and custom repository roles; it does not complete or substitute for the enterprise-level delegation decision. Prefer Ch52's landing-zone delegation register (or an authorized enterprise export you can cite) as the source for that decision. If Ch52 was not completed and no enterprise export is authorized, record it as `not available / not applicable` — do not infer enterprise-wide delegation from this one organization. No enterprise-owner access is required to complete the hands-on organization-level work in this activity.
+16. Record the enterprise-level team/role delegation decision (enterprise teams, custom organization roles, IdP-driven team sync) in `ACCESS.md`: cite Ch52's delegation register entry, or an authorized enterprise export/inspection; if neither exists, record `enterprise policy not available / not applicable`. Don't infer enterprise-wide delegation from this one organization's team model — see the closing note.
 
 ## Reference links
 - About teams — https://docs.github.com/en/organizations/organizing-members-into-teams/about-teams

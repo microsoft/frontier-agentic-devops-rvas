@@ -21,10 +21,7 @@ Source: [`github/gh-aw/.github/workflows/issue-triage-agent.md`](https://github.
 > [!IMPORTANT]
 > Bring your own repo (do this first)
 >
-> Use a repository in an organization you control. Choose one where missing or inconsistent labels make the backlog harder to manage.
->
-> - Have a candidate repo? Use it everywhere this guide references the sample repo, and customise the workflow with that repo's real labels, issue patterns, and classification comment style.
-> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
+> Use a repository in an organization you control where missing or inconsistent labels make the backlog harder to manage. Customise the workflow with that repo's real labels, issue patterns, and comment style. No candidate repo yet? Use the provided sample repo from setup.
 
 ## Steps
 
@@ -68,16 +65,10 @@ Replace the default allowlist with your repo's actual labels:
 <summary>💡 Hints</summary>
 
 "The agent is applying labels that don't exist in my repo"
-→ Your allowlist is the guard. Add explicit instructions: _"Only apply labels from this list: [bug, enhancement, docs, question]. Never invent labels."_
-
-"How do I see what labels I have?"
-→ Run `gh label list`, or open the repository's Issues → Labels page in GitHub.
+→ Your allowlist is the guard. Add explicit instructions: _"Only apply labels from this list: [bug, enhancement, docs, question]. Never invent labels."_ Run `gh label list` to get the exact names.
 
 "Workflow runs but nothing happens"
-→ Check the Actions tab for the run log. Permissions might be missing: use the [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/tutorials/authenticate-with-github_token) model and grant at minimum `issues: write` for `add-labels` and `add-comment`.
-
-"Can I add more than one comment type?"
-→ Yes. `safe-outputs: add-comment: {}` allows multiple comment calls in a single run.
+→ Check the Actions tab for the run log. Permissions might be missing: grant at minimum `issues: write` for `add-labels` and `add-comment` (see [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/tutorials/authenticate-with-github_token)).
 
 "What's the difference between `add-labels` and `set-labels`?"
 → `add-labels` appends to existing labels; `set-labels` replaces them. Use `add-labels` unless you want to own the full label set.

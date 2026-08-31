@@ -25,13 +25,8 @@ This can replace the manual status check before standup. Read the generated brie
 
 ---
 
-> [!IMPORTANT]
-> Bring your own repo (do this first)
->
-> Run the briefing on your own repository if possible. Real issues and pull requests show whether the summary is useful. Use the setup sample only for practice.
->
-> - Have a candidate repo? Install or point `morning-briefing.md` at that repo everywhere the guide references the sample repo, and use its real backlog and PR activity as the briefing material.
-> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
+> [!TIP]
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point `morning-briefing.md` at a repo you own and use its real backlog and PR activity. No candidate repo yet? Use the setup sample.
 
 ---
 
@@ -51,7 +46,6 @@ This can replace the manual status check before standup. Read the generated brie
 - GitHub tool permissions: https://github.github.com/gh-aw/reference/permissions/
 - Cron Syntax Guide: https://crontab.guru/
 - Safe Outputs — Create Issue: https://github.github.com/gh-aw/reference/safe-outputs/#create-issue
-- Related examples: See Category B (Continuous Documentation) in the activity research materials for the `org-health-report.md` and `auto-triage-issues.md` patterns.
 - Related Blog: [Peli's Agent Factory Part 9: Metrics & Analytics](https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-metrics-analytics/)
 
 ---

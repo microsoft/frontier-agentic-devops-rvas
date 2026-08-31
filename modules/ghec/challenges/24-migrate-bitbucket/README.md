@@ -11,18 +11,13 @@
 | App | none |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- **Goal:** run an approved Bitbucket migration path with explicit fidelity and cutover ownership.
-- **Target:** a selected customer Bitbucket repository, GitHub destination, migration staging/queue, and metadata-gap plan.
-- **Boundary:** run customer migrations only during an approved change window, with source-write controls and owner approval. A source-history fallback is a controlled proof, not the delivery destination, and must end in a cutover decision.
-- **Keep:** inventory, script/queue output, migration logs, validation results, fidelity decision, and follow-up backlog.
-- **Owners:** the customer migration owner accepts cutover. Repository and platform owners accept retained gaps and operating changes.
-- **Next:** authorise the selected migration path and cutover window or hand over the approved proposal and risk decision.
-
-## Outcome
-
-Migrate one Bitbucket Server/Data Center repository to GitHub Enterprise Cloud with Git source, history, and pull request metadata, then validate the explicitly limited Bitbucket Cloud fallback that preserves only Git source and history.
+- Delivery target: one approved Bitbucket repository migrated through the Server/Data Center path (`gh bbs2gh`), or the source-history-only Cloud fallback.
+- Safety boundary: run migrations only during an agreed change window with source writes frozen. Without an approved repository, stop and hand over the fidelity gaps.
+- Evidence: inventory, script and queue output, migration logs, validation results, and the fidelity decision.
+- Owner: the migration owner accepts cutover; repository and platform owners accept retained gaps.
+- Next decision: authorise the migration path and cutover window, or hand over the proposal.
 
 ## Prerequisites
 
@@ -41,13 +36,7 @@ Access and tooling you need:
 Your migration team has two Bitbucket populations. The production estate runs Bitbucket Server/Data Center and needs pull request history in GitHub. A smaller team uses Bitbucket Cloud, which has no first-party metadata migration path, so you must still preserve Git source and history and clearly communicate what will be lost.
 
 > [!IMPORTANT]
-> **Start with an approved customer target.**
-> Default to an approved customer Bitbucket Server/Data Center or Bitbucket Cloud repository. Complete the work on that source and target, retaining the migrated repository, history, supported metadata, settings evidence, and gap record.
->
-> - Have a candidate? Use it everywhere this guide references the Bitbucket project, repository, workspace, or target repository.
-> - No suitable source and target? Do not start a migration against an unapproved example; record the access constraint, accountable owner, and next action.
->
-> Record the selected target, customer migration owner, approval boundary, and next action and owner.
+> Use an approved Bitbucket Server/Data Center or Bitbucket Cloud repository as the source and target throughout this guide. Without one, record the access constraint and next action instead of migrating an unapproved example.
 
 ## Important fidelity decision
 

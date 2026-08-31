@@ -11,14 +11,12 @@
 | App | Provisioned container sample repository |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Objective: prevent unmanaged package sprawl and accidental container exposure.
 - Delivery target: one package namespace with approved access, visibility, metadata, and retention decisions.
 - Safety boundary: package visibility, deletion, restore, and team-access changes require explicit approval.
 - Evidence: package owner, source repository, visibility, access grants, retention rule, provenance, and cleanup decision.
 - Owner: platform engineering or the supply-chain owner.
-- Next decision: apply the standard to the next package family.
 
 ## Prerequisites
 
@@ -70,12 +68,6 @@ Setup creates `ghec-ch45-container-governance` with a `Containerfile`, workflow 
 10. Identify stale tags or unapproved packages in the sample namespace.
 11. Delete only approved sample packages or record why they must remain.
 12. Document restore path, retention owner, and next review date.
-
-## Operational extensions
-
-- Add image signing or artifact attestations.
-- Add a scheduled report for untagged or stale package versions.
-- Combine with required reusable workflows from Ch41 for standard image publishing.
 
 ## Reference links
 

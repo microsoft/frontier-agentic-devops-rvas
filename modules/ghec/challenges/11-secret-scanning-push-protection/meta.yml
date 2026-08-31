@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: "Set up authorized customer secret-scanning and push-protection controls, triage leaked-credential alerts, and preserve bypass-audit evidence. Use the public seeded repository only as a sample test repository and record the approved tenant rollout decision."
+description: "Set up authorized secret-scanning and push-protection controls, triage leaked-credential alerts, and preserve bypass-audit evidence. Use the seeded repository only as a sample test repository."
 tags:
 - ghas
 - secret-scanning

@@ -11,14 +11,13 @@
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Customer objective: establish an enforceable CI signal for customer delivery work.
-- Customer-tenant target: an approved repository’s Actions workflow, environment, artifacts, and required check.
-- Approval and safety boundary: make workflows, secrets, environments, and merge-gate changes in the customer tenant when authorised; otherwise validate the design in the seeded repository.
-- Records to keep: retain the workflow, successful and failing run evidence, artifact, and required-check decision.
-- Adoption owner / handover: the repository maintainer owns the workflow and the platform owner owns its guardrail posture.
-- Next action and owner: approve the next repository’s CI rollout or hand over the validated implementation plan.
+- Delivery target: a repository's Actions workflow, environment, artifacts, and required check.
+- Safety boundary: make workflow, secret, environment, and merge-gate changes in the customer tenant only when authorised; otherwise validate the design in the seeded repository.
+- Evidence: the workflow, successful and failing run evidence, artifact, and required-check decision.
+- Owner: the repository maintainer owns the workflow; the platform owner owns its guardrail posture.
+- Next decision: approve the next repository's CI rollout or hand over the validated implementation plan.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -39,17 +38,12 @@
 A GHEC customer's team merges first and finds out it's broken later — there's no automated gate. You'll give them continuous integration: every push and PR builds and tests the app across supported runtimes, caches dependencies so it's fast, publishes a test report you can download, and — critically — blocks merges to `main` when the build is red.
 
 > [!IMPORTANT]
-> Use an approved customer target (do this first)
+> Use an approved customer target first. If you have a candidate repository, use it everywhere this guide says `ghec-ch04-actions-ci-fundamentals` and skip Setup. Otherwise use the fallback seeded repo below for testing, then move the validated configuration to an approved customer target.
 >
-> Default to an authorised customer repository with a build, test, or validation step that should run automatically. Do the work there and keep the evidence, guardrails, or automation.
->
-> - Have a candidate? Use it everywhere this guide says `ghec-ch04-actions-ci-fundamentals`. Skip the Setup step below entirely.
-> - No suitable one? Use the fallback below: a seeded sample repo with code ready for a first CI workflow.
->
-> Record the selected target, customer adoption owner, and next action and owner. Use the sample only for testing; move the validated configuration to an approved customer target.
+> Record the selected target, adoption owner, and next action.
 
-## Sample test repository or environment (when tenant delivery is constrained)
-Skip this if you brought your own repo. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
+## Sample test repository or environment
+Skip if you brought your own repo.
 
 ```bash
 # Bash
@@ -67,7 +61,7 @@ Setup creates these resources (all names use the `ghec-ch04-*` prefix, and teard
 - A printed Next steps block telling you where to start.
 
 ## Tasks
-> Throughout, `ghec-ch04-actions-ci-fundamentals` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
+> `ghec-ch04-actions-ci-fundamentals` is the fallback sample name; substitute your own artifact's name if you brought one.
 
 ### Part A — A real CI workflow
 1. Replace the starter workflow. Author `.github/workflows/ci.yml` that triggers on `push` to any branch and on `pull_request` targeting `main`. Add a `build-test` job on `ubuntu-latest`.
@@ -99,11 +93,6 @@ Setup creates these resources (all names use the `ghec-ch04-*` prefix, and teard
     the workflow remains compatible with those settings. If an enterprise policy
     is not visible to the org owner, note the limitation without blocking the CI
     activity.
-
-## Operational extensions
-- Extract the test job into a reusable workflow (`workflow_call`) and call it from `ci.yml`.
-- Add a concurrency group so superseded runs on the same branch cancel automatically.
-- Add OIDC-based cloud auth (no long-lived secret) to a deploy job (document, even if the cloud side is mocked).
 
 ## Reference links
 - Understanding GitHub Actions — https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions

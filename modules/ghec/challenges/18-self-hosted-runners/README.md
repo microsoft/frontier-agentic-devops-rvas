@@ -11,14 +11,12 @@
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- **Goal:** provide a secure, supportable runner for a customer workload that needs it.
-- **Target:** an approved organisation runner group, selected repositories, runner-host design, workflow labels, and hardening controls.
-- **Boundary:** register and expose runners in the customer tenant only with platform and security owner approval and an agreed host risk model. Otherwise, use a disposable test environment and leave an approved rollout proposal.
-- **Keep:** runner-group scope, host hardening checklist, workflow evidence, egress decision, and runner-type decision matrix.
-- **Owners:** the customer platform owner accepts host operations. Repository owners accept runner use and fork-PR boundaries.
-- **Next:** authorise the runner rollout or assign an owner and date to the risk-approved proposal.
+- Delivery target: an approved organisation runner group, selected repositories, runner-host design, workflow labels, and hardening controls.
+- Safety boundary: register and expose runners in the customer tenant only with platform and security owner approval and an agreed host risk model; otherwise use a disposable test environment.
+- Evidence: runner-group scope, host hardening checklist, workflow evidence, egress decision, and runner-type decision matrix.
+- Owner: the platform owner accepts host operations; repository owners accept runner use and fork pull-request boundaries.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -26,7 +24,7 @@
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
 - A machine to host the runner — your laptop, a VM, or a throwaway container. Linux/macOS/Windows all work; a disposable VM is recommended for controlled hardening validation and clean teardown.
 - Org-scoped framing: this activity configures runners at the org level (org runner group). Enterprise runner groups are covered as *awareness* only — no enterprise owner required to complete it.
-- Check whether `ghec-ch52` (Enterprise Landing Zone & Organization Strategy) has already established this customer's organization topology and cost/organization-scope decision; if so, use it as the preferred input for whether a shared/enterprise runner group across organizations is warranted versus a single org-scoped group, and cite its register entry. If `ghec-ch52` has not been completed, make that scoping call independently in Part E/F and record it.
+- If `ghec-ch52` (Enterprise Landing Zone & Organization Strategy) already established this customer's organization topology, use its scope decision as input for Part F instead of re-deriving it.
 
 ## What you'll do
 - Register a self-hosted runner at the org level and bring it online.
@@ -40,15 +38,11 @@
 A GHEC customer needs CI on hardware GitHub doesn't host, such as a GPU box, a license-locked toolchain, or a network-isolated build host. Register a self-hosted runner in an org runner group, limit it to the repositories that need it, route jobs with labels, and harden it against untrusted pull requests. Then compare its operational cost with GitHub-hosted and larger runners.
 
 > [!IMPORTANT]
-> **Start with an approved customer target.**
-> Default to an authorised customer CI job or repository that needs a self-hosted runner for network, hardware, compliance, or cost reasons. Complete the work on that artifact and retain the evidence, guardrails, or automation.
+> Default to an authorised customer CI job or repository that needs a self-hosted runner for network, hardware, compliance, or cost reasons.
 >
-> - Have a candidate? Use it everywhere this guide says `ghec-ch18-self-hosted-runners`. Skip the Setup step below entirely.
-> - No suitable one? Use the fallback below: a seeded sample repo with runner workflows to validate safely.
->
-> Record the selected target, customer platform and security owners, risk decision, and next action and owner. Use the sample only for testing; move the validated runner design to an approved customer tenant.
+> Have a candidate? Use it everywhere this guide says `ghec-ch18-self-hosted-runners`, and skip Setup below. Otherwise use the seeded sample below for validation only, then hand the validated runner design off to the risk-approved owner.
 
-## Sample test repository or environment (when tenant delivery is constrained)
+## Sample test repository or environment
 Skip this if you brought your own runner target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
 ```bash
@@ -94,24 +88,11 @@ What setup creates (all artifacts namespaced `ghec-ch18-*`, idempotent, prefix-g
 14. Sketch autoscaling. Describe (don't implement) how you'd scale self-hosted runners with ephemeral, just-in-time registration (e.g., a controller that registers a fresh runner per queued job).
 
 ### Part F — Enterprise awareness (read + write-up)
-15. Map org → enterprise. In `docs/RUNNER-CHOICES.md`, add a short note: how an org runner group differs from an enterprise runner group (enterprise groups span multiple orgs; require enterprise-owner), and when you'd reach for each. Check whether `ghec-ch52`'s organization topology and cost/organization-scope decision already answers whether this customer needs an enterprise runner group; if so, cite it, and if not, record your own recommendation and note that `ghec-ch52` was not available. No enterprise actions required.
+15. Map org → enterprise. In `docs/RUNNER-CHOICES.md`, add a short note: how an org runner group differs from an enterprise runner group (enterprise groups span multiple orgs; require enterprise-owner), and when you'd reach for each. Use `ghec-ch52`'s scope decision if available; otherwise record your own recommendation. No enterprise actions required.
 
 ### Part G — Inspect the effective runner policy
 
-16. Verify the runner-group repository scope, labels, routing, host privilege,
-    ephemeral lifecycle, egress, and fork pull-request boundary. If enterprise
-    runner policy is authorized and visible, inspect whether repository and
-    hosted runners are allowed and confirm compatibility with the selected
-    runner group and host-hardening model. Do not change enterprise policy
-    without enterprise-owner approval. If enterprise runner policy is not
-    authorized or not visible, record `enterprise runner policy not available /
-    not applicable` rather than inferring it from the organization-level
-    result.
-
-## Operational extensions
-- Install the runner as a systemd/service with the ephemeral flag and a wrapper that re-registers after each job.
-- Add a labels-only second runner and use `runs-on` matrix to fan a job across both.
-- Write a tiny controller sketch (pseudo-code) that watches the org's queued jobs and registers JIT runners on demand.
+16. Verify the runner-group repository scope, labels, routing, host privilege, ephemeral lifecycle, egress, and fork pull-request boundary. If enterprise runner policy is authorized and visible, confirm it's compatible with your runner group and host-hardening model — do not change it without enterprise-owner approval. If not visible, record `enterprise runner policy not available / not applicable`.
 
 ## Reference links
 - About self-hosted runners — https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners

@@ -11,14 +11,12 @@
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Objective: remove static Azure client secrets from GitHub Actions deployments.
-- Delivery target: one workflow authenticates to Azure using OIDC and least-privilege Azure RBAC.
+- Delivery target: one workflow that authenticates to Azure with OIDC and least-privilege Azure RBAC.
 - Safety boundary: changes to Azure identities, federated credentials, and role assignments require explicit approval. Setup does not make them.
-- Evidence: subject claim design, Azure credential evidence, workflow run URL, failed negative test, removed secret names, and owner approvals.
+- Evidence: subject-claim design, Azure credential evidence, workflow run URL, the failed negative test, and removed secret names.
 - Owner: cloud platform and GitHub platform jointly own the trust design.
-- Next decision: migrate the next deployment workflow or retire an old secret.
 
 ## Prerequisites
 
@@ -70,12 +68,6 @@ Setup creates `ghec-ch40-oidc-azure`, a `ghec-ch40-prod` environment when possib
 10. Run the workflow from the approved branch or environment and capture the workflow URL.
 11. Run or simulate an unauthorized branch/environment and verify Azure denies the token exchange.
 12. Remove old Azure client secrets from GitHub after owner approval.
-
-## Operational extensions
-
-- Use environment-specific federated credentials for dev/test/prod.
-- Add a policy check that rejects workflows granting `id-token: write` without an environment.
-- Pair with Ch39 to remove leftover repository-level deployment secrets.
 
 ## Reference links
 

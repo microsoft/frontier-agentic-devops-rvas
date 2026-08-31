@@ -11,9 +11,9 @@ prerequisite_capabilities:
   - GitHub organization with org-owner rights
   - GitHub CLI (gh >= 2.x) installed or available via Codespaces
 description: >
-  Set up an authorized customer implementation environment in the target GitHub Enterprise
-  Cloud organization. Open the shared org repository in Codespaces (or a local dev container),
-  authenticate the GitHub CLI, and verify org-owner rights before tenant implementation begins.
+  Set up and verify an authorized GitHub Enterprise Cloud environment: open the org repo in
+  Codespaces or a local dev container, authenticate the GitHub CLI, and confirm org access
+  before implementation begins.
 tags:
   - setup
   - devcontainer

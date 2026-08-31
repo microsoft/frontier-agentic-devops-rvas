@@ -33,20 +33,10 @@ Finish this activity with:
 ## Record GHAS Configuration and Ownership
 
 Before marking setup complete, create the first governance record in
-`modules/ghas/resources/ghas-governance-practice.template.md`. Record:
-
-- the real repository or service selected for this work, or Juice Shop as the fallback;
-- the in-scope repository or service and its criticality;
-- which GHAS capabilities are enabled and which remain missing;
-- the repository or service owner, security partner, and delivery team accountable;
-- the initial agentic delivery principles: least privilege; humans remain accountable
-  for approval and merge; and agent-originated changes receive normal GHAS and PR
-  validation; and
-- every access or licensing blocker, its owner, and its target date.
-
-Update the record as you work. If the selected repository is not ready for hands-on
-work, use Juice Shop for practice but keep the real repository or service as the
-recorded delivery scope.
+`modules/ghas/resources/ghas-governance-practice.template.md` covering the items
+listed in Objectives above. Update the record as you work. If the selected
+repository is not ready for hands-on work, use Juice Shop for practice but keep the
+real repository or service as the recorded delivery scope.
 
 ---
 
@@ -175,11 +165,9 @@ Confirm you see the Juice Shop storefront before moving on.
 
 ## Important: GHAS Alerts vs. Local Runtime
 
-The local Juice Shop instance is only for manual testing and application
-exploration. CodeQL, Dependabot, and secret scanning alerts run on the org
-repository provisioned in this activity.
-
-See [`modules/ghas/setup.md`](../../setup.md) for details on how these two environments work together.
+The local Juice Shop instance is for manual testing only. CodeQL, Dependabot, and
+secret scanning alerts run on the org repository provisioned in this activity. See
+[`modules/ghas/setup.md`](../../setup.md) for how the two environments work together.
 
 ---
 
@@ -205,7 +193,6 @@ git log --oneline -1
 Then open `http://localhost:3000` (or the Codespaces-forwarded URL) and confirm the
 Juice Shop homepage loads.
 
-> **Commands alone do not complete this activity.** Before moving on, confirm the
-> governance record names the target and criticality, captures GHAS capability
-> status and accountable roles, records the agentic delivery principles, and
-> assigns every access or licensing blocker an owner and target date.
+> **Commands alone do not complete this activity.** Confirm the governance record
+> is filled in with the target, GHAS capability status, accountable roles, and
+> any access or licensing blocker owner and target date.

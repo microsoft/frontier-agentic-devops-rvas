@@ -24,13 +24,8 @@ Teams often repeat the same prompt rules across workflows. `imports:` keeps thos
 
 ---
 
-> [!IMPORTANT]
-> Bring your own repo (do this first)
->
-> Use your own repository if possible. Base the helper and digest on its real health signals, Discussion category, and audience. Use the setup sample only for practice.
->
-> - Have a candidate repo? Install or point `10-mix-and-match.md` at that repo everywhere the guide references the sample repo, and write `lib/repo-stats-helper.md` around its real issues, PRs, tests, docs, and reporting tone.
-> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
+> [!TIP]
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point `10-mix-and-match.md` at a repo you own and write `lib/repo-stats-helper.md` around its real issues, PRs, and reporting tone. No candidate repo yet? Use the setup sample.
 
 ---
 
@@ -101,10 +96,8 @@ No errors? You're ready to test. Trigger manually with `workflow_dispatch` to ve
 
 ## Tips & Hints
 
-- Import paths are relative to the repo root, not to the workflow file. `./lib/repo-stats-helper.md` works from any workflow in `.github/workflows/`.
-- Discussion category must exist first. If the category doesn't exist in your repo settings, the runtime will error. Create it manually before testing.
-- Add `workflow_dispatch:` alongside your schedule during development so you can trigger the workflow manually without waiting for Monday.
 - The helper is context, not code. Write it like you're briefing a smart colleague: "When summarizing repository status, start with a plain status marker: green (on track), yellow (needs attention), or red (blocked)."
+- Add `workflow_dispatch:` alongside your schedule during development so you can trigger the workflow manually without waiting for Monday.
 
 ---
 
@@ -118,11 +111,6 @@ No errors? You're ready to test. Trigger manually with `workflow_dispatch` to ve
 
 ## Help
 
-- "Compile says import not found" → Double-check the path. It's relative to repo root, so `./lib/repo-stats-helper.md` means the file lives at `lib/repo-stats-helper.md` from the root.
+- "Compile says import not found" → The path is relative to the repo root: `./lib/repo-stats-helper.md` means the file lives at `lib/repo-stats-helper.md`.
 - "Discussion not appearing" → Verify `permissions: discussions: write` is in frontmatter and the category name matches exactly (case-sensitive).
 - "Category doesn't exist" → Go to your repo → Settings → Features → Discussions → Manage. Add a "General" category.
-- "How do I test the schedule without waiting a week?" → Add `on: workflow_dispatch: {}` to your trigger block and run it manually from the Actions tab.
-
----
-
-*Next: Activity 2-05 — Welcome Wagon, or continue to Track 3 — Continuous Intelligence for advanced patterns.*

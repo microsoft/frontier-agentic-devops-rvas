@@ -12,7 +12,7 @@ prerequisite_capabilities:
 - 'Cloud path: bitbucket.org repository and git CLI'
 - GitHub CLI >= 2.4.0
 - PowerShell because generated migration scripts are .ps1 files
-description: "Run an authorized Bitbucket migration pilot using the supported Server/Data Center `gh bbs2gh` path or the source-history-only Bitbucket Cloud fallback. Preserve migration-fidelity evidence, loss ownership, handover, and the cutover decision."
+description: "Migrate a Bitbucket Server/Data Center repository with `gh bbs2gh`, or mirror a Bitbucket Cloud repository as a source-history-only fallback."
 tags:
 - bitbucket
 - github-enterprise-importer

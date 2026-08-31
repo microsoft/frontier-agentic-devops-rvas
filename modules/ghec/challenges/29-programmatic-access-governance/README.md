@@ -11,13 +11,12 @@
 | App | none |
 | EMU compatible | yes — see the EMU and SCIM caveat below |
 
-## Customer delivery target
+## Delivery target
 
-- **Goal:** know which programmatic identities can access the organization, who owns them, and which controls can safely change.
-- **Target:** a programmatic-access inventory, effective-policy/source assessment, compatibility and migration or exception plan, review cadence, and an accountable decision.
-- **Safety boundary:** this is governance, not an integration or API-development session. Do not create, install, provision, or reconfigure an App.
-- **Keep:** inventory snapshot, effective source level, owner and business purpose, permission/scope and repository reach, compatibility impact, exception or migration plan, policy decision, review cadence, and evidence links.
-- **Adoption handover:** the organization owner accepts the organization decision; the enterprise owner accepts an enterprise PAT-policy decision when applicable.
+- Delivery target: a programmatic-access inventory, effective-policy/source assessment, compatibility and migration or exception plan, review cadence, and an accountable decision.
+- Safety boundary: this is governance, not an integration or API-development session. Do not create, install, provision, or reconfigure an App.
+- Evidence: inventory snapshot, effective source level, owner and business purpose, permission/scope and repository reach, compatibility impact, exception or migration plan, policy decision, review cadence, and evidence links.
+- Owner: the organization owner accepts the organization decision; the enterprise owner accepts an enterprise PAT-policy decision when applicable.
 
 ## Prerequisites
 
@@ -31,7 +30,7 @@
 This activity inspects four distinct surfaces: OAuth App restrictions, installed
 GitHub App review, fine-grained PAT policy, and classic PAT policy.
 
-Check whether `ghec-ch52` (Enterprise Landing Zone & Organization Strategy) has already established this customer's enterprise app-registration governance boundary and organization-scope decision; if so, reuse its approved boundary as the starting scope for the inventory below and cite its register entry rather than re-deriving the boundary from scratch. If `ghec-ch52` has not been completed, define the inspection boundary independently in Part A and record that `ghec-ch52` was not available.
+Check whether `ghec-ch52` (Enterprise Landing Zone & Organization Strategy) has already established this customer's enterprise app-registration governance boundary and organization-scope decision. If so, reuse and cite its register entry as the starting scope for the inventory below instead of re-deriving it. If `ghec-ch52` has not been completed, define the inspection boundary independently in Part A and record that `ghec-ch52` was not available — apply the same rule wherever this activity references `ghec-ch52` below.
 
 First establish the **effective source level** for every setting: organization-managed, enterprise-enforced/inherited, or unavailable to the current inspector. An organization owner may inspect organization settings; do not infer enterprise policy from a missing organization control.
 
@@ -43,7 +42,7 @@ OAuth App restrictions and GitHub App review are different controls. OAuth restr
 
 ### Part A — Establish the inspection boundary
 
-1. Record the organization, customer owner, approval boundary, whether it is EMU, and the available role: organization owner, enterprise owner, or authorized enterprise-policy export. Cite `ghec-ch52`'s app-governance and organization-scope decision when available, or record that `ghec-ch52` was not available and the boundary was defined independently.
+1. Record the organization, customer owner, approval boundary, whether it is EMU, and the available role: organization owner, enterprise owner, or authorized enterprise-policy export (see the `ghec-ch52` note above).
 2. In organization **Settings → Third-party access**, inspect OAuth App access and installed GitHub Apps. Record whether OAuth restrictions are already enabled, the approved or denied OAuth Apps, installed Apps, their installation authority, repository reach, permissions, and accountable owner.
 3. Capture a read-only installed-App snapshot where API access is available:
 
@@ -57,7 +56,7 @@ OAuth App restrictions and GitHub App review are different controls. OAuth restr
 
 ### Part B — Build the programmatic-access inventory
 
-5. Create one customer inventory covering OAuth Apps, installed GitHub Apps, fine-grained PATs, and classic PATs. Record it as an extension of `ghec-ch52`'s register when that register already exists, rather than a parallel, disconnected inventory; if `ghec-ch52` has not been completed, maintain this inventory independently and note that no shared register was available to extend. For every entry, capture:
+5. Create one customer inventory covering OAuth Apps, installed GitHub Apps, fine-grained PATs, and classic PATs — extending `ghec-ch52`'s register when it already exists rather than building a parallel, disconnected inventory (see the `ghec-ch52` note above). For every entry, capture:
    - credential/application type, name or identifier, owner and business purpose;
    - organization/repository reach and permissions or scopes;
    - active, pending, approved, denied, or exception status;
@@ -80,12 +79,6 @@ OAuth App restrictions and GitHub App review are different controls. OAuth restr
 
 11. Recheck the effective setting and source level for each surface. Confirm the inventory links the objective Settings/API/audit evidence, owner, and next review date.
 12. Hand over the inventory and decision to the customer organization owner. If enterprise PAT policy is in scope, include the enterprise owner or authorized policy-export owner. Name the next action: approve a low-risk pilot, obtain a policy export, sponsor a migration, approve an exception, or schedule review.
-
-## Operational extensions
-
-- Reconcile the inventory with a customer CMDB or service-owner directory and escalate entries without an accountable owner.
-- Add a quarterly evidence refresh using approved audit-log retention and policy-export processes.
-- Move a proven classic-PAT workload to a least-privilege GitHub App or fine-grained PAT only through a separately approved change.
 
 ## Reference links
 

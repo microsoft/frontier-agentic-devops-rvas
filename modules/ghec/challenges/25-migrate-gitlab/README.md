@@ -11,14 +11,13 @@
 | App | None |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- **Goal:** deliver a controlled GitLab-to-GitHub pilot with an honest metadata and CI cutover plan.
-- **Target:** a selected customer GitLab source, GitHub destination repository, Actions conversion, and migration-gap register.
-- **Boundary:** mirror and cut over customer repositories only with an approved owner, source freeze, and change window. The pilot must end with a customer cutover or Expert Services decision.
-- **Keep:** ref validation, Actions conversion output, gap register, LFS/package decisions, and cutover evidence.
-- **Owners:** the customer migration owner accepts cutover accountability. Repository and CI owners accept post-migration operations.
-- **Next:** approve the production cutover or assign an owner and date to the Expert Services or follow-up decision.
+- Delivery target: one approved GitLab repository mirrored to GitHub, with its CI pipeline converted by GitHub Actions Importer.
+- Safety boundary: mirror and cut over only with an approved owner and a source freeze; otherwise keep the work a pilot.
+- Evidence: ref validation, Actions conversion output, gap register, and LFS and package decisions.
+- Owner: the migration owner accepts cutover; repository and CI owners accept post-migration operations.
+- Next decision: approve the production cutover or hand the gaps to Expert Services.
 
 ## Migration limits
 
@@ -39,13 +38,7 @@ This hands-on activity uses the self-serve path that is available to any Git rep
 This pilot mirrors Git history into GitHub, converts the CI definition, and records what the self-serve path does not preserve. The follow-up plan must cover metadata, LFS, packages, and cutover risk.
 
 > [!IMPORTANT]
-> **Start with an approved customer target.**
-> Default to an approved customer GitLab repository. Complete the work on that source and target, retaining the migrated repository, Git history, Actions workflow, settings evidence, and gap record.
->
-> - Have a candidate? Use it everywhere this guide references the GitLab repository, CI file, or target repository.
-> - No suitable source and target? Do not start a migration against an unapproved example; record the access constraint, accountable owner, and next action.
->
-> Record the selected target, customer migration owner, approval boundary, and next action and owner.
+> Use an approved GitLab repository as the source and target throughout this guide. Without one, record the access constraint and next action instead of migrating an unapproved example.
 
 ## Tasks
 

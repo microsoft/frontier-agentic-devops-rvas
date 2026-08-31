@@ -11,14 +11,13 @@
 | App | None |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- **Goal:** convert an approved customer delivery pipeline into an operable GitHub Actions workflow.
-- **Target:** the selected customer repository’s imported workflow, resolved dependencies, runner/cost decisions, and validated PR.
-- **Boundary:** create workflows, secrets, environments, or cutover changes in the customer tenant only with pipeline and repository-owner approval. A dry run uses a test environment and must produce a cutover proposal.
-- **Keep:** Importer audit/forecast reports, conversion output, validation runs, unresolved-items register, and cutover decision.
-- **Owners:** the customer pipeline owner accepts the workflow. The platform owner accepts capacity, cost, and secret decisions.
-- **Next:** approve the first pipeline cutover window or assign an owner and date to the proposal.
+- Delivery target: one approved pipeline converted into a working GitHub Actions workflow and validated with a real run.
+- Safety boundary: create workflows, secrets, or environments in a customer tenant only with owner approval; otherwise dry-run against a test environment and end with a cutover proposal.
+- Evidence: Importer audit and forecast reports, conversion output, validation runs, and the unresolved-items register.
+- Owner: the pipeline owner accepts the workflow; the platform owner accepts capacity, cost, and secret decisions.
+- Next decision: approve the first cutover window or hand over the proposal.
 
 ## Prerequisites
 
@@ -37,13 +36,7 @@ Access and tooling:
 GitHub Enterprise Importer and `ado2gh` move repository source, history, and supported metadata, but not Azure Pipelines. Use GitHub Actions Importer to inventory the CI/CD footprint, estimate Actions usage, convert one pipeline, open a pull request, and validate the migrated workflow.
 
 > [!IMPORTANT]
-> **Start with an approved customer target.**
-> Default to an approved customer Azure DevOps project and pipeline. Complete the work on that source and target, retaining the workflow, settings, evidence, unresolved items, and cutover decision in the customer tenant.
->
-> - Have a candidate? Use it everywhere this guide references the Azure DevOps project, pipeline, or target repository.
-> - No suitable source and target? Do not start a migration against an unapproved example; record the access constraint, accountable owner, and next action.
->
-> Record the selected target, customer pipeline owner, approval boundary, and next action and owner.
+> Use an approved Azure DevOps project and pipeline as the source and target throughout this guide. Without a suitable source and target, record the access constraint and next action instead of migrating an unapproved example.
 
 ## Setup
 
@@ -170,4 +163,3 @@ Keep the pull request and reports if they are evidence for the migration plan. I
 
 - Automating migration with GitHub Actions Importer — https://docs.github.com/en/actions/tutorials/migrate-to-github-actions/automated-migrations/use-github-actions-importer
 - Migrating from Azure DevOps with GitHub Actions Importer — https://docs.github.com/en/actions/tutorials/migrate-to-github-actions/automated-migrations/azure-devops-migration
-- Research report section 12 and footnote [^3] — `/home/marco/.copilot/session-state/58bb295a-c8c1-42e1-b6f2-898549a9f8b8/research/all-migration-patterns-supported-to-github-enterpr.md`

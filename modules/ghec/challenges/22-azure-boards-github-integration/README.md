@@ -11,14 +11,12 @@
 | App | None |
 | EMU compatible | yes, if your enterprise/org policy permits GitHub App installation or an org owner approves the request |
 
-## Customer delivery target
+## Delivery target
 
-- **Goal:** restore accountable work-item traceability after a customer migration.
-- **Target:** an approved migrated customer repository, Azure Boards connection, scoped Azure Boards App installation, and work-item linkage.
-- **Boundary:** install and authorise the App only within the customer’s approved repository scope. If approval is pending, retain the request and connection plan instead of treating a validation link as the destination.
-- **Keep:** App-installation scope, connection confirmation, linked commit/PR, state-transition evidence, and ownership record.
-- **Owners:** the customer Boards owner and repository owner accept the integration and operating responsibilities.
-- **Next:** approve the production connection or submit the scoped App approval request to the named owner.
+- Delivery target: one migrated repository connected to Azure Boards, with a work item linked to a GitHub commit or pull request.
+- Safety boundary: install and authorise the App only within the approved repository scope. If approval is pending, keep the request and connection plan rather than treating a validation link as done.
+- Evidence: App-installation scope, connection confirmation, linked commit or pull request, and state-transition result.
+- Owner: the Boards owner and repository owner accept the integration.
 
 ## Prerequisites
 - GitHub organization with org-owner rights, or repository admin rights plus a path to request GitHub App installation approval.
@@ -41,10 +39,9 @@ Recommended sequence: do this after the migration planning/cutover activity for 
 GEI preserves existing work-item links on Azure DevOps pull requests, but it does not move Azure Boards work items, queries, or backlog state. Teams that continue planning in Azure Boards need the Azure Boards GitHub App to link new GitHub commits and pull requests after cutover.
 
 > [!IMPORTANT]
-> **Start with an approved customer target.**
-> Default to one approved migrated customer repository and one Azure Boards work item from its owning team. Delivery is complete when the repository is connected and the work item shows a GitHub commit or PR link.
+> Use one migrated repository and one Azure Boards work item from its owning team. You're done when the repository is connected and the work item shows a GitHub commit or PR link.
 >
-> Use these variables in the commands below:
+> Variables used in the commands below:
 >
 > ```bash
 > ORG=<github-org>
@@ -115,14 +112,13 @@ gh pr merge --repo "$ORG/$REPO" --squash --delete-branch
 
 5. Return to the work item and refresh. A phrase such as `Fixes AB#<id>` transitions the work item to the first state in the Resolved workflow category, or if none exists, the first state in the Completed category. State transitions apply when the PR is merged into the default branch.
 
-### Part E — Validate and document the operating model
-Capture evidence for the migration runbook:
-- GitHub App installation page showing Azure Boards installed for the selected repository.
-- Azure DevOps Project settings > GitHub connections showing the connected repo.
-- Azure Boards work item Development section showing the GitHub commit and PR.
-- GitHub PR Development section showing the Azure Boards work item.
-- The work item state before and after PR merge, or a note explaining why the process template uses a different target state.
-- The owner who can approve future GitHub App repository access changes.
+### Part E — Validate the integration
+Confirm each side of the link:
+- GitHub App installation page shows Azure Boards installed for the selected repository.
+- Azure DevOps Project settings > GitHub connections shows the connected repo.
+- Azure Boards work item Development section shows the GitHub commit and PR.
+- GitHub PR Development section shows the Azure Boards work item.
+- The work item state before and after PR merge, or why the process template uses a different target state.
 
 ## Troubleshooting
 
@@ -149,4 +145,3 @@ Keep the connection if this is a production migration bridge. If you used a disp
 - Install the Azure Boards App for GitHub — https://learn.microsoft.com/en-us/azure/devops/boards/github/install-github-app?view=azure-devops
 - Connect an Azure Boards project to a GitHub repository — https://learn.microsoft.com/en-us/azure/devops/boards/github/connect-to-github?view=azure-devops
 - Link GitHub commits, PRs, branches, and issues to work items — https://learn.microsoft.com/en-us/azure/devops/boards/github/link-to-from-github?view=azure-devops
-- Internal migration research report, section 4 — `/home/marco/.copilot/session-state/58bb295a-c8c1-42e1-b6f2-898549a9f8b8/research/all-migration-patterns-supported-to-github-enterpr.md`

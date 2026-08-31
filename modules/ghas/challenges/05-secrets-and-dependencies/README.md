@@ -20,15 +20,11 @@ Both issues need an accountable response. Record the owner, validation, accepted
 - Review Security → Dependabot alerts filtered to critical and high severity
 - For at least 2 Dependabot alerts, open the alert detail, read the CVE description, and understand what the vulnerability actually is
 - Validate secret and dependency changes through your pull request checks, annotations, and push protection results
-- Record the exposure response, dependency ownership, and any time-bound exception in the shared governance practice
 - Apply the same expectation to human- and agent-authored changes: no bypass or exception is complete without an accountable human owner and evidence
 
 > [!IMPORTANT]
-> Use your own application first
->
-> - **Real application available:** Use it wherever this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice Shop setup and review your own secret scanning alerts, high or critical Dependabot alerts, and configuration files so the work improves a repository your team maintains.
-> - **No suitable application:** Use the S00 OWASP Juice Shop fallback to practice the secret and dependency remediation workflow.
->
+> Use a real application if you have one; review its own secret scanning and
+> Dependabot alerts instead of Juice Shop's. Otherwise use the S00 Juice Shop fallback.
 
 ## Learning Resources
 

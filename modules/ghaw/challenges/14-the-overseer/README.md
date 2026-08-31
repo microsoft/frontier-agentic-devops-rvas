@@ -9,13 +9,7 @@ Prerequisites: Track 2, completed ≥3 activities
 
 ## Background
 
-The Overseer monitors and reports on other agentic workflows. It checks:
-- *Are my other workflows running successfully?*
-- *How many tokens did each workflow burn?*
-- *Which workflows are failing repeatedly?*
-- *Should I alert someone?*
-
-The team gets one place to see repeated failures, token spikes, and stale workflows.
+The Overseer monitors other agentic workflows: are they running successfully, how many tokens are they burning, which ones fail repeatedly, and should someone be alerted? The team gets one place to see repeated failures, token spikes, and stale workflows.
 
 ---
 
@@ -31,10 +25,7 @@ The team gets one place to see repeated failures, token spikes, and stale workfl
 > [!IMPORTANT]
 > Bring your own repo (do this first)
 >
-> Use a repository in an organization you control. It should have, or soon have, several agentic workflows whose failures and token use matter to the team.
->
-> - Have a candidate repo? Use it everywhere this guide references the sample repo, and point the health monitor at that repo's real agentic workflow runs, failure patterns, and token history.
-> - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
+> Use a repository in an organization you control with several agentic workflows whose failures and token use matter to the team. Point the health monitor at that repo's real runs, failure patterns, and token history. No candidate repo yet? Use the provided sample repo from setup.
 
 ## Activity
 
@@ -69,14 +60,12 @@ Use a concrete `max-effective-tokens` value because analyzing workflow history r
 
 ---
 
-## Tips & Hints
+## Tips & Troubleshooting
 
-- The `agentic-workflows` MCP tool works only in gh-aw workflows. It gives read-only access to workflow runs in *this* repo.
-- `max-effective-tokens` limits the tokens available to the workflow. Set it high enough for the expected analysis, and document how the expected run count informed the limit.
-- Failure rate: If a workflow ran 5 times and failed 1 time, that's 20% failure rate. Choose the alert threshold before the run so the report is not tuned after seeing the data.
-- Token efficiency: If a workflow's latest run used 2× more tokens than average, flag it. Could be a prompt regression or a real data spike.
-- Use `tracker-id: workflow-health-monitor` in frontmatter so other workflows can associate issues with this monitor.
-- Keep the issue body to ~200 lines. Use markdown tables for easy reading.
+- The `agentic-workflows` MCP tool gives read-only access to workflow runs in *this* repo only; if it's not found, check `tools: agentic-workflows` in frontmatter.
+- Failure rate = failed runs / total runs. Flag a workflow as spiking if its latest run used >2× the average tokens of the previous 5 runs.
+- Set `max-effective-tokens` high enough for the expected analysis, and document why that value fits the run count. If analysis stops early, reduce scope before raising the budget.
+- Use `tracker-id: workflow-health-monitor` so other workflows can associate issues with this monitor, and keep the issue body to a compact markdown table (~200 lines max).
 
 ---
 
@@ -87,15 +76,3 @@ Use a concrete `max-effective-tokens` value because analyzing workflow history r
 - Audit Workflows Example: https://github.com/github/gh-aw/blob/main/.github/workflows/audit-workflows.md
 - Workflow Health Manager Example: https://github.com/github/gh-aw/blob/main/.github/workflows/workflow-health-manager.md
 - Safe Outputs (create-issue): https://github.github.com/gh-aw/reference/safe-outputs/#create-issue
-
----
-
-## Help
-
-Use these checks if the workflow fails:
-
-- "agentic-workflows tool not found?" → Check your `tools: agentic-workflows` in frontmatter. Verify the tool is configured.
-- **The token budget is too low:** Estimate the number of runs and fields the agent must inspect. If analysis stops early, reduce the scope first. Raise the budget only when you can explain why.
-- "How do I compute failure rate?" → # failed runs / # total runs. Simple division.
-- "How do I detect unexpected spikes?" → Compare latest run tokens to average of previous 5 runs. If >2× average, flag it.
-- "The issue is too long?" → Use a table instead of prose. Tables are compact and scannable.

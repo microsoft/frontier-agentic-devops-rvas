@@ -11,9 +11,8 @@
 | App | Provisioned vendor access register repository (created by setup) |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Objective: replace informal vendor repository access with a time-bound, reviewable lifecycle.
 - Delivery target: an access register and one vendor access review or offboarding proof.
 - Safety boundary: setup never invites or removes users and never changes org-wide collaborator settings. Those changes require explicit approval.
 - Evidence: request, approver, repository scope, permission, start/end dates, review and audit-log evidence, and offboarding result.

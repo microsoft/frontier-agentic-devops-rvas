@@ -14,7 +14,7 @@ prerequisite_capabilities:
   - GitHub CLI (gh >= 2.x) installed
   - git installed
   - jq installed
-description: "Set up GitHub Code Quality on an authorized customer repository: enable Code Health analysis, upload CI coverage, triage pull-request findings, set thresholds, and prepare an evidence-based organization rollout."
+description: "Set up GitHub Code Quality on an authorized repository: enable Code Health analysis, upload CI coverage, triage pull-request findings, set thresholds, and prepare an evidence-based organization rollout."
 tags:
   - github-code-quality
   - code-health

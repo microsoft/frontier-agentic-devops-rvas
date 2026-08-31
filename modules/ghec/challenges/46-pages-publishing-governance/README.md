@@ -11,9 +11,8 @@
 | App | Provisioned Pages candidate repository (created by setup) |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Objective: prevent unmanaged Pages publication while allowing approved documentation sites.
 - Delivery target: an approved organization Pages policy and one repository-level publishing proof.
 - Safety boundary: organization Pages settings are org-wide controls. Change them only with org-owner approval; setup never changes them.
 - Evidence: before/after policy snapshots, site URL, source or workflow run, exception decision, rollback owner, and next review.

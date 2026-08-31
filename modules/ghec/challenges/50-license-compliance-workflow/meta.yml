@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script, or an approved production repository with dependencies
-description: "Build a license compliance workflow with dependency evidence, review guidance, exception intake, and owner-approved policy decisions. Setup does not change enterprise or organization license policies."
+description: "Build a license compliance workflow with dependency evidence, review guidance, exception intake, and owner-approved policy decisions. Setup does not change enterprise/organization license policies."
 tags:
 - license-compliance
 - dependency-graph

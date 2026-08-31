@@ -15,21 +15,15 @@ can maintain it after the session.
 
 ## Objectives
 
-- Use your own application repository or service first; use the Juice Shop fallback only when no suitable delivery target is available
 - Open the relevant GHAS alerts, including Security → Code scanning alerts, and review the open default-branch alerts
 - Review at least 5 alerts in full, including the location, description, and code path that triggers each finding
 - For each reviewed alert, open the affected file in your editor, ask Copilot Chat: *"What does this code do wrong, and how could an attacker exploit it?"*, and verify the explanation against the alert and code path
-- Create a security findings register with named owners in `modules/ghas/resources/ghas-governance-practice.template.md`
-- For every inventory item, record the alert category or class, affected repository, service, or component, business or security impact, remediation route, accountable owner or team, target date, current disposition (open, in progress, or accepted risk), and prioritization rationale
-- Use the five alert reviews as evidence supporting the inventory and its prioritization
+- Create a security findings register in `modules/ghas/resources/ghas-governance-practice.template.md`, recording for each item: alert category, affected component, impact, remediation route, owner, target date, disposition (open, in progress, or accepted risk), and prioritization rationale
 - Check Security → Dependabot alerts and record any critical or high-severity dependency vulnerabilities in the inventory
 
 > [!IMPORTANT]
-> Use your own application first
->
-> - **Real application available:** Use it wherever this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the S00 Juice Shop setup and review your repository's Security tab so the results remain useful after the session.
-> - **No suitable application:** Use the S00 OWASP Juice Shop fallback to practice inspecting alerts.
->
+> Use a real application repository or service if you have one; skip the S00 Juice Shop
+> setup and review its Security tab instead. Otherwise use the S00 Juice Shop fallback.
 
 ## Copilot Tips
 

@@ -11,14 +11,12 @@
 | App | Provisioned license compliance repository (created by setup) |
 | EMU compatible | yes |
 
-## Customer delivery target
+## Delivery target
 
-- Objective: make open source license risk visible before dependency changes merge.
 - Delivery target: an approved repository or cohort with dependency manifests and compliance evidence.
 - Safety boundary: enterprise or organization license policies and required checks affect many teams. Setup does not change them; enforce policy only with owner and legal approval.
 - Evidence: dependency inventory, dependency-review results, exception decisions, expiry dates, remediation owners, and policy rollout decision.
 - Owner: the open source program, legal, security, or platform team.
-- Next decision: select the next repository cohort or approve enforcement controls.
 
 ## Prerequisites
 
@@ -28,8 +26,6 @@
 - Dependency graph must be available for live repository inventory evidence. If it is unavailable, use manifests or a customer-approved SBOM as fallback evidence.
 
 ## Customer delivery objectives
-
-You will:
 
 - Define allowed, review-required, and prohibited license categories.
 - Capture dependency inventory evidence from dependency graph, manifests, or SBOMs.
@@ -51,7 +47,7 @@ A customer adds dependencies quickly, but license reviews happen late or inconsi
 >
 > Record the selected target, compliance owner, legal/security approver, exception owner, policy boundary, and next action.
 
-## Sample test repository or environment (when tenant delivery is constrained)
+## Sample test repository or environment
 
 ```bash
 bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch50 --org <org>
@@ -114,11 +110,6 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 
 13. Record policy owner, exception approver, repository cohort, and next review date.
 14. Decide the next enforcement step: advisory dependency review, required check, repository ruleset, or enterprise/org policy rollout.
-
-## Operational extensions
-
-- Configure the Dependency Review GitHub Action after policy approval.
-- Add code owners for dependency manifests.
 
 ## Reference links
 

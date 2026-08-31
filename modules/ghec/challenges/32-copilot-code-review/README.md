@@ -11,13 +11,11 @@
 | App | none |
 | EMU compatible | yes — confirm the effective policy and repository eligibility |
 
-## Customer delivery target
+## Delivery target
 
-- **Goal:** improve pull-request signal without replacing accountable human review.
-- **Target:** a customer-approved review scope, manual-review evidence, an automatic-review decision, and a rollback-ready operating record.
-- **Boundary:** inspect first. Enable an automatic-review ruleset only through a customer-authorized, bounded pilot.
-- **Handover:** the repository owner accepts the review configuration; engineering leads and `CODEOWNERS` reviewers retain code-quality and merge responsibility.
-- **Brand:** retain the **Agentic DevSecOps** name in customer handover material.
+- Delivery target: an approved review scope, manual-review evidence, an automatic-review decision, and a rollback-ready operating record.
+- Safety boundary: inspect first. Enable an automatic-review ruleset only through a customer-authorized, bounded pilot.
+- Owner: the repository owner accepts the review configuration; engineering leads and `CODEOWNERS` reviewers retain code-quality and merge responsibility.
 
 > [!IMPORTANT]
 > Copilot leaves a **Comment** review. It does not approve, request changes, satisfy a required approval, or block a merge. Human reviewers and existing `CODEOWNERS` / ruleset controls remain the merge decision.
@@ -84,16 +82,7 @@ The fallback is intentionally isolated and namespaced `ghec-ch32-*`. It creates 
 
 ## Decision-package fallback
 
-When Copilot code review, policy authority, Actions capacity, or a customer repository is unavailable, deliver a decision package instead of a simulated enablement:
-
-| Field | Minimum record |
-|---|---|
-| Availability | Effective policy/plan result, repository constraint, dated evidence, and why a live pilot did not run |
-| Proposed scope | Candidate repository cohort, branches, PR types, exclusions, and automatic-review options considered |
-| Human controls | Required reviewers, `CODEOWNERS`, merge rules, escalation owner, and statement that Copilot is not an approval |
-| Setup | Shared setup-file assessment; whether a dedicated `copilot-code-review.yml` is proposed, with runner/network/cost constraints |
-| Risk and rollback | Data/tool boundary, false-positive/noise response, disable/revert steps, rollback executor, and verification evidence |
-| Next decision | Named approver, review date, condition to pilot, and condition to remain unavailable or not applicable |
+When Copilot code review, policy authority, Actions capacity, or a customer repository is unavailable, deliver a decision package instead of a simulated enablement: the effective policy/plan result and why a live pilot didn't run; the proposed repository cohort, branches, PR types, and automatic-review options considered; the required human reviewers, `CODEOWNERS`, and merge rules (with a statement that Copilot is not an approval); the shared/dedicated setup-file assessment; the risk/rollback plan; and a named approver with review date.
 
 ## Reference links
 

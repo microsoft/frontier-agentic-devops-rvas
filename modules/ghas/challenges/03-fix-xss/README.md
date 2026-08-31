@@ -23,11 +23,8 @@ Encode output before rendering it, or use framework APIs that do so safely. Firs
 - Use two independently reviewed fixes to confirm the pattern, then check comparable rendering paths for repeat issues
 
 > [!IMPORTANT]
-> Use your own application first
->
-> - **Real application available:** Use it wherever this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice Shop setup and select real reflected or stored XSS findings, unsafe HTML rendering, or related output-encoding alerts so the fixes land in code your team maintains.
-> - **No suitable application:** Use the S00 OWASP Juice Shop fallback to practice fixing known XSS flaws.
->
+> Use a real application if you have one; select real reflected/stored XSS or
+> output-encoding alerts instead of Juice Shop's. Otherwise use the S00 Juice Shop fallback.
 
 ## Copilot Tips
 

@@ -18,27 +18,9 @@ Complete this activity with:
 
 ---
 
-## Option A: GitHub Codespaces
+## Choose your environment
 
-1. Open this repository (`microsoft/frontier-agentic-devops-rvas`) on GitHub.
-2. Click Code → Codespaces → Create codespace on main.
-3. Wait ~30 seconds for the dev container to build.
-   `postCreate.sh` installs `gh-aw` automatically.
-4. When the terminal appears, continue to Authenticate the GitHub CLI below.
-
----
-
-## Option B: Local Dev Container
-
-1. Install [VS Code](https://code.visualstudio.com/) and the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
-2. Clone this repository (if you haven't already):
-   ```bash
-   git clone https://github.com/microsoft/frontier-agentic-devops-rvas.git
-   cd frontier-agentic-devops-rvas
-   ```
-3. Open VS Code in the cloned folder and choose Dev Containers: Reopen in Container.
-4. Wait for the container to build — `postCreate.sh` installs `gh-aw` automatically.
-5. Continue below.
+Follow the [GHAW setup guide](../../setup.md) to open a Codespace or local dev container. Both options install `gh-aw` automatically via `postCreate.sh`. Once your terminal is ready, continue below.
 
 ---
 
@@ -79,6 +61,4 @@ gh aw trial modules/ghaw/resources/examples/hello-world.md --logical-repo micros
 
 > All four commands must succeed before you move on.
 
-The smoke test uses `--logical-repo` so `gh-aw` does not need to infer the simulated repository from your local Git remote. This is especially useful if your clone uses an SSH host alias instead of `github.com`.
-
-You do not need write access to `microsoft/frontier-agentic-devops-rvas` for this smoke test. `gh-aw` creates or uses a trial host repository in your own GitHub account and only simulates the delivery session repository as the target.
+`--logical-repo` tells `gh-aw` which repository to simulate, so it doesn't need to infer one from your local Git remote (useful if your clone uses an SSH host alias). See the [GHAW setup guide](../../setup.md) for what trial mode does with write access.
