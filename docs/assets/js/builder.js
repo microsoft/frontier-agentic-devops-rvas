@@ -1,4 +1,4 @@
-/* Agentic DevSecOps — coach set builder: multi-select activities → shareable link */
+/* Agentic DevSecOps — set builder: multi-select activities → shareable link */
 (function () {
   'use strict';
 

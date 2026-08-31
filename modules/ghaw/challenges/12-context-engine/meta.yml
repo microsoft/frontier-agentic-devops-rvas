@@ -11,14 +11,6 @@ prerequisite_capabilities:
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
 description: Connect multiple MCP toolsets so an agent can read PR diffs and repository guidance before making decisions.
-success_criteria:
-  - Workflow triggers on PR open/push
-  - Agent reads PR diff (GitHub toolset)
-  - Agent reads repo files (CONTRIBUTING.md, ARCHITECTURE.md) to understand repo context
-  - Agent produces a structured comment with context-aware insights
-  - Comment appears on the PR
-  - Comment avoids generic advice—it's specific to *this* repo's standards
-  - "`safe-outputs: add-comment` is used correctly"
 tags:
   - mcp-tools
   - external-context

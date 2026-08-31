@@ -25,7 +25,6 @@ Do **not** use this for code refactoring, schema/field validation (that's `npm r
 |---|---|---|
 | Challenge metadata | `modules/<m>/challenges/<slug>/meta.yml` | wrong difficulty/duration, stale `references` URLs, prerequisite gaps |
 | Student guide | `.../README.md` | wrong commands, fabricated UI labels, broken steps, stale screenshots-in-words |
-| Coach guide | `.../COACH.md` | expected outputs that no longer match reality, wrong hint sequencing |
 | Module docs | `modules/<m>/setup.md`, `modules/README.md` | stale setup commands, wrong versions, broken provenance |
 | Site/docs | `docs/**`, `README.md`, `CONTRIBUTING.md` | counts/totals drift, broken internal links |
 | Vendored resources | `modules/*/resources/**`, `external/**` | pinned-version drift, upstream renames |
@@ -46,7 +45,7 @@ Triage the output: fix any **errors** before continuing, and note **warnings** a
 
 ### 2. Build a review inventory
 
-List the files in scope and, for each challenge, read all three of `meta.yml`, `README.md`, `COACH.md` together — they must stay consistent with each other. Cross-file consistency is the most common defect class here.
+List the files in scope and, for each challenge, read both `meta.yml` and `README.md` together — they must stay consistent with each other. Cross-file consistency is the most common defect class here.
 
 ### 3. Apply the five review lenses
 
@@ -55,10 +54,10 @@ For each file, scan for the issue classes below. See [the issue-class checklist]
 | Lens | Looking for |
 |---|---|
 | **Correctness** | wrong CLI commands/flags, invalid YAML/JSON in fenced blocks, code that won't run, cron expressions, wrong file paths, internal links to missing anchors |
-| **Pacing** | `duration_minutes` vs `difficulty` mismatch, step count vs stated time, prerequisite ordering, track progression jumps, success criteria not reachable in the steps given |
+| **Pacing** | `duration_minutes` vs `difficulty` mismatch, step count vs stated time, prerequisite ordering, track progression jumps, stated outputs not reachable in the steps given |
 | **Hallucinations** | UI labels/buttons/menu paths that don't exist, invented API endpoints/fields/flags, capabilities a product doesn't have, fabricated config keys, made-up version numbers |
 | **Up-to-dateness** | renamed products/features, deprecated APIs/actions, changed default branch behavior, old `actions/*@vN` pins, superseded UI navigation, EOL versions |
-| **Provenance/consistency** | totals/counts in `README.md` vs actual catalog, `source_repo`/`source_path` accuracy, cross-file drift between meta/README/COACH |
+| **Provenance/consistency** | totals/counts in `README.md` vs actual catalog, `source_repo`/`source_path` accuracy, cross-file drift between meta/README |
 
 ### 4. Validate uncertain claims against official docs
 
@@ -75,7 +74,7 @@ Any claim you cannot verify from the repo itself — a UI label, an API field, a
 
 - **Fix** clear, low-risk defects directly (typos, wrong flags, stale version pins, broken relative links, count drift) and keep edits minimal and in the existing voice.
 - **Flag** anything ambiguous, judgment-heavy (e.g. rebalancing `duration_minutes`), or unverifiable — list it for the author with the evidence and a recommended action, but don't guess.
-- Never edit generated files under `docs/assets/data/`; fix the source `meta.yml`/`README.md`/`COACH.md` and re-run the build.
+- Never edit generated files under `docs/assets/data/`; fix the source `meta.yml`/`README.md` and re-run the build.
 
 ### 6. Re-verify and report
 

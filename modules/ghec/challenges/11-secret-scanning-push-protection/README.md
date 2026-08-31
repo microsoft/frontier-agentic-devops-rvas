@@ -61,10 +61,9 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch11 --org <org>
 Setup creates these resources (all names use the `ghec-ch11-*` prefix, and teardown is prefix-guarded):
 - A public repo `ghec-ch11-juice-shop` — OWASP Juice Shop imported at pinned ref `v20.0.0` (pulled from the official source, never vendored into this repo).
 - Planted high-confidence test secrets committed across history so secret scanning has partner-pattern material to detect — for example a fake AWS access key (`AKIA…` paired with a fake secret access key) in an early commit and a GitHub-style token (`ghp_…`) in a later commit. All planted secrets are non-live / synthetic and exist only to trigger detection.
-- A small `SECRETS-MANIFEST.md` in the repo documenting which fake secrets were planted and where, so coaches and customer delivery team members can reconcile expected detections without guessing.
+- A small `SECRETS-MANIFEST.md` in the repo documenting which fake secrets were planted and where, so customer delivery team members can reconcile expected detections without guessing.
 - A `feature/leaky-config` branch carrying one fresh planted secret you'll use to exercise push protection.
 - A printed Next steps block telling you where to start.
-
 
 ## Tasks
 > Throughout, `ghec-ch11-juice-shop` is the fallback sample. If you brought your own repo, substitute its name in every command and skip the manifest steps (your real commit history is the material to triage).
@@ -109,20 +108,6 @@ Setup creates these resources (all names use the `ghec-ch11-*` prefix, and teard
       --jq '.[] | select(.push_protection_bypassed==true) | {number, secret_type, by: .push_protection_bypassed_by.login}'
     ```
 14. Write a one-paragraph triage summary (drop it in an issue on the repo): how many secrets were found, how each was resolved, that push protection blocked a fresh secret, and who bypassed it and why. This is the artifact a real security review would ask for.
-
-## Validation / Definition of Done
-**Done means:**
-- [ ] `secret_scanning` and `secret_scanning_push_protection` both read `enabled` on `ghec-ch11-juice-shop` (verifiable via the `security_and_analysis` API).
-- [ ] Every planted secret in `SECRETS-MANIFEST.md` has a corresponding secret-scanning alert (count + types reconcile).
-- [ ] All alerts are resolved with an explicit, correct resolution reason (none left `open`).
-- [ ] You demonstrated push protection blocking a fresh secret at `git push` (and a clean push after removing it).
-- [ ] At least one push-protection bypass exists with a recorded actor and reason (verifiable via the alerts API).
-- [ ] A custom secret-scanning pattern is published and raised at least one alert.
-- [ ] A triage summary issue exists on the repo.
-- [ ] Real-outcome check — if you brought your own repo, scanning + push protection are now enabled on a project you actually own; if you used the sample, you can name the real repo you'll roll this out to next.
-- [ ] Adoption handover — record the customer security owner, push-protection rollout risk, affected workflow, and next approved action.
-
-> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Enable scanning for non-provider patterns / generic passwords and triage the noisier results — discuss precision vs recall.

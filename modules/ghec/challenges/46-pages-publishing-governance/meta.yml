@@ -12,14 +12,6 @@ prerequisite_capabilities:
 - jq installed
 - Repository provisioned via activity setup script
 description: "Set the GitHub Pages publication policy, configure a repository source, verify publication, and record exceptions without changing organization-wide settings during setup."
-success_criteria:
-- The current organization Pages publication policy is captured before any change.
-- An approved policy decision records who may publish Pages sites, allowed visibility, exception path, and review cadence.
-- Organization-wide Pages settings are changed only by an explicit participant step with org-owner approval, or a rollout proposal explains why they were not changed.
-- A target repository has a Pages source or GitHub Actions publishing workflow configured according to the approved policy.
-- Publication evidence includes the site URL, source branch or workflow run, visibility decision, and rollback owner.
-- Governance evidence records owner, scope, exceptions, audit evidence, and next review.
-- Customer evidence names the authorized scope and owner, links the relevant controls and handover record, and states the next publishing decision.
 tags:
 - pages
 - publishing

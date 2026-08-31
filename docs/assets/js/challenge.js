@@ -31,8 +31,7 @@
     renderFacts(challenge, mod, allChallenges, data.outcomes || []);
     renderRelated(challenge, allChallenges);
     applyKioskLinks();
-    initViewSwitch(challenge);
-    loadGuide('student', challenge);
+    loadGuide(challenge);
   }
 
   /* In kiosk mode, point the sidebar "back" link at the curated set */
@@ -122,14 +121,6 @@
       }
     }
 
-    // Success criteria
-    const criteriaList = document.getElementById('criteriaList');
-    if (criteriaList) {
-      criteriaList.innerHTML = (c.success_criteria || [])
-        .map((s) => `<li class="criteria-item"><span>${FP.renderInlineMd(s)}</span></li>`)
-        .join('') || '<li class="cap-item">See the delivery guide.</li>';
-    }
-
     // Fact rows
     const factRows = document.getElementById('factRows');
     if (factRows) {
@@ -162,13 +153,12 @@
         .join('') || '<span class="text-dim" style="font-size:0.8rem">No tags</span>';
     }
 
-    // Exact source files for the two rendered guide views.
+    // Exact source file for the rendered guide.
     const sourcePanel = document.getElementById('sourcePanel');
     const sourceList = document.getElementById('sourceList');
     if (sourcePanel && sourceList) {
       const sources = [
         ['Delivery guide', c.student_source_repo, c.student_source_path],
-        ['Delivery assurance', c.coach_source_repo, c.coach_source_path],
       ].filter(([, repo, sourcePath]) => repo && sourcePath);
 
       if (!sources.length) {
@@ -224,25 +214,13 @@
     }).join('');
   }
 
-  function initViewSwitch(c) {
-    const btns = document.querySelectorAll('.view-switch button');
-    btns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const view = btn.dataset.view;
-        btns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === view)));
-        document.body.setAttribute('data-view', view);
-        loadGuide(view, c);
-      });
-    });
-  }
-
-  async function loadGuide(view, c) {
+  async function loadGuide(c) {
     const body = document.getElementById('guideBody');
     if (!body) return;
 
-    const path = view === 'coach' ? c.coach_path : c.student_path;
+    const path = c.student_path;
     if (!path) {
-      body.innerHTML = `<p class="text-dim" style="font-size:.875rem">Guide not available for this view.</p>`;
+      body.innerHTML = `<p class="text-dim" style="font-size:.875rem">Guide not available.</p>`;
       return;
     }
 

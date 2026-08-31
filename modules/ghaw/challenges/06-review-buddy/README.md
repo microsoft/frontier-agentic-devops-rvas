@@ -33,8 +33,6 @@ The workflow handles mechanical checks before a human review. Reviewers can spen
 >
 > - Have a candidate repo? Install or point `review-buddy.md` at that repo everywhere the guide references the sample repo, and test it on a real or representative pull request.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
->
-> Tell the facilitator which repository and pull request you chose.
 
 ---
 
@@ -54,24 +52,6 @@ Create a gh-aw workflow named `review-buddy.md` in `.github/workflows/` that:
   - At least 2 observations about the PR (e.g., "Test files are included" or "⚠️ This is a large change; reviewers may take longer")
   - Optional suggestions (e.g., "Consider breaking this into smaller PRs" if very large)
   - An encouraging sign-off (e.g., "Looking forward to reviewing!")
-
----
-
-## Success Criteria
-
-- [ ] `.github/workflows/review-buddy.md` exists with valid gh-aw frontmatter
-- [ ] Trigger is `on: pull_request: types: [opened]`
-- [ ] Safe-outputs includes `add-comment` (no label application needed here)
-- [ ] `.github/workflows/review-buddy.lock.yml` compiles without errors
-- [ ] You manually test by creating a test PR in your repo
-- [ ] The workflow runs and posts a comment within 30 seconds of PR creation
-- [ ] The comment is friendly and includes at least:
-  - A thank-you message
-  - Summary of changed files/lines
-  - 2+ observations
-  - An encouraging sign-off
-- [ ] The comment feels useful (not spam)
-- [ ] Using a project, task, or workflow you own, discuss which review checks a first-pass bot can handle and which decisions require a human.
 
 ---
 

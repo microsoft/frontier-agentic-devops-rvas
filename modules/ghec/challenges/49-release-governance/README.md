@@ -119,15 +119,6 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 13. If production release publication is not authorized, create a draft release or record a signed dry-run decision instead.
 14. Link the release, draft, or dry-run evidence back to the candidate issue.
 
-## Validation / Definition of Done
-
-- [ ] Release governance policy identifies release owner, approver, evidence, tag naming, release notes, rollback owner, exception path, and review cadence.
-- [ ] A release candidate record captures scope, risk, validation evidence, approval decision, and release or rollback decision.
-- [ ] Repository artifacts include release notes or changelog source, release readiness checklist, and tag/release naming standard.
-- [ ] High-impact controls were inspected and either approved for explicit rollout or recorded as deferred; setup did not mutate them.
-- [ ] A sample release, draft release, or dry-run demonstrates the evidence trail.
-- [ ] Adoption handover names the release owner, approver, rollback owner, next release, and review date.
-
 ## Operational extensions
 
 - Add repository rulesets for tag patterns after owner approval.

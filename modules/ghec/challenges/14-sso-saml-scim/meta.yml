@@ -10,15 +10,8 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: "Set up an authorized customer SAML and SCIM identity integration in test mode before enforcement, with provisioning and deprovisioning evidence, identity audit, and tested rollback. Preserve approval, ownership, and safe rollout evidence."
-success_criteria:
-- The runbook explains the **three auth models** and records your IdP app's SAML settings.
-- '**SAML SSO is configured** for the org and **validated in test mode** (test round-trip succeeded before enforcement).'
-- A **token is SSO-authorized** and works against org resources under SAML (`gh api orgs/<org>/members` succeeds).
-- '**SCIM provisioning is enabled** and you demonstrated a **join** (user created via SCIM) and a **leave** (user suspended via SCIM), verifiable via the SCIM API.'
-- You produced an **external-identity audit** listing GitHub logins ↔ IdP identities.
-- '**SAML SSO is enforced** on the org (and you documented a tested rollback).'
-- Customer evidence records the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+- Optional ghec-ch52 approved identity-model decision (personal accounts vs SAML-restricted org vs EMU), when already established for the customer
+description: "Set up an authorized customer SAML and SCIM identity integration in test mode before enforcement, with provisioning and deprovisioning evidence, identity audit, and tested rollback. Prefer ghec-ch52's identity-model decision as the source for the org-vs-EMU determination when available; fall back to an independent determination when it is not. This organization-scoped work does not substitute for an enterprise SSO/SCIM or EMU decision. Preserve approval, ownership, and safe rollout evidence."
 tags:
 - sso
 - saml

@@ -9,14 +9,8 @@ prerequisite_capabilities:
   - Enterprise owner access or an authorized enterprise-policy export
   - Named customer IdP owner
   - Named enterprise governance owner and break-glass owner
-description: "Inspect enterprise conditional access, IP allow lists, SSH certificate authorities, and enterprise roles, retaining direct evidence without disrupting production."
-success_criteria:
-  - Identity, IP allow-list, SSH CA, and enterprise-role settings have effective-level and objective source evidence.
-  - CAP eligibility is evidenced as EMU with OIDC and Microsoft Entra ID, with the mutually exclusive CAP-versus-GitHub-IP-allow-list decision recorded.
-  - The IP allow-list decision records effective inheritance, service and break-glass exceptions, and any authorized test adds and removes one test-org entry without enforcement.
-  - SSH CA remains unchanged unless a customer-authorized test is limited to test-org CA registration and does not require SSH certificates.
-  - Enterprise owners are minimized, delegated roles are named, and two owners or an approved exception plus a break-glass process is evidenced.
-  - No production-disruptive action or user provisioning is required; the enterprise owner and IdP owner have an accountable next decision.
+  - Optional ghec-ch52 approved enterprise role/delegation matrix and register, when already established for the customer
+description: "Inspect enterprise conditional access, IP allow lists, SSH certificate authorities, and enterprise roles, retaining direct evidence without disrupting production. Deepens rather than repeats ghec-ch52's topology and delegation baseline: prefer its enterprise role/delegation matrix and register when available, and fall back to an independent enterprise-role baseline when ghec-ch52 has not been completed."
 tags:
   - enterprise-governance
   - enterprise-managed-users

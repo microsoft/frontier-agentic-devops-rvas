@@ -83,7 +83,7 @@ If a new version of Juice Shop or another active dependency is needed:
 1. **Coordinate with curriculum**: Update `external-repos.json` with the new ref (tag and/or full SHA).
 2. **Bump the submodule pointer** (for submodule-backed apps): `cd external/<name> && git fetch --depth 1 origin <new-sha> && git checkout <new-sha>`, then `git add external/<name>` in the repo root.
 3. **Test**: Run `npm run verify:repos` and `npm run verify:repos:external` to confirm the manifest SHA and gitlink are in sync.
-4. **Document**: Add a note to the activity's `COACH.md` if the new ref introduces breaking changes.
+4. **Document**: Add a note to the activity's `README.md` if the new ref introduces breaking changes.
 5. **Rebuild**: Run `npm run build` to regenerate catalogs with the new refs.
 
 > **Tag vs. SHA nuance:** `external-repos.json` stores both the friendly tag (`v20.0.0`) and the exact commit SHA. Git submodules track the SHA only — the tag is purely for human reference. The drift check (`npm run verify:repos`) asserts the gitlink SHA equals `source.sha`; always update both together.
@@ -243,19 +243,16 @@ In-tree course content is validated by `npm run build` and the content audit scr
 - Keep `external-repos.json` limited to active external repositories used by the course.
 - When external projects release major versions, evaluate and document breaking changes before updating the pin.
 - Test setup scripts (`setup.sh provision`) against the pinned refs in a CI/CD gate or manual verification step.
+- Validate that Juice Shop ref is reachable before running a cohort (run `npm run verify:repos:external`).
+- Retired Microsoft repos do not need to be reachable; the verify script skips them automatically.
 
 ### For Customer delivery team members
 
-- Follow setup instructions in each activity's `README.md` or `COACH.md`.
+- Follow setup instructions in each activity's `README.md`.
 - All module content is in-tree; you do not need to clone or fork the retired upstream repos.
 - If setup fails to pull Juice Shop, check your GitHub token scopes and network access.
-- Report setup failures via your delivery session organizer so coaches can investigate.
-
-### For Coaches
-
-- Validate that Juice Shop ref is reachable before running a cohort (run `npm run verify:repos:external`).
-- Retired Microsoft repos do not need to be reachable; the verify script skips them automatically.
-- Keep customer delivery team members informed if external services (GitHub, Docker Hub) have outages.
+- Report setup failures via your delivery session organizer.
+- Keep other delivery team members informed if external services (GitHub, Docker Hub) have outages.
 
 ## See Also
 

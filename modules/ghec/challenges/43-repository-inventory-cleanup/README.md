@@ -75,15 +75,6 @@ Setup creates `ghec-ch43-owned-service`, `ghec-ch43-orphan-tool`, and `ghec-ch43
 9. Store the inventory in the customer-approved location.
 10. Name the next cohort, owner, and review cadence.
 
-## Validation / Definition of Done
-
-- [ ] Inventory fields and cleanup decision values are defined.
-- [ ] A sample or customer cohort is exported and reviewed.
-- [ ] Missing metadata, unowned repos, and duplicate-purpose repos are identified.
-- [ ] At least one safe metadata improvement is applied.
-- [ ] High-impact actions are explicitly approved or deferred with owner/date.
-- [ ] Adoption handover names the inventory owner and next cleanup cohort.
-
 ## Reference links
 
 - Repositories REST API — https://docs.github.com/en/rest/repos/repos

@@ -136,21 +136,6 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 16. Confirm the repo has the approved baseline: description, visibility, README, expected labels, and owner evidence in the request issue.
 17. Record the audit trail: request issue, approving actor, workflow run, created repo, and any exception.
 
-## Validation / Definition of Done
-
-You are done when all of the following are true:
-
-- [ ] Members cannot create repositories directly, or an approved rollout proposal records why the production setting was not changed during the session.
-- [ ] The intake repository has a working repository-request issue form.
-- [ ] A maintainer-applied `repo-intake: approved` label triggers the provisioning workflow.
-- [ ] The workflow creates a requested repository with approved baseline settings and fails closed for invalid requests.
-- [ ] The intake issue is updated with provisioning evidence and a final provisioned or failed label.
-- [ ] Governance evidence records owner, approval route, workflow identity, baseline controls, audit evidence, and next review.
-- [ ] If you used your own intake repository, a real team can request repositories through it. If you used the sample, name the production intake repository or policy decision that comes next.
-- [ ] Name the intake process owner, credential owner, next baseline improvement, and review date.
-
-> Coaches verify these via the automated hints in `COACH.md`.
-
 ## Operational extensions
 
 - Replace the fallback PAT with a GitHub App token minted inside the workflow.

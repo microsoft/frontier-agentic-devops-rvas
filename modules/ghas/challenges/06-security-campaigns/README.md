@@ -17,7 +17,7 @@ Use your code and alert knowledge to define a campaign the team can finish. Base
 - Complete the Operating Cadence section of `modules/ghas/resources/ghas-governance-practice.template.md`: triage and campaign review frequency, participants, measures, escalation, and leadership or risk reporting path
 - Decide on a campaign scope: which vulnerability class would you tackle first if you were running this as a real remediation sprint? Justify the choice using risk, business impact, volume, effort, and ownership.
 - If org access is available: open Security Overview at the org level, create a campaign, set a name, description, and due date, and add at least 5 relevant alerts to it
-- If org access is unavailable: use the shared governance practice to record the equivalent scope, assignees, timeline, definition of done, and tracking approach
+- If org access is unavailable: use the shared governance practice to record the equivalent scope, assignees, timeline, completion conditions, and tracking approach
 - Define how fixed, in-progress, accepted-risk, and overdue findings are reviewed and escalated
 - Confirm that agent-authored changes remain subject to the same human accountability, pull-request, and GHAS evidence as other changes
 
@@ -27,23 +27,11 @@ Use your code and alert knowledge to define a campaign the team can finish. Base
 > - **Real application available:** Use it wherever this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice Shop setup and build the campaign around a real alert class from your Security Overview so the plan addresses security debt your team can reduce.
 > - **No suitable application:** Use the S00 OWASP Juice Shop fallback to practice designing or creating a security campaign.
 >
-> Tell your coach which path you chose.
->
-
-## Success Criteria
-
-- [ ] Operating cadence documented: triage and campaign review frequency, participants, escalation, reporting path, and measures
-- [ ] Campaign scope defined and justified with risk, business impact, volume, effort, and accountable ownership
-- [ ] Option A: Security campaign created with a name, due date, and at least 5 alerts. Progress is tracked in the campaign view.
-- [ ] Option B (no org access): Shared governance practice records scope, assignees, timeline, definition of done, and tracking approach
-- [ ] Accepted-risk and overdue findings have an accountable owner, rationale, and review or expiry date
-- [ ] Human- and agent-authored changes have the same accountable-owner, pull-request, and GHAS validation expectations
-- [ ] Coach conversation: Choose the first vulnerability class for a security campaign in your team's codebase. Explain the case to your engineering lead and define done. Discuss a real project, task, or workflow with your coach.
 
 ## Copilot Tips
 
 - Paste your list of remaining alerts and ask: *"If I were running a 2-day security sprint, which of these would you prioritize and in what order? Explain your reasoning."*
-- Ask: *"What's a good definition of done for a SQL injection remediation campaign?"*
+- Ask: *"What completion conditions should a SQL injection remediation campaign use?"*
 - Ask: *"Draft a campaign description I could use for a GitHub Security Campaign targeting injection vulnerabilities in a Node.js/Express application. Include ownership, evidence, and a review date."*
 
 ## Learning Resources

@@ -17,12 +17,6 @@ description: >
   Azure roles, supported region, and repository access needed to deploy the
   Grubify sample app, Azure Monitor alerts, Log Analytics, Application Insights,
   and Azure SRE Agent.
-success_criteria:
-  - "`az account show` returns the intended subscription"
-  - "The participant confirms Owner role or a coach-approved pre-provisioned environment"
-  - "`az provider register -n Microsoft.App --wait` succeeds or is already registered"
-  - "The official `microsoft/sre-agent` starter-lab prerequisites are understood"
-  - "A fallback evidence packet is selected if live deployment is not available"
 tags:
   - setup
   - sre-agent

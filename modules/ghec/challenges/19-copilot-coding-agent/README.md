@@ -69,7 +69,6 @@ What setup creates (all artifacts namespaced `ghec-ch19-*`, idempotent, prefix-g
 - A well-framed seeded issue describing the bug, repro, and acceptance criteria — ready to assign to Copilot.
 - A printed Next steps block (including how to add Copilot as a bypass actor if you enable branch protection).
 
-
 ## Tasks
 > Throughout, `ghec-ch19-copilot-coding-agent` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
@@ -99,19 +98,6 @@ What setup creates (all artifacts namespaced `ghec-ch19-*`, idempotent, prefix-g
 
 ### Part F — Reflect (write-up)
 15. Capture the operating boundary. In `docs/AGENT-NOTES.md`, record what the agent did well, where human review was essential, and which issue types are approved for delegation.
-
-## Validation / Definition of Done
-You are done when ALL of the following are true:
-- [ ] You confirmed the Copilot cloud agent is enabled and the repo is eligible (non-EMU).
-- [ ] You assigned the seeded issue to Copilot and it opened a draft pull request.
-- [ ] You read the agent's session log and reviewed its diff against the acceptance criteria.
-- [ ] You steered the agent with at least one review comment and it pushed new commits in response.
-- [ ] The failing test is green in the PR and the PR was approved and merged to `main`.
-- [ ] `AGENT-NOTES.md` records where the agent fits and where human review remains essential.
-- [ ] Real-outcome check — if you brought your own repo issue, the Copilot cloud agent now has a real candidate task and review gate; if you used the sample, you can name the issue class you will try next.
-- [ ] Adoption handover — record the customer Copilot and repository owners, approved issue class, review gate, and next action.
-
-> Coaches verify these via the automated hints in `COACH.md`.
 
 ## Operational extensions
 - Hand the agent a second, slightly larger issue and observe how it scopes a bigger change.

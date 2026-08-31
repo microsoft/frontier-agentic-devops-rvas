@@ -115,15 +115,6 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 13. Record policy owner, exception approver, repository cohort, and next review date.
 14. Decide the next enforcement step: advisory dependency review, required check, repository ruleset, or enterprise/org policy rollout.
 
-## Validation / Definition of Done
-
-- [ ] License policy identifies allowed, review-required, and prohibited license families with owner, exception path, expiry rules, and review cadence.
-- [ ] Dependency inventory evidence is captured from dependency graph, manifests, or approved SBOM source.
-- [ ] A dependency review or equivalent pull-request checkpoint is documented for license changes.
-- [ ] A license exception issue records package, license, usage, decision, expiry, and remediation path.
-- [ ] Enterprise or organization policy changes are explicit participant steps and were not performed by setup.
-- [ ] Adoption handover names the compliance owner, legal/security approver, next repository cohort, and review date.
-
 ## Operational extensions
 
 - Configure the Dependency Review GitHub Action after policy approval.

@@ -64,7 +64,6 @@ Setup creates these resources (all names use the `ghec-ch17-*` prefix, and teard
 - A populated `WEBHOOK-SETUP.md` walking the smee.io and Actions receiver options.
 - A printed Next steps block (including a generated webhook secret suggestion) telling you where to start.
 
-
 ## Tasks
 > Throughout, `ghec-ch17-webhooks-github-apps` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
@@ -131,21 +130,6 @@ Setup creates these resources (all names use the `ghec-ch17-*` prefix, and teard
     inspect their event scope, receiver, HMAC verification, and retention. The
     repository and organization work remains complete when enterprise settings
     are outside the participant's access.
-
-## Validation / Definition of Done
-**Done means:**
-- [ ] A repository webhook delivers Issues and Push events to your receiver (shown in Recent Deliveries).
-- [ ] You can identify `X-GitHub-Event`, `X-GitHub-Delivery`, and `X-Hub-Signature-256` on a delivery.
-- [ ] Your receiver verifies the HMAC-SHA256 signature and rejects a tampered/wrong-secret payload (demonstrated).
-- [ ] An organization webhook exists and a real org event was delivered and verified.
-- [ ] A GitHub App is registered with scoped permissions + event subscriptions and installed on the org.
-- [ ] You minted an installation access token and the App posted a comment as a bot identity.
-- [ ] Automated reaction — opening a new issue makes the running handler post a context-aware acknowledgement on its own, authored by the bot, and a bad-signature delivery is rejected.
-- [ ] The effective webhook and GitHub App settings were inspected; any authorized enterprise-hook review captured event scope, receiver, HMAC verification, and retention.
-- [ ] Real-outcome check — if you brought your own integration target, a real GitHub event now drives another system or workflow; if you used the sample, you can name the webhook/App integration you will build next.
-- [ ] Adoption handover — record the customer integration owner, target external system, required event and App permissions, and next approved action.
-
-> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Triage, don't just acknowledge: in `onIssueOpened()`, also label the issue by content (e.g. `bug` vs `question`) and assign or `@`-mention an owner — remember the App needs the matching permission, and labeling fires `issues.labeled`, so keep guarding against self-triggering.

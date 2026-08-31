@@ -24,8 +24,6 @@ Source: [`githubnext/agentics/workflows/ci-doctor.md`](https://github.com/github
 >
 > - Have a candidate repo? Use it everywhere this guide references the sample repo, and configure the workflow to watch that repo's real CI workflow names, branches, logs, and failure patterns.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
->
-> Tell the facilitator which repository and workflows you chose.
 
 ## Steps
 
@@ -58,17 +56,6 @@ Source: [`githubnext/agentics/workflows/ci-doctor.md`](https://github.com/github
 - Tune the diagnostic prompt: add repo-specific context like "this repo uses Node 20" or "tests run with vitest"
 - Adjust the issue template by adding labels, assignees, or project board routing to `create-issue`
 - Set `branches: [main]` if you only want to watch failures on main (not every branch)
-
-## Success Criteria
-
-- [ ] `.github/workflows/ci-doctor.md` exists with valid gh-aw frontmatter
-- [ ] Trigger is `on: workflow_run` scoped to at least one named workflow
-- [ ] `types: [completed]` is present and the body handles the `conclusion: failure` check
-- [ ] `safe-outputs: create-issue` is declared
-- [ ] `.github/workflows/ci-doctor.lock.yml` compiles without errors
-- [ ] Intentional CI failure causes Doctor to open a diagnostic issue
-- [ ] Issue contains: failure summary, likely root cause, suggested fix
-- [ ] Using a project, task, or workflow you own, estimate the cost of manual CI diagnosis and define how far you would trust the agent before human confirmation.
 
 ---
 

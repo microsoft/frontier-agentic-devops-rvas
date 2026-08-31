@@ -12,14 +12,6 @@ prerequisite_capabilities:
 - jq installed
 - Repository provisioned via activity setup script
 description: "Set up an authorized customer GitHub API automation using REST and GraphQL reads and writes, pagination, idempotency, and rate-limit controls. Preserve the customer-owned automation, accountable owner, and rollout decision."
-success_criteria:
-- You performed both a **REST read** and a **REST write** (label created, issues labeled, comment posted) via `gh api`.
-- You **paged through all seeded issues** with REST `--paginate` and the count matches the seeded total.
-- You ran a **parameterized GraphQL query** with variables and **cursor-paginated** it to completion.
-- You executed at least one **GraphQL mutation** (added issues to `ghec-ch16-board` and set their `Status`).
-- You inspected **`rate_limit`** and your reconcile script **backs off** when `remaining` is low.
-- Your reconcile script is **idempotent** — a second run produces **no changes**.
-- Customer evidence records the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - rest-api
 - graphql

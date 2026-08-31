@@ -26,6 +26,7 @@
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
 - A machine to host the runner — your laptop, a VM, or a throwaway container. Linux/macOS/Windows all work; a disposable VM is recommended for controlled hardening validation and clean teardown.
 - Org-scoped framing: this activity configures runners at the org level (org runner group). Enterprise runner groups are covered as *awareness* only — no enterprise owner required to complete it.
+- Check whether `ghec-ch52` (Enterprise Landing Zone & Organization Strategy) has already established this customer's organization topology and cost/organization-scope decision; if so, use it as the preferred input for whether a shared/enterprise runner group across organizations is warranted versus a single org-scoped group, and cite its register entry. If `ghec-ch52` has not been completed, make that scoping call independently in Part E/F and record it.
 
 ## What you'll do
 - Register a self-hosted runner at the org level and bring it online.
@@ -65,7 +66,6 @@ What setup creates (all artifacts namespaced `ghec-ch18-*`, idempotent, prefix-g
 - A `HARDENING.md` checklist (service account, ephemeral runners, fork-PR risk, network egress).
 - A printed Next steps block telling you where to start.
 
-
 ## Tasks
 > Throughout, `ghec-ch18-self-hosted-runners` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
@@ -94,7 +94,7 @@ What setup creates (all artifacts namespaced `ghec-ch18-*`, idempotent, prefix-g
 14. Sketch autoscaling. Describe (don't implement) how you'd scale self-hosted runners with ephemeral, just-in-time registration (e.g., a controller that registers a fresh runner per queued job).
 
 ### Part F — Enterprise awareness (read + write-up)
-15. Map org → enterprise. In `docs/RUNNER-CHOICES.md`, add a short note: how an org runner group differs from an enterprise runner group (enterprise groups span multiple orgs; require enterprise-owner), and when you'd reach for each. No enterprise actions required.
+15. Map org → enterprise. In `docs/RUNNER-CHOICES.md`, add a short note: how an org runner group differs from an enterprise runner group (enterprise groups span multiple orgs; require enterprise-owner), and when you'd reach for each. Check whether `ghec-ch52`'s organization topology and cost/organization-scope decision already answers whether this customer needs an enterprise runner group; if so, cite it, and if not, record your own recommendation and note that `ghec-ch52` was not available. No enterprise actions required.
 
 ### Part G — Inspect the effective runner policy
 
@@ -103,21 +103,10 @@ What setup creates (all artifacts namespaced `ghec-ch18-*`, idempotent, prefix-g
     runner policy is authorized and visible, inspect whether repository and
     hosted runners are allowed and confirm compatibility with the selected
     runner group and host-hardening model. Do not change enterprise policy
-    without enterprise-owner approval.
-
-## Validation / Definition of Done
-You are done when ALL of the following are true:
-- [ ] An org runner group `ghec-ch18-group` exists, scoped to selected repos (only `ghec-ch18-self-hosted-runners`).
-- [ ] A self-hosted runner is registered to that group with custom labels and shows Idle/online.
-- [ ] `self-hosted.yml` ran on your runner (runner name confirmed) while `hosted.yml` ran on a hosted runner.
-- [ ] A mis-labeled job stays queued, proving label routing.
-- [ ] The runner runs under a least-privilege account and you demonstrated an ephemeral registration.
-- [ ] You documented the fork-PR risk and a GitHub-hosted vs larger vs self-hosted decision matrix, plus the org-vs-enterprise runner group note.
-- [ ] The effective runner-group and host-hardening settings were verified; any authorized enterprise-policy inspection confirmed runner compatibility.
-- [ ] Real-outcome check — if you brought your own runner target, a real CI job now has a clearer self-hosted-runner path; if you used the sample, you can name the constrained job you will move next.
-- [ ] Adoption handover — record the customer platform owner, constrained job, host risk decision, and next approved runner action.
-
-> Coaches verify these via the automated hints in `COACH.md`.
+    without enterprise-owner approval. If enterprise runner policy is not
+    authorized or not visible, record `enterprise runner policy not available /
+    not applicable` rather than inferring it from the organization-level
+    result.
 
 ## Operational extensions
 - Install the runner as a systemd/service with the ephemeral flag and a wrapper that re-registers after each job.

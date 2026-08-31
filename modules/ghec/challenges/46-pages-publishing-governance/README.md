@@ -92,15 +92,6 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 11. Visit the site URL, capture the source branch/path or workflow run, and confirm visibility.
 12. Document rollback: disable Pages, revert source, or remove workflow approval.
 
-## Validation / Definition of Done
-
-- [ ] Current org Pages publication policy is captured.
-- [ ] Approved policy decision names publisher scope, allowed visibility, exception path, and review cadence.
-- [ ] Org-wide settings were changed only by explicit participant action with approval, or a rollout proposal exists.
-- [ ] Target repository has a compliant Pages source or workflow.
-- [ ] Evidence includes site URL, source or workflow run, rollback owner, and next review.
-- [ ] Adoption handover names the Pages policy owner and first production/review action.
-
 ## Reference links
 
 - Managing publication of GitHub Pages sites for your organization — https://docs.github.com/en/organizations/managing-organization-settings/managing-the-publication-of-github-pages-sites-for-your-organization

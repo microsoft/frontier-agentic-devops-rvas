@@ -81,15 +81,6 @@ Setup creates only namespaced sample artifacts:
 11. Run a non-production deployment and capture the workflow URL.
 12. Attempt a production deployment from an unauthorized branch or without approval and capture the blocked evidence.
 
-## Validation / Definition of Done
-
-- [ ] Secret inventory records names, scopes, owners, rotation cadence, and consumers without values.
-- [ ] Deployment credentials are environment-scoped behind protection rules.
-- [ ] Workflow jobs use least-privilege `permissions` and environment-scoped secrets only after the environment gate.
-- [ ] Unauthorized production access is blocked.
-- [ ] Governance evidence records exceptions, rotation dates, owners, and next review.
-- [ ] Adoption handover names the owner and next repository cohort.
-
 ## Operational extensions
 
 - Script a report of repositories with production-like repository secrets.

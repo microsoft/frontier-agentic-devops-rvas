@@ -6,4 +6,4 @@ The Azure SRE Agent track does not require a custom GitHub Actions deployment wo
 https://github.com/microsoft/sre-agent/tree/main/labs/starter-lab
 ```
 
-These legacy coach references remain inactive under `modules/sre-agent/resources/workflows/`.
+These legacy references remain inactive under `modules/sre-agent/resources/workflows/`.

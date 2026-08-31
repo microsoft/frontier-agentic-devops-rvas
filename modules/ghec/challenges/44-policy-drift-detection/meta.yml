@@ -11,14 +11,8 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
+- Optional ghec-ch52 approved organization topology, delegation matrix, and control register, when available, as baseline source for ownership and delegation expectations
 description: "Compare a repository baseline with live settings, labels, topics, and required files, then record drift and remediation decisions."
-success_criteria:
-- A policy baseline is defined for required files, labels, topics, visibility, features, and ownership evidence.
-- A drift detection check compares at least two repositories against the baseline.
-- Detected drift is reported with severity, owner, remediation, exception, and next review.
-- At least one safe drift remediation is applied or an approved exception is recorded.
-- High-impact org settings and restrictive policies are explicit participant steps, not setup mutations.
-- Customer evidence names the authorized scope and owner, links the handover record, and states the next automation decision.
 tags:
 - policy-drift
 - governance

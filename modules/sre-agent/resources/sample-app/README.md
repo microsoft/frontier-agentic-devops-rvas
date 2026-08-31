@@ -37,6 +37,6 @@ Supported modes:
 
 ## SRE Agent Note
 
-Azure SRE Agent access is not required for the local simulation. If Azure SRE Agent is available, coaches can connect the deployed app and repository source branch so the agent can correlate symptoms to code and propose a To-Do Plan. Pull request creation should be treated as optional and depends on repository connection, run mode, and an existing branch with committed changes.
+Azure SRE Agent access is not required for the local simulation. If Azure SRE Agent is available, the delivery team can connect the deployed app and repository source branch so the agent can correlate symptoms to code and propose a To-Do Plan. Pull request creation should be treated as optional and depends on repository connection, run mode, and an existing branch with committed changes.
 
 [Back to resources](../README.md)

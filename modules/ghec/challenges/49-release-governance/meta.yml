@@ -12,13 +12,6 @@ prerequisite_capabilities:
 - jq installed
 - Repository provisioned via activity setup script, or an approved production release repository
 description: "Define release evidence, approval gates, release notes, tag standards, and rollback ownership without changing high-impact organization settings during setup."
-success_criteria:
-- A release governance policy identifies release owners, approvers, protected evidence, tag naming, release-note requirements, rollback owner, and exception path.
-- A release candidate issue or equivalent record captures scope, risk, approver, validation evidence, and deployment decision.
-- Repository release artifacts include a changelog or release notes source, release readiness checklist, and documented tag/release naming standard.
-- Participants inspect available repository or organization settings and record which high-impact release controls require explicit owner approval before production rollout.
-- A dry-run or sample release demonstrates the evidence trail from candidate to approval to published release or rollback decision.
-- Customer evidence names the authorized scope and owner, links the relevant controls and handover record, and states the next release decision.
 tags:
 - releases
 - governance

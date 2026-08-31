@@ -24,7 +24,7 @@ Azure SRE Agent needs accurate context. Inspect the service knowledge, response 
 > - If you have a candidate, inspect and improve its connected resources, alert routes, knowledge files, response plans, custom agents, and safe team memory. Use real operational context. **Do not paste secrets, private contacts, or sensitive tenant details into notes or chat.**
 > - If you do not have a suitable service, use Grubify to practice context onboarding.
 >
-> Tell your coach which path you chose. **Prefer your own service; use Grubify as the fallback.**
+> **Prefer your own service; use Grubify as the fallback.**
 
 ## Inspect Connected Context
 
@@ -39,7 +39,7 @@ In the Azure SRE Agent portal, open the agent created for the lab and inspect:
 | Response plans | Alert routing and autonomous/review behavior |
 | Global tools | Azure observability and optional GitHub tools |
 
-If you are using a fallback packet, your coach will provide screenshots or a setup summary for these areas.
+If you are using a fallback packet, use the provided screenshots or setup summary for these areas.
 
 ## Ask Context Questions
 
@@ -88,10 +88,3 @@ Create a table:
 - One validated agent answer about architecture.
 - One validated agent answer about runbook or response plan.
 - One safe team memory or a note explaining why memory was skipped.
-
-## Success Criteria
-
-- The team can explain what context the agent has and where it came from.
-- The team can name at least one runbook or knowledge source the agent should use.
-- The team can explain the alert-to-agent path at a high level.
-- Missing context is captured as a follow-up, not ignored.

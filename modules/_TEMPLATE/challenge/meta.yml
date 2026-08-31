@@ -16,9 +16,6 @@ prerequisite_capabilities:       # Required skills or access. Do not list work p
 
 # === Descriptive ===
 description: "REPLACE: One-sentence customer adoption outcome for the catalog card."
-success_criteria:
-  - "REPLACE: First observable implementation or governance outcome"
-  - "REPLACE: Second observable customer-owned evidence or artefact"
 
 tags:
   - REPLACE-tag-1

@@ -10,11 +10,9 @@ This file defines where content goes and how the pieces fit. Rusty
 challenges/
   _TEMPLATE/                          ← DO NOT delete; copy, never edit in place
     README.md   (customer delivery team guide)
-    COACH.md    (coach guide)
     meta.yml    (machine-readable contract)
   ##-<slug>/                          ← one per challenge, numbers 00..51
     README.md   ← copied from _TEMPLATE, all sections filled
-    COACH.md    ← copied from _TEMPLATE, all sections filled
     meta.yml    ← copied from _TEMPLATE, all fields filled
     provision.sh (optional, Yen)      ← per-challenge provisioning logic, if not centralised
 scripts/                              ← shared CLI engine (Yen)
@@ -26,7 +24,7 @@ docs/                                 ← GitHub Pages site source (Basher)
   kebab-case, matching `slug:` in `meta.yml` exactly.
 - The canonical slugs are fixed (see table below). Do not rename — the site, scripts, and links
   all key off them.
-- Inside each folder: `README.md` (delivery team member), `COACH.md` (coach), `meta.yml` (data). Exact filenames.
+- Inside each folder: `README.md` (delivery team member), `meta.yml` (data). Exact filenames.
 - Any dates written in content use ISO format `YYYY-MM-DD`.
 
 ### Canonical activity slugs (locked)
@@ -83,9 +81,9 @@ both read it. Do not duplicate this data in prose. Render or read it from here.
 
 ## Who owns what
 
-### 📚 Linus — activity content (delivery team member + coach guides)
-- For each `##-<slug>/`: copy `_TEMPLATE/README.md` → `README.md` and `_TEMPLATE/COACH.md` → `COACH.md`.
-- Fill every section; keep all headings in the template order (the site + coach filter depend on them).
+### 📚 Linus — activity content (delivery team member guides)
+- For each `##-<slug>/`: copy `_TEMPLATE/README.md` → `README.md`.
+- Fill every section; keep all headings in the template order (the site + filters depend on them).
 - Use the exact titles/tracks from the table in the root `README.md`.
 - Keep `meta.yml` in sync with the guide (title, app, requires, emu_compatible).
 - Apply Marco's decisions: org-scoped framing everywhere; GHAS activities target Juice Shop at `v20.0.0`;
@@ -101,7 +99,7 @@ both read it. Do not duplicate this data in prose. Render or read it from here.
 
 ### 🌐 Basher — GitHub Pages site (`docs/`)
 - Use each `meta.yml` for cards, filters, and badges — read it, don't hand-copy.
-- Render delivery team member `README.md` per activity; exclude `COACH.md` from the public delivery team member view (coach view separate).
+- Render delivery team member `README.md` per activity.
 - Group by `track`; show `difficulty`, `app`, and `emu_compatible` badges; surface `references`.
 - Link the site from the root `README.md` and back.
 

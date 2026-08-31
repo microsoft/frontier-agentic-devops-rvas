@@ -4,24 +4,15 @@ module: ghec
 track: admin-governance
 difficulty: beginner
 duration_minutes: 180
-prerequisites: []
+prerequisites:
+- ghec-ch52
 prerequisite_capabilities:
 - GitHub organization with org-owner rights
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Set up an authorized customer organization governance baseline: member and outside-collaborator management, base privileges, repository-creation and visibility policies, security defaults, and API-verified settings. Preserve the approved baseline, accountable owner, and handover."
-success_criteria:
-- '`default_repository_permission` is `read` or `none` (verifiable: `gh api /orgs/<org> --jq ''.default_repository_permission''`).'
-- Members **cannot** create public repositories (`members_can_create_public_repositories == false`, or EMU platform policy prevents public repositories entirely).
-- Members **cannot** delete or transfer repositories (confirmed in Member privileges).
-- The fork policy for private/internal repos is set deliberately and verified via the API.
-- At least one sample repo's **visibility was changed** where the org permits it; on EMU, the public-repo block is documented and you can explain public vs internal vs private.
-- Default **Actions workflow permissions** are set to read-only at the org.
-- '**Before/after API diffs** exist for the organization settings and default Actions workflow permissions.'
-- The effective enterprise/organization default-branch policy was inspected and its source is clear.
-- Customer evidence records the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+description: "Set up an authorized customer organization governance baseline: member and outside-collaborator management, base privileges, repository-creation and visibility policies, security defaults, and API-verified settings. Prefer Ch52's landing-zone topology, delegation, and settings register (or an authorized enterprise export) as the source for enterprise-level decisions, distinct from this organization's implementation; fall back to an independent org-level baseline with an explicit not-available record when Ch52 was not completed. Preserve the approved baseline, accountable owner, and handover."
 tags:
 - enterprise
 - organization-settings

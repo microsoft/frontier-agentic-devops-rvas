@@ -12,13 +12,6 @@ prerequisite_capabilities:
 - jq installed
 - Repository provisioned via activity setup script
 description: "Publish an organization-owned reusable workflow and require it through an approved ruleset or required-workflow control so repositories use the same CI and security gate."
-success_criteria:
-- Reusable workflow repository contains a versioned `workflow_call` workflow with pinned actions and least-privilege permissions.
-- Consumer repository can call the reusable workflow successfully.
-- Required workflow or repository ruleset is approved and configured explicitly by the participant for the authorized repository cohort.
-- Pull request evidence shows the required workflow blocks merge until it passes.
-- Exception, versioning, ownership, and rollout evidence is recorded.
-- Customer evidence names the authorized scope and owner, links the relevant controls and handover record, and states the next rollout decision.
 tags:
 - actions
 - reusable-workflows

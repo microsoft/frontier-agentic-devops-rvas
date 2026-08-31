@@ -63,7 +63,6 @@ Setup creates these resources (all names use the `ghec-ch15-*` prefix, and teard
 - The repo is staged so that enabling GHAS produces a rich alert corpus across CodeQL (OWASP Top 10), Dependabot (vulnerable npm tree), and secret scanning — the raw material a campaign targets. (Setup may enable default CodeQL and Dependabot so alerts exist out of the gate; you'll confirm and extend.)
 - A printed Next steps block pointing at the org Security tab (overview, configurations, campaigns).
 
-
 ## Tasks
 > Throughout, `ghec-ch15-juice-shop` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
@@ -97,19 +96,6 @@ Setup creates these resources (all names use the `ghec-ch15-*` prefix, and teard
 11. Remediate part of the campaign. Fix or dismiss several targeted alerts (apply Autofix on a CodeQL alert, merge a Dependabot security PR, resolve a secret alert) so the campaign shows real burn-down.
 12. Track progress. Re-open the campaign and the overview; confirm the open-alert count for the campaign has dropped. Capture before/after numbers.
 13. Write a remediation report. In an issue on `ghec-ch15-juice-shop`, summarize: starting alert count by type, the campaign scope and deadline, what was remediated, and the residual risk — the report leadership asked for at the start.
-
-## Validation / Definition of Done
-**Done means:**
-- [ ] `ghec-ch15-juice-shop` has a multi-tool alert corpus (CodeQL and Dependabot alerts present, verifiable via the alerts APIs).
-- [ ] You used the org Security overview Risk and Coverage views and produced an org-wide alert slice via the API.
-- [ ] An org security configuration exists and is applied to the repo (features show enabled in Coverage).
-- [ ] A security campaign exists with a name, a manager, a due date, and guidance, scoped to a finite alert slice.
-- [ ] The campaign shows remediation burn-down (open count dropped after you fixed/dismissed targeted alerts).
-- [ ] A remediation report issue exists with before/after numbers.
-- [ ] Real-outcome check — if you brought your own repo/campaign target, the campaign view now maps to real owners and alerts; if you used the sample, you can name the repo group you will campaign against next.
-- [ ] Adoption handover — record the customer security programme owner, campaign scope, repository owners, success measure, and next approved action.
-
-> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Apply the security configuration as the org default and create a second repo to prove new repos inherit it.

@@ -8,7 +8,7 @@ Start with Azure; GitHub is optional. The SRE Agent must be able to read Azure r
 
 ## Goals
 
-- Deploy the Grubify starter lab or use an equivalent coach-provisioned environment.
+- Deploy the Grubify starter lab or use an equivalent pre-provisioned environment.
 - Locate the Azure SRE Agent in the SRE Agent portal.
 - Identify the deployed Azure resources and observability stores.
 - Capture the baseline healthy app URLs and resource names.
@@ -23,10 +23,10 @@ Start with Azure; GitHub is optional. The SRE Agent must be able to read Azure r
 >
 > Connect Azure SRE Agent to a service your team will operate after the session if you can. Use that workload wherever this guide references Grubify so the setup, telemetry, incidents, and context remain useful in your tenant.
 >
-> - If you have a candidate, use an existing Azure service that is deployed, observable, and approved for agent access. Confirm that the agent can read the resource group, logs, metrics, traces, alerts, and approved knowledge sources. Skip Grubify unless your coach wants a separate practice target.
+> - If you have a candidate, use an existing Azure service that is deployed, observable, and approved for agent access. Confirm that the agent can read the resource group, logs, metrics, traces, alerts, and approved knowledge sources. Skip Grubify unless you want a separate practice target.
 > - If you do not have a suitable service, deploy Grubify as the practice target.
 >
-> Tell your coach which path you chose. **Prefer your own service; use Grubify as the fallback.**
+> **Prefer your own service; use Grubify as the fallback.**
 
 ## Deploy
 
@@ -38,9 +38,9 @@ cd external/sre-agent/labs/starter-lab
 bash scripts/setup.sh
 ```
 
-When the setup script asks for a GitHub username, press Enter unless your coach has already provided a lab GitHub repository. Activity 01 does not require GitHub; skipping it still deploys Grubify, Azure Monitor, Log Analytics, Application Insights, knowledge files, and the Azure SRE Agent.
+When the setup script asks for a GitHub username, press Enter unless a lab GitHub repository has already been provided for you. Activity 01 does not require GitHub; skipping it still deploys Grubify, Azure Monitor, Log Analytics, Application Insights, knowledge files, and the Azure SRE Agent.
 
-If your coach provides a GitHub repository for source-code scenarios, the current starter lab expects a repository named `grubify` under the owner you enter. For example, for `https://github.com/contoso-team-01/grubify`, enter `contoso-team-01`. Do not enter an email address, token, `@handle`, full repository URL, or the original sample owner.
+If a GitHub repository is provided for source-code scenarios, the current starter lab expects a repository named `grubify` under the owner you enter. For example, for `https://github.com/contoso-team-01/grubify`, enter `contoso-team-01`. Do not enter an email address, token, `@handle`, full repository URL, or the original sample owner.
 
 If you prefer manual setup:
 
@@ -59,9 +59,9 @@ azd up
 bash scripts/post-provision.sh
 ```
 
-For manual Activity 01 setup, leave `GITHUB_USER` unset unless your coach tells you to connect source code now.
+For manual Activity 01 setup, leave `GITHUB_USER` unset unless you plan to connect source code now.
 
-Deployment can take several minutes. If a role, policy, region, or cost restriction blocks it, use the coach fallback packet.
+Deployment can take several minutes. If a role, policy, region, or cost restriction blocks it, use the fallback packet.
 
 ## Verify the Agent
 
@@ -95,7 +95,7 @@ Record:
 | Application Insights resource | `<name>` |
 | Azure Monitor alert rule | `<name>` |
 
-Open the Grubify frontend and perform one healthy action. If your coach provides endpoint checks, run them and save the result.
+Open the Grubify frontend and perform one healthy action. If endpoint checks are provided, run them and save the result.
 
 ## Ask the Agent
 
@@ -119,10 +119,3 @@ Use the answers for orientation. Validate any investigation claims later.
 - Azure SRE Agent setup screenshot or note.
 - Resource and telemetry inventory.
 - Short note: what the agent can investigate now, and what it cannot yet know without source-code context.
-
-## Success Criteria
-
-- Grubify is deployed live or represented by fallback evidence.
-- The Azure SRE Agent is visible and running.
-- The team can identify the Azure Monitor, Log Analytics, and Application Insights pieces.
-- The team captures enough baseline information to compare against a later incident.

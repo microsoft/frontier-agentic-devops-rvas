@@ -65,7 +65,6 @@ Setup creates these resources (all names use the `ghec-ch01-*` prefix, and teard
 - An empty Projects (v2) board `ghec-ch01-board` linked to the repo, with no custom fields yet.
 - A printed Next steps block telling you where to start.
 
-
 ## Tasks
 > Throughout, `ghec-ch01-issues-labels-projects` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
@@ -120,20 +119,6 @@ Setup creates these resources (all names use the `ghec-ch01-*` prefix, and teard
 
     Then close one issue and confirm the board moves it to Done automatically.
 14. Add an insight chart. In the project's Insights, create a chart that counts open items grouped by `Priority`, and save it.
-
-## Validation / Definition of Done
-**Done means:**
-- [ ] The repo has two working issue forms under `.github/ISSUE_TEMPLATE/` and both appear in the New-issue chooser.
-- [ ] Every seeded issue carries at least a `type:` and a `priority:` label (verifiable: `gh issue list --json number,labels` shows no issue with fewer than 2 labels).
-- [ ] At least 13 distinct labels exist following the `dimension: value` convention.
-- [ ] Two milestones exist with due dates and a non-zero set of assigned issues each.
-- [ ] The Projects (v2) board has the four custom fields, all backlog issues added, and three saved views (board / table / roadmap).
-- [ ] A built-in workflow is enabled and demonstrably moved a closed issue to `Done`.
-- [ ] An Insights chart grouped by `Priority` is saved on the project.
-- [ ] Real-outcome check — if you brought your own backlog, the labels, milestones, and project views now live where your team can keep using them; if you used the sample, you can name the real backlog or board you will migrate next.
-- [ ] Adoption handover — name the customer backlog owner, the first work item or backlog to adopt, and the missing taxonomy, field, or view to address.
-
-> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Add a third issue form for "incident" with a required severity dropdown, and a `status: blocked` label that comments on the issue when applied.

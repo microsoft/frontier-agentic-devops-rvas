@@ -125,18 +125,6 @@ The enterprise agent source and organization custom instructions are different c
 25. Validate propagation after the approved merge using the designated supported client and non-sensitive test repository. Record expected versus actual agent availability/behavior, source SHA, test time, tester, organization, and evidence link. Investigate unexpected results before expanding scope.
 26. Roll back by opening and approving a revert pull request to the last known-good source commit; do not directly overwrite protected files. Re-check the AI Controls configuration summary and repeat the supported-client validation. Record the revert SHA, propagation result, incident/change reference, owner, and next review date.
 
-## Validation / Definition of Done
-
-- [ ] The actual customer `.github-private` repository, source organization, CODEOWNERS, ruleset, default branch, required reviewers, and bypass model are evidenced.
-- [ ] The enterprise owner selected the source organization under AI Controls → Agents → Configuration source and the Configuration summary confirms it.
-- [ ] The protected source contains an approved enterprise agent named **Agentic DevSecOps** with a documented least-privilege tool boundary and no unapproved MCP, secret, managed-setting, or plugin configuration.
-- [ ] Organization custom instructions are saved and evidenced separately for each intended organization.
-- [ ] Both the custom-instruction precedence and lower-level custom-agent duplicate-name override behavior are documented and tested or recorded as a limitation.
-- [ ] An approved supported-client, non-sensitive propagation test records source SHA, result, evidence, and owner.
-- [ ] The change record has a baseline, approval, merge/source SHA, propagation evidence, revert procedure, rollback owner, and next review date.
-- [ ] If enterprise access was unavailable, the customer has an approval-ready decision package and implementation PR/patch marked pending enterprise application—without a false completion claim.
-- [ ] Managed settings and plugin standards remain explicitly out of scope and were not enabled.
-
 ## Reference links
 
 - [Creating a `.github-private` repository](https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-agents/create-github-private-repo)

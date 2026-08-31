@@ -24,8 +24,6 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
 >
 > - Have a candidate repo? Use it everywhere this guide references the sample repo, and point the workflow at that repo's real docs and code paths so proposed PRs fix production documentation drift.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
->
-> Tell the facilitator which repository and documentation paths you chose.
 
 ## Steps
 
@@ -61,17 +59,6 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
 - Adjust the cron schedule. Use `0 9 * * 1-5` for weekdays or `0 9 * * 1` for Monday morning.
 - Tune the review depth: "only check API endpoint docs" vs "review all docs for accuracy"
 - Add a PR template or label to the `create-pull-request` output so doc-update PRs are easy to filter
-
-## Success Criteria
-
-- [ ] `.github/workflows/daily-doc-updater.md` exists with valid gh-aw frontmatter
-- [ ] Trigger is `schedule: cron` (valid cron expression)
-- [ ] Target doc directory is configured to something real in your repo
-- [ ] `safe-outputs: create-pull-request` is declared
-- [ ] `.github/workflows/daily-doc-updater.lock.yml` compiles without errors
-- [ ] Dry-run produces at least one proposed doc change
-- [ ] A manually triggered run opens a real PR with a focused, accurate diff
-- [ ] Using a project, task, or workflow you own, identify docs that drift from the code and define what an agent PR must show before you would merge it.
 
 ---
 

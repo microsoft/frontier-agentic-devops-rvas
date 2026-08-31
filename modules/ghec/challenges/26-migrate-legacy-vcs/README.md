@@ -241,19 +241,6 @@ Repeat branch-by-branch if needed, or reduce the batch size for unusually large 
 
 4. Document metadata gaps. These CLI conversions preserve source and commit history, but not issues, pull requests, reviews, permissions, CI/CD runs, work items, shelves, labels, or other collaboration metadata.
 
-## Validation / Definition of Done
-
-You are done when the applicable evidence is true:
-
-- [ ] An SVN repository's trunk, branches, and tags history was converted to Git with an authors map and pushed to GitHub, or the exact source-specific blocker was documented.
-- [ ] A Mercurial repository was converted through `hg-fast-export` with an author map and pushed to GitHub with history intact, or the exact source-specific blocker was documented.
-- [ ] The TFVC to Azure Repos Git to GitHub path was executed or documented end-to-end, including the handoff to ch21 for Azure Repos Git migration patterns.
-- [ ] A Perforce depot path was converted through `git-p4` and pushed to GitHub, or the exact source-specific blocker was documented.
-- [ ] Author identities in converted commits resolve to real names and emails instead of `unknown` or raw source usernames.
-- [ ] Large-file and large-push risks were checked, including 100 MiB file blocks, Git LFS candidates, and the 2 GiB single-push limit.
-- [ ] At least one converted repository exists in GitHub with branches, tags, and expected commit history visible.
-- [ ] Adoption handover — record the customer migration owner, first legacy source, metadata gaps, cutover-risk treatment, and next action.
-
 ## Cleanup
 
 Delete only sample test GitHub repositories and local conversion directories when you no longer need the evidence.

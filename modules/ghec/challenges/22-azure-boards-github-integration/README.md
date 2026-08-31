@@ -141,16 +141,6 @@ Confirm the PR merged into the default branch and used a supported phrase such a
 ### Permissions error during installation
 The Azure Boards app requires a GitHub organization owner/admin for installation and repository access changes. In EMU environments, enterprise policy can require app approval. Capture the GitHub approval request and route it through your org-owner process.
 
-## Validation / Definition of Done
-You are done when ALL of the following are true:
-- [ ] The Azure Boards GitHub Marketplace app is installed for the GitHub organization and the migrated repository is selected.
-- [ ] Azure DevOps Project settings > GitHub connections lists the migrated GitHub repository.
-- [ ] A commit or PR using `AB#<work-item-id>` created a visible link in the Azure Boards work item's Development section.
-- [ ] A PR description containing `Fixes AB#<work-item-id>` was merged into the default branch and transitioned the linked work item to the expected Resolved/Completed workflow-category state, or you documented why the process template maps differently.
-- [ ] The GitHub PR Development section shows the linked Azure Boards work item.
-- [ ] You can explain how to troubleshoot wrong-org connections, missing app permissions, malformed `AB#` mentions, and EMU app-install policy blocks.
-- [ ] Adoption handover — record the customer Boards owner, repositories to connect, App approval owner, traceability evidence, and next action.
-
 ## Cleanup
 Keep the connection if this is a production migration bridge. If you used a disposable test repository, remove the connection from Azure DevOps Project settings > GitHub connections > More options > Remove repositories or remove the app repository access from GitHub Installed GitHub Apps > Azure Boards > Configure.
 

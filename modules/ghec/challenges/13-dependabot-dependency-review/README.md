@@ -64,7 +64,6 @@ Setup creates these resources (all names use the `ghec-ch13-*` prefix, and teard
 - A `feature/add-risky-dep` branch that adds a known-vulnerable dependency to `package.json`, ready to open as a PR so you can watch dependency review flag it.
 - A printed Next steps block telling you where to start.
 
-
 ## Tasks
 > Throughout, `ghec-ch13-juice-shop` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
@@ -112,19 +111,6 @@ Setup creates these resources (all names use the `ghec-ch13-*` prefix, and teard
 11. Add a dependency-review workflow. Commit `.github/workflows/dependency-review.yml` using `actions/dependency-review-action`, configured to fail on a minimum severity (e.g. `high`) and optionally on disallowed licenses.
 12. Open the seeded risky PR. Create a PR from `feature/add-risky-dep` into `main`. The dependency-review check should flag the vulnerable dependency on the PR.
 13. Make it a required check. Mark the dependency-review check as required on `main` and confirm the risky PR is blocked until the dependency is removed or the alert is otherwise resolved.
-
-## Validation / Definition of Done
-**Done means:**
-- [ ] Dependency graph is on and you exported an SBOM (verifiable via the `dependency-graph/sbom` API).
-- [ ] Dependabot alerts and security updates are enabled and the repo has open alerts with severities (verifiable via the `dependabot/alerts` API).
-- [ ] You triaged the backlog: reviewed an advisory and dismissed at least one alert with a reason.
-- [ ] At least one Dependabot security-update PR was merged and its alert moved to fixed.
-- [ ] `.github/dependabot.yml` configures scheduled npm version updates with a limit and a group.
-- [ ] A dependency-review workflow exists, is required on `main`, and blocks the seeded risky PR.
-- [ ] Real-outcome check — if you brought your own repo, Dependabot and dependency review now protect dependencies you actually ship; if you used the sample, you can name the application repo you will enable next.
-- [ ] Adoption handover — record the customer application and security owners, priority dependency-risk target, update policy, and next approved action.
-
-> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Add a second `dependabot.yml` ecosystem (e.g. `github-actions`) and keep its PRs grouped separately.

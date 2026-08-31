@@ -94,16 +94,6 @@ What setup creates:
 12. Remove expired access through the UI or API after explicit approval.
 13. Capture audit log evidence for invitation, permission change, or removal.
 
-## Validation / Definition of Done
-
-- [ ] Vendor access register captures owner, repository scope, permission, dates, reviewer, and offboarding trigger.
-- [ ] Outside collaborators and pending invitations are reviewed or the review method is documented.
-- [ ] New grants/removals happen only as explicit participant actions after approval.
-- [ ] Access follows least privilege and review cadence.
-- [ ] Offboarding evidence or validated no-op evidence is captured.
-- [ ] Governance evidence records owner, approval path, audit evidence, exceptions, and next review.
-- [ ] Adoption handover names lifecycle owner, next review date, and stale-access remediation owner.
-
 ## Reference links
 
 - Managing outside collaborators — https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-outside-collaborators

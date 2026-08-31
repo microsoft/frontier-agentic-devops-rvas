@@ -12,13 +12,6 @@ prerequisite_capabilities:
 - jq installed
 - Repository provisioned via activity setup script, or an approved monorepo target
 description: "Define Git LFS patterns, CODEOWNERS boundaries, repository health evidence, large-file intake, and owner-approved quota or policy decisions."
-success_criteria:
-- A monorepo governance policy identifies ownership boundaries, CODEOWNERS strategy, LFS patterns, large-file exception path, storage/quota owner, and review cadence.
-- Repository evidence captures current size, large-file patterns, branch/tag risk, and LFS tracking configuration.
-- A `.gitattributes` plan or implementation tracks approved binary patterns with Git LFS and avoids committing large binaries during setup.
-- CODEOWNERS or equivalent ownership evidence maps monorepo areas to accountable reviewers.
-- High-impact storage, retention, or migration decisions are recorded as explicit participant steps and not hidden setup mutations.
-- Customer evidence names the authorized scope and owner, links the relevant controls and handover record, and states the next storage or rollout decision.
 tags:
 - git-lfs
 - monorepo

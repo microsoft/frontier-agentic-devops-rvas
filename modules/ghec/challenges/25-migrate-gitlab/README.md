@@ -166,18 +166,6 @@ Repository migration tools do not carry CI/CD pipelines. Use GitHub Actions Impo
 
 5. Review the generated pull request or local YAML under `.github/workflows/`. Fix unsupported syntax, secrets, runner labels, container assumptions, caches, services, and environment variables before enabling the workflow as a required gate.
 
-## Validation / Definition of Done
-
-You are done when all of the following are true:
-
-- [ ] An empty GitHub repository was created as the target.
-- [ ] The GitLab repository's branch and tag history was mirror-pushed to GitHub.
-- [ ] At least one migrated commit links to the expected GitHub user through a matching commit email.
-- [ ] You documented the GitLab data that did not migrate in this self-serve path.
-- [ ] GitHub Actions Importer produced a dry-run workflow or opened a PR that adds `.github/workflows/*.yml`.
-- [ ] You identified manual fixes required before the converted workflow can run reliably.
-- [ ] Adoption handover — record the customer migration owner, Expert Services decision, applicable `gl-exporter` → `ghe-migrator` path, remaining cutover risks, and next action.
-
 ## Reference links
 
 - Migration paths to GitHub — https://docs.github.com/en/migrations/overview/migration-paths-to-github

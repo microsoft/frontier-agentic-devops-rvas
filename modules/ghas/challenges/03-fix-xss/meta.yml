@@ -13,11 +13,6 @@ prerequisite_capabilities:
   - Basic familiarity with HTML/JavaScript and frontend frameworks (Angular)
   - Completed S01 (attack surface overview) recommended
 description: Fix cross-site scripting (XSS) vulnerabilities in Juice Shop with context-appropriate output encoding and safe framework APIs. Validate the fix and record its scope, evidence, GHAS validation, owner, and expectations for human- and agent-authored changes in `modules/ghas/resources/ghas-governance-practice.template.md`.
-success_criteria:
-  - A technically validated XSS fix uses context-appropriate output encoding or a safe framework API. Input filtering alone does not meet this requirement. The fix confirms that the application renders expected content and retains PR/review evidence plus relevant GHAS validation.
-  - A reusable prevention pattern record in `modules/ghas/resources/ghas-governance-practice.template.md` states the unsafe pattern/finding class, approved safe pattern, where it applies, PR/review evidence, relevant GHAS validation, named owner, and how the expectation applies to human- and agent-authored changes.
-  - Completion requires two independently reviewed fixes, a technically validated fix, and a reusable prevention pattern record; two fixes alone are not sufficient.
-  - Any Copilot Autofix or other Copilot assistance is treated as proposed work, reviewed by a human, and handled through existing PR and GHAS controls.
 tags:
   - ghas
   - codeql

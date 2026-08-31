@@ -136,19 +136,6 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
     ```
 15. Keep a short reconciliation note: labels merged, labels intentionally retained, and exceptions with owners.
 
-## Validation / Definition of Done
-
-You are done when all of the following are true:
-
-- [ ] An approved organization label taxonomy exists with names, descriptions, colors, owner, review cadence, and exception path.
-- [ ] Organization default labels include the approved `type:`, `priority:`, `area:`, and `status:` dimensions.
-- [ ] A newly created repository inherits the approved organization default labels.
-- [ ] At least one existing repository is reconciled from inconsistent labels to the approved taxonomy.
-- [ ] If you used your own repository, the team now uses the taxonomy there. If you used the sample, name the next repository cohort to reconcile.
-- [ ] Name the taxonomy owner, exception approver, next repository cohort, and review date.
-
-> Coaches verify these via the automated hints in `COACH.md`.
-
 ## Operational extensions
 
 - Write a small reconcile script that compares organization default labels to every repository in a selected cohort.

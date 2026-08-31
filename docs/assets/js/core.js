@@ -97,7 +97,7 @@
   };
 
   /* ─────────────────────── Kiosk / curated set ───────────────────── */
-  /* A coach-built set lives entirely in the URL. `set.html` uses ?ids=…,
+  /* A custom set lives entirely in the URL. `set.html` uses ?ids=…,
      challenge pages opened from a set carry ?set=… so the locked view
      persists. When either is present, kiosk mode hides outbound navigation
      and shows a small "Exit view" button. */

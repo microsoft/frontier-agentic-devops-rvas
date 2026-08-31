@@ -43,7 +43,7 @@ Agent output is evidence, not proof. Validate it against Azure telemetry, runboo
 
 ## Fallback Model
 
-When live Azure access is blocked, coaches provide the same evidence chain:
+When live Azure access is blocked, use a fallback packet that provides the same evidence chain:
 
 | Live artifact | Fallback artifact |
 | --- | --- |

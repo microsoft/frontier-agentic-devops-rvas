@@ -78,16 +78,6 @@ Setup creates:
 12. Record how library changes are communicated and how breaking changes are prevented.
 13. Capture before/after evidence and next cohort decision.
 
-## Validation / Definition of Done
-
-- [ ] Reusable workflow is versioned, least-privilege, and owner-approved.
-- [ ] The private workflow-library repository allows the approved consumer scope to call its reusable workflows.
-- [ ] Consumer repository calls the reusable workflow successfully.
-- [ ] Required workflow or ruleset control is configured by the participant for the approved cohort.
-- [ ] Pull request evidence shows the gate blocks merge until passing.
-- [ ] Exception and rollout records exist with owners and review dates.
-- [ ] Adoption handover names the library owner and next repository cohort.
-
 ## Operational extensions
 
 - Add CodeQL, dependency review, or artifact attestation checks to the reusable workflow.

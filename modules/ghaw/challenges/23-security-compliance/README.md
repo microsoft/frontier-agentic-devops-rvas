@@ -27,8 +27,6 @@ Source: [`github/gh-aw/.github/workflows/security-compliance.md`](https://github
 >
 > - Have a candidate repo? Use it everywhere this guide references the sample repo, and configure the workflow with that repo's real alert sources, severity thresholds, SLA windows, and escalation targets.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
->
-> Tell the facilitator which repository and policy you chose.
 
 ## Steps
 
@@ -61,17 +59,6 @@ Source: [`github/gh-aw/.github/workflows/security-compliance.md`](https://github
 - Change the severity thresholds if the repository tracks only critical and high findings.
 - Add assignees or team mentions to the `create-issue` output: `"Assign all critical issues to @security-team"`
 - Adjust the schedule: daily for high-velocity repos, weekly for smaller projects
-
-## Success Criteria
-
-- [ ] `.github/workflows/security-compliance.md` exists with valid frontmatter
-- [ ] `schedule: cron` trigger is set
-- [ ] SLA windows are defined in the body (severity → days)
-- [ ] `safe-outputs: create-issue` is declared
-- [ ] `.lock.yml` compiles without errors
-- [ ] Manually triggered run either: opens issues for real alerts, or reports "no violations found" clearly
-- [ ] Issues (if opened) include: CVE/advisory ID, severity, days remaining, package name
-- [ ] Using a project, task, or workflow you own, compare current vulnerability SLA tracking with agent-filed issues and define how to prevent alert noise.
 
 ---
 

@@ -64,7 +64,6 @@ Setup creates these resources (all names use the `ghec-ch12-*` prefix, and teard
 - A `feature/insecure-endpoint` branch with a small deliberately vulnerable change you'll open as a PR to demonstrate PR-time scanning and required-check gating.
 - A printed Next steps block telling you where to start.
 
-
 ## Tasks
 > Throughout, `ghec-ch12-juice-shop` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
@@ -103,19 +102,6 @@ Setup creates these resources (all names use the `ghec-ch12-*` prefix, and teard
 ### Part E — Gate pull requests
 13. Open the seeded vulnerable PR. Create a PR from `feature/insecure-endpoint` into `main`. The PR-triggered CodeQL run should flag the new vulnerability inline on the diff.
 14. Make code scanning required. In branch protection / a ruleset on `main`, mark the CodeQL code-scanning results check as required. Confirm the vulnerable PR is now blocked from merging while the alert is open, and that fixing/dismissing it clears the gate.
-
-## Validation / Definition of Done
-**Done means:**
-- [ ] CodeQL is enabled via an advanced workflow scanning `javascript-typescript` with the `security-extended` suite (visible in `.github/workflows/codeql.yml`).
-- [ ] At least one completed CodeQL analysis exists (verifiable via the `code-scanning/analyses` API).
-- [ ] The repo has open code-scanning alerts including at least one injection/XSS finding with a readable data-flow path.
-- [ ] You triaged ≥3 alerts (one dismissed with a reason via API; others reviewed).
-- [ ] You applied Copilot Autofix to at least one alert and reviewed the suggested patch.
-- [ ] The code-scanning check is required on `main`, and the seeded vulnerable PR is blocked until the alert is resolved/dismissed.
-- [ ] Real-outcome check — if you brought your own repo, CodeQL analysis and PR gating now protect code you actually ship; if you used the sample, you can name the application repo you will enable next.
-- [ ] Adoption handover — record the customer application and security owners, priority vulnerability class, proposed scanning control, and next approved action.
-
-> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Add a custom CodeQL query (or a query filter) and run it through the advanced workflow.

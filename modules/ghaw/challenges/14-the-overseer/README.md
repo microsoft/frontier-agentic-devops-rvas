@@ -35,8 +35,6 @@ The team gets one place to see repeated failures, token spikes, and stale workfl
 >
 > - Have a candidate repo? Use it everywhere this guide references the sample repo, and point the health monitor at that repo's real agentic workflow runs, failure patterns, and token history.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
->
-> Tell the facilitator which repository you chose.
 
 ## Activity
 
@@ -71,19 +69,6 @@ Use a concrete `max-effective-tokens` value because analyzing workflow history r
 
 ---
 
-## Success Criteria
-
-- [ ] Workflow triggers weekly (`on: schedule:`)
-- [ ] Uses `agentic-workflows` MCP tool to fetch run data
-- [ ] Frontmatter includes a concrete token budget with a comment explaining the expected run volume behind it
-- [ ] Analysis identifies: top expensive, top failing, unexpected spikes
-- [ ] Issue created with structured data (table + alerts)
-- [ ] Old issues auto-close (via `close-older-issues: true`)
-- [ ] At least one alert or recommendation is triggered
-- [ ] Using a project, task, or workflow you own, identify who monitors its automation and set the failure-rate or cost threshold for an alert.
-
----
-
 ## Tips & Hints
 
 - The `agentic-workflows` MCP tool works only in gh-aw workflows. It gives read-only access to workflow runs in *this* repo.
@@ -114,5 +99,3 @@ Use these checks if the workflow fails:
 - "How do I compute failure rate?" → # failed runs / # total runs. Simple division.
 - "How do I detect unexpected spikes?" → Compare latest run tokens to average of previous 5 runs. If >2× average, flag it.
 - "The issue is too long?" → Use a table instead of prose. Tables are compact and scannable.
-
-After 20 minutes, ask your coach.

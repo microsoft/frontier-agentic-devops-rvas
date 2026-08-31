@@ -75,7 +75,7 @@ Recommended live setup:
   cd external/sre-agent/labs/starter-lab
   bash scripts/setup.sh
 
-If Azure access is blocked, use the coach fallback packet instead of troubleshooting subscription policy during the workshop.
+If Azure access is blocked, use the fallback packet instead of troubleshooting subscription policy during the workshop.
 EOF
 
 if [[ "$FAILURES" -gt 0 ]]; then

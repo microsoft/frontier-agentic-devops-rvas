@@ -262,19 +262,6 @@ gh ado2gh reclaim-mannequin \
 
 Commit authorship is separate from mannequin reclaiming: Git commits are attributed by email address when the email matches a GitHub account.
 
-## Validation / Definition of Done
-
-You are done when ALL of the following are true:
-- [ ] An Azure DevOps Services Git repository with at least one PR is migrated into your GitHub org.
-- [ ] `inventory-report` produced `repos.csv`, and you used PR counts to choose or schedule the pilot.
-- [ ] The migrated repo contains Git source history and migrated PR history.
-- [ ] At least one migrated PR shows its work item link, or you documented that the source PR had no work item link.
-- [ ] The migrated repo visibility is verified as private by default or intentionally set with `--target-repo-visibility`.
-- [ ] Migration logs were downloaded within 24 hours or the download command and migration ID are documented.
-- [ ] At least one mannequin was reclaimed, or `mannequins.csv` and an org-owner reclaim plan exist.
-- [ ] A TFVC repo, if present, was correctly identified as unsupported and the TFVC-to-Git conversion path was documented.
-- [ ] Adoption handover — record the real repository, owning team, approved cutover window, and follow-up backlog for Boards, Pipelines, LFS, permissions, and branch policies.
-
 ## Operational extensions
 
 - Run a second migration without `--queue-only` and compare operational control versus direct execution.

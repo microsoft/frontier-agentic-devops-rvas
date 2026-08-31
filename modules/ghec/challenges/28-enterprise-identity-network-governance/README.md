@@ -22,6 +22,8 @@
 
 This is an **enterprise governance** activity. Ch14 configures and evidences organization SAML/SCIM lifecycle controls; it is not a substitute for an enterprise identity-model, CAP, or network-policy decision. Ch07 models organization teams and repository roles; its evidence is not an enterprise-role review. Reuse their evidence where relevant, but record the enterprise effective level and accountable enterprise owner here.
 
+This activity **deepens** enterprise identity, network, SSH, and privileged-role controls; it does not repeat `ghec-ch52`'s (Enterprise Landing Zone & Organization Strategy) organization-topology, organization-count, or enterprise-role-model workshop. Check whether `ghec-ch52` has already been completed for this customer: if so, treat its enterprise role/delegation matrix, break-glass ownership, and register as the **preferred** baseline and cite it rather than re-deriving the same decisions, then use this activity to go deeper into CAP/IP allow-list enforcement, SSH CA, and recovery testing. If `ghec-ch52` has not been completed, establish the enterprise role and delegation baseline independently here, as documented below, and record that `ghec-ch52` was not available.
+
 ## Prerequisites
 
 - An enterprise owner **or** an authorized, current export of enterprise authentication, network, SSH CA, and role policies.
@@ -33,7 +35,7 @@ This is an **enterprise governance** activity. Ch14 configures and evidences org
 
 ### Part A — Establish the effective enterprise baseline
 
-1. Select the customer enterprise and record the source and date of the policy export or the approving enterprise owner. Name the IdP owner, enterprise governance owner, and break-glass owner.
+1. Select the customer enterprise and record the source and date of the policy export or the approving enterprise owner. Name the IdP owner, enterprise governance owner, and break-glass owner. Check whether `ghec-ch52` has already named the enterprise governance owner, delegated roles, and break-glass owner for this customer; if so, cite its register entry instead of re-establishing them, and if not, name them independently here and record that `ghec-ch52` was not available.
 2. Inspect the identity model, enterprise authentication protocol, effective enterprise settings, organization-level additions, and existing exceptions. Capture immutable exports, setting screenshots, or API output rather than an assertion alone.
 3. Confirm inheritance explicitly: identify each setting's effective enterprise or organization level and whether an organization can add a stricter/additive entry. Do not infer enterprise coverage from a single organization.
 
@@ -58,16 +60,6 @@ This is an **enterprise governance** activity. Ch14 configures and evidences org
 
 12. Reconcile the identity, network, SSH CA, and enterprise-role findings with the source exports. Confirm each effective level, accountable owner, exception, review/rotation date, and rollback or break-glass path.
 13. Present the four decisions to the enterprise owner and IdP owner: accept current state, authorize a bounded pilot, schedule a rollout, or accept/document the risk. No production change is necessary to complete the activity.
-
-## Validation / Definition of Done
-
-- [ ] The evidence names the enterprise, IdP owner, governance owner, and break-glass/rollback owner.
-- [ ] Identity, IP allow-list, SSH CA, and enterprise-role settings have effective-level and objective source evidence.
-- [ ] CAP eligibility is evidenced as EMU + OIDC + Microsoft Entra ID, and the mutually exclusive CAP-versus-GitHub-IP-allow-list choice is recorded.
-- [ ] The IP allow-list decision includes effective inheritance, service exceptions, and a break-glass path; any pilot added and removed one test-org entry without enforcement.
-- [ ] SSH CA settings remained unchanged by default; any authorized action was limited to test-org CA registration and did not require SSH certificates.
-- [ ] Enterprise owners are minimized, delegated roles are named, and two owners or an approved exception plus a break-glass process is evidenced.
-- [ ] The enterprise owner and IdP owner have an accountable next decision; no production-disruptive action or user provisioning was required.
 
 ## Reference links
 

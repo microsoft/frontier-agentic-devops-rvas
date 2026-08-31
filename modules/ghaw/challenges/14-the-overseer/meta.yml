@@ -11,14 +11,6 @@ prerequisite_capabilities:
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
 description: Build a workflow that checks other workflow runs, calculates failure rates, and opens alert issues.
-success_criteria:
-  - "Workflow triggers weekly (`on: schedule:`)"
-  - Uses `agentic-workflows` MCP tool to fetch run data
-  - "Frontmatter includes a concrete high token budget (for example `max-effective-tokens: 5000000`) with a comment explaining the value"
-  - "Analysis identifies: top expensive, top failing, unexpected spikes"
-  - Issue created with structured data (table + alerts)
-  - "Old issues auto-close (via `close-older-issues: true`)"
-  - At least one alert or recommendation is triggered
 tags:
   - meta-workflows
   - observability

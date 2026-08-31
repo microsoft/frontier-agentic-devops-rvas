@@ -13,11 +13,6 @@ prerequisite_capabilities:
   - Basic familiarity with Node.js/Express and SQL queries
   - Completed S01 (attack surface overview) recommended
 description: Fix CodeQL findings for SQL and NoSQL injection in Juice Shop backend routes with parameterized queries or ORM-safe patterns. Validate the fix and record its scope, evidence, GHAS validation, owner, and expectations for human- and agent-authored changes in `modules/ghas/resources/ghas-governance-practice.template.md`.
-success_criteria:
-  - A technically validated injection fix uses parameterized queries or an ORM-safe alternative for database operations, or APIs and designs that keep data separate from command or template interpretation for other sinks. Input sanitization alone does not meet this requirement. The fix confirms expected behavior and retains PR/review evidence plus relevant GHAS validation.
-  - A reusable prevention pattern record in `modules/ghas/resources/ghas-governance-practice.template.md` states the unsafe pattern/finding class, approved safe pattern, where it applies, PR/review evidence, relevant GHAS validation, named owner, and how the expectation applies to human- and agent-authored changes.
-  - Completion requires two independently reviewed fixes, a technically validated fix, and a reusable prevention pattern record; two fixes alone are not sufficient.
-  - Any Copilot Autofix or other Copilot assistance is treated as proposed work, reviewed by a human, and handled through existing PR and GHAS controls.
 tags:
   - ghas
   - codeql

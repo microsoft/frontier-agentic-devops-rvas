@@ -11,15 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Set up authorized customer repository governance at scale: define custom repository properties, create organization rulesets that target repositories by property, layer repository rules, and verify enforcement. Preserve approved policy evidence, ownership, and rollout boundaries."
-success_criteria:
-- Two **custom properties** exist (`compliance` single-select, `prod` true/false), verifiable via `gh api /orgs/<org>/properties/schema`.
-- The four repos carry **deliberate property values** (two prod repos `compliance = high`), verifiable via `gh api /orgs/<org>/properties/values`.
-- An **organization ruleset** is **Active** and targets repos by **property condition** (`repository_property`, not `repository_name`).
-- The org ruleset governs **both** `high`-compliance repos (proven by a rejected direct push on the second repo).
-- A **repository ruleset** on one prod repo layers a stricter rule (e.g., 2 approvals) on top of the org ruleset.
-- A **`GOVERNANCE.md`** documents the schema, values, and ruleset targeting.
-- Customer evidence records the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+description: "Set up authorized customer repository governance at scale: define custom repository properties, create organization rulesets that target repositories by property, layer repository rules, and verify enforcement. Prefer Ch52's landing-zone register (or an authorized enterprise export) as the source for enterprise-wide property/ruleset enforcement scope, distinct from this organization's implementation; fall back to an independent org-level baseline with an explicit not-available record when Ch52 was not completed. Preserve approved policy evidence, ownership, and rollout boundaries."
 tags:
 - rulesets
 - custom-properties

@@ -289,19 +289,6 @@ Then document what was not migrated:
 - Repository settings, permissions, and branch restrictions.
 - User identities for collaboration events.
 
-## Validation / Definition of Done
-
-You are done when all of the following are true:
-
-- [ ] A Bitbucket Server/Data Center repository with pull request history was migrated using `gh bbs2gh` and its pull requests, reviews, line comments, required reviewers, and attachments are visible in GitHub.
-- [ ] AWS S3, Azure Blob, or GitHub-owned blob storage was configured and used for the Server/Data Center archive handoff.
-- [ ] You can explain the `bbs2gh` sequence: Bitbucket export API, archive under `$BITBUCKET_SHARED_HOME/data/migration/export`, SFTP/SMB download, blob upload, and GEI import.
-- [ ] You generated or reviewed a PowerShell bulk migration script with `gh bbs2gh generate-script`.
-- [ ] You validated or documented the manual archive path with `--archive-path`.
-- [ ] A Bitbucket Cloud repository was mirror-pushed to GitHub and branch/tag history is present.
-- [ ] You documented exactly which Bitbucket Server/Data Center and Bitbucket Cloud data did not migrate.
-- [ ] Adoption handover — record the customer migration owner, migration-wave plan, cutover risk, evidence checks, and rollback or retry decision points.
-
 ## Cleanup
 
 Remove local mirror clones and locally copied archives after validation:

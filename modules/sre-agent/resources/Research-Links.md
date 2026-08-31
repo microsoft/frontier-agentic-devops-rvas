@@ -1,12 +1,12 @@
 # Research Links
 
-Use these Agentic DevSecOps references when writing activity guides, coach notes, and setup instructions.
+Use these Agentic DevSecOps references when writing activity guides and setup instructions.
 
 ## Azure SRE Agent
 
 | Source | Use in Curriculum | Notes |
 | --- | --- | --- |
-| [microsoft/sre-agent](https://github.com/microsoft/sre-agent) | Source for SRE Agent labs, sample environments, prompt guides, docs links, feedback, and community resources. | Official community hub. Good starting point for Activity 01 setup and Activity 04 investigation coach preparation. |
+| [microsoft/sre-agent](https://github.com/microsoft/sre-agent) | Source for SRE Agent labs, sample environments, prompt guides, docs links, feedback, and community resources. | Official community hub. Good starting point for Activity 01 setup and Activity 04 investigation preparation. |
 | [Azure/sre-agent-plugins](https://github.com/Azure/sre-agent-plugins) | Source for the plugin model. | Official plugin repo. Plugins live under `plugins/` and are registered in `.github/plugin/marketplace.json`. |
 | [Connect source code in Azure SRE Agent](https://learn.microsoft.com/en-us/azure/sre-agent/connect-source-code) | Source for source-code connection behavior and prerequisites. | Covers GitHub and Azure DevOps repo connection, OAuth/PAT auth, investigation file:line references, To-Do Plans, symptom-to-code correlation, and PR creation caveats. |
 | [Azure SRE Agent documentation](https://learn.microsoft.com/en-us/azure/sre-agent/) | Main product documentation entry point. | Use for setup and current product behavior close to delivery date. |
@@ -24,7 +24,7 @@ Use these Agentic DevSecOps references when writing activity guides, coach notes
 | Source | Use in Curriculum | Notes |
 | --- | --- | --- |
 | [The Agentic SDLC Handbook](https://danielmeppiel.github.io/agentic-sdlc-handbook/) | Methodology frame for AI-native software delivery. | Daniel Meppiel's handbook is a living pre-release under CC BY-NC-ND 4.0. Summarize and attribute; do not copy long passages. |
-| [The Agentic SDLC Thesis](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch01-the-agentic-sdlc-thesis.html) | Source for the claim that AI-native delivery needs an operating model beyond tool adoption. | Coach framing for the environment and operational-context arc across Activities 00, 01, and 03. |
+| [The Agentic SDLC Thesis](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch01-the-agentic-sdlc-thesis.html) | Source for the claim that AI-native delivery needs an operating model beyond tool adoption. | Framing for the environment and operational-context arc across Activities 00, 01, and 03. |
 | [The Reference Architecture](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch04-the-reference-architecture.html) | Source for human, agent, and platform separation. | Connect to the delivery session evidence chain and review gates. |
 | [Governance for AI-Assisted Delivery](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch05-governance-for-ai-assisted-delivery.html) | Source for governance and accountability language. | Use when explaining why humans still own policy, review, and release decisions. |
 | [The Practitioner's Mindset](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch10-the-practitioners-mindset.html) | Source for practitioner habits when working with agents. | Useful when Activity 04 evaluates evidence and uncertainty, and Activity 05 reviews remediation work. |
@@ -35,8 +35,8 @@ Use these Agentic DevSecOps references when writing activity guides, coach notes
 | [Attention and Context Economy](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch15-attention-and-context-economy.html) | Source for context-budget thinking. | Useful for keeping activity prompts and handoffs focused. |
 | [Deterministic/Probabilistic Boundary](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch16-deterministic-probabilistic-boundary.html) | Source for separating agent judgment from automated validation and human approval. | Connect Azure SRE Agent investigation evidence to human validation and remediation work with evidence and approval. |
 | [Multi-Agent Orchestration](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch17-multi-agent-orchestration.html) | Source for coordinating specialized agents. | Optional lens for the roles and escalation path inspected in Activity 03 and the review handoff in Activity 05. |
-| [The Execution Meta-Process](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch18-the-execution-meta-process.html) | Source for iterative execution around agent work. | Useful when coaches explain plan, act, validate, adapt cycles. |
-| [Architectural Patterns Rosetta Stone](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch19-architectural-patterns-rosetta-stone.html) | Source for naming recurring agentic architecture patterns. | Use lightly for coach preparation, not as required delivery team member reading. |
+| [The Execution Meta-Process](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch18-the-execution-meta-process.html) | Source for iterative execution around agent work. | Useful when explaining plan, act, validate, adapt cycles. |
+| [Architectural Patterns Rosetta Stone](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch19-architectural-patterns-rosetta-stone.html) | Source for naming recurring agentic architecture patterns. | Use lightly for session preparation, not as required delivery team member reading. |
 | [Anti-Patterns and Failure Modes](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch20-anti-patterns-and-failure-modes.html) | Source for warning signs in agentic delivery. | Useful for Activity 05 review and rejection discussion. |
 | [Primitives as Code](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch21-primitives-as-code.html) | Source for making agent primitives inspectable and reusable. | Connect to workflow specs, issue templates, prompts, and runbooks. |
 | [The Reference Architecture Earned](https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch22-the-reference-architecture-earned.html) | Source for trust emerging from repeated evidence. | Good closing frame for the full activity arc. |
@@ -46,7 +46,7 @@ Use these Agentic DevSecOps references when writing activity guides, coach notes
 | Source | Use in Curriculum | Notes |
 | --- | --- | --- |
 | [GitHub Agentic Workflows](https://github.github.com/gh-aw/) | Source for repository-level agentic automation concepts. | The site describes Markdown-authored workflows compiled into guarded GitHub Actions automation. Treat as early development and supervision-required. |
-| [Quick Start](https://github.github.com/gh-aw/setup/quick-start/) | Source for setup flow using the `gh aw` extension. | Useful for optional coach demos; requires compatible GitHub CLI, Actions, provider credentials, and repo permissions. |
+| [Quick Start](https://github.github.com/gh-aw/setup/quick-start/) | Source for setup flow using the `gh aw` extension. | Useful for optional demos; requires compatible GitHub CLI, Actions, provider credentials, and repo permissions. |
 | [Welcome to Peli's Agent Factory](https://github.github.com/gh-aw/blog/2026-01-12-welcome-to-pelis-agent-factory/) | Source for the factory pattern: many specialized workflows tested in real repositories. | Optional conceptual companion to Activity 03 role review and Activity 05 remediation handoff. |
 | [Issue Triage Workflow](https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows/) | Source for a simple triage-agent pattern. | Background for the local triage template; it is not an Activity 01 deliverable. |
 | [Fault Investigation / CI Doctor](https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-quality-hygiene/) | Source for CI failure and fault-investigation workflow patterns. | Useful background for comparing GitHub workflow diagnostics with Azure SRE Agent incident investigation. |
@@ -57,17 +57,17 @@ Use these Agentic DevSecOps references when writing activity guides, coach notes
 | Source | Use in Curriculum | Notes |
 | --- | --- | --- |
 | [GitHub Actions quickstart](https://docs.github.com/en/actions/get-started/quickstart) | Basic Actions workflow reference. | Confirms Actions is a CI/CD platform for automating build, test, and deployment pipelines. |
-| [Understanding GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions) | Workflow concepts. | Optional coach reference for the local workflow templates; Activity 04 is an Azure incident investigation. |
+| [Understanding GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions) | Workflow concepts. | Optional reference for the local workflow templates; Activity 04 is an Azure incident investigation. |
 | [GitHub Actions starter workflows](https://github.com/actions/starter-workflows) | Workflow examples. | Useful fallback when teams need a starting point for CI or deployment. |
 
 ## What The Hack Format
 
 | Source | Use in Curriculum | Notes |
 | --- | --- | --- |
-| [microsoft/WhatTheHack](https://github.com/microsoft/WhatTheHack) | Format anchor for activity-based delivery session structure. | What The Hack activities describe high-level tasks and goals, not step-by-step labs. Coaches guide without giving direct answers. |
-| [Modern Development and DevOps with GitHub](https://github.com/microsoft/WhatTheHack/tree/master/065-ModernGitHubDev) | Reference for GitHub SDLC activity design. | General coach reference for session design; it does not map to a specific SRE activity. |
+| [microsoft/WhatTheHack](https://github.com/microsoft/WhatTheHack) | Format anchor for activity-based delivery session structure. | What The Hack activities describe high-level tasks and goals, not step-by-step labs. Organizers guide without giving direct answers. |
+| [Modern Development and DevOps with GitHub](https://github.com/microsoft/WhatTheHack/tree/master/065-ModernGitHubDev) | Reference for GitHub SDLC activity design. | General reference for session design; it does not map to a specific SRE activity. |
 | [GitHub Copilot What The Hack](https://github.com/microsoft/WhatTheHack/tree/master/071-GitHubCopilot) | Reference for Copilot learning flow. | Optional background for Activity 05 source-remediation review. |
-| [DevOps with GitHub Actions](https://github.com/microsoft/WhatTheHack/tree/master/044-DevOpswithGithubActions) | Reference for Actions-focused delivery exercises. | General coach reference; the module does not add a GitHub Actions activity. |
+| [DevOps with GitHub Actions](https://github.com/microsoft/WhatTheHack/tree/master/044-DevOpswithGithubActions) | Reference for Actions-focused delivery exercises. | General reference; the module does not add a GitHub Actions activity. |
 
 ## Azure Operational Excellence
 

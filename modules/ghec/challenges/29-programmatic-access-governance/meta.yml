@@ -9,14 +9,8 @@ prerequisite_capabilities:
   - GitHub Enterprise Cloud organization with organization-owner access for inspection
   - GitHub CLI (gh >= 2.x) and jq installed for optional read-only API evidence
   - Enterprise owner or authorized enterprise PAT-policy export when enterprise PAT policy is in scope
-description: "Review customer programmatic access and make a policy decision for OAuth Apps, installed GitHub Apps, fine-grained PATs, and classic PATs. Record the effective policy source, owner, migration or exception plan, and review cadence without provisioning an App or changing production controls by default."
-success_criteria:
-  - A customer-owned inventory covers OAuth Apps, installed GitHub Apps, fine-grained PATs, and classic PATs with owners, purpose, access reach, permissions/scopes, status, and evidence.
-  - Effective organization, enterprise/inherited, or unavailable policy source is recorded for each relevant control.
-  - Third-party access, installed-App, PAT-policy, active-token, and pending-request surfaces are inspected, with audit or read-only API evidence where available.
-  - Each installed GitHub App has an installation-authority decision, scope assessment, accountable owner, and recurring review cadence.
-  - OAuth first-enable disruption is distinguished from GitHub App review; fine-grained PAT approval/lifetime is distinguished from classic-PAT restriction and migration.
-  - The customer completes the inventory plus an authorized non-production fine-grained-PAT approval test or an evidence-backed recommendation for the next policy action.
+  - Optional ghec-ch52 approved app-governance boundary and organization-scope decision, when already established for the customer
+description: "Review customer programmatic access and make a policy decision for OAuth Apps, installed GitHub Apps, fine-grained PATs, and classic PATs. Record the effective policy source, owner, migration or exception plan, and review cadence without provisioning an App or changing production controls by default. Reuse ghec-ch52's approved app-governance boundary and register when available; fall back to an independent boundary and inventory when ghec-ch52 has not been completed."
 tags:
   - governance
   - programmatic-access

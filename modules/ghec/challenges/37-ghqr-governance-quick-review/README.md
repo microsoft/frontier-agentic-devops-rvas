@@ -48,13 +48,13 @@ Use these guardrails throughout:
 - Record token scopes and reviewer role, but never store token values.
 - Do not change settings without separate customer approval.
 - For GitHub Enterprise Cloud with data residency, set `GH_HOST=<customer>.ghe.com` or pass `--hostname <customer>.ghe.com`.
-- Synthetic `ghqr mock` output is useful for demos and coach preparation, but it is not customer evidence.
+- Synthetic `ghqr mock` output is useful for demos, but it is not customer evidence.
 
 ## Tasks
 
 ### Part A — Define scope and evidence rules
 
-1. Record the organization, reviewer role, approval owner, scan date, evidence location, identity model, and whether the customer uses GitHub.com or GHE.com data residency.
+1. Record the organization, reviewer role, approval owner, scan date, evidence location, identity model, and whether the customer uses GitHub.com or GHE.com data residency. Check whether ghec-ch52 (organization topology, delegation matrix, and control register) has already been completed for this customer; if it is available, retrieve it and use its approved scope, ownership, and delegation boundaries as authoritative context, and if it is not available, define scope and ownership independently within this activity without blocking the review.
 2. Define the allowed scan scope:
    - **Required:** organization scan.
    - **Optional:** enterprise scan only when the customer explicitly authorizes it and provides an enterprise-capable token.
@@ -126,7 +126,7 @@ Use these guardrails throughout:
 
 ### Part E — Triage and corroborate findings
 
-14. Review the top findings by severity and category. Identify the effective level and source—enterprise, organization, repository, or unavailable—and the accountable owner.
+14. Review the top findings by severity and category. Identify the effective level and source—enterprise, organization, repository, or unavailable—and the accountable owner. When the ghec-ch52 topology, delegation matrix, or register is available, cross-check each material finding's ownership and effective source against it and cite it as corroborating evidence; when it is unavailable, corroborate using GitHub API/audit evidence only and record the register as not available (not as compliant).
 15. Corroborate at least one finding with a GitHub evidence surface. Examples:
 
    ```bash
@@ -153,26 +153,13 @@ Use these guardrails throughout:
     - which remediation candidates need separate approval.
 18. Confirm the next posture-review cadence. Record whether `ghqr` becomes a quarterly review input, an onboarding check for newly acquired orgs, or a one-time assessment artifact.
 
-## Validation / Definition of Done
-
-You are done when all of the following are true:
-
-- [ ] Authorized organization scope, reviewer role, token boundary, evidence location, and report-retention decision are recorded before the scan.
-- [ ] `ghqr` is installed or selected through Docker, and its help/version output is captured as execution evidence.
-- [ ] An organization scan completes with `ghqr scan -o <org>` and produces retained JSON plus Markdown or XLSX evidence.
-- [ ] Enterprise scan applicability is explicitly recorded: completed with approval and `read:enterprise`, or marked not authorized/not applicable without inferring enterprise settings.
-- [ ] Top `ghqr` findings are triaged with effective source level, objective evidence link, severity, accountable owner, rollback needs, and review date.
-- [ ] At least one finding is corroborated with a GitHub setting, audit, or API evidence surface where available.
-- [ ] No production setting was changed without separate customer approval.
-- [ ] The governance owner can name the highest-priority risk, its owner, the evidence link, and the next decision.
-- [ ] Record the governance owner, posture-review cadence, accepted exceptions, and next approved remediation or enterprise-evidence request.
-
 ## Operational extensions
 
 - Replay a previous scan JSON with `ghqr scan --from-json <file>` to re-render reports without re-querying GitHub. Label replay output clearly and keep the original scan timestamp.
-- Use `ghqr mock --render` only for coach demos or report-template walkthroughs. Do not use mock output as customer evidence.
+- Use `ghqr mock --render` only for demos or report-template walkthroughs. Do not use mock output as customer evidence.
 - Schedule an approved recurring posture review and compare report findings over time.
 - Pair this activity with Ch09 to preserve audit-log query/export evidence for material governance changes found during the review.
+- Pair this activity with ghec-ch52 when the customer has not yet completed an approved organization topology, delegation matrix, and register — treat this review's independent findings as candidate input to that work rather than a substitute for it.
 
 ## Reference links
 

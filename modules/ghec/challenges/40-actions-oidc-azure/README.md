@@ -71,15 +71,6 @@ Setup creates `ghec-ch40-oidc-azure`, a `ghec-ch40-prod` environment when possib
 11. Run or simulate an unauthorized branch/environment and verify Azure denies the token exchange.
 12. Remove old Azure client secrets from GitHub after owner approval.
 
-## Validation / Definition of Done
-
-- [ ] Trust design records subject, audience, tenant, subscription, role, and owners.
-- [ ] Azure federated credential is configured by the participant.
-- [ ] Workflow uses `id-token: write` and no Azure client secret.
-- [ ] Positive and negative workflow evidence is captured.
-- [ ] Old secrets have an approved removal or migration plan.
-- [ ] Adoption handover names GitHub and Azure owners plus next migration.
-
 ## Operational extensions
 
 - Use environment-specific federated credentials for dev/test/prod.

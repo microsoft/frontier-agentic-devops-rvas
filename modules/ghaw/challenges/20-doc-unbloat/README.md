@@ -24,8 +24,6 @@ Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/git
 >
 > - Have a candidate repo? Use it everywhere this guide references the sample repo, and target that repo's real docs with your own preservation rules, simplification criteria, and PR labels.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
->
-> Tell the facilitator which repository and document you chose.
 
 ## Steps
 
@@ -61,17 +59,6 @@ Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/git
 - Define what "simplify" means for your project: _"Remove duplicate notes, shorten examples to the minimum that demonstrates the point, delete any section that duplicates the README"_
 - Add PR label `docs-unbloat` so these PRs are filterable
 - Adjust the schedule or make it `workflow_dispatch` only if you want manual control
-
-## Success Criteria
-
-- [ ] `.github/workflows/unbloat-docs.md` exists with valid gh-aw frontmatter
-- [ ] Target document is explicitly named in the workflow body
-- [ ] `safe-outputs: create-pull-request` is declared
-- [ ] Simplification criteria are specific. For example: "Remove duplicate warnings and shorten code examples to one line."
-- [ ] `.github/workflows/unbloat-docs.lock.yml` compiles without errors
-- [ ] Dry-run proposes at least one real simplification
-- [ ] Proposed PR diff is focused (one file, clean changes)
-- [ ] Using a project, task, or workflow you own, identify harmful documentation bloat and define what the agent must preserve.
 
 ---
 

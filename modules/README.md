@@ -9,15 +9,13 @@ modules/
 ├── _TEMPLATE/           ← copy this to create a challenge
 │   └── challenge/
 │       ├── meta.yml     ← field template with comments
-│       ├── README.md    ← delivery team guide template
-│       └── COACH.md     ← delivery assurance guide template
+│       └── README.md    ← delivery team guide template
 │
-├── ghec/                ← GitHub Enterprise Cloud (52 activities)
+├── ghec/                ← GitHub Enterprise Cloud (53 activities)
 │   └── challenges/
 │       └── <slug>/      ← one directory per challenge
 │           ├── meta.yml
-│           ├── README.md
-│           └── COACH.md
+│           └── README.md
 │
 ├── ghas/                ← GitHub Advanced Security (7 challenges: S00–S06)
 │   ├── setup.md         ← how to run Juice Shop
@@ -48,7 +46,7 @@ The curated GHAW catalog has intentional gaps at `ghaw-04`, `ghaw-05`, `ghaw-13`
 
 1. Copy `_TEMPLATE/challenge/` to `modules/<moduleId>/challenges/<your-slug>/`.
 2. Complete `meta.yml`. See [`CONTRIBUTING.md`](../CONTRIBUTING.md) for the field contract.
-3. Write `README.md` for the delivery team and `COACH.md` for delivery assurance.
+3. Write `README.md` for the delivery team.
 4. Run `node docs/build.js` to validate.
 
 ## Module Attributions

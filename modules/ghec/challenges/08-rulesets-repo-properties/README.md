@@ -21,6 +21,7 @@
 - Next action and owner: authorise the initial classified repository cohort or decide on the documented rollout proposal.
 
 ## Prerequisites
+- Recommended: Ch52 (Enterprise Landing Zone & Organization Strategy) completed first. When available, use its settings register as the **preferred** source for enterprise-level property and ruleset decisions. If Ch52 was not completed, this activity's organization-level baseline still stands independently — see "Enterprise vs. organization control" below for the fallback.
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch08 --org <org>` (least-privilege; for this activity: `admin:org` + `repo` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
@@ -65,7 +66,6 @@ Setup creates these resources (all names use the `ghec-ch08-*` prefix, and teard
 - A printed inventory of the four repos (from the API) so you can tag and target them.
 - A printed Next steps block telling you where to start.
 
-
 ## Tasks
 > Throughout, `ghec-ch08-prod-payments` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
@@ -99,26 +99,14 @@ Setup creates these resources (all names use the `ghec-ch08-*` prefix, and teard
 ### Part E — Verify & demonstrate
 14. Demonstrate enforcement: open a PR on `ghec-ch08-prod-payments` and show it cannot merge without 2 approvals + the `build` check + signed commits. Open a PR on `ghec-ch08-sandbox` (compliance `low`) and show it is not gated by the org ruleset.
 15. Document the model: write `GOVERNANCE.md` in `ghec-ch08-internal-tools` describing the property schema, which repos carry which values, the org ruleset's property target, and the repo-level overlay.
-
-## Validation / Definition of Done
-**Done means:**
-- [ ] Two custom properties exist (`compliance` single-select, `prod` true/false), verifiable via `gh api /orgs/<org>/properties/schema`.
-- [ ] The four repos carry deliberate property values (two prod repos `compliance = high`), verifiable via `gh api /orgs/<org>/properties/values`.
-- [ ] An organization ruleset is Active and targets repos by property condition (`repository_property`, not `repository_name`).
-- [ ] The org ruleset governs both `high`-compliance repos (proven by a rejected direct push on the second repo).
-- [ ] A repository ruleset on one prod repo layers a stricter rule (e.g., 2 approvals) on top of the org ruleset.
-- [ ] A `GOVERNANCE.md` documents the schema, values, and ruleset targeting.
-- [ ] Real-outcome check — if you brought your own repo set, rulesets and properties now protect production or compliance-sensitive work; if you used the sample, you can name the real repo group you will target next.
-- [ ] Adoption handover — record the customer governance owner, priority repository risk, proposed property/ruleset control, and next approved action.
-
-> Coaches use the checks in `COACH.md`.
+16. Source the enterprise-level enforcement scope (whether an enterprise account also defines properties/rulesets that apply across every org and can't be weakened by this org owner): if Ch52 was completed, cite its landing-zone settings register entry; otherwise, if you hold authorized enterprise-owner access, pull an enterprise export/inspection and cite it. If neither is available, record `enterprise policy not available / not applicable` in `GOVERNANCE.md` — do not infer enterprise-wide enforcement from this one organization's ruleset.
 
 ## Operational extensions
 - Add a property-targeted ruleset that applies org-wide tag protection (block deleting/force-updating release tags) only on `prod = true` repos.
 - Write a script that lists every repo and its property values as a Markdown compliance report, generated from `gh api /orgs/<org>/properties/values`.
 - Create a second org ruleset targeting `compliance = medium` with a lighter rule set, and show how a repo could match multiple property conditions.
 
-> At enterprise scale (awareness only): An enterprise account can define properties and rulesets that apply across every organization at once, and can prevent org owners from weakening them. In this activity you build the org-level property schema and property-targeted rulesets — the exact same mechanism, scoped to one org, and the day-to-day control surface for an org owner. No enterprise owner is required.
+> Enterprise vs. organization control: An enterprise account can define properties and rulesets that apply across every organization at once, and can prevent org owners from weakening them. This activity implements and verifies the **organization-level** property schema and property-targeted rulesets; it does not complete or substitute for the enterprise-level enforcement decision. Prefer Ch52's landing-zone settings register (or an authorized enterprise export you can cite) as the source for that decision. If Ch52 was not completed and no enterprise export is authorized, record it as `not available / not applicable` — do not infer enterprise-wide enforcement from this one organization. No enterprise-owner access is required to complete the hands-on organization-level work in this activity.
 
 ## Reference links
 - About custom properties — https://docs.github.com/en/organizations/managing-organization-settings/managing-custom-properties-for-repositories-in-your-organization

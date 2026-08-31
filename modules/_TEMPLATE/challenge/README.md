@@ -36,12 +36,6 @@ REPLACE: Add the next action.
 
 REPLACE: Keep each step to one action where possible.
 
-## Implementation record and handover
-
-- [ ] First observable implementation or governance outcome
-- [ ] Second observable evidence or operational artefact
-- [ ] The customer owner and next adoption action are recorded
-
 ## References
 
 - [GitHub Docs](https://docs.github.com/)

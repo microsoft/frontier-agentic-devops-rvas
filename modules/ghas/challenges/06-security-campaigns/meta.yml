@@ -13,13 +13,6 @@ prerequisite_capabilities:
   - Completed at least one of S02–S05 recommended (to have fixed alerts to reference)
   - Org-level Security Overview access (or ability to write a campaign plan if unavailable)
 description: Define an ongoing GHAS operating cadence for a customer-owned application or organization. Prioritize owned security debt, run a campaign or equivalent plan, manage accepted risk, measure progress, and escalate overdue risk with Security Overview evidence.
-success_criteria:
-  - Operating cadence documented with triage and campaign review frequency, participants, escalation, reporting path, and measures
-  - Campaign scope defined and justified with risk, business impact, volume, effort, and accountable ownership
-  - 'Option A: Security campaign created with a name, due date, and at least 5 alerts. Progress is tracked in the campaign view.'
-  - 'Option B (no org access): Shared governance practice records scope, assignees, timeline, definition of done, and tracking approach'
-  - Accepted-risk and overdue findings have an accountable owner, rationale, and review or expiry date
-  - Human- and agent-authored changes have the same accountable-owner, pull-request, and GHAS validation expectations
 tags:
   - ghas
   - security-campaigns

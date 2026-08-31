@@ -66,7 +66,6 @@ What setup creates (all artifacts namespaced `ghec-ch20-*`, idempotent, prefix-g
 - An empty org Projects v2 board `ghec-ch20-board` for the GraphQL step to populate.
 - A printed Next steps block (App registration URL flow, where to put the webhook secret, how to drive deliveries via `smee.io` or `repository_dispatch`).
 
-
 ## Tasks
 > Throughout, `ghec-ch20-automation-capstone` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
@@ -105,19 +104,6 @@ What setup creates (all artifacts namespaced `ghec-ch20-*`, idempotent, prefix-g
 ### Part F — Prove end-to-end & harden
 14. Full-loop demo. Open a fresh issue → observe: signature verified → labeled + commented (REST) → added to board with status (GraphQL) → Actions summary recorded. Capture evidence of each hop.
 15. Failure modes. In `docs/CAPSTONE-NOTES.md`, document: what happens on a bad signature, an expired installation token, and a webhook redelivery — and how your design handles each. Note least-privilege choices.
-
-## Validation / Definition of Done
-You are done when ALL of the following are true:
-- [ ] A GitHub App is registered and installed on the seeded repo and mints a working installation token.
-- [ ] Inbound webhooks are signature-verified (HMAC-SHA256); bad signatures are rejected.
-- [ ] On `issues.opened`, the App labels + comments via REST and the action is idempotent on redelivery.
-- [ ] The issue is added to `ghec-ch20-board` with a Status field set via GraphQL, also idempotent.
-- [ ] Actions orchestrates the flow and records a run summary, with all credentials in Actions secrets.
-- [ ] You demonstrated the full end-to-end loop from a single fresh issue and documented its failure modes.
-- [ ] Real-outcome check — if you brought your own workflow, the capstone automation now leaves behind a reusable delivery artifact; if you used the sample, you can name the production workflow you will automate next.
-- [ ] Adoption handover — record the customer workflow owner, highest-value manual workflow, security boundary, and next approved action.
-
-> Coaches verify these via the automated hints in `COACH.md`.
 
 ## Operational extensions
 - Extend the automation to close-out: on `issues.closed`, move the board item to `Done` and remove the triage label.

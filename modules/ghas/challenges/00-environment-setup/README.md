@@ -208,16 +208,4 @@ Juice Shop homepage loads.
 > **Commands alone do not complete this activity.** Before moving on, confirm the
 > governance record names the target and criticality, captures GHAS capability
 > status and accountable roles, records the agentic delivery principles, and
-> assigns every access or licensing blocker an owner and target date. See Common
-> Blockers in the coach guide when setup cannot yet be completed.
-
-## Success Criteria
-
-- [ ] A real repository or service is selected, or Juice Shop is recorded as the fallback practice target
-- [ ] The GHAS configuration and ownership record in `modules/ghas/resources/ghas-governance-practice.template.md` records the in-scope repository or service and its criticality
-- [ ] Enabled and missing GHAS capabilities are recorded
-- [ ] The repository or service owner, security partner, and delivery team are recorded as accountable roles
-- [ ] The baseline records least privilege, human accountability for approval and merge, and normal GHAS and PR validation for agent-originated changes
-- [ ] Access or licensing blockers are recorded with an owner and target date
-- [ ] The target repository is accessible, GHAS enablement is verified or recorded as missing, and the working branch is pushed
-- [ ] The delivery environment is usable: `gh auth status` and `gh repo view` succeed, and Juice Shop loads on port 3000 when using the fallback
+> assigns every access or licensing blocker an owner and target date.

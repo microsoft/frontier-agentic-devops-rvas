@@ -15,14 +15,6 @@ description: >
   only as a fallback. Verify Copilot explanations against each alert and code path.
   Use at least five reviews as evidence for the owned security findings register in
   `modules/ghas/resources/ghas-governance-practice.template.md`.
-success_criteria:
-  - A real application repository or service is used first, or Juice Shop is recorded as the fallback practice target
-  - At least 5 alerts are reviewed with full alert detail read and used as evidence for the inventory
-  - Each reviewed alert has a Copilot explanation of the vulnerability, attacker outcome, and code location that a human verifies against the alert and code path
-  - The security findings register in `modules/ghas/resources/ghas-governance-practice.template.md` records alert category or class, affected repository, service, or component, business or security impact, remediation route, accountable owner or team, target date, current disposition, and prioritization rationale for each item
-  - Each inventory item has a current disposition of open, in progress, or accepted risk and a prioritization rationale
-  - Dependabot alerts are reviewed and any critical or high-severity dependency vulnerabilities are recorded in the inventory
-  - Coach conversation connects the inventory to a real project, accountable ownership, risk, and next action
 tags:
   - ghas
   - codeql

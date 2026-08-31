@@ -64,7 +64,6 @@ Setup creates these resources (all names use the `ghec-ch03-*` prefix, and teard
 - A `README` describing how to run the app *locally* (so the contrast with Codespaces is obvious).
 - A printed Next steps block telling you where to start.
 
-
 ## Tasks
 > Throughout, `ghec-ch03-codespaces-dev-containers` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
@@ -96,22 +95,6 @@ Setup creates these resources (all names use the `ghec-ch03-*` prefix, and teard
 12. Create the prebuild from the recorded decision (Settings → Codespaces → Set up prebuild). Select the branch and configuration file, trigger, regions, retained versions, failure-notification owner, and advanced freshness behavior. Wait for the GitHub Actions prebuild workflow to succeed.
 13. Validate the result. Create a *new* Codespace for the configured branch and configuration. Confirm the machine picker shows **Prebuild ready**, `node_modules/express` is already present, and the repository settings show the successful configuration and its next update trigger. Record the workflow URL or run ID in `docs/prebuild-decision.md`.
 14. Clean up running Codespaces with `gh codespace delete` to stop billing.
-
-## Validation / Definition of Done
-**Done means:**
-- [ ] `.devcontainer/devcontainer.json` exists, pins a base image, includes ≥2 Features, and sets `onCreateCommand` + `postStartCommand`.
-- [ ] A Codespace was launched from both the UI and the CLI (`gh codespace list` showed it).
-- [ ] Inside the Codespace, the pinned Node version, the gh CLI Feature, and the post-create install are all verifiable.
-- [ ] The app runs and its port is forwarded + labeled, with `forwardPorts`/`portsAttributes` committed to config.
-- [ ] `docs/devcontainer-notes.md` explains dotfiles vs devcontainer.json precedence.
-- [ ] An org Codespaces policy restricts machine types and sets retention.
-- [ ] `docs/prebuild-decision.md` records the branch/configuration, trigger, regions, retained versions, failure-notification owner, freshness behavior, and customer-specific cost/freshness rationale.
-- [ ] A prebuild is configured; its GitHub Actions workflow succeeds; and a new Codespace reports **Prebuild ready** with dependencies already installed.
-- [ ] All your Codespaces are stopped/deleted at the end.
-- [ ] Real-outcome check — if you brought your own repo, it now has a Codespace/devcontainer path that reduces real onboarding friction; if you used the sample, you can name the repo whose setup you will standardize next.
-- [ ] Adoption handover — name the repository owner, onboarding bottleneck, approved dev-container change, and next rollout action.
-
-> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Replace the base image with a custom `Dockerfile` referenced from `devcontainer.json` and reproduce the same environment.

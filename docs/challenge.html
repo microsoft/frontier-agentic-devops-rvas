@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en" data-theme="light" data-view="student">
+<html lang="en" data-theme="light">
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>Delivery Work Package — Agentic DevSecOps</title>
-  <meta name="description" content="Agentic DevSecOps delivery work package — customer delivery and assurance views." />
+  <meta name="description" content="Agentic DevSecOps delivery work package — delivery guide." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -19,7 +19,7 @@
   <script src="assets/js/marked.min.js"></script>
 </head>
 
-<body data-view="student">
+<body>
 
   <header class="nav" role="banner">
     <div class="nav-inner">
@@ -72,26 +72,6 @@
 
           <!-- Main guide column -->
           <div>
-            <!-- Delivery/coach toggle -->
-            <div class="view-switch" role="tablist" aria-label="Guide view">
-              <button data-view="student" aria-pressed="true" role="tab" type="button">
-                ▸ Delivery guide
-              </button>
-              <button data-view="coach" aria-pressed="false" role="tab" type="button">
-                ◆ Delivery assurance
-              </button>
-            </div>
-
-            <!-- Coach warning banner (shown only in coach view) -->
-            <div class="coach-flag" role="alert" aria-live="polite">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z" />
-              </svg>
-              This view shows what the reviewer will check and what evidence you need. <a
-                href="delivery-assurance.html">Read the assurance standard.</a>
-            </div>
-
             <!-- Rendered Markdown guide -->
             <article class="guide-body" id="guideBody" aria-live="polite">
               <p class="mono" style="color:var(--c-faint)">Loading guide…</p>
@@ -117,13 +97,6 @@
               <div class="panel-head">You should know</div>
               <div class="panel-body">
                 <ul class="cap-list" id="capList"></ul>
-              </div>
-            </div>
-
-            <div class="panel">
-              <div class="panel-head">Success criteria</div>
-              <div class="panel-body">
-                <ul class="criteria-list" id="criteriaList"></ul>
               </div>
             </div>
 

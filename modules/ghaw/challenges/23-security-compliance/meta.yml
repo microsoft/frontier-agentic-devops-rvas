@@ -11,14 +11,6 @@ prerequisite_capabilities:
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
 description: Review vulnerabilities on a schedule, track SLA windows by severity, and open issues when configured thresholds are met.
-success_criteria:
-  - "`.github/workflows/security-compliance.md` exists with valid frontmatter"
-  - "`schedule: cron` trigger is set"
-  - SLA windows are defined in the body (severity → days)
-  - "`safe-outputs: create-issue` is declared"
-  - "`.lock.yml` compiles without errors"
-  - 'Manually triggered run either: opens issues for real alerts, or reports "no violations found" clearly'
-  - "Issues (if opened) include: CVE/advisory ID, severity, days remaining, package name"
 tags:
   - security
   - compliance

@@ -12,7 +12,7 @@ Use the Microsoft sample instead of building an app. The work stays focused on A
 - Confirm Azure CLI, Azure Developer CLI, Git, and Python prerequisites.
 - Confirm Azure role and provider requirements.
 - Select a supported Azure SRE Agent region.
-- Decide whether your team will run the live lab or use coach-provided fallback evidence.
+- Decide whether your team will run the live lab or use prepared fallback evidence.
 
 ## Estimated Time
 
@@ -64,12 +64,12 @@ Register the required resource provider:
 az provider register -n Microsoft.App --wait
 ```
 
-Confirm with your coach:
+Confirm before proceeding:
 
 | Requirement | Needed for live lab |
 | --- | --- |
 | Azure subscription | Active subscription |
-| Role | Owner, or a coach-provisioned environment |
+| Role | Owner, or equivalent access to a pre-provisioned environment |
 | Region | `eastus2`, `swedencentral`, or `australiaeast` |
 | Cost approval | Required before deployment |
 | GitHub account | Optional for source-code and issue scenarios |
@@ -79,22 +79,13 @@ Confirm with your coach:
 | Path | Use when | You will do |
 | --- | --- | --- |
 | Live lab | Azure access is available | Deploy Grubify and Azure SRE Agent |
-| Shared coach lab | A coach owns the Azure environment | Inspect shared resources and run guided prompts |
 | Fallback packet | Azure access is blocked | Use prepared alerts, logs, screenshots, and source references |
 
 **Do not spend workshop time debugging subscription policy.** If access is blocked, switch to the fallback packet.
 
 ## Deliverables
 
-- Selected path: live, shared coach lab, or fallback packet.
+- Selected path: live or fallback packet.
 - Azure subscription, region, and resource group decision.
 - Tool prerequisite check results.
 - A note naming the Azure SRE Agent capabilities covered by this track.
-
-## Success Criteria
-
-- The intended Azure subscription and region are known.
-- Required tools are installed or a fallback path is selected.
-- `Microsoft.App` is registered or registration is delegated to the coach.
-- The team can explain what the Grubify starter lab deploys.
-- No secrets, tokens, tenant details, or credentials are pasted into notes or prompts.

@@ -1,0 +1,48 @@
+id: ghec-ch52
+title: Enterprise Landing Zone & Organization Strategy
+module: ghec
+track: admin-governance
+difficulty: advanced
+duration_minutes: 300
+prerequisites: []
+prerequisite_capabilities:
+- Enterprise owner access or an authorized enterprise-policy export
+- Named executive sponsor and enterprise governance owner
+- GitHub CLI (gh >= 2.x) installed
+- jq installed
+description: "Inspect the enterprise topology and propose a justified organization-boundary strategy: organization count and rationale, org charter and intake/retirement process, enterprise roles/teams model, delegation/inheritance matrix, and a populated governance settings register spanning identity, teams, org lifecycle, unaffiliated offboarding, restricted email, metadata/custom properties, data residency, app registrations, cost centers, Projects/Sponsors applicability, and broad policy domains."
+tags:
+- enterprise-governance
+- landing-zone
+- organization-strategy
+- identity-model
+- delegation
+- cost-centers
+- governance-register
+app_dependency: none
+emu_compatible: true
+min_environment: enterprise
+provision_creates: []
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/52-enterprise-landing-zone-organization-strategy/meta.yml
+license: MIT
+references:
+- https://docs.github.com/en/enterprise-cloud@latest/admin/concepts/enterprise-fundamentals/enterprise-accounts
+- https://docs.github.com/en/enterprise-cloud@latest/admin/concepts/enterprise-fundamentals/roles-in-an-enterprise
+- https://docs.github.com/en/enterprise-cloud@latest/admin/concepts/enterprise-fundamentals/teams-in-an-enterprise
+- https://docs.github.com/en/enterprise-cloud@latest/admin/concepts/identity-and-access-management/enterprise-managed-users
+- https://docs.github.com/en/enterprise-cloud@latest/admin/managing-accounts-and-repositories/managing-organizations-in-your-enterprise/adding-organizations-to-your-enterprise
+- https://docs.github.com/en/enterprise-cloud@latest/admin/managing-accounts-and-repositories/managing-organizations-in-your-enterprise/removing-organizations-from-your-enterprise
+- https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/control-offboarding
+- https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/restricting-email-notifications-for-your-enterprise
+- https://docs.github.com/en/organizations/managing-organization-settings/verifying-or-approving-a-domain-for-your-organization
+- https://docs.github.com/en/enterprise-cloud@latest/admin/managing-accounts-and-repositories/managing-organizations-in-your-enterprise/custom-properties
+- https://docs.github.com/en/enterprise-cloud@latest/admin/data-residency/about-github-enterprise-cloud-with-data-residency
+- https://docs.github.com/en/enterprise-cloud@latest/apps/using-github-apps/installing-a-github-app-on-your-enterprise
+- https://docs.github.com/en/organizations/managing-programmatic-access-to-your-organization/limiting-oauth-app-and-github-app-access-requests-and-installations
+- https://docs.github.com/en/billing/concepts/cost-centers
+- https://docs.github.com/en/billing/how-tos/products/use-cost-centers
+- https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects
+- https://docs.github.com/en/sponsors/getting-started-with-github-sponsors/about-github-sponsors
+- https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise

@@ -12,13 +12,6 @@ prerequisite_capabilities:
 - jq installed
 - Repository provisioned via activity setup script
 description: "Run an InnerSource program with clear project metadata, contributor onboarding, maintainer response expectations, issue labels, and governance evidence."
-success_criteria:
-- An InnerSource program charter names scope, owner, participating repositories, maintainer expectations, and success metrics.
-- A hub or pilot repository exposes README, CONTRIBUTING, CODEOWNERS, support path, and good-first-contribution guidance.
-- Issues or discussions are labeled and triaged for contribution readiness, maintainers, and response SLA.
-- Repository access, branch protection, and review expectations are documented without weakening production controls.
-- Governance evidence records program owner, onboarding path, adoption metrics, exceptions, and next review.
-- Customer evidence names the authorized scope and owner, links the relevant controls and handover record, and states the next program decision.
 tags:
 - innersource
 - governance

@@ -32,8 +32,6 @@ Stale issues make backlogs harder to trust. The workflow warns before closing so
 >
 > - Have a candidate repo? Install or point `stale-patrol.md` at that repo everywhere the guide references the sample repo, and use real stale issues, labels such as `keep-alive`, and your team's closure language.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
->
-> Tell the facilitator which repository and policy you chose.
 
 ---
 
@@ -51,24 +49,6 @@ Create a gh-aw workflow named `stale-patrol.md` in `.github/workflows/` that:
   - Post a comment: "This issue hasn't been active in 60+ days. If it's still relevant, please comment. Otherwise, I'll close it in 3 days."
   - Add a label: `stale` (optional but helpful)
 - After the workflow has run 3+ times on an issue with `stale` label and still no activity, close it with comment: "Closing due to inactivity. Please reopen if this is still relevant."
-
----
-
-## Success Criteria
-
-- [ ] `.github/workflows/stale-patrol.md` exists with valid gh-aw frontmatter
-- [ ] Trigger is `on: schedule:` with a cron expression (daily around 9 AM UTC)
-- [ ] Safe-outputs includes `add-comment` and optionally `update-issue` (to close)
-- [ ] `.github/workflows/stale-patrol.lock.yml` compiles without errors
-- [ ] Manual test: 
-  - Create a test issue dated 70+ days ago (or mock it in the agent prompt)
-  - Run workflow manually via `workflow_dispatch`
-  - Verify: warning comment appears
-  - Verify: `stale` label is applied
-- [ ] A second run (simulated 3 days later) closes the issue
-- [ ] Issues labeled `keep-alive` are skipped (not closed)
-- [ ] No errors if repo has no stale issues
-- [ ] Using a project, task, or workflow you own, define when an agent may warn about or close stale work and what grace period you would require.
 
 ---
 
@@ -98,5 +78,3 @@ Create a gh-aw workflow named `stale-patrol.md` in `.github/workflows/` that:
 - "How do I avoid closing already-closed issues?" → Before updating, check the issue state: "If state is already 'closed', do nothing"
 - "Workflow runs but doesn't find any stale issues?" → This is correct if your repo is young! Add a mock: "For testing, assume this issue was last updated on [old date]"
 - "Permission error when trying to close?" → Ensure `permissions: issues: write` is set (or safe-outputs handles it)
-
-Ask your coach.

@@ -32,22 +32,6 @@ This can replace the manual status check before standup. Read the generated brie
 >
 > - Have a candidate repo? Install or point `morning-briefing.md` at that repo everywhere the guide references the sample repo, and use its real backlog and PR activity as the briefing material.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
->
-> Tell the facilitator which repository you chose.
-
----
-
-## Success Criteria
-
-- [ ] Workflow file `.github/workflows/morning-briefing.md` exists with valid frontmatter
-- [ ] Frontmatter includes `on: schedule:` with a cron expression (e.g., `"0 9 * * 1-5"` for weekdays at 9 AM)
-- [ ] Workflow uses `tools: github: toolsets: [issues, pull_requests]` to access repo data
-- [ ] Safe-outputs includes `create-issue:` with a title prefix like `[Morning Briefing]`
-- [ ] Permissions are scoped to `contents: read` (no write access)
-- [ ] `.github/workflows/morning-briefing.lock.yml` is generated after compiling
-- [ ] At least one issue was created when the workflow ran (or manual trigger via `workflow_dispatch`)
-- [ ] Issue body includes a summary of recent activity (issues opened, PRs, etc.)
-- [ ] Using a project, task, or workflow you own, discuss which daily status update this briefing could replace and what you would trust it to send unsupervised.
 
 ---
 
@@ -80,5 +64,3 @@ If you're blocked:
 2. Test with workflow_dispatch: Don't wait for the schedule; manually trigger from the Actions tab to see errors immediately.
 3. Read the agent logs: Click your workflow run in the Actions tab and scroll to see what the AI agent actually tried to do.
 4. Simplify instructions: If the agent isn't summarizing correctly, give it simpler guidance like "List all issues opened in the last 24 hours" before moving to complex summaries.
-
-Ask your coach if you're blocked for more than 15 minutes.

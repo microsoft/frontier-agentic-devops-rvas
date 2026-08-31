@@ -14,7 +14,7 @@ Concrete patterns to look for, organized by review lens. Use this as a scan list
 
 - **Duration vs difficulty**: a `beginner` challenge claiming 120 minutes, or an `advanced` one claiming 20, deserves scrutiny.
 - **Steps vs time**: count the discrete actions a student must take; estimate realistically against `duration_minutes`.
-- **Success criteria reachability**: every item in `success_criteria` must be achievable using only the steps in `README.md` plus stated prerequisites. Flag criteria that require undocumented actions.
+- **Outcome reachability**: every stated output must be achievable using only the steps in `README.md` plus stated prerequisites. Flag outputs that require undocumented actions.
 - **Prerequisite ordering**: `prerequisites` ids must precede this challenge logically; `prerequisite_capabilities` must not contain challenge ids (those belong in `prerequisites`).
 - **Track progression**: difficulty should not jump from beginner straight to advanced within a track without an intermediate bridge or explicit note.
 
@@ -38,6 +38,6 @@ These are the highest-value finds — content that sounds authoritative but desc
 ## Provenance / Cross-file Consistency
 
 - **Counts and totals**: module/challenge totals stated in `README.md`, `modules/README.md`, and module headers must match the actual catalog. The build prints real counts — compare.
-- **Cross-file drift**: `meta.yml` `title`/`description`/`success_criteria` must align with the `README.md` body and `COACH.md` expected outputs.
+- **Cross-file drift**: `meta.yml` `title` and `description` must align with the `README.md` body.
 - **Source provenance**: `source_repo` and `source_path` should point at the real upstream location
 - **Pinned external versions**: versions referenced for Juice Shop / sample apps / vendored resources should match what `external-repos.json` and setup docs pin.

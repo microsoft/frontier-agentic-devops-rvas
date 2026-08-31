@@ -73,7 +73,7 @@ gh auth refresh -h github.com -s project,read:project
 - `teardown` calls `guard_prefix` before every deletion. It refuses any name that does not start with `ghec-<chid>-`, which protects pre-existing customer repositories and projects.
 - `--dry-run` routes every mutation through a planner that prints `[plan] would run: …` and changes nothing. Use it first against a customer org.
 - `provision` only creates missing state and is idempotent. `teardown` is the only destructive path. It checks the prefix and asks for confirmation.
-- Some platform/admin changes (audit settings, org policies) can't be cleanly reverted by script — those activities document manual cleanup in their `COACH.md`.
+- Some platform/admin changes (audit settings, org policies) can't be cleanly reverted by script — those activities document manual cleanup in their `README.md`.
 
 ## Juice Shop import (GHAS activities)
 

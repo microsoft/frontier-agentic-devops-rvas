@@ -980,44 +980,6 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
 .breadcrumbs a:hover { color: var(--c-gold); }
 .breadcrumbs span { color: var(--c-faint); }
 
-/* Guide view switch */
-.view-switch {
-  display: flex;
-  gap: 4px;
-  background: var(--c-700);
-  border-radius: var(--r-sm);
-  padding: 4px;
-  margin-bottom: 24px;
-  width: fit-content;
-}
-.view-switch button {
-  padding: 7px 16px;
-  border-radius: 6px;
-  border: none;
-  background: transparent;
-  color: var(--c-dim);
-  font-size: 0.82rem;
-  font-weight: 600;
-  transition: background 0.15s, color 0.15s;
-}
-.view-switch button[aria-pressed="true"] { background: var(--c-800); color: var(--c-fg); }
-.view-switch button:focus-visible { outline: 2px solid var(--c-gold); outline-offset: 2px; }
-
-/* Coach flag banner */
-.coach-flag {
-  display: none;
-  align-items: center;
-  gap: 10px;
-  background: rgba(248, 113, 113, 0.08);
-  border: 1px solid rgba(248, 113, 113, 0.25);
-  border-radius: var(--r-sm);
-  padding: 10px 14px;
-  font-size: 0.8rem;
-  color: var(--c-ghas);
-  margin-bottom: 20px;
-}
-[data-view="coach"] .coach-flag { display: flex; }
-
 /* Markdown guide area */
 .guide-body {
   background: var(--c-800);
@@ -1186,24 +1148,6 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
 }
 .cap-item::before { content: "·"; color: var(--c-faint); font-family: var(--font-mono); flex-shrink: 0; }
 
-/* Success criteria */
-.criteria-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 5px; }
-.criteria-item {
-  font-size: 0.82rem;
-  color: var(--c-dim);
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-}
-.criteria-item::before {
-  content: "✓";
-  color: var(--c-beginner);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
 /* Related challenges */
 .related-grid { display: flex; flex-direction: column; gap: 8px; }
 .related-item {
@@ -1355,7 +1299,7 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
 .attribution a { color: var(--c-gold); }
 .attribution a:hover { text-decoration: underline; }
 
-/* ═══════════════════════ COACH SET BUILDER ═════════════════════════ */
+/* ═══════════════════════ SET BUILDER ═════════════════════════ */
 /* Selection card — same look as .ch-card but acts as a toggle button.   */
 .sel-card {
   width: 100%;

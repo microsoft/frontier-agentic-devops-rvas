@@ -11,15 +11,6 @@ prerequisite_capabilities:
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
 description: Build a push-triggered workflow that detects changes in a watched directory and summarizes them in a commit comment.
-success_criteria:
-  - Workflow file `.github/workflows/the-watcher.md` exists
-  - "Frontmatter includes `on: push: paths: ['docs/**']` (or similar path filter for a meaningful directory)"
-  - Permissions are scoped appropriately (read-only for the agent, safe-outputs handles write)
-  - Safe-outputs includes `add-comment:` to post comments on the commit
-  - "`.github/workflows/the-watcher.lock.yml` exists after compilation"
-  - When you push changes to the watched directory, the workflow runs
-  - A comment appears on the commit summarizing the changes (e.g., "Modified 3 files in docs/")
-  - Logs show the agent detected which files were changed
 tags:
   - push-events
   - path-filters

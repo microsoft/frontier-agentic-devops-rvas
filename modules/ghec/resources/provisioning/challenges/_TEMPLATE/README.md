@@ -61,14 +61,6 @@ Setup creates the following artifacts. All names use `ghec-ch##-*`. Provisioning
 4. <Task 4 title> — <…>
 <!-- Long-form activity: aim for enough numbered tasks to fill the duration. -->
 
-## Validation / Definition of Done
-You are done when all of the following are true:
-- [ ] <Observable, checkable outcome 1 — ideally verifiable via `gh` / Actions.>
-- [ ] <Outcome 2.>
-- [ ] <Outcome 3.>
-
-> Coaches verify these via the automated hints in `COACH.md`.
-
 ## Stretch goals
 - <Optional deeper task for fast finishers.>
 - <Another stretch — keep these clearly optional.>

@@ -12,13 +12,6 @@ prerequisite_capabilities:
 - jq installed
 - Repository provisioned via activity setup script
 description: "Inventory GitHub Actions secrets, move deployment credentials behind protected environments, and record ownership and rotation without exposing secret values."
-success_criteria:
-- Repository and organization secret inventory records names, scopes, owners, rotation cadence, and consumers without recording secret values.
-- Deployment credentials are moved to protected environments with reviewers, branch restrictions, and wait timers where appropriate.
-- Workflow jobs reference environment-scoped secrets only after the environment protection gate.
-- A test deployment demonstrates that unauthorized branches or missing reviewers cannot access production secrets.
-- Governance evidence records owners, exception path, rotation dates, and next review.
-- Customer evidence names the authorized scope and owner, links the relevant controls and handover record, and states the next rollout decision.
 tags:
 - actions
 - secrets

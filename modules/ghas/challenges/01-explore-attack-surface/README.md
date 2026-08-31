@@ -30,18 +30,6 @@ can maintain it after the session.
 > - **Real application available:** Use it wherever this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the S00 Juice Shop setup and review your repository's Security tab so the results remain useful after the session.
 > - **No suitable application:** Use the S00 OWASP Juice Shop fallback to practice inspecting alerts.
 >
-> Tell your coach which path you chose.
->
-
-## Success Criteria
-
-- [ ] A real application repository or service is used first, or Juice Shop is recorded as the fallback practice target
-- [ ] At least 5 alerts are reviewed with full alert detail read and used as evidence for the inventory
-- [ ] Each reviewed alert has a Copilot explanation of the vulnerability, attacker outcome, and code location that a human verifies against the alert and code path
-- [ ] The security findings register in `modules/ghas/resources/ghas-governance-practice.template.md` records alert category or class, affected repository, service, or component, business or security impact, remediation route, accountable owner or team, target date, current disposition, and prioritization rationale for each item
-- [ ] Each inventory item has a current disposition of open, in progress, or accepted risk and a prioritization rationale
-- [ ] Dependabot alerts are reviewed and any critical or high-severity dependency vulnerabilities are recorded in the inventory
-- [ ] Coach conversation connects the inventory to a real project, accountable ownership, risk, and next action
 
 ## Copilot Tips
 

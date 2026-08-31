@@ -31,8 +31,6 @@ Without repository standards, a PR agent falls back to generic advice. Give it t
 >
 > - Have a candidate repo? Install or point the workflow at that repo everywhere the guide references the sample repo, and use real PRs plus repo-specific context files such as `CONTRIBUTING.md`, `ARCHITECTURE.md`, docs, or test conventions.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
->
-> Tell the facilitator which repository and context files you chose.
 
 ---
 
@@ -71,19 +69,6 @@ Use `safe-outputs: add-comment` to post a structured comment on the PR. The comm
 
 ---
 
-## Success Criteria
-
-- [ ] Workflow triggers on PR open/push
-- [ ] Agent reads PR diff (GitHub toolset)
-- [ ] Agent reads repo files (CONTRIBUTING.md, ARCHITECTURE.md) to understand repo context
-- [ ] Agent produces a structured comment with context-aware insights
-- [ ] Comment appears on the PR
-- [ ] Comment avoids generic advice and refers to *this* repo's standards
-- [ ] `safe-outputs: add-comment` is used correctly
-- [ ] Using a project, task, or workflow you own, identify the context an agent needs for a trusted decision and where it currently lacks that data.
-
----
-
 ## Tips & Hints
 
 - The `tools: github: toolsets: [...]` array lets you specify exactly which GitHub APIs the agent can use. Start with `[pull_requests, contents]` and add others if needed.
@@ -113,5 +98,3 @@ Use these checks if the workflow fails:
 - "Comment won't post?" → Check `safe-outputs: add-comment:` frontmatter is indented correctly. Look at the workflow logs for the exact error.
 - "Agent gives generic advice, not specific to our repo?" → You may need to make your CONTRIBUTING.md or ARCHITECTURE.md more explicit. Or your prompt doesn't tell the agent to read them. Try: "Read the CONTRIBUTING.md file first. Then analyze the PR against those rules."
 - "Toolsets list not working?" → Verify the toolset names (e.g., `pull_requests`, not `prs`). Reference the docs.
-
-After 20 minutes, ask your coach.

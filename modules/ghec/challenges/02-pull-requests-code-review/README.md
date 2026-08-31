@@ -24,7 +24,7 @@
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch02 --org <org>` (least-privilege; for this activity: `repo` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
-- A second account or teammate helps demonstrate *real* review approvals, but the activity is completable solo (the coach guide explains the self-review caveat).
+- A second account or teammate helps demonstrate *real* review approvals, but the activity is completable solo.
 
 ## What you will deliver
 - Use a clean branch-per-change workflow and open pull requests from the CLI and UI.
@@ -66,7 +66,6 @@ Setup creates these resources (all names use the `ghec-ch02-*` prefix, and teard
 - A `main` branch with no protection yet (you add it) and a starter directory layout that maps cleanly to `CODEOWNERS` paths.
 - A printed Next steps block telling you where to start.
 
-
 ## Tasks
 > Throughout, `ghec-ch02-pull-requests-code-review` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
@@ -78,7 +77,7 @@ Setup creates these resources (all names use the `ghec-ch02-*` prefix, and teard
 ### Part B — Code review mechanics
 4. Review the seeded clean PR. Add at least two line comments, one multi-line review thread, and one suggested change (the `\`\`\`suggestion` block). Submit the review as Comment, then iterate.
 5. Request changes on something real, have the author (you or a teammate) push a fix commit, and confirm the review thread resolves.
-6. Approve the PR once it's clean. (If solo: the coach guide covers the self-approval caveat — branch protection blocks self-approval, so you'll demonstrate the *required-review* gate rather than approving your own PR.)
+6. Approve the PR once it's clean. (If solo: branch protection blocks self-approval, so you'll demonstrate the *required-review* gate rather than approving your own PR.)
 
 ### Part C — CODEOWNERS + branch protection
 7. Author a `CODEOWNERS` file (`.github/CODEOWNERS`) mapping paths to owners, e.g.:
@@ -98,20 +97,6 @@ Setup creates these resources (all names use the `ghec-ch02-*` prefix, and teard
 ### Part E — Merge strategies
 12. Configure allowed merges. In repo settings, enable all three: merge commit, squash, rebase. Then merge three different PRs using a *different* strategy each, and inspect the resulting history with `git log --oneline --graph`.
 13. Write a one-paragraph note in the repo (`docs/merge-strategy.md`) stating which strategy the team should default to and why (hint: squash for clean linear history is a common GHEC recommendation).
-
-## Validation / Definition of Done
-**Done means:**
-- [ ] At least three pull requests were opened against `main` (CLI or UI), one started as a draft.
-- [ ] A review contains line comments, a thread, and a `suggestion` block; at least one PR shows a request-changes → fix → resolve cycle.
-- [ ] A valid `.github/CODEOWNERS` exists and a PR touching an owned path auto-requested the owner.
-- [ ] `main` is protected: PR required, ≥1 approval, require Code Owner review, no direct pushes.
-- [ ] A merge conflict was resolved and that branch merged cleanly afterward.
-- [ ] All three merge strategies are enabled and each was used at least once (verifiable from commit history).
-- [ ] `docs/merge-strategy.md` documents the chosen default.
-- [ ] Real-outcome check — if you brought your own repo, its PR template, review rules, and branch protections now improve a live review flow; if you used the sample, you can name the real repo you will harden next.
-- [ ] Adoption handover — name the repository owner, the review-flow bottleneck, the approved control to address it, and the next rollout action.
-
-> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Add a PR template with a checklist and a "screenshots" section; confirm new PRs pre-fill it.

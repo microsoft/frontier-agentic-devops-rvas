@@ -12,15 +12,6 @@ prerequisite_capabilities:
 - jq installed
 - Repository provisioned via activity setup script
 description: "Set up an authorized customer pull-request governance baseline: feature branches, reviews, `CODEOWNERS`, required reviewers, merge-conflict resolution, and chosen merge strategies. Preserve the policy evidence, accountable owner, and rollout decision."
-success_criteria:
-- At least **three pull requests** were opened against `main` (CLI or UI), one started as a **draft**.
-- A review contains **line comments, a thread, and a `suggestion` block**; at least one PR shows a **request-changes → fix → resolve** cycle.
-- A valid **`.github/CODEOWNERS`** exists and a PR touching an owned path **auto-requested the owner**.
-- '**`main` is protected**: PR required, ≥1 approval, **require Code Owner review**, no direct pushes.'
-- A **merge conflict was resolved** and that branch merged cleanly afterward.
-- '**All three merge strategies are enabled** and each was used at least once (verifiable from commit history).'
-- '`docs/merge-strategy.md` documents the chosen default.'
-- Customer evidence records the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - pull-requests
 - code-review

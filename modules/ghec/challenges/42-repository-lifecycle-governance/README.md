@@ -76,15 +76,6 @@ Setup creates `ghec-ch42-active-service`, `ghec-ch42-deprecated-service`, and `g
 10. Publish the lifecycle inventory location, review cadence, and escalation path.
 11. Name the next repository cohort and owner.
 
-## Validation / Definition of Done
-
-- [ ] Lifecycle policy has states, criteria, approvals, owners, exceptions, and review cadence.
-- [ ] Sample or customer repositories are classified with evidence.
-- [ ] At least one safe lifecycle marker is applied.
-- [ ] Any archive/transfer/delete action has explicit approval evidence, or is deferred with owner/date.
-- [ ] The lifecycle inventory includes decisions, retention notes, and next review.
-- [ ] Adoption handover names the lifecycle owner and next cohort.
-
 ## Reference links
 
 - Archiving repositories — https://docs.github.com/en/repositories/archiving-a-github-repository/archiving-repositories

@@ -31,8 +31,6 @@ Teams often repeat the same prompt rules across workflows. `imports:` keeps thos
 >
 > - Have a candidate repo? Install or point `10-mix-and-match.md` at that repo everywhere the guide references the sample repo, and write `lib/repo-stats-helper.md` around its real issues, PRs, tests, docs, and reporting tone.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
->
-> Tell the facilitator which repository you chose.
 
 ---
 
@@ -101,20 +99,6 @@ No errors? You're ready to test. Trigger manually with `workflow_dispatch` to ve
 
 ---
 
-## Success Criteria
-
-- [ ] `lib/repo-stats-helper.md` exists and contains meaningful formatting instructions
-- [ ] `.github/workflows/10-mix-and-match.md` has `imports: [./lib/repo-stats-helper.md]` in frontmatter
-- [ ] Trigger is `on: schedule:` (weekly)
-- [ ] `safe-outputs: create-discussion: category: "General"` is declared
-- [ ] `permissions: discussions: write` is set
-- [ ] Compiled `.lock.yml` exists without errors
-- [ ] Running the workflow creates a Discussion post, not an issue
-- [ ] The Discussion content matches the format defined in your helper
-- [ ] Using a project, task, or workflow you own, identify repeated prompt guidance that belongs in a shared imported library.
-
----
-
 ## Tips & Hints
 
 - Import paths are relative to the repo root, not to the workflow file. `./lib/repo-stats-helper.md` works from any workflow in `.github/workflows/`.
@@ -138,8 +122,6 @@ No errors? You're ready to test. Trigger manually with `workflow_dispatch` to ve
 - "Discussion not appearing" → Verify `permissions: discussions: write` is in frontmatter and the category name matches exactly (case-sensitive).
 - "Category doesn't exist" → Go to your repo → Settings → Features → Discussions → Manage. Add a "General" category.
 - "How do I test the schedule without waiting a week?" → Add `on: workflow_dispatch: {}` to your trigger block and run it manually from the Actions tab.
-
-Ask your coach.
 
 ---
 

@@ -60,7 +60,7 @@ docker run -p 3000:3000 bkimminich/juice-shop
 
 ### Option C: Organizer-hosted
 
-A coach or organizer can run Juice Shop on a cloud VM and share the URL. Use this
+An organizer can run Juice Shop on a cloud VM and share the URL. Use this
 option when participants lack local Docker or need a ready-to-use environment.
 
 ## Verification

@@ -11,8 +11,6 @@
  *   docs/assets/data/platform.json                       — full catalog (modules + challenges)
  *   docs/assets/data/dependency-graph.json               — prereq graph (nodes + edges)
  *   docs/assets/data/challenges/<id>/README.md           — delivery guide copy
- *   docs/assets/data/challenges/<id>/COACH.md            — coach guide copy
- *   docs/assets/data/delivery-assurance.md               — shared assurance standard
  *   docs/resources/<moduleId>/...                        — module resource files
  *
  * Validation (exits non-zero on errors):
@@ -80,7 +78,6 @@ const ROOT           = path.resolve(__dirname, '..');
 const MODULES_DIR    = path.join(ROOT, 'modules');
 const OUT_DATA_DIR   = path.join(__dirname, 'assets', 'data');
 const OUT_GUIDES_DIR = path.join(OUT_DATA_DIR, 'challenges');
-const ASSURANCE_STANDARD_PATH = path.join(ROOT, 'modules', 'DELIVERY_ASSURANCE.md');
 const OUT_RESOURCES_DIR = path.join(__dirname, 'resources');
 const OUTCOMES_PATH  = path.join(ROOT, 'outcomes.json');
 const CURRENT_SOURCE_REPO = 'microsoft/frontier-agentic-devops-rvas';
@@ -207,7 +204,6 @@ function normaliseMeta(raw, moduleId, slug) {
   // Ensure arrays
   if (!Array.isArray(m.prerequisites))         m.prerequisites = [];
   if (!Array.isArray(m.prerequisite_capabilities)) m.prerequisite_capabilities = [];
-  if (!Array.isArray(m.success_criteria))      m.success_criteria = [];
   if (!Array.isArray(m.tags))                  m.tags = [];
   if (!Array.isArray(m.provision_creates))     m.provision_creates = [];
   if (!Array.isArray(m.references))            m.references = [];
@@ -253,9 +249,6 @@ function validateLocalSourceAttribution(meta, metaPath) {
 function rewriteResourceLinksForPages(text, moduleId) {
   const moduleResources = `resources/${moduleId}/`;
   return text.replace(
-    /(\]\()(?:\.\.\/)+DELIVERY_ASSURANCE\.md/g,
-    '$1delivery-assurance.html',
-  ).replace(
     /(\]\()(https:\/\/microsoft\.github\.io\/resources\/|(?:\.\.\/)+[Rr]esources\/|\/[Rr]esources\/|(?:\.\/)?[Rr]esources\/)/g,
     `$1${moduleResources}`,
   ).replace(
@@ -320,7 +313,7 @@ function rewriteModuleResourceLinksForPages(text, moduleId) {
       return challengeId ? `${prefix}../../challenge.html?id=${challengeId}` : `${prefix}../challenges/${slug}/README.md`;
     },
   ).replace(
-    /(\]\()(?:\.\.\/)+(?:README|COACH|ATTRIBUTION)\.md/g,
+    /(\]\()(?:\.\.\/)+(?:README|ATTRIBUTION)\.md/g,
     '$1README.md',
   );
 }
@@ -407,7 +400,6 @@ function main() {
   fs.rmSync(OUT_GUIDES_DIR, { recursive: true, force: true });
   fs.mkdirSync(OUT_RESOURCES_DIR, { recursive: true });
   fs.mkdirSync(OUT_DATA_DIR, { recursive: true });
-  fs.copyFileSync(ASSURANCE_STANDARD_PATH, path.join(OUT_DATA_DIR, 'delivery-assurance.md'));
 
   /* ── 1. Collect all challenges from all modules ── */
   for (const [moduleId, moduleCfg] of Object.entries(MODULE_CONFIG)) {
@@ -452,14 +444,12 @@ function main() {
         warnings++;
       }
 
-      // Copy delivery + coach guides
+      // Copy the delivery guide
       const guideDir = path.join(OUT_GUIDES_DIR, meta.id);
       fs.mkdirSync(guideDir, { recursive: true });
       const hasReadme = copyGuideForPages(path.join(dir, 'README.md'), path.join(guideDir, 'README.md'), moduleId, meta.tier !== 'setup');
-      const hasCoach  = copyGuideForPages(path.join(dir, 'COACH.md'),  path.join(guideDir, 'COACH.md'), moduleId);
 
       if (!hasReadme) { console.error(`  ✗ ${meta.id}: no README.md (delivery guide)`); errors++; }
-      if (!hasCoach)  { console.error(`  ✗ ${meta.id}: no COACH.md (coach guide)`);   errors++; }
 
       const trackCfg = (moduleCfg.tracks && moduleCfg.tracks[meta.track]) || {};
 
@@ -473,7 +463,6 @@ function main() {
         description:             meta.description  || '',
         prerequisites:           meta.prerequisites,
         prerequisite_capabilities: meta.prerequisite_capabilities,
-        success_criteria:        meta.success_criteria,
         tags:                    meta.tags,
         outcomes:                meta.outcomes,
         personas:                meta.personas,
@@ -488,14 +477,10 @@ function main() {
         source_ref:              CURRENT_SOURCE_REF,
         student_source_repo:     CURRENT_SOURCE_REPO,
         student_source_path:     relativeSourcePath(path.join(dir, 'README.md')),
-        coach_source_repo:       CURRENT_SOURCE_REPO,
-        coach_source_path:       relativeSourcePath(path.join(dir, 'COACH.md')),
         license:                 meta.license,
         student_path:            `assets/data/challenges/${meta.id}/README.md`,
-        coach_path:              `assets/data/challenges/${meta.id}/COACH.md`,
         // internal
         _has_student_guide:      hasReadme,
-        _has_coach_guide:        hasCoach,
       });
     }
   }
@@ -618,7 +603,6 @@ function main() {
   const outputChallenges = allChallenges.map(c => {
     const out = Object.assign({}, c);
     delete out._has_student_guide;
-    delete out._has_coach_guide;
     return out;
   });
 
@@ -645,7 +629,7 @@ function main() {
   const totalChallenges = allChallenges.length;
   console.log(`✓ built platform.json  (modules: ${modules.length}, outcomes: ${outputOutcomes.length}, challenges: ${totalChallenges})`);
   console.log(`✓ built dependency-graph.json  (nodes: ${graphNodes.length}, edges: ${graphEdges.length})`);
-  console.log(`✓ copied delivery/coach guides → ${path.relative(ROOT, OUT_GUIDES_DIR)}`);
+  console.log(`✓ copied delivery guides → ${path.relative(ROOT, OUT_GUIDES_DIR)}`);
   if (warnings > 0) console.warn(`  ${warnings} warning(s) — review above`);
 }
 

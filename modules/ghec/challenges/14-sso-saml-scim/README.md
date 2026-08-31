@@ -38,6 +38,12 @@
 A GHEC customer runs identity centrally in their IdP and wants GitHub to obey it: people sign in through corporate SSO, joiners are provisioned automatically, and leavers lose access the moment HR disables them — no orphaned accounts, no manual offboarding. You'll stand this up at the organization level (the primary, most common GHEC pattern), connecting a test IdP, proving the SCIM join/leave lifecycle, and auditing the identity links. The enterprise-account variant (centralized across many orgs, and EMU where GitHub identities are fully managed) is covered as an awareness callout so you know when to reach for it.
 
 > Awareness callout — enterprise vs org: SAML and SCIM can be configured at the enterprise level (applies across all orgs) or, as here, at a single org. Enterprise Managed Users (EMU) go further — every member is a managed user created only via SCIM at the enterprise level, with no personal account. Because EMU authenticates and provisions at the enterprise tier, the org-level SAML SSO and org-level SCIM you configure in this activity are not available inside an EMU organization — run it in a non-EMU org. EMU and enterprise-level SSO require an enterprise owner and are out of scope for the hands-on tasks; this activity delivers the org-scoped experience that any org owner can complete. Note the trade-offs where relevant, but you are not required to configure anything at the enterprise tier.
+>
+> Check whether `ghec-ch52` (Enterprise Landing Zone & Organization Strategy) has already established this customer's identity model. If so, use its personal-accounts-vs-SAML-restricted-org-vs-EMU decision as the authoritative source for confirming this org is the correct non-EMU target, and cite its register entry. If `ghec-ch52` has not been completed, make that determination independently using Part A's auth-model mapping and record it as `ghec-ch52 not completed — identity model determined independently`.
+
+## Scope boundary
+
+This is an **organization-scoped identity** activity. Completing it — even the enforcement step in Part E — is evidence of an organization's SAML/SCIM lifecycle only. It does not prove, satisfy, or substitute for an enterprise-level SSO/SCIM decision, an EMU determination, or `ghec-ch52`'s identity-model record, and it is not enterprise identity-governance evidence for Ch28. Route any enterprise-level SAML/SCIM, CAP, or EMU decision to `ghec-ch52` or Ch28.
 
 > [!IMPORTANT]
 > Use an approved customer target (do this first)
@@ -65,12 +71,11 @@ Setup creates these resources (all names use the `ghec-ch14-*` prefix, and teard
 - A documented list of the org-scoped identity settings you'll touch (the org's Authentication security page) — the provisioner does not flip SSO on for you; it stages the runbook and validation helpers.
 - A printed Next steps block, including the exact org Settings → Authentication security URL and the SCIM API base.
 
-
 ## Tasks
 > Throughout, `ghec-ch14-identity-runbook` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Identity models & IdP app
-1. Map the three auth models. In the runbook, write one paragraph each on personal accounts, SAML-restricted org, and EMU+SCIM — when each is appropriate. (Cite the IAM fundamentals doc in References.)
+1. Map the three auth models. In the runbook, write one paragraph each on personal accounts, SAML-restricted org, and EMU+SCIM — when each is appropriate. (Cite the IAM fundamentals doc in References.) Check whether `ghec-ch52`'s identity-model decision is already established for this customer; if so, cite it here instead of re-deriving it, and if not, complete this mapping independently and record that `ghec-ch52` was not available.
 2. Register a SAML app in your IdP. In Entra ID (Enterprise applications → New → GitHub.com Organization) or Okta, create the SAML app. Record the entity ID, ACS/Reply URL (`https://github.com/orgs/<org>/saml/consume`), sign-on URL, and issuer in the runbook.
 3. Capture the signing certificate from the IdP; you'll paste its public cert into GitHub.
 
@@ -102,19 +107,6 @@ Setup creates these resources (all names use the `ghec-ch14-*` prefix, and teard
 ### Part E — Enforce (capstone) and roll back safely
 12. Enforce SAML SSO. Now check Require SAML SSO for the org. Confirm that a member without a linked identity is prompted to authenticate via the IdP, and that unauthorized tokens are rejected on org resources.
 13. Validate safe rollback. Document (and, in the test org, perform) the rollback: un-enforce SAML, revoke the SCIM token, and remove the IdP app — capturing why each step matters so a real rollout has a tested exit.
-
-## Validation / Definition of Done
-**Done means:**
-- [ ] The runbook explains the three auth models and records your IdP app's SAML settings.
-- [ ] SAML SSO is configured for the org and validated in test mode (test round-trip succeeded before enforcement).
-- [ ] A token is SSO-authorized and works against org resources under SAML (`gh api orgs/<org>/members` succeeds).
-- [ ] SCIM provisioning is enabled and you demonstrated a join (user created via SCIM) and a leave (user suspended via SCIM), verifiable via the SCIM API.
-- [ ] You produced an external-identity audit listing GitHub logins ↔ IdP identities.
-- [ ] SAML SSO is enforced on the org (and you documented a tested rollback).
-- [ ] Real-outcome check — if you brought your own identity target, the runbook or SAML/SCIM plan now reflects a real lifecycle gap; if you used the sample, you can name the org rollout you will plan next.
-- [ ] Adoption handover — record the customer identity owner, lifecycle gap, approved rollback-aware rollout decision, and next action.
-
-> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Configure team sync (Entra/Okta groups → GitHub org teams) so group membership drives team membership.

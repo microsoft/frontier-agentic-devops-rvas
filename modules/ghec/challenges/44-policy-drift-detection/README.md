@@ -24,10 +24,11 @@
 - GitHub Enterprise Cloud organization with org-owner rights.
 - Token scopes from `setup.sh doctor ch44 --org <org>` (`repo` + `read:org`).
 - `gh >= 2.x`, `git`, and `jq`.
+- Optional: the ghec-ch52 approved organization topology, delegation matrix, and control register, when the customer has already completed that work.
 
 ## Scenario
 
-A baseline defines repository ownership, required files, labels, topics, and safe feature settings. Repositories drift from it over time. Define the baseline, detect the differences, and record remediation without silently applying broad organization policy.
+A baseline defines repository ownership, required files, labels, topics, and safe feature settings. Repositories drift from it over time. Define the baseline, detect the differences, and record remediation without silently applying broad organization policy. If ghec-ch52 (organization topology, delegation matrix, and control register) is already established for this customer, reuse its approved ownership and delegation expectations as baseline inputs; if it is not available, define the baseline independently within this activity's scope.
 
 ## Sample setup
 
@@ -44,7 +45,7 @@ Setup creates `ghec-ch44-policy-baseline` and `ghec-ch44-drifted-service`. The d
 
 ### Part A — Define the baseline
 
-1. Define baseline checks: owner evidence, README, CODEOWNERS, issue template, PR template, labels, topics, visibility, issues enabled, and branch/ruleset expectations.
+1. Define baseline checks: owner evidence, README, CODEOWNERS, issue template, PR template, labels, topics, visibility, issues enabled, and branch/ruleset expectations. Check whether ghec-ch52's approved organization topology, delegation matrix, and register are available for this customer; if so, source ownership and delegation expectations from them, and if not, define those expectations independently for this activity.
 2. Inspect the baseline sample:
    ```bash
    gh repo view <org>/ghec-ch44-policy-baseline --json name,visibility,hasIssuesEnabled,repositoryTopics,description
@@ -60,7 +61,7 @@ Setup creates `ghec-ch44-policy-baseline` and `ghec-ch44-drifted-service`. The d
    gh label list --repo <org>/ghec-ch44-drifted-service --limit 100 --json name
    gh api repos/<org>/ghec-ch44-drifted-service/contents/.github/CODEOWNERS --silent || echo "missing CODEOWNERS"
    ```
-5. Produce a drift report with pass/fail, severity, owner, remediation, exception, and next review date.
+5. Produce a drift report with pass/fail, severity, owner, remediation, exception, and next review date. Record any organization- or enterprise-scoped check outside this activity's token/API access as unavailable evidence — never mark it pass/compliant without verification.
 6. Decide what can be safely remediated now versus what needs approval.
 
 ### Part C — Remediate safely
@@ -77,15 +78,6 @@ Setup creates `ghec-ch44-policy-baseline` and `ghec-ch44-drifted-service`. The d
 
 10. Store the baseline contract, latest drift report, and approved exceptions.
 11. Name the drift check owner, review cadence, and next repository cohort.
-
-## Validation / Definition of Done
-
-- [ ] Baseline contract covers files, labels, topics, settings, owner evidence, and exceptions.
-- [ ] At least two repositories are compared.
-- [ ] Drift report lists severity, owner, remediation, exception, and next review.
-- [ ] One safe remediation is applied or an approved exception is recorded.
-- [ ] High-impact controls are explicitly approved or deferred with owner/date.
-- [ ] Adoption handover names the drift detection owner and next automation decision.
 
 ## Reference links
 

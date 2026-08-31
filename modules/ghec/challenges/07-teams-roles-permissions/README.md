@@ -21,6 +21,7 @@
 - Next action and owner: approve tenant implementation for the selected teams or deliver the access-model proposal for owner decision.
 
 ## Prerequisites
+- Recommended: Ch52 (Enterprise Landing Zone & Organization Strategy) completed first. When available, use its delegation register as the **preferred** source for the enterprise-level team and role decisions. If Ch52 was not completed, this activity's organization-level model still stands independently — see "Enterprise vs. organization control" below for the fallback.
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch07 --org <org>` (least-privilege; for this activity: `admin:org` + `repo` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
@@ -65,7 +66,6 @@ Setup creates these resources (all names use the `ghec-ch07-*` prefix, and teard
 - A printed access snapshot (current teams + repo grants from the API) so you can prove "before" → "after."
 - A printed Next steps block telling you where to start.
 
-
 ## Tasks
 > Throughout, `ghec-ch07-frontend` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
@@ -92,30 +92,18 @@ Setup creates these resources (all names use the `ghec-ch07-*` prefix, and teard
 11. Assign the custom role to a team on one repo (`-f permission=<custom-role-name>`), and verify it appears: `gh api /orgs/<org>/custom-repository-roles --jq '.custom_roles[].name'`.
 12. Prove the boundary: document which actions the custom role allows vs blocks, referencing the base role + the removed permissions.
 
-### Part E — Members & verification
+### Part E — Members and access matrix
 13. Add at least one member to each squad (or model it with your own account across teams) and confirm membership: `gh api /orgs/<org>/teams/ghec-ch07-frontend-squad/members --jq '.[].login'`.
 14. Produce an access matrix: for each repo, list which teams have which role, pulled from the API. Save it as `ACCESS.md` in `ghec-ch07-platform`.
 15. Diff against the "before" snapshot from setup to prove the org went from flat to modeled.
-
-## Validation / Definition of Done
-**Done means:**
-- [ ] A parent team has two child teams, confirmed nested via the API (`.parent.name` is non-null).
-- [ ] The parent grants `Read` on all three repos and that access inherits to the children (verifiable on a child team's repo permissions).
-- [ ] Each squad has `Write` on its own repo only; neither has Write on `ghec-ch07-platform`.
-- [ ] A team holds the Maintain predefined role on `ghec-ch07-platform`.
-- [ ] A custom repository role exists (`gh api /orgs/<org>/custom-repository-roles` lists it) and is assigned to a team on a repo.
-- [ ] An `ACCESS.md` access matrix exists, generated from the API, and a before/after comparison shows the org is now team-modeled.
-- [ ] Real-outcome check — if you brought your own teams/repos, access is now clearer on a model people actually use; if you used the sample, you can name the real team or repo set you will map next.
-- [ ] Adoption handover — record the customer access owner, priority excess-access or bottleneck finding, and next approved team-model action.
-
-> Coaches use the checks in `COACH.md`.
+16. Source the enterprise-level team/role delegation decision (enterprise teams, custom organization roles, IdP-driven team sync): if Ch52 was completed, cite its landing-zone delegation register entry; otherwise, if you hold authorized enterprise-owner access, pull an enterprise export/inspection and cite it. If neither is available, record `enterprise policy not available / not applicable` in `ACCESS.md` — do not infer enterprise-wide delegation from this one organization's team model.
 
 ## Operational extensions
 - Add a third level of nesting (a sub-squad under a squad) and trace how a grant on the grandparent reaches the grandchild.
 - Script the entire access matrix as a Markdown table generated purely from `gh api` calls — turn "who can do what" into a one-command report.
 - Create a second custom role based on `Read` that adds *only* the "manage issues" permission (a "support" persona) and contrast it with Triage.
 
-> At enterprise scale (awareness only): An enterprise account adds enterprise teams and can define custom organization roles that span every org, plus team synchronization with an IdP so membership is driven by your identity provider. In this activity you build the org-level team hierarchy and custom repository roles, which are the controls an org owner uses every day. No enterprise owner is required.
+> Enterprise vs. organization control: An enterprise account adds enterprise teams and can define custom organization roles that span every org, plus team synchronization with an IdP so membership is driven by your identity provider. This activity implements and verifies the **organization-level** team hierarchy and custom repository roles; it does not complete or substitute for the enterprise-level delegation decision. Prefer Ch52's landing-zone delegation register (or an authorized enterprise export you can cite) as the source for that decision. If Ch52 was not completed and no enterprise export is authorized, record it as `not available / not applicable` — do not infer enterprise-wide delegation from this one organization. No enterprise-owner access is required to complete the hands-on organization-level work in this activity.
 
 ## Reference links
 - About teams — https://docs.github.com/en/organizations/organizing-members-into-teams/about-teams

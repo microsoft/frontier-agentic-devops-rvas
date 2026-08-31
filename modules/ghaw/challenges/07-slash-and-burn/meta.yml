@@ -11,20 +11,6 @@ prerequisite_capabilities:
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
 description: Turn issue comments into a command interface. Detect `/summarize` and post a short summary of the issue thread.
-success_criteria:
-  - "`.github/workflows/slash-commands.md` exists with valid gh-aw frontmatter"
-  - "Frontmatter includes `on: issue_comment:` with `types: [created]` and `lock-for-agent: true`"
-  - Body detects slash commands (checks for `/summarize` in comment text)
-  - Workflow only executes for `/summarize` (ignores other comments)
-  - "`.github/workflows/slash-commands.lock.yml` compiles without errors"
-  - "Manual test: post a comment `/summarize` on a test issue"
-  - The workflow runs (visible in Actions tab)
-  - A summary comment appears within 30 seconds
-  - Summary includes:
-    - Issue title and current state
-    - At least 2 key points from the discussion
-    - Next steps or recommendation
-  - Only authorized users (repo members) can trigger the command
 tags:
   - slash-commands
   - issue-comments

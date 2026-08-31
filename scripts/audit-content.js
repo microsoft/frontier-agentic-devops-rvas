@@ -144,7 +144,7 @@ function normaliseMeta(raw, moduleId, slug) {
     const rawReqs = Array.isArray(m.requires) ? m.requires : [];
     m.prerequisites = rawReqs.filter(v => typeof v === 'string' && v.includes('-'));
   }
-  for (const key of ['prerequisites', 'prerequisite_capabilities', 'success_criteria', 'tags', 'provision_creates', 'references']) {
+  for (const key of ['prerequisites', 'prerequisite_capabilities', 'tags', 'provision_creates', 'references']) {
     if (!Array.isArray(m[key])) m[key] = [];
   }
   if (!m.app_dependency) m.app_dependency = m.app || 'none';
@@ -188,7 +188,7 @@ function auditMetaContract(challenges) {
     'id', 'title', 'module', 'track', 'difficulty', 'duration_minutes', 'description',
     'app_dependency', 'emu_compatible', 'min_environment', 'tier', 'source_repo', 'source_path', 'license',
   ];
-  const nonEmptyArrays = ['prerequisite_capabilities', 'success_criteria'];
+  const nonEmptyArrays = ['prerequisite_capabilities'];
   for (const c of challenges) {
     const fileRel = rel(c.metaPath);
     const raw = c.rawMeta || {};
@@ -255,9 +255,7 @@ function auditGuideSurfaces(challenges) {
   for (const c of challenges) {
     const titleNeedle = normalizeText(c.meta.title || '');
     const readmePath = path.join(c.dir, 'README.md');
-    const coachPath = path.join(c.dir, 'COACH.md');
     if (!fs.existsSync(readmePath)) addError(rel(c.dir), 0, `${c.meta.id} missing README.md delivery guide`);
-    if (!fs.existsSync(coachPath)) addError(rel(c.dir), 0, `${c.meta.id} missing COACH.md facilitator guide`);
 
     if (fs.existsSync(readmePath)) {
       const readme = readText(readmePath);
@@ -266,16 +264,6 @@ function auditGuideSurfaces(challenges) {
         addWarning(rel(readmePath), 1, `README title does not include meta title "${c.meta.title}"`);
       }
 
-      if (!/^##\s+(Success Criteria|Acceptance Criteria|Verify|Verification)\b/im.test(readme)
-        && (!Array.isArray(c.meta.success_criteria) || c.meta.success_criteria.length === 0)) {
-        addWarning(rel(readmePath), 0, 'delivery guide has no visible success/verification surface');
-      }
-    }
-
-    if (fs.existsSync(coachPath)) {
-      const coach = readText(coachPath);
-      const hasAssessmentSurface = /(assurance record|grading rubric|rubric|expected (outputs?|outcomes?|solution shape)|strong evidence|how to verify|verification|success check|acceptance checklist|common (gaps|blockers|pitfalls))/i.test(coach);
-      if (!hasAssessmentSurface) addWarning(rel(coachPath), 0, 'coach guide lacks an expected-output, verification, or rubric surface');
     }
   }
 }
@@ -431,7 +419,7 @@ function auditTerminology() {
 
   for (const file of walk(MODULES_DIR, p => p.endsWith('meta.yml'))) {
     const meta = parseMeta(readText(file));
-    for (const key of ['title', 'description', 'track', 'tags', 'prerequisite_capabilities', 'success_criteria']) {
+    for (const key of ['title', 'description', 'track', 'tags', 'prerequisite_capabilities']) {
       const value = Array.isArray(meta[key]) ? meta[key].join('\n') : String(meta[key] || '');
       const match = /\bchallenges?\b/i.exec(value);
       if (match) addError(rel(file), 0, `metadata field "${key}" must use "activity" or "activities"`);
@@ -560,22 +548,20 @@ function auditLinks(files) {
 function auditRenderedGuideLinks(challenges) {
   const challengeIds = new Set(challenges.map(c => c.meta.id));
   for (const c of challenges) {
-    for (const kind of ['README.md', 'COACH.md']) {
-      const generated = path.join(DOCS_DIR, 'assets', 'data', 'challenges', c.meta.id, kind);
-      if (!fs.existsSync(generated)) continue;
-      const text = readText(generated);
-      const fileRel = rel(generated);
-      for (const link of linkCandidates(text)) {
-        const href = link.href.trim();
-        if (isSkippable(href) || isExternal(href)) continue;
-        const target = withoutFragmentAndQuery(href);
-        if (!target) continue;
-        if (isValidDocsRoute(href, challengeIds)) continue;
-        // Markdown is injected into docs/challenge.html, so browser-relative links resolve from docs/.
-        const renderedTarget = path.resolve(DOCS_DIR, decodeURIComponent(target));
-        if (!renderedTarget.startsWith(DOCS_DIR) || !fs.existsSync(renderedTarget)) {
-          addError(fileRel, lineAt(text, link.index), `rendered guide link will 404 on GitHub Pages: ${href}`);
-        }
+    const generated = path.join(DOCS_DIR, 'assets', 'data', 'challenges', c.meta.id, 'README.md');
+    if (!fs.existsSync(generated)) continue;
+    const text = readText(generated);
+    const fileRel = rel(generated);
+    for (const link of linkCandidates(text)) {
+      const href = link.href.trim();
+      if (isSkippable(href) || isExternal(href)) continue;
+      const target = withoutFragmentAndQuery(href);
+      if (!target) continue;
+      if (isValidDocsRoute(href, challengeIds)) continue;
+      // Markdown is injected into docs/challenge.html, so browser-relative links resolve from docs/.
+      const renderedTarget = path.resolve(DOCS_DIR, decodeURIComponent(target));
+      if (!renderedTarget.startsWith(DOCS_DIR) || !fs.existsSync(renderedTarget)) {
+        addError(fileRel, lineAt(text, link.index), `rendered guide link will 404 on GitHub Pages: ${href}`);
       }
     }
   }
@@ -693,11 +679,9 @@ function auditCatalog(challenges) {
   for (const id of sourceIds) if (!catalogIds.has(id)) addError(rel(PLATFORM_PATH), 0, `missing source challenge ${id}`);
   for (const id of catalogIds) if (!sourceIds.has(id)) addError(rel(PLATFORM_PATH), 0, `contains stale challenge ${id}`);
   for (const c of platform.challenges || []) {
-    for (const key of ['student_path', 'coach_path']) {
-      if (!c[key]) { addError(rel(PLATFORM_PATH), 0, `${c.id} missing ${key}`); continue; }
-      const target = path.join(DOCS_DIR, c[key]);
-      if (!fs.existsSync(target)) addError(rel(PLATFORM_PATH), 0, `${c.id} ${key} target missing: ${c[key]}`);
-    }
+    if (!c.student_path) { addError(rel(PLATFORM_PATH), 0, `${c.id} missing student_path`); continue; }
+    const target = path.join(DOCS_DIR, c.student_path);
+    if (!fs.existsSync(target)) addError(rel(PLATFORM_PATH), 0, `${c.id} student_path target missing: ${c.student_path}`);
   }
   const expectedEdges = new Set();
   for (const c of challenges) for (const dep of c.meta.prerequisites || []) expectedEdges.add(`${dep}->${c.meta.id}`);

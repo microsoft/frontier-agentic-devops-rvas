@@ -66,7 +66,6 @@ Setup creates these resources (all names use the `ghec-ch04-*` prefix, and teard
 - A minimal starter workflow (`.github/workflows/ci.yml`) that just echoes — you will replace it with a real pipeline.
 - A printed Next steps block telling you where to start.
 
-
 ## Tasks
 > Throughout, `ghec-ch04-actions-ci-fundamentals` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
@@ -100,21 +99,6 @@ Setup creates these resources (all names use the `ghec-ch04-*` prefix, and teard
     the workflow remains compatible with those settings. If an enterprise policy
     is not visible to the org owner, note the limitation without blocking the CI
     activity.
-
-## Validation / Definition of Done
-**Done means:**
-- [ ] `.github/workflows/ci.yml` triggers on push and pull_request and runs lint + test + build as distinct steps.
-- [ ] A matrix runs across ≥3 Node versions with `fail-fast: false`.
-- [ ] Caching is enabled and a run shows a cache hit on the second execution.
-- [ ] A test-report artifact is uploaded and downloadable (UI + `gh run download`).
-- [ ] A second job uses `needs` and a conditional so it only runs on `main`.
-- [ ] An environment `staging` exists with a protection rule and a variable + secret wired into a job.
-- [ ] The `build-test` check is required on `main`; a red run blocks merge, a green run unblocks it.
-- [ ] The effective Actions policy, token permissions, fork pull-request boundary, and retention settings were inspected, and the workflow is compatible with them.
-- [ ] Real-outcome check — if you brought your own repo, CI now runs against a real build or test path; if you used the sample, you can name the workflow you will automate next.
-- [ ] Adoption handover — name the customer test or build process, workflow owner, required gate, and next approved rollout action.
-
-> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Extract the test job into a reusable workflow (`workflow_call`) and call it from `ci.yml`.

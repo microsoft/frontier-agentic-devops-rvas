@@ -10,16 +10,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: "Set up an authorized customer audit-log investigation and export path using the organization audit-log UI, search syntax, and REST API. Preserve the repeatable query/export artefacts, accountable owner, and next adoption action."
-success_criteria:
-- You can pull recent org audit events from the **API** (`gh api /orgs/<org>/audit-log` returns events with `action`/`actor`/`created_at`).
-- A **known event set** was generated in Part B and **every** action is findable via search or API.
-- At least **three distinct search filters** (`action:`, `actor:`, `repo:`, or `created:`) were used and produced correct results.
-- A **combined, time-bounded API query** returns a sensible count for today's events.
-- An **export script** committed to the repo pulls a time-bounded slice to JSON and the output contains your events.
-- A **`FINDINGS.md`** answers three investigative questions with the exact filter used.
-- The effective organization audit settings are verified; any authorized enterprise inspection captures streaming destination, retention, and IP-address-display behavior.
-- Customer evidence records the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+description: "Set up an authorized customer audit-log investigation and export path using the organization audit-log UI, search syntax, and REST API. Prefer Ch52's landing-zone register (or an authorized enterprise export) as the source for the enterprise-level streaming/retention decision, distinct from this organization's implementation; fall back to an independent org-level export with an explicit not-available record when Ch52 was not completed. Preserve the repeatable query/export artefacts, accountable owner, and next adoption action."
 tags:
 - audit-log
 - api

@@ -5,7 +5,7 @@ Use this packet when live Azure SRE Agent access is unavailable. Replace each pl
 ## Incident Summary
 
 - Service: Grubify
-- Detected by: Azure Monitor alert, synthetic check, or coach-provided signal
+- Detected by: Azure Monitor alert, synthetic check, or organizer-provided signal
 - Start time: `<timestamp>`
 - Affected flow: Add to Cart / Grubify API
 - Customer impact: `<brief customer-safe impact statement>`

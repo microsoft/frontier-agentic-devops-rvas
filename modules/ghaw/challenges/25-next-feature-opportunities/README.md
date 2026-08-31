@@ -71,17 +71,6 @@ and the team decides whether a recommendation becomes planned work.
    git commit -m "Add next feature opportunities workflow"
    ```
 
-## Definition of done
-
-- [ ] The source Markdown and compiled `.lock.yml` workflow files are present.
-- [ ] The agent has only read access to repository contents and issues.
-- [ ] Every published recommendation identifies supporting paths or issue
-  references.
-- [ ] The workflow publishes at most one current recommendation report and
-  avoids opening a report when there is no material, untracked opportunity.
-- [ ] The product owner has reviewed the first output and recorded which, if
-  any, recommendations will enter the delivery backlog.
-
 ## Hints
 
 **The recommendations are generic.** Narrow the evidence sources in the

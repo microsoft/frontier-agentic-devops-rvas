@@ -12,13 +12,6 @@ prerequisite_capabilities:
   - A non-EMU repository eligible for Copilot cloud agent
   - Named Copilot, security, repository, and audit-evidence owners
 description: "Configure a customer-owned, least-privilege Copilot automation that runs on a schedule or repository event, retains session and audit evidence, and preserves independent human review."
-success_criteria:
-  - A customer private or internal repository, named owners, licensing and policy eligibility, and approved automation scope were recorded before configuration.
-  - One approved scheduled or event-triggered Copilot automation was configured with least-privilege tools; event-trigger filters and the default untrusted-trigger guardrail were recorded where applicable.
-  - The automation was tested with Run now or an approved controlled trigger, and the resulting Copilot cloud-agent session log and outcome were retained as evidence.
-  - Any pull request or code push was attributed to the automation creator and independently reviewed; the creator did not approve their attributed output.
-  - Audit-log evidence, session evidence, tool scope, trigger/filter configuration, cost owner, and disable or rollback path were captured in the customer decision package.
-  - If licensing, policy, repository eligibility, or approval was unavailable, no automation was enabled and a decision package recorded the blocker, owner, evidence, and next decision.
 tags:
   - copilot
   - cloud-agent

@@ -66,7 +66,6 @@ Setup creates these resources (all names use the `ghec-ch05-*` prefix, and teard
 - No rulesets yet — you create them.
 - A printed Next steps block telling you where to start.
 
-
 ## Tasks
 > Throughout, `ghec-ch05-advanced-pr-automation` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
@@ -100,19 +99,6 @@ Setup creates these resources (all names use the `ghec-ch05-*` prefix, and teard
 
 ### Part F — Organization ruleset
 15. Create an org-level ruleset (Org Settings → Repository → Rulesets) named `ghec-ch05-org` targeting repos matching `ghec-ch05-*`, requiring a PR + the `build` check across all matching repos. See [managing rulesets for organizations](https://docs.github.com/en/organizations/managing-organization-settings/creating-rulesets-for-repositories-in-your-organization). Confirm it layers on top of the repo ruleset (the stricter wins) and verify via `gh api /orgs/<org>/rulesets`.
-
-## Validation / Definition of Done
-**Done means:**
-- [ ] An active repository ruleset on `main` requires PR + ≥1 approval + code-owner review + the `build` status check + linear history, and blocks direct pushes (demonstrated).
-- [ ] CODEOWNERS is valid; a `/src/` PR auto-requests the owner; a bypass actor is configured and documented.
-- [ ] Auto-merge is enabled and a clean PR merged itself once gates passed; a failing PR did not.
-- [ ] A PR template pre-fills new PRs; a draft PR demonstrably blocks auto-merge/reviewers until marked ready.
-- [ ] Auto-labeling assigns `area:` labels by path; an open-PR comment workflow fires; a stale workflow labels/closes inactive PRs.
-- [ ] An organization ruleset targeting `ghec-ch05-*` is active and layers with the repo ruleset.
-- [ ] Real-outcome check — if you brought your own repo, PR automation now removes a real review chore; if you used the sample, you can name the team repo where you will install it next.
-- [ ] Adoption handover — name the customer PR bottleneck, accountable owner, automation candidate, and next approved rollout action.
-
-> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Add required signed commits to the ruleset and demonstrate a rejected unsigned push, then a passing signed one.

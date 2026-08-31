@@ -28,16 +28,6 @@ Prevent the unsafe pattern from returning. Copilot Autofix or other Copilot assi
 > - **Real application available:** Use it wherever this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice Shop setup and select real SQL, NoSQL, command, or template injection alerts so the fixes land in code your team maintains.
 > - **No suitable application:** Use the S00 OWASP Juice Shop fallback to practice fixing known injection flaws.
 >
-> Tell your coach which path you chose.
->
-
-## Success Criteria
-
-- [ ] A technically validated injection fix uses a safe pattern for its execution sink: parameterized queries or an ORM-safe alternative for database operations, or APIs and designs that keep data separate from command or template interpretation for other sinks. Input sanitization alone does not meet this requirement. The fix confirms expected behavior and retains PR/review evidence plus relevant GHAS validation.
-- [ ] A reusable prevention pattern record in `modules/ghas/resources/ghas-governance-practice.template.md` states the unsafe pattern/finding class, approved safe pattern, where it applies, PR/review evidence, relevant GHAS validation, named owner, and how the expectation applies to human- and agent-authored changes.
-- [ ] Completion requires two independently reviewed fixes, a technically validated fix, and a reusable prevention pattern record; two fixes alone are not sufficient.
-- [ ] Any Copilot Autofix or other Copilot assistance is treated as proposed work, reviewed by a human, and handled through existing PR and GHAS controls.
-- [ ] Coach conversation: Where in your own codebase is user-controlled input most likely to reach a database query without parameterization? What data could an attacker extract or modify? Discuss a real project, task, or workflow with your coach.
 
 ## Copilot Tips
 

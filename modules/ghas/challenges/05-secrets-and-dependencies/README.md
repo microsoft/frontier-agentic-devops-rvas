@@ -29,21 +29,6 @@ Both issues need an accountable response. Record the owner, validation, accepted
 > - **Real application available:** Use it wherever this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice Shop setup and review your own secret scanning alerts, high or critical Dependabot alerts, and configuration files so the work improves a repository your team maintains.
 > - **No suitable application:** Use the S00 OWASP Juice Shop fallback to practice the secret and dependency remediation workflow.
 >
-> Tell your coach which path you chose.
->
-
-## Success Criteria
-
-- [ ] An exposed hardcoded secret is removed from the affected code path, with revocation or rotation assessed and recorded
-- [ ] Replacement configuration uses environment variable references (`process.env.VARIABLE_NAME`) and the application still starts and authenticates correctly
-- [ ] At least 2 high or critical Dependabot alerts reviewed and understood
-- [ ] Pull request checks and security annotations reviewed for your branch changes
-- [ ] Secret scanning alerts relevant to your changes addressed or explained
-- [ ] The shared governance practice records the response owner, dependency remediation route, and any approved exception with an expiry date
-- [ ] Human- and agent-authored changes use the same push-protection, pull-request, and accountable-owner expectations
-- [ ] Coach conversation: Identify the hardcoded credential or critically vulnerable dependency you are most likely to find in your team's repositories. Estimate how long it may have gone unnoticed, then discuss a real project, task, or workflow with your coach.
-
-**Push protection:** If your branch introduces a new secret, push protection should block it before it lands. Treat the block as validation evidence.
 
 ## Learning Resources
 

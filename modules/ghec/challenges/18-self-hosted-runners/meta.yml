@@ -11,16 +11,8 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Implement an authorized self-hosted runner in an organization runner group. Record label routing, hardening, scaling, isolation, ownership, and the rollout decision."
-success_criteria:
-- An **org runner group** `ghec-ch18-group` exists, scoped to **selected repos** (only `ghec-ch18-self-hosted-runners`).
-- A **self-hosted runner** is registered to that group with custom **labels** and shows **Idle/online**.
-- '`self-hosted.yml` ran **on your runner** (runner name confirmed) while `hosted.yml` ran on a hosted runner.'
-- A **mis-labeled** job stays **queued**, proving label routing.
-- The runner runs under a **least-privilege account** and you demonstrated an **ephemeral** registration.
-- You documented the **fork-PR risk** and a **GitHub-hosted vs larger vs self-hosted** decision matrix, plus the **org-vs-enterprise runner group** note.
-- The effective runner-group and host-hardening settings are verified; any authorized enterprise-policy inspection confirms runner compatibility.
-- Evidence names the authorized scope, accountable owner, risk controls, handover artefact, and next adoption, cutover, or rollout decision.
+- Optional ghec-ch52 approved organization topology and cost/organization-scope decision, when already established for the customer
+description: "Implement an authorized self-hosted runner in an organization runner group. Record label routing, hardening, scaling, isolation, ownership, and the rollout decision. Prefer ghec-ch52's organization topology and cost/organization-scope decision as the source for the org-vs-enterprise runner-group call when available; fall back to an independent recommendation, with an explicit not-available record for any enterprise runner policy that cannot be inspected."
 tags:
 - actions
 - self-hosted-runners

@@ -12,14 +12,6 @@ prerequisite_capabilities:
 - jq installed
 - Repository provisioned via activity setup script
 description: "Manage vendor and outside-collaborator access from request and approval through a least-privilege grant, periodic review, offboarding, and audit evidence."
-success_criteria:
-- A vendor access register captures business owner, repository scope, permission level, start/end dates, reviewer, and offboarding trigger.
-- Current outside collaborators and pending invitations are reviewed, or a documented API/UI limitation records how the review was performed.
-- New vendor access is granted only through an explicit participant step after approval; setup does not invite users or mutate org access settings.
-- Repository permissions follow least privilege and time-bound review expectations.
-- Offboarding removes or validates removal of vendor access and records audit evidence.
-- Governance evidence records owner, approval path, review cadence, audit log evidence, exceptions, and next review.
-- Customer evidence names the authorized scope and owner, links the relevant controls and handover record, and states the next access-review decision.
 tags:
 - outside-collaborators
 - vendors

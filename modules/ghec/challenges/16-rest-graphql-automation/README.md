@@ -70,7 +70,6 @@ Setup creates these resources (all names use the `ghec-ch16-*` prefix, and teard
 - An empty org Projects v2 board `ghec-ch16-board` you'll populate from GraphQL.
 - A printed Next steps block telling you where to start.
 
-
 ## Tasks
 > Throughout, `ghec-ch16-rest-graphql-automation` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
@@ -101,19 +100,6 @@ Setup creates these resources (all names use the `ghec-ch16-*` prefix, and teard
 ### Part F — Rate limits & a reconcile script
 15. Inspect your budget. `gh api rate_limit --jq '.resources.core, .resources.graphql'`. Note `remaining` and `reset`.
 16. Build a small reconcile script (Bash or PowerShell) that: pages all issues, ensures every issue has at least one label, adds untracked issues to the board, and checks `rate_limit` between batches, sleeping until `reset` if `remaining` is low. Re-run it twice and confirm the second run makes no changes (pure reconcile).
-
-## Validation / Definition of Done
-**Done means:**
-- [ ] You performed both a REST read and a REST write (label created, issues labeled, comment posted) via `gh api`.
-- [ ] You paged through all seeded issues with REST `--paginate` and the count matches the seeded total.
-- [ ] You ran a parameterized GraphQL query with variables and cursor-paginated it to completion.
-- [ ] You executed at least one GraphQL mutation (added issues to `ghec-ch16-board` and set their `Status`).
-- [ ] You inspected `rate_limit` and your reconcile script backs off when `remaining` is low.
-- [ ] Your reconcile script is idempotent — a second run produces no changes.
-- [ ] Real-outcome check — if you brought your own automation target, an API script now removes real recurring toil; if you used the sample, you can name the manual GitHub task you will automate next.
-- [ ] Adoption handover — record the customer automation owner, recurring manual task, expected benefit, approval boundary, and next action.
-
-> Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
 - Re-implement the triage in pure GraphQL (issue search + `addLabelsToLabelable`) and compare the request count to the REST version.

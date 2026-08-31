@@ -11,15 +11,6 @@ prerequisite_capabilities:
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
 description: Fetch real data with `pre-agent-steps:` before the agent runs, then propose changes through `create-pull-request`.
-success_criteria:
-  - "`.github/workflows/16-ground-truth.md` compiles without errors"
-  - "`pre-agent-steps:` fetches at least 3 real metrics and writes them to `/tmp/`"
-  - Agent body references those `/tmp/` files explicitly
-  - "`CONTRIBUTING.md` is updated with a `## Project Health` section containing real numbers"
-  - A PR is opened — not a direct commit
-  - PR title matches `title-prefix`
-  - Numbers in the PR are accurate (match what `gh` CLI would return for the repo)
-  - "`permissions: contents: write` and `pull-requests: write` are both declared"
 tags:
   - pre-agent-steps
   - create-pull-request

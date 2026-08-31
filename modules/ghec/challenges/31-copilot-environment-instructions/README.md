@@ -147,18 +147,6 @@ Use this path when an organization policy, license, entitlement, required owner,
 3. If allowed, run the safe `ghec-ch31-*` seed only to demonstrate a normal Actions workflow and file layout. Label its results **fallback evidence**, not customer-production evidence.
 4. Set the next action: approve an eligible pilot, obtain policy access, remain unavailable, or retire the proposal.
 
-## Validation / Definition of Done
-
-- [ ] Customer target, authorized scope, owners, default branch, availability/policy evidence, and next decision are recorded.
-- [ ] `copilot-setup-steps.yml` is on the target default branch, has one correctly named job, uses least privilege, and has a successful normal Actions run with retained URL/log/SHA.
-- [ ] Repository-wide, applicable path-specific, agent, and organization instructions are inventoried; applicable precedence is documented and conflicts are resolved.
-- [ ] The record says cloud agent and code review share setup by default; `copilot-code-review.yml` exists only with a documented review-specific need and validation.
-- [ ] Runner type, network posture, allowed services, timeout at or below 59 minutes, cost owner, and a least-privilege permissions decision are documented.
-- [ ] Agents secrets/variables are distinguished from Actions/Codespaces/Dependabot types; no secret was created for demonstration and any approved access is selected-repository, minimal, and owned.
-- [ ] A real cloud-agent session and/or code-review result supplies visible evidence of the configuration, or the exact feature/runner limitation is captured.
-- [ ] Human review/CI still gate changes; the handover names owners, cadence, rollback, evidence, risks, and next decision.
-- [ ] If access was unavailable, the decision package is complete and any `ghec-ch31-*` result is clearly marked fallback-only.
-
 ## Reference links
 
 - [Configure the development environment](https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/customize-the-agent-environment)

@@ -141,19 +141,6 @@ When a live automation is unavailable, retain this minimum package in the custom
 | Review | Attribution to creator, independent-review identity, required checks, merge decision, workflow-run approval where applicable |
 | Audit and operations | Audit-log collection evidence, evidence location, review cadence, stop conditions, disable/rollback and next decision |
 
-## Validation / Definition of Done
-
-- [ ] An approved customer **private or internal**, non-EMU target, named owners, data boundary, and evidence location were recorded before configuration.
-- [ ] Licensing, write access, cloud-agent policy, and automations policy were evidenced; unavailable conditions use the decision-package fallback and do not enable an automation.
-- [ ] One approved automation uses a scheduled or supported event trigger; event-trigger filters have controlled match/non-match evidence.
-- [ ] The default guardrail for events from users without write access remains enabled; the prompt explicitly treats repository and event content as untrusted data.
-- [ ] The selected tools are least privilege for the approved task, with no unnecessary push, pull-request, secret, bypass, or destructive capability.
-- [ ] A controlled **Run now** or trusted trigger produced session evidence and a reviewed outcome.
-- [ ] Any automation-attributed PR/code outcome was independently reviewed; its creator did not approve it, and normal protected-branch controls remained in force.
-- [ ] Session-log and audit-log evidence, operating owner, cost owner, review cadence, stop conditions, and disable/rollback route are retained.
-- [ ] GitHub Actions and GitHub Agentic Workflows were not substituted for this activity; public-preview Agentic Workflows remain out of scope.
-- [ ] Adoption handover records the customer decision, owner, next action, and target date.
-
 ## Reference links
 
 - [About Copilot automations](https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-automations)

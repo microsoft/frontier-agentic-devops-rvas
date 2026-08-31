@@ -110,15 +110,6 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 12. Record storage/quota owner, package owners, migration approver, exception owner, and next review date.
 13. Choose the next step: advisory policy, CODEOWNERS enforcement, LFS migration plan, repository split, or storage/quota decision.
 
-## Validation / Definition of Done
-
-- [ ] Monorepo governance policy identifies ownership boundaries, CODEOWNERS strategy, LFS patterns, large-file exception path, storage/quota owner, and review cadence.
-- [ ] Repository evidence captures current size, large-file candidates, branch/tag risk, and LFS tracking configuration.
-- [ ] `.gitattributes` plan or implementation tracks approved binary patterns with Git LFS and setup did not commit large binaries.
-- [ ] CODEOWNERS or equivalent evidence maps monorepo areas to accountable reviewers.
-- [ ] Storage, retention, history rewrite, and migration decisions are explicit participant steps, not hidden setup mutations.
-- [ ] Adoption handover names storage owner, package owners, exception approver, next rollout decision, and review date.
-
 ## Operational extensions
 
 - Add a CI check that rejects unapproved large files.

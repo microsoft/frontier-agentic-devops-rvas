@@ -25,8 +25,6 @@ Source: [`github/gh-aw/.github/workflows/issue-triage-agent.md`](https://github.
 >
 > - Have a candidate repo? Use it everywhere this guide references the sample repo, and customise the workflow with that repo's real labels, issue patterns, and classification comment style.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
->
-> Tell the facilitator which repository you chose.
 
 ## Steps
 
@@ -63,18 +61,6 @@ Replace the default allowlist with your repo's actual labels:
 - Edit the triage prompt to reference only those labels (prevents hallucination of non-existent tags)
 - Add a short description of each label so the agent understands when to apply it
 - Change the classification comment style. A one-line comment such as "Categorised as: bug, backend" is enough.
-
-## Success Criteria
-
-- [ ] `.github/workflows/issue-triage-agent.md` exists and has valid gh-aw frontmatter
-- [ ] Trigger is `on: issues: types: [opened, reopened]`
-- [ ] `tools: github: toolsets: [issues, labels]` is present
-- [ ] `safe-outputs` includes `add-labels` and `add-comment`
-- [ ] Allowlist contains only labels that exist in your repo
-- [ ] `.github/workflows/issue-triage-agent.lock.yml` compiles without errors
-- [ ] Dry-run completes and shows expected label assignments in output
-- [ ] Live test: open a new issue and verify labels + comment appear
-- [ ] Using a project, task, or workflow you own, define the measures that would show whether this triage agent helps rather than adds noise.
 
 ---
 

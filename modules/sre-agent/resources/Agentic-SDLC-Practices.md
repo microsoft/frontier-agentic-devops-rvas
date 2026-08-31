@@ -1,6 +1,6 @@
 # Agentic SDLC Practices
 
-This coach reference maps the session to The Agentic SDLC Handbook without adding a separate lecture.
+This reference maps the session to The Agentic SDLC Handbook without adding a separate lecture.
 
 ## Handbook Integration
 
@@ -14,10 +14,10 @@ This coach reference maps the session to The Agentic SDLC Handbook without addin
 
 | Moment | Practice |
 | --- | --- |
-| Activity 00 | Confirm the supported Azure environment, access prerequisites, and coach fallback path before assigning work to an agent. |
+| Activity 00 | Confirm the supported Azure environment, access prerequisites, and fallback path before assigning work to an agent. |
 | Activity 01 | Deploy or inspect the service environment, identify the connected Azure resources, and record healthy baseline evidence. |
 | Activity 03 | Verify the knowledge, runbooks, response plans, alert routes, roles, and safe team memory that inform Azure SRE Agent. |
-| Activity 04 | Use alerts, logs, metrics, traces, runbooks, and resource state as evidence; keep mitigation behind human or coach review. |
+| Activity 04 | Use alerts, logs, metrics, traces, runbooks, and resource state as evidence; keep mitigation behind human review. |
 | Activity 05 | Correlate validated operational evidence with source-code leads, then create or review a remediation work item with uncertainty, validation, and a human decision gate. |
 
 ## Quick Checks
@@ -30,7 +30,7 @@ This coach reference maps the session to The Agentic SDLC Handbook without addin
 | Agent proposals and enforced gates | What can the model propose, and what do tests, schemas, allowlists, permissions, or humans decide? |
 | Task coordination | Is one agent enough, or does the task need writer/reviewer/tester, audit/execute/validate, one-file-one-agent, or staged checkpoints? |
 
-## Coach Prompts
+## Reflection Questions
 
 - Where is the human decision recorded?
 - What context did the agent receive, and what context was withheld?

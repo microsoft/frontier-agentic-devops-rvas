@@ -17,14 +17,6 @@ description: >
   customer-owned application. Remove exposed values, assess rotation or revocation,
   validate replacement configuration, and use GHAS checks to record accountable
   remediation and time-bound exceptions.
-success_criteria:
-  - Exposed secret removed from the affected code path, with revocation or rotation assessed and recorded
-  - Replacement configuration uses environment variable references (process.env.VARIABLE_NAME) and the application still starts and authenticates correctly
-  - At least 2 high or critical Dependabot alerts reviewed and understood
-  - Pull request checks and security annotations reviewed for branch changes
-  - Secret scanning alerts relevant to changes addressed or explained
-  - Shared governance practice records the response owner, dependency remediation route, and any approved exception with an expiry date
-  - Human- and agent-authored changes use the same push-protection, pull-request, and accountable-owner expectations
 tags:
   - ghas
   - secret-scanning

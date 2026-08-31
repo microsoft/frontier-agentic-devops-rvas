@@ -11,12 +11,6 @@ prerequisite_capabilities:
   - Azure Developer CLI authenticated
   - Supported Azure SRE Agent region access
 description: Deploy the official Grubify starter lab with Azure Container Apps, Log Analytics, Application Insights, Azure Monitor alerts, managed identity, and Azure SRE Agent configuration.
-success_criteria:
-  - The Grubify app is deployed or represented by a coach fallback packet.
-  - The Azure SRE Agent resource is visible in the Azure SRE Agent portal.
-  - Log Analytics, Application Insights, Azure Monitor alerting, and managed identity are identified.
-  - The team records the frontend URL, API URL, resource group, agent name, and region.
-  - The team can explain what telemetry the agent can use before source code is connected.
 tags:
   - azure-sre-agent
   - grubify

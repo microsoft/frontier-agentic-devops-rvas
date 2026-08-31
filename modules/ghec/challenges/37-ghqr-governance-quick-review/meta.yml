@@ -12,16 +12,8 @@ prerequisite_capabilities:
   - jq installed for optional JSON triage
   - Customer-approved non-secret evidence location
   - Optional enterprise owner or authorized enterprise-policy reviewer when the enterprise scan is in scope
+  - Optional ghec-ch52 approved organization topology, delegation matrix, and control register when already established for the customer
 description: "Run an authorized ghqr posture review of a customer GitHub organization, keep non-secret evidence, corroborate material findings, and prioritize next actions."
-success_criteria:
-  - Authorized organization scope, reviewer role, token boundary, evidence location, and report-retention decision are recorded before the scan.
-  - ghqr is installed or selected through Docker, and its version/help output is captured as execution evidence.
-  - An organization scan completes with `ghqr scan -o <org>` and produces retained JSON plus Markdown or XLSX evidence.
-  - Enterprise scan applicability is explicitly recorded: completed with approval and `read:enterprise`, or marked not authorized/not applicable without inferring enterprise settings.
-  - Top ghqr findings are triaged with effective source level, objective evidence link, severity, accountable owner, rollback needs, and review date.
-  - At least one finding is corroborated with a GitHub setting, audit, or API evidence surface where available.
-  - No production setting is changed without separate customer approval.
-  - Customer evidence names the authorized scope and owner, links the relevant controls and handover record, and states the next decision.
 tags:
   - ghqr
   - governance
@@ -29,6 +21,7 @@ tags:
   - settings-review
   - evidence
   - compliance
+  - landing-zone
 app_dependency: none
 emu_compatible: true
 min_environment: org

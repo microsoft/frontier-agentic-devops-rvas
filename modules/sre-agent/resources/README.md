@@ -18,7 +18,7 @@ Use the Microsoft Grubify starter lab when live Azure access is available. The l
 | [Runbooks](runbooks/README.md) | Fallback incident packet and triage template aligned to Grubify/Azure SRE Agent. |
 | [Research Links](Research-Links.md) | Curated Azure SRE Agent, Azure Monitor, GitHub connector, and operational excellence references. |
 
-## Delivery Assets Coaches Should Prepare
+## Delivery Assets to Prepare
 
 - Live `microsoft/sre-agent/labs/starter-lab` deployment, or a shared pre-provisioned Grubify environment.
 - Azure SRE Agent portal access or screenshots for Full setup cards.

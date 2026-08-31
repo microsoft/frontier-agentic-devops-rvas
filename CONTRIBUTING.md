@@ -16,7 +16,7 @@ or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any addi
 ## Content architecture contract
 
 Activity content lives under `modules/<moduleId>/challenges/<slug>/`. The build reads
-`meta.yml` as the single source of truth and copies `README.md` and `COACH.md` into the
+`meta.yml` as the single source of truth and copies `README.md` into the
 generated Pages data. Do not hand-edit generated files under `docs/assets/data/`; run
 `npm run build` instead.
 
@@ -28,8 +28,7 @@ Every activity directory must contain:
 
 ```text
 meta.yml   # catalog metadata and dependency contract
-README.md  # customer delivery team guide
-COACH.md   # facilitator guide, hints, expected outputs, common failures
+README.md  # customer delivery team guide, hints, expected outputs, common failures
 ```
 
 ### `meta.yml` required fields
@@ -45,11 +44,10 @@ COACH.md   # facilitator guide, hints, expected outputs, common failures
 | `prerequisites` | Activity ids that must be completed first. Empty means independent except for stated environment setup. |
 | `prerequisite_capabilities` | Skills or access needed before starting; do not use this for activity ids. |
 | `description` | One-sentence catalog summary. |
-| `success_criteria` | Observable outcomes that prove the activity is complete. |
 | `tags` | Search/filter terms. Use lowercase kebab-case where possible. |
 | `app_dependency` | Runtime/sample dependency (`none`, `juice-shop`, `contoso-claims`, `contoso-app`, `seed`, or `seed-repo`). |
 | `emu_compatible` | `true` when the activity works in an EMU-controlled org; otherwise `false`. |
-| `min_environment` | Lowest required scope: `org`, `repo`, or `codespace`. |
+| `min_environment` | Lowest required scope: `org`, `repo`, `codespace`, or `enterprise` for activities that require enterprise-owner or enterprise-policy access beyond a single organization. |
 | `provision_creates` | Human-readable resources created by setup or delivery team member actions. Empty list is allowed. |
 | `source_repo` | Source repository provenance. |
 | `source_path` | Repository-relative source path. Do not use absolute paths or `..`. |
@@ -60,7 +58,7 @@ Optional fields:
 | Field | Contract |
 |---|---|
 | `tier` | `setup`, `core`, `stretch`, or `bonus`. Defaults to `core` in the build. |
-| `references` | Source-backed docs and product links used by customer delivery team members or coaches. |
+| `references` | Source-backed docs and product links used by customer delivery team members. |
 | `outcomes` | Outcome ids from `outcomes.json` when a activity needs explicit membership beyond journey curation. |
 | `personas` | Personas such as `platform-engineer`, `security-lead`, `developer`, `sre`, or `migration-lead`. |
 | `business_value` | Value tags such as `reduce-migration-risk`, `shift-left-security`, or `automate-repetitive-work`. |
@@ -93,9 +91,8 @@ review results in PR comments or issue bodies, not in throwaway repo planning fi
 |---|---:|---|
 | Metadata and provenance | 15 | Required fields complete; ids stable; module/track valid; source attribution present; generated catalog matches source. |
 | Independence and setup | 20 | Activity can be started from a clean environment with only listed prerequisites/capabilities; no hidden state from previous activities; app dependency acquisition is documented. |
-| Customer delivery team guide quality | 20 | README has clear goal, steps, validation commands/screens, expected outputs, cleanup notes where needed, and no dead/internal-only links. |
-| Coach guide quality | 15 | COACH covers facilitator intent, hints, expected solution/evidence, timing, and common failure modes without leaking secrets. |
-| Validation evidence | 15 | Build/audit pass; success criteria are objectively checkable; commands are current; external dependency versions or availability claims are source-backed. |
+| Customer delivery team guide quality | 35 | README has a clear goal, practical steps, useful hints, expected outputs, timing guidance, common failure modes, cleanup notes where needed, and no dead or internal-only links, without leaking secrets. |
+| Implementation evidence | 15 | Build/audit pass; stated outputs are observable; commands are current; external dependency versions or availability claims are source-backed. |
 | Accessibility and operational safety | 10 | Works in intended org/account type; calls out Azure/billing/permissions risk; avoids destructive defaults and committed secrets. |
 | Catalog fit and coverage | 5 | Activity fills a real module/track need, avoids unnecessary duplication, and has useful tags for discovery. |
 
@@ -113,8 +110,8 @@ Severity levels:
 | Severity | Definition | Merge policy |
 |---|---|---|
 | P0 | Build/audit failure, broken prerequisite graph, missing guide, unsafe instruction, secret exposure, or activity cannot start. | Blocks merge. |
-| P1 | Core learning path fails, hidden dependency, stale product instruction, dead required link, or misleading success criteria. | Blocks merge unless owner accepts documented risk. |
-| P2 | Coach/delivery team member quality gap, weak evidence, missing optional metadata, incomplete cleanup, or confusing catalog fit. | May merge with assigned follow-up. |
+| P1 | Core learning path fails, hidden dependency, stale product instruction, dead required link, or misleading required outcome. | Blocks merge unless owner accepts documented risk. |
+| P2 | Delivery guide quality gap, weak evidence, missing optional metadata, incomplete cleanup, or confusing catalog fit. | May merge with assigned follow-up. |
 | P3 | Editorial polish, tag improvement, minor timing mismatch, or optional reference update. | Non-blocking. |
 
 ### QA inventory format

@@ -1,6 +1,6 @@
 # Agentic DevSecOps
 
-One GitHub Pages curriculum with five adoption journeys, four delivery-session modules, and 84 activities.
+One GitHub Pages curriculum with five adoption journeys, four delivery-session modules, and 85 activities.
 
 > **Bring your own.** These activities are built to run on **your** tenant — work each one
 > against your own applications, repositories, and data so the result keeps running in
@@ -25,12 +25,12 @@ The site is organized around customer adoption outcomes first, then platform mod
 
 | Module ID | Name | Activities | Tracks |
 |---|---|---|---|
-| `ghec` | GitHub Enterprise Cloud | 52 | Developer Flow, Admin & Governance, Security, Automation & AI, Migration |
+| `ghec` | GitHub Enterprise Cloud | 53 | Developer Flow, Admin & Governance, Security, Automation & AI, Migration |
 | `ghas` | GitHub Advanced Security | 7 | Security |
 | `ghaw` | GitHub Agentic Workflows | 20 | Hello, Agent, Repo Concierge, Continuous Intelligence, Production Patterns |
 | `sre-agent` | SRE Agent | 5 | Azure SRE Agent |
 
-> **Total:** 84 activities across 4 modules.
+> **Total:** 85 activities across 4 modules.
 
 ## Architecture
 
@@ -38,7 +38,6 @@ The site is organized around customer adoption outcomes first, then platform mod
 modules/<moduleId>/challenges/<slug>/
   meta.yml      ← single source of truth (build reads ONLY this)
   README.md     ← customer delivery team guide
-  COACH.md      ← coach guide (facilitator notes, expected outputs, hints)
         │
         ▼
   node docs/build.js
@@ -48,7 +47,6 @@ docs/assets/data/
   platform.json              ← full catalog (modules + challenges)
   dependency-graph.json      ← prereq graph (nodes + edges)
   challenges/<id>/README.md  ← copied customer delivery team guide (served by Pages)
-  challenges/<id>/COACH.md   ← copied coach guide
 ```
 
 The build script is the **only bridge** between content metadata, outcome journeys, and the rendered site. Never hand-copy metadata.
@@ -68,7 +66,7 @@ Output lands in `docs/assets/data/`. The Pages site (`docs/`) is fully self-cont
 ```
 ✓ built platform.json  (modules: 4, challenges: N)
 ✓ built dependency-graph.json  (nodes: N, edges: N)
-✓ copied customer delivery team/coach guides → docs/assets/data/challenges/
+✓ copied delivery guides → docs/assets/data/challenges/
 ```
 
 Exit code 0 = success. Non-zero = validation errors (check stderr).

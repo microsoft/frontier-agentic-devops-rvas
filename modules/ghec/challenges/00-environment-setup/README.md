@@ -112,17 +112,6 @@ gh repo view <org>/<repo>
 
 > All four commands must succeed. Record any failure as an access blocker for the customer owner or delivery lead.
 
-### Verification summary
-
-| Check | Command | Expected output |
-|---|---|---|
-| CLI installed | `gh --version` | `gh version 2.x.x` |
-| Authenticated | `gh auth status` | Shows your username |
-| Org visible | `gh org list` | Lists the approved target org |
-| Repo accessible | `gh repo view <org>/<repo>` | Returns repository metadata |
-
----
-
 ## Provisioning preflight (optional)
 
 The GHEC delivery environment ships provisioning scripts (`setup.sh` / `setup.ps1`) that set up controlled starting state for each guide.

@@ -1,6 +1,6 @@
 # GitHub Agentic Workflows Starter
 
-This Activity 05 resource provides safe workflow specs. If GitHub Agentic Workflows (`github/gh-aw`) is available, coaches may validate or compile the Markdown with the approved setup. Otherwise, keep the specs as Markdown.
+This Activity 05 resource provides safe workflow specs. If GitHub Agentic Workflows (`github/gh-aw`) is available, the delivery team may validate or compile the Markdown with the approved setup. Otherwise, keep the specs as Markdown.
 
 ## Safety Baseline
 

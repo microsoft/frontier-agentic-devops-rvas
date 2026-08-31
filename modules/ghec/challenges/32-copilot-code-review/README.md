@@ -95,16 +95,6 @@ When Copilot code review, policy authority, Actions capacity, or a customer repo
 | Risk and rollback | Data/tool boundary, false-positive/noise response, disable/revert steps, rollback executor, and verification evidence |
 | Next decision | Named approver, review date, condition to pilot, and condition to remain unavailable or not applicable |
 
-## Validation / Definition of Done
-
-- [ ] An approved customer repository was used first, or the isolated `ghec-ch32-*` fallback and next customer decision were recorded.
-- [ ] Effective Copilot policy and repository eligibility were captured with dated, non-secret evidence.
-- [ ] A PR received a manually requested Copilot review; a human reviewer triaged the comments and completed normal review.
-- [ ] Copilot's non-approval role and the retained human-review / `CODEOWNERS` merge boundary are explicit.
-- [ ] Repository and/or organization ruleset scope, automatic-review status, new-push choice, and draft choice are documented; any live change is authorized.
-- [ ] Shared setup configuration and any optional dedicated `copilot-code-review.yml` decision include permissions, runner/network, cost, and rollback evidence.
-- [ ] Preview capabilities are explicitly optional, were not required, and were either excluded or separately governed.
-
 ## Reference links
 
 - [About GitHub Copilot code review](https://docs.github.com/en/copilot/concepts/agents/code-review)

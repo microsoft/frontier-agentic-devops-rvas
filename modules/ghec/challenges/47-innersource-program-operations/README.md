@@ -88,15 +88,6 @@ What setup creates:
 11. Record adoption metrics: active pilot repos, ready issues, response SLA, merged external-to-team PRs, and maintainer load.
 12. Handover the program runbook and next review.
 
-## Validation / Definition of Done
-
-- [ ] Program charter names scope, owner, metrics, cadence, and participating repositories.
-- [ ] Hub or pilot repository has README, CONTRIBUTING, CODEOWNERS, support path, and labels.
-- [ ] Contribution-ready issues are labeled and include owner, acceptance criteria, and review route.
-- [ ] Access and branch/review expectations are documented without weakening production controls.
-- [ ] Governance evidence records owner, onboarding path, metrics, exceptions, and next review.
-- [ ] Adoption handover names the program owner and first pilot/review action.
-
 ## Reference links
 
 - Using InnerSource in your enterprise — https://docs.github.com/en/enterprise-cloud@latest/admin/concepts/enterprise-best-practices/use-innersource

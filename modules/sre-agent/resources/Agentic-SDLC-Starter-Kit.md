@@ -1,6 +1,6 @@
 # Agentic SDLC Starter Kit
 
-This optional coach material supports the Activity 03 context review and Activity 05 remediation handoff. **Build only the smallest useful set.** Add an artifact when an activity exposes a gap.
+This optional starter material supports the Activity 03 context review and Activity 05 remediation handoff. **Build only the smallest useful set.** Add an artifact when an activity exposes a gap.
 
 ## Why This Exists
 

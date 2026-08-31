@@ -40,4 +40,4 @@ bash scripts/setup-github.sh
 
 ## Legacy Local Utilities
 
-Some local scripts remain as coach fallback utilities. Use the official Microsoft lab for live delivery and a fallback packet when Azure access is unavailable.
+Some local scripts remain as fallback utilities. Use the official Microsoft lab for live delivery and a fallback packet when Azure access is unavailable.

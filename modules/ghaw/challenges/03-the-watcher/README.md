@@ -32,22 +32,6 @@ A workflow triggered by `on: push`. It detects changes in a chosen directory, su
 >
 > - Have a candidate repo? Install or point `the-watcher.md` at that repo everywhere the guide references the sample repo, and watch real paths such as `docs/**`, config, schemas, tests, or release files.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
->
-> Tell the facilitator which repository and path you chose.
-
----
-
-## Success Criteria
-
-- [ ] Workflow file `.github/workflows/the-watcher.md` exists
-- [ ] Frontmatter includes `on: push: paths: ['docs/**']` (or similar path filter for a meaningful directory)
-- [ ] Permissions are scoped appropriately (read-only for the agent, safe-outputs handles write)
-- [ ] Safe-outputs includes `add-comment:` to post comments on the commit
-- [ ] `.github/workflows/the-watcher.lock.yml` exists after compilation
-- [ ] When you push changes to the watched directory, the workflow runs
-- [ ] A comment appears on the commit summarizing the changes (e.g., "Modified 3 files in docs/")
-- [ ] Logs show the agent detected which files were changed
-- [ ] Using a project, task, or workflow you own, discuss which repository events you notice too late and what would change if an agent flagged risky files on push.
 
 ---
 
@@ -82,5 +66,3 @@ If you're blocked:
 3. Test with a dummy push: Add a `.trigger` file to your watched directory, commit, push, and see if the workflow runs.
 4. Review the commit data: In the logs, you should see what files changed. If you don't, the path filter may not have matched.
 5. Add workflow_dispatch: So you can test without actually committing. Then focus on the logic.
-
-Ask your coach.

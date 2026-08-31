@@ -21,10 +21,11 @@
 - Next action and owner: schedule the approved export cadence or nominate the owner who will operationalise the validated script.
 
 ## Prerequisites
+- Recommended: Ch52 (Enterprise Landing Zone & Organization Strategy) completed first. When available, its settings register is the **preferred** source for the enterprise-level streaming/retention item in this activity's Part F. If Ch52 was not completed, this activity's org-level export still stands independently — see "Enterprise vs. organization control" below for the fallback.
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud. The org audit log is a GHEC organization feature.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch09 --org <org>` (least-privilege; for this activity: `admin:org` + `read:audit_log` + `repo`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
-- No GHAS or Codespaces required. Enterprise audit-log streaming is awareness-only here (see callout) — the real, gradable work uses the org audit log + API.
+- No GHAS or Codespaces required. Enterprise audit-log streaming is inspected as evidence, not configured, in this activity (see callout) — the hands-on, gradable work uses the org audit log + API.
 
 ## What you will deliver
 - Read the organization audit log and understand its event model (actor, action, timestamp, repo).
@@ -32,7 +33,7 @@
 - Query the audit log via the REST API (`gh api /orgs/<org>/audit-log`) with phrase filters and pagination.
 - Generate a known set of events (repo create, permission change, label create, ruleset change) and then find them — proving the log captures admin actions.
 - Build a small export script that pulls a time-bounded slice of the audit log to JSON for offline analysis.
-- Understand where enterprise-level audit-log streaming fits (awareness) and why an org-scoped API pull is the org-owner equivalent.
+- Distinguish enterprise-level audit-log streaming from this organization's API-pull export, and source the enterprise decision from Ch52's landing-zone register or an authorized enterprise export — see "Enterprise vs. organization control" below.
 
 ## Scenario
 A GHEC customer's security team asks the question every audit eventually asks: *"Who changed that setting, and when?"* Right now nobody can answer it without guessing. Establish the organization audit log as the authoritative record: generate a controlled set of administrative actions, reconstruct what happened using search filters and the API, and retain a repeatable export script as the start of a real evidence-collection pipeline.
@@ -65,7 +66,6 @@ Setup creates these resources (all names use the `ghec-ch09-*` prefix, and teard
 - A printed "recent activity" sample (the last few org audit events pulled from the API) so you can see the shape of an event immediately.
 - A printed Next steps block telling you where to start.
 
-
 ## Tasks
 > Throughout, `ghec-ch09-audit-target` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
@@ -97,37 +97,29 @@ Setup creates these resources (all names use the `ghec-ch09-*` prefix, and teard
 
 ### Part E — Build an export pipeline
 15. Write an export script (`export-audit.sh` or `.ps1`, committed to `ghec-ch09-audit-target`) that pulls a time-bounded slice (`-f phrase='created:>=<date>'`, `--paginate`) and writes pretty JSON to a file.
-16. Run it and confirm the output contains your generated events. This is the org-owner equivalent of "streaming" — a repeatable pull you could schedule.
+16. Run it and confirm the output contains your generated events. This is a repeatable, org-scoped pull you could schedule — it is not enterprise-level streaming; see "Enterprise vs. organization control" below.
 17. Write `FINDINGS.md`: for three investigative questions (who added the team? who changed the ruleset? what happened today?), record the exact filter used and the answer.
 
-### Part F — Inspect the effective audit settings
+### Part F — Inspect the effective audit settings (enterprise vs. organization)
 
 18. Verify the organization audit-log access and retention used by the export.
-    If enterprise access is authorized, also inspect the effective streaming
-    destination, retention, and IP-address-display setting. If those
-    enterprise settings are not visible, note the limitation and complete the
-    organization export work normally.
-
-## Validation / Definition of Done
-**Done means:**
-- [ ] You can pull recent org audit events from the API (`gh api /orgs/<org>/audit-log` returns events with `action`/`actor`/`created_at`).
-- [ ] A known event set was generated in Part B and every action is findable via search or API.
-- [ ] At least three distinct search filters (`action:`, `actor:`, `repo:`, or `created:`) were used and produced correct results.
-- [ ] A combined, time-bounded API query returns a sensible count for today's events.
-- [ ] An export script committed to the repo pulls a time-bounded slice to JSON and the output contains your events.
-- [ ] A `FINDINGS.md` answers three investigative questions with the exact filter used.
-- [ ] The effective organization audit settings were verified; any authorized enterprise inspection captured streaming destination, retention, and IP-address-display behavior.
-- [ ] Real-outcome check — if you brought your own audit target, you now have real filters, evidence, or export scripts for an investigation you care about; if you used the sample, you can name the audit question you will answer next.
-- [ ] Adoption handover — record the customer operations owner, first alert or anomaly query, evidence-retention path, and next approved action.
-
-> Coaches use the checks in `COACH.md`.
+    This is the org-level implementation, not the enterprise-level decision —
+    keep the two distinct in your notes.
+19. Source the enterprise-level streaming destination, retention, and
+    IP-address-display decision: if Ch52 was completed, cite its landing-zone
+    settings register entry; otherwise, if you hold authorized enterprise-owner
+    access, pull an enterprise export/inspection and cite it. If neither is
+    available, record `enterprise policy not available / not applicable` in
+    `FINDINGS.md` — do not infer enterprise-wide streaming or retention policy
+    from this one organization's audit log, and complete the organization
+    export work normally regardless.
 
 ## Operational extensions
 - Extend the export script to emit CSV (actor, action, created_at, repo) suitable for a spreadsheet or SIEM import.
 - Query the Git events stream (`include=git` / `phrase='action:git.push'`) and discuss why Git events are higher-volume and time-limited.
 - Diagram how you'd turn the export script into a scheduled GitHub Actions workflow that pulls yesterday's audit slice nightly and uploads it as an artifact.
 
-> At enterprise scale (awareness only): An enterprise account can configure audit log streaming to push events continuously to an external sink (Amazon S3, Azure Blob Storage, Azure Event Hubs, Datadog, Google Cloud Storage, Splunk) with no polling. That's an enterprise-owner feature and is out of scope as a requirement here. The org-scoped equivalent you build in Part E — a repeatable, time-bounded API pull — captures the same data for a single org and is what an org owner uses today. Configuring streaming also can't be cleanly "torn down" by our scripts, which is another reason it stays awareness-only.
+> Enterprise vs. organization control: An enterprise account can configure audit log streaming to push events continuously to an external sink (Amazon S3, Azure Blob Storage, Azure Event Hubs, Datadog, Google Cloud Storage, Splunk) with no polling, and controls the IP-address-display and retention settings for the enterprise. This activity implements and verifies the **organization-level** audit-log export path in Part E; it does not complete or substitute for the enterprise-level streaming/retention decision — the two are not the same data or the same control surface. Prefer Ch52's landing-zone settings register (or an authorized enterprise export/inspection you can cite) as the source for that decision. If Ch52 was not completed and no enterprise export is authorized, record it as `not available / not applicable` — do not infer enterprise-wide streaming or retention policy from this one organization. Configuring streaming also can't be cleanly "torn down" by our scripts, which is another reason it stays out of the hands-on scope here. No enterprise-owner access is required to complete the hands-on organization-level work in this activity.
 
 ## Reference links
 - Reviewing the audit log for your organization — https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization

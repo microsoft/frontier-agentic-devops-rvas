@@ -34,8 +34,6 @@ Slash commands let teammates run an agent when they need it. `/summarize` gives 
 >
 > - Have a candidate repo? Install or point `slash-commands.md` at that repo everywhere the guide references the sample repo, and test on an issue where the discussion history is genuinely useful.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
->
-> Tell the facilitator which repository and issue you chose.
 
 ---
 
@@ -57,25 +55,6 @@ Create a gh-aw workflow named `slash-commands.md` in `.github/workflows/` that:
   - Blockers or concerns (if any)
   - Action items and owners (if assigned)
   - Status recommendation (e.g., "Ready to close" or "Awaiting feedback")
-
----
-
-## Success Criteria
-
-- [ ] `.github/workflows/slash-commands.md` exists with valid gh-aw frontmatter
-- [ ] Frontmatter includes `on: issue_comment:` with `types: [created]` and `lock-for-agent: true`
-- [ ] Body detects slash commands (checks for `/summarize` in comment text)
-- [ ] Workflow only executes for `/summarize` (ignores other comments)
-- [ ] `.github/workflows/slash-commands.lock.yml` compiles without errors
-- [ ] Manual test: post a comment `/summarize` on a test issue
-- [ ] The workflow runs (visible in Actions tab)
-- [ ] A summary comment appears within 30 seconds
-- [ ] Summary includes:
-  - Issue title and current state
-  - At least 2 key points from the discussion
-  - Next steps or recommendation
-- [ ] Only authorized users (repo members) can trigger the command
-- [ ] Using a project, task, or workflow you own, discuss which context your team rebuilds from long threads and which slash command would help.
 
 ---
 
@@ -110,5 +89,3 @@ Create a gh-aw workflow named `slash-commands.md` in `.github/workflows/` that:
 - "Duplicate summaries appearing?" → Add `lock-for-agent: true` to the trigger to prevent concurrent runs
 - "Unauthorized users can trigger the command?" → Use `min-integrity: approved` in permissions to restrict to repo members
 - "Summary is missing key points?" → Instruct the AI to look for specific keywords: "Decisions", "Blockers", "Next Steps"
-
-Ask your coach.

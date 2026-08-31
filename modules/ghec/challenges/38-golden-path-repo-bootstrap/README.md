@@ -87,17 +87,6 @@ Setup creates only namespaced sample repositories:
 11. Name the first production repository cohort and review date.
 12. If high-impact org defaults are desired, capture the explicit approval and execute them outside setup.
 
-## Validation / Definition of Done
-
-- [ ] Golden-path standard names owner, scope, required files/settings, exception path, and review cadence.
-- [ ] Template contains baseline README, CODEOWNERS, issue form, PR template, and workflow guidance.
-- [ ] One repository is created from or reconciled to the template.
-- [ ] Validation evidence shows baseline files and settings.
-- [ ] Organization-wide changes are either explicitly approved and recorded or deferred with owner/date.
-- [ ] Adoption handover names the template maintainer and next rollout cohort.
-
-> Coaches verify these via `COACH.md`.
-
 ## Reference links
 
 - Creating a template repository — https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository

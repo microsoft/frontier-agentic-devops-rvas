@@ -12,14 +12,6 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 description: "Set up authorized customer CodeQL code scanning with the selected configuration, vulnerability triage, reviewed Copilot Autofix, and pull-request gating. Use the public repository only as a sample test repository and preserve evidence for the tenant rollout decision."
-success_criteria:
-- CodeQL is enabled via an **advanced workflow** scanning **`javascript-typescript`** with the `security-extended` suite (visible in `.github/workflows/codeql.yml`).
-- At least one completed **CodeQL analysis** exists (verifiable via the `code-scanning/analyses` API).
-- The repo has **open code-scanning alerts** including at least one injection/XSS finding with a readable data-flow path.
-- You **triaged ≥3 alerts** (one dismissed with a reason via API; others reviewed).
-- You applied **Copilot Autofix** to at least one alert and reviewed the suggested patch.
-- The **code-scanning check is required** on `main`, and the seeded vulnerable PR is **blocked** until the alert is resolved/dismissed.
-- Customer evidence records the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - ghas
 - codeql

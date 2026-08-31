@@ -21,10 +21,11 @@
 - Next action and owner: approve the budget configuration and reporting cadence, or hand over the cost-control proposal for decision.
 
 ## Prerequisites
+- Recommended: Ch52 (Enterprise Landing Zone & Organization Strategy) completed first. When available, use its settings register as the **preferred** source for enterprise-level cost-center decisions. If Ch52 was not completed, this activity's organization-level budget still stands independently — see "Enterprise vs. organization control" below for the fallback.
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud, with billing manager access (org owners have it by default).
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch10 --org <org>` (least-privilege; for this activity: `admin:org` + `repo`, plus the read access the billing usage endpoints require).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
-- No GHAS or Codespaces required. Enterprise cost centers are awareness-only here (see callout) — the real, gradable work uses org-level billing, budgets, and usage.
+- No GHAS or Codespaces required. Enterprise cost centers are inspected as evidence, not configured, in this activity (see callout) — the hands-on, gradable work uses org-level billing, budgets, and usage.
 
 ## What you will deliver
 - Open the org's billing and licensing views and compare included with metered usage for Actions, Packages, and Storage.
@@ -32,7 +33,7 @@
 - Set budgets with alert thresholds so spend can't surprise you.
 - Pull billing/usage data from the REST API and reconcile it against the UI.
 - Build a cost report that attributes usage to repositories.
-- Understand where enterprise cost centers allocate spend across orgs (awareness) and why org-level budgets are the org-owner equivalent.
+- Distinguish enterprise-level cost-center allocation from this organization's budget, and source the enterprise decision from Ch52's landing-zone register or an authorized enterprise export — see "Enterprise vs. organization control" below.
 
 ## Scenario
 A GHEC customer just got a bigger-than-expected Actions bill and nobody can explain it. Finance wants guardrails: a budget with an alert before money is spent, a clear view of which repos burn the most minutes, and a report they can pull on demand. You'll stand up exactly that at the organization level — generate a little real usage, wire up a budget with alerts, and reconcile the API against the billing UI so the numbers are trustworthy. The output is the cost-governance baseline a real customer keeps.
@@ -65,7 +66,6 @@ Setup creates these resources (all names use the `ghec-ch10-*` prefix, and teard
 - A printed current usage snapshot (Actions minutes / storage from the API) so you have a "before" reading.
 - A printed Next steps block telling you where to start.
 
-
 ## Tasks
 > Throughout, `ghec-ch10-usage-generator` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
@@ -93,26 +93,14 @@ Setup creates these resources (all names use the `ghec-ch10-*` prefix, and teard
 13. Write a reconciliation script (`cost-report.sh` or `.ps1`, committed to `ghec-ch10-cost-report`) that pulls the billing usage endpoints and prints a small table: product, used, included, billable.
 14. Run it and save the output as `COST-REPORT.md`, including the before/after Actions-minutes delta you generated in Part B.
 15. Write a one-paragraph recommendation: given the usage shape, what budget + alert thresholds would you set for this org, and would you add a hard spending limit?
-
-## Validation / Definition of Done
-**Done means:**
-- [ ] A before usage snapshot was captured from the billing API (Actions minutes + storage).
-- [ ] At least two Actions runs were generated and usage increased (verifiable via `gh run list` + the billing API delta).
-- [ ] A budget is configured at the org with at least one alert threshold below the cap.
-- [ ] You can reconcile the API usage total against the UI Usage page and explain the cost model (included vs metered; per-minute price varies by runner OS/SKU).
-- [ ] A committed cost-report script runs and produces a product/used/included/billable table.
-- [ ] A `COST-REPORT.md` exists with the before/after delta and a budget recommendation.
-- [ ] Real-outcome check — if you brought your own usage data, a real budget or cost report now exists for someone to use; if you used the sample, you can name the org/team cost view you will build next.
-- [ ] Adoption handover — record the customer billing owner, unattributed spend area, budget/reporting decision, and next approved action.
-
-> Coaches use the checks in `COACH.md`.
+16. Source the enterprise-level cost-center allocation decision (whether this org's spend rolls up into an enterprise-wide cost center spanning multiple organizations): if Ch52 was completed, cite its landing-zone settings register entry; otherwise, if you hold authorized enterprise-owner or billing-manager access, pull an enterprise billing export and cite it. If neither is available, record `enterprise policy not available / not applicable` in `COST-REPORT.md` — do not infer enterprise-wide cost allocation from this one organization's budget.
 
 ## Operational extensions
 - Schedule the cost-report script as a GitHub Actions workflow that runs monthly and uploads `COST-REPORT.md` as an artifact.
 - Add Packages/Storage and Codespaces lines to the report so it covers every metered product, not just Actions.
 - Model a chargeback: split the generated Actions minutes across two notional teams and show how you'd bill each — the org-level rehearsal for enterprise cost centers.
 
-> At enterprise scale (awareness only): On the enhanced billing platform, cost centers allocate and bill usage to specific business units. Enterprise owners and billing managers can create cost centers spanning multiple organizations; organization owners can also create cost centers for resources within their own org. Cost centers and enterprise-wide budgets are awareness-only here and out of scope as a requirement. The org-level budgets, alerts, and usage reconciliation you build are the same discipline scoped to one org — exactly what an org owner controls day to day. No enterprise owner is required.
+> Enterprise vs. organization control: On the enhanced billing platform, cost centers allocate and bill usage to specific business units. Enterprise owners and billing managers can create cost centers spanning multiple organizations; organization owners can also create cost centers for resources within their own org. This activity implements and verifies the **organization-level** budget, alerts, and usage reconciliation; it does not complete or substitute for the enterprise-level cost-center allocation decision. Prefer Ch52's landing-zone settings register (or an authorized enterprise billing export you can cite) as the source for that decision. If Ch52 was not completed and no enterprise export is authorized, record it as `not available / not applicable` — do not infer enterprise-wide cost allocation from this one organization. No enterprise-owner access is required to complete the hands-on organization-level work in this activity.
 
 ## Reference links
 - Introduction to billing — https://docs.github.com/en/billing/get-started/introduction-to-billing

@@ -28,16 +28,6 @@ Encode output before rendering it, or use framework APIs that do so safely. Firs
 > - **Real application available:** Use it wherever this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice Shop setup and select real reflected or stored XSS findings, unsafe HTML rendering, or related output-encoding alerts so the fixes land in code your team maintains.
 > - **No suitable application:** Use the S00 OWASP Juice Shop fallback to practice fixing known XSS flaws.
 >
-> Tell your coach which path you chose.
->
-
-## Success Criteria
-
-- [ ] A technically validated XSS fix uses context-appropriate output encoding or a safe framework API. Input filtering alone does not meet this requirement. The fix confirms that the application renders expected content and retains PR/review evidence plus relevant GHAS validation.
-- [ ] A reusable prevention pattern record in `modules/ghas/resources/ghas-governance-practice.template.md` states the unsafe pattern/finding class, approved safe pattern, where it applies, PR/review evidence, relevant GHAS validation, named owner, and how the expectation applies to human- and agent-authored changes.
-- [ ] Completion requires two independently reviewed fixes, a technically validated fix, and a reusable prevention pattern record; two fixes alone are not sufficient.
-- [ ] Any Copilot Autofix or other Copilot assistance is treated as proposed work, reviewed by a human, and handled through existing PR and GHAS controls.
-- [ ] Coach conversation: Which pages or components in your application render user-supplied content in the browser? Confirm the encoding applied before each value reaches the DOM, then discuss a real project, task, or workflow with your coach.
 
 ## Copilot Tips
 

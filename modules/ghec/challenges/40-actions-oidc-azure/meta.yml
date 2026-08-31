@@ -13,14 +13,6 @@ prerequisite_capabilities:
 - jq installed
 - Repository provisioned via activity setup script
 description: "Replace long-lived Azure deployment credentials with GitHub Actions OpenID Connect, explicit Azure federated credentials, and a least-privilege login workflow."
-success_criteria:
-- Approved OIDC trust design records repository, branch or environment subject claims, audience, Azure tenant, subscription, and least-privilege role.
-- Azure app registration, managed identity, or service principal has a federated credential configured by the participant, not by setup automation.
-- Workflow grants `id-token: write` only to jobs that need cloud authentication.
-- Workflow authenticates to Azure without storing a client secret in GitHub.
-- Negative test shows an unauthorized branch, environment, or repository subject cannot obtain the intended Azure access.
-- Governance evidence records cloud owner, GitHub owner, rotation/removal plan for old secrets, and next review.
-- Customer evidence names the authorized scope and owner, links the relevant controls and handover record, and states the next migration decision.
 tags:
 - actions
 - oidc

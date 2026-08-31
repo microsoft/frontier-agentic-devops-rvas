@@ -124,16 +124,6 @@ engine: copilot
 
 Its prompt must first select a reviewed `test-improvement` issue, write only the associated tests, and link the pull request to that issue. If no suitable issue exists, it may identify one bounded coverage gap; it must still open no more than one pull request.
 
-## Success criteria
-
-- [ ] Both workflow files have valid frontmatter and compile successfully.
-- [ ] Testify uses `create-issue` only, creates no more than three issues per run, and labels them `test-improvement`.
-- [ ] Each Testify issue identifies a real file, function or test gap, and an actionable fix.
-- [ ] Test Improver runs after Testify, reads the reviewed issue, and uses `create-pull-request`.
-- [ ] Test Improver changes tests only, opens at most one focused pull request, and links it to the issue.
-- [ ] The proposed test is syntactically valid and demonstrates behavior, an error path, or an edge case.
-- [ ] A named maintainer reviews both the issue and the pull request before adoption.
-
 ## Common blockers
 
 | Symptom | Fix |

@@ -26,8 +26,6 @@ Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://g
 >
 > - Have a candidate repo? Use it everywhere this guide references the sample repo, and tune the workflow to that repo's real languages, recent commits, suspicious pattern categories, and false-positive rules.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
->
-> Tell the facilitator which repository and threat patterns you chose.
 
 ## Steps
 
@@ -60,18 +58,6 @@ Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://g
 - Add language-specific patterns: for Python, flag `exec(compile(...))` and `__import__`; for Node.js, flag `child_process.exec` with dynamic strings
 - Set alert severity routing: critical patterns (exfiltration, credential access) open a high-priority issue; low-risk patterns (unusual imports) just add a comment
 - Restrict false positives: _"Only flag the pattern in code added or modified in the last 7 days. Ignore pre-existing code."_
-
-## Success Criteria
-
-- [ ] `.github/workflows/daily-malicious-code-scan.md` exists with valid frontmatter
-- [ ] `schedule: cron` trigger is set
-- [ ] Scan window (days / commits) is defined in the body
-- [ ] At least 3 suspicious pattern categories are named in the body
-- [ ] `safe-outputs: create-issue` is declared
-- [ ] `.lock.yml` compiles without errors
-- [ ] Test pattern (benign flaggable code) causes the scan to open an alert issue
-- [ ] Alert issue contains: file path, commit SHA, line number, and explanation of why it was flagged
-- [ ] Using a project, task, or workflow you own, define what would make this scan trustworthy and how you would control false positives.
 
 ---
 

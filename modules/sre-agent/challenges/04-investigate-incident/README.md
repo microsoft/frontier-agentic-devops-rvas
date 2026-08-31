@@ -24,7 +24,7 @@ Intentionally break Grubify, then use Azure SRE Agent to investigate the Azure s
 > - If you have a candidate, start from a real alert, customer symptom, recent incident, or safely reproducible failure. Use the service's Azure Monitor signal, logs, metrics, traces, runbooks, and recovery process. **Do not break production without an approved test path.**
 > - If you do not have a suitable service or incident, trigger the Grubify failure below.
 >
-> Tell your coach which path you chose. **Prefer your own service; use Grubify as the fallback.**
+> **Prefer your own service; use Grubify as the fallback.**
 
 ## Trigger the Incident
 
@@ -38,7 +38,7 @@ bash scripts/break-app.sh
 
 Open the Grubify frontend and reproduce the failure. In the official lab this commonly appears as an Add to Cart/API failure.
 
-If using fallback evidence, open the coach-provided incident packet instead.
+If using fallback evidence, open the provided incident packet instead.
 
 ## Capture the Starting Signal
 
@@ -94,7 +94,7 @@ Ask the agent:
 Based on the evidence, what mitigation is safe for this lab, and what validation should prove recovery?
 ```
 
-If the lab allows mitigation, run the recommended lab-safe recovery or follow your coach's instruction. Verify in the Grubify UI or with endpoint checks.
+If the lab allows mitigation, run the recommended lab-safe recovery. Verify in the Grubify UI or with endpoint checks.
 
 ## Deliverables
 
@@ -103,11 +103,3 @@ If the lab allows mitigation, run the recommended lab-safe recovery or follow yo
 - Evidence table.
 - Likely cause, alternative, unknowns, and mitigation plan.
 - Recovery evidence or a clear reason recovery was not attempted.
-
-## Success Criteria
-
-- The team starts from the alert/user symptom, not from a guessed code fix.
-- The agent uses Azure evidence and runbook context.
-- Likely cause and alternatives are separated.
-- Mitigation is gated by human or coach review.
-- Recovery is proven with observable evidence.

@@ -12,16 +12,6 @@ prerequisite_capabilities:
 - jq installed
 - Repository provisioned via activity setup script
 description: "Set up an authorized customer CI pipeline with GitHub Actions: triggers, jobs, a build matrix, dependency caching, artifacts, environments, and a required status check that gates merges. Preserve the workflow evidence, accountable owner, and rollout decision."
-success_criteria:
-- '`.github/workflows/ci.yml` triggers on **push and pull_request** and runs lint + test + build as distinct steps.'
-- 'A **matrix** runs across ≥3 Node versions with `fail-fast: false`.'
-- '**Caching** is enabled and a run shows a **cache hit** on the second execution.'
-- A **test-report artifact** is uploaded and downloadable (UI + `gh run download`).
-- A second job uses **`needs`** and a **conditional** so it only runs on `main`.
-- An **environment** `staging` exists with a protection rule and a variable + secret wired into a job.
-- The **`build-test` check is required** on `main`; a red run **blocks merge**, a green run unblocks it.
-- The effective Actions policy, default token permissions, fork pull-request boundary, and retention settings are inspected, and the workflow is compatible with them.
-- Customer evidence records the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - github-actions
 - ci

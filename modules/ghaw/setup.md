@@ -5,9 +5,9 @@ Choose one of these environments before starting `ghaw-00`.
 ## Roles used in the activities
 
 - Delivery team: the customer team completing an activity and adapting it to a repository they own.
-- Facilitator: the person guiding the session, helping the delivery team test and connect the exercise to their work. Files named `COACH.md` are facilitator guides.
+- Organizer: the person guiding the session, helping the delivery team test and connect the exercise to their work.
 
-Some older activity text uses squad for the delivery team and coach for the facilitator. Read those terms using the roles defined above.
+Some older activity text uses squad for the delivery team. Read that term using the roles defined above.
 
 ## Option 1: GitHub Codespaces
 1. Open this repository (`microsoft/frontier-agentic-devops-rvas`) on GitHub.

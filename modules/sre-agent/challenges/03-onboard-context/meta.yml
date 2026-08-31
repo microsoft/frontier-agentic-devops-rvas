@@ -11,12 +11,6 @@ prerequisite_capabilities:
   - Deployed or simulated Grubify lab
   - Azure monitoring basics
 description: Inspect the Azure resources, knowledge files, runbooks, custom agents, response plans, and team memory available to Azure SRE Agent.
-success_criteria:
-  - The team verifies connected Azure resources, incidents, knowledge files, and optional code.
-  - The agent can summarize the Grubify architecture and HTTP error runbook.
-  - The team identifies the incident-handler, code-analyzer, and issue-triager roles when available.
-  - A response plan or fallback response-plan summary explains how alerts reach the agent.
-  - Team memory captures on-call ownership and escalation without secrets.
 tags:
   - azure-sre-agent
   - response-plans

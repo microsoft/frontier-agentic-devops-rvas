@@ -10,15 +10,8 @@ prerequisite_capabilities:
   - Copilot Business or Copilot Enterprise availability to inspect
   - Named enterprise AI-controls, identity, security/privacy, third-party-risk, and organization-policy owners
   - Customer-approved non-secret evidence location
-description: "Inspect enterprise and organization Copilot controls, including policy inheritance, seat lifecycle, code/data exposure, third-party agents, MCP boundaries, and conditional agentic-activity monitoring."
-success_criteria:
-  - Copilot Business or Enterprise availability, authorized scope, and the Enterprise AI Controls or organization-policy evidence source were recorded.
-  - The effective enterprise and organization policy, inheritance source, delegated choices, named owners, and review cadence were verified for all seven AI-control surfaces.
-  - The customer documented the immediate removal achieved by enterprise-team removal and the billing-cycle delay for organization-level Copilot license revocation.
-  - Public-code matching and GitHub.com feature/data-feedback posture were separately decided with privacy, security, and IP/licensing rationale.
-  - Third-party coding-agent policy and agent-app installation governance were assessed as separate decision surfaces.
-  - MCP policy, registry, repository configurations, tool/data scope, and third-party-host boundaries were inventoried or explicitly prohibited without enabling a server.
-  - Agentic activity streaming was assessed as a conditional public-preview watch decision for eligible EMU or data-residency enterprises, not a mandatory pilot.
+  - Optional ghec-ch52 approved identity-model, data-residency, and app-governance decisions and register, when already established for the customer
+description: "Inspect enterprise and organization Copilot controls, including policy inheritance, seat lifecycle, code/data exposure, third-party agents, MCP boundaries, and conditional agentic-activity monitoring. Reuse ghec-ch52's approved identity-model, data-residency, and app-governance decisions and register when available; fall back to an independent determination when ghec-ch52 has not been completed."
 tags:
   - copilot
   - ai-governance

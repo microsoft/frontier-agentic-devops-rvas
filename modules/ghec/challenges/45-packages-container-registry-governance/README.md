@@ -71,15 +71,6 @@ Setup creates `ghec-ch45-container-governance` with a `Containerfile`, workflow 
 11. Delete only approved sample packages or record why they must remain.
 12. Document restore path, retention owner, and next review date.
 
-## Validation / Definition of Done
-
-- [ ] Package governance standard covers visibility, access, naming, retention, provenance, and deletion/restore.
-- [ ] Sample GHCR package is published by the participant under `ghec-ch45-*` or an approved customer namespace.
-- [ ] Package access and source repository are configured intentionally.
-- [ ] Metadata and tags meet the approved standard.
-- [ ] Cleanup or retention evidence is recorded.
-- [ ] Adoption handover names the package owner and next package family.
-
 ## Operational extensions
 
 - Add image signing or artifact attestations.

@@ -13,14 +13,6 @@ prerequisite_capabilities:
 - jq installed
 - Repository provisioned via activity setup script
 description: "Run an authorized Copilot cloud-agent pilot on a bounded issue. Record eligibility, review and merge-gate evidence, ownership, and the decision to expand, defer, or roll out."
-success_criteria:
-- You confirmed the **Copilot cloud agent is enabled** and the repo is **eligible (non-EMU)**.
-- You **assigned the seeded issue to Copilot** and it opened a **draft pull request**.
-- You read the agent's **session log** and **reviewed its diff** against the acceptance criteria.
-- You **steered the agent** with at least one review comment and it pushed **new commits** in response.
-- The **failing test is green** in the PR and the PR was **approved and merged** to `main`.
-- You captured a short **reflection** on where the agent fits (and where human review stays essential).
-- Evidence names the authorized scope, accountable owner, risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - copilot
 - cloud-agent

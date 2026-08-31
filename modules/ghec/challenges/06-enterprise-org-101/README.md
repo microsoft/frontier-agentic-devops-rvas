@@ -21,10 +21,11 @@
 - Next action and owner: approve the change window and apply the agreed baseline, or hand over the signed rollout proposal.
 
 ## Prerequisites
+- Recommended: Ch52 (Enterprise Landing Zone & Organization Strategy) completed first. When available, its topology map, delegated-admin model, and settings register are the **preferred** source for this activity's enterprise-level checks (Part F). If Ch52 was not completed, this activity's organization-level baseline still stands independently — see "Enterprise vs. organization control" below for the fallback.
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch06 --org <org>` (least-privilege; for this activity: `admin:org` + `repo` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
-- No GHAS, Codespaces, or enterprise-owner features are required. Every setting in this activity lives at organization scope.
+- No GHAS, Codespaces, or enterprise-owner features are required. Every hands-on task in this activity lives at organization scope; enterprise-level items are inspected as evidence, not configured.
 - EMU note: Enterprise Managed Users cannot create public repositories. In EMU orgs, setup requests `ghec-ch06-public-sample` as public but GitHub rejects that visibility, so the provisioner falls back to a private repo and prints a warning. The governance lesson still applies: public visibility is platform-blocked, and you verify/document that constraint instead of changing that repo to public.
 
 ## What you will deliver
@@ -33,7 +34,7 @@
 - Manage members vs outside collaborators and understand how each gets access.
 - Set organization-wide security defaults (2FA awareness, default workflow permissions, dependency-graph defaults).
 - Inspect and verify every setting from the org-settings REST API (`gh api /orgs/<org>`) so configuration is auditable, not just clicked.
-- Understand where an enterprise account would layer policy *on top* of these org settings (awareness only).
+- Distinguish the enterprise-level policy decision from this organization's implementation, and record which one you inspected — see "Enterprise vs. organization control" below.
 
 ## Scenario
 You're the first platform admin hired at a fast-growing GHEC customer. The organization was created in a hurry: defaults are wide open, public repo creation may be allowed in standard GHEC or platform-blocked in EMU, base permissions are too generous, and nobody can say what the current policy actually is. Leadership wants a documented, defensible baseline — least-privilege member access, controlled repository creation, sensible security defaults — and they want it verifiable from the API, not from screenshots. Your job is to bring order to the org and prove it.
@@ -66,7 +67,6 @@ Setup creates these resources (all names use the `ghec-ch06-*` prefix, and teard
 - A printed current baseline snapshot (the org's existing member-privilege settings dumped from the API) so you can see "before," then prove "after."
 - A printed Next steps block telling you where to start.
 
-
 ## Tasks
 > Throughout, `ghec-ch06-public-sample` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
@@ -94,32 +94,16 @@ Setup creates these resources (all names use the `ghec-ch06-*` prefix, and teard
 ### Part E — Verify
 14. Produce "after" snapshots by re-running both Part A API calls and diffing them against your saved "before" outputs.
 
-### Part F — Default-branch policy
-15. Inspect the effective enterprise and organization default-branch policy for
-    new repositories. Capture the effective setting through the API or
-    organization settings, including any inherited enterprise restriction.
-
-## Validation / Definition of Done
-**Done means:**
-- [ ] `default_repository_permission` is `read` or `none` (verifiable: `gh api /orgs/<org> --jq '.default_repository_permission'`).
-- [ ] Members cannot create public repositories (`members_can_create_public_repositories == false`, or EMU platform policy prevents public repositories entirely).
-- [ ] Members cannot delete or transfer repositories (confirmed in Member privileges).
-- [ ] The fork policy for private/internal repos is set deliberately and verified via the API.
-- [ ] At least one sample repo's visibility was changed where the org permits it; on EMU, you documented the public-repo block and can explain public vs internal vs private.
-- [ ] Default Actions workflow permissions are set to read-only at the org.
-- [ ] Before/after API diffs exist for the organization settings and default Actions workflow permissions.
-- [ ] The effective enterprise/organization default-branch policy was inspected and its source is clear.
-- [ ] Real-outcome check — if you brought your own org/repo target, a real policy baseline or default setting is documented and improved; if you used the sample, you can name the org setting you will propose changing next.
-- [ ] Adoption handover — record the customer organisation owner, highest-priority policy decision, risk addressed, and approved implementation or proposal next action.
-
-> Coaches use the checks in `COACH.md`.
+### Part F — Default-branch policy (enterprise vs. organization)
+15. Inspect the effective **organization** default-branch policy for new repositories through the API or organization settings. This is the org-level implementation, not the enterprise-level decision — keep the two distinct in your notes.
+16. Source the enterprise-level default-branch and member-privilege decision: if Ch52 was completed, cite its landing-zone topology/delegation register entry; otherwise, if you hold authorized enterprise-owner access, pull an enterprise export/inspection and cite it. If neither is available, record `enterprise policy not available / not applicable` in your evidence — do not infer enterprise-wide policy from this one organization.
 
 ## Operational extensions
 - Write a small script that pulls the full `/orgs/<org>` settings object and highlights changes from an earlier snapshot.
 - Add a second team `ghec-ch06-readonly` and demonstrate how base permission + team permission combine (the more permissive of the two wins).
-- Research and document, in one paragraph each, three settings that only exist at the enterprise tier (e.g., enterprise-wide policy enforcement, allowed org visibility, SSO requirement) — see "At enterprise scale" below.
+- Research and document, in one paragraph each, three settings that only exist at the enterprise tier (e.g., enterprise-wide policy enforcement, allowed org visibility, SSO requirement) — see "Enterprise vs. organization control" below.
 
-> At enterprise scale (awareness only): An enterprise account sits above organizations and can *enforce* many of these same controls across every org at once — base permission ceilings, repository visibility allow-lists, 2FA requirements, and more — so an individual org owner can't loosen them. In this activity you configure the org-level equivalents, which are the real, day-to-day controls. No enterprise owner is required.
+> Enterprise vs. organization control: An enterprise account sits above organizations and can *enforce* many of these same controls across every org at once — base-permission ceilings, repository-visibility allow-lists, 2FA requirements, and default-branch policy — so an individual org owner can't loosen them. This activity implements and verifies the **organization-level** settings; it does not complete or substitute for the enterprise-level decision. Prefer Ch52's landing-zone topology, delegation, and settings register (or an authorized enterprise export you can cite) as the source for any enterprise-scoped item. If Ch52 was not completed and no enterprise export is authorized, record the enterprise item as `not available / not applicable` — do not infer enterprise-wide policy from this one organization. No enterprise-owner access is required to complete the hands-on organization-level work in this activity.
 
 ## Reference links
 - About organizations — https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations

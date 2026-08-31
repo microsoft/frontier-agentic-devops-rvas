@@ -33,8 +33,6 @@ Workflow chaining splits automation into stages with explicit handoffs. You can 
 >
 > - Have a candidate repo? Install or point both relay workflows at that repo everywhere the guide references the sample repo, and collect metrics from its real issues, labels, closure history, and Discussions audience.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
->
-> Tell the facilitator which repository and metrics you chose.
 
 ---
 
@@ -68,28 +66,6 @@ Success: Discussion appears with the trend analysis.
 
 ---
 
-## Success Criteria
-
-Producer Workflow:
-- [ ] Daily trigger works (`on: schedule:`)
-- [ ] JSON file written to `repo-memory/metrics/{date}.json` with correct structure
-- [ ] Workflow runs without errors (check Actions logs)
-- [ ] `safe-outputs: noop` is called
-
-Consumer Workflow:
-- [ ] Weekly trigger works
-- [ ] Reads from `repo-memory` using `file-glob: metrics/**/*.json`
-- [ ] Discussion created with trend analysis
-- [ ] Workflow correctly interprets the JSON from the producer
-
-Together:
-- [ ] Producer runs, data appears in `repo-memory/`
-- [ ] Consumer reads that data and creates a discussion referencing the metrics
-- [ ] The two workflows are not directly coupled (consumer doesn't know producer's name)
-- [ ] Using a project, task, or workflow you own, identify automation that should be split into a producer and consumer, and choose the checkpoint between them.
-
----
-
 ## Tips & Hints
 
 - `repo-memory` is a branch in your repo (`repo-memory`). You can browse it on GitHub to verify files were written.
@@ -119,5 +95,3 @@ Use these checks if the workflow fails:
 - "JSON file has the wrong structure?" → Print the JSON in the workflow logs (use `echo` before writing) so you can see what the agent generated.
 - "Consumer can't read the files?" → Verify the `file-glob` pattern matches. Run `echo metrics/**/*.json` to test the glob locally.
 - "I'm not sure how to compute the trend?" → Read the last N files, compare the first value to the last value. If latest > first, it's "up". Simple as that.
-
-After 20 minutes, ask your coach.

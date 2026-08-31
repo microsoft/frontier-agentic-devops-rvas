@@ -12,14 +12,6 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 description: "Set up authorized customer dependency governance: dependency graph and Dependabot configuration, vulnerability-alert triage, security updates, scheduled version updates, and dependency-review gating. Preserve customer-owned evidence and the rollout decision."
-success_criteria:
-- '**Dependency graph** is on and you exported an **SBOM** (verifiable via the `dependency-graph/sbom` API).'
-- '**Dependabot alerts** and **security updates** are enabled and the repo has **open alerts** with severities (verifiable via the `dependabot/alerts` API).'
-- 'You **triaged the backlog**: reviewed an advisory and **dismissed at least one alert** with a reason.'
-- At least one **Dependabot security-update PR** was merged and its alert moved to **fixed**.
-- '`.github/dependabot.yml` configures **scheduled npm version updates** with a limit and a group.'
-- A **dependency-review** workflow exists, is **required** on `main`, and **blocks** the seeded risky PR.
-- Customer evidence records the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - ghas
 - dependabot

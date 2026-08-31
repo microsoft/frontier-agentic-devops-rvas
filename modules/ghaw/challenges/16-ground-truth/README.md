@@ -31,8 +31,6 @@ AI models may invent numbers when the prompt lacks data. `pre-agent-steps:` writ
 >
 > - Have a candidate repo? Use it everywhere this guide references the sample repo, and point the `pre-agent-steps:` commands at that repo's real issues, PRs, commits, and contribution docs.
 > - No suitable repo yet? Use the provided sample repo from setup as the safe practice target.
->
-> Tell the facilitator which repository and metrics you chose.
 
 ## Background: `pre-agent-steps:`
 
@@ -116,20 +114,6 @@ The dry run executes `pre-agent-steps:` and shows the captured values. Check the
 
 ---
 
-## Success Criteria
-
-- [ ] `.github/workflows/16-ground-truth.md` compiles without errors
-- [ ] `pre-agent-steps:` fetches at least 3 real metrics and writes them to `/tmp/`
-- [ ] Agent body references those `/tmp/` files explicitly
-- [ ] `CONTRIBUTING.md` is updated with a `## Project Health` section containing real numbers
-- [ ] A PR is opened instead of a direct commit
-- [ ] PR title matches `title-prefix`
-- [ ] Numbers in the PR are accurate (match what `gh` CLI would return for the repo)
-- [ ] `permissions: contents: write` and `pull-requests: write` are both declared
-- [ ] Using a project, task, or workflow you own, discuss where AI-generated facts have been unreliable and how deterministic input would change what you trust.
-
----
-
 ## Gotchas
 
 - **Repository expression:** `$` resolves to `owner/repo` inside `pre-agent-steps:` run steps.
@@ -164,7 +148,5 @@ The dry run executes `pre-agent-steps:` and shows the captured values. Check the
 - "Agent is using the wrong numbers" → Verify the `/tmp/` files contain what you expect. Add a `cat /tmp/open-issues.txt` step to `pre-agent-steps:` and check dry-run output.
 - **PR permission error:** Ensure `permissions:` includes both `contents: write` and `pull-requests: write`.
 - "Agent modified the wrong part of CONTRIBUTING.md" → Be more explicit in the body: "Only add or replace the section that begins with `## Project Health`. Do not modify any other section."
-
-Ask your coach.
 
 ---

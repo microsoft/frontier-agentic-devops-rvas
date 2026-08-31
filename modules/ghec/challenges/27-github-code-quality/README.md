@@ -97,19 +97,6 @@ permissions:
 19. At the organization level, use Code Quality's native repository access targeting to select a small authorized pilot cohort. Do not substitute a generic repository ruleset for product enablement.
 20. Record the pilot cohort, repository owners, cost/license review, expected baseline date, success measures, opt-out or rollback criteria, and decision date.
 
-## Validation / Definition of Done
-
-You are done when ALL of the following are true:
-
-- [ ] Code Quality is enabled on an authorized customer repository, with chosen languages and runner configuration recorded.
-- [ ] Maintainability and reliability baseline scores plus the Standard findings backlog were reviewed in repository context.
-- [ ] CI creates a Cobertura XML report and uploads it using only `contents: read` and `code-quality: write`.
-- [ ] A pull request displays Code Quality coverage feedback with aggregate and per-file comparison data.
-- [ ] A rules-based Code Quality finding was fixed or dismissed with a reviewable decision; any Autofix was reviewed before commit.
-- [ ] The customer decided and evidenced whether a native Code Quality severity threshold blocks merges.
-- [ ] An organization pilot proposal identifies the selected cohort, owners, measures, licensing/cost review, and rollout or rollback decision.
-- [ ] Adoption handover: the customer repository owner, platform owner, triage cadence, and next authorized action are recorded.
-
 ## Operational extensions
 
 - Enable a second authorized repository through native organization targeting and compare its baseline after the first analysis completes.

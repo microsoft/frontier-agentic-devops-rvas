@@ -12,17 +12,6 @@ prerequisite_capabilities:
 - jq installed
 - Repository provisioned via activity setup script
 description: "Set up an authorized customer development environment with `devcontainer.json`, Codespaces, port forwarding, organization-level Codespaces policy, and tuned prebuilds. Preserve the configuration, prebuild operating decision, cost controls, and rollout decision."
-success_criteria:
-- '`.devcontainer/devcontainer.json` exists, **pins a base image**, includes **≥2 Features**, and sets `onCreateCommand` + `postStartCommand`.'
-- A Codespace was launched from **both** the UI and the CLI (`gh codespace list` showed it).
-- Inside the Codespace, the pinned **Node version**, the **gh CLI Feature**, and the **post-create install** are all verifiable.
-- The app **runs** and its port is **forwarded + labeled**, with `forwardPorts`/`portsAttributes` committed to config.
-- '`docs/devcontainer-notes.md` explains **dotfiles vs devcontainer.json** precedence.'
-- An **org Codespaces policy** restricts machine types and sets retention.
-- '`docs/prebuild-decision.md` records the branch/configuration, trigger, regions, retained versions, failure-notification owner, freshness behavior, and customer-specific cost/freshness rationale.'
-- A **prebuild** is configured, its workflow succeeds, and a new Codespace reports **Prebuild ready** with dependencies already installed.
-- All your Codespaces are **stopped/deleted** at the end.
-- Customer evidence records the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - codespaces
 - devcontainers

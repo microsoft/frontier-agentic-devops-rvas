@@ -45,7 +45,7 @@ Do not require live pull request creation in every environment. Require a source
 
 ## Delivery Caveats
 
-Live behavior depends on tenant policy, role assignments, region, connector availability, product access, and run mode. Coaches need a fallback packet with the same sequence: signal, Azure evidence, agent transcript, source lead, remediation work, recovery proof, and follow-up.
+Live behavior depends on tenant policy, role assignments, region, connector availability, product access, and run mode. Keep a fallback packet ready with the same sequence: signal, Azure evidence, agent transcript, source lead, remediation work, recovery proof, and follow-up.
 
 ## Primary Sources
 

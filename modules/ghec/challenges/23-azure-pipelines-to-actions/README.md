@@ -162,17 +162,6 @@ gh run watch --repo <github-org>/<github-repo>
 
 If the workflow is triggered only by `push` or `pull_request`, push a small documentation-only branch or update the PR branch instead of using `workflow_dispatch`.
 
-## Validation / Definition of Done
-
-You are done when all of the following are true:
-- [ ] `audit` produced a report summarizing the Azure DevOps pipeline footprint, conversion status, manual tasks, secrets, runners, and unsupported items.
-- [ ] `forecast` produced an Actions usage estimate from Azure DevOps pipeline history.
-- [ ] `dry-run` generated a reviewable GitHub Actions workflow YAML locally without opening a pull request.
-- [ ] `migrate` opened a pull request that adds a converted `.github/workflows/*.yml` file to the target GitHub repository.
-- [ ] You reviewed the generated workflow and documented at least one unsupported, unknown, secret, variable, runner, or service-connection gap with the manual fix.
-- [ ] The migrated workflow ran successfully in GitHub Actions after required cleanup.
-- [ ] Adoption handover — record the customer pipeline owner, Actions Importer scope, cutover dependencies, and next approved action.
-
 ## Cleanup
 
 Keep the pull request and reports if they are evidence for the migration plan. If you used a sample test repository, delete the local `actions-importer-output/` directory after capturing required evidence. Remove any test-only secrets, variables, or workflows created in GitHub.

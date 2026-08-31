@@ -27,16 +27,6 @@ For every operation on user-owned or role-restricted data, verify the requesting
 > - **Real application available:** Use it wherever this guide references Juice Shop or `ghec-ghas-00-juice-shop`. Skip the Juice Shop setup and select real authorization, IDOR, missing-middleware, or role-enforcement findings so the fixes land in code your team maintains.
 > - **No suitable application:** Use the S00 OWASP Juice Shop fallback to practice finding and fixing broken access control.
 >
-> Tell your coach which path you chose.
->
-
-## Success Criteria
-
-- [ ] A technically validated access-control fix enforces server-side ownership or role authorization. UI restrictions alone do not meet this requirement. The fix confirms that authorized access works, blocks unauthorized access, and retains PR/review evidence plus relevant GHAS validation.
-- [ ] A reusable prevention pattern record in `modules/ghas/resources/ghas-governance-practice.template.md` states the unsafe pattern/finding class, approved safe pattern, where it applies, PR/review evidence, relevant GHAS validation, named owner, and how the expectation applies to human- and agent-authored changes.
-- [ ] Completion requires two independently reviewed fixes, a technically validated fix, and a reusable prevention pattern record; two fixes alone are not sufficient.
-- [ ] Any Copilot Autofix or other Copilot assistance is treated as proposed work, reviewed by a human, and handled through existing PR and GHAS controls.
-- [ ] Coach conversation: Find any backend routes that rely on the frontend to hide restricted actions instead of enforcing ownership on the server. Explain how you would detect an authenticated user calling them directly with a crafted request. Discuss a real project, task, or workflow with your coach.
 
 ## Copilot Tips
 
