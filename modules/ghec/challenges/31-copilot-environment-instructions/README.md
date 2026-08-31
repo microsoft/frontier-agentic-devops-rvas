@@ -137,7 +137,6 @@ Matching path-specific and repository-wide instructions are both used. At GitHub
 ### Part G — Handover
 
 23. Publish a concise operating record: approved repository classes, default-branch setup owner, instruction owners/review cadence, runner/secret/service boundaries, evidence links, exceptions, rollback (revert workflow/instruction commit or remove approved Agents scope), and next decision date.
-24. Update the existing governance register with `COP-AGENT-ENVIRONMENT` and, for any approved cloud-agent use, `COP-CLOUD-AGENT`. Mark unavailable features `inspect-and-propose` or `not applicable`, never `approved pilot`.
 
 ### Part H — Decision-package fallback
 

@@ -103,17 +103,6 @@ Setup creates these resources (all names use the `ghec-ch14-*` prefix, and teard
 12. Enforce SAML SSO. Now check Require SAML SSO for the org. Confirm that a member without a linked identity is prompted to authenticate via the IdP, and that unauthorized tokens are rejected on org resources.
 13. Validate safe rollback. Document (and, in the test org, perform) the rollback: un-enforce SAML, revoke the SCIM token, and remove the IdP app — capturing why each step matters so a real rollout has a tested exit.
 
-### Part F — Governance controls contributed
-
-Use the existing governance register. Inspect the effective inherited setting, use
-`approved pilot` only for a customer-authorized live control (otherwise
-`inspect-and-propose`), and attach objective evidence. See
-`modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`.
-
-- `ENT-IDENTITY-MODEL`: enterprise identity model and the organization SAML/SCIM boundary.
-- `ENT-EMU-LIFECYCLE`: enterprise-managed-user lifecycle; conditional on an enterprise using EMU.
-- `ORG-SAML-SCIM`: organization SAML/SCIM lifecycle; not applicable for EMU organizations.
-
 ## Validation / Definition of Done
 **Done means:**
 - [ ] The runbook explains the three auth models and records your IdP app's SAML settings.
@@ -122,7 +111,6 @@ Use the existing governance register. Inspect the effective inherited setting, u
 - [ ] SCIM provisioning is enabled and you demonstrated a join (user created via SCIM) and a leave (user suspended via SCIM), verifiable via the SCIM API.
 - [ ] You produced an external-identity audit listing GitHub logins ↔ IdP identities.
 - [ ] SAML SSO is enforced on the org (and you documented a tested rollback).
-- [ ] The existing governance register records `ENT-IDENTITY-MODEL`, conditional `ENT-EMU-LIFECYCLE`, and applicable `ORG-SAML-SCIM` with objective identity-lifecycle evidence.
 - [ ] Real-outcome check — if you brought your own identity target, the runbook or SAML/SCIM plan now reflects a real lifecycle gap; if you used the sample, you can name the org rollout you will plan next.
 - [ ] Adoption handover — record the customer identity owner, lifecycle gap, approved rollback-aware rollout decision, and next action.
 

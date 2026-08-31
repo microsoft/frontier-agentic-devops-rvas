@@ -7,7 +7,7 @@ Review the completed work against the [Delivery Assurance Standard](../../../DEL
 - **Authorized scope:** record the customer private/internal repository, named repository owner, automation creator, independent reviewer, security/Copilot owner, and approval.
 - **Evidence:** link the eligibility, configuration, controlled-trigger, session-log, review, audit-log, and operating evidence required by `README.md`.
 - **Open risk:** record the unresolved licensing, policy, cost, prompt-injection, untrusted-trigger, review, or data-exposure risk and accountable owner; record `none` only when none remains.
-- **Next decision:** record approved pilot, inspect-and-propose, unavailable, or not-applicable decision with owner and target date.
+- **Next decision:** record whether the automation is approved for the bounded target, left disabled, unavailable, or not applicable, with owner and target date.
 
 ## Reviewer focus
 

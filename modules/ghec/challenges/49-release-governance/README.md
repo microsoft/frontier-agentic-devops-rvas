@@ -86,7 +86,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 
 ### Part B — Define release governance
 
-4. Complete `docs/release-governance.md` or the customer register with:
+4. Complete `docs/release-governance.md` with:
    - release owner and approver group
    - tag naming pattern, for example `vMAJOR.MINOR.PATCH`
    - release notes source and required sections

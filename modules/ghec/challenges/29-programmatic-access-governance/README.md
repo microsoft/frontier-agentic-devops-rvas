@@ -19,9 +19,6 @@
 - **Keep:** inventory snapshot, effective source level, owner and business purpose, permission/scope and repository reach, compatibility impact, exception or migration plan, policy decision, review cadence, and evidence links.
 - **Adoption handover:** the organization owner accepts the organization decision; the enterprise owner accepts an enterprise PAT-policy decision when applicable.
 
-> [!IMPORTANT]
-> Use the existing customer governance register. Record the authorized scope, customer owner, risk decision, evidence links, next action, owner, and date. Do not copy the control catalogue or create a parallel register.
-
 ## Prerequisites
 
 - GitHub Enterprise Cloud organization and organization-owner access for inspection.
@@ -31,12 +28,8 @@
 
 ## Scope and guardrails
 
-This activity governs four controls from `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`:
-
-- `INT-OAUTH-RESTRICTIONS`
-- `INT-APP-REVIEW`
-- `INT-FINE-GRAINED-PATS`
-- `INT-CLASSIC-PATS`
+This activity inspects four distinct surfaces: OAuth App restrictions, installed
+GitHub App review, fine-grained PAT policy, and classic PAT policy.
 
 First establish the **effective source level** for every setting: organization-managed, enterprise-enforced/inherited, or unavailable to the current inspector. An organization owner may inspect organization settings; do not infer enterprise policy from a missing organization control.
 
@@ -74,16 +67,16 @@ OAuth App restrictions and GitHub App review are different controls. OAuth restr
 ### Part C — Make a safe policy decision
 
 8. Evaluate fine-grained PAT approval and lifetime separately from classic PAT restriction. Fine-grained PATs should have a documented approval decision and an approved lifetime; assess automation and SCIM/EMU impact before enforcement. Classic PAT access should be restricted only after each affected workflow has a migration path to a GitHub App or fine-grained PAT, or an approved time-bound exception.
-9. Produce a policy decision for all four controls: retain, change, pilot, exception, or inspect-and-propose. Identify the source level, accountable owner, affected population, dependencies, rollback or exception path, evidence, and recurring review cadence.
+9. Produce a policy recommendation for all four surfaces: retain, change, test, or grant a time-bound exception. Identify the source level, accountable owner, affected population, dependencies, rollback or exception path, evidence, and recurring review cadence.
 10. Complete the inventory **and one** of the following:
-    - **Recommended optional pilot:** with customer approval, require approval for fine-grained PATs in a non-production organization and record one compatibility/request outcome; or
-    - **Inspect-and-propose package:** provide the inventory, effective-policy assessment, impact analysis, migration/exception plan, decision record, and proposed review cadence when no safe authorized pilot exists.
+    - With customer approval, require approval for fine-grained PATs in a non-production organization and record one compatibility/request outcome; or
+    - When no safe authorized test exists, use the inventory and direct Settings/API/audit evidence to recommend the next policy action.
 
-    Do **not** make OAuth-restrictions first enablement, classic-PAT restriction, or broad token-lifetime enforcement a required pilot. Those changes require their own approved impact analysis, exception handling, and rollback/change plan.
+    Do **not** make OAuth-restrictions first enablement, classic-PAT restriction, or broad token-lifetime enforcement a required test. Those changes require their own approved impact analysis, exception handling, and rollback/change plan.
 
-### Part D — Register evidence and hand over
+### Part D — Verify evidence and hand over
 
-11. Update the existing customer register with all four controls. For each, record the effective setting/source level, selected path (`approved pilot` only for the authorized non-production fine-grained-PAT pilot; otherwise `inspect-and-propose`), objective evidence, owner, and next review date.
+11. Recheck the effective setting and source level for each surface. Confirm the inventory links the objective Settings/API/audit evidence, owner, and next review date.
 12. Hand over the inventory and decision to the customer organization owner. If enterprise PAT policy is in scope, include the enterprise owner or authorized policy-export owner. Name the next action: approve a low-risk pilot, obtain a policy export, sponsor a migration, approve an exception, or schedule review.
 
 ## Validation / Definition of Done
@@ -96,8 +89,7 @@ You are done when ALL of the following are true:
 - [ ] Every installed GitHub App has an installation-authority decision, permission/repository-scope assessment, accountable owner, and recurring review cadence.
 - [ ] OAuth restriction impact is distinguished from GitHub App review, including the first-enable disruption risk and an approval/exception path.
 - [ ] Fine-grained PAT approval/lifetime and classic-PAT restriction/migration are evaluated separately, with automation and EMU/SCIM administrator-exemption implications recorded.
-- [ ] The delivery includes the inventory plus either an authorized non-production fine-grained-PAT approval pilot or a complete inspect-and-propose package.
-- [ ] The existing customer register records `INT-OAUTH-RESTRICTIONS`, `INT-APP-REVIEW`, `INT-FINE-GRAINED-PATS`, and `INT-CLASSIC-PATS` with objective evidence, owner, selected path, and review date.
+- [ ] The delivery includes the inventory plus either an authorized non-production fine-grained-PAT approval test or an evidence-backed recommendation for the next policy action.
 - [ ] The customer owner accepts the policy decision, migration/exception plan, and next action.
 
 ## Operational extensions

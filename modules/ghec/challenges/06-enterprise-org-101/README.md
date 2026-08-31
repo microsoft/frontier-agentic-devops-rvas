@@ -16,7 +16,7 @@
 - Customer objective: establish a defensible organisation governance baseline in the customer tenant.
 - Customer-tenant target: approved member-privilege, repository-creation, visibility, security-default, and workflow-permission settings.
 - Approval and safety boundary: governance changes proceed in the customer organisation only when the accountable organisation owner approves them; otherwise produce an approved rollout proposal and risk decision from the controlled sample.
-- Records to keep: retain before/after API snapshots, the baseline policy, rationale, and any EMU constraints.
+- Records to keep: retain before/after API snapshots and any EMU constraints.
 - Adoption owner / handover: the customer organisation owner accepts the baseline and assigns ongoing policy ownership.
 - Next action and owner: approve the change window and apply the agreed baseline, or hand over the signed rollout proposal.
 
@@ -48,29 +48,6 @@ You're the first platform admin hired at a fast-growing GHEC customer. The organ
 >
 > Record the selected target, organisation owner, risk decision, and next action and owner. Use the sample only for testing; move the validated proposal to an approved customer organisation.
 
-## Initialize the Governance Settings Register
-
-This activity starts the governance record used by later activities. Before
-you start Part A, create the customer-owned governance settings register — the
-customer's record of effective settings, decisions, and evidence. The
-`modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md` catalogue selects the
-controls and names their primary activities; the register records the
-customer's actual choice.
-
-**What you'll do:**
-1. Copy `modules/ghec/resources/GOVERNANCE-SETTINGS-REGISTER-TEMPLATE.md` to your customer-owned location (e.g., `docs/GOVERNANCE-SETTINGS-REGISTER.md` in your real repo, or `docs/customer-governance-register.md` in the sample).
-2. **Scope the register:** Record the enterprise/org, identity model (standard GHEC or EMU), in-scope repositories, approvers, owner, and review cadence.
-3. **Initialize the first controls:** From the catalogue, add
-   `ORG-BASE-PERMISSIONS`, `ORG-REPOSITORY-CREATION`, `REP-VISIBILITY`,
-   `ORG-FORKING`, `ORG-OUTSIDE-COLLABORATORS`, and `ENT-TWO-FACTOR` where
-   applicable. Copy their Control IDs and mark each row `not started`.
-4. **Inspect, tune or propose, then evidence:** Record the effective source level first. Use an approved pilot only where authorized; otherwise record an inspect-and-propose decision. As you complete each part, update Delivery Status, Evidence, and Next Decision.
-   If an inherited enterprise policy is not visible, record `proposed` or
-   `not applicable`, the enterprise owner/export request, and the reason; it
-   is not an org-owner completion blocker.
-
-This keeps governance decisions and evidence in one customer-owned record.
-
 ## Sample test repository or environment (when tenant delivery is constrained)
 Skip this if you brought your own org/repo policy target. Otherwise run the provisioning entrypoint (Bash or PowerShell — both supported).
 
@@ -94,7 +71,7 @@ Setup creates these resources (all names use the `ghec-ch06-*` prefix, and teard
 > Throughout, `ghec-ch06-public-sample` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Read the baseline (before you change anything)
-1. Snapshot the org via the API. Run `gh api /orgs/<org> --jq '{default_repository_permission, members_can_create_repositories, members_can_create_public_repositories, members_can_create_private_repositories, members_can_create_internal_repositories, members_can_fork_private_repositories, web_commit_signoff_required, two_factor_requirement_enabled}'`. Save the output — this is your "before."
+1. Snapshot the org via the API. Run `gh api /orgs/<org> --jq '{default_repository_permission, members_can_create_repositories, members_can_create_public_repositories, members_can_create_private_repositories, members_can_create_internal_repositories, members_can_delete_repositories, members_can_fork_private_repositories, web_commit_signoff_required, two_factor_requirement_enabled}'` and `gh api /orgs/<org>/actions/permissions/workflow`. Save both outputs — this is your "before."
 2. Map the membership. List members and their roles: `gh api /orgs/<org>/members --jq '.[].login'` and `gh api /orgs/<org>/memberships/<your-login> --jq '.role'`. Note who is an owner vs a member.
 3. List outside collaborators on the seeded repos: `gh api /orgs/<org>/outside_collaborators --jq '.[].login'`. Understand the difference: members belong to the org; outside collaborators have repo-level access only.
 
@@ -111,15 +88,16 @@ Setup creates these resources (all names use the `ghec-ch06-*` prefix, and teard
 
 ### Part D — Security & workflow defaults
 11. Review 2FA posture. Read `two_factor_requirement_enabled` from the API. If your org isn't EMU-managed and you control it, document whether you'd require 2FA org-wide and the rollout risk (members without 2FA get removed). *(Awareness — don't lock yourself out.)*
-12. Set default Actions workflow permissions to read-only for the org: Org Settings → Actions → General → Workflow permissions → Read repository contents permission. This is a key least-privilege default. (You'll go deeper on Actions policy in the Automation track — here you just set the safe default.)
+12. Set default Actions workflow permissions to read-only for the org: Org Settings → Actions → General → Workflow permissions → Read repository contents permission. Verify with `gh api /orgs/<org>/actions/permissions/workflow --jq '.default_workflow_permissions'`. (You'll go deeper on Actions policy in the Automation track — here you just set the safe default.)
 13. Enable the dependency graph / security defaults for new repos under Org Settings → Code security (defaults for new repositories). Note which toggles are free on public repos vs licensed on private.
 
-### Part E — Verify & document
-14. Produce an "after" snapshot by re-running the Part A API call and diffing it against your saved "before." Every change you made should be reflected in JSON.
-15. Write a one-page baseline doc (in `ghec-ch06-private-sample`'s README or a new `POLICY.md`) listing each setting, its value, and the one-line rationale. This is the artifact a real customer would keep for audits.
+### Part E — Verify
+14. Produce "after" snapshots by re-running both Part A API calls and diffing them against your saved "before" outputs.
 
 ### Part F — Default-branch policy
-16. Inspect the effective enterprise and organization default-branch policy for new repositories. Add `REP-DEFAULT-BRANCH` from `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md` to the register with the effective level and evidence; record a migration/tooling exception or an inspect-and-propose change proposal.
+15. Inspect the effective enterprise and organization default-branch policy for
+    new repositories. Capture the effective setting through the API or
+    organization settings, including any inherited enterprise restriction.
 
 ## Validation / Definition of Done
 **Done means:**
@@ -129,16 +107,15 @@ Setup creates these resources (all names use the `ghec-ch06-*` prefix, and teard
 - [ ] The fork policy for private/internal repos is set deliberately and verified via the API.
 - [ ] At least one sample repo's visibility was changed where the org permits it; on EMU, you documented the public-repo block and can explain public vs internal vs private.
 - [ ] Default Actions workflow permissions are set to read-only at the org.
-- [ ] A before/after API diff exists and a `POLICY.md`/baseline doc records every setting + rationale.
-- [ ] `REP-DEFAULT-BRANCH` records the effective enterprise/org policy, or an
-  authorized-unavailable record, plus a migration/tooling exception or proposal.
+- [ ] Before/after API diffs exist for the organization settings and default Actions workflow permissions.
+- [ ] The effective enterprise/organization default-branch policy was inspected and its source is clear.
 - [ ] Real-outcome check — if you brought your own org/repo target, a real policy baseline or default setting is documented and improved; if you used the sample, you can name the org setting you will propose changing next.
 - [ ] Adoption handover — record the customer organisation owner, highest-priority policy decision, risk addressed, and approved implementation or proposal next action.
 
 > Coaches use the checks in `COACH.md`.
 
 ## Operational extensions
-- Write a small script that pulls the full `/orgs/<org>` settings object and renders a Markdown policy table automatically — turn governance into a repeatable report.
+- Write a small script that pulls the full `/orgs/<org>` settings object and highlights changes from an earlier snapshot.
 - Add a second team `ghec-ch06-readonly` and demonstrate how base permission + team permission combine (the more permissive of the two wins).
 - Research and document, in one paragraph each, three settings that only exist at the enterprise tier (e.g., enterprise-wide policy enforcement, allowed org visibility, SSO requirement) — see "At enterprise scale" below.
 

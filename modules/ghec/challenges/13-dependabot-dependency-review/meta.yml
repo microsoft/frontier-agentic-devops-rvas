@@ -19,7 +19,6 @@ success_criteria:
 - At least one **Dependabot security-update PR** was merged and its alert moved to **fixed**.
 - '`.github/dependabot.yml` configures **scheduled npm version updates** with a limit and a group.'
 - A **dependency-review** workflow exists, is **required** on `main`, and **blocks** the seeded risky PR.
-- '**Control-catalogue evidence:** The existing customer register records `SCM-DEPENDENCY-GRAPH`, `SCM-DEPENDABOT`, and `SCM-DEPENDENCY-REVIEW` as `approved pilot` after effective-setting inspection, with SBOM, Dependabot, and required-check evidence.'
 - Customer evidence records the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - ghas

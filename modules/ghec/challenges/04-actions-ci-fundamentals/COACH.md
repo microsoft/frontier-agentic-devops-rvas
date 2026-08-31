@@ -12,6 +12,6 @@ Use this review overlay with the [Delivery Assurance Standard](../../../DELIVERY
 ## Session-specific reviewer focus
 
 - Expected outcome: the customer owner builds a CI pipeline that runs across a matrix, caches dependencies, publishes artifacts, and sets default workflow token permissions to `read-only`.
-- **Governance controls:** Confirm `ACT-ALLOWED-ACTIONS`, `ACT-ENABLEMENT`, `ACT-WORKFLOW-TOKEN`, `ACT-FORK-PR`, and `ACT-RETENTION` in the existing register. `ACT-ENABLEMENT` must show the effective enterprise policy, CI compatibility evidence, and preservation of the approved `docs/actions-governance-decision.md` choice.
+- Confirm the effective Actions policy, default token permissions, fork pull-request boundary, and retention settings, then verify the CI workflow is compatible with them.
 - Check the exact status-check name used by the merge gate and the cache hit and scope that speed up the second run.
 - Ask "what's the risk if a workflow can write a token back to the repo?" (→ supply-chain attack) and "how long should Actions cache survive?" (→ org policy).

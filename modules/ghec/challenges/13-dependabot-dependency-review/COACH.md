@@ -12,6 +12,6 @@ Use this review overlay with the [Delivery Assurance Standard](../../../DELIVERY
 ## Session-specific reviewer focus
 
 - Expected outcome: the customer owner enables Dependabot, triages alerts, merges safe patches, and gates pull requests on dependency review.
-- **Control-catalogue evidence:** Using `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`, confirm `SCM-DEPENDENCY-GRAPH`, `SCM-DEPENDABOT`, and `SCM-DEPENDENCY-REVIEW` are `approved pilot` only after effective-setting inspection, with SBOM, Dependabot, and required-check evidence.
+- Confirm the dependency graph, Dependabot settings, update workflow, and required dependency-review check through the settings/API, SBOM, PR, and merge-gate evidence.
 - Ask "which Dependabot feature opens a PR, and which just notifies?" (→ security alerts open PRs; version updates only notify) and "where does dependency review run?" (→ on the PR diff, not the alert list).
 - Ask "what's the risk of auto-merging without review?" (→ a bad update can merge, though tests may catch it) and "how do you handle dependencies a team won't upgrade?"

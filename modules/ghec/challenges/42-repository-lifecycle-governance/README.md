@@ -73,7 +73,7 @@ Setup creates `ghec-ch42-active-service`, `ghec-ch42-deprecated-service`, and `g
 
 ### Part D — Handover
 
-10. Publish the lifecycle register location, review cadence, and escalation path.
+10. Publish the lifecycle inventory location, review cadence, and escalation path.
 11. Name the next repository cohort and owner.
 
 ## Validation / Definition of Done
@@ -82,7 +82,7 @@ Setup creates `ghec-ch42-active-service`, `ghec-ch42-deprecated-service`, and `g
 - [ ] Sample or customer repositories are classified with evidence.
 - [ ] At least one safe lifecycle marker is applied.
 - [ ] Any archive/transfer/delete action has explicit approval evidence, or is deferred with owner/date.
-- [ ] Governance register links decisions, retention notes, and next review.
+- [ ] The lifecycle inventory includes decisions, retention notes, and next review.
 - [ ] Adoption handover names the lifecycle owner and next cohort.
 
 ## Reference links

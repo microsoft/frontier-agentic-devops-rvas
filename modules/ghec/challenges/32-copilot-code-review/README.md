@@ -15,7 +15,7 @@
 
 - **Goal:** improve pull-request signal without replacing accountable human review.
 - **Target:** a customer-approved review scope, manual-review evidence, an automatic-review decision, and a rollback-ready operating record.
-- **Boundary:** start with **inspect-and-propose**. Enable an automatic-review ruleset only through a customer-authorized, bounded pilot.
+- **Boundary:** inspect first. Enable an automatic-review ruleset only through a customer-authorized, bounded pilot.
 - **Handover:** the repository owner accepts the review configuration; engineering leads and `CODEOWNERS` reviewers retain code-quality and merge responsibility.
 - **Brand:** retain the **Agentic DevSecOps** name in customer handover material.
 
@@ -79,9 +79,8 @@ The fallback is intentionally isolated and namespaced `ghec-ch32-*`. It creates 
 
 ### Part E — Evidence, rollback, and handover
 
-16. Add `COP-CODE-REVIEW` to the existing customer governance register (or the fallback decision package). Include effective policy, scope, manual-review evidence, ruleset state, human-review/CODEOWNERS relationship, setup configuration choice, owner, cadence, exceptions, and next decision.
-17. Define rollback before expanding: disable or change the automatic-review rule in the relevant ruleset; restore the prior ruleset configuration; retain human-review and `CODEOWNERS` gates; and remove the dedicated review environment only if it is separately approved for removal. Capture before/after exports and the rollback executor.
-18. Handover the operating record to the repository owner and set a review date for comment usefulness, false-positive rate, review latency, Actions/runner cost, coverage, and any exception.
+16. Define rollback before expanding: disable or change the automatic-review rule in the relevant ruleset; restore the prior ruleset configuration; retain human-review and `CODEOWNERS` gates; and remove the dedicated review environment only if it is separately approved for removal. Capture before/after exports and the rollback executor.
+17. Handover the operating record to the repository owner and set a review date for comment usefulness, false-positive rate, review latency, Actions/runner cost, coverage, and any exception.
 
 ## Decision-package fallback
 
@@ -102,10 +101,9 @@ When Copilot code review, policy authority, Actions capacity, or a customer repo
 - [ ] Effective Copilot policy and repository eligibility were captured with dated, non-secret evidence.
 - [ ] A PR received a manually requested Copilot review; a human reviewer triaged the comments and completed normal review.
 - [ ] Copilot's non-approval role and the retained human-review / `CODEOWNERS` merge boundary are explicit.
-- [ ] Repository and/or organization ruleset scope, automatic-review status, new-push choice, and draft choice are documented; a live change is authorized or recorded as inspect-and-propose.
+- [ ] Repository and/or organization ruleset scope, automatic-review status, new-push choice, and draft choice are documented; any live change is authorized.
 - [ ] Shared setup configuration and any optional dedicated `copilot-code-review.yml` decision include permissions, runner/network, cost, and rollback evidence.
 - [ ] Preview capabilities are explicitly optional, were not required, and were either excluded or separately governed.
-- [ ] `COP-CODE-REVIEW` has evidence, owner, cadence, exception/rollback, and next decision in the customer register or fallback package.
 
 ## Reference links
 

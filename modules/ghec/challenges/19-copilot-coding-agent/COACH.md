@@ -13,5 +13,5 @@ Review the completed work against the [Delivery Assurance Standard](../../../DEL
 
 - **Expected outcome:** the customer implementation owner delegates a clear, bounded bug to the Copilot cloud agent, then reviews and steers its pull request to a correct, merged fix.
 - Eligibility is the gate, not a footnote. Before starting, confirm that the Copilot cloud agent policy is enabled and that the repository is not EMU-owned. For a pure GHEMU customer, record the activity as not applicable.
-- **Governance controls:** Confirm `COP-CLOUD-AGENT` in the existing register with policy, eligibility, and review evidence, or mark it not applicable for an EMU-owned repository.
+- Confirm the cloud-agent policy, repository eligibility, issue boundary, session log, review gates, and human approval evidence. The activity is unavailable for EMU-owned repositories.
 - **Check these risks:** the issue is small and testable, human review remains required, and any ruleset bypass for Copilot is justified and documented.

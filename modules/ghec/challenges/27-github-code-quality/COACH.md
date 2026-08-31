@@ -13,5 +13,5 @@ Review the completed work against the [Delivery Assurance Standard](../../../DEL
 
 - Keep the product boundary clear
 - Product and tenant constraints
-- **Control-catalogue evidence:** Using `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`, confirm `QLT-CODE-QUALITY-GATES` is `approved pilot` only after availability and effective-setting inspection, with baseline, coverage, gate, and pilot-decision evidence.
+- Confirm Code Quality availability and the effective threshold or review cadence through baseline, coverage, pull-request gate, and pilot evidence.
 - Threshold and remediation guardrails: ask "what's too strict that would block legitimate code?" (→ coverage % targets, severity thresholds) and "what team budget exists to fix tech-debt alerts?"

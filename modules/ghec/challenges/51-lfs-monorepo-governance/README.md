@@ -84,7 +84,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 
 ### Part B — Define LFS and large-file policy
 
-4. Complete `docs/lfs-monorepo-governance.md` or the customer register with:
+4. Complete `docs/lfs-monorepo-governance.md` with:
    - approved LFS patterns
    - prohibited direct-binary patterns
    - exception owner and expiry rules

@@ -35,7 +35,6 @@ You will:
 - Configure organization default labels so future repositories start with the approved baseline.
 - Verify default-label inheritance by creating a new repository after the default labels are configured.
 - Reconcile a brownfield repository from inconsistent labels to the organization taxonomy.
-- Record the taxonomy, exceptions, and evidence in the customer governance register.
 
 ## Scenario
 
@@ -94,7 +93,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
    - `priority:` → `priority: p0`, `priority: p1`, `priority: p2`
    - `area:` → `area: frontend`, `area: backend`, `area: platform`
    - `status:` → `status: needs-triage`, `status: blocked`, `status: in-review`
-5. Record the owner, rationale, color palette, description standard, exception process, and review cadence in the governance settings register.
+5. Choose the owner, rationale, color palette, description standard, exception process, and review cadence before changing organization defaults.
 6. Decide which labels are organization defaults and which labels remain repository-local.
 
 ### Part C — Configure organization default labels
@@ -145,7 +144,6 @@ You are done when all of the following are true:
 - [ ] Organization default labels include the approved `type:`, `priority:`, `area:`, and `status:` dimensions.
 - [ ] A newly created repository inherits the approved organization default labels.
 - [ ] At least one existing repository is reconciled from inconsistent labels to the approved taxonomy.
-- [ ] Governance register rows or an equivalent customer-owned record link to before/after snapshots and the next review decision.
 - [ ] If you used your own repository, the team now uses the taxonomy there. If you used the sample, name the next repository cohort to reconcile.
 - [ ] Name the taxonomy owner, exception approver, next repository cohort, and review date.
 

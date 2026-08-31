@@ -96,15 +96,6 @@ Setup creates these resources (all names use the `ghec-ch03-*` prefix, and teard
 12. Create the prebuild from the recorded decision (Settings → Codespaces → Set up prebuild). Select the branch and configuration file, trigger, regions, retained versions, failure-notification owner, and advanced freshness behavior. Wait for the GitHub Actions prebuild workflow to succeed.
 13. Validate the result. Create a *new* Codespace for the configured branch and configuration. Confirm the machine picker shows **Prebuild ready**, `node_modules/express` is already present, and the repository settings show the successful configuration and its next update trigger. Record the workflow URL or run ID in `docs/prebuild-decision.md`.
 14. Clean up running Codespaces with `gh codespace delete` to stop billing.
-15. Update the governance register initialized in Ch06. From
-   `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`, add
-   `CSP-ENABLEMENT` (effective level: `enterprise`/`org`; evidence: effective
-   Codespaces policy), `CSP-DEVCONTAINER` (effective level: `repo`; evidence:
-   `.devcontainer/devcontainer.json` and a successful Codespace) and
-   `CSP-PREBUILDS` (effective level: `org`/`repo`; evidence:
-   `docs/prebuild-decision.md`, the prebuild workflow run, and the policy
-   setting). Record the platform owner, implementation path (`approved pilot`
-   or `inspect-and-propose`), review cadence, and next decision.
 
 ## Validation / Definition of Done
 **Done means:**
@@ -116,9 +107,6 @@ Setup creates these resources (all names use the `ghec-ch03-*` prefix, and teard
 - [ ] An org Codespaces policy restricts machine types and sets retention.
 - [ ] `docs/prebuild-decision.md` records the branch/configuration, trigger, regions, retained versions, failure-notification owner, freshness behavior, and customer-specific cost/freshness rationale.
 - [ ] A prebuild is configured; its GitHub Actions workflow succeeds; and a new Codespace reports **Prebuild ready** with dependencies already installed.
-- [ ] The governance register contains `CSP-ENABLEMENT`, `CSP-DEVCONTAINER`,
-  and `CSP-PREBUILDS`, with effective level, evidence, owner, implementation
-  path, and next decision.
 - [ ] All your Codespaces are stopped/deleted at the end.
 - [ ] Real-outcome check — if you brought your own repo, it now has a Codespace/devcontainer path that reduces real onboarding friction; if you used the sample, you can name the repo whose setup you will standardize next.
 - [ ] Adoption handover — name the repository owner, onboarding bottleneck, approved dev-container change, and next rollout action.

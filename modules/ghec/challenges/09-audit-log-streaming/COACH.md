@@ -12,6 +12,6 @@ Use this review overlay with the [Delivery Assurance Standard](../../../DELIVERY
 ## Session-specific reviewer focus
 
 - Expected outcome: the customer owner uses the organization audit log as the source for event searches and evidence exports, then assesses enterprise streaming where it applies.
-- **Governance controls:** Confirm org-scoped `AUD-LOG-EXPORT` is distinct from enterprise `AUD-LOG-STREAMING` and `AUD-IP-DISPLAY`; the latter records streaming destination/retention plus IP-display privacy, investigation, and owner evidence.
+- Confirm organization audit-log export is distinct from enterprise streaming and IP-address-display settings; any enterprise inspection must cover destination, retention, privacy, investigation needs, and owner evidence.
 - Ask "what exact action: string did the docs say a team-to-repo grant emits?" (→ `team.add_member` or `team_repository.added`) and "how would you reconstruct yesterday's changes?" (→ `created:>=<yesterday>` filter).
 - Ask "what's lost if retention expires?" (→ the forensic window closes; compare it with the compliance baseline).

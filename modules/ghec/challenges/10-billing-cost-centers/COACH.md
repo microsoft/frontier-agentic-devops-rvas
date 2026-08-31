@@ -12,6 +12,6 @@ Use this review overlay with the [Delivery Assurance Standard](../../../DELIVERY
 ## Session-specific reviewer focus
 
 - Expected outcome: the customer owner reads organization usage, generates a small amount of metered usage, and configures a budget with alerts.
-- **Governance controls:** Confirm `FIN-BUDGETS-ALERTS` in the existing register with effective-setting evidence and the selected path.
+- Confirm the configured budget, alert recipients, API usage reconciliation, and cost-report evidence.
 - Ask "what's the difference between getting warned at 90% and being stopped at 100%?" and "which runner OS would use the budget fastest?" (→ Windows and macOS cost more per minute than Linux).
 - Ask "what attribution gap would surprise the billing owner?" (→ unattributed spend in shared repos or cross-team runners).

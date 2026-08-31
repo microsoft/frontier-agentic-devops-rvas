@@ -110,15 +110,6 @@ Setup creates these resources (all names use the `ghec-ch11-*` prefix, and teard
     ```
 14. Write a one-paragraph triage summary (drop it in an issue on the repo): how many secrets were found, how each was resolved, that push protection blocked a fresh secret, and who bypassed it and why. This is the artifact a real security review would ask for.
 
-### Part F — Control-catalogue evidence
-
-Use `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md` for control
-terminology; do not copy catalogue rows into this guide. Contribute to the
-existing customer register:
-
-- `SEC-SECRET-SCANNING` — inspect the effective repository secret-scanning setting → record `approved pilot` → attach the settings API response, alert-triage issue, and custom-pattern test as objective evidence.
-- `SEC-PUSH-PROTECTION` — inspect the effective repository push-protection setting → record `approved pilot` → attach the settings API response and bypass audit as objective evidence.
-
 ## Validation / Definition of Done
 **Done means:**
 - [ ] `secret_scanning` and `secret_scanning_push_protection` both read `enabled` on `ghec-ch11-juice-shop` (verifiable via the `security_and_analysis` API).
@@ -128,7 +119,6 @@ existing customer register:
 - [ ] At least one push-protection bypass exists with a recorded actor and reason (verifiable via the alerts API).
 - [ ] A custom secret-scanning pattern is published and raised at least one alert.
 - [ ] A triage summary issue exists on the repo.
-- [ ] The existing customer register contains `SEC-SECRET-SCANNING` and `SEC-PUSH-PROTECTION` with the inspected effective settings, `approved pilot` status, and the required objective evidence.
 - [ ] Real-outcome check — if you brought your own repo, scanning + push protection are now enabled on a project you actually own; if you used the sample, you can name the real repo you'll roll this out to next.
 - [ ] Adoption handover — record the customer security owner, push-protection rollout risk, affected workflow, and next approved action.
 

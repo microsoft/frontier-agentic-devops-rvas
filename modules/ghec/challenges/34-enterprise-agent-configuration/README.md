@@ -32,13 +32,6 @@
 
 ## Scope and guardrails
 
-This activity governs these customer register controls:
-
-- `COP-ENTERPRISE-AGENT-SOURCE`
-- `COP-ENTERPRISE-AGENT-CHANGE-CONTROL`
-- `COP-ORG-CUSTOM-INSTRUCTIONS`
-- `COP-AGENT-CONFIGURATION-ROLLBACK`
-
 The enterprise agent source and organization custom instructions are different configuration surfaces. Do not represent organization instructions as enterprise policy, and do not assume an enterprise custom agent changes instruction precedence.
 
 **Out of scope:** managed settings and plugin standards. Treat them as optional preview work requiring separate availability assessment, approval, change control, and rollback. Do not configure, validate, or report them as complete in this activity.
@@ -50,7 +43,7 @@ The enterprise agent source and organization custom instructions are different c
 1. Record the customer enterprise, source organization, affected organizations, Copilot plan/availability, supported clients, change ticket, evidence location, approvers, and rollback owner.
 2. Inspect **Enterprise settings → AI Controls → Agents**. Capture a dated, non-secret screenshot or export of the current configuration source and configuration summary. If no enterprise owner can inspect it, record that limitation; do not infer the source from repository contents.
 3. Select the customer organization that will own the actual enterprise source. Confirm that creating or changing its `.github-private` repository is approved and that its default branch, visibility, maintainers, and retention meet customer policy.
-4. Record the initial decision as `inspect-and-propose` until the enterprise owner authorizes the change. Use `approved implementation` only after the named approver authorizes the actual source and change.
+4. Leave the current setting unchanged until the enterprise owner authorizes the source and change.
 
 ### Part B — Create and protect the real enterprise source
 
@@ -131,7 +124,6 @@ The enterprise agent source and organization custom instructions are different c
 24. For every source change, use a pull request with the required Code Owner and change-record approval. Baseline the current source commit and configuration-summary evidence before merging.
 25. Validate propagation after the approved merge using the designated supported client and non-sensitive test repository. Record expected versus actual agent availability/behavior, source SHA, test time, tester, organization, and evidence link. Investigate unexpected results before expanding scope.
 26. Roll back by opening and approving a revert pull request to the last known-good source commit; do not directly overwrite protected files. Re-check the AI Controls configuration summary and repeat the supported-client validation. Record the revert SHA, propagation result, incident/change reference, owner, and next review date.
-27. Update the existing customer governance register with all four controls, effective source/status, customer-approved path, objective evidence, owner, exception/rollback route, and next decision.
 
 ## Validation / Definition of Done
 

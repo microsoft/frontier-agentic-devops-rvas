@@ -96,20 +96,14 @@ What setup creates (all artifacts namespaced `ghec-ch18-*`, idempotent, prefix-g
 ### Part F — Enterprise awareness (read + write-up)
 15. Map org → enterprise. In `docs/RUNNER-CHOICES.md`, add a short note: how an org runner group differs from an enterprise runner group (enterprise groups span multiple orgs; require enterprise-owner), and when you'd reach for each. No enterprise actions required.
 
-### Part G — Governance controls contributed
+### Part G — Inspect the effective runner policy
 
-Use the existing governance register. Inspect the effective inherited setting, use
-`approved pilot` only for a customer-authorized live control (otherwise
-`inspect-and-propose`), and attach objective evidence. See
-`modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`.
-If an enterprise runner policy is not visible to the org owner, record
-`proposed` or `not applicable`, the named enterprise owner/export request, and
-the reason; complete the org runner-group and host-hardening work normally.
-
-- `RUN-RUNNER-GROUPS`: runner-group repository scope, labels, and routing.
-- `RUN-HOST-HARDENING`: host privilege, ephemeral lifecycle, egress, and fork-PR boundary.
-- `RUN-REPOSITORY-RUNNERS`: inspect the effective enterprise policy and record runner-group compatibility and its owner.
-- `RUN-HOSTED-RUNNERS`: inspect the effective enterprise policy and record hosted-runner/host-hardening compatibility and its owner. An enterprise change is an inspect-and-propose proposal unless authorized.
+16. Verify the runner-group repository scope, labels, routing, host privilege,
+    ephemeral lifecycle, egress, and fork pull-request boundary. If enterprise
+    runner policy is authorized and visible, inspect whether repository and
+    hosted runners are allowed and confirm compatibility with the selected
+    runner group and host-hardening model. Do not change enterprise policy
+    without enterprise-owner approval.
 
 ## Validation / Definition of Done
 You are done when ALL of the following are true:
@@ -119,7 +113,7 @@ You are done when ALL of the following are true:
 - [ ] A mis-labeled job stays queued, proving label routing.
 - [ ] The runner runs under a least-privilege account and you demonstrated an ephemeral registration.
 - [ ] You documented the fork-PR risk and a GitHub-hosted vs larger vs self-hosted decision matrix, plus the org-vs-enterprise runner group note.
-- [ ] The existing governance register records `RUN-RUNNER-GROUPS`, `RUN-HOST-HARDENING`, `RUN-REPOSITORY-RUNNERS`, and `RUN-HOSTED-RUNNERS` with effective-setting or authorized-unavailable evidence, compatibility, owner, and selected-path evidence; any unauthorized enterprise change is a proposal.
+- [ ] The effective runner-group and host-hardening settings were verified; any authorized enterprise-policy inspection confirmed runner compatibility.
 - [ ] Real-outcome check — if you brought your own runner target, a real CI job now has a clearer self-hosted-runner path; if you used the sample, you can name the constrained job you will move next.
 - [ ] Adoption handover — record the customer platform owner, constrained job, host risk decision, and next approved runner action.
 

@@ -100,19 +100,13 @@ Setup creates these resources (all names use the `ghec-ch09-*` prefix, and teard
 16. Run it and confirm the output contains your generated events. This is the org-owner equivalent of "streaming" — a repeatable pull you could schedule.
 17. Write `FINDINGS.md`: for three investigative questions (who added the team? who changed the ruleset? what happened today?), record the exact filter used and the answer.
 
-### Part F — Governance controls contributed
+### Part F — Inspect the effective audit settings
 
-Use the existing governance register. Inspect the effective inherited setting, use
-`approved pilot` only for a customer-authorized live control (otherwise
-`inspect-and-propose`), and attach objective evidence. See
-`modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`.
-If enterprise streaming or IP-display settings are not visible to the org
-owner, record `proposed` or `not applicable`, the named enterprise owner/export
-request, and the reason; complete the organization export work normally.
-
-- `AUD-LOG-EXPORT`: organization audit-log retention and repeatable export.
-- `AUD-LOG-STREAMING`: distinguish the existing organization export work from the enterprise streaming decision; record the destination, retention, and owner evidence.
-- `AUD-IP-DISPLAY`: inspect the enterprise IP-address-display decision and retain the privacy and investigation rationale.
+18. Verify the organization audit-log access and retention used by the export.
+    If enterprise access is authorized, also inspect the effective streaming
+    destination, retention, and IP-address-display setting. If those
+    enterprise settings are not visible, note the limitation and complete the
+    organization export work normally.
 
 ## Validation / Definition of Done
 **Done means:**
@@ -122,7 +116,7 @@ request, and the reason; complete the organization export work normally.
 - [ ] A combined, time-bounded API query returns a sensible count for today's events.
 - [ ] An export script committed to the repo pulls a time-bounded slice to JSON and the output contains your events.
 - [ ] A `FINDINGS.md` answers three investigative questions with the exact filter used.
-- [ ] The existing governance register distinguishes `AUD-LOG-EXPORT` from `AUD-LOG-STREAMING` and `AUD-IP-DISPLAY`, with enterprise evidence or an authorized-unavailable record, destination/retention, privacy, and owner evidence.
+- [ ] The effective organization audit settings were verified; any authorized enterprise inspection captured streaming destination, retention, and IP-address-display behavior.
 - [ ] Real-outcome check — if you brought your own audit target, you now have real filters, evidence, or export scripts for an investigation you care about; if you used the sample, you can name the audit question you will answer next.
 - [ ] Adoption handover — record the customer operations owner, first alert or anomaly query, evidence-retention path, and next approved action.
 

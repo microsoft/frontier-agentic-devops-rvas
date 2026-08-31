@@ -93,21 +93,13 @@ Setup creates these resources (all names use the `ghec-ch04-*` prefix, and teard
 10. Create an environment named `staging` with a required reviewer protection rule. Add an environment variable and a secret; have the `package` job reference the `staging` environment and echo the variable (never the secret).
 11. Make CI required. In branch protection / a ruleset on `main`, mark the `build-test` status check as required. Then flip the seeded failing test on, push, and confirm the PR is blocked from merging. Flip it back to green and confirm the block clears.
 
-### Part G — Governance controls contributed
+### Part G — Verify the effective Actions policy
 
-Use the existing governance register. Inspect the effective inherited setting, use
-`approved pilot` only for a customer-authorized live control (otherwise
-`inspect-and-propose`), and attach objective evidence. See
-`modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`.
-If an enterprise policy is not visible to the org owner, do not block the CI
-activity: record `proposed` or `not applicable`, the named enterprise owner
-from whom an export is requested, and the reason instead.
-
-- `ACT-ALLOWED-ACTIONS`: allowed Actions/reusable-workflow policy and workflow dependencies. Retain only the approved customer decision memo, `docs/actions-governance-decision.md`.
-- `ACT-ENABLEMENT`: inspect the effective enterprise Actions-enablement policy and retain CI-compatible workflow evidence. Do not replace the approved `docs/actions-governance-decision.md` choice; record a proposal if the policy needs to change.
-- `ACT-WORKFLOW-TOKEN`: default `GITHUB_TOKEN` permissions.
-- `ACT-FORK-PR`: fork pull-request workflow execution and token boundary.
-- `ACT-RETENTION`: artifact and log retention.
+12. Inspect the effective allowed-Actions policy, default `GITHUB_TOKEN`
+    permissions, fork pull-request boundary, and artifact/log retention. Confirm
+    the workflow remains compatible with those settings. If an enterprise policy
+    is not visible to the org owner, note the limitation without blocking the CI
+    activity.
 
 ## Validation / Definition of Done
 **Done means:**
@@ -118,7 +110,7 @@ from whom an export is requested, and the reason instead.
 - [ ] A second job uses `needs` and a conditional so it only runs on `main`.
 - [ ] An environment `staging` exists with a protection rule and a variable + secret wired into a job.
 - [ ] The `build-test` check is required on `main`; a red run blocks merge, a green run unblocks it.
-- [ ] The existing governance register has `ACT-ALLOWED-ACTIONS`, `ACT-ENABLEMENT`, `ACT-WORKFLOW-TOKEN`, `ACT-FORK-PR`, and `ACT-RETENTION` with effective-setting or authorized-unavailable evidence, CI compatibility evidence, and the selected implementation path.
+- [ ] The effective Actions policy, token permissions, fork pull-request boundary, and retention settings were inspected, and the workflow is compatible with them.
 - [ ] Real-outcome check — if you brought your own repo, CI now runs against a real build or test path; if you used the sample, you can name the workflow you will automate next.
 - [ ] Adoption handover — name the customer test or build process, workflow owner, required gate, and next approved rollout action.
 

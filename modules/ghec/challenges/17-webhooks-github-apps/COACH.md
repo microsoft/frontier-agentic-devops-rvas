@@ -12,7 +12,7 @@ Use this review overlay with the [Delivery Assurance Standard](../../../DELIVERY
 ## Session-specific reviewer focus
 
 - Expected outcome: the customer owner receives webhook deliveries, verifies their signatures, and uses a GitHub App when the integration must act on GitHub.
-- **Governance controls:** Confirm `INT-WEBHOOKS` and `INT-GITHUB-APPS` in the existing register with effective-setting evidence and the selected path.
-- **Enterprise hook boundary:** Confirm `AUD-GLOBAL-WEBHOOKS` is not conflated with repo/org hooks and includes event scope, receiver, HMAC verification, retention, and accountable owner.
+- Confirm the effective repository and organization webhook settings, GitHub App permissions and installation scope, signature verification, and credential rotation.
+- **Enterprise hook boundary:** If enterprise hooks are in scope, confirm their event scope, receiver, HMAC verification, and retention without conflating them with repository or organization hooks.
 - Ask "what exact bytes did you sign, and what exact bytes did GitHub sign?" (→ the raw request body) and "what happens if someone replays an old delivery?" (→ check for a duplicate `X-GitHub-Delivery`).
 - Ask "which credential is allowed to comment?" (→ the App installation token, not a personal token or webhook secret).

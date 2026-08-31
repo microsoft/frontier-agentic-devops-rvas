@@ -85,7 +85,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 
 ### Part B — Define the license policy
 
-4. Complete `docs/license-compliance-policy.md` or the customer register with:
+4. Complete `docs/license-compliance-policy.md` with:
    - allowed license families
    - review-required license families
    - prohibited license families
@@ -128,7 +128,6 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 
 - Configure the Dependency Review GitHub Action after policy approval.
 - Add code owners for dependency manifests.
-- Feed approved exceptions into a centralized governance register.
 
 ## Reference links
 

@@ -5,13 +5,13 @@ Review the completed work against the [Delivery Assurance Standard](../../../DEL
 ## Assurance record
 
 - **Authorized scope:** enterprise, policy-export date, and approving enterprise owner.
-- **Evidence:** link the four control-register rows and source exports.
+- **Evidence:** link the enterprise source exports and direct setting evidence.
 - **Open risk:** record the accountable owner or `none`.
 - **Next decision:** record the pilot, rollout, risk acceptance, or follow-up owner and date.
 
 ## Reviewer focus
 
 - Confirm the boundary: Ch14's org SAML/SCIM and Ch07's org roles do not prove enterprise governance.
-- Confirm `ENT-IDP-CONDITIONAL-ACCESS` evidence shows EMU + OIDC + Microsoft Entra ID; CAP and the GitHub IP allow list are not combined.
-- Confirm any IP pilot added and removed one test-org entry without enforcement, and any SSH CA pilot only registered a test-org CA without requiring certificates.
-- Confirm all four rows show effective level, evidence, owner, lifecycle, and next decision; enterprise owners are minimized and two-owner/break-glass recovery is documented.
+- Confirm CAP evidence shows EMU + OIDC + Microsoft Entra ID; CAP and the GitHub IP allow list are not combined.
+- Confirm any authorized IP test added and removed one test-org entry without enforcement, and any SSH CA test only registered a test-org CA without requiring certificates.
+- Confirm each setting has effective-level and source evidence; enterprise owners are minimized and two-owner/break-glass recovery is documented.

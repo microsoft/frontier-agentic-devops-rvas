@@ -5,13 +5,13 @@ Review the completed work against the [Delivery Assurance Standard](../../../DEL
 ## Assurance record
 
 - **Authorized scope:** enterprise/orgs, authority or export limitation, and approving owner.
-- **Evidence:** dated AI Controls and organization-policy exports; register rows and decision record.
+- **Evidence:** dated AI Controls, organization-policy exports, and direct verification evidence.
 - **Open risk:** policy, data, vendor, or preview risk with named owner.
-- **Next decision:** approve one narrow pilot, retain inspect-and-propose, or mark unavailable/not applicable.
+- **Next decision:** approve one narrow test, keep the setting unchanged, or mark the feature unavailable/not applicable.
 
 ## Reviewer focus
 
-- Confirm all seven `COP-*` controls have effective source, owner, cadence, evidence, exception/rollback, and next decision.
+- Confirm all seven AI-control surfaces have effective source, owner, cadence, evidence, exception/rollback, and next decision.
 - Verify the seat model says enterprise-team removal is immediate and organization-level license revocation is billing-cycle delayed.
 - Verify public-code matching, GitHub.com/data feedback, third-party coding agents, agent apps, and MCP hosts are distinct decisions.
 - Confirm MCP is only inventoried and that agentic streaming remains watch-and-decide preview work.

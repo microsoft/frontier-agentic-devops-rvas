@@ -113,16 +113,6 @@ Setup creates these resources (all names use the `ghec-ch13-*` prefix, and teard
 12. Open the seeded risky PR. Create a PR from `feature/add-risky-dep` into `main`. The dependency-review check should flag the vulnerable dependency on the PR.
 13. Make it a required check. Mark the dependency-review check as required on `main` and confirm the risky PR is blocked until the dependency is removed or the alert is otherwise resolved.
 
-### Part F — Control-catalogue evidence
-
-Use `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md` for control
-terminology; do not copy catalogue rows into this guide. Contribute to the
-existing customer register:
-
-- `SCM-DEPENDENCY-GRAPH` — inspect the effective dependency-graph setting → record `approved pilot` → attach the SBOM export as objective evidence.
-- `SCM-DEPENDABOT` — inspect the effective Dependabot alerts, security-updates, and schedule settings → record `approved pilot` → attach the settings evidence, alert triage, merged security-update PR, and `dependabot.yml` as objective evidence.
-- `SCM-DEPENDENCY-REVIEW` — inspect the effective dependency-review workflow and required-check setting → record `approved pilot` → attach the workflow and blocked-PR result as objective evidence.
-
 ## Validation / Definition of Done
 **Done means:**
 - [ ] Dependency graph is on and you exported an SBOM (verifiable via the `dependency-graph/sbom` API).
@@ -131,7 +121,6 @@ existing customer register:
 - [ ] At least one Dependabot security-update PR was merged and its alert moved to fixed.
 - [ ] `.github/dependabot.yml` configures scheduled npm version updates with a limit and a group.
 - [ ] A dependency-review workflow exists, is required on `main`, and blocks the seeded risky PR.
-- [ ] The existing customer register contains `SCM-DEPENDENCY-GRAPH`, `SCM-DEPENDABOT`, and `SCM-DEPENDENCY-REVIEW` with the inspected effective settings, `approved pilot` status, and the required objective evidence.
 - [ ] Real-outcome check — if you brought your own repo, Dependabot and dependency review now protect dependencies you actually ship; if you used the sample, you can name the application repo you will enable next.
 - [ ] Adoption handover — record the customer application and security owners, priority dependency-risk target, update policy, and next approved action.
 

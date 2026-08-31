@@ -100,17 +100,6 @@ Setup creates these resources (all names use the `ghec-ch08-*` prefix, and teard
 14. Demonstrate enforcement: open a PR on `ghec-ch08-prod-payments` and show it cannot merge without 2 approvals + the `build` check + signed commits. Open a PR on `ghec-ch08-sandbox` (compliance `low`) and show it is not gated by the org ruleset.
 15. Document the model: write `GOVERNANCE.md` in `ghec-ch08-internal-tools` describing the property schema, which repos carry which values, the org ruleset's property target, and the repo-level overlay.
 
-### Part F — Governance controls contributed
-
-Use the existing governance register. Inspect the effective inherited setting, use
-`approved pilot` only for a customer-authorized live control (otherwise
-`inspect-and-propose`), and attach objective evidence. See
-`modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`.
-
-- `REP-PROPERTY-SCHEMA`: property schema and assigned values.
-- `REP-ORG-RULESETS`: property-targeted organization rulesets, enforcement, and bypasses.
-- `REP-REPO-RULESETS`: repository ruleset overlays.
-
 ## Validation / Definition of Done
 **Done means:**
 - [ ] Two custom properties exist (`compliance` single-select, `prod` true/false), verifiable via `gh api /orgs/<org>/properties/schema`.
@@ -119,7 +108,6 @@ Use the existing governance register. Inspect the effective inherited setting, u
 - [ ] The org ruleset governs both `high`-compliance repos (proven by a rejected direct push on the second repo).
 - [ ] A repository ruleset on one prod repo layers a stricter rule (e.g., 2 approvals) on top of the org ruleset.
 - [ ] A `GOVERNANCE.md` documents the schema, values, and ruleset targeting.
-- [ ] **Governance register updated:** `REP-PROPERTY-SCHEMA`, `REP-ORG-RULESETS`, and `REP-REPO-RULESETS` include effective-setting evidence and the selected path.
 - [ ] Real-outcome check — if you brought your own repo set, rulesets and properties now protect production or compliance-sensitive work; if you used the sample, you can name the real repo group you will target next.
 - [ ] Adoption handover — record the customer governance owner, priority repository risk, proposed property/ruleset control, and next approved action.
 

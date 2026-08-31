@@ -112,7 +112,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 
 8. Preferred: create or select a GitHub App with narrowly scoped permissions for repository administration and contents, then provide the workflow an installation token through a secret or token-minting step.
 9. Workshop fallback: create a fine-grained PAT with only the needed organization/repository permissions and store it as an Actions secret named `REPO_PROVISIONER_TOKEN` on the intake repo.
-10. Record the credential owner, rotation date, and permissions in the governance register. Do not paste or store the secret value in the register.
+10. Confirm the credential owner, rotation date, and permissions in the approved secret-management or workflow operating evidence. Never record the secret value.
 
 ### Part D — Approve and provision
 

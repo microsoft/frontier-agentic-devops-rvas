@@ -75,7 +75,7 @@ Setup creates `ghec-ch44-policy-baseline` and `ghec-ch44-drifted-service`. The d
 
 ### Part D — Handover
 
-10. Store the baseline contract, latest drift report, and exception register.
+10. Store the baseline contract, latest drift report, and approved exceptions.
 11. Name the drift check owner, review cadence, and next repository cohort.
 
 ## Validation / Definition of Done

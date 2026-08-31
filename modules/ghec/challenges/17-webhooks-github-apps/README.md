@@ -123,19 +123,14 @@ Setup creates these resources (all names use the `ghec-ch17-*` prefix, and teard
 18. Fill in the TODO. In `onIssueOpened()`, build a context-aware acknowledgement from the payload (greet `issue.user.login`, restate `issue.title`, say what happens next) and `POST` it to `issues/<number>/comments` with the installation `token`. Everything else — verification, routing, auth — is already done.
 19. Prove it end to end. Open a new issue and watch the App comment automatically, authored by your bot (`user.type: Bot`). Tamper with the secret and confirm the handler rejects the delivery instead of acting.
 
-### Part G — Governance controls contributed
+### Part G — Inspect the effective integration settings
 
-Use the existing governance register. Inspect the effective inherited setting, use
-`approved pilot` only for a customer-authorized live control (otherwise
-`inspect-and-propose`), and attach objective evidence. See
-`modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`.
-If enterprise hooks are not visible to the org owner, record `proposed` or
-`not applicable`, the named enterprise owner/export request, and the reason;
-the repository and organization webhook work remains complete.
-
-- `INT-WEBHOOKS`: repository/organization webhook scope, events, and signature verification.
-- `INT-GITHUB-APPS`: App permissions, installation scope, and credential rotation.
-- `AUD-GLOBAL-WEBHOOKS`: distinguish enterprise hook scope from the repository/organization webhooks above; record event scope, receiver, HMAC verification, retention, and owner evidence.
+20. Verify the repository and organization webhook scope, subscribed events,
+    signature verification, GitHub App permissions, installation scope, and
+    credential rotation. If enterprise hooks are authorized and visible,
+    inspect their event scope, receiver, HMAC verification, and retention. The
+    repository and organization work remains complete when enterprise settings
+    are outside the participant's access.
 
 ## Validation / Definition of Done
 **Done means:**
@@ -146,8 +141,7 @@ the repository and organization webhook work remains complete.
 - [ ] A GitHub App is registered with scoped permissions + event subscriptions and installed on the org.
 - [ ] You minted an installation access token and the App posted a comment as a bot identity.
 - [ ] Automated reaction — opening a new issue makes the running handler post a context-aware acknowledgement on its own, authored by the bot, and a bad-signature delivery is rejected.
-- [ ] **Governance register updated:** `INT-WEBHOOKS` and `INT-GITHUB-APPS` record effective settings, the selected path, and objective integration evidence.
-- [ ] `AUD-GLOBAL-WEBHOOKS` distinguishes enterprise hooks from the existing repository/organization hooks and records event scope, receiver, HMAC, retention, owner evidence, or an authorized-unavailable record.
+- [ ] The effective webhook and GitHub App settings were inspected; any authorized enterprise-hook review captured event scope, receiver, HMAC verification, and retention.
 - [ ] Real-outcome check — if you brought your own integration target, a real GitHub event now drives another system or workflow; if you used the sample, you can name the webhook/App integration you will build next.
 - [ ] Adoption handover — record the customer integration owner, target external system, required event and App permissions, and next approved action.
 

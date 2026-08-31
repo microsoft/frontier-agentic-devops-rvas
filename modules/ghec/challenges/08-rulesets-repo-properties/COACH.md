@@ -12,6 +12,6 @@ Use this review overlay with the [Delivery Assurance Standard](../../../DELIVERY
 ## Session-specific reviewer focus
 
 - Expected outcome: custom properties, rather than repository names, drive the customer’s organization ruleset.
-- **Governance controls:** Confirm `REP-PROPERTY-SCHEMA`, `REP-ORG-RULESETS`, and `REP-REPO-RULESETS` in the existing register with effective-setting evidence and the selected path.
+- Confirm the property schema and values, organization ruleset targeting, repository overlay, bypasses, and enforcement through the API and push/PR tests.
 - Ask "what makes a repo created next week automatically inherit these rules without anyone editing the ruleset?" (→ the property condition + a default property value on new repos).
 - Ask "which two rules would stack if a repo matched multiple property conditions?" and "what's the difference between disabling a ruleset and adding a bypass actor?"

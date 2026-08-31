@@ -35,7 +35,6 @@ You will:
 - Decide who may publish Pages sites and which visibilities are allowed.
 - Configure repository-level Pages publishing through a branch source or GitHub Actions.
 - Verify site publication, visibility, rollback, and owner evidence.
-- Record exceptions and review cadence in the governance register.
 
 ## Scenario
 

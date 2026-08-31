@@ -15,7 +15,7 @@
 
 - **Goal:** safely automate one repetitive repository task without converting an untrusted event into an unreviewed code change.
 - **Target:** one approved Copilot automation in a private or internal customer repository, its evidence package, and its operating/disable decision.
-- **Boundary:** default to **inspect-and-propose** until the customer repository owner, Copilot owner, and security owner approve the target, prompt, tools, trigger, filters, budget owner, and review path. Do not broaden repository access, enable a preview capability, grant bypasses, or include secrets in a prompt.
+- **Boundary:** keep the automation disabled until the customer repository owner, Copilot owner, and security owner approve the target, prompt, tools, trigger, filters, budget owner, and review path. Do not broaden repository access, enable a preview capability, grant bypasses, or include secrets in a prompt.
 - **Keep:** eligibility and policy evidence; automation owner; private/internal repository evidence; trigger and filter configuration; prompt and selected tools; session-log URL; outcome/PR URL; independent-review evidence; audit-log evidence; costs; and disable/rollback path.
 - **Owners:** the automation creator owns operation and cost. The repository owner owns repository scope and merge controls. The security owner owns the untrusted-trigger and prompt-injection decision.
 - **Next:** approve one narrowly bounded automation, retain the decision package without enablement, or schedule a licensing/policy decision with its owner and date.
@@ -73,8 +73,6 @@ pwsh -File modules/ghec/challenges/33-copilot-automations/provision.ps1 -Org <or
 
 This session covers **Copilot automations**: a Copilot cloud-agent task defined in the GitHub UI that runs automatically on a schedule or in response to a repository event. It can act only in the repository where it is configured; its selected tools define what it can do.
 
-Record `COP-AUTOMATIONS` in the customer governance register with the effective policy, trigger and tool boundary, session and audit evidence, accountable owner, review cadence, and disable path.
-
 | Capability | What it is | Ch33 treatment |
 |---|---|---|
 | **Copilot automations** | User-private cloud-agent configurations that run a prompt on a schedule or supported repository event. They select a model and tools in the UI, are not stored in Git, and create attributable cloud-agent sessions. | **In scope.** Configure one approved, bounded automation or complete the no-enable decision package. |
@@ -117,7 +115,7 @@ Record `COP-AUTOMATIONS` in the customer governance register with the effective 
 16. Capture audit-log evidence for the configuration/session activity available to the customer administrator, including collector, date/time range, search/export location, and any retention/access limitation. Pair it with the session log; neither replaces the other.
 17. Record a runbook: owner and backup, allowed task class, schedule/event and filter, prompt revision date, tools, repository boundary, review/merge controls, cost owner and budget check, evidence location, alert/escalation route, and review cadence.
 18. Define stop conditions: unexpected tool use, a prompt-injection attempt, an untrusted-event exception request, excessive cost/run frequency, sensitive-data exposure, failed checks, or out-of-scope changes. The immediate response is to disable the automation, preserve evidence, notify the named owner, and reassess before re-enabling.
-19. Publish the decision package and adoption decision. Mark the result `approved pilot`, `inspect-and-propose`, `unavailable`, or `not applicable`; do not label a fallback repository or a dry decision package as a production rollout.
+19. Record whether the automation was enabled for the authorized repository, left disabled, unavailable, or not applicable. Do not label a fallback repository or a dry decision package as a production rollout.
 
 ## Decision-package fallback
 
@@ -130,7 +128,7 @@ When a live automation is unavailable, retain this minimum package in the custom
 | Proposed design | Task, schedule/event trigger, filter, prompt boundary, requested tools, data classification, cost owner |
 | Safety decisions | Untrusted-event default retained, prompt-injection controls, review/merge rule, workflow-run approval posture |
 | Blocker | Licensing, policy, authority, eligibility, or customer approval gap with dated evidence |
-| Decision | `inspect-and-propose`, `unavailable`, or `not applicable`; resolver, next decision date, and rollback/disable route |
+| Decision | Leave disabled, unavailable, or not applicable; resolver, next decision date, and rollback/disable route |
 
 ## Evidence checklist
 

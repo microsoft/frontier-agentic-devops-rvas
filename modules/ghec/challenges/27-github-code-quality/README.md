@@ -97,14 +97,6 @@ permissions:
 19. At the organization level, use Code Quality's native repository access targeting to select a small authorized pilot cohort. Do not substitute a generic repository ruleset for product enablement.
 20. Record the pilot cohort, repository owners, cost/license review, expected baseline date, success measures, opt-out or rollback criteria, and decision date.
 
-### Part F - Control-catalogue evidence
-
-Use `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md` for control
-terminology; do not copy catalogue rows into this guide. Contribute to the
-existing customer register:
-
-- `QLT-CODE-QUALITY-GATES` — inspect Code Quality availability and the effective threshold or review-cadence setting → record `approved pilot` → attach baseline scores, coverage-upload proof, PR-gate result, and pilot decision as objective evidence.
-
 ## Validation / Definition of Done
 
 You are done when ALL of the following are true:
@@ -116,7 +108,6 @@ You are done when ALL of the following are true:
 - [ ] A rules-based Code Quality finding was fixed or dismissed with a reviewable decision; any Autofix was reviewed before commit.
 - [ ] The customer decided and evidenced whether a native Code Quality severity threshold blocks merges.
 - [ ] An organization pilot proposal identifies the selected cohort, owners, measures, licensing/cost review, and rollout or rollback decision.
-- [ ] The existing customer register contains `QLT-CODE-QUALITY-GATES` with the inspected effective setting, `approved pilot` status, and the required objective evidence.
 - [ ] Adoption handover: the customer repository owner, platform owner, triage cadence, and next authorized action are recorded.
 
 ## Operational extensions

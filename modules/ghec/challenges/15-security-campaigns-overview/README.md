@@ -98,14 +98,6 @@ Setup creates these resources (all names use the `ghec-ch15-*` prefix, and teard
 12. Track progress. Re-open the campaign and the overview; confirm the open-alert count for the campaign has dropped. Capture before/after numbers.
 13. Write a remediation report. In an issue on `ghec-ch15-juice-shop`, summarize: starting alert count by type, the campaign scope and deadline, what was remediated, and the residual risk — the report leadership asked for at the start.
 
-### Part F — Control-catalogue evidence
-
-Use `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md` for control
-terminology; do not copy catalogue rows into this guide. Contribute to the
-existing customer register:
-
-- `SEC-SECURITY-CAMPAIGNS` — inspect the effective organisation campaign availability and configuration → record `approved pilot` → attach the coverage/risk snapshot, campaign definition, and remediation burn-down report as objective evidence.
-
 ## Validation / Definition of Done
 **Done means:**
 - [ ] `ghec-ch15-juice-shop` has a multi-tool alert corpus (CodeQL and Dependabot alerts present, verifiable via the alerts APIs).
@@ -114,7 +106,6 @@ existing customer register:
 - [ ] A security campaign exists with a name, a manager, a due date, and guidance, scoped to a finite alert slice.
 - [ ] The campaign shows remediation burn-down (open count dropped after you fixed/dismissed targeted alerts).
 - [ ] A remediation report issue exists with before/after numbers.
-- [ ] The existing customer register contains `SEC-SECURITY-CAMPAIGNS` with the inspected effective setting, `approved pilot` status, and the required objective evidence.
 - [ ] Real-outcome check — if you brought your own repo/campaign target, the campaign view now maps to real owners and alerts; if you used the sample, you can name the repo group you will campaign against next.
 - [ ] Adoption handover — record the customer security programme owner, campaign scope, repository owners, success measure, and next approved action.
 

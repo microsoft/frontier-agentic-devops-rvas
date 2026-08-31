@@ -19,7 +19,6 @@ success_criteria:
 - A **PR template** pre-fills new PRs; a **draft** PR demonstrably blocks auto-merge/reviewers until marked ready.
 - '**Auto-labeling** assigns `area:` labels by path; an **open-PR comment** workflow fires; a **stale** workflow labels/closes inactive PRs.'
 - An **organization ruleset** targeting `ghec-ch05-*` is active and layers with the repo ruleset.
-- The existing governance register records `REP-MERGE-GOVERNANCE`, `REP-ORG-RULESETS`, and `REP-REPO-RULESETS` with effective-setting and enforcement evidence.
 - Customer evidence records the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - rulesets

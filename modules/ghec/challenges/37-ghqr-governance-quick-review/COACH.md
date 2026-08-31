@@ -5,16 +5,15 @@ Apply the [Delivery Assurance Standard](../../../DELIVERY_ASSURANCE.md). The pai
 ## Assurance record
 
 - **Authorized scope:** record the customer organization, reviewer role, token boundary, evidence location, optional enterprise authorization, and approving owner.
-- **Evidence:** inspect the completed Definition of Done in `README.md`; link or attach the `ghqr` report files, tool/version evidence, finding triage, corroborating API/audit/settings evidence, and governance-register rows.
+- **Evidence:** inspect the completed Definition of Done in `README.md`; link or attach the `ghqr` report files, tool/version evidence, finding triage, and corroborating API/audit/settings evidence.
 - **Open risk:** record unavailable checks, insufficient token scope, enterprise-only policy source, accepted exception, remediation dependency, or `none`.
 - **Next decision:** record the handover, remediation pilot, enterprise-evidence request, exception review, or recurring posture-review cadence with owner and date.
 
 ## Session-specific reviewer focus
 
-- Confirm that the governance owner has a read-only GitHub posture review and a prioritized decision backlog tied to existing controls.
-- **Governance controls:** Confirm findings are mapped to existing catalogue Control IDs where possible. Do not accept invented control IDs or a parallel findings spreadsheet as the source of truth.
+- Confirm that the governance owner has a read-only GitHub posture review and a prioritized remediation backlog.
 - Ask which checks were unavailable and why. Separate organization settings from enterprise settings.
-- Ask what an approved pilot would change and what evidence would prove that the finding was resolved.
+- Ask what an authorized remediation would change and what evidence would prove that the finding was resolved.
 
 ## Expected evidence
 
@@ -24,7 +23,7 @@ At the end of this work package, verify:
 - `ghqr -h` or equivalent tool/version evidence was captured.
 - The organization scan command and generated report paths are recorded.
 - Enterprise scan status is explicit: completed with authorization, or not authorized/not applicable.
-- Material findings are mapped into the governance register with existing control IDs, evidence links, owner, implementation path, exception/rollback, and review cadence.
+- Material findings have evidence links, an owner, rollback needs, and a review cadence.
 - At least one finding is corroborated with a GitHub setting, audit, or API query where available.
 - No setting was changed without a separate approved change path.
 
@@ -40,11 +39,11 @@ Fix: Mark the enterprise source unavailable and request enterprise owner evidenc
 
 ### Report artifacts expose sensitive posture
 Symptom: The participant wants to commit raw reports to a public or broadly visible repository.  
-Fix: Move reports to the customer-approved evidence location. Store links and non-secret summaries in the register.
+Fix: Move reports to the customer-approved evidence location and retain only non-secret report artifacts.
 
 ### Findings become automatic remediation
 Symptom: The participant starts changing settings directly from the `ghqr` recommendation list.  
-Fix: Stop and return to the governance register. Convert findings into `inspect-and-propose` rows unless a separate approved pilot/change record exists.
+Fix: Stop. Require a separate customer-approved change before modifying any setting.
 
 ### GHE.com data residency target fails
 Symptom: Authentication or API host errors occur for a data-residency enterprise.  
@@ -56,7 +55,7 @@ Use these in order. Give the first prompt, wait, and add detail only when the de
 
 1. Hint 1 (gentle): Start by writing down what you are allowed to inspect before you run the tool.
 2. Hint 2 (medium): Keep the organization scan mandatory, and treat enterprise as optional unless the enterprise owner has authorized it.
-3. Hint 3 (specific): Run `ghqr scan -o <org>`, keep the JSON plus Markdown or XLSX output, then map the top findings to rows in the existing governance register.
+3. Hint 3 (specific): Run `ghqr scan -o <org>`, keep the JSON plus Markdown or XLSX output, then corroborate and prioritize the top findings.
 
 ## Handover questions
 
@@ -69,6 +68,6 @@ Use these to confirm the adoption decision and accountable next step:
 
 ## Delivery notes
 
-- This activity is read-only by default. Focus on sound evidence, control mapping, and customer-owned decisions.
+- This activity is read-only by default. Focus on sound evidence, source-level verification, and customer-owned decisions.
 - Mock or replay output can be useful for facilitation, but customer evidence must come from the authorized customer scan unless clearly labelled otherwise.
 - If a finding maps to an existing specialized lesson, route follow-up work there: Ch06 for organization baseline, Ch08 for rulesets/properties, Ch09 for audit evidence, Ch28 for enterprise identity/network, Ch29 for programmatic access, Ch30 for Copilot/AI governance, Ch34 for enterprise agent configuration, or Ch36 for repository intake.

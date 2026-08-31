@@ -12,6 +12,6 @@ Use this review overlay with the [Delivery Assurance Standard](../../../DELIVERY
 ## Session-specific reviewer focus
 
 - Expected outcome: the customer owner replaces ad-hoc collaborator access with a nested team model, grants repository access through teams, and creates custom roles where predefined roles do not fit.
-- **Governance controls:** Confirm `ORG-TEAM-ACCESS` and `ORG-CUSTOM-ROLES` in the existing register with effective-setting evidence and the selected path.
+- Confirm the team hierarchy, inherited repository access, custom-role assignment, and resulting access matrix through the API.
 - Ask "if the parent team has Read and the child team has Write on the same repo, what can a child member do?" (→ Write wins, most-permissive).
 - Ask "how would you remove someone from all repos at once?" (→ remove from parent team, inherited removes propagate).

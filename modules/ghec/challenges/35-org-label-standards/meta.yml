@@ -17,7 +17,6 @@ success_criteria:
 - Organization default labels include the approved `type:`, `priority:`, `area:`, and `status:` dimensions.
 - A newly created repository inherits the approved organization default labels.
 - At least one existing repository is reconciled from inconsistent labels to the approved taxonomy.
-- Label governance evidence is recorded in the governance settings register with owner, scope, rollout decision, and next review.
 - Customer evidence names the authorized scope and owner, links the relevant controls and handover record, and states the next rollout decision.
 tags:
 - labels

@@ -94,15 +94,6 @@ Setup creates these resources (all names use the `ghec-ch10-*` prefix, and teard
 14. Run it and save the output as `COST-REPORT.md`, including the before/after Actions-minutes delta you generated in Part B.
 15. Write a one-paragraph recommendation: given the usage shape, what budget + alert thresholds would you set for this org, and would you add a hard spending limit?
 
-### Part F — Governance controls contributed
-
-Use the existing governance register. Inspect the effective inherited setting, use
-`approved pilot` only for a customer-authorized live control (otherwise
-`inspect-and-propose`), and attach objective evidence. See
-`modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`.
-
-- `FIN-BUDGETS-ALERTS`: budgets, alert recipients, usage reconciliation, and cost-report evidence.
-
 ## Validation / Definition of Done
 **Done means:**
 - [ ] A before usage snapshot was captured from the billing API (Actions minutes + storage).
@@ -111,7 +102,6 @@ Use the existing governance register. Inspect the effective inherited setting, u
 - [ ] You can reconcile the API usage total against the UI Usage page and explain the cost model (included vs metered; per-minute price varies by runner OS/SKU).
 - [ ] A committed cost-report script runs and produces a product/used/included/billable table.
 - [ ] A `COST-REPORT.md` exists with the before/after delta and a budget recommendation.
-- [ ] **Governance register updated:** `FIN-BUDGETS-ALERTS` records the effective setting, selected path, and budget/usage evidence.
 - [ ] Real-outcome check — if you brought your own usage data, a real budget or cost report now exists for someone to use; if you used the sample, you can name the org/team cost view you will build next.
 - [ ] Adoption handover — record the customer billing owner, unattributed spend area, budget/reporting decision, and next approved action.
 

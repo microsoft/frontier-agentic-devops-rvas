@@ -97,19 +97,8 @@ Setup creates these resources (all names use the `ghec-ch07-*` prefix, and teard
 14. Produce an access matrix: for each repo, list which teams have which role, pulled from the API. Save it as `ACCESS.md` in `ghec-ch07-platform`.
 15. Diff against the "before" snapshot from setup to prove the org went from flat to modeled.
 
-### Part F — Governance controls contributed
-
-Use the existing governance register. Inspect the effective inherited setting, use
-`approved pilot` only for a customer-authorized live control (otherwise
-`inspect-and-propose`), and attach objective evidence. See
-`modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`.
-
-- `ORG-TEAM-ACCESS`: team hierarchy, inherited repository access, and the access matrix.
-- `ORG-CUSTOM-ROLES`: custom repository-role definition and assignment.
-
 ## Validation / Definition of Done
 **Done means:**
-- [ ] **Governance register updated:** `ORG-TEAM-ACCESS` and `ORG-CUSTOM-ROLES` record the effective settings, selected path, and API/access-matrix evidence.
 - [ ] A parent team has two child teams, confirmed nested via the API (`.parent.name` is non-null).
 - [ ] The parent grants `Read` on all three repos and that access inherits to the children (verifiable on a child team's repo permissions).
 - [ ] Each squad has `Write` on its own repo only; neither has Write on `ghec-ch07-platform`.

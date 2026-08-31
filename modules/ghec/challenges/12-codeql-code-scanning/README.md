@@ -104,14 +104,6 @@ Setup creates these resources (all names use the `ghec-ch12-*` prefix, and teard
 13. Open the seeded vulnerable PR. Create a PR from `feature/insecure-endpoint` into `main`. The PR-triggered CodeQL run should flag the new vulnerability inline on the diff.
 14. Make code scanning required. In branch protection / a ruleset on `main`, mark the CodeQL code-scanning results check as required. Confirm the vulnerable PR is now blocked from merging while the alert is open, and that fixing/dismissing it clears the gate.
 
-### Part F — Control-catalogue evidence
-
-Use `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md` for control
-terminology; do not copy catalogue rows into this guide. Contribute to the
-existing customer register:
-
-- `SEC-CODE-SCANNING` — inspect the effective CodeQL workflow and required-check setting → record `approved pilot` → attach the workflow, completed analysis, triage summary, and PR-gate result as objective evidence.
-
 ## Validation / Definition of Done
 **Done means:**
 - [ ] CodeQL is enabled via an advanced workflow scanning `javascript-typescript` with the `security-extended` suite (visible in `.github/workflows/codeql.yml`).
@@ -120,7 +112,6 @@ existing customer register:
 - [ ] You triaged ≥3 alerts (one dismissed with a reason via API; others reviewed).
 - [ ] You applied Copilot Autofix to at least one alert and reviewed the suggested patch.
 - [ ] The code-scanning check is required on `main`, and the seeded vulnerable PR is blocked until the alert is resolved/dismissed.
-- [ ] The existing customer register contains `SEC-CODE-SCANNING` with the inspected effective setting, `approved pilot` status, and the required objective evidence.
 - [ ] Real-outcome check — if you brought your own repo, CodeQL analysis and PR gating now protect code you actually ship; if you used the sample, you can name the application repo you will enable next.
 - [ ] Adoption handover — record the customer application and security owners, priority vulnerability class, proposed scanning control, and next approved action.
 

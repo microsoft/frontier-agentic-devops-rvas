@@ -19,7 +19,6 @@ success_criteria:
 - You **triaged ≥3 alerts** (one dismissed with a reason via API; others reviewed).
 - You applied **Copilot Autofix** to at least one alert and reviewed the suggested patch.
 - The **code-scanning check is required** on `main`, and the seeded vulnerable PR is **blocked** until the alert is resolved/dismissed.
-- '**Control-catalogue evidence:** The existing customer register records `SEC-CODE-SCANNING` as `approved pilot` after effective-setting inspection, with workflow, analysis, triage, and PR-gate evidence.'
 - Customer evidence records the authorized scope, accountable owner, relevant risk controls, handover artefact, and next adoption, cutover, or rollout decision.
 tags:
 - ghas

@@ -12,6 +12,6 @@ Use this review overlay with the [Delivery Assurance Standard](../../../DELIVERY
 ## Session-specific reviewer focus
 
 - Expected outcome: the customer owner triages leaked credentials in repository history, enables push protection, and adds patterns for internal secrets.
-- **Control-catalogue evidence:** Using `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`, confirm `SEC-SECRET-SCANNING` and `SEC-PUSH-PROTECTION` are `approved pilot` only after effective-setting inspection, with settings, triage/custom-pattern, and bypass-audit evidence.
+- Confirm secret scanning and push protection are enabled through the settings API, then inspect the triage, custom-pattern, block, and bypass evidence.
 - Ask "what makes a secret detectable by a partner?" (→ provider prefixes such as `AKIA` and `ghp_`) and "where does the block happen?" (→ before the push completes).
 - Ask "what's the false-positive risk of custom patterns?" (→ a broad pattern catches valid strings) and "what friction does default push protection create for the team?"

@@ -16,8 +16,7 @@ success_criteria:
   - Third-party access, installed-App, PAT-policy, active-token, and pending-request surfaces are inspected, with audit or read-only API evidence where available.
   - Each installed GitHub App has an installation-authority decision, scope assessment, accountable owner, and recurring review cadence.
   - OAuth first-enable disruption is distinguished from GitHub App review; fine-grained PAT approval/lifetime is distinguished from classic-PAT restriction and migration.
-  - The customer completes the inventory plus an authorized non-production fine-grained-PAT approval pilot or an inspect-and-propose package.
-  - The existing customer register records INT-OAUTH-RESTRICTIONS, INT-APP-REVIEW, INT-FINE-GRAINED-PATS, and INT-CLASSIC-PATS with evidence, owner, selected path, and review date.
+  - The customer completes the inventory plus an authorized non-production fine-grained-PAT approval test or an evidence-backed recommendation for the next policy action.
 tags:
   - governance
   - programmatic-access

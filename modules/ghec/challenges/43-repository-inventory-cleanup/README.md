@@ -16,7 +16,7 @@
 - Objective: make repository inventory reliable enough for ownership, reporting, and cleanup decisions.
 - Delivery target: a reviewed repository cohort with owner and cleanup decisions.
 - Safety boundary: setup creates sample repositories only. Archive, delete, transfer, visibility, and org-setting changes require approval.
-- Evidence: inventory export, decision register, metadata changes, exceptions, and next cohort.
+- Evidence: inventory export with cleanup decisions, metadata changes, exceptions, and next cohort.
 - Owner: platform governance or developer experience.
 
 ## Prerequisites
@@ -72,7 +72,7 @@ Setup creates `ghec-ch43-owned-service`, `ghec-ch43-orphan-tool`, and `ghec-ch43
 
 ### Part D — Handover
 
-9. Store the inventory and decision register in the customer governance location.
+9. Store the inventory in the customer-approved location.
 10. Name the next cohort, owner, and review cadence.
 
 ## Validation / Definition of Done

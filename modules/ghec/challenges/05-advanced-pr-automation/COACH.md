@@ -12,8 +12,7 @@ Use this review overlay with the [Delivery Assurance Standard](../../../DELIVERY
 ## Session-specific reviewer focus
 
 - Expected outcome: the customer owner replaces manual merge work with layered rulesets, auto-merge, and Actions-driven PR housekeeping.
-- **Control-catalogue evidence:** Confirm `REP-MERGE-GOVERNANCE`,
-  `REP-ORG-RULESETS`, and `REP-REPO-RULESETS` in the existing register have
-  effective-setting, bypass, and enforcement evidence.
+- Confirm the effective repository and organization rulesets, bypass boundary,
+  and stricter-wins enforcement with API and pull-request evidence.
 - Check that the strictest applicable rule wins, bypass access is limited and documented, and auto-merge waits for every required gate.
 - Ask "if two policies disagree, which one applies?" (→ strictest), and "what conditions must be pending for auto-merge to wait rather than merge now?"

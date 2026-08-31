@@ -12,6 +12,6 @@ Use this review overlay with the [Delivery Assurance Standard](../../../DELIVERY
 ## Session-specific reviewer focus
 
 - Expected outcome: the customer owner configures CodeQL, reads vulnerability data-flow paths, reviews Autofix patches, and gates merges on scan status.
-- **Control-catalogue evidence:** Using `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`, confirm `SEC-CODE-SCANNING` is `approved pilot` only after effective-setting inspection, with workflow, analysis, triage, and PR-gate evidence.
+- Confirm the effective CodeQL workflow and required-check setting with completed analysis, triage, Autofix review, and blocked-PR evidence.
 - Ask "what's the path from user input to the dangerous sink?" (→ data flow from source to sink) and "how would you prioritize alerts?" (→ critical/high first, with a false-positive review cadence).
 - Ask "what exact check does the merge gate wait for?" (→ the `code-scanning/codeql` check) and "what does it cost to scan all repositories rather than only high-risk ones?"
