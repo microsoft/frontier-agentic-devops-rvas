@@ -18,10 +18,8 @@ Source: [`github/gh-aw/.github/workflows/issue-triage-agent.md`](https://github.
 - Applies 1–3 relevant labels from a defined allowlist
 - Posts a short classification comment explaining the categorisation
 
-> [!IMPORTANT]
-> Bring your own repo (do this first)
->
-> Use a repository in an organization you control where missing or inconsistent labels make the backlog harder to manage. Customise the workflow with that repo's real labels, issue patterns, and comment style. No candidate repo yet? Use the provided sample repo from setup.
+> [!TIP]
+> [Bring your own repo](../../setup.md#bring-your-own-repo): customise the workflow with the real labels, issue patterns, and comment style of a repo you own. No candidate repo yet? Use the setup sample.
 
 ## Steps
 

@@ -17,10 +17,8 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
 - Identifies content that contradicts or no longer matches the codebase
 - Opens PRs with targeted, reviewable corrections
 
-> [!IMPORTANT]
-> Bring your own repo (do this first)
->
-> Use a repository in an organization you control where `README.md`, `docs/`, API docs, or runbooks tend to drift from the code. Point the workflow at that repo's real docs and code paths. No candidate repo yet? Use the provided sample repo from setup.
+> [!TIP]
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point the workflow at a repo you own where `README.md`, `docs/`, API docs, or runbooks drift from the code. No candidate repo yet? Use the setup sample.
 
 ## Steps
 

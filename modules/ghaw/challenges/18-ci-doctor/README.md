@@ -17,10 +17,8 @@ Source: [`githubnext/agentics/workflows/ci-doctor.md`](https://github.com/github
 - Reads the logs to identify compile errors, test failures, flaky tests, and other failure patterns
 - Opens a `create-issue` with the likely root cause and a suggested fix
 
-> [!IMPORTANT]
-> Bring your own repo (do this first)
->
-> Use a repository in an organization you control with build, test, or deployment workflows the team already depends on. Configure the workflow to watch that repo's real CI workflow names, branches, and failure patterns. No candidate repo yet? Use the provided sample repo from setup.
+> [!TIP]
+> [Bring your own repo](../../setup.md#bring-your-own-repo): watch the real CI workflow names, branches, and failure patterns of a repo you own. No candidate repo yet? Use the setup sample.
 
 ## Steps
 

@@ -17,10 +17,8 @@ Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://g
 - Checks changes for obfuscated logic, unexpected network calls, exfiltration patterns, dynamic-string `eval`/`exec`, and suspicious environment-variable access
 - Opens a `create-issue` alert with the specific commit, file, and line number
 
-> [!IMPORTANT]
-> Bring your own repo (do this first)
->
-> Use a repository in an organization you control with recent commits, dependency updates, or sensitive code paths that need supply-chain review. Tune the workflow to that repo's real languages, recent commits, and suspicious pattern categories. No candidate repo yet? Use the provided sample repo from setup.
+> [!TIP]
+> [Bring your own repo](../../setup.md#bring-your-own-repo): tune the workflow to the real languages, recent commits, and suspicious pattern categories of a repo you own. No candidate repo yet? Use the setup sample.
 
 ## Steps
 

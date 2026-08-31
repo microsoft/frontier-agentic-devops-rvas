@@ -17,10 +17,8 @@ Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/git
 - Opens focused PRs that remove unnecessary text
 - Each PR is intentionally small (one file, one concern)
 
-> [!IMPORTANT]
-> Bring your own repo (do this first)
->
-> Use a repository in an organization you control with a README, contributing guide, runbook, or product document the team will keep maintaining. Target that repo's real docs with your own preservation rules. No candidate repo yet? Use the provided sample repo from setup.
+> [!TIP]
+> [Bring your own repo](../../setup.md#bring-your-own-repo): target the README, contributing guide, or runbook of a repo you own, with your own preservation rules. No candidate repo yet? Use the setup sample.
 
 ## Steps
 

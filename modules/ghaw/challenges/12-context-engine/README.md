@@ -22,10 +22,8 @@ An agent can only reason from the context it receives. Use gh-aw's `tools:` conf
 
 ---
 
-> [!IMPORTANT]
-> Bring your own repo (do this first)
->
-> Prefer your own repository with real PRs and repo-specific context files (`CONTRIBUTING.md`, `ARCHITECTURE.md`, docs, test conventions). Point the workflow at it everywhere the guide references the sample repo. No candidate repo yet? Use the provided sample repo from setup.
+> [!TIP]
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point the workflow at a repo you own with real PRs and context files (`CONTRIBUTING.md`, `ARCHITECTURE.md`, docs, test conventions). No candidate repo yet? Use the setup sample.
 
 ---
 

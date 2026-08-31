@@ -24,10 +24,8 @@ Without measured data, AI models may invent numbers. `pre-agent-steps:` writes r
 
 ---
 
-> [!IMPORTANT]
-> Bring your own repo (do this first)
->
-> Use a repository where live issue, PR, commit, or release metrics belong in `CONTRIBUTING.md`. Point `pre-agent-steps:` at that repo's real data. No candidate repo yet? Use the provided sample repo from setup.
+> [!TIP]
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point `pre-agent-steps:` at a repo you own where live issue, PR, commit, or release metrics belong in `CONTRIBUTING.md`. No candidate repo yet? Use the setup sample.
 
 ## Background: `pre-agent-steps:`
 

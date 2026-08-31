@@ -22,10 +22,8 @@ The Overseer monitors other agentic workflows: are they running successfully, ho
 
 ---
 
-> [!IMPORTANT]
-> Bring your own repo (do this first)
->
-> Use a repository in an organization you control with several agentic workflows whose failures and token use matter to the team. Point the health monitor at that repo's real runs, failure patterns, and token history. No candidate repo yet? Use the provided sample repo from setup.
+> [!TIP]
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point the health monitor at a repo you own whose agentic workflow runs, failure patterns, and token history matter to the team. No candidate repo yet? Use the setup sample.
 
 ## Activity
 

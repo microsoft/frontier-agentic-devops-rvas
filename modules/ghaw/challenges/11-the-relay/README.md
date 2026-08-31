@@ -22,10 +22,8 @@ Workflows normally run in isolation. To coordinate two of them, the first must l
 
 ---
 
-> [!IMPORTANT]
-> Bring your own repo (do this first)
->
-> Prefer your own repository so `repo-memory` holds real issue/label metrics the team can keep using. Point both relay workflows at it everywhere the guide references the sample repo. No candidate repo yet? Use the provided sample repo from setup.
+> [!TIP]
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point both relay workflows at a repo you own so `repo-memory` holds real issue and label metrics the team can keep using. No candidate repo yet? Use the setup sample.
 
 ---
 

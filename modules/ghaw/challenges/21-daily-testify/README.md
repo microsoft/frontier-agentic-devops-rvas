@@ -15,10 +15,8 @@ Build a governed test-quality pipeline for a repository the delivery team owns:
 
 The workflows are deliberately separate. Analysis can create issues, but it cannot write code. Code generation is limited to a reviewable pull request, using the reviewed issue as its contract.
 
-> [!IMPORTANT]
-> Use a real repository
->
-> Choose a repository with established test conventions, a test owner, and a maintainer who will review proposed pull requests. Configure the workflows for its language, framework, test directories, and quality bar. Use the sample repository only when no suitable repo is available.
+> [!TIP]
+> [Bring your own repo](../../setup.md#bring-your-own-repo): pick one with established test conventions, a test owner, and a maintainer who will review the proposed pull requests, then configure the workflows for its language, framework, test directories, and quality bar. No candidate repo yet? Use the setup sample.
 
 ## Workflows
 

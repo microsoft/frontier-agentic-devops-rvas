@@ -20,10 +20,8 @@ Source: [`github/gh-aw/.github/workflows/security-compliance.md`](https://github
 - Tracks time-to-remediate against configured SLA windows
 - Opens structured issues for any vulnerability at or approaching deadline
 
-> [!IMPORTANT]
-> Bring your own repo (do this first)
->
-> Use a repository in an organization you control with Dependabot alerts, dependency risk, or security SLAs that need visible tracking. Configure the workflow with that repo's real alert sources, severity thresholds, and SLA windows. No candidate repo yet? Use the provided sample repo from setup.
+> [!TIP]
+> [Bring your own repo](../../setup.md#bring-your-own-repo): configure the workflow with the real alert sources, severity thresholds, and SLA windows of a repo you own. No candidate repo yet? Use the setup sample.
 
 ## Steps
 
