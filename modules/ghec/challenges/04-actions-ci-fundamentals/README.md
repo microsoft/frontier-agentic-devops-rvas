@@ -6,18 +6,10 @@
 |---|---|
 | Track | Developer Flow |
 | Difficulty | Intermediate *(per-track ramp)* |
-| Duration | ~4–5 hrs total, multi-session |
+| Duration | ~3 hr, single session |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: a repository's Actions workflow, environment, artifacts, and required check.
-- Safety boundary: make workflow, secret, environment, and merge-gate changes in the customer tenant only when authorised; otherwise validate the design in the seeded repository.
-- Evidence: the workflow, successful and failing run evidence, artifact, and required-check decision.
-- Owner: the repository maintainer owns the workflow; the platform owner owns its guardrail posture.
-- Next decision: approve the next repository's CI rollout or hand over the validated implementation plan.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.

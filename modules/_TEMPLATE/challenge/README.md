@@ -1,14 +1,6 @@
 # Activity Title
 
-> One sentence: what the delivery team can do after finishing this activity.
-
-## Delivery target
-
-- Delivery target: the customer repository, organisation setting, workflow, or operating artefact this activity changes.
-- Safety boundary: what needs owner approval, and what to do instead when approval is missing. Name the sample fallback here if there is one.
-- Evidence: the artefacts the customer keeps afterwards.
-- Owner: who accepts the result and operates it.
-- Next decision: what that owner decides next. Drop this bullet when the owner bullet already covers it.
+> One sentence: what the delivery team can do after finishing this activity, and the customer artefact it changes.
 
 ## Prerequisites
 
@@ -29,7 +21,8 @@ Delete this section for activities that create no sample resources.
 
 1. One action per step. Include the GitHub UI path, CLI command, or YAML snippet the step needs.
 2. Keep verification in the step that produces the result.
-3. Close with the record or hand-off the owner needs.
+3. State any approval a step needs, and what to do instead when approval is missing, in the step itself.
+4. Close with the record or hand-off the owner needs.
 
 ## Reference links
 

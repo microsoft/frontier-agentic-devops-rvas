@@ -6,17 +6,10 @@
 |---|---|
 | Track | Automation & AI |
 | Difficulty | Intermediate |
-| Duration | ~3 hrs total, multi-session |
+| Duration | 2 hr |
 | Minimum input | An org + repository admin rights. |
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: one authorized repository with environment-scoped deployment secrets and protection rules.
-- Safety boundary: do not read or copy secret values. Change customer secrets and production environment rules only with owner approval.
-- Evidence: secret inventory by name, scope, and owner; environment protection settings; workflow evidence; and rotation dates.
-- Owner: platform security or DevOps.
 
 ## Prerequisites
 

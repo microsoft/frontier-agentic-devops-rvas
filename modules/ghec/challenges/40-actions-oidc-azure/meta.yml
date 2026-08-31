@@ -3,7 +3,7 @@ title: Actions OIDC with Azure
 module: ghec
 track: automation-ai
 difficulty: advanced
-duration_minutes: 240
+duration_minutes: 165
 prerequisites: []
 prerequisite_capabilities:
 - GitHub organization with repository admin rights

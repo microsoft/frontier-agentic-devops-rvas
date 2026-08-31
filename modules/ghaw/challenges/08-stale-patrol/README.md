@@ -1,7 +1,7 @@
 # Activity 2-04: Stale Patrol
 
 Track: Repo Concierge (Intermediate 🟡)  
-Estimated time: 30 minutes  
+Estimated time: 90 minutes  
 Prerequisites: Complete at least 2 activities from Track 1
 
 ---
@@ -26,7 +26,7 @@ Stale issues make backlogs harder to trust. The workflow warns before closing so
 ---
 
 > [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): point `stale-patrol.md` at a repo you own and use its real exemption labels (e.g. `keep-alive`), grace period, and closure language. No candidate repo yet? Use the setup sample.
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point `stale-patrol.md` at a repo you own and use its real exemption labels (e.g. `keep-alive`), grace period, and closure language.
 
 ---
 

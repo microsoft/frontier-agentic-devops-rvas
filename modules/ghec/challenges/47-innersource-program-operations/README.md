@@ -6,18 +6,10 @@
 |---|---|
 | Track | Developer Flow |
 | Difficulty | Intermediate |
-| Duration | ~3.5 hrs total, multi-session |
+| Duration | ~1 hr 45 min, single session |
 | Minimum input | An org + repository admin rights. |
 | App | Provisioned InnerSource hub repository (created by setup) |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: a real hub or pilot repository that teams can find and contribute to.
-- Safety boundary: do not loosen production branch protections or repository access during setup. Access changes require explicit approval.
-- Evidence: charter, maintainer roster, contribution guidelines, labels, pilot backlog, adoption metrics, and next review.
-- Owner: the InnerSource program owner or developer experience team.
-- Next decision: onboard the first pilot repository cohort or publish the hub.
 
 ## Prerequisites
 
@@ -41,7 +33,7 @@ You will:
 Several teams want to share internal tools. Contributors cannot tell what is safe to change, who reviews pull requests, or how maintainers prioritize outside help. Create a hub with clear contribution paths, labeled work, maintainer expectations, and useful metrics.
 
 > [!IMPORTANT]
-> Prefer a real customer hub or pilot repository. If none is available, use the `ghec-ch47-innersource-hub` fallback and transfer the operating model to the approved target after validation.
+> Prefer a real customer hub or pilot repository. If none is available, use the `ghec-ch47-innersource-hub` fallback and transfer the operating model to the approved target after validation. Do not loosen production branch protections or repository access to enable contribution; access changes need explicit approval.
 
 ## Sample test repository or environment
 

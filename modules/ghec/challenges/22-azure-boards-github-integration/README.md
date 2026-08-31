@@ -6,17 +6,10 @@
 |---|---|
 | Track | Migration |
 | Difficulty | Intermediate *(post-migration bridge)* |
-| Duration | ~2 hrs |
+| Duration | ~120 min |
 | Minimum input | A GitHub org/repo you administer, an Azure DevOps Services org/project, and permission to install a GitHub Marketplace app. |
 | App | None |
 | EMU compatible | yes, if your enterprise/org policy permits GitHub App installation or an org owner approves the request |
-
-## Delivery target
-
-- Delivery target: one migrated repository connected to Azure Boards, with a work item linked to a GitHub commit or pull request.
-- Safety boundary: install and authorise the App only within the approved repository scope. If approval is pending, keep the request and connection plan rather than treating a validation link as done.
-- Evidence: App-installation scope, connection confirmation, linked commit or pull request, and state-transition result.
-- Owner: the Boards owner and repository owner accept the integration.
 
 ## Prerequisites
 - GitHub organization with org-owner rights, or repository admin rights plus a path to request GitHub App installation approval.

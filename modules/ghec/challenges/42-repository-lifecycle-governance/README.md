@@ -6,17 +6,10 @@
 |---|---|
 | Track | Admin/Governance |
 | Difficulty | Advanced |
-| Duration | ~4 hrs total, multi-session |
+| Duration | 90 min |
 | Minimum input | An org + an org-owner token. |
 | App | Provisioned lifecycle sample repositories |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: a lifecycle policy and a reviewed repository cohort.
-- Safety boundary: archive, transfer, visibility, and delete operations require named approval. Setup only seeds sample repos and review material.
-- Evidence: lifecycle criteria, repository decisions, approvals, retention notes, exceptions, and next review date.
-- Owner: platform governance or engineering operations.
 
 ## Prerequisites
 

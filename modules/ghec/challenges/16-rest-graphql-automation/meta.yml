@@ -3,7 +3,7 @@ title: REST & GraphQL API Automation
 module: ghec
 track: automation-ai
 difficulty: beginner
-duration_minutes: 180
+duration_minutes: 135
 prerequisites: []
 prerequisite_capabilities:
 - GitHub organization with org-owner rights

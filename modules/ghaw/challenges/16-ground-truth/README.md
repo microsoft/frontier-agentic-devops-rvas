@@ -1,7 +1,7 @@
 # Activity 3-06: Ground Truth
 
 Track: Continuous Intelligence (Advanced 🔴)  
-Estimated time: 30 minutes  
+Estimated time: 90 minutes  
 Prerequisites: Activity 00, full Track 2, Activities 3-01 and 3-02
 
 ---
@@ -25,7 +25,7 @@ Without measured data, AI models may invent numbers. `pre-agent-steps:` writes r
 ---
 
 > [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): point `pre-agent-steps:` at a repo you own where live issue, PR, commit, or release metrics belong in `CONTRIBUTING.md`. No candidate repo yet? Use the setup sample.
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point `pre-agent-steps:` at a repo you own where live issue, PR, commit, or release metrics belong in `CONTRIBUTING.md`.
 
 ## Background: `pre-agent-steps:`
 
@@ -41,9 +41,7 @@ pre-agent-steps:
       git log -1 --format="%ci" > /tmp/last-commit.txt
 ```
 
-Files written to `/tmp/` exist only for the workflow run. The agent can read them directly by path.
-
-These steps run as deterministic shell commands. The AI model starts only after `pre-agent-steps:` completes.
+Files written to `/tmp/` exist only for the workflow run. The agent can read them directly by path. These steps run as deterministic shell commands; the AI model starts only after `pre-agent-steps:` completes.
 
 ---
 
@@ -111,11 +109,11 @@ The dry run executes `pre-agent-steps:` and shows the captured values. Check the
 
 ## Gotchas & Troubleshooting
 
-- `$` resolves to `owner/repo` inside `pre-agent-steps:` run steps. Files written to `/tmp/` exist only for the run and are not committed.
+- `$` resolves to `owner/repo` inside `pre-agent-steps:` run steps.
 - Test `pre-agent-steps:` first: add a `cat` step for each `/tmp/` file and check the dry-run output before involving the AI model. If the agent uses wrong numbers later, this is the first thing to re-check.
 - `pre-agent-steps:` is a top-level frontmatter key, same indentation level as `on:` and `permissions:`.
 - If `CONTRIBUTING.md` is missing, the agent creates it — the PR will contain a new file rather than a patch.
-- `create-pull-request` requires both `contents: write` and `pull-requests: write`; a missing permission causes a PR permission error. `base-branch: main` assumes the default branch is `main` — change it if needed.
+- `base-branch: main` assumes the default branch is `main` — change it if needed.
 - Keep the PR small: tell the agent explicitly to only add/replace the `## Project Health` section and leave the rest of the file untouched.
 - Add `workflow_dispatch:` alongside the primary trigger so you can run on demand while developing.
 

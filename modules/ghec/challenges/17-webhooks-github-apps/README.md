@@ -6,17 +6,10 @@
 |---|---|
 | Track | Automation & AI |
 | Difficulty | Intermediate *(per-track ramp)* |
-| Duration | ~4–5 hrs total, multi-session |
+| Duration | 3 hr 45 min |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: the customer webhook and App configuration, least-privilege permissions, receiver, and installation authentication path.
-- Safety boundary: create webhooks, Apps, keys, and installations only with the accountable organisation owner's approval; the seeded resources are a sample environment for signature and permission validation.
-- Evidence: App registration details, permission and event matrix, signature-validation evidence, installation scope, and key-handling runbook.
-- Owner: the integration owner accepts credential rotation, receiver operations, and App permissions.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -59,7 +52,6 @@ Setup creates these resources (all names use the `ghec-ch17-*` prefix, and teard
 - A printed Next steps block (including a generated webhook secret suggestion) telling you where to start.
 
 ## Tasks
-> Throughout, `ghec-ch17-webhooks-github-apps` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Receive your first delivery
 1. Pick a receiver. Start a `smee.io` channel (copy its URL) or plan to use the seeded Actions `receiver.yml`. Note the public callback URL.

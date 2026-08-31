@@ -6,18 +6,10 @@
 |---|---|
 | Track | Admin/Governance |
 | Difficulty | Intermediate |
-| Duration | ~3 hrs total, multi-session |
+| Duration | 90 min |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | Provisioned starter repositories (created by setup) |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: approved organization default labels and one reconciled repository.
-- Safety boundary: change organization default labels only with accountable org-owner approval. Otherwise, produce an approved rollout proposal and test the sample repos.
-- Evidence: taxonomy, API snapshots, reconciliation notes, exception process, and review cadence.
-- Owner: platform governance or developer experience.
-- Next decision: choose the next repository cohort or approve the default-label rollout.
 
 ## Prerequisites
 
@@ -40,7 +32,7 @@ You will:
 A customer has dozens of repositories with labels such as `bug`, `Bug`, `urgent`, `sev1`, `backend`, and `needs review`. Their meanings overlap, reports cannot be trusted, and each new repository repeats the problem. Define one organization taxonomy, apply it to new repositories, and clean up an existing repository. Then hand ownership to the team that will maintain it.
 
 > [!IMPORTANT]
-> Choose the target before setup. If you have an authorised organization and repository cohort that will keep using the taxonomy, use its real default labels and one real repository wherever this guide names `ghec-ch35-existing-service` or `ghec-ch35-new-service`, and skip Setup. Otherwise use the two seeded repositories below, then move the approved taxonomy to an authorized customer target.
+> Choose the target before setup. If you have an authorised organization and repository cohort that will keep using the taxonomy, use its real default labels and one real repository wherever this guide names `ghec-ch35-existing-service` or `ghec-ch35-new-service`, and skip Setup. Otherwise use the two seeded repositories below, then move the approved taxonomy to an authorized customer target. Organization default labels are an org-wide setting — change them only with org-owner approval.
 >
 > Record the selected target, taxonomy owner, exception owner, and next action.
 
@@ -65,8 +57,6 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 - A printed Next steps block telling you where to start.
 
 ## Tasks
-
-> Throughout, `ghec-ch35-existing-service` and `ghec-ch35-new-service` are fallback samples. If you brought your own artifacts, substitute their names in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Inspect the current label baseline
 

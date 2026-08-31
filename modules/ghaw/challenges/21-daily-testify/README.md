@@ -1,5 +1,5 @@
 Track: Production Patterns (Advanced 🟣)
-Estimated time: 60 minutes
+Estimated time: 120 minutes
 Tier: Bonus
 
 ---
@@ -16,7 +16,7 @@ Build a governed test-quality pipeline for a repository the delivery team owns:
 The workflows are deliberately separate. Analysis can create issues, but it cannot write code. Code generation is limited to a reviewable pull request, using the reviewed issue as its contract.
 
 > [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): pick one with established test conventions, a test owner, and a maintainer who will review the proposed pull requests, then configure the workflows for its language, framework, test directories, and quality bar. No candidate repo yet? Use the setup sample.
+> [Bring your own repo](../../setup.md#bring-your-own-repo): pick one with established test conventions, a test owner, and a maintainer who will review the proposed pull requests, then configure the workflows for its language, framework, test directories, and quality bar.
 
 ## Workflows
 
@@ -29,10 +29,7 @@ The one-hour offset lets Testify create issues before the Improver evaluates the
 
 ## Build the pipeline
 
-1. Install [`gh aw`](https://github.com/github/gh-aw) if needed:
-   ```bash
-   curl -sL https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh | bash
-   ```
+1. Install and verify `gh aw` with the [GHAW setup guide](../../setup.md).
 
 2. Add the Testify workflow:
    ```bash

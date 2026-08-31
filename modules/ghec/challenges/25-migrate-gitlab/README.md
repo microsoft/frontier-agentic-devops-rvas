@@ -6,18 +6,10 @@
 |---|---|
 | Track | Migration |
 | Difficulty | Intermediate |
-| Duration | ~3 hrs |
+| Duration | ~120 min |
 | Minimum input | A GitLab repository and an empty GitHub repository target |
 | App | None |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: one approved GitLab repository mirrored to GitHub, with its CI pipeline converted by GitHub Actions Importer.
-- Safety boundary: mirror and cut over only with an approved owner and a source freeze; otherwise keep the work a pilot.
-- Evidence: ref validation, Actions conversion output, gap register, and LFS and package decisions.
-- Owner: the migration owner accepts cutover; repository and CI owners accept post-migration operations.
-- Next decision: approve the production cutover or hand the gaps to Expert Services.
 
 ## Migration limits
 
@@ -38,7 +30,7 @@ This hands-on activity uses the self-serve path that is available to any Git rep
 This pilot mirrors Git history into GitHub, converts the CI definition, and records what the self-serve path does not preserve. The follow-up plan must cover metadata, LFS, packages, and cutover risk.
 
 > [!IMPORTANT]
-> Use an approved GitLab repository as the source and target throughout this guide. Without one, record the access constraint and next action instead of migrating an unapproved example.
+> Use an approved GitLab repository as the source and target throughout this guide. Mirror and cut over only with an approved owner and a source freeze; otherwise keep the work a pilot. Without an approved repository, record the access constraint and next action instead of migrating an unapproved example.
 
 ## Tasks
 

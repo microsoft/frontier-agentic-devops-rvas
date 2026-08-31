@@ -3,7 +3,7 @@ title: Required Reusable Workflows
 module: ghec
 track: automation-ai
 difficulty: advanced
-duration_minutes: 240
+duration_minutes: 150
 prerequisites: []
 prerequisite_capabilities:
 - GitHub organization with org-owner or repository admin rights

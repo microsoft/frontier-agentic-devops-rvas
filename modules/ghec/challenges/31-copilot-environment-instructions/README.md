@@ -6,17 +6,10 @@
 |---|---|
 | Track | Automation & AI |
 | Difficulty | Advanced |
-| Duration | ~3 hrs |
+| Duration | 3 hr 15 min |
 | Minimum input | Authorized customer repository, repository owner, and Copilot policy/availability view |
 | App | Customer repository; optional safe fallback repository |
 | EMU compatible | yes — assess and record the actual availability of cloud agent and code review; do not assume either feature or policy is available |
-
-## Delivery target
-
-- Delivery target: a default-branch setup workflow, concise repository and path instructions, and a record of the effective organization, runner, network, and secret boundaries.
-- Safety boundary: work in an approved customer repository. The repository owner approves workflow and instruction changes, the Copilot owner confirms feature policy, and security approves any private-network runner, service, or Agents secret. Do not enable a policy, add a secret, or attach an internal runner merely to complete this activity.
-- Evidence: target and owners, policy availability, the merged default-branch commit and Actions URL, instruction inventory and precedence review, runner and secrets decision, and agent or review results.
-- Fallback: if policy or feature access is unavailable, produce the decision package in Part H. `ghec-ch31-*` is a safe, non-production seed for validating file layout only, never a substitute for customer approval.
 
 ## Prerequisites and availability
 
@@ -30,7 +23,7 @@
 The customer wants **Agentic DevSecOps** teams to use Copilot cloud agent and Copilot code review with a known setup and clear boundaries. Establish a reviewable baseline on a customer repository, verify it in GitHub's UI, and retain a decision package when the required capability is unavailable.
 
 > [!IMPORTANT]
-> **Start with the customer target.** Substitute its name for `ghec-ch31-copilot-environment-instructions` throughout. Do not put a production secret, internal endpoint, or customer data in the fallback repository.
+> **Start with the customer target.** Substitute its name for `ghec-ch31-copilot-environment-instructions` throughout. Do not put a production secret, internal endpoint, or customer data in the fallback repository, and do not enable a policy, add a secret, or attach an internal runner merely to complete this activity.
 
 ## Safe fallback repository
 

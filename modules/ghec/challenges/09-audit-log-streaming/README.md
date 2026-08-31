@@ -6,25 +6,17 @@
 |---|---|
 | Track | Admin/Governance |
 | Difficulty | Advanced *(per-track ramp)* |
-| Duration | ~4–5 hrs total, multi-session |
+| Duration | 150 min |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | none |
 | EMU compatible | yes |
 
-## Delivery target
-
-- Delivery target: the customer organisation audit-log query set, export script, and findings record.
-- Safety boundary: generate only owner-approved events in the customer tenant; use the seeded target for controlled event generation when live changes are not approved.
-- Evidence: retain the export script, time-bounded JSON evidence, query filters, and findings.
-- Owner: the customer security or platform operations owner receives the evidence-collection runbook.
-- Next decision: schedule the approved export cadence or nominate the owner who will operationalise the validated script.
-
 ## Prerequisites
-- Recommended: Ch52 (Enterprise Landing Zone & Organization Strategy) completed first — its settings register is the preferred source for the enterprise-level streaming/retention item in Part F (see the closing note); otherwise this activity's org-level export stands on its own.
+- Recommended: Ch52 (Enterprise Landing Zone & Organization Strategy) completed first — its settings register is the preferred source for the enterprise-level streaming/retention item in Part F; otherwise this activity's org-level export stands on its own.
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud. The org audit log is a GHEC organization feature.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch09 --org <org>` (least-privilege; for this activity: `admin:org` + `read:audit_log` + `repo`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
-- No GHAS or Codespaces required. Enterprise audit-log streaming is inspected as evidence, not configured, in this activity (see callout) — the hands-on, gradable work uses the org audit log + API.
+- No GHAS or Codespaces required. Enterprise audit-log streaming is inspected as evidence, not configured, in this activity — it can't be cleanly torn down by automation, so it stays out of hands-on scope; the hands-on, gradable work uses the org audit log + API.
 
 ## What you will deliver
 - Read the organization audit log and understand its event model (actor, action, timestamp, repo).
@@ -32,7 +24,7 @@
 - Query the audit log via the REST API (`gh api /orgs/<org>/audit-log`) with phrase filters and pagination.
 - Generate a known set of events (repo create, permission change, label create, ruleset change) and then find them — proving the log captures admin actions.
 - Build a small export script that pulls a time-bounded slice of the audit log to JSON for offline analysis.
-- Distinguish enterprise-level audit-log streaming from this organization's API-pull export, and source the enterprise decision from Ch52's landing-zone register or an authorized enterprise export — see "Enterprise vs. organization control" below.
+- Distinguish enterprise-level audit-log streaming from this organization's API-pull export, and source the enterprise decision from Ch52's landing-zone register or an authorized enterprise export.
 
 ## Scenario
 A GHEC customer's security team asks the question every audit eventually asks: *"Who changed that setting, and when?"* Right now nobody can answer it without guessing. Establish the organization audit log as the authoritative record: generate a controlled set of administrative actions, reconstruct what happened using search filters and the API, and retain a repeatable export script as the start of a real evidence-collection pipeline.
@@ -61,7 +53,6 @@ Setup creates these resources (all names use the `ghec-ch09-*` prefix, and teard
 - A printed Next steps block telling you where to start.
 
 ## Tasks
-> Throughout, `ghec-ch09-audit-target` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Read the log and establish the event model
 1. Open the org audit log (Org Settings → Archive → Logs → Audit log — the "Logs" item is under the Archive section of the settings sidebar). Skim recent events; note each row's actor, action (e.g., `repo.create`, `org.update_member`), time, and affected object.
@@ -91,7 +82,7 @@ Setup creates these resources (all names use the `ghec-ch09-*` prefix, and teard
 
 ### Part E — Build an export pipeline
 15. Write an export script (`export-audit.sh` or `.ps1`, committed to `ghec-ch09-audit-target`) that pulls a time-bounded slice (`-f phrase='created:>=<date>'`, `--paginate`) and writes pretty JSON to a file.
-16. Run it and confirm the output contains your generated events. This is a repeatable, org-scoped pull you could schedule — it is not enterprise-level streaming; see "Enterprise vs. organization control" below.
+16. Run it and confirm the output contains your generated events. This is a repeatable, org-scoped pull you could schedule — it is not enterprise-level streaming.
 17. Write `FINDINGS.md`: for three investigative questions (who added the team? who changed the ruleset? what happened today?), record the exact filter used and the answer.
 
 ### Part F — Inspect the effective audit settings (enterprise vs. organization)
@@ -105,7 +96,7 @@ Setup creates these resources (all names use the `ghec-ch09-*` prefix, and teard
     if neither exists, record `enterprise policy not available / not
     applicable`. Don't infer enterprise-wide streaming or retention policy
     from this one organization's audit log, and complete the organization
-    export work normally regardless — see the closing note.
+    export work normally regardless.
 
 ## Reference links
 - Reviewing the audit log for your organization — https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization

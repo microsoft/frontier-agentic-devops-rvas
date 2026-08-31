@@ -35,8 +35,7 @@ Use these Agentic DevSecOps references when writing activity guides and setup in
 
 | Source | Use in Curriculum | Notes |
 | --- | --- | --- |
-| [GitHub Actions quickstart](https://docs.github.com/en/actions/get-started/quickstart) | Basic Actions workflow reference. | Confirms Actions is a CI/CD platform for automating build, test, and deployment pipelines. |
-| [Understanding GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions) | Workflow concepts. | Optional reference for the local workflow templates; Activity 04 is an Azure incident investigation. |
+| [GitHub Actions quickstart](https://docs.github.com/en/actions/get-started/quickstart) | Basic Actions workflow reference. | Optional reference for the local workflow templates; Activity 04 is an Azure incident investigation. |
 | [GitHub Actions starter workflows](https://github.com/actions/starter-workflows) | Workflow examples. | Useful fallback when teams need a starting point for CI or deployment. |
 
 ## What The Hack Format
@@ -44,9 +43,7 @@ Use these Agentic DevSecOps references when writing activity guides and setup in
 | Source | Use in Curriculum | Notes |
 | --- | --- | --- |
 | [microsoft/WhatTheHack](https://github.com/microsoft/WhatTheHack) | Format anchor for activity-based delivery session structure. | What The Hack activities describe high-level tasks and goals, not step-by-step labs. Organizers guide without giving direct answers. |
-| [Modern Development and DevOps with GitHub](https://github.com/microsoft/WhatTheHack/tree/master/065-ModernGitHubDev) | Reference for GitHub SDLC activity design. | General reference for session design; it does not map to a specific SRE activity. |
 | [GitHub Copilot What The Hack](https://github.com/microsoft/WhatTheHack/tree/master/071-GitHubCopilot) | Reference for Copilot learning flow. | Optional background for Activity 05 source-remediation review. |
-| [DevOps with GitHub Actions](https://github.com/microsoft/WhatTheHack/tree/master/044-DevOpswithGithubActions) | Reference for Actions-focused delivery exercises. | General reference; the module does not add a GitHub Actions activity. |
 
 ## Azure Operational Excellence
 

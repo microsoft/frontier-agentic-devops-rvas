@@ -2,7 +2,7 @@
 
 Track: Track 1 — Hello, Agent  
 Difficulty: 🟢 Beginner  
-Estimated time: 30 minutes  
+Estimated time: 45 minutes  
 Prerequisites: Activity 00 — Setup & Hello, Agent, Activity 1-01 — Morning Briefing
 
 ---
@@ -26,7 +26,7 @@ A workflow triggered by `on: push`. It detects changes in a chosen directory, su
 ---
 
 > [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): point `the-watcher.md` at a repo you own and watch a real path such as `docs/**`, config, schemas, tests, or release files. No candidate repo yet? Use the setup sample.
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point `the-watcher.md` at a repo you own and watch a real path such as `docs/**`, config, schemas, tests, or release files.
 
 ---
 

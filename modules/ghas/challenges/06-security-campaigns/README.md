@@ -21,9 +21,8 @@ Use your code and alert knowledge to define a campaign the team can finish. Base
 - Define how fixed, in-progress, accepted-risk, and overdue findings are reviewed and escalated
 - Confirm that agent-authored changes remain subject to the same human accountability, pull-request, and GHAS evidence as other changes
 
-> [!IMPORTANT]
-> Use a real application if you have one; build the campaign around a real alert
-> class from its Security Overview. Otherwise use the S00 Juice Shop fallback.
+> [!TIP]
+> Working with a real application? Build the campaign around an alert class from its Security Overview.
 
 ## Copilot Tips
 

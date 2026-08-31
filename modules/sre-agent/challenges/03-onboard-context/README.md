@@ -13,7 +13,7 @@ Azure SRE Agent needs accurate context. Inspect the service knowledge, response 
 - Add safe team memory for ownership and escalation.
 
 > [!TIP]
-> **Bring your own service:** onboard a service your team will operate after the session, wherever this guide references Grubify, using its real runbooks, architecture notes, alert routes, response plans, and ownership context. **Do not paste secrets, private contacts, or sensitive tenant details into notes or chat.** No suitable service? Use Grubify to practise context onboarding.
+> **Bring your own service:** onboard a service your team will operate after the session, wherever this guide references Grubify, using its real runbooks, architecture notes, alert routes, response plans, and ownership context. **Do not paste secrets, private contacts, or sensitive tenant details into notes or chat.**
 
 ## Inspect Connected Context
 

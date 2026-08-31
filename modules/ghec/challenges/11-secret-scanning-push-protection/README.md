@@ -6,17 +6,10 @@
 |---|---|
 | Track | Security |
 | Difficulty | Foundational *(per-track ramp)* |
-| Duration | ~4 hrs total, multi-session |
+| Duration | 90 min |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | juice-shop *(imported at pinned ref `v20.0.0`; see `docs/EXTERNAL-REPOS.md`)* |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: an approved customer repository's secret-scanning, push-protection, custom-pattern, and bypass-audit configuration.
-- Safety boundary: enable controls and perform bypass validation only with the repository/security owner's approval; the planted-secret repository is a sample test repository, never a delivery destination.
-- Evidence: alert resolutions, custom-pattern definition, and bypass audit.
-- Owner: the security owner and repository maintainer accept alert and bypass handling, and the activation decision.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -35,7 +28,7 @@
 A GHEC customer just discovered a hard-coded cloud key in a public repo — caught by an outside researcher, not by them. Leadership wants every credential already in history surfaced and triaged, and the *next* secret blocked before it lands on `main`. The provisioner imports OWASP Juice Shop and plants non-live, high-confidence test secrets (fake AWS keys, GitHub-style tokens) so secret scanning has real, partner-pattern material to detect.
 
 > [!IMPORTANT]
-> Use an approved customer target first. If you have a candidate repository, use it everywhere this guide says `ghec-ch11-juice-shop`, skip Setup, and skip the manifest steps — real history is the triage material. Otherwise use the fallback seeded repo below.
+> Use an approved customer target first. If you have a candidate repository, use it everywhere this guide says `ghec-ch11-juice-shop`, skip Setup, and skip the manifest steps — real history is the triage material. Otherwise use the fallback seeded repo below: it holds planted secrets, so it is a test repository only, never a delivery destination.
 >
 > Record the selected target, security owner, and next action.
 
@@ -59,7 +52,6 @@ Setup creates these resources (all names use the `ghec-ch11-*` prefix, and teard
 - A printed Next steps block.
 
 ## Tasks
-> Throughout, `ghec-ch11-juice-shop` is the fallback sample. If you brought your own repo, substitute its name in every command.
 
 ### Part A — Enable secret scanning
 1. In `ghec-ch11-juice-shop` → Settings → Code security, enable Secret scanning and Push protection. (On a public repo these may already be on — confirm both toggles read "Enabled".)

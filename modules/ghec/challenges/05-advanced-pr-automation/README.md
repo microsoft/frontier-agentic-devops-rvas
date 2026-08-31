@@ -6,18 +6,10 @@
 |---|---|
 | Track | Developer Flow |
 | Difficulty | Advanced *(per-track ramp)* |
-| Duration | ~5–6 hrs total, multi-session |
+| Duration | ~3 hr 30 min, single session |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: a repository or organisation ruleset, `CODEOWNERS`, PR template, and PR-automation workflows.
-- Safety boundary: activate rulesets and bypass settings only with the accountable owner's approval; the seeded repository is a sample for proposed policy.
-- Evidence: the ruleset export, bypass rationale, workflow files, and validation PR history.
-- Owner: the repository and platform owners accept the automation and the bypass governance.
-- Next decision: the owner authorises activation in the selected repository or records a rollout decision.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.

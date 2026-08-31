@@ -3,7 +3,7 @@ title: Enterprise Agent Configuration
 module: ghec
 track: admin-governance
 difficulty: advanced
-duration_minutes: 240
+duration_minutes: 210
 prerequisites: []
 prerequisite_capabilities:
   - Enterprise owner access to AI Controls, or a named enterprise owner who can approve and apply the implementation

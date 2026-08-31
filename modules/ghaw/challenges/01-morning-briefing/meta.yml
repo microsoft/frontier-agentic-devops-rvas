@@ -3,7 +3,7 @@ title: Morning Briefing
 module: ghaw
 track: hello-agent
 difficulty: beginner
-duration_minutes: 30
+duration_minutes: 60
 prerequisites:
   - ghaw-00
 prerequisite_capabilities:

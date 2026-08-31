@@ -3,7 +3,7 @@ title: Migrate Bitbucket to GitHub (Server & Cloud)
 module: ghec
 track: migration
 difficulty: advanced
-duration_minutes: 240
+duration_minutes: 195
 prerequisites: []
 prerequisite_capabilities:
 - GitHub org with org-owner rights

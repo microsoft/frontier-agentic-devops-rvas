@@ -6,18 +6,10 @@
 |---|---|
 | Track | Developer Flow |
 | Difficulty | Intermediate |
-| Duration | ~3 hrs total, multi-session |
+| Duration | ~1 hr 30 min, single session |
 | Minimum input | An org + an org-owner token. |
 | App | Provisioned Pages candidate repository (created by setup) |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: an approved organization Pages policy and one repository-level publishing proof.
-- Safety boundary: organization Pages settings are org-wide controls. Change them only with org-owner approval; setup never changes them.
-- Evidence: before/after policy snapshots, site URL, source or workflow run, exception decision, rollback owner, and next review.
-- Owner: platform governance or developer experience.
-- Next decision: approve rollout, publish the first production site, or review exceptions.
 
 ## Prerequisites
 

@@ -3,7 +3,7 @@ title: Copilot Environment & Instructions
 module: ghec
 track: automation-ai
 difficulty: advanced
-duration_minutes: 180
+duration_minutes: 195
 prerequisites: []
 prerequisite_capabilities:
   - Authorized customer repository and accountable repository owner

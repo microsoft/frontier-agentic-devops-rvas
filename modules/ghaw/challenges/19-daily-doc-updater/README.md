@@ -1,5 +1,5 @@
 Track: Production Patterns (Advanced 🟣)
-Estimated time: 30 minutes
+Estimated time: 75 minutes
 Tier: Bonus
 
 ---
@@ -18,14 +18,11 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
 - Opens PRs with targeted, reviewable corrections
 
 > [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): point the workflow at a repo you own where `README.md`, `docs/`, API docs, or runbooks drift from the code. No candidate repo yet? Use the setup sample.
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point the workflow at a repo you own where `README.md`, `docs/`, API docs, or runbooks drift from the code.
 
 ## Steps
 
-1. Install [`gh aw`](https://github.com/github/gh-aw) (if not already done):
-   ```bash
-   curl -sL https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh | bash
-   ```
+1. Install and verify `gh aw` with the [GHAW setup guide](../../setup.md).
 
 2. Pull the production workflow:
    ```bash

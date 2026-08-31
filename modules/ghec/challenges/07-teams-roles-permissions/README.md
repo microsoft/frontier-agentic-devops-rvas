@@ -6,21 +6,13 @@
 |---|---|
 | Track | Admin/Governance |
 | Difficulty | Intermediate *(per-track ramp)* |
-| Duration | ~4–5 hrs total, multi-session |
+| Duration | 120 min |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |
 
-## Delivery target
-
-- Delivery target: the customer organisation’s approved team hierarchy, repository grants, custom role, and access matrix.
-- Safety boundary: change memberships, roles, and grants only with the accountable organisation owner’s approval; use the seeded structure as a sample test environment when access is constrained.
-- Evidence: retain API-derived before/after snapshots, the access matrix, and role rationale.
-- Owner: the customer access owner accepts the model and the team/repository maintainers receive the matrix.
-- Next decision: approve tenant implementation for the selected teams or deliver the access-model proposal for owner decision.
-
 ## Prerequisites
-- Recommended: Ch52 (Enterprise Landing Zone & Organization Strategy) completed first — its delegation register is the preferred source for enterprise-level team/role decisions (see the closing note); otherwise this activity's organization-level model stands on its own.
+- Recommended: Ch52 (Enterprise Landing Zone & Organization Strategy) completed first — its delegation register is the preferred source for enterprise-level team/role decisions; otherwise this activity's organization-level model stands on its own.
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch07 --org <org>` (least-privilege; for this activity: `admin:org` + `repo` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
@@ -61,7 +53,6 @@ Setup creates these resources (all names use the `ghec-ch07-*` prefix, and teard
 - A printed Next steps block telling you where to start.
 
 ## Tasks
-> Throughout, `ghec-ch07-frontend` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Build the team hierarchy
 1. Create a parent team `ghec-ch07-engineering` (reuse the seeded one) and two child teams under it: `ghec-ch07-frontend-squad` and `ghec-ch07-backend-squad`. Create children with the parent set, e.g. `gh api -X POST /orgs/<org>/teams -f name='ghec-ch07-frontend-squad' -F parent_team_id=<parent-id>`.
@@ -90,7 +81,7 @@ Setup creates these resources (all names use the `ghec-ch07-*` prefix, and teard
 13. Add at least one member to each squad (or model it with your own account across teams) and confirm membership: `gh api /orgs/<org>/teams/ghec-ch07-frontend-squad/members --jq '.[].login'`.
 14. Produce an access matrix: for each repo, list which teams have which role, pulled from the API. Save it as `ACCESS.md` in `ghec-ch07-platform`.
 15. Diff against the "before" snapshot from setup to prove the org went from flat to modeled.
-16. Record the enterprise-level team/role delegation decision (enterprise teams, custom organization roles, IdP-driven team sync) in `ACCESS.md`: cite Ch52's delegation register entry, or an authorized enterprise export/inspection; if neither exists, record `enterprise policy not available / not applicable`. Don't infer enterprise-wide delegation from this one organization's team model — see the closing note.
+16. Record the enterprise-level team/role delegation decision (enterprise teams, custom organization roles, IdP-driven team sync) in `ACCESS.md`: cite Ch52's delegation register entry, or an authorized enterprise export/inspection; if neither exists, record `enterprise policy not available / not applicable`. Don't infer enterprise-wide delegation from this one organization's team model.
 
 ## Reference links
 - About teams — https://docs.github.com/en/organizations/organizing-members-into-teams/about-teams

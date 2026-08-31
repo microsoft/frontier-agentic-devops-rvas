@@ -2,7 +2,7 @@
 
 Track: Continuous Intelligence (Advanced)  
 Difficulty: 🔴 Advanced  
-Estimated time: 30 minutes  
+Estimated time: 75 minutes  
 Prerequisites: Track 2, completed ≥3 activities
 
 ---
@@ -23,7 +23,7 @@ An agent can only reason from the context it receives. Use gh-aw's `tools:` conf
 ---
 
 > [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): point the workflow at a repo you own with real PRs and context files (`CONTRIBUTING.md`, `ARCHITECTURE.md`, docs, test conventions). No candidate repo yet? Use the setup sample.
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point the workflow at a repo you own with real PRs and context files (`CONTRIBUTING.md`, `ARCHITECTURE.md`, docs, test conventions).
 
 ---
 

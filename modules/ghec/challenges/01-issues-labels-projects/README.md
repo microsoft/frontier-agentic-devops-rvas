@@ -6,18 +6,10 @@
 |---|---|
 | Track | Developer Flow |
 | Difficulty | Foundational *(per-track ramp)* |
-| Duration | ~3–4 hrs total, multi-session |
+| Duration | ~2 hr 30 min, single session |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: the repository's issue forms, label taxonomy, milestones, and Projects (v2) board.
-- Safety boundary: implement in the customer tenant only when the repository owner authorises it; otherwise treat the seeded repo as a sample for testing.
-- Evidence: the configured board, saved views, automation settings, and a triage operating note.
-- Owner: the backlog or engineering lead owns the board and receives the operating note.
-- Next decision: the owner selects the first live backlog and moves the configuration there.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.

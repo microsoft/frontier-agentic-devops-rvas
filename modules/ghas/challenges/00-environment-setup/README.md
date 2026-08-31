@@ -23,10 +23,9 @@ Finish this activity with:
 - GitHub Advanced Security available for the repository visibility you choose
 - GitHub Copilot license assigned
 
-> **Own-org workflow:** Do not rely on a preconfigured Microsoft or instructor repo.
-> A participant, team lead, or organizer pushes Juice Shop into an org they control,
-> enables GHAS features there, then manually adds any participants or teams that need
-> repo access.
+There is no preconfigured Microsoft or instructor repo. A participant, team lead, or
+organizer pushes Juice Shop into an org they control, enables GHAS features there,
+and adds the participants or teams that need access.
 
 ---
 
@@ -79,11 +78,7 @@ After provisioning, manually add any participants who need access:
 
 1. Open `https://github.com/<your-org>/ghec-ghas-00-juice-shop/settings/access`.
 2. Add the participant, team, or outside collaborator with the access level your event needs.
-3. Ask each participant to clone this org repo directly and work on a personal or team branch.
-
-> **Branch workflow (do not fork):** This module uses the org repo you just created.
-> Clone directly and work on a personal branch. Use `team-{your-team-name}/challenge-work`
-> for teams, or `participant/{your-name}` for individual participants.
+3. Ask each participant to clone this org repo directly — do not fork it — and work on a personal or team branch.
 
 ---
 
@@ -103,12 +98,15 @@ This option requires no local installation.
 If you prefer working locally, use Git and Node.js directly.
 
 1. Install [Git](https://git-scm.com/), [GitHub CLI](https://cli.github.com/), and Node.js 20 or later.
-2. Clone the org repo (do not fork it):
+2. Clone the org repo:
    ```bash
    git clone https://github.com/<your-org>/ghec-ghas-00-juice-shop.git
    cd ghec-ghas-00-juice-shop
    ```
 3. Continue below.
+
+If neither option works, [`modules/ghas/setup.md`](../../setup.md) covers the Docker
+and organizer-hosted runtimes.
 
 ---
 
@@ -159,15 +157,10 @@ Juice Shop runs on port 3000. In Codespaces, GitHub forwards the port
 automatically. Open the Ports tab and select the forwarded URL. Locally, open
 `http://localhost:3000` in your browser.
 
-Confirm you see the Juice Shop storefront before moving on.
-
----
-
-## Important: GHAS Alerts vs. Local Runtime
-
-The local Juice Shop instance is for manual testing only. CodeQL, Dependabot, and
-secret scanning alerts run on the org repository provisioned in this activity. See
-[`modules/ghas/setup.md`](../../setup.md) for how the two environments work together.
+Confirm you see the Juice Shop storefront before moving on. This local instance is
+for manual exploit testing only: CodeQL, Dependabot, and secret scanning alerts run
+on the org repository. See [`modules/ghas/setup.md`](../../setup.md) for how the two
+environments work together.
 
 ---
 

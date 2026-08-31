@@ -13,7 +13,7 @@ Azure evidence explains what failed. Source-code context points to the likely fa
 - Keep human review visible before any change is treated as production-ready.
 
 > [!TIP]
-> **Bring your own service:** use a real or recent incident and the repository that owns the suspected code path, wherever this guide references Grubify. Route remediation through the team's normal issue or pull request process, and require evidence, stated uncertainty, validation, and human review. No suitable service, incident, or repository? Connect the Grubify repository or use the fallback source packet.
+> **Bring your own service:** use a real or recent incident and the repository that owns the suspected code path, wherever this guide references Grubify. Route remediation through the team's normal issue or pull request process, and require evidence, stated uncertainty, validation, and human review.
 
 ## Connect Source Code
 

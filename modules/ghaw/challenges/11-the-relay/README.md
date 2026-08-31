@@ -2,7 +2,7 @@
 
 Track: Continuous Intelligence (Advanced)  
 Difficulty: 🔴 Advanced  
-Estimated time: 30 minutes  
+Estimated time: 90 minutes  
 Prerequisites: Track 2, completed ≥3 activities
 
 ---
@@ -23,7 +23,7 @@ Workflows normally run in isolation. To coordinate two of them, the first must l
 ---
 
 > [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): point both relay workflows at a repo you own so `repo-memory` holds real issue and label metrics the team can keep using. No candidate repo yet? Use the setup sample.
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point both relay workflows at a repo you own so `repo-memory` holds real issue and label metrics the team can keep using.
 
 ---
 

@@ -1,5 +1,5 @@
 Track: Production Patterns (Advanced 🟣)
-Estimated time: 30 minutes
+Estimated time: 75 minutes
 Tier: Bonus
 
 ---
@@ -21,14 +21,11 @@ Source: [`github/gh-aw/.github/workflows/security-compliance.md`](https://github
 - Opens structured issues for any vulnerability at or approaching deadline
 
 > [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): configure the workflow with the real alert sources, severity thresholds, and SLA windows of a repo you own. No candidate repo yet? Use the setup sample.
+> [Bring your own repo](../../setup.md#bring-your-own-repo): configure the workflow with the real alert sources, severity thresholds, and SLA windows of a repo you own.
 
 ## Steps
 
-1. Install [`gh aw`](https://github.com/github/gh-aw) (if not already done):
-   ```bash
-   curl -sL https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh | bash
-   ```
+1. Install and verify `gh aw` with the [GHAW setup guide](../../setup.md).
 
 2. Pull the production workflow:
    ```bash

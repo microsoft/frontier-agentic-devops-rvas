@@ -3,7 +3,7 @@ title: Automation Capstone
 module: ghec
 track: automation-ai
 difficulty: advanced
-duration_minutes: 480
+duration_minutes: 195
 prerequisites: []
 prerequisite_capabilities:
 - GitHub organization with org-owner rights

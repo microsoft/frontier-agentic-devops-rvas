@@ -3,7 +3,7 @@ title: Golden-Path Repository Bootstrap
 module: ghec
 track: admin-governance
 difficulty: advanced
-duration_minutes: 240
+duration_minutes: 90
 prerequisites: []
 prerequisite_capabilities:
 - GitHub organization with org-owner rights

@@ -34,11 +34,6 @@ gh auth login
 
 Choose HTTPS, follow the device-code prompt in your browser, and grant the requested permissions.
 
-Verify:
-```bash
-gh auth status
-```
-
 ---
 
 ## Verify the setup
@@ -59,6 +54,6 @@ gh aw --version
 gh aw trial modules/ghaw/resources/examples/hello-world.md --logical-repo microsoft/frontier-agentic-devops-rvas --dry-run --yes
 ```
 
-> All four commands must succeed before you move on.
+> All four commands must succeed before you move on. If `gh aw --version` fails, reinstall it with the command in the [GHAW setup guide](../../setup.md).
 
 `--logical-repo` tells `gh-aw` which repository to simulate, so it doesn't need to infer one from your local Git remote (useful if your clone uses an SSH host alias). See the [GHAW setup guide](../../setup.md) for what trial mode does with write access.

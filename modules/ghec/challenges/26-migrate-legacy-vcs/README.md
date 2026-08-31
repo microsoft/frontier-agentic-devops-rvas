@@ -6,17 +6,10 @@
 |---|---|
 | Track | Migration |
 | Difficulty | Advanced |
-| Duration | ~4 hrs |
+| Duration | ~210 min |
 | Minimum input | A GitHub org or repo destination plus at least one legacy VCS source |
 | App | None |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: at least one approved legacy-VCS source (SVN, plus Mercurial, TFVC, or Perforce where access allows) converted to Git and pushed to GitHub.
-- Safety boundary: convert and push history only with source and destination owner approval. For inaccessible systems, document the exact commands, source shape, and blocker instead.
-- Evidence: author map, conversion commands, large-file checks, ref validation, and gap notes.
-- Owner: the migration owner accepts source and cutover accountability; repository owners accept the converted destination.
 
 ## Prerequisites
 

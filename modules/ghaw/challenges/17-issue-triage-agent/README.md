@@ -1,5 +1,5 @@
 Track: Production Patterns (Advanced 🟣)
-Estimated time: 30 minutes
+Estimated time: 60 minutes
 Tier: Core
 
 ---
@@ -19,14 +19,11 @@ Source: [`github/gh-aw/.github/workflows/issue-triage-agent.md`](https://github.
 - Posts a short classification comment explaining the categorisation
 
 > [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): customise the workflow with the real labels, issue patterns, and comment style of a repo you own. No candidate repo yet? Use the setup sample.
+> [Bring your own repo](../../setup.md#bring-your-own-repo): customise the workflow with the real labels, issue patterns, and comment style of a repo you own.
 
 ## Steps
 
-1. Install [`gh aw`](https://github.com/github/gh-aw) (if not already done):
-   ```bash
-   curl -sL https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh | bash
-   ```
+1. Install and verify `gh aw` with the [GHAW setup guide](../../setup.md).
 
 2. Pull the production workflow as your starting point:
    ```bash

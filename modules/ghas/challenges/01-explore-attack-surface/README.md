@@ -11,7 +11,9 @@ Juice Shop is intentionally vulnerable. Its alerts describe exploitable flaws in
 Turn the alerts into a security findings register with owners so the delivery team
 can maintain it after the session.
 
-> Before this activity: Make sure S00 is complete, the org repo exists, required participants have been added, GHAS features are enabled, and you've created your team branch. The Security tab is default-branch oriented. Your branch fixes will be validated later through PR CodeQL checks and code scanning annotations.
+> Before this activity: S00 is complete, GHAS features are enabled, and your team branch
+> exists. The Security tab shows default-branch alerts; your branch fixes are validated
+> later through PR CodeQL checks and code scanning annotations.
 
 ## Objectives
 
@@ -21,9 +23,8 @@ can maintain it after the session.
 - Create a security findings register in `modules/ghas/resources/ghas-governance-practice.template.md`, recording for each item: alert category, affected component, impact, remediation route, owner, target date, disposition (open, in progress, or accepted risk), and prioritization rationale
 - Check Security → Dependabot alerts and record any critical or high-severity dependency vulnerabilities in the inventory
 
-> [!IMPORTANT]
-> Use a real application repository or service if you have one; skip the S00 Juice Shop
-> setup and review its Security tab instead. Otherwise use the S00 Juice Shop fallback.
+> [!TIP]
+> Working with a real repository or service you own? Review its Security tab instead of Juice Shop's.
 
 ## Copilot Tips
 

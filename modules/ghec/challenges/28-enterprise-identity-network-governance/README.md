@@ -6,15 +6,10 @@
 |---|---|
 | Track | Admin/Governance |
 | Difficulty | Advanced |
-| Duration | ~3 hrs, multi-session |
+| Duration | 120 min |
 | Minimum input | Enterprise owner **or** authorized enterprise-policy export; named IdP owner |
 | App | none |
 | EMU compatible | yes, subject to the control-specific constraints below |
-
-## Delivery target
-
-- Delivery target: verified enterprise settings and, where authorized, a safe bounded test-organization check—not an IdP setup, provisioning exercise, or production rollout.
-- Safety boundary: inspect only. Change a test organization only when the customer explicitly authorizes the bounded action. Do not enable enforcement, change production IP access, provision users, or require SSH certificates.
 
 ## Scope boundary
 

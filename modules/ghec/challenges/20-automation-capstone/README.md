@@ -6,17 +6,10 @@
 |---|---|
 | Track | Automation & AI |
 | Difficulty | Advanced *(capstone — hardest in the track)* |
-| Duration | ~8 hrs total, multi-session |
+| Duration | 3 hr 15 min |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes — all steps run on org-owned, prefix-namespaced resources. |
-
-## Delivery target
-
-- Delivery target: an approved App, webhook, Actions workflow, API automation, and project-board integration.
-- Safety boundary: create Apps, secrets, webhooks, and write automation in the customer tenant only with accountable owner approval; otherwise use the seeded capstone.
-- Evidence: the source-controlled automation, permission matrix, secret-handling record, event trace, idempotency evidence, and failure-mode notes.
-- Owner: the integration owner accepts operations and rotation; the workflow owner accepts business outcomes.
 
 > This capstone provisions its own `ghec-ch20-*` state and does not require artifacts from another activity. It uses concepts from ch16 (REST/GraphQL), ch17 (webhooks + GitHub App), and ch18 (Actions runners).
 
@@ -61,7 +54,6 @@ What setup creates (all artifacts namespaced `ghec-ch20-*`, idempotent, prefix-g
 - A printed Next steps block (App registration URL flow, where to put the webhook secret, how to drive deliveries via `smee.io` or `repository_dispatch`).
 
 ## Tasks
-> Throughout, `ghec-ch20-automation-capstone` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Register & install the App
 1. Register the App. Create it from the New GitHub App form, filling the form by hand. Go to Org Settings → Developer settings → GitHub Apps → New GitHub App (page titled *Create GitHub App*) and set:

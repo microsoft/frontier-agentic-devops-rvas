@@ -6,18 +6,10 @@
 |---|---|
 | Track | Developer Flow |
 | Difficulty | Advanced |
-| Duration | ~4 hrs total, multi-session |
+| Duration | ~2 hr, single session |
 | Minimum input | An org + repository administrator rights. |
 | App | Provisioned monorepo governance repository (created by setup) |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: an approved monorepo or monorepo candidate.
-- Safety boundary: history rewrites, LFS migrations, retention changes, and quota purchases are high-impact decisions. Setup does not perform them; proceed only with owner approval.
-- Evidence: repository health data, `.gitattributes`, CODEOWNERS map, large-file exceptions, storage owner, and migration decisions.
-- Owner: platform, source control, or monorepo governance.
-- Next decision: choose the next package area, LFS migration decision, or enforcement control.
 
 ## Prerequisites
 

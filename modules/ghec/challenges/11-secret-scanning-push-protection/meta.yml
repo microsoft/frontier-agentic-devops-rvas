@@ -3,7 +3,7 @@ title: Secret Scanning & Push Protection
 module: ghec
 track: security
 difficulty: beginner
-duration_minutes: 240
+duration_minutes: 90
 prerequisites: []
 prerequisite_capabilities:
 - GitHub organization with org-owner rights

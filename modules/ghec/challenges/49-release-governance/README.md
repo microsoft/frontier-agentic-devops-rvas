@@ -6,18 +6,10 @@
 |---|---|
 | Track | Developer Flow |
 | Difficulty | Advanced |
-| Duration | ~4 hrs total, multi-session |
+| Duration | ~1 hr 45 min, single session |
 | Minimum input | An org + repo administrator rights. |
 | App | Provisioned release governance repository (created by setup) |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: an approved release repository and governance record.
-- Safety boundary: rulesets, deployment environments, and org-wide release permissions can block teams. Inspect and propose them, but change them only with owner approval.
-- Evidence: candidate issue, approval, release notes, tag or release proof, validation results, rollback owner, and exception decision.
-- Owner: release management or platform engineering.
-- Next decision: choose the first production release or approve enforcement controls.
 
 ## Prerequisites
 
@@ -41,7 +33,7 @@ You will:
 A customer publishes releases from several repositories. Approvals live in chat, release notes vary, and nobody clearly owns rollback. Define the controls, create a candidate record, collect validation evidence, and record the approval or rejection with the release history.
 
 > [!IMPORTANT]
-> Choose the target before setup. Use an authorised customer release repository if you have one, wherever this guide names `ghec-ch49-release-governance`, and skip setup. Otherwise use the fallback seeded repository below.
+> Choose the target before setup. Use an authorised customer release repository if you have one, wherever this guide names `ghec-ch49-release-governance`, and skip setup. Otherwise use the fallback seeded repository below. Rulesets, deployment environments, and org-wide release permissions can block teams: inspect and propose them, but change them only with owner approval.
 
 ## Sample test repository or environment
 

@@ -6,17 +6,10 @@
 |---|---|
 | Track | Automation & AI |
 | Difficulty | Advanced |
-| Duration | ~4 hrs, multi-session |
+| Duration | 3 hr 45 min |
 | Minimum input | Customer-approved private or internal repository; a licensed, eligible automation creator; an independent reviewer; and named Copilot, security, repository, and audit-evidence owners |
 | App | none |
 | EMU compatible | no — Copilot cloud agent is not available on EMU-owned repositories |
-
-## Delivery target
-
-- Delivery target: one approved Copilot automation in a private or internal customer repository, with its evidence package and operating or disable decision.
-- Safety boundary: keep the automation disabled until the repository owner, Copilot owner, and security owner approve the target, prompt, tools, trigger, filters, budget owner, and review path. Do not broaden repository access, enable a preview capability, grant bypasses, or include secrets in a prompt.
-- Evidence: eligibility and policy, private or internal repository, trigger and filter configuration, the prompt and selected tools, session-log and outcome URLs, independent-review and audit-log evidence, and the disable or rollback path.
-- Owner: the automation creator owns operation and cost; the repository owner owns repository scope and merge controls; the security owner owns the untrusted-trigger and prompt-injection decision.
 
 > This activity does not require another activity's repository, workflow, agent, or policy change.
 

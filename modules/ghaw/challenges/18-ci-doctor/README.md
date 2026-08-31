@@ -1,5 +1,5 @@
 Track: Production Patterns (Advanced 🟣)
-Estimated time: 30 minutes
+Estimated time: 90 minutes
 Tier: Core
 
 ---
@@ -18,14 +18,11 @@ Source: [`githubnext/agentics/workflows/ci-doctor.md`](https://github.com/github
 - Opens a `create-issue` with the likely root cause and a suggested fix
 
 > [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): watch the real CI workflow names, branches, and failure patterns of a repo you own. No candidate repo yet? Use the setup sample.
+> [Bring your own repo](../../setup.md#bring-your-own-repo): watch the real CI workflow names, branches, and failure patterns of a repo you own.
 
 ## Steps
 
-1. Install [`gh aw`](https://github.com/github/gh-aw) (if not already done):
-   ```bash
-   curl -sL https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh | bash
-   ```
+1. Install and verify `gh aw` with the [GHAW setup guide](../../setup.md).
 
 2. Pull the production workflow:
    ```bash

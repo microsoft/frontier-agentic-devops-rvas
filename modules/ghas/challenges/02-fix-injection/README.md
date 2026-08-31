@@ -20,9 +20,8 @@ Juice Shop contains SQL and NoSQL injection vulnerabilities in its backend route
 - Record the approved prevention pattern in `modules/ghas/resources/ghas-governance-practice.template.md`
 - Use two independently reviewed fixes to confirm the pattern, then check for the same unsafe pattern in comparable query paths
 
-> [!IMPORTANT]
-> Use a real application if you have one; select real SQL, NoSQL, command, or template
-> injection alerts instead of Juice Shop's. Otherwise use the S00 Juice Shop fallback.
+> [!TIP]
+> Working with a real application? Select its own SQL, NoSQL, command, or template injection alerts.
 
 ## Copilot Tips
 

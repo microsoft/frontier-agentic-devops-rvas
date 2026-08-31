@@ -3,7 +3,7 @@ title: Advanced PR Automation & Rulesets
 module: ghec
 track: developer-flow
 difficulty: advanced
-duration_minutes: 300
+duration_minutes: 210
 prerequisites: []
 prerequisite_capabilities:
 - GitHub organization with org-owner rights

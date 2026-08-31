@@ -6,18 +6,10 @@
 |---|---|
 | Track | Admin/Governance |
 | Difficulty | Advanced |
-| Duration | ~3 hrs total, multi-session |
+| Duration | 105 min |
 | Minimum input | Authorized organization review scope, reviewer token, and customer evidence location |
 | App | none |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: an authorized `ghqr` organization scan, retained non-secret reports, corroborated findings, and a prioritized remediation backlog.
-- Safety boundary: the review is read-only by default. Any remediation requires separate customer approval.
-- Evidence: scan target, reviewer role, token boundary, `ghqr` version, reports, finding triage, corroboration, exceptions, and next decisions.
-- Owner: platform governance.
-- Next decision: approve a remediation pilot, request enterprise evidence, accept an exception, or schedule the next posture review.
 
 ## Prerequisites
 

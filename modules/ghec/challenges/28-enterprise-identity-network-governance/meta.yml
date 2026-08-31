@@ -3,7 +3,7 @@ title: Enterprise Identity & Network Governance
 module: ghec
 track: admin-governance
 difficulty: advanced
-duration_minutes: 180
+duration_minutes: 120
 prerequisites: []
 prerequisite_capabilities:
   - Enterprise owner access or an authorized enterprise-policy export

@@ -1,7 +1,7 @@
 # Activity 2-03: Issue Comment Commands
 
 Track: Repo Concierge (Intermediate 🟡)  
-Estimated time: 30 minutes  
+Estimated time: 75 minutes  
 Prerequisites: Complete at least 2 activities from Track 1
 
 ---
@@ -25,7 +25,7 @@ Slash commands let teammates run an agent when they need it. `/summarize` gives 
 ---
 
 > [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): point `slash-commands.md` at a repo you own and test `/summarize` on an issue with genuinely useful discussion history. No candidate repo yet? Use the setup sample.
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point `slash-commands.md` at a repo you own and test `/summarize` on an issue with genuinely useful discussion history.
 
 ---
 

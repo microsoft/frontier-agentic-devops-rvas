@@ -3,7 +3,7 @@ title: Next Feature Opportunities Agent
 module: ghaw
 track: production-patterns
 difficulty: advanced
-duration_minutes: 30
+duration_minutes: 75
 prerequisites:
   - ghaw-00
 prerequisite_capabilities:

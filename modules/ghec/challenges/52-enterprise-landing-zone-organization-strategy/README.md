@@ -6,15 +6,10 @@
 |---|---|
 | Track | Admin/Governance |
 | Difficulty | Advanced |
-| Duration | ~5 hrs, multi-session |
+| Duration | 225 min |
 | Minimum input | Enterprise owner access **or** authorized enterprise-policy export |
 | App | none |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: a topology map, a boundary decision, an org charter and intake/retirement process, a delegation/inheritance matrix, and a populated Governance Settings Register — not a new organization, migration, or production rollout.
-- Safety boundary: inspect and propose. Change nothing in production by default; a bounded pilot (for example, a single test-organization setting) proceeds only with explicit customer authorization. Setup creates no organizations, teams, repositories, or custom properties.
 
 ## Scope boundary
 

@@ -3,7 +3,7 @@ title: Enterprise & Organization 101
 module: ghec
 track: admin-governance
 difficulty: beginner
-duration_minutes: 180
+duration_minutes: 90
 prerequisites:
 - ghec-ch52
 prerequisite_capabilities:

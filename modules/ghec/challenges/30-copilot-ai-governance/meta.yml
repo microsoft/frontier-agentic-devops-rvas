@@ -3,7 +3,7 @@ title: Copilot & AI Governance
 module: ghec
 track: admin-governance
 difficulty: advanced
-duration_minutes: 240
+duration_minutes: 210
 prerequisites: []
 prerequisite_capabilities:
   - Enterprise owner, AI manager, or an authorized Enterprise AI Controls export

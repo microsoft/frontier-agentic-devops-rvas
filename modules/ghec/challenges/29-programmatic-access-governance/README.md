@@ -6,17 +6,10 @@
 |---|---|
 | Track | Admin & Governance |
 | Difficulty | Advanced |
-| Duration | ~3 hrs, multi-session |
+| Duration | 105 min |
 | Minimum input | Organization owner for inspection; enterprise owner or an authorized enterprise-policy export is optional for enterprise PAT policy |
 | App | none |
 | EMU compatible | yes — see the EMU and SCIM caveat below |
-
-## Delivery target
-
-- Delivery target: a programmatic-access inventory, effective-policy/source assessment, compatibility and migration or exception plan, review cadence, and an accountable decision.
-- Safety boundary: this is governance, not an integration or API-development session. Do not create, install, provision, or reconfigure an App.
-- Evidence: inventory snapshot, effective source level, owner and business purpose, permission/scope and repository reach, compatibility impact, exception or migration plan, policy decision, review cadence, and evidence links.
-- Owner: the organization owner accepts the organization decision; the enterprise owner accepts an enterprise PAT-policy decision when applicable.
 
 ## Prerequisites
 
@@ -28,7 +21,7 @@
 ## Scope and guardrails
 
 This activity inspects four distinct surfaces: OAuth App restrictions, installed
-GitHub App review, fine-grained PAT policy, and classic PAT policy.
+GitHub App review, fine-grained PAT policy, and classic PAT policy. It is governance, not integration work: do not create, install, provision, or reconfigure an App.
 
 Check whether `ghec-ch52` (Enterprise Landing Zone & Organization Strategy) has already established this customer's enterprise app-registration governance boundary and organization-scope decision. If so, reuse and cite its register entry as the starting scope for the inventory below instead of re-deriving it. If `ghec-ch52` has not been completed, define the inspection boundary independently in Part A and record that `ghec-ch52` was not available — apply the same rule wherever this activity references `ghec-ch52` below.
 

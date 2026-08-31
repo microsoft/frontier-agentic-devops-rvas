@@ -6,17 +6,10 @@
 |---|---|
 | Track | Automation & AI |
 | Difficulty | Advanced *(per-track ramp)* |
-| Duration | ~4 hrs total, multi-session |
+| Duration | 2 hr 30 min |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | no — the Copilot cloud agent is not available on EMU-owned repositories. Requires a non-EMU enterprise with the Copilot cloud agent policy enabled. N/A for pure GHEMU customers (see Prerequisites). |
-
-## Delivery target
-
-- Delivery target: an approved repository issue that the Copilot cloud agent attempts under review gates.
-- Safety boundary: enable policy, grant bypasses, and assign issues only with approval from the accountable Copilot, security, and repository owners. Human review and merge approval stay with a person, never the agent.
-- Evidence: the issue, draft pull request, session log, review decisions, and the approved-delegation record.
-- Owner: the repository owner accepts merge control; the Copilot owner accepts policy and cost.
 
 ## Prerequisites
 > ⚠️ Read this before starting — this activity has a hard prerequisite the others don't.
@@ -42,6 +35,8 @@ A GHEC customer wants engineers to delegate small, well-scoped bugs to the Copil
 > Default to an authorised customer repository issue that the Copilot cloud agent can safely attempt with review gates.
 >
 > Have a candidate? Use it everywhere this guide says `ghec-ch19-copilot-coding-agent`, and skip Setup below. Otherwise use the seeded sample below for validation only, then hand the validated operating model off to the customer owner.
+>
+> Human review and merge approval stay with a person, never the agent.
 
 ## Sample test repository or environment
 Skip if you brought your own repo/issue.
@@ -64,7 +59,6 @@ What setup creates (all artifacts namespaced `ghec-ch19-*`, idempotent, prefix-g
 - A printed Next steps block (including how to add Copilot as a bypass actor if you enable branch protection).
 
 ## Tasks
-> Throughout, `ghec-ch19-copilot-coding-agent` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Confirm eligibility
 1. Verify the policy. Confirm the org has the Copilot cloud agent enabled (Org Settings → Copilot → Policies) and that your user has a Copilot license.

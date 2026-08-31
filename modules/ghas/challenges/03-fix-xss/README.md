@@ -22,9 +22,8 @@ Encode output before rendering it, or use framework APIs that do so safely. Firs
 - Record the approved prevention pattern in `modules/ghas/resources/ghas-governance-practice.template.md`
 - Use two independently reviewed fixes to confirm the pattern, then check comparable rendering paths for repeat issues
 
-> [!IMPORTANT]
-> Use a real application if you have one; select real reflected/stored XSS or
-> output-encoding alerts instead of Juice Shop's. Otherwise use the S00 Juice Shop fallback.
+> [!TIP]
+> Working with a real application? Select its own reflected or stored XSS and output-encoding alerts.
 
 ## Copilot Tips
 

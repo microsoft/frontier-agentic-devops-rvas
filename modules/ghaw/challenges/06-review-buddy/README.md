@@ -1,7 +1,7 @@
 # Activity 2-02: Review Buddy
 
 Track: Repo Concierge (Intermediate 🟡)  
-Estimated time: 30 minutes  
+Estimated time: 75 minutes  
 Prerequisites: Complete at least 2 activities from Track 1
 
 ---
@@ -24,7 +24,7 @@ The workflow handles mechanical checks before a human review. Reviewers can spen
 ---
 
 > [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): point `review-buddy.md` at a repo you own and test it on a real or representative pull request. No candidate repo yet? Use the setup sample.
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point `review-buddy.md` at a repo you own and test it on a real or representative pull request.
 
 ---
 

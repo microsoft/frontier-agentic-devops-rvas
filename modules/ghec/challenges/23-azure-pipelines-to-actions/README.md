@@ -6,18 +6,10 @@
 |---|---|
 | Track | Migration |
 | Difficulty | Intermediate |
-| Duration | ~3 hrs |
+| Duration | ~150 min |
 | Minimum input | A GitHub repo + an Azure DevOps project with at least one Pipeline |
 | App | None |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: one approved pipeline converted into a working GitHub Actions workflow and validated with a real run.
-- Safety boundary: create workflows, secrets, or environments in a customer tenant only with owner approval; otherwise dry-run against a test environment and end with a cutover proposal.
-- Evidence: Importer audit and forecast reports, conversion output, validation runs, and the unresolved-items register.
-- Owner: the pipeline owner accepts the workflow; the platform owner accepts capacity, cost, and secret decisions.
-- Next decision: approve the first cutover window or hand over the proposal.
 
 ## Prerequisites
 

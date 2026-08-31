@@ -6,18 +6,10 @@
 |---|---|
 | Track | Admin/Governance |
 | Difficulty | Advanced |
-| Duration | ~4 hrs total, multi-session |
+| Duration | 105 min |
 | Minimum input | An org + org-owner token. |
 | App | Provisioned vendor access register repository (created by setup) |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: an access register and one vendor access review or offboarding proof.
-- Safety boundary: setup never invites or removes users and never changes org-wide collaborator settings. Those changes require explicit approval.
-- Evidence: request, approver, repository scope, permission, start/end dates, review and audit-log evidence, and offboarding result.
-- Owner: security operations, platform governance, or the vendor manager.
-- Next decision: remediate stale access, complete the next review, or approve settings rollout.
 
 ## Prerequisites
 

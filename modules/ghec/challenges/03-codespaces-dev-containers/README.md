@@ -6,18 +6,10 @@
 |---|---|
 | Track | Developer Flow |
 | Difficulty | Intermediate *(per-track ramp)* |
-| Duration | ~4–5 hrs total, multi-session |
+| Duration | ~3 hr, single session |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: a repository's committed dev-container configuration, Codespaces policy, and prebuild.
-- Safety boundary: create or change Codespaces configurations and billing-bearing resources only with owner approval; use a sample repository when approval is constrained.
-- Evidence: the committed `.devcontainer` configuration, policy settings, prebuild result, and cost/retention decision.
-- Owner: the repository maintainer and platform owner accept the configuration and operating limits.
-- Next decision: the owner authorises a production rollout or records the approved rollout proposal.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.

@@ -6,24 +6,17 @@
 |---|---|
 | Track | Security |
 | Difficulty | Advanced *(per-track ramp)* |
-| Duration | ~5 hrs total, multi-session |
+| Duration | 150 min |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | none *(identity & access configuration — no application repo)* |
 | EMU compatible | no *(organizations inside an Enterprise Managed Users enterprise authenticate at the enterprise level; org-level SAML SSO and org-level SCIM are not available to EMU orgs — use a non-EMU org)* |
-
-## Delivery target
-
-- Delivery target: the customer's approved SAML/SCIM configuration, IdP application, lifecycle runbook, and external-identity audit.
-- Safety boundary: disruptive identity changes proceed in the customer tenant only with the accountable identity and organisation owners' approval, a tested rollback, and an agreed change window; otherwise validate in the controlled test organisation and leave an approved rollout/cutover proposal.
-- Evidence: IdP settings, join/leave evidence, external-identity audit, rollback record, and risk decision.
-- Owner: the identity owner accepts the runbook; the organisation owner accepts enforcement and rollback accountability.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch14 --org <org>` (least-privilege; for this activity: `admin:org` + `read:org` + `scim`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - A test IdP you control. A free Microsoft Entra ID tenant (or an Okta developer org) is recommended — you'll register a SAML app and a SCIM provisioning connector against your test org. You can complete most tasks with a single IdP test app.
-- ⚠️ Identity is disruptive. Enabling enforced SAML on an org you depend on can lock out members who haven't linked. Use a dedicated test org (the provisioner creates supporting test members) and keep SSO in test/non-enforced mode until the final step.
+- ⚠️ Identity is disruptive. Enabling enforced SAML on an org you depend on can lock out members who haven't linked. Use a dedicated test org (the provisioner creates supporting test members) and keep SSO in test/non-enforced mode until the final step. In a customer tenant, enforce only with the identity and organisation owners' approval, a tested rollback, and an agreed change window.
 
 ## What you will deliver
 - Explain the three GHEC auth models — personal accounts, SAML-restricted orgs/enterprises, and EMU + SCIM — and where org-level SSO fits.
@@ -66,7 +59,6 @@ Setup creates these resources (all names use the `ghec-ch14-*` prefix, and teard
 - A printed Next steps block, including the exact org Settings → Authentication security URL and the SCIM API base.
 
 ## Tasks
-> Throughout, `ghec-ch14-identity-runbook` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Identity models & IdP app
 1. Map the three auth models. In the runbook, write one paragraph each on personal accounts, SAML-restricted org, and EMU+SCIM — when each is appropriate. (Cite the IAM fundamentals doc in References.) Check whether `ghec-ch52`'s identity-model decision is already established for this customer; if so, cite it here instead of re-deriving it, and if not, complete this mapping independently and record that `ghec-ch52` was not available.

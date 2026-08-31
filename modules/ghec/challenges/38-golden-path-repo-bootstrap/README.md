@@ -6,17 +6,10 @@
 |---|---|
 | Track | Admin/Governance |
 | Difficulty | Advanced |
-| Duration | ~4 hrs total, multi-session |
+| Duration | 90 min |
 | Minimum input | An org + an org-owner token. |
 | App | Provisioned template candidate and validation repository |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: a customer-owned template or bootstrap repository and one validated repository created from it.
-- Safety boundary: organization-wide defaults, member repository creation policy, and required rules need explicit approval. Setup creates only namespaced sample repositories.
-- Evidence: baseline checklist, template URL, validation snapshots, exceptions, owner, and next rollout cohort.
-- Owner: developer experience or platform governance.
 
 ## Prerequisites
 

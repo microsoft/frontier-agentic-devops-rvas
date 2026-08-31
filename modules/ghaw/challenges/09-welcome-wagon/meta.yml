@@ -3,7 +3,7 @@ title: Welcome Wagon
 module: ghaw
 track: repo-concierge
 difficulty: intermediate
-duration_minutes: 30
+duration_minutes: 60
 prerequisites:
   - ghaw-00
 prerequisite_capabilities:

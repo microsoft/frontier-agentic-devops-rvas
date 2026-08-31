@@ -6,17 +6,10 @@
 |---|---|
 | Track | Security |
 | Difficulty | Intermediate |
-| Duration | ~5 hrs total, multi-session |
+| Duration | 120 min |
 | Minimum input | An authorized customer repository in a GitHub Team or Enterprise Cloud organization with Code Quality available |
 | App | Customer repository |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: an authorized repository's Code Quality configuration, CI coverage upload, PR feedback, threshold decision, and rollout evidence.
-- Safety boundary: enable Code Quality and change workflow permissions or rulesets only with the repository or organization owner's approval. Use a controlled pilot repository if production rollout is not yet authorized.
-- Evidence: initial Code Health scores, workflow and coverage evidence, pull-request finding decision, threshold decision, and organization pilot proposal.
-- Owner: the repository owner owns the configuration; engineering and platform owners agree the triage and rollout cadence.
 
 ## Prerequisites
 

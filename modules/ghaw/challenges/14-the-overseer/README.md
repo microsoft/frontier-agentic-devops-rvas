@@ -2,7 +2,7 @@
 
 Track: Continuous Intelligence (Advanced)  
 Difficulty: 🔴 Advanced  
-Estimated time: 30 minutes  
+Estimated time: 75 minutes  
 Prerequisites: Track 2, completed ≥3 activities
 
 ---
@@ -23,7 +23,7 @@ The Overseer monitors other agentic workflows: are they running successfully, ho
 ---
 
 > [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): point the health monitor at a repo you own whose agentic workflow runs, failure patterns, and token history matter to the team. No candidate repo yet? Use the setup sample.
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point the health monitor at a repo you own whose agentic workflow runs, failure patterns, and token history matter to the team.
 
 ## Activity
 

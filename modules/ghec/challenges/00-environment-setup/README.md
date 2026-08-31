@@ -6,18 +6,10 @@
 |---|---|
 | Track | Developer Flow |
 | Difficulty | Beginner |
-| Duration | ~25 min |
+| Duration | ~30 min, single session |
 | Minimum input | A GitHub account + approved access to the customer delivery organisation |
 | App | none |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: the approved organization, repository, and access path — verification only, no configuration change.
-- Safety boundary: verify only approved access; do not create, change, or elevate tenant resources.
-- Evidence: verification summary, selected first target, and any access blockers.
-- Owner: the customer owner confirms the target; the delivery team hands over verified access.
-- Next decision: the owner authorises and schedules the first implementation guide.
 
 ## Objectives
 

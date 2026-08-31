@@ -6,17 +6,10 @@
 |---|---|
 | Track | Security |
 | Difficulty | Intermediate *(per-track ramp)* |
-| Duration | ~5 hrs total, multi-session |
+| Duration | 120 min |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | juice-shop *(imported at pinned ref `v20.0.0`; see `docs/EXTERNAL-REPOS.md`)* |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: an approved application repository's CodeQL workflow, alert handling, and PR gate.
-- Safety boundary: enable scanning and enforce merge gates in the customer tenant only when the repository/security owner authorises it; otherwise use Juice Shop as a sample test repository and leave an approved rollout proposal.
-- Evidence: the workflow, alert-triage record, Autofix review evidence, and required-check decision.
-- Owner: the application owner accepts remediation; the security owner accepts the triage and gate policy.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -58,7 +51,6 @@ Setup creates these resources (all names use the `ghec-ch12-*` prefix, and teard
 - A printed Next steps block.
 
 ## Tasks
-> Throughout, `ghec-ch12-juice-shop` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Default setup
 1. In `ghec-ch12-juice-shop` → Settings → Code security → Code scanning, choose Set up → Default. Confirm it detects JavaScript/TypeScript as the language.

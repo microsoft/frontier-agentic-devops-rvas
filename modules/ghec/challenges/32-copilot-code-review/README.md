@@ -6,16 +6,10 @@
 |---|---|
 | Track | Automation & AI |
 | Difficulty | Intermediate |
-| Duration | ~3 hrs, multi-session |
+| Duration | 3 hr |
 | Minimum input | An organization, a named repository owner, and effective Copilot code review availability |
 | App | none |
 | EMU compatible | yes — confirm the effective policy and repository eligibility |
-
-## Delivery target
-
-- Delivery target: an approved review scope, manual-review evidence, an automatic-review decision, and a rollback-ready operating record.
-- Safety boundary: inspect first. Enable an automatic-review ruleset only through a customer-authorized, bounded pilot.
-- Owner: the repository owner accepts the review configuration; engineering leads and `CODEOWNERS` reviewers retain code-quality and merge responsibility.
 
 > [!IMPORTANT]
 > Copilot leaves a **Comment** review. It does not approve, request changes, satisfy a required approval, or block a merge. Human reviewers and existing `CODEOWNERS` / ruleset controls remain the merge decision.

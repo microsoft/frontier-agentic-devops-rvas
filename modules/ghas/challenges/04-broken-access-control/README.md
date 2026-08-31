@@ -21,10 +21,8 @@ For every operation on user-owned or role-restricted data, verify the requesting
 - Record the approved prevention pattern in `modules/ghas/resources/ghas-governance-practice.template.md`
 - Use two independently reviewed fixes to confirm the pattern, then check comparable endpoints for repeat issues
 
-> [!IMPORTANT]
-> Use a real application if you have one; select real authorization, IDOR,
-> missing-middleware, or role-enforcement findings instead of Juice Shop's. Otherwise
-> use the S00 Juice Shop fallback.
+> [!TIP]
+> Working with a real application? Select its own authorization, IDOR, missing-middleware, or role-enforcement findings.
 
 ## Copilot Tips
 

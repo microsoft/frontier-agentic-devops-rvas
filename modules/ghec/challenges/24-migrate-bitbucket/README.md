@@ -6,18 +6,10 @@
 |---|---|
 | Track | Migration |
 | Difficulty | Advanced |
-| Duration | ~4 hrs |
+| Duration | ~195 min |
 | Minimum input | A GitHub org with org-owner rights and a classic GitHub PAT |
 | App | none |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: one approved Bitbucket repository migrated through the Server/Data Center path (`gh bbs2gh`), or the source-history-only Cloud fallback.
-- Safety boundary: run migrations only during an agreed change window with source writes frozen. Without an approved repository, stop and hand over the fidelity gaps.
-- Evidence: inventory, script and queue output, migration logs, validation results, and the fidelity decision.
-- Owner: the migration owner accepts cutover; repository and platform owners accept retained gaps.
-- Next decision: authorise the migration path and cutover window, or hand over the proposal.
 
 ## Prerequisites
 
@@ -36,7 +28,7 @@ Access and tooling you need:
 Your migration team has two Bitbucket populations. The production estate runs Bitbucket Server/Data Center and needs pull request history in GitHub. A smaller team uses Bitbucket Cloud, which has no first-party metadata migration path, so you must still preserve Git source and history and clearly communicate what will be lost.
 
 > [!IMPORTANT]
-> Use an approved Bitbucket Server/Data Center or Bitbucket Cloud repository as the source and target throughout this guide. Without one, record the access constraint and next action instead of migrating an unapproved example.
+> Use an approved Bitbucket Server/Data Center or Bitbucket Cloud repository as the source and target throughout this guide. Run the migration only in an agreed change window with source writes frozen. Without an approved repository, record the access constraint and next action instead of migrating an unapproved example.
 
 ## Important fidelity decision
 

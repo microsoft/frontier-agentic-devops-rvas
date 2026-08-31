@@ -6,17 +6,10 @@
 |---|---|
 | Track | Security |
 | Difficulty | Advanced |
-| Duration | ~4 hrs total, multi-session |
+| Duration | 90 min |
 | Minimum input | An org + repository administrator rights. |
 | App | Provisioned license compliance repository (created by setup) |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: an approved repository or cohort with dependency manifests and compliance evidence.
-- Safety boundary: enterprise or organization license policies and required checks affect many teams. Setup does not change them; enforce policy only with owner and legal approval.
-- Evidence: dependency inventory, dependency-review results, exception decisions, expiry dates, remediation owners, and policy rollout decision.
-- Owner: the open source program, legal, security, or platform team.
 
 ## Prerequisites
 

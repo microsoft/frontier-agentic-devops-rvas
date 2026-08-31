@@ -1,9 +1,5 @@
 # Workflow Templates
 
-The Azure SRE Agent track does not require a custom GitHub Actions deployment workflow. Use the official Microsoft starter lab for live delivery:
-
-```text
-https://github.com/microsoft/sre-agent/tree/main/labs/starter-lab
-```
-
-These legacy references remain inactive under `modules/sre-agent/resources/workflows/`.
+The Azure SRE Agent track does not need a custom GitHub Actions deployment workflow.
+The files here are inactive legacy references; live delivery uses the Microsoft Grubify
+starter lab (see [resources README](../README.md)).

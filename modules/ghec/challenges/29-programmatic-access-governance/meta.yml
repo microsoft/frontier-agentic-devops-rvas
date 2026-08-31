@@ -3,7 +3,7 @@ title: Programmatic Access Governance
 module: ghec
 track: admin-governance
 difficulty: advanced
-duration_minutes: 180
+duration_minutes: 105
 prerequisites: []
 prerequisite_capabilities:
   - GitHub Enterprise Cloud organization with organization-owner access for inspection

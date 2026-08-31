@@ -22,9 +22,8 @@ Both issues need an accountable response. Record the owner, validation, accepted
 - Validate secret and dependency changes through your pull request checks, annotations, and push protection results
 - Apply the same expectation to human- and agent-authored changes: no bypass or exception is complete without an accountable human owner and evidence
 
-> [!IMPORTANT]
-> Use a real application if you have one; review its own secret scanning and
-> Dependabot alerts instead of Juice Shop's. Otherwise use the S00 Juice Shop fallback.
+> [!TIP]
+> Working with a real application? Review its own secret scanning and Dependabot alerts.
 
 ## Learning Resources
 

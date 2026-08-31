@@ -3,7 +3,7 @@ title: Copilot Automations
 module: ghec
 track: automation-ai
 difficulty: advanced
-duration_minutes: 240
+duration_minutes: 225
 prerequisites: []
 prerequisite_capabilities:
   - A customer-approved private or internal repository with a named repository owner

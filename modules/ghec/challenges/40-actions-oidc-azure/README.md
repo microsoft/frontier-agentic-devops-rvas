@@ -6,17 +6,10 @@
 |---|---|
 | Track | Automation & AI |
 | Difficulty | Advanced |
-| Duration | ~4 hrs total, multi-session |
+| Duration | 2 hr 45 min |
 | Minimum input | A GitHub repo + Azure permissions to configure a federated credential. |
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: one workflow that authenticates to Azure with OIDC and least-privilege Azure RBAC.
-- Safety boundary: changes to Azure identities, federated credentials, and role assignments require explicit approval. Setup does not make them.
-- Evidence: subject-claim design, Azure credential evidence, workflow run URL, the failed negative test, and removed secret names.
-- Owner: cloud platform and GitHub platform jointly own the trust design.
 
 ## Prerequisites
 

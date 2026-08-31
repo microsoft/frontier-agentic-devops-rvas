@@ -1,7 +1,7 @@
 # Next Feature Opportunities Agent
 
 Track: Production Patterns (Advanced)
-Estimated time: 30 minutes
+Estimated time: 75 minutes
 Tier: Core
 
 ---
@@ -16,7 +16,7 @@ The workflow has read-only access. `safe-outputs` creates a reviewable issue,
 and the team decides whether a recommendation becomes planned work.
 
 > [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): pick one where code, documentation, and the issue tracker together represent a product a team actively maintains, and confirm with the product owner that a recommendation issue is useful input to backlog refinement. No candidate repo yet? Use the setup sample to learn the mechanics.
+> [Bring your own repo](../../setup.md#bring-your-own-repo): pick one where code, documentation, and the issue tracker together represent a product a team actively maintains, and confirm with the product owner that a recommendation issue is useful input to backlog refinement.
 
 ## What you'll do
 

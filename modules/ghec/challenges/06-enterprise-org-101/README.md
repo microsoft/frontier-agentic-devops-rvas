@@ -6,21 +6,13 @@
 |---|---|
 | Track | Admin/Governance |
 | Difficulty | Foundational *(per-track ramp)* |
-| Duration | ~3–4 hrs total, multi-session |
+| Duration | 90 min |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |
 
-## Delivery target
-
-- Delivery target: approved member-privilege, repository-creation, visibility, security-default, and workflow-permission settings.
-- Safety boundary: governance changes proceed in the customer organisation only when the accountable organisation owner approves them; otherwise produce an approved rollout proposal and risk decision from the controlled sample.
-- Evidence: retain before/after API snapshots and any EMU constraints.
-- Owner: the customer organisation owner accepts the baseline and assigns ongoing policy ownership.
-- Next decision: approve the change window and apply the agreed baseline, or hand over the signed rollout proposal.
-
 ## Prerequisites
-- Recommended: Ch52 (Enterprise Landing Zone & Organization Strategy) completed first — its topology map, delegated-admin model, and settings register are the preferred source for this activity's enterprise-level checks in Part F (see the closing note); otherwise this activity's organization-level baseline stands on its own.
+- Recommended: Ch52 (Enterprise Landing Zone & Organization Strategy) completed first — its topology map, delegated-admin model, and settings register are the preferred source for this activity's enterprise-level checks in Part F; otherwise this activity's organization-level baseline stands on its own.
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch06 --org <org>` (least-privilege; for this activity: `admin:org` + `repo` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
@@ -33,7 +25,7 @@
 - Manage members vs outside collaborators and understand how each gets access.
 - Set organization-wide security defaults (2FA awareness, default workflow permissions, dependency-graph defaults).
 - Inspect and verify every setting from the org-settings REST API (`gh api /orgs/<org>`) so configuration is auditable, not just clicked.
-- Distinguish the enterprise-level policy decision from this organization's implementation, and record which one you inspected — see "Enterprise vs. organization control" below.
+- Distinguish the enterprise-level policy decision from this organization's implementation, and record which one you inspected.
 
 ## Scenario
 You're the first platform admin hired at a fast-growing GHEC customer. The organization was created in a hurry: defaults are wide open, public repo creation may be allowed in standard GHEC or platform-blocked in EMU, base permissions are too generous, and nobody can say what the current policy actually is. Leadership wants a documented, defensible baseline — least-privilege member access, controlled repository creation, sensible security defaults — and they want it verifiable from the API, not from screenshots. Your job is to bring order to the org and prove it.
@@ -62,7 +54,6 @@ Setup creates these resources (all names use the `ghec-ch06-*` prefix, and teard
 - A printed Next steps block telling you where to start.
 
 ## Tasks
-> Throughout, `ghec-ch06-public-sample` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Read the baseline (before you change anything)
 1. Snapshot the org via the API. Run `gh api /orgs/<org> --jq '{default_repository_permission, members_can_create_repositories, members_can_create_public_repositories, members_can_create_private_repositories, members_can_create_internal_repositories, members_can_delete_repositories, members_can_fork_private_repositories, web_commit_signoff_required, two_factor_requirement_enabled}'` and `gh api /orgs/<org>/actions/permissions/workflow`. Save both outputs — this is your "before."
@@ -90,7 +81,7 @@ Setup creates these resources (all names use the `ghec-ch06-*` prefix, and teard
 
 ### Part F — Default-branch policy (enterprise vs. organization)
 15. Inspect the effective **organization** default-branch policy for new repositories through the API or organization settings. This is the org-level implementation, not the enterprise-level decision — keep the two distinct in your notes.
-16. Source the enterprise-level default-branch and member-privilege decision: cite Ch52's landing-zone topology/delegation register entry, or an authorized enterprise export/inspection; if neither is available, record `enterprise policy not available / not applicable` in your evidence. Don't infer enterprise-wide policy from this one organization — see the closing note.
+16. Source the enterprise-level default-branch and member-privilege decision: cite Ch52's landing-zone topology/delegation register entry, or an authorized enterprise export/inspection; if neither is available, record `enterprise policy not available / not applicable` in your evidence. Don't infer enterprise-wide policy from this one organization.
 
 ## Reference links
 - About organizations — https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations

@@ -3,7 +3,7 @@ title: Fix Broken Access Control
 module: ghas
 track: security
 difficulty: intermediate
-duration_minutes: 90
+duration_minutes: 105
 prerequisites:
   - ghas-01
 prerequisite_capabilities:

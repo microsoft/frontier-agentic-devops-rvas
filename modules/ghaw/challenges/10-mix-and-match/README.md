@@ -1,7 +1,7 @@
 # Activity 2-06: Mix & Match
 
 Track: Repo Concierge (Intermediate 🟡)  
-Estimated time: 30 minutes  
+Estimated time: 105 minutes  
 Prerequisites: Activity 00, at least 2 Track 1 activities, Activity 2-01
 
 ---
@@ -25,7 +25,7 @@ Teams often repeat the same prompt rules across workflows. `imports:` keeps thos
 ---
 
 > [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): point `10-mix-and-match.md` at a repo you own and write `lib/repo-stats-helper.md` around its real issues, PRs, and reporting tone. No candidate repo yet? Use the setup sample.
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point `10-mix-and-match.md` at a repo you own and write `lib/repo-stats-helper.md` around its real issues, PRs, and reporting tone.
 
 ---
 

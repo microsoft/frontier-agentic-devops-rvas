@@ -6,18 +6,10 @@
 |---|---|
 | Track | Admin/Governance |
 | Difficulty | Advanced |
-| Duration | ~4 hrs total, multi-session |
+| Duration | 165 min |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | Provisioned intake repository (created by setup) |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: organization member-creation policy and a repository intake workflow.
-- Safety boundary: disabling member repository creation is an org-wide change. Apply it only with explicit org-owner approval. Otherwise, produce a signed rollout proposal and prove the sample workflow.
-- Evidence: policy snapshots, issue-form schema, workflow identity, approval-label event, created repository URL, and failure handling.
-- Owner: platform governance.
-- Next decision: approve production rollout, add baseline controls, or onboard the first real requester cohort.
 
 ## Prerequisites
 
@@ -71,8 +63,6 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 - A printed organization repository-creation policy snapshot.
 
 ## Tasks
-
-> Throughout, `ghec-ch36-repo-intake` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Inspect and decide the policy
 

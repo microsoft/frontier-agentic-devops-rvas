@@ -6,17 +6,10 @@
 |---|---|
 | Track | Security |
 | Difficulty | Advanced *(per-track ramp)* |
-| Duration | ~5 hrs total, multi-session |
+| Duration | 120 min |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | juice-shop *(imported at pinned ref `v20.0.0`; see `docs/EXTERNAL-REPOS.md`)* |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: approved organisation security configuration, campaign scope, guidance, due date, and remediation report.
-- Safety boundary: apply security configurations and launch campaigns in the customer tenant when the security owner authorises them; otherwise use the fallback corpus in a sample test environment and leave an approved campaign proposal.
-- Evidence: coverage/risk snapshots, configuration, campaign record, burn-down, and residual-risk report.
-- Owner: the security programme owner accepts campaign governance; repository owners accept their remediation actions.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -58,7 +51,6 @@ Setup creates these resources (all names use the `ghec-ch15-*` prefix, and teard
 - A printed Next steps block pointing at the org Security tab (overview, configurations, campaigns).
 
 ## Tasks
-> Throughout, `ghec-ch15-juice-shop` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Generate the alert corpus
 1. Open `ghec-ch15-juice-shop` → Security. Ensure code scanning (CodeQL), Dependabot, and secret scanning are enabled (enable any that aren't). Wait for the initial scans to complete so the org has a real alert volume to manage.

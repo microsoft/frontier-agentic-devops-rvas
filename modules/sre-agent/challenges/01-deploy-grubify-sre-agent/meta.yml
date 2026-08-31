@@ -3,7 +3,7 @@ title: Deploy Grubify and Create the Azure SRE Agent
 module: sre-agent
 track: azure-sre-agent
 difficulty: intermediate
-duration_minutes: 75
+duration_minutes: 60
 prerequisites:
   - sre-agent-00
 prerequisite_capabilities:

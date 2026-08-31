@@ -3,7 +3,7 @@ title: Organization Label Standards
 module: ghec
 track: admin-governance
 difficulty: intermediate
-duration_minutes: 180
+duration_minutes: 90
 prerequisites: []
 prerequisite_capabilities:
 - GitHub organization with org-owner rights

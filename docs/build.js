@@ -259,7 +259,7 @@ function rewriteResourceLinksForPages(text, moduleId) {
     `$1${moduleResources}`,
   ).replace(
     /(\]\()(?:\.\.\/)+setup\.md/g,
-    '$1resources/ghas/setup.md',
+    `$1${moduleResources}setup.md`,
   ).replace(
     /(\]\()(?:\.\.\/)([^/)]+)\/README\.md/g,
     (_match, prefix, slug) => {

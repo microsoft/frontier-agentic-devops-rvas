@@ -6,17 +6,10 @@
 |---|---|
 | Track | Automation & AI |
 | Difficulty | Advanced *(per-track ramp)* |
-| Duration | ~5–6 hrs total, multi-session |
+| Duration | 3 hr 30 min |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: an approved organisation runner group, selected repositories, runner-host design, workflow labels, and hardening controls.
-- Safety boundary: register and expose runners in the customer tenant only with platform and security owner approval and an agreed host risk model; otherwise use a disposable test environment.
-- Evidence: runner-group scope, host hardening checklist, workflow evidence, egress decision, and runner-type decision matrix.
-- Owner: the platform owner accepts host operations; repository owners accept runner use and fork pull-request boundaries.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -61,7 +54,6 @@ What setup creates (all artifacts namespaced `ghec-ch18-*`, idempotent, prefix-g
 - A printed Next steps block telling you where to start.
 
 ## Tasks
-> Throughout, `ghec-ch18-self-hosted-runners` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Create an org runner group
 1. Create a runner group scoped to your org: Org Settings → Actions → Runner groups → New, name it `ghec-ch18-group`. (Or by API: `gh api orgs/<org>/actions/runner-groups -f name='ghec-ch18-group' -f visibility='selected'`.)

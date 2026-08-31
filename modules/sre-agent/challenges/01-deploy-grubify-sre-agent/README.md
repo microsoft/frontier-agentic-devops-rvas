@@ -15,7 +15,7 @@ Start with Azure; GitHub is optional. The SRE Agent must be able to read Azure r
 - Explain what the agent can investigate before source code is connected.
 
 > [!TIP]
-> **Bring your own service:** connect Azure SRE Agent to a service your team will operate after the session, wherever this guide references Grubify. It must be deployed, observable, and approved for agent access to the resource group, logs, metrics, traces, alerts, and knowledge sources. No suitable service? Deploy Grubify as the practice target.
+> **Bring your own service:** connect Azure SRE Agent to a service your team will operate after the session, wherever this guide references Grubify. It must be deployed, observable, and approved for agent access to the resource group, logs, metrics, traces, alerts, and knowledge sources.
 
 ## Deploy
 

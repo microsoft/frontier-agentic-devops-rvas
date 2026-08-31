@@ -6,17 +6,10 @@
 |---|---|
 | Track | Admin & Governance |
 | Difficulty | Advanced |
-| Duration | ~4 hrs, multi-session |
+| Duration | 210 min |
 | Minimum input | Enterprise owner access, or an authorized export from Enterprise AI Controls; inspect Copilot Business or Enterprise availability |
 | App | none |
 | EMU compatible | yes — assess features and constraints; no agent execution is required |
-
-## Delivery target
-
-- Delivery target: verified effective inheritance, named owners, review cadence, exceptions, and evidence for the AI-control surfaces below.
-- Safety boundary: inspect without changing settings by default. One narrowly scoped policy test is optional and requires customer approval. Do not provision an app, assign a seat, install an agent, configure an MCP server, or start an agent session for this activity.
-- Evidence: dated Enterprise AI Controls and organization-policy exports, seat/offboarding evidence, policy and risk decisions, and the MCP configuration inventory.
-- Owner: the enterprise AI-controls owner accepts the baseline; identity, legal/privacy, security, procurement, and organization owners accept their assigned decisions and cadence.
 
 ## Prerequisites
 
@@ -25,7 +18,7 @@
 - A named customer enterprise AI-controls owner, identity/offboarding owner, security/privacy owner, procurement or third-party-risk owner, and organization-policy owner.
 
 > [!IMPORTANT]
-> This is an **AI governance** activity, not end-user Copilot training. It does not teach Copilot use, coding-agent use, or MCP use. It inspects policy and proposes controls only.
+> This is an **AI governance** activity, not end-user Copilot training. It does not teach Copilot use, coding-agent use, or MCP use. It inspects policy and proposes controls only: do not assign a seat, install an agent, configure an MCP server, or start an agent session here. One narrowly scoped policy test is optional and needs customer approval.
 
 ## Scope boundary
 

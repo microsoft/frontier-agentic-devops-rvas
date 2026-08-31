@@ -1,5 +1,5 @@
 Track: Production Patterns (Advanced 🟣)
-Estimated time: 30 minutes
+Estimated time: 60 minutes
 Tier: Bonus
 
 ---
@@ -18,14 +18,11 @@ Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/git
 - Each PR is intentionally small (one file, one concern)
 
 > [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): target the README, contributing guide, or runbook of a repo you own, with your own preservation rules. No candidate repo yet? Use the setup sample.
+> [Bring your own repo](../../setup.md#bring-your-own-repo): target the README, contributing guide, or runbook of a repo you own, with your own preservation rules.
 
 ## Steps
 
-1. Install [`gh aw`](https://github.com/github/gh-aw) (if not already done):
-   ```bash
-   curl -sL https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh | bash
-   ```
+1. Install and verify `gh aw` with the [GHAW setup guide](../../setup.md).
 
 2. Pull the production workflow:
    ```bash

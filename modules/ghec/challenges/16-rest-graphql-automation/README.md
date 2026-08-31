@@ -6,17 +6,10 @@
 |---|---|
 | Track | Automation & AI |
 | Difficulty | Foundational *(per-track ramp)* |
-| Duration | ~3–4 hrs total, multi-session |
+| Duration | 2 hr 15 min |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | Provisioned starter repository (created by setup) |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: an approved repository or organisation automation script, its API scope, and its operational runbook.
-- Safety boundary: run write operations against customer resources only with the accountable owner's approval; use the seeded repository to validate reconciliation and rate-limit behaviour when access is constrained.
-- Evidence: the source-controlled script, API output, rate-limit handling, idempotency evidence, and runbook.
-- Owner: the platform or repository owner accepts the script, permissions, schedule, and failure handling.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -65,7 +58,6 @@ Setup creates these resources (all names use the `ghec-ch16-*` prefix, and teard
 - A printed Next steps block telling you where to start.
 
 ## Tasks
-> Throughout, `ghec-ch16-rest-graphql-automation` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — REST reads
 1. Authenticate and confirm identity. Run `gh api user --jq '.login'` and `gh api orgs/<org> --jq '.login'` to prove the token reaches the org.

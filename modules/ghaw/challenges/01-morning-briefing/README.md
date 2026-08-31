@@ -2,7 +2,7 @@
 
 Track: Track 1 — Hello, Agent  
 Difficulty: 🟢 Beginner  
-Estimated time: 30 minutes  
+Estimated time: 60 minutes  
 Prerequisites: Activity 00 — Setup & Hello, Agent
 
 ---
@@ -26,7 +26,7 @@ This can replace the manual status check before standup. Read the generated brie
 ---
 
 > [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): point `morning-briefing.md` at a repo you own and use its real backlog and PR activity. No candidate repo yet? Use the setup sample.
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point `morning-briefing.md` at a repo you own and use its real backlog and PR activity.
 
 ---
 

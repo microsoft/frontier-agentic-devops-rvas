@@ -6,17 +6,10 @@
 |---|---|
 | Track | Automation & AI |
 | Difficulty | Advanced |
-| Duration | ~4 hrs total, multi-session |
+| Duration | 2 hr 30 min |
 | Minimum input | An org + permission to manage repository workflows and rulesets. |
 | App | Provisioned workflow library and consumer repositories |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: one reusable workflow library and one authorized consumer cohort with a required gate.
-- Safety boundary: organization rulesets and required-workflow controls change only after owner approval, and only for the approved cohort.
-- Evidence: reusable workflow version, pinned-action review, consumer and required-gate evidence, and exceptions.
-- Owner: developer experience or platform engineering.
 
 ## Prerequisites
 

@@ -6,17 +6,10 @@
 |---|---|
 | Track | Automation & AI |
 | Difficulty | Intermediate |
-| Duration | ~3 hrs total, multi-session |
+| Duration | 2 hr 15 min |
 | Minimum input | An org + package and repository admin rights. |
 | App | Provisioned container sample repository |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: one package namespace with approved access, visibility, metadata, and retention decisions.
-- Safety boundary: package visibility, deletion, restore, and team-access changes require explicit approval.
-- Evidence: package owner, source repository, visibility, access grants, retention rule, provenance, and cleanup decision.
-- Owner: platform engineering or the supply-chain owner.
 
 ## Prerequisites
 

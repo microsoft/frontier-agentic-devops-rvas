@@ -1,7 +1,7 @@
 # Activity 2-05: Welcome Wagon
 
 Track: Repo Concierge (Intermediate 🟡)  
-Estimated time: 30 minutes  
+Estimated time: 60 minutes  
 Prerequisites: Complete at least 2 activities from Track 1
 
 ---
@@ -25,7 +25,7 @@ New contributors may not know the project's process. A short welcome can set exp
 ---
 
 > [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): point `welcome-wagon.md` at a repo you own and use its real CONTRIBUTING, code of conduct, and issue/support links. No candidate repo yet? Use the setup sample.
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point `welcome-wagon.md` at a repo you own and use its real CONTRIBUTING, code of conduct, and issue/support links.
 
 ---
 

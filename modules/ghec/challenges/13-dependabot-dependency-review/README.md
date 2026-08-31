@@ -6,17 +6,10 @@
 |---|---|
 | Track | Security |
 | Difficulty | Intermediate *(per-track ramp)* |
-| Duration | ~4 hrs total, multi-session |
+| Duration | 105 min |
 | Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
 | App | juice-shop *(imported at pinned ref `v20.0.0`; see `docs/EXTERNAL-REPOS.md`)* |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: an approved application repository's dependency graph, Dependabot configuration, and dependency-review gate.
-- Safety boundary: enable security features and merge dependency updates in the customer tenant only with repository/security-owner approval; use Juice Shop as a sample test repository when constrained.
-- Evidence: SBOM, alert decisions, `dependabot.yml`, review workflow, and merged-update evidence.
-- Owner: the application owner owns updates; the security owner owns alert policy and escalation.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -58,7 +51,6 @@ Setup creates these resources (all names use the `ghec-ch13-*` prefix, and teard
 - A printed Next steps block.
 
 ## Tasks
-> Throughout, `ghec-ch13-juice-shop` is the fallback sample. If you brought your own artifact, substitute its name in every command and use your real history, teams, settings, or data as the material to work from.
 
 ### Part A — Dependency graph & SBOM
 1. In `ghec-ch13-juice-shop` → Settings → Code security, confirm Dependency graph is on (default on public repos), then open Insights → Dependency graph → Dependencies and explore the resolved tree.

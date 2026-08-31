@@ -3,7 +3,7 @@ title: LFS and Monorepo Governance
 module: ghec
 track: developer-flow
 difficulty: advanced
-duration_minutes: 240
+duration_minutes: 120
 prerequisites: []
 prerequisite_capabilities:
 - GitHub organization with repository administrator rights

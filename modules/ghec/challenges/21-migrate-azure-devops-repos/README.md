@@ -6,18 +6,10 @@
 |---|---|
 | Track | Migration |
 | Difficulty | Intermediate *(per-track ramp)* |
-| Duration | ~4 hrs total, multi-session |
+| Duration | ~150 min |
 | Minimum input | A GitHub org where you are org owner, plus an Azure DevOps Services org with a Git repo that has PR history |
 | App | None |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: one approved pilot repository, its GitHub destination, and the cutover plan.
-- Safety boundary: migrate only during an approved change window with source writes frozen. Without an approved repository, stop at `--queue-only` validation.
-- Evidence: inventory, migration ID and logs, validation results, mannequin plan, and gap backlog.
-- Owner: the migration owner accepts cutover; repository and Boards/Pipelines owners accept follow-up work.
-- Next decision: approve the pilot cutover or hand over the cutover proposal.
 
 ## Prerequisites
 
@@ -41,7 +33,7 @@ Access and tools you need:
 - Build a follow-up backlog for Azure Boards and Azure Pipelines work that GEI does not migrate.
 
 > [!IMPORTANT]
-> Pick a pilot repository that belongs to a real team and has at least one pull request. A small repo is fine: migration timing is driven mainly by pull request count, not Git repository size.
+> Pick a pilot repository that belongs to a real team and has at least one pull request. A small repo is fine: migration timing is driven mainly by pull request count, not Git repository size. Migrate only in an approved change window with source writes frozen; without an approved repository, stop at `--queue-only` validation.
 >
 > Set these before you start:
 >

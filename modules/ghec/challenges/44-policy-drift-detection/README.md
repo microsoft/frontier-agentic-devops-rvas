@@ -6,17 +6,10 @@
 |---|---|
 | Track | Admin/Governance |
 | Difficulty | Advanced |
-| Duration | ~4 hrs total, multi-session |
+| Duration | 105 min |
 | Minimum input | An org + an org-owner token. |
 | App | Provisioned baseline and drifted sample repositories |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: an approved baseline and a drift report for a repository cohort.
-- Safety boundary: setup creates sample repositories only. Organization rulesets, default permissions, and other high-impact controls require explicit approval.
-- Evidence: baseline contract, drift output, remediation or exception decisions, owner, and next automation review.
-- Owner: platform governance or compliance.
 
 ## Prerequisites
 

@@ -6,17 +6,10 @@
 |---|---|
 | Track | Admin/Governance |
 | Difficulty | Intermediate |
-| Duration | ~3 hrs total, multi-session |
+| Duration | 90 min |
 | Minimum input | An org + an org-owner token. |
 | App | Provisioned inventory sample repositories |
 | EMU compatible | yes |
-
-## Delivery target
-
-- Delivery target: a reviewed repository cohort with owner and cleanup decisions.
-- Safety boundary: setup creates sample repositories only. Archive, delete, transfer, visibility, and org-setting changes require approval.
-- Evidence: inventory export with cleanup decisions, metadata changes, exceptions, and next cohort.
-- Owner: platform governance or developer experience.
 
 ## Prerequisites
 

@@ -3,7 +3,7 @@ title: Stale Patrol
 module: ghaw
 track: repo-concierge
 difficulty: intermediate
-duration_minutes: 30
+duration_minutes: 90
 prerequisites:
   - ghaw-00
 prerequisite_capabilities:

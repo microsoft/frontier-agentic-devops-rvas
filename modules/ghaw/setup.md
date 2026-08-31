@@ -1,15 +1,10 @@
 # GHAW Setup
 
-Choose one of these environments before starting `ghaw-00`.
-
-## Roles used in the activities
-
-- Delivery team: the customer team completing an activity and adapting it to a repository they own.
-- Organizer: the person guiding the session, helping the delivery team test and connect the exercise to their work.
+Choose one of these environments, then run `ghaw-00` to authenticate and verify the toolchain.
 
 ## Bring your own repo
 
-Run each activity against a repository the delivery team actually owns when one is available — real issues, PRs, and history make the exercise meaningful. Point the workflow file at that repo everywhere the activity references the sample repo. If no candidate repo exists yet, use the sample repo from this setup as the practice target.
+Run each activity against a repository the team actually owns when one is available — real issues, PRs, and history make the exercise meaningful. Point the workflow file at that repo everywhere the activity references the sample repo. If no candidate repo exists yet, use the sample repo from this setup as the practice target.
 
 ## Option 1: GitHub Codespaces
 1. Open this repository (`microsoft/frontier-agentic-devops-rvas`) on GitHub.
@@ -26,21 +21,16 @@ Run each activity against a repository the delivery team actually owns when one 
 3. Install the Dev Containers extension in VS Code.
 4. Run Dev Containers: Reopen in Container. `gh-aw` installs automatically via `postCreate.sh`.
 
-## Verify the toolchain
-```bash
-gh auth login
-gh auth status
-gh aw --version
-gh aw trial modules/ghaw/resources/examples/hello-world.md --logical-repo microsoft/frontier-agentic-devops-rvas --dry-run --yes
-```
+## Install or repair `gh aw`
 
-If `gh aw --version` fails in a local environment, reinstall with:
+Both environments install `gh-aw` for you. If `gh aw --version` fails, reinstall it:
+
 ```bash
 curl -sL https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh | bash
 ```
 
-**Expected result:** GitHub authentication succeeds, `gh aw --version` prints a version, and the hello-world dry run completes without errors.
+Activity 00 runs the authentication and hello-world dry-run checks.
 
-The `--logical-repo` flag tells `gh-aw` which repository to simulate. This avoids failures when your local clone uses an SSH host alias or another non-standard remote URL.
+## Trial mode and repository access
 
-Customer delivery team members do not need write access to `microsoft/frontier-agentic-devops-rvas` for this smoke test. In trial mode, `gh-aw` uses a temporary host repository in the delivery team member's own GitHub account and only simulates the delivery session repository as the target.
+Team members do not need write access to `microsoft/frontier-agentic-devops-rvas` for the Activity 00 smoke test. In trial mode, `gh-aw` uses a temporary host repository in the member's own GitHub account and only simulates the target repository.

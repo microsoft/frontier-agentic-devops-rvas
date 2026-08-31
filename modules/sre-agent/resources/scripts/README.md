@@ -38,6 +38,15 @@ For optional GitHub/source-code connection:
 bash scripts/setup-github.sh
 ```
 
-## Legacy Local Utilities
+## Local Fallback Utilities
 
-Some local scripts remain as fallback utilities. Use the official Microsoft lab for live delivery and a fallback packet when Azure access is unavailable.
+Use these only when Azure access is unavailable:
+
+| Script | Purpose |
+| --- | --- |
+| `simulate-checkout-incident.sh` | Runs the local `sample-app` in a failure mode and writes evidence to `runbooks/generated/`. |
+| `capture-deployment-evidence.sh` | Writes a deployment evidence note to `runbooks/generated/`. |
+
+## Automation Helper
+
+`ensure-starter-lab.sh` is a thin wrapper around `scripts/provision-app.sh`. It is not invoked by `npm run setup:sre-agent-lab`; automation that needs the lab path calls it directly. It prepares the pinned Grubify starter lab and prints its absolute path.

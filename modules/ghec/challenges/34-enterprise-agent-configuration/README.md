@@ -6,17 +6,10 @@
 |---|---|
 | Track | Admin & Governance |
 | Difficulty | Advanced |
-| Duration | ~4 hrs, multi-session |
+| Duration | 210 min |
 | Minimum input | Enterprise owner access to AI Controls, or an enterprise-owner sponsor who can apply an approval-ready implementation |
 | App | none |
 | EMU compatible | yes — this configures governance; do not create managed users or change identity settings |
-
-## Delivery target
-
-- Delivery target: an approved organization-owned `.github-private` repository, selected in Enterprise **AI Controls → Agents → Configuration source**, with protected agent changes and one enterprise custom agent named **Agentic DevSecOps**.
-- Safety boundary: begin with an approved customer target. Do not substitute a training repository for the enterprise configuration source, broaden agent tools, add secrets, enable MCP servers, or change unrelated Copilot policy as part of this activity.
-- Evidence: approved scope, source organization and repository, source commit and pull request, CODEOWNERS and ruleset evidence, AI Controls configuration-summary evidence, propagation test result, rollback commit, approvers, and review date.
-- Owner: the enterprise AI-controls owner accepts the source and propagation result; security/platform owners accept the agent boundary; each organization owner accepts its organization instructions.
 
 > [!IMPORTANT]
 > **Enterprise access is a real delivery path, not an optional screenshot exercise.** An authorized enterprise owner must create or select the actual `.github-private` repository and set it as the AI Controls configuration source. If that access is unavailable, deliver the approval-ready package and implementation pull request described in [Part F](#part-f--no-enterprise-access-decision-package); do **not** claim the enterprise agent or configuration source is active.
@@ -31,7 +24,7 @@
 
 ## Scope and guardrails
 
-The enterprise agent source and organization custom instructions are different configuration surfaces. Do not represent organization instructions as enterprise policy, and do not assume an enterprise custom agent changes instruction precedence.
+The enterprise agent source and organization custom instructions are different configuration surfaces. Do not represent organization instructions as enterprise policy, and do not assume an enterprise custom agent changes instruction precedence. Do not broaden agent tools, add secrets, enable MCP servers, or change unrelated Copilot policy as part of this activity.
 
 **Out of scope:** managed settings and plugin standards. Treat them as optional preview work requiring separate availability assessment, approval, change control, and rollback. Do not configure, validate, or report them as complete in this activity.
 
