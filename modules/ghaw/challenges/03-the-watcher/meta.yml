@@ -6,6 +6,7 @@ difficulty: beginner
 duration_minutes: 45
 prerequisites:
   - ghaw-00
+  - ghaw-01
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax

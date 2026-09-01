@@ -2,15 +2,6 @@
 
 > Deliver a customer-approved, auditable enterprise configuration source for an **Agentic DevSecOps** custom agent. Protect changes in `.github-private`, set that repository as the AI Controls configuration source, add deliberate organization instructions, and prove propagation and rollback.
 
-| | |
-|---|---|
-| Track | Admin & Governance |
-| Difficulty | Advanced |
-| Duration | 210 min |
-| Minimum input | Enterprise owner access to AI Controls, or an enterprise-owner sponsor who can apply an approval-ready implementation |
-| App | none |
-| EMU compatible | yes — this configures governance; do not create managed users or change identity settings |
-
 > [!IMPORTANT]
 > **Enterprise access is a real delivery path, not an optional screenshot exercise.** An authorized enterprise owner must create or select the actual `.github-private` repository and set it as the AI Controls configuration source. If that access is unavailable, deliver the approval-ready package and implementation pull request described in [Part F](#part-f--no-enterprise-access-decision-package); do **not** claim the enterprise agent or configuration source is active.
 

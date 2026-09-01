@@ -1,12 +1,5 @@
 # Activity 1-03: The Watcher
 
-Track: Track 1 — Hello, Agent  
-Difficulty: 🟢 Beginner  
-Estimated time: 45 minutes  
-Prerequisites: Activity 00 — Setup & Hello, Agent, Activity 1-01 — Morning Briefing
-
----
-
 ## Build
 
 A workflow triggered by `on: push`. It detects changes in a chosen directory, such as `docs/` or `src/config/`, and comments on the commit with a summary.

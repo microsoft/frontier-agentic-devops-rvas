@@ -2,15 +2,6 @@
 
 > Deliver a governed release path: release candidates, explicit approval evidence, release notes, tag standards, and rollback ownership.
 
-| | |
-|---|---|
-| Track | Developer Flow |
-| Difficulty | Advanced |
-| Duration | 105 min |
-| Minimum input | An org + repo administrator rights. |
-| App | Provisioned release governance repository (created by setup) |
-| EMU compatible | yes |
-
 ## Prerequisites
 
 - A GitHub Enterprise Cloud organization and a repository where you can administer issues, contents, Actions, and releases.

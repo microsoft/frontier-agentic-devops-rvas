@@ -2,15 +2,6 @@
 
 > Deliver an organisation governance baseline: membership, privileges, repository-creation and visibility policies, security defaults, and API-verifiable evidence.
 
-| | |
-|---|---|
-| Track | Admin/Governance |
-| Difficulty | Foundational *(per-track ramp)* |
-| Duration | 105 min |
-| Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
-| App | Provisioned starter repository (created by setup) |
-| EMU compatible | yes |
-
 ## Prerequisites
 - Recommended: Ch52 (Enterprise Landing Zone & Organization Strategy) completed first — its topology map, delegated-admin model, and settings register are the preferred source for this activity's enterprise-level checks in Part F; otherwise this activity's organization-level baseline stands on its own.
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.

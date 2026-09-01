@@ -1,7 +1,5 @@
 # Activity 00 — Environment Setup
 
-Estimated time: 30 minutes
-
 ## Required outcome
 
 Complete this activity with:

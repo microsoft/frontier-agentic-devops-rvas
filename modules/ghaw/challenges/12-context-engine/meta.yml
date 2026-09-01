@@ -10,6 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
+  - Completed at least three Repo Concierge activities
 description: Connect multiple MCP toolsets so an agent can read PR diffs and repository guidance before making decisions.
 tags:
   - mcp-tools

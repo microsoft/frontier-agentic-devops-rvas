@@ -2,15 +2,6 @@
 
 > Deliver an approved Bitbucket Server/Data Center migration with `gh bbs2gh`, or validate the explicitly limited source-history path for Bitbucket Cloud.
 
-| | |
-|---|---|
-| Track | Migration |
-| Difficulty | Advanced |
-| Duration | 195 min |
-| Minimum input | A GitHub org with org-owner rights and a classic GitHub PAT |
-| App | none |
-| EMU compatible | yes |
-
 ## Prerequisites
 
 Activities: _(none — this activity is self-contained)_

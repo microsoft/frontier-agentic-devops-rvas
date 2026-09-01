@@ -480,6 +480,7 @@ function main() {
         adoption_stage:          meta.adoption_stage || '',
         app_dependency:          meta.app_dependency,
         emu_compatible:          meta.emu_compatible,
+        min_environment:         meta.min_environment || '',
         tier:                    meta.tier,
         references:              meta.references.filter(r => r && r !== 'TODO'),
         source_repo:             meta.source_repo  || '',

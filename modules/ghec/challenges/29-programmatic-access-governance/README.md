@@ -2,15 +2,6 @@
 
 > Deliver an evidence-backed inventory and policy decision for OAuth Apps, installed GitHub Apps, fine-grained PATs, and classic PATs—without changing a production access control by default.
 
-| | |
-|---|---|
-| Track | Admin & Governance |
-| Difficulty | Advanced |
-| Duration | 105 min |
-| Minimum input | Organization owner for inspection; enterprise owner or an authorized enterprise-policy export is optional for enterprise PAT policy |
-| App | none |
-| EMU compatible | yes — see the EMU and SCIM caveat below |
-
 ## Prerequisites
 
 - GitHub Enterprise Cloud organization and organization-owner access for inspection.

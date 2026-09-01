@@ -2,15 +2,6 @@
 
 > Deliver a read-only GitHub governance posture review using `ghqr`, corroborate material findings, and prioritize the next actions.
 
-| | |
-|---|---|
-| Track | Admin/Governance |
-| Difficulty | Advanced |
-| Duration | 105 min |
-| Minimum input | Authorized organization review scope, reviewer token, and customer evidence location |
-| App | none |
-| EMU compatible | yes |
-
 ## Prerequisites
 
 - A GitHub Enterprise Cloud organization and authorization from the customer governance owner to run a read-only posture review.

@@ -2,15 +2,6 @@
 
 > Deliver owner-backed repository lifecycle decisions without letting setup archive, transfer, or delete anything.
 
-| | |
-|---|---|
-| Track | Admin/Governance |
-| Difficulty | Advanced |
-| Duration | 90 min |
-| Minimum input | An org + an org-owner token. |
-| App | Provisioned lifecycle sample repositories |
-| EMU compatible | yes |
-
 ## Prerequisites
 
 - GitHub Enterprise Cloud organization with org-owner rights.

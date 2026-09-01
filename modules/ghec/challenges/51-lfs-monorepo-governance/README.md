@@ -2,15 +2,6 @@
 
 > Deliver governance for a growing monorepo: ownership boundaries, Git LFS patterns, large-file intake, repository health evidence, and explicit storage decisions.
 
-| | |
-|---|---|
-| Track | Developer Flow |
-| Difficulty | Advanced |
-| Duration | 120 min |
-| Minimum input | An org + repository administrator rights. |
-| App | Provisioned monorepo governance repository (created by setup) |
-| EMU compatible | yes |
-
 ## Prerequisites
 
 - A GitHub Enterprise Cloud organization and repository administrator rights.

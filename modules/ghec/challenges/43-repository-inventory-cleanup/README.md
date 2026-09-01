@@ -2,15 +2,6 @@
 
 > Deliver a practical inventory cleanup pass: discover, classify, fix safe metadata, and queue high-impact cleanup with approvals.
 
-| | |
-|---|---|
-| Track | Admin/Governance |
-| Difficulty | Intermediate |
-| Duration | 90 min |
-| Minimum input | An org + an org-owner token. |
-| App | Provisioned inventory sample repositories |
-| EMU compatible | yes |
-
 ## Prerequisites
 
 - GitHub Enterprise Cloud organization with org-owner rights.

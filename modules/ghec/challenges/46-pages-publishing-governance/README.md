@@ -2,15 +2,6 @@
 
 > Deliver an approved operating model for GitHub Pages publishing: org policy decision, repo publishing configuration, and evidence for visibility, ownership, exceptions, and rollback.
 
-| | |
-|---|---|
-| Track | Developer Flow |
-| Difficulty | Intermediate |
-| Duration | 90 min |
-| Minimum input | An org + an org-owner token. |
-| App | Provisioned Pages candidate repository (created by setup) |
-| EMU compatible | yes |
-
 ## Prerequisites
 
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.

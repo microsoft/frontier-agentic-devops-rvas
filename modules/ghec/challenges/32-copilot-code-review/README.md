@@ -2,15 +2,6 @@
 
 > Deliver an evidence-backed Copilot code review operating model: manual review on a real pull request, a bounded decision on automatic review, and human-owned merge controls.
 
-| | |
-|---|---|
-| Track | Automation & AI |
-| Difficulty | Intermediate |
-| Duration | 180 min |
-| Minimum input | An organization, a named repository owner, and effective Copilot code review availability |
-| App | none |
-| EMU compatible | yes — confirm the effective policy and repository eligibility |
-
 > [!IMPORTANT]
 > Copilot leaves a **Comment** review. It does not approve, request changes, satisfy a required approval, or block a merge. Human reviewers and existing `CODEOWNERS` / ruleset controls remain the merge decision.
 

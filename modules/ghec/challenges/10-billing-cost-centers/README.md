@@ -2,15 +2,6 @@
 
 > Deliver an organisation cost-governance baseline: usage visibility, budget alerts, API reconciliation, and a cost report.
 
-| | |
-|---|---|
-| Track | Admin/Governance |
-| Difficulty | Advanced *(per-track ramp)* |
-| Duration | 120 min |
-| Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
-| App | none |
-| EMU compatible | yes |
-
 ## Prerequisites
 - Recommended: Ch52 (Enterprise Landing Zone & Organization Strategy) completed first — its settings register is the preferred source for enterprise-level cost-center decisions; otherwise this activity's organization-level budget stands on its own.
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud, with billing manager access (org owners have it by default).

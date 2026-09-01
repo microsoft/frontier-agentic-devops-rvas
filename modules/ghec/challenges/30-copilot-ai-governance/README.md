@@ -2,15 +2,6 @@
 
 > Inspect enterprise and organization AI controls: effective Copilot policy, access lifecycle, data/code-exposure posture, agent boundaries, and direct evidence.
 
-| | |
-|---|---|
-| Track | Admin & Governance |
-| Difficulty | Advanced |
-| Duration | 210 min |
-| Minimum input | Enterprise owner access, or an authorized export from Enterprise AI Controls; inspect Copilot Business or Enterprise availability |
-| App | none |
-| EMU compatible | yes — assess features and constraints; no agent execution is required |
-
 ## Prerequisites
 
 - An enterprise owner, AI manager, or other authorized party able to export Enterprise AI Controls; an organization-owner policy export is acceptable when enterprise access is unavailable, provided the missing enterprise view is recorded as a limitation.

@@ -1,12 +1,5 @@
 # Activity 3-01: The Relay
 
-Track: Continuous Intelligence (Advanced)  
-Difficulty: 🔴 Advanced  
-Estimated time: 90 minutes  
-Prerequisites: Track 2, completed ≥3 activities
-
----
-
 ## Background
 
 Workflows normally run in isolation. To coordinate two of them, the first must leave data the second can read. Build a producer that writes structured data to `repo-memory` and a consumer that reads it on its next trigger — splitting automation into stages with explicit, testable handoffs.

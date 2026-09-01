@@ -10,6 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
+  - Completed at least three Repo Concierge activities
 description: Build a producer that writes structured data to repo-memory and a consumer that reads it.
 tags:
   - workflow-chaining

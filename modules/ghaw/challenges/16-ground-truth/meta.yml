@@ -6,6 +6,13 @@ difficulty: advanced
 duration_minutes: 90
 prerequisites:
   - ghaw-00
+  - ghaw-06
+  - ghaw-07
+  - ghaw-08
+  - ghaw-09
+  - ghaw-10
+  - ghaw-11
+  - ghaw-12
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax

@@ -2,15 +2,6 @@
 
 > Verify the customer-delivery environment, authenticate the GitHub CLI, and confirm approved organisation access before selecting the first implementation target.
 
-| | |
-|---|---|
-| Track | Developer Flow |
-| Difficulty | Beginner |
-| Duration | 30 min |
-| Minimum input | A GitHub account + approved access to the customer delivery organisation |
-| App | none |
-| EMU compatible | yes |
-
 ## Objectives
 
 **You are ready when:**

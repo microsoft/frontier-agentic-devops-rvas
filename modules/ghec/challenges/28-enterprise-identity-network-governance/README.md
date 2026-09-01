@@ -2,15 +2,6 @@
 
 > Inspect enterprise identity, network, SSH, and privileged-role controls and prove the effective configuration. Do not configure an IdP or disrupt production.
 
-| | |
-|---|---|
-| Track | Admin/Governance |
-| Difficulty | Advanced |
-| Duration | 120 min |
-| Minimum input | Enterprise owner **or** authorized enterprise-policy export; named IdP owner |
-| App | none |
-| EMU compatible | yes, subject to the control-specific constraints below |
-
 ## Scope boundary
 
 This is an **enterprise governance** activity. Ch14 configures and evidences organization SAML/SCIM lifecycle controls; it is not a substitute for an enterprise identity-model, CAP, or network-policy decision. Ch07 models organization teams and repository roles; its evidence is not an enterprise-role review. Reuse their evidence where relevant, but record the enterprise effective level and accountable enterprise owner here.

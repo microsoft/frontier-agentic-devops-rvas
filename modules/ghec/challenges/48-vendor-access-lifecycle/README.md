@@ -2,15 +2,6 @@
 
 > Deliver a governed vendor access lifecycle: request, approval, least-privilege grant, periodic review, offboarding, and audit evidence.
 
-| | |
-|---|---|
-| Track | Admin/Governance |
-| Difficulty | Advanced |
-| Duration | 105 min |
-| Minimum input | An org + org-owner token. |
-| App | Provisioned vendor access register repository (created by setup) |
-| EMU compatible | yes |
-
 ## Prerequisites
 
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.

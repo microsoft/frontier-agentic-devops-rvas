@@ -1,12 +1,5 @@
 # Activity 3-02: Context Engine
 
-Track: Continuous Intelligence (Advanced)  
-Difficulty: 🔴 Advanced  
-Estimated time: 75 minutes  
-Prerequisites: Track 2, completed ≥3 activities
-
----
-
 ## Background
 
 An agent can only reason from the context it receives. Use gh-aw's `tools:` configuration to give it live data through MCP tools (GitHub labels, repository metrics, service status, and similar). Without repository standards, a PR agent falls back to generic advice; give it the actual conventions and it can check the pull request against them.

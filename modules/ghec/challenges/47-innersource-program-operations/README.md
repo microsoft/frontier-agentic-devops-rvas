@@ -2,15 +2,6 @@
 
 > Deliver an InnerSource operating model: program charter, discoverable pilot hub, maintainer expectations, contribution-ready backlog, and adoption evidence.
 
-| | |
-|---|---|
-| Track | Developer Flow |
-| Difficulty | Intermediate |
-| Duration | 105 min |
-| Minimum input | An org + repository admin rights. |
-| App | Provisioned InnerSource hub repository (created by setup) |
-| EMU compatible | yes |
-
 ## Prerequisites
 
 - An organization on GitHub Enterprise Cloud.

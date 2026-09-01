@@ -2,15 +2,6 @@
 
 > Deliver GitHub Code Quality for an authorized customer repository: establish a Code Health baseline, publish coverage from CI, act on pull-request findings, and make a controlled organization rollout decision.
 
-| | |
-|---|---|
-| Track | Security |
-| Difficulty | Intermediate |
-| Duration | 135 min |
-| Minimum input | An authorized customer repository in a GitHub Team or Enterprise Cloud organization with Code Quality available |
-| App | Customer repository |
-| EMU compatible | yes |
-
 ## Prerequisites
 
 - A GitHub Team or GitHub Enterprise Cloud organization where GitHub Code Quality is available. If the organization belongs to an enterprise, confirm the enterprise owner has allowed the product.

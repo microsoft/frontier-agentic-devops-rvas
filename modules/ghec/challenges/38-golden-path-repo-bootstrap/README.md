@@ -2,15 +2,6 @@
 
 > Deliver a governed starter path for new repositories: template, baseline files, validation, and handover evidence.
 
-| | |
-|---|---|
-| Track | Admin/Governance |
-| Difficulty | Advanced |
-| Duration | 90 min |
-| Minimum input | An org + an org-owner token. |
-| App | Provisioned template candidate and validation repository |
-| EMU compatible | yes |
-
 ## Prerequisites
 
 - GitHub Enterprise Cloud organization with org-owner rights.

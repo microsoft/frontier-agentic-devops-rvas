@@ -2,15 +2,6 @@
 
 > Deliver an organisation audit-evidence path using the audit-log UI, search syntax, REST API, and a repeatable export pipeline.
 
-| | |
-|---|---|
-| Track | Admin/Governance |
-| Difficulty | Advanced *(per-track ramp)* |
-| Duration | 150 min |
-| Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
-| App | none |
-| EMU compatible | yes |
-
 ## Prerequisites
 - Recommended: Ch52 (Enterprise Landing Zone & Organization Strategy) completed first — its settings register is the preferred source for the enterprise-level streaming/retention item in Part F; otherwise this activity's org-level export stands on its own.
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud. The org audit log is a GHEC organization feature.

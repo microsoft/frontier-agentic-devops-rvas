@@ -1,9 +1,3 @@
-Track: Production Patterns (Advanced 🟣)
-Estimated time: 120 minutes
-Tier: Bonus
-
----
-
 ## Required outcome
 
 Build a governed test-quality pipeline for a repository the delivery team owns:

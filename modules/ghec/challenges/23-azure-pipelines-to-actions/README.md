@@ -2,15 +2,6 @@
 
 > Convert an approved Azure DevOps Pipeline into a GitHub Actions workflow with GitHub Actions Importer, then review, remediate, validate, and hand it over.
 
-| | |
-|---|---|
-| Track | Migration |
-| Difficulty | Intermediate |
-| Duration | 150 min |
-| Minimum input | A GitHub repo + an Azure DevOps project with at least one Pipeline |
-| App | None |
-| EMU compatible | yes |
-
 ## Prerequisites
 
 Dependencies: none. This guide is independent, but it is recommended after the Azure DevOps repository migration guide (ch21) and complements ch04 Actions CI fundamentals.

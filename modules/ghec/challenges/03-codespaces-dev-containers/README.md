@@ -2,15 +2,6 @@
 
 > Deliver a reproducible cloud development environment with `devcontainer.json`, Codespaces policy, port controls, and prebuilds.
 
-| | |
-|---|---|
-| Track | Developer Flow |
-| Difficulty | Intermediate *(per-track ramp)* |
-| Duration | 180 min |
-| Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
-| App | Provisioned starter repository (created by setup) |
-| EMU compatible | yes |
-
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch03 --org <org>` (least-privilege; for this activity: `repo` + `codespace` + `admin:org` for org policy).

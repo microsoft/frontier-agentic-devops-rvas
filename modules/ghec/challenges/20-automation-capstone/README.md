@@ -2,15 +2,6 @@
 
 > Deliver one secure, end-to-end automation: a GitHub App uses REST and GraphQL, a webhook drives the flow, and Actions orchestrates it.
 
-| | |
-|---|---|
-| Track | Automation & AI |
-| Difficulty | Advanced *(capstone — hardest in the track)* |
-| Duration | 195 min |
-| Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
-| App | Provisioned starter repository (created by setup) |
-| EMU compatible | yes — all steps run on org-owned, prefix-namespaced resources. |
-
 > This capstone provisions its own `ghec-ch20-*` state and does not require artifacts from another activity. It uses concepts from ch16 (REST/GraphQL), ch17 (webhooks + GitHub App), and ch18 (Actions runners).
 
 ## Prerequisites

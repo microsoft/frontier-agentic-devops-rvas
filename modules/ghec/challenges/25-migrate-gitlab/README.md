@@ -2,15 +2,6 @@
 
 > Deliver an approved GitLab source-and-history migration to GitHub with Git CLI, then convert its GitLab CI pipeline to GitHub Actions with GitHub Actions Importer.
 
-| | |
-|---|---|
-| Track | Migration |
-| Difficulty | Intermediate |
-| Duration | 120 min |
-| Minimum input | A GitLab repository and an empty GitHub repository target |
-| App | None |
-| EMU compatible | yes |
-
 ## Migration limits
 
 GitLab is not a self-serve source for GitHub Enterprise Importer. A full GitLab migration that preserves metadata such as Merge Requests and issues through GEI is a GitHub Expert Services engagement.

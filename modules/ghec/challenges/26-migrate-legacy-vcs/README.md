@@ -2,15 +2,6 @@
 
 > Convert legacy source-control history into Git, then push the converted repository to GitHub with author mapping, large-file checks, and cutover evidence.
 
-| | |
-|---|---|
-| Track | Migration |
-| Difficulty | Advanced |
-| Duration | 210 min |
-| Minimum input | A GitHub org or repo destination plus at least one legacy VCS source |
-| App | None |
-| EMU compatible | yes |
-
 ## Prerequisites
 
 Dependencies: none. This guide is self-contained. For Azure Repos Git migration after TFVC conversion, ch21 is a useful cross-reference but not required.

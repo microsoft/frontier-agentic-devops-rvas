@@ -2,15 +2,6 @@
 
 > Inspect the enterprise topology and propose a justified organization-boundary strategy: organization count, charter and intake/retirement process, enterprise roles/teams model, delegation/inheritance matrix, and a populated governance settings register. Do not create organizations, teams, or repositories.
 
-| | |
-|---|---|
-| Track | Admin/Governance |
-| Difficulty | Advanced |
-| Duration | 225 min |
-| Minimum input | Enterprise owner access **or** authorized enterprise-policy export |
-| App | none |
-| EMU compatible | yes |
-
 ## Scope boundary
 
 This activity sets the enterprise-wide landing zone decision that other chapters implement in depth. Ch06 configures a single organization's member-privilege baseline; Ch07 models organization teams and repository roles; Ch10 operates billing and cost centers; Ch14 configures organization SAML/SCIM; Ch28 inspects enterprise identity, network, SSH CA, and enterprise-role controls; Ch44 detects repository-level policy drift. None of those activities decide **how many organizations the enterprise should have, why, or who owns the boundary** — that decision, and the register that tracks it, belongs here. Reuse their evidence where it exists; record the enterprise-wide decision and routing in this activity.

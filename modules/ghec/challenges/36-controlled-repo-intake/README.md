@@ -2,15 +2,6 @@
 
 > Deliver a governed repository request path: custom issue form, maintainer approval label, and GitHub Actions provisioning with auditable evidence.
 
-| | |
-|---|---|
-| Track | Admin/Governance |
-| Difficulty | Advanced |
-| Duration | 165 min |
-| Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
-| App | Provisioned intake repository (created by setup) |
-| EMU compatible | yes |
-
 ## Prerequisites
 
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.

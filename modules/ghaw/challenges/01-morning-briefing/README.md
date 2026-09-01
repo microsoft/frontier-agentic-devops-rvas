@@ -1,12 +1,5 @@
 # Activity 1-01: Morning Briefing
 
-Track: Track 1 — Hello, Agent  
-Difficulty: 🟢 Beginner  
-Estimated time: 60 minutes  
-Prerequisites: Activity 00 — Setup & Hello, Agent
-
----
-
 ## Build
 
 A scheduled workflow that runs every weekday at 9 AM. It reads recent issues and pull requests, then creates a "📋 Morning Briefing" issue that summarizes the past 24 hours.

@@ -79,9 +79,6 @@
       meta.innerHTML = `
         ${FP.diffBadge(c.difficulty)}
         ${FP.durBadge(c.duration_minutes)}
-        ${FP.emuBadge(c.emu_compatible)}
-        ${c.tier && c.tier !== 'core' ? `<span class="badge badge-app">${FP.esc(c.tier)}</span>` : ''}
-        ${c.app_dependency && c.app_dependency !== 'none' ? `<span class="badge badge-app">▣ ${FP.esc(c.app_dependency)}</span>` : ''}
         <span class="badge-tag badge" style="margin-left:auto;color:${color}">${FP.esc(c.module)} · ${FP.esc(c.track || '')}</span>`;
     }
 
@@ -129,17 +126,30 @@
     const factRows = document.getElementById('factRows');
     if (factRows) {
       const rows = [
-        ['Difficulty', FP.diffBadge(c.difficulty)],
-        ['Duration', FP.durBadge(c.duration_minutes) || '—'],
-        ['Outcomes', outcomeLinks(c, outcomes)],
-        ['Track', FP.esc(c.track || '—')],
+        ['Environment', environmentName(c.min_environment)],
+        ['Application', c.app_dependency && c.app_dependency !== 'none' ? FP.esc(c.app_dependency) : 'None'],
+        ['EMU', compatibilityBadge(c.emu_compatible)],
         ['Tier', FP.esc(c.tier || 'core')],
-        ['App', c.app_dependency && c.app_dependency !== 'none' ? FP.esc(c.app_dependency) : 'none'],
+        ['Outcomes', outcomeLinks(c, outcomes)],
       ];
-      if (c.emu_compatible === false) rows.push(['EMU', FP.emuBadge(false)]);
       factRows.innerHTML = rows.map(([k, v]) =>
         `<div class="fact-row"><span class="fact-key">${k}</span><span class="fact-val">${v}</span></div>`
       ).join('');
+    }
+
+    function environmentName(environment) {
+      const names = {
+        repo: 'Repository',
+        org: 'Organization',
+        enterprise: 'Enterprise',
+      };
+      return names[environment] || 'Not specified';
+    }
+
+    function compatibilityBadge(compatible) {
+      const state = compatible === false ? 'no' : 'yes';
+      const label = compatible === false ? 'Not compatible' : 'Compatible';
+      return `<span class="compat-state compat-${state}"><span aria-hidden="true"></span>${label}</span>`;
     }
 
     function outcomeLinks(c, outcomes) {

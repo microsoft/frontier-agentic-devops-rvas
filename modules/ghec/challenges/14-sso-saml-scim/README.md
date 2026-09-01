@@ -2,15 +2,6 @@
 
 > Deliver an approved SAML/SCIM identity-lifecycle configuration with IdP validation, lifecycle evidence, and external-identity auditability.
 
-| | |
-|---|---|
-| Track | Security |
-| Difficulty | Advanced *(per-track ramp)* |
-| Duration | 150 min |
-| Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
-| App | none *(identity & access configuration — no application repo)* |
-| EMU compatible | no *(organizations inside an Enterprise Managed Users enterprise authenticate at the enterprise level; org-level SAML SSO and org-level SCIM are not available to EMU orgs — use a non-EMU org)* |
-
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch14 --org <org>` (least-privilege; for this activity: `admin:org` + `read:org` + `scim`).

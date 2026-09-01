@@ -1,9 +1,3 @@
-Track: Production Patterns (Advanced 🟣)
-Estimated time: 75 minutes
-Tier: Bonus
-
----
-
 ## Background
 
 Malicious code can arrive in a dependency update or an ordinary-looking refactor. The Malicious Code Scan reviews recent changes each day and opens alerts for human investigation — an additional detection signal for code-injection campaigns, compromised contributors, and dependency poisoning. It does not block changes, prevent deployment, or replace review and security controls.

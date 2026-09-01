@@ -2,15 +2,6 @@
 
 > Deliver a repository-level license compliance workflow: dependency inventory, review checkpoint, exception intake, and owner-approved rollout decisions.
 
-| | |
-|---|---|
-| Track | Security |
-| Difficulty | Advanced |
-| Duration | 90 min |
-| Minimum input | An org + repository administrator rights. |
-| App | Provisioned license compliance repository (created by setup) |
-| EMU compatible | yes |
-
 ## Prerequisites
 
 - A GitHub Enterprise Cloud organization and repository administrator rights.

@@ -1,12 +1,5 @@
 # Activity 3-04: The Overseer
 
-Track: Continuous Intelligence (Advanced)  
-Difficulty: 🔴 Advanced  
-Estimated time: 75 minutes  
-Prerequisites: Track 2, completed ≥3 activities
-
----
-
 ## Background
 
 The Overseer monitors other agentic workflows: are they running successfully, how many tokens are they burning, which ones fail repeatedly, and should someone be alerted? The team gets one place to see repeated failures, token spikes, and stale workflows.

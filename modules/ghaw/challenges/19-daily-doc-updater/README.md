@@ -1,9 +1,3 @@
-Track: Production Patterns (Advanced 🟣)
-Estimated time: 75 minutes
-Tier: Bonus
-
----
-
 ## Background
 
 The Daily Documentation Updater runs on a cron schedule. It compares selected documentation with the codebase and opens pull requests for content that appears out of date.

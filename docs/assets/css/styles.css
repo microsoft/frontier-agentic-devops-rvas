@@ -1336,6 +1336,22 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
 .fact-row:last-child { border-bottom: none; padding-bottom: 0; }
 .fact-key { color: var(--c-faint); flex-shrink: 0; }
 .fact-val { text-align: right; color: var(--c-dim); word-break: break-word; }
+.compat-state {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+.compat-state > span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.compat-yes { color: var(--c-beginner); }
+.compat-no { color: var(--c-advanced); }
 #tagsList,
 #refList { min-width: 0; max-width: 100%; }
 #refList a {

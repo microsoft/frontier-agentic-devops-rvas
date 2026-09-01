@@ -10,6 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
+  - Completed at least two Hello, Agent activities
 description: Detect a contributor's first pull request and post a personal welcome with links to contribution resources.
 tags:
   - pull-requests

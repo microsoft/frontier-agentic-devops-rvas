@@ -2,15 +2,6 @@
 
 > Govern deployment secrets by moving them behind protected GitHub Actions environments and recording ownership, rotation, and access evidence.
 
-| | |
-|---|---|
-| Track | Automation & AI |
-| Difficulty | Intermediate |
-| Duration | 120 min |
-| Minimum input | An org + repository admin rights. |
-| App | Provisioned starter repository (created by setup) |
-| EMU compatible | yes |
-
 ## Prerequisites
 
 - An organization and repository where you have repository admin rights.

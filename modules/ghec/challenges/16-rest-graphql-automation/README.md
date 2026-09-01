@@ -2,15 +2,6 @@
 
 > Deliver safe, idempotent GitHub automation using REST and GraphQL APIs, complete pagination, and rate-limit-aware operation.
 
-| | |
-|---|---|
-| Track | Automation & AI |
-| Difficulty | Foundational *(per-track ramp)* |
-| Duration | 135 min |
-| Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
-| App | Provisioned starter repository (created by setup) |
-| EMU compatible | yes |
-
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch16 --org <org>` (least-privilege; for this activity: `repo` + `read:org` + `project` + `read:project`).

@@ -1,9 +1,3 @@
-Track: Production Patterns (Advanced 🟣)
-Estimated time: 60 minutes
-Tier: Core
-
----
-
 ## Background
 
 The Issue Triage Agent reads each new issue, compares it with the repository's label taxonomy, and applies allowed labels.

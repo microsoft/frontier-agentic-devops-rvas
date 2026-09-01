@@ -10,6 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
+  - Completed at least two Hello, Agent activities
 description: Create a first-pass PR reviewer that analyzes diffs and posts specific observations when a pull request opens.
 tags:
   - pull-requests

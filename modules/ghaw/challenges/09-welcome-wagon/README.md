@@ -1,11 +1,5 @@
 # Activity 2-05: Welcome Wagon
 
-Track: Repo Concierge (Intermediate 🟡)  
-Estimated time: 60 minutes  
-Prerequisites: Complete at least 2 activities from Track 1
-
----
-
 ## Build
 
 A workflow that welcomes first-time contributors. When someone opens their first pull request, Welcome Wagon posts a greeting and links to the contribution guide and code of conduct.

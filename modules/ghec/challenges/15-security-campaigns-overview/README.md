@@ -2,15 +2,6 @@
 
 > Deliver an organisation security configuration and an owned campaign that turns prioritised findings into tracked remediation.
 
-| | |
-|---|---|
-| Track | Security |
-| Difficulty | Advanced *(per-track ramp)* |
-| Duration | 120 min |
-| Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
-| App | juice-shop *(imported at pinned ref `v20.0.0`; see `docs/EXTERNAL-REPOS.md`)* |
-| EMU compatible | yes |
-
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch15 --org <org>` (least-privilege; for this activity: `repo` + `admin:org` + `security_events`).

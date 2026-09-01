@@ -10,6 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
+  - Completed at least three Repo Concierge activities
 description: Build a workflow that checks other workflow runs, calculates failure rates, and opens alert issues.
 tags:
   - meta-workflows

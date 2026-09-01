@@ -2,15 +2,6 @@
 
 > Deliver one customer-owned Copilot cloud-agent automation with a bounded trigger, least-privilege tools, independent review, and durable session and audit evidence.
 
-| | |
-|---|---|
-| Track | Automation & AI |
-| Difficulty | Advanced |
-| Duration | 225 min |
-| Minimum input | Customer-approved private or internal repository; a licensed, eligible automation creator; an independent reviewer; and named Copilot, security, repository, and audit-evidence owners |
-| App | none |
-| EMU compatible | no — Copilot cloud agent is not available on EMU-owned repositories |
-
 > This activity does not require another activity's repository, workflow, agent, or policy change.
 
 ## Prerequisites and hard gates

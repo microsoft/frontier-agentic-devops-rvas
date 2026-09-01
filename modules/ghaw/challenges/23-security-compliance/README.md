@@ -1,9 +1,3 @@
-Track: Production Patterns (Advanced 🟣)
-Estimated time: 75 minutes
-Tier: Bonus
-
----
-
 ## Background
 
 Security Compliance runs on a schedule, tracks vulnerability SLA deadlines by severity, and opens issues when configured thresholds are met. It reports possible policy violations. The team still owns remediation.

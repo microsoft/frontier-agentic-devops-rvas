@@ -1,11 +1,5 @@
 # Activity 3-06: Ground Truth
 
-Track: Continuous Intelligence (Advanced 🔴)  
-Estimated time: 90 minutes  
-Prerequisites: Activity 00, full Track 2, Activities 3-01 and 3-02
-
----
-
 ## Build
 
 A workflow that runs shell commands through `pre-agent-steps:` before the AI model starts, fetching live repository metrics with the `gh` CLI. The agent uses those numbers to update the `## Project Health` section in `CONTRIBUTING.md`, then opens a pull request through `create-pull-request`.

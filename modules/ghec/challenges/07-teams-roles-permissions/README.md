@@ -2,15 +2,6 @@
 
 > Deliver a verifiable least-privilege access model with nested teams, base permissions, predefined roles, and a custom repository role.
 
-| | |
-|---|---|
-| Track | Admin/Governance |
-| Difficulty | Intermediate *(per-track ramp)* |
-| Duration | 120 min |
-| Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
-| App | Provisioned starter repository (created by setup) |
-| EMU compatible | yes |
-
 ## Prerequisites
 - Recommended: Ch52 (Enterprise Landing Zone & Organization Strategy) completed first — its delegation register is the preferred source for enterprise-level team/role decisions; otherwise this activity's organization-level model stands on its own.
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.

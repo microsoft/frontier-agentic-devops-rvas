@@ -10,6 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
+  - Completed at least two Hello, Agent activities
 description: Turn issue comments into a command interface. Detect `/summarize` and post a short summary of the issue thread.
 tags:
   - slash-commands

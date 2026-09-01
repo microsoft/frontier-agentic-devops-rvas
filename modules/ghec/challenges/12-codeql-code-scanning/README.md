@@ -2,15 +2,6 @@
 
 > Deliver CodeQL code scanning, vulnerability triage, Autofix review, and a pull-request security gate for an approved application repository.
 
-| | |
-|---|---|
-| Track | Security |
-| Difficulty | Intermediate *(per-track ramp)* |
-| Duration | 120 min |
-| Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
-| App | juice-shop *(imported at pinned ref `v20.0.0`; see `docs/EXTERNAL-REPOS.md`)* |
-| EMU compatible | yes |
-
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch12 --org <org>` (least-privilege; for this activity: `repo` + `workflow` + `security_events`).

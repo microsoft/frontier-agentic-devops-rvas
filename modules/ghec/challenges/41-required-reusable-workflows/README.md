@@ -2,15 +2,6 @@
 
 > Create an organization-owned reusable workflow and require it for a repository cohort through approved required-workflow or ruleset controls.
 
-| | |
-|---|---|
-| Track | Automation & AI |
-| Difficulty | Advanced |
-| Duration | 150 min |
-| Minimum input | An org + permission to manage repository workflows and rulesets. |
-| App | Provisioned workflow library and consumer repositories |
-| EMU compatible | yes |
-
 ## Prerequisites
 
 - Org owner or repository admin rights for the selected cohort.

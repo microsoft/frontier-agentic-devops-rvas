@@ -1,11 +1,5 @@
 # Activity 2-06: Mix & Match
 
-Track: Repo Concierge (Intermediate 🟡)<br>
-Estimated time: 75 minutes<br>
-Prerequisites: Activity 00, at least 2 Track 1 activities, Activity 2-01
-
----
-
 ## Build
 
 A weekly gh-aw workflow that imports shared instructions from `lib/repo-stats-helper.md`. The agent uses the helper to analyze repository status and posts the digest as a GitHub Discussion through `create-discussion`.

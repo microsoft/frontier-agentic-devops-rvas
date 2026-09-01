@@ -2,15 +2,6 @@
 
 > Govern GitHub Packages and GHCR container images with approved naming, visibility, access, retention, provenance, and cleanup evidence.
 
-| | |
-|---|---|
-| Track | Automation & AI |
-| Difficulty | Intermediate |
-| Duration | 135 min |
-| Minimum input | An org + package and repository admin rights. |
-| App | Provisioned container sample repository |
-| EMU compatible | yes |
-
 ## Prerequisites
 
 - GitHub organization package admin and repository admin rights.

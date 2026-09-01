@@ -2,15 +2,6 @@
 
 > Restore customer post-migration traceability between Azure Boards work items and GitHub code activity with an approved Azure Boards App installation, repository connection, and verified `AB#` links.
 
-| | |
-|---|---|
-| Track | Migration |
-| Difficulty | Intermediate *(post-migration bridge)* |
-| Duration | 120 min |
-| Minimum input | A GitHub org/repo you administer, an Azure DevOps Services org/project, and permission to install a GitHub Marketplace app. |
-| App | None |
-| EMU compatible | yes, if your enterprise/org policy permits GitHub App installation or an org owner approves the request |
-
 ## Prerequisites
 - GitHub organization with org-owner rights, or repository admin rights plus a path to request GitHub App installation approval.
 - An Azure DevOps Services organization with an Azure Boards project and at least one work item you can edit.

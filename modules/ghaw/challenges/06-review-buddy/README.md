@@ -1,11 +1,5 @@
 # Activity 2-02: Review Buddy
 
-Track: Repo Concierge (Intermediate 🟡)<br>
-Estimated time: 60 minutes<br>
-Prerequisites: Complete at least 2 activities from Track 1
-
----
-
 ## Build
 
 A workflow that reviews pull requests when they open. Review Buddy analyzes the diff and comments on large changes, missing tests, or incomplete descriptions. It does not merge or reject the pull request.

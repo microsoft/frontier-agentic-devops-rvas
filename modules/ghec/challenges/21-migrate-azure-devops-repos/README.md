@@ -2,15 +2,6 @@
 
 > Deliver an approved Azure DevOps Services Git migration into GitHub Enterprise Cloud using `gh ado2gh`: inventory, queue, execute, validate, and close out the cutover evidence.
 
-| | |
-|---|---|
-| Track | Migration |
-| Difficulty | Intermediate *(per-track ramp)* |
-| Duration | 150 min |
-| Minimum input | A GitHub org where you are org owner, plus an Azure DevOps Services org with a Git repo that has PR history |
-| App | None |
-| EMU compatible | yes |
-
 ## Prerequisites
 
 Dependencies: none — this guide is self-contained.

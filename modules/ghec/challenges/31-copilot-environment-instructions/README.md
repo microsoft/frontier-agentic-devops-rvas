@@ -2,15 +2,6 @@
 
 > Deliver a customer-approved, observable Copilot environment: deterministic setup, scoped instructions, least privilege, and a decision package when a live feature is unavailable.
 
-| | |
-|---|---|
-| Track | Automation & AI |
-| Difficulty | Advanced |
-| Duration | 195 min |
-| Minimum input | Authorized customer repository, repository owner, and Copilot policy/availability view |
-| App | Customer repository; optional safe fallback repository |
-| EMU compatible | yes — assess and record the actual availability of cloud agent and code review; do not assume either feature or policy is available |
-
 ## Prerequisites and availability
 
 - An authorized customer repository and named repository, Copilot, security, and platform/runner owners.

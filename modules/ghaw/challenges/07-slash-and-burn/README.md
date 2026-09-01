@@ -1,11 +1,5 @@
 # Activity 2-03: Issue Comment Commands
 
-Track: Repo Concierge (Intermediate 🟡)  
-Estimated time: 75 minutes  
-Prerequisites: Complete at least 2 activities from Track 1
-
----
-
 ## Build
 
 A workflow that responds to slash commands in issue comments. When a team member comments `/summarize`, the workflow reads the issue thread and posts a short summary.

@@ -2,15 +2,6 @@
 
 > Deliver a hardened, scoped self-hosted runner capability with organisation runner groups, label routing, and an operating model.
 
-| | |
-|---|---|
-| Track | Automation & AI |
-| Difficulty | Advanced *(per-track ramp)* |
-| Duration | 210 min |
-| Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
-| App | Provisioned starter repository (created by setup) |
-| EMU compatible | yes |
-
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch18 --org <org>` (least-privilege; for this activity: `repo` + `admin:org` for runner-group + runner management).

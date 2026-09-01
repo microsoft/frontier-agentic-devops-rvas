@@ -2,15 +2,6 @@
 
 > Deliver a repeatable drift check that compares repository reality to an approved policy baseline and records remediation decisions.
 
-| | |
-|---|---|
-| Track | Admin/Governance |
-| Difficulty | Advanced |
-| Duration | 105 min |
-| Minimum input | An org + an org-owner token. |
-| App | Provisioned baseline and drifted sample repositories |
-| EMU compatible | yes |
-
 ## Prerequisites
 
 - GitHub Enterprise Cloud organization with org-owner rights.

@@ -1,11 +1,5 @@
 # Next Feature Opportunities Agent
 
-Track: Production Patterns (Advanced)
-Estimated time: 75 minutes
-Tier: Core
-
----
-
 ## Background
 
 Product evidence often sits across code, issues, and delivery-session feedback.

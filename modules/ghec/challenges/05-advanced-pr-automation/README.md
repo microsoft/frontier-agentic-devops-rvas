@@ -2,15 +2,6 @@
 
 > Deliver a governed merge pipeline with repository and organisation rulesets, required checks and reviewers, auto-merge, `CODEOWNERS`, and PR automation.
 
-| | |
-|---|---|
-| Track | Developer Flow |
-| Difficulty | Advanced *(per-track ramp)* |
-| Duration | 210 min |
-| Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
-| App | Provisioned starter repository (created by setup) |
-| EMU compatible | yes |
-
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch05 --org <org>` (least-privilege; for this activity: `repo` + `workflow` + `admin:org` for org rulesets).

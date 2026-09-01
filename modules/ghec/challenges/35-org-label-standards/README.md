@@ -2,15 +2,6 @@
 
 > Deliver an organization-owned label standard: default labels for new repositories, reconciliation for existing repositories, and accountable governance evidence.
 
-| | |
-|---|---|
-| Track | Admin/Governance |
-| Difficulty | Intermediate |
-| Duration | 90 min |
-| Minimum input | An org + an org-owner token. *(All activities are org-scoped — no enterprise owner required.)* |
-| App | Provisioned starter repositories (created by setup) |
-| EMU compatible | yes |
-
 ## Prerequisites
 
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.

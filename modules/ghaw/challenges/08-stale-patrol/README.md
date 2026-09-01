@@ -1,11 +1,5 @@
 # Activity 2-04: Stale Patrol
 
-Track: Repo Concierge (Intermediate 🟡)  
-Estimated time: 90 minutes  
-Prerequisites: Complete at least 2 activities from Track 1
-
----
-
 ## Build
 
 A daily workflow that finds issues open for more than 60 days with no recent activity. It warns maintainers, then closes an issue if it remains stale for three more days.

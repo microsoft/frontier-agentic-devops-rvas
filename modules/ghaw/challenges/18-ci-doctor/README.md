@@ -1,9 +1,3 @@
-Track: Production Patterns (Advanced 🟣)
-Estimated time: 90 minutes
-Tier: Core
-
----
-
 ## Background
 
 CI Doctor runs after a failed workflow. It fetches the logs and opens a diagnostic issue with a likely cause and suggested next step.
