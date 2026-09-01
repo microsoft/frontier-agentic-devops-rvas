@@ -3,6 +3,8 @@
   'use strict';
 
   let _kiosk = null;
+  let _sections = [];
+  let _activeSection = 0;
 
   /* Internal challenge link that preserves kiosk state when active */
   function cUrl(id) {
@@ -30,6 +32,7 @@
     renderHero(challenge, mod);
     renderFacts(challenge, mod, allChallenges, data.outcomes || []);
     renderRelated(challenge, allChallenges);
+    renderActivityPager(challenge, mod, allChallenges);
     applyKioskLinks();
     loadGuide(challenge);
   }
@@ -91,7 +94,8 @@
   }
 
   function renderFacts(c, mod, allChallenges, outcomes) {
-    // Prerequisites    const prereqPanel = document.getElementById('prereqPanel');
+    // Prerequisites
+    const prereqPanel = document.getElementById('prereqPanel');
     const prereqList  = document.getElementById('prereqList');
     if (prereqPanel && prereqList) {
       if (!c.prerequisites || !c.prerequisites.length) {
@@ -214,6 +218,46 @@
     }).join('');
   }
 
+  function renderActivityPager(c, mod, allChallenges) {
+    const pager = document.getElementById('activityPager');
+    if (!pager) return;
+
+    const ordered = _kiosk
+      ? _kiosk.ids.map((id) => allChallenges.find((item) => item.id === id)).filter(Boolean)
+      : FP.orderModuleActivities(
+          allChallenges.filter((item) => item.module === c.module),
+          mod
+        );
+    const index = ordered.findIndex((item) => item.id === c.id);
+    if (index < 0) return;
+
+    pager.innerHTML = [
+      activityPagerCard('Previous activity', ordered[index - 1], 'previous'),
+      activityPagerCard('Next activity', ordered[index + 1], 'next'),
+    ].join('');
+    pager.hidden = false;
+  }
+
+  function activityPagerCard(label, target, direction) {
+    if (!target) {
+      return `<span class="activity-pager-card is-disabled ${direction}" aria-hidden="true"></span>`;
+    }
+
+    const arrow = direction === 'previous'
+      ? '<span class="activity-pager-arrow" aria-hidden="true">←</span>'
+      : '<span class="activity-pager-arrow" aria-hidden="true">→</span>';
+    return `
+      <a class="activity-pager-card ${direction}" href="${cUrl(target.id)}">
+        ${direction === 'previous' ? arrow : ''}
+        <span class="activity-pager-copy">
+          <span class="activity-pager-label">${label}</span>
+          <strong>${FP.esc(target.title)}</strong>
+          <span class="activity-pager-id">${FP.esc(target.id)} · ${FP.esc(target.track || target.module)}</span>
+        </span>
+        ${direction === 'next' ? arrow : ''}
+      </a>`;
+  }
+
   async function loadGuide(c) {
     const body = document.getElementById('guideBody');
     if (!body) return;
@@ -231,9 +275,199 @@
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const md = await res.text();
       FP.renderMd(md, body);
+      buildGuideSections(body);
     } catch (e) {
       body.innerHTML = `<p class="text-dim" style="font-size:.875rem">Could not load guide: ${FP.esc(e.message)}</p>`;
     }
+  }
+
+  function buildGuideSections(body) {
+    const children = Array.from(body.children);
+    if (!children.some((node) => node.tagName === 'H2')) return;
+
+    const definitions = [];
+    let current = { title: 'Overview', nodes: [] };
+
+    children.forEach((node) => {
+      if (node.tagName === 'H2') {
+        if (current.nodes.length) definitions.push(current);
+        current = { title: node.textContent.trim() || 'Section', nodes: [node] };
+      } else {
+        current.nodes.push(node);
+      }
+    });
+    if (current.nodes.length) definitions.push(current);
+    if (definitions.length < 2) return;
+
+    const usedSlugs = new Set();
+    body.innerHTML = '';
+    _sections = definitions.map((definition, index) => {
+      const slug = uniqueSlug(definition.title, index, usedSlugs);
+      const section = document.createElement('section');
+      section.className = 'guide-section';
+      section.id = 'section-' + slug;
+      section.setAttribute('role', 'tabpanel');
+      section.setAttribute('aria-labelledby', 'section-tab-' + slug);
+      definition.nodes.forEach((node) => section.appendChild(node));
+      const heading = section.querySelector('h1, h2');
+      if (heading) heading.id = slug;
+      body.appendChild(section);
+      return { title: definition.title, slug, element: section };
+    });
+
+    renderSectionRail();
+    bindSectionNavigation(body);
+    document.body.classList.add('has-guide-sections');
+
+    const hash = currentHashSlug();
+    const initial = _sections.findIndex((section) => section.slug === hash);
+    activateSection(initial >= 0 ? initial : 0, false, initial >= 0);
+  }
+
+  function uniqueSlug(title, index, usedSlugs) {
+    const base = String(title)
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '') || 'section-' + (index + 1);
+    let slug = base;
+    let suffix = 2;
+    while (usedSlugs.has(slug)) slug = base + '-' + suffix++;
+    usedSlugs.add(slug);
+    return slug;
+  }
+
+  function renderSectionRail() {
+    const nav = document.getElementById('guideSectionNav');
+    const tabs = document.getElementById('guideSectionTabs');
+    if (!nav || !tabs) return;
+
+    tabs.innerHTML = _sections.map((section, index) => `
+      <button class="guide-section-tab" id="section-tab-${section.slug}" type="button"
+        role="tab" aria-controls="section-${section.slug}" aria-selected="false"
+        tabindex="-1" data-section-index="${index}">
+        <span>${String(index + 1).padStart(2, '0')}</span>
+        ${FP.esc(section.title)}
+      </button>`
+    ).join('');
+    nav.hidden = false;
+  }
+
+  function bindSectionNavigation(body) {
+    const tabs = document.getElementById('guideSectionTabs');
+    const pager = document.getElementById('guideSectionPager');
+    const previous = document.getElementById('sectionScrollPrev');
+    const next = document.getElementById('sectionScrollNext');
+
+    tabs?.addEventListener('click', (event) => {
+      const tab = event.target.closest('[data-section-index]');
+      if (tab) activateSection(Number(tab.dataset.sectionIndex), true, true);
+    });
+    tabs?.addEventListener('keydown', (event) => {
+      const tab = event.target.closest('[data-section-index]');
+      if (!tab) return;
+      const currentIndex = Number(tab.dataset.sectionIndex);
+      const destinations = {
+        ArrowLeft: Math.max(0, currentIndex - 1),
+        ArrowRight: Math.min(_sections.length - 1, currentIndex + 1),
+        Home: 0,
+        End: _sections.length - 1,
+      };
+      if (!(event.key in destinations)) return;
+      event.preventDefault();
+      const destination = destinations[event.key];
+      activateSection(destination, true, true);
+      document.getElementById('section-tab-' + _sections[destination].slug)?.focus();
+    });
+    pager?.addEventListener('click', (event) => {
+      const button = event.target.closest('[data-section-index]');
+      if (button) activateSection(Number(button.dataset.sectionIndex), true, true);
+    });
+    previous?.addEventListener('click', () => tabs?.scrollBy({ left: -320, behavior: 'smooth' }));
+    next?.addEventListener('click', () => tabs?.scrollBy({ left: 320, behavior: 'smooth' }));
+
+    body.addEventListener('click', (event) => {
+      const link = event.target.closest('a[href^="#"]');
+      if (!link) return;
+      const slug = decodeURIComponent(link.getAttribute('href').slice(1));
+      const index = _sections.findIndex((section) => section.slug === slug);
+      if (index < 0) return;
+      event.preventDefault();
+      activateSection(index, true, true);
+    });
+
+    const restoreSectionFromUrl = () => {
+      const slug = currentHashSlug();
+      const index = _sections.findIndex((section) => section.slug === slug);
+      if (index >= 0 && index !== _activeSection) activateSection(index, false, false);
+    };
+    window.addEventListener('hashchange', restoreSectionFromUrl);
+    window.addEventListener('popstate', restoreSectionFromUrl);
+  }
+
+  function currentHashSlug() {
+    try {
+      return decodeURIComponent(window.location.hash.replace(/^#/, ''));
+    } catch (e) {
+      return '';
+    }
+  }
+
+  function activateSection(index, updateHistory, scrollToGuide) {
+    if (!_sections[index]) return;
+    _activeSection = index;
+
+    _sections.forEach((section, sectionIndex) => {
+      const active = sectionIndex === index;
+      section.element.hidden = !active;
+      const tab = document.getElementById('section-tab-' + section.slug);
+      if (tab) {
+        tab.setAttribute('aria-selected', String(active));
+        tab.tabIndex = active ? 0 : -1;
+        if (active && tab.parentElement) {
+          tab.parentElement.scrollTo({
+            left: tab.offsetLeft - (tab.parentElement.clientWidth - tab.offsetWidth) / 2,
+            behavior: 'smooth',
+          });
+        }
+      }
+    });
+
+    const progress = document.getElementById('guideSectionProgress');
+    if (progress) progress.textContent = (index + 1) + ' / ' + _sections.length;
+    renderSectionPager();
+
+    if (updateHistory) {
+      window.history.pushState(null, '', '#' + _sections[index].slug);
+    }
+    if (scrollToGuide) {
+      const nav = document.getElementById('guideSectionNav');
+      const top = nav ? nav.offsetTop - 58 : 0;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  }
+
+  function renderSectionPager() {
+    const pager = document.getElementById('guideSectionPager');
+    if (!pager) return;
+
+    const previous = _sections[_activeSection - 1];
+    const next = _sections[_activeSection + 1];
+    pager.innerHTML = [
+      sectionPagerButton('Previous section', previous, _activeSection - 1, 'previous'),
+      sectionPagerButton('Next section', next, _activeSection + 1, 'next'),
+    ].join('');
+    pager.hidden = false;
+  }
+
+  function sectionPagerButton(label, section, index, direction) {
+    if (!section) return `<span class="guide-pager-button is-disabled ${direction}" aria-hidden="true"></span>`;
+    return `
+      <button class="guide-pager-button ${direction}" type="button" data-section-index="${index}">
+        <span class="guide-pager-label">${label}</span>
+        <strong>${FP.esc(section.title)}</strong>
+      </button>`;
   }
 
   function showError(msg) {

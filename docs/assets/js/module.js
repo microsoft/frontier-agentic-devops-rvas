@@ -15,8 +15,6 @@
 
     const challenges = FP.orderModuleActivities(
       (data.challenges || []).filter((c) => c.module === moduleId),
-      moduleId,
-      data.outcomes || [],
       mod
     );
 

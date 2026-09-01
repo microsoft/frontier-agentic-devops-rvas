@@ -103,13 +103,32 @@
     return new Map((outcome.challenge_ids || []).map((id, index) => [id, index]));
   }
 
-  FP.orderModuleActivities = function (activities) {
+  FP.orderModuleActivities = function (activities, moduleMeta) {
     const list = Array.isArray(activities) ? activities.slice() : [];
+    const leadOrder = new Map(
+      ((moduleMeta && moduleMeta.catalog_lead_ids) || []).map((id, index) => [id, index])
+    );
+    const trackOrder = new Map(
+      ((moduleMeta && moduleMeta.catalog_track_order) || []).map((id, index) => [id, index])
+    );
+
     return list.sort((a, b) =>
-      displayOrder(a) - displayOrder(b)
+      leadRank(a, leadOrder) - leadRank(b, leadOrder)
+      || trackRank(a, trackOrder) - trackRank(b, trackOrder)
+      || displayOrder(a) - displayOrder(b)
       || String(a.id).localeCompare(String(b.id))
     );
   };
+
+  function leadRank(c, leadOrder) {
+    const rank = leadOrder.get(c.id);
+    return rank == null ? LAST : rank;
+  }
+
+  function trackRank(c, trackOrder) {
+    const rank = trackOrder.get(c.track);
+    return rank == null ? LAST : rank;
+  }
 
   function displayOrder(c) {
     return Number.isFinite(c.display_order) ? c.display_order : LAST;
@@ -117,8 +136,8 @@
 
   /* Order a cross-module activity list for display.
      With an outcome filter: that outcome's exact challenge_ids order.
-     Without one: display_order within each module, with modules kept in their
-     first-appearance order. */
+     Without one: each module's lead activities, then its configured track
+     order. display_order controls the sequence inside each track. */
   FP.orderActivities = function (activities, outcomeId, outcomes, modules) {
     const list = Array.isArray(activities) ? activities.slice() : [];
 
@@ -143,7 +162,8 @@
 
     const out = [];
     byModule.forEach((items, moduleId) => {
-      out.push(...FP.orderModuleActivities(items));
+      const meta = (modules || []).find((m) => m.id === moduleId);
+      out.push(...FP.orderModuleActivities(items, meta));
     });
     return out;
   };

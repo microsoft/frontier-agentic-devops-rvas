@@ -34,6 +34,8 @@ const MODULE_CONFIG = {
     description: 'Set up GitHub Enterprise Cloud in your organization, then put the policies and workflows your teams need into practice.',
     color: '#0969da',
     icon: 'icon-ghec.svg',
+    catalog_lead_ids: ['ghec-ch00'],
+    catalog_track_order: ['admin-governance', 'developer-flow', 'security', 'automation-ai', 'migration'],
     tracks: {
       'developer-flow':   { name: 'Developer Flow',       description: 'Help developers plan work, review code, and use Codespaces across the organization.' },
       'admin-governance': { name: 'Admin & Governance',   description: 'Set up organization policies, identity, audit logs, and compliance controls.' },
@@ -598,6 +600,8 @@ function main() {
       color:           cfg.color,
       icon:            cfg.icon,
       challenge_count: moduleChallenges.length,
+      catalog_lead_ids: cfg.catalog_lead_ids || [],
+      catalog_track_order: cfg.catalog_track_order || Object.keys(cfg.tracks || {}),
       tracks,
     };
   });

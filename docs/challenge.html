@@ -65,6 +65,23 @@
       </div>
     </section>
 
+    <nav class="guide-section-nav" id="guideSectionNav" aria-label="Activity sections" hidden>
+      <div class="wrap guide-section-nav-inner">
+        <button class="guide-section-scroll" id="sectionScrollPrev" type="button" aria-label="Scroll sections left">
+          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+            <path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="guide-section-tabs" id="guideSectionTabs" role="tablist" aria-orientation="horizontal"></div>
+        <span class="guide-section-progress mono" id="guideSectionProgress"></span>
+        <button class="guide-section-scroll" id="sectionScrollNext" type="button" aria-label="Scroll sections right">
+          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+            <path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </nav>
+
     <!-- Detail layout: guide + sidebar -->
     <section class="section-tight" aria-label="Delivery work package content">
       <div class="wrap">
@@ -76,6 +93,7 @@
             <article class="guide-body" id="guideBody" aria-live="polite">
               <p class="mono" style="color:var(--c-faint)">Loading guide…</p>
             </article>
+            <nav class="guide-section-pager" id="guideSectionPager" aria-label="Section navigation" hidden></nav>
           </div>
 
           <!-- Facts sidebar -->
@@ -128,6 +146,7 @@
 
           </aside>
         </div>
+        <nav class="activity-pager" id="activityPager" aria-label="Previous and next activities" hidden></nav>
       </div>
     </section>
 
