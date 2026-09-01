@@ -307,7 +307,7 @@
       }
     });
     if (current.nodes.length) definitions.push(current);
-    definitions = mergeCompanionSections(definitions);
+    definitions = foldIntoOverview(definitions);
     if (definitions.length < 2) return;
 
     const usedSlugs = new Set();
@@ -339,29 +339,25 @@
     activateSection(initial >= 0 ? initial : 0, false, initial >= 0);
   }
 
-  function mergeCompanionSections(definitions) {
-    const merged = [];
-    for (let index = 0; index < definitions.length; index++) {
-      const currentSection = definitions[index];
-      const nextSection = definitions[index + 1];
-      if (nextSection && arePrerequisitesAndOutcomes(currentSection.title, nextSection.title)) {
-        merged.push({
-          title: 'Prerequisites & outcomes',
-          nodes: currentSection.nodes.concat(nextSection.nodes),
-        });
-        index++;
-      } else {
-        merged.push(currentSection);
-      }
-    }
-    return merged;
-  }
+  function foldIntoOverview(definitions) {
+    const supporting = definitions.filter((definition) => sectionKind(definition.title));
+    if (!supporting.length) return definitions;
 
-  function arePrerequisitesAndOutcomes(first, second) {
-    const firstKind = sectionKind(first);
-    const secondKind = sectionKind(second);
-    return (firstKind === 'prerequisites' && secondKind === 'outcomes')
-      || (firstKind === 'outcomes' && secondKind === 'prerequisites');
+    const overviewIndex = definitions.findIndex((definition) => definition.title === 'Overview');
+    const overview = overviewIndex >= 0
+      ? definitions[overviewIndex]
+      : { title: 'Overview', nodes: [] };
+
+    supporting.forEach((definition) => {
+      if (definition !== overview) overview.nodes.push(...definition.nodes);
+    });
+
+    return [
+      overview,
+      ...definitions.filter((definition, index) =>
+        index !== overviewIndex && !sectionKind(definition.title)
+      ),
+    ];
   }
 
   function sectionKind(title) {
