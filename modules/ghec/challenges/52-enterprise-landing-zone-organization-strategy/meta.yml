@@ -4,6 +4,7 @@ module: ghec
 track: admin-governance
 difficulty: advanced
 duration_minutes: 225
+display_order: 5.5
 prerequisites: []
 prerequisite_capabilities:
 - Enterprise owner access or an authorized enterprise-policy export
