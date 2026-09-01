@@ -295,7 +295,7 @@
     const children = Array.from(body.children);
     if (!children.some((node) => node.tagName === 'H2')) return;
 
-    const definitions = [];
+    let definitions = [];
     let current = { title: 'Overview', nodes: [] };
 
     children.forEach((node) => {
@@ -307,9 +307,11 @@
       }
     });
     if (current.nodes.length) definitions.push(current);
+    definitions = mergeCompanionSections(definitions);
     if (definitions.length < 2) return;
 
     const usedSlugs = new Set();
+    const usedHeadingSlugs = new Set();
     body.innerHTML = '';
     _sections = definitions.map((definition, index) => {
       const slug = uniqueSlug(definition.title, index, usedSlugs);
@@ -319,10 +321,13 @@
       section.setAttribute('role', 'tabpanel');
       section.setAttribute('aria-labelledby', 'section-tab-' + slug);
       definition.nodes.forEach((node) => section.appendChild(node));
-      const heading = section.querySelector('h1, h2');
-      if (heading) heading.id = slug;
+      const aliases = Array.from(section.querySelectorAll('h1, h2')).map((heading, headingIndex) => {
+        const headingSlug = uniqueSlug(heading.textContent.trim(), headingIndex, usedHeadingSlugs);
+        heading.id = headingSlug;
+        return headingSlug;
+      });
       body.appendChild(section);
-      return { title: definition.title, slug, element: section };
+      return { title: definition.title, slug, aliases, element: section };
     });
 
     renderSectionRail();
@@ -330,8 +335,41 @@
     document.body.classList.add('has-guide-sections');
 
     const hash = currentHashSlug();
-    const initial = _sections.findIndex((section) => section.slug === hash);
+    const initial = sectionIndexForSlug(hash);
     activateSection(initial >= 0 ? initial : 0, false, initial >= 0);
+  }
+
+  function mergeCompanionSections(definitions) {
+    const merged = [];
+    for (let index = 0; index < definitions.length; index++) {
+      const currentSection = definitions[index];
+      const nextSection = definitions[index + 1];
+      if (nextSection && arePrerequisitesAndOutcomes(currentSection.title, nextSection.title)) {
+        merged.push({
+          title: 'Prerequisites & outcomes',
+          nodes: currentSection.nodes.concat(nextSection.nodes),
+        });
+        index++;
+      } else {
+        merged.push(currentSection);
+      }
+    }
+    return merged;
+  }
+
+  function arePrerequisitesAndOutcomes(first, second) {
+    const firstKind = sectionKind(first);
+    const secondKind = sectionKind(second);
+    return (firstKind === 'prerequisites' && secondKind === 'outcomes')
+      || (firstKind === 'outcomes' && secondKind === 'prerequisites');
+  }
+
+  function sectionKind(title) {
+    const value = String(title).trim();
+    if (/^prerequisites\b/i.test(value)) return 'prerequisites';
+    if (/^(objectives|goals|required outcome|outcomes?)\b/i.test(value)) return 'outcomes';
+    if (/^what\s+(?:you\s+will|you['’]ll)\s+(?:deliver|do|practice)\b/i.test(value)) return 'outcomes';
+    return '';
   }
 
   function uniqueSlug(title, index, usedSlugs) {
@@ -401,7 +439,7 @@
       const link = event.target.closest('a[href^="#"]');
       if (!link) return;
       const slug = decodeURIComponent(link.getAttribute('href').slice(1));
-      const index = _sections.findIndex((section) => section.slug === slug);
+      const index = sectionIndexForSlug(slug);
       if (index < 0) return;
       event.preventDefault();
       activateSection(index, true, true);
@@ -409,7 +447,7 @@
 
     const restoreSectionFromUrl = () => {
       const slug = currentHashSlug();
-      const index = _sections.findIndex((section) => section.slug === slug);
+      const index = sectionIndexForSlug(slug);
       if (index >= 0 && index !== _activeSection) activateSection(index, false, false);
     };
     window.addEventListener('hashchange', restoreSectionFromUrl);
@@ -422,6 +460,12 @@
     } catch (e) {
       return '';
     }
+  }
+
+  function sectionIndexForSlug(slug) {
+    return _sections.findIndex((section) =>
+      section.slug === slug || section.aliases.includes(slug)
+    );
   }
 
   function activateSection(index, updateHistory, scrollToGuide) {
