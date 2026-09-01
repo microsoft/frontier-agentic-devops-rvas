@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - Named executive sponsor and enterprise governance owner
 - GitHub CLI (gh >= 2.x) installed
 - jq installed
-description: "Inspect the enterprise topology and propose a justified organization-boundary strategy: organization count and rationale, org charter and intake/retirement process, enterprise roles and teams model, delegation matrix, and a populated governance settings register."
+description: "Map the enterprise and recommend an organization strategy: organization count and rationale, organization charter and lifecycle process, enterprise roles and teams, a delegation matrix, and a completed governance settings register."
 tags:
 - enterprise-governance
 - landing-zone

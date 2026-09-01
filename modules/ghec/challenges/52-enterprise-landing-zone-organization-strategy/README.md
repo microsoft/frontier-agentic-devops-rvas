@@ -1,83 +1,87 @@
 # Ch52 — Enterprise Landing Zone & Organization Strategy
 
-> Inspect the enterprise topology and propose a justified organization-boundary strategy: organization count, charter and intake/retirement process, enterprise roles/teams model, delegation/inheritance matrix, and a populated governance settings register. Do not create organizations, teams, or repositories.
+> Map the enterprise and recommend an organization strategy: how many organizations it needs, what each one is for, how organizations are created or retired, who holds enterprise roles, and which settings the enterprise or each organization owns. Complete the governance settings register. Do not create organizations, teams, or repositories.
 
 ## Scope boundary
 
-This activity sets the enterprise-wide landing zone decision that other chapters implement in depth. Ch06 configures a single organization's member-privilege baseline; Ch07 models organization teams and repository roles; Ch10 operates billing and cost centers; Ch14 configures organization SAML/SCIM; Ch28 inspects enterprise identity, network, SSH CA, and enterprise-role controls; Ch44 detects repository-level policy drift. None of those activities decide **how many organizations the enterprise should have, why, or who owns the boundary** — that decision, and the register that tracks it, belongs here. Reuse their evidence where it exists; record the enterprise-wide decision and routing in this activity.
+This activity makes the enterprise-wide organization decision that the other chapters build on. Ch06 sets a single organization's member-privilege baseline. Ch07 covers organization teams and repository roles. Ch10 covers billing and cost centers. Ch14 configures SAML/SCIM. Ch28 examines enterprise identity, network, SSH CA, and enterprise-role controls. Ch44 finds repository policy drift.
+
+Those activities do not decide **how many organizations the enterprise needs, why they exist, or who can approve their boundaries**. Make that decision here, then record it in the governance settings register. Reuse evidence from the other chapters when it is available.
 
 ## Prerequisites
 
 - Enterprise owner access **or** an authorized, current export of enterprise organization, identity, billing, and policy settings.
-- A named executive sponsor and enterprise governance owner who can approve the boundary decision and charter.
+- A named executive sponsor and enterprise governance owner who can approve the organization strategy and charter.
 - Local tooling: `gh >= 2.x` and `jq` for API inspection (no write scopes are required for the default inspect-and-propose path).
 - Customer approval before any pilot change. Enterprise-owner access is required for a settings change; an export-only session remains inspection-only.
 
-## What you will deliver
+## Deliverables
 
-- An enterprise topology map: every organization (or an authorized representative subset), its purpose, membership size, sensitivity, and the enterprise hosting/data-residency context inherited by it.
-- A justified organization count and a boundary decision naming the primary rationale and at least one rejected alternative.
-- An org charter template and an intake/retirement process for creating or decommissioning an organization.
-- An enterprise roles/teams model and a delegation/inheritance matrix covering identity, teams, lifecycle, offboarding, email, metadata/custom properties, data residency, app registrations, cost centers, Projects/Sponsors, and policy domains.
-- A populated Governance Settings Register (shared resource) and a follow-on activity map that routes open findings to the chapter that will implement them.
+- A topology map for every organization, or an approved representative subset. Include purpose, member count, sensitivity, and the hosting or data-residency context inherited from the enterprise.
+- A recommendation for the number of organizations, its main reason, and at least one rejected option.
+- An organization charter template, plus processes for creating and retiring organizations.
+- An enterprise role and team model, plus a matrix that shows who owns settings across identity, teams, lifecycle, offboarding, email, custom properties, data residency, app registrations, cost centers, Projects, Sponsors, and policy.
+- A completed Governance Settings Register and a map that sends open work to the chapter that owns it.
 
 ## Scenario
 
-A GHEC customer has grown an enterprise account by accretion: organizations were created ad hoc for pilots, acquisitions, and individual teams, nobody can say why there are as many as there are, enterprise-owner assignment has crept past the people who actually need it, and no one owns the decision to create or retire an organization. You will inspect the current topology, propose (not impose) a justified boundary, define the charter and lifecycle process, model enterprise roles/teams and their delegation limits, and populate the shared governance register so the customer's next organization decision is deliberate instead of accidental.
+A GHEC customer added organizations for pilots, acquisitions, and individual teams. Years later, nobody can explain why the enterprise has this many organizations. Too many people hold the enterprise-owner role. Nobody owns the decision to create or retire an organization.
+
+Inspect the topology. Recommend a boundary without changing it. Define the charter, lifecycle process, enterprise roles and team model, and delegation limits. Then update the shared governance register so the next organization decision has an owner and a record.
 
 > [!IMPORTANT]
 > Inspect-and-propose by default
 >
-> The default path is inspection and a written proposal. Do not create, merge, rename, or retire an organization; do not change enterprise-owner assignment, cost-center membership, custom properties, or data residency during this activity.
+> Start with inspection and a written proposal. Do not create, merge, rename, or retire an organization. Do not change enterprise-owner assignments, cost-center membership, custom properties, or data residency in this activity.
 >
 > - Have enterprise-owner access? Inspect live settings via the UI and API.
 > - No owner access? Use a current, dated export of enterprise organization, identity, billing, and policy settings, and record its source and date.
-> - If the customer authorizes a single bounded pilot (for example, one test-organization custom property or one charter dry run), record scope, owner, and rollback before acting.
+> - If the customer authorizes one limited pilot, such as a test-organization custom property or a charter dry run, record its scope, owner, and rollback plan before you start.
 
 ## No sample resources are created
 
-This activity provisions nothing. There is no `setup.sh provision ch52` step, no sample organization, team, or repository, and no seeded register. Copy `modules/ghec/resources/GOVERNANCE-SETTINGS-REGISTER-TEMPLATE.md` to a customer-owned evidence location and populate that copy; do not write customer evidence into the curriculum template.
+This activity creates nothing. There is no `setup.sh provision ch52` command, sample organization, team, repository, or prefilled register. Copy `modules/ghec/resources/GOVERNANCE-SETTINGS-REGISTER-TEMPLATE.md` to a customer-owned evidence location, then complete that copy. Keep customer evidence out of the curriculum template.
 
 ## Tasks
 
-### Part A — Map the enterprise topology and identity baseline
+### Part A — Map the enterprise and identity baseline
 
-1. Enumerate every organization the enterprise owns (or an authorized representative subset for a very large enterprise), recording purpose, member count, visibility posture, and business owner:
+1. List every organization in the enterprise, or an approved representative subset for a very large enterprise. Record its purpose, member count, visibility posture, and business owner:
    ```bash
    gh api /enterprises/<enterprise>/organizations --paginate --jq '.[] | {login, description}'
    ```
-   or use the authorized policy export if API/UI access is unavailable.
-2. Record the enterprise identity model: Enterprise Managed Users (EMU) or unmanaged/personal accounts; the IdP and supported SAML or OIDC protocol with its constraints; whether SSO/SCIM is enforced at the enterprise or per-organization level; the authoritative provisioning/offboarding path; and the effective 2FA requirement. For EMU, identify the enterprise SCIM owner and evidence source without attempting user provisioning. For non-EMU, record the 2FA rollout and member-removal risk without enabling enforcement in this activity.
-3. Inventory existing enterprise teams (if any), their purpose, membership source (manual or IdP-synced), and the organizations each can access.
-4. Record the enterprise hostname and hosting model (GitHub.com or GHE.com with data residency), the selected region where applicable, and the feature constraints inherited by its organizations. Do not imply that organizations inside one enterprise independently select different residency regions.
+   Use the approved policy export when you cannot access the API or UI.
+2. Record the identity model: Enterprise Managed Users (EMU) or unmanaged/personal accounts; the IdP; the SAML or OIDC protocol and its limits; where SSO/SCIM is enforced; the source of truth for provisioning and offboarding; and the effective 2FA requirement. For EMU, identify the enterprise SCIM owner and the evidence source. Do not provision users. For non-EMU, record the 2FA rollout and member-removal risk without enforcing either one.
+3. List existing enterprise teams, if any. Record their purpose, membership source (manual or IdP-synced), and which organizations they can access.
+4. Record the enterprise hostname and hosting model (GitHub.com or GHE.com with data residency), its selected region when relevant, and feature limits inherited by its organizations. Organizations in one enterprise cannot choose separate data-residency regions.
 
 ### Part B — Decide the organization boundary
 
-5. List the candidate boundary drivers for this enterprise: related applications or services, compliance/regulatory isolation, security/blast-radius isolation, data residency, M&A or divestiture planning, external collaboration, and public/open-source work. Mark which apply and which do not. Treat billing or licensing alone as insufficient justification for another organization; use cost centers, teams, and license assignment instead.
-6. Propose a justified organization count and structure (for example, "one org per regulated business unit plus one shared-services org") and name the primary rationale.
-7. Name at least one rejected alternative (for example, "one org for the whole enterprise" or "one org per team") and record why it was rejected.
-8. Record the accountable approver for the boundary decision and the review cadence for revisiting it (for example, annually or at each M&A event).
+5. Consider boundary drivers: related applications or services, regulatory isolation, security or blast-radius isolation, data residency, M&A or divestiture planning, external collaboration, and public or open-source work. Mark which apply. Billing or licensing alone does not justify another organization. Use cost centers, teams, and license assignment for those needs.
+6. Recommend an organization count and structure. For example: one organization per regulated business unit, plus one for shared services. Name the main reason for the recommendation.
+7. Record at least one rejected option, such as one organization for the whole enterprise or one per team, and explain why it does not fit.
+8. Name the person who approves the organization strategy and set a review cadence, such as annually or at each M&A event.
 
 ### Part C — Define the org charter and intake/retirement process
 
-9. Draft an org charter template: required fields (owner, business justification, boundary driver, initial cost center, initial data-residency choice, initial custom properties, initial restricted-email/domain policy).
-10. Inspect who is currently allowed to create organizations, then define the intake process: who requests a new organization, who approves and creates it, what baseline settings it inherits, and what evidence is captured.
-11. Define the retirement/offboarding process: how an organization is decommissioned, how its unaffiliated members are identified and removed or transferred, and how repositories, teams, and cost-center assignments are retired or migrated.
-12. Record the restricted-email/verified-domain decision: whether enterprise-level email-notification restriction is enforced, which domains are verified or approved, and any per-organization exception.
+9. Draft an organization charter template with the owner, business justification, boundary driver, initial cost center, initial data-residency choice, initial custom properties, and initial restricted-email or domain policy.
+10. Check who can create organizations now. Define who requests one, who approves and creates it, its baseline settings, and the evidence to capture.
+11. Define the retirement process. Cover decommissioning the organization, identifying and removing or transferring unaffiliated members, and retiring or moving repositories, teams, and cost-center assignments.
+12. Record the restricted-email and verified-domain decision: whether the enterprise enforces email-notification restrictions, which domains are verified or approved, and any organization-level exception.
 
 ### Part D — Model enterprise roles, teams, and delegation
 
-13. Export the enterprise People/role view (or the authorized export) and name every enterprise-owner holder, delegated enterprise role holder (billing manager, security manager, etc.), and their purpose. Minimize enterprise-owner assignment; name a target state if current assignment is broader than needed.
-14. Define or confirm the enterprise-teams model: which teams exist or should exist, their IdP sync source, and which organizations/roles each is granted.
-15. Build the delegation/inheritance matrix: for each governed domain (identity, network, repository policy, Actions policy, security defaults, packages, Pages, Copilot/AI policy, vendor/outside-collaborator access, custom properties, cost centers), record the effective enterprise-level setting, whether an organization may add a stricter/additive setting, and the accountable delegate.
-16. Record the enterprise's custom-properties strategy (which properties are enterprise-mandated versus organization-optional), enterprise app-registration and installation authority, and cost-center structure (how organizations, repositories, enterprise teams, and users are assigned).
-17. Record the applicability of enterprise-level Projects and GitHub Sponsors: whether either is in scope for this enterprise's landing zone, who owns the decision, and any policy constraint.
+13. Export the enterprise People and role view, or use the approved export. Name each enterprise owner and delegated role holder (billing manager, security manager, and similar), along with their purpose. Keep enterprise-owner membership small. If too many people have it today, describe the target state.
+14. Confirm or define the enterprise team model: which teams exist or should exist, their IdP sync source, and the organizations or roles granted to each one.
+15. Build a delegation and inheritance matrix. For identity, network, repository policy, Actions policy, security defaults, packages, Pages, Copilot/AI policy, vendor or outside-collaborator access, custom properties, and cost centers, record the effective enterprise setting, whether an organization may make it stricter or add to it, and who is accountable.
+16. Record the custom-property strategy: which properties the enterprise requires and which are optional for organizations. Also record who can register or install enterprise apps and how cost centers assign organizations, repositories, enterprise teams, and users.
+17. Record whether enterprise-level Projects or GitHub Sponsors belong in this organization strategy. Name the decision owner and any policy limit.
 
 ### Part E — Populate the register and hand over
 
-18. Open `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`, copy `modules/ghec/resources/GOVERNANCE-SETTINGS-REGISTER-TEMPLATE.md` to the customer-owned evidence location, and populate that copy for every applicable control ID with the current value or effective source, decision, accountable owner, and review/expiry date.
-19. Build the follow-on activity map: for every open finding or deferred decision, name the existing chapter that will implement or deepen it (for example, route base-permission tuning to Ch06, the access matrix to Ch07, billing budgets to Ch10, SAML/SCIM to Ch14, enterprise identity/network detail to Ch28, drift detection to Ch44, packages policy to Ch45, Pages policy to Ch46, or vendor lifecycle to Ch48).
-20. Present the topology map, boundary decision, charter/lifecycle process, roles/teams model, delegation matrix, and populated register to the executive sponsor and enterprise governance owner. Record the next decision: accept the boundary, pilot one organization or setting, schedule a phased rollout, or accept/document a named risk.
+18. Open `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`. Copy `modules/ghec/resources/GOVERNANCE-SETTINGS-REGISTER-TEMPLATE.md` to the customer-owned evidence location. For each relevant control ID, record the current value or effective source, decision, accountable owner, and review or expiry date.
+19. Map each open finding or deferred decision to the chapter that will handle it. For example, send base-permission tuning to Ch06, the access matrix to Ch07, billing budgets to Ch10, SAML/SCIM to Ch14, enterprise identity or network detail to Ch28, drift detection to Ch44, packages policy to Ch45, Pages policy to Ch46, and vendor lifecycle to Ch48.
+20. Present the topology map, organization strategy, charter and lifecycle process, role and team model, delegation matrix, and completed register to the executive sponsor and enterprise governance owner. Record the next decision: accept the strategy, pilot one organization or setting, plan a phased rollout, or accept and document a named risk.
 
 ## Reference links
 
