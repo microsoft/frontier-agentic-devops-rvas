@@ -2,8 +2,21 @@
 
 ## Writing
 
-Before creating or editing prose, invoke `/humanize-writing`.
+### Writing gate
+
+Before drafting, editing, or returning repository prose, invoke
+`/humanize-writing`. This includes technical documentation, session kits,
+runbooks, Markdown, slide content, and user-facing explanations.
+
+In this repository, use the skill to simplify wording and remove AI-patterns from
+technical content. Its general technical-writing exclusion does not apply here.
+
 Use the `clear-thinker` voice unless the user requests another voice.
+
+Before finishing, complete both checks:
+1. Apply the prose simplification rules in this file.
+2. Apply the `/humanize-writing` AI-pattern dictionary and revise the draft until
+   it passes.
 
 ### Default writing style
 
@@ -78,8 +91,13 @@ Do not add:
 
 Do not make a sentence more formal simply because it is documentation.
 
-Optimize for sufficient completeness, not maximal completeness. Stop adding detail when the next addition would not materially change the reader's understanding,
-decision, or ability to act, and stop when additional work has low marginal value.
+> [!IMPORTANT]
+> Optimize for sufficient completeness, not maximal completeness. Stop adding detail when the next addition would not materially change the reader's understanding,
+> decision, or ability to act, and stop when additional work has low marginal value.
+> When writing, you need to consider strong simplification. Simplification is beauty.
+> Fix your attitude at overcomplicating things, considering that the greatest and finest minds
+> transfer knowledge by being clear and understandable.
+> Always consider incremental utility value when trying to add things: if there is not, no need to add text or details.
 
 Add some strategic bold text.
 
@@ -101,6 +119,3 @@ Then apply the `/humanize-writing` AI-pattern dictionary.
 
 Preserve technical facts, Microsoft product names, dates, citations, and governance terminology exactly.
 
-## Visual identity
-
-- Reuse the supplied RVAP logos and official Microsoft product icons. Do not redraw, recolor, crop, rotate, or distort them.
