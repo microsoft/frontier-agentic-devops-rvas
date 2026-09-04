@@ -7,6 +7,7 @@
   let _outcomes = [];
   let _activeOutcome = null;
   let _activeModule = null;
+  let _activeTrack = null;
   let _activeDiff = null;
   let _query = '';
   const _selected = new Set();
@@ -24,6 +25,7 @@
     _outcomes = data.outcomes || [];
 
     buildOutcomeChips();
+    buildTrackChips();
     buildModuleChips();
     buildDiffChips();
     initSearch();
@@ -78,6 +80,40 @@
     });
   }
 
+  function buildTrackChips() {
+    const container = document.getElementById('trackChips');
+    if (!container) return;
+
+    const tracks = [];
+    const seen = new Set();
+    _modules.forEach((module) => {
+      (module.catalog_track_order || []).forEach((trackId) => {
+        if (seen.has(trackId)) return;
+        const track = (module.tracks || []).find((item) => item.id === trackId);
+        if (!track) return;
+        seen.add(trackId);
+        tracks.push(track);
+      });
+    });
+
+    container.innerHTML = tracks.map((track) =>
+      `<button class="chip" data-track="${FP.esc(track.id)}"
+         aria-pressed="false" type="button">${FP.esc(track.name)}</button>`
+    ).join('');
+
+    container.querySelectorAll('.chip').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.track;
+        _activeTrack = _activeTrack === id ? null : id;
+        container.querySelectorAll('.chip').forEach((b) => {
+          b.classList.toggle('active', b.dataset.track === _activeTrack);
+          b.setAttribute('aria-pressed', String(b.dataset.track === _activeTrack));
+        });
+        render();
+      });
+    });
+  }
+
   function buildDiffChips() {
     const container = document.getElementById('diffChips');
     if (!container) return;
@@ -114,6 +150,7 @@
         if (input) input.value = '';
         _activeOutcome = null;
         _activeModule = null;
+        _activeTrack = null;
         _activeDiff = null;
         document.querySelectorAll('.filters .chip').forEach((b) => {
           b.classList.remove('active');
@@ -159,6 +196,7 @@
     return _all.filter((c) => {
       if (_activeModule && c.module !== _activeModule) return false;
       if (_activeOutcome && !(c.outcomes || []).includes(_activeOutcome)) return false;
+      if (_activeTrack && c.track !== _activeTrack) return false;
       if (_activeDiff && c.difficulty !== _activeDiff) return false;
       if (_query) {
         const outcomeNames = (c.outcomes || []).map((id) => FP.outcomeName(id, _outcomes));
