@@ -59,10 +59,10 @@ const MODULE_CONFIG = {
     color: '#8250df',
     icon: 'icon-ghaw.svg',
     tracks: {
-      'hello-agent':              { name: 'Hello, Agent', description: 'Build your first agents with schedules, triggers, and controlled outputs.' },
-      'repo-concierge':           { name: 'Repo Concierge', description: 'Automate issue triage and pull request review from repository events.' },
-      'continuous-intelligence': { name: 'Continuous Intelligence', description: 'Connect workflows, MCP tools, and custom engines to handle larger jobs.' },
-      'production-patterns':      { name: 'Production Patterns', description: 'Adapt proven Agent Factory examples to work in your own repository.' },
+      'hello-agent':              { name: 'Getting Started', description: 'Set up gh-aw and build basic schedule- and event-triggered workflows.' },
+      'repo-concierge':           { name: 'Pull Requests & Issues', description: 'Automate review, triage, contributor guidance, and issue commands.' },
+      'continuous-intelligence': { name: 'Context & Orchestration', description: 'Connect workflows, repository context, and MCP tools for more involved jobs.' },
+      'production-patterns':      { name: 'Repository Operations', description: 'Automate maintenance, quality, security, and planning with reviewed outputs.' },
     },
   },
   'sre-agent': {

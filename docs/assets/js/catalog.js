@@ -20,6 +20,7 @@
     _outcomes = data.outcomes || [];
 
     buildOutcomeChips();
+    buildTrackChips();
     buildDiffChips();
     initSearch();
     applyUrlState();
@@ -28,7 +29,7 @@
 
   const DIFFS = ['beginner', 'intermediate', 'advanced'];
 
-  /* Seed filter state from the URL query string (?outcome=&difficulty=&q=) and
+  /* Seed filter state from the URL query string (?outcome=&track=&difficulty=&q=) and
      reflect it on the chips + search input before the first render. Invalid
      values are ignored rather than applied. */
   function applyUrlState() {
@@ -37,6 +38,9 @@
 
     const diff = FP.qp('difficulty');
     if (diff && DIFFS.indexOf(diff) !== -1) _activeDiff = diff;
+
+    const track = FP.qp('track');
+    if (track && _all.some((c) => c.track === track)) _activeTrack = track;
 
     const q = (FP.qp('q') || '').trim();
     if (q) {
@@ -61,6 +65,11 @@
       b.classList.toggle('active', on);
       b.setAttribute('aria-pressed', String(on));
     });
+    document.querySelectorAll('#trackChips .chip').forEach((b) => {
+      const on = b.dataset.track === _activeTrack;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
   }
 
   /* Keep the address bar in sync with the active filters so the view is
@@ -68,6 +77,7 @@
   function syncUrl() {
     const q = new URLSearchParams();
     if (_activeOutcome) q.set('outcome', _activeOutcome);
+    if (_activeTrack) q.set('track', _activeTrack);
     if (_activeDiff) q.set('difficulty', _activeDiff);
     if (_query) q.set('q', _query);
     const qs = q.toString();
@@ -90,6 +100,38 @@
       btn.addEventListener('click', () => {
         const id = btn.dataset.outcome;
         _activeOutcome = _activeOutcome === id ? null : id;
+        syncChipState();
+        syncUrl();
+        render();
+      });
+    });
+  }
+
+  function buildTrackChips() {
+    const container = document.getElementById('trackChips');
+    if (!container) return;
+
+    const tracks = [];
+    const seen = new Set();
+    _modules.forEach((module) => {
+      (module.catalog_track_order || []).forEach((trackId) => {
+        if (seen.has(trackId)) return;
+        const track = (module.tracks || []).find((item) => item.id === trackId);
+        if (!track) return;
+        seen.add(trackId);
+        tracks.push(track);
+      });
+    });
+
+    container.innerHTML = tracks.map((track) =>
+      `<button class="chip" data-track="${FP.esc(track.id)}"
+         aria-pressed="false" type="button">${FP.esc(track.name)}</button>`
+    ).join('');
+
+    container.querySelectorAll('.chip').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.track;
+        _activeTrack = _activeTrack === id ? null : id;
         syncChipState();
         syncUrl();
         render();
@@ -145,6 +187,7 @@
         _query = '';
         input.value = '';
         _activeOutcome = null;
+        _activeTrack = null;
         _activeDiff = null;
         document.querySelectorAll('.chip').forEach((b) => {
           b.classList.remove('active');
@@ -159,6 +202,7 @@
   function filtered() {
     return _all.filter((c) => {
       if (_activeOutcome && !(c.outcomes || []).includes(_activeOutcome)) return false;
+      if (_activeTrack && c.track !== _activeTrack) return false;
       if (_activeDiff   && c.difficulty !== _activeDiff) return false;
       if (_query) {
         const outcomeNames = (c.outcomes || []).map((id) => FP.outcomeName(id, _outcomes));
