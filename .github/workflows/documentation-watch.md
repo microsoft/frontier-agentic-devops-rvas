@@ -6,7 +6,8 @@ on:
 permissions:
   contents: read
   issues: read
-network: defaults
+network:
+  allowed: [defaults, github]
 timeout-minutes: 10
 tools:
   github:
