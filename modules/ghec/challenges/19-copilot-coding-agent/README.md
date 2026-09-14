@@ -80,7 +80,7 @@ What setup creates (all artifacts namespaced `ghec-ch19-*`, idempotent, prefix-g
 
 ## Reference links
 - About Copilot cloud agent — https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent
-- Managing access to Copilot cloud agent — https://docs.github.com/en/copilot/concepts/agents/cloud-agent/access-management
+- Managing access to Copilot cloud agent — https://docs.github.com/en/copilot/concepts/enterprise/cloud-agent-access
 - Using Copilot to work on an issue — https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/start-copilot-sessions
 - Customizing or restricting Copilot cloud agent — https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent
 - Managing GitHub Copilot policies in your organization — https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-policies

@@ -32,7 +32,7 @@ source_path: modules/ghec/challenges/19-copilot-coding-agent/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent
-- https://docs.github.com/en/copilot/concepts/agents/cloud-agent/access-management
+- https://docs.github.com/en/copilot/concepts/enterprise/cloud-agent-access
 - https://docs.github.com/en/copilot/using-github-copilot/coding-agent/using-copilot-to-work-on-an-issue
 - https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent
 - https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-policies

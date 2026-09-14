@@ -116,7 +116,7 @@ When a live automation is unavailable, retain this minimum package in the custom
 
 - [About Copilot automations](https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-automations)
 - [Creating automations with Copilot cloud agent](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/create-automations)
-- [Managing access to GitHub Copilot cloud agent and automations](https://docs.github.com/en/copilot/concepts/agents/cloud-agent/access-management)
+- [Managing access to GitHub Copilot cloud agent and automations](https://docs.github.com/en/copilot/concepts/enterprise/cloud-agent-access)
 - [Risks and mitigations for GitHub Copilot cloud agent](https://docs.github.com/en/copilot/concepts/agents/cloud-agent/risks-and-mitigations)
 - [Managing and tracking Copilot agents](https://docs.github.com/en/copilot/how-tos/copilot-on-github/use-copilot-agents/manage-and-track-agents)
 - [Configuring automatic code review by GitHub Copilot](https://docs.github.com/en/copilot/how-tos/copilot-on-github/set-up-copilot/configure-automatic-review)
