@@ -35,5 +35,5 @@ license: MIT
 references:
   - https://owasp.org/www-community/attacks/xss/
   - https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
-  - https://docs.github.com/en/code-security/code-scanning/managing-code-scanning-alerts/about-autofix-for-codeql-code-scanning
+  - https://docs.github.com/en/code-security/responsible-use/security-and-quality-ai-features
   - https://angular.io/guide/security#preventing-cross-site-scripting-xss

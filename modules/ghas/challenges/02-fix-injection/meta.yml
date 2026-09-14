@@ -34,6 +34,6 @@ source_path: modules/ghas/challenges/02-fix-injection/meta.yml
 license: MIT
 references:
   - https://owasp.org/www-community/attacks/SQL_Injection
-  - https://docs.github.com/en/code-security/code-scanning/managing-code-scanning-alerts/about-autofix-for-codeql-code-scanning
+  - https://docs.github.com/en/code-security/responsible-use/security-and-quality-ai-features
   - https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html
   - https://docs.github.com/en/code-security/code-scanning/managing-code-scanning-alerts/managing-code-scanning-alerts-for-your-repository
