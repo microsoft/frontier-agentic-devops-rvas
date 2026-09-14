@@ -38,5 +38,5 @@ Try triggering the XSS in the running app with `<script>alert(1)</script>` in a 
 
 - [OWASP: Cross-Site Scripting (XSS)](https://owasp.org/www-community/attacks/xss/)
 - [OWASP XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
-- [About Copilot Autofix](https://docs.github.com/en/code-security/responsible-use/security-and-quality-ai-features)
+- [Responsible use of AI features for security and code quality](https://docs.github.com/en/code-security/responsible-use/security-and-quality-ai-features)
 - [Angular Security: Preventing XSS](https://angular.io/guide/security#preventing-cross-site-scripting-xss)
