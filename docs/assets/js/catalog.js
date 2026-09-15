@@ -112,20 +112,25 @@
     if (!container) return;
 
     const tracks = [];
-    const seen = new Set();
+    const byId = new Map();
     _modules.forEach((module) => {
       (module.catalog_track_order || []).forEach((trackId) => {
-        if (seen.has(trackId)) return;
         const track = (module.tracks || []).find((item) => item.id === trackId);
         if (!track) return;
-        seen.add(trackId);
-        tracks.push(track);
+        const existing = byId.get(trackId);
+        if (existing) {
+          if (!existing.names.includes(track.name)) existing.names.push(track.name);
+          return;
+        }
+        const entry = { id: track.id, names: [track.name] };
+        byId.set(trackId, entry);
+        tracks.push(entry);
       });
     });
 
     container.innerHTML = tracks.map((track) =>
       `<button class="chip" data-track="${FP.esc(track.id)}"
-         aria-pressed="false" type="button">${FP.esc(track.name)}</button>`
+         aria-pressed="false" type="button">${FP.esc(track.names.join(' / '))}</button>`
     ).join('');
 
     container.querySelectorAll('.chip').forEach((btn) => {
@@ -144,6 +149,7 @@
       'github-adoption': 'ghec',
       'platform-migration': 'ghec',
       'ghas-adoption': 'ghas',
+      'ghas-developer-remediation': 'ghas',
       'agentic-workflows': 'ghaw',
       'agentic-devops-cloud': 'sre-agent',
     };

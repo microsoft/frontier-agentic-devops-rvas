@@ -1,0 +1,56 @@
+id: ghas-admin-02
+title: Secret Protection Operations
+module: ghas
+track: admin-governance
+difficulty: intermediate
+duration_minutes: 135
+display_order: 11
+prerequisites:
+  - ghas-admin-01
+prerequisite_capabilities:
+  - Organization-owned test repository with GitHub Secret Protection
+  - Repository administration and secret-scanning alert access
+  - Two GitHub users for independent request and review work
+  - GitHub CLI, Git, and jq installed
+description: "Operate secret scanning from seeded history through prevention, reviewed bypass, custom detection, response, and verified closure."
+tags:
+  - ghas
+  - secret-protection
+  - secret-scanning
+  - push-protection
+  - delegated-bypass
+  - delegated-dismissal
+  - custom-patterns
+  - incident-response
+app_dependency: juice-shop
+emu_compatible: true
+min_environment: org
+provision_creates:
+  - Private GHAS secret-operations repository imported from OWASP Juice Shop v20.0.0
+  - Synthetic provider-pattern commits across main and seed/push-protection-history
+  - SECRETS-MANIFEST.md and custom-pattern candidate
+  - Secret-protection evidence issue
+tier: core
+outcomes:
+  - ghas-adoption
+personas:
+  - security-lead
+  - platform-engineer
+  - developer
+business_value:
+  - shift-left-security
+adoption_stage: operate
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghas/challenges/02-admin-secret-protection-operations/meta.yml
+license: MIT
+references:
+  - https://docs.github.com/en/code-security/concepts/secret-security/secret-scanning
+  - https://docs.github.com/en/code-security/how-tos/secure-your-secrets/prevent-future-leaks/enable-push-protection
+  - https://docs.github.com/en/code-security/reference/secret-security/supported-secret-scanning-patterns
+  - https://docs.github.com/en/code-security/secret-scanning/managing-alerts-from-secret-scanning
+  - https://docs.github.com/en/code-security/concepts/secret-security/delegated-bypass
+  - https://docs.github.com/en/code-security/how-tos/secure-your-secrets/manage-bypass-requests/review-bypass-requests
+  - https://docs.github.com/en/code-security/how-tos/secure-your-secrets/customize-leak-detection/define-custom-patterns
+  - https://docs.github.com/en/code-security/concepts/security-at-scale/delegated-alert-dismissal
+  - https://docs.github.com/en/rest/secret-scanning/secret-scanning
+  - https://docs.github.com/en/rest/secret-scanning/custom-patterns

@@ -1,0 +1,52 @@
+id: ghas-admin-06
+title: Security Overview, Delegated Triage & Campaign Operations
+module: ghas
+track: admin-governance
+difficulty: advanced
+duration_minutes: 135
+display_order: 15
+prerequisites:
+  - ghas-admin-02
+  - ghas-admin-04
+  - ghas-admin-05
+prerequisite_capabilities:
+  - Completed secret protection operations from ghas-admin-02
+  - Active CodeQL merge enforcement from ghas-admin-04
+  - Dependency visibility and pull request protection from ghas-admin-05
+  - Organization owner or security manager campaign access
+  - Developer with write access for the campaign access test
+description: "Repair a Security Overview gap, publish a bounded campaign, run delegated triage with an expiring exception, and measure real alert burn-down."
+tags:
+  - ghas
+  - security-overview
+  - security-campaigns
+  - delegated-dismissal
+  - exceptions
+  - remediation
+app_dependency: juice-shop
+emu_compatible: true
+min_environment: org
+provision_creates:
+  - Shared ghas-admin-01-06 security operations repository
+  - Multi-tool alert corpus, remediation branch, and campaign tracking issue
+tier: core
+outcomes:
+  - ghas-adoption
+personas:
+  - security-lead
+  - platform-engineer
+  - developer
+business_value:
+  - shift-left-security
+adoption_stage: scale
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghas/challenges/06-admin-security-overview-triage-campaigns/meta.yml
+license: MIT
+references:
+  - https://docs.github.com/en/enterprise-cloud@latest/code-security/concepts/security-at-scale/security-overview
+  - https://docs.github.com/en/enterprise-cloud@latest/code-security/reference/permissions/security-overview
+  - https://docs.github.com/en/code-security/concepts/security-at-scale/about-security-campaigns
+  - https://docs.github.com/en/code-security/how-tos/manage-security-alerts/remediate-alerts-at-scale/creating-managing-security-campaigns
+  - https://docs.github.com/en/code-security/tutorials/manage-security-alerts/best-practices-for-participating-in-a-security-campaign
+  - https://docs.github.com/en/code-security/concepts/security-at-scale/delegated-alert-dismissal
+  - https://docs.github.com/en/rest/campaigns/campaigns

@@ -69,7 +69,7 @@ gh auth refresh -h github.com -s project,read:project
 
 ## Namespacing and teardown safety
 
-- Every created resource is prefixed `ghec-<chid>-*` (e.g. `ghec-ch01-issues-labels-projects`, `ghec-ch12-juice-shop`).
+- Every created resource is prefixed `ghec-<chid>-*` (for example, `ghec-ch01-issues-labels-projects` or `ghec-ghas-00-juice-shop`).
 - `teardown` calls `guard_prefix` before every deletion. It refuses any name that does not start with `ghec-<chid>-`, which protects pre-existing customer repositories and projects.
 - `--dry-run` routes every mutation through a planner that prints `[plan] would run: …` and changes nothing. Use it first against a customer org.
 - `provision` only creates missing state and is idempotent. `teardown` is the only destructive path. It checks the prefix and asks for confirmation.

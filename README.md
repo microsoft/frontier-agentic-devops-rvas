@@ -1,6 +1,6 @@
 # Agentic DevSecOps
 
-One GitHub Pages curriculum with five adoption journeys, four delivery-session modules, and 85 activities.
+One GitHub Pages curriculum with six adoption journeys, four delivery-session modules, and 87 activities.
 
 > **Bring your own.** These activities are built to run on **your** tenant — work each one
 > against your own applications, repositories, and data so the result keeps running in
@@ -18,6 +18,7 @@ The site is organized around customer adoption outcomes first, then platform mod
 | `github-adoption` | Help customer teams adopt GitHub Enterprise Cloud as their production developer platform. |
 | `platform-migration` | Move projects from Azure DevOps, Bitbucket, GitLab, or other platforms to GitHub. |
 | `ghas-adoption` | Adopt GitHub Advanced Security as a repeatable secure-development operating model. |
+| `ghas-developer-remediation` | Fix GHAS findings through normal developer pull requests. |
 | `agentic-workflows` | Start using reviewable, safe agentic workflows on GitHub. |
 | `agentic-devops-cloud` | Connect GitHub, Azure, and agents into an end-to-end DevOps and SRE loop. |
 
@@ -25,12 +26,12 @@ The site is organized around customer adoption outcomes first, then platform mod
 
 | Module ID | Name | Activities | Tracks |
 |---|---|---|---|
-| `ghec` | GitHub Enterprise Cloud | 53 | Developer Flow, Admin & Governance, Security, Automation & AI, Migration |
-| `ghas` | GitHub Advanced Security | 7 | Security |
+| `ghec` | GitHub Enterprise Cloud | 49 | Developer Flow, Admin & Governance, Security, Automation & AI, Migration |
+| `ghas` | GitHub Advanced Security | 13 | Admin & Governance, Developer Remediation |
 | `ghaw` | GitHub Agentic Workflows | 20 | Hello, Agent, Repo Concierge, Continuous Intelligence, Production Patterns |
 | `sre-agent` | SRE Agent | 5 | Azure SRE Agent |
 
-> **Total:** 85 activities across 4 modules.
+> **Total:** 87 activities across 4 modules.
 
 ## Architecture
 

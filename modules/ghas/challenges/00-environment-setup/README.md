@@ -13,6 +13,11 @@ Finish this activity with:
 - Run OWASP Juice Shop on port 3000 for manual exploit testing
 - Create and push a personal or team working branch to the org repository
 
+> [!NOTE]
+> **Developer path:** Continue here for alert triage and hands-on remediation. If
+> you own organization rollout, licensing, or policy controls, start with
+> [Security Configuration Pilot & Rollout](../01-admin-security-configuration-pilot-rollout/README.md).
+
 ---
 
 ## Prerequisites

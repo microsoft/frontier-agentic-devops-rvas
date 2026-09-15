@@ -20,10 +20,12 @@
         "ghas-04",
         "ghas-05",
         "ghas-06",
-        "ghec-ch11",
-        "ghec-ch12",
-        "ghec-ch13",
-        "ghec-ch15"
+        "ghas-admin-01",
+        "ghas-admin-02",
+        "ghas-admin-03",
+        "ghas-admin-04",
+        "ghas-admin-05",
+        "ghas-admin-06"
       ],
       "attribution": "OWASP Juice Shop project; preserve upstream license and notices when acquired. Not vendored in this repository.",
       "provisioning": {

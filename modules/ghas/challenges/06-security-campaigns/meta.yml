@@ -27,6 +27,10 @@ provision_creates:
   - Shared org repo with Juice Shop (OWASP Juice Shop v20+), provisioned by organizer setup
   - Open alert corpus across CodeQL, Dependabot, and secret scanning for campaign scoping
 tier: core
+personas:
+  - customer-developer
+  - appsec-engineer
+adoption_stage: operate
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghas/challenges/06-security-campaigns/meta.yml
 license: MIT

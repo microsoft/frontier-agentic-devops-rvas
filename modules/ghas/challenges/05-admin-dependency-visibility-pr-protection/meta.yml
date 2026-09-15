@@ -1,0 +1,56 @@
+id: ghas-admin-05
+title: Dependency Visibility & Pull Request Protection
+module: ghas
+track: admin-governance
+difficulty: advanced
+duration_minutes: 135
+display_order: 14
+prerequisites:
+  - ghas-admin-01
+prerequisite_capabilities:
+  - Repository admin, Actions, and security-alert access
+  - Public repository or GitHub Code Security for a private or internal repository
+  - GitHub CLI, Git, jq, Node.js, and npm installed
+  - Permission to open and merge controlled dependency pull requests
+description: "Make the dependency graph match the build, close a real Dependabot alert, and prove a required dependency-review check blocks a risky pull request before the corrected revision passes."
+tags:
+  - ghas
+  - dependabot
+  - dependency-review
+  - dependency-graph
+  - dependency-submission
+  - sbom
+  - supply-chain
+  - pull-requests
+  - rulesets
+app_dependency: juice-shop
+emu_compatible: true
+min_environment: org
+provision_creates:
+  - Public Juice Shop fallback with vulnerable fixture dependencies
+  - Build inventory for dependency submission
+  - Controlled feature/risky-dependency branch
+tier: core
+outcomes:
+  - ghas-adoption
+personas:
+  - security-lead
+  - platform-engineer
+  - developer
+business_value:
+  - shift-left-security
+adoption_stage: pilot
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghas/challenges/05-admin-dependency-visibility-pr-protection/meta.yml
+license: MIT
+references:
+  - https://docs.github.com/en/code-security/concepts/supply-chain-security/dependency-graph-data
+  - https://docs.github.com/en/code-security/how-tos/secure-your-supply-chain/secure-your-dependencies/use-dependency-submission-api
+  - https://docs.github.com/en/rest/dependency-graph/dependency-submission
+  - https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/exporting-a-software-bill-of-materials-for-your-repository
+  - https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts
+  - https://docs.github.com/en/code-security/concepts/supply-chain-security/dependabot-security-updates
+  - https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuring-dependabot-version-updates
+  - https://docs.github.com/en/code-security/dependabot/working-with-dependabot/configuring-access-to-private-registries-for-dependabot
+  - https://docs.github.com/en/code-security/concepts/supply-chain-security/dependency-review
+  - https://github.com/actions/dependency-review-action

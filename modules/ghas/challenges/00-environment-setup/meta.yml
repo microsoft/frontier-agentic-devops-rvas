@@ -17,10 +17,15 @@ tags:
   - devcontainer
   - ghas
   - juice-shop
+  - remediation
 app_dependency: juice-shop
 emu_compatible: true
 min_environment: org
 tier: setup
+personas:
+  - customer-developer
+  - appsec-engineer
+adoption_stage: pilot
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghas/challenges/00-environment-setup/meta.yml
 license: MIT

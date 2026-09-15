@@ -1,0 +1,50 @@
+id: ghas-admin-03
+title: CodeQL Deployment, Data Flow & Autofix
+module: ghas
+track: admin-governance
+difficulty: advanced
+duration_minutes: 180
+display_order: 12
+prerequisites:
+  - ghas-admin-01
+prerequisite_capabilities:
+  - Repository admin access for an organization-owned test repository
+  - GitHub Code Security enabled for private or internal repository tests
+  - GitHub CLI, Git, and jq installed
+  - Repository owner or build engineer available for coverage review
+description: "Deploy CodeQL with default setup first, repair a measured coverage gap, trace a live data-flow path, and verify a reviewed Copilot Autofix change with a new scan."
+tags:
+  - ghas
+  - codeql
+  - code-scanning
+  - default-setup
+  - tool-status
+  - data-flow
+  - copilot-autofix
+app_dependency: juice-shop
+emu_compatible: true
+min_environment: org
+provision_creates:
+  - Public CodeQL test repository when no approved repository is supplied
+  - Coverage probe, advanced-workflow recovery branch, and prepared vulnerable pull request
+tier: core
+outcomes:
+  - ghas-adoption
+personas:
+  - security-lead
+  - platform-engineer
+  - developer
+business_value:
+  - shift-left-security
+adoption_stage: pilot
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghas/challenges/03-admin-codeql-deployment-data-flow-autofix/meta.yml
+license: MIT
+references:
+  - https://docs.github.com/en/code-security/how-tos/find-and-fix-code-vulnerabilities/configure-code-scanning/configure-code-scanning
+  - https://docs.github.com/en/enterprise-cloud@latest/code-security/tutorials/customize-code-scanning/evaluate-default-setup
+  - https://docs.github.com/en/code-security/concepts/code-scanning/tool-status-page
+  - https://docs.github.com/en/code-security/how-tos/find-and-fix-code-vulnerabilities/manage-your-configuration/codeql-for-compiled-languages
+  - https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/configuring-advanced-setup-for-code-scanning
+  - https://docs.github.com/en/code-security/how-tos/manage-security-alerts/manage-code-scanning-alerts/resolve-alerts
+  - https://docs.github.com/en/rest/code-scanning/code-scanning

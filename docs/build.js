@@ -49,8 +49,11 @@ const MODULE_CONFIG = {
     description: 'Find real security problems in a vulnerable app, then fix them with GitHub Advanced Security.',
     color: '#cf222e',
     icon: 'icon-ghas.svg',
+    expected_challenge_count: 13,
+    catalog_track_order: ['admin-governance', 'security'],
     tracks: {
-      'security': { name: 'Security', description: 'Use code scanning, secret scanning, and Dependabot against a vulnerable application.' },
+      'admin-governance': { name: 'Admin & Governance', description: 'Configure GHAS policies and permissions, then manage rollout and reporting across the enterprise.' },
+      'security':         { name: 'Developer Remediation', description: 'Use GitHub Advanced Security to find vulnerabilities in a sample app and fix them in the developer workflow.' },
     },
   },
   ghaw: {
@@ -264,6 +267,12 @@ function rewriteResourceLinksForPages(text, moduleId) {
     /(\]\()(?:\.\.\/)+setup\.md/g,
     `$1${moduleResources}setup.md`,
   ).replace(
+    /(\]\()(?:\.\.\/)+([a-z0-9-]+)\/challenges\/([^/)]+)\/README\.md/g,
+    (_match, prefix, targetModuleId, slug) => {
+      const challengeId = challengeIdFromSlug(targetModuleId, slug);
+      return challengeId ? `${prefix}challenge.html?id=${challengeId}` : _match;
+    },
+  ).replace(
     /(\]\()(?:\.\.\/)([^/)]+)\/README\.md/g,
     (_match, prefix, slug) => {
       const challengeId = challengeIdFromSlug(moduleId, slug);
@@ -274,6 +283,8 @@ function rewriteResourceLinksForPages(text, moduleId) {
 
 function challengeIdFromSlug(moduleId, slug) {
   if (moduleId === 'ghec' && /^ch\d+/.test(slug)) return `ghec-${slug.split('-')[0]}`;
+  if (moduleId === 'ghas' && /^\d+-admin-/.test(slug)) return `ghas-admin-${slug.split('-')[0]}`;
+  if (moduleId === 'ghas' && /^\d+-/.test(slug)) return `ghas-${slug.split('-')[0]}`;
   if (moduleId === 'ghas' && /^s\d+/.test(slug)) return `ghas-${slug.split('-')[0]}`;
   if (moduleId === 'ghaw' && /^\d+-\d+/.test(slug)) return `ghaw-${slug.split('-').slice(0, 2).join('-')}`;
   if (moduleId === 'sre-agent' && /^\d+/.test(slug)) return `sre-agent-${slug.split('-')[0]}`;
@@ -503,7 +514,19 @@ function main() {
     || a.id.localeCompare(b.id)
   );
 
-  /* ── 2. Validate display_order uniqueness within each module ──
+  /* ── 2. Validate locked module counts ── */
+  for (const [moduleId, moduleCfg] of Object.entries(MODULE_CONFIG)) {
+    if (!Number.isInteger(moduleCfg.expected_challenge_count)) continue;
+    const actual = allChallenges.filter(c => c.module === moduleId).length;
+    if (actual !== moduleCfg.expected_challenge_count) {
+      console.error(
+        `  ✗ ${moduleId}: expected ${moduleCfg.expected_challenge_count} activities, found ${actual}.`
+      );
+      errors++;
+    }
+  }
+
+  /* ── 3. Validate display_order uniqueness within each module ──
    * Ordering falls back to display_order whenever an activity sits outside a
    * journey, so duplicates inside a module make that fallback ambiguous. */
   const seenOrder = new Map();
@@ -520,7 +543,7 @@ function main() {
     }
   }
 
-  /* ── 3. Validate prerequisites ── */
+  /* ── 4. Validate prerequisites ── */
   const allIds = new Set(allChallenges.map(c => c.id));
   const outcomeIds = new Set(outcomes.map(o => o.id));
 
@@ -530,29 +553,29 @@ function main() {
         console.error(`  ✗ ${c.id}: prerequisites references unknown id "${prereqId}"`);
         errors++;
       }
-      for (const outcomeId of c.outcomes) {
-        if (!outcomeIds.has(outcomeId)) {
-          console.error(`  ✗ ${c.id}: outcomes references unknown id "${outcomeId}"`);
-          errors++;
-        }
-      }
     }
-
-    for (const outcome of outcomes) {
-      if (!outcome.id || !outcome.name) {
-        console.error('  ✗ outcomes.json: every outcome needs id and name');
+    for (const outcomeId of c.outcomes) {
+      if (!outcomeIds.has(outcomeId)) {
+        console.error(`  ✗ ${c.id}: outcomes references unknown id "${outcomeId}"`);
         errors++;
-      }
-      for (const challengeId of outcome.challenge_ids || []) {
-        if (!allIds.has(challengeId)) {
-          console.error(`  ✗ outcome "${outcome.id}": challenge_ids references unknown id "${challengeId}"`);
-          errors++;
-        }
       }
     }
   }
 
-  /* ── 4. Detect cycles ── */
+  for (const outcome of outcomes) {
+    if (!outcome.id || !outcome.name) {
+      console.error('  ✗ outcomes.json: every outcome needs id and name');
+      errors++;
+    }
+    for (const challengeId of outcome.challenge_ids || []) {
+      if (!allIds.has(challengeId)) {
+        console.error(`  ✗ outcome "${outcome.id}": challenge_ids references unknown id "${challengeId}"`);
+        errors++;
+      }
+    }
+  }
+
+  /* ── 5. Detect cycles ── */
   const cycles = detectCycles(allChallenges);
   for (const cycle of cycles) {
     console.error(`  ✗ cycle detected: ${cycle.join(' → ')}`);
@@ -564,7 +587,7 @@ function main() {
     process.exit(1);
   }
 
-  /* ── 5. Enrich challenges with outcome journey membership ── */
+  /* ── 6. Enrich challenges with outcome journey membership ── */
   const challengeById = new Map(allChallenges.map(c => [c.id, c]));
   for (const outcome of outcomes) {
     for (const challengeId of outcome.challenge_ids || []) {
@@ -576,7 +599,7 @@ function main() {
     }
   }
 
-  /* ── 6. Build modules metadata ── */
+  /* ── 7. Build modules metadata ── */
   const modules = Object.entries(MODULE_CONFIG).map(([moduleId, cfg]) => {
     const moduleChallenges = allChallenges.filter(c => c.module === moduleId);
     const trackSet         = {};
@@ -619,7 +642,7 @@ function main() {
     });
   });
 
-  /* ── 7. Build dependency graph ── */
+  /* ── 8. Build dependency graph ── */
   const graphNodes = allChallenges.map(c => ({
     id:     c.id,
     title:  c.title,
@@ -636,14 +659,14 @@ function main() {
     }
   }
 
-  /* ── 8. Strip internal fields before writing ── */
+  /* ── 9. Strip internal fields before writing ── */
   const outputChallenges = allChallenges.map(c => {
     const out = Object.assign({}, c);
     delete out._has_student_guide;
     return out;
   });
 
-  /* ── 9. Write outputs ── */
+  /* ── 10. Write outputs ── */
   fs.mkdirSync(OUT_DATA_DIR, { recursive: true });
 
   const platform = {

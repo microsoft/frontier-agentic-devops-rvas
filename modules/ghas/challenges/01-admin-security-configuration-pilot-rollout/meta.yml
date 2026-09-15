@@ -1,0 +1,44 @@
+id: ghas-admin-01
+title: Security Configuration Pilot & Rollout
+module: ghas
+track: admin-governance
+difficulty: intermediate
+duration_minutes: 105
+display_order: 10
+prerequisites: []
+prerequisite_capabilities:
+  - Organization owner or security manager access
+  - GitHub Code Security or GitHub Secret Protection entitlement for the pilot repository
+  - GitHub CLI and Git installed
+description: "Create and attach an organization security configuration, repair a failed or detached pilot, then enforce or roll back against explicit stop conditions."
+tags:
+  - ghas
+  - security-configurations
+  - pilot
+  - rollout
+  - enforcement
+  - rollback
+app_dependency: juice-shop
+emu_compatible: true
+min_environment: org
+provision_creates:
+  - Shared ghas-admin-01-06 security operations repository
+  - Configuration repair branch and tracking issue
+tier: core
+outcomes:
+  - ghas-adoption
+personas:
+  - security-lead
+  - platform-engineer
+business_value:
+  - shift-left-security
+adoption_stage: pilot
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghas/challenges/01-admin-security-configuration-pilot-rollout/meta.yml
+license: MIT
+references:
+  - https://docs.github.com/en/enterprise-cloud@latest/code-security/how-tos/secure-at-scale/configure-organization-security/establish-complete-coverage/create-custom-configuration
+  - https://docs.github.com/en/code-security/how-tos/secure-at-scale/configure-organization-security/establish-complete-coverage/apply-custom-configuration
+  - https://docs.github.com/en/enterprise-cloud@latest/code-security/reference/security-at-scale/configuration-statuses
+  - https://docs.github.com/en/code-security/reference/security-at-scale/troubleshoot-security-configurations/configuration-issue-diagnosis
+  - https://docs.github.com/en/rest/code-security/configurations

@@ -25,6 +25,7 @@ tags:
   - dependency-review
   - juice-shop
   - secrets-management
+  - remediation
 app_dependency: juice-shop
 emu_compatible: true
 min_environment: org
@@ -32,6 +33,10 @@ provision_creates:
   - Shared org repo with Juice Shop (OWASP Juice Shop v20+), provisioned by organizer setup
   - Secret scanning and push protection active; Dependabot alerts pre-populated
 tier: core
+personas:
+  - customer-developer
+  - appsec-engineer
+adoption_stage: pilot
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghas/challenges/05-secrets-and-dependencies/meta.yml
 license: MIT

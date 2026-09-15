@@ -1,5 +1,7 @@
 # Repository instructions
 
+Remember the law of diminishing returns to decide if something should fit or not here.
+
 ## Writing
 
 ### Writing gate

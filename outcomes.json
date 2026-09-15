@@ -72,9 +72,6 @@
         "ghec-ch05",
         "ghec-ch07",
         "ghec-ch08",
-        "ghec-ch11",
-        "ghec-ch12",
-        "ghec-ch13",
         "ghec-ch18"
       ],
       "success_metrics": [
@@ -93,22 +90,41 @@
       "business_value": ["reduce-security-risk", "shift-left-security", "improve-remediation-flow"],
       "source_platforms": ["github", "azure-devops", "bitbucket", "gitlab"],
       "challenge_ids": [
+        "ghas-admin-01",
+        "ghas-admin-02",
+        "ghas-admin-03",
+        "ghas-admin-04",
+        "ghas-admin-05",
+        "ghas-admin-06"
+      ],
+      "success_metrics": [
+        "Approved security configurations apply the intended secret, code, and dependency controls to the customer's repository portfolio.",
+        "Controlled tests prove that push protection, CodeQL merge protection, and dependency review stop risky changes before merge.",
+        "Security Overview, service targets, and a bounded campaign show who owns remediation and which repositories enter the next rollout wave."
+      ]
+    },
+    {
+      "id": "ghas-developer-remediation",
+      "name": "Remediate application security findings",
+      "tagline": "Fix GHAS findings through normal developer pull requests.",
+      "description": "Use GitHub Advanced Security to investigate application risks and fix the code or dependency through reviewed pull requests.",
+      "personas": ["customer-developer", "appsec-engineer", "security-lead"],
+      "adoption_stage": ["pilot", "operate"],
+      "business_value": ["reduce-security-risk", "shift-left-security", "improve-remediation-flow"],
+      "source_platforms": ["github"],
+      "challenge_ids": [
         "ghas-00",
         "ghas-01",
         "ghas-02",
         "ghas-03",
         "ghas-04",
         "ghas-05",
-        "ghas-06",
-        "ghec-ch11",
-        "ghec-ch12",
-        "ghec-ch13",
-        "ghec-ch15"
+        "ghas-06"
       ],
       "success_metrics": [
-        "Code scanning, secret scanning, push protection, and dependency alerts are enabled on the customer's target production repositories.",
-        "Push protection blocks a real secret from being pushed in the customer's GitHub organization.",
-        "A code scanning or dependency alert is triaged, remediated through a pull request, and shown closed in GitHub."
+        "Developers can explain and prioritize code scanning, secret scanning, and dependency findings in the target application.",
+        "Application vulnerabilities and exposed-secret or dependency risks are fixed or handled through reviewed, time-bounded exceptions.",
+        "Each remediation passes its tests and GHAS checks, with the final decision visible in the pull request or linked alert."
       ]
     },
     {

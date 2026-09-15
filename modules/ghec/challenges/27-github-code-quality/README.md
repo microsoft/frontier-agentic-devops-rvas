@@ -37,7 +37,7 @@ A customer team runs tests and reviews code but cannot see coverage, reliability
    - reliability score;
    - number of Error, Warning, and Note findings;
    - any generated-code, test-code, or repository-context factor that affects interpretation.
-8. Distinguish this result from security code scanning: Code Quality assesses reliability and maintainability, while `ghec-ch12` covers security vulnerabilities and data-flow triage.
+8. Distinguish this result from security code scanning: Code Quality assesses reliability and maintainability. The [CodeQL deployment activity](../../../ghas/challenges/03-admin-codeql-deployment-data-flow-autofix/README.md) covers security vulnerabilities and data-flow analysis.
 
 ### Part C - Publish code coverage from CI
 

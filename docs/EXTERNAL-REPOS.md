@@ -15,8 +15,8 @@ This guide explains how this delivery session curriculum manages external depend
 
 - **Source:** https://github.com/juice-shop/juice-shop
 - **Pinned ref:** `v20.0.0` (tag) = commit `f356a09207c7a9550eb6fc4c3945e081922cf998`
-- **Used by:** GHEC activities (ch11–ch15), GHAS setup
-- **Import mode (org repo):** Activity setup scripts (`setup.sh provision`) import the repo into org-owned GitHub repositories — each activity gets its own isolated, disposable copy (e.g., `ghec-ch11-juice-shop`, `ghec-ghas-00-juice-shop`). GHAS alerts run on *that* org repo.
+- **Used by:** GHAS setup, developer activities, and the four admin fixture provisioners
+- **Import mode (org repo):** The GHAS setup script (`setup.sh provision`) imports the repo into an org-owned GitHub repository named `ghec-ghas-00-juice-shop`. GHAS alerts run on *that* org repo.
 - **Local runtime (GHAS participants):** GHAS activities also run Juice Shop locally for manual exploit testing. This local instance has **no GHAS alerts** — it is the app only, not the security-scanning target. See *[Local app provisioning (submodules)](#local-app-provisioning-submodules)* below for how to get it running.
 - **Why Juice Shop is large but not vendored:** At ~61 MB it would bloat the curriculum repo and slow container creation for participants who never need it. It is registered as a git submodule and fetched on demand.
 
@@ -48,19 +48,33 @@ This guide explains how this delivery session curriculum manages external depend
   ```
 - **Outcome:** The submodule is fetched at the pinned SHA. Juice Shop also creates the `app` symlink; the SRE Agent lab helper prints the `labs/starter-lab` path.
 
-### Import (One-Time Setup — GHEC/GHAS)
+### Import (One-Time GHAS Setup)
 
-**When:** A activity setup script creates a GitHub repository with external content imported.
+**When:** An activity setup script creates a GitHub repository from external content.
 
-- **Example:** GHEC/GHAS activities — setup scripts import Juice Shop at `v20.0.0` into a new org repo (e.g., `ghec-ch11-juice-shop` or `ghec-ghas-00-juice-shop`).
+- **Example:** GHAS setup imports Juice Shop at `v20.0.0` into a new org repository named `ghec-ghas-00-juice-shop`.
 - **Flow:**
   ```bash
-  # Creates <org>/ghec-ch11-juice-shop with Juice Shop imported
+  # Creates <org>/ghec-ghas-00-juice-shop with Juice Shop imported
   cd modules/ghec/resources/provisioning/scripts
   ./setup.sh provision ghas-00 --org <org>
   ```
 - **Outcome:** New repo exists in the delivery team member's/team's/organizer's org; for GHAS S00 the script also seeds CodeQL/Dependabot config and attempts to enable GHAS features. Repo admins manually add any participants who need access.
 - **Not a submodule:** These repos are disposable activity targets that participants clone and push to, and that GitHub Advanced Security scans. They intentionally remain normal GitHub repositories.
+
+The Admin & Governance track uses four isolated imports under
+`modules/ghas/resources/provisioning/challenges/`:
+
+| Activities | Default repository |
+| --- | --- |
+| `ghas-admin-01`, `ghas-admin-06` | `ghas-admin-01-06-security-operations` |
+| `ghas-admin-02` | `ghas-admin-02-secret-operations` |
+| `ghas-admin-03`, `ghas-admin-04` | `ghas-admin-03-04-codeql-live-lab` |
+| `ghas-admin-05` | `ghas-admin-05-dependency-visibility-fixture` |
+
+Each provisioner imports the pinned Juice Shop tag when it needs a new repository.
+Use its `status` command to inspect the fixture. The provisioners keep separate
+ownership and teardown rules instead of using one broad setup command.
 
 ## Pinned References & Validation
 
@@ -194,7 +208,7 @@ In-tree course content is validated by `npm run build` and the content audit scr
 ### GHAS Dependency Family
 
 - **Juice Shop** (OWASP app) — pinned at `v20.0.0`
-- **GHAS source material** — vendored in-tree at `modules/ghas/resources/`; provenance commit `4abc7439f0cab329b659263845e20139fbbe5359`
+- **GHAS source material** — stored in-tree under `modules/ghas/` and validated by the build and content audit
 - **Local Docker image** — `bkimminich/juice-shop` (used as fallback for quick local runs)
 
 ### GHAW Dependency Family
@@ -209,7 +223,6 @@ In-tree course content is validated by `npm run build` and the content audit scr
 
 ### GHEC Dependency Family
 
-- **Juice Shop** (for ch11–ch15) — pinned at `v20.0.0`
 - **GHEC provisioning machinery** — vendored in-tree at `modules/ghec/resources/provisioning/`
 - **Varies** — some activities use no external app (auth, team roles, org governance)
 

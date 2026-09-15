@@ -11,14 +11,14 @@ modules/
 │       ├── meta.yml     ← field template with comments
 │       └── README.md    ← delivery team guide template
 │
-├── ghec/                ← GitHub Enterprise Cloud (53 activities)
+├── ghec/                ← GitHub Enterprise Cloud (49 activities)
 │   ├── resources/       ← provisioning scripts and governance templates
 │   └── challenges/
 │       └── <slug>/      ← one directory per activity
 │           ├── meta.yml
 │           └── README.md
 │
-├── ghas/                ← GitHub Advanced Security (7 activities: S00–S06)
+├── ghas/                ← GitHub Advanced Security (13 activities)
 │   ├── setup.md         ← how to run Juice Shop
 │   └── challenges/
 │

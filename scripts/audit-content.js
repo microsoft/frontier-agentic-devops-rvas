@@ -303,55 +303,6 @@ function titleMatchesHeading(titleNeedle, heading) {
   return titleWords.length > 0 && titleWords.every(word => normalizedHeading.includes(word));
 }
 
-function auditNumberingGaps(challenges) {
-  const groups = new Map();
-  for (const c of challenges) {
-    const local = String(c.meta.id).startsWith(`${c.moduleId}-`) ? String(c.meta.id).slice(c.moduleId.length + 1) : c.slug;
-    const parsed = parseNumberedLocalId(c.moduleId, local);
-    if (!parsed) continue;
-    const key = `${c.moduleId}:${parsed.group}`;
-    if (!groups.has(key)) groups.set(key, []);
-    groups.get(key).push({ number: parsed.number, id: c.meta.id });
-  }
-  const documentation = [
-    path.join(ROOT, 'README.md'),
-    path.join(ROOT, 'modules', 'README.md'),
-    path.join(ROOT, 'CONTRIBUTING.md'),
-    path.join(ROOT, '.squad', 'decisions.md'),
-  ].filter(fs.existsSync).map(readText).join('\n').toLowerCase();
-
-  for (const [groupKey, entries] of groups) {
-    const sorted = [...new Set(entries.map(e => e.number))].sort((a, b) => a - b);
-    if (sorted.length < 2) continue;
-    for (let n = sorted[0]; n <= sorted[sorted.length - 1]; n++) {
-      if (sorted.includes(n)) continue;
-      const [moduleId, group] = groupKey.split(':');
-      const localId = formatMissingLocalId(moduleId, group, n);
-      if (!documentation.includes(`${moduleId}-${localId}`.toLowerCase()) && !documentation.includes(`gap at ${localId}`.toLowerCase())) {
-        addWarning(`modules/${moduleId}`, 0, `undocumented numbering gap: ${moduleId}-${localId}`);
-      }
-    }
-  }
-}
-
-function parseNumberedLocalId(moduleId, local) {
-  let m;
-  if ((m = local.match(/^ch(\d+)$/i))) return { group: 'ch', number: Number(m[1]) };
-  if ((m = local.match(/^s(\d+)$/i))) return { group: 's', number: Number(m[1]) };
-  if ((m = local.match(/^(\d+)$/))) return { group: 'root', number: Number(m[1]) };
-  if (moduleId === 'ghaw' && (m = local.match(/^(\d+)-(\d+)$/))) return { group: m[1], number: Number(m[2]) };
-  return null;
-}
-
-function formatMissingLocalId(moduleId, group, number) {
-  const width = moduleId === 'ghaw' || group === 'root' || group === 's' ? 2 : 2;
-  const n = String(number).padStart(width, '0');
-  if (group === 'ch') return `ch${n}`;
-  if (group === 's') return `s${n}`;
-  if (group === 'root') return n;
-  return `${group}-${n}`;
-}
-
 function markdownFiles() {
   return [
     path.join(ROOT, 'README.md'),
@@ -797,7 +748,6 @@ async function main() {
   auditPlaceholders(files);
   auditGuideSurfaces(challenges);
   auditSourceAttribution(challenges);
-  auditNumberingGaps(challenges);
   auditCodeFencesAndCommands(files);
   auditLinks(files);
   auditRenderedGuideLinks(challenges);

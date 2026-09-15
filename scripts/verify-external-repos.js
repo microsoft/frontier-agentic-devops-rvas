@@ -13,6 +13,7 @@ const ROOT = path.resolve(__dirname, '..');
 const MODULES_DIR = path.join(ROOT, 'modules');
 const MANIFEST_PATH = path.join(ROOT, 'external-repos.json');
 const CHECK_EXTERNAL = process.argv.includes('--external');
+const CURRENT_SOURCE_REPO = 'microsoft/frontier-agentic-devops-rvas';
 
 const state = {
   errors: [],
@@ -258,6 +259,14 @@ function validateSourceRepos(challenges, entries) {
     const sourceRepo = challenge.meta.source_repo;
     if (!sourceRepo) continue;
     state.counts.sourceRepos++;
+    if (sourceRepo === CURRENT_SOURCE_REPO) {
+      const sourcePath = String(challenge.meta.source_path || '');
+      const resolved = path.resolve(ROOT, sourcePath);
+      if (!sourcePath || !resolved.startsWith(`${ROOT}${path.sep}`) || !fs.existsSync(resolved)) {
+        addError(`${rel(challenge.metaPath)}: source_path does not resolve in ${CURRENT_SOURCE_REPO}: "${sourcePath}"`);
+      }
+      continue;
+    }
     if (!coveredSourceRepos.has(sourceRepo)) {
       addError(`${rel(challenge.metaPath)}: source_repo "${sourceRepo}" is not defined in external-repos.json`);
     }

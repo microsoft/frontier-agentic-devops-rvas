@@ -1,0 +1,50 @@
+id: ghas-admin-04
+title: CodeQL Merge Enforcement
+module: ghas
+track: admin-governance
+difficulty: advanced
+duration_minutes: 120
+display_order: 13
+prerequisites:
+  - ghas-admin-03
+prerequisite_capabilities:
+  - Successful CodeQL analysis and coverage evidence from ghas-admin-03
+  - Repository ruleset administration
+  - Permission to update the prepared vulnerable pull request
+  - Repository owner available to confirm merge behavior
+description: "Configure live CodeQL triggers and least-privilege permissions, then prove an active code-scanning ruleset blocks a vulnerable pull request and passes its corrected revision."
+tags:
+  - ghas
+  - codeql
+  - code-scanning
+  - pull-requests
+  - rulesets
+  - merge-protection
+  - merge-queue
+app_dependency: juice-shop
+emu_compatible: true
+min_environment: org
+provision_creates:
+  - Prepared vulnerable pull request and advanced-workflow recovery branch
+  - Live code-scanning ruleset evidence from blocked and corrected revisions
+tier: core
+outcomes:
+  - ghas-adoption
+personas:
+  - security-lead
+  - platform-engineer
+  - developer
+business_value:
+  - shift-left-security
+adoption_stage: pilot
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghas/challenges/04-admin-codeql-merge-enforcement/meta.yml
+license: MIT
+references:
+  - https://docs.github.com/en/code-security/concepts/code-scanning/merge-protection
+  - https://docs.github.com/en/enterprise-cloud@latest/code-security/how-tos/find-and-fix-code-vulnerabilities/manage-your-configuration/set-merge-protection
+  - https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets
+  - https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax
+  - https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows
+  - https://docs.github.com/en/actions/reference/security/secure-use
+  - https://github.com/github/codeql-action

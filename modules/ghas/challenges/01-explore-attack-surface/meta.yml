@@ -23,6 +23,7 @@ tags:
   - owasp
   - juice-shop
   - reconnaissance
+  - remediation
 app_dependency: juice-shop
 emu_compatible: true
 min_environment: org
@@ -30,6 +31,10 @@ provision_creates:
   - Shared org repo with Juice Shop (OWASP Juice Shop v20+), provisioned by organizer setup
   - 'GHAS features enabled: CodeQL scanning, Dependabot alerts, secret scanning'
 tier: core
+personas:
+  - customer-developer
+  - appsec-engineer
+adoption_stage: pilot
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghas/challenges/01-explore-attack-surface/meta.yml
 license: MIT
