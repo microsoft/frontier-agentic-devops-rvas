@@ -320,6 +320,7 @@
       section.id = 'section-' + slug;
       section.setAttribute('role', 'tabpanel');
       section.setAttribute('aria-labelledby', 'section-tab-' + slug);
+      section.tabIndex = -1;
       definition.nodes.forEach((node) => section.appendChild(node));
       const aliases = Array.from(section.querySelectorAll('h1, h2')).map((heading, headingIndex) => {
         const headingSlug = uniqueSlug(heading.textContent.trim(), headingIndex, usedHeadingSlugs);
@@ -426,7 +427,7 @@
     });
     pager?.addEventListener('click', (event) => {
       const button = event.target.closest('[data-section-index]');
-      if (button) activateSection(Number(button.dataset.sectionIndex), true, true);
+      if (button) activateSection(Number(button.dataset.sectionIndex), true, true, true);
     });
     previous?.addEventListener('click', () => tabs?.scrollBy({ left: -320, behavior: 'smooth' }));
     next?.addEventListener('click', () => tabs?.scrollBy({ left: 320, behavior: 'smooth' }));
@@ -464,7 +465,7 @@
     );
   }
 
-  function activateSection(index, updateHistory, scrollToGuide) {
+  function activateSection(index, updateHistory, scrollToGuide, focusSection) {
     if (!_sections[index]) return;
     _activeSection = index;
 
@@ -492,10 +493,15 @@
       window.history.pushState(null, '', '#' + _sections[index].slug);
     }
     if (scrollToGuide) {
-      const nav = document.getElementById('guideSectionNav');
-      const top = nav ? nav.offsetTop - 58 : 0;
-      window.scrollTo({ top, behavior: 'smooth' });
+      scrollToSection(_sections[index].element, focusSection);
     }
+  }
+
+  function scrollToSection(section, focusSection) {
+    window.requestAnimationFrame(() => {
+      if (focusSection) section.focus({ preventScroll: true });
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   }
 
   function renderSectionPager() {

@@ -1091,6 +1091,7 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
 }
 
 .guide-section[hidden] { display: none; }
+.guide-section { scroll-margin-top: 140px; }
 .guide-section > h1:first-child,
 .guide-section > h2:first-child { margin-top: 0; }
 
