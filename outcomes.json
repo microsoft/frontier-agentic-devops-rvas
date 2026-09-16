@@ -3,8 +3,8 @@
   "outcomes": [
     {
       "id": "github-adoption",
-      "name": "Adopt GitHub Enterprise Cloud",
-      "tagline": "Set up GitHub Enterprise Cloud for the way your teams work.",
+      "name": "Standardize software delivery",
+      "tagline": "Give teams a shared development platform with consistent access and delivery controls.",
       "description": "Configure GitHub in your organization, put the right controls in place, and use it for day-to-day development.",
       "personas": ["customer-developer", "platform-governance", "solution-architect", "platform-engineer"],
       "adoption_stage": ["assess", "pilot", "scale", "operate"],
@@ -53,8 +53,8 @@
     },
     {
       "id": "platform-migration",
-      "name": "Migrate projects to GitHub",
-      "tagline": "Move a real project to GitHub and get it ready for production work.",
+      "name": "Migrate development platforms",
+      "tagline": "Move repositories and delivery controls to a new platform, then verify teams can keep working.",
       "description": "Move a project into your GitHub organization, rebuild its delivery controls, and check that the team can keep working after cutover.",
       "personas": ["platform-engineer", "platform-governance", "solution-architect", "customer-developer"],
       "adoption_stage": ["assess", "pilot", "scale"],
@@ -82,8 +82,8 @@
     },
     {
       "id": "ghas-adoption",
-      "name": "Adopt GitHub Advanced Security",
-      "tagline": "Make security checks part of everyday pull request work.",
+      "name": "Strengthen application security",
+      "tagline": "Apply security checks across repositories and assign ownership for fixing findings.",
       "description": "Turn on GitHub Advanced Security so developers and AppSec can find risks early and fix them through normal pull requests.",
       "personas": ["security-lead", "appsec-engineer", "customer-developer", "platform-governance"],
       "adoption_stage": ["pilot", "scale", "operate"],
@@ -104,33 +104,9 @@
       ]
     },
     {
-      "id": "ghas-developer-remediation",
-      "name": "Remediate application security findings",
-      "tagline": "Fix GHAS findings through normal developer pull requests.",
-      "description": "Use GitHub Advanced Security to investigate application risks and fix the code or dependency through reviewed pull requests.",
-      "personas": ["customer-developer", "appsec-engineer", "security-lead"],
-      "adoption_stage": ["pilot", "operate"],
-      "business_value": ["reduce-security-risk", "shift-left-security", "improve-remediation-flow"],
-      "source_platforms": ["github"],
-      "challenge_ids": [
-        "ghas-00",
-        "ghas-01",
-        "ghas-02",
-        "ghas-03",
-        "ghas-04",
-        "ghas-05",
-        "ghas-06"
-      ],
-      "success_metrics": [
-        "Developers can explain and prioritize code scanning, secret scanning, and dependency findings in the target application.",
-        "Application vulnerabilities and exposed-secret or dependency risks are fixed or handled through reviewed, time-bounded exceptions.",
-        "Each remediation passes its tests and GHAS checks, with the final decision visible in the pull request or linked alert."
-      ]
-    },
-    {
       "id": "agentic-workflows",
-      "name": "Adopt agentic workflows for your SDLC",
-      "tagline": "Put useful agents to work in your software delivery process.",
+      "name": "Automate development tasks with AI",
+      "tagline": "Use AI agents for routine repository work, with clear permissions and human review.",
       "description": "Build GitHub-native agents that handle routine repository work while keeping their output visible and reviewable.",
       "personas": ["customer-developer", "platform-engineer", "solution-architect", "platform-governance"],
       "adoption_stage": ["pilot", "scale", "operate"],
@@ -166,8 +142,8 @@
     },
     {
       "id": "agentic-devops-cloud",
-      "name": "Adopt Azure SRE Agent",
-      "tagline": "Connect Azure SRE Agent to your services and follow-up work in GitHub.",
+      "name": "Improve incident response",
+      "tagline": "Use telemetry and code context to investigate incidents and plan recovery.",
       "description": "Use Azure SRE Agent in your tenant to investigate production incidents with live telemetry and source-code context.",
       "personas": ["sre", "platform-engineer", "solution-architect"],
       "adoption_stage": ["pilot", "operate"],

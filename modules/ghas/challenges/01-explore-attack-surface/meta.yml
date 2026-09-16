@@ -1,7 +1,7 @@
 id: ghas-01
 title: Explore the Attack Surface
 module: ghas
-track: security
+track: developer-flow
 difficulty: beginner
 duration_minutes: 60
 prerequisites: []

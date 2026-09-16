@@ -1,7 +1,7 @@
 id: ghas-03
 title: Fix XSS & Unsafe Output
 module: ghas
-track: security
+track: developer-flow
 difficulty: intermediate
 duration_minutes: 90
 prerequisites:

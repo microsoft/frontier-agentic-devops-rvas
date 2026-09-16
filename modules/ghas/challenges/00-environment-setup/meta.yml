@@ -1,7 +1,7 @@
 id: ghas-00
 title: Environment Setup
 module: ghas
-track: security
+track: developer-flow
 difficulty: beginner
 duration_minutes: 45
 prerequisites: []

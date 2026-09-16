@@ -149,7 +149,6 @@
       'github-adoption': 'ghec',
       'platform-migration': 'ghec',
       'ghas-adoption': 'ghas',
-      'ghas-developer-remediation': 'ghas',
       'agentic-workflows': 'ghaw',
       'agentic-devops-cloud': 'sre-agent',
     };

@@ -5,7 +5,7 @@
   async function init() {
     let data;
     try { data = await FP.loadData(); }
-    catch (e) { FP.renderError('moduleGrid', e.message); return; }
+    catch (e) { FP.renderError('outcomeGrid', e.message); return; }
 
     const { modules, outcomes, challenges } = data;
 
@@ -49,7 +49,6 @@
       return `
         <a href="${FP.catalogOutcomeUrl(o.id)}" class="outcome-card reveal">
           <div class="outcome-card-top">
-            <span class="outcome-id">${FP.esc(o.id)}</span>
             <span class="badge badge-duration">${count} activities</span>
             ${FP.durBadge(mins)}
           </div>

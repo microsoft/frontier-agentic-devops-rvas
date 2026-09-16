@@ -50,10 +50,10 @@ const MODULE_CONFIG = {
     color: '#cf222e',
     icon: 'icon-ghas.svg',
     expected_challenge_count: 13,
-    catalog_track_order: ['admin-governance', 'security'],
+    catalog_track_order: ['admin-governance', 'developer-flow'],
     tracks: {
       'admin-governance': { name: 'Admin & Governance', description: 'Configure GHAS policies and permissions, then manage rollout and reporting across the enterprise.' },
-      'security':         { name: 'Developer Remediation', description: 'Use GitHub Advanced Security to find vulnerabilities in a sample app and fix them in the developer workflow.' },
+      'developer-flow':   { name: 'Developer Flow', description: 'Use GitHub Advanced Security to find vulnerabilities in a sample app and fix them in the developer workflow.' },
     },
   },
   ghaw: {

@@ -1,7 +1,7 @@
 id: ghas-04
 title: Fix Broken Access Control
 module: ghas
-track: security
+track: developer-flow
 difficulty: intermediate
 duration_minutes: 105
 prerequisites:

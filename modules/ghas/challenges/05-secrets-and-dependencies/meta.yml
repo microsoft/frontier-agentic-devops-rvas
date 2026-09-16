@@ -1,7 +1,7 @@
 id: ghas-05
 title: Secure Secrets & Dependencies
 module: ghas
-track: security
+track: developer-flow
 difficulty: intermediate
 duration_minutes: 75
 prerequisites:
