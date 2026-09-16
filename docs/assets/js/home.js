@@ -9,23 +9,20 @@
 
     const { modules, outcomes, challenges } = data;
 
-    renderStats(modules, challenges);
+    renderStats(modules);
     renderOutcomeCards(outcomes || [], challenges);
     renderModuleCards(modules, challenges);
     renderFeaturedChallenge(challenges);
   }
 
-  function renderStats(modules, challenges) {
+  function renderStats(modules) {
     const totalChallenges = modules.reduce((s, m) => s + (m.challenge_count || 0), 0);
     const totalModules = modules.length;
     const totalTracks = modules.reduce((s, m) => s + (m.tracks ? m.tracks.length : 0), 0);
-    const totalMins = challenges.reduce((s, c) => s + (c.duration_minutes || 0), 0);
 
     _setText('stat-challenges', totalChallenges);
     _setText('stat-modules', totalModules);
     _setText('stat-tracks', totalTracks);
-    const h = Math.round(totalMins / 60);
-    _setText('stat-hours', h + 'h');
   }
 
   function renderOutcomeCards(outcomes, challenges) {

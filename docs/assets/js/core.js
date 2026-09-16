@@ -91,6 +91,51 @@
     return o ? o.name : outcomeId;
   };
 
+  FP.catalogTracks = function (modules) {
+    const tracks = new Map();
+    (modules || []).forEach((module) => {
+      (module.catalog_track_order || []).forEach((trackId) => {
+        const track = (module.tracks || []).find((item) => item.id === trackId);
+        if (!track) return;
+        if (!tracks.has(trackId)) tracks.set(trackId, { id: trackId, names: [], descriptions: [] });
+        const entry = tracks.get(trackId);
+        if (!entry.names.includes(track.name)) entry.names.push(track.name);
+        if (track.description && !entry.descriptions.includes(track.description)) {
+          entry.descriptions.push(track.description);
+        }
+      });
+    });
+    return Array.from(tracks.values(), (track) => ({
+      id: track.id,
+      name: track.names.join(' / '),
+      description: track.descriptions.join(' '),
+    }));
+  };
+
+  // Keep outcome sequences intact; unfiltered results share the session-type chip order.
+  FP.groupActivities = function (items, outcomeId, outcomes, modules) {
+    if (!items.length) return [];
+    if (outcomeId) {
+      const outcome = (outcomes || []).find((o) => o.id === outcomeId);
+      return [{
+        name: FP.outcomeName(outcomeId, outcomes),
+        description: outcome ? (outcome.tagline || outcome.description || '') : '',
+        items,
+      }];
+    }
+
+    const groups = new Map(FP.catalogTracks(modules).map((track) =>
+      [track.id, { name: track.name, description: track.description, items: [] }]
+    ));
+    items.forEach((c) => {
+      if (!groups.has(c.track)) {
+        groups.set(c.track, { name: c.track || 'Other sessions', items: [] });
+      }
+      groups.get(c.track).items.push(c);
+    });
+    return Array.from(groups.values()).filter((group) => group.items.length);
+  };
+
   /* ─────────────────────── Activity ordering ─────────────────────
      Default views use display_order. Outcome filters use the exact journey
      sequence declared in that outcome's challenge_ids list. */

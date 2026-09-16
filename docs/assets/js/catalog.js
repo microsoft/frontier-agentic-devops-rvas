@@ -111,26 +111,11 @@
     const container = document.getElementById('trackChips');
     if (!container) return;
 
-    const tracks = [];
-    const byId = new Map();
-    _modules.forEach((module) => {
-      (module.catalog_track_order || []).forEach((trackId) => {
-        const track = (module.tracks || []).find((item) => item.id === trackId);
-        if (!track) return;
-        const existing = byId.get(trackId);
-        if (existing) {
-          if (!existing.names.includes(track.name)) existing.names.push(track.name);
-          return;
-        }
-        const entry = { id: track.id, names: [track.name] };
-        byId.set(trackId, entry);
-        tracks.push(entry);
-      });
-    });
+    const tracks = FP.catalogTracks(_modules);
 
     container.innerHTML = tracks.map((track) =>
       `<button class="chip" data-track="${FP.esc(track.id)}"
-         aria-pressed="false" type="button">${FP.esc(track.names.join(' / '))}</button>`
+         aria-pressed="false" type="button">${FP.esc(track.name)}</button>`
     ).join('');
 
     container.querySelectorAll('.chip').forEach((btn) => {
@@ -235,27 +220,14 @@
       return;
     }
 
-    // Group by module
-    const groups = {};
-    if (!_activeOutcome) {
-      _modules.forEach((m) => { groups[m.id] = { mod: m, items: [] }; });
-    }
-    items.forEach((c) => {
-      if (!groups[c.module]) {
-        const mod = _modules.find((m) => m.id === c.module);
-        groups[c.module] = { mod: mod || { id: c.module, name: c.module }, items: [] };
-      }
-      groups[c.module].items.push(c);
-    });
+    const groups = FP.groupActivities(items, _activeOutcome, _outcomes, _modules);
 
     let html = '';
-    Object.values(groups).forEach(({ mod, items: gItems }) => {
-      if (!gItems.length) return;
-      const color = FP.moduleColor(mod.id);
-      html += `<div class="group-head mod-${FP.esc(mod.id)}" style="--mod-color:${color}">
-        <span class="group-count mod-${FP.esc(mod.id)}" style="color:${color};font-family:var(--font-mono);font-size:0.72rem;font-weight:700">${mod.id.toUpperCase()}</span>
-        <h3>${FP.esc(mod.name)}</h3>
+    groups.forEach(({ name, description, items: gItems }) => {
+      html += `<div class="group-head">
+        <h3>${FP.esc(name)}</h3>
         <span class="group-count">${gItems.length} activit${gItems.length === 1 ? 'y' : 'ies'}</span>
+        ${description ? `<p class="group-intro">${FP.esc(description)}</p>` : ''}
       </div>
       <div class="challenge-grid">`;
       html += gItems.map((c) => challengeCard(c)).join('');
@@ -273,7 +245,7 @@
          style="--mod-color:${color}">
         <div class="ch-card-top">
           <span class="ch-mod-dot"></span>
-          <span class="ch-module-label">${FP.esc(c.track || c.module)}</span>
+          <span class="ch-module-label">${FP.esc(FP.moduleName(c.module, _modules))}</span>
         </div>
         <div class="ch-title">${FP.esc(c.title)}</div>
         <div class="ch-desc">${FP.esc(c.description)}</div>
@@ -287,6 +259,7 @@
   }
 
   function outcomeBadge(c) {
+    if (_activeOutcome) return '';
     const id = (c.outcomes || [])[0];
     if (!id) return '';
     return `<span class="badge badge-outcome">${FP.esc(FP.outcomeName(id, _outcomes))}</span>`;

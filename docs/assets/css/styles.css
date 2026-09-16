@@ -872,6 +872,7 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
   margin-top: 32px;
   border-top: 1px solid var(--c-line);
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 12px;
   scroll-margin-top: 72px;
@@ -882,6 +883,13 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
   font-family: var(--font-mono);
   font-size: 0.68rem;
   color: var(--c-faint);
+}
+.group-head .group-intro {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--c-dim);
+  font-size: 0.875rem;
+  line-height: 1.6;
 }
 
 /* ═══════════════════════════ CATALOG PAGE ══════════════════════════ */

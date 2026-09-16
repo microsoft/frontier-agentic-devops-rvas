@@ -11,7 +11,10 @@ One GitHub Pages curriculum with five outcome paths, four delivery-session modul
 
 ## Outcomes
 
-The site groups activities by team outcome, then by product:
+**Choose an outcome** to see its activities in delivery order. Without an outcome
+selected, the catalog and session builder group activities by session type.
+Product names appear on the cards.
+Outcome headings reuse the homepage summaries; session-type headings use the track descriptions.
 
 | Outcome ID | Purpose |
 |---|---|
@@ -57,6 +60,7 @@ The build script is the **only bridge** between content metadata, outcome journe
 
 ```bash
 npm run build
+node --test scripts/test-catalog-grouping.js
 ```
 
 Output lands in `docs/assets/data/`. The Pages site (`docs/`) is fully self-contained.
