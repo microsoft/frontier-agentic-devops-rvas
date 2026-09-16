@@ -12,7 +12,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Run an authorized Copilot cloud-agent pilot on a bounded issue. Record eligibility, review and merge-gate evidence, ownership, and the decision to expand, defer, or roll out."
+description: "Pilot Copilot cloud agent on a scoped issue while preserving human review."
 tags:
 - copilot
 - cloud-agent

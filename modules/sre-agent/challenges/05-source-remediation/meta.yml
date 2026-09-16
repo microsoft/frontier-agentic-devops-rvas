@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - Azure SRE Agent portal access
   - GitHub account or provided simulated repository evidence
   - Basic pull request review
-description: Add GitHub source-code context so Azure SRE Agent can connect runtime symptoms to code, create a GitHub issue, and optionally propose a pull request for human review.
+description: "Use GitHub code context to plan incident fixes for human review."
 tags:
   - source-code-context
   - remediation

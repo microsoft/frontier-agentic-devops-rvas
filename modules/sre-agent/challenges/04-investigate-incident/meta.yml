@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - Azure SRE Agent portal access
   - Grubify deployed or fallback evidence packet available
   - Azure Monitor and Log Analytics basics
-description: Trigger the official Grubify failure, observe Azure Monitor incident routing, and inspect runtime evidence with Azure SRE Agent before accepting remediation.
+description: "Inspect Azure SRE Agent evidence from a controlled failure before recovery."
 tags:
   - azure
   - incident-response

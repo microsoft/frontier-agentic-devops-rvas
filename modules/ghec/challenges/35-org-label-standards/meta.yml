@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Define an authorized organization label taxonomy, set defaults for new repositories, reconcile an existing repository, and record ownership, exceptions, and rollout evidence."
+description: "Standardize issue labels across new and existing repositories."
 tags:
 - labels
 - organization-settings

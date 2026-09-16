@@ -11,7 +11,7 @@ prerequisite_capabilities:
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
   - Completed at least three Repo Concierge activities
-description: Build a workflow that checks other workflow runs, calculates failure rates, and opens alert issues.
+description: "Monitor workflow failure rates and open issues when alert thresholds are reached."
 tags:
   - meta-workflows
   - observability

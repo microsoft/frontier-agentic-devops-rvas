@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: Build an issue-triage workflow that labels and responds to new issues using the repository's label taxonomy.
+description: "Label and respond to new issues using the repository's triage rules."
 tags:
   - issues
   - triage

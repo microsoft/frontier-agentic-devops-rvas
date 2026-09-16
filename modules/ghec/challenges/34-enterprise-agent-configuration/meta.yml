@@ -11,7 +11,7 @@ prerequisite_capabilities:
   - Copilot Business or Copilot Enterprise availability for the intended organizations
   - Named enterprise AI-controls, security, platform, and organization-policy owners
   - A customer-owned change record, evidence location, and rollback approver
-description: "Set up an enterprise-governed Copilot custom-agent source with protected .github-private changes, an Agentic DevSecOps agent, organization instructions, and evidence-backed propagation and rollback."
+description: "Publish governed Copilot custom agents with controlled updates and rollback."
 tags:
   - copilot
   - custom-agents

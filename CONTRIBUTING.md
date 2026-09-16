@@ -43,7 +43,7 @@ README.md  # customer delivery team guide, hints, expected outputs, common failu
 | `duration_minutes` | Estimated time for a delivery team member in minutes. |
 | `prerequisites` | Activity ids that must be completed first. Empty means independent except for stated environment setup. |
 | `prerequisite_capabilities` | Skills or access needed before starting; do not use this for activity ids. |
-| `description` | One-sentence catalog summary. |
+| `description` | One plain-text sentence, at most **100 characters and 16 words**. State the main goal; keep steps and qualifications in the delivery guide. The build enforces these limits. |
 | `tags` | Search/filter terms. Use lowercase kebab-case where possible. |
 | `app_dependency` | Runtime/sample dependency (`none`, `juice-shop`, `contoso-claims`, `contoso-app`, `seed`, or `seed-repo`). |
 | `emu_compatible` | `true` when the activity works in an EMU-controlled org; otherwise `false`. |

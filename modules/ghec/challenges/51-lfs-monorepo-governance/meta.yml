@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script, or an approved monorepo target
-description: "Define Git LFS patterns, CODEOWNERS boundaries, repository health evidence, large-file intake, and owner-approved quota or policy decisions."
+description: "Define large-file and monorepo ownership rules with approved quota decisions."
 tags:
 - git-lfs
 - monorepo

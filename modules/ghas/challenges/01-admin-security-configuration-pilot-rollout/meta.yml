@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - Organization owner or security manager access
   - GitHub Code Security or GitHub Secret Protection entitlement for the pilot repository
   - GitHub CLI and Git installed
-description: "Create and attach an organization security configuration, repair a failed or detached pilot, then enforce or roll back against explicit stop conditions."
+description: "Pilot an organization security configuration and test enforcement or rollback."
 tags:
   - ghas
   - security-configurations

@@ -11,7 +11,7 @@ prerequisite_capabilities:
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
   - Completed at least two Hello, Agent activities
-description: Use `imports:` to share workflow instructions and `create-discussion` to publish scheduled digests.
+description: "Share workflow instructions and publish scheduled digests as discussions."
 tags:
   - imports
   - workflow-composition

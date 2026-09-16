@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Set up an authorized customer GitHub API automation using REST and GraphQL reads and writes, pagination, idempotency, and rate-limit controls. Preserve the customer-owned automation, accountable owner, and rollout decision."
+description: "Automate GitHub tasks with REST and GraphQL APIs under scoped permissions."
 tags:
 - rest-api
 - graphql

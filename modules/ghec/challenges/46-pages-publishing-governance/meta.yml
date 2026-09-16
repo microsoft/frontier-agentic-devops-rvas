@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Set the GitHub Pages publication policy, configure a repository source, verify publication, and record exceptions without changing organization-wide settings during setup."
+description: "Define GitHub Pages publishing rules and verify an approved publication."
 tags:
 - pages
 - publishing

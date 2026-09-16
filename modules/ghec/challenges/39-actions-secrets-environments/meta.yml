@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Inventory GitHub Actions secrets, move deployment credentials behind protected environments, and record ownership and rotation without exposing secret values."
+description: "Protect GitHub Actions deployment secrets and assign rotation owners."
 tags:
 - actions
 - secrets

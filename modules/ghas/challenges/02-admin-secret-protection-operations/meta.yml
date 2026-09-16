@@ -12,7 +12,7 @@ prerequisite_capabilities:
   - Repository administration and secret-scanning alert access
   - Two GitHub users for independent request and review work
   - GitHub CLI, Git, and jq installed
-description: "Operate secret scanning from seeded history through prevention, reviewed bypass, custom detection, response, and verified closure."
+description: "Test secret protection from detection through reviewed bypass and verified closure."
 tags:
   - ghas
   - secret-protection

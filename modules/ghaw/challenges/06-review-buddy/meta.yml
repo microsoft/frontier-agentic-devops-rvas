@@ -11,7 +11,7 @@ prerequisite_capabilities:
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
   - Completed at least two Hello, Agent activities
-description: Create a first-pass PR reviewer that analyzes diffs and posts specific observations when a pull request opens.
+description: "Build an agent that reviews pull-request diffs and posts specific observations."
 tags:
   - pull-requests
   - code-review

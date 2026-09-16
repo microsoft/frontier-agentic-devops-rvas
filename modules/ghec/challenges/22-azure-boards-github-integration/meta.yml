@@ -9,7 +9,7 @@ prerequisite_capabilities:
 - GitHub organization with org-owner/admin rights on the target repository
 - Azure DevOps Services organization with an Azure Boards project
 - Ability to install or request installation of a GitHub Marketplace organization app
-description: "Install the Azure Boards GitHub App, connect a migrated repository, and validate AB# work-item links from commits and pull requests."
+description: "Connect a migrated GitHub repository to Azure Boards work items."
 tags:
 - azure-boards
 - github-apps

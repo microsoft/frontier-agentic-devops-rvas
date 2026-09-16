@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - Repository administrator access, or a customer owner who can merge workflow and instruction changes to the default branch
   - Copilot Business or Copilot Enterprise availability and the applicable cloud-agent or code-review policy view
   - GitHub CLI (gh >= 2.x), git, and jq for the optional seeded fallback
-description: "Create a customer-approved Copilot environment and instruction decision package. Include default-branch setup steps, scoped instructions, runner and secret boundaries, and visible validation evidence for Copilot cloud agent and/or code review."
+description: "Configure Copilot setup steps and instructions within approved access boundaries."
 tags:
   - copilot
   - cloud-agent

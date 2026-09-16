@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Build a repository inventory, find ownership and metadata gaps, decide cleanup actions, and record the evidence."
+description: "Find repository ownership and metadata gaps, then plan cleanup."
 tags:
 - repository-inventory
 - cleanup

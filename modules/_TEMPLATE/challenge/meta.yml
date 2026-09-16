@@ -15,7 +15,7 @@ prerequisite_capabilities:       # Required skills or access. Do not list activi
   - "Basic Git knowledge"
 
 # === Descriptive ===
-description: "REPLACE: One-sentence customer adoption outcome for the catalog card."
+description: "REPLACE: State the main goal in one sentence, at most 100 characters and 16 words."
 
 tags:
   - REPLACE-tag-1

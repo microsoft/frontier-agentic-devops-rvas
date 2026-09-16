@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: Build a daily workflow that reviews recent code changes for suspicious patterns and reports findings for human investigation.
+description: "Review recent code for suspicious patterns and report findings for human investigation."
 tags:
   - security
   - supply-chain

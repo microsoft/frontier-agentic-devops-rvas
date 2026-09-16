@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: Build a weekly, read-only workflow that reviews repository evidence and publishes one current set of supported feature opportunities.
+description: "Review repository evidence and publish supported feature ideas each week."
 tags:
   - product-discovery
   - feature-planning

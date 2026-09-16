@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Create a governed repository bootstrap with an approved template, baseline files, ownership evidence, and a repeatable validation."
+description: "Bootstrap repositories from an approved template with built-in ownership checks."
 tags:
 - repository-templates
 - bootstrap

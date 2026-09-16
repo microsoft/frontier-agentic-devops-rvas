@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Define repository lifecycle states and apply owner-approved transfer, archive, or delete decisions with recorded evidence."
+description: "Apply approved repository transfer, archive, or deletion decisions."
 tags:
 - repository-lifecycle
 - governance

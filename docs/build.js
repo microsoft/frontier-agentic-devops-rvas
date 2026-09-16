@@ -458,6 +458,12 @@ function main() {
         }
       }
 
+      if (meta.description && (meta.description.length > 100
+          || meta.description.trim().split(/\s+/).length > 16)) {
+        console.error(`  ✗ ${meta.id}: description must be at most 100 characters and 16 words`);
+        errors++;
+      }
+
       // Validate track is known for this module
       if (meta.track && moduleCfg.tracks && !moduleCfg.tracks[meta.track]) {
         console.warn(`  ! ${meta.id}: unknown track "${meta.track}" for module "${moduleId}"`);

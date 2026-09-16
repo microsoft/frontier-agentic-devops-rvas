@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Implement an authorized automation driven by a verified webhook. Use a GitHub App with REST and GraphQL APIs, orchestrate it with Actions, and record idempotency, secret handling, ownership, and rollout evidence."
+description: "Build webhook-driven automation with a GitHub App and Actions."
 tags:
 - github-apps
 - webhooks

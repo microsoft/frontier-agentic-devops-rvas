@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: Build a governed two-workflow pipeline. One workflow creates specific test issues; the other opens test-only pull requests for reviewed issues.
+description: "Create test-improvement issues, then open test-only pull requests after review."
 tags:
   - testing
   - issue-creation

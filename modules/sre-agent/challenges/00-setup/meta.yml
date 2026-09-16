@@ -12,11 +12,7 @@ prerequisite_capabilities:
   - Azure CLI 2.60+
   - Azure Developer CLI 1.9+
   - Python 3.10+
-description: >
-  Prepare the official Microsoft Azure SRE Agent starter lab. Verify the tools,
-  Azure roles, supported region, and repository access needed to deploy the
-  Grubify sample app, Azure Monitor alerts, Log Analytics, Application Insights,
-  and Azure SRE Agent.
+description: "Verify the tools and Azure access needed for the Azure SRE Agent starter lab."
 tags:
   - setup
   - sre-agent

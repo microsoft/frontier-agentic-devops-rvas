@@ -12,7 +12,7 @@ prerequisite_capabilities:
   - GitHub Code Security enabled for private or internal repository tests
   - GitHub CLI, Git, and jq installed
   - Repository owner or build engineer available for coverage review
-description: "Deploy CodeQL with default setup first, repair a measured coverage gap, trace a live data-flow path, and verify a reviewed Copilot Autofix change with a new scan."
+description: "Deploy CodeQL, close scanning gaps, and verify a reviewed Copilot Autofix change."
 tags:
   - ghas
   - codeql

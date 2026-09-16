@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script, or an approved production release repository
-description: "Define release evidence, approval gates, release notes, tag standards, and rollback ownership without changing high-impact organization settings during setup."
+description: "Define release approval gates and assign rollback ownership."
 tags:
 - releases
 - governance

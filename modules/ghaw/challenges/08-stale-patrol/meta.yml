@@ -11,7 +11,7 @@ prerequisite_capabilities:
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
   - Completed at least two Hello, Agent activities
-description: Build a daily workflow that warns maintainers about inactive issues and closes them after a grace period.
+description: "Warn maintainers about inactive issues, then close them after a grace period."
 tags:
   - schedule
   - stale-issues

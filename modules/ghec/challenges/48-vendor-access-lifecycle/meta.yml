@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Manage vendor and outside-collaborator access from request and approval through a least-privilege grant, periodic review, offboarding, and audit evidence."
+description: "Control vendor access from approval through periodic review and offboarding."
 tags:
 - outside-collaborators
 - vendors

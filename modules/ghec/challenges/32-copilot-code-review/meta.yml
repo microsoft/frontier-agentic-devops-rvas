@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - GitHub Copilot code review enabled by the effective enterprise or organization policy
   - GitHub CLI (gh >= 2.x), git, and jq for the optional fallback setup
   - An approved customer repository, or permission to create the isolated fallback repository
-description: "Define an evidence-backed Copilot code review operating model: request a manual review, assess automatic review through repository or organization rulesets, preserve human reviewer and CODEOWNERS gates, and document rollback."
+description: "Introduce Copilot code review while preserving human approval gates."
 tags:
   - copilot
   - code-review

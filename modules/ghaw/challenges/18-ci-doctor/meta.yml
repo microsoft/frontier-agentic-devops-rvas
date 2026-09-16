@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: When CI fails, pull the logs and open a diagnostic issue with a likely cause and next step.
+description: "Read failed CI logs and open a diagnostic issue with a likely cause and next step."
 tags:
   - ci
   - workflow-run

@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Set up an authorized customer webhook and GitHub App integration with cryptographic payload verification and installation authentication. Preserve the scoped permissions, operational ownership, handover evidence, and rollout decision."
+description: "Connect a GitHub App to verified webhooks with scoped permissions."
 tags:
 - webhooks
 - github-apps

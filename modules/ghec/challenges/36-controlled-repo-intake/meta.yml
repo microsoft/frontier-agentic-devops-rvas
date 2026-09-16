@@ -12,7 +12,7 @@ prerequisite_capabilities:
 - jq installed
 - Ability to configure a GitHub App or fine-grained PAT as an Actions secret
 - Repository provisioned via activity setup script
-description: "Replace unmanaged repository creation with an authorized intake flow that uses a custom issue form, maintainer approval label, and GitHub Actions provisioning workflow."
+description: "Create repositories through an approved intake and provisioning workflow."
 tags:
 - repository-creation
 - governance

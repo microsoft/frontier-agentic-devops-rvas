@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - Azure SRE Agent portal access
   - Deployed or simulated Grubify lab
   - Azure monitoring basics
-description: Inspect the Azure resources, knowledge files, runbooks, custom agents, response plans, and team memory available to Azure SRE Agent.
+description: "Review service context and response plans available to Azure SRE Agent."
 tags:
   - azure-sre-agent
   - response-plans

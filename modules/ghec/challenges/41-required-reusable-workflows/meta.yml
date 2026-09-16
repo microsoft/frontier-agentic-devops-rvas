@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Publish an organization-owned reusable workflow and require it through an approved ruleset or required-workflow control so repositories use the same CI and security gate."
+description: "Require shared CI and security checks through reusable workflows."
 tags:
 - actions
 - reusable-workflows

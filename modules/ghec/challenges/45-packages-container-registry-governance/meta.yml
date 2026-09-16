@@ -12,7 +12,7 @@ prerequisite_capabilities:
 - jq installed
 - Container tooling such as Docker or Podman for the participant validation step
 - Repository provisioned via activity setup script
-description: "Define visibility, access, retention, provenance, and cleanup controls for organization-owned GitHub Packages and GHCR images."
+description: "Set access and retention controls for GitHub Packages and container images."
 tags:
 - packages
 - ghcr

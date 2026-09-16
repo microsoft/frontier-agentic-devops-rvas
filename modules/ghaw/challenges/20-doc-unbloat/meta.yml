@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: Build a workflow that finds redundant or outdated documentation and proposes focused cuts.
+description: "Find redundant or outdated documentation and propose focused cuts."
 tags:
   - documentation
   - simplification

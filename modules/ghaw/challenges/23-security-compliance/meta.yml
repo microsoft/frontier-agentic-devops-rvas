@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: Review vulnerabilities on a schedule, track SLA windows by severity, and open issues when configured thresholds are met.
+description: "Track vulnerability response deadlines and open issues when thresholds are met."
 tags:
   - security
   - compliance

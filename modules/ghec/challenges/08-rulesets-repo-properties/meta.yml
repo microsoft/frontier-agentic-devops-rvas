@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Govern repositories at scale: define custom repository properties, create organization rulesets that target repositories by property, layer repository rules, and verify enforcement. Enterprise-wide enforcement scope comes from Ch52's register when available."
+description: "Apply rulesets across repositories using custom properties."
 tags:
 - rulesets
 - custom-properties

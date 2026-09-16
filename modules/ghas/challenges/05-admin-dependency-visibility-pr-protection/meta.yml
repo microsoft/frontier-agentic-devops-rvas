@@ -12,7 +12,7 @@ prerequisite_capabilities:
   - Public repository or GitHub Code Security for a private or internal repository
   - GitHub CLI, Git, jq, Node.js, and npm installed
   - Permission to open and merge controlled dependency pull requests
-description: "Make the dependency graph match the build, close a real Dependabot alert, and prove a required dependency-review check blocks a risky pull request before the corrected revision passes."
+description: "Verify dependency coverage and block risky changes with pull-request checks."
 tags:
   - ghas
   - dependabot

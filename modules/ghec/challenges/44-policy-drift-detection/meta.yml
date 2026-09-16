@@ -12,7 +12,7 @@ prerequisite_capabilities:
 - jq installed
 - Repository provisioned via activity setup script
 - Optional ghec-ch52 approved organization topology, delegation matrix, and control register, when available, as baseline source for ownership and delegation expectations
-description: "Compare a repository baseline with live settings, labels, topics, and required files, then record drift and remediation decisions."
+description: "Detect repository policy drift and decide how to correct it."
 tags:
 - policy-drift
 - governance

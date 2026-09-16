@@ -10,7 +10,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: "Build an authorized audit-log investigation and export path using the organization audit-log UI, search syntax, and REST API, and keep the repeatable query and export artefacts. Enterprise streaming and retention decisions come from Ch52's register when available."
+description: "Investigate organization activity and build a repeatable audit-log export."
 tags:
 - audit-log
 - api

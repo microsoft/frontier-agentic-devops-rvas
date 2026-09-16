@@ -12,11 +12,7 @@ prerequisite_capabilities:
   - GitHub Copilot license assigned
   - Familiarity with Node.js environment variables and npm package management
   - Completed S01 (attack surface overview) recommended
-description: >
-  Respond to exposed secrets and vulnerable dependencies in Juice Shop or a
-  customer-owned application. Remove exposed values, assess rotation or revocation,
-  validate replacement configuration, and use GHAS checks to record accountable
-  remediation and time-bound exceptions.
+description: "Resolve exposed secrets and vulnerable dependencies with verified fixes."
 tags:
   - ghas
   - secret-scanning

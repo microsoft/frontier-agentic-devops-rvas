@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - Docker installed and running, because GitHub Actions Importer runs as a container
 - GitHub CLI installed with the GitHub Actions Importer extension available
 - Azure DevOps personal access token with read access to pipelines, code, releases, service connections, task groups, variable groups, and agent pools
-description: "Convert an Azure Pipelines definition to GitHub Actions with Actions Importer: audit, forecast, dry-run, migrate, and validate the workflow."
+description: "Convert Azure Pipelines to GitHub Actions and validate the new workflow."
 tags:
 - github-actions
 - actions-importer

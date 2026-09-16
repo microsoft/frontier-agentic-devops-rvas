@@ -10,10 +10,7 @@ prerequisite_capabilities:
   - Basic Git and CLI usage
   - GitHub organization with org-owner rights
   - GitHub CLI (gh >= 2.x) installed or available via Codespaces
-description: >
-  Set up and verify an authorized GitHub Enterprise Cloud environment: open the org repo in
-  Codespaces or a local dev container, authenticate the GitHub CLI, and confirm org access
-  before implementation begins.
+description: "Prepare your development environment and verify GitHub organization access."
 tags:
   - setup
   - devcontainer

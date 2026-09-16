@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Run an InnerSource program with clear project metadata, contributor onboarding, maintainer response expectations, issue labels, and governance evidence."
+description: "Run an InnerSource program with clear contributor and maintainer responsibilities."
 tags:
 - innersource
 - governance

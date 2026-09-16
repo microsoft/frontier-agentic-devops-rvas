@@ -10,7 +10,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: "Set up a cost-governance baseline: inspect Actions, Packages, and Storage usage, set budgets and alerts, retrieve billing usage from the API, and produce an owned cost report. Enterprise cost-center allocation comes from Ch52's register when available."
+description: "Track GitHub usage and assign cost ownership with budgets and alerts."
 tags:
 - billing
 - usage

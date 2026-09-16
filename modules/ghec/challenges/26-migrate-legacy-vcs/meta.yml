@@ -13,7 +13,7 @@ prerequisite_capabilities:
 - 'For TFVC: an Azure DevOps organization with Azure Repos access'
 - 'For Perforce: git-p4 and access to a Perforce depot'
 - GitHub CLI installed and authenticated
-description: "Convert SVN, Mercurial, TFVC, or Perforce history to Git and push it to GitHub, with author mapping and large-file checks before cutover."
+description: "Convert legacy version-control history to Git and verify it before cutover."
 tags:
 - migration
 - legacy-vcs

@@ -14,7 +14,7 @@ prerequisite_capabilities:
 - Classic GitHub personal access token available for migration
 - Azure DevOps personal access token available for migration
 - Ability to authorize a GitHub PAT for SAML SSO when the destination organization enforces SAML
-description: "Migrate an Azure DevOps repository to GitHub with GitHub Enterprise Importer (`gh ado2gh`): inventory, migrate, validate, and reclaim mannequins."
+description: "Migrate and verify Azure DevOps repositories with GitHub Enterprise Importer."
 tags:
 - azure-devops
 - github-enterprise-importer

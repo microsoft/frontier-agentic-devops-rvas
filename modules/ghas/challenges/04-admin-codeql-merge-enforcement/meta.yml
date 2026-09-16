@@ -12,7 +12,7 @@ prerequisite_capabilities:
   - Repository ruleset administration
   - Permission to update the prepared vulnerable pull request
   - Repository owner available to confirm merge behavior
-description: "Configure live CodeQL triggers and least-privilege permissions, then prove an active code-scanning ruleset blocks a vulnerable pull request and passes its corrected revision."
+description: "Prove CodeQL merge rules block vulnerable pull requests and accept verified fixes."
 tags:
   - ghas
   - codeql

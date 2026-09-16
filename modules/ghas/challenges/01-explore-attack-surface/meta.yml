@@ -10,11 +10,7 @@ prerequisite_capabilities:
   - GitHub Advanced Security enabled on the org repo provisioned in S00
   - GitHub Copilot license assigned
   - Familiarity with GitHub Security tab navigation
-description: >
-  Review GHAS alerts in a real application repository or service, using Juice Shop
-  only as a fallback. Verify Copilot explanations against each alert and code path.
-  Use at least five reviews as evidence for the owned security findings register in
-  `modules/ghas/resources/ghas-governance-practice.template.md`.
+description: "Review application security alerts and verify findings against the code."
 tags:
   - ghas
   - codeql

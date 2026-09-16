@@ -11,7 +11,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: Build a push-triggered workflow that detects changes in a watched directory and summarizes them in a commit comment.
+description: "Watch a directory for changes and post summaries on the triggering commits."
 tags:
   - push-events
   - path-filters

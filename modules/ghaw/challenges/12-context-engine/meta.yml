@@ -11,7 +11,7 @@ prerequisite_capabilities:
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
   - Completed at least three Repo Concierge activities
-description: Connect multiple MCP toolsets so an agent can read PR diffs and repository guidance before making decisions.
+description: "Give agents PR diffs and repository guidance through MCP toolsets."
 tags:
   - mcp-tools
   - external-context

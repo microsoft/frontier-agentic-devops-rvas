@@ -12,6 +12,14 @@ const scripts = Object.fromEntries(['core', 'catalog', 'builder'].map((name) => 
   name, fs.readFileSync(path.join(root, `docs/assets/js/${name}.js`), 'utf8'),
 ]));
 
+test('all activity summaries fit the card copy limits', () => {
+  for (const activity of data.challenges) {
+    assert(activity.description.trim(), `${activity.id}: missing summary`);
+    assert(activity.description.length <= 100, `${activity.id}: exceeds 100 characters`);
+    assert(activity.description.trim().split(/\s+/).length <= 16, `${activity.id}: exceeds 16 words`);
+  }
+});
+
 async function render(page, query = '', platform = data) {
   let init;
   const elements = Object.fromEntries(['grid', 'count', 'trackChips', 'outcomeChips'].map((id) => [
@@ -56,6 +64,9 @@ for (const page of ['catalog', 'builder']) {
     assert.deepEqual(result.headings, Array.from(tracks, (track) => result.FP.esc(track.name)));
     assert.deepEqual(result.intros, Array.from(tracks, (track) => result.FP.esc(track.description)));
     for (const track of tracks) assert(result.chips.includes(result.FP.esc(track.name)));
+    for (const activity of data.challenges) {
+      assert(result.html.includes(`<div class="ch-desc">${result.FP.esc(activity.description)}</div>`));
+    }
     assert(result.html.includes('badge-outcome'));
   });
 

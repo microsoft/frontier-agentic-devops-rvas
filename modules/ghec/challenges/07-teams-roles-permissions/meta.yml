@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Set up an authorized least-privilege access model with nested teams, base permissions, predefined repository roles, and a custom repository role, evidenced through the API. Enterprise-level delegation comes from Ch52's register when available."
+description: "Give teams the repository access they need with least-privilege roles."
 tags:
 - teams
 - permissions

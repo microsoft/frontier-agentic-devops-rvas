@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: Build a weekday workflow that summarizes the repository's last 24 hours of activity in a GitHub issue.
+description: "Publish a weekday issue summarizing the repository's last 24 hours of activity."
 tags:
   - cron
   - schedule

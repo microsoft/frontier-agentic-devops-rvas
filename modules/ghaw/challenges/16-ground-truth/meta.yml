@@ -17,7 +17,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: Fetch real data with `pre-agent-steps:` before the agent runs, then propose changes through `create-pull-request`.
+description: "Fetch verified data before an agent runs, then propose changes through pull requests."
 tags:
   - pre-agent-steps
   - create-pull-request

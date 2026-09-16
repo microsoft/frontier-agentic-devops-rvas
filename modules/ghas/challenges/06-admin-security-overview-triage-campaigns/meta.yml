@@ -15,7 +15,7 @@ prerequisite_capabilities:
   - Dependency visibility and pull request protection from ghas-admin-05
   - Organization owner or security manager campaign access
   - Developer with write access for the campaign access test
-description: "Repair a Security Overview gap, publish a bounded campaign, run delegated triage with an expiring exception, and measure real alert burn-down."
+description: "Use Security Overview and delegated triage to run a campaign and measure fixes."
 tags:
   - ghas
   - security-overview

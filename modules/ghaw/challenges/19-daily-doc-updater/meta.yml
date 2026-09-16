@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed — see ghaw-00
-description: Review documentation against code on a schedule and propose focused updates when the docs are out of date.
+description: "Compare documentation with code and propose updates when they drift."
 tags:
   - documentation
   - schedule

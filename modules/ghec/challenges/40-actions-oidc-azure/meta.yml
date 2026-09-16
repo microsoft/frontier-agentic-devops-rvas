@@ -12,7 +12,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Replace long-lived Azure deployment credentials with GitHub Actions OpenID Connect, explicit Azure federated credentials, and a least-privilege login workflow."
+description: "Replace long-lived Azure deployment credentials with GitHub Actions OpenID Connect."
 tags:
 - actions
 - oidc

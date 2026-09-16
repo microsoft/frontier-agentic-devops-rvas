@@ -13,7 +13,7 @@ prerequisite_capabilities:
   - Customer-approved non-secret evidence location
   - Optional enterprise owner or authorized enterprise-policy reviewer when the enterprise scan is in scope
   - Optional ghec-ch52 approved organization topology, delegation matrix, and control register when already established for the customer
-description: "Run an authorized ghqr posture review of a customer GitHub organization, keep non-secret evidence, corroborate material findings, and prioritize next actions."
+description: "Review organization governance with ghqr and prioritize verified findings."
 tags:
   - ghqr
   - governance

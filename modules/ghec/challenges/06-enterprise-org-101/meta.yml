@@ -12,7 +12,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Set up an authorized organization governance baseline: member and outside-collaborator management, base privileges, repository-creation and visibility policies, security defaults, and API-verified settings. Enterprise-level decisions come from Ch52's register or an authorized export, and are recorded as not available when neither exists."
+description: "Set organization policies for membership and repository access."
 tags:
 - enterprise
 - organization-settings

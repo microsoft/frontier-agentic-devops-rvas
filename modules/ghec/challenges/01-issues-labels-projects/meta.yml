@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Set up a work-management baseline in a GitHub tenant: labels and milestones, a Projects (v2) board with custom fields and automated workflows, and an insight chart."
+description: "Organize team work with issue labels and a GitHub Projects board."
 tags:
 - issues
 - labels

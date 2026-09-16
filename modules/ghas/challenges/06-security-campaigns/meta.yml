@@ -12,7 +12,7 @@ prerequisite_capabilities:
   - GitHub Copilot license assigned
   - Completed at least one of S02–S05 recommended (to have fixed alerts to reference)
   - Org-level Security Overview access (or ability to write a campaign plan if unavailable)
-description: Define an ongoing GHAS operating cadence for a customer-owned application or organization. Prioritize owned security debt, run a campaign or equivalent plan, manage accepted risk, measure progress, and escalate overdue risk with Security Overview evidence.
+description: "Run a security campaign to reduce owned security debt and track accepted risks."
 tags:
   - ghas
   - security-campaigns
