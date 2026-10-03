@@ -1,8 +1,8 @@
-# Azure SRE Agent Reference Architecture
+# Azure SRE Agent reference architecture
 
-## Learning Architecture
+## Lab sequence
 
-The SRE Agent track uses this Azure-first evidence chain:
+The SRE Agent track follows this sequence:
 
 ```text
 Azure SRE Agent lab prerequisites
@@ -18,7 +18,7 @@ Azure SRE Agent lab prerequisites
   -> post-incident improvement
 ```
 
-## Core Systems
+## Core systems
 
 | System | Role in the track |
 | --- | --- |
@@ -31,7 +31,7 @@ Azure SRE Agent lab prerequisites
 | Source-code connector | Adds repository context for file/line leads and remediation work. |
 | GitHub | Tracks issues or pull requests after Azure evidence supports engineering follow-up. |
 
-## Human, Agent, and Platform Layers
+## Responsibilities
 
 | Layer | Responsibility |
 | --- | --- |
@@ -39,11 +39,11 @@ Azure SRE Agent lab prerequisites
 | Azure SRE Agent | Investigates, summarizes evidence, suggests mitigation, correlates symptoms to code, and drafts follow-up. |
 | Platform | Supplies inspectable evidence: alerts, logs, traces, metrics, source diffs, issues, pull requests, and recovery checks. |
 
-Agent output is evidence, not proof. Validate it against Azure telemetry, runbooks, source references, or recovery checks.
+Validate agent claims against Azure telemetry, runbooks, source references, or recovery checks.
 
-## Fallback Model
+## Fallback packet
 
-When live Azure access is blocked, use a fallback packet that provides the same evidence chain:
+When live Azure access is blocked, use a fallback packet with the same types of evidence:
 
 | Live artifact | Fallback artifact |
 | --- | --- |

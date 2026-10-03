@@ -1,4 +1,4 @@
-# Activity 4: CodeQL Merge Enforcement
+# Activity 4: CodeQL merge enforcement
 
 Make CodeQL part of the merge decision. The control passes only when the prepared vulnerable pull request is blocked and a corrected revision of that same pull request passes under the same rule.
 
@@ -25,7 +25,7 @@ The pull request must be ready for review. A draft pull request is already block
 
 ### 1. Configure and prove the scan triggers
 
-The protected branch needs analysis after:
+Verify that analysis runs for these events:
 
 - a pull request change;
 - a push to `main`;
@@ -193,7 +193,7 @@ An empty bypass list is valid. Admin access alone is not a reason to bypass the 
 
 If **Require code scanning results**, ruleset Evaluate mode, merge queue, or an entitled feature is unavailable, mark that item **blocked** with the repository, plan or entitlement, screenshot or API response, and date.
 
-Keep the available work live. Run the pull-request scan, expose scanner failures, review permissions, inspect the vulnerable alert, push the safe fix to the same pull request, and confirm the new scan result. A workflow draft or ruleset proposal does not count as a live test.
+Complete the tests you can run. Run the pull-request scan, expose scanner failures, review permissions, inspect the vulnerable alert, push the safe fix to the same pull request, and confirm the new scan result. A workflow draft or ruleset proposal does not count as a live test.
 
 ## Completion check
 

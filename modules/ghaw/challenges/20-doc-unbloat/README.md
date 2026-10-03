@@ -49,18 +49,14 @@ Source: [`githubnext/agentics/workflows/unbloat-docs.md`](https://github.com/git
 ---
 
 <details>
-<summary>💡 Hints</summary>
+<summary>Hints</summary>
 
-"The agent keeps removing content I actually want"
-→ Add a preservation rule to the body: _"Do not remove: examples, API references, or any section starting with `## Quick Start`."_
+If the agent removes content you need, add a preservation rule to the body: _"Do not remove: examples, API references, or any section starting with `## Quick Start`."_
 
-"How is Unbloat different from Doc Updater?"
-→ Doc Updater fixes accuracy (code changed, documentation did not). Unbloat reduces unnecessary length (the document was always too long). Use them in sequence: run Updater first, then Unbloat.
+Doc Updater fixes documentation that no longer matches the code. Unbloat removes unnecessary text. Run Updater first, then Unbloat.
 
-"My docs don't have obvious bloat"
-→ Look for: sentences starting with "Note that", "Please be aware", "It is important to". These almost always can be cut or rewritten more directly.
+Look for sentences starting with "Note that", "Please be aware", or "It is important to". These can often be cut or rewritten directly.
 
-"The PR is huge — 50 files changed"
-→ The production workflow targets one or two files per run. Narrow your scope in the body, and use `create-pull-request` with a focused branch name.
+If the PR changes too many files, narrow the scope in the body. The production workflow targets one or two files per run. Use `create-pull-request` with a focused branch name.
 
 </details>

@@ -1,8 +1,10 @@
-# Activity 05: Connect Source Code and Create Remediation Work
+# Activity 05: Connect source code and create remediation work
 
 ## Scenario
 
-Azure evidence explains what failed. Source-code context points to the likely fault and gives the team a place to track the fix. Connect or simulate that context so Azure SRE Agent can draft remediation work backed by evidence, validation, and human approval.
+Connect source code so Azure SRE Agent can link incident evidence to a likely fault.
+Ask it to draft a fix or work item, then validate the evidence and have a human review it.
+Use a source packet if a live connection is unavailable.
 
 ## Goals
 
@@ -10,14 +12,18 @@ Azure evidence explains what failed. Source-code context points to the likely fa
 - Ask the agent to correlate symptoms with source-code areas.
 - Create a GitHub issue or remediation summary with evidence.
 - Optionally review an agent-proposed pull request.
-- Keep human review visible before any change is treated as production-ready.
+- Require human review before accepting a change for production.
 
 > [!TIP]
-> **Bring your own service:** use a real or recent incident and the repository that owns the suspected code path, wherever this guide references Grubify. Route remediation through the team's normal issue or pull request process, and require evidence, stated uncertainty, validation, and human review.
+> **Use your own service.** You can replace the Grubify incident with one from your team's service.
+> Use the repository that contains the suspected code. Follow the team's issue or pull request
+> process, with evidence, stated uncertainty, validation, and human review.
 
-## Connect Source Code
+## Connect source code
 
-If your live lab supports GitHub connection, use a lab-safe, approved GitHub repository. In GitHub Enterprise Managed User (EMU) environments, do not assume participants can fork public repositories into personal accounts. An enterprise-owned repository may be provided instead.
+If your live lab supports GitHub connection, use an approved lab repository.
+In GitHub Enterprise Managed User (EMU) environments, participants may not be able to
+fork public repositories into personal accounts. Use an enterprise-owned repository instead.
 
 The current starter lab expects the connected repository to be named `grubify` and uses the value of `GITHUB_USER` as the repository owner. Use one of these paths:
 
@@ -51,7 +57,7 @@ You can also connect GitHub through the Azure SRE Agent portal. Use the least-pr
 
 If GitHub connection is blocked, use the fallback packet with source snippets, file references, and a simulated issue or pull request.
 
-## Ask for Code-Aware RCA
+## Ask for code-aware root cause analysis
 
 Use Azure SRE Agent:
 
@@ -61,7 +67,7 @@ Using the Grubify incident evidence and connected source code, identify the most
 
 If the agent cannot create an issue directly, ask it to draft the issue body and create it manually.
 
-## Remediation Work Item Template
+## Remediation work item template
 
 ```md
 ## Customer-safe summary
@@ -85,7 +91,7 @@ If the agent cannot create an issue directly, ask it to draft the issue body and
 ## Human review gate
 ```
 
-## Optional Pull Request Review
+## Optional pull request review
 
 If the agent or a coding assistant proposes a pull request:
 
@@ -93,13 +99,13 @@ If the agent or a coding assistant proposes a pull request:
 2. Confirm it only touches the suspected area.
 3. Check tests or validation evidence.
 4. Confirm no secrets or tenant details are added.
-5. Decide: approve, request changes, or reject.
+5. Approve, request changes, or reject the pull request.
 
 **Do not merge a change because its summary sounds confident.**
 
 ## Deliverables
 
 - Source-code connection evidence or fallback source packet.
-- Code-aware RCA note.
+- A root cause analysis note that cites source code.
 - GitHub issue, draft issue, or reviewed pull request.
 - Human review decision with evidence.

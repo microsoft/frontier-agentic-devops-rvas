@@ -1,8 +1,8 @@
-# GHAS Admin Fixtures
+# GHAS admin fixtures
 
 The Admin & Governance track uses four separate provisioners. Each script owns a
-small repository or a fixed set of fixture artifacts. Run the script beside the
-activity that needs it instead of provisioning every lab at once.
+small repository or a fixed set of fixture files and branches. Run only the
+provisioners for the activities you plan to use.
 
 ## Prerequisites
 

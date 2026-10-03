@@ -1,5 +1,5 @@
 id: ghas-admin-06
-title: Security Overview, Delegated Triage & Campaign Operations
+title: Security Overview, delegated triage and campaign operations
 module: ghas
 track: admin-governance
 difficulty: advanced
@@ -28,7 +28,7 @@ emu_compatible: true
 min_environment: org
 provision_creates:
   - Shared ghas-admin-01-06 security operations repository
-  - Multi-tool alert corpus, remediation branch, and campaign tracking issue
+  - Alerts from multiple tools, remediation branch, and campaign tracking issue
 tier: core
 outcomes:
   - ghas-adoption

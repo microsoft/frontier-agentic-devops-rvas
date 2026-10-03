@@ -1,4 +1,4 @@
-# Activity 04: Investigate a Controlled Azure Incident
+# Activity 04: Investigate a controlled Azure incident
 
 ## Scenario
 
@@ -13,9 +13,12 @@ Intentionally break Grubify, then use Azure SRE Agent to investigate the Azure s
 - Mitigate or recover only after evidence supports the action.
 
 > [!TIP]
-> **Bring your own service:** investigate a service your team will operate after the session, wherever this guide references Grubify, starting from a real alert, customer symptom, recent incident, or safely reproducible failure and its own Azure Monitor signal, logs, metrics, traces, and runbooks. **Do not break production without an approved test path.**
+> **Use your own service.** You can replace Grubify with a service your team operates.
+> Start with a real alert, customer symptom, recent incident, or safely reproducible failure.
+> Use the service's Azure Monitor signal, logs, metrics, traces, and runbooks.
+> **Do not break production without an approved test path.**
 
-## Trigger the Incident
+## Trigger the incident
 
 From the starter lab:
 
@@ -29,7 +32,7 @@ Open the Grubify frontend and reproduce the failure. In the official lab this co
 
 If using fallback evidence, open the provided incident packet instead.
 
-## Capture the Starting Signal
+## Capture the starting signal
 
 Record:
 
@@ -41,7 +44,7 @@ Record:
 | Alert or incident name | `<name>` |
 | First telemetry source checked | `<logs/metrics/traces/alert>` |
 
-## Ask Azure SRE Agent to Investigate
+## Ask Azure SRE Agent to investigate
 
 Use a prompt like:
 
@@ -51,7 +54,7 @@ The Grubify API is failing for the Add to Cart flow. Investigate using the conne
 
 If an incident activity already exists, review the agent's investigation there.
 
-## Validate the Evidence
+## Validate the evidence
 
 Build an investigation note:
 
@@ -75,7 +78,7 @@ Validation after mitigation:
 
 **Do not accept an agent answer unless it cites evidence you can inspect.**
 
-## Mitigate and Recover
+## Mitigate and recover
 
 Ask the agent:
 

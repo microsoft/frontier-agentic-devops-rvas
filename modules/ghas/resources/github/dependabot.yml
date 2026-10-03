@@ -1,4 +1,4 @@
-# Dependabot Configuration
+# Dependabot configuration
 # Dependabot checks dependencies for known vulnerabilities and opens update PRs.
 # Find update PRs in Pull Requests, vulnerabilities in Security > Dependabot
 # alerts, and the full inventory in Insights > Dependency graph.

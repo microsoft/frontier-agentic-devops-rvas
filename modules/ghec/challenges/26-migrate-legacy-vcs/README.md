@@ -1,10 +1,10 @@
-# Ch26 — Migrate Legacy VCS (SVN, Mercurial, TFVC, Perforce) to GitHub
+# Ch26: Migrate legacy VCS (SVN, Mercurial, TFVC, Perforce) to GitHub
 
 > Convert legacy source-control history into Git, then push the converted repository to GitHub with author mapping, large-file checks, and cutover evidence.
 
 ## Prerequisites
 
-Dependencies: none. This guide is self-contained. For Azure Repos Git migration after TFVC conversion, ch21 is a useful cross-reference but not required.
+This guide is independent. Ch21 covers Azure Repos Git migration after TFVC conversion.
 
 Access and tooling:
 - GitHub organization with repository create rights.
@@ -42,7 +42,7 @@ gh repo create "$GITHUB_ORG/$DEST_REPO" --$VISIBILITY
 
 ## Tasks
 
-### Part A — Subversion: extract authors and convert with `git svn`
+### Part A: Subversion: extract authors and convert with `git svn`
 
 1. Export unique SVN usernames into an author map file.
 
@@ -92,7 +92,7 @@ git remote add origin "https://github.com/$GITHUB_ORG/$DEST_REPO.git"
 git push --mirror origin
 ```
 
-### Part B — Mercurial: convert with `hg-fast-export`
+### Part B: Mercurial: convert with `hg-fast-export`
 
 1. Clone the Mercurial source and the converter.
 
@@ -128,7 +128,7 @@ git remote add origin "https://github.com/$GITHUB_ORG/$DEST_REPO.git"
 git push --mirror origin
 ```
 
-### Part C — TFVC: convert to Azure Repos Git first, then push to GitHub
+### Part C: TFVC: convert to Azure Repos Git first, then push to GitHub
 
 TFVC has no direct `git svn` equivalent in GitHub's migration tooling. Convert TFVC to Git inside Azure Repos first by using Azure DevOps Repos > Import repository > TFVC or the organization's approved TFVC-to-Git import process. After the Azure Repos Git repository exists, treat it as a Git source.
 
@@ -147,7 +147,7 @@ git push --mirror origin
 
 If you need Azure Repos Git repository migration patterns with metadata, use the Azure DevOps Git migration activity (ch21). This activity covers the legacy TFVC-to-Git prerequisite and the source-and-history Git push path.
 
-### Part D — Perforce: convert with `git-p4`
+### Part D: Perforce: convert with `git-p4`
 
 1. Authenticate to Perforce and clone the depot path.
 
@@ -171,11 +171,11 @@ git push --mirror origin
 
 For very large depots, migrate one depot path at a time and agree on branch mapping before cutover.
 
-### Part E — Cross-cutting migration checks
+### Part E: Common migration checks
 
 Run these checks in each converted Git repository before the final push.
 
-1. Confirm author identities are useful.
+1. Confirm author identities map to the intended people.
 
 ```bash
 git log --all --format='%aN <%aE>' | sort -u | less
@@ -227,9 +227,9 @@ Do not delete or rewrite the original legacy source system during controlled val
 
 ## Reference links
 
-- About source code imports using the command line — https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/about-source-code-imports-using-the-command-line
-- Importing an external Git repository using the command line — https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/importing-an-external-git-repository-using-the-command-line
-- Importing a Subversion repository — https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/importing-a-subversion-repository
-- About GitHub Importer — https://docs.github.com/en/migrations/importing-source-code/using-github-importer/about-github-importer
-- About large files on GitHub — https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github
-- Troubleshooting the 2 GB push limit — https://docs.github.com/en/get-started/using-git/troubleshooting-the-2-gb-push-limit
+- [About source code imports using the command line](https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/about-source-code-imports-using-the-command-line)
+- [Importing an external Git repository using the command line](https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/importing-an-external-git-repository-using-the-command-line)
+- [Importing a Subversion repository](https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/importing-a-subversion-repository)
+- [About GitHub Importer](https://docs.github.com/en/migrations/importing-source-code/using-github-importer/about-github-importer)
+- [About large files on GitHub](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github)
+- [Troubleshooting the 2 GB push limit](https://docs.github.com/en/get-started/using-git/troubleshooting-the-2-gb-push-limit)

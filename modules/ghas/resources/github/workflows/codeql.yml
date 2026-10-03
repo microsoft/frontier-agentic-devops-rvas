@@ -1,4 +1,4 @@
-# CodeQL Analysis Workflow
+# CodeQL analysis workflow
 # Builds a CodeQL database, runs security queries, and publishes results under
 # Security > Code scanning alerts.
 # Runs on main, participant and team branches, pull requests to main, manual
@@ -68,7 +68,7 @@ jobs:
       - name: Auto-build
         uses: github/codeql-action/autobuild@v4
 
-      # Step 4: Run CodeQL Analysis
+      # Step 4: Run CodeQL analysis
       # Run the analysis and upload results to Security > Code scanning alerts.
       # Copilot Autofix can suggest fixes for many alerts.
       - name: Perform CodeQL Analysis

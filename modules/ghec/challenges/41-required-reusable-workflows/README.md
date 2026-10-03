@@ -1,4 +1,4 @@
-# Ch41: Required Reusable Workflows
+# Ch41: Required reusable workflows
 
 > Create an organization-owned reusable workflow and require it for a repository cohort through approved required-workflow or ruleset controls.
 
@@ -13,7 +13,7 @@
 Teams use different CI workflows, so baseline checks vary and audits take longer. Publish a reusable workflow and prove that one repository can call it. Then configure an approved control that requires the workflow before merge.
 
 > [!IMPORTANT]
-> Configure required workflows and rulesets manually for the approved cohort only — never via setup automation, since they can block production teams.
+> Configure required workflows and rulesets manually for the approved cohort only. Do not use setup automation; these controls can block production teams.
 
 ## Sample test repository or environment
 
@@ -35,26 +35,26 @@ Setup creates:
 
 ## Tasks
 
-### Part A — Publish the reusable workflow
+### Part A: Publish the reusable workflow
 
 1. Review the seeded reusable workflow for least-privilege `permissions` and pinned third-party actions.
 2. Decide the versioning model: branch, tag, release, or SHA.
 3. Configure Actions **Access** on `ghec-ch41-workflow-library` so the approved consumer repository can call the private reusable workflow.
 4. Record owners, review cadence, access scope, and compatibility promises.
 
-### Part B — Validate a consumer
+### Part B: Validate a consumer
 
 5. Update the consumer caller to reference the approved version.
 6. Open a pull request that changes sample code or docs.
 7. Confirm the reusable workflow runs and returns a required status context.
 
-### Part C — Require the gate
+### Part C: Require the gate
 
 8. Choose the enforcement mechanism available in the customer tenant: required workflows or repository rulesets.
 9. Configure the requirement manually for the authorized repository cohort.
 10. Verify a pull request cannot merge while the required reusable workflow is failing or missing.
 
-### Part D — Govern exceptions and rollout
+### Part D: Govern exceptions and rollout
 
 11. Define an exception path for repositories that cannot adopt the workflow.
 12. Record how library changes are communicated and how breaking changes are prevented.
@@ -62,7 +62,7 @@ Setup creates:
 
 ## Reference links
 
-- Reusing workflows — https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows
-- Required workflows — https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets
-- Organization rulesets — https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets
-- Security hardening for GitHub Actions — https://docs.github.com/en/actions/reference/security/secure-use
+- [Reusing workflows](https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows)
+- [Required workflows](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets)
+- [Organization rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets)
+- [Security hardening for GitHub Actions](https://docs.github.com/en/actions/reference/security/secure-use)

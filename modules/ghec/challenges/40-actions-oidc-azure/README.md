@@ -29,33 +29,33 @@ Setup creates `ghec-ch40-oidc-azure`, a `ghec-ch40-prod` environment when possib
 
 ## Tasks
 
-### Part A — Design the trust boundary
+### Part A: Design the trust boundary
 
 1. Choose the identity model: app registration, service principal, or managed identity.
 2. Define the GitHub subject claim, for example `repo:<org>/<repo>:environment:ghec-ch40-prod`.
 3. Record tenant ID, subscription, audience, repository, branch/environment restriction, Azure role, and approvers.
 
-### Part B — Configure Azure explicitly
+### Part B: Configure Azure explicitly
 
 4. Create or select the Azure identity.
 5. Add a federated credential matching the approved GitHub subject and audience.
 6. Assign the least Azure role needed for the validation action.
 
-### Part C — Configure GitHub workflow
+### Part C: Configure GitHub workflow
 
 7. Set non-secret configuration variables such as `AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, and `AZURE_SUBSCRIPTION_ID` at the repository or environment level.
 8. Grant `id-token: write` only to the job that needs Azure authentication.
 9. Use `azure/login` with OIDC; do not configure a client secret.
 
-### Part D — Validate and harden
+### Part D: Validate and harden
 
 10. Run the workflow from the approved branch or environment and capture the workflow URL.
-11. Run or simulate an unauthorized branch/environment and verify Azure denies the token exchange.
+11. Run or simulate a request from an unauthorized branch/environment and verify that Azure denies the token exchange.
 12. Remove old Azure client secrets from GitHub after owner approval.
 
 ## Reference links
 
-- Configuring OpenID Connect in Azure — https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-azure
-- About security hardening with OpenID Connect — https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect
-- Automatic token authentication — https://docs.github.com/en/actions/tutorials/authenticate-with-github_token
-- Azure Login with OpenID Connect — https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure-openid-connect
+- [Configuring OpenID Connect in Azure](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-azure)
+- [About security hardening with OpenID Connect](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect)
+- [Automatic token authentication](https://docs.github.com/en/actions/tutorials/authenticate-with-github_token)
+- [Azure Login with OpenID Connect](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure-openid-connect)

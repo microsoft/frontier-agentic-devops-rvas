@@ -1,6 +1,6 @@
-# Ch27 - GitHub Code Quality: Code Health & Coverage
+# Ch27: GitHub Code Quality: Code Health and coverage
 
-> Deliver GitHub Code Quality for an authorized customer repository: establish a Code Health baseline, publish coverage from CI, act on pull-request findings, and make a controlled organization rollout decision.
+> Enable GitHub Code Quality for an authorized customer repository. Record a Code Health baseline, publish CI coverage, review pull-request findings, and decide the organization rollout.
 
 ## Prerequisites
 
@@ -21,14 +21,14 @@ A customer team runs tests and reviews code but cannot see coverage, reliability
 
 ## Tasks
 
-### Part A - Confirm product readiness and ownership
+### Part A: Confirm product readiness and ownership
 
 1. Confirm the selected repository uses a language supported by Code Quality and that GitHub Actions is enabled. Record the repository, default branch, repository owner, engineering owner, and approval boundary.
 2. Confirm product availability in the customer tenant. If the organization belongs to an enterprise, ask the enterprise owner to allow Code Quality before attempting repository enablement.
 3. Identify the existing test command and the coverage tool for the repository. It must produce Cobertura XML; choose a converter when the current tool only creates another format.
 4. Record whether the team has Copilot licenses and AI features enabled. This affects optional Copilot review findings, not the rules-based Code Quality baseline.
 
-### Part B - Enable Code Quality and record the baseline
+### Part B: Enable Code Quality and record the baseline
 
 5. In the selected repository, go to Settings -> Security -> Code quality and select Enable code quality.
 6. Review the detected languages and runner configuration. Disable only languages the customer has explicitly excluded; save the configuration.
@@ -39,7 +39,7 @@ A customer team runs tests and reviews code but cannot see coverage, reliability
    - any generated-code, test-code, or repository-context factor that affects interpretation.
 8. Distinguish this result from security code scanning: Code Quality assesses reliability and maintainability. The [CodeQL deployment activity](../../../ghas/challenges/03-admin-codeql-deployment-data-flow-autofix/README.md) covers security vulnerabilities and data-flow analysis.
 
-### Part C - Publish code coverage from CI
+### Part C: Publish code coverage from CI
 
 9. Update the customer CI workflow so tests generate a Cobertura XML report on pushes to the default branch and pull requests targeting it.
 10. Add the least-privilege permission and upload step after tests. Replace the placeholders with the real report path, language, and an optional label:
@@ -62,7 +62,7 @@ permissions:
 11. Push the workflow change to a branch and open a pull request. Confirm the workflow runs on both the PR and default branch; Code Quality needs both for the branch comparison.
 12. Confirm a comment from `github-code-quality[bot]` reports aggregate coverage and the per-file coverage delta. If no comment appears, first verify the report is valid Cobertura XML, the upload step ran, and `code-quality: write` is present.
 
-### Part D - Triage quality feedback in a pull request
+### Part D: Triage quality feedback in a pull request
 
 13. Use a focused pull request that changes supported-language code. In Files changed, identify whether each comment comes from `github-code-quality[bot]` (rules-based) or Copilot (AI-powered).
 14. For at least one rules-based finding, read the severity and choose one action:
@@ -72,7 +72,7 @@ permissions:
 15. Review optional Copilot findings separately. They do not carry the Code Quality Error/Warning/Note severity and do not independently satisfy a Code Quality merge gate. Do not merge any generated patch without normal pull-request review.
 16. Return to Standard findings and record the before/after effect on the backlog and scores. Scores must be interpreted in repository context; generated code and small supported-language footprints can skew them.
 
-### Part E - Make the merge and rollout decision
+### Part E: Make the merge and rollout decision
 
 17. With the customer owner, decide whether Code Quality is informational during the pilot or whether a severity threshold should block pull requests. If a gate is approved, configure the native Code Quality threshold in the applicable ruleset.
 18. Demonstrate the decision on the test pull request: a finding at or above the selected threshold blocks merge until it is fixed or dismissed; a finding below it does not. If the customer chooses no gate, document why and set the review cadence instead.

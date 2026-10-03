@@ -1,10 +1,10 @@
-# Activity 3-06: Ground Truth
+# Activity 3-06: Ground truth
 
 ## Build
 
-A workflow that runs shell commands through `pre-agent-steps:` before the AI model starts, fetching live repository metrics with the `gh` CLI. The agent uses those numbers to update the `## Project Health` section in `CONTRIBUTING.md`, then opens a pull request through `create-pull-request`.
+Build a workflow that uses `pre-agent-steps:` to fetch live repository metrics with the `gh` CLI before the AI model starts. The agent uses those numbers to update the `## Project Health` section in `CONTRIBUTING.md`, then opens a pull request through `create-pull-request`.
 
-Without measured data, AI models may invent numbers. `pre-agent-steps:` writes real values to files first, so the agent reads facts instead of guessing.
+`pre-agent-steps:` writes measured values to files for the agent to read. Without that data, the model may invent numbers.
 
 ---
 
@@ -101,13 +101,13 @@ The dry run executes `pre-agent-steps:` and shows the captured values. Check the
 
 ---
 
-## Gotchas & Troubleshooting
+## Tips and troubleshooting
 
 - `$` resolves to `owner/repo` inside `pre-agent-steps:` run steps.
 - Test `pre-agent-steps:` first: add a `cat` step for each `/tmp/` file and check the dry-run output before involving the AI model. If the agent uses wrong numbers later, this is the first thing to re-check.
 - `pre-agent-steps:` is a top-level frontmatter key, same indentation level as `on:` and `permissions:`.
-- If `CONTRIBUTING.md` is missing, the agent creates it — the PR will contain a new file rather than a patch.
-- `base-branch: main` assumes the default branch is `main` — change it if needed.
+- If `CONTRIBUTING.md` is missing, the agent creates it. The PR will contain a new file rather than a patch.
+- `base-branch: main` assumes the default branch is `main`. Change it if needed.
 - Keep the PR small: tell the agent explicitly to only add/replace the `## Project Health` section and leave the rest of the file untouched.
 - Add `workflow_dispatch:` alongside the primary trigger so you can run on demand while developing.
 
@@ -117,5 +117,5 @@ The dry run executes `pre-agent-steps:` and shows the captured values. Check the
 
 - pre-agent-steps: https://github.github.com/gh-aw/reference/frontmatter/#pre-agent-steps
 - create-pull-request safe-output: https://github.github.com/gh-aw/reference/safe-outputs-pull-requests/#create-pull-request
-- gh CLI — gh api: https://cli.github.com/manual/gh_api
-- gh CLI — gh pr list: https://cli.github.com/manual/gh_pr_list
+- gh CLI, gh api: https://cli.github.com/manual/gh_api
+- gh CLI, gh pr list: https://cli.github.com/manual/gh_pr_list

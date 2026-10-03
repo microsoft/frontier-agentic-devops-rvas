@@ -1,8 +1,8 @@
-# Azure SRE Agent Reference
+# Azure SRE Agent reference
 
-This is the sourced baseline for the Azure SRE Agent track.
+Use these sources to check product capabilities and plan the Azure SRE Agent lab.
 
-## Official Microsoft Lab to Use
+## Official Microsoft lab
 
 Use the official Microsoft repository:
 
@@ -15,17 +15,17 @@ Use these lab scenarios in the course:
 
 | Scenario | Why it fits |
 | --- | --- |
-| Break app -> agent investigates logs and remediates | Shows Azure SRE Agent as an operations assistant without requiring GitHub. |
-| Source-code RCA and issue creation | Shows code context after Azure evidence is established. |
+| Break the app, then ask the agent to investigate logs and remediate | Uses Azure SRE Agent without requiring GitHub. |
+| Analyze the root cause using source code and create an issue | Links Azure incident evidence to code. |
 | Issue triage | Optional extension; not the core track. |
 
-## What Azure SRE Agent Is
+## What Azure SRE Agent does
 
 Azure SRE Agent is a reliability assistant for operations work. Its official community repository links to labs, sample environments, prompt guides, issue reporting, product documentation, the portal, pricing, official plugins, discussions, and videos.
 
 Azure SRE Agent is the main product in this track. GitHub supports remediation work.
 
-## Source-Code Connection
+## Source-code connection
 
 With a connected GitHub or Azure DevOps repository, Azure SRE Agent can:
 
@@ -37,17 +37,17 @@ With a connected GitHub or Azure DevOps repository, Azure SRE Agent can:
 
 Do not require live pull request creation in every environment. Require a source-aware investigation and either a reviewed pull request packet or a remediation issue with evidence, validation, and human approval.
 
-## Recipes and Plugins
+## Recipes and plugins
 
 `microsoft/sre-agent/sreagent-templates` includes production-oriented recipes. The most relevant simple recipe is `azmon-lawappinsights`, which connects Azure Monitor, Log Analytics, and Application Insights.
 
-`Azure/sre-agent-plugins` is the official plugin repository. Plugins should be introduced as extension points, not required setup.
+`Azure/sre-agent-plugins` is the official plugin repository. Introduce plugins as optional additions.
 
-## Delivery Caveats
+## Access requirements
 
 Live behavior depends on tenant policy, role assignments, region, connector availability, product access, and run mode. If access is blocked, use the fallback model in [Reference Architecture](Reference-Architecture.md).
 
-## Primary Sources
+## Primary sources
 
 - [microsoft/sre-agent](https://github.com/microsoft/sre-agent)
 - [microsoft/sre-agent starter lab](https://github.com/microsoft/sre-agent/tree/main/labs/starter-lab)

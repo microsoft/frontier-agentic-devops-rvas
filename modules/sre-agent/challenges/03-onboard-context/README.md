@@ -1,4 +1,4 @@
-# Activity 03: Onboard Service Context and Response Plans
+# Activity 03: Onboard service context and response plans
 
 ## Scenario
 
@@ -13,9 +13,11 @@ Azure SRE Agent needs accurate context. Inspect the service knowledge, response 
 - Add safe team memory for ownership and escalation.
 
 > [!TIP]
-> **Bring your own service:** onboard a service your team will operate after the session, wherever this guide references Grubify, using its real runbooks, architecture notes, alert routes, response plans, and ownership context. **Do not paste secrets, private contacts, or sensitive tenant details into notes or chat.**
+> **Use your own service.** You can replace Grubify with a service your team operates.
+> Use its runbooks, architecture notes, alert routes, response plans, and ownership details.
+> **Do not paste secrets, private contacts, or sensitive tenant details into notes or chat.**
 
-## Inspect Connected Context
+## Inspect connected context
 
 In the Azure SRE Agent portal, open the agent created for the lab and inspect:
 
@@ -30,7 +32,7 @@ In the Azure SRE Agent portal, open the agent created for the lab and inspect:
 
 If you are using a fallback packet, use the provided screenshots or setup summary for these areas.
 
-## Ask Context Questions
+## Ask context questions
 
 Use Azure SRE Agent chat:
 
@@ -48,7 +50,7 @@ Which response plan or incident route would handle a Grubify HTTP error alert?
 
 Capture claims supported by connected resources or knowledge. Mark the rest as open questions.
 
-## Add Safe Team Memory
+## Add safe team memory
 
 Add a small, non-sensitive memory:
 
@@ -58,13 +60,13 @@ Remember that for this lab, the operator validates recovery, the reviewer approv
 
 **Do not store personal data, private escalation contacts, secrets, or tenant-specific details.**
 
-## Build the Context Map
+## Build the context map
 
 Create a table:
 
 | Context item | Source | How it helps incident response | Missing or risky? |
 | --- | --- | --- | --- |
-| App architecture | Knowledge file | Explains API/frontend shape | `<yes/no>` |
+| App architecture | Knowledge file | Explains how the API and frontend connect | `<yes/no>` |
 | HTTP error runbook | Knowledge file | Gives diagnostic sequence | `<yes/no>` |
 | Azure Monitor alert | Incident platform | Starts investigation | `<yes/no>` |
 | Log Analytics | Connector | Supports KQL evidence | `<yes/no>` |

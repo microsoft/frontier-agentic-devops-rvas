@@ -1,5 +1,5 @@
 id: ghas-admin-04
-title: CodeQL Merge Enforcement
+title: CodeQL merge enforcement
 module: ghas
 track: admin-governance
 difficulty: advanced

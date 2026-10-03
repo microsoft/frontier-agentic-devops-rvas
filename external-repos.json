@@ -33,7 +33,7 @@
         "submodule_path": "external/juice-shop",
         "symlinks": ["app"],
         "npm_script": "setup:juice-shop",
-        "note": "Lazy/on-demand. Run `npm run setup:juice-shop` to fetch. The tag v20.0.0 is the human-readable ref; the submodule gitlink is pinned to the exact SHA above."
+        "note": "Run `npm run setup:juice-shop` when you need the app. The submodule is pinned to the SHA above, which corresponds to tag v20.0.0."
       }
     },
     {
@@ -59,7 +59,7 @@
         "submodule_path": "external/sre-agent",
         "content_path": "labs/starter-lab",
         "npm_script": "setup:sre-agent-lab",
-        "note": "Lazy/on-demand. Run `npm run setup:sre-agent-lab` to fetch the pinned repo with the shared provisioner, then use external/sre-agent/labs/starter-lab."
+        "note": "Run `npm run setup:sre-agent-lab` when you need the lab. The shared provisioner fetches the pinned repository. Use external/sre-agent/labs/starter-lab."
       }
     },
     {

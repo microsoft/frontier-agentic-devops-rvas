@@ -1,6 +1,6 @@
-# Ch47: InnerSource Program Operations
+# Ch47: InnerSource program operations
 
-> Deliver an InnerSource operating model: program charter, discoverable pilot hub, maintainer expectations, contribution-ready backlog, and adoption evidence.
+> Define an InnerSource charter and pilot hub. Document maintainer responsibilities, prepare contribution-ready issues, and record adoption evidence.
 
 ## Prerequisites
 
@@ -43,19 +43,19 @@ What setup creates:
 
 ## Tasks
 
-### Part A — Define the operating charter
+### Part A: Define the operating charter
 
 1. Name the program owner, participating repository cohort, maintainer expectations, and success metrics.
 2. Decide what qualifies a repository for InnerSource participation.
 3. Record review cadence, escalation path, and exception process.
 
-### Part B — Make the hub discoverable
+### Part B: Make the hub discoverable
 
 4. Review or create README content that explains the program, how to find work, and how to get support.
 5. Review `CONTRIBUTING.md` for contribution flow, review SLA, and maintainer responsibilities.
 6. Confirm CODEOWNERS or maintainer mapping exists for the pilot areas.
 
-### Part C — Prepare contribution-ready work
+### Part C: Prepare contribution-ready work
 
 7. Create or triage issues labeled for contribution readiness:
    ```bash
@@ -64,16 +64,16 @@ What setup creates:
 8. Ensure each issue has context, acceptance criteria, owner, and expected review path.
 9. Record which labels indicate blocked, ready, mentored, or maintainer-needed work.
 
-### Part D — Verify controls and metrics
+### Part D: Verify controls and metrics
 
 10. Confirm branch protection, required reviews, or rulesets remain compatible with safe contributions.
 11. Record adoption metrics: active pilot repos, ready issues, response SLA, merged external-to-team PRs, and maintainer load.
-12. Handover the program runbook and next review.
+12. Hand over the program runbook and set the next review date.
 
 ## Reference links
 
-- Using InnerSource in your enterprise — https://docs.github.com/en/enterprise-cloud@latest/admin/concepts/enterprise-best-practices/use-innersource
-- About CODEOWNERS — https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
-- Setting guidelines for contributors — https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/setting-guidelines-for-repository-contributors
-- Managing labels — https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels
-- About READMEs — https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-repository-readmes
+- [Using InnerSource in your enterprise](https://docs.github.com/en/enterprise-cloud@latest/admin/concepts/enterprise-best-practices/use-innersource)
+- [About CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
+- [Setting guidelines for contributors](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/setting-guidelines-for-repository-contributors)
+- [Managing labels](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels)
+- [About READMEs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-repository-readmes)

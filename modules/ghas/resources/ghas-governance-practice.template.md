@@ -1,10 +1,10 @@
-# GHAS Governance Practice
+# GHAS governance practice
 
 Use this template with a customer-owned repository or service when possible. Use
 Juice Shop only for safe practice. **Do not record credentials, full alert
 payloads, customer data, or other sensitive information.**
 
-## 1. GHAS Configuration and Ownership
+## 1. GHAS configuration and ownership
 
 | Field | Decision or evidence |
 |---|---|
@@ -26,7 +26,7 @@ payloads, customer data, or other sensitive information.**
   expected of human-authored changes.
 - Exceptions are recorded, time-bound, and approved by the accountable owner.
 
-## 2. Security Findings Register
+## 2. Security findings register
 
 | Finding class / alert category | Repository, service, or component | Impact | Remediation route | Accountable owner or team | Target date | Disposition | Prioritization rationale |
 |---|---|---|---|---|---|---|---|
@@ -35,15 +35,15 @@ payloads, customer data, or other sensitive information.**
 Use alert details and code review as evidence. Verify any Copilot explanation
 against the alert trace and the affected code before recording a decision.
 
-## 3. Prevention Patterns
+## 3. Prevention patterns
 
-Add an entry when a remediation establishes a reusable team practice.
+Add an entry when a fix gives the team a prevention pattern it can reuse.
 
 | Finding class / unsafe pattern | Approved safe pattern | Applies to | PR and review evidence | GHAS or test validation | Accountable owner | Human and agent change expectation |
 |---|---|---|---|---|---|---|
 | | | | | | | |
 
-## 4. Secret and Dependency Response
+## 4. Secret and dependency response
 
 | Item | Decision or evidence |
 |---|---|
@@ -54,7 +54,7 @@ Add an entry when a remediation establishes a reusable team practice.
 | Exception or accepted risk | |
 | Exception approver and expiry date | |
 
-## 5. Operating Cadence
+## 5. Operating cadence
 
 | Cadence | Participants | Decisions and evidence | Escalation or reporting path |
 |---|---|---|---|

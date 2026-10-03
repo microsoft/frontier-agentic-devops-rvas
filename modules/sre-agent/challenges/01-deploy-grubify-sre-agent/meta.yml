@@ -1,5 +1,5 @@
 id: sre-agent-01
-title: Deploy Grubify and Create the Azure SRE Agent
+title: Deploy Grubify and create the Azure SRE Agent
 module: sre-agent
 track: azure-sre-agent
 difficulty: intermediate

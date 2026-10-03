@@ -1,6 +1,6 @@
-# Ch48: Vendor Access Lifecycle
+# Ch48: Vendor access lifecycle
 
-> Deliver a governed vendor access lifecycle: request, approval, least-privilege grant, periodic review, offboarding, and audit evidence.
+> Define vendor access requests, approvals, and least-privilege grants. Review access periodically and retain offboarding and audit evidence.
 
 ## Prerequisites
 
@@ -44,7 +44,7 @@ What setup creates:
 
 ## Tasks
 
-### Part A — Inventory current access
+### Part A: Inventory current access
 
 1. Snapshot outside collaborators and pending invitations:
    ```bash
@@ -54,13 +54,13 @@ What setup creates:
 2. Identify stale access, pending invitations, broad permissions, and missing business owners.
 3. Record gaps in the access register.
 
-### Part B — Define lifecycle controls
+### Part B: Define lifecycle controls
 
 4. Define required fields: vendor, sponsor, repositories, permission, start date, end date, data classification, and review owner.
 5. Decide who can approve new vendor access and who performs quarterly review.
 6. If authorized, review org settings for who can invite outside collaborators. Otherwise record a rollout proposal.
 
-### Part C — Approve and grant access
+### Part C: Approve and grant access
 
 7. Create or review an access request issue.
 8. Validate least privilege and end date before any grant.
@@ -70,7 +70,7 @@ What setup creates:
    ```
 10. Record the invitation URL/status without storing personal or secret information beyond the approved register fields.
 
-### Part D — Review and offboard
+### Part D: Review and offboard
 
 11. For each active vendor, confirm the business owner still approves access.
 12. Remove expired access through the UI or API after explicit approval.
@@ -78,9 +78,9 @@ What setup creates:
 
 ## Reference links
 
-- Managing outside collaborators — https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-outside-collaborators
-- Adding outside collaborators — https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-outside-collaborators/adding-outside-collaborators-to-repositories-in-your-organization
-- Removing outside collaborators — https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-user-access-to-your-organizations-repositories/managing-outside-collaborators/removing-an-outside-collaborator-from-an-organization-repository
-- Setting permissions for adding outside collaborators — https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-organization-settings/setting-permissions-for-adding-outside-collaborators
-- Reviewing the organization audit log — https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization
-- Outside collaborators REST API — https://docs.github.com/en/rest/orgs/outside-collaborators
+- [Managing outside collaborators](https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-outside-collaborators)
+- [Adding outside collaborators](https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-outside-collaborators/adding-outside-collaborators-to-repositories-in-your-organization)
+- [Removing outside collaborators](https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-user-access-to-your-organizations-repositories/managing-outside-collaborators/removing-an-outside-collaborator-from-an-organization-repository)
+- [Setting permissions for adding outside collaborators](https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-organization-settings/setting-permissions-for-adding-outside-collaborators)
+- [Reviewing the organization audit log](https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization)
+- [Outside collaborators REST API](https://docs.github.com/en/rest/orgs/outside-collaborators)

@@ -1,6 +1,6 @@
-# Ch46: Pages Publishing Governance
+# Ch46: Pages publishing governance
 
-> Deliver an approved operating model for GitHub Pages publishing: org policy decision, repo publishing configuration, and evidence for visibility, ownership, exceptions, and rollback.
+> Agree on GitHub Pages publishing policy and configure an approved repository. Record visibility, owners, exceptions, and rollback evidence.
 
 ## Prerequisites
 
@@ -42,19 +42,19 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 
 ## Tasks
 
-### Part A — Capture current policy
+### Part A: Capture current policy
 
 1. Snapshot organization Pages settings from Organization settings → Pages, or with the organization API when available.
 2. Record the allowed publisher population, visibility options, default stance, and exception owner.
 3. Decide whether the production policy changes now or is captured as a rollout proposal.
 
-### Part B — Approve the publishing model
+### Part B: Approve the publishing model
 
 4. Choose the publishing source: branch folder (`docs/`) or GitHub Actions.
 5. Record site owner, content owner, review cadence, rollback owner, and incident contact.
 6. Confirm repository visibility and Pages visibility match customer policy.
 
-### Part C — Configure repository Pages
+### Part C: Configure repository Pages
 
 7. In the approved repository, configure Pages in Settings → Pages, or use the REST API for repository-level Pages setup:
    ```bash
@@ -65,7 +65,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 8. If Pages already exists, update the source instead of creating a duplicate configuration.
 9. Do not change org-wide Pages publication settings unless the approved policy decision says to do so.
 
-### Part D — Verify publication and rollback
+### Part D: Verify publication and rollback
 
 10. Capture repository Pages settings:
     ```bash
@@ -76,8 +76,8 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 
 ## Reference links
 
-- Managing publication of GitHub Pages sites for your organization — https://docs.github.com/en/organizations/managing-organization-settings/managing-the-publication-of-github-pages-sites-for-your-organization
-- Configuring a publishing source — https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
-- Creating a GitHub Pages site — https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site
-- About GitHub Pages — https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages
-- Pages REST API — https://docs.github.com/en/rest/pages/pages
+- [Managing publication of GitHub Pages sites for your organization](https://docs.github.com/en/organizations/managing-organization-settings/managing-the-publication-of-github-pages-sites-for-your-organization)
+- [Configuring a publishing source](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
+- [Creating a GitHub Pages site](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site)
+- [About GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages)
+- [Pages REST API](https://docs.github.com/en/rest/pages/pages)

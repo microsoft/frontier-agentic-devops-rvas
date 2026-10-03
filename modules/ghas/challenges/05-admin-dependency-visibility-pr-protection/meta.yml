@@ -1,5 +1,5 @@
 id: ghas-admin-05
-title: Dependency Visibility & Pull Request Protection
+title: Dependency visibility and pull request protection
 module: ghas
 track: admin-governance
 difficulty: advanced

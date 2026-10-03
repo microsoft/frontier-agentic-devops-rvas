@@ -1,4 +1,4 @@
-# Ch49: Release Governance
+# Ch49: Release governance
 
 > Deliver a governed release path: release candidates, explicit approval evidence, release notes, tag standards, and rollback ownership.
 
@@ -45,7 +45,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 
 ## Tasks
 
-### Part A — Inspect current release controls
+### Part A: Inspect current release controls
 
 1. Snapshot repository release and tag evidence:
    ```bash
@@ -59,7 +59,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
    ```
 3. Record who can approve releases, who can publish them, and which controls require explicit owner approval before enforcement.
 
-### Part B — Define release governance
+### Part B: Define release governance
 
 4. Complete `docs/release-governance.md` with:
    - release owner and approver group
@@ -70,22 +70,22 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
    - exception route and review cadence
 5. Decide which controls are enforced now and which remain a signed rollout proposal.
 
-### Part C — Create a release candidate record
+### Part C: Create a release candidate record
 
 6. Open a release candidate issue using the provided template.
 7. Attach scope, risk, validation plan, approver, rollback plan, and planned release tag.
 8. Apply `release: candidate` and keep comments or workflow links as the evidence trail.
 
-### Part D — Collect evidence and approve
+### Part D: Collect evidence and approve
 
 9. Run the manual evidence workflow or attach equivalent validation output:
    ```bash
    gh workflow run release-evidence.yml --repo <org>/ghec-ch49-release-governance -f release_tag=v0.1.0 -f evidence_url=<url-or-record-id>
    ```
-10. Approver reviews the candidate issue and applies either `release: approved` or `release: blocked`.
+10. The approver reviews the candidate issue and applies either `release: approved` or `release: blocked`.
 11. If approval is blocked, record the reason, owner, and next decision date.
 
-### Part E — Publish or dry-run the release
+### Part E: Publish or dry-run the release
 
 12. If authorized, create the release:
     ```bash
@@ -96,8 +96,8 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 
 ## Reference links
 
-- About releases — https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases
-- Managing releases — https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository
-- Manually running a workflow — https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow
-- About rulesets — https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets
-- Release webhook event — https://docs.github.com/en/webhooks-and-events/webhooks/webhook-events-and-payloads#release
+- [About releases](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases)
+- [Managing releases](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository)
+- [Manually running a workflow](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow)
+- [About rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets)
+- [Release webhook event](https://docs.github.com/en/webhooks-and-events/webhooks/webhook-events-and-payloads#release)

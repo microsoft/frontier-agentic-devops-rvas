@@ -1,5 +1,5 @@
 id: ghas-admin-03
-title: CodeQL Deployment, Data Flow & Autofix
+title: CodeQL deployment, data flow and Autofix
 module: ghas
 track: admin-governance
 difficulty: advanced

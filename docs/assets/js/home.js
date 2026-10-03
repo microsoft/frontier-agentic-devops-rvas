@@ -30,7 +30,7 @@
     if (!grid) return;
 
     if (!outcomes.length) {
-      grid.innerHTML = '<div class="empty">No outcome journeys configured.</div>';
+      grid.innerHTML = '<div class="empty">No outcome paths configured.</div>';
       return;
     }
 

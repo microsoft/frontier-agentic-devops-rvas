@@ -1,4 +1,4 @@
-# Ch52 — Enterprise Landing Zone & Organization Strategy
+# Ch52: Enterprise landing zone and organization strategy
 
 > Map the enterprise and recommend an organization strategy: how many organizations it needs, what each one is for, how organizations are created or retired, who holds enterprise roles, and which settings the enterprise or each organization owns. Complete the governance settings register. Do not create organizations, teams, or repositories.
 
@@ -34,8 +34,8 @@ Inspect the topology. Recommend a boundary without changing it. Define the chart
 >
 > Start with inspection and a written proposal. Do not create, merge, rename, or retire an organization. Do not change enterprise-owner assignments, cost-center membership, custom properties, or data residency in this activity.
 >
-> - Have enterprise-owner access? Inspect live settings via the UI and API.
-> - No owner access? Use a current, dated export of enterprise organization, identity, billing, and policy settings, and record its source and date.
+> - With enterprise-owner access, inspect live settings via the UI and API.
+> - Without owner access, use a current, dated export of enterprise organization, identity, billing, and policy settings. Record its source and date.
 > - If the customer authorizes one limited pilot, such as a test-organization custom property or a charter dry run, record its scope, owner, and rollback plan before you start.
 
 ## No sample resources are created
@@ -44,7 +44,7 @@ This activity creates nothing. There is no `setup.sh provision ch52` command, sa
 
 ## Tasks
 
-### Part A — Map the enterprise and identity baseline
+### Part A: Map the enterprise and identity baseline
 
 1. List every organization in the enterprise, or an approved representative subset for a very large enterprise. Record its purpose, member count, visibility posture, and business owner:
    ```bash
@@ -55,21 +55,21 @@ This activity creates nothing. There is no `setup.sh provision ch52` command, sa
 3. List existing enterprise teams, if any. Record their purpose, membership source (manual or IdP-synced), and which organizations they can access.
 4. Record the enterprise hostname and hosting model (GitHub.com or GHE.com with data residency), its selected region when relevant, and feature limits inherited by its organizations. Organizations in one enterprise cannot choose separate data-residency regions.
 
-### Part B — Decide the organization boundary
+### Part B: Decide the organization boundary
 
 5. Consider boundary drivers: related applications or services, regulatory isolation, security or blast-radius isolation, data residency, M&A or divestiture planning, external collaboration, and public or open-source work. Mark which apply. Billing or licensing alone does not justify another organization. Use cost centers, teams, and license assignment for those needs.
 6. Recommend an organization count and structure. For example: one organization per regulated business unit, plus one for shared services. Name the main reason for the recommendation.
 7. Record at least one rejected option, such as one organization for the whole enterprise or one per team, and explain why it does not fit.
 8. Name the person who approves the organization strategy and set a review cadence, such as annually or at each M&A event.
 
-### Part C — Define the org charter and intake/retirement process
+### Part C: Define the org charter and intake/retirement process
 
 9. Draft an organization charter template with the owner, business justification, boundary driver, initial cost center, initial data-residency choice, initial custom properties, and initial restricted-email or domain policy.
 10. Check who can create organizations now. Define who requests one, who approves and creates it, its baseline settings, and the evidence to capture.
 11. Define the retirement process. Cover decommissioning the organization, identifying and removing or transferring unaffiliated members, and retiring or moving repositories, teams, and cost-center assignments.
 12. Record the restricted-email and verified-domain decision: whether the enterprise enforces email-notification restrictions, which domains are verified or approved, and any organization-level exception.
 
-### Part D — Model enterprise roles, teams, and delegation
+### Part D: Model enterprise roles, teams, and delegation
 
 13. Export the enterprise People and role view, or use the approved export. Name each enterprise owner and delegated role holder (billing manager, security manager, and similar), along with their purpose. Keep enterprise-owner membership small. If too many people have it today, describe the target state.
 14. Confirm or define the enterprise team model: which teams exist or should exist, their IdP sync source, and the organizations or roles granted to each one.
@@ -77,7 +77,7 @@ This activity creates nothing. There is no `setup.sh provision ch52` command, sa
 16. Record the custom-property strategy: which properties the enterprise requires and which are optional for organizations. Also record who can register or install enterprise apps and how cost centers assign organizations, repositories, enterprise teams, and users.
 17. Record whether enterprise-level Projects or GitHub Sponsors belong in this organization strategy. Name the decision owner and any policy limit.
 
-### Part E — Populate the register and hand over
+### Part E: Populate the register and hand over
 
 18. Open `modules/ghec/resources/GOVERNANCE-CONTROL-CATALOGUE.md`. Copy `modules/ghec/resources/GOVERNANCE-SETTINGS-REGISTER-TEMPLATE.md` to the customer-owned evidence location. For each relevant control ID, record the current value or effective source, decision, accountable owner, and review or expiry date.
 19. Map each open finding or deferred decision to the chapter that will handle it. For example, send base-permission tuning to Ch06, the access matrix to Ch07, billing budgets to Ch10, SAML/SCIM to Ch14, enterprise identity or network detail to Ch28, drift detection to Ch44, packages policy to Ch45, Pages policy to Ch46, and vendor lifecycle to Ch48.

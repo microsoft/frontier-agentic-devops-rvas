@@ -1,4 +1,4 @@
-# Azure SRE Agent Runbooks
+# Azure SRE Agent runbooks
 
 These assets support the fallback path for the controlled Azure SRE Agent incident.
 

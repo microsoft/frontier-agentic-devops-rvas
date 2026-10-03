@@ -31,7 +31,7 @@ const path = require('path');
 const MODULE_CONFIG = {
   ghec: {
     name: 'GitHub Enterprise Cloud',
-    description: 'Set up GitHub Enterprise Cloud in your organization, then put the policies and workflows your teams need into practice.',
+    description: 'Configure GitHub Enterprise Cloud policies and development workflows in your organization.',
     color: '#0969da',
     icon: 'icon-ghec.svg',
     catalog_lead_ids: ['ghec-ch00'],
@@ -46,14 +46,14 @@ const MODULE_CONFIG = {
   },
   ghas: {
     name: 'GitHub Advanced Security',
-    description: 'Find real security problems in a vulnerable app, then fix them with GitHub Advanced Security.',
+    description: 'Use GitHub Advanced Security to detect vulnerabilities and manage fixes across your repositories.',
     color: '#cf222e',
     icon: 'icon-ghas.svg',
     expected_challenge_count: 13,
     catalog_track_order: ['admin-governance', 'developer-flow'],
     tracks: {
       'admin-governance': { name: 'Admin & Governance', description: 'Configure GHAS policies and permissions, then manage rollout and reporting across the enterprise.' },
-      'developer-flow':   { name: 'Developer Flow', description: 'Use GitHub Advanced Security to find vulnerabilities in a sample app and fix them in the developer workflow.' },
+      'developer-flow':   { name: 'Developer Flow', description: 'Find vulnerabilities with GitHub Advanced Security and fix them through pull requests.' },
     },
   },
   ghaw: {
@@ -64,13 +64,13 @@ const MODULE_CONFIG = {
     tracks: {
       'hello-agent':              { name: 'Getting Started', description: 'Set up gh-aw and build basic schedule- and event-triggered workflows.' },
       'repo-concierge':           { name: 'Pull Requests & Issues', description: 'Automate review, triage, contributor guidance, and issue commands.' },
-      'continuous-intelligence': { name: 'Context & Orchestration', description: 'Connect workflows, repository context, and MCP tools for more involved jobs.' },
+      'continuous-intelligence': { name: 'Context & Orchestration', description: 'Pass results between workflows and connect repository context and MCP tools.' },
       'production-patterns':      { name: 'Repository Operations', description: 'Automate maintenance, quality, security, and planning with reviewed outputs.' },
     },
   },
   'sre-agent': {
     name: 'SRE Agent',
-    description: 'Use Azure SRE Agent to investigate service problems, trace evidence back to source code, and make reviewed fixes.',
+    description: 'Investigate incidents with Azure SRE Agent. Connect telemetry to source code and review proposed fixes.',
     color: '#1a7f37',
     icon: 'icon-agentic-devops.svg',
     tracks: {

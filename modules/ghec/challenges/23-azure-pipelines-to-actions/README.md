@@ -1,10 +1,10 @@
-# Ch23 — Convert Azure Pipelines to GitHub Actions
+# Ch23: Convert Azure Pipelines to GitHub Actions
 
-> Convert an approved Azure DevOps Pipeline into a GitHub Actions workflow with GitHub Actions Importer, then review, remediate, validate, and hand it over.
+> Convert an approved Azure DevOps Pipeline with GitHub Actions Importer. Review and fix the generated workflow, test it, then hand it to its owner.
 
 ## Prerequisites
 
-Dependencies: none. This guide is independent, but it is recommended after the Azure DevOps repository migration guide (ch21) and complements ch04 Actions CI fundamentals.
+This guide is independent. Complete the Azure DevOps repository migration guide (ch21) first if possible. Ch04 covers related Actions CI fundamentals.
 
 Access and tooling:
 - A GitHub organization and target repository, ideally the repository migrated from Azure DevOps in ch21.
@@ -50,7 +50,7 @@ When prompted, select Azure DevOps, enter the GitHub token, accept `https://gith
 
 ## Tasks
 
-### Part A — Audit the Azure DevOps CI/CD footprint
+### Part A: Audit Azure DevOps CI/CD
 
 Run an audit against Azure DevOps.
 
@@ -64,7 +64,7 @@ Open `actions-importer-output/audit/audit_summary.md`. Capture:
 - Secrets, variable groups, self-hosted runners, service connections, or environments that require manual work.
 - Actions that the converted workflows would use.
 
-### Part B — Forecast GitHub Actions usage
+### Part B: Forecast GitHub Actions usage
 
 Estimate future GitHub Actions usage from Azure DevOps pipeline history.
 
@@ -74,7 +74,7 @@ gh actions-importer forecast azure-devops --output-dir "$OUTPUT_DIR/forecast"
 
 Review `actions-importer-output/forecast/forecast_report.md`. Note expected job count, execution time, queue time, concurrency, and any runner queues that affect cost or capacity planning.
 
-### Part C — Dry-run one pipeline conversion
+### Part C: Dry-run one pipeline conversion
 
 Convert a build pipeline locally without opening a pull request.
 
@@ -94,7 +94,7 @@ gh actions-importer dry-run azure-devops release \
 
 Review the generated workflow YAML under the dry-run output directory. GitHub documents an approximately 80% auto-conversion target, not a perfect conversion guarantee. Expect manual cleanup for unsupported tasks, unknown tasks, service connections, secrets, variables, environments, approvals, self-hosted agents, or resource triggers.
 
-### Part D — Migrate by pull request
+### Part D: Migrate by pull request
 
 Convert the same pipeline and have Importer open a pull request against the target GitHub repository.
 
@@ -116,7 +116,7 @@ gh actions-importer migrate azure-devops release \
 
 Open the pull request URL printed by the command. Inspect the PR description, especially the Manual steps section, then inspect `.github/workflows/*.yml` in the Files changed tab.
 
-### Part E — Review and fix the generated workflow
+### Part E: Review and fix the generated workflow
 
 In the pull request branch:
 1. Read every generated `.github/workflows/*.yml` file.
@@ -126,7 +126,7 @@ In the pull request branch:
 5. Decide whether Azure DevOps self-hosted agents become GitHub-hosted runners, larger runners, or GitHub self-hosted runners.
 6. Document at least one conversion gap and how you fixed it.
 
-### Part F — Validate in GitHub Actions
+### Part F: Validate in GitHub Actions
 
 Merge or update the PR when the workflow is safe to run, then trigger the migrated workflow.
 
@@ -144,5 +144,5 @@ Keep the pull request and reports if they are evidence for the migration plan. I
 
 ## Reference links
 
-- Automating migration with GitHub Actions Importer — https://docs.github.com/en/actions/tutorials/migrate-to-github-actions/automated-migrations/use-github-actions-importer
-- Migrating from Azure DevOps with GitHub Actions Importer — https://docs.github.com/en/actions/tutorials/migrate-to-github-actions/automated-migrations/azure-devops-migration
+- [Automating migration with GitHub Actions Importer](https://docs.github.com/en/actions/tutorials/migrate-to-github-actions/automated-migrations/use-github-actions-importer)
+- [Migrating from Azure DevOps with GitHub Actions Importer](https://docs.github.com/en/actions/tutorials/migrate-to-github-actions/automated-migrations/azure-devops-migration)

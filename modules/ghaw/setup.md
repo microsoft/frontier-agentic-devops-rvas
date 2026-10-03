@@ -1,10 +1,10 @@
-# GHAW Setup
+# GHAW setup
 
 Choose one of these environments, then run `ghaw-00` to authenticate and verify the toolchain.
 
 ## Bring your own repo
 
-Run each activity against a repository the team actually owns when one is available — real issues, PRs, and history make the exercise meaningful. Point the workflow file at that repo everywhere the activity references the sample repo. If no candidate repo exists yet, use the sample repo from this setup as the practice target.
+Use a repository the team owns when one is available. Update the workflow wherever the activity references the sample repo so it uses your issues, PRs, and history. If you do not have a candidate repository, use the sample repo from this setup.
 
 ## Option 1: GitHub Codespaces
 1. Open this repository (`microsoft/frontier-agentic-devops-rvas`) on GitHub.

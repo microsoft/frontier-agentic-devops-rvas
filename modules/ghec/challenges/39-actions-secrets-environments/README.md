@@ -1,4 +1,4 @@
-# Ch39: Actions Secrets and Environments
+# Ch39: Actions secrets and environments
 
 > Govern deployment secrets by moving them behind protected GitHub Actions environments and recording ownership, rotation, and access evidence.
 
@@ -14,7 +14,7 @@
 A deployment workflow uses repository-level secrets. Any job that can reference those names can try to use production credentials. Inventory the secrets without exposing values. Move deployment credentials to protected environments, then prove that reviewers and branch rules gate production access.
 
 > [!IMPORTANT]
-> Use an approved customer target first. If production changes are not approved, use the fallback sample repository and produce a rollout proposal instead of mutating production controls.
+> Use an approved customer target first. If production changes are not approved, use the fallback sample repository and write a rollout proposal. Leave production controls unchanged.
 
 ## Sample test repository or environment
 
@@ -33,7 +33,7 @@ Setup creates only namespaced sample artifacts:
 
 ## Tasks
 
-### Part A — Inventory without exposing values
+### Part A: Inventory without exposing values
 
 1. Snapshot repository secret metadata:
    ```bash
@@ -45,19 +45,19 @@ Setup creates only namespaced sample artifacts:
    ```
 3. Record each secret name, scope, consumer workflow, owner, rotation cadence, and whether it should be repository, environment, or organization scoped.
 
-### Part B — Design environment protection
+### Part B: Design environment protection
 
 4. Define `dev`, `test`, and `prod` environment requirements: reviewers, wait timer, allowed branches/tags, and exception owner.
 5. Keep production environment settings as an explicit participant action; do not delegate broad production changes to setup automation.
 6. Record what secrets move to each environment and which jobs are allowed to reference them.
 
-### Part C — Configure environments and secrets
+### Part C: Configure environments and secrets
 
 7. Configure protected environments in the repository UI or API.
 8. Add environment secrets using `gh secret set --env <environment>` or the UI. Do not print values.
 9. Remove or de-scope old repository secrets after workflow migration and approval.
 
-### Part D — Update and validate workflows
+### Part D: Update and validate workflows
 
 10. Update deployment jobs to declare the environment before referencing environment secrets.
 11. Run a non-production deployment and capture the workflow URL.
@@ -65,7 +65,7 @@ Setup creates only namespaced sample artifacts:
 
 ## Reference links
 
-- Using secrets in GitHub Actions — https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions
-- Using environments for deployment — https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment
-- Actions Secrets REST API — https://docs.github.com/en/rest/actions/secrets
-- Environments REST API — https://docs.github.com/en/rest/deployments/environments
+- [Using secrets in GitHub Actions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions)
+- [Using environments for deployment](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment)
+- [Actions Secrets REST API](https://docs.github.com/en/rest/actions/secrets)
+- [Environments REST API](https://docs.github.com/en/rest/deployments/environments)

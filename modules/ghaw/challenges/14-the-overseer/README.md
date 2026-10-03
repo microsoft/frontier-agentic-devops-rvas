@@ -1,8 +1,8 @@
-# Activity 3-04: The Overseer
+# Activity 3-04: The overseer
 
 ## Background
 
-The Overseer monitors other agentic workflows: are they running successfully, how many tokens are they burning, which ones fail repeatedly, and should someone be alerted? The team gets one place to see repeated failures, token spikes, and stale workflows.
+The Overseer monitors other agentic workflows for repeated failures, token spikes, and stale runs. It reports their status and token use, then alerts the team when a workflow crosses the chosen threshold.
 
 ---
 
@@ -32,7 +32,7 @@ Use the `agentic-workflows` MCP tool to gather:
 ### Analyze the runs
 
 Identify:
-1. Top 3 most expensive workflows (by total tokens burned in the past 7 days)
+1. Top 3 most expensive workflows (by total tokens used in the past 7 days)
 2. Top 3 failing workflows (highest failure rate)
 3. Unexpected spikes (a workflow that was stable but suddenly started failing or using 10× tokens)
 
@@ -47,13 +47,13 @@ Use `safe-outputs: create-issue: expires: 7d, max: 1, close-older-issues: true` 
 
 ### Set the token budget
 
-Use a concrete `max-effective-tokens` value because analyzing workflow history requires enough token budget to complete. Document in your solution *why* that value fits the number of runs you expect to analyze.
+Set `max-effective-tokens` to fit the number of runs you expect to analyze. Document why you chose that value.
 
 ---
 
-## Tips & Troubleshooting
+## Tips and troubleshooting
 
-- The `agentic-workflows` MCP tool gives read-only access to workflow runs in *this* repo only; if it's not found, check `tools: agentic-workflows` in frontmatter.
+- The `agentic-workflows` MCP tool gives read-only access to workflow runs in this repo only. If it's not found, check `tools: agentic-workflows` in frontmatter.
 - Failure rate = failed runs / total runs. Flag a workflow as spiking if its latest run used >2× the average tokens of the previous 5 runs.
 - Set `max-effective-tokens` high enough for the expected analysis, and document why that value fits the run count. If analysis stops early, reduce scope before raising the budget.
 - Use `tracker-id: workflow-health-monitor` so other workflows can associate issues with this monitor, and keep the issue body to a compact markdown table (~200 lines max).

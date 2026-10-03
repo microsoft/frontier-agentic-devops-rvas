@@ -1,8 +1,8 @@
-# Activity 1-03: The Watcher
+# Activity 1-03: The watcher
 
 ## Build
 
-A workflow triggered by `on: push`. It detects changes in a chosen directory, such as `docs/` or `src/config/`, and comments on the commit with a summary.
+Build a workflow triggered by `on: push`. It detects changes in a chosen directory, such as `docs/` or `src/config/`, and comments on the commit with a summary.
 
 `on: push` gives the agent the triggering commit, changed files, and diff. Use it for checks that must react to code as it lands, such as config validation or changelog checks.
 
@@ -23,13 +23,13 @@ A workflow triggered by `on: push`. It detects changes in a chosen directory, su
 
 ---
 
-## Tips & Troubleshooting
+## Tips and troubleshooting
 
-- Path filters: Use `on: push: paths: ['docs/**']` to only run when files matching that glob are touched. Adjust the path to a meaningful directory in your repo.
-- Commit metadata: The agent has access to the commit message, changed files, and author. Use that in your instructions.
-- Safe-outputs: add-comment: This posts a comment on the commit itself (not an issue). Useful for inline feedback.
-- Workflow_dispatch for testing: Add it so you can test without actually committing.
-- Conditional instructions: You might say: "If the commit changed >5 files in docs/, comment 'Large documentation update detected.' Otherwise, call noop."
+- Use `on: push: paths: ['docs/**']` to run only when files matching that glob change. Set the path to the directory you want to watch.
+- The agent can read the commit message, changed files, and author. Refer to those fields in your instructions.
+- `safe-outputs: add-comment:` posts a comment on the commit itself, not an issue.
+- Add `workflow_dispatch` so you can test without committing.
+- Write conditional instructions such as: "If the commit changed >5 files in docs/, comment 'Large documentation update detected.' Otherwise, call noop."
 - Path filters are exact. If the workflow doesn't trigger, confirm you pushed to the watched path, then test with a throwaway `.trigger` file.
 - Review the commit data in the run logs. If changed files aren't listed, the path filter didn't match.
 
@@ -40,5 +40,5 @@ A workflow triggered by `on: push`. It detects changes in a chosen directory, su
 - Push Event Trigger: https://github.github.com/gh-aw/reference/triggers/#push
 - Path Filters: https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onpushpullrequestpaths
 - GitHub tool permissions: https://github.github.com/gh-aw/reference/permissions/
-- Safe Outputs — Add Comment: https://github.github.com/gh-aw/reference/safe-outputs/#add-comment
+- Safe outputs, add-comment: https://github.github.com/gh-aw/reference/safe-outputs/#add-comment
 - Related Blog: [Peli's Agent Factory Part 2: Continuous Simplicity](https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-continuous-simplicity/)

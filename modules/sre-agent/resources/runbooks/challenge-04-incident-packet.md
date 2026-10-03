@@ -1,10 +1,11 @@
-# Activity 04 Incident Packet: Grubify Ordering Failure
+# Activity 04 incident packet: Grubify ordering failure
 
 ## Situation
 
-At `<timestamp>`, Azure Monitor detected elevated failures for the Grubify ordering flow. Customers can browse the frontend, but Add to Cart or the backing API call is failing.
+At `<timestamp>`, Azure Monitor detected increased failures in the Grubify ordering flow.
+Customers can browse the frontend, but Add to Cart or its API call fails.
 
-## Starting Evidence
+## Starting evidence
 
 | Signal | Value |
 | --- | --- |
@@ -15,7 +16,7 @@ At `<timestamp>`, Azure Monitor detected elevated failures for the Grubify order
 | First detected | `<timestamp>` |
 | Customer impact | Ordering attempts fail; browsing remains available |
 
-## Azure Evidence
+## Azure evidence
 
 | Evidence | Value |
 | --- | --- |
@@ -25,7 +26,7 @@ At `<timestamp>`, Azure Monitor detected elevated failures for the Grubify order
 | Container App state | `<revision/resource state>` |
 | Runbook reference | `<knowledge file or runbook section>` |
 
-## Azure SRE Agent Transcript
+## Azure SRE Agent transcript
 
 Provide a sanitized transcript or summary with:
 
@@ -35,7 +36,7 @@ Provide a sanitized transcript or summary with:
 - mitigation recommendation;
 - validation plan.
 
-## Source-Code Context
+## Source-code context
 
 If source context is included:
 
@@ -43,7 +44,7 @@ If source context is included:
 | --- | --- | --- |
 | `<file:line>` | `<why this source area is relevant>` | `<Low/Medium/High>` |
 
-## Expected Participant Outcome
+## Expected participant outcome
 
 Teams produce:
 

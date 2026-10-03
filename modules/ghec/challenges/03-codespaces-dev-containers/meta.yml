@@ -1,5 +1,5 @@
 id: ghec-ch03
-title: Codespaces & Dev Containers
+title: Codespaces and dev containers
 module: ghec
 track: developer-flow
 difficulty: intermediate
@@ -24,7 +24,7 @@ min_environment: org
 provision_creates:
 - repo ghec-ch03-codespaces-dev-containers (seeded Node/Express app + package.json)
 - minimal .devcontainer/devcontainer.json baseline (a delivery team member extends it)
-- README documenting local-run steps (contrast with Codespaces)
+- README documenting local-run steps
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/03-codespaces-dev-containers/meta.yml

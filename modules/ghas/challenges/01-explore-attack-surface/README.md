@@ -1,4 +1,4 @@
-# Activity S01: Explore the Attack Surface
+# Activity S01: Explore the attack surface
 
 ## Description
 
@@ -8,12 +8,12 @@ and secret scanning reviews commits. Open the Security tab to see the results.
 
 Juice Shop is intentionally vulnerable. Its alerts describe exploitable flaws in real code, including SQL injection, XSS, and broken access control. Read each alert, open the affected file, and use Copilot to understand the unsafe code.
 
-Turn the alerts into a security findings register with owners so the delivery team
-can maintain it after the session.
+Record the alerts and their owners in a security findings register that the
+delivery team can maintain after the session.
 
-> Before this activity: S00 is complete, GHAS features are enabled, and your team branch
-> exists. The Security tab shows default-branch alerts; your branch fixes are validated
-> later through PR CodeQL checks and code scanning annotations.
+> Complete S00, enable GHAS features, and create your team branch before starting.
+> The Security tab shows default-branch alerts. PR CodeQL checks and code scanning
+> annotations validate your branch fixes later.
 
 ## Objectives
 
@@ -26,13 +26,13 @@ can maintain it after the session.
 > [!TIP]
 > Working with a real repository or service you own? Review its Security tab instead of Juice Shop's.
 
-## Copilot Tips
+## Copilot tips
 
 - Open the flagged file, highlight the vulnerable code, and ask: *"Explain this vulnerability to me like I'm going to have to fix it"*
 - Ask: *"What OWASP category does this fall under, and what's the standard fix pattern?"*
 - Ask: *"If an attacker sent a crafted HTTP request to this endpoint, what could they achieve?"*
 
-## Learning Resources
+## Learning resources
 
 - [Managing code scanning alerts](https://docs.github.com/en/code-security/code-scanning/managing-code-scanning-alerts/managing-code-scanning-alerts-for-your-repository)
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/)

@@ -1,8 +1,8 @@
-# Activity 2-05: Welcome Wagon
+# Activity 2-05: Welcome wagon
 
 ## Build
 
-A workflow that welcomes first-time contributors. When someone opens their first pull request, Welcome Wagon posts a greeting and links to the contribution guide and code of conduct.
+Build a workflow that welcomes first-time contributors. When someone opens their first pull request, Welcome Wagon posts a greeting and links to the contribution guide and code of conduct.
 
 New contributors may not know the project's process. A short welcome can set expectations and point them to the right documentation.
 
@@ -27,11 +27,11 @@ New contributors may not know the project's process. A short welcome can set exp
 
 Create a gh-aw workflow named `welcome-wagon.md` in `.github/workflows/` that:
 
-- Triggers on: Pull request opened
-- Detects: Is this the author's first PR to the repo? (use `author_association`)
+- Runs when a pull request opens
+- Uses `author_association` to detect first-time contributors
 - Only posts a comment if it's a first-time contributor (skip if `author_association` is `COLLABORATOR`, `MEMBER`, or `OWNER`)
 - Welcome comment includes:
-  - A warm greeting (e.g., "Welcome to our community! 🎉")
+  - A greeting (e.g., "Welcome to our community!")
   - Thank you for contributing
   - 2–3 helpful links (contribution guide, code of conduct, issue tracker, docs, etc.)
   - Encouragement and next steps (e.g., "A maintainer will review soon")
@@ -39,13 +39,13 @@ Create a gh-aw workflow named `welcome-wagon.md` in `.github/workflows/` that:
 
 ---
 
-## Tips & Troubleshooting
+## Tips and troubleshooting
 
-- Author association field: `github.event.pull_request.author_association` is `NONE` for a contributor's first interaction with the repo (vs. `OWNER`, `MEMBER`, `COLLABORATOR`, `CONTRIBUTOR`). Check: "Is `author_association == 'NONE'`? If yes, welcome. If no, do nothing."
-- Resources to include: Contribution guide (CONTRIBUTING.md), code of conduct (CODE_OF_CONDUCT.md), issue tracker, documentation URL, Discord/Slack channel (if you have one)
-- Tone: Enthusiastic, welcoming, not condescending. These are the people who make your project grow.
-- Links: Use GitHub's repo URLs where possible (they auto-resolve)
-- Commenting on existing contributors? Add the check to the body: "If `author_association` is not `NONE`, do nothing."
+- `github.event.pull_request.author_association` is `NONE` for a contributor's first interaction with the repo, compared with `OWNER`, `MEMBER`, `COLLABORATOR`, or `CONTRIBUTOR`. Instruct the agent: "Welcome the contributor if `author_association == 'NONE'`. Otherwise, do nothing."
+- Include the contribution guide (CONTRIBUTING.md), code of conduct (CODE_OF_CONDUCT.md), issue tracker, documentation URL, or Discord/Slack channel if you have one.
+- Keep the greeting welcoming without talking down to the contributor.
+- Use GitHub's repo URLs where possible because they auto-resolve.
+- If the workflow comments on existing contributors, add this check to the body: "If `author_association` is not `NONE`, do nothing."
 - To test as the repo owner, have a second account open the pull request.
 
 ---

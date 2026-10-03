@@ -1,6 +1,6 @@
-# Ch22 — Connect Azure Boards to GitHub
+# Ch22: Connect Azure Boards to GitHub
 
-> Restore customer post-migration traceability between Azure Boards work items and GitHub code activity with an approved Azure Boards App installation, repository connection, and verified `AB#` links.
+> Connect a migrated repository through an approved Azure Boards App installation. Verify `AB#` links between work items and GitHub code activity.
 
 ## Prerequisites
 - GitHub organization with org-owner rights, or repository admin rights plus a path to request GitHub App installation approval.
@@ -19,7 +19,7 @@ Recommended sequence: do this after the migration planning/cutover activity for 
 - Demonstrate that a merged PR can transition a linked work item when the PR description or commit message uses a supported phrase such as `Fixes AB#<id>`.
 - Validate the link from both sides: Azure Boards work item Development section and GitHub PR Development section.
 
-## Why this matters
+## Post-migration links
 GEI preserves existing work-item links on Azure DevOps pull requests, but it does not move Azure Boards work items, queries, or backlog state. Teams that continue planning in Azure Boards need the Azure Boards GitHub App to link new GitHub commits and pull requests after cutover.
 
 > [!IMPORTANT]
@@ -35,7 +35,7 @@ GEI preserves existing work-item links on Azure DevOps pull requests, but it doe
 
 ## Tasks
 
-### Part A — Install the Azure Boards GitHub App
+### Part A: Install the Azure Boards GitHub App
 1. Open the Azure Boards app in GitHub Marketplace: <https://github.com/marketplace/azure-boards>.
 2. Under Plans and pricing, choose the Free plan and select Install.
 3. In Install & Authorize Azure Boards, choose your GitHub organization.
@@ -43,7 +43,7 @@ GEI preserves existing work-item links on Azure DevOps pull requests, but it doe
 5. Select Install & Authorize.
 6. If your org uses Enterprise Managed Users or restricts GitHub App installation, capture the approval request URL/screenshot and ask an org owner to approve the Azure Boards app for the selected repository.
 
-### Part B — Connect the Azure Boards project
+### Part B: Connect the Azure Boards project
 1. In Azure DevOps, open `https://dev.azure.com/<ado-org>/<project>`.
 2. Go to Project settings > GitHub connections.
 3. For a first connection, select Connect your GitHub account. For a later connection, select New connection.
@@ -54,7 +54,7 @@ GEI preserves existing work-item links on Azure DevOps pull requests, but it doe
 
 > Avoid connecting the same GitHub repository to more than one Azure DevOps organization or project. Microsoft Learn warns this can cause unexpected `AB#` mention linking.
 
-### Part C — Link a commit to a work item
+### Part C: Link a commit to a work item
 1. Clone the migrated repository and create a branch.
 
 ```bash
@@ -74,7 +74,7 @@ git push -u origin boards-link-validation
 
 3. Open the Azure Boards work item. In the Development section, confirm a GitHub commit link appears. If it does not appear after a short delay, continue to troubleshooting before opening the PR.
 
-### Part D — Link and merge a pull request
+### Part D: Link and merge a pull request
 1. Create a pull request whose description contains the `AB#` mention. Microsoft Learn specifies that `AB#<id>` in a PR description creates the work-item link; a PR title alone does not create the Azure Boards work-item link.
 
 ```bash
@@ -96,7 +96,7 @@ gh pr merge --repo "$ORG/$REPO" --squash --delete-branch
 
 5. Return to the work item and refresh. A phrase such as `Fixes AB#<id>` transitions the work item to the first state in the Resolved workflow category, or if none exists, the first state in the Completed category. State transitions apply when the PR is merged into the default branch.
 
-### Part E — Validate the integration
+### Part E: Validate the integration
 Confirm each side of the link:
 - GitHub App installation page shows Azure Boards installed for the selected repository.
 - Azure DevOps Project settings > GitHub connections shows the connected repo.
@@ -125,7 +125,7 @@ The Azure Boards app requires a GitHub organization owner/admin for installation
 Keep the connection if this is a production migration bridge. If you used a disposable test repository, remove the connection from Azure DevOps Project settings > GitHub connections > More options > Remove repositories or remove the app repository access from GitHub Installed GitHub Apps > Azure Boards > Configure.
 
 ## Reference links
-- Azure Boards Integration With GitHub — https://learn.microsoft.com/en-us/azure/devops/boards/github/?view=azure-devops
-- Install the Azure Boards App for GitHub — https://learn.microsoft.com/en-us/azure/devops/boards/github/install-github-app?view=azure-devops
-- Connect an Azure Boards project to a GitHub repository — https://learn.microsoft.com/en-us/azure/devops/boards/github/connect-to-github?view=azure-devops
-- Link GitHub commits, PRs, branches, and issues to work items — https://learn.microsoft.com/en-us/azure/devops/boards/github/link-to-from-github?view=azure-devops
+- [Azure Boards integration with GitHub](https://learn.microsoft.com/en-us/azure/devops/boards/github/?view=azure-devops)
+- [Install the Azure Boards App for GitHub](https://learn.microsoft.com/en-us/azure/devops/boards/github/install-github-app?view=azure-devops)
+- [Connect an Azure Boards project to a GitHub repository](https://learn.microsoft.com/en-us/azure/devops/boards/github/connect-to-github?view=azure-devops)
+- [Link GitHub commits, PRs, branches, and issues to work items](https://learn.microsoft.com/en-us/azure/devops/boards/github/link-to-from-github?view=azure-devops)

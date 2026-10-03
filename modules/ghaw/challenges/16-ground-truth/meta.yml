@@ -1,5 +1,5 @@
 id: ghaw-16
-title: Ground Truth
+title: Ground truth
 module: ghaw
 track: continuous-intelligence
 difficulty: advanced
@@ -16,7 +16,7 @@ prerequisites:
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-00
+  - gh-aw CLI installed. See ghaw-00.
 description: "Fetch verified data before an agent runs, then propose changes through pull requests."
 tags:
   - pre-agent-steps

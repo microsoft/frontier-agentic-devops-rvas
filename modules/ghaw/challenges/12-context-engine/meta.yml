@@ -1,5 +1,5 @@
 id: ghaw-12
-title: Context Engine
+title: Context engine
 module: ghaw
 track: continuous-intelligence
 difficulty: advanced
@@ -9,7 +9,7 @@ prerequisites:
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-00
+  - gh-aw CLI installed. See ghaw-00.
   - Completed at least three Repo Concierge activities
 description: "Give agents PR diffs and repository guidance through MCP toolsets."
 tags:

@@ -1,5 +1,5 @@
 id: ghas-02
-title: Fix Injection Vulnerabilities
+title: Fix injection vulnerabilities
 module: ghas
 track: developer-flow
 difficulty: intermediate

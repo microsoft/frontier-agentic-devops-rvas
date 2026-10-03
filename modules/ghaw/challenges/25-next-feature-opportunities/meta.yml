@@ -1,5 +1,5 @@
 id: ghaw-25
-title: Next Feature Opportunities Agent
+title: Next feature opportunities agent
 module: ghaw
 track: production-patterns
 difficulty: advanced
@@ -9,7 +9,7 @@ prerequisites:
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-00
+  - gh-aw CLI installed. See ghaw-00.
 description: "Review repository evidence and publish supported feature ideas each week."
 tags:
   - product-discovery

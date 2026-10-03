@@ -2,12 +2,10 @@
 
 One GitHub Pages curriculum with five outcome paths, four delivery-session modules, and 87 activities.
 
-> **Bring your own.** These activities are built to run on **your** tenant — work each one
-> against your own applications, repositories, and data so the result keeps running in
-> production after the session, not just as an upskilling exercise. The sample apps
-> (OWASP Juice Shop, the Grubify sample, seed repos) are only a fallback so no one is
-> blocked. Wherever a activity says "bring your own," start from your real work; the
-> setup script and sample are there when you don't yet have a candidate.
+> **Use your own environment.** Work with your own applications, repositories, and data
+> so your team can keep using the result after the session. Use OWASP Juice Shop, Grubify,
+> or seed repositories when you do not have a suitable application.
+> Where an activity says "bring your own," start with your team's work.
 
 ## Outcomes
 
@@ -33,8 +31,6 @@ Outcome headings reuse the homepage summaries; session-type headings use the tra
 | `ghaw` | GitHub Agentic Workflows | 20 | Hello, Agent, Repo Concierge, Continuous Intelligence, Production Patterns |
 | `sre-agent` | SRE Agent | 5 | Azure SRE Agent |
 
-> **Total:** 87 activities across 4 modules.
-
 ## Architecture
 
 ```
@@ -52,18 +48,19 @@ docs/assets/data/
   challenges/<id>/README.md  ← copied customer delivery team guide (served by Pages)
 ```
 
-The build script is the **only bridge** between content metadata, outcome journeys, and the rendered site. Never hand-copy metadata.
+The build script generates the site data from activity metadata and outcome journeys.
+Do not copy metadata by hand.
 
-## Building Locally
+## Build locally
 
-**Prerequisites:** Node.js ≥ 18. No npm install required.
+You need Node.js ≥ 18. No npm install is required.
 
 ```bash
 npm run build
 node --test scripts/test-catalog-grouping.js
 ```
 
-Output lands in `docs/assets/data/`. The Pages site (`docs/`) is fully self-contained.
+The build writes to `docs/assets/data/`. The Pages site has all its files under `docs/`.
 
 ### Verified output
 
@@ -73,9 +70,9 @@ Output lands in `docs/assets/data/`. The Pages site (`docs/`) is fully self-cont
 ✓ copied delivery guides → docs/assets/data/challenges/
 ```
 
-Exit code 0 = success. Non-zero = validation errors (check stderr).
+The build exits with code 0 on success. For a non-zero exit code, check stderr for validation errors.
 
-## External Labs and Submodules
+## External labs and submodules
 
 Large local lab dependencies are pinned as lazy git submodules. A normal `git clone` is enough for the curriculum site; fetch each lab only when needed:
 
@@ -88,23 +85,21 @@ To prefetch everything during clone, use `git clone --recurse-submodules <repo>`
 
 ## Validation
 
-The build validates:
-- Every `prerequisites` entry references a real activity `id` in the catalog.
-- No circular dependencies.
-- Warns on missing optional fields.
+The build checks that every `prerequisites` entry references an activity `id` in the
+catalog and that dependencies contain no cycles. It warns about missing optional fields.
 
-Additional deterministic content audits are available:
+Run the content audits with:
 
 ```bash
-npm run audit          # validate factuality surfaces without network calls
+npm run audit          # check content facts without network calls
 npm run audit:content  # rebuild, then audit generated catalog/link consistency
 ```
 
 `npm run audit:external` can probe external URLs, but reports them as warnings only to avoid flaky CI gates.
 
-CI runs the same build on every PR and fails the check if validation errors are found.
+CI runs the same build on every PR and fails the check on validation errors.
 
-## Contributing Content
+## Contribute content
 
 See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the `meta.yml` field contract and authoring guide.  
 See [`modules/README.md`](modules/README.md) for the module and directory layout.  
@@ -117,4 +112,4 @@ GitHub Actions (`.github/workflows/build-deploy.yml`) runs `node docs/build.js` 
 
 ## License
 
-MIT License — Copyright (c) Microsoft Corporation. See [`LICENSE`](LICENSE).  
+MIT License. Copyright (c) Microsoft Corporation. See [`LICENSE`](LICENSE).

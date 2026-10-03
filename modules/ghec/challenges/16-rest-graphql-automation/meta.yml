@@ -1,5 +1,5 @@
 id: ghec-ch16
-title: REST & GraphQL API Automation
+title: REST and GraphQL API automation
 module: ghec
 track: automation-ai
 difficulty: beginner
@@ -23,7 +23,7 @@ emu_compatible: true
 min_environment: org
 provision_creates:
 - repo ghec-ch16-rest-graphql-automation (seeded, src/ + docs/ layout)
-- ~60 seeded issues in mixed states (open/closed, many unlabeled) for real pagination
+- ~60 seeded issues in mixed states (open/closed, many unlabeled) for pagination testing
 - starter label set (bug, enhancement, triage, area:backend, area:docs) with deliberate gaps
 - empty org Projects v2 board ghec-ch16-board to populate via GraphQL
 tier: core

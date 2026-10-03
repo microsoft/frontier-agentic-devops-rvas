@@ -5,7 +5,7 @@
       "id": "github-adoption",
       "name": "Standardize software delivery",
       "tagline": "Give teams a shared development platform with consistent access and delivery controls.",
-      "description": "Configure GitHub in your organization, put the right controls in place, and use it for day-to-day development.",
+      "description": "Configure access and delivery controls in your GitHub organization for day-to-day development.",
       "personas": ["customer-developer", "platform-governance", "solution-architect", "platform-engineer"],
       "adoption_stage": ["assess", "pilot", "scale", "operate"],
       "business_value": ["streamline-platform-adoption", "standardize-developer-flow", "improve-governance"],
@@ -46,15 +46,15 @@
         "ghec-ch20"
       ],
       "success_metrics": [
-        "A production repository has teams, permissions, rulesets, required checks, and audit visibility configured in the customer's GitHub organization.",
+        "The customer's GitHub organization has a production repository with teams, permissions, rulesets, required checks, and audit visibility.",
         "The team's next production pull request runs required checks and merges through the configured ruleset.",
-        "Customer developers can plan, code, review, and automate delivery in GitHub without leaving their daily workflow."
+        "Customer developers use GitHub to plan work, write and review code, and automate delivery."
       ]
     },
     {
       "id": "platform-migration",
       "name": "Migrate development platforms",
-      "tagline": "Move repositories and delivery controls to a new platform, then verify teams can keep working.",
+      "tagline": "Move repositories and delivery controls to GitHub, then verify teams can keep working.",
       "description": "Move a project into your GitHub organization, rebuild its delivery controls, and check that the team can keep working after cutover.",
       "personas": ["platform-engineer", "platform-governance", "solution-architect", "customer-developer"],
       "adoption_stage": ["assess", "pilot", "scale"],
@@ -77,7 +77,7 @@
       "success_metrics": [
         "A migrated repository in the customer's GitHub organization contains the expected history, default branch, teams, permissions, and rulesets.",
         "The first production pull request after migration runs GitHub-native checks, security scans, and review requirements before merge.",
-        "Legacy platform controls have verified GitHub equivalents or documented cutover decisions owned by the customer's platform team."
+        "The customer's platform team verifies each legacy control's GitHub equivalent or documents its cutover decision."
       ]
     },
     {
@@ -107,7 +107,7 @@
       "id": "agentic-workflows",
       "name": "Automate development tasks with AI",
       "tagline": "Use AI agents for routine repository work, with clear permissions and human review.",
-      "description": "Build GitHub-native agents that handle routine repository work while keeping their output visible and reviewable.",
+      "description": "Build agents that handle routine GitHub repository work and submit changes for human review.",
       "personas": ["customer-developer", "platform-engineer", "solution-architect", "platform-governance"],
       "adoption_stage": ["pilot", "scale", "operate"],
       "business_value": ["automate-repetitive-work", "improve-developer-productivity", "standardize-agent-safety"],
@@ -158,7 +158,7 @@
         "ghec-ch19"
       ],
       "success_metrics": [
-        "Azure SRE Agent is connected to the customer's monitored application, Azure resources, logs, traces, and runbooks.",
+        "Azure SRE Agent can access the customer's monitored application, Azure resources, logs, traces, and runbooks.",
         "A controlled incident produces an alert, investigation evidence, likely cause, and recovery action in the customer's Azure environment.",
         "A GitHub issue or pull request links the operational symptoms to source-code context, logs, and the agreed engineering follow-up."
       ]

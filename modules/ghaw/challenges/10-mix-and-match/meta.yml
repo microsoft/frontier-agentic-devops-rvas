@@ -1,5 +1,5 @@
 id: ghaw-10
-title: Mix & Match
+title: Mix and match
 module: ghaw
 track: repo-concierge
 difficulty: intermediate
@@ -9,7 +9,7 @@ prerequisites:
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-00
+  - gh-aw CLI installed. See ghaw-00.
   - Completed at least two Hello, Agent activities
 description: "Share workflow instructions and publish scheduled digests as discussions."
 tags:

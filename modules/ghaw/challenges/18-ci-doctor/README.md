@@ -32,7 +32,7 @@ Source: [`githubnext/agentics/workflows/ci-doctor.md`](https://github.com/github
    gh aw compile ci-doctor
    ```
 
-6. Trigger a test failure (break a test intentionally in a branch, push, let CI fail) and inspect the [workflow run logs](https://docs.github.com/en/actions/how-tos/monitor-workflows/use-workflow-run-logs) as the Doctor fires.
+6. Break a test intentionally in a branch and push it. After CI fails, inspect CI Doctor's [workflow run logs](https://docs.github.com/en/actions/how-tos/monitor-workflows/use-workflow-run-logs).
 
 7. Commit both the workflow and its `.lock.yml`.
 
@@ -46,18 +46,14 @@ Source: [`githubnext/agentics/workflows/ci-doctor.md`](https://github.com/github
 ---
 
 <details>
-<summary>💡 Hints</summary>
+<summary>Hints</summary>
 
-"How does workflow_run know which run failed?"
-→ `github.event.workflow_run.conclusion` is `"failure"` on failures. Include a check in your body: _"Only investigate if the triggering workflow concluded with failure."_
+`github.event.workflow_run.conclusion` is `"failure"` on failures. Include a check in your body: _"Only investigate if the triggering workflow concluded with failure."_
 
-"How do I fetch the logs?"
-→ The `tools: github: toolsets: [actions]` toolset gives the agent access to run logs. Alternatively, include explicit log fetching instructions pointing to `github.event.workflow_run.logs_url`.
+The `tools: github: toolsets: [actions]` toolset gives the agent access to run logs. You can also include log-fetching instructions pointing to `github.event.workflow_run.logs_url`.
 
-"My CI doesn't fail often — how do I test this?"
-→ Add a temporary step to a test workflow: `run: exit 1`. Push to a branch, let it fail, then revert.
+To test without a real CI failure, add a temporary step to a test workflow: `run: exit 1`. Push to a branch, let it fail, then revert.
 
-"The issue body is too long / too noisy"
-→ Constrain the prompt: _"Keep the issue body to 3 sections: 1) What failed, 2) Likely cause, 3) Suggested fix. Max 200 words."_
+If the issue body is too long, constrain the prompt: _"Keep the issue body to 3 sections: 1) What failed, 2) Likely cause, 3) Suggested fix. Max 200 words."_
 
 </details>

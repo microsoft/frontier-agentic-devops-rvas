@@ -1,8 +1,8 @@
-# Azure SRE Agent Incident Packet Template
+# Azure SRE Agent incident packet template
 
 Use this packet when live Azure SRE Agent access is unavailable. Replace each placeholder with a sanitized workshop value before delivery.
 
-## Incident Summary
+## Incident summary
 
 - Service: Grubify
 - Detected by: Azure Monitor alert, synthetic check, or organizer-provided signal
@@ -11,7 +11,7 @@ Use this packet when live Azure SRE Agent access is unavailable. Replace each pl
 - Customer impact: `<brief customer-safe impact statement>`
 - Current status: Investigating
 
-## Azure Context
+## Azure context
 
 - Azure SRE Agent: `<agent name or simulated>`
 - Resource group: `<resource group>`
@@ -21,7 +21,7 @@ Use this packet when live Azure SRE Agent access is unavailable. Replace each pl
 - Application Insights resource: `<name>`
 - Alert rule: `<name>`
 
-## Observed Signals
+## Observed signals
 
 | Signal | Evidence |
 | --- | --- |
@@ -31,7 +31,7 @@ Use this packet when live Azure SRE Agent access is unavailable. Replace each pl
 | Trace/exception | `<sanitized App Insights detail>` |
 | User report | `<short summary>` |
 
-## Azure SRE Agent Transcript
+## Azure SRE Agent transcript
 
 Include or link to a sanitized transcript with:
 
@@ -42,7 +42,7 @@ Include or link to a sanitized transcript with:
 - mitigation recommendation;
 - validation plan.
 
-## Source-Code Context
+## Source-code context
 
 Use this section only when source context is part of the exercise.
 
@@ -50,19 +50,19 @@ Use this section only when source context is part of the exercise.
 | --- | --- | --- |
 | `<file:line>` | `<why this file is relevant>` | Low/Medium/High |
 
-## Remediation Path
+## Remediation path
 
 - GitHub issue: `<link or simulated issue>`
 - Pull request: `<link or simulated packet>`
 - Human reviewer role: `<role>`
 - Validation before acceptance: `<endpoint, metric, test, or log check>`
 
-## Customer-Safe Update
+## Customer-safe update
 
 ```text
-We are investigating elevated failures in the Grubify ordering flow. Azure SRE Agent has reviewed the connected operational signals and the team is validating the safest mitigation. Next update by <time>.
+We are investigating increased failures in the Grubify ordering flow. Azure SRE Agent has reviewed the telemetry. The team is checking the proposed mitigation before applying it. We will provide the next update by <time>.
 ```
 
-## Learning Note
+## Learning note
 
 `<What should the team improve: monitoring, runbook, source context, response plan, hook, or approval policy?>`

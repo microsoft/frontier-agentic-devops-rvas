@@ -1,10 +1,10 @@
-# Ch00 — Environment Setup
+# Ch00: Environment setup
 
-> Verify the customer-delivery environment, authenticate the GitHub CLI, and confirm approved organisation access before selecting the first implementation target.
+> Verify your development environment and GitHub CLI authentication. Confirm access to the approved customer organisation before choosing a target.
 
 ## Objectives
 
-**You are ready when:**
+You are ready when you have:
 
 - A working development environment (GitHub Codespaces or local dev container)
 - An authenticated `gh` CLI session pointing at your GitHub account
@@ -33,11 +33,11 @@
 3. Wait ~30 seconds for the dev container to build. The terminal opens automatically when the container is ready.
 4. Continue to Authenticate the GitHub CLI below.
 
-> Tip: Codespaces pre-installs `gh`, `git`, and `jq` — no local tooling required.
+> Codespaces pre-installs `gh`, `git`, and `jq`. You do not need local tooling.
 
 ---
 
-## Option B: Local Dev Container
+## Option B: Local dev container
 
 1. Install [VS Code](https://code.visualstudio.com/) and the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
 2. Clone the repository:
@@ -74,7 +74,7 @@ Expected output includes your username and `Logged in to github.com`.
 
 ---
 
-## Verify Your Setup
+## Verify your setup
 
 Run each command. Do not continue until all four succeed:
 
@@ -96,7 +96,7 @@ gh repo view <org>/<repo>
 
 ## Provisioning preflight (optional)
 
-Optional: run a preflight check for the next guide (from the repo root). Scripts live at `modules/ghec/resources/provisioning/`.
+Run a preflight check for the next guide from the repo root. Scripts live at `modules/ghec/resources/provisioning/`.
 
 ```bash
 # Bash

@@ -1,6 +1,6 @@
-# Ch29 — Programmatic Access Governance
+# Ch29: Programmatic access governance
 
-> Deliver an evidence-backed inventory and policy decision for OAuth Apps, installed GitHub Apps, fine-grained PATs, and classic PATs—without changing a production access control by default.
+> Inventory OAuth Apps, installed GitHub Apps, fine-grained PATs, and classic PATs. Use the evidence to recommend policy decisions. Leave production access controls unchanged by default.
 
 ## Prerequisites
 
@@ -12,19 +12,20 @@
 ## Scope and guardrails
 
 This activity inspects four distinct surfaces: OAuth App restrictions, installed
-GitHub App review, fine-grained PAT policy, and classic PAT policy. It is governance, not integration work: do not create, install, provision, or reconfigure an App.
+GitHub App review, fine-grained PAT policy, and classic PAT policy. Do not create,
+install, provision, or reconfigure an App.
 
-Check whether `ghec-ch52` (Enterprise Landing Zone & Organization Strategy) has already established this customer's enterprise app-registration governance boundary and organization-scope decision. If so, reuse and cite its register entry as the starting scope for the inventory below instead of re-deriving it. If `ghec-ch52` has not been completed, define the inspection boundary independently in Part A and record that `ghec-ch52` was not available — apply the same rule wherever this activity references `ghec-ch52` below.
+If `ghec-ch52` (Enterprise Landing Zone & Organization Strategy) records this customer's enterprise app-registration boundary and organization scope, cite its register entry and use that scope. Otherwise, define the inspection boundary in Part A and record that `ghec-ch52` was not available. Apply this rule to later `ghec-ch52` references.
 
 First establish the **effective source level** for every setting: organization-managed, enterprise-enforced/inherited, or unavailable to the current inspector. An organization owner may inspect organization settings; do not infer enterprise policy from a missing organization control.
 
 OAuth App restrictions and GitHub App review are different controls. OAuth restrictions are organization-only; enabling OAuth restrictions **for the first time immediately disrupts existing OAuth Apps** until they are approved. Installed GitHub Apps instead require an authority, permission/repository-scope review, and recurring review cadence.
 
-> **EMU and SCIM caveat:** EMU is compatible because this activity inventories and governs access rather than creating identities. Treat identity lifecycle as enterprise/SCIM managed. If an enterprise policy allows an administrator exemption for an EMU or another user, record its approver, affected automation, scope, expiry, and reconciliation with SCIM joiner/leaver controls. An administrator exemption is not a substitute for least privilege or SCIM deprovisioning.
+> This activity supports EMU because it inventories access without creating identities. Treat identity lifecycle as enterprise/SCIM managed. If enterprise policy allows an administrator exemption for an EMU or another user, record its approver, affected automation, scope, expiry, and compatibility with SCIM joiner/leaver controls. An exemption does not replace least privilege or SCIM deprovisioning.
 
 ## Tasks
 
-### Part A — Establish the inspection boundary
+### Part A: Establish the inspection boundary
 
 1. Record the organization, customer owner, approval boundary, whether it is EMU, and the available role: organization owner, enterprise owner, or authorized enterprise-policy export (see the `ghec-ch52` note above).
 2. In organization **Settings → Third-party access**, inspect OAuth App access and installed GitHub Apps. Record whether OAuth restrictions are already enabled, the approved or denied OAuth Apps, installed Apps, their installation authority, repository reach, permissions, and accountable owner.
@@ -38,9 +39,9 @@ OAuth App restrictions and GitHub App review are different controls. OAuth restr
    Add the Settings evidence needed to identify repository selection and permissions; this endpoint alone is not a complete authority or scope record.
 4. Inspect **Settings → Personal access tokens**: fine-grained token policy, classic-token policy, active tokens, and pending fine-grained token requests. Record approval requirement, maximum lifetime, restriction status, active-token owners/purpose, request decision, and the effective source level. Use audit-log or API insights where available and permitted to corroborate owner, approval, installation, or policy events; attach the query/export and date rather than claiming unavailable data.
 
-### Part B — Build the programmatic-access inventory
+### Part B: Build the programmatic-access inventory
 
-5. Create one customer inventory covering OAuth Apps, installed GitHub Apps, fine-grained PATs, and classic PATs — extending `ghec-ch52`'s register when it already exists rather than building a parallel, disconnected inventory (see the `ghec-ch52` note above). For every entry, capture:
+5. Create one customer inventory covering OAuth Apps, installed GitHub Apps, fine-grained PATs, and classic PATs. Extend `ghec-ch52`'s register when it exists, following the scope note above. For every entry, capture:
    - credential/application type, name or identifier, owner and business purpose;
    - organization/repository reach and permissions or scopes;
    - active, pending, approved, denied, or exception status;
@@ -49,7 +50,7 @@ OAuth App restrictions and GitHub App review are different controls. OAuth restr
 6. For each installed GitHub App, decide who is allowed to install it, whether its current installation authority was appropriate, whether the permission and repository scope remain justified, and who performs recurring review. Record the cadence and revocation/escalation path.
 7. For OAuth Apps, identify existing consumers before proposing a restriction. Record their accountable owners and an approval/exception path. Do not confuse this organization-only restriction with installed GitHub App review.
 
-### Part C — Make a safe policy decision
+### Part C: Make a safe policy decision
 
 8. Evaluate fine-grained PAT approval and lifetime separately from classic PAT restriction. Fine-grained PATs should have a documented approval decision and an approved lifetime; assess automation and SCIM/EMU impact before enforcement. Classic PAT access should be restricted only after each affected workflow has a migration path to a GitHub App or fine-grained PAT, or an approved time-bound exception.
 9. Produce a policy recommendation for all four surfaces: retain, change, test, or grant a time-bound exception. Identify the source level, accountable owner, affected population, dependencies, rollback or exception path, evidence, and recurring review cadence.
@@ -59,7 +60,7 @@ OAuth App restrictions and GitHub App review are different controls. OAuth restr
 
     Do **not** make OAuth-restrictions first enablement, classic-PAT restriction, or broad token-lifetime enforcement a required test. Those changes require their own approved impact analysis, exception handling, and rollback/change plan.
 
-### Part D — Verify evidence and hand over
+### Part D: Verify evidence and hand over
 
 11. Recheck the effective setting and source level for each surface. Confirm the inventory links the objective Settings/API/audit evidence, owner, and next review date.
 12. Hand over the inventory and decision to the customer organization owner. If enterprise PAT policy is in scope, include the enterprise owner or authorized policy-export owner. Name the next action: approve a low-risk pilot, obtain a policy export, sponsor a migration, approve an exception, or schedule review.

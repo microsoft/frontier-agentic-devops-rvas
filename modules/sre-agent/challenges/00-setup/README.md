@@ -1,10 +1,10 @@
-# Activity 00: Prepare the Azure SRE Agent Lab
+# Activity 00: Prepare the Azure SRE Agent lab
 
 ## Scenario
 
 Your team will use Microsoft's official Grubify starter environment for the Azure SRE Agent lab. Before deploying, confirm the tools, Azure access, region, and fallback path.
 
-Use the Microsoft sample instead of building an app. The work stays focused on Azure SRE Agent: observability, alert investigation, runbooks, source-code context, remediation, and recovery.
+Use the Microsoft sample so you can investigate incidents with Azure SRE Agent without building an app first.
 
 ## Goals
 
@@ -14,7 +14,7 @@ Use the Microsoft sample instead of building an app. The work stays focused on A
 - Select a supported Azure SRE Agent region.
 - Decide whether your team will run the live lab or use prepared fallback evidence.
 
-## Official Lab Source
+## Official lab source
 
 Use the Microsoft Azure SRE Agent repository:
 
@@ -35,7 +35,7 @@ The starter lab deploys:
 | Azure Monitor alert | Incident signal that can trigger agent investigation |
 | Knowledge files and runbooks | Context the agent uses during response |
 
-## Verify Prerequisites
+## Verify prerequisites
 
 Confirm the required tools:
 
@@ -70,14 +70,14 @@ Confirm before proceeding:
 | Cost approval | Required before deployment |
 | GitHub account | Optional for source-code and issue scenarios |
 
-## Choose Your Path
+## Choose your path
 
 | Path | Use when | You will do |
 | --- | --- | --- |
 | Live lab | Azure access is available | Deploy Grubify and Azure SRE Agent |
 | Fallback packet | Azure access is blocked | Use prepared alerts, logs, screenshots, and source references |
 
-**Do not spend workshop time debugging subscription policy.** If access is blocked, switch to the fallback packet.
+**If Azure access is blocked, use the fallback packet.**
 
 ## Deliverables
 

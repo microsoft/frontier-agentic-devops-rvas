@@ -1,5 +1,5 @@
 id: ghec-ch44
-title: Policy Drift Detection
+title: Policy drift detection
 module: ghec
 track: admin-governance
 difficulty: advanced
@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-- Optional ghec-ch52 approved organization topology, delegation matrix, and control register, when available, as baseline source for ownership and delegation expectations
+- Optional ghec-ch52 approved organization topology, delegation matrix, and control register for ownership and delegation expectations, when available
 description: "Detect repository policy drift and decide how to correct it."
 tags:
 - policy-drift

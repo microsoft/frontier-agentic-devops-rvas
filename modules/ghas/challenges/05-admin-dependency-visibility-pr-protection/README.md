@@ -1,6 +1,6 @@
-# Activity 5: Dependency Visibility & Pull Request Protection
+# Activity 5: Dependency visibility and pull request protection
 
-Build a dependency control that works end to end. The repository must show what the build uses, Dependabot must fix a real alert, and a required dependency-review check must block a risky pull request before the corrected revision passes.
+Verify that the dependency graph shows what the build uses. Merge a Dependabot fix for a real alert, then prove that a required dependency-review check blocks a risky pull request and accepts the corrected revision.
 
 ## Before you start
 
@@ -258,9 +258,9 @@ Security-update pull requests fix a known advisory and usually move to the minim
 
 ### 7. Test private-registry access when available
 
-The fallback fixture uses the public npm registry. It does **not** prove access to a private registry.
+The fallback fixture uses only the public npm registry, so private-registry access needs a separate test.
 
-Run this branch only in a pilot repository that already has an approved private package:
+Run this test only in a pilot repository that already has an approved private package:
 
 1. Store a read-only credential as a Dependabot secret, or use the approved OIDC path when the registry supports it.
 2. Add the registry under `registries` in `.github/dependabot.yml`. Reference the secret; never put its value in the file.
@@ -268,7 +268,7 @@ Run this branch only in a pilot repository that already has an approved private 
 4. Run **Check for updates** and inspect the update job.
 5. Pass only when Dependabot resolves the private package and opens or evaluates an update without an authentication error.
 
-Record the registry, credential owner, scope, and rotation date. If you use the fallback, mark this branch **not tested: fixture has no private registry**.
+Record the registry, credential owner, scope, and rotation date. If you use the fallback, mark this test **not tested: fixture has no private registry**.
 
 ### 8. Add a stable dependency-review check
 
@@ -299,7 +299,7 @@ jobs:
           show-patched-versions: true
 ```
 
-The workflow and job names are fixed. The resulting check is **Dependency review**.
+Keep the workflow and job names as shown so the resulting check is **Dependency review**.
 
 Create a ruleset for `main`, or update the existing merge ruleset:
 

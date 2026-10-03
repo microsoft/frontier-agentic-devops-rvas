@@ -1,8 +1,8 @@
-# Activity 2-06: Mix & Match
+# Activity 2-06: Mix and match
 
 ## Build
 
-A weekly gh-aw workflow that imports shared instructions from `lib/repo-stats-helper.md`. The agent uses the helper to analyze repository status and posts the digest as a GitHub Discussion through `create-discussion`.
+Build a weekly gh-aw workflow that imports shared instructions from `lib/repo-stats-helper.md`. The agent uses the helper to analyze repository status and posts the digest as a GitHub Discussion through `create-discussion`.
 
 Teams often repeat the same prompt rules across workflows. `imports:` keeps those rules in one file. `create-discussion` publishes a searchable digest without adding another issue to the backlog.
 
@@ -34,7 +34,7 @@ imports:
 
 Paths are relative to the repository root. The helper is plain Markdown with no frontmatter.
 
-Use cases: shared formatting instructions, org-wide tone guidelines, reusable analysis templates, domain vocabulary.
+Use imports to share formatting instructions, org-wide tone guidelines, analysis templates, or domain vocabulary.
 
 ---
 
@@ -56,13 +56,13 @@ The `category` must match a Discussion category that already exists in the repo'
 
 ### Step 1: Create the helper snippet
 
-Create `lib/repo-stats-helper.md` in your repository. This file should contain instructions for how the agent should format a repository-status summary — for example:
+Create `lib/repo-stats-helper.md` in your repository. Tell the agent how to format a repository-status summary, including:
 
 - What sections to include (open issues, open PRs, recent activity, health rating)
 - The tone and length of the summary
 - Any formatting rules (use tables, bullet points, etc.)
 
-Keep it focused. A good helper is 10–20 lines of clear instructions that any workflow could usefully import.
+Keep the helper to 10–20 lines of instructions that other workflows can reuse.
 
 ### Step 2: Create the workflow
 
@@ -72,7 +72,7 @@ Create `.github/workflows/10-mix-and-match.md` with:
 - `on:` scheduled weekly (e.g., every Monday at 9am UTC)
 - `permissions:` including `discussions: write`
 - `safe-outputs:` with `create-discussion: category: "General"`
-- Agent body: Ask the agent to analyze the repository's status and produce a digest. Tell it the output will be posted as a Discussion.
+- In the agent body, ask it to analyze the repository's status and produce a digest. Tell it the output will be posted as a Discussion.
 
 ### Step 3: Enable Discussions
 
@@ -84,16 +84,16 @@ Make sure GitHub Discussions is enabled for your repository (Settings → Featur
 gh aw compile 10-mix-and-match
 ```
 
-No errors? You're ready to test. Trigger manually with `workflow_dispatch` to verify the Discussion appears.
+If compilation succeeds, trigger the workflow manually with `workflow_dispatch` and verify the Discussion appears.
 
 ---
 
-## Tips & Troubleshooting
+## Tips and troubleshooting
 
-- The helper is context, not code. Write it like you're briefing a smart colleague: "When summarizing repository status, start with a plain status marker: green (on track), yellow (needs attention), or red (blocked)."
+- Write the helper as instructions: "When summarizing repository status, start with a plain status marker: green (on track), yellow (needs attention), or red (blocked)."
 - Add `workflow_dispatch:` alongside your schedule during development so you can trigger the workflow manually without waiting for Monday.
 - "Import not found" means the path is wrong: it is relative to the repo root, so `./lib/repo-stats-helper.md` lives at `lib/repo-stats-helper.md`.
-- Discussion not appearing? Check `permissions: discussions: write` and that the category name matches exactly (case-sensitive). Create the category in Settings → Features → Discussions → Manage if it does not exist.
+- If the Discussion does not appear, check `permissions: discussions: write` and that the category name matches exactly (case-sensitive). Create the category in Settings → Features → Discussions → Manage if it does not exist.
 
 ---
 

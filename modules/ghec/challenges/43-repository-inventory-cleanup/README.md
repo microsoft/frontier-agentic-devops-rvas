@@ -1,6 +1,6 @@
-# Ch43: Repository Inventory Cleanup
+# Ch43: Repository inventory cleanup
 
-> Deliver a practical inventory cleanup pass: discover, classify, fix safe metadata, and queue high-impact cleanup with approvals.
+> Inventory repositories and classify cleanup decisions. Fix low-risk metadata gaps and request approval for high-impact changes.
 
 ## Prerequisites
 
@@ -25,7 +25,7 @@ Setup creates `ghec-ch43-owned-service`, `ghec-ch43-orphan-tool`, and `ghec-ch43
 
 ## Tasks
 
-### Part A — Define inventory fields
+### Part A: Define inventory fields
 
 1. Agree required fields: repository, owner/team, purpose, visibility, topics, lifecycle state, data classification, criticality, last review, cleanup decision, and next owner.
 2. Export a cohort:
@@ -34,17 +34,17 @@ Setup creates `ghec-ch43-owned-service`, `ghec-ch43-orphan-tool`, and `ghec-ch43
    ```
 3. Identify gaps: blank owner, weak description, duplicate purpose, stale samples, missing topics, or uncertain visibility.
 
-### Part B — Review sample repositories
+### Part B: Review sample repositories
 
 4. Inspect seeded repos:
    ```bash
    gh repo view <org>/ghec-ch43-orphan-tool --json name,description,repositoryTopics,visibility,isArchived
    gh issue list --repo <org>/ghec-ch43-duplicate-api --state all --json number,title,labels
    ```
-5. Assign cleanup decisions: keep, enrich metadata, merge, transfer, archive candidate, or delete candidate.
+5. Assign cleanup decisions: keep, improve metadata, merge, transfer, archive candidate, or delete candidate.
 6. Record rationale and approval route for each decision.
 
-### Part C — Apply safe cleanup
+### Part C: Apply safe cleanup
 
 7. Apply safe metadata updates to at least one repository:
    ```bash
@@ -53,14 +53,14 @@ Setup creates `ghec-ch43-owned-service`, `ghec-ch43-orphan-tool`, and `ghec-ch43
    ```
 8. Queue high-impact cleanup only after approval. If not approved, leave the marker and decision issue.
 
-### Part D — Handover
+### Part D: Handover
 
 9. Store the inventory in the customer-approved location.
 10. Name the next cohort, owner, and review cadence.
 
 ## Reference links
 
-- Repositories REST API — https://docs.github.com/en/rest/repos/repos
-- Searching for repositories — https://docs.github.com/en/search-github/searching-on-github/searching-for-repositories
-- Repository topics — https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics
-- Archiving repositories — https://docs.github.com/en/repositories/archiving-a-github-repository/archiving-repositories
+- [Repositories REST API](https://docs.github.com/en/rest/repos/repos)
+- [Searching for repositories](https://docs.github.com/en/search-github/searching-on-github/searching-for-repositories)
+- [Repository topics](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics)
+- [Archiving repositories](https://docs.github.com/en/repositories/archiving-a-github-repository/archiving-repositories)

@@ -49,18 +49,14 @@ Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.co
 ---
 
 <details>
-<summary>💡 Hints</summary>
+<summary>Hints</summary>
 
-"How do I trigger a scheduled workflow manually for testing?"
-→ Add `workflow_dispatch: {}` to your `on:` block. Then use GitHub's [manual workflow run](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow) flow from the Actions tab.
+To test manually, add `workflow_dispatch: {}` to your `on:` block. Then [run the workflow from the Actions tab](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow).
 
-"The PR diff is too large / changes too many files"
-→ Constrain the body: _"Review only `docs/api.md`. Open a single PR per file. Each PR should change no more than 10 lines."_ This keeps the proposed review scope narrow.
+If the PR changes too much, constrain the body: _"Review only `docs/api.md`. Open a single PR per file. Each PR should change no more than 10 lines."_
 
-"How do I make sure it doesn't overwrite things it shouldn't?"
-→ `safe-outputs: create-pull-request` still requires a human to merge. The agent can propose; humans approve.
+Review the proposed changes before merging. `safe-outputs: create-pull-request` still requires a human to merge.
 
-"The agent keeps proposing the same change every day"
-→ Merge the correction so the drift disappears. Also add this check to the prompt: _"Do not open a PR if an identical open PR already exists."_
+If the agent proposes the same change each day, merge the correction and add this check to the prompt: _"Do not open a PR if an identical open PR already exists."_
 
 </details>

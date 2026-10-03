@@ -1,4 +1,4 @@
-# Next Feature Opportunities Agent
+# Next feature opportunities agent
 
 ## Background
 
@@ -10,7 +10,7 @@ The workflow has read-only access. `safe-outputs` creates a reviewable issue,
 and the team decides whether a recommendation becomes planned work.
 
 > [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): pick one where code, documentation, and the issue tracker together represent a product a team actively maintains, and confirm with the product owner that a recommendation issue is useful input to backlog refinement.
+> [Bring your own repo](../../setup.md#bring-your-own-repo): pick a repository for a product the team actively maintains. Confirm with the product owner that recommendation issues will help the team plan its backlog.
 
 ## What you'll do
 
@@ -29,9 +29,9 @@ and the team decides whether a recommendation becomes planned work.
    - creates no more than one report and closes an older report after a new one
      is created.
 
-4. Tailor the evidence scope in the prompt to your product. Name the
-   documentation, feature directories, and user-facing surfaces that are
-   authoritative in your repository. Keep the instruction to cite paths and
+4. Set the prompt's evidence scope for your product. Name the
+   documentation, feature directories, and user-facing interfaces the agent
+   should use as sources. Keep the instruction to cite paths and
    issue references.
 
 5. Compile the source Markdown into the deployable GitHub Actions workflow:
@@ -60,17 +60,17 @@ and the team decides whether a recommendation becomes planned work.
 
 ## Hints
 
-**The recommendations are generic.** Narrow the evidence sources in the
-prompt. For example: “Treat `apps/web/src/routes/` and `docs/product/` as the
-authoritative feature inventory.”
+If the recommendations are generic, narrow the evidence sources in the
+prompt. For example: "Treat `apps/web/src/routes/` and `docs/product/` as the
+authoritative feature inventory."
 
-**The agent suggests work already planned.** Make sure it searches open issues,
+If the agent suggests work already planned, make sure it searches open issues,
 and add the labels or milestone that represent committed work to the prompt.
 
-**A weekly issue feels noisy.** The workflow's `close-older-issues: true`
-setting retains one current report. Change the schedule to monthly only after
-the team has agreed that weekly review is not useful.
+The workflow's `close-older-issues: true` setting retains one current report.
+If weekly reports are too frequent, change the schedule to monthly only after
+the team agrees.
 
-**The report should not create work automatically.** Keep `create-issue` as
+Keep `create-issue` as
 the only safe output. A human should decide whether a recommendation becomes a
 backlog item or GitHub Project entry.

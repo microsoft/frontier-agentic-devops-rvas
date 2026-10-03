@@ -1,6 +1,6 @@
-# Activity 1: Security Configuration Pilot & Rollout
+# Activity 1: Security configuration pilot and rollout
 
-Create an organization security configuration, attach it to a real pilot repository, and decide whether to enforce or roll it back. But an accepted request is only the start. You must follow the repository to a final configuration state.
+Create an organization security configuration and attach it to a pilot repository. Wait for the repository to reach a final configuration state before deciding whether to enforce the configuration or roll it back.
 
 ## Before you start
 
@@ -10,7 +10,7 @@ Create an organization security configuration, attach it to a real pilot reposit
 - Name the rollout owner and rollback owner.
 - Set the pilot's success and stop conditions before changing the repository.
 
-Keep the scope small. This lab needs one representative repository, one configuration, and one controlled repair.
+Use one representative repository and one configuration. Run one controlled repair.
 
 ## Set up the fixture
 
@@ -78,7 +78,7 @@ test -n "$CONFIG_ID"
 printf '%s\n' "$CONFIG_ID"
 ```
 
-**A payload draft does not complete this step.** The configuration must exist in the organization.
+The configuration must exist in the organization. A payload draft does not complete this step.
 
 ### 4. Attach the selected repository
 
@@ -109,7 +109,7 @@ If the first attachment succeeds, run this controlled detachment test:
 4. Reattach the same configuration.
 5. Poll until the repository reaches the expected final state.
 
-Do not manufacture a passing record. Keep the exact state and error text GitHub returned.
+Record the exact state and error text GitHub returned.
 
 ### 6. Enforce or roll back
 
@@ -137,7 +137,7 @@ You are done only when you have:
 - An enforced configuration or a verified rollback.
 - A named approver and rollback owner.
 
-A JSON payload, runbook, or successful HTTP response does not prove rollout.
+Verify the live configuration and repository state; a successful HTTP response alone does not prove rollout.
 
 ## Common failures
 

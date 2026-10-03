@@ -1,4 +1,4 @@
-# Activity S05: Secure Secrets & Dependencies
+# Activity S05: Secure secrets and dependencies
 
 ## Description
 
@@ -10,7 +10,7 @@ configuration out of source control, and confirm that the application still work
 
 Dependencies can also expose the application. Dependabot alerts and security update pull requests are shared repository and default-branch signals. Review high and critical alerts, understand each package vulnerability, and validate dependency changes through your pull request.
 
-Both issues need an accountable response. Record the owner, validation, accepted risk, and exception expiry in `modules/ghas/resources/ghas-governance-practice.template.md`.
+Record the response owner, validation results, accepted risk, and exception expiry in `modules/ghas/resources/ghas-governance-practice.template.md`.
 
 ## Objectives
 
@@ -18,14 +18,14 @@ Both issues need an accountable response. Record the owner, validation, accepted
 - Find hardcoded secrets or credentials in the source code (check config files, `app.ts`, and route handlers)
 - Replace hardcoded values with `process.env` references and document the required environment variables
 - Review Security → Dependabot alerts filtered to critical and high severity
-- For at least 2 Dependabot alerts, open the alert detail, read the CVE description, and understand what the vulnerability actually is
+- For at least 2 Dependabot alerts, open the alert detail and read the CVE description to understand the vulnerability
 - Validate secret and dependency changes through your pull request checks, annotations, and push protection results
 - Apply the same expectation to human- and agent-authored changes: no bypass or exception is complete without an accountable human owner and evidence
 
 > [!TIP]
 > Working with a real application? Review its own secret scanning and Dependabot alerts.
 
-## Learning Resources
+## Learning resources
 
 - [About secret scanning](https://docs.github.com/en/code-security/secret-scanning/introduction/about-secret-scanning)
 - [Viewing and updating Dependabot alerts](https://docs.github.com/en/code-security/dependabot/dependabot-alerts/viewing-and-updating-dependabot-alerts)

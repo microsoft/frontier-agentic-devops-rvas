@@ -1,5 +1,5 @@
 id: ghaw-19
-title: Daily Doc Updater
+title: Daily doc updater
 module: ghaw
 track: production-patterns
 difficulty: advanced
@@ -9,7 +9,7 @@ prerequisites:
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-00
+  - gh-aw CLI installed. See ghaw-00.
 description: "Compare documentation with code and propose updates when they drift."
 tags:
   - documentation

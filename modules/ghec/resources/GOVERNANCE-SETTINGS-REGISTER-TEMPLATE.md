@@ -1,14 +1,14 @@
-# Customer-Owned GitHub Enterprise Cloud Governance Settings Register
+# Customer-owned GitHub Enterprise Cloud governance settings register
 
-**Purpose:** Record each approved governance decision, its effective
+Record each approved governance decision, its effective
 configuration, owner, rationale, and evidence.
 
-**Scope:** Enterprise, organization, and repository controls. The customer owns
-this register. It records each effective value and source level, including
-enterprise inheritance and Enterprise Managed Users (EMU) constraints.
+The customer owns this register for enterprise, organization, and repository
+controls. Record each effective value and source level, including enterprise
+inheritance and Enterprise Managed Users (EMU) constraints.
 
-**Companion:** Use the
-[GHEC and EMU Governance Control Catalogue](GOVERNANCE-CONTROL-CATALOGUE.md)
+Use the
+[GHEC and EMU governance control catalogue](GOVERNANCE-CONTROL-CATALOGUE.md)
 to select controls, check availability, and find the activity that produces
 each decision. The catalogue is guidance; this register is the customer's
 source of truth.
@@ -63,29 +63,29 @@ source of truth.
 
 Use one of these values:
 
-- `not started` — applicable but not yet assigned to a delivery activity.
-- `inspecting` — the team is identifying the effective configuration and inheritance.
-- `proposed` — inspect-and-propose decision awaits approval.
-- `piloted` — approved, bounded configuration change has evidence.
-- `adopted` — customer accepted the effective setting and owner/cadence.
-- `exception` — accepted deviation with a named owner and expiry/review date.
-- `unavailable` — the current reviewer cannot access the authoritative setting
+- `not started`: the control applies but has not been assigned to a delivery activity.
+- `inspecting`: the team is checking the effective configuration and inheritance.
+- `proposed`: the inspect-and-propose decision awaits approval.
+- `piloted`: an approved, bounded configuration change has evidence.
+- `adopted`: the customer accepted the effective setting, owner, and cadence.
+- `exception`: the customer accepted a deviation with a named owner and expiry/review date.
+- `unavailable`: the current reviewer cannot access the authoritative setting
   or export; record the requested evidence source and owner instead of treating
   the control as compliant.
-- `not applicable` — the control does not apply because of licensing, identity
+- `not applicable`: the control does not apply because of licensing, identity
   model, product availability, or customer scope; record the reason in
   **Rationale**.
 
 ## Row quality checks
 
-- **Control ID:** comes from the catalogue; do not invent a near-duplicate.
-- **Effective level and source:** Write `enterprise`, `org`, or `repo`. Name
+- Use a catalogue **Control ID**; do not invent a near-duplicate.
+- For **Effective level and source**, write `enterprise`, `org`, or `repo`. Name
   the inherited policy or configuration that takes precedence.
-- **Implementation path:** use `approved pilot` or `inspect-and-propose`.
-- **Evidence:** link to a non-secret, time-bounded configuration export, test,
+- Set **Implementation path** to `approved pilot` or `inspect-and-propose`.
+- Link **Evidence** to a non-secret, time-bounded configuration export, test,
   audit event, workflow run, or customer decision record.
-- **Accountable owner:** a named customer role or person, never `TBD`.
-- **Exception / rollback:** State the safety condition, expiry, and reversal
+- Name a customer role or person as **Accountable owner**, never `TBD`.
+- In **Exception / rollback**, state the safety condition, expiry, and reversal
   path when the team does not use the standard baseline.
 
 ## Maintenance

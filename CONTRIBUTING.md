@@ -1,17 +1,17 @@
 # Contributing
 
-This project welcomes contributions and suggestions. Most contributions require you to
-agree to a Contributor License Agreement (CLA) declaring that you have the right to,
-and actually do, grant us the rights to use your contribution. For details, visit
+Most contributions require a Contributor License Agreement (CLA). The agreement confirms
+that you have the right to grant us permission to use your contribution and that you
+grant that permission. For details, visit
 https://cla.microsoft.com.
 
-When you submit a pull request, a CLA-bot will automatically determine whether you need
-to provide a CLA and decorate the PR appropriately (e.g., label, comment). Simply follow the
-instructions provided by the bot. You will only need to do this once across all repositories using our CLA.
+When you submit a pull request, the CLA bot checks whether you need an agreement and
+adds a label or comment to the PR. Follow the bot's instructions.
+You only need to do this once across all repositories using our CLA.
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/)
-or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with questions or comments.
 
 ## Content architecture contract
 
@@ -20,7 +20,7 @@ Activity content lives under `modules/<moduleId>/challenges/<slug>/`. The build 
 generated Pages data. Do not hand-edit generated files under `docs/assets/data/`; run
 `npm run build` instead.
 
-Outcome journeys live in [`outcomes.json`](outcomes.json). Use that file to curate existing
+Outcome journeys live in [`outcomes.json`](outcomes.json). Use that file to group existing
 activities into adoption, migration, security, agentic workflow, and cloud DevOps paths
 without duplicating activity content.
 
@@ -41,14 +41,14 @@ README.md  # customer delivery team guide, hints, expected outputs, common failu
 | `track` | Track slug for the module; must match `docs/build.js` module config. |
 | `difficulty` | `beginner`, `intermediate`, or `advanced`. |
 | `duration_minutes` | Estimated time for a delivery team member in minutes. |
-| `prerequisites` | Activity ids that must be completed first. Empty means independent except for stated environment setup. |
+| `prerequisites` | Activity ids to complete first. An empty list means the activity only needs its stated environment setup. |
 | `prerequisite_capabilities` | Skills or access needed before starting; do not use this for activity ids. |
 | `description` | One plain-text sentence, at most **100 characters and 16 words**. State the main goal; keep steps and qualifications in the delivery guide. The build enforces these limits. |
 | `tags` | Search/filter terms. Use lowercase kebab-case where possible. |
 | `app_dependency` | Runtime/sample dependency (`none`, `juice-shop`, `contoso-claims`, `contoso-app`, `seed`, or `seed-repo`). |
 | `emu_compatible` | `true` when the activity works in an EMU-controlled org; otherwise `false`. |
 | `min_environment` | Lowest required scope: `org`, `repo`, `codespace`, or `enterprise` for activities that require enterprise-owner or enterprise-policy access beyond a single organization. |
-| `provision_creates` | Human-readable resources created by setup or delivery team member actions. Empty list is allowed. |
+| `provision_creates` | Names of resources that setup or delivery team members create. An empty list is allowed. |
 | `source_repo` | Source repository provenance. |
 | `source_path` | Repository-relative source path. Do not use absolute paths or `..`. |
 | `license` | Source license; currently `MIT`. |
@@ -60,7 +60,7 @@ Optional fields:
 | `display_order` | Optional numeric position within an activity's catalog track. It defaults to the trailing number in the activity id and must stay unique within a module; the build fails on duplicates. The default catalog shows configured lead activities first, then keeps each track together. Outcome filters use the exact journey order from `outcomes.json`. Set this field only when stable activity IDs do not match the intended order inside a track. |
 | `tier` | `setup`, `core`, `stretch`, or `bonus`. Defaults to `core` in the build. |
 | `references` | Source-backed docs and product links used by customer delivery team members. |
-| `outcomes` | Outcome ids from `outcomes.json` when a activity needs explicit membership beyond journey curation. |
+| `outcomes` | Outcome ids from `outcomes.json` when an activity needs explicit membership beyond the journey's activity list. |
 | `personas` | Personas such as `platform-engineer`, `security-lead`, `developer`, `sre`, or `migration-lead`. |
 | `business_value` | Value tags such as `reduce-migration-risk`, `shift-left-security`, or `automate-repetitive-work`. |
 | `adoption_stage` | `assess`, `pilot`, `scale`, or `operate`. |
@@ -81,7 +81,7 @@ Each outcome requires:
 | `business_value` | Searchable value tags. |
 | `source_platforms` | Relevant starting platforms, such as `azure-devops`, `bitbucket`, `gitlab`, `github`, or `greenfield`. |
 | `challenge_ids` | Ordered list of existing activity ids included in the journey. |
-| `success_metrics` | Production-observable outcomes the customer's own team can verify in their GitHub organization or Azure tenant. |
+| `success_metrics` | Results the customer's team can verify in production in their GitHub organization or Azure tenant. |
 
 ## Per-activity QA rubric
 
@@ -117,9 +117,8 @@ Severity levels:
 
 ### QA inventory format
 
-For audit-friendly reviews, use one inventory object per activity. JSON Lines works well
-in PR comments, issue bodies, or generated local reports because it is machine-diffable
-and does not require a repo planning markdown file.
+Use one inventory object per activity. Write JSON Lines in PR comments, issue bodies,
+or local reports so tools can compare review results. Do not add planning files to the repository.
 
 ```json
 {"id":"ghas-02","reviewed_at":"2026-06-19T09:05:03+02:00","reviewer":"name-or-role","score":92,"severity":"P3","decision":"ship","evidence":["npm run build","npm run audit","cold-start runbook followed"],"findings":[{"severity":"P3","area":"tags","summary":"Add oauth tag if the guide gains OAuth steps."}],"missing_candidate_decision":"none"}

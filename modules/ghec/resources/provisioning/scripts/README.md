@@ -20,7 +20,7 @@
 - Org-owner access to the target org. The minimum input is always an org. No activity requires an enterprise owner as its minimum input.
 - Run `doctor` first; it verifies all of the above and prints the exact token scopes for the activity you picked.
 
-## Authentication (no token ever touches your shell history)
+## Authentication
 
 Authenticate with the device flow or set an environment variable. Never pass a token as a CLI argument.
 
@@ -53,7 +53,7 @@ gh auth refresh -h github.com -s project,read:project
 | Command | Does |
 |---|---|
 | `doctor` | Verifies `gh`/`git`/`jq`, auth, and the activity's `requires`; prints minimum token scopes; warns without blocking on metered cost and on EMU for `ch19`. Changes nothing. |
-| `provision` | Creates all `ghec-<chid>-*` starting state. Idempotent — re-run to reconcile (create-if-absent). |
+| `provision` | Creates missing `ghec-<chid>-*` starting state. Re-run to reconcile without duplicating resources. |
 | `status` | Reports which `ghec-<chid>-*` artifacts currently exist. |
 | `teardown` | Deletes only `ghec-<chid>-*`. Requires confirmation (type the activity ID) unless `--yes`. |
 
@@ -73,13 +73,13 @@ gh auth refresh -h github.com -s project,read:project
 - `teardown` calls `guard_prefix` before every deletion. It refuses any name that does not start with `ghec-<chid>-`, which protects pre-existing customer repositories and projects.
 - `--dry-run` routes every mutation through a planner that prints `[plan] would run: …` and changes nothing. Use it first against a customer org.
 - `provision` only creates missing state and is idempotent. `teardown` is the only destructive path. It checks the prefix and asks for confirmation.
-- Some platform/admin changes (audit settings, org policies) can't be cleanly reverted by script — those activities document manual cleanup in their `README.md`.
+- Scripts cannot reliably revert some platform/admin changes (audit settings, org policies). Those activities document manual cleanup in their `README.md`.
 
 ## Juice Shop import (GHAS activities)
 
 `app: juice-shop` activities import OWASP Juice Shop at the pinned ref (default `v20.0.0` from
 `versions.lock`; override per-activity in `meta.yml` or with `--ref`). The importer shallow-clones
-the tag, strips history, fresh-inits, and pushes to a public `ghec-<chid>-juice-shop` repo.
+the tag, strips history, initializes a new Git repository, and pushes to a public `ghec-<chid>-juice-shop` repo.
 Juice Shop is MIT-licensed. The import preserves its `LICENSE` and never vendors the project into this repository.
 
 ## Authoring a new activity provisioner (the contract)
@@ -100,9 +100,10 @@ and the lib helpers are in scope: `log_*`, `run_mutation`, `gh_*`, `guard_prefix
 `juice_shop_import`. The PowerShell twin (`provision.ps1`) defines `Invoke-GhecProvision` /
 `Invoke-GhecTeardown` / `Invoke-GhecStatus` and uses the `$Global:Ghec*` globals.
 
-`ch01` is the worked reference — copy its `provision.sh` / `provision.ps1` shape for new activities.
+Use `ch01`'s `provision.sh` / `provision.ps1` structure for new activities.
 
-Rules every provisioner upholds: route mutations through `run_mutation` / `Invoke-GhecMutation`;
-check-then-create for idempotency; name everything `ghec-<chid>-*`; `guard_prefix` before any delete.
+Every provisioner must route mutations through `run_mutation` / `Invoke-GhecMutation`
+and check before creating resources. Name every resource `ghec-<chid>-*` and call
+`guard_prefix` before any deletion.
 
 See [`CONTRIBUTING.md`](../../../../../CONTRIBUTING.md) for the content and `meta.yml` contract.

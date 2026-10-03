@@ -1,6 +1,6 @@
-# Ch37: Governance Quick Review with ghqr
+# Ch37: Governance quick review with ghqr
 
-> Deliver a read-only GitHub governance posture review using `ghqr`, corroborate material findings, and prioritize the next actions.
+> Run a read-only governance review with `ghqr`. Verify material findings and prioritize the next actions.
 
 ## Prerequisites
 
@@ -34,16 +34,16 @@ Use these guardrails throughout:
 
 ## Tasks
 
-### Part A — Define scope and evidence rules
+### Part A: Define scope and evidence rules
 
-1. Record the organization, reviewer role, approval owner, scan date, evidence location, identity model, and whether the customer uses GitHub.com or GHE.com data residency. Check whether ghec-ch52 (organization topology, delegation matrix, and control register) has already been completed for this customer; if it is available, retrieve it and use its approved scope, ownership, and delegation boundaries as authoritative context, and if it is not available, define scope and ownership independently within this activity without blocking the review.
+1. Record the organization, reviewer role, approval owner, scan date, evidence location, identity model, and whether the customer uses GitHub.com or GHE.com data residency. If ghec-ch52's topology, delegation matrix, and control register are available, use their approved scope, ownership, and delegation boundaries. Otherwise, define scope and ownership here and continue the review.
 2. Define the allowed scan scope:
    - **Required:** organization scan.
    - **Optional:** enterprise scan only when the customer explicitly authorizes it and provides an enterprise-capable token.
 3. Record the token boundary: intended scopes and expiration/rotation owner, but never the token value.
 4. Confirm where report artifacts will be stored and who may access them. Some reports can expose repository names, policy posture, users, or security gaps.
 
-### Part B — Install or select ghqr
+### Part B: Install or select ghqr
 
 5. Install `ghqr` through the customer-approved method, or select an existing binary/container.
 
@@ -71,7 +71,7 @@ Use these guardrails throughout:
 
    Do not paste this value into shell history screenshots or report notes.
 
-### Part C — Run the organization quick review
+### Part C: Run the organization quick review
 
 8. Run the organization scan:
 
@@ -95,7 +95,7 @@ Use these guardrails throughout:
 9. Preserve the generated JSON plus Markdown or XLSX report in the customer-approved evidence location. Record the filename, timestamp, target, reviewer, and `ghqr` version.
 10. If the scan returns degraded or unavailable checks, record why: missing token scope, unavailable license/feature, enterprise-only setting, rate limiting, or authorization boundary.
 
-### Part D — Optional enterprise scan
+### Part D: Optional enterprise scan
 
 11. If enterprise review is authorized, run:
 
@@ -106,9 +106,9 @@ Use these guardrails throughout:
 12. Preserve the enterprise report separately from the organization report. Record token scope, evidence location, and enterprise owner approval.
 13. If enterprise review is not authorized, record that the enterprise policy source is unavailable to the reviewer. Do not infer enterprise inheritance from organization-only results.
 
-### Part E — Triage and corroborate findings
+### Part E: Triage and corroborate findings
 
-14. Review the top findings by severity and category. Identify the effective level and source—enterprise, organization, repository, or unavailable—and the accountable owner. When the ghec-ch52 topology, delegation matrix, or register is available, cross-check each material finding's ownership and effective source against it and cite it as corroborating evidence; when it is unavailable, corroborate using GitHub API/audit evidence only and record the register as not available (not as compliant).
+14. Review the top findings by severity and category. Identify each finding's accountable owner and effective source: enterprise, organization, repository, or unavailable. Cross-check ownership and source against the ghec-ch52 topology, delegation matrix, or register when available, and cite it. Otherwise, verify findings with GitHub API/audit evidence and record the register as unavailable. Do not mark it compliant.
 15. Corroborate at least one finding with a GitHub evidence surface. Examples:
 
    ```bash
@@ -125,7 +125,7 @@ Use these guardrails throughout:
 
 16. Build a short remediation backlog from the material findings. Record the owner, risk, dependency, next decision date, and evidence link.
 
-### Part F — Handover
+### Part F: Handover
 
 17. Walk the governance owner through:
     - what was scanned;
@@ -137,8 +137,8 @@ Use these guardrails throughout:
 
 ## Reference links
 
-- GitHub Quick Review (`ghqr`) — https://github.com/microsoft/ghqr
-- Enforcing policies for your enterprise — https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise
-- Organizations REST API — https://docs.github.com/en/rest/orgs/orgs
-- Reviewing the audit log for your organization — https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization
-- GitHub Enterprise Cloud with data residency — https://docs.github.com/en/enterprise-cloud@latest/admin/data-residency/about-github-enterprise-cloud-with-data-residency
+- [GitHub Quick Review (`ghqr`)](https://github.com/microsoft/ghqr)
+- [Enforcing policies for your enterprise](https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise)
+- [Organizations REST API](https://docs.github.com/en/rest/orgs/orgs)
+- [Reviewing the audit log for your organization](https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization)
+- [GitHub Enterprise Cloud with data residency](https://docs.github.com/en/enterprise-cloud@latest/admin/data-residency/about-github-enterprise-cloud-with-data-residency)

@@ -4,7 +4,7 @@ The Issue Triage Agent reads each new issue, compares it with the repository's l
 
 Source: [`github/gh-aw/.github/workflows/issue-triage-agent.md`](https://github.com/github/gh-aw/blob/main/.github/workflows/issue-triage-agent.md)
 
-## What It Does
+## What it does
 
 - Triggers on `on: issues: types: [opened, reopened]`
 - Reads the issue title and body
@@ -44,22 +44,19 @@ Source: [`github/gh-aw/.github/workflows/issue-triage-agent.md`](https://github.
 
 Replace the default allowlist with your repo's actual labels:
 - Open your repo's Labels page and copy the exact label names
-- Edit the triage prompt to reference only those labels (prevents hallucination of non-existent tags)
+- Tell the agent to use only those labels so it does not invent tags
 - Add a short description of each label so the agent understands when to apply it
 - Change the classification comment style. A one-line comment such as "Categorised as: bug, backend" is enough.
 
 ---
 
 <details>
-<summary>💡 Hints</summary>
+<summary>Hints</summary>
 
-"The agent is applying labels that don't exist in my repo"
-→ Your allowlist is the guard. Add explicit instructions: _"Only apply labels from this list: [bug, enhancement, docs, question]. Never invent labels."_ Run `gh label list` to get the exact names.
+If the agent applies labels that do not exist, add explicit instructions: _"Only apply labels from this list: [bug, enhancement, docs, question]. Never invent labels."_ Run `gh label list` to get the exact names.
 
-"Workflow runs but nothing happens"
-→ Check the Actions tab for the run log. Permissions might be missing: grant at minimum `issues: write` for `add-labels` and `add-comment` (see [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/tutorials/authenticate-with-github_token)).
+If the workflow runs but does nothing, check the run log in the Actions tab. Grant at minimum `issues: write` for `add-labels` and `add-comment` (see [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/tutorials/authenticate-with-github_token)).
 
-"What's the difference between `add-labels` and `set-labels`?"
-→ `add-labels` appends to existing labels; `set-labels` replaces them. Use `add-labels` unless you want to own the full label set.
+`add-labels` appends to existing labels; `set-labels` replaces them. Use `add-labels` unless the workflow should control the full label set.
 
 </details>

@@ -16,7 +16,7 @@ npm run setup:sre-agent
 
 The doctor checks for Git, Azure CLI, Azure Developer CLI, Python, Azure login state, and `Microsoft.App` provider registration. It does not deploy resources.
 
-## Official Live Lab Commands
+## Official live lab commands
 
 Use these commands to fetch the official lab and enter it:
 
@@ -38,7 +38,7 @@ For optional GitHub/source-code connection:
 bash scripts/setup-github.sh
 ```
 
-## Local Fallback Utilities
+## Local fallback utilities
 
 Use these only when Azure access is unavailable:
 
@@ -47,6 +47,8 @@ Use these only when Azure access is unavailable:
 | `simulate-checkout-incident.sh` | Runs the local `sample-app` in a failure mode and writes evidence to `runbooks/generated/`. |
 | `capture-deployment-evidence.sh` | Writes a deployment evidence note to `runbooks/generated/`. |
 
-## Automation Helper
+## Automation helper
 
-`ensure-starter-lab.sh` is a thin wrapper around `scripts/provision-app.sh`. It is not invoked by `npm run setup:sre-agent-lab`; automation that needs the lab path calls it directly. It prepares the pinned Grubify starter lab and prints its absolute path.
+Call `ensure-starter-lab.sh` when automation needs the lab's absolute path.
+It runs `scripts/provision-app.sh` to prepare the pinned Grubify starter lab and prints the path.
+`npm run setup:sre-agent-lab` does not call this helper.

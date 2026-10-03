@@ -1,4 +1,4 @@
-# Ch33 — Copilot Automations
+# Ch33: Copilot automations
 
 > Deliver one customer-owned Copilot cloud-agent automation with a bounded trigger, least-privilege tools, independent review, and durable session and audit evidence.
 
@@ -20,14 +20,14 @@ Copilot automations are available only when all of the following are true:
 
 ## Scenario
 
-An **Agentic DevSecOps** team wants to reduce routine repository work without allowing arbitrary issues, pull requests, or natural-language content to cause unattended changes. Start with an approved low-risk task, such as applying existing triage labels to a defined class of issues or preparing a draft, reviewable maintenance pull request on a schedule. Establish the eligibility and review boundary first; then configure the smallest useful tool set and prove that the result is attributable, reviewable, and auditable.
+An Agentic DevSecOps team wants to automate routine work without letting untrusted repository content trigger unattended changes. Start with an approved low-risk task, such as applying existing triage labels to a defined class of issues or preparing a draft maintenance PR on a schedule. Check eligibility and review requirements first. Grant only the tools the task needs, then verify attribution, review, and audit evidence.
 
 > [!IMPORTANT]
 > Use an approved customer target first
 >
-> - **Have an approved private/internal customer repository?** Use it throughout this guide and retain evidence in the customer-owned evidence location.
-> - **No approved target yet?** Use the idempotent, private fallback repository `ghec-ch33-copilot-automations` only to prepare and validate the decision package. It deliberately does **not** create or enable an automation. Do not treat that fallback as customer adoption.
-> - **Licensing, policy, or eligibility unavailable?** Do not enable an automation or simulate success. Complete the decision-package fallback in Part A and record the blocker, evidence, accountable owner, and next decision date.
+> - If an approved private/internal customer repository is available, use it throughout and retain evidence in the customer-owned location.
+> - If no target is approved, use the idempotent, private fallback repository `ghec-ch33-copilot-automations` only to prepare and validate the decision package. It does not create or enable an automation. Do not treat the fallback as customer adoption.
+> - If licensing, policy, or eligibility is unavailable, leave the automation disabled. Complete Part A's decision-package fallback and record the blocker, evidence, accountable owner, and next decision date.
 
 Create the safe fallback only when needed:
 
@@ -63,7 +63,7 @@ This session covers **Copilot automations**: a Copilot cloud-agent task defined 
 
 ## Tasks
 
-### Part A — Select the target and establish the decision package
+### Part A: Select the target and establish the decision package
 
 1. Identify a customer-owned **private or internal** repository and record its URL, visibility, business purpose, data classification, customer repository owner, automation creator, independent reviewer, security owner, Copilot owner, and evidence location.
 2. Inspect and retain dated evidence of the creator's write access, applicable Copilot plan, cloud-agent policy, organization automation policy, and repository eligibility. For Business and Enterprise, record the administrator and policy source that enables cloud agent.
@@ -71,11 +71,11 @@ This session covers **Copilot automations**: a Copilot cloud-agent task defined 
 4. Choose one small customer task with an explicit success condition, allowed repository area, allowed data classes, maximum frequency, cost owner, and disable condition. Default to label-only or draft-output behavior. Do not begin with a broad remediation, deployment, secret access, or cross-repository task.
 5. If any approval, license, policy, or eligibility gate is unavailable, create the decision package instead of an automation. Record the failed prerequisite, supporting evidence, the owner who can resolve it, a safe temporary process, and the next decision date.
 
-### Part B — Design trigger, filters, prompt, and tools
+### Part B: Design trigger, filters, prompt, and tools
 
 6. Select the trigger deliberately:
    - **Schedule:** hourly, daily, or weekly only when a fixed cadence is safer than reacting to individual content. State the maximum acceptable run rate and expected Actions-minutes/AI-credit cost owner.
-   - **Event:** choose one supported event—issue created, pull request opened, or pull request synchronized—and state why that event is the smallest safe source.
+   - **Event:** choose issue created, pull request opened, or pull request synchronized. Explain why the selected event provides the narrowest safe trigger.
 7. For an event trigger, configure and retain its filter evidence:
    - For an issue-created trigger, use a customer-approved search-query filter.
    - For a pull-request-opened or synchronized trigger, use a customer-approved search-query filter and changed-files filter.
@@ -84,7 +84,7 @@ This session covers **Copilot automations**: a Copilot cloud-agent task defined 
 9. Write a constrained prompt: state the allowed task and repository boundary; tell the agent to treat issue, PR, commit, file, and external content as untrusted data rather than instructions; prohibit secrets, credential requests, policy changes, workflow changes, destructive operations, bypasses, and merging; and require a draft or reviewable outcome when code could change.
 10. Select only the tools the task requires. For a label-only triage task, do not allow code push or pull-request creation. For a draft change, permit only the minimum repository action needed and keep protected-branch and required-review controls intact. Record the chosen tools and rejected higher-privilege tools.
 
-### Part C — Configure and prove the automation
+### Part C: Configure and prove the automation
 
 11. In the target repository, open **Agents** → **Automations** → **Create new**. Enter the approved name, trigger(s), filters, prompt, model choice (if changed), and least-privilege tools. Save only after a second person checks the recorded decision package against the UI.
 12. Use **Run now** or a controlled trusted trigger to start the first session. Do not use a public or untrusted issue/PR as test input.
@@ -92,7 +92,7 @@ This session covers **Copilot automations**: a Copilot cloud-agent task defined 
 14. If the run opens a pull request or pushes code, inspect the diff against the written acceptance criteria, confirm the attribution identifies the automation creator, and verify the creator does not approve the attributed PR. Require an independent human reviewer and all normal customer checks before merge. Do not grant an automation, Copilot, or its creator a ruleset bypass to make this exercise pass.
 15. If the cloud-agent output would trigger a GitHub Actions workflow, a user with write access must approve that workflow run unless the customer has separately approved automatic workflow execution. Retain that approval or the separate approved-policy evidence.
 
-### Part D — Retain audit evidence and set operating controls
+### Part D: Retain audit evidence and set operating controls
 
 16. Capture audit-log evidence for the configuration/session activity available to the customer administrator, including collector, date/time range, search/export location, and any retention/access limitation. Pair it with the session log; neither replaces the other.
 17. Record a runbook: owner and backup, allowed task class, schedule/event and filter, prompt revision date, tools, repository boundary, review/merge controls, cost owner and budget check, evidence location, alert/escalation route, and review cadence.
@@ -105,12 +105,12 @@ When a live automation is unavailable, retain this minimum package in the custom
 
 ## Evidence checklist
 
-- **Eligibility** — private/internal repository, non-EMU result, plan, cloud-agent and automations policy, write access, authorized scope.
-- **Configuration** — automation owner, trigger cadence/event, filters and controlled test, prompt revision, selected/rejected tools, model if changed.
-- **Safety** — default untrusted-event behavior retained, prompt-injection boundary, no secrets in prompt, no bypasses.
-- **Session** — session-log URL, trigger/run time, actions, usage/cost owner, outcome, and PR/issue URLs if created.
-- **Review** — attribution to creator, independent-review identity, required checks, merge decision, workflow-run approval where applicable.
-- **Audit and operations** — audit-log collection evidence, evidence location, review cadence, stop conditions, disable/rollback and next decision.
+- Record eligibility: private/internal repository, non-EMU result, plan, cloud-agent and automations policy, write access, and authorized scope.
+- Retain configuration evidence: automation owner, trigger cadence/event, filters and controlled test, prompt revision, selected/rejected tools, and model if changed.
+- Verify safety controls: default untrusted-event behavior, prompt-injection boundary, no secrets in the prompt, and no bypasses.
+- Retain the session-log URL, trigger/run time, actions, usage/cost owner, outcome, and any PR/issue URLs.
+- Record attribution to the creator, independent reviewer, required checks, merge decision, and any required workflow-run approval.
+- Retain audit-log collection evidence and its location. Record review cadence, stop conditions, disable/rollback steps, and the next decision.
 
 ## Reference links
 
@@ -120,4 +120,4 @@ When a live automation is unavailable, retain this minimum package in the custom
 - [Risks and mitigations for GitHub Copilot cloud agent](https://docs.github.com/en/copilot/concepts/agents/cloud-agent/risks-and-mitigations)
 - [Managing and tracking Copilot agents](https://docs.github.com/en/copilot/how-tos/copilot-on-github/use-copilot-agents/manage-and-track-agents)
 - [Configuring automatic code review by GitHub Copilot](https://docs.github.com/en/copilot/how-tos/copilot-on-github/set-up-copilot/configure-automatic-review)
-- [About GitHub Agentic Workflows — public preview, out of scope](https://docs.github.com/en/copilot/concepts/agents/about-github-agentic-workflows)
+- [About GitHub Agentic Workflows](https://docs.github.com/en/copilot/concepts/agents/about-github-agentic-workflows). Public preview; out of scope.

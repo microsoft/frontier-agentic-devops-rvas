@@ -1,6 +1,6 @@
-# Ch38: Golden-Path Repository Bootstrap
+# Ch38: Golden-path repository bootstrap
 
-> Deliver a governed starter path for new repositories: template, baseline files, validation, and handover evidence.
+> Create an approved template and baseline files for new repositories. Validate them and retain handover evidence.
 
 ## Prerequisites
 
@@ -10,7 +10,7 @@
 
 ## Scenario
 
-Teams create repositories by copying old projects. The copies often lack owners, support files, or baseline controls. Define a golden path that makes the first commit predictable and auditable without silently changing organization-wide settings.
+Teams create repositories by copying old projects, often leaving out owners, support files, or baseline controls. Define a standard template without changing organization-wide settings.
 
 > [!IMPORTANT]
 > Use a real customer template repository when available. If none is approved, run the setup and use `ghec-ch38-golden-path-template` plus `ghec-ch38-bootstrap-candidate` as fallback samples.
@@ -32,13 +32,13 @@ Setup creates only namespaced sample repositories:
 
 ## Tasks
 
-### Part A — Approve the bootstrap standard
+### Part A: Approve the bootstrap standard
 
 1. Record the authorized scope, template owner, support team, exception path, and review cadence.
 2. Define the baseline: README, ownership, issue intake, PR checklist, labels, branch/ruleset expectations, Actions permissions, secret policy, and required metadata.
 3. Decide which controls are enforced now and which require a later org-owner approval.
 
-### Part B — Inspect the template candidate
+### Part B: Inspect the template candidate
 
 4. Review the seeded files in `ghec-ch38-golden-path-template`:
    ```bash
@@ -51,7 +51,7 @@ Setup creates only namespaced sample repositories:
    ```
 6. Save the before/after evidence.
 
-### Part C — Bootstrap and validate a repository
+### Part C: Bootstrap and validate a repository
 
 7. Create a repository from the template, or apply the same files to the validation target:
    ```bash
@@ -64,16 +64,16 @@ Setup creates only namespaced sample repositories:
    ```
 9. Record baseline gaps, approved exceptions, and the owner for each remediation.
 
-### Part D — Handover
+### Part D: Handover
 
 10. Document how teams request template changes.
 11. Name the first production repository cohort and review date.
-12. If high-impact org defaults are desired, capture the explicit approval and execute them outside setup.
+12. If the customer wants high-impact org-default changes, record approval and make the changes outside setup.
 
 ## Reference links
 
-- Creating a template repository — https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository
-- Creating a repository from a template — https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template
-- CODEOWNERS — https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
-- Issue templates — https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository
-- Repositories REST API — https://docs.github.com/en/rest/repos/repos
+- [Creating a template repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository)
+- [Creating a repository from a template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
+- [CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
+- [Issue templates](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository)
+- [Repositories REST API](https://docs.github.com/en/rest/repos/repos)

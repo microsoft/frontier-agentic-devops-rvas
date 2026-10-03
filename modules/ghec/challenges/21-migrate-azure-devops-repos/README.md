@@ -1,10 +1,10 @@
-# Ch21 — Migrate Azure DevOps Repos with GitHub Enterprise Importer
+# Ch21: Migrate Azure DevOps Repos with GitHub Enterprise Importer
 
-> Deliver an approved Azure DevOps Services Git migration into GitHub Enterprise Cloud using `gh ado2gh`: inventory, queue, execute, validate, and close out the cutover evidence.
+> Migrate an approved Azure DevOps Services Git repository into GitHub Enterprise Cloud using `gh ado2gh`. Validate the result and record cutover evidence.
 
 ## Prerequisites
 
-Dependencies: none — this guide is self-contained.
+This guide has no activity dependencies.
 
 Access and tools you need:
 - GitHub Enterprise Cloud organization with org-owner rights.
@@ -40,7 +40,7 @@ Access and tools you need:
 
 ## Tasks
 
-### Part A — Install the migration extension
+### Part A: Install the migration extension
 
 1. Confirm your local tooling:
 
@@ -57,7 +57,7 @@ gh extension install github/gh-ado2gh || gh extension upgrade github/gh-ado2gh
 gh ado2gh --help
 ```
 
-### Part B — Prepare credentials
+### Part B: Prepare credentials
 
 3. Create the two PATs outside the terminal, then set them as environment variables for the current shell. Do not commit or paste token values into files.
 
@@ -85,7 +85,7 @@ printf 'ADO_PAT set: '; test -n "$ADO_PAT" && echo yes || echo no
 
 If your GitHub org uses SAML SSO, open the PAT settings page and authorize the classic PAT for that organization. A migration error such as `Resource is protected by organization SAML enforcement` means this step was missed.
 
-### Part C — Inventory Azure DevOps repositories
+### Part C: Inventory Azure DevOps repositories
 
 5. Generate an inventory report:
 
@@ -115,7 +115,7 @@ Use the report to answer:
 - Which repositories have many pull requests and should be scheduled later?
 - Are there TFVC repositories that require conversion before GEI can migrate them?
 
-### Part D — Generate and inspect a migration script
+### Part D: Generate and inspect a migration script
 
 7. Generate a PowerShell script for the migration set. Use `--all` for a full org pilot script, or scope the generated script down before running it.
 
@@ -134,7 +134,7 @@ gh ado2gh generate-script \
 grep -n "gh ado2gh migrate-repo" migrate-ado-repos.ps1
 ```
 
-9. Run the script in PowerShell when you are satisfied:
+9. Run the script in PowerShell after reviewing it:
 
 ```bash
 pwsh ./migrate-ado-repos.ps1
@@ -146,7 +146,7 @@ If `pwsh` is unavailable on Windows, run this from PowerShell instead:
 .\migrate-ado-repos.ps1
 ```
 
-### Part E — Run a controlled single-repo migration
+### Part E: Run a controlled single-repo migration
 
 10. For one selected pilot repo, run the direct command. Start with `--queue-only` if you want to inspect the migration ID and wait explicitly.
 
@@ -181,7 +181,7 @@ gh ado2gh download-logs \
 
 > Azure DevOps migrations do not require you to provide blob storage; GEI stages the migration internally.
 
-### Part F — Validate migrated and non-migrated content
+### Part F: Validate migrated and non-migrated content
 
 13. Confirm the repository exists and note its visibility. Repositories arrive private by default unless you intentionally set visibility.
 
@@ -213,7 +213,7 @@ GEI does not migrate:
 - Repository permissions. Recreate teams and access in GitHub.
 - User-scoped and cross-repo branch policies.
 
-### Part G — Reclaim mannequins
+### Part G: Reclaim mannequins
 
 15. Generate the mannequin mapping CSV:
 
@@ -244,9 +244,9 @@ Commit authorship is separate from mannequin reclaiming: Git commits are attribu
 
 ## Reference links
 
-- About GitHub Enterprise Importer — https://docs.github.com/en/migrations/using-github-enterprise-importer/understanding-github-enterprise-importer/about-github-enterprise-importer
-- Understand migrations from Azure DevOps — https://docs.github.com/en/migrations/ado/understand-migrations-from-azure-devops-to-github
-- Manage access for Azure DevOps migrations — https://docs.github.com/en/migrations/ado/manage-access
-- Prepare for your Azure DevOps migration — https://docs.github.com/en/migrations/ado/prepare-for-your-migration-from-azure-devops-to-github
-- Migrate repositories from Azure DevOps — https://docs.github.com/en/migrations/ado/migrate-your-repositories-from-azure-devops-to-github
-- Follow-up tasks for Azure DevOps migrations — https://docs.github.com/en/migrations/ado/follow-up-tasks
+- [About GitHub Enterprise Importer](https://docs.github.com/en/migrations/using-github-enterprise-importer/understanding-github-enterprise-importer/about-github-enterprise-importer)
+- [Understand migrations from Azure DevOps](https://docs.github.com/en/migrations/ado/understand-migrations-from-azure-devops-to-github)
+- [Manage access for Azure DevOps migrations](https://docs.github.com/en/migrations/ado/manage-access)
+- [Prepare for your Azure DevOps migration](https://docs.github.com/en/migrations/ado/prepare-for-your-migration-from-azure-devops-to-github)
+- [Migrate repositories from Azure DevOps](https://docs.github.com/en/migrations/ado/migrate-your-repositories-from-azure-devops-to-github)
+- [Follow-up tasks for Azure DevOps migrations](https://docs.github.com/en/migrations/ado/follow-up-tasks)

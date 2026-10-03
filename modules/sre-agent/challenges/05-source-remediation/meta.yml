@@ -1,5 +1,5 @@
 id: sre-agent-05
-title: Connect Source Code and Create Remediation Work
+title: Connect source code and create remediation work
 module: sre-agent
 track: azure-sre-agent
 difficulty: advanced

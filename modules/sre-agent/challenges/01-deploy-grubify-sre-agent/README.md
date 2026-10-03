@@ -1,4 +1,4 @@
-# Activity 01: Deploy Grubify and Create the Azure SRE Agent
+# Activity 01: Deploy Grubify and create the Azure SRE Agent
 
 ## Scenario
 
@@ -15,7 +15,9 @@ Start with Azure; GitHub is optional. The SRE Agent must be able to read Azure r
 - Explain what the agent can investigate before source code is connected.
 
 > [!TIP]
-> **Bring your own service:** connect Azure SRE Agent to a service your team will operate after the session, wherever this guide references Grubify. It must be deployed, observable, and approved for agent access to the resource group, logs, metrics, traces, alerts, and knowledge sources.
+> **Use your own service.** You can replace Grubify with a service your team operates.
+> Deploy the service and enable its telemetry before you start. Approve agent access
+> to its resource group, logs, metrics, traces, alerts, and knowledge sources.
 
 ## Deploy
 
@@ -52,7 +54,7 @@ For manual Activity 01 setup, leave `GITHUB_USER` unset unless you plan to conne
 
 Deployment can take several minutes. If a role, policy, region, or cost restriction blocks it, use the fallback packet.
 
-## Verify the Agent
+## Verify the agent
 
 Open the Azure SRE Agent portal:
 
@@ -69,7 +71,7 @@ In Full setup, confirm the available cards:
 | Knowledge sources | Runbook and architecture context available |
 | Code | Optional at this stage |
 
-## Capture Baseline Evidence
+## Capture baseline evidence
 
 Record:
 
@@ -86,7 +88,7 @@ Record:
 
 Open the Grubify frontend and perform one healthy action. If endpoint checks are provided, run them and save the result.
 
-## Ask the Agent
+## Ask the agent
 
 Start a new chat in Azure SRE Agent and ask:
 
@@ -107,4 +109,4 @@ Use the answers for orientation. Validate any investigation claims later.
 - Healthy deployment evidence.
 - Azure SRE Agent setup screenshot or note.
 - Resource and telemetry inventory.
-- Short note: what the agent can investigate now, and what it cannot yet know without source-code context.
+- A note explaining what the agent can investigate now and what still requires source-code context.

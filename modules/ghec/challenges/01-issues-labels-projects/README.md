@@ -1,6 +1,6 @@
-# Ch01 — Issues, Labels & Project Boards
+# Ch01: Issues, labels and project boards
 
-> Deliver a customer-owned work-management flow on GitHub: labels, milestones, a Projects (v2) board, automation, and an insight chart.
+> Configure labels, milestones, a Projects (v2) board, automation, and an insight chart for a customer team.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -13,10 +13,10 @@
 - Design a label taxonomy (type / priority / area / status) and apply it consistently.
 - Group work into milestones and track completion percentage.
 - Build a Projects (v2) board with custom fields, saved views (board + table + roadmap), and built-in workflows that auto-move items.
-- Drive the whole flow from both the UI and the `gh` CLI / GraphQL API so you can automate it later.
+- Manage the work from both the UI and the `gh` CLI / GraphQL API.
 
 ## Scenario
-You have just inherited the backlog for an internal developer-tools team at a GHEC customer. Work is scattered across chat threads, spreadsheets, and people's heads. Leadership wants one shared delivery record: every request becomes an issue, every issue is triaged within a day, and a live board shows what's in flight, what's blocked, and what ships this sprint. Your job is to stand that system up on GitHub the way you'd hand it to a real team on Monday morning.
+You manage the backlog for an internal developer-tools team at a GHEC customer. Requests are scattered across chat threads and spreadsheets. Leadership wants every request recorded as an issue and triaged within a day. Configure a GitHub board that shows work in progress, blockers, and planned deliveries for the sprint.
 
 > [!IMPORTANT]
 > Use an approved customer target first. If you have a candidate backlog and board, use it everywhere this guide says `ghec-ch01-issues-labels-projects` or `ghec-ch01-board` and skip Setup. Otherwise use the fallback seeded repo below for testing, then move the validated configuration to an approved customer target.
@@ -37,21 +37,21 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch01 --org <org>
 
 Setup creates these resources (all names use the `ghec-ch01-*` prefix, and teardown is prefix-guarded):
 - A seeded repo `ghec-ch01-issues-labels-projects` with a realistic `README`, a small source tree, and a `.github/ISSUE_TEMPLATE/` directory you will extend.
-- ~26 seeded issues describing a backlog (bugs, features, chores) — deliberately messy: inconsistent or missing labels, no milestone, no assignee.
-- An intentionally incomplete label set (`bug`, `Bug`, `enhancement`, `urgent`, `wontfix`, `question`, `backend`, `frontend` — note the duplicate `bug`/`Bug` casing) that makes the taxonomy gaps visible.
+- ~26 seeded backlog issues (bugs, features, chores) with inconsistent or missing labels, no milestone, and no assignee.
+- An incomplete label set: `bug`, `Bug`, `enhancement`, `urgent`, `wontfix`, `question`, `backend`, `frontend`. Note the duplicate `bug`/`Bug` casing.
 - An empty Projects (v2) board `ghec-ch01-board` linked to the repo, with no custom fields yet.
 - A printed Next steps block telling you where to start.
 
 ## Tasks
 > `ghec-ch01-issues-labels-projects` is the fallback sample name; substitute your own artifact's name if you brought one.
 
-### Part A — Issues & issue management
-1. Read the backlog. Open the repo's Issues tab and skim every seeded issue. Note that they are inconsistently labeled and none are assigned or milestoned — this is your raw material.
+### Part A: Issues and issue management
+1. Read the backlog. Open the repo's Issues tab and skim every seeded issue. Note the inconsistent labels and missing assignees and milestones.
 2. Add issue forms. In `.github/ISSUE_TEMPLATE/`, add a bug report form and a feature request form using GitHub's issue forms (`.yml`) schema (not plain markdown). Each form must collect a title, a structured body, and at least one dropdown (e.g., area or severity). Open the New issue chooser and confirm both forms render.
 3. File one issue through your new form to prove it works. Use a task list (`- [ ]`) in the body with at least three sub-tasks, and reference another issue with `#<number>` so the timeline cross-links.
 4. Triage assignment. Assign yourself to at least 5 issues. Use `gh issue edit <n> --add-assignee @me` to do it in bulk where that's faster than clicking.
 
-### Part B — Label taxonomy
+### Part B: Label taxonomy
 5. Design a label scheme. Create labels across four dimensions, each with a distinct color family:
    - `type:` → `type: bug`, `type: feature`, `type: chore`, `type: docs`
    - `priority:` → `priority: p0`, `priority: p1`, `priority: p2`
@@ -68,7 +68,7 @@ Setup creates these resources (all names use the `ghec-ch01-*` prefix, and teard
    ```
 7. Prove consistency. Run `gh issue list --label "priority: p0"` and confirm the highest-priority items surface correctly.
 
-### Part C — Milestones
+### Part C: Milestones
 8. Create two milestones: set `Sprint 1` due two weeks after your delivery start and `Sprint 2` due four weeks after it. Use the UI, or calculate ISO 8601 due dates for the current run and create the milestones with the API:
    ```bash
    RUN_DATE=$(date -u +%F)
@@ -82,7 +82,7 @@ Setup creates these resources (all names use the `ghec-ch01-*` prefix, and teard
    ```
 9. Assign issues to milestones so each sprint has a realistic, finite scope (4–6 issues each). Open a milestone and confirm the progress bar reflects open/closed counts.
 
-### Part D — Projects (v2) board
+### Part D: Projects (v2) board
 10. Add custom fields to `ghec-ch01-board`:
     - a single-select `Status` field (`Todo`, `In Progress`, `In Review`, `Done`)
     - a single-select `Priority` field (`P0`, `P1`, `P2`)
@@ -98,10 +98,10 @@ Setup creates these resources (all names use the `ghec-ch01-*` prefix, and teard
 14. Add an insight chart. In the project's Insights, create a chart that counts open items grouped by `Priority`, and save it.
 
 ## Reference links
-- About issues — https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues
-- Configuring issue templates (issue forms) — https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository
-- Managing labels — https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels
-- About milestones — https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/about-milestones
-- About Projects — https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects
-- Automating Projects using the API — https://docs.github.com/en/issues/planning-and-tracking-with-projects/automating-your-project/using-the-api-to-manage-projects
-- `gh issue` / `gh project` CLI manual — https://cli.github.com/manual/gh_issue
+- [About issues](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues)
+- [Configuring issue templates (issue forms)](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository)
+- [Managing labels](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels)
+- [About milestones](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/about-milestones)
+- [About Projects](https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects)
+- [Automating Projects using the API](https://docs.github.com/en/issues/planning-and-tracking-with-projects/automating-your-project/using-the-api-to-manage-projects)
+- [`gh issue` / `gh project` CLI manual](https://cli.github.com/manual/gh_issue)

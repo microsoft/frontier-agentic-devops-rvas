@@ -1,8 +1,10 @@
-# Sample App
+# Sample app
 
-This small Node.js service supports the delivery session. Participants can make an AI-assisted change, validate it locally, ship it through CI/CD, and investigate a simulated checkout incident. It has no runtime dependencies, uses Node's built-in test runner, and runs on a laptop, in Codespaces, or in CI.
+Use this Node.js service to test an AI-assisted change and deploy it through CI/CD.
+It also simulates checkout failures for incident investigation. It has no runtime dependencies.
+Tests use Node's built-in runner and can run locally, in Codespaces, or in CI.
 
-## Run Locally
+## Run locally
 
 ```bash
 cd modules/sre-agent/resources/sample-app
@@ -19,7 +21,7 @@ cd modules/sre-agent/resources/sample-app
 npm test
 ```
 
-## Incident Mode
+## Incident mode
 
 Set `INCIDENT_MODE` before starting the service to simulate a production symptom:
 
@@ -35,8 +37,12 @@ Supported modes:
 | `checkout_latency` | `/api/checkout` returns HTTP 503 after a short delay and `/healthz` reports degraded status. |
 | `checkout_error` | `/api/checkout` immediately returns HTTP 500 and `/healthz` reports degraded status. |
 
-## SRE Agent Note
+## SRE Agent access
 
-Azure SRE Agent access is not required for the local simulation. If Azure SRE Agent is available, the delivery team can connect the deployed app and repository source branch so the agent can correlate symptoms to code and propose a To-Do Plan. Pull request creation should be treated as optional and depends on repository connection, run mode, and an existing branch with committed changes.
+The local simulation does not require Azure SRE Agent.
+If the agent is available, connect the deployed app and repository branch.
+The agent can then correlate symptoms to code and propose a To-Do Plan.
+Pull request creation is optional. It requires a repository connection, a supported run mode,
+and an existing branch with committed changes.
 
 [Back to resources](../README.md)

@@ -31,7 +31,7 @@ modules/
     └── challenges/
 ```
 
-## Activity Directory Naming
+## Activity directory naming
 
 Use a short, descriptive kebab-case slug for each activity directory. Examples:
 
@@ -44,13 +44,13 @@ The directory name is for browsing. The `id` field in `meta.yml` is the canonica
 
 Catalogs have intentional numbering gaps: `ghaw-02`, `ghaw-04`, `ghaw-05`, `ghaw-13`, `ghaw-15`, `ghaw-22`, and `sre-agent-02`. Removing an activity does not renumber the remaining IDs.
 
-## Add an Activity
+## Add an activity
 
 1. Copy `_TEMPLATE/challenge/` to `modules/<moduleId>/challenges/<your-slug>/`.
 2. Complete `meta.yml`. See [`CONTRIBUTING.md`](../CONTRIBUTING.md) for the field contract.
 3. Write `README.md` for the delivery team.
 4. Run `node docs/build.js` to validate.
 
-## Module Attributions
+## Module attributions
 
 See [`docs/EXTERNAL-REPOS.md`](../docs/EXTERNAL-REPOS.md) for how the project manages and pins Juice Shop, source delivery session repositories, sample apps, and other external dependencies.

@@ -1,4 +1,4 @@
-# Azure SRE Agent Resources
+# Azure SRE Agent resources
 
 The Azure SRE Agent track uses the official Microsoft repository for the live lab:
 
@@ -8,17 +8,17 @@ https://github.com/microsoft/sre-agent/tree/main/labs/starter-lab
 
 Use the Microsoft Grubify starter lab when live Azure access is available. The local files support the course and provide fallback templates; they are not the live lab.
 
-## Resource Index
+## Resource index
 
 | Resource | Purpose |
 | --- | --- |
-| [Azure SRE Agent Reference](SRE-Agent-Reference.md) | Source-backed baseline for what Azure SRE Agent, the starter lab, source-code context, plugins, and recipes provide. |
-| [Reference Architecture](Reference-Architecture.md) | Azure-first learning architecture for signal, investigation, source context, remediation, and recovery. |
+| [Azure SRE Agent Reference](SRE-Agent-Reference.md) | Product and starter lab capabilities, with source links. |
+| [Reference Architecture](Reference-Architecture.md) | How the lab connects Azure evidence to investigation, remediation, and recovery. |
 | [Incident Packet Template](Incident-Packet.md) | Fallback packet template when live Azure SRE Agent access is unavailable. |
 | [Runbooks](runbooks/README.md) | Fallback incident packet and triage template aligned to Grubify/Azure SRE Agent. |
 | [Research Links](Research-Links.md) | Curated Azure SRE Agent, Azure Monitor, GitHub connector, and operational excellence references. |
 
-## Delivery Assets to Prepare
+## Prepare for delivery
 
 - Live `microsoft/sre-agent/labs/starter-lab` deployment, or a shared pre-provisioned Grubify environment.
 - Azure SRE Agent portal access or screenshots for Full setup cards.

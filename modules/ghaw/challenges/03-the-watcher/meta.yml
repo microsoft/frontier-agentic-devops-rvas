@@ -1,5 +1,5 @@
 id: ghaw-03
-title: The Watcher
+title: The watcher
 module: ghaw
 track: hello-agent
 difficulty: beginner
@@ -10,7 +10,7 @@ prerequisites:
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-00
+  - gh-aw CLI installed. See ghaw-00.
 description: "Watch a directory for changes and post summaries on the triggering commits."
 tags:
   - push-events

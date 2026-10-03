@@ -1,6 +1,6 @@
-# Activity 04 Triage Template
+# Activity 04 triage template
 
-## Incident Summary
+## Incident summary
 
 - Incident ID:
 - Service: Grubify
@@ -8,9 +8,9 @@
 - Current status:
 - Customer impact:
 
-## Evidence Collected
+## Evidence collected
 
-| Evidence | Location or Query | What It Shows |
+| Evidence | Location or query | What it shows |
 | --- | --- | --- |
 | Azure Monitor alert | | |
 | Log Analytics result | | |
@@ -19,7 +19,7 @@
 | Runbook or knowledge reference | | |
 | Source-code reference | | |
 
-## Working Theory
+## Working theory
 
 - Likely cause:
 - Confidence: Low / Medium / High
@@ -27,7 +27,7 @@
 - Alternative hypothesis:
 - What would disprove it:
 
-## Azure SRE Agent Notes
+## Azure SRE Agent notes
 
 - Azure SRE Agent available? Yes / No / Fallback transcript
 - Response plan or custom agent used?
@@ -35,21 +35,21 @@
 - Suggested mitigation:
 - Suggested issue or pull request:
 
-## Response Plan
+## Response plan
 
 - Immediate mitigation:
 - Human approval required:
 - Validation check:
 - Rollback or forward-fix decision:
 
-## Customer-Safe Update
+## Customer-safe update
 
 ```text
-We are investigating elevated failures in the Grubify ordering flow. Browsing remains available. Azure SRE Agent has reviewed the connected operational signals and the team is validating the safest mitigation. Next update by <time>.
+We are investigating increased failures in the Grubify ordering flow. Browsing remains available. Azure SRE Agent has reviewed the telemetry. The team is checking the proposed mitigation before applying it. We will provide the next update by <time>.
 ```
 
-## Follow-Up Actions
+## Follow-up actions
 
-| Action | Owner | Due | Tracking Link |
+| Action | Owner | Due | Tracking link |
 | --- | --- | --- | --- |
 | | | | |

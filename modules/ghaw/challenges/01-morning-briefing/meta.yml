@@ -1,5 +1,5 @@
 id: ghaw-01
-title: Morning Briefing
+title: Morning briefing
 module: ghaw
 track: hello-agent
 difficulty: beginner
@@ -9,7 +9,7 @@ prerequisites:
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-00
+  - gh-aw CLI installed. See ghaw-00.
 description: "Publish a weekday issue summarizing the repository's last 24 hours of activity."
 tags:
   - cron

@@ -1,8 +1,8 @@
-# Activity 2-03: Issue Comment Commands
+# Activity 2-03: Issue comment commands
 
 ## Build
 
-A workflow that responds to slash commands in issue comments. When a team member comments `/summarize`, the workflow reads the issue thread and posts a short summary.
+Build a workflow that responds to slash commands in issue comments. When a team member comments `/summarize`, the workflow reads the issue thread and posts a short summary.
 
 Slash commands let teammates run an agent when they need it. `/summarize` gives reviewers context without making them read a long thread.
 
@@ -19,7 +19,7 @@ Slash commands let teammates run an agent when they need it. `/summarize` gives 
 ---
 
 > [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): point `slash-commands.md` at a repo you own and test `/summarize` on an issue with genuinely useful discussion history.
+> [Bring your own repo](../../setup.md#bring-your-own-repo): point `slash-commands.md` at a repo you own and test `/summarize` on an issue with discussion history.
 
 ---
 
@@ -27,8 +27,8 @@ Slash commands let teammates run an agent when they need it. `/summarize` gives 
 
 Create a gh-aw workflow named `slash-commands.md` in `.github/workflows/` that:
 
-- Triggers on: Comments on issues (`on: issue_comment: types: [created]`)
-- Detects: When a comment body contains `/summarize`
+- Runs on issue comments (`on: issue_comment: types: [created]`)
+- Detects `/summarize` in the comment body
 - Executes `/summarize` by:
   - Reading the full issue (title, body, state)
   - Reading all comments in the thread
@@ -44,20 +44,20 @@ Create a gh-aw workflow named `slash-commands.md` in `.github/workflows/` that:
 
 ---
 
-## Tips & Troubleshooting
+## Tips and troubleshooting
 
-- Slash command pattern: Check if `github.event.comment.body` contains `/summarize`. In the workflow body, reference: "If the comment includes `/summarize`, read the issue..."
-- Lock for agent: Always use `lock-for-agent: true` on comment-triggered workflows to prevent simultaneous runs on the same issue
-- Permissions: Use `min-integrity: approved` to restrict command access to repo members/owners (defense against spam)
-- Checkout: Set `checkout: false` (agent doesn't need code, only metadata)
-- Key extraction: Look for:
+- Check if `github.event.comment.body` contains `/summarize`. Write an instruction such as: "If the comment includes `/summarize`, read the issue..."
+- Always use `lock-for-agent: true` on comment-triggered workflows to prevent simultaneous runs on the same issue.
+- Use `min-integrity: approved` to restrict command access to repo members/owners and prevent spam.
+- Set `checkout: false` because the agent needs only metadata.
+- Tell the agent to look for:
   - Explicit decision statements ("We decided to...")
   - Blockers ("This is blocked by...")
   - Action items ("TODO:", "@mention", "next step")
-- Summary tone: Professional, clear, scannable (use lists and bold text)
-- Triggering on every comment? Add an `if:` condition that checks for `/summarize` in the comment body.
-- Duplicate summaries mean concurrent runs — confirm `lock-for-agent: true` is set.
-- Missing key points? Name the keywords to look for: decisions, blockers, next steps.
+- Use lists to make the summary easy to scan.
+- If the workflow triggers on every comment, add an `if:` condition that checks for `/summarize` in the comment body.
+- If concurrent runs produce duplicate summaries, confirm `lock-for-agent: true` is set.
+- If the summary misses key points, specify keywords such as decisions, blockers, and next steps.
 
 ---
 

@@ -13,7 +13,7 @@
 
   async function init() {
     const challengeId = FP.qp('id');
-    if (!challengeId) { showError('No work package ID specified.'); return; }
+    if (!challengeId) { showError('No activity ID specified.'); return; }
 
     _kiosk = FP.kioskParams();
 
@@ -22,12 +22,12 @@
     catch (e) { showError(e.message); return; }
 
     const challenge = (data.challenges || []).find((c) => c.id === challengeId);
-    if (!challenge) { showError('Work package "' + challengeId + '" not found.'); return; }
+    if (!challenge) { showError('Activity "' + challengeId + '" not found.'); return; }
 
     const mod = (data.modules || []).find((m) => m.id === challenge.module);
     const allChallenges = data.challenges || [];
 
-    document.title = challenge.title + ' — Agentic DevSecOps';
+    document.title = challenge.title + '. Agentic DevSecOps';
     applyModuleColor(challenge.module);
     renderHero(challenge, mod);
     renderFacts(challenge, mod, allChallenges, data.outcomes || []);

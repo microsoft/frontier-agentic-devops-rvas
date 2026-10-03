@@ -1,6 +1,6 @@
-# Ch35: Organization Label Standards
+# Ch35: Organization label standards
 
-> Deliver an organization-owned label standard: default labels for new repositories, reconciliation for existing repositories, and accountable governance evidence.
+> Define organization default labels for new repositories and reconcile labels in existing repositories. Record the taxonomy owner and evidence.
 
 ## Prerequisites
 
@@ -23,7 +23,7 @@ You will:
 A customer has dozens of repositories with labels such as `bug`, `Bug`, `urgent`, `sev1`, `backend`, and `needs review`. Their meanings overlap, reports cannot be trusted, and each new repository repeats the problem. Define one organization taxonomy, apply it to new repositories, and clean up an existing repository. Then hand ownership to the team that will maintain it.
 
 > [!IMPORTANT]
-> Choose the target before setup. If you have an authorised organization and repository cohort that will keep using the taxonomy, use its real default labels and one real repository wherever this guide names `ghec-ch35-existing-service` or `ghec-ch35-new-service`, and skip Setup. Otherwise use the two seeded repositories below, then move the approved taxonomy to an authorized customer target. Organization default labels are an org-wide setting — change them only with org-owner approval.
+> Choose the target before setup. If an authorised organization and repository cohort will use the taxonomy, use its default labels and one repository wherever this guide names `ghec-ch35-existing-service` or `ghec-ch35-new-service`, and skip Setup. Otherwise, use the two seeded repositories below, then move the approved taxonomy to an authorized customer target. **Change organization default labels only with org-owner approval.**
 >
 > Record the selected target, taxonomy owner, exception owner, and next action.
 
@@ -49,7 +49,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 
 ## Tasks
 
-### Part A — Inspect the current label baseline
+### Part A: Inspect the current label baseline
 
 1. Snapshot organization default labels:
    ```bash
@@ -61,7 +61,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
    ```
 3. Identify duplicate meanings, casing drift, missing descriptions, and labels that should be repo-specific rather than organization-wide.
 
-### Part B — Design the approved taxonomy
+### Part B: Design the approved taxonomy
 
 4. Define a stable taxonomy using the same dimension style used in earlier GHEC work:
    - `type:` → `type: bug`, `type: feature`, `type: chore`, `type: docs`
@@ -71,7 +71,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 5. Choose the owner, rationale, color palette, description standard, exception process, and review cadence before changing organization defaults.
 6. Decide which labels are organization defaults and which labels remain repository-local.
 
-### Part C — Configure organization default labels
+### Part C: Configure organization default labels
 
 7. Create or update organization default labels from the approved taxonomy. Use the UI under Organization settings, or use the API:
    ```bash
@@ -88,7 +88,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
    ```
 9. Re-run the snapshot and save the "after" evidence.
 
-### Part D — Verify inheritance on a new repository
+### Part D: Verify inheritance on a new repository
 
 10. Create a new repository after the organization defaults are configured, or use a clean validation repo:
     ```bash
@@ -98,7 +98,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 11. Confirm the new repository contains the approved organization default labels without manual repo-level setup.
 12. Delete the temporary validation repo if it was created only for this proof, or record why it should remain.
 
-### Part E — Reconcile an existing repository
+### Part E: Reconcile an existing repository
 
 13. Map old labels to approved labels. Example:
     - `Bug` and `bug` → `type: bug`
@@ -113,7 +113,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 
 ## Reference links
 
-- Managing default labels for repositories in your organization — https://docs.github.com/en/organizations/managing-organization-settings/managing-default-labels-for-repositories-in-your-organization
-- Managing labels — https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels
-- Labels REST API — https://docs.github.com/en/rest/issues/labels
-- Repositories REST API — https://docs.github.com/en/rest/repos/repos
+- [Managing default labels for repositories in your organization](https://docs.github.com/en/organizations/managing-organization-settings/managing-default-labels-for-repositories-in-your-organization)
+- [Managing labels](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels)
+- [Labels REST API](https://docs.github.com/en/rest/issues/labels)
+- [Repositories REST API](https://docs.github.com/en/rest/repos/repos)

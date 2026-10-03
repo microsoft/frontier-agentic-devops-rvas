@@ -1,8 +1,8 @@
-# Activity S00: Environment Setup
+# Activity S00: Environment setup
 
 ## Objectives
 
-Finish this activity with:
+Complete these steps:
 
 - Select a real repository or service to govern, or record OWASP Juice Shop as the fallback practice target
 - Record the target, criticality, GHAS capability status, accountable roles, and access or licensing blockers in `modules/ghas/resources/ghas-governance-practice.template.md`
@@ -14,9 +14,9 @@ Finish this activity with:
 - Create and push a personal or team working branch to the org repository
 
 > [!NOTE]
-> **Developer path:** Continue here for alert triage and hands-on remediation. If
+> Continue here for alert triage and hands-on remediation. If
 > you own organization rollout, licensing, or policy controls, start with
-> [Security Configuration Pilot & Rollout](../01-admin-security-configuration-pilot-rollout/README.md).
+> [Security configuration pilot and rollout](../01-admin-security-configuration-pilot-rollout/README.md).
 
 ---
 
@@ -34,17 +34,17 @@ and adds the participants or teams that need access.
 
 ---
 
-## Record GHAS Configuration and Ownership
+## Record GHAS configuration and ownership
 
-Before marking setup complete, create the first governance record in
-`modules/ghas/resources/ghas-governance-practice.template.md` covering the items
-listed in Objectives above. Update the record as you work. If the selected
-repository is not ready for hands-on work, use Juice Shop for practice but keep the
-real repository or service as the recorded delivery scope.
+Record the setup decisions listed in Objectives in
+`modules/ghas/resources/ghas-governance-practice.template.md`. Update the record
+as you work. If the selected repository is not ready for hands-on work, practice
+with Juice Shop and keep the real repository or service as the recorded delivery
+scope.
 
 ---
 
-## Create the GHAS Target Repository
+## Create the GHAS target repository
 
 Use the provisioning script in this curriculum repo. It imports the pinned OWASP
 Juice Shop release into your org and commits the CodeQL and Dependabot configuration.
@@ -83,11 +83,11 @@ After provisioning, manually add any participants who need access:
 
 1. Open `https://github.com/<your-org>/ghec-ghas-00-juice-shop/settings/access`.
 2. Add the participant, team, or outside collaborator with the access level your event needs.
-3. Ask each participant to clone this org repo directly — do not fork it — and work on a personal or team branch.
+3. Ask each participant to clone this org repo directly and work on a personal or team branch. Do not fork it.
 
 ---
 
-## Option A: GitHub Codespaces (Recommended)
+## Option A: GitHub Codespaces
 
 This option requires no local installation.
 
@@ -98,7 +98,7 @@ This option requires no local installation.
 
 ---
 
-## Option B: Local Clone
+## Option B: Local clone
 
 If you prefer working locally, use Git and Node.js directly.
 
@@ -134,7 +134,7 @@ gh auth status
 
 ---
 
-## Create Your Branch
+## Create your branch
 
 ```bash
 # For teams
@@ -148,7 +148,7 @@ git push -u origin participant/{your-github-handle}
 
 ---
 
-## Start Juice Shop (Local Runtime)
+## Start Juice Shop locally
 
 The GHAS activities use OWASP Juice Shop for manual exploit testing. Run the app
 from the root of the repository created by the setup script:
@@ -169,7 +169,7 @@ environments work together.
 
 ---
 
-## Verify Your Setup
+## Verify your setup
 
 Run each command and use the results to update the GHAS configuration and ownership record:
 
@@ -192,5 +192,5 @@ Then open `http://localhost:3000` (or the Codespaces-forwarded URL) and confirm 
 Juice Shop homepage loads.
 
 > **Commands alone do not complete this activity.** Confirm the governance record
-> is filled in with the target, GHAS capability status, accountable roles, and
-> any access or licensing blocker owner and target date.
+> includes the target, GHAS capability status, accountable roles, and
+> the owner and target date for each access or licensing blocker.

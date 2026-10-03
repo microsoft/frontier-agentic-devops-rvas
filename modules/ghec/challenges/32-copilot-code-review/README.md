@@ -1,6 +1,6 @@
-# Ch32 — Copilot Code Review
+# Ch32: Copilot code review
 
-> Deliver an evidence-backed Copilot code review operating model: manual review on a real pull request, a bounded decision on automatic review, and human-owned merge controls.
+> Test manual Copilot code review on a pull request and decide whether to enable automatic review for a limited scope. Keep merge decisions with human reviewers.
 
 > [!IMPORTANT]
 > Copilot leaves a **Comment** review. It does not approve, request changes, satisfy a required approval, or block a merge. Human reviewers and existing `CODEOWNERS` / ruleset controls remain the merge decision.
@@ -30,22 +30,22 @@ The fallback is intentionally isolated and namespaced `ghec-ch32-*`. It creates 
 
 ## Tasks
 
-### Part A — Establish the review boundary and evidence baseline
+### Part A: Establish the review boundary and evidence baseline
 
 1. Export or screenshot the effective Copilot policy and the repository's rulesets, branch protections, and `CODEOWNERS`. Record collection date, source level (`enterprise`, `org`, or `repo`), collector, and non-secret evidence location.
 2. Define what Copilot review is expected to find, what remains a human-only decision (architecture, risk acceptance, approvals, merge), and the escalation path for a false positive or suspected missed issue.
 3. Record the review cohort: repositories, branches, PR types, draft treatment, expected volume, named human reviewers, `CODEOWNERS` paths, and exclusions. Do not assume an organization-wide rule is appropriate for every repository.
 
-### Part B — Request and assess a manual Copilot review
+### Part B: Request and assess a manual Copilot review
 
 4. Open or select a bounded pull request. In the PR **Reviewers** sidebar, select **Copilot** and click **Request**. Alternatively, use the REST review-request endpoint to request `copilot-pull-request-reviewer[bot]`.
 5. Read every Copilot comment against the change, tests, threat model, and repository conventions. A designated human reviewer must classify each comment as accepted, rejected with rationale, deferred, or duplicate/noise.
 6. Resolve or discuss comments as appropriate, then obtain the normal human and `CODEOWNERS` reviews. Preserve the PR timeline, reviewer decisions, and final merge result as evidence. Do not count Copilot's comment review as an approval.
 7. Re-request a review only when a human reviewer judges it useful. Record that manual re-review is deliberate; automatic re-review of new pushes is a separate ruleset option.
 
-### Part C — Decide automatic review at repository or organization scope
+### Part C: Decide automatic review at repository or organization scope
 
-8. Inspect a **repository branch ruleset** first for a narrow pilot, or an **organization ruleset** only where the customer has an approved cohort and ownership model. Target the intended branches and, for organization scope, the intended repositories—not an unreviewed blanket estate.
+8. Inspect a repository branch ruleset for a narrow pilot. Use an organization ruleset only for an approved cohort with defined ownership. Target the intended branches and repositories.
 9. In the ruleset, assess **Automatically request Copilot code review**. Set the enforcement and scope only after the accountable owner approves the pilot.
 10. Treat **Review new pushes** and **Review draft pull requests** as deliberate, optional choices:
    - New-push review increases coverage but can repeat comments and consume additional capacity.
@@ -53,17 +53,17 @@ The fallback is intentionally isolated and namespaced `ghec-ch32-*`. It creates 
    - Neither option is required to complete this activity.
 11. Validate on one non-sensitive pilot PR: capture the ruleset export, the PR timeline showing the automatic request, comment triage, human/CODEOWNERS review, and the result. If access or policy prevents the pilot, complete the decision package rather than forcing enablement.
 
-### Part D — Align setup and review context
+### Part D: Align setup and review context
 
 12. Inspect `.github/copilot-instructions.md`, `AGENTS.md`, and applicable path-specific `.github/instructions/**/*.instructions.md`. Keep review guidance factual: supported commands, intentional patterns, security checks, and paths requiring human owner review. Copilot uses instructions from the PR's **base branch**.
 13. Inspect the shared `.github/workflows/copilot-setup-steps.yml`. Copilot code review reuses this setup by default. Keep it least-privilege, reproducible, and suitable for both code review and any cloud-agent use that shares it.
-14. Assess—not require—an optional dedicated `.github/workflows/copilot-code-review.yml` when code review needs a different environment. If present, it takes precedence over the shared setup file for code review. Record runner, permissions, dependencies, network/firewall posture, cost owner, and rollback.
-15. **Preview capabilities are optional and are not required.** Do not enable MCP tools, agent skills, “Fix with Copilot,” or any other public-preview capability to complete this activity. If the customer elects to assess one, record availability, data/tool boundary, approval, and a separate rollback decision.
+14. Assess an optional dedicated `.github/workflows/copilot-code-review.yml` when code review needs a different environment. If present, it takes precedence over the shared setup file for code review. Record runner, permissions, dependencies, network/firewall controls, cost owner, and rollback.
+15. **Preview capabilities are optional.** Do not enable MCP tools, agent skills, "Fix with Copilot," or any other public-preview capability to complete this activity. If the customer elects to assess one, record availability, data/tool boundary, approval, and a separate rollback decision.
 
-### Part E — Evidence, rollback, and handover
+### Part E: Evidence, rollback, and handover
 
 16. Define rollback before expanding: disable or change the automatic-review rule in the relevant ruleset; restore the prior ruleset configuration; retain human-review and `CODEOWNERS` gates; and remove the dedicated review environment only if it is separately approved for removal. Capture before/after exports and the rollback executor.
-17. Handover the operating record to the repository owner and set a review date for comment usefulness, false-positive rate, review latency, Actions/runner cost, coverage, and any exception.
+17. Hand over the operating record to the repository owner. Set a review date for comment usefulness, false-positive rate, review latency, Actions/runner cost, coverage, and any exception.
 
 ## Decision-package fallback
 

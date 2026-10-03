@@ -1,4 +1,4 @@
-# Ch51: LFS and Monorepo Governance
+# Ch51: LFS and monorepo governance
 
 > Deliver governance for a growing monorepo: ownership boundaries, Git LFS patterns, large-file intake, repository health evidence, and explicit storage decisions.
 
@@ -44,7 +44,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 
 ## Tasks
 
-### Part A — Inspect repository health
+### Part A: Inspect repository health
 
 1. Snapshot repository metadata:
    ```bash
@@ -57,7 +57,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
    ```
 3. Record branch/tag count, large file candidates, generated content, package boundaries, and known quota concerns.
 
-### Part B — Define LFS and large-file policy
+### Part B: Define LFS and large-file policy
 
 4. Complete `docs/lfs-monorepo-governance.md` with:
    - approved LFS patterns
@@ -68,27 +68,27 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
    - review cadence and evidence location
 5. Review `.gitattributes` and decide which patterns are advisory versus enforced in the production repository.
 
-### Part C — Map monorepo ownership
+### Part C: Map monorepo ownership
 
 6. Review `.github/CODEOWNERS` and map package paths to accountable teams.
 7. Validate that each service, docs area, and shared package has an owner and escalation path.
 8. Decide whether branch protection or rulesets should require CODEOWNERS review. Record the decision; change enforcement only after approval.
 
-### Part D — Operate large-file intake
+### Part D: Operate large-file intake
 
 9. Open a large-file intake issue for a proposed binary or generated asset.
 10. Capture file pattern, expected size, update frequency, retention need, consuming teams, and alternative storage options.
 11. Apply `lfs: approved` or `lfs: blocked`, and update `.gitattributes` only for approved patterns.
 
-### Part E — Handover and rollout
+### Part E: Handover and rollout
 
 12. Record storage/quota owner, package owners, migration approver, exception owner, and next review date.
 13. Choose the next step: advisory policy, CODEOWNERS enforcement, LFS migration plan, repository split, or storage/quota decision.
 
 ## Reference links
 
-- About Git Large File Storage — https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage
-- Configuring Git Large File Storage — https://docs.github.com/en/repositories/working-with-files/managing-large-files/configuring-git-large-file-storage
-- About CODEOWNERS — https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
-- About large files on GitHub — https://docs.github.com/en/repositories/working-with-files/managing-files/about-large-files-on-github
-- Repository limits — https://docs.github.com/en/repositories/creating-and-managing-repositories/repository-limits
+- [About Git Large File Storage](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage)
+- [Configuring Git Large File Storage](https://docs.github.com/en/repositories/working-with-files/managing-large-files/configuring-git-large-file-storage)
+- [About CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
+- [About large files on GitHub](https://docs.github.com/en/repositories/working-with-files/managing-files/about-large-files-on-github)
+- [Repository limits](https://docs.github.com/en/repositories/creating-and-managing-repositories/repository-limits)

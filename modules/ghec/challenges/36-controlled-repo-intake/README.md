@@ -1,6 +1,6 @@
-# Ch36: Controlled Repository Intake
+# Ch36: Controlled repository intake
 
-> Deliver a governed repository request path: custom issue form, maintainer approval label, and GitHub Actions provisioning with auditable evidence.
+> Use a custom issue form to request repositories. Require a maintainer's approval label before GitHub Actions provisions them, and retain the evidence.
 
 ## Prerequisites
 
@@ -21,11 +21,11 @@ You will:
 - Create an intake repository with a custom issue form for repository requests.
 - Use a maintainer-applied approval label as the provisioning trigger.
 - Provision a repository through GitHub Actions using a scoped workflow identity.
-- Comment back to the request with success or failure evidence and preserve an auditable trail.
+- Comment on the request with success or failure evidence.
 
 ## Scenario
 
-A customer wants fewer shadow repositories and more consistent baselines. Today, members can create a repository without required metadata, an owner, or standard settings. Replace that path with an issue form, maintainer approval, and an automated build that applies the agreed baseline.
+A customer's members can create repositories without required metadata, owners, or standard settings. Replace that process with an issue form and maintainer approval. Automate repository creation with the agreed baseline.
 
 > [!IMPORTANT]
 > Choose the target before setup. If you have an authorised intake repository and organization policy decision, use it wherever this guide names `ghec-ch36-repo-intake` and skip Setup. Otherwise use the seeded intake repository below, then move the validated intake flow to an approved customer target.
@@ -55,7 +55,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 
 ## Tasks
 
-### Part A — Inspect and decide the policy
+### Part A: Inspect and decide the policy
 
 1. Snapshot the current repository-creation policy:
    ```bash
@@ -68,7 +68,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
    ```
 4. If not authorized, write the rollout proposal with approver, risk, timing, and fallback path. This still counts for the policy part; do not change production settings without approval.
 
-### Part B — Configure the intake repository
+### Part B: Configure the intake repository
 
 5. Review `.github/ISSUE_TEMPLATE/repository-request.yml` in `ghec-ch36-repo-intake`.
 6. Open a new repository request and confirm the form captures:
@@ -83,13 +83,13 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
    gh label list --repo <org>/ghec-ch36-repo-intake --limit 100
    ```
 
-### Part C — Configure workflow identity
+### Part C: Configure workflow identity
 
 8. Preferred: create or select a GitHub App with narrowly scoped permissions for repository administration and contents, then provide the workflow an installation token through a secret or token-minting step.
 9. Workshop fallback: create a fine-grained PAT with only the needed organization/repository permissions and store it as an Actions secret named `REPO_PROVISIONER_TOKEN` on the intake repo.
 10. Confirm the credential owner, rotation date, and permissions in the approved secret-management or workflow operating evidence. Never record the secret value.
 
-### Part D — Approve and provision
+### Part D: Approve and provision
 
 11. Open the sample request issue and verify the requested repo name uses the safe prefix `ghec-ch36-`.
 12. As a maintainer, apply the approval label:
@@ -101,7 +101,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
     - `repo-intake: provisioned` on success
     - `repo-intake: failed` on validation or provisioning failure
 
-### Part E — Verify the created repository baseline
+### Part E: Verify the created repository baseline
 
 15. Inspect the created repository:
     ```bash
@@ -113,8 +113,8 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 
 ## Reference links
 
-- Restricting repository creation in your organization — https://docs.github.com/en/organizations/managing-organization-settings/restricting-repository-creation-in-your-organization
-- Configuring issue templates — https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository
-- Using secrets in GitHub Actions — https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions
-- Authenticating as a GitHub App installation — https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/authenticating-as-a-github-app-installation
-- Repositories REST API — https://docs.github.com/en/rest/repos/repos
+- [Restricting repository creation in your organization](https://docs.github.com/en/organizations/managing-organization-settings/restricting-repository-creation-in-your-organization)
+- [Configuring issue templates](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository)
+- [Using secrets in GitHub Actions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions)
+- [Authenticating as a GitHub App installation](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/authenticating-as-a-github-app-installation)
+- [Repositories REST API](https://docs.github.com/en/rest/repos/repos)

@@ -1,5 +1,5 @@
 id: ghaw-08
-title: Stale Patrol
+title: Stale patrol
 module: ghaw
 track: repo-concierge
 difficulty: intermediate
@@ -9,7 +9,7 @@ prerequisites:
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-00
+  - gh-aw CLI installed. See ghaw-00.
   - Completed at least two Hello, Agent activities
 description: "Warn maintainers about inactive issues, then close them after a grace period."
 tags:

@@ -1,5 +1,5 @@
 id: ghaw-24
-title: Malicious Code Scan
+title: Malicious code scan
 module: ghaw
 track: production-patterns
 difficulty: advanced
@@ -9,7 +9,7 @@ prerequisites:
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-00
+  - gh-aw CLI installed. See ghaw-00.
 description: "Review recent code for suspicious patterns and report findings for human investigation."
 tags:
   - security

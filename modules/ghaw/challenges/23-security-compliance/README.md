@@ -44,23 +44,19 @@ Source: [`github/gh-aw/.github/workflows/security-compliance.md`](https://github
 - Set the SLA windows in the body, for example: `"Critical: 3 days, High: 14 days, Medium: 30 days, Low: 90 days"`. Use the organization's actual policy.
 - Change the severity thresholds if the repository tracks only critical and high findings.
 - Add assignees or team mentions to the `create-issue` output: `"Assign all critical issues to @security-team"`
-- Adjust the schedule: daily for high-velocity repos, weekly for smaller projects
+- Run daily for repositories that change often or weekly for smaller projects.
 
 ---
 
 <details>
-<summary>💡 Hints</summary>
+<summary>Hints</summary>
 
-"There are no Dependabot alerts in my test repo"
-→ Add an intentionally vulnerable dependency (e.g., `lodash@4.17.4` is a known CVE), or mock the scan by giving the body an inline list of fake alerts and asking it to classify them.
+If the test repo has no Dependabot alerts, add an intentionally vulnerable dependency such as `lodash@4.17.4`, which has a known CVE. You can also mock the scan by giving the body an inline list of fake alerts and asking it to classify them.
 
-"How does the agent access Dependabot alerts?"
-→ Add `tools: github: toolsets: [security]` to the frontmatter for access to the security advisories API.
+Add `tools: github: toolsets: [security]` to the frontmatter for access to the security advisories API.
 
-"I want it to comment on existing issues instead of opening new ones"
-→ Replace `create-issue` with `add-comment` and add issue-lookup logic in the body: _"If an open issue already exists for this CVE, add a comment with the updated deadline. Only open a new issue if none exists."_
+To comment on existing issues, replace `create-issue` with `add-comment` and add issue-lookup logic in the body: _"If an open issue already exists for this CVE, add a comment with the updated deadline. Only open a new issue if none exists."_
 
-"Should this workflow also open PRs to fix vulnerabilities?"
-→ That's an extension. For this activity, start with issue-creation-only (signal before action). Combine with Dependabot auto-merge or a separate fix workflow for the full automation.
+Keep this activity limited to issue creation. To automate fixes later, combine it with Dependabot auto-merge or a separate fix workflow.
 
 </details>

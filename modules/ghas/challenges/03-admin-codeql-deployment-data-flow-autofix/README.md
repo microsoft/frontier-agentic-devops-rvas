@@ -1,6 +1,6 @@
-# Activity 3: CodeQL Deployment, Data Flow & Autofix
+# Activity 3: CodeQL deployment, data flow and Autofix
 
-Start with CodeQL default setup. A successful workflow is only the first signal. You must also prove that CodeQL found the right languages, scanned the expected source, and produced a current analysis.
+Start with CodeQL default setup. Verify that the workflow succeeds and that CodeQL found the right languages, scanned the expected source, and produced a current analysis.
 
 This activity uses a public OWASP Juice Shop copy when you do not have an approved customer repository. The fixture keeps the advanced workflow off `main`, so default setup remains the first live test.
 
@@ -80,7 +80,7 @@ gh api "repos/$GHAS_REPO/code-scanning/analyses" \
   --jq '.[0] | {id, tool: .tool.name, ref, category, created_at, commit_sha}'
 ```
 
-### 3. Inspect Tool Status, not just the run
+### 3. Inspect Tool Status and run logs
 
 Open **Security and quality > Code scanning > Tool Status**. Check the default branch configuration and record:
 
@@ -91,7 +91,7 @@ Open **Security and quality > Code scanning > Tool Status**. Check the default b
 - first and most recent analysis times;
 - the age of the latest successful analysis.
 
-Use the repository inventory from step 1. Python exists under `tools/`, but the first configuration does not analyze it. That is the gap.
+Compare Tool Status with the repository inventory from step 1. The first configuration does not analyze the Python code under `tools/`.
 
 Check the run logs too. Search for extractor warnings, missing dependencies, files scanned, and database finalization:
 
@@ -114,7 +114,7 @@ For an approved customer repository, fix every unexplained gap before continuing
 
 **A green run with missing application code does not pass.**
 
-### 5. Make and execute the build decision
+### 5. Choose and run the build mode
 
 Choose the smallest build mode that analyzes the real application:
 
@@ -126,7 +126,7 @@ Choose the smallest build mode that analyzes the real application:
 
 The fixture uses interpreted JavaScript/TypeScript and Python. Keep default setup and confirm its no-build analysis covers both languages. **Do not switch to advanced setup just to copy a workflow.**
 
-Move to advanced setup only when the repository has a real build need that default setup cannot meet. The fixture keeps a recovery workflow on `codeql/advanced-setup` with narrow permissions.
+Move to advanced setup only when default setup cannot meet the repository's build requirements. The fixture keeps a recovery workflow on `codeql/advanced-setup` with narrow permissions.
 
 ```bash
 git fetch origin codeql/advanced-setup
@@ -174,7 +174,7 @@ Use an eligible alert on the default branch. Keep the prepared `codeql/vulnerabl
 6. Merge the approved fix and wait for CodeQL to scan the new default-branch commit.
 7. Confirm that the alert closes or no longer appears on the new analysis. Record the new analysis ID and timestamp.
 
-Autofix output is a proposed patch, not an approval. The rescan decides whether the CodeQL path is gone.
+Review and approve the Autofix patch before merging. Use the rescan to verify that the CodeQL path is gone.
 
 If Autofix is unavailable or the alert has no supported suggestion, mark only this item **blocked**. Capture the repository, alert number, availability message, and date. Keep the default setup, coverage repair, build decision, live scan, and data-flow review in scope.
 
@@ -185,7 +185,7 @@ If Autofix is unavailable or the alert has no supported suggestion, mark only th
 - The Python coverage gap was fixed and verified in a later analysis.
 - The build mode was chosen from a real build requirement and executed.
 - One alert was traced from source to sink.
-- An Autofix patch was reviewed, tested, and rescanned, or that item has clear blocked evidence.
+- An Autofix patch was reviewed, tested, and rescanned, or the reason it is blocked was recorded.
 - The latest analysis is successful and current.
 
 ## References

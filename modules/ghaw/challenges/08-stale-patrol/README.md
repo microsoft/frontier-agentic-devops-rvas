@@ -1,10 +1,10 @@
-# Activity 2-04: Stale Patrol
+# Activity 2-04: Stale patrol
 
 ## Build
 
-A daily workflow that finds issues open for more than 60 days with no recent activity. It warns maintainers, then closes an issue if it remains stale for three more days.
+Build a daily workflow that finds issues open for more than 60 days with no recent activity. It warns maintainers, then closes an issue if it remains stale for three more days.
 
-Stale issues make backlogs harder to trust. The workflow warns before closing so maintainers have time to intervene.
+The warning gives maintainers time to intervene before the workflow closes an issue.
 
 ---
 
@@ -28,12 +28,12 @@ Stale issues make backlogs harder to trust. The workflow warns before closing so
 
 Create a gh-aw workflow named `stale-patrol.md` in `.github/workflows/` that:
 
-- Triggers: Daily (early morning, e.g., 9 AM UTC) using `on: schedule:`
-- Scans for issues that meet ALL criteria:
+- Runs daily using `on: schedule:`, for example at 9 AM UTC
+- Scans for issues that meet all these criteria:
   - Open (state: "open")
   - Not labeled `keep-alive` or `long-term` (so you can exempt important issues)
   - No activity (no comments) for >60 days
-  - Created before the last 90 days (old enough to be truly stale)
+  - Created more than 90 days ago
 - For each stale issue:
   - Post a comment: "This issue hasn't been active in 60+ days. If it's still relevant, please comment. Otherwise, I'll close it in 3 days."
   - Add a label: `stale` (optional but helpful)
@@ -41,17 +41,17 @@ Create a gh-aw workflow named `stale-patrol.md` in `.github/workflows/` that:
 
 ---
 
-## Tips & Troubleshooting
+## Tips and troubleshooting
 
-- Schedule syntax: Use `on: schedule: - cron: '0 9 * * *'` for 9 AM UTC daily
-- Age calculation: The agent can calculate days since last activity. Provide: "Consider an issue stale if last comment was >60 days ago"
-- Exemptions: Always check for labels like `keep-alive`, `long-term`, `backlog` before closing
-- Testing: Since the workflow runs on a 60-day clock, you can mock this: "Assume this issue was last updated on [date 70 days ago]"
-- Idempotency: Don't close an already-closed issue. Check state first
-- Tone in closing comment: Friendly and respectful, not harsh. Offer reopening if needed
+- Use `on: schedule: - cron: '0 9 * * *'` for 9 AM UTC daily.
+- Tell the agent how to calculate inactivity: "Consider an issue stale if last comment was >60 days ago."
+- Check for exemption labels such as `keep-alive`, `long-term`, and `backlog` before closing.
+- Test without waiting 60 days by mocking the date: "Assume this issue was last updated on [date 70 days ago]."
+- Check the issue's state first so you do not close an already-closed issue.
+- Keep the closing comment respectful and offer to reopen the issue if needed.
 - Query stale issues through the GitHub API search syntax: `state:open updated:<2024-01-01`.
 - No stale issues found is the correct result in a young repo. Mock a date to test the path.
-- Permission error when closing? Set `permissions: issues: write` (or let safe-outputs handle the write).
+- If closing produces a permission error, set `permissions: issues: write` or let safe-outputs handle the write.
 
 ---
 

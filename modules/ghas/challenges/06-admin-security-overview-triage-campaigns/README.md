@@ -1,6 +1,6 @@
-# Activity 6: Security Overview, Delegated Triage & Campaign Operations
+# Activity 6: Security Overview, delegated triage and campaign operations
 
-Turn a live alert backlog into a published security campaign with named owners and measurable burn-down. You will also repair one coverage gap and run an expiring exception through delegated review.
+Publish a security campaign from a live alert backlog. Assign owners and measure the change in open-alert counts. Repair one coverage gap and run an expiring exception through delegated review.
 
 ## Before you start
 
@@ -12,7 +12,7 @@ Turn a live alert backlog into a published security campaign with named owners a
 
 GitHub stores alert and campaign state. The approved risk system stores the exception approval, expiry, and return path.
 
-## Set up the alert corpus
+## Set up the alerts
 
 Reuse the fixture from `ghas-admin-01`, or provision it now:
 
@@ -30,7 +30,7 @@ The fixture imports OWASP Juice Shop at the pinned `v20.0.0` tag. It seeds CodeQ
 
 ## Exercise
 
-### 1. Verify the corpus through the API
+### 1. Verify the alerts through the API
 
 Count each alert type:
 
@@ -45,7 +45,7 @@ gh api repos/<org>/ghas-admin-01-06-security-operations/secret-scanning/alerts \
   --paginate --jq 'length'
 ```
 
-Query an organization-wide CodeQL slice:
+Query organization-wide CodeQL alerts:
 
 ```bash
 gh api orgs/<org>/code-scanning/alerts --paginate \
@@ -93,7 +93,7 @@ Create the campaign from **Security and quality > Campaigns**. Use the filters f
 
 Copy the campaign URL and number into the `ghas-admin-06: expiring exception and campaign burn-down` issue.
 
-**A campaign plan does not complete this step.** The campaign must be published in GitHub.
+Publish the campaign in GitHub. A campaign plan alone does not complete this step.
 
 ### 5. Prove developer access
 
@@ -143,7 +143,7 @@ burn-down = starting open alerts - ending open alerts
 completion rate = burn-down / starting open alerts
 ```
 
-Record elapsed time, fixed alerts, approved dismissals, and remaining alerts. But do not report a dismissal as a code fix.
+Record elapsed time, fixed alerts, approved dismissals, and remaining alerts. Report dismissals separately from code fixes.
 
 Open the campaign as the developer once more and confirm that its count and completion state match the alert changes.
 
@@ -154,7 +154,7 @@ Approve the next repository set only when:
 - The fixture has the intended security configuration.
 - Scans are current.
 - The developer can reach assigned campaign work.
-- Exception ownership and expiry are active.
+- Each exception has an owner and an expiry review scheduled.
 - The measured burn-down matches the underlying alert states.
 
 Stop rollout for any unexplained attachment failure, stale scan, access failure, campaign limit breach, or overdue exception. Name the rollback owner and the condition that allows work to resume.

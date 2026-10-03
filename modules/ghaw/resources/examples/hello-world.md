@@ -1,4 +1,4 @@
-# Hello World — gh-aw Smoke Test
+# Hello world: gh-aw smoke test
 
 ---
 on:
@@ -25,7 +25,7 @@ Create a "Hello from gh-aw!" issue to confirm that the workflow runtime works.
 ## Steps
 
 1. Note the current date and time (UTC).
-2. Create an issue with the title `👋 Hello from gh-aw! — {YYYY-MM-DD}` and a short body
+2. Create an issue with the title `Hello from gh-aw! {YYYY-MM-DD}` and a short body
    confirming the workflow ran successfully, including the current date/time and a
    one-sentence note that this is an automated smoke test.
 

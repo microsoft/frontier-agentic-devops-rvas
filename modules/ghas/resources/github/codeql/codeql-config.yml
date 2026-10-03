@@ -1,4 +1,4 @@
-# CodeQL Configuration
+# CodeQL configuration
 # Used by .github/workflows/codeql.yml.
 # app/build/ contains JavaScript compiled from TypeScript. Scanning it causes
 # parser errors and duplicates findings from source files across 234 generated

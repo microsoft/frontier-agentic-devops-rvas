@@ -1,6 +1,6 @@
 id: ghas-00
 slug: juice-shop
-title: GHAS Environment Setup
+title: GHAS environment setup
 app: juice-shop
 requires:
   - org

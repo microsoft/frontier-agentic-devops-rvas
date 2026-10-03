@@ -1,4 +1,4 @@
-# Ch50: License Compliance Workflow
+# Ch50: License compliance workflow
 
 > Deliver a repository-level license compliance workflow: dependency inventory, review checkpoint, exception intake, and owner-approved rollout decisions.
 
@@ -45,7 +45,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 
 ## Tasks
 
-### Part A — Capture dependency inventory
+### Part A: Capture dependency inventory
 
 1. Snapshot repository manifests and dependency graph evidence:
    ```bash
@@ -58,7 +58,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
    ```
 3. Record inventory source, timestamp, repository, and known blind spots such as private registries or generated dependencies.
 
-### Part B — Define the license policy
+### Part B: Define the license policy
 
 4. Complete `docs/license-compliance-policy.md` with:
    - allowed license families
@@ -69,7 +69,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
    - review cadence and evidence location
 5. Identify enterprise or organization policy settings that need owner approval before enforcement. Do not change them without explicit approval.
 
-### Part C — Add dependency review checkpoint
+### Part C: Add a dependency review checkpoint
 
 6. Review `.github/dependabot.yml` and decide the update cadence and package ecosystems.
 7. Add dependency review guidance to the pull request process. If using GitHub Actions dependency review, configure it in the customer repository after approval.
@@ -78,22 +78,22 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
    gh api repos/<org>/ghec-ch50-license-compliance-workflow/dependency-graph/compare/main...<branch>
    ```
 
-### Part D — Operate exception intake
+### Part D: Operate exception intake
 
 9. Open a license exception issue using the provided template.
 10. Capture package, version, license, usage, business owner, approver, expiry date, and remediation path.
 11. Apply `license: exception` for approved exceptions or `license: blocked` for rejected requests.
 12. Link the exception back to the dependency change that needs it.
 
-### Part E — Handover and rollout
+### Part E: Handover and rollout
 
 13. Record policy owner, exception approver, repository cohort, and next review date.
 14. Decide the next enforcement step: advisory dependency review, required check, repository ruleset, or enterprise/org policy rollout.
 
 ## Reference links
 
-- About the dependency graph — https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph
-- About dependency review — https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review
-- Configuring dependency review — https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/configuring-dependency-review
-- Configuring Dependabot version updates — https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuring-dependabot-version-updates
-- Dependency review REST API — https://docs.github.com/en/rest/dependency-graph/dependency-review
+- [About the dependency graph](https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph)
+- [About dependency review](https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review)
+- [Configuring dependency review](https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/configuring-dependency-review)
+- [Configuring Dependabot version updates](https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuring-dependabot-version-updates)
+- [Dependency review REST API](https://docs.github.com/en/rest/dependency-graph/dependency-review)

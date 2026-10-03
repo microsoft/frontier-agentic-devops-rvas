@@ -1,5 +1,5 @@
 id: ghaw-07
-title: Issue Comment Commands
+title: Issue comment commands
 module: ghaw
 track: repo-concierge
 difficulty: intermediate
@@ -9,7 +9,7 @@ prerequisites:
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-00
+  - gh-aw CLI installed. See ghaw-00.
   - Completed at least two Hello, Agent activities
 description: "Let users summarize an issue thread with a comment command."
 tags:

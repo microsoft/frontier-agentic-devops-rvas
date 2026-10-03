@@ -1,22 +1,22 @@
 ## Required outcome
 
-Build a governed test-quality pipeline for a repository the delivery team owns:
+Build a test-quality pipeline with human review for a repository the delivery team owns:
 
 1. Daily Testify reviews the test suite and opens a small number of specific `test-improvement` issues.
 2. A team member reviews those issues.
 3. Daily Test Improver reads approved issues and opens one focused, test-only pull request.
 4. A maintainer reviews and merges or closes the pull request.
 
-The workflows are deliberately separate. Analysis can create issues, but it cannot write code. Code generation is limited to a reviewable pull request, using the reviewed issue as its contract.
+Testify can create issues but cannot write code. Test Improver uses a reviewed issue to propose a test-only pull request for a maintainer to review.
 
 > [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): pick one with established test conventions, a test owner, and a maintainer who will review the proposed pull requests, then configure the workflows for its language, framework, test directories, and quality bar.
+> [Bring your own repo](../../setup.md#bring-your-own-repo): pick one with established test conventions and named owners for tests and pull-request review. Configure the workflows for its language, framework, test directories, and quality standards.
 
 ## Workflows
 
 | Workflow | Schedule | Safe output | Purpose |
 |---|---|---|---|
-| Daily Testify | 09:00 | `create-issue` | Finds concrete test-quality gaps and creates up to three actionable issues. |
+| Daily Testify | 09:00 | `create-issue` | Finds test-quality gaps and creates up to three issues with specific fix suggestions. |
 | Daily Test Improver | 10:00 | `create-pull-request` | Reads reviewed `test-improvement` issues and opens at most one test-only pull request. |
 
 The one-hour offset lets Testify create issues before the Improver evaluates them. The issue label and issue-body format are the contract between the workflows.
@@ -54,13 +54,13 @@ The one-hour offset lets Testify create issues before the Improver evaluates the
    gh aw compile daily-test-improver
    ```
 
-7. Run Testify manually. Review one created issue before allowing the Improver to consume it.
+7. Run Testify manually. Review one created issue before allowing the Improver to act on it.
 
 8. Dry-run Test Improver:
    ```bash
    gh aw run daily-test-improver --dry-run
    ```
-   Confirm that the proposed test is valid for the repository's framework and actually proves behavior rather than merely raising coverage.
+   Confirm that the proposed test works with the repository's framework and verifies behavior, rather than only raising coverage.
 
 ## Expected workflow contracts
 
@@ -84,7 +84,7 @@ engine: copilot
 ---
 ```
 
-The prompt must name the repository's test standards and require issues to use the `test-improvement` label. It must limit output to specific, actionable gaps.
+The prompt must name the repository's test standards and require issues to use the `test-improvement` label. Each issue must describe a specific gap and how to fix it.
 
 ### Daily Test Improver
 

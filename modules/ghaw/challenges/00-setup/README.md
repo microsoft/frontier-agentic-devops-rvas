@@ -1,8 +1,8 @@
-# Activity 00 — Environment Setup
+# Activity 00: Environment setup
 
 ## Required outcome
 
-Complete this activity with:
+Before continuing, confirm you have:
 
 - A working development environment (GitHub Codespaces or local dev container)
 - An authenticated `gh` CLI session
@@ -20,13 +20,13 @@ Complete this activity with:
 
 ## Choose your environment
 
-Follow the [GHAW setup guide](../../setup.md) to open a Codespace or local dev container. Both options install `gh-aw` automatically via `postCreate.sh`. Once your terminal is ready, continue below.
+Follow the [GHAW setup guide](../../setup.md) to open a Codespace or local dev container. Both options install `gh-aw` automatically via `postCreate.sh`.
 
 ---
 
 ## Authenticate the GitHub CLI
 
-Your container does not have your GitHub credentials pre-loaded. Run:
+Authenticate the CLI with your GitHub account:
 
 ```bash
 gh auth login
@@ -56,4 +56,4 @@ gh aw trial modules/ghaw/resources/examples/hello-world.md --logical-repo micros
 
 > All four commands must succeed before you move on. If `gh aw --version` fails, reinstall it with the command in the [GHAW setup guide](../../setup.md).
 
-`--logical-repo` tells `gh-aw` which repository to simulate, so it doesn't need to infer one from your local Git remote (useful if your clone uses an SSH host alias). See the [GHAW setup guide](../../setup.md) for what trial mode does with write access.
+`--logical-repo` tells `gh-aw` which repository to simulate instead of using your local Git remote. This helps when your clone uses an SSH host alias. See the [GHAW setup guide](../../setup.md) for trial mode's write-access requirements.

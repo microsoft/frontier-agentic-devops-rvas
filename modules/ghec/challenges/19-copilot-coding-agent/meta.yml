@@ -1,5 +1,5 @@
 id: ghec-ch19
-title: Copilot Cloud Agent
+title: Copilot cloud agent
 module: ghec
 track: automation-ai
 difficulty: advanced
@@ -23,9 +23,9 @@ app_dependency: none
 emu_compatible: false
 min_environment: org
 provision_creates:
-- repo ghec-ch19-copilot-coding-agent (small seeded buggy repo, NOT Juice Shop — short/gradable agent runs)
+- repo ghec-ch19-copilot-coding-agent with a small seeded bug for short, assessable agent runs. It does not use Juice Shop.
 - a failing test that pins a single clear bug + CI workflow to verify the fix
-- a well-framed seeded issue (repro + acceptance criteria) ready to assign to Copilot
+- a seeded issue (repro + acceptance criteria) ready to assign to Copilot
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/19-copilot-coding-agent/meta.yml

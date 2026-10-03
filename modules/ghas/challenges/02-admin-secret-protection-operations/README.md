@@ -1,14 +1,14 @@
-# Activity 2: Secret Protection Operations
+# Activity 2: Secret Protection operations
 
-Run one secret through its full lifecycle: discovery, prevention, reviewed bypass, response, and closure. GitHub must hold the evidence. A draft configuration or tabletop does not pass this lab.
+Test secret discovery, push prevention, reviewed bypass, response, and alert closure. Record the live results in GitHub. A draft configuration or tabletop does not pass this lab.
 
 ## Before you start
 
 - Complete `ghas-admin-01`.
 - Use an organization-owned test repository where GitHub Secret Protection is licensed.
 - Assign two people:
-  - **Operator:** provisions the repository, pushes the test commits, and requests the bypass.
-  - **Reviewer:** reviews the delegated request. The reviewer must use a different GitHub account.
+  - The operator provisions the repository, pushes the test commits, and requests the bypass.
+  - The reviewer reviews the delegated request from a different GitHub account.
 - Install `gh`, `git`, and `jq`.
 - Never replace the seeded values with a live credential.
 
@@ -28,7 +28,7 @@ pwsh -File modules/ghas/resources/provisioning/challenges/02-admin-secret-protec
   provision -Org <org>
 ```
 
-The default repository is `ghas-admin-02-secret-operations` and is private. The fixture also opens an issue named **GHAS Admin 02: secret protection operations evidence**. Use that issue for alert numbers, commit SHAs, reviewer names, and blocked acceptance items. Do not paste secret values.
+The default repository is private and named `ghas-admin-02-secret-operations`. The fixture also opens an issue named "GHAS Admin 02: secret protection operations evidence". Use that issue for alert numbers, commit SHAs, reviewer names, and blocked acceptance items. **Do not paste secret values.**
 
 Check the fixture before continuing:
 
@@ -64,7 +64,7 @@ gh api "repos/$ORG/$REPO" \
   }'
 ```
 
-**Pass:** `secret_scanning` and `push_protection` both return `enabled`.
+Confirm that `secret_scanning` and `push_protection` both return `enabled`.
 
 If the private repository cannot enable GitHub Secret Protection, record the entitlement or permission error in the evidence issue and mark this acceptance item **blocked**. A public-repository substitute does not prove the licensed control.
 
@@ -95,7 +95,7 @@ gh api "repos/$ORG/$REPO/secret-scanning/alerts/<alert-number>/locations" \
 
 Match the alert type, path, branch or commit, and count to the manifest. The `RVAS_DEMO_...` row should not have an alert yet because its custom pattern is not published.
 
-Validity is evidence, not a closure decision. `active` needs immediate revocation or rotation. `inactive` still needs an exposure review. `unknown` means the provider did not confirm status; it does not mean the credential is safe.
+Review exposure before closing an alert, whatever its validity result. `active` needs immediate revocation or rotation. `inactive` still needs an exposure review. `unknown` means the provider did not confirm status; it does not mean the credential is safe.
 
 ## 3. Resolve the seeded provider alerts
 
@@ -144,7 +144,7 @@ git commit -m "Test push protection block"
 git push
 ```
 
-**Pass:** GitHub rejects the push and reports the expected secret type and file. Save the blocked commit SHA and the request URL. Do not copy the detected value into the evidence issue.
+GitHub must reject the push and report the expected secret type and file. Save the blocked commit SHA and the request URL. Do not copy the detected value into the evidence issue.
 
 If the push succeeds without a block, this item fails. Confirm that push protection is enabled and that the provider pattern supports push protection, then repeat with a new branch and new synthetic pair.
 
@@ -156,7 +156,7 @@ Open the request URL from the blocked push. The operator submits a bypass reques
 
 The assigned reviewer checks the repository, commit, secret type, and request comment. The reviewer approves this controlled request from their own GitHub account. If the requester reviews the request, the lab does not pass.
 
-Bypass requests expire after **seven days**. An expired request must be submitted again. Record the request date and expiry date in the evidence issue so the reviewer rota has a real deadline.
+Bypass requests expire after **seven days**. An expired request must be submitted again. Record the request date and expiry date in the evidence issue so reviewers know the deadline.
 
 After approval, the operator pushes the same commit:
 
@@ -181,7 +181,7 @@ gh api "repos/$ORG/$REPO/secret-scanning/alerts?is_bypassed=true&per_page=100" -
   }'
 ```
 
-**Pass:** the alert shows the operator as requester, the other account as reviewer, and `push_protection_bypassed: true`.
+Confirm that the alert shows the operator as requester, the other account as reviewer, and `push_protection_bypassed: true`.
 
 Remove the file in a new commit and push the cleanup. Then resolve the alert as `used_in_tests`. The bypass created an exposure record even though the value was synthetic.
 
@@ -210,7 +210,7 @@ gh api "repos/$ORG/$REPO/secret-scanning/alerts?per_page=100" --paginate \
     {number, state, secret_type, path: .first_location_detected.path}'
 ```
 
-**Pass:** the pattern state is published and a live alert points to `fixtures/internal-token.txt`.
+Confirm that the pattern state is published and a live alert points to `fixtures/internal-token.txt`.
 
 Resolve the custom-pattern alert as `used_in_tests` with a comment that names the fixture and pattern. If the product, license, or role cannot publish the pattern, mark this item **blocked**. A regex draft or dry-run result does not pass.
 

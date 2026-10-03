@@ -1,5 +1,5 @@
 id: ghec-ch26
-title: Migrate Legacy VCS (SVN, Mercurial, TFVC, Perforce) to GitHub
+title: Migrate legacy VCS (SVN, Mercurial, TFVC, Perforce) to GitHub
 module: ghec
 track: migration
 difficulty: advanced

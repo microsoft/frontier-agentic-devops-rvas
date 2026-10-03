@@ -1,4 +1,4 @@
-# Ch45: Packages and Container Registry Governance
+# Ch45: Packages and container registry governance
 
 > Govern GitHub Packages and GHCR container images with approved naming, visibility, access, retention, provenance, and cleanup evidence.
 
@@ -29,25 +29,25 @@ Setup creates `ghec-ch45-container-governance` with a `Containerfile`, workflow 
 
 ## Tasks
 
-### Part A — Define the package standard
+### Part A: Define the package standard
 
 1. Record the approved naming pattern, owner, source repository, visibility, access model, retention period, and deletion/restore approver.
 2. Decide which metadata is required: README, description, OCI labels, source link, license, and provenance.
 3. Decide whether packages inherit repository permissions or use package-specific grants.
 
-### Part B — Publish a sample container
+### Part B: Publish a sample container
 
 4. Build the sample image locally or through the seeded workflow.
 5. Authenticate to GHCR using an approved token path and publish `ghcr.io/<org>/ghec-ch45-container-governance:<tag>`.
 6. Capture package URL, digest, tags, and source repository link.
 
-### Part C — Govern access and visibility
+### Part C: Govern access and visibility
 
 7. Set package visibility explicitly and document why it is private, internal, or public.
 8. Connect package access to the intended repository or team.
 9. Verify a non-authorized user or repository cannot pull or publish if that is part of the standard.
 
-### Part D — Retention and cleanup
+### Part D: Retention and cleanup
 
 10. Identify stale tags or unapproved packages in the sample namespace.
 11. Delete only approved sample packages or record why they must remain.
@@ -55,7 +55,7 @@ Setup creates `ghec-ch45-container-governance` with a `Containerfile`, workflow 
 
 ## Reference links
 
-- Working with the Container registry — https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry
-- Package access control and visibility — https://docs.github.com/en/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility
-- Deleting and restoring a package — https://docs.github.com/en/packages/learn-github-packages/deleting-and-restoring-a-package
-- Publishing Docker images — https://docs.github.com/en/actions/publishing-packages/publishing-docker-images
+- [Working with the Container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)
+- [Package access control and visibility](https://docs.github.com/en/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility)
+- [Deleting and restoring a package](https://docs.github.com/en/packages/learn-github-packages/deleting-and-restoring-a-package)
+- [Publishing Docker images](https://docs.github.com/en/actions/publishing-packages/publishing-docker-images)

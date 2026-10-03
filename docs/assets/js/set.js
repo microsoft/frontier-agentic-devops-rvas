@@ -29,13 +29,13 @@
 
   function renderHeading(name, n) {
     const title = name || 'Your activities';
-    document.title = title + ' — Agentic DevSecOps';
+    document.title = title + '. Agentic DevSecOps';
     const h = document.getElementById('setHeading');
     if (h) h.textContent = name ? name : 'Your activities.';
     const intro = document.getElementById('setIntro');
     if (intro) {
       intro.textContent =
-        `This set has ${n} activit${n === 1 ? 'y' : 'ies'} chosen for your team. ` +
+        `Your team's set has ${n} activit${n === 1 ? 'y' : 'ies'}. ` +
         'Work through them at your own pace.';
     }
   }

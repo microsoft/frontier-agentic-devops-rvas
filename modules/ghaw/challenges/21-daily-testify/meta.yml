@@ -1,5 +1,5 @@
 id: ghaw-21
-title: Test Quality Improvement Pipeline
+title: Test quality improvement pipeline
 module: ghaw
 track: production-patterns
 difficulty: advanced
@@ -9,7 +9,7 @@ prerequisites:
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
-  - gh-aw CLI installed — see ghaw-00
+  - gh-aw CLI installed. See ghaw-00.
 description: "Create test-improvement issues, then open test-only pull requests after review."
 tags:
   - testing

@@ -1,7 +1,7 @@
-# Dev Container — Frontier GitHub Platform Delivery Session
+# Dev container for the Frontier GitHub Platform delivery session
 
-A single **all-in-one** dev container that pre-installs every tool needed by **all four
-modules** (GHEC, GHAS, GHAW, SRE Agent) so you can work any challenge from one environment.
+This dev container installs the tools for all four modules. Use it for GHEC, GHAS,
+GHAW, and SRE Agent activities.
 
 ## What's included
 
@@ -10,33 +10,30 @@ modules** (GHEC, GHAS, GHAW, SRE Agent) so you can work any challenge from one e
 | `git` | `base:ubuntu` base image | all modules |
 | `jq` | `postCreate.sh` (apt) | all modules |
 | `gh` CLI | `github-cli` feature | all modules |
-| **`gh-aw`** (GitHub Agentic Workflows) | `postCreate.sh` | GHAW, SRE |
-| **Node 22** + `npm` | `node` feature | SRE sample app, Juice Shop |
-| **Python 3.12** | `python` feature | GHEC/GHAW helpers |
-| **Azure CLI** (`az`) | `azure-cli` feature | SRE Agent |
-| **Bicep** | `postCreate.sh` (`az bicep install`) | SRE Agent |
-| **Docker** (docker-in-docker) | `docker-in-docker` feature | GHAS (Juice Shop) |
+| `gh-aw` (GitHub Agentic Workflows) | `postCreate.sh` | GHAW, SRE |
+| Node 22 + `npm` | `node` feature | SRE sample app, Juice Shop |
+| Python 3.12 | `python` feature | GHEC/GHAW helpers |
+| Azure CLI (`az`) | `azure-cli` feature | SRE Agent |
+| Bicep | `postCreate.sh` (`az bicep install`) | SRE Agent |
+| Docker (docker-in-docker) | `docker-in-docker` feature | GHAS (Juice Shop) |
 
-The base is the lightweight official **`mcr.microsoft.com/devcontainers/base:ubuntu-22.04`**
-image (~a few hundred MB). Every tool is layered on via pinned Dev Container Features, so the
-container stays small and reproducible rather than shipping a ~10GB universal image.
+The container uses the official `mcr.microsoft.com/devcontainers/base:ubuntu-22.04`
+image. Pinned Dev Container Features install the tools.
 
 VS Code extensions: Copilot + Copilot Chat, GitHub Actions, CodeQL, Bicep, YAML, Markdown.
 
-## What's *not* included (by design)
+## Sample apps
 
-This is a **tools-only** container. The per-module **sample apps** — OWASP **Juice Shop**
-(GHAS) and **Contoso Claims** (SRE) — are **not auto-pulled** at container create time
-(they are large; ~75% of participants never need both). Juice Shop is registered as a git
-submodule and fetched lazily when needed.
+The container does not fetch external sample apps when it starts.
+Juice Shop is a git submodule that you fetch when needed.
 
 **GHAS participants:** after the container starts, run:
 ```bash
 npm run setup:juice-shop
 ```
-This fetches Juice Shop at the pinned commit, verifies the SHA, and links it to `app/` so
-`cd app && npm start` works immediately. Contoso Claims (SRE module) is vendored in-tree
-and needs no separate fetch.
+This fetches Juice Shop at the pinned commit, verifies the SHA, and links it to `app/`.
+Follow the [GHAS setup guide](../modules/ghas/setup.md) to install its dependencies and run it.
+The local SRE sample app is included in the repository and needs no separate fetch.
 
 ## Getting started
 
@@ -60,7 +57,7 @@ bash scripts/doctor.sh
 It checks `git`, `gh`, `gh aw`, `jq`, `node`, `npm`, `python3`, `az`, `bicep`, and `docker`,
 prints a status table, and exits non-zero if a required tool is missing.
 
-## Build & verify locally (maintainers)
+## Build and verify locally
 
 Requires Docker + the [Dev Containers CLI](https://github.com/devcontainers/cli):
 

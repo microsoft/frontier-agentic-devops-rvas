@@ -1,4 +1,4 @@
-# Ch25 — Migrate from GitLab to GitHub
+# Ch25: Migrate from GitLab to GitHub
 
 > Deliver an approved GitLab source-and-history migration to GitHub with Git CLI, then convert its GitLab CI pipeline to GitHub Actions with GitHub Actions Importer.
 
@@ -6,7 +6,7 @@
 
 GitLab is not a self-serve source for GitHub Enterprise Importer. A full GitLab migration that preserves metadata such as Merge Requests and issues through GEI is a GitHub Expert Services engagement.
 
-This hands-on activity uses the self-serve path that is available to any Git repository: source + Git history via Git CLI. You will then convert GitLab CI separately with GitHub Actions Importer. Treat this as a pilot cutover pattern, not a full metadata migration.
+Use Git CLI to migrate source and Git history, then convert GitLab CI separately with GitHub Actions Importer. This pilot does not migrate platform metadata.
 
 ## Prerequisites
 
@@ -25,7 +25,7 @@ This pilot mirrors Git history into GitHub, converts the CI definition, and reco
 
 ## Tasks
 
-### Part A — Prepare the target repository
+### Part A: Prepare the target repository
 
 1. Authenticate to GitHub CLI.
 
@@ -47,7 +47,7 @@ This pilot mirrors Git history into GitHub, converts the CI definition, and reco
    gh repo create "$GITHUB_ORG/$GITHUB_REPO" --private --description "Pilot migration from GitLab" --confirm
    ```
 
-### Part B — Mirror GitLab source and history
+### Part B: Mirror GitLab source and history
 
 1. Create a bare clone of the GitLab repository.
 
@@ -74,7 +74,7 @@ This pilot mirrors Git history into GitHub, converts the CI definition, and reco
    git ls-remote --tags "https://github.com/$GITHUB_ORG/$GITHUB_REPO.git"
    ```
 
-### Part C — Document what did not migrate
+### Part C: Document what did not migrate
 
 The Git CLI path does not migrate GitLab metadata or platform services. Record these as explicit follow-up items in your cutover notes:
 
@@ -87,7 +87,7 @@ The Git CLI path does not migrate GitLab metadata or platform services. Record t
 
 If the customer requires Merge Request, issue, or other metadata fidelity, engage GitHub Expert Services for the GitLab-to-GHEC path. For GitLab into GitHub Enterprise Server, the expert-led path is `gl-exporter` → `ghe-migrator`.
 
-### Part D — Plan around large repository limits
+### Part D: Plan around large repository limits
 
 GitHub blocks individual files above 100 MiB and limits a single push to 2 GiB. If the first mirror push fails with `remote: fatal: pack exceeds maximum allowed size`, push the default branch in batches and finish with a mirror push.
 
@@ -107,7 +107,7 @@ rm -rf repo.git
 
 Reduce `1000` if any batch still exceeds 2 GiB. If a single commit is larger than 2 GiB, split that commit or restart history intentionally; GitHub cannot accept it in one push.
 
-### Part E — Convert GitLab CI to GitHub Actions
+### Part E: Convert GitLab CI to GitHub Actions
 
 Repository migration tools do not carry CI/CD pipelines. Use GitHub Actions Importer to convert `.gitlab-ci.yml` into GitHub Actions workflow YAML. The importer targets about 80% automatic conversion, so always review the generated workflow before production use.
 
@@ -144,6 +144,6 @@ Repository migration tools do not carry CI/CD pipelines. Use GitHub Actions Impo
 
 ## Reference links
 
-- Migration paths to GitHub — https://docs.github.com/en/migrations/overview/migration-paths-to-github
-- Importing an external Git repository using the command line — https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/importing-an-external-git-repository-using-the-command-line
-- GitHub Actions Importer — https://docs.github.com/en/actions/tutorials/migrate-to-github-actions/automated-migrations/use-github-actions-importer
+- [Migration paths to GitHub](https://docs.github.com/en/migrations/overview/migration-paths-to-github)
+- [Importing an external Git repository using the command line](https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/importing-an-external-git-repository-using-the-command-line)
+- [GitHub Actions Importer](https://docs.github.com/en/actions/tutorials/migrate-to-github-actions/automated-migrations/use-github-actions-importer)

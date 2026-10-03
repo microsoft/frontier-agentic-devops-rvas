@@ -1,8 +1,8 @@
-# Activity 3-01: The Relay
+# Activity 3-01: The relay
 
 ## Background
 
-Workflows normally run in isolation. To coordinate two of them, the first must leave data the second can read. Build a producer that writes structured data to `repo-memory` and a consumer that reads it on its next trigger — splitting automation into stages with explicit, testable handoffs.
+To coordinate two workflows, the first must leave data the second can read. Build a producer that writes structured data to `repo-memory` and a consumer that reads it on its next trigger. Test each stage and the data passed between them.
 
 ---
 
@@ -24,9 +24,9 @@ Workflows normally run in isolation. To coordinate two of them, the first must l
 
 Build two workflows that work together:
 
-### Producer Workflow: `daily-metrics-collector.md`
+### Producer workflow: `daily-metrics-collector.md`
 
-Triggers daily and collects issue metrics:
+The producer runs daily and collects issue metrics:
 - Current open issue count
 - Average time-to-close for recently closed issues (last 7 days)
 - Distribution of labels (top 5)
@@ -35,26 +35,26 @@ Write this data as a JSON snapshot to `repo-memory` with a timestamped filename 
 
 Use `safe-outputs: noop`. This workflow stores data and produces no user-facing output.
 
-Success: File appears in `repo-memory/` branch with correct JSON structure.
+Confirm that the file appears in the `repo-memory/` branch with the expected JSON structure.
 
-### Consumer Workflow: `weekly-metrics-report.md`
+### Consumer workflow: `weekly-metrics-report.md`
 
-Triggers weekly (or manually via `workflow_dispatch`) and:
+The consumer runs weekly or manually via `workflow_dispatch`. It:
 1. Reads the last 7 JSON snapshots from `repo-memory/metrics/`
 2. Analyzes the trend (is issue volume trending up or down?)
 3. Creates a discussion with a summary: "This week, we closed {X} issues. Average time-to-close is {Y} days, trending {direction}."
 
 Use `safe-outputs: create-discussion`.
 
-Success: Discussion appears with the trend analysis.
+Confirm that the discussion appears with the trend analysis.
 
 ---
 
-## Tips & Troubleshooting
+## Tips and troubleshooting
 
-- `repo-memory` is a real branch — browse it on GitHub to confirm files were written. If it's missing, check the workflow logs first.
+- Browse the `repo-memory` branch on GitHub to confirm files were written. If it's missing, check the workflow logs first.
 - The `file-glob` filter in `tools: repo-memory:` silently drops non-matching files; test the glob (e.g. `echo metrics/**/*.json`) if the consumer can't read anything.
-- Use simple `gh api` calls for the producer's issue counts — no need to parse the whole repo.
+- Use `gh api` calls for the producer's issue counts without parsing the whole repo.
 - Compute the trend by comparing the first and last of the last 7 snapshots ("up"/"down"/"stable").
 - Use `expires:` on the discussion to auto-close old reports.
 

@@ -1,10 +1,10 @@
-# Ch24 — Migrate Bitbucket to GitHub (Server & Cloud)
+# Ch24: Migrate Bitbucket to GitHub (Server & Cloud)
 
-> Deliver an approved Bitbucket Server/Data Center migration with `gh bbs2gh`, or validate the explicitly limited source-history path for Bitbucket Cloud.
+> Migrate an approved Bitbucket Server/Data Center repository with `gh bbs2gh`, or test the source-and-history-only path for Bitbucket Cloud.
 
 ## Prerequisites
 
-Activities: _(none — this activity is self-contained)_
+This activity has no activity dependencies.
 
 Access and tooling you need:
 - GitHub organization where you are an org owner.
@@ -16,19 +16,17 @@ Access and tooling you need:
 
 ## Scenario
 
-Your migration team has two Bitbucket populations. The production estate runs Bitbucket Server/Data Center and needs pull request history in GitHub. A smaller team uses Bitbucket Cloud, which has no first-party metadata migration path, so you must still preserve Git source and history and clearly communicate what will be lost.
+Your migration team supports Bitbucket Server/Data Center and Bitbucket Cloud. The production repositories on Server/Data Center need pull request history in GitHub. Bitbucket Cloud has no first-party metadata migration path. Preserve its Git source and history, and document what will be lost.
 
 > [!IMPORTANT]
 > Use an approved Bitbucket Server/Data Center or Bitbucket Cloud repository as the source and target throughout this guide. Run the migration only in an agreed change window with source writes frozen. Without an approved repository, record the access constraint and next action instead of migrating an unapproved example.
 
-## Important fidelity decision
+## Choose the migration path
 
-Use the paths exactly as separated below:
+- Use Path A for Bitbucket Server/Data Center via `gh bbs2gh`. It preserves Git source, history, and pull request metadata.
+- Use Path B for Bitbucket Cloud via Git CLI. It preserves source and history only. GitHub Enterprise Importer and `gh bbs2gh` do not support Bitbucket Cloud; first-party tools cannot automatically migrate its pull requests, comments, issues, or pipelines.
 
-- Path A — Bitbucket Server/Data Center via `gh bbs2gh`: primary path for Git source, history, and pull request metadata.
-- Path B — Bitbucket Cloud via Git CLI: fallback path for source and history only. Bitbucket Cloud is not supported by GitHub Enterprise Importer or `gh bbs2gh`; pull requests, comments, issues, and pipelines cannot be auto-migrated by first-party tools.
-
-## Path A — Bitbucket Server/Data Center via `gh bbs2gh`
+## Path A: Bitbucket Server/Data Center via `gh bbs2gh`
 
 ### 1. Install the extension and authenticate
 
@@ -219,7 +217,7 @@ Document what did not migrate from Bitbucket Server/Data Center:
 - Repository permissions.
 - CI pipelines.
 
-## Path B — Bitbucket Cloud fallback with Git CLI
+## Path B: Bitbucket Cloud fallback with Git CLI
 
 ### 1. Record the limitation before migrating
 
@@ -275,9 +273,9 @@ Delete or lifecycle-expire temporary S3/Azure staging objects if you did not use
 
 ## References
 
-- About GitHub Enterprise Importer — https://docs.github.com/en/migrations/using-github-enterprise-importer/understanding-github-enterprise-importer/about-github-enterprise-importer
-- About migrations from Bitbucket Server to GitHub Enterprise Cloud — https://docs.github.com/en/migrations/using-github-enterprise-importer/migrating-from-bitbucket-server-to-github-enterprise-cloud/about-migrations-from-bitbucket-server-to-github-enterprise-cloud
-- Overview of a migration from Bitbucket Server to GitHub Enterprise Cloud — https://docs.github.com/en/migrations/using-github-enterprise-importer/migrating-from-bitbucket-server-to-github-enterprise-cloud/overview-of-a-migration-from-bitbucket-server-to-github-enterprise-cloud
-- Managing access for a Bitbucket Server migration — https://docs.github.com/en/migrations/using-github-enterprise-importer/migrating-from-bitbucket-server-to-github-enterprise-cloud/managing-access-for-a-migration-from-bitbucket-server-to-github-enterprise-cloud
-- Migrating repositories from Bitbucket Server to GitHub Enterprise Cloud — https://docs.github.com/en/migrations/using-github-enterprise-importer/migrating-from-bitbucket-server-to-github-enterprise-cloud/migrating-repositories-from-bitbucket-server-to-github-enterprise-cloud
-- `gh-bbs2gh` extension — https://github.com/github/gh-bbs2gh
+- [About GitHub Enterprise Importer](https://docs.github.com/en/migrations/using-github-enterprise-importer/understanding-github-enterprise-importer/about-github-enterprise-importer)
+- [About migrations from Bitbucket Server to GitHub Enterprise Cloud](https://docs.github.com/en/migrations/using-github-enterprise-importer/migrating-from-bitbucket-server-to-github-enterprise-cloud/about-migrations-from-bitbucket-server-to-github-enterprise-cloud)
+- [Overview of a migration from Bitbucket Server to GitHub Enterprise Cloud](https://docs.github.com/en/migrations/using-github-enterprise-importer/migrating-from-bitbucket-server-to-github-enterprise-cloud/overview-of-a-migration-from-bitbucket-server-to-github-enterprise-cloud)
+- [Managing access for a Bitbucket Server migration](https://docs.github.com/en/migrations/using-github-enterprise-importer/migrating-from-bitbucket-server-to-github-enterprise-cloud/managing-access-for-a-migration-from-bitbucket-server-to-github-enterprise-cloud)
+- [Migrating repositories from Bitbucket Server to GitHub Enterprise Cloud](https://docs.github.com/en/migrations/using-github-enterprise-importer/migrating-from-bitbucket-server-to-github-enterprise-cloud/migrating-repositories-from-bitbucket-server-to-github-enterprise-cloud)
+- [`gh-bbs2gh` extension](https://github.com/github/gh-bbs2gh)

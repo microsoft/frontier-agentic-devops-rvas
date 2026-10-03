@@ -1,6 +1,6 @@
 ## Background
 
-Malicious code can arrive in a dependency update or an ordinary-looking refactor. The Malicious Code Scan reviews recent changes each day and opens alerts for human investigation — an additional detection signal for code-injection campaigns, compromised contributors, and dependency poisoning. It does not block changes, prevent deployment, or replace review and security controls.
+Malicious code can arrive in a dependency update or an ordinary-looking refactor. The Malicious Code Scan reviews recent changes each day and opens alerts for human investigation. It can help detect code-injection campaigns, compromised contributors, and dependency poisoning. It does not block changes, prevent deployment, or replace review and security controls.
 
 Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://github.com/githubnext/agentics/blob/main/workflows/daily-malicious-code-scan.md)
 
@@ -32,7 +32,7 @@ Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://g
    gh aw compile daily-malicious-code-scan
    ```
 
-6. Test it by adding a benign-but-flaggable pattern to a branch (e.g., a base64-encoded eval), then manually triggering the scan.
+6. Add a harmless test pattern to a branch, such as a base64-encoded eval in a comment, then trigger the scan manually.
 
 7. Verify the alert issue contains enough detail to act on.
 
@@ -46,23 +46,19 @@ Source: [`githubnext/agentics/workflows/daily-malicious-code-scan.md`](https://g
 ---
 
 <details>
-<summary>💡 Hints</summary>
+<summary>Hints</summary>
 
-"What patterns should I tell it to look for?"
-→ Start with the classic supply-chain indicators:
+Start with these supply-chain indicators:
 - Base64/hex encoded strings being evaluated
 - `fetch`, `http.request`, or `curl` calls to external URLs added in the last week
 - Access to `process.env` / `os.environ` for keys like `TOKEN`, `SECRET`, `KEY`, `PASSWORD`
 - Dynamic `require`/`import` with non-string arguments
 - New files added to `.github/workflows/` that weren't in a PR
 
-"How do I test this without writing real malicious code?"
-→ Add a clearly fake pattern: `// SCAN-TEST: eval(Buffer.from('dGVzdA==').toString)`. The comment marks it as intentional, but the scanner can still flag it. Remove it after testing.
+Test with a clearly fake pattern: `// SCAN-TEST: eval(Buffer.from('dGVzdA==').toString)`. The comment marks it as intentional, but the scanner can still flag it. Remove it after testing.
 
-"This will have too many false positives"
-→ Constrain aggressively: _"Only flag code added by commits from outside the organisation (check author's membership). Internal contributors are pre-screened."_
+To limit false positives, narrow the prompt: _"Only flag code added by commits from outside the organisation (check author's membership). Internal contributors are pre-screened."_
 
-"Should alerts auto-revert the commit?"
-→ Not in this activity. Use issue creation and human review as the gate. Auto-revert with the `revert-commit` safe output is an extension.
+Use issue creation and human review in this activity. You can add automatic reverts with the `revert-commit` safe output later.
 
 </details>

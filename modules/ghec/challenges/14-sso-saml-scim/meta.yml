@@ -1,5 +1,5 @@
 id: ghec-ch14
-title: SSO, SAML & SCIM Identity
+title: SSO, SAML and SCIM identity
 module: ghec
 track: security
 difficulty: advanced
@@ -23,7 +23,7 @@ emu_compatible: false
 min_environment: org
 provision_creates:
 - repo ghec-ch14-identity-runbook (runbook for IdP SAML app settings, SCIM rollout checklist, join/leave test script)
-- staged org-scoped identity settings reference (Authentication security page URL + SCIM API base) — SSO is NOT auto-enabled (that is the learning)
+- org-scoped identity settings reference (Authentication security page URL + SCIM API base). Setup does not enable SSO.
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/14-sso-saml-scim/meta.yml
