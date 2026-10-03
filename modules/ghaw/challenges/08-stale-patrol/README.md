@@ -1,5 +1,7 @@
 # Activity 2-04: Stale patrol
 
+**Session outcome:** Your daily workflow warns maintainers before closing stale issues after the configured grace period. It respects exemption labels and leaves closed issues alone.
+
 ## Build
 
 Build a daily workflow that finds issues open for more than 60 days with no recent activity. It warns maintainers, then closes an issue if it remains stale for three more days.

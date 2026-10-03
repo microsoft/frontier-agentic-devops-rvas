@@ -263,7 +263,10 @@ function auditGuideSurfaces(challenges) {
       if (titleNeedle && h1 && !titleMatchesHeading(titleNeedle, h1)) {
         addWarning(rel(readmePath), 1, `README title does not include meta title "${c.meta.title}"`);
       }
-
+      const introduction = readme.split(/^##\s/m)[0];
+      if (!/^\*\*Session outcome:\*\*\s+\S.+$/m.test(introduction)) {
+        addError(rel(readmePath), 1, 'Add a **Session outcome:** paragraph before the first section');
+      }
     }
   }
 }

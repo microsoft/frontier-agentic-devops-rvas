@@ -1,6 +1,6 @@
 # Ch17: Webhooks and GitHub Apps
 
-> Deliver a secure customer event integration with verified webhooks and a least-privilege GitHub App installation.
+**Session outcome:** Your GitHub App responds to a test webhook using an installation token with only the required permissions. The receiver verifies webhook signatures and rejects invalid ones.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.

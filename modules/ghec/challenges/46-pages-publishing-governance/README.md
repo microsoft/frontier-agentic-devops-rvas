@@ -1,6 +1,6 @@
 # Ch46: Pages publishing governance
 
-> Agree on GitHub Pages publishing policy and configure an approved repository. Record visibility, owners, exceptions, and rollback evidence.
+**Session outcome:** Your approved repository publishes a GitHub Pages site under the agreed visibility policy. You have tested publication and rollback and recorded the publishing owner and any exceptions.
 
 ## Prerequisites
 

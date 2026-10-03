@@ -1,5 +1,7 @@
 # Activity 1-01: Morning briefing
 
+**Session outcome:** Your weekday workflow creates a Morning Briefing issue summarizing the past 24 hours of issue and pull-request activity. You can check its contents against the repository's activity.
+
 ## Build
 
 Build a scheduled workflow that runs every weekday at 9 AM. It reads recent issues and pull requests, then creates a "Morning Briefing" issue that summarizes the past 24 hours.

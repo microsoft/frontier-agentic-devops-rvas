@@ -1,6 +1,6 @@
 # Ch06: Enterprise and organization 101
 
-> Deliver an organisation governance baseline: membership, privileges, repository-creation and visibility policies, security defaults, and API-verifiable evidence.
+**Session outcome:** Your organization has approved member privileges and repository policies. You can show the effective settings in the UI and API, including security defaults and enterprise policy overrides.
 
 ## Prerequisites
 - Complete Ch52 (Enterprise Landing Zone & Organization Strategy) first if possible. Use its topology map, delegated-admin model, and settings register for Part F's enterprise-level checks. You can still complete this activity's organization-level baseline without Ch52.

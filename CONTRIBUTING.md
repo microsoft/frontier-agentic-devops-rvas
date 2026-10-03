@@ -31,6 +31,10 @@ meta.yml   # catalog metadata and dependency contract
 README.md  # customer delivery team guide, hints, expected outputs, common failures
 ```
 
+Start every guide with a short **Session outcome:** paragraph before the first section.
+Say what participants will have and how they can check it. Describe the guide's existing
+work without adding deliverables. Make clear when a fallback replaces a live result.
+
 ### `meta.yml` required fields
 
 | Field | Contract |

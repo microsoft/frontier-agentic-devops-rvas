@@ -1,6 +1,6 @@
 # Ch38: Golden-path repository bootstrap
 
-> Create an approved template and baseline files for new repositories. Validate them and retain handover evidence.
+**Session outcome:** Your approved template creates a repository with the required baseline files. The repository passes validation, and its owner has the configuration and results.
 
 ## Prerequisites
 

@@ -1,5 +1,7 @@
 # Activity 01: Deploy Grubify and create the Azure SRE Agent
 
+**Session outcome:** Grubify runs, and Azure SRE Agent can read its Azure resources and telemetry. You have recorded the healthy baseline URLs and resource names. If deployment is blocked, you review the fallback packet without claiming a live result.
+
 ## Scenario
 
 Deploy the official Azure SRE Agent starter lab. It creates the monitored Grubify sample app and the agent context used later.

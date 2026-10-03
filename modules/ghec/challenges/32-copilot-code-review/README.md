@@ -1,6 +1,6 @@
 # Ch32: Copilot code review
 
-> Test manual Copilot code review on a pull request and decide whether to enable automatic review for a limited scope. Keep merge decisions with human reviewers.
+**Session outcome:** A human reviewer has assessed Copilot's findings on a test pull request. Your team has decided whether to enable automatic review for a limited scope without changing human approval or merge controls.
 
 > [!IMPORTANT]
 > Copilot leaves a **Comment** review. It does not approve, request changes, satisfy a required approval, or block a merge. Human reviewers and existing `CODEOWNERS` / ruleset controls remain the merge decision.

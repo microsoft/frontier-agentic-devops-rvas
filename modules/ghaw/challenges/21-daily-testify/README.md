@@ -1,3 +1,5 @@
+**Session outcome:** Daily Testify opens test-improvement issues, and Daily Test Improver proposes a test-only pull request for a human-approved issue. A maintainer reviews the changes before merging or closing the pull request.
+
 ## Required outcome
 
 Build a test-quality pipeline with human review for a repository the delivery team owns:

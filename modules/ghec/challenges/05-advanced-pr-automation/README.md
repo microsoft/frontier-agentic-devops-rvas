@@ -1,6 +1,6 @@
 # Ch05: Advanced PR automation and rulesets
 
-> Deliver a governed merge pipeline with repository and organisation rulesets, required checks and reviewers, auto-merge, `CODEOWNERS`, and PR automation.
+**Session outcome:** Repository and organization rulesets enforce the required checks and reviews, including when you use auto-merge. You have tested the merge rules and the Actions workflow that handles pull-request housekeeping.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.

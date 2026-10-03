@@ -1,5 +1,7 @@
 # Activity S04: Fix broken access control
 
+**Session outcome:** Your pull requests fix server-side authorization on at least two endpoints and test authorized and unauthorized requests. Independent reviewers and GHAS checks validate the fixes and the access-control pattern for comparable endpoints.
+
 ## Description
 
 Broken access control occurs when an application fails to enforce user permissions.

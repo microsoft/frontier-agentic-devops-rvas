@@ -1,6 +1,6 @@
 # Ch30: Copilot and AI governance
 
-> Inspect enterprise and organization Copilot policies, access lifecycle, code and data exposure, and agent boundaries. Retain direct evidence.
+**Session outcome:** You can show the effective Copilot policies and permitted agent access, with seat ownership recorded. Your team's decisions about code and data exposure cite the evidence and identify unavailable controls.
 
 ## Prerequisites
 

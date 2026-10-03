@@ -1,5 +1,7 @@
 # Activity 04: Investigate a controlled Azure incident
 
+**Session outcome:** Your investigation links the observed symptom to Azure evidence you can inspect and explains the likely cause, alternatives, and unknowns. You have a safe mitigation plan and have verified recovery or explained why you did not attempt it.
+
 ## Scenario
 
 Intentionally break Grubify, then use Azure SRE Agent to investigate the Azure signal. Start with user impact and telemetry; use the agent to collect and explain evidence.

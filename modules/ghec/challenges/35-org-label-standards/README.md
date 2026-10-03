@@ -1,6 +1,6 @@
 # Ch35: Organization label standards
 
-> Define organization default labels for new repositories and reconcile labels in existing repositories. Record the taxonomy owner and evidence.
+**Session outcome:** A new repository inherits your approved organization default labels, and an existing repository uses the same taxonomy. A named owner maintains the label standard.
 
 ## Prerequisites
 

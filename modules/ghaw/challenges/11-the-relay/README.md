@@ -1,5 +1,7 @@
 # Activity 3-01: The relay
 
+**Session outcome:** Your daily collector writes repository metrics as JSON to `repo-memory`, and your weekly reporter reads them to publish a trend Discussion. You have checked the stored data and the report.
+
 ## Background
 
 To coordinate two workflows, the first must leave data the second can read. Build a producer that writes structured data to `repo-memory` and a consumer that reads it on its next trigger. Test each stage and the data passed between them.

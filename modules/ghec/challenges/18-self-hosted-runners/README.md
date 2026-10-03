@@ -1,6 +1,6 @@
 # Ch18: Self-hosted and larger runners
 
-> Deliver a hardened, scoped self-hosted runner capability with organisation runner groups, label routing, and an operating model.
+**Session outcome:** Your self-hosted runner executes a workflow through an organization runner group. You have checked repository access and label routing, and recorded the runner's hardening and maintenance requirements.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.

@@ -1,6 +1,6 @@
 # Ch49: Release governance
 
-> Deliver a governed release path: release candidates, explicit approval evidence, release notes, tag standards, and rollback ownership.
+**Session outcome:** You have taken a release candidate through the agreed approval process and published the release or completed a dry run. The release record includes validation results and release notes, with a named rollback owner.
 
 ## Prerequisites
 

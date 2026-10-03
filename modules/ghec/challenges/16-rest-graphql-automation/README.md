@@ -1,6 +1,6 @@
 # Ch16: REST and GraphQL API automation
 
-> Deliver safe, idempotent GitHub automation using REST and GraphQL APIs, complete pagination, and rate-limit-aware operation.
+**Session outcome:** Your reconciliation script reads and updates GitHub resources through REST and GraphQL without duplicating them on repeat runs. It processes every page and handles rate limits.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.

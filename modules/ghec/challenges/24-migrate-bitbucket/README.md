@@ -1,6 +1,6 @@
 # Ch24: Migrate Bitbucket to GitHub (Server & Cloud)
 
-> Migrate an approved Bitbucket Server/Data Center repository with `gh bbs2gh`, or test the source-and-history-only path for Bitbucket Cloud.
+**Session outcome:** You have migrated an approved Bitbucket repository to GitHub and verified its Git history. Server/Data Center migration also preserves supported pull request metadata. Cloud migration preserves source and history only, and you have recorded the excluded content.
 
 ## Prerequisites
 

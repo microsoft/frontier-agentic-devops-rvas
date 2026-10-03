@@ -1,6 +1,6 @@
 # Ch48: Vendor access lifecycle
 
-> Define vendor access requests, approvals, and least-privilege grants. Review access periodically and retain offboarding and audit evidence.
+**Session outcome:** Your vendor access register records reviewed requests and least-privilege decisions with end dates. You have audit evidence for authorized grants or removals. Unapproved changes remain proposals.
 
 ## Prerequisites
 

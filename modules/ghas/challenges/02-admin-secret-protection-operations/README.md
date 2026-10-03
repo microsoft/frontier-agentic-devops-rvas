@@ -1,6 +1,6 @@
 # Activity 2: Secret Protection operations
 
-Test secret discovery, push prevention, reviewed bypass, response, and alert closure. Record the live results in GitHub. A draft configuration or tabletop does not pass this lab.
+**Session outcome:** Secret scanning finds the seeded secrets, and push protection blocks a synthetic secret. A separately reviewed bypass and a published custom pattern produce alerts you can query. The UI and API show the same final resolution states.
 
 ## Before you start
 

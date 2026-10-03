@@ -1,5 +1,7 @@
 # Activity 2-03: Issue comment commands
 
+**Session outcome:** An authorized team member can post `/summarize` on an issue and receive a summary of the thread's decisions and outstanding actions. `lock-for-agent` prevents concurrent duplicate runs.
+
 ## Build
 
 Build a workflow that responds to slash commands in issue comments. When a team member comments `/summarize`, the workflow reads the issue thread and posts a short summary.

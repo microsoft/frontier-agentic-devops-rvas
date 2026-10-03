@@ -1,6 +1,6 @@
 # Ch34: Enterprise agent configuration
 
-> Configure an approved enterprise source for an Agentic DevSecOps custom agent. Protect changes in `.github-private`, select it as the AI Controls configuration source, add organization instructions, and test propagation and rollback.
+**Session outcome:** Your enterprise custom agent uses a protected `.github-private` configuration source, and you have tested instruction propagation and rollback. Without enterprise-owner access, you have a decision package and implementation pull request. The agent remains inactive.
 
 > [!IMPORTANT]
 > **An authorized enterprise owner must select the configuration source.** They must create or select the actual `.github-private` repository and set it in AI Controls. If enterprise access is unavailable, deliver the decision package and implementation pull request described in [Part F](#part-f-no-enterprise-access-decision-package). Do not claim the enterprise agent or configuration source is active.

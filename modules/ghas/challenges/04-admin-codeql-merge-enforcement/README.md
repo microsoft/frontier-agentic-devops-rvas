@@ -1,6 +1,6 @@
 # Activity 4: CodeQL merge enforcement
 
-Make CodeQL part of the merge decision. The control passes only when the prepared vulnerable pull request is blocked and a corrected revision of that same pull request passes under the same rule.
+**Session outcome:** Your active CodeQL rule blocks the prepared vulnerable pull request and allows its corrected revision without changing the rule. Live scan results prove the test, and only approved named actors can bypass the control.
 
 ## Before you start
 

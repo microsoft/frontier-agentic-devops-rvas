@@ -1,5 +1,7 @@
 # Activity S00: Environment setup
 
+**Session outcome:** You can run the application from your approved GHAS practice repository, which has the available security features enabled. Your GitHub CLI is authenticated, and you have recorded missing capabilities and access blockers with named owners.
+
 ## Objectives
 
 Complete these steps:

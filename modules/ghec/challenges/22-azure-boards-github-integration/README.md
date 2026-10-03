@@ -1,6 +1,6 @@
 # Ch22: Connect Azure Boards to GitHub
 
-> Connect a migrated repository through an approved Azure Boards App installation. Verify `AB#` links between work items and GitHub code activity.
+**Session outcome:** Your Azure Boards project connects to the approved GitHub repository. A test commit and merged pull request using `AB#` references appear on the linked work item.
 
 ## Prerequisites
 - GitHub organization with org-owner rights, or repository admin rights plus a path to request GitHub App installation approval.

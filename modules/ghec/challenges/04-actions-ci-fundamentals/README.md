@@ -1,6 +1,6 @@
 # Ch04: GitHub Actions CI fundamentals
 
-> Deliver a GitHub Actions CI pipeline with triggers, a build matrix, caching, artifacts, environments, and a required merge gate.
+**Session outcome:** Your GitHub Actions CI workflow tests the build matrix and saves artifacts. Its required check blocks failing pull requests, and deployment follows the configured environment controls.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.

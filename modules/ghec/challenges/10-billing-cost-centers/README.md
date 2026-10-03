@@ -1,6 +1,6 @@
 # Ch10: Billing, cost centers and usage
 
-> Deliver an organisation cost-governance baseline: usage visibility, budget alerts, API reconciliation, and a cost report.
+**Session outcome:** Your cost report attributes GitHub usage to repositories and reconciles the billing API with the UI totals. You have configured budget alerts and explained any differences in the reported usage.
 
 ## Prerequisites
 - Complete Ch52 (Enterprise Landing Zone & Organization Strategy) first if possible. Use its settings register for enterprise-level cost-center decisions. You can still complete this activity's organization-level budget without it.

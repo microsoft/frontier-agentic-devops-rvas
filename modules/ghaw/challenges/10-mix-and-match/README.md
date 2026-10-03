@@ -1,5 +1,7 @@
 # Activity 2-06: Mix and match
 
+**Session outcome:** Your weekly workflow imports shared instructions from a helper file and publishes a repository-status digest as a GitHub Discussion. A manual run confirms the digest appears in the configured category.
+
 ## Build
 
 Build a weekly gh-aw workflow that imports shared instructions from `lib/repo-stats-helper.md`. The agent uses the helper to analyze repository status and posts the digest as a GitHub Discussion through `create-discussion`.

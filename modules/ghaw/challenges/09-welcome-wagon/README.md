@@ -1,5 +1,7 @@
 # Activity 2-05: Welcome wagon
 
+**Session outcome:** Your workflow welcomes new pull-request contributors with the repository's contribution links and next steps. It checks `author_association` and skips the configured existing-member categories.
+
 ## Build
 
 Build a workflow that welcomes first-time contributors. When someone opens their first pull request, Welcome Wagon posts a greeting and links to the contribution guide and code of conduct.

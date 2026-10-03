@@ -1,6 +1,6 @@
 # Ch31: Copilot environment and instructions
 
-> Configure an approved Copilot environment with deterministic setup, scoped instructions, and least privilege. Retain a decision package when a live feature is unavailable.
+**Session outcome:** Your Copilot environment passes its setup checks, and repository instructions apply at the intended scope. If a live feature is unavailable, you have a decision package that states what still needs verification.
 
 ## Prerequisites and availability
 

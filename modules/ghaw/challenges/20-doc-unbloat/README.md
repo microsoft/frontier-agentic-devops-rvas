@@ -1,3 +1,5 @@
+**Session outcome:** Your compiled workflow proposes cuts to one document, and you have reviewed the diff. The changes remove unnecessary text and preserve the facts and sections your team chose to keep.
+
 ## Background
 
 Documentation often accumulates repeated text, stale warnings, and long examples. The Documentation Unbloat workflow reviews one target document and opens a focused pull request that cuts unnecessary text without rewriting the whole file.

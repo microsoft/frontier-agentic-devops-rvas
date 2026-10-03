@@ -1,5 +1,7 @@
 # Activity 3-02: Context engine
 
+**Session outcome:** Your pull-request assistant reads live GitHub context and repository standards, then posts a review comment. Each observation refers to the relevant changes or standards.
+
 ## Background
 
 Use gh-aw's `tools:` configuration to give the agent live data through MCP tools, such as GitHub labels, repository metrics, or service status. Supply the repository's standards so it can check pull requests against them instead of giving generic advice.

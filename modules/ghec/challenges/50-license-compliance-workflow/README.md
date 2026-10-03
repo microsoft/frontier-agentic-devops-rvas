@@ -1,6 +1,6 @@
 # Ch50: License compliance workflow
 
-> Deliver a repository-level license compliance workflow: dependency inventory, review checkpoint, exception intake, and owner-approved rollout decisions.
+**Session outcome:** Your repository's license-compliance process uses a dependency inventory and review checkpoint. The owner has defined how to approve exceptions and roll out the process.
 
 ## Prerequisites
 

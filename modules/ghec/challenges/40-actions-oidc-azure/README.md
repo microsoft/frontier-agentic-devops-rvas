@@ -1,6 +1,6 @@
 # Ch40: Actions OIDC with Azure
 
-> Replace long-lived Azure deployment secrets with GitHub Actions OpenID Connect and an explicitly approved Azure federated credential.
+**Session outcome:** Your GitHub Actions workflow authenticates to Azure through OpenID Connect instead of a long-lived deployment secret. You have tested the federated trust rules and the workflow's Azure permissions.
 
 ## Prerequisites
 

@@ -1,6 +1,6 @@
 # Ch27: GitHub Code Quality: Code Health and coverage
 
-> Enable GitHub Code Quality for an authorized customer repository. Record a Code Health baseline, publish CI coverage, review pull-request findings, and decide the organization rollout.
+**Session outcome:** Your approved repository runs GitHub Code Quality and publishes CI coverage, with a recorded Code Health baseline. A human reviewer has used the pull request findings to decide whether to merge and recommend a wider rollout.
 
 ## Prerequisites
 

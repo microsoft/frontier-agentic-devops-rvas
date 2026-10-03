@@ -1,3 +1,5 @@
+**Session outcome:** Your daily workflow scans recent commits for suspicious patterns in the repository's languages and opens issues with commit and code references. It does not block changes or replace human review.
+
 ## Background
 
 Malicious code can arrive in a dependency update or an ordinary-looking refactor. The Malicious Code Scan reviews recent changes each day and opens alerts for human investigation. It can help detect code-injection campaigns, compromised contributors, and dependency poisoning. It does not block changes, prevent deployment, or replace review and security controls.

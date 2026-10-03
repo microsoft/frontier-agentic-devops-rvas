@@ -1,6 +1,6 @@
 # Ch36: Controlled repository intake
 
-> Use a custom issue form to request repositories. Require a maintainer's approval label before GitHub Actions provisions them, and retain the evidence.
+**Session outcome:** GitHub Actions creates a repository from an issue-form request only after a maintainer approves it. The repository passes the agreed baseline checks, and the issue records the request and approval.
 
 ## Prerequisites
 

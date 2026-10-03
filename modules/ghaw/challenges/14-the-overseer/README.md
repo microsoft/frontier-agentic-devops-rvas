@@ -1,5 +1,7 @@
 # Activity 3-04: The overseer
 
+**Session outcome:** Your weekly monitor reports agentic workflow failures and token use in one current issue. It uses live run data to flag the team's chosen thresholds and runs within a documented token budget.
+
 ## Background
 
 The Overseer monitors other agentic workflows for repeated failures, token spikes, and stale runs. It reports their status and token use, then alerts the team when a workflow crosses the chosen threshold.

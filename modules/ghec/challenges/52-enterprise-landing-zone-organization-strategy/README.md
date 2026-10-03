@@ -1,6 +1,6 @@
 # Ch52: Enterprise landing zone and organization strategy
 
-> Map the enterprise and recommend an organization strategy: how many organizations it needs, what each one is for, how organizations are created or retired, who holds enterprise roles, and which settings the enterprise or each organization owns. Complete the governance settings register. Do not create organizations, teams, or repositories.
+**Session outcome:** Your enterprise organization strategy cites the evidence for organization boundaries and lifecycle. The completed governance settings register assigns enterprise roles and policy ownership. This session creates no organizations, teams, or repositories.
 
 ## Scope boundary
 

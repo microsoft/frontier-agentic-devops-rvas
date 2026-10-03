@@ -1,5 +1,7 @@
 # Activity 03: Onboard service context and response plans
 
+**Session outcome:** Your context map shows the service knowledge and response paths Azure SRE Agent can use. You have checked its architecture and runbook answers against their sources and recorded ownership in safe team memory, or explained why you skipped memory.
+
 ## Scenario
 
 Azure SRE Agent needs accurate context. Inspect the service knowledge, response plans, custom agents, and team memory that guide its response to Grubify incidents.

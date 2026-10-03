@@ -1,3 +1,5 @@
+**Session outcome:** Your scheduled workflow checks the selected documentation against the code and proposes corrections in a pull request. A maintainer can compare its test-run output with the source before accepting it.
+
 ## Background
 
 The Daily Documentation Updater runs on a cron schedule. It compares selected documentation with the codebase and opens pull requests for content that appears out of date.

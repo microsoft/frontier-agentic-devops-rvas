@@ -1,6 +1,6 @@
 # Ch19: Copilot cloud agent
 
-> Deliver a governed Copilot cloud-agent flow: assign an approved issue, review and steer its draft pull request, then merge through customer controls.
+**Session outcome:** Copilot cloud agent has addressed an approved issue in a pull request that passes the repository's checks and human review before merging. Your team has recorded which actions need further approval.
 
 ## Prerequisites
 > **Check eligibility before starting.**

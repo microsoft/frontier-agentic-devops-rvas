@@ -1,6 +1,6 @@
 # Ch08: Repository rulesets and custom properties
 
-> Deliver metadata-driven governance across repositories with custom properties, organisation rulesets, repository overlays, and API-verifiable enforcement.
+**Session outcome:** Custom properties target an organization ruleset at the intended repositories. You have tested its enforcement and confirmed that a repository ruleset adds protection without weakening the organization rule.
 
 ## Prerequisites
 - Complete Ch52 (Enterprise Landing Zone & Organization Strategy) first if possible. Use its settings register for enterprise-level property/ruleset decisions. You can still complete this activity's organization-level baseline without it.

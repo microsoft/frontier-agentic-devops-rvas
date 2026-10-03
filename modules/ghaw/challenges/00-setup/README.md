@@ -1,5 +1,7 @@
 # Activity 00: Environment setup
 
+**Session outcome:** You can access the GHAW delivery session repository from a Codespace or local dev container. Your GitHub CLI is authenticated, and `gh-aw` is installed and verified so you can compile agentic workflows.
+
 ## Required outcome
 
 Before continuing, confirm you have:

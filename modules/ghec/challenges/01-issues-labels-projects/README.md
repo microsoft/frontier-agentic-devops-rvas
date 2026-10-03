@@ -1,6 +1,6 @@
 # Ch01: Issues, labels and project boards
 
-> Configure labels, milestones, a Projects (v2) board, automation, and an insight chart for a customer team.
+**Session outcome:** Your GitHub Projects (v2) board tracks a triaged backlog with consistent labels and sprint milestones. Saved views show priorities and planned work. Closing an issue moves it to Done.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.

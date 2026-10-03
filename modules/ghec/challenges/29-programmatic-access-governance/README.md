@@ -1,6 +1,6 @@
 # Ch29: Programmatic access governance
 
-> Inventory OAuth Apps, installed GitHub Apps, fine-grained PATs, and classic PATs. Use the evidence to recommend policy decisions. Leave production access controls unchanged by default.
+**Session outcome:** You have inventoried OAuth Apps and GitHub Apps and collected the available PAT access evidence. Findings have policy recommendations and owners. Production access controls stay unchanged unless an authorized owner approves a change.
 
 ## Prerequisites
 

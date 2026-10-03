@@ -1,5 +1,7 @@
 # Activity S03: Fix XSS and unsafe output
 
+**Session outcome:** Your pull requests fix XSS with encoding for the output context or safe framework APIs. Rendering tests and GHAS checks support two independently reviewed fixes, which define a prevention pattern for comparable output paths.
+
 ## Description
 
 Cross-site scripting (XSS) happens when an application includes user-controlled data in an HTML response without the right encoding. The browser treats the attacker's script as application markup and runs it. An attacker can hijack sessions, steal credentials, or redirect users.

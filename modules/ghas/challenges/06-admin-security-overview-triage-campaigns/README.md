@@ -1,6 +1,6 @@
 # Activity 6: Security Overview, delegated triage and campaign operations
 
-Publish a security campaign from a live alert backlog. Assign owners and measure the change in open-alert counts. Repair one coverage gap and run an expiring exception through delegated review.
+**Session outcome:** Developers can access your published security campaign, and its counts show at least three verified alert state changes. You have repaired one coverage gap and completed delegated review of an exception that expires within 30 days.
 
 ## Before you start
 

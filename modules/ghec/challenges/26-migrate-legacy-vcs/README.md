@@ -1,6 +1,6 @@
 # Ch26: Migrate legacy VCS (SVN, Mercurial, TFVC, Perforce) to GitHub
 
-> Convert legacy source-control history into Git, then push the converted repository to GitHub with author mapping, large-file checks, and cutover evidence.
+**Session outcome:** You have converted the selected legacy VCS repository to Git and pushed it to GitHub. You have checked the history and author mapping, and recorded large-file issues and cutover limitations.
 
 ## Prerequisites
 

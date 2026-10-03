@@ -1,5 +1,7 @@
 # Activity 00: Prepare the Azure SRE Agent lab
 
+**Session outcome:** You have chosen the live Azure SRE Agent lab or a prepared fallback packet. For the live lab, you have checked tools and Azure access and selected a subscription and supported region before deployment.
+
 ## Scenario
 
 Your team will use Microsoft's official Grubify starter environment for the Azure SRE Agent lab. Before deploying, confirm the tools, Azure access, region, and fallback path.

@@ -1,6 +1,6 @@
 # Ch37: Governance quick review with ghqr
 
-> Run a read-only governance review with `ghqr`. Verify material findings and prioritize the next actions.
+**Session outcome:** You have run a read-only `ghqr` review of the approved organization or enterprise scope. You have checked material findings against direct evidence and assigned owners to the prioritized actions.
 
 ## Prerequisites
 

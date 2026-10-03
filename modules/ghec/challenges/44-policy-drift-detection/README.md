@@ -1,6 +1,6 @@
 # Ch44: Policy drift detection
 
-> Compare repository settings and files against an approved policy baseline. Make the check repeatable and record how to correct differences.
+**Session outcome:** Your repeatable policy check reports repository settings or files that differ from the approved baseline. A second run verifies safe corrections, and each remaining difference has a remediation owner.
 
 ## Prerequisites
 

@@ -1,6 +1,6 @@
 # Ch20: Automation capstone
 
-> Deliver one secure, end-to-end automation: a GitHub App uses REST and GraphQL, a webhook drives the flow, and Actions orchestrates it.
+**Session outcome:** A verified webhook triggers your GitHub App and Actions automation. An end-to-end test confirms that its REST and GraphQL calls make the expected repository and project updates.
 
 > This capstone provisions its own `ghec-ch20-*` state and does not require artifacts from another activity. It uses concepts from ch16 (REST/GraphQL), ch17 (webhooks + GitHub App), and ch18 (Actions runners).
 

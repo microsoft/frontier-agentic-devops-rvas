@@ -1,6 +1,6 @@
 # Ch14: SSO, SAML and SCIM identity
 
-> Deliver an approved SAML/SCIM identity-lifecycle configuration with IdP validation, lifecycle evidence, and external-identity auditability.
+**Session outcome:** You have tested SAML sign-in and the SCIM user lifecycle in an approved environment, and checked the external identities in GitHub. You enable enforcement only after approval, with a recovery path ready.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.

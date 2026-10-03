@@ -1,6 +1,6 @@
 # Activity 3: CodeQL deployment, data flow and Autofix
 
-Start with CodeQL default setup. Verify that the workflow succeeds and that CodeQL found the right languages, scanned the expected source, and produced a current analysis.
+**Session outcome:** CodeQL successfully analyzes the expected languages and source roots, including the missing Python coverage you repaired. You have traced one alert from source to sink and reviewed and rescanned an Autofix patch, or recorded what blocks that step.
 
 This activity uses a public OWASP Juice Shop copy when you do not have an approved customer repository. The fixture keeps the advanced workflow off `main`, so default setup remains the first live test.
 

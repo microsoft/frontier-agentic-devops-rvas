@@ -1,5 +1,7 @@
 # Activity 05: Connect source code and create remediation work
 
+**Session outcome:** Your remediation issue or draft links incident evidence to suspected code and explains how to validate a fix. A human reviewer has recorded what to accept or investigate next. You can use the fallback source packet if the live connection is blocked.
+
 ## Scenario
 
 Connect source code so Azure SRE Agent can link incident evidence to a likely fault.

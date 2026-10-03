@@ -1,6 +1,6 @@
 # Ch21: Migrate Azure DevOps Repos with GitHub Enterprise Importer
 
-> Migrate an approved Azure DevOps Services Git repository into GitHub Enterprise Cloud using `gh ado2gh`. Validate the result and record cutover evidence.
+**Session outcome:** You have migrated an approved Azure DevOps Services repository to GitHub Enterprise Cloud with `gh ado2gh` and checked the imported content. You have recorded migration gaps and resolved remaining mannequin identities or assigned them for follow-up.
 
 ## Prerequisites
 

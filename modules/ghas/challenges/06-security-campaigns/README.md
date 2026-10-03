@@ -1,5 +1,7 @@
 # Activity S06: Security campaigns (advanced)
 
+**Session outcome:** Your remediation campaign has owners and a deadline, with an agreed triage and review cadence. With organization access, it contains at least five alerts. Otherwise, your shared governance record defines the scope and tracking plan.
+
 ## Description
 
 Define how the team will manage security debt after this session. Use security

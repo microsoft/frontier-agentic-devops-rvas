@@ -1,6 +1,6 @@
 # Ch51: LFS and monorepo governance
 
-> Deliver governance for a growing monorepo: ownership boundaries, Git LFS patterns, large-file intake, repository health evidence, and explicit storage decisions.
+**Session outcome:** Your monorepo has an ownership map and approved large-file policy, including Git LFS patterns for the selected files. You have used repository health data to decide how to store and review new large files.
 
 ## Prerequisites
 

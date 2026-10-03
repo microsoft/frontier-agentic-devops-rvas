@@ -1,6 +1,6 @@
 # Activity 5: Dependency visibility and pull request protection
 
-Verify that the dependency graph shows what the build uses. Merge a Dependabot fix for a real alert, then prove that a required dependency-review check blocks a risky pull request and accepts the corrected revision.
+**Session outcome:** Your dependency graph and SBOM include the build's expected packages, and a merged Dependabot security fix closes its alert. The required dependency-review check blocks a risky pull request and accepts its corrected revision under the same controls.
 
 ## Before you start
 

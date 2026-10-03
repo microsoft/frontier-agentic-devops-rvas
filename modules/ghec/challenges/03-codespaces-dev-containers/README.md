@@ -1,6 +1,6 @@
 # Ch03: Codespaces and dev containers
 
-> Deliver a reproducible cloud development environment with `devcontainer.json`, Codespaces policy, port controls, and prebuilds.
+**Session outcome:** Your Codespace builds from the committed `devcontainer.json` and runs the application. You have checked port visibility and organization policy, and verified that a new Codespace uses the repository's prebuild.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.

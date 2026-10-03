@@ -1,5 +1,7 @@
 # Next feature opportunities agent
 
+**Session outcome:** Your weekly, read-only agent creates one current feature-opportunities issue with product and repository references. You have reviewed a manual run with the product owner and added only accepted recommendations to the backlog.
+
 ## Background
 
 Product evidence often sits across code, issues, and delivery-session feedback.

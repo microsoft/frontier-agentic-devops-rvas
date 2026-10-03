@@ -1,3 +1,5 @@
+**Session outcome:** Your scheduled workflow checks the team's alert sources against its remediation SLAs. It opens issues for vulnerabilities approaching or exceeding those deadlines, while the team decides and carries out remediation.
+
 ## Background
 
 Security Compliance runs on a schedule, tracks vulnerability SLA deadlines by severity, and opens issues when configured thresholds are met. It reports possible policy violations. The team still owns remediation.

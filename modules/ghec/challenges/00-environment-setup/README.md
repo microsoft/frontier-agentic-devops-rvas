@@ -1,6 +1,6 @@
 # Ch00: Environment setup
 
-> Verify your development environment and GitHub CLI authentication. Confirm access to the approved customer organisation before choosing a target.
+**Session outcome:** You can use a Codespace or local dev container with an authenticated `gh` CLI. You have checked access to the approved GitHub organization and chosen a delivery target, or recorded what blocks access.
 
 ## Objectives
 

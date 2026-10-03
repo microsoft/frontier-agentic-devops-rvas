@@ -1,6 +1,6 @@
 # Ch07: Teams, roles and base permissions
 
-> Deliver a verifiable least-privilege access model with nested teams, base permissions, predefined roles, and a custom repository role.
+**Session outcome:** Nested teams grant repository access through least-privilege roles. Your access matrix shows each member's effective permissions and confirms that the grants match their responsibilities.
 
 ## Prerequisites
 - Complete Ch52 (Enterprise Landing Zone & Organization Strategy) first if possible. Use its delegation register for enterprise-level team/role decisions. You can still complete this activity's organization-level model without it.

@@ -1,6 +1,6 @@
 # Ch09: Audit log and streaming
 
-> Deliver an organisation audit-evidence path using the audit-log UI, search syntax, REST API, and a repeatable export pipeline.
+**Session outcome:** You can export every page of the organization audit log and find known test events in the UI and REST API. You can also explain the effective retention and streaming settings.
 
 ## Prerequisites
 - Complete Ch52 (Enterprise Landing Zone & Organization Strategy) first if possible. Use its settings register for Part F's enterprise-level streaming/retention check. You can still complete this activity's org-level export without it.

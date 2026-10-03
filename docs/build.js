@@ -291,36 +291,10 @@ function challengeIdFromSlug(moduleId, slug) {
   return null;
 }
 
-// Global "bring your own" adoption callout. Injected into every delivery guide at
-// build time (single source), except pure setup challenges (tier: setup). Authored as a
-// GitHub-style alert so it renders as an icon banner on GitHub and the Pages site alike.
-// Source READMEs stay untouched.
-const BYO_CALLOUT = [
-  '> [!IMPORTANT]',
-  '> **Use your own environment.**',
-  '>',
-  '> Work with your **own** application, repository, and data whenever you can. Use the sample only when you need a fallback. Anything you build with your own resources can keep running after the session.',
-  '',
-].join('\n');
-
-// Insert the callout immediately after the first level-1 heading ("# Title").
-// If no H1 is found, prepend it at the very top.
-function injectByoCallout(md) {
-  const lines = md.split('\n');
-  for (let i = 0; i < lines.length; i++) {
-    if (/^#\s+\S/.test(lines[i])) {
-      lines.splice(i + 1, 0, '', BYO_CALLOUT);
-      return lines.join('\n');
-    }
-  }
-  return `${BYO_CALLOUT}\n${md}`;
-}
-
-function copyGuideForPages(src, dest, moduleId, injectByo = false) {
+function copyGuideForPages(src, dest, moduleId) {
   if (!fs.existsSync(src)) return false;
   let md = fs.readFileSync(src, 'utf8');
   md = rewriteResourceLinksForPages(md, moduleId);
-  if (injectByo) md = injectByoCallout(md);
   fs.writeFileSync(dest, md);
   return true;
 }
@@ -473,7 +447,7 @@ function main() {
       // Copy the delivery guide
       const guideDir = path.join(OUT_GUIDES_DIR, meta.id);
       fs.mkdirSync(guideDir, { recursive: true });
-      const hasReadme = copyGuideForPages(path.join(dir, 'README.md'), path.join(guideDir, 'README.md'), moduleId, meta.tier !== 'setup');
+      const hasReadme = copyGuideForPages(path.join(dir, 'README.md'), path.join(guideDir, 'README.md'), moduleId);
 
       if (!hasReadme) { console.error(`  ✗ ${meta.id}: no README.md (delivery guide)`); errors++; }
 

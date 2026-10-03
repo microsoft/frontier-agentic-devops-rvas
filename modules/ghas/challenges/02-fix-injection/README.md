@@ -1,5 +1,7 @@
 # Activity S02: Fix injection vulnerabilities
 
+**Session outcome:** Your pull requests fix injection with safe APIs at the execution sink and include behavior tests and GHAS results. Two independently reviewed fixes establish a prevention pattern you can apply to comparable code paths.
+
 ## Description
 
 Injection occurs when an application interprets user-controlled data as part of a

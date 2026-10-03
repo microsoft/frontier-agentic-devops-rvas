@@ -1,6 +1,6 @@
 # Ch23: Convert Azure Pipelines to GitHub Actions
 
-> Convert an approved Azure DevOps Pipeline with GitHub Actions Importer. Review and fix the generated workflow, test it, then hand it to its owner.
+**Session outcome:** You have converted an Azure Pipeline into a GitHub Actions workflow and tested it in GitHub. You have corrected or recorded unsupported steps and given the owner the run results and usage forecast.
 
 ## Prerequisites
 

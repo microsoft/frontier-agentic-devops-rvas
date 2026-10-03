@@ -1,6 +1,6 @@
 # Ch25: Migrate from GitLab to GitHub
 
-> Deliver an approved GitLab source-and-history migration to GitHub with Git CLI, then convert its GitLab CI pipeline to GitHub Actions with GitHub Actions Importer.
+**Session outcome:** You have copied a GitLab repository's source and Git history to GitHub and checked them against the original. You have converted its CI pipeline to GitHub Actions and recorded conversion gaps and excluded GitLab metadata.
 
 ## Migration limits
 

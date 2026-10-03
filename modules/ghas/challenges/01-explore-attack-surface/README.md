@@ -1,5 +1,7 @@
 # Activity S01: Explore the attack surface
 
+**Session outcome:** You have checked at least five alerts against the affected code and prioritized them in a security findings register. Each finding records its impact, remediation owner, and why it takes priority.
+
 ## Description
 
 Map the attack surface before fixing it. GHAS already runs on the org repository

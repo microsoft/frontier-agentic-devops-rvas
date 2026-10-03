@@ -1,6 +1,6 @@
 # Ch47: InnerSource program operations
 
-> Define an InnerSource charter and pilot hub. Document maintainer responsibilities, prepare contribution-ready issues, and record adoption evidence.
+**Session outcome:** Your InnerSource pilot hub has an agreed charter and contribution-ready issues. Contributors can find where to start and how reviews work, and maintainers know their responsibilities and how to measure adoption.
 
 ## Prerequisites
 

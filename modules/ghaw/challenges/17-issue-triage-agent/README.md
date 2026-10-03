@@ -1,3 +1,5 @@
+**Session outcome:** Your compiled issue-triage workflow classifies new issues using the repository's allowed labels. A dry run lets you check its choices against the configured taxonomy.
+
 ## Background
 
 The Issue Triage Agent reads each new issue, compares it with the repository's label taxonomy, and applies allowed labels.

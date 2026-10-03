@@ -1,5 +1,7 @@
 # Activity S05: Secure secrets and dependencies
 
+**Session outcome:** Your application uses environment configuration instead of hardcoded credentials and still passes its tests. You have reviewed high-risk dependency alerts and recorded pull-request and push-protection results, with human approval for any exceptions.
+
 ## Description
 
 Hardcoded API keys, database passwords, JWT signing keys, and other credentials are

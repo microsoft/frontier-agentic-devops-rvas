@@ -1,5 +1,7 @@
 # Activity 2-02: Review buddy
 
+**Session outcome:** Your workflow comments on new pull requests with a diff summary and at least two observations about the changes. Human reviewers still decide whether to approve and merge.
+
 ## Build
 
 Build a workflow that reviews pull requests when they open. Review Buddy analyzes the diff and comments on large changes, missing tests, or incomplete descriptions. It does not merge or reject the pull request.

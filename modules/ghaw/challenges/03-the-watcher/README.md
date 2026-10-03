@@ -1,5 +1,7 @@
 # Activity 1-03: The watcher
 
+**Session outcome:** A push to your chosen repository path triggers a workflow that comments on the commit with a change summary. Your test push confirms the path filter and comment work.
+
 ## Build
 
 Build a workflow triggered by `on: push`. It detects changes in a chosen directory, such as `docs/` or `src/config/`, and comments on the commit with a summary.

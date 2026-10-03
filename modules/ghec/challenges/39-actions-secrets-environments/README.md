@@ -1,6 +1,6 @@
 # Ch39: Actions secrets and environments
 
-> Govern deployment secrets by moving them behind protected GitHub Actions environments and recording ownership, rotation, and access evidence.
+**Session outcome:** Your deployment workflow uses secrets from protected GitHub Actions environments. You have tested the approval and access rules and recorded who owns and rotates each secret without exposing its value.
 
 ## Prerequisites
 

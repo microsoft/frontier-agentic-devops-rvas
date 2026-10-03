@@ -1,5 +1,7 @@
 # Activity 3-06: Ground truth
 
+**Session outcome:** Your compiled workflow fetches repository metrics before the model runs and proposes a pull request updating Project Health in `CONTRIBUTING.md`. You have checked it with a dry run, and its numbers come from the collected data.
+
 ## Build
 
 Build a workflow that uses `pre-agent-steps:` to fetch live repository metrics with the `gh` CLI before the AI model starts. The agent uses those numbers to update the `## Project Health` section in `CONTRIBUTING.md`, then opens a pull request through `create-pull-request`.

@@ -1,6 +1,6 @@
 # Ch42: Repository lifecycle governance
 
-> Record owner-approved repository lifecycle decisions. Setup does not archive, transfer, or delete repositories.
+**Session outcome:** You have classified repositories under the agreed lifecycle policy and obtained owner approval for proposed transitions. High-impact actions need explicit approval. Setup does not archive, transfer, or delete repositories.
 
 ## Prerequisites
 

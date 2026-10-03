@@ -1,6 +1,6 @@
 # Ch41: Required reusable workflows
 
-> Create an organization-owned reusable workflow and require it for a repository cohort through approved required-workflow or ruleset controls.
+**Session outcome:** A consumer repository runs your organization-owned reusable workflow, and the approved repository cohort requires it before merging. Your team has tested that requirement and recorded how to handle exceptions and rollout.
 
 ## Prerequisites
 

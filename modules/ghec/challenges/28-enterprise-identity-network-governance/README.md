@@ -1,6 +1,6 @@
 # Ch28: Enterprise identity and network governance
 
-> Inspect enterprise identity, network, SSH, and privileged-role controls and prove the effective configuration. Do not configure an IdP or disrupt production.
+**Session outcome:** You can show the enterprise's effective identity and network controls, including SSH and privileged access. Your review records the evidence and approved next actions without changing the IdP or disrupting production.
 
 ## Scope boundary
 

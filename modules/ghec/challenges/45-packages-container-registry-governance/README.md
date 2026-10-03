@@ -1,6 +1,6 @@
 # Ch45: Packages and container registry governance
 
-> Govern GitHub Packages and GHCR container images with approved naming, visibility, access, retention, provenance, and cleanup evidence.
+**Session outcome:** You have published a sample container to GHCR under the approved package policy and checked its access and visibility. Your record includes provenance evidence and the owner's retention and cleanup decisions.
 
 ## Prerequisites
 

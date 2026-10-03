@@ -1,6 +1,6 @@
 # Ch33: Copilot automations
 
-> Deliver one customer-owned Copilot cloud-agent automation with a bounded trigger, least-privilege tools, independent review, and durable session and audit evidence.
+**Session outcome:** Your Copilot cloud-agent automation runs on a bounded trigger with least-privilege tools. An independent human reviewer has assessed its output, and your team has session and audit records for operating or rolling it back.
 
 > This activity does not require another activity's repository, workflow, agent, or policy change.
 

@@ -1,6 +1,6 @@
 # Ch02: Branches, pull requests and code review
 
-> Deliver a governed pull-request lifecycle: feature branches, reviews, `CODEOWNERS`, required reviewers, conflict resolution, and merge-strategy controls.
+**Session outcome:** You have resolved a merge conflict and merged a reviewed pull request under the repository's approval rules. `CODEOWNERS` routes reviews to the right people, and branch protection blocks merging without the required approvals.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.

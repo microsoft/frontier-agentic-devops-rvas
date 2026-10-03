@@ -1,3 +1,5 @@
+**Session outcome:** CI Doctor watches the repository's named CI workflows. An intentional test failure produces a diagnostic issue with a likely cause and suggested fix based on the run logs.
+
 ## Background
 
 CI Doctor runs after a failed workflow. It fetches the logs and opens a diagnostic issue with a likely cause and suggested next step.

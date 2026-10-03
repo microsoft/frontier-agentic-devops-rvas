@@ -1,6 +1,6 @@
 # Activity 1: Security configuration pilot and rollout
 
-Create an organization security configuration and attach it to a pilot repository. Wait for the repository to reach a final configuration state before deciding whether to enforce the configuration or roll it back.
+**Session outcome:** Your organization security configuration is attached to a pilot repository, and you have checked its final state. You have tested recovery from a failure or detachment, then obtained approval to enforce the configuration or verified its rollback.
 
 ## Before you start
 
