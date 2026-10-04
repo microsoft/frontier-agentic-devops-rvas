@@ -29,9 +29,10 @@ imports:
 # gh-aw Drift Sentinel
 
 Inspect the repository's Markdown Agentic Workflow sources, corresponding `.lock.yml`
-artifacts, `.github/aw/actions-lock.json`, shared workflow imports, and generated
-`agentics-maintenance.yml`. Compare them only with official `github/gh-aw` release notes,
-official GitHub documentation, and the repository's checked-in evidence.
+artifacts, `.github/aw/actions-lock.json`, shared workflow imports, and
+`agentics-maintenance.yml` when expiration or no-op issue reporting requires it. Compare
+them only with official `github/gh-aw` release notes, official GitHub documentation, and
+the repository's checked-in evidence.
 
 Identify source-to-lock mismatches, stale pinned gh-aw action/container dependencies,
 compiler-version drift, removed or deprecated configuration, and release changes that
