@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "host": "github.com",
+  "actor": "customer-admin",
+  "enterprise": {"slug": "customer-enterprise", "identity": "personal"},
+  "defaults": {
+    "packages": ["workspace", "actions"],
+    "repository_visibility": "private",
+    "settings": {"default_repository_permission": "read"}
+  },
+  "organizations": [{
+    "login": "customer-engineering",
+    "create": false,
+    "adopt": true,
+    "owners": ["customer-admin"],
+    "settings": {"members_can_create_public_repositories": false},
+    "property_schema": [{
+      "property_name": "service_tier",
+      "value_type": "single_select",
+      "allowed_values": ["standard", "critical"],
+      "required": false,
+      "description": "Service support tier"
+    }],
+    "teams": [{
+      "name": "Platform",
+      "slug": "platform",
+      "members": ["customer-maintainer"],
+      "repositories": [{"name": "service", "permission": "maintain"}]
+    }],
+    "repositories": [{
+      "name": "service",
+      "adopt": false,
+      "stack": "node",
+      "visibility": "private",
+      "files": [{"path": "CODEOWNERS", "content": "* @customer-engineering/platform\n"}],
+      "labels": [{"name": "maintenance", "color": "0366d6", "description": "Routine maintenance"}],
+      "properties": {"service_tier": "standard"},
+      "environments": [],
+      "workflows": [],
+      "copilot_users": []
+    }],
+    "actions": {
+      "permissions": {"allowed_actions": "selected"},
+      "selected_actions": {"github_owned_allowed": true, "verified_allowed": false, "patterns_allowed": []},
+      "workflow_permissions": {"default_workflow_permissions": "read"}
+    }
+  }]
+}
