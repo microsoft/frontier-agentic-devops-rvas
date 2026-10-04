@@ -1,6 +1,6 @@
-# Ch37: Governance quick review with ghqr
+# Ch37: Review and repair governance with ghqr
 
-**Session outcome:** You have run a read-only `ghqr` review of the approved organization or enterprise scope. You have checked material findings against direct evidence and assigned owners to the prioritized actions.
+**Session outcome:** A verified `ghqr` finding leads to one approved configuration repair. A repeat scan and an enforcement check show that the repair works.
 
 ## Prerequisites
 
@@ -17,7 +17,7 @@ You will:
 - Select `ghqr`, capture its version, and run the authorized organization scan.
 - Run the optional enterprise scan only with customer authorization and the required token access.
 - Preserve non-secret output and triage findings by severity, source level, and owner.
-- Keep evidence and recommendations separate. Build a prioritized backlog with owners, dependencies, rollback needs, and review cadence.
+- Repair one verified gap with its owner's approval and check the result.
 
 ## Scope and guardrails
 
@@ -36,7 +36,7 @@ Use these guardrails throughout:
 
 ### Part A: Define scope and evidence rules
 
-1. Record the organization, reviewer role, approval owner, scan date, evidence location, identity model, and whether the customer uses GitHub.com or GHE.com data residency. If ghec-ch52's topology, delegation matrix, and control register are available, use their approved scope, ownership, and delegation boundaries. Otherwise, define scope and ownership here and continue the review.
+1. Record the approved organization, authorized reviewer, scan date, and evidence location. Confirm GitHub.com or GHE.com and the identity model.
 2. Define the allowed scan scope:
    - **Required:** organization scan.
    - **Optional:** enterprise scan only when the customer explicitly authorizes it and provides an enterprise-capable token.
@@ -108,7 +108,7 @@ Use these guardrails throughout:
 
 ### Part E: Triage and corroborate findings
 
-14. Review the top findings by severity and category. Identify each finding's accountable owner and effective source: enterprise, organization, repository, or unavailable. Cross-check ownership and source against the ghec-ch52 topology, delegation matrix, or register when available, and cite it. Otherwise, verify findings with GitHub API/audit evidence and record the register as unavailable. Do not mark it compliant.
+14. Review findings that need action and identify the owner and configuration level for each. Check them against settings or API evidence. Mark unavailable evidence as unverified.
 15. Corroborate at least one finding with a GitHub evidence surface. Examples:
 
    ```bash
@@ -125,15 +125,14 @@ Use these guardrails throughout:
 
 16. Build a short remediation backlog from the material findings. Record the owner, risk, dependency, next decision date, and evidence link.
 
-### Part F: Handover
+### Part F: Repair and verify one gap
 
-17. Walk the governance owner through:
-    - what was scanned;
-    - what was unavailable and why;
-    - top accepted risks and proposed changes;
-    - which findings require enterprise owner involvement;
-    - which remediation candidates need separate approval.
-18. Confirm the next posture-review cadence. Record whether `ghqr` becomes a quarterly review input, an onboarding check for newly acquired orgs, or a one-time assessment artifact.
+17. Choose one material finding the owner authorizes you to fix. Save the current setting and agree on rollback. Use the matching configuration chapter rather than inventing a workaround: [Ch07](../07-teams-roles-permissions/README.md) for team access, [Ch08](../08-rulesets-repo-properties/README.md) for rulesets, or [Ch04](../04-actions-ci-fundamentals/README.md) for required CI.
+18. Apply the approved repair to the selected pilot. Test the behavior directly: for a review rule, an unapproved PR must stay blocked; for access, the intended user succeeds and an out-of-scope user is denied.
+19. Rerun the same `ghqr scan -o <org>` command, using the same host and scope. Compare the selected finding with the before report. If the scanner still reports it, inspect the effective setting and the check's limitations instead of marking it fixed.
+20. Keep the repaired setting and test result in the existing adoption issue. Agree when the owner will run the same check for the next repository cohort. An automatic schedule is optional.
+
+If no material gap exists, test one existing control and record that it already meets the requirement. Do not create a defect to get a finding. If repair approval or direct validation is unavailable, retain the assessment and mark implementation **blocked / not tested**. Mock output is sample practice.
 
 ## Reference links
 

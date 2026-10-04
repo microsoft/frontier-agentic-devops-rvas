@@ -1,5 +1,5 @@
 id: sre-agent-05
-title: Connect source code and create remediation work
+title: Hand the incident to engineering
 module: sre-agent
 track: azure-sre-agent
 difficulty: advanced
@@ -8,9 +8,11 @@ prerequisites:
   - sre-agent-04
 prerequisite_capabilities:
   - Azure SRE Agent portal access
-  - GitHub account or provided simulated repository evidence
+  - Permission to create an issue in the service's GitHub repository
+  - Same incident and source evidence from sre-agent-04
+  - Engineering owner available to accept follow-up
   - Basic pull request review
-description: "Use GitHub code context to plan incident fixes for human review."
+description: "Get engineering to accept a real incident-linked GitHub issue with source evidence."
 tags:
   - source-code-context
   - remediation

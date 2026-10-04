@@ -1,5 +1,5 @@
 id: sre-agent-03
-title: Onboard service context and response plans
+title: Connect and test response context
 module: sre-agent
 track: azure-sre-agent
 difficulty: intermediate
@@ -8,9 +8,10 @@ prerequisites:
   - sre-agent-01
 prerequisite_capabilities:
   - Azure SRE Agent portal access
-  - Deployed or simulated Grubify lab
+  - Grubify or the customer service connected in sre-agent-01
+  - Permission to connect runbooks and test the approved response route
   - Azure monitoring basics
-description: "Review service context and response plans available to Azure SRE Agent."
+description: "Connect or repair the runbook and response route, then test that the agent uses them."
 tags:
   - azure-sre-agent
   - response-plans

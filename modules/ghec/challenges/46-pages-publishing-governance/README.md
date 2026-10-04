@@ -52,7 +52,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 
 4. Choose the publishing source: branch folder (`docs/`) or GitHub Actions.
 5. Record site owner, content owner, review cadence, rollback owner, and incident contact.
-6. Confirm repository visibility and Pages visibility match customer policy.
+6. Confirm repository and Pages visibility separately. A private repository does not by itself make its Pages site private. Use only non-sensitive content until you verify who can read the site.
 
 ### Part C: Configure repository Pages
 
@@ -71,8 +71,8 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
     ```bash
     gh api repos/<org>/ghec-ch46-pages-site/pages
     ```
-11. Visit the site URL, capture the source branch/path or workflow run, and confirm visibility.
-12. Document rollback: disable Pages, revert source, or remove workflow approval.
+11. Visit the site from an intended reader account and a signed-out browser. For a private site, verify that a denied account cannot read the content either. For an approved public site, confirm signed-out access works. If private publication is unavailable, leave customer content unpublished and record the blocker.
+12. Publish a harmless marker change through normal review and confirm it appears. Revert that commit through a reviewed PR, wait for the Pages deployment, and verify the prior content is restored for the same audience. Keep both deployment URLs and the access results.
 
 ## Reference links
 

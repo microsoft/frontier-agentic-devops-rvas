@@ -1,24 +1,24 @@
 id: ghas-00
-title: Environment setup
+title: Prepare the remediation repository
 module: ghas
 track: developer-flow
 difficulty: beginner
-duration_minutes: 45
+duration_minutes: 20
 prerequisites: []
 prerequisite_capabilities:
   - GitHub account
   - Basic Git and CLI usage
-  - Organization where you can create a repository and enable code security features
+  - Approved customer repository, or an organization for an isolated practice repository
   - GitHub Advanced Security available for the repository visibility you choose
-  - GitHub Copilot license assigned
-description: "Prepare a repository for GHAS work and confirm access and ownership."
+  - GitHub Copilot license only when using Copilot assistance
+description: "Check repository access and tests. Provision a sample only when needed."
 tags:
   - setup
   - devcontainer
   - ghas
   - juice-shop
   - remediation
-app_dependency: juice-shop
+app_dependency: none
 emu_compatible: true
 min_environment: org
 tier: setup

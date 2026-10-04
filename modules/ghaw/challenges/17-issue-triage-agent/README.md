@@ -1,64 +1,106 @@
-**Session outcome:** Your compiled issue-triage workflow classifies new issues using the repository's allowed labels. A dry run lets you check its choices against the configured taxonomy.
+# Issue triage for the customer's taxonomy
 
-## Background
+**Session outcome:** The workflow applies only approved labels to real issues.
+A maintainer validates its choices, including an ambiguous issue where it
+abstains.
 
-The Issue Triage Agent reads each new issue, compares it with the repository's label taxonomy, and applies allowed labels.
+Start after [setup](../00-setup/README.md).
+**Use issue forms first** when the reporter can select a known category.
+Use the model only when those fields and simple rules cannot classify the issue.
 
-Source: [`github/gh-aw/.github/workflows/issue-triage-agent.md`](https://github.com/github/gh-aw/blob/main/.github/workflows/issue-triage-agent.md)
+## Build and validate
 
-## What it does
+1. Read the repository's existing issue forms and list its labels:
+   `gh label list --limit 100`. Increase the limit if needed. Have a maintainer
+   define the small subset this workflow may add and what each label means.
+2. Copy the [complete triage starter](../../resources/examples/issue-triage-agent.md)
+   into the customer checkout as `.github/workflows/issue-triage-agent.md`.
+   Its Markdown body is the reporting agent's prompt. It runs on issue
+   `opened` and `reopened` events.
+3. Keep the agent's token read-only. Configure `safe-outputs: add-labels` with
+   an explicit `allowed` list of the customer's exact labels. Exclude approval
+   and escalation labels that maintainers control. Triage must not approve
+   work for a code-writing workflow.
+4. Ask the model to add a label only when the issue supplies enough evidence.
+   Preserve existing labels and abstain on ambiguity. There is no required
+   number of labels and no mandatory explanatory comment.
+5. Compile with `gh aw compile issue-triage-agent`. Inspect the lock file's
+   writer permissions and label allowlist, then deploy through review.
+6. Test a clear issue, an ambiguous one, and an issue with existing labels.
+   Rerun an event. A maintainer compares results with the taxonomy; unchanged
+   labels should produce no extra output.
 
-- Triggers on `on: issues: types: [opened, reopened]`
-- Reads the issue title and body
-- Looks up available labels using `tools: github: toolsets: [issues, labels]`
-- Applies 1–3 relevant labels from a defined allowlist
-- Posts a short classification comment explaining the categorisation
+Record corrections before enabling this for all new issues. Complete the
+[shared acceptance check](../../setup.md#pilot-acceptance).
 
-> [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): customise the workflow with the real labels, issue patterns, and comment style of a repo you own.
+## Customize and run the starter
 
-## Steps
+From the customer checkout, set `CURRICULUM` to the absolute path of this
+curriculum checkout:
 
-1. Install and verify `gh aw` with the [GHAW setup guide](../../setup.md).
+```bash
+CURRICULUM=/absolute/path/to/frontier-agentic-devops-rvas
+mkdir -p .github/workflows
+cp "$CURRICULUM/modules/ghaw/resources/examples/issue-triage-agent.md" .github/workflows/
+gh label list --limit 100
+```
 
-2. Pull the production workflow as your starting point:
-   ```bash
-   gh aw add-wizard https://github.com/github/gh-aw/blob/main/.github/workflows/issue-triage-agent.md
-   ```
+The sample uses `bug`, `documentation`, and `question`. Use existing labels or
+have a maintainer create the agreed missing ones. Replace both the
+`safe-outputs.add-labels.allowed` list and their definitions in the prompt.
+For help adapting them, paste this into Copilot Chat in agent mode:
 
-3. Inspect the downloaded file in `.github/workflows/issue-triage-agent.md`. Compare its frontmatter with the [GitHub Actions workflow syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax): `on:`, `permissions:`, `safe-outputs:`, and `tools:`.
+```text
+Adapt .github/workflows/issue-triage-agent.md to this repository's issue forms
+and labels. Propose the smallest useful taxonomy and ask me to approve it.
+Then update both the label allowlist and the prompt's definitions.
+Keep the token read-only, preserve existing labels, and call noop when the
+issue is ambiguous. Do not add comments, assignments, or approval labels.
+Compile the workflow. Do not deploy it or create test issues.
+```
 
-4. Customise the workflow for your repo (see below).
+Compile and inspect the source and lock file:
 
-5. Compile the workflow:
-   ```bash
-   gh aw compile issue-triage-agent
-   ```
+```bash
+gh aw compile issue-triage-agent
+git diff -- .github/workflows/
+```
 
-6. Dry-run the workflow:
-   ```bash
-   gh aw run issue-triage-agent --dry-run
-   ```
+Open new files in the editor too; untracked files do not appear in `git diff`.
+Merge the reviewed files to the default branch. Use an approved test repository
+for these examples, or coordinate equivalent real issues with the maintainer:
 
-7. Commit both `.github/workflows/issue-triage-agent.md` and the generated `.lock.yml`.
+| Issue body | Expected result with the sample taxonomy |
+| --- | --- |
+| "The documented Save button returns HTTP 500. Here are the reproduction steps..." | `bug`, if the evidence establishes a defect. |
+| "How do I change the export format?" | `question`. |
+| "Something is wrong. Please help." | No label; the run records why it abstained. |
 
-## Adapt it
+Open the issue's Actions run and compare its label request with the issue text.
+In the run menu, choose **Re-run all jobs**. Confirm the same label is not added
+again and no comment appears. Close practice issues after the check.
 
-Replace the default allowlist with your repo's actual labels:
-- Open your repo's Labels page and copy the exact label names
-- Tell the agent to use only those labels so it does not invent tags
-- Add a short description of each label so the agent understands when to apply it
-- Change the classification comment style. A one-line comment such as "Categorised as: bug, backend" is enough.
+## Deterministic maintenance references
 
----
+These are optional native Actions recipes, separate from AI triage.
 
-<details>
-<summary>Hints</summary>
+Use [`actions/stale`](https://github.com/actions/stale) for a
+maintainer-approved inactivity policy. Configure `days-before-issue-stale`,
+`days-before-issue-close`, and `exempt-issue-labels`; disable PR handling if
+the policy covers issues only. Warn once, then calculate the grace period by
+elapsed time, not number of workflow runs. Verify activity removes the stale
+state and exemption labels prevent closure. Test recent activity, an exempt
+issue, and the grace-period boundary with fixture timestamps before enabling
+closure. A custom minimum issue age needs a separate deterministic check.
 
-If the agent applies labels that do not exist, add explicit instructions: _"Only apply labels from this list: [bug, enhancement, docs, question]. Never invent labels."_ Run `gh label list` to get the exact names.
+For contributor guidance, start with
+[community-health files](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file)
+and [issue forms](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository).
+If maintainers still want a welcome comment, use a fixed template and a
+deterministic first-contribution check. `author_association: NONE` alone does
+not establish that this is someone's first contribution. Query prior activity
+and exclude bots. Check for an existing welcome on the PR before posting.
+Link real guidance without promising review times. No model is needed.
 
-If the workflow runs but does nothing, check the run log in the Actions tab. Grant at minimum `issues: write` for `add-labels` and `add-comment` (see [GITHUB_TOKEN permissions](https://docs.github.com/en/actions/tutorials/authenticate-with-github_token)).
-
-`add-labels` appends to existing labels; `set-labels` replaces them. Use `add-labels` unless the workflow should control the full label set.
-
-</details>
+Pin any action to a reviewed commit SHA and scope its token to the required
+issue or PR writes.

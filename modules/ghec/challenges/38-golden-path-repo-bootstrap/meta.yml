@@ -10,8 +10,8 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-- Repository provisioned via activity setup script
-description: "Bootstrap repositories from an approved template with built-in ownership checks."
+- Approved starter application with working CI
+description: "Prepare a tested repository template and protect its baseline with organization rules."
 tags:
 - repository-templates
 - bootstrap
@@ -21,17 +21,12 @@ tags:
 app_dependency: none
 emu_compatible: true
 min_environment: org
-provision_creates:
-- repo ghec-ch38-golden-path-template (seeded template candidate with baseline files)
-- repo ghec-ch38-bootstrap-candidate (empty validation target)
-- printed template and repository baseline next steps
+provision_creates: []
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/38-golden-path-repo-bootstrap/meta.yml
 license: MIT
 references:
 - https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository
-- https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template
 - https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
-- https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository
-- https://docs.github.com/en/rest/repos/repos
+- https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-organization-settings/creating-rulesets-for-repositories-in-your-organization

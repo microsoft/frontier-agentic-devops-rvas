@@ -1,0 +1,27 @@
+name: Repository request
+description: Request an Internal repository for your team, subject to maintainer approval.
+title: "Repository request: "
+body:
+  - type: input
+    id: service_name
+    attributes:
+      label: Service name
+      description: Lowercase letters, numbers, and single hyphens, starting with a letter.
+      placeholder: orders
+    validations:
+      required: true
+  - type: dropdown
+    id: owning_team
+    attributes:
+      label: Owning team
+      description: Choose your own team. Administrators maintain this list.
+      options: [grubify]
+    validations:
+      required: true
+  - type: textarea
+    id: purpose
+    attributes:
+      label: Purpose
+      description: Explain what the service will do and why it needs a repository.
+    validations:
+      required: true

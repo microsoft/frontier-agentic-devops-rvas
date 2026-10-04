@@ -1,32 +1,27 @@
-# Hello world: gh-aw smoke test
-
 ---
 on:
-  schedule:
-    - cron: "0 9 * * 1"
   workflow_dispatch:
-
 permissions:
-  issues: write
-
+  issues: read
+checkout: false
 safe-outputs:
   create-issue:
     max: 1
-    labels: [hello-world, automated]
-  noop:
-
+    title-prefix: "[gh-aw readiness] "
+    deduplicate-by-title: true
+tools:
+  github:
+    toolsets: [issues]
 engine: copilot
 ---
 
-## Goal
+# Customer repository runtime check
 
-Create a "Hello from gh-aw!" issue to confirm that the workflow runtime works.
+Search this repository for an issue titled
+`[gh-aw readiness] Runtime verified`, including closed issues.
+If one exists, call noop.
 
-## Steps
-
-1. Note the current date and time (UTC).
-2. Create an issue with the title `Hello from gh-aw! {YYYY-MM-DD}` and a short body
-   confirming the workflow ran successfully, including the current date/time and a
-   one-sentence note that this is an automated smoke test.
-
-{{#runtime-import shared/noop-reminder.md}}
+Otherwise, request one issue with that title. State that the AI engine ran and
+requested this issue. The maintainer must check the Actions run and issue before
+confirming readiness. Do not claim that any customer pilot or required PR checks
+passed.

@@ -1,21 +1,22 @@
-# Activity 03: Onboard service context and response plans
+# Activity 03: Connect and test response context
 
-**Session outcome:** Your context map shows the service knowledge and response paths Azure SRE Agent can use. You have checked its architecture and runbook answers against their sources and recorded ownership in safe team memory, or explained why you skipped memory.
+**Session outcome:** You have connected or repaired the service's runbook and response route. A safe test shows that Azure SRE Agent uses them correctly.
 
 ## Scenario
 
-Azure SRE Agent needs accurate context. Inspect the service knowledge, response plans, custom agents, and team memory that guide its response to Grubify incidents.
+Use Grubify or the same customer service as Activity 01. Check the runbook version and alert route
+with the service owner, then connect missing sources or repair stale links.
 
 ## Goals
 
 - Verify what context Azure SRE Agent has loaded.
 - Review knowledge files, runbooks, and architecture context.
-- Understand the incident-handler, code-analyzer, and issue-triager roles when available.
-- Inspect how Azure Monitor alerts route to the agent.
-- Add safe team memory for ownership and escalation.
+- Connect or repair the runbook and Azure Monitor response route.
+- Test that a safe alert reaches the expected response plan and uses the correct runbook.
+- Use team memory only for service information missing from connected sources.
 
 > [!TIP]
-> **Use your own service.** You can replace Grubify with a service your team operates.
+> You can replace Grubify with a service your team operates.
 > Use its runbooks, architecture notes, alert routes, response plans, and ownership details.
 > **Do not paste secrets, private contacts, or sensitive tenant details into notes or chat.**
 
@@ -32,11 +33,27 @@ In the Azure SRE Agent portal, open the agent created for the lab and inspect:
 | Response plans | Alert routing and autonomous/review behavior |
 | Global tools | Azure observability and optional GitHub tools |
 
-If you are using a fallback packet, use the provided screenshots or setup summary for these areas.
+If you are using a fallback packet, inspect its setup summary as practice.
+It cannot prove a live connection or route.
+
+## Connect or repair the response path
+
+1. In the agent's knowledge sources, connect the approved runbook and architecture
+   source, or update a stale connection. Check that the agent can retrieve the
+   current version.
+2. Connect the service's Azure Monitor incident source and configure its response
+   plan or supported route. Confirm the target agent and human approval settings
+   with the owner.
+3. Send an approved test alert through that route, or inspect a recent real
+   alert handled under the same configuration. Verify the target plan ran and
+   referenced the intended runbook. Do not inject a production fault.
+
+If the configuration is already correct, test it without changing it. If you
+cannot test the route, mark it **not tested** and assign an owner to follow up.
 
 ## Ask context questions
 
-Use Azure SRE Agent chat:
+Use Azure SRE Agent chat. If using your own service, replace Grubify in these prompts:
 
 ```text
 What do you know about the Grubify architecture?
@@ -52,19 +69,20 @@ Which response plan or incident route would handle a Grubify HTTP error alert?
 
 Capture claims supported by connected resources or knowledge. Mark the rest as open questions.
 
-## Add safe team memory
+## Add team memory if needed
 
-Add a small, non-sensitive memory:
+Only add memory when the team needs persistent context not already supplied by
+its connected sources. Use approved role names, for example:
 
 ```text
-Remember that for this lab, the operator validates recovery, the reviewer approves GitHub remediation work, and the escalation handler decides whether autonomous mitigation is allowed.
+Remember the approved recovery owner for <service> is <team role>. Use <approved runbook source> for its escalation path.
 ```
 
 **Do not store personal data, private escalation contacts, secrets, or tenant-specific details.**
 
 ## Build the context map
 
-Create a table:
+Use the existing service record. If you need a separate context map, use this table:
 
 | Context item | Source | How it helps incident response | Missing or risky? |
 | --- | --- | --- | --- |
@@ -77,7 +95,6 @@ Create a table:
 
 ## Deliverables
 
-- Context map.
-- One validated agent answer about architecture.
-- One validated agent answer about runbook or response plan.
-- One safe team memory or a note explaining why memory was skipped.
+- Record the connected runbook's source and version, plus the response route and any repairs.
+- Save the safe test or recent alert result that shows the agent used the correct route and runbook.
+- Check an agent answer against its source. Leave untested routes open for follow-up. Memory is optional.

@@ -1,79 +1,60 @@
 # Ch38: Golden-path repository bootstrap
 
-**Session outcome:** Your approved template creates a repository with the required baseline files. The repository passes validation, and its owner has the configuration and results.
+**Session outcome:** A maintained repository template contains a working application, real CI, and clear setup instructions. Organization rules protect repositories that use this baseline.
 
 ## Prerequisites
 
-- GitHub Enterprise Cloud organization with org-owner rights.
-- Token scopes from `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch38 --org <org>` (`repo` + `read:org`; `admin:org` only if you choose approved org setting changes manually).
-- `gh >= 2.x`, `git`, and `jq`.
+Use an existing, approved starter repository and an organization owner who can configure rulesets. Bring a working application with tests and a build; Ch04 provides the CI setup if needed. You need `gh`, Git, and an independent reviewer.
 
-## Scenario
-
-Teams create repositories by copying old projects, often leaving out owners, support files, or baseline controls. Define a standard template without changing organization-wide settings.
-
-> [!IMPORTANT]
-> Use a real customer template repository when available. If none is approved, run the setup and use `ghec-ch38-golden-path-template` plus `ghec-ch38-bootstrap-candidate` as fallback samples.
-
-## Sample setup
-
-```bash
-bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch38 --org <org>
-```
-```powershell
-modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch38 -Org <org>
-```
-
-Setup creates only namespaced sample repositories:
-
-- `ghec-ch38-golden-path-template` with README, CODEOWNERS, issue form, PR template, and workflow guidance.
-- `ghec-ch38-bootstrap-candidate`, an empty validation target.
-- No organization defaults, rulesets, member privileges, or tokens are changed.
+**This session prepares the template.** Ch36 installs the approved request-to-repository automation.
 
 ## Tasks
 
-### Part A: Approve the bootstrap standard
+### Part A: Prepare the starter
 
-1. Record the authorized scope, template owner, support team, exception path, and review cadence.
-2. Define the baseline: README, ownership, issue intake, PR checklist, labels, branch/ruleset expectations, Actions permissions, secret policy, and required metadata.
-3. Decide which controls are enforced now and which require a later org-owner approval.
+1. Choose the customer starter application. Remove customer data and credentials before sharing it with other teams. Grubify is suitable if it is the customer's approved starting point.
+2. Follow its README from a clean checkout. Run the actual tests and build. Fix missing setup instructions or dependencies.
+3. Keep those commands in its CI workflow. Include `pull_request` and, if used, `merge_group` triggers. Remove hardcoded repository names.
+4. Add a PR template and `.github/CODEOWNERS` naming the team that will maintain the baseline. Explain how a consuming team replaces that ownership entry. Do not copy secrets or environment credentials into the template.
+5. Open a small PR that deliberately fails an existing test. Confirm CI fails, fix the test, and merge after independent review.
 
-### Part B: Inspect the template candidate
+### Part B: Apply the baseline
 
-4. Review the seeded files in `ghec-ch38-golden-path-template`:
-   ```bash
-   gh repo view <org>/ghec-ch38-golden-path-template --json name,isTemplate,visibility,description
-   gh api repos/<org>/ghec-ch38-golden-path-template/contents/.github/CODEOWNERS --jq .name
-   ```
-5. Mark it as a template only after approval:
-   ```bash
-   gh api -X PATCH repos/<org>/ghec-ch38-golden-path-template -f is_template=true
-   ```
-6. Save the before/after evidence.
+With the organization owner, configure the Ch08 organization ruleset to cover the template and future application repositories:
 
-### Part C: Bootstrap and validate a repository
+- Require a PR with at least one independent approval.
+- Require the starter's actual CI check names on the default branch.
 
-7. Create a repository from the template, or apply the same files to the validation target:
-   ```bash
-   gh repo create <org>/ghec-ch38-bootstrap-check --private --template <org>/ghec-ch38-golden-path-template
-   ```
-8. Validate required files and settings:
-   ```bash
-   gh api repos/<org>/ghec-ch38-bootstrap-check/contents/.github/pull_request_template.md --jq .name
-   gh repo view <org>/ghec-ch38-bootstrap-check --json name,visibility,description,defaultBranchRef
-   ```
-9. Record baseline gaps, approved exceptions, and the owner for each remediation.
+Use a target that covers future repositories without a manual settings step, such as all repositories or the approved team-name prefixes. Keep the provisioning App out of the branch-ruleset bypass list. A repository-creation exception does not justify bypassing code review.
 
-### Part D: Handover
+Inspect the rules applying to the template:
 
-10. Document how teams request template changes.
-11. Name the first production repository cohort and review date.
-12. If the customer wants high-impact org-default changes, record approval and make the changes outside setup.
+```bash
+export TEMPLATE="YOUR-ORG/YOUR-TEMPLATE"
+export DEFAULT_BRANCH="$(gh repo view "$TEMPLATE" --json defaultBranchRef --jq '.defaultBranchRef.name | @uri')"
+gh api "repos/$TEMPLATE/rules/branches/$DEFAULT_BRANCH"
+```
 
-## Reference links
+Have a normal contributor confirm a failing check blocks merging and a passing check still needs independent review. Restrict changes to the template through the same reviewed path.
+
+### Part C: Publish the reviewed template
+
+After the PR merges, mark the existing repository as a template:
+
+```bash
+gh api --method PATCH "repos/$TEMPLATE" -F is_template=true
+gh repo view "$TEMPLATE" --json isTemplate,defaultBranchRef
+gh api "repos/$TEMPLATE/commits/HEAD" --jq '{commit: .sha, tree: .commit.tree.sha}'
+```
+
+Record the reviewed commit and required CI check names for Ch36. Template generation copies the current default branch. Ch36 refuses creation if that branch has moved from the approved commit.
+
+Name the template maintainer in the README. Template updates go through PR review; the maintainer then updates the approved commit in the intake configuration. Existing application repositories do not automatically receive template changes. Use a reviewed PR when they need an update.
+
+Keep the template URL and the failing-then-passing PR as [completion evidence](../../../README.md#completion-evidence). Repository creation and team grants belong to Ch36.
+
+## References
 
 - [Creating a template repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository)
-- [Creating a repository from a template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
+- [Organization rulesets](https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-organization-settings/creating-rulesets-for-repositories-in-your-organization)
 - [CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
-- [Issue templates](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository)
-- [Repositories REST API](https://docs.github.com/en/rest/repos/repos)

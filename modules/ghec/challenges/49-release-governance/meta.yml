@@ -1,31 +1,27 @@
 id: ghec-ch49
-title: Release governance
+title: Publish an approved, tested release
 module: ghec
 track: developer-flow
 difficulty: advanced
-duration_minutes: 105
+duration_minutes: 120
 prerequisites: []
 prerequisite_capabilities:
 - GitHub organization with org-owner or repository administrator rights
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-- Repository provisioned via activity setup script, or an approved production release repository
-description: "Define release approval gates and assign rollback ownership."
+- Approved repository with build and artifact tests, publication environment, and independent reviewer
+description: "Publish the tested artifact after approval and verify refusal and recovery."
 tags:
 - releases
 - governance
 - approvals
-- deployment
+- tested-artifacts
 - audit-evidence
 app_dependency: none
 emu_compatible: true
 min_environment: org
-provision_creates:
-- repo ghec-ch49-release-governance (seeded release governance sample)
-- release readiness issue template, labels, changelog, and evidence workflow scaffold
-- sample release candidate issue
-- printed repository release settings inspection commands
+provision_creates: []
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/49-release-governance/meta.yml

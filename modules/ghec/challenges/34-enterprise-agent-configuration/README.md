@@ -1,9 +1,11 @@
 # Ch34: Enterprise agent configuration
 
-**Session outcome:** Your enterprise custom agent uses a protected `.github-private` configuration source, and you have tested instruction propagation and rollback. Without enterprise-owner access, you have a decision package and implementation pull request. The agent remains inactive.
+Use this session only after a repository pilot works and the approved agent needs to serve multiple organizations. Reuse Ch31's instructions and Ch32's review evidence. A single-repository team does not need enterprise configuration.
+
+**Session outcome:** Your enterprise custom agent uses a protected `.github-private` configuration source, and you have tested instruction propagation and rollback. Without enterprise-owner access, implementation remains blocked.
 
 > [!IMPORTANT]
-> **An authorized enterprise owner must select the configuration source.** They must create or select the actual `.github-private` repository and set it in AI Controls. If enterprise access is unavailable, deliver the decision package and implementation pull request described in [Part F](#part-f-no-enterprise-access-decision-package). Do not claim the enterprise agent or configuration source is active.
+> **An authorized enterprise owner must select the configuration source.** They must create or select the actual `.github-private` repository and set it in AI Controls. If enterprise access is unavailable, record the blocker as described in [Part F](#part-f-no-enterprise-access-decision-package). Do not claim the enterprise agent or configuration source is active.
 
 ## Prerequisites
 
@@ -74,7 +76,7 @@ The enterprise agent source and organization custom instructions are different c
 
 ### Part E: Configure organization instructions and document precedence
 
-16. At each in-scope organization, an organization owner opens **Settings → Copilot → Custom instructions** and adds short, broadly applicable instructions. Keep organization instructions separate from the enterprise agent prompt and from repository-specific implementation guidance. For example:
+16. Reuse the approved organization instructions from Ch31. Change them with the organization owner only when they do not meet a cross-organization need. Keep them separate from the enterprise agent prompt. For example:
 
    ```text
    Follow approved secure-delivery standards and explain material security risks.
@@ -97,10 +99,10 @@ The enterprise agent source and organization custom instructions are different c
 
 ### Part F: No-enterprise-access decision package
 
-20. If enterprise access is unavailable, create a decision package for approval and mark implementation as pending. Name the source organization, proposed `.github-private` visibility, CODEOWNERS team, ruleset requirements/bypass model, AI Controls configuration-source change, exact `Agentic DevSecOps` file, proposed organization instructions, test plan, rollback owner, and requested enterprise-owner decision.
-21. Create an implementation pull request or reviewable patch against the customer-approved `.github-private` source when repository access is available. If it is not available, attach a patch with the intended `CODEOWNERS` and `agents/agentic-devsecops.agent.md` paths to the approval record. Mark it **pending enterprise application**.
-22. Include dated evidence of the access limitation, stakeholder approval request, risk assessment, affected organizations, propagation checks to perform, and a revert plan. Do not create a similarly named repository and describe it as the AI Controls source.
-23. Use the optional `ghec-ch34-enterprise-agent-configuration` fallback only as a private, namespaced decision-package workspace when the customer approves one. It is not `.github-private`, is never an AI Controls source, and cannot satisfy the enterprise implementation criteria.
+20. If enterprise access is unavailable, record the proposed source, intended agent, and required owner approval in the existing adoption issue. Mark implementation **blocked / not tested**.
+21. If a draft helps the owner approve the change, prepare a PR or patch with the intended `CODEOWNERS` and `agents/agentic-devsecops.agent.md` paths. Mark it **pending enterprise application**. A draft is optional and does not prove rollout.
+22. Keep the unavailable-access result with the owner request. Do not create a similarly named repository and describe it as the AI Controls source.
+23. A separate fallback workspace is unnecessary. The optional `ghec-ch34-enterprise-agent-configuration` workspace is practice only; it is never an AI Controls source.
 
 ### Part G: Change approval, propagation, and rollback
 

@@ -1,14 +1,16 @@
 # Ch18: Self-hosted and larger runners
 
-**Session outcome:** Your self-hosted runner executes a workflow through an organization runner group. You have checked repository access and label routing, and recorded the runner's hardening and maintenance requirements.
+Use this optional session when a CI job needs a different runner. Choose self-hosting only for a real network, hardware, or isolation requirement.
+
+**Session outcome:** The customer's CI job runs on the approved runner type and meets its runtime and access needs. A self-hosted choice also passes the runner-group and host-isolation checks.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch18 --org <org>` (least-privilege; for this activity: `repo` + `admin:org` for runner-group + runner management).
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
-- A machine to host the runner, such as your laptop, a VM, or a disposable container. Linux/macOS/Windows all work; use a disposable VM for controlled hardening validation and teardown.
+- Only for self-hosting: an approved disposable VM. Do not attach a personal workstation or shared production host.
 - This activity configures org-level runners and runner groups. Review enterprise runner groups without configuring them. No enterprise owner is required.
-- If `ghec-ch52` (Enterprise Landing Zone & Organization Strategy) already established this customer's organization topology, use its scope decision as input for Part F instead of re-deriving it.
+- Use the customer's approved organization and repository scope for Part F.
 
 ## What you'll do
 - Register a self-hosted runner at the org level and bring it online.
@@ -44,7 +46,23 @@ What setup creates (all artifacts namespaced `ghec-ch18-*`, idempotent, prefix-g
 - A `HARDENING.md` checklist (service account, ephemeral runners, fork-PR risk, network egress).
 - A printed Next steps block telling you where to start.
 
-## Tasks
+## Choose and test the runner type
+
+Run the existing customer job on a standard GitHub-hosted runner first when its
+access requirements permit it. If it meets the job's requirements, keep that
+configuration and stop; self-hosting adds nothing.
+
+For an approved larger runner, create or select it under **Organization settings
+→ Actions → Runners**, restrict its runner group to the intended repository,
+and set the job's `runs-on` to the configured runner name. Run the same job and
+check its result, duration, and cost with the owner. The
+[larger-runner guide](https://docs.github.com/en/actions/using-github-hosted-runners/using-larger-runners/about-larger-runners)
+lists availability and supported configurations.
+
+Continue below only when self-hosting is the approved choice. Keep the working
+configuration and run result in the existing CI change record.
+
+## Configure the self-hosted pilot
 
 ### Part A: Create an org runner group
 1. Create a runner group scoped to your org: Org Settings → Actions → Runner groups → New, name it `ghec-ch18-group`. (Or by API: `gh api orgs/<org>/actions/runner-groups -f name='ghec-ch18-group' -f visibility='selected'`.)
@@ -62,16 +80,16 @@ What setup creates (all artifacts namespaced `ghec-ch18-*`, idempotent, prefix-g
 
 ### Part D: Harden the runner
 9. Least-privilege account. Run the runner under a dedicated non-admin service account, not your personal/root user. Document the account and its limited permissions.
-10. Go ephemeral. Reconfigure the runner with `--ephemeral` (just-in-time: it de-registers after one job) and confirm a fresh registration is required per job. Explain why this defeats job-to-job contamination.
-11. Restrict fork-PR execution. In repo/org Actions settings, ensure "Run workflows from fork pull requests" on self-hosted runners is restricted, and document why running untrusted fork code on a self-hosted runner is dangerous.
+10. Register with `--ephemeral` and verify the runner deregisters after one job. **Ephemeral registration does not erase the host.** Destroy and recreate its VM before the next job, then check that the prior workspace is absent. Just-in-time registration is a separate mechanism. Neither registration method alone cleans the host.
+11. Keep untrusted fork code off this runner. Check repository visibility and workflow triggers alongside runner-group access and fork approval policy. No single self-hosted-only fork setting covers them all. Cancel the Part C job that has no eligible runner and remove the runner and VM after validation.
 12. Constrain egress (document). List the network egress the runner actually needs and note how you'd restrict the rest (firewall/proxy) in a real deployment.
 
 ### Part E: Scaling and runner types
-13. In `docs/RUNNER-CHOICES.md`, compare GitHub-hosted, larger, and self-hosted runners in a short decision matrix. Cover cost, isolation, start latency, custom hardware, and maintenance burden.
-14. Sketch autoscaling. Describe (don't implement) how you'd scale self-hosted runners with ephemeral, just-in-time registration (e.g., a controller that registers a fresh runner per queued job).
+13. Record why the tested runner meets the job's requirements and who maintains it. Link the run result; a separate runner comparison document is unnecessary.
+14. Discuss autoscaling only when the observed queue requires it. Do not add a controller or an architecture exercise to a single-runner pilot.
 
 ### Part F: Review enterprise runner groups
-15. Map org → enterprise. In `docs/RUNNER-CHOICES.md`, add a short note: how an org runner group differs from an enterprise runner group (enterprise groups span multiple orgs; require enterprise-owner), and when you'd reach for each. Use `ghec-ch52`'s scope decision if available; otherwise record your own recommendation. No enterprise actions required.
+15. Use an organization runner group for the selected organization. Consider an enterprise runner group only when the same approved runners must serve several organizations; it requires enterprise-owner access. Record the chosen scope in `docs/RUNNER-CHOICES.md`. No enterprise changes are required.
 
 ### Part G: Inspect the effective runner policy
 

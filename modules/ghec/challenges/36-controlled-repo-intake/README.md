@@ -1,120 +1,113 @@
 # Ch36: Controlled repository intake
 
-**Session outcome:** GitHub Actions creates a repository from an issue-form request only after a maintainer approves it. The repository passes the agreed baseline checks, and the issue records the request and approval.
+**Session outcome:** A member requests a repository for their own approved team. After an authorized maintainer approves it, a GitHub App creates an Internal repository named `<team-slug>-<service-name>` and grants that team Write access. Ordinary members cannot create repositories outside this route.
 
 ## Prerequisites
 
-- An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch36 --org <org>` (least-privilege; for this activity: `admin:org` + `repo` + `read:org`).
-- Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
-- A workflow credential for provisioning:
-  - Preferred: GitHub App installation token with narrowly scoped repository administration and contents permissions.
-  - Workshop fallback: fine-grained PAT stored as an Actions secret named `REPO_PROVISIONER_TOKEN`.
-- No secret should ever be committed to the repository.
+Complete Ch38 first. Bring its template commit and actual required CI check names, an existing intake repository, and an organization owner. This starter targets GitHub Enterprise Cloud on GitHub.com.
 
-## Customer delivery objectives
+The organization must support **repository policies**, currently in public preview. Internal repositories are readable by enterprise members; Write access goes to the owning team. Choose an intake maintainer team with Maintain or Admin access to the intake repository.
 
-You will:
-
-- Inspect and document the current repository-creation policy.
-- Restrict direct repository creation by members, or capture an approved rollout proposal when the production org cannot be changed during the session.
-- Create an intake repository with a custom issue form for repository requests.
-- Use a maintainer-applied approval label as the provisioning trigger.
-- Provision a repository through GitHub Actions using a scoped workflow identity.
-- Comment on the request with success or failure evidence.
-
-## Scenario
-
-A customer's members can create repositories without required metadata, owners, or standard settings. Replace that process with an issue form and maintainer approval. Automate repository creation with the agreed baseline.
-
-> [!IMPORTANT]
-> Choose the target before setup. If you have an authorised intake repository and organization policy decision, use it wherever this guide names `ghec-ch36-repo-intake` and skip Setup. Otherwise use the seeded intake repository below, then move the validated intake flow to an approved customer target.
->
-> Record the selected target, policy owner, workflow owner, approval label, and next action.
-
-## Sample test repository or environment
-
-Skip if you brought your own intake target.
-
-```bash
-# Bash
-bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch36 --org <org>
-```
-```powershell
-# PowerShell
-modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch36 --org <org>
-```
-
-Setup is idempotent and creates only these namespaced artifacts. Teardown accepts only the `ghec-ch36-*` prefix.
-
-- `ghec-ch36-repo-intake` with a repository-request issue form.
-- Intake labels including `repo-intake: approved`, `repo-intake: provisioned`, and `repo-intake: failed`.
-- `.github/workflows/provision-repository.yml`, a fail-closed workflow scaffold triggered by the approval label.
-- A sample repository request issue.
-- A printed organization repository-creation policy snapshot.
+**Do not disable all creation under Member privileges.** That blanket setting blocks GitHub Apps too. Use an active repository policy to deny ordinary users and allow the provisioning App. Enterprise restrictions still apply; a policy exception cannot override a stricter enterprise policy.
 
 ## Tasks
 
-### Part A: Inspect and decide the policy
+### Part A: Register the provisioning App
 
-1. Snapshot the current repository-creation policy:
-   ```bash
-   gh api /orgs/<org> --jq '{members_can_create_repositories, members_can_create_public_repositories, members_can_create_private_repositories, members_can_create_internal_repositories}'
-   ```
-2. Record the risk decision: direct member creation remains temporarily allowed, or direct member creation will be disabled and replaced by intake.
-3. If authorized, disable member repository creation in Organization settings → Member privileges → Repository creation. Verify via the API:
-   ```bash
-   gh api /orgs/<org> --jq '{members_can_create_repositories, members_can_create_public_repositories, members_can_create_private_repositories, members_can_create_internal_repositories}'
-   ```
-4. If not authorized, write the rollout proposal with approver, risk, timing, and fallback path. This still counts for the policy part; do not change production settings without approval.
+An organization owner registers an organization-owned GitHub App:
 
-### Part B: Configure the intake repository
+1. Disable webhooks. Actions will handle request events.
+2. Grant repository **Administration: Read and write** and **Contents: Read-only**, plus organization **Members: Read-only**. Metadata read access is included. No Contents write, Workflows write, or organization administration write permission is needed by the starter.
+3. Install it on **All repositories** in the target organization. It must read the template and administer repositories that do not exist yet. Selected-repository installation is insufficient.
+4. Generate its private key. Keep it out of Git and local command output. Restrict who can change the App, its installation, and the intake workflow.
 
-5. Review `.github/ISSUE_TEMPLATE/repository-request.yml` in `ghec-ch36-repo-intake`.
-6. Open a new repository request and confirm the form captures:
-   - requested repository name
-   - owner/team
-   - business purpose
-   - visibility
-   - data classification
-   - baseline requirements
-7. Confirm the intake labels exist:
-   ```bash
-   gh label list --repo <org>/ghec-ch36-repo-intake --limit 100
-   ```
+The workflow mints a short-lived installation token after approval and revokes it when the job ends. It copies template files through GitHub's API; it never executes application code with this token.
 
-### Part C: Configure workflow identity
+### Part B: Enforce the creation route
 
-8. Preferred: create or select a GitHub App with narrowly scoped permissions for repository administration and contents, then provide the workflow an installation token through a secret or token-minting step.
-9. Workshop fallback: create a fine-grained PAT with only the needed organization/repository permissions and store it as an Actions secret named `REPO_PROVISIONER_TOKEN` on the intake repo.
-10. Confirm the credential owner, rotation date, and permissions in the approved secret-management or workflow operating evidence. Never record the secret value.
+With the organization owner:
 
-### Part D: Approve and provision
+1. Under **Organization settings → Policies → Repository**, create an **Active** policy targeting **all repositories**, including future ones. Enable **Restrict creation**. Add only the provisioning GitHub App to its allow list, plus organization administrators if the organization needs an owner-operated emergency path. Do not add requester teams, repository roles, or unrelated Apps.
+2. Under **Member privileges → Repository creation**, permit **Internal** creation so the App can use it. Disable Public and Private creation unless another approved route needs them. Check enterprise policies do not block the App.
+3. Leave the Ch38 organization branch rules active for future repositories. Do not give this App a branch-ruleset bypass.
+4. Restrict visibility changes and repository renaming so ordinary members cannot sidestep the approved visibility or name after creation. Keep organization base permissions at Read or lower.
+5. As a normal member, attempt direct creation through both the UI and `gh repo create`. Confirm GitHub rejects it, including an otherwise valid team-prefixed name.
 
-11. Open the sample request issue and verify the requested repo name uses the safe prefix `ghec-ch36-`.
-12. As a maintainer, apply the approval label:
-    ```bash
-    gh issue edit <issue-number> --repo <org>/ghec-ch36-repo-intake --add-label 'repo-intake: approved'
-    ```
-13. Watch the workflow run. It should parse the issue form, validate the request, create the repository, seed a README, add labels, and comment back to the issue.
-14. Confirm the issue has a final label:
-    - `repo-intake: provisioned` on success
-    - `repo-intake: failed` on validation or provisioning failure
+The App bypass applies to the creation policy only. Organization owners retain administrative authority; this session does not remove that exception.
 
-### Part E: Verify the created repository baseline
+If the App is not available in the policy's allow list, or the policy feature is unavailable, **stop**. Do not enable unrestricted member creation or substitute an owner's PAT.
 
-15. Inspect the created repository:
-    ```bash
-    gh repo view <org>/<requested-repo> --json name,visibility,description
-    gh label list --repo <org>/<requested-repo> --limit 100
-    ```
-16. Confirm the repo has the approved baseline: description, visibility, README, expected labels, and owner evidence in the request issue.
-17. Record the audit trail: request issue, approving actor, workflow run, created repo, and any exception.
+### Part C: Install the form and workflow
 
-## Reference links
+From the curriculum checkout:
 
-- [Restricting repository creation in your organization](https://docs.github.com/en/organizations/managing-organization-settings/restricting-repository-creation-in-your-organization)
-- [Configuring issue templates](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository)
-- [Using secrets in GitHub Actions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions)
-- [Authenticating as a GitHub App installation](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/authenticating-as-a-github-app-installation)
-- [Repositories REST API](https://docs.github.com/en/rest/repos/repos)
+```bash
+export TARGET_CHECKOUT="/path/to/intake-repository"
+mkdir -p "$TARGET_CHECKOUT/.github/ISSUE_TEMPLATE" "$TARGET_CHECKOUT/.github/workflows" "$TARGET_CHECKOUT/automation"
+cp modules/ghec/resources/intake/repository-request.yml "$TARGET_CHECKOUT/.github/ISSUE_TEMPLATE/"
+cp modules/ghec/resources/intake/repository-intake.yml "$TARGET_CHECKOUT/.github/workflows/"
+cp modules/ghec/resources/intake/provision.py modules/ghec/resources/intake/config.json "$TARGET_CHECKOUT/automation/"
+```
+
+Review existing files before replacing them. In `automation/config.json`, set:
+
+| Field | Value |
+|---|---|
+| `organization` | The target organization |
+| `intake_repository` | Its existing intake repository, as `ORG/REPO` |
+| `template_repository` | The Ch38 template, in the same organization |
+| `template_commit` | Its reviewed 40-character commit SHA |
+| `approved_teams` | Existing team slugs whose members may request repositories |
+| `approver_team` | The intake maintainer team's slug |
+| `required_checks` | Exact CI check contexts enforced by the Ch38 organization ruleset |
+
+Match the form's **Owning team** options to `approved_teams`. The form asks only for a service name, team, and purpose. Visibility, template, and Write access come from administrator-controlled configuration.
+
+Create the **repository-provisioning** environment in the intake repository:
+
+- Require review by the intake maintainer team. Enable **Prevent self-review** and disable administrator bypass.
+- Allow deployment only from the protected default branch.
+- Store `PROVISIONER_APP_ID` and `PROVISIONER_PRIVATE_KEY` as **environment secrets**, not repository or organization secrets.
+
+Protect the default branch and require platform-owner review for `.github/workflows/` and `automation/`. Give requesters no write access to the intake repository. Merge the installation through a reviewed PR.
+
+### Part D: Fulfill a request
+
+1. A member of an approved team submits the form, for example team `grubify` and service `orders`. It requests `grubify-orders`.
+2. Open the request's run under the intake repository's **Actions → Repository intake** tab. Its **review** job shows the request body hash, resulting name, and pinned template commit before App credentials are available.
+3. An independent maintainer checks the request and approves the **repository-provisioning** environment. They must still belong to `approver_team` and have the built-in Maintain or Admin role on the intake repository. Reject the deployment if the request should not proceed.
+4. The job rechecks the live issue, requester membership, and GitHub's approval history. It verifies the template still points to the reviewed commit, creates an Internal repository using `cloneTemplateRepository`, and verifies the copied Git tree.
+5. It checks inherited PR-review and CI rules, grants the requested team Write, verifies that grant, and comments with the repository URL and numeric ID before closing the request.
+6. A team member opens a failing-then-passing application PR. Confirm required CI and independent review block merging until both pass. Adapt CODEOWNERS to the consuming team's ownership through that PR.
+
+Submitting the form starts a waiting workflow; **approval is what permits creation**. If someone edits the request while it waits, the old run fails and the edit starts a new review.
+
+### Part E: Prove the boundaries
+
+Use a fresh service name for each successful test:
+
+| Test | Expected result |
+|---|---|
+| Approved own-team request | Internal repository with the expected name, template files, and team Write |
+| Missing approval or rejected deployment | No repository |
+| Approver outside the maintainer team, without Maintain/Admin, or approving their own request | No repository |
+| Request for another team, unknown team, or malformed service name | No repository |
+| Request edited while waiting | Old approval fails; a new run needs approval |
+| Template changed without updating the approved commit | No repository |
+| Existing repository with the requested name, or replayed successful run | No new repository and no access changes to the existing one |
+| Normal member attempts direct creation | GitHub rejects it |
+
+**A failed run is not fulfillment.** The starter deliberately refuses to adopt existing repositories. If creation succeeds but a later check or team grant fails, leave the request open. The run records the created repository's numeric ID as soon as GitHub returns it.
+
+An organization owner inspects that ID, the template tree, and the failed step before repairing the same repository. If a creation response is lost, creation may have succeeded: inspect the requested name and run time before retrying. Do not delete a repository or reuse an existing name merely to make a run pass. After repair, verify the first PR and close the request with the result.
+
+Keep the successful request and a rejected request as [completion evidence](../../../README.md#completion-evidence). Include the direct-creation denial and first-PR link. Name the operator who handles failed runs.
+
+## References
+
+- [Repository policies and their interaction with member privileges](https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-organization-settings/governing-how-people-use-repositories-in-your-organization)
+- [Repository creation restrictions](https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-organization-settings/restricting-repository-creation-in-your-organization)
+- [Registering a GitHub App](https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/registering-a-github-app)
+- [Environment approvals](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment)
+- [Workflow approval history](https://docs.github.com/en/rest/actions/workflow-runs#get-the-review-history-for-a-workflow-run)
+- [GitHub CLI's Internal template-generation implementation](https://github.com/cli/cli/blob/trunk/pkg/cmd/repo/create/http.go)

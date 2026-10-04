@@ -1,9 +1,9 @@
 id: ghec-ch26
-title: Migrate legacy VCS (SVN, Mercurial, TFVC, Perforce) to GitHub
+title: Convert one legacy VCS repository
 module: ghec
 track: migration
 difficulty: advanced
-duration_minutes: 210
+duration_minutes: 150
 prerequisites: []
 prerequisite_capabilities:
 - GitHub organization with repository create rights

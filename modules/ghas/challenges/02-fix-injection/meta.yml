@@ -3,16 +3,14 @@ title: Fix injection vulnerabilities
 module: ghas
 track: developer-flow
 difficulty: intermediate
-duration_minutes: 90
+duration_minutes: 60
 prerequisites:
-  - ghas-01
+  - ghas-00
 prerequisite_capabilities:
-  - Juice Shop instance running (see modules/ghas/setup.md)
-  - GitHub Advanced Security enabled on the org repo provisioned in S00
-  - GitHub Copilot license assigned
-  - Basic familiarity with Node.js/Express and SQL queries
-  - Completed S01 (attack surface overview) recommended
-description: "Fix SQL and NoSQL injection findings and verify safe query handling."
+  - Selected injection finding in the approved repository
+  - Test environment and current CodeQL scanning
+  - Familiarity with the application's query or execution APIs
+description: "Complete one reviewed injection fix with behavior tests and a default-branch rescan."
 tags:
   - ghas
   - codeql
@@ -23,13 +21,13 @@ tags:
   - autofix
   - copilot
   - remediation
-app_dependency: juice-shop
+app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
-  - Shared org repo with Juice Shop (OWASP Juice Shop v20+), provisioned by organizer setup
+  - Optional Juice Shop fallback repository provisioned during setup
   - CodeQL scanning active with injection-class alerts pre-populated on default branch
-tier: core
+tier: stretch
 personas:
   - customer-developer
   - appsec-engineer

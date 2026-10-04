@@ -10,7 +10,7 @@ prerequisite_capabilities:
 - Azure DevOps Services Cloud organization with at least one Git repo containing pull request history
 - GitHub CLI (gh >= 2.4.0) installed
 - git installed
-- PowerShell installed for running the generated .ps1 migration script
+- PowerShell only for an optional later bulk migration
 - Classic GitHub personal access token available for migration
 - Azure DevOps personal access token available for migration
 - Ability to authorize a GitHub PAT for SAML SSO when the destination organization enforces SAML

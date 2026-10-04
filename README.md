@@ -1,6 +1,6 @@
 # Agentic DevSecOps
 
-One GitHub Pages curriculum with five outcome paths, four delivery-session modules, and 87 activities.
+One GitHub Pages curriculum with five outcomes and four delivery-session modules.
 
 > **Use your own environment.** Work with your own applications, repositories, and data
 > so your team can keep using the result after the session. Use OWASP Juice Shop, Grubify,
@@ -9,10 +9,15 @@ One GitHub Pages curriculum with five outcome paths, four delivery-session modul
 
 ## Outcomes
 
-**Choose an outcome** to see its activities in delivery order. Without an outcome
-selected, the catalog and session builder group activities by session type.
-Product names appear on the cards.
-Outcome headings reuse the homepage summaries; session-type headings use the track descriptions.
+**Choose an outcome to see its activities.** Use the session-type filters to narrow
+the list, or build a custom set for your team. Migration chapters cover different
+source platforms; select the one you use.
+
+Keep one customer repository or service throughout the selected activities. Reuse
+approved controls and check prerequisites before starting. The session builder
+preserves chapter order in shared sets.
+
+Without an outcome selected, the catalog groups all active activities by session type.
 
 | Outcome ID | Purpose |
 |---|---|
@@ -26,10 +31,10 @@ Outcome headings reuse the homepage summaries; session-type headings use the tra
 
 | Module ID | Name | Activities | Tracks |
 |---|---|---|---|
-| `ghec` | GitHub Enterprise Cloud | 49 | Developer Flow, Admin & Governance, Security, Automation & AI, Migration |
-| `ghas` | GitHub Advanced Security | 13 | Admin & Governance, Developer Flow |
-| `ghaw` | GitHub Agentic Workflows | 20 | Hello, Agent, Repo Concierge, Continuous Intelligence, Production Patterns |
-| `sre-agent` | SRE Agent | 5 | Azure SRE Agent |
+| `ghec` | GitHub Enterprise Cloud | 41 | Developer Flow, Admin & Governance, Security, Automation & AI, Migration |
+| `ghas` | GitHub Advanced Security | 9 | Admin & Governance, Developer Flow |
+| `ghaw` | GitHub Agentic Workflows | 7 | Getting Started, Pull Requests & Issues, Repository Operations |
+| `sre-agent` | SRE Agent | 4 | Azure SRE Agent |
 
 ## Architecture
 
@@ -86,13 +91,23 @@ To prefetch everything during clone, use `git clone --recurse-submodules <repo>`
 ## Validation
 
 The build checks that every `prerequisites` entry references an activity `id` in the
-catalog and that dependencies contain no cycles. It warns about missing optional fields.
+active catalog and that dependencies contain no cycles. It also checks outcome membership
+and link targets. It warns about missing optional fields.
 
 Run the content audits with:
 
 ```bash
 npm run audit          # check content facts without network calls
 npm run audit:content  # rebuild, then audit generated catalog/link consistency
+```
+
+The ruleset monitor and workflow starters use Python 3. Run their tests with:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s modules/ghec/resources/drift -p 'test_*.py'
+PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/ci/test_workflows.py
+PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/release/test_release.py
+PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/intake/test_provision.py
 ```
 
 `npm run audit:external` can probe external URLs, but reports them as warnings only to avoid flaky CI gates.

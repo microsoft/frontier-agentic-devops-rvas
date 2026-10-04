@@ -3,13 +3,13 @@ title: Connect Azure Boards to GitHub
 module: ghec
 track: migration
 difficulty: intermediate
-duration_minutes: 120
+duration_minutes: 60
 prerequisites: []
 prerequisite_capabilities:
 - GitHub organization with org-owner/admin rights on the target repository
 - Azure DevOps Services organization with an Azure Boards project
 - Ability to install or request installation of a GitHub Marketplace organization app
-description: "Connect a migrated GitHub repository to Azure Boards work items."
+description: "Link GitHub changes to work items when the team retains Azure Boards."
 tags:
 - azure-boards
 - github-apps

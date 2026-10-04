@@ -1,18 +1,18 @@
-# Activity S00: Environment setup
+# Activity S00: Prepare the remediation repository
 
-**Session outcome:** You can run the application from your approved GHAS practice repository, which has the available security features enabled. Your GitHub CLI is authenticated, and you have recorded missing capabilities and access blockers with named owners.
+**Session outcome:** You can test changes in the approved repository and read its security alerts. Access or licensing gaps have owners.
 
 ## Objectives
 
 Complete these steps:
 
-- Select a real repository or service to govern, or record OWASP Juice Shop as the fallback practice target
-- Record the target, criticality, GHAS capability status, accountable roles, and access or licensing blockers in `modules/ghas/resources/ghas-governance-practice.template.md`
-- Record least privilege, human accountability for approval and merge, and normal GHAS and PR validation for agent-originated changes
+- Reuse the customer repository selected for this engagement. Use OWASP Juice Shop when you need a separate practice repository
+- Check repository ownership and security settings. Record only missing decisions or access blockers
+- Confirm least privilege and human review for all changes, including agent-authored changes
 - When using the fallback, push a Juice Shop repository into an org the team controls and add the required participants
 - Enable GHAS features on the target repository, or record missing capabilities for follow-up
 - Prepare a working GitHub Codespaces or local development environment with an authenticated `gh` CLI session
-- Run OWASP Juice Shop on port 3000 for manual exploit testing
+- Run the selected application's tests; start Juice Shop on port 3000 only for the fallback
 - Create and push a personal or team working branch to the org repository
 
 > [!NOTE]
@@ -26,27 +26,29 @@ Complete these steps:
 
 - GitHub account
 - Basic Git and CLI usage
-- An organization where you can create a repository and enable code security features
+- Access to the approved repository, or an organization for an isolated practice repository
 - GitHub Advanced Security available for the repository visibility you choose
-- GitHub Copilot license assigned
+- GitHub Copilot license only when using Copilot assistance
 
-There is no preconfigured Microsoft or instructor repo. A participant, team lead, or
-organizer pushes Juice Shop into an org they control, enables GHAS features there,
-and adds the participants or teams that need access.
+For an existing repository, skip provisioning and Juice Shop startup. Use its
+approved development environment and test commands for triage and remediation.
 
----
-
-## Record GHAS configuration and ownership
-
-Record the setup decisions listed in Objectives in
-`modules/ghas/resources/ghas-governance-practice.template.md`. Update the record
-as you work. If the selected repository is not ready for hands-on work, practice
-with Juice Shop and keep the real repository or service as the recorded delivery
-scope.
+For the fallback, an organizer imports Juice Shop into an org they control and
+grants participant access. Do not introduce vulnerable fixtures into a customer repository.
 
 ---
 
-## Create the GHAS target repository
+## Check existing ownership and controls
+
+Use the team's existing GitHub work and ownership records. The
+[optional gap template](../../resources/ghas-governance-practice.template.md) covers
+missing decisions without creating a second tracker.
+If the customer repository is blocked, label Juice Shop results **practice** and
+record who will resolve the blocker and when to retest.
+
+---
+
+## Fallback only: create the GHAS target repository
 
 Use the provisioning script in this curriculum repo. It imports the pinned OWASP
 Juice Shop release into your org and commits the CodeQL and Dependabot configuration.
@@ -93,7 +95,7 @@ After provisioning, manually add any participants who need access:
 
 This option requires no local installation.
 
-1. Open the org repository created above on github.com.
+1. Open the selected org repository on github.com.
 2. Click Code → Codespaces → Create codespace on main.
 3. Wait ~30–60 seconds for the dev container to build and dependencies to install.
 4. When the terminal appears, continue to Create your branch below.
@@ -105,7 +107,7 @@ This option requires no local installation.
 If you prefer working locally, use Git and Node.js directly.
 
 1. Install [Git](https://git-scm.com/), [GitHub CLI](https://cli.github.com/), and Node.js 20 or later.
-2. Clone the org repo:
+2. Clone the selected org repo. For the fallback:
    ```bash
    git clone https://github.com/<your-org>/ghec-ghas-00-juice-shop.git
    cd ghec-ghas-00-juice-shop
@@ -150,9 +152,9 @@ git push -u origin participant/{your-github-handle}
 
 ---
 
-## Start Juice Shop locally
+## Fallback only: start Juice Shop locally
 
-The GHAS activities use OWASP Juice Shop for manual exploit testing. Run the app
+The fallback uses OWASP Juice Shop for manual exploit testing. Run the app
 from the root of the repository created by the setup script:
 
 ```bash
@@ -173,7 +175,7 @@ environments work together.
 
 ## Verify your setup
 
-Run each command and use the results to update the GHAS configuration and ownership record:
+Run these checks in the selected repository:
 
 ```bash
 # 1. CLI version
@@ -190,9 +192,12 @@ git status
 git log --oneline -1
 ```
 
-Then open `http://localhost:3000` (or the Codespaces-forwarded URL) and confirm the
-Juice Shop homepage loads.
+Run the repository's tests and confirm access to the security alerts needed for
+your selected case. For the fallback, also confirm the Juice Shop homepage loads.
 
-> **Commands alone do not complete this activity.** Confirm the governance record
-> includes the target, GHAS capability status, accountable roles, and
-> the owner and target date for each access or licensing blocker.
+> Link the evidence for each control and assign unresolved blockers to an owner.
+> A working local app does not prove GitHub scanning is enabled.
+
+## Choose the next fix
+
+Use the [remediation checklist](../../resources/start-remediation.md) inside the case that matches your finding. You can start with injection, XSS, or authorization. Credential response and tested dependency updates use their corresponding security-control sessions. There is no separate triage exercise to complete first.

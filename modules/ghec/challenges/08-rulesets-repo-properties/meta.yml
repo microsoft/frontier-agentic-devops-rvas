@@ -3,14 +3,14 @@ title: Repository rulesets and custom properties
 module: ghec
 track: admin-governance
 difficulty: intermediate
-duration_minutes: 150
+duration_minutes: 90
 prerequisites: []
 prerequisite_capabilities:
 - GitHub organization with org-owner rights
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-- Repository provisioned via activity setup script
+- Approved repositories and a contributor without bypass permission
 description: "Apply rulesets across repositories using custom properties."
 tags:
 - rulesets

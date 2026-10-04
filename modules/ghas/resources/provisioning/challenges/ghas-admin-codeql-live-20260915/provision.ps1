@@ -1,6 +1,6 @@
 #!/usr/bin/env pwsh
 #
-# PowerShell twin for the ghas-admin-03 and ghas-admin-04 CodeQL fixture.
+# PowerShell twin for the ghas-admin-03 CodeQL coverage and enforcement fixture.
 # Teardown removes fixture artifacts, never the repository.
 
 [CmdletBinding()]
@@ -8,7 +8,7 @@ param(
   [ValidateSet('provision', 'status', 'teardown', 'render-workflow', 'render-fix')]
   [string]$Action = 'provision',
   [string]$Org,
-  [string]$Repo = 'ghas-admin-03-04-codeql-live-lab',
+  [string]$Repo = 'ghas-admin-03-codeql-live-lab',
   [string]$Ref = 'v20.0.0',
   [switch]$DryRun,
   [switch]$Yes
@@ -83,7 +83,7 @@ def normalized_name(value: str) -> str:
 
 function Get-Vulnerability {
 @'
-// ghas-admin-04 fixture. Deliberately vulnerable. Do not ship.
+// CodeQL enforcement fixture. Deliberately vulnerable. Do not ship.
 const express = require('express')
 const sqlite3 = require('sqlite3')
 const router = express.Router()
@@ -127,7 +127,7 @@ module.exports = router
 
 function Get-IssueBody {
 @"
-This fixture supports ``ghas-admin-03`` and ``ghas-admin-04``.
+This fixture supports CodeQL coverage and merge enforcement in ``ghas-admin-03``.
 
 Repository state:
 
@@ -136,11 +136,10 @@ Repository state:
 - ``$VulnerableBranch`` contains ``$VulnerablePath``.
 - The open pull request from ``$VulnerableBranch`` is the merge-enforcement test.
 
-Start with CodeQL default setup. Configure JavaScript/TypeScript only for the first
-run, find the missing Python coverage, add Python, and run CodeQL again.
+Start with CodeQL default setup and the actual languages. For optional isolated
+coverage practice, omit Python first, find the gap, and restore its coverage.
 
-Keep the vulnerable pull request unchanged during ghas-admin-03. In ghas-admin-04,
-activate Require code scanning results, prove that the pull request is blocked, then
+Activate Require code scanning results, prove that the pull request is blocked, then
 replace ``$VulnerablePath`` with the output of:
 
 ``````powershell
@@ -312,7 +311,7 @@ function Add-Pr {
 
   return [int](Invoke-Gh api -X POST "repos/$FullRepo/pulls" `
     -f 'base=main' -f "head=$VulnerableBranch" -f "title=$PrTitle" `
-    -f "body=Prepared vulnerable pull request for ghas-admin-04. Fixture details: #$IssueNumber" `
+    -f "body=Prepared vulnerable pull request for ghas-admin-03 merge enforcement. Fixture details: #$IssueNumber" `
     --jq '.number')
 }
 

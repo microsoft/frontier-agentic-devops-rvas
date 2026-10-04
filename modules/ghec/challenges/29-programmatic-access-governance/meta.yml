@@ -6,11 +6,12 @@ difficulty: advanced
 duration_minutes: 105
 prerequisites: []
 prerequisite_capabilities:
-  - GitHub Enterprise Cloud organization with organization-owner access for inspection
+  - Organization owner who can approve the non-production fine-grained PAT pilot
   - GitHub CLI (gh >= 2.x) and jq installed for optional read-only API evidence
   - Enterprise owner or authorized enterprise PAT-policy export when enterprise PAT policy is in scope
-  - Optional ghec-ch52 approved app-governance boundary and organization-scope decision, when already established for the customer
-description: "Review app and token access, then decide policies and exceptions."
+  - Approved private test repository and a consenting non-owner test member
+  - Approved organization scope and token-policy owner
+description: "Configure token approval and verify repository scope and revocation with a non-owner request."
 tags:
   - governance
   - programmatic-access

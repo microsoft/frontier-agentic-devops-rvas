@@ -1,68 +1,62 @@
 # Ch41: Required reusable workflows
 
-**Session outcome:** A consumer repository runs your organization-owned reusable workflow, and the approved repository cohort requires it before merging. Your team has tested that requirement and recorded how to handle exceptions and rollout.
+**Session outcome:** An approved repository runs real shared CI. An organization ruleset requires the trusted workflow before its contributors can merge.
 
 ## Prerequisites
 
-- Org owner or repository admin rights for the selected cohort.
-- `gh >= 2.x`, `git`, `jq`.
-- Agreement on the checks that must run for every protected repository.
+Use an organization owner, an approved workflow source repository, and one consumer application with tested CI from Ch04. Start with one repository, not the whole organization.
 
-## Scenario
-
-Teams use different CI workflows, so baseline checks vary and audits take longer. Publish a reusable workflow and prove that one repository can call it. Then configure an approved control that requires the workflow before merge.
-
-> [!IMPORTANT]
-> Configure required workflows and rulesets manually for the approved cohort only. Do not use setup automation; these controls can block production teams.
-
-## Sample test repository or environment
-
-```bash
-bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch41 --org <org>
-```
-```powershell
-modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch41 -Org <org>
-```
-
-Setup creates:
-
-- `ghec-ch41-workflow-library` with `.github/workflows/baseline.yml` using `workflow_call`.
-- `ghec-ch41-consumer-service` with a caller workflow and sample source file.
-- No org-wide rulesets or required-workflow settings.
-
-> [!IMPORTANT]
-> A private workflow-library repository is not callable by other private repositories until its Actions access is shared. Before validating the consumer, open `ghec-ch41-workflow-library` → Settings → Actions → General → **Access** and allow repositories in the organization to use its reusable workflows. Record that access decision as evidence.
+The [baseline workflow](../../resources/ci/baseline.yml) supports Node.js 22 applications with `package-lock.json`, `npm test`, and `npm run build`. Use the working Ch38 application template as its source repository. For another stack, replace those commands with the already-tested customer CI before publishing it. Every selected consumer must support the agreed commands.
 
 ## Tasks
 
-### Part A: Publish the reusable workflow
+### Part A: Publish working shared CI
 
-1. Review the seeded reusable workflow for least-privilege `permissions` and pinned third-party actions.
-2. Decide the versioning model: branch, tag, release, or SHA.
-3. Configure Actions **Access** on `ghec-ch41-workflow-library` so the approved consumer repository can call the private reusable workflow.
-4. Record owners, review cadence, access scope, and compatibility promises.
+1. Copy `resources/ci/baseline.yml` into the source repository as `.github/workflows/baseline.yml`. Review existing workflows before replacing files.
+2. Run the exact build and test commands locally. Open a PR in the source application and confirm the workflow passes real tests. Keep `contents: read`; it does not need deployment secrets.
+3. Protect the workflow and its test/build scripts with independent CODEOWNERS review. Merge the reviewed workflow and obtain its commit SHA:
 
-### Part B: Validate a consumer
+   ```bash
+   gh api repos/YOUR-ORG/YOUR-TEMPLATE/commits/HEAD --jq .sha
+   ```
 
-5. Update the consumer caller to reference the approved version.
-6. Open a pull request that changes sample code or docs.
-7. Confirm the reusable workflow runs and returns a required status context.
+4. For a private or internal source, open **Settings → Actions → General → Access** and allow the approved organization consumers to use its workflows. A private source can enforce workflows only in private targets; an internal source supports internal and private targets. Choose compatible visibility before continuing.
 
-### Part C: Require the gate
+### Part B: Call it from the consumer
 
-8. Choose the enforcement mechanism available in the customer tenant: required workflows or repository rulesets.
-9. Configure the requirement manually for the authorized repository cohort.
-10. Verify a pull request cannot merge while the required reusable workflow is failing or missing.
+Add `.github/workflows/ci.yml` in the consumer, replacing the source repository and ref with the reviewed **40-character commit SHA**:
 
-### Part D: Govern exceptions and rollout
+```yaml
+name: Shared CI
+on:
+  pull_request:
+  merge_group:
+permissions:
+  contents: read
+jobs:
+  baseline:
+    uses: YOUR-ORG/YOUR-TEMPLATE/.github/workflows/baseline.yml@REVIEWED_COMMIT_SHA
+```
 
-11. Define an exception path for repositories that cannot adopt the workflow.
-12. Record how library changes are communicated and how breaking changes are prevented.
-13. Capture before/after evidence and next cohort decision.
+Merge the caller through the normal review process. Open a new consumer PR that changes application code. Confirm the run checks out the **consumer's proposed code**, executes its actual tests, and identifies the pinned shared workflow. Do not pass `secrets: inherit`.
 
-## Reference links
+### Part C: Require the workflow identity
+
+1. Open **Organization settings → Repository → Rulesets**. Create or edit an approved branch ruleset targeting this consumer's **default branch only**.
+2. Add **Require workflows to pass before merging**. Select the trusted source repository and `.github/workflows/baseline.yml`, using the reviewed ref offered by the rule. Record it; align the consumer's pinned version with this required version.
+3. The supplied baseline has `pull_request` and `merge_group` triggers as well as `workflow_call`, so the same file can serve as the required entry. A workflow with only `workflow_call` cannot be the ruleset entry. Ruleset workflows ignore event filters; do not rely on path or branch filters to limit their coverage.
+4. Enable enforcement for the approved consumer only. Use a contributor without bypass permissions to introduce a real failing test. Confirm the selected ruleset workflow fails and blocks merging.
+5. On the test PR, remove the consumer caller. Confirm the organization rule still schedules the trusted source workflow. Add a harmless alternate workflow with the same check name: its passing result must not replace the failing required workflow.
+6. Restore the caller and repair the test. Confirm the genuine required workflow passes, then obtain independent review and merge.
+
+If the tenant lacks the workflow-specific rule, record that enforcement as blocked. A required status check can restrict the reporting GitHub App, but cannot distinguish two workflows run by GitHub Actions. Do not describe that fallback as trusted-workflow enforcement.
+
+### Part D: Maintain it
+
+Name the shared CI owner and agree how consumers receive reviewed version updates. Test updates on this consumer before adding another cohort. Keep the ruleset, source SHA, and failed/passing PR runs as [completion evidence](../../../README.md#completion-evidence).
+
+## References
 
 - [Reusing workflows](https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows)
-- [Required workflows](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets)
-- [Organization rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets)
-- [Security hardening for GitHub Actions](https://docs.github.com/en/actions/reference/security/secure-use)
+- [Required workflow rules and supported events](https://docs.github.com/en/enterprise-cloud@latest/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets#require-workflows-to-pass-before-merging)
+- [Organization rulesets](https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-organization-settings/creating-rulesets-for-repositories-in-your-organization)

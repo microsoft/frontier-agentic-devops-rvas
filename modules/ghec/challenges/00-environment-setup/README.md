@@ -1,6 +1,8 @@
 # Ch00: Environment setup
 
-**Session outcome:** You can use a Codespace or local dev container with an authenticated `gh` CLI. You have checked access to the approved GitHub organization and chosen a delivery target, or recorded what blocks access.
+**Session outcome:** You can clone the approved customer repository and run its baseline checks with an authenticated GitHub CLI.
+
+Use **the same repository through Ch01, Ch02, and Ch04**. Record its URL and owner once. Classify the results using [completion evidence](../../../README.md#completion-evidence). If setup fails, record the blocker.
 
 ## Objectives
 
@@ -30,10 +32,10 @@ You are ready when you have:
 
 1. Open the agreed delivery or customer repository in your browser (the delivery lead or customer owner supplies the URL, e.g. `https://github.com/<org>/<repo>`).
 2. Click Code → Codespaces → Create codespace on main.
-3. Wait ~30 seconds for the dev container to build. The terminal opens automatically when the container is ready.
+3. Wait for the dev container to build. The terminal opens when it is ready.
 4. Continue to Authenticate the GitHub CLI below.
 
-> Codespaces pre-installs `gh`, `git`, and `jq`. You do not need local tooling.
+> Check that the selected image includes `gh` and `git`; images and build times vary.
 
 ---
 
@@ -60,9 +62,9 @@ Your container does not have your GitHub credentials pre-loaded. Run:
 gh auth login
 ```
 
-Choose GitHub.com, then HTTPS, and follow the device-code prompt in your browser. Grant the requested permissions (at minimum: `repo`, `read:org`).
+Choose the customer's GitHub host, then HTTPS, and follow the device-code prompt. Use the approved credential and only the permissions this repository needs. Authorize SSO when required.
 
-> Some later delivery guides (Projects v2 automation, including ch16) also need `project` and `read:project`. You can add missing scopes later without re-login: `gh auth refresh -h github.com -s project,read:project`.
+> Projects v2 automation may also need `project` and `read:project`. Add these scopes only if your task needs them: `gh auth refresh -h github.com -s project,read:project`.
 
 Verify the session is active:
 
@@ -106,4 +108,4 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh doctor ch01 --org <org
 modules/ghec/resources/provisioning/scripts/setup.ps1 doctor ch01 --org <org>
 ```
 
-A clean `doctor` result confirms your token scopes and tools meet the guide's requirements.
+The `doctor` command checks sample tooling, not customer authorization. Clone the approved customer repository and run its documented test command. Keep the result for Ch02. Repository access is sufficient for contributors.

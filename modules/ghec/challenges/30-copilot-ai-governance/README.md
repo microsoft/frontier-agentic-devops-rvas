@@ -1,80 +1,39 @@
-# Ch30: Copilot and AI governance
+# Ch30: Copilot policy baseline
 
-**Session outcome:** You can show the effective Copilot policies and permitted agent access, with seat ownership recorded. Your team's decisions about code and data exposure cite the evidence and identify unavailable controls.
+**Session outcome:** An approved pilot team can use the selected Copilot feature under the customer's policy. A real session or review verifies access, and the owner has a tested way to remove it.
 
 ## Prerequisites
 
-- An enterprise owner, AI manager, or other authorized party able to export Enterprise AI Controls; an organization-owner policy export is acceptable when enterprise access is unavailable, provided the missing enterprise view is recorded as a limitation.
-- Copilot Business or Copilot Enterprise availability must be inspected and recorded. If unavailable, retain the availability evidence and identify which policy surfaces cannot be verified; do not infer availability from a user interface alone.
-- A named customer enterprise AI-controls owner, identity/offboarding owner, security/privacy owner, procurement or third-party-risk owner, and organization-policy owner.
+Include the Copilot policy owner and the administrator who can manage access. Select a small approved pilot team and one eligible repository. An authorized policy export supports preparation but cannot replace access to configure and test the pilot.
 
-> [!IMPORTANT]
-> This is an **AI governance** activity, not end-user Copilot training. It does not teach Copilot use, coding-agent use, or MCP use. It inspects policy and proposes controls only: do not assign a seat, install an agent, configure an MCP server, or start an agent session here. One narrowly scoped policy test is optional and needs customer approval.
+Choose one feature the team needs, such as Copilot Chat or code review. Do not enable every AI feature, install third-party agents, or add MCP servers for this session.
 
-## Scope boundary
+## Configure the pilot
 
-- **Ch30 covers:** seat management, policy delegation, public-code matching, GitHub.com feature/data posture, third-party coding agents, MCP servers, and agentic-activity streaming.
-- **Ch19 owns Copilot cloud-agent usage.** Do not run an issue, session, pull request, or cloud-agent pilot here. Record that the cloud agent is unavailable on **EMU-owned repositories** and refer any eligible, approved usage pilot to Ch19.
-- Review third-party coding agents, agent apps, MCP servers, and cloud agent separately. Approval for one does not approve another.
-- If `ghec-ch52` (Enterprise Landing Zone & Organization Strategy) records this customer's identity model (including EMU and data residency) and enterprise app-registration boundary, cite its register entry for scope and the agent-app authority review in Parts A/E. Otherwise, establish them here and record that `ghec-ch52` was not available. Apply this rule to later `ghec-ch52` references.
+1. Select the customer organization and inspect its subscription and identity model. Record which Copilot features are available and which are blocked by plan or policy.
+2. Capture dated enterprise AI Controls and organization Copilot settings. For each relevant policy, record the effective value and who controls it. Distinguish enterprise enforcement from delegated or organization-managed settings. Without enterprise access, mark that evidence unavailable.
+3. Check the seat-assignment source and an actual offboarding record with the identity owner. Verify when access ended against the current plan's behavior; do not equate a billing charge ending with access revocation.
+4. Inspect public-code matching and the permitted GitHub.com features. Have the owner approve what code and data users may submit. Record how users request an exception.
+5. Have the policy owner approve the selected feature and pilot audience. In the effective enterprise or organization Copilot policy, enable only what this pilot needs, or verify the existing policy already permits it. If an enterprise policy blocks the feature, stop and obtain enterprise-owner approval; do not work around it.
+6. Under **Organization settings → Copilot → Access**, assign access through the customer's approved user or team mechanism. Reuse existing seats. Record the prior access state so the owner can reverse a test grant without removing someone else's working access.
+7. Have an intended pilot user sign in with their own identity and use the selected feature on approved non-sensitive content. For Chat, ask it to explain a small function and check the answer against the code. For code review, request **Copilot** in a small PR's **Reviewers** sidebar and assess its comments. Preserve required human review. [Ch31](../31-copilot-environment-instructions/README.md) provides repository setup when it is needed.
+8. With the access owner and a consenting temporary test user, remove that user's pilot access through the same assignment source. Allow for the documented propagation behavior and test again. Check for another entitlement before claiming access ended. Restore an approved grant if the user needs ongoing access.
+9. Keep the pilot policy, useful session or review, and revocation result in the adoption issue. Name the next approved team and the owner who will grant its access. Leave the working pilot enabled only when its owner accepts it.
 
-## Tasks
+## Optional controls already used or proposed
 
-### Part A: Establish authority, availability, and the evidence baseline
+- For each third-party agent or agent app, review vendor data handling and the installed App's permissions and repository selection. Policy approval alone does not approve an installation.
+- Inspect existing MCP configuration and permitted tools. Record the host and data boundary. Do not run server tools or expose a new credential.
+- Check eligibility for agentic activity streaming and any existing destination. A missing or preview feature remains unverified. Configuring a stream needs a separate approved change.
 
-1. Record the enterprise and organizations in scope, identity model (including EMU and data residency where applicable), named owners, approvers, evidence location, and normal review cadence (see the `ghec-ch52` note above for the identity-model/data-residency source).
-2. Inspect the Copilot subscription and availability. Record whether Copilot Business or Copilot Enterprise is available, which organizations are in scope, and any licensing, entitlement, or preview limitation.
-3. Obtain a dated, non-secret export or screenshots of Enterprise **AI Controls** and the relevant organization Copilot-policy pages. Record the collector, date, URL/page, and any settings that cannot be viewed.
-4. For each AI-control surface in scope, capture the effective value, source level, direct evidence, named owner, cadence, exception/rollback, and next decision.
+Reuse existing evidence from Ch29 and Ch31. Use Ch19 for an eligible cloud-agent pilot and Ch34 for cross-organization configuration.
 
-### Part B: Determine the effective policy and delegation model
+## Completion
 
-5. In Enterprise AI Controls, inspect each relevant Copilot policy and whether the enterprise sets it, enables it for selected organizations, disables it, or delegates the choice to organizations. Export the effective baseline.
-6. At each in-scope organization, inspect the resulting policy. Record the winning value and source as `enterprise`, `org`, or delegated; identify conflicts, exceptions, and organizations that must not inherit a broad enablement.
-7. Define which policy choices may be made by organization owners, which require enterprise AI-controls approval, who approves exceptions, and how policy drift is reviewed.
+Keep the live access and revocation results as [completion evidence](../../../README.md#completion-evidence). A policy export alone is assessment evidence. Missing entitlement, approval, or a usable feature leaves implementation **blocked / not tested**.
 
-### Part C: Govern seats and offboarding
+## References
 
-8. Inspect the Copilot access model: eligible populations, enterprise or organization assignment method, team-based grants, inactive/unused-seat reporting, and the joiner/mover/leaver evidence source.
-9. Verify the offboarding behavior. **Enterprise-team removal gives immediate Copilot removal; organization-level license revocation is billing-cycle delayed.** Make the identity owner account for that difference, including the compensating action, evidence, and escalation path.
-10. Set a named identity owner and a monthly (or customer-approved) seat reconciliation cadence. Retain a dated seat report and one non-secret offboarding or removal evidence sample.
-
-### Part D: Decide code, data, and GitHub.com policy
-
-11. Inspect the public-code matching setting and record the effective value. Decide whether matching public-code suggestions remain disabled or document the approved IP/licensing risk acceptance, owner, expiry, and rollback.
-12. Separately inspect which Copilot features on GitHub.com are allowed, what data may be submitted, and the customer posture for product/data feedback. Do not treat this as the same setting as public-code matching.
-13. Have legal/privacy and security owners record the rationale, data classification boundary, exception process, and review cadence for both decisions.
-
-### Part E: Review third-party agents and agent apps separately
-
-14. Inspect the policy and effective availability for **third-party coding agents**. Keep them disabled until enterprise security and third-party-risk review approve a defined organization scope.
-15. Assess **agent apps separately**: they are GitHub Apps with an installation, permissions, selected-repository scope, vendor relationship, and app-review lifecycle. Record their installed/approved status and owner separately from the third-party coding-agent policy; neither decision implicitly enables the other. Reuse `ghec-ch52`'s app-registration register when available (see the note above), or assess agent-app authority independently and record the gap.
-16. Record vendor data handling, authorization scope, repository targeting, audit/evidence route, renewal cadence, and the condition that would disable or remove an approved agent or app.
-
-### Part F: Assess MCP boundaries without enabling them
-
-17. Inspect the enterprise and organization MCP policy, any applicable registry, and the effective allow/deny/delegated state.
-18. Inventory repository-scoped MCP configurations by repository path and revision, server identity, owner, transport/host, exposed tool scope, data classes reachable, authentication/secret handling, and approval status. Do not add or exercise a server.
-19. Evaluate third-party-host boundaries independently from server function: outbound data, vendor terms, hosting region, retention, credentials, network access, logging, tool permissions, repository scope, and removal process. Verify whether each discovered configuration is allowed or prohibited by the effective policy.
-
-### Part G: Inspect agentic activity streaming
-
-20. Inspect the enterprise monitoring and audit-log options, destination, retention, access, and evidence path. Record the feature's current availability.
-21. Inspect streaming without configuring it. It is available in public preview for enterprises using EMU or data residency; confirm the customer's eligibility before proposing it. A streaming pilot is not required to complete this activity.
-22. Name the monitoring owner and set a review date for preview availability and destination/retention approval. Configure a test only through a separate customer-approved change.
-
-### Part H: Verify and hand over
-
-23. Reconcile the effective values and inheritance sources with the dated exports. Investigate any mismatch before handover.
-24. Hand over the direct evidence, open risks, named owners, review cadence, exception/rollback paths, and next decisions to the enterprise AI-controls owner.
-
-## Reference links
-
-- [Managing policies and features for GitHub Copilot in an organization](https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/administer-copilot/manage-for-organization/manage-policies)
-- [Managing access to GitHub Copilot](https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/administer-copilot/manage-for-organization/manage-access)
-- [Managing policies and features for GitHub Copilot in an enterprise](https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-enterprise-policies)
-- [GitHub Copilot policies for enterprises and organizations](https://docs.github.com/en/enterprise-cloud@latest/copilot/concepts/enterprise/policies)
-- [About agent apps](https://docs.github.com/en/enterprise-cloud@latest/copilot/concepts/agents/agent-apps)
-- [Model Context Protocol and GitHub Copilot cloud agent](https://docs.github.com/en/enterprise-cloud@latest/copilot/concepts/agents/cloud-agent/mcp-and-cloud-agent)
-- [Agent management for enterprises](https://docs.github.com/en/enterprise-cloud@latest/copilot/concepts/enterprise/agent-management)
-- [Monitoring agentic activity in your enterprise](https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-agents/monitor-agentic-activity)
+- [Enterprise Copilot policies](https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-enterprise-policies)
+- [Organization Copilot access](https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-access)
+- [Agent management](https://docs.github.com/en/copilot/concepts/enterprise/agent-management)

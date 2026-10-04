@@ -3,16 +3,16 @@ title: Actions OIDC with Azure
 module: ghec
 track: automation-ai
 difficulty: advanced
-duration_minutes: 165
+duration_minutes: 90
 prerequisites: []
 prerequisite_capabilities:
 - GitHub organization with repository admin rights
-- Azure subscription permissions to create or update an app registration and federated credential
+- Existing scoped Azure identity and an owner authorized to approve its federated credential
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Replace long-lived Azure deployment credentials with GitHub Actions OpenID Connect."
+description: "Test OIDC authentication and denial against an existing read-only Azure target."
 tags:
 - actions
 - oidc

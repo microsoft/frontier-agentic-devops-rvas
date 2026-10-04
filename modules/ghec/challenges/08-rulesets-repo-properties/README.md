@@ -3,7 +3,7 @@
 **Session outcome:** Custom properties target an organization ruleset at the intended repositories. You have tested its enforcement and confirmed that a repository ruleset adds protection without weakening the organization rule.
 
 ## Prerequisites
-- Complete Ch52 (Enterprise Landing Zone & Organization Strategy) first if possible. Use its settings register for enterprise-level property/ruleset decisions. You can still complete this activity's organization-level baseline without it.
+- Approved repositories and a contributor without bypass permission.
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch08 --org <org>` (least-privilege; for this activity: `admin:org` + `repo` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
@@ -73,9 +73,9 @@ Setup creates these resources (all names use the `ghec-ch08-*` prefix, and teard
 13. Verify property-based targeting on `ghec-ch08-prod-identity`, which has a different name but the same `compliance = high` value. Attempt a direct push to its `main` and confirm rejection.
 
 ### Part E: Verify and demonstrate
-14. Demonstrate enforcement: open a PR on `ghec-ch08-prod-payments` and show it cannot merge without 2 approvals + the `build` check + signed commits. Open a PR on `ghec-ch08-sandbox` (compliance `low`) and show it is not gated by the org ruleset.
+14. As a non-owner contributor without bypass permission, open a PR on `ghec-ch08-prod-payments`. Verify that missing reviews or failing CI block merging. Satisfy those requirements and merge. Test `ghec-ch08-sandbox` as the same contributor and confirm the high-compliance rule does not apply. Check other inherited rules before interpreting the result.
 15. Document the model: write `GOVERNANCE.md` in `ghec-ch08-internal-tools` describing the property schema, which repos carry which values, the org ruleset's property target, and the repo-level overlay.
-16. Record the enterprise-level enforcement scope in `GOVERNANCE.md` (whether an enterprise account also defines properties/rulesets that apply across every org and can't be weakened by this org owner): cite Ch52's landing-zone settings register entry, or an authorized enterprise export/inspection; if neither exists, record `enterprise policy not available / not applicable`. Don't infer enterprise-wide enforcement from this one organization's ruleset.
+16. Inspect authorized enterprise ruleset evidence if available. Record rules you cannot inspect as unavailable. An organization-boundary decision does not prove ruleset enforcement.
 
 ## Reference links
 - [About custom properties](https://docs.github.com/en/organizations/managing-organization-settings/managing-custom-properties-for-repositories-in-your-organization)

@@ -3,12 +3,14 @@
   'use strict';
 
   let _kiosk = null;
+  let _journey = null;
   let _sections = [];
   let _activeSection = 0;
 
   /* Internal challenge link that preserves kiosk state when active */
   function cUrl(id) {
-    return _kiosk ? FP.kioskChallengeUrl(id, _kiosk) : FP.challengeUrl(id);
+    return _kiosk ? FP.kioskChallengeUrl(id, _kiosk)
+      : FP.journeyChallengeUrl(id, _journey?.id);
   }
 
   async function init() {
@@ -21,7 +23,11 @@
     try { data = await FP.loadData(); }
     catch (e) { showError(e.message); return; }
 
-    const challenge = (data.challenges || []).find((c) => c.id === challengeId);
+    const resolvedId = FP.resolveActivityId(challengeId, data);
+    if (_kiosk) _kiosk.ids = FP.resolveSetIds(_kiosk.ids, data);
+    const outcome = (data.outcomes || []).find(o => o.id === FP.qp('outcome'));
+    if (outcome?.challenge_ids.includes(resolvedId)) _journey = outcome;
+    const challenge = (data.challenges || []).find((c) => c.id === resolvedId);
     if (!challenge) { showError('Activity "' + challengeId + '" not found.'); return; }
 
     const mod = (data.modules || []).find((m) => m.id === challenge.module);
@@ -39,11 +45,12 @@
 
   /* In kiosk mode, point the sidebar "back" link at the curated set */
   function applyKioskLinks() {
-    if (!_kiosk) return;
+    if (!_kiosk && !_journey) return;
     const back = document.querySelector('.facts-panel a[href="catalog.html"]');
     if (back) {
-      back.setAttribute('href', FP.setUrl(_kiosk.ids, _kiosk.name));
-      back.textContent = '← Back to set';
+      back.setAttribute('href', _kiosk ? FP.setUrl(_kiosk.ids, _kiosk.name)
+        : FP.catalogOutcomeUrl(_journey.id));
+      back.textContent = _kiosk ? '← Back to set' : '← Back to outcome';
     }
   }
 
@@ -234,6 +241,7 @@
 
     const ordered = _kiosk
       ? _kiosk.ids.map((id) => allChallenges.find((item) => item.id === id)).filter(Boolean)
+      : _journey ? _journey.challenge_ids.map(id => allChallenges.find(item => item.id === id)).filter(Boolean)
       : FP.orderModuleActivities(
           allChallenges.filter((item) => item.module === c.module),
           mod

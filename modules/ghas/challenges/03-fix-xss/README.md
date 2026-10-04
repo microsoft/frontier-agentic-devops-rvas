@@ -1,6 +1,8 @@
 # Activity S03: Fix XSS and unsafe output
 
-**Session outcome:** Your pull requests fix XSS with encoding for the output context or safe framework APIs. Rendering tests and GHAS checks support two independently reviewed fixes, which define a prevention pattern for comparable output paths.
+**Session outcome:** You have merged a reviewed fix that handles output safely. Rendering tests and a default-branch rescan verify the change.
+
+Start with the [remediation checklist](../../resources/start-remediation.md), then use this case for an XSS finding. The injection and authorization cases are alternatives.
 
 ## Description
 
@@ -17,12 +19,12 @@ Encode output before rendering it, or use framework APIs that do so safely. Firs
 ## Objectives
 
 - Filter Security → Code scanning alerts for XSS-related alerts
-- Open the affected files and trace the data flow: where does user input enter, and where does it reach HTML output?
+- Select one alert and trace user input to its output context
 - Apply output encoding for the context or use safe framework APIs. Test the affected rendering behavior.
 - Identify whether each vulnerability is reflected or stored, and explain the difference in your PR description
-- Open pull requests to `main` with the exploitable data flow, remediation, reviewer evidence, and relevant GHAS validation
-- Record the approved prevention pattern in `modules/ghas/resources/ghas-governance-practice.template.md`
-- Use two independently reviewed fixes to confirm the pattern, then check comparable rendering paths for repeat issues
+- Open a pull request with the alert link and rendering tests for ordinary and unsafe input
+- Obtain human review before merging through the normal controls. Verify that the default-branch rescan marks the alert as fixed
+- Explain the safe output pattern in the PR. You can check comparable paths, but a second fix is optional
 
 > [!TIP]
 > Working with a real application? Select its own reflected or stored XSS and output-encoding alerts.
@@ -34,7 +36,7 @@ Encode output before rendering it, or use framework APIs that do so safely. Firs
 - Ask: *"What encoding is needed for data going into an HTML attribute versus HTML body versus a JavaScript string?"*
 - Review any fix from Copilot Autofix or other Copilot assistance against the required output context. Submit it through the normal PR and GHAS checks.
 
-Try triggering the XSS in the running app with `<script>alert(1)</script>` in a search or input field. Fix the code, then verify that the app renders the same input as text.
+In the approved test environment, try `<script>alert(1)</script>` in the affected field. Fix the code, then verify safe rendering for that output context.
 
 ## Learning resources
 

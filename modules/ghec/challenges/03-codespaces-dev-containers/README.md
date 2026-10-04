@@ -1,6 +1,8 @@
 # Ch03: Codespaces and dev containers
 
-**Session outcome:** Your Codespace builds from the committed `devcontainer.json` and runs the application. You have checked port visibility and organization policy, and verified that a new Codespace uses the repository's prebuild.
+Use this optional session when the Ch00 repository needs a shared development image or prebuild. Reuse that repository and delete unused Codespaces after testing.
+
+**Session outcome:** A new team member's Codespace builds from the committed `devcontainer.json` and runs the application's checks without manual tool installation. Port access follows the approved policy.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
@@ -10,11 +12,10 @@
 
 ## What you will deliver
 - Author a `devcontainer.json` that pins a base image, installs features, and runs setup commands.
-- Launch a Codespace from the UI and the CLI, and understand the create/stop/delete lifecycle.
+- Launch one Codespace and run the application and its checks.
 - Use prebuild-aware lifecycle scripts (`onCreateCommand`, `postStartCommand`) and dev-container Features.
 - Forward and label ports, set port visibility, and run the seeded app inside the Codespace.
-- Apply personalization (dotfiles) vs project config, and understand the precedence.
-- Configure org-level Codespaces policy (machine-type limits, retention) and create a prebuild to cut start time.
+- Reuse approved machine-type and retention policy. Add a prebuild only when startup time warrants it.
 
 ## Scenario
 New engineers at a GHEC customer spend a day configuring local tools before they can run the app. Configure a committed dev container and a prebuild to shorten setup. Set an org policy to control costs, then test the environment on a seeded Node service.
@@ -46,32 +47,33 @@ Setup creates these resources (all names use the `ghec-ch03-*` prefix, and teard
 
 ### Part A: Author the dev container
 1. Inspect and extend `.devcontainer/devcontainer.json`. The fallback sample includes a minimal baseline with a pinned Node image, dependency install, and port 3000 forwarding. Keep the pinned base image suitable for the app (e.g., `mcr.microsoft.com/devcontainers/javascript-node:22`) and improve it.
-2. Add Features. Include at least two dev-container Features, e.g. `ghcr.io/devcontainers/features/github-cli:1` and `ghcr.io/devcontainers/features/node:1`. Understand Features vs baking tools into a custom Dockerfile.
-3. Add lifecycle commands. Keep deterministic shared setup in `onCreateCommand` (`npm install` for the seeded app) and add `postStartCommand` to print a ready message. Prebuilds run `onCreateCommand`, but not `postCreateCommand`, so do not put the dependency install in `postCreateCommand`. Add a `customizations.vscode.extensions` list with at least one extension.
+2. Add only missing tools, for example `ghcr.io/devcontainers/features/github-cli:1` when the base image lacks `gh`. Do not install a second Node runtime over the image's runtime or add Features merely to meet a count.
+3. Keep shared dependency setup in `onCreateCommand` (`npm install` for the seeded app). Prebuilds run `onCreateCommand`, but not `postCreateCommand`. Add editor extensions only when the team needs them; a ready-message command is unnecessary.
 
 ### Part B: Launch and run
-4. Open a Codespace from the repo's Code → Codespaces menu *and* from the CLI: `gh codespace create -R <org>/ghec-ch03-codespaces-dev-containers -m basicLinux32gb` (use the smallest available). List it with `gh codespace list`.
+4. Open one Codespace from the repo's **Code → Codespaces** menu, or use `gh codespace create -R <org>/ghec-ch03-codespaces-dev-containers` and choose the smallest allowed machine. List it with `gh codespace list`.
 5. Verify the environment inside the Codespace: `node -v` matches the pinned image, `gh --version` works (proves the Feature installed), and `node_modules/express` exists (proves `onCreateCommand` installed dependencies).
-6. Run the app (`npm start`). Confirm it boots.
+6. Run the app (`npm start` in the sample) and the repository's documented test command. Have a teammate repeat the setup in a fresh Codespace. Fix any manual setup they still need.
 
 ### Part C: Ports
 7. Forward the app port. In the Ports panel, confirm the app's port is auto-forwarded; label it (e.g., `web`). Add a `forwardPorts` and `portsAttributes` entry to `devcontainer.json` so the label and behavior are committed, not ad-hoc.
-8. Set visibility. Change the forwarded port to Private to org (or Public, then back), and note who can reach the URL at each setting.
+8. Keep the forwarded port private. With approval, test organization visibility using an intended user and a user outside that audience. Do not expose customer code or services publicly for this exercise.
 
-### Part D: Personalization vs project config
-9. Enable dotfiles personalization in your personal Codespaces settings (point it at a dotfiles repo or skip if none). In `docs/devcontainer-notes.md`, explain the difference between personal dotfiles (per-user) and the committed `devcontainer.json` (per-project), and which wins.
+### Part D: Check cost policy
+9. Inspect the existing policy under **Organization settings → Codespaces**. With organization-owner approval, change machine types or retention only when they do not meet the team's needs. Keep the owner and agreed cost limit in the existing setup PR.
 
-### Part E: Org policy and prebuilds
-10. Set an org Codespaces policy. In Org settings → Codespaces, restrict the allowed machine types (e.g., disallow the largest) and set a retention period. Confirm the policy is visible via `gh api /orgs/<org>/codespaces` or the settings UI.
-11. Design the prebuild before creating it. In `docs/prebuild-decision.md`, record the repository branch and `devcontainer.json` you are targeting; the developer regions; the trigger you choose; the number of versions to retain; the owner for failed-prebuild notifications; and the rationale. Select the settings for this customer:
+### Optional: Add a prebuild when startup is slow
+10. Measure the fresh Codespace's startup time. If it is acceptable to the team, skip this section. Otherwise agree on the branch, configuration, regions, update trigger, retained versions, and failure-notification owner in the same setup PR:
    - **Every push** keeps dependencies current but consumes more Actions minutes.
    - **On configuration change** reduces Actions usage but may leave dependencies stale until a developer updates them.
    - **Scheduled** suits a deliberate refresh cadence, with the same freshness trade-off.
    - Limit regions to where the delivery team works. Each enabled region and retained version consumes prebuild storage.
    - Retain only the number of versions needed for rollback or investigation (1–5). Decide whether developers should be blocked from a fallback when the latest prebuild is running or failed.
-12. Create the prebuild from the recorded decision (Settings → Codespaces → Set up prebuild). Select the branch and configuration file, trigger, regions, retained versions, failure-notification owner, and advanced freshness behavior. Wait for the GitHub Actions prebuild workflow to succeed.
-13. Validate the result. Create a *new* Codespace for the configured branch and configuration. Confirm the machine picker shows **Prebuild ready**, `node_modules/express` is already present, and the repository settings show the successful configuration and its next update trigger. Record the workflow URL or run ID in `docs/prebuild-decision.md`.
-14. Clean up running Codespaces with `gh codespace delete` to stop billing.
+11. Create the approved prebuild under **Settings → Codespaces → Set up prebuild**. Wait for its GitHub Actions workflow to succeed.
+12. Create a *new* Codespace for that branch and configuration. Confirm **Prebuild ready**, run the same application checks, and compare startup time. Link the workflow result in the setup PR.
+
+### Finish
+13. Merge the tested configuration through normal review. Delete only the temporary Codespaces with `gh codespace delete -c <name>` to stop their compute and storage charges.
 
 ## Reference links
 - [Introduction to dev containers](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers)

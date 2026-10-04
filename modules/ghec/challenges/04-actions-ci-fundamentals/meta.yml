@@ -3,14 +3,14 @@ title: GitHub Actions CI fundamentals
 module: ghec
 track: developer-flow
 difficulty: intermediate
-duration_minutes: 180
+duration_minutes: 75
 prerequisites: []
 prerequisite_capabilities:
-- GitHub organization with org-owner rights
+- Customer repository write access and an administrator for required checks
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-- Repository provisioned via activity setup script
+- Reuse the Ch02 repository and independent reviewer
 description: "Build a GitHub Actions CI pipeline with checks that gate merges."
 tags:
 - github-actions

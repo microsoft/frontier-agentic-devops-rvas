@@ -41,7 +41,7 @@ Record these decisions in the `ghas-admin-01: configuration attachment repair` i
 | Configuration owner | Named person or team |
 | Rollback owner | Named person |
 | Targeting | Selected repository |
-| Exception | Owner, reason, expiry, and return path |
+| Exception, if needed | Owner, reason, expiry, and return path |
 | Success condition | Final attached state and expected features |
 | Stop condition | Any unexplained failure, unexpected replacement, scan loss, or owner objection |
 

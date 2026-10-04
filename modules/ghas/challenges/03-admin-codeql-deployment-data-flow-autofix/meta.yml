@@ -1,9 +1,9 @@
 id: ghas-admin-03
-title: CodeQL deployment, data flow and Autofix
+title: Configure CodeQL and enforce reviewed fixes
 module: ghas
 track: admin-governance
 difficulty: advanced
-duration_minutes: 180
+duration_minutes: 150
 display_order: 12
 prerequisites:
   - ghas-admin-01
@@ -12,7 +12,7 @@ prerequisite_capabilities:
   - GitHub Code Security enabled for private or internal repository tests
   - GitHub CLI, Git, and jq installed
   - Repository owner or build engineer available for coverage review
-description: "Deploy CodeQL, close scanning gaps, and verify a reviewed Copilot Autofix change."
+description: "Configure CodeQL coverage and block vulnerable PRs until their reviewed fixes pass."
 tags:
   - ghas
   - codeql
@@ -21,7 +21,9 @@ tags:
   - tool-status
   - data-flow
   - copilot-autofix
-app_dependency: juice-shop
+  - merge-protection
+  - rulesets
+app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
@@ -48,3 +50,4 @@ references:
   - https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/configuring-advanced-setup-for-code-scanning
   - https://docs.github.com/en/code-security/how-tos/manage-security-alerts/manage-code-scanning-alerts/resolve-alerts
   - https://docs.github.com/en/rest/code-scanning/code-scanning
+  - https://docs.github.com/en/code-security/concepts/code-scanning/merge-protection

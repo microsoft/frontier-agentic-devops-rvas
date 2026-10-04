@@ -1,26 +1,27 @@
 id: ghaw-19
-title: Daily doc updater
+title: Reviewed documentation correction
 module: ghaw
 track: production-patterns
-difficulty: advanced
-duration_minutes: 75
+difficulty: intermediate
+duration_minutes: 90
 prerequisites:
   - ghaw-00
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed. See ghaw-00.
-description: "Compare documentation with code and propose updates when they drift."
+  - An approved documentation error and independent PR reviewer
+description: "Correct a documentation error in a reviewed PR with code references and passing checks."
 tags:
   - documentation
-  - schedule
+  - manual-pilot
   - create-pull-request
   - drift-detection
   - production
 app_dependency: none
 emu_compatible: true
 min_environment: repo
-tier: stretch
+tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghaw/challenges/19-daily-doc-updater/meta.yml
 license: MIT

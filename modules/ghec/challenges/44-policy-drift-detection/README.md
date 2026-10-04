@@ -1,71 +1,149 @@
-# Ch44: Policy drift detection
+# Ch44: Monitor an approved repository ruleset
 
-**Session outcome:** Your repeatable policy check reports repository settings or files that differ from the approved baseline. A second run verifies safe corrections, and each remaining difference has a remediation owner.
+**Session outcome:** A daily, read-only Actions workflow checks a customer ruleset against its reviewed baseline. Unexpected changes or unreadable evidence fail the run, and a named owner handles the result.
 
-## Prerequisites
+**Drift** means the live configuration differs from the approved configuration.
+For example, someone disables a ruleset or removes a required CI check.
+The monitor reports that change; it never repairs settings automatically.
 
-- GitHub Enterprise Cloud organization with org-owner rights.
-- Token scopes from `setup.sh doctor ch44 --org <org>` (`repo` + `read:org`).
-- `gh >= 2.x`, `git`, and `jq`.
-- Optional: the ghec-ch52 approved organization topology, delegation matrix, and control register, when the customer has already completed that work.
+## Before you start
 
-## Scenario
+Use an approved private repository with an **active branch ruleset** and working
+review or CI requirements. If those controls are missing, configure and test
+them in [Ch08](../08-rulesets-repo-properties/README.md) first.
 
-A baseline defines repository ownership, required files, labels, topics, and safe feature settings. Repositories drift from it over time. Define the baseline, detect the differences, and record remediation without silently applying broad organization policy.
+You need permission to merge the monitor files, `gh`, and Python 3. Metadata
+read access is enough for these ruleset fields. Repair requires the ruleset's
+administrator: a repository administrator cannot repair an inherited
+organization rule. Get the control owner's approval and keep baseline changes
+under the repository's existing review policy.
 
-## Sample setup
+## 1. Select the control to monitor
+
+From the customer checkout, set the repository and list its branch rulesets:
 
 ```bash
-bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch44 --org <org>
+export TARGET_REPOSITORY="YOUR-ORG/YOUR-APPROVED-REPO"
+gh api "repos/$TARGET_REPOSITORY/rulesets?targets=branch&includes_parents=true&per_page=100" \
+  --paginate --jq '.[] | {id, name, source_type, enforcement}'
 ```
-```powershell
-modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch44 -Org <org>
+
+Choose the active ruleset that supplies the agreed controls. Set its numeric ID:
+
+```bash
+export RULESET_ID="123456"
 ```
 
-Setup creates `ghec-ch44-policy-baseline` and `ghec-ch44-drifted-service`. The drifted repository intentionally lacks some baseline files, labels, and topics. Setup does not create org rulesets or change org settings.
+For GHE.com, set `GH_HOST=<customer>.ghe.com` and authenticate to that host first.
+The baseline records the hostname to prevent a check against the wrong service.
 
-## Tasks
+## 2. Capture and review the baseline
 
-### Part A: Define the baseline
+Review existing files before copying these paths. From the customer checkout:
 
-1. Define baseline checks: owner evidence, README, CODEOWNERS, issue template, PR template, labels, topics, visibility, issues enabled, and branch/ruleset expectations. Use ghec-ch52's approved organization topology, delegation matrix, and register for ownership and delegation expectations when available. Otherwise, define those expectations here.
-2. Inspect the baseline sample:
-   ```bash
-   gh repo view <org>/ghec-ch44-policy-baseline --json name,visibility,hasIssuesEnabled,repositoryTopics,description
-   gh label list --repo <org>/ghec-ch44-policy-baseline --limit 100 --json name,color,description
-   ```
-3. Record severity and exception rules for each check.
+```bash
+CURRICULUM=/absolute/path/to/frontier-agentic-devops-rvas
+mkdir -p .github/scripts .github/workflows
+cp "$CURRICULUM/modules/ghec/resources/drift/check.py" .github/scripts/check.py
+cp "$CURRICULUM/modules/ghec/resources/drift/ruleset-drift.yml" .github/workflows/
+python3 .github/scripts/check.py "$TARGET_REPOSITORY" \
+  --capture "$RULESET_ID" > .github/ruleset-baseline.json
+```
 
-### Part B: Detect drift
+Capture must exit `0`. An error report is not a baseline.
+Have the owner review the generated JSON against the intended settings,
+especially rule enforcement, branch conditions, review count, and required
+check names and App IDs. Capturing the current state does not make it correct.
 
-4. Compare the drifted repo to the baseline:
-   ```bash
-   gh repo view <org>/ghec-ch44-drifted-service --json name,visibility,hasIssuesEnabled,repositoryTopics,description
-   gh label list --repo <org>/ghec-ch44-drifted-service --limit 100 --json name
-   gh api repos/<org>/ghec-ch44-drifted-service/contents/.github/CODEOWNERS --silent || echo "missing CODEOWNERS"
-   ```
-5. Produce a drift report with pass/fail, severity, owner, remediation, exception, and next review date. Mark any organization- or enterprise-scoped check outside this activity's token/API access as unavailable. Never mark it pass/compliant without verification.
-6. Decide what can be safely remediated now versus what needs approval.
+The checker compares `enforcement`, `target`, `conditions`, and all returned
+`rules` and their parameters. It ignores timestamps, names, and array order.
+**It does not check bypass actors**, which the API hides from read-only
+identities. It also does not audit classic branch protection or certify
+enterprise compliance. Use Ch08 for enforcement tests and
+[Ch37](../37-ghqr-governance-quick-review/README.md) for a broader review.
 
-### Part C: Remediate safely
+Run the first check:
 
-7. Apply one safe remediation, such as adding a missing topic or label:
-   ```bash
-   gh repo edit <org>/ghec-ch44-drifted-service --add-topic policy-baseline
-   gh label create "status: needs-triage" --repo <org>/ghec-ch44-drifted-service --color fbca04 --description "Needs initial triage"
-   ```
-8. For high-impact changes, record an approved exception or rollout ticket instead of changing settings during setup.
-9. Optional: move the drift check into a scheduled workflow after the customer approves the automation identity.
+```bash
+python3 .github/scripts/check.py "$TARGET_REPOSITORY" \
+  --baseline .github/ruleset-baseline.json
+```
 
-### Part D: Handover
+| Exit | Meaning | Owner action |
+|---|---|---|
+| `0` | Monitored fields match the baseline | No repair needed |
+| `1` | An observed setting differs | Review the change and approve a repair or baseline update |
+| `2` | Baseline or API evidence is unavailable or invalid | Restore access or correct the configuration; do not treat this as a pass |
 
-10. Store the baseline contract, latest drift report, and approved exceptions.
-11. Name the drift check owner, review cadence, and next repository cohort.
+A `404` can mean hidden or absent evidence. It does not prove the ruleset was
+deleted. Even a stricter unexpected setting needs review before updating the
+baseline. Never recapture the baseline just to turn a failure green.
 
-## Reference links
+## 3. Install the recurring check
 
-- [Repositories REST API](https://docs.github.com/en/rest/repos/repos)
-- [Labels REST API](https://docs.github.com/en/rest/issues/labels)
-- [Repository contents API](https://docs.github.com/en/rest/repos/contents)
-- [Repository topics](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics)
+Open a PR containing the checker, baseline, and workflow. Have the control owner
+review it, then merge through the existing controls. Include these files in
+the team's CODEOWNERS/review policy so changing the monitor also needs review.
+
+The supplied workflow runs daily at **06:17 UTC** and supports manual runs.
+It uses the repository's `GITHUB_TOKEN` with `contents: read`; no PAT, App key,
+or write permission is needed. It derives the host from the Actions server.
+Results appear in the run summary. Scheduling is best-effort and runs from the
+default branch.
+
+After merge, dispatch and inspect a run:
+
+```bash
+gh workflow run ruleset-drift.yml --repo "$TARGET_REPOSITORY"
+gh run list --repo "$TARGET_REPOSITORY" --workflow ruleset-drift.yml --limit 5
+```
+
+Open the run in Actions and confirm the expected repository and ruleset ID.
+Name who checks failed runs and who can repair the control. Enable Actions
+failure notifications for that owner. Scheduled notifications follow the
+workflow creator, latest cron editor, or user who re-enabled it. Confirm this
+recipient is the named owner; have them re-enable the workflow if needed.
+Use the customer's existing alerting route if email is insufficient.
+
+## 4. Verify failure without weakening the live rule
+
+Run the local helper tests:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover \
+  -s "$CURRICULUM/modules/ghec/resources/drift" -p 'test_*.py'
+```
+
+They cover disabled enforcement, removed checks, reduced reviews, changed branch
+conditions, and unreadable evidence. Do not weaken a customer control to test
+the monitor.
+
+To test a failed Actions run and its notification, create an approved temporary
+branch after the workflow is merged. In that branch's baseline JSON only, add
+`refs/heads/drift-notification-test` to `policy.conditions.ref_name.exclude`.
+Keep the rule ID and live ruleset unchanged. Commit that test change, push the
+branch, and have the notification owner dispatch it:
+
+```bash
+gh workflow run ruleset-drift.yml --repo "$TARGET_REPOSITORY" --ref <test-branch>
+```
+
+Expect exit `1` with a conditions difference. Have the owner confirm they can
+see the failed run and receive its notification. **Do not merge the test
+baseline.** Remove the temporary branch through the normal approved cleanup.
+Dispatch the default-branch workflow again and confirm it passes.
+
+If live drift appears later, have the ruleset owner approve and apply the repair.
+Rerun the monitor. Record an intentional control change through a reviewed
+baseline PR instead of weakening the approved expectation.
+
+Keep the baseline PR and passing/failed run links in the existing adoption
+issue. The session is complete when the monitor is installed and its owner can
+handle a failure. To stop it, disable **Ruleset drift** in Actions; the ruleset
+itself remains unchanged.
+
+## References
+
+- [Get a repository ruleset](https://docs.github.com/en/rest/repos/rules#get-a-repository-ruleset)
 - [Scheduled workflows](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule)
+- [Actions notifications](https://docs.github.com/en/actions/concepts/workflows-and-actions/notifications-for-workflow-runs)

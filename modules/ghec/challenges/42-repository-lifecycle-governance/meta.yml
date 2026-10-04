@@ -1,17 +1,17 @@
 id: ghec-ch42
-title: Repository lifecycle governance
+title: Repository inventory and lifecycle
 module: ghec
 track: admin-governance
 difficulty: advanced
 duration_minutes: 90
 prerequisites: []
 prerequisite_capabilities:
-- GitHub organization with org-owner rights
+- Approved repositories and an administrator for the archive test
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-- Repository provisioned via activity setup script
-description: "Apply approved repository transfer, archive, or deletion decisions."
+- Accountable owners and approval for archive and restore
+description: "Confirm repository owners and safely test archiving and restoring a repository."
 tags:
 - repository-lifecycle
 - governance

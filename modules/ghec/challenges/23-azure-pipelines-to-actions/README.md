@@ -1,6 +1,6 @@
 # Ch23: Convert Azure Pipelines to GitHub Actions
 
-**Session outcome:** You have converted an Azure Pipeline into a GitHub Actions workflow and tested it in GitHub. You have corrected or recorded unsupported steps and given the owner the run results and usage forecast.
+**Session outcome:** The converted pipeline runs in GitHub and produces the expected tests and artifacts. You verify that GitHub preserves the source pipeline's CI and deployment-approval requirements.
 
 ## Prerequisites
 
@@ -64,7 +64,7 @@ Open `actions-importer-output/audit/audit_summary.md`. Capture:
 - Secrets, variable groups, self-hosted runners, service connections, or environments that require manual work.
 - Actions that the converted workflows would use.
 
-### Part B: Forecast GitHub Actions usage
+### Optional: Forecast GitHub Actions usage
 
 Estimate future GitHub Actions usage from Azure DevOps pipeline history.
 
@@ -128,7 +128,7 @@ In the pull request branch:
 
 ### Part F: Validate in GitHub Actions
 
-Merge or update the PR when the workflow is safe to run, then trigger the migrated workflow.
+Run the reviewed conversion on its PR branch before cutover. If manual dispatch needs a default-branch workflow, use the existing review process to merge only the safe trigger and setup first.
 
 ```bash
 gh workflow list --repo <github-org>/<github-repo>
@@ -137,6 +137,11 @@ gh run watch --repo <github-org>/<github-repo>
 ```
 
 If the workflow is triggered only by `push` or `pull_request`, push a small documentation-only branch or update the PR branch instead of using `workflow_dispatch`.
+
+1. Compare test counts and artifact contents for the same commit in the source pipeline and GitHub run. Download an artifact to inspect it. Also check how each pipeline handles failures.
+2. Deliberately fail a test on the PR and require the corresponding Actions check. Verify that a contributor without bypass permission cannot merge it. Fix the test and rerun.
+3. Map any source deployment approval to a protected GitHub environment. Withhold or reject approval and verify the deployment job does not run. Then approve a safe test deployment. If the source has no deployment gate, record that fact.
+4. Obtain independent review and accept cutover only after the passing run and any required approval test. Assign an owner to each unsupported behavior.
 
 ## Cleanup
 

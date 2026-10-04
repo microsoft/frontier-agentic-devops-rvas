@@ -31,9 +31,28 @@ meta.yml   # catalog metadata and dependency contract
 README.md  # customer delivery team guide, hints, expected outputs, common failures
 ```
 
-Start every guide with a short **Session outcome:** paragraph before the first section.
+Start every activity guide with a short **Session outcome:** paragraph before the first section.
 Say what participants will have and how they can check it. Describe the guide's existing
 work without adding deliverables. Make clear when a fallback replaces a live result.
+Forwarding pages need only a direct link to their target guide.
+
+### Session value
+
+**Each active session must leave a useful GitHub adoption result.** Configure a
+feature the team needs, migrate a working repository, or complete a reviewed
+change under the intended controls. A reusable operating check also qualifies
+when a named owner runs it on real data.
+
+Explain why the setting or command matters beside the step that uses it. Supply
+the UI path, command, or starter needed to act, then show how to verify the
+result. Put deeper teaching in optional references.
+
+Reuse working controls. Do not require extra tools, sample tasks, or comparison
+exercises just to cover a topic. Keep evidence in the existing PR or work item.
+**Prefer native GitHub features.** A reporting or storage helper belongs beside
+the task that needs it; building the helper alone does not justify a session.
+An assessment or fixture can prepare for setup; it must not stand in for a live
+result. Without the required approval or feature, record the blocker.
 
 ### `meta.yml` required fields
 
@@ -61,17 +80,17 @@ Optional fields:
 
 | Field | Contract |
 |---|---|
-| `display_order` | Optional numeric position within an activity's catalog track. It defaults to the trailing number in the activity id and must stay unique within a module; the build fails on duplicates. The default catalog shows configured lead activities first, then keeps each track together. Outcome filters use the exact journey order from `outcomes.json`. Set this field only when stable activity IDs do not match the intended order inside a track. |
+| `display_order` | Optional numeric position within an activity's catalog track. It defaults to the trailing number in the activity id and must stay unique within an active module catalog. Outcome filters use the `challenge_ids` order from `outcomes.json`. |
 | `tier` | `setup`, `core`, `stretch`, or `bonus`. Defaults to `core` in the build. |
 | `references` | Source-backed docs and product links used by customer delivery team members. |
-| `outcomes` | Outcome ids from `outcomes.json` when an activity needs explicit membership beyond the journey's activity list. |
+| `outcomes` | Optional outcome tags. Add the activity to the outcome's `challenge_ids` in `outcomes.json` so users can find it under that result. |
 | `personas` | Personas such as `platform-engineer`, `security-lead`, `developer`, `sre`, or `migration-lead`. |
 | `business_value` | Value tags such as `reduce-migration-risk`, `shift-left-security`, or `automate-repetitive-work`. |
 | `adoption_stage` | `assess`, `pilot`, `scale`, or `operate`. |
 
 ## Outcome journey contract
 
-`outcomes.json` defines the customer adoption paths shown on the home page and catalog filters.
+`outcomes.json` uses `schema_version: 1` and defines the outcomes shown on the homepage and catalog filters.
 Each outcome requires:
 
 | Field | Contract |
@@ -84,8 +103,13 @@ Each outcome requires:
 | `adoption_stage` | Stages covered by the journey: `assess`, `pilot`, `scale`, `operate`. |
 | `business_value` | Searchable value tags. |
 | `source_platforms` | Relevant starting platforms, such as `azure-devops`, `bitbucket`, `gitlab`, `github`, or `greenfield`. |
-| `challenge_ids` | Ordered list of existing activity ids included in the journey. |
+| `challenge_ids` | Ordered list of active activity IDs for this outcome. IDs must be unique within the list. The catalog shows all of them without another selection. |
 | `success_metrics` | Results the customer's team can verify in production in their GitHub organization or Azure tenant. |
+
+**Include activities that help achieve the outcome.** The list supports discovery;
+teams select the chapters they need and check each chapter's prerequisites.
+A diagnostic pilot does not prove that an agent can produce reviewed code changes.
+Follow the [completion evidence rules](modules/README.md#completion-evidence).
 
 ## Per-activity QA rubric
 

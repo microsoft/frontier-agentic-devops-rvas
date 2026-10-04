@@ -3,16 +3,16 @@ title: Secret Protection operations
 module: ghas
 track: admin-governance
 difficulty: intermediate
-duration_minutes: 135
+duration_minutes: 90
 display_order: 11
 prerequisites:
   - ghas-admin-01
 prerequisite_capabilities:
   - Organization-owned test repository with GitHub Secret Protection
   - Repository administration and secret-scanning alert access
-  - Two GitHub users for independent request and review work
+  - Separate reviewer only for the selected delegated-bypass extension
   - GitHub CLI, Git, and jq installed
-description: "Test secret protection from detection through reviewed bypass and verified closure."
+description: "Test secret detection and push protection, then verify the alert response."
 tags:
   - ghas
   - secret-protection

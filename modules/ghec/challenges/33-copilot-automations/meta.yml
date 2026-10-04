@@ -3,7 +3,7 @@ title: Copilot automations
 module: ghec
 track: automation-ai
 difficulty: advanced
-duration_minutes: 225
+duration_minutes: 120
 prerequisites: []
 prerequisite_capabilities:
   - A customer-approved private or internal repository with a named repository owner
@@ -11,7 +11,7 @@ prerequisite_capabilities:
   - A GitHub Copilot plan that includes Copilot cloud agent, with cloud agent and automations allowed for the repository
   - A non-EMU repository eligible for Copilot cloud agent
   - Named Copilot, security, repository, and audit-evidence owners
-description: "Run Copilot automation on schedules or events with independent human review."
+description: "Test when an automation runs and independently review its draft pull request."
 tags:
   - copilot
   - cloud-agent

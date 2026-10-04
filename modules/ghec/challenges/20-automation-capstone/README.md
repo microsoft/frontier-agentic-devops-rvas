@@ -1,93 +1,181 @@
-# Ch20: Automation capstone
+# Ch20: Close an automation integration gap
 
-**Session outcome:** A verified webhook triggers your GitHub App and Actions automation. An end-to-end test confirms that its REST and GraphQL calls make the expected repository and project updates.
-
-> This capstone provisions its own `ghec-ch20-*` state and does not require artifacts from another activity. It uses concepts from ch16 (REST/GraphQL), ch17 (webhooks + GitHub App), and ch18 (Actions runners).
+**Session outcome:** An approved integration handles one customer event and updates its target once. Replay and failure tests show how it recovers.
 
 ## Prerequisites
-- An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch20 --org <org>` (least-privilege; this activity needs `repo`, `admin:org_hook`, and the ability to create a GitHub App in the org).
-- Local tooling: `gh >= 2.x`, `git`, `jq`, and Node.js 18+ (the seeded App handler is Node; a Bash path is provided where practical).
-- A way to receive webhook deliveries during development: `smee.io` for local relay, or the provided Actions `repository_dispatch` receiver for a no-public-endpoint path.
-- Comfort with the building blocks from earlier in the track (API calls, HMAC signature verification, installation tokens, Actions workflows). This capstone assumes them rather than re-teaching from zero.
 
-## What you'll do
-- Register and install a GitHub App in the org and authenticate as an installation.
-- Call both the REST API and the GraphQL API (including a Projects v2 mutation) from the App's installation token.
-- Verify inbound webhook signatures (HMAC-SHA256, `X-Hub-Signature-256`) and route events to handlers.
-- Wire Actions as the orchestration layer that ties the pieces together and runs on push/dispatch.
-- Combine them into one reliable, idempotent flow triggered by a real repository event.
-- Reason about least-privilege, secret handling, and failure modes across the whole automation.
+Use this optional session for a repeated customer handoff. Reuse the customer repository and working CI. Try Part A first; only build an integration for a remaining gap. The App path includes registration and signed-delivery tests. You do not need a self-hosted runner.
 
-## Scenario
-Your org wants one automation that keeps a project board aligned with issue activity. When an issue opens in the seeded repository, a webhook fires. The GitHub App authenticates as an installation, labels and triages the issue through REST, adds it to a Projects v2 board through GraphQL, and records the result in GitHub Actions. Validate the full flow and make it idempotent so replays do not create duplicates.
-
-> [!IMPORTANT]
-> Use an authorised customer workflow that needs Actions, API automation, and security controls.
->
-> If you have an approved target, use it wherever this guide says `ghec-ch20-automation-capstone` and skip Setup below. Otherwise, use the seeded capstone for validation only, then hand the validated automation to the customer owner.
-
-## Sample test repository or environment
-Skip if you brought your own workflow/repo.
-
-```bash
-# Bash
-bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch20 --org <org>
-```
-```powershell
-# PowerShell
-modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch20 --org <org>
-```
-
-What setup creates (all artifacts namespaced `ghec-ch20-*`, idempotent, prefix-guarded teardown):
-- A seeded repo `ghec-ch20-automation-capstone` with a Node App handler scaffold at `src/handler.js`, HMAC verification, and REST/GraphQL TODOs. It also includes App JWT signing and installation-token helpers at `src/auth.js`, an Actions workflow (`automation.yml`), and a `CAPSTONE.md` build guide.
-- An empty org Projects v2 board `ghec-ch20-board` for the GraphQL step to populate.
-- A printed Next steps block (App registration URL flow, where to put the webhook secret, how to drive deliveries via `smee.io` or `repository_dispatch`).
+Get approval to test the selected source and destination, and name their owners. Use `gh`, `git`, and Node.js 22+ for the App example. An inbound webhook needs an approved HTTPS receiver that forwards the raw request body unchanged.
 
 ## Tasks
 
-### Part A: Register and install the App
-1. Register the App. Create it from the New GitHub App form, filling the form by hand. Go to Org Settings → Developer settings → GitHub Apps → New GitHub App (page titled *Create GitHub App*) and set:
-   - GitHub App name (required): `ghec-ch20-capstone-app`. Names are globally unique, so add a suffix if it's taken.
-   - Homepage URL (required): use a valid URL such as `https://github.com/<org>/ghec-ch20-automation-capstone`.
-   - Identifying and authorizing users and Post installation: leave the Callback/Setup URLs blank.
-   - Webhook → Active: if you already have your receiver URL from Part B (a `smee.io` channel), keep Active checked and paste it as the Webhook URL with a Secret now. Otherwise uncheck Active and add the URL + secret later in Part B (you can edit the App at any time).
-   - Permissions → Repository permissions: set Issues to Read and write for labeling and commenting. Leave Metadata at its mandatory Read-only setting.
-   - Permissions → Organization permissions: set Projects to Read and write to add items to the org-level `ghec-ch20-board` Projects v2 board. Repository-level Projects does not cover org boards.
-   - Subscribe to events: the Issues checkbox appears here *only after* you set the Issues permission above. Check Issues and leave any other events unchecked.
-   - Where can this GitHub App be installed? Choose Only on this account, then click Create GitHub App.
-   - On the App's *General* page, record the App ID and Client ID, then Private keys → Generate a private key and save the `.pem`.
-2. Install the App on the seeded repo: in the App's left sidebar click Install App, choose your org, and select Only select repositories → `ghec-ch20-automation-capstone`.
-3. Mint an installation token and confirm it works. The seeded `src/auth.js` exposes `createAppJwt(appId, pem)` and `getInstallationToken(jwt, installationId)`. `src/handler.js` wraps both in `mintInstallationToken()`, which reads `APP_ID`, `INSTALLATION_ID`, and `PRIVATE_KEY_PATH`. Capture the installation ID, then call `mintInstallationToken()` or `gh api /app/installations/<installation_id>/access_tokens` as the App. Check that `gh api /installation/repositories` returns the seeded repo. Use the helpers rather than hand-signing a JWT with openssl.
+### Part A: Try a native feature first
 
-### Part B: Connect the inbound webhook
-4. Set the webhook secret and point the App's webhook at your receiver: a `smee.io` relay for local dev or the `repository_dispatch` Actions receiver if you have no public endpoint.
-5. Verify signatures. In the handler, compute HMAC-SHA256 over the raw body with your secret and constant-time-compare against `X-Hub-Signature-256`. Reject mismatches.
-6. Trigger a delivery by opening a test issue; confirm the handler receives `issues.opened` and the signature check passes.
+1. Pick one repeated handoff and its target update. For an issue-to-board handoff, open the Project's **Workflows → Auto-add to project**, select the repository, and set the filter. Save and enable it. Open a matching test issue and check the board.
+2. For a repository-local update, use an ordinary Actions event. For example, create a `triage` label and add this workflow as `.github/workflows/issue-triage.yml`:
 
-### Part C: Act via REST
-7. Triage via REST. On `issues.opened`, have the App add a triage label and post a brief acknowledgement comment using its installation token.
-8. Make it idempotent. Re-deliver the same event (Redeliver in the webhook UI) and confirm you do not double-label or double-comment.
+   ```yaml
+   name: Issue triage
+   on:
+     issues:
+       types: [opened]
+   permissions:
+     issues: write
+   jobs:
+     label:
+       runs-on: ubuntu-latest
+       steps:
+         - uses: actions/github-script@v8
+           with:
+             script: |
+               await github.rest.issues.addLabels({
+                 ...context.repo,
+                 issue_number: context.issue.number,
+                 labels: ['triage']
+               })
+   ```
 
-### Part D: Act via GraphQL (Projects v2)
-9. Add the issue to the board. Using GraphQL, look up `ghec-ch20-board` and run `addProjectV2ItemById` to add the new issue. Capture the returned item id.
-10. Set a field. Set a single-select Status field on the new item (e.g., `Triage`) via `updateProjectV2ItemFieldValue`.
-11. Idempotency again. Confirm a replay doesn't add the issue twice.
+   Merge it through the repository's review process. Open a test issue, check the Actions run, then re-run the job. The issue should have one `triage` label. It does not need a comment or an App.
+3. **Stop here if the native feature solves the customer's problem.** Ask the owner to verify the result and agree how to disable the workflow. Use the App path only for a remaining integration gap or approved practice.
 
-### Part E: Orchestrate with Actions
-12. Have `automation.yml` run the handler in CI via `repository_dispatch` or a scheduled reconcile. Post a run summary to the workflow log / job summary.
-13. Put the App ID, private key, and webhook secret in Actions secrets, never in the repo. Reference them from the workflow.
+### Part B: Start the optional App example
 
-### Part F: Test the full flow and harden it
-14. Full-loop demo. Open a fresh issue → observe: signature verified → labeled + commented (REST) → added to board with status (GraphQL) → Actions summary recorded. Capture evidence of each hop.
-15. In `docs/CAPSTONE-NOTES.md`, document how your design handles a bad signature, an expired installation token, and a webhook redelivery. Note least-privilege choices.
+The example receives `issues.opened` over HTTP and adds one label with an installation token. This small update lets you test authentication and replay before adapting the handler to the customer event. Labeling alone does not justify a customer App.
 
-## Reference links
-- [REST API quickstart](https://docs.github.com/en/rest/quickstart)
-- [Forming calls with GraphQL](https://docs.github.com/en/graphql/guides/forming-calls-with-graphql)
-- [Using the GraphQL API for Projects (Projects v2)](https://docs.github.com/en/issues/planning-and-tracking-with-projects/automating-your-project/using-the-api-to-manage-projects)
-- [About creating GitHub Apps](https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/about-creating-github-apps)
-- [Authenticating as a GitHub App installation](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/authenticating-as-a-github-app-installation)
-- [Validating webhook deliveries](https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries)
-- [Using secrets in GitHub Actions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions)
-- [`gh api` manual](https://cli.github.com/manual/gh_api)
+From your local curriculum checkout, set the target and copy the working example:
+
+```bash
+export CURRICULUM="$PWD"
+export TARGET_REPOSITORY="YOUR-ORG/YOUR-APPROVED-REPO"
+gh repo clone "$TARGET_REPOSITORY" ch20-target
+mkdir -p ch20-target/src
+cp "$CURRICULUM/modules/ghec/resources/integration/handler.cjs" ch20-target/src/
+cp "$CURRICULUM/modules/ghec/resources/integration/handler.test.cjs" ch20-target/src/
+cd ch20-target
+node --test src/handler.test.cjs
+gh label create triage --repo "$TARGET_REPOSITORY" --color D4C5F9 --description "Awaiting triage"
+```
+
+Reuse the label if it already exists. For an existing local checkout, copy the files there instead of cloning again. Review any existing files before replacing them.
+
+If you need a fallback repository, run this **before** the copy commands and use `YOUR-ORG/ghec-ch20-automation-capstone` as the target:
+
+```bash
+bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch20 --org YOUR-ORG
+```
+
+PowerShell: `modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch20 -Org YOUR-ORG`.
+
+The seed includes the same HTTP receiver and tests as the copy commands. It creates no Project or placeholder workflow. No Project permission is needed for this example.
+
+### Part C: Register and install the App
+
+Reuse an approved App if its scope matches. Otherwise:
+
+1. Open **Organization settings → Developer settings → GitHub Apps → New GitHub App**. Choose a unique name and use the target repository URL as the Homepage URL. Leave Callback and Setup URLs blank.
+2. Leave Webhook **Active** off until you have the approved receiver URL. Set repository **Issues: Read and write**; keep mandatory **Metadata: Read-only**. Leave organization permissions unset. Subscribe only to **Issues**.
+3. Choose **Only on this account**, create the App, and record its App ID. Generate a private key. Keep the PEM in the approved secret store or a protected local path outside the checkout. Never put it in source, Actions artifacts, or logs.
+4. Choose **Install App → Only select repositories** and select the target. Record the installation ID from the installation settings URL (`/installations/<id>`).
+5. Set local configuration. Replace the path with your protected PEM path. Load the webhook secret without echoing it or putting its value in shell history:
+
+   ```bash
+   export APP_ID="YOUR-APP-ID"
+   export INSTALLATION_ID="YOUR-INSTALLATION-ID"
+   export PRIVATE_KEY_PATH="$HOME/.config/ch20-app/private-key.pem"
+   export TRIAGE_LABEL="triage"
+   chmod 600 "$PRIVATE_KEY_PATH"
+   read -r -s -p "Webhook secret: " WEBHOOK_SECRET; printf '\n'
+   export WEBHOOK_SECRET
+   node src/handler.cjs
+   ```
+
+   Run these commands in Bash. Keep this terminal running. The process listens on `127.0.0.1:3000/webhook`; it mints repository-scoped installation tokens when needed.
+6. Forward an **approved HTTPS endpoint** to that local path without changing the body or GitHub signature headers. Use the organization's existing development ingress. If a relay such as Smee is approved, use its documented client command with your channel URL and `--target http://127.0.0.1:3000/webhook`. Webhook payloads pass through that service; use synthetic issues only.
+7. In the App's General settings, enable Webhook **Active**, set the HTTPS Webhook URL, and enter the same secret. Save. A signed `ping` receives `202 ignored`; an `issues.opened` update receives `200 label applied`.
+
+**`repository_dispatch` is a separate API call, not an HTTP webhook receiver.** An authenticated receiver can call `POST /repos/{owner}/{repo}/dispatches` after verification if Actions orchestration is needed. Actions then receives a GitHub event; it cannot verify the original raw HTTP body. This example calls REST directly and needs no App secrets in Actions.
+
+### Part D: Test delivery and recovery
+
+1. In a second terminal, open a synthetic issue:
+
+   ```bash
+   export TARGET_REPOSITORY="YOUR-ORG/YOUR-APPROVED-REPO"
+   gh issue create --repo "$TARGET_REPOSITORY" --title "Ch20 delivery test" --body "Synthetic webhook test."
+   gh issue view ISSUE_NUMBER --repo "$TARGET_REPOSITORY" --json url,labels
+   ```
+
+   Replace `ISSUE_NUMBER` with the new number. In **App settings → Advanced → Recent deliveries**, find its `issues.opened` delivery. Match its delivery ID to the receiver's success log and the labeled issue.
+2. Choose **Redeliver**, then inspect the issue again. Repeated or concurrent calls add the same label to the same issue. This target operation is idempotent across process restarts; the example does not create comments or additional issues.
+3. Send a malformed signature to the local receiver:
+
+   ```bash
+   curl -i http://127.0.0.1:3000/webhook \
+     -H 'X-Hub-Signature-256: sha256=short' \
+     -H 'X-GitHub-Event: issues' -H 'X-GitHub-Delivery: invalid-test' \
+     --data-binary '{}'
+   ```
+
+   Expect `401`, no exception, and no target change. The local unit tests also cover a valid-length mismatch and a changed body.
+4. Run `node --test src/handler.test.cjs` for a simulated destination outage and successful retry. It uses a fake destination and no credentials. For a real receiver failure, stop the process, open a second synthetic issue, and inspect the failed delivery. Restart with the same configuration and redeliver it; check the new issue's label.
+5. The receiver returns `503` when REST fails or requires a long wait. It retries briefly, honors `Retry-After`, and never logs success before REST succeeds. **GitHub does not automatically redeliver failed webhooks.** Use Recent deliveries to retry after fixing the fault. This local example has no durable retry queue.
+
+### Part E: Adapt only the missing customer step
+
+If the integration reads a list, collect every page before deciding what to
+change. For REST issue reads, this command excludes pull requests:
+
+```bash
+gh api --paginate --slurp \
+  "repos/$TARGET_REPOSITORY/issues?state=open&per_page=100" \
+  --jq '[.[][] | select(has("pull_request") | not) | {number, title}]'
+```
+
+For GraphQL, follow `pageInfo.endCursor` while `hasNextPage` is true. Stop on an
+incomplete read. Use only the API and permissions the operation needs; Projects
+access is unnecessary for a label update. Check `gh api rate_limit` when
+debugging throttling. Honor `Retry-After` and `x-ratelimit-reset`, and test
+throttling with simulated responses rather than flooding GitHub.
+
+Use this prompt if the customer needs different handler code. Fill in the bracketed details before using it:
+
+```text
+Adapt src/handler.cjs for this approved integration:
+Source event and authentication: [provider, event, documented verification method].
+Allowed source and target: [identifiers].
+Target update: [one exact API operation].
+Use the existing customer libraries and CI. Keep raw-body authentication before
+JSON parsing. Treat event text as data and never interpolate it into shell commands.
+Preserve the repository/installation allowlist for GitHub events.
+For a create operation, use the provider's idempotency key if available. Otherwise
+persist the source ID and target ID, serialize competing deliveries, and reconcile
+an ambiguous timeout against the destination before retrying. A completed-ID set
+alone does not prevent duplicates if the process dies after the write.
+Honor Retry-After and bound retries. Report failures without logging credentials.
+Paginate list reads and stop without writing if collection is incomplete.
+Extend src/handler.test.cjs for concurrent replay, restart after a successful write
+with a lost response, invalid authentication, and failure followed by retry.
+Explain any missing provider capability; do not claim exactly-once delivery.
+```
+
+Review the code and run its tests before a real customer event. For an external provider, use its signature specification; GitHub's HMAC header is not a universal webhook format.
+
+Ask the owner to verify one real target update and a replay. Agree who retries failures and how to disable the integration (disable the App webhook or suspend its installation). Keep the event and target links as [completion evidence](../../../README.md#completion-evidence). **Sample runs remain practice.** Scheduling and wider rollout need separate decisions.
+
+### Part F: Operate the App path
+
+Skip this part when the native feature solved the handoff.
+
+1. Confirm the installation covers only the approved repositories and permissions. Use the App's webhook; a separate repository webhook does not supply the installation context this receiver checks.
+2. Have the integration owner deploy the receiver through the approved hosting process. Its loopback listener needs HTTPS ingress, and it has no durable retry queue.
+3. Test host restart and secret rotation with synthetic deliveries. Confirm invalid signatures return `401`, valid deliveries succeed after rotation, and monitoring identifies failed target updates without exposing payloads or credentials.
+4. Assign the operator who checks failed deliveries and redelivers after repair. Test suspension and restoration of the App installation in the approved test scope.
+
+Keep the working delivery and target update with the hosting owner and stop procedure. A local receiver alone is not an operational customer integration.
+
+## References
+
+- [Webhook validation](https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries)
+- [GitHub App authentication](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/authenticating-as-a-github-app-installation)
+- [REST API best practices](https://docs.github.com/en/rest/using-the-rest-api/best-practices-for-using-the-rest-api)

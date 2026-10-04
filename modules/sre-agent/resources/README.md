@@ -1,12 +1,14 @@
 # Azure SRE Agent resources
 
-The Azure SRE Agent track uses the official Microsoft repository for the live lab:
+Use one approved customer service throughout the Azure SRE Agent track. For sample
+practice, use the official Microsoft Grubify starter lab:
 
 ```text
 https://github.com/microsoft/sre-agent/tree/main/labs/starter-lab
 ```
 
-Use the Microsoft Grubify starter lab when live Azure access is available. The local files support the course and provide fallback templates; they are not the live lab.
+Skip sample deployment for an existing monitored service. Use the local templates
+for practice when live work is unavailable. Practice does not prove customer adoption.
 
 ## Resource index
 
@@ -20,19 +22,19 @@ Use the Microsoft Grubify starter lab when live Azure access is available. The l
 
 ## Prepare for delivery
 
-- Live `microsoft/sre-agent/labs/starter-lab` deployment, or a shared pre-provisioned Grubify environment.
+- Use an approved monitored customer service, or prepare Grubify for practice.
 - Azure SRE Agent portal access or screenshots for Full setup cards.
-- Healthy Grubify endpoint evidence.
-- Controlled incident evidence from `scripts/break-app.sh`.
+- Save a passing endpoint check for Grubify or the selected customer service.
+- Collect incident evidence from that service. Use `scripts/break-app.sh` only for approved sample practice.
 - Azure Monitor alert, Log Analytics query, Application Insights exception/trace, and SRE Agent transcript.
-- Optional GitHub connector/source-code evidence.
-- Simulated issue or pull request when live GitHub remediation is unavailable.
+- For the customer handoff, link GitHub source evidence to a real incident issue.
+- Use a simulated issue or pull request only for practice when live work is unavailable.
 
 **Do not commit secrets, customer data, private tenant details, or live incident data to this folder.**
 
 ## Navigation
 
-- [Delivery team member activities](../challenges/00-setup/README.md)
+- [Connect a service to Azure SRE Agent](../challenges/01-deploy-grubify-sre-agent/README.md)
 - [Azure SRE Agent reference](SRE-Agent-Reference.md)
 - [Fallback incident packet](Incident-Packet.md)
 - [Runbooks](runbooks/README.md)

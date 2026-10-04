@@ -1,61 +1,117 @@
-**Session outcome:** CI Doctor watches the repository's named CI workflows. An intentional test failure produces a diagnostic issue with a likely cause and suggested fix based on the run logs.
+# CI Doctor
 
-## Background
+**Session outcome:** A failed customer CI run produces one diagnostic issue with
+links to the evidence. The issue separates the observed failure from the model's
+hypothesis.
 
-CI Doctor runs after a failed workflow. It fetches the logs and opens a diagnostic issue with a likely cause and suggested next step.
+Start after [setup](../00-setup/README.md). Select a real failure with a
+maintainer, or reproduce a known failure in an approved test branch. Avoid
+breaking the default branch for the exercise.
 
-Source: [`githubnext/agentics/workflows/ci-doctor.md`](https://github.com/githubnext/agentics/blob/main/workflows/ci-doctor.md)
+## Check the run
 
-## Behavior
+Inspect the selected workflow's failed jobs in **Actions** first. If its logs
+already give the maintainer a clear next step, keep that native workflow.
+Use the agent for failures that still need a diagnosis.
 
-- Triggers on `on: workflow_run` when a target CI workflow completes with `conclusion: failure`
-- Fetches the run logs from the GitHub API
-- Reads the logs to identify compile errors, test failures, flaky tests, and other failure patterns
-- Opens a `create-issue` with the likely root cause and a suggested fix
+Use the [CI Doctor starter](../../resources/examples/ci-doctor.md).
+Configure `workflow_run` with the exact approved
+workflow names, `types: [completed]`, and approved branches.
 
-> [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): watch the real CI workflow names, branches, and failure patterns of a repo you own.
+Before the model starts, require `github.event.workflow_run.conclusion ==
+'failure'`. Check the source repository and workflow ID against trusted
+configuration; reject unapproved branch or fork runs. Keep the workflow on the
+default branch as required for `workflow_run`.
 
-## Steps
+## Collect before the agent
 
-1. Install and verify `gh aw` with the [GHAW setup guide](../../setup.md).
+Use a trusted collector in
+[`pre-agent-steps:`](https://github.github.com/gh-aw/reference/steps-jobs/).
+Pass the run ID through an environment variable and validate it as numeric.
+Fetch metadata and failed-job logs with `gh run view`, for example:
 
-2. Pull the production workflow:
-   ```bash
-   gh aw add-wizard https://github.com/githubnext/agentics/blob/main/workflows/ci-doctor.md
-   ```
+```bash
+mkdir -p evidence
+gh run view "$RUN_ID" --repo "$GITHUB_REPOSITORY" \
+  --json databaseId,attempt,headSha,headBranch,conclusion,url,jobs \
+  > evidence/run.json
+gh run view "$RUN_ID" --repo "$GITHUB_REPOSITORY" --log-failed \
+  > evidence/failed.log
+```
 
-3. Inspect the frontmatter. Note how the [`workflow_run` event](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#workflow_run) names watched workflows and combines `types: [completed]` with a `conclusion` check.
+Bind `RUN_ID` from the event in the step's `env`; give the collector only
+`actions: read`. Redact credentials and cap the log excerpt before passing it
+to the model. Report missing logs as "evidence unavailable".
 
-4. Change `workflows:` to list the exact CI workflow names you want to watch, such as `[CI, tests, build]`.
+**Do not check out or execute code from the failed run.** Do not execute
+downloaded artifacts, dependency scripts, or commands suggested by logs.
+Custom steps run outside the model sandbox. Use trusted base-branch scripts
+and treat every log line as untrusted data.
 
-5. Compile:
-   ```bash
-   gh aw compile ci-doctor
-   ```
+## Diagnose once
 
-6. Break a test intentionally in a branch and push it. After CI fails, inspect CI Doctor's [workflow run logs](https://docs.github.com/en/actions/how-tos/monitor-workflows/use-workflow-run-logs).
+Link the run and failed job in the issue. Quote the relevant log evidence and
+separate a likely cause from facts. Require a concrete investigation step,
+and allow "cause unknown."
 
-7. Commit both the workflow and its `.lock.yml`.
+Key the record by repository, workflow ID, and original run ID. A rerun changes
+the attempt number but updates the same record. Process one attempt at a time
+for that key and skip any attempt already processed. Use read-only tools and
+safe outputs limited to the diagnostic issue. Do not grant fix or merge
+permissions.
 
-## Adapt it
+## Install and adapt the starter
 
-- Change the `workflows:` list to name exactly the CI workflows you want to monitor (use the exact workflow name from your `.github/workflows/` files)
-- Tune the diagnostic prompt: add repo-specific context like "this repo uses Node 20" or "tests run with vitest"
-- Adjust the issue template by adding labels, assignees, or project board routing to `create-issue`
-- Set `branches: [main]` if you only want to watch failures on main (not every branch)
+From the customer checkout:
 
----
+```bash
+CURRICULUM=/absolute/path/to/frontier-agentic-devops-rvas
+mkdir -p .github/workflows
+cp "$CURRICULUM/modules/ghaw/resources/examples/ci-doctor.md" .github/workflows/
+cp "$CURRICULUM/modules/ghaw/resources/examples/report-reader.md" .github/workflows/
+cp "$CURRICULUM/modules/ghaw/resources/examples/report-writer.md" .github/workflows/
+cp "$CURRICULUM/modules/ghaw/resources/examples/report-pilot.cjs" .github/workflows/
+gh workflow list
+node --test "$CURRICULUM/modules/ghaw/resources/examples/report-pilot.test.cjs"
+```
 
-<details>
-<summary>Hints</summary>
+Replace `CI`, `main`, and `APPROVED_WORKFLOW_ID: "123"` with the selected
+workflow's name, approved branch, and numeric ID. Keep the branch in
+`on.workflow_run.branches` and `APPROVED_BRANCH` consistent.
 
-`github.event.workflow_run.conclusion` is `"failure"` on failures. Include a check in your body: _"Only investigate if the triggering workflow concluded with failure."_
+The helper supplies the run URL and a capped failed-job log excerpt. Its
+redactor handles common token and password formats, not every application
+secret. Have the owner approve the log source and extend the redactor for the
+service's sensitive fields before sending logs to an AI engine.
 
-The `tools: github: toolsets: [actions]` toolset gives the agent access to run logs. You can also include log-fetching instructions pointing to `github.event.workflow_run.logs_url`.
+The starter's prompt is ready to use. For repository context, ask Copilot:
 
-To test without a real CI failure, add a temporary step to a test workflow: `run: exit 1`. Push to a branch, let it fail, then revert.
+```text
+Adapt the CI Doctor prompt for <runtime/test runner>. Retain its three sections:
+observed failure, likely cause, and one next investigation step, within 200 words.
+Cite the selected run and log evidence. Allow "cause unknown".
+Do not add checkout, artifact execution, fix permissions, or commands from logs.
+Keep the approved workflow ID, branch, and source-repository checks.
+```
 
-If the issue body is too long, constrain the prompt: _"Keep the issue body to 3 sections: 1) What failed, 2) Likely cause, 3) Suggested fix. Max 200 words."_
+Compile with `gh aw compile ci-doctor`, review the separate writer and merge
+the files to the default branch. Then rerun the approved failed CI run from
+Actions, or use its numeric ID:
 
-</details>
+```bash
+gh run rerun 123456 --failed
+gh run list --workflow ci-doctor.lock.yml --limit 5
+```
+
+The diagnostic runs only if the selected CI attempt fails. It should create
+one issue headed "CI diagnosis: run ...". Another failed attempt updates that
+issue; replaying the same attempt does nothing.
+
+Verify the selected failure produces a useful diagnosis. Rerun it and confirm there is no
+duplicate issue. Test a successful or unapproved run and confirm the model
+does not run.
+Name the maintainer who will check collector, engine, and writer failures in
+Actions. Before widening the trigger, review run frequency and the existing
+Actions and AI-provider spending controls with that owner. Keep the run links;
+you do not need a separate metrics store or health-report workflow.
+Finish the [shared acceptance check](../../setup.md#pilot-acceptance).

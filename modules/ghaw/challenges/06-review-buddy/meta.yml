@@ -1,17 +1,17 @@
 id: ghaw-06
-title: Review buddy
+title: Repository-specific review assistant
 module: ghaw
 track: repo-concierge
 difficulty: intermediate
-duration_minutes: 60
+duration_minutes: 75
 prerequisites:
   - ghaw-00
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed. See ghaw-00.
-  - Completed at least two Hello, Agent activities
-description: "Build an agent that reviews pull-request diffs and posts specific observations."
+  - A review gap not covered by Copilot or native checks
+description: "Review a repository-specific gap with cited evidence and one updated comment."
 tags:
   - pull-requests
   - code-review
@@ -20,7 +20,7 @@ tags:
 app_dependency: none
 emu_compatible: true
 min_environment: repo
-tier: core
+tier: stretch
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghaw/challenges/06-review-buddy/meta.yml
 license: MIT

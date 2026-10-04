@@ -1,5 +1,7 @@
 # Ch22: Connect Azure Boards to GitHub
 
+Choose this session only when Azure Boards remains the work-item system. Teams moving planning to GitHub Issues can skip it.
+
 **Session outcome:** Your Azure Boards project connects to the approved GitHub repository. A test commit and merged pull request using `AB#` references appear on the linked work item.
 
 ## Prerequisites
@@ -23,7 +25,7 @@ Recommended sequence: do this after the migration planning/cutover activity for 
 GEI preserves existing work-item links on Azure DevOps pull requests, but it does not move Azure Boards work items, queries, or backlog state. Teams that continue planning in Azure Boards need the Azure Boards GitHub App to link new GitHub commits and pull requests after cutover.
 
 > [!IMPORTANT]
-> Use one migrated repository and one Azure Boards work item from its owning team. You're done when the repository is connected and the work item shows a GitHub commit or PR link.
+> Use one migrated repository and a safe test work item from its owning team. Verify the commit link and merge a reviewed PR. Then check the work-item state.
 >
 > Variables used in the commands below:
 >

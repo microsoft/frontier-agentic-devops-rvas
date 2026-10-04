@@ -158,7 +158,7 @@ import_juice_shop() {
 }
 
 seed_corpus() {
-  local codeql dependabot credentials manifest config_note campaign_note expiry
+  local codeql dependabot credentials manifest config_note campaign_note
   codeql='name: CodeQL
 on:
   push:
@@ -200,7 +200,7 @@ This repository is a controlled training fixture.
 | Dependabot | Dependabot configuration plus the pinned Juice Shop dependency tree |
 | Secret scanning | One non-live AWS example key in `config/aws-credentials.ini` |
 
-Use `ghas-admin-01` for security configuration attachment work. Use `ghas-admin-06` for Security Overview, delegated triage, and a live campaign.
+Use `ghas-admin-01` for security configuration attachment work. Use `ghas-admin-06` for a code scanning campaign with a reviewed developer fix. Dependency and secret alerts remain separate queues.
 EOF
 )"
   config_note="$(cat <<'EOF'
@@ -228,14 +228,6 @@ EOF
   put_file "GHAS-ADMIN-06-CAMPAIGN-REMEDIATION.md" \
     "Add campaign remediation worksheet" "$campaign_note" "$CAMPAIGN_BRANCH"
 
-  if date -u -d '+30 days' +%F >/dev/null 2>&1; then
-    expiry="$(date -u -d '+30 days' +%F)"
-  elif date -u -v+30d +%F >/dev/null 2>&1; then
-    expiry="$(date -u -v+30d +%F)"
-  else
-    expiry="<set to 30 days from provisioning>"
-  fi
-
   create_issue "ghas-admin-01: configuration attachment repair" \
 "Record the live configuration ID, attachment status history, failure or detachment, repair, and final enforce-or-rollback decision.
 
@@ -243,12 +235,11 @@ Repository: $ORG/$REPO
 Repair branch: $CONFIG_BRANCH"
 
   create_issue "ghas-admin-06: expiring exception and campaign burn-down" \
-"Record the published campaign URL, developer access result, delegated decision, and measured burn-down.
+"Record the published code scanning campaign URL and the developer's reviewed fix. Check the test results and default-branch rescan, then record the progress shown in the campaign. Count dependency and secret-alert changes separately.
 
 Repository: $ORG/$REPO
 Remediation branch: $CAMPAIGN_BRANCH
-Exception expiry: $expiry
-Replace this template date if the exception is created later."
+Record a real exception only when needed. Include its approval and the expiry required by policy. Test delegated dismissal with a safe sample if needed, and label it as practice."
 }
 
 provision() {

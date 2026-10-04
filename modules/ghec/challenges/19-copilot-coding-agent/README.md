@@ -17,10 +17,9 @@
 - Read the agent's draft pull request and follow its session log as it works.
 - Steer the agent with PR review comments and additional issue context, then iterate.
 - Review and merge the agent's PR through the same required checks and reviews as a human contributor's.
-- Add Copilot as a ruleset bypass actor where branch protections would otherwise block its PR flow.
 
 ## Scenario
-A GHEC customer wants engineers to delegate small, well-scoped bugs to the Copilot cloud agent and review the results. Validate that flow on a seeded repository with a known bug: write a precise issue, assign it to Copilot, inspect the draft PR and session log, then review and steer the change to a correct fix. The evidence should show which tasks suit the agent and where human review remains necessary.
+A customer wants to delegate a small bug and review the fix. Use the approved customer issue. For incident follow-up, use the incident-linked issue and the same service repository. Include the observed symptom and acceptance test. Choose either Copilot cloud agent or GitHub Agentic Workflows for the handoff.
 
 > [!IMPORTANT]
 > Default to an authorised customer repository issue that the Copilot cloud agent can safely attempt with review gates.
@@ -47,7 +46,7 @@ What setup creates (all artifacts namespaced `ghec-ch19-*`, idempotent, prefix-g
 - A small seeded repo `ghec-ch19-copilot-coding-agent` with one bug and a failing test. It does not use Juice Shop, so agent runs remain short and easy to assess.
 - A CI workflow that runs the test suite (so the agent's fix can be verified green).
 - A seeded issue describing the bug, reproduction steps, and acceptance criteria, ready to assign to Copilot.
-- A printed Next steps block (including how to add Copilot as a bypass actor if you enable branch protection).
+- Setup guidance for the required CI and human-review gates below.
 
 ## Tasks
 
@@ -55,6 +54,8 @@ What setup creates (all artifacts namespaced `ghec-ch19-*`, idempotent, prefix-g
 1. Verify the policy. Confirm the org has the Copilot cloud agent enabled (Org Settings → Copilot → Policies) and that your user has a Copilot license.
 2. Confirm non-EMU. Ensure the repo is not in an EMU-managed enterprise. If `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19` flagged EMU, stop. This activity cannot run there.
 3. Open the seeded issue and read its repro + acceptance criteria so you can judge the agent's output later.
+
+Before assigning it, review the [first-run setup and instructions](../../resources/copilot-first-run.md). Reuse working configuration; add only the build commands and task boundaries this repository needs. Require the actual CI check and independent human review before delegation. Ch31 is optional for an actual private-dependency or runner gap.
 
 ### Part B: Delegate to the agent
 4. Assign the issue to Copilot. On the seeded issue, add Copilot as the assignee (Assignees → Copilot). This triggers an agent session.
@@ -71,8 +72,8 @@ What setup creates (all artifacts namespaced `ghec-ch19-*`, idempotent, prefix-g
 11. Add missing context. If the first attempt missed an edge case, update the issue/PR with the detail and let the agent iterate. Note how prompt quality changes the result.
 
 ### Part E: Gate, approve and merge
-12. (Optional) Add a branch protection / ruleset on `main` requiring the CI check + a review. If the agent's PR is now blocked from updating, add Copilot as a bypass actor (or grant the needed permission) and document why.
-13. Mark ready & approve. When the change is correct, take the PR out of draft, give it your approving review, and merge it.
+12. Before delegation, require the actual CI check and independent human approval on `main`. Keep Code Owner review where used. Verify that failing CI and missing approval block merging. Give Copilot no bypass permission for these gates. If a branch-creation rule prevents its work, obtain a separate exception for that rule and the agent's working-branch pattern only. Preserve all default-branch gates.
+13. Review the final diff and passing test run, then mark the PR ready. Obtain independent approval before merging. Record any approval needed to run Actions on the agent's output.
 14. Confirm the fix landed. On `main`, confirm the test suite is green and the issue auto-closed via the PR link.
 
 ### Part F: Record the operating boundary

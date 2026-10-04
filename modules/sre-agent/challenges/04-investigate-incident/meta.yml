@@ -1,5 +1,5 @@
 id: sre-agent-04
-title: Investigate a controlled Azure incident
+title: Investigate an incident with evidence
 module: sre-agent
 track: azure-sre-agent
 difficulty: intermediate
@@ -8,9 +8,9 @@ prerequisites:
   - sre-agent-03
 prerequisite_capabilities:
   - Azure SRE Agent portal access
-  - Grubify deployed or fallback evidence packet available
+  - Real or recent incident for the same service, or approved Grubify lab practice
   - Azure Monitor and Log Analytics basics
-description: "Inspect Azure SRE Agent evidence from a controlled failure before recovery."
+description: "Record investigation time and evidence quality. Verify recovery or mark it not tested."
 tags:
   - azure
   - incident-response

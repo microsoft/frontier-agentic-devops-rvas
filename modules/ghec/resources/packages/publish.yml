@@ -1,0 +1,49 @@
+name: Publish private test image
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Select the repository's image
+        id: image
+        shell: bash
+        run: |
+          set -euo pipefail
+          name="ghcr.io/$(printf '%s' "$GITHUB_REPOSITORY" | tr '[:upper:]' '[:lower:]')"
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+          echo "tag=$name:run-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT" >> "$GITHUB_OUTPUT"
+      - name: Authenticate
+        env:
+          GHCR_TOKEN: ${{ github.token }}
+        run: printf '%s' "$GHCR_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+      - name: Build, push, and report digest
+        env:
+          IMAGE_NAME: ${{ steps.image.outputs.name }}
+          IMAGE_TAG: ${{ steps.image.outputs.tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker build --file Containerfile \
+            --label "org.opencontainers.image.source=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY" \
+            --tag "$IMAGE_TAG" .
+          docker push "$IMAGE_TAG"
+          published="$(docker image inspect "$IMAGE_TAG" --format '{{index .RepoDigests 0}}')"
+          digest="${published#"$IMAGE_NAME@"}"
+          if [[ "$published" != "$IMAGE_NAME@"* || ! "$digest" =~ ^sha256:[a-f0-9]{64}$ ]]; then
+            echo "::error::Published image digest is unavailable or unexpected"
+            exit 1
+          fi
+          printf 'Published `%s`\n\nPull reference: `%s`\n' "$IMAGE_TAG" "$published" >> "$GITHUB_STEP_SUMMARY"

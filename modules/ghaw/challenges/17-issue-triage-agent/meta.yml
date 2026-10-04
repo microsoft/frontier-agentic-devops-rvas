@@ -1,8 +1,8 @@
 id: ghaw-17
-title: Issue triage agent
+title: Issue triage for the customer's taxonomy
 module: ghaw
 track: production-patterns
-difficulty: advanced
+difficulty: intermediate
 duration_minutes: 60
 prerequisites:
   - ghaw-00
@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed. See ghaw-00.
-description: "Label and respond to new issues using the repository's triage rules."
+description: "Apply only approved labels when evidence is clear, then check choices with a maintainer."
 tags:
   - issues
   - triage

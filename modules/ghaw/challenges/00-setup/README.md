@@ -1,61 +1,47 @@
-# Activity 00: Environment setup
+# Activity 00: Customer workflow setup
 
-**Session outcome:** You can access the GHAW delivery session repository from a Codespace or local dev container. Your GitHub CLI is authenticated, and `gh-aw` is installed and verified so you can compile agentic workflows.
+**Session outcome:** The chosen AI engine runs in the customer's GitHub Actions
+environment. The workflow has an owner and a reviewed deployment process.
 
-## Required outcome
+## Prepare the repository
 
-Before continuing, confirm you have:
+Follow the [setup guide](../../setup.md). Choose a real task for the
+[documentation pilot](../19-daily-doc-updater/README.md),
+[test pilot](../21-daily-testify/README.md),
+[CI diagnosis](../18-ci-doctor/README.md), or
+[issue triage](../17-issue-triage-agent/README.md). Use a customer-owned repository
+with an independent reviewer and existing checks.
 
-- A working development environment (GitHub Codespaces or local dev container)
-- An authenticated `gh` CLI session
-- `gh-aw` installed and verified
-- Access confirmed to the GHAW delivery session repository
-
----
-
-## Prerequisites
-
-- GitHub account
-- Basic Git and CLI usage
-
----
-
-## Choose your environment
-
-Follow the [GHAW setup guide](../../setup.md) to open a Codespace or local dev container. Both options install `gh-aw` automatically via `postCreate.sh`.
-
----
-
-## Authenticate the GitHub CLI
-
-Authenticate the CLI with your GitHub account:
+Run these commands from its checkout:
 
 ```bash
-gh auth login
-```
-
-Choose HTTPS, follow the device-code prompt in your browser, and grant the requested permissions.
-
----
-
-## Verify the setup
-
-Run each command and confirm it exits successfully:
-
-```bash
-# 1. CLI version
 gh --version
-
-# 2. Authentication
 gh auth status
-
-# 3. gh-aw version check
 gh aw --version
-
-# 4. Dry-run smoke test
-gh aw trial modules/ghaw/resources/examples/hello-world.md --logical-repo microsoft/frontier-agentic-devops-rvas --dry-run --yes
+gh repo view --json nameWithOwner,viewerPermission,defaultBranchRef
 ```
 
-> All four commands must succeed before you move on. If `gh aw --version` fails, reinstall it with the command in the [GHAW setup guide](../../setup.md).
+If authentication is missing, run `gh auth login` for the correct GitHub host.
+Confirm that the returned repository is the intended target. Check the
+requirements in the
+[deployment readiness checklist](../../setup.md#deployment-readiness).
 
-`--logical-repo` tells `gh-aw` which repository to simulate instead of using your local Git remote. This helps when your clone uses an SSH host alias. See the [GHAW setup guide](../../setup.md) for trial mode's write-access requirements.
+## Verify the runtime
+
+Use the chosen pilot's manual trigger for the readiness run. If the pilot is
+not ready, copy the [manual smoke example](../../resources/examples/hello-world.md)
+to `.github/workflows/hello-world.md` in the customer repository and inspect it.
+It allows at most one setup issue; the agent gets read-only access.
+
+```bash
+gh aw compile hello-world
+```
+
+Review the source and generated lock file through the customer's normal PR
+process, then deploy them to the default branch. Manually dispatch the workflow
+from Actions. Check the live run log for successful engine authentication and
+the permitted output. Close the smoke-test issue afterward.
+
+**A dry run is only a preparation check.** It does not prove the engine can run
+and write its output in this repository. If deployment is blocked, record who
+will address it and the next action before attempting a pilot.

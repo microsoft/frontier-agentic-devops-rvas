@@ -1,24 +1,22 @@
 # Ch04: GitHub Actions CI fundamentals
 
-**Session outcome:** Your GitHub Actions CI workflow tests the build matrix and saves artifacts. Its required check blocks failing pull requests, and deployment follows the configured environment controls.
+**Session outcome:** The customer repository runs CI on pull requests. You verify that a failing test blocks merge, then fix it and obtain independent review.
 
 ## Prerequisites
-- An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
+- Write access to the Ch02 repository and an administrator to require its CI check.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch04 --org <org>` (least-privilege; for this activity: `repo` + `workflow`).
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
 - Cost note: Actions on GitHub-hosted runners consumes Actions minutes (free tier on public repos; metered on private). `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns. Keep matrices small.
 
 ## What you will deliver
 - Write a workflow from scratch: `on` triggers, `jobs`, `steps`, and `runs-on`.
-- Run tests across a build matrix (multiple Node versions / OSes).
-- Speed up runs with dependency caching (`actions/cache` or `setup-node` cache).
-- Produce and download artifacts (test reports / build output).
-- Use job dependencies (`needs`) and conditional steps.
+- Run the repository's existing tests on one supported runtime.
+- Produce and download a test report.
 - Gate a `main` merge on a required status check so red CI blocks merges.
-- Add an environment with a protection rule and read secrets/variables safely.
+- Leave deployment environments to Ch39.
 
 ## Scenario
-A GHEC customer's team merges changes without automated checks and discovers failures later. Configure CI to build and test every push and PR across supported runtimes. Add dependency caching and downloadable test reports, then require the checks to pass before merging to `main`.
+A team discovers failures after merging. Run its existing tests on each PR, save a report, and require the check before merge. Start with one supported runtime.
 
 > [!IMPORTANT]
 > Use an approved customer target first. If you have a candidate repository, use it everywhere this guide says `ghec-ch04-actions-ci-fundamentals` and skip Setup. Otherwise use the fallback seeded repo below for testing, then move the validated configuration to an approved customer target.
@@ -47,31 +45,19 @@ Setup creates these resources (all names use the `ghec-ch04-*` prefix, and teard
 > `ghec-ch04-actions-ci-fundamentals` is the fallback sample name; substitute your own artifact's name if you brought one.
 
 ### Part A: A CI workflow
-1. Replace the starter workflow. Author `.github/workflows/ci.yml` that triggers on `push` to any branch and on `pull_request` targeting `main`. Add a `build-test` job on `ubuntu-latest`.
-2. Set up the toolchain step with `actions/setup-node@v6`, install (`npm ci`), then run `npm run lint`, `npm test`, and `npm run build` as separate steps so failures are pinpointable.
+1. Reuse the Ch02 repository. Write `.github/workflows/ci.yml` with `pull_request` and default-branch `push` triggers. Add a `build-test` job on `ubuntu-latest`. Set `permissions: contents: read` and use an approved version of `actions/checkout`.
+2. Set up the repository's supported runtime. For the Node sample, use `actions/setup-node@v6`, install with `npm ci`, then run `npm run lint`, `npm test`, and `npm run build`. Use the existing customer commands when different.
 3. Confirm it runs. Push a branch, open a PR, and watch the run in the Actions tab (`gh run watch`).
 
-### Part B: Matrix
-4. Add a build matrix over `node-version: [20, 22, 24]` (and optionally `os: [ubuntu-latest, windows-latest]`). Use `strategy.matrix` and reference `${{ matrix.node-version }}` in `setup-node`.
-5. Add `fail-fast: false` so one failing leg doesn't cancel the others, and observe all legs in the run summary.
+### Part B: Report and require the result
+4. Produce a report with the existing test runner and upload it using `actions/upload-artifact@v7`. Download it with `gh run download` and check it describes this run.
+5. After the check has run, require its exact name in the default-branch ruleset. Keep Ch02's independent approval requirement and give contributors no bypass permission.
+6. Break one test on a branch and open a PR. Verify that a contributor without bypass permission cannot merge it. Fix the test and obtain human approval before merging. Save both run URLs and the PR.
+7. Add caching or a second supported runtime only if the application needs it. Ch39 covers deployment gates.
 
-### Part C: Caching
-6. Enable dependency caching. Use `setup-node`'s built-in `cache: 'npm'` (or `actions/cache@v5` keyed on `hashFiles('/package-lock.json')`). Run twice and confirm the second run reports a cache hit and is faster.
+### Verify the effective Actions policy
 
-### Part D: Artifacts
-7. Produce a test report (e.g., write JUnit/JSON output to `reports/`), then upload it with `actions/upload-artifact@v7`. Download it from the run page and from the CLI (`gh run download`).
-
-### Part E: Job graph and conditionals
-8. Add a second job `package` that `needs: build-test` and only runs `if: github.ref == 'refs/heads/main'`. Have it build a distributable and upload it as an artifact.
-9. Confirm ordering: `package` waits for `build-test`, and is skipped on feature branches.
-
-### Part F: Environments, secrets and required checks
-10. Create an environment named `staging` with a required reviewer protection rule. Add an environment variable and a secret; have the `package` job reference the `staging` environment and echo the variable (never the secret).
-11. Make CI required. In branch protection / a ruleset on `main`, mark the `build-test` status check as required. Then flip the seeded failing test on, push, and confirm the PR is blocked from merging. Flip it back to green and confirm the block clears.
-
-### Part G: Verify the effective Actions policy
-
-12. Inspect the effective allowed-Actions policy, default `GITHUB_TOKEN`
+8. Inspect the effective allowed-Actions policy, default `GITHUB_TOKEN`
     permissions, fork pull-request boundary, and artifact/log retention. Confirm
     the workflow remains compatible with those settings. If an enterprise policy
     is not visible to the org owner, note the limitation without blocking the CI

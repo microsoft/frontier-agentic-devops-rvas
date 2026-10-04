@@ -2,7 +2,7 @@ id: ghaw-18
 title: CI doctor
 module: ghaw
 track: production-patterns
-difficulty: advanced
+difficulty: intermediate
 duration_minutes: 90
 prerequisites:
   - ghaw-00
@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed. See ghaw-00.
-description: "Read failed CI logs and open a diagnostic issue with a likely cause and next step."
+description: "Diagnose approved CI failures from logs without duplicate issues or running failed code."
 tags:
   - ci
   - workflow-run

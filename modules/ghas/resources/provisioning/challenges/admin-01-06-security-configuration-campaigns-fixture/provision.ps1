@@ -199,7 +199,7 @@ This repository is a controlled training fixture.
 | Dependabot | Dependabot configuration plus the pinned Juice Shop dependency tree |
 | Secret scanning | One non-live AWS example key in `config/aws-credentials.ini` |
 
-Use `ghas-admin-01` for security configuration attachment work. Use `ghas-admin-06` for Security Overview, delegated triage, and a live campaign.
+Use `ghas-admin-01` for security configuration attachment work. Use `ghas-admin-06` for a code scanning campaign with a reviewed developer fix. Dependency and secret alerts remain separate queues.
 '@
   $ConfigNote = @'
 # Configuration attachment repair
@@ -224,7 +224,6 @@ Use this branch for reviewed fixes created during `ghas-admin-06`. Merge at leas
   Set-RepoFile -Path 'GHAS-ADMIN-06-CAMPAIGN-REMEDIATION.md' `
     -Message 'Add campaign remediation worksheet' -Content $CampaignNote -Branch $CampaignBranch
 
-  $Expiry = (Get-Date).ToUniversalTime().AddDays(30).ToString('yyyy-MM-dd')
   New-FixtureIssue -Title 'ghas-admin-01: configuration attachment repair' -Body @"
 Record the live configuration ID, attachment status history, failure or detachment, repair, and final enforce-or-rollback decision.
 
@@ -232,12 +231,11 @@ Repository: $Org/$Repo
 Repair branch: $ConfigBranch
 "@
   New-FixtureIssue -Title 'ghas-admin-06: expiring exception and campaign burn-down' -Body @"
-Record the published campaign URL, developer access result, delegated decision, and measured burn-down.
+Record the published code scanning campaign URL and the developer's reviewed fix. Check the test results and default-branch rescan, then record the progress shown in the campaign. Count dependency and secret-alert changes separately.
 
 Repository: $Org/$Repo
 Remediation branch: $CampaignBranch
-Exception expiry: $Expiry
-Replace this template date if the exception is created later.
+Record a real exception only when needed. Include its approval and the expiry required by policy. Test delegated dismissal with a safe sample if needed, and label it as practice.
 "@
 }
 

@@ -1,16 +1,16 @@
 id: ghec-ch10
-title: Billing, cost centers and usage
+title: Scoped usage budgets and alerts
 module: ghec
 track: admin-governance
 difficulty: advanced
-duration_minutes: 120
+duration_minutes: 60
 prerequisites: []
 prerequisite_capabilities:
-- GitHub organization with org-owner rights
+- Authorized billing manager or organization owner for the selected budget
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: "Track GitHub usage and assign cost ownership with budgets and alerts."
+description: "Configure a scoped usage budget and verify its alert and stop settings."
 tags:
 - billing
 - usage
@@ -24,7 +24,7 @@ provision_creates:
 - repo ghec-ch10-usage-generator (tiny workflow_dispatch Actions workflow to generate small metered usage)
 - repo ghec-ch10-cost-report (holds reconciliation script + final report)
 - printed current usage snapshot (Actions minutes / storage from the API)
-tier: core
+tier: stretch
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/10-billing-cost-centers/meta.yml
 license: MIT

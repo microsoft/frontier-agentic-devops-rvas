@@ -1,6 +1,9 @@
 # Activity title
 
-> State what the delivery team can do after this activity and which customer resource or document it changes.
+**Session outcome:** State which customer GitHub capability now works and how the participant verifies it.
+
+Explain when the team needs this session. Reuse a working configuration instead
+of creating another one.
 
 ## Prerequisites
 
@@ -20,9 +23,9 @@ Delete this section for activities that create no sample resources.
 ## Tasks
 
 1. One action per step. Include the GitHub UI path, CLI command, or YAML snippet the step needs.
-2. Keep verification in the step that produces the result.
+2. Explain the mechanism briefly where it is used. Keep verification in the step that produces the result.
 3. State any approval a step needs, and what to do instead when approval is missing, in the step itself.
-4. End with the record or handover the owner needs.
+4. Have the owner use the result. Keep the useful run or change link in the existing work item; do not require another report.
 
 ## Reference links
 

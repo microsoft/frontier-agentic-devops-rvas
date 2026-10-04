@@ -8,7 +8,7 @@ prerequisites: []
 prerequisite_capabilities:
   - GitHub account
   - Basic Git and CLI usage
-  - GitHub organization with org-owner rights
+  - Approved customer repository with contributor access
   - GitHub CLI (gh >= 2.x) installed or available via Codespaces
 description: "Prepare your development environment and verify GitHub organization access."
 tags:

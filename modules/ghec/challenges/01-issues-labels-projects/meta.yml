@@ -3,14 +3,14 @@ title: Issues, labels and project boards
 module: ghec
 track: developer-flow
 difficulty: beginner
-duration_minutes: 150
+duration_minutes: 60
 prerequisites: []
 prerequisite_capabilities:
-- GitHub organization with org-owner rights
+- Customer repository write access and Projects edit permission
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-- Repository provisioned via activity setup script
+- Reuse the Ch00 repository or an approved sample
 description: "Organize team work with issue labels and a GitHub Projects board."
 tags:
 - issues

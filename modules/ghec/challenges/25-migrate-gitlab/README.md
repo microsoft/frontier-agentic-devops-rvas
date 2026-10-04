@@ -55,7 +55,7 @@ This pilot mirrors Git history into GitHub, converts the CI definition, and reco
    git clone --bare "$GITLAB_REPO_URL"
    ```
 
-2. Push every Git ref to GitHub.
+2. Before pushing, use the Ch26 checks to inspect the converted refs and blob sizes. Check author emails too. Confirm the destination is empty and approved because a mirror push can overwrite or delete its refs. Freeze source writes for final cutover, then push.
 
    ```bash
    cd repo.git
@@ -140,7 +140,10 @@ Repository migration tools do not carry CI/CD pipelines. Use GitHub Actions Impo
    gh actions-importer migrate gitlab --output-dir migration-work/actions-migrate --target-url "https://github.com/$GITHUB_ORG/$GITHUB_REPO" --source-file-path .gitlab-ci.yml
    ```
 
-5. Review the generated pull request or local YAML under `.github/workflows/`. Fix unsupported syntax, secrets, runner labels, container assumptions, caches, services, and environment variables before enabling the workflow as a required gate.
+5. Review the generated pull request or local YAML under `.github/workflows/`. Fix unsupported steps and configure the secrets and runners before running it.
+6. Run the actual workflow in GitHub. Download its artifact and compare the tests and result with the GitLab pipeline for the same commit.
+7. Require the CI check and an independent review. In the first post-migration PR, deliberately fail a test and verify that GitHub blocks merging. Fix it and obtain approval before merging. Use Ch39 to recreate and test any source deployment approval.
+8. Compare source and destination branch and tag SHAs. Ask the owner to accept cutover, or retain the source read-only until the gaps are resolved. A converted YAML file alone does not complete the migration.
 
 ## Reference links
 

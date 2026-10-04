@@ -6,11 +6,11 @@ difficulty: advanced
 duration_minutes: 120
 prerequisites: []
 prerequisite_capabilities:
-  - Enterprise owner access or an authorized enterprise-policy export
+  - Enterprise owner who can approve and configure the selected access pilot
   - Named customer IdP owner
   - Named enterprise governance owner and break-glass owner
-  - Optional ghec-ch52 approved enterprise role/delegation matrix and register, when already established for the customer
-description: "Review enterprise identity and network controls without disrupting production."
+  - Customer organization and identity-boundary decisions
+description: "Configure one approved enterprise access control and test allowed and denied actions."
 tags:
   - enterprise-governance
   - enterprise-managed-users

@@ -1,0 +1,9 @@
+{
+  "organization": "YOUR-ORG",
+  "intake_repository": "YOUR-ORG/platform-intake",
+  "template_repository": "YOUR-ORG/platform-starter",
+  "template_commit": "REPLACE_WITH_REVIEWED_40_CHARACTER_COMMIT",
+  "approved_teams": ["grubify"],
+  "approver_team": "platform-admins",
+  "required_checks": ["REPLACE_WITH_ACTUAL_CI_CHECK"]
+}

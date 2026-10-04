@@ -18,7 +18,7 @@ tags:
   - rollout
   - enforcement
   - rollback
-app_dependency: juice-shop
+app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:

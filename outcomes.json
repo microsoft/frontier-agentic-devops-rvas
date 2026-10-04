@@ -5,61 +5,105 @@
       "id": "github-adoption",
       "name": "Standardize software delivery",
       "tagline": "Give teams a shared development platform with consistent access and delivery controls.",
-      "description": "Configure access and delivery controls in your GitHub organization for day-to-day development.",
-      "personas": ["customer-developer", "platform-governance", "solution-architect", "platform-engineer"],
-      "adoption_stage": ["assess", "pilot", "scale", "operate"],
-      "business_value": ["streamline-platform-adoption", "standardize-developer-flow", "improve-governance"],
-      "source_platforms": ["greenfield", "github"],
+      "description": "Plan and release a reviewed change in one customer repository. Check existing controls before adding new ones.",
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "adoption_stage": [
+        "assess",
+        "pilot",
+        "scale",
+        "operate"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance"
+      ],
+      "source_platforms": [
+        "greenfield",
+        "github"
+      ],
+      "success_metrics": [
+        "The customer's GitHub organization has a production repository with teams, permissions, rulesets, required checks, and audit visibility.",
+        "The team's next production pull request runs required checks and merges through the configured ruleset.",
+        "Customer developers use GitHub to plan work, write and review code, and automate delivery."
+      ],
       "challenge_ids": [
         "ghec-ch00",
         "ghec-ch01",
         "ghec-ch02",
         "ghec-ch03",
         "ghec-ch04",
-        "ghec-ch52",
-        "ghec-ch06",
         "ghec-ch07",
         "ghec-ch08",
-        "ghec-ch35",
-        "ghec-ch36",
         "ghec-ch37",
         "ghec-ch38",
+        "ghec-ch36",
         "ghec-ch39",
         "ghec-ch40",
         "ghec-ch41",
         "ghec-ch42",
-        "ghec-ch43",
         "ghec-ch44",
         "ghec-ch45",
         "ghec-ch46",
-        "ghec-ch47",
         "ghec-ch48",
         "ghec-ch49",
-        "ghec-ch50",
+        "ghas-admin-01",
+        "ghas-admin-05",
         "ghec-ch51",
         "ghec-ch09",
         "ghec-ch10",
         "ghec-ch14",
-        "ghec-ch16",
-        "ghec-ch17",
         "ghec-ch19",
-        "ghec-ch20"
-      ],
-      "success_metrics": [
-        "The customer's GitHub organization has a production repository with teams, permissions, rulesets, required checks, and audit visibility.",
-        "The team's next production pull request runs required checks and merges through the configured ruleset.",
-        "Customer developers use GitHub to plan work, write and review code, and automate delivery."
+        "ghec-ch20",
+        "ghec-ch28",
+        "ghec-ch29",
+        "ghec-ch27",
+        "ghec-ch30",
+        "ghec-ch32",
+        "ghec-ch31",
+        "ghec-ch33",
+        "ghec-ch34",
+        "ghec-ch05",
+        "ghec-ch18"
       ]
     },
     {
       "id": "platform-migration",
       "name": "Migrate development platforms",
       "tagline": "Move repositories and delivery controls to GitHub, then verify teams can keep working.",
-      "description": "Move a project into your GitHub organization, rebuild its delivery controls, and check that the team can keep working after cutover.",
-      "personas": ["platform-engineer", "platform-governance", "solution-architect", "customer-developer"],
-      "adoption_stage": ["assess", "pilot", "scale"],
-      "business_value": ["reduce-migration-risk", "accelerate-cutover", "standardize-delivery"],
-      "source_platforms": ["azure-devops", "bitbucket", "gitlab", "other"],
+      "description": "Choose one source platform. Migrate a pilot, rebuild missing controls and verify the team's first post-cutover pull request.",
+      "personas": [
+        "platform-engineer",
+        "platform-governance",
+        "solution-architect",
+        "customer-developer"
+      ],
+      "adoption_stage": [
+        "assess",
+        "pilot",
+        "scale"
+      ],
+      "business_value": [
+        "reduce-migration-risk",
+        "accelerate-cutover",
+        "standardize-delivery"
+      ],
+      "source_platforms": [
+        "azure-devops",
+        "bitbucket",
+        "gitlab",
+        "other"
+      ],
+      "success_metrics": [
+        "A migrated repository in the customer's GitHub organization contains the expected history, default branch, teams, permissions, and rulesets.",
+        "The first production pull request after migration runs GitHub-native checks, security scans, and review requirements before merge.",
+        "The customer's platform team verifies each legacy control's GitHub equivalent or documents its cutover decision."
+      ],
       "challenge_ids": [
         "ghec-ch00",
         "ghec-ch21",
@@ -72,95 +116,145 @@
         "ghec-ch05",
         "ghec-ch07",
         "ghec-ch08",
-        "ghec-ch18"
-      ],
-      "success_metrics": [
-        "A migrated repository in the customer's GitHub organization contains the expected history, default branch, teams, permissions, and rulesets.",
-        "The first production pull request after migration runs GitHub-native checks, security scans, and review requirements before merge.",
-        "The customer's platform team verifies each legacy control's GitHub equivalent or documents its cutover decision."
+        "ghec-ch18",
+        "ghec-ch02",
+        "ghas-admin-01",
+        "ghas-admin-02",
+        "ghas-admin-03",
+        "ghas-admin-05",
+        "ghec-ch51",
+        "ghec-ch39",
+        "ghec-ch40",
+        "ghec-ch41",
+        "ghec-ch29"
       ]
     },
     {
       "id": "ghas-adoption",
       "name": "Strengthen application security",
       "tagline": "Apply security checks across repositories and assign ownership for fixing findings.",
-      "description": "Turn on GitHub Advanced Security so developers and AppSec can find risks early and fix them through normal pull requests.",
-      "personas": ["security-lead", "appsec-engineer", "customer-developer", "platform-governance"],
-      "adoption_stage": ["pilot", "scale", "operate"],
-      "business_value": ["reduce-security-risk", "shift-left-security", "improve-remediation-flow"],
-      "source_platforms": ["github", "azure-devops", "bitbucket", "gitlab"],
-      "challenge_ids": [
-        "ghas-admin-01",
-        "ghas-admin-02",
-        "ghas-admin-03",
-        "ghas-admin-04",
-        "ghas-admin-05",
-        "ghas-admin-06"
+      "description": "Configure a security pilot or complete a developer remediation case. Use the same alert and repository through review and rescan.",
+      "personas": [
+        "security-lead",
+        "appsec-engineer",
+        "customer-developer",
+        "platform-governance"
+      ],
+      "adoption_stage": [
+        "pilot",
+        "scale",
+        "operate"
+      ],
+      "business_value": [
+        "reduce-security-risk",
+        "shift-left-security",
+        "improve-remediation-flow"
+      ],
+      "source_platforms": [
+        "github",
+        "azure-devops",
+        "bitbucket",
+        "gitlab"
       ],
       "success_metrics": [
         "Approved security configurations apply the intended secret, code, and dependency controls to the customer's repository portfolio.",
         "Controlled tests prove that push protection, CodeQL merge protection, and dependency review stop risky changes before merge.",
         "Security Overview, service targets, and a bounded campaign show who owns remediation and which repositories enter the next rollout wave."
+      ],
+      "challenge_ids": [
+        "ghas-admin-01",
+        "ghas-admin-02",
+        "ghas-admin-03",
+        "ghas-admin-05",
+        "ghas-admin-06",
+        "ghas-00",
+        "ghas-02",
+        "ghas-03",
+        "ghas-04"
       ]
     },
     {
       "id": "agentic-workflows",
       "name": "Automate development tasks with AI",
       "tagline": "Use AI agents for routine repository work, with clear permissions and human review.",
-      "description": "Build agents that handle routine GitHub repository work and submit changes for human review.",
-      "personas": ["customer-developer", "platform-engineer", "solution-architect", "platform-governance"],
-      "adoption_stage": ["pilot", "scale", "operate"],
-      "business_value": ["automate-repetitive-work", "improve-developer-productivity", "standardize-agent-safety"],
-      "source_platforms": ["github"],
-      "challenge_ids": [
-        "ghaw-00",
-        "ghaw-01",
-        "ghaw-03",
-        "ghaw-06",
-        "ghaw-07",
-        "ghaw-08",
-        "ghaw-09",
-        "ghaw-10",
-        "ghaw-11",
-        "ghaw-12",
-        "ghaw-14",
-        "ghaw-16",
-        "ghaw-17",
-        "ghaw-18",
-        "ghaw-19",
-        "ghaw-20",
-        "ghaw-21",
-        "ghaw-23",
-        "ghaw-24",
-        "ghaw-25"
+      "description": "Automate one recurring task in the customer's repository. Use ordinary Actions when fixed rules can handle it.",
+      "personas": [
+        "customer-developer",
+        "platform-engineer",
+        "solution-architect",
+        "platform-governance"
+      ],
+      "adoption_stage": [
+        "pilot",
+        "scale",
+        "operate"
+      ],
+      "business_value": [
+        "automate-repetitive-work",
+        "improve-developer-productivity",
+        "standardize-agent-safety"
+      ],
+      "source_platforms": [
+        "github"
       ],
       "success_metrics": [
         "An agent workflow runs from a real issue, pull request, or CI failure in the customer's GitHub organization.",
         "Each agent uses documented triggers, least-privilege permissions, allowed tools, logs, and human review points.",
         "Agent-generated changes land only through pull requests with required checks and reviewer approval."
+      ],
+      "challenge_ids": [
+        "ghaw-00",
+        "ghaw-19",
+        "ghaw-06",
+        "ghaw-07",
+        "ghaw-17",
+        "ghaw-18",
+        "ghaw-21",
+        "ghec-ch30",
+        "ghec-ch19",
+        "ghec-ch29",
+        "ghec-ch32",
+        "ghec-ch31",
+        "ghec-ch33",
+        "ghec-ch34"
       ]
     },
     {
       "id": "agentic-devops-cloud",
       "name": "Improve incident response",
       "tagline": "Use telemetry and code context to investigate incidents and plan recovery.",
-      "description": "Use Azure SRE Agent in your tenant to investigate production incidents with live telemetry and source-code context.",
-      "personas": ["sre", "platform-engineer", "solution-architect"],
-      "adoption_stage": ["pilot", "operate"],
-      "business_value": ["improve-operational-resilience", "accelerate-cloud-delivery", "reduce-incident-mttx"],
-      "source_platforms": ["github", "azure"],
-      "challenge_ids": [
-        "sre-agent-00",
-        "sre-agent-01",
-        "sre-agent-03",
-        "sre-agent-04",
-        "sre-agent-05",
-        "ghec-ch19"
+      "description": "Investigate and recover one monitored service. Use Grubify if you need a lab. Create a GitHub issue for the engineering follow-up.",
+      "personas": [
+        "sre",
+        "platform-engineer",
+        "solution-architect"
+      ],
+      "adoption_stage": [
+        "pilot",
+        "operate"
+      ],
+      "business_value": [
+        "improve-operational-resilience",
+        "accelerate-cloud-delivery",
+        "reduce-incident-mttx"
+      ],
+      "source_platforms": [
+        "github",
+        "azure"
       ],
       "success_metrics": [
         "Azure SRE Agent can access the customer's monitored application, Azure resources, logs, traces, and runbooks.",
         "A controlled incident produces an alert, investigation evidence, likely cause, and recovery action in the customer's Azure environment.",
         "A GitHub issue or pull request links the operational symptoms to source-code context, logs, and the agreed engineering follow-up."
+      ],
+      "challenge_ids": [
+        "sre-agent-01",
+        "sre-agent-03",
+        "sre-agent-04",
+        "sre-agent-05",
+        "ghec-ch19",
+        "ghec-ch30",
+        "ghec-ch31"
       ]
     }
   ]

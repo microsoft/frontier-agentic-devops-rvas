@@ -1,6 +1,8 @@
 # Activity S02: Fix injection vulnerabilities
 
-**Session outcome:** Your pull requests fix injection with safe APIs at the execution sink and include behavior tests and GHAS results. Two independently reviewed fixes establish a prevention pattern you can apply to comparable code paths.
+**Session outcome:** You have merged a reviewed fix that uses a safe API at the execution sink. Behavior tests and a default-branch rescan verify the change.
+
+Start with the [remediation checklist](../../resources/start-remediation.md), then use this case for an injection finding. The XSS and authorization cases are alternatives.
 
 ## Description
 
@@ -16,11 +18,11 @@ CodeQL flags SQL and NoSQL injection vulnerabilities in Juice Shop's backend rou
 ## Objectives
 
 - Filter Security → Code scanning alerts to show injection-related alerts (search for `sql` or `injection`)
-- Open each affected file in your editor and read the vulnerable code path with Copilot's help
+- Select one alert and read its vulnerable code path with Copilot's help
 - Replace unsafe query construction with parameterized queries or ORM-safe alternatives. For command or template injection, use the sink-specific safe API or design rather than input sanitization alone. Test the affected behavior.
-- Open pull requests to `main` with the finding, impact, remediation, reviewer evidence, and relevant GHAS validation
-- Record the approved prevention pattern in `modules/ghas/resources/ghas-governance-practice.template.md`
-- Use two independently reviewed fixes to confirm the pattern, then check for the same unsafe pattern in comparable query paths
+- Open a pull request with the alert link and tests for normal input and the unsafe input path
+- Obtain human review before merging through the normal controls. Verify that the default-branch rescan marks the alert as fixed
+- Explain the safe query pattern in the PR. You can check comparable paths, but a second fix is optional
 
 > [!TIP]
 > Working with a real application? Select its own SQL, NoSQL, command, or template injection alerts.
@@ -31,7 +33,7 @@ CodeQL flags SQL and NoSQL injection vulnerabilities in Juice Shop's backend rou
 - Ask: *"What's the difference between input sanitization and parameterization, and why is parameterization the right fix here?"*
 - Review any fix from Copilot Autofix or other Copilot assistance against the approved safe pattern. Submit it through the normal PR and GHAS checks.
 
-Try creating a custom Copilot agent, or repository custom instructions, that suggests parameterized queries when it finds raw string concatenation in a SQL context.
+Add repository instructions for this safe query pattern if the team needs them.
 
 ## Learning resources
 

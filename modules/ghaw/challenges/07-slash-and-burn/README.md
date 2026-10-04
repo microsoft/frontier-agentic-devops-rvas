@@ -1,72 +1,94 @@
-# Activity 2-03: Issue comment commands
+# Authorized issue summaries
 
-**Session outcome:** An authorized team member can post `/summarize` on an issue and receive a summary of the thread's decisions and outstanding actions. `lock-for-agent` prevents concurrent duplicate runs.
+**Session outcome:** An authorized `/summarize` request updates one issue summary
+with links to its sources. Unapproved commands never reach the model.
 
-## Build
+This is optional after [setup](../00-setup/README.md). Choose a real issue whose
+discussion is long enough that a summary would help a maintainer.
 
-Build a workflow that responds to slash commands in issue comments. When a team member comments `/summarize`, the workflow reads the issue thread and posts a short summary.
+## Check access before the model runs
 
-Slash commands let teammates run an agent when they need it. `/summarize` gives reviewers context without making them read a long thread.
+Create `.github/workflows/slash-commands.md` for
+`issue_comment: types: [created]`. Use a deterministic activation check:
 
----
+- Require the trimmed comment body to equal `/summarize` exactly. Reject quoted
+  commands, prose containing the command, and additional arguments.
+- Require `author_association` to be in the team's approved list, such as
+  `OWNER`, `MEMBER`, or `COLLABORATOR`. Check current repository permission if
+  that policy requires write access; association alone does not prove it.
+- Reject bot comments and PR conversations if this workflow supports only issues.
+- Use the comment ID as the request key. Skip already handled requests and
+  process one request at a time per issue.
 
-## What you'll practice
+The supplied helper performs these checks in a trusted pre-agent step.
+It requires current write, maintain, or admin permission. Rejected requests
+write a noop before inference. A prompt instruction is not an authorization
+check.
 
-1. Build a workflow triggered by `on: issue_comment: types: [created]`
-2. Detect slash commands in the comment body
-3. Implement `/summarize` by reading the issue and its comments
-4. Handle rate limits and prevent duplicate runs with `lock-for-agent`
-5. Post a summary comment with issue status, key decisions/blockers, and action items (see Activity below)
+## Summarize evidence
 
----
+Fetch the issue and paginate its comments with read-only access.
+Record the latest included comment ID. Ask the model for a short summary
+with direct comment links beside decisions and unresolved actions.
+State which discussion the summary covers and when it was collected. If a
+source cannot be read, stop rather than publish a seemingly complete summary.
 
-> [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): point `slash-commands.md` at a repo you own and test `/summarize` on an issue with discussion history.
+**Only name a decision or owner when someone explicitly recorded it.**
+Distinguish proposals from accepted decisions. If an action has no assigned
+owner, say so. Do not recommend closing the issue from silence or infer an
+agreement that the thread does not contain.
 
----
+The supplied writer fixes the target to the event's issue. It creates one
+marked comment, then updates it. The comment stores the request ID and source
+hash in the same write as the summary. The writer rechecks permissions and
+source state; failed writes cannot record a completed request.
 
-## Activity
+## Copy, customize, and invoke
 
-Create a gh-aw workflow named `slash-commands.md` in `.github/workflows/` that:
+From the customer checkout:
 
-- Runs on issue comments (`on: issue_comment: types: [created]`)
-- Detects `/summarize` in the comment body
-- Executes `/summarize` by:
-  - Reading the full issue (title, body, state)
-  - Reading all comments in the thread
-  - Extracting key decisions, blockers, and action items
-  - Posting a structured summary comment
-- Prevents duplicate runs using `lock-for-agent: true`
-- Summary comment includes:
-  - Concise issue description (1–2 sentences)
-  - Key decisions or discussion points (if any)
-  - Blockers or concerns (if any)
-  - Action items and owners (if assigned)
-  - Status recommendation (e.g., "Ready to close" or "Awaiting feedback")
+```bash
+CURRICULUM=/absolute/path/to/frontier-agentic-devops-rvas
+mkdir -p .github/workflows
+cp "$CURRICULUM/modules/ghaw/resources/examples/slash-commands.md" .github/workflows/
+cp "$CURRICULUM/modules/ghaw/resources/examples/report-reader.md" .github/workflows/
+cp "$CURRICULUM/modules/ghaw/resources/examples/report-writer.md" .github/workflows/
+cp "$CURRICULUM/modules/ghaw/resources/examples/report-pilot.cjs" .github/workflows/
+node --test "$CURRICULUM/modules/ghaw/resources/examples/report-pilot.test.cjs"
+```
 
----
+Read the [complete workflow](../../resources/examples/slash-commands.md).
+Its Markdown body contains a usable summary prompt. To customize it, use:
 
-## Tips and troubleshooting
+```text
+Adapt the Markdown prompt in slash-commands.md for our team's issue summaries.
+Keep sections for the issue, accepted decisions, and unresolved actions.
+Require comment links for decisions and named owners. Do not infer agreement.
+Keep the exact-command gate and current-write-permission check outside the
+model. Preserve one marked comment and the source recheck before publication.
+```
 
-- Check if `github.event.comment.body` contains `/summarize`. Write an instruction such as: "If the comment includes `/summarize`, read the issue..."
-- Always use `lock-for-agent: true` on comment-triggered workflows to prevent simultaneous runs on the same issue.
-- Use `min-integrity: approved` to restrict command access to repo members/owners and prevent spam.
-- Set `checkout: false` because the agent needs only metadata.
-- Tell the agent to look for:
-  - Explicit decision statements ("We decided to...")
-  - Blockers ("This is blocked by...")
-  - Action items ("TODO:", "@mention", "next step")
-- Use lists to make the summary easy to scan.
-- If the workflow triggers on every comment, add an `if:` condition that checks for `/summarize` in the comment body.
-- If concurrent runs produce duplicate summaries, confirm `lock-for-agent: true` is set.
-- If the summary misses key points, specify keywords such as decisions, blockers, and next steps.
+Compile, review the generated jobs, and merge the files to the default branch:
 
----
+```bash
+gh aw compile slash-commands
+```
 
-## References
+Choose a real issue with useful discussion. With maintainer approval, replace
+`42` and post the exact command:
 
-- GitHub tool permissions: https://github.github.com/gh-aw/reference/permissions/
-- Safe Outputs (add-comment): https://github.github.com/gh-aw/reference/safe-outputs/
-- Slash Command Pattern: https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-interactive-chatops/
-- Issue Comment Context: https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#github-context
-- Real-world example: `/q` slash command at https://github.com/githubnext/agentics/blob/main/workflows/q.md
+```bash
+gh issue comment 42 --body "/summarize"
+gh run list --workflow slash-commands.lock.yml --limit 5
+```
+
+The comment should separate accepted decisions from proposals and link to the
+comments that establish them. Add a relevant discussion update and post another
+`/summarize`. The workflow should edit the first summary, not create a second.
+
+## Verify
+
+Test an authorized exact command, a command embedded in prose, an unauthorized
+author, and a rerun of the same event. Only the first should call the engine.
+Check every decision and owner against its cited comment. A second authorized
+request after new discussion should update the existing summary.

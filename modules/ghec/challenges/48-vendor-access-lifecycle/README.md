@@ -1,6 +1,8 @@
 # Ch48: Vendor access lifecycle
 
-**Session outcome:** Your vendor access register records reviewed requests and least-privilege decisions with end dates. You have audit evidence for authorized grants or removals. Unapproved changes remain proposals.
+This optional outside-collaborator exercise applies to organizations using personal accounts. EMU customers need an approved managed guest or IdP process, which this guide does not implement. Record this exercise as not applicable or blocked rather than inviting a personal account.
+
+**Session outcome:** An approved outside collaborator can read the selected private repository, then loses access after removal. The sponsor has the grant and revocation evidence.
 
 ## Prerequisites
 
@@ -66,15 +68,15 @@ What setup creates:
 8. Validate least privilege and end date before any grant.
 9. If explicitly approved, add the outside collaborator through the repository UI or API. Example only:
    ```bash
-   gh api -X PUT repos/<org>/<repo>/collaborators/<username> -f permission=read
+   gh api -X PUT repos/<org>/<repo>/collaborators/<username> -f permission=pull
    ```
 10. Record the invitation URL/status without storing personal or secret information beyond the approved register fields.
 
 ### Part D: Review and offboard
 
 11. For each active vendor, confirm the business owner still approves access.
-12. Remove expired access through the UI or API after explicit approval.
-13. Capture audit log evidence for invitation, permission change, or removal.
+12. With approval, remove the test collaborator after they have accepted access. Use their identity to verify read access before removal and a denied fetch afterwards. Check all grants, including team and organization base permissions, before interpreting the result.
+13. Capture the removal event and denied-access result. Removing access cannot recall existing local clones. Follow the customer's data-handling agreement. A register end date alone does not revoke access.
 
 ## Reference links
 

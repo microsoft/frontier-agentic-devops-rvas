@@ -20,13 +20,13 @@ expects.
 | --- | --- | --- |
 | `ghas-admin-01`, `ghas-admin-06` | `ghas-admin-01-06-security-operations` | `challenges/admin-01-06-security-configuration-campaigns-fixture/` |
 | `ghas-admin-02` | `ghas-admin-02-secret-operations` | `challenges/02-admin-secret-protection-operations-rebuild-secret-operations/` |
-| `ghas-admin-03`, `ghas-admin-04` | `ghas-admin-03-04-codeql-live-lab` | `challenges/ghas-admin-codeql-live-20260915/` |
+| `ghas-admin-03` | `ghas-admin-03-codeql-live-lab` | `challenges/ghas-admin-codeql-live-20260915/` |
 | `ghas-admin-05` | `ghas-admin-05-dependency-visibility-fixture` | `challenges/ghas-admin-05-dependency-visibility-fixture/` |
 
 The repository names and branch names do not overlap. The 01/06 fixture is shared
 on purpose because the final activity measures the rollout started in activity 01.
-The CodeQL fixture is also shared because activity 04 tests the pull request
-prepared in activity 03.
+The CodeQL fixture keeps one pull request through coverage, merge enforcement,
+and its reviewed fix.
 
 ## Bash
 

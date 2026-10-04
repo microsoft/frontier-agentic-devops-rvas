@@ -14,17 +14,20 @@
     catch (e) { FP.renderError('grid', e.message); return; }
 
     const byId = new Map((data.challenges || []).map((c) => [c.id, c]));
-    const modules = data.modules || [];
+    params.ids = FP.resolveSetIds(params.ids, data);
     const items = params.ids.map((id) => byId.get(id)).filter(Boolean);
 
     renderHeading(params.name, items.length);
+    const missing = params.ids.filter(id => !byId.has(id));
+    const intro = document.getElementById('setIntro');
+    if (intro && missing.length) intro.textContent += ` Unavailable activities: ${missing.join(', ')}.`;
 
     if (!items.length) {
       showEmpty('None of the activities in this set could be found.');
       return;
     }
 
-    renderGrid(items, modules, params);
+    renderGrid(items, params);
   }
 
   function renderHeading(name, n) {
@@ -40,32 +43,11 @@
     }
   }
 
-  function renderGrid(items, modules, params) {
+  function renderGrid(items, params) {
     const grid = document.getElementById('grid');
     if (!grid) return;
 
-    const groups = {};
-    modules.forEach((m) => { groups[m.id] = { mod: m, items: [] }; });
-    items.forEach((c) => {
-      if (groups[c.module]) groups[c.module].items.push(c);
-      else groups[c.module] = { mod: { id: c.module, name: c.module }, items: [c] };
-    });
-
-    let html = '';
-    Object.values(groups).forEach(({ mod, items: gItems }) => {
-      if (!gItems.length) return;
-      const color = FP.moduleColor(mod.id);
-      html += `<div class="group-head mod-${FP.esc(mod.id)}" style="--mod-color:${color}">
-        <span class="group-count mod-${FP.esc(mod.id)}" style="color:${color};font-family:var(--font-mono);font-size:0.72rem;font-weight:700">${mod.id.toUpperCase()}</span>
-        <h3>${FP.esc(mod.name)}</h3>
-        <span class="group-count">${gItems.length} activit${gItems.length === 1 ? 'y' : 'ies'}</span>
-      </div>
-      <div class="challenge-grid">`;
-      html += gItems.map((c) => card(c, params)).join('');
-      html += '</div>';
-    });
-
-    grid.innerHTML = html;
+    grid.innerHTML = `<div class="challenge-grid">${items.map(c => card(c, params)).join('')}</div>`;
     FP.initReveal();
   }
 

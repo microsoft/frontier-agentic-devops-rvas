@@ -2,6 +2,8 @@
 
 Use this packet when live Azure SRE Agent access is unavailable. Replace each placeholder with a sanitized workshop value before delivery.
 
+A simulated issue is practice only. It cannot complete the customer engineering handoff.
+
 ## Incident summary
 
 - Service: Grubify
@@ -10,6 +12,9 @@ Use this packet when live Azure SRE Agent access is unavailable. Replace each pl
 - Affected flow: Add to Cart / Grubify API
 - Customer impact: `<brief customer-safe impact statement>`
 - Current status: Investigating
+- Investigation start and end times, with elapsed time: `<observed times>`
+- Evidence quality: `<which claims were supported, corrected, or unverified>`
+- Recovery: `<verified result or not tested, with reason>`
 
 ## Azure context
 

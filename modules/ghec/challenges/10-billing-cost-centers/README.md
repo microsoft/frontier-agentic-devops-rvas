@@ -1,21 +1,22 @@
-# Ch10: Billing, cost centers and usage
+# Ch10: Scoped usage budgets and alerts
 
-**Session outcome:** Your cost report attributes GitHub usage to repositories and reconciles the billing API with the UI totals. You have configured budget alerts and explained any differences in the reported usage.
+This optional session configures one approved product budget. It does not configure enterprise cost centers.
+
+**Session outcome:** You configure the approved budget and verify its alert and stop settings. You compare the usage export with the UI and record any reporting delay.
 
 ## Prerequisites
-- Complete Ch52 (Enterprise Landing Zone & Organization Strategy) first if possible. Use its settings register for enterprise-level cost-center decisions. You can still complete this activity's organization-level budget without it.
-- An organization you own (or org-owner rights) on GitHub Enterprise Cloud, with billing manager access (org owners have it by default).
+- Authorized billing access to the selected organization and permission to change its test budget.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch10 --org <org>` (least-privilege; for this activity: `admin:org` + `repo`, plus the read access the billing usage endpoints require).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - No GHAS or Codespaces required. Inspect enterprise cost centers without configuring them. The hands-on work uses org-level billing, budgets, and usage.
 
 ## What you will deliver
 - Open the org's billing and licensing views and compare included with metered usage for Actions, Packages, and Storage.
-- Generate a small, controlled amount of metered usage (a few Actions runs) and watch it appear in usage.
+- Inspect existing usage, or run the approved short test workload and record any reporting delay.
 - Set budgets and confirm their alert thresholds.
 - Pull billing/usage data from the REST API and reconcile it against the UI.
 - Build a cost report that attributes usage to repositories.
-- Distinguish enterprise-level cost-center allocation from this organization's budget, and source the enterprise decision from Ch52's landing-zone register or an authorized enterprise export.
+- Keep enterprise cost-center allocation outside this budget exercise.
 
 ## Scenario
 A GHEC customer's Actions bill exceeded expectations, and finance needs to identify the repositories responsible. Generate a small amount of usage, configure an org budget with alerts, and reconcile the API data against the billing UI. Write an on-demand cost report.
@@ -53,7 +54,7 @@ Setup creates these resources (all names use the `ghec-ch10-*` prefix, and teard
 ### Part B: Generate controlled usage
 4. Run the usage generator twice: `gh workflow run usage.yml --repo <org>/ghec-ch10-usage-generator` (or via the Actions tab → Run workflow). Each run is only seconds of compute.
 5. Confirm the runs completed: `gh run list --repo <org>/ghec-ch10-usage-generator --json status,conclusion,createdAt`.
-6. Re-read usage from Part A's API call and confirm Actions minutes increased. Usage data can lag. Record the delay and re-check if needed.
+6. Read usage again and identify the repository and SKU when reported. Billing may lag or show no charge within included allowances. Record what you see. Do not run extra workloads to force a charge.
 
 ### Part C: Budgets and alerts
 7. Create a budget for the org (Org Settings → Billing & licensing → Budgets and alerts → New budget) scoped to Actions (or "all products"). Set a small monetary cap appropriate for a sandbox.
@@ -66,10 +67,10 @@ Setup creates these resources (all names use the `ghec-ch10-*` prefix, and teard
 12. Note the cost model: included minutes are free; overage is billed per-minute at a rate that varies by runner OS/SKU (Linux is cheapest; Windows and macOS cost more per minute). The billing usage API reports a `pricePerUnit` per SKU. Record how the per-minute price differs by runner OS in your report.
 
 ### Part E: Build the cost report
-13. Write a reconciliation script (`cost-report.sh` or `.ps1`, committed to `ghec-ch10-cost-report`) that pulls the billing usage endpoints and prints a small table: product, used, included, billable.
-14. Run it and save the output as `COST-REPORT.md`, including the before/after Actions-minutes delta you generated in Part B.
-15. Write a one-paragraph recommendation: given the usage shape, what budget + alert thresholds would you set for this org, and would you add a hard spending limit?
-16. Record the enterprise-level cost-center allocation decision in `COST-REPORT.md` (whether this org's spend rolls up into an enterprise-wide cost center spanning multiple organizations): cite Ch52's landing-zone settings register entry, or an authorized enterprise/billing export; if neither exists, record `enterprise policy not available / not applicable`. Don't infer enterprise-wide cost allocation from this one organization's budget.
+13. Export the available usage fields and compare one product total with the UI for the same period. Do not invent included-allowance fields absent from the API.
+14. Configure the approved budget scope and amount. Set its recipients and supported stop-usage option, then save the settings. Do not deliberately exhaust the budget.
+15. Have the cost owner confirm the configured action and its effect on dependent workflows. Restore the old test budget if this was practice.
+16. Link an existing cost-center allocation decision if relevant. Do not configure cost centers or infer enterprise allocation from the organization budget.
 
 ## Reference links
 - [Introduction to billing](https://docs.github.com/en/billing/get-started/introduction-to-billing)

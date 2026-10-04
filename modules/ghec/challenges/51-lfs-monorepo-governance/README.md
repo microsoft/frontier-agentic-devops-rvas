@@ -1,94 +1,46 @@
-# Ch51: LFS and monorepo governance
+# Ch51: Validate LFS or monorepo controls
 
-**Session outcome:** Your monorepo has an ownership map and approved large-file policy, including Git LFS patterns for the selected files. You have used repository health data to decide how to store and review new large files.
+**Session outcome:** The selected storage or ownership path works on a real push and pull request. Record which path was tested.
 
 ## Prerequisites
 
-- A GitHub Enterprise Cloud organization and repository administrator rights.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch51 --org <org>` (least privilege; for this activity: `repo` + `read:org`).
-- Local tooling: `gh >= 2.x`, `git`, `jq`; `git lfs` is recommended for production validation but not required by setup.
-- No setup step commits large binaries, rewrites history, changes quotas, or mutates organization policy.
+Choose **one** path for an approved repository. Reuse Ch02 and Ch04 controls. You need Git and repository write access. Path A also needs Git LFS and an approved storage budget. Neither path requires rewriting history.
 
-## Customer delivery objectives
+## Path A: LFS push and fresh clone
 
-You will:
+1. Choose a small non-sensitive fixture and agree its LFS pattern with the storage owner. A few kilobytes are enough; do not upload large files merely to demonstrate LFS.
+2. On a branch, run `git lfs install`, then `git lfs track '*.fixture'`. Add `.gitattributes` and the fixture, commit, and push. Inspect `git show HEAD:path/to/sample.fixture` to confirm Git stores the LFS pointer.
+3. Merge through normal review. In a **new directory**, clone the repository and run `git lfs pull`. Confirm the working file contains the original bytes rather than the pointer. Compare SHA-256 checksums with the source.
+4. Run `git lfs fsck` and record the object ID from `git lfs ls-files -l`. Keep the push and fresh-clone results. `.gitattributes` alone does not prove the object reached storage.
+5. Record who owns storage and the approved pattern. Converting existing history is separate work because it rewrites commits.
 
-- Inspect repository size, large-file risk, and existing LFS configuration.
-- Define approved LFS patterns and a large-file exception path.
-- Map monorepo package paths to owners through CODEOWNERS or equivalent governance evidence.
-- Record storage/quota owner, migration approver, review cadence, and high-impact decisions.
-- Validate the workflow with a sample large-file intake issue.
+## Path B: Monorepo ownership and targeted checks
 
-## Scenario
+1. Pick two existing package paths with different owning teams. Put the default CODEOWNERS wildcard first and the specific package paths after it.
+2. Require Code Owner review on the default branch. Ensure the teams have write access and use a non-owner contributor for testing.
+3. Install and adapt the workflow below. Require its stable **Monorepo gate** check on the default branch. The aggregate always runs and rejects selection failures or missing selected tests. Do not add workflow-level path filters.
+4. Open one PR in each package. Confirm GitHub requests the intended team and runs only the necessary tests for the package and its dependencies. Then change shared code and verify CI tests both packages.
+5. Deliberately fail one selected test and prove the aggregate check blocks merge. Repair it and obtain the correct owner's approval.
 
-A customer wants one repository for many services, docs, generated assets, and models. The repository is growing, ownership is unclear, and teams sometimes commit binaries directly. Define package owners, approved LFS patterns, and an exception intake path. Record when the team will enforce the policy or migrate existing files.
+Keep the selected path's test results as [completion evidence](../../../README.md#completion-evidence).
 
-> [!IMPORTANT]
-> Choose the target before setup. Use an authorised customer monorepo or candidate if you have one, wherever this guide names `ghec-ch51-lfs-monorepo-governance`, and skip setup. Otherwise use the fallback seeded repository below.
+### Install targeted CI
 
-## Sample test repository or environment
+The [working example](../../resources/ci/monorepo.yml) expects Node.js 22, a root `package-lock.json`, and npm workspaces `packages/web` and `packages/api` with real `test` scripts. Copy it to the approved repository:
 
 ```bash
-bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch51 --org <org>
+export TARGET_CHECKOUT="/path/to/approved-monorepo"
+mkdir -p "$TARGET_CHECKOUT/.github/workflows"
+cp modules/ghec/resources/ci/monorepo.yml "$TARGET_CHECKOUT/.github/workflows/monorepo.yml"
 ```
-```powershell
-modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch51 -Org <org>
-```
 
-Setup is idempotent and creates only these namespaced artifacts. Teardown accepts only the `ghec-ch51-*` prefix.
+Review an existing workflow before replacing it. Change the package paths in both the selector and the test commands to match the actual repository. Use its tested runtime and commands for another stack.
 
-- `ghec-ch51-lfs-monorepo-governance` with package folders, docs, `.gitattributes`, and `.github/CODEOWNERS`.
-- Labels for `monorepo: ownership`, `lfs: review`, `lfs: approved`, and `lfs: blocked`.
-- A sample large-file intake issue.
-- Printed repository size, LFS, CODEOWNERS, and ruleset inspection commands; setup does not rewrite history, commit large binaries, or change quotas.
+The selector compares the PR merge commit or merge-group head with its base. It includes deleted and renamed paths. Changes outside the two package directories, including the lockfile, CI, and shared code, select **both** packages. An empty diff also selects both. If one package depends on the other, update the selection so a change to that dependency tests its consumers too.
 
-## Tasks
+Run the exact package commands locally before merging the workflow. Protect the workflow with independent owner review, then perform Path B's package-only, shared-change, and failing-test PR checks. If the repository uses merge queue, verify the gate also passes on a real `merge_group` run.
 
-### Part A: Inspect repository health
+## References
 
-1. Snapshot repository metadata:
-   ```bash
-   gh repo view <org>/ghec-ch51-lfs-monorepo-governance --json name,visibility,diskUsage,defaultBranchRef
-   ```
-2. Inspect current LFS tracking and large-file patterns from a local clone or existing evidence:
-   ```bash
-   git lfs track
-   git rev-list --objects --all | sort -k 2 > repo-object-inventory.txt
-   ```
-3. Record branch/tag count, large file candidates, generated content, package boundaries, and known quota concerns.
-
-### Part B: Define LFS and large-file policy
-
-4. Complete `docs/lfs-monorepo-governance.md` with:
-   - approved LFS patterns
-   - prohibited direct-binary patterns
-   - exception owner and expiry rules
-   - storage/quota owner
-   - history rewrite or migration approver
-   - review cadence and evidence location
-5. Review `.gitattributes` and decide which patterns are advisory versus enforced in the production repository.
-
-### Part C: Map monorepo ownership
-
-6. Review `.github/CODEOWNERS` and map package paths to accountable teams.
-7. Validate that each service, docs area, and shared package has an owner and escalation path.
-8. Decide whether branch protection or rulesets should require CODEOWNERS review. Record the decision; change enforcement only after approval.
-
-### Part D: Operate large-file intake
-
-9. Open a large-file intake issue for a proposed binary or generated asset.
-10. Capture file pattern, expected size, update frequency, retention need, consuming teams, and alternative storage options.
-11. Apply `lfs: approved` or `lfs: blocked`, and update `.gitattributes` only for approved patterns.
-
-### Part E: Handover and rollout
-
-12. Record storage/quota owner, package owners, migration approver, exception owner, and next review date.
-13. Choose the next step: advisory policy, CODEOWNERS enforcement, LFS migration plan, repository split, or storage/quota decision.
-
-## Reference links
-
-- [About Git Large File Storage](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage)
-- [Configuring Git Large File Storage](https://docs.github.com/en/repositories/working-with-files/managing-large-files/configuring-git-large-file-storage)
-- [About CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
-- [About large files on GitHub](https://docs.github.com/en/repositories/working-with-files/managing-files/about-large-files-on-github)
-- [Repository limits](https://docs.github.com/en/repositories/creating-and-managing-repositories/repository-limits)
+- [Configuring Git LFS](https://docs.github.com/en/repositories/working-with-files/managing-large-files/configuring-git-large-file-storage)
+- [CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)

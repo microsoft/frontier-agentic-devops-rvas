@@ -3,36 +3,33 @@ title: Controlled repository intake
 module: ghec
 track: admin-governance
 difficulty: advanced
-duration_minutes: 165
-prerequisites: []
+duration_minutes: 120
+prerequisites:
+- ghec-ch38
 prerequisite_capabilities:
-- GitHub organization with org-owner rights
-- GitHub CLI (gh >= 2.x) installed
-- git installed
-- jq installed
-- Ability to configure a GitHub App or fine-grained PAT as an Actions secret
-- Repository provisioned via activity setup script
-description: "Create repositories through an approved intake and provisioning workflow."
+- GitHub Enterprise Cloud organization with Internal repositories and repository policies
+- Organization owner who can install a GitHub App and configure policies
+- Approved intake repository with Issues and Actions enabled
+- Approved teams and an intake maintainer team
+description: "Create Internal repositories through approved requests, with team access and enforced naming."
 tags:
+- issue-forms
+- github-apps
 - repository-creation
 - governance
-- issue-forms
-- actions
-- provisioning
+- developer-experience
 app_dependency: none
 emu_compatible: true
 min_environment: org
-provision_creates:
-- repo ghec-ch36-repo-intake (seeded issue form, labels, and provisioning workflow scaffold)
-- sample repository request issue
-- printed organization repository-creation policy snapshot
+provision_creates: []
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/36-controlled-repo-intake/meta.yml
 license: MIT
 references:
-- https://docs.github.com/en/organizations/managing-organization-settings/restricting-repository-creation-in-your-organization
-- https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository
-- https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions
-- https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/authenticating-as-a-github-app-installation
-- https://docs.github.com/en/rest/repos/repos
+- https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-organization-settings/governing-how-people-use-repositories-in-your-organization
+- https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-organization-settings/restricting-repository-creation-in-your-organization
+- https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/registering-a-github-app
+- https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment
+- https://docs.github.com/en/rest/actions/workflow-runs#get-the-review-history-for-a-workflow-run
+- https://docs.github.com/en/rest/teams/teams#add-or-update-team-repository-permissions

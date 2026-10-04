@@ -10,7 +10,7 @@
     const { modules, outcomes, challenges } = data;
 
     renderStats(modules);
-    renderOutcomeCards(outcomes || [], challenges);
+    renderOutcomeCards(outcomes || []);
     renderModuleCards(modules, challenges);
     renderFeaturedChallenge(challenges);
   }
@@ -23,9 +23,10 @@
     _setText('stat-challenges', totalChallenges);
     _setText('stat-modules', totalModules);
     _setText('stat-tracks', totalTracks);
+    modules.forEach(module => _setText(`count-${module.id}`, `${module.challenge_count} activities`));
   }
 
-  function renderOutcomeCards(outcomes, challenges) {
+  function renderOutcomeCards(outcomes) {
     const grid = document.getElementById('outcomeGrid');
     if (!grid) return;
 
@@ -35,19 +36,14 @@
     }
 
     grid.innerHTML = outcomes.map((o) => {
-      const count = o.challenge_count || (o.challenge_ids || []).length || 0;
-      const mins = o.duration_minutes || (o.challenge_ids || []).reduce((sum, id) => {
-        const c = challenges.find((x) => x.id === id);
-        return sum + (c && c.duration_minutes ? c.duration_minutes : 0);
-      }, 0);
+      const count = o.challenge_count || (o.challenge_ids || []).length;
       const metrics = (o.success_metrics || []).slice(0, 2)
         .map((m) => `<li>${FP.esc(m)}</li>`)
         .join('');
       return `
         <a href="${FP.catalogOutcomeUrl(o.id)}" class="outcome-card reveal">
           <div class="outcome-card-top">
-            <span class="badge badge-duration">${count} activities</span>
-            ${FP.durBadge(mins)}
+            <span class="badge badge-duration">${count} activit${count === 1 ? 'y' : 'ies'}</span>
           </div>
           <h3>${FP.esc(o.name)}</h3>
           <p>${FP.esc(o.tagline || o.description || '')}</p>

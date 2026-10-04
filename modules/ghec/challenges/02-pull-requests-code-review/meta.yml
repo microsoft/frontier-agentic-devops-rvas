@@ -3,14 +3,15 @@ title: Branches, pull requests and code review
 module: ghec
 track: developer-flow
 difficulty: beginner
-duration_minutes: 150
+duration_minutes: 75
 prerequisites: []
 prerequisite_capabilities:
-- GitHub organization with org-owner rights
+- Customer repository write access and an administrator for review rules
+- Independent human reviewer with write access
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-- Repository provisioned via activity setup script
+- Reuse the Ch01 issue and Ch00 repository
 description: "Set up branch and review rules for merging pull requests."
 tags:
 - pull-requests
@@ -18,6 +19,7 @@ tags:
 - codeowners
 - branch-protection
 - merge-conflicts
+- innersource
 app_dependency: none
 emu_compatible: true
 min_environment: org

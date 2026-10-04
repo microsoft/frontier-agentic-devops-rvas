@@ -3,16 +3,14 @@ title: Fix XSS and unsafe output
 module: ghas
 track: developer-flow
 difficulty: intermediate
-duration_minutes: 90
+duration_minutes: 60
 prerequisites:
-  - ghas-01
+  - ghas-00
 prerequisite_capabilities:
-  - Juice Shop instance running (see modules/ghas/setup.md)
-  - GitHub Advanced Security enabled on the org repo provisioned in S00
-  - GitHub Copilot license assigned
-  - Basic familiarity with HTML/JavaScript and frontend frameworks (Angular)
-  - Completed S01 (attack surface overview) recommended
-description: "Fix cross-site scripting findings with safe output handling and verify the changes."
+  - Selected XSS finding in the approved repository
+  - Test environment and current CodeQL scanning
+  - Familiarity with the application's output contexts and framework
+description: "Complete one reviewed XSS fix with rendering tests and a default-branch rescan."
 tags:
   - ghas
   - codeql
@@ -23,13 +21,13 @@ tags:
   - autofix
   - angular
   - remediation
-app_dependency: juice-shop
+app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
-  - Shared org repo with Juice Shop (OWASP Juice Shop v20+), provisioned by organizer setup
+  - Optional Juice Shop fallback repository provisioned during setup
   - CodeQL scanning active with XSS-class alerts pre-populated on default branch
-tier: core
+tier: stretch
 personas:
   - customer-developer
   - appsec-engineer

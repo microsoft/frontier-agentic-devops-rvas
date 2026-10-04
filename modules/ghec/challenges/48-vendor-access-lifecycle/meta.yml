@@ -3,10 +3,10 @@ title: Vendor access lifecycle
 module: ghec
 track: admin-governance
 difficulty: advanced
-duration_minutes: 105
+duration_minutes: 75
 prerequisites: []
 prerequisite_capabilities:
-- GitHub organization with org-owner rights
+- Non-EMU organization with authorized access administrator and consenting test collaborator
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
@@ -19,12 +19,12 @@ tags:
 - governance
 - audit-log
 app_dependency: none
-emu_compatible: true
+emu_compatible: false
 min_environment: org
 provision_creates:
 - repo ghec-ch48-vendor-access-register (seeded access request/review issue forms, labels, and sample request)
 - printed outside-collaborator and pending-invitation snapshots when readable
-tier: core
+tier: stretch
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/48-vendor-access-lifecycle/meta.yml
 license: MIT

@@ -3,7 +3,7 @@ title: Dependency visibility and pull request protection
 module: ghas
 track: admin-governance
 difficulty: advanced
-duration_minutes: 135
+duration_minutes: 90
 display_order: 14
 prerequisites:
   - ghas-admin-01
@@ -12,7 +12,7 @@ prerequisite_capabilities:
   - Public repository or GitHub Code Security for a private or internal repository
   - GitHub CLI, Git, jq, Node.js, and npm installed
   - Permission to open and merge controlled dependency pull requests
-description: "Verify dependency coverage and block risky changes with pull-request checks."
+description: "Merge a tested dependency fix and prove required dependency review blocks risky changes."
 tags:
   - ghas
   - dependabot
@@ -23,7 +23,8 @@ tags:
   - supply-chain
   - pull-requests
   - rulesets
-app_dependency: juice-shop
+  - license-policy
+app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:

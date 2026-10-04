@@ -3,7 +3,7 @@ title: Packages and container registry governance
 module: ghec
 track: automation-ai
 difficulty: intermediate
-duration_minutes: 135
+duration_minutes: 90
 prerequisites: []
 prerequisite_capabilities:
 - GitHub organization with package admin and repository admin rights
@@ -11,8 +11,8 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Container tooling such as Docker or Podman for the participant validation step
-- Repository provisioned via activity setup script
-description: "Set access and retention controls for GitHub Packages and container images."
+- Approved source Containerfile and a separate consumer repository
+description: "Publish to GHCR with scoped permissions and test who can pull the image by digest."
 tags:
 - packages
 - ghcr
@@ -22,9 +22,7 @@ tags:
 app_dependency: none
 emu_compatible: true
 min_environment: org
-provision_creates:
-- repo ghec-ch45-container-governance (seeded Containerfile, workflow scaffold, and package policy checklist)
-- printed package namespace discovery commands (no packages pushed by setup)
+provision_creates: []
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/45-packages-container-registry-governance/meta.yml

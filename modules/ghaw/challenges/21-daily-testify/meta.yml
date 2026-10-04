@@ -1,28 +1,28 @@
 id: ghaw-21
-title: Test quality improvement pipeline
+title: Approved regression-test pilot
 module: ghaw
 track: production-patterns
-difficulty: advanced
-duration_minutes: 120
+difficulty: intermediate
+duration_minutes: 90
 prerequisites:
   - ghaw-00
 prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed. See ghaw-00.
-description: "Create test-improvement issues, then open test-only pull requests after review."
+  - An approved issue, test runner, and independent PR reviewer
+description: "Write a regression test for an approved issue and submit a test-only PR for independent review."
 tags:
   - testing
-  - issue-creation
+  - approval-gate
   - create-pull-request
-  - causal-chain
-  - expertise
+  - manual-pilot
   - test-quality
   - production
 app_dependency: none
 emu_compatible: true
 min_environment: repo
-tier: stretch
+tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghaw/challenges/21-daily-testify/meta.yml
 license: MIT

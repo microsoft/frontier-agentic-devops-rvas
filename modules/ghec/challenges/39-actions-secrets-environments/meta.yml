@@ -10,8 +10,8 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-- Repository provisioned via activity setup script
-description: "Protect GitHub Actions deployment secrets and assign rotation owners."
+- Ch04 repository with a tested artifact, approved deployment target, and independent environment reviewer
+description: "Test allowed and denied deployments, then restore the known-good artifact."
 tags:
 - actions
 - secrets
@@ -21,10 +21,7 @@ tags:
 app_dependency: none
 emu_compatible: true
 min_environment: org
-provision_creates:
-- repo ghec-ch39-actions-secrets-envs (seeded workflow and environment governance checklist)
-- repo environments ghec-ch39-dev and ghec-ch39-prod (no secrets created)
-- printed repository Actions secret and environment snapshot
+provision_creates: []
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/39-actions-secrets-environments/meta.yml

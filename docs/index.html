@@ -128,22 +128,22 @@
           <a href="module.html?m=ghec" class="hero-mod-card" style="--mod-color:var(--c-ghec)">
             <img src="assets/img/icon-ghec.svg" class="mod-icon" alt="" aria-hidden="true" />
             <div class="mod-name">GitHub Enterprise Cloud</div>
-            <div class="mod-count">49 activities · 5 tracks</div>
+            <div class="mod-count" id="count-ghec">GitHub Enterprise Cloud</div>
           </a>
           <a href="module.html?m=ghas" class="hero-mod-card" style="--mod-color:var(--c-ghas)">
             <img src="assets/img/icon-ghas.svg" class="mod-icon" alt="" aria-hidden="true" />
             <div class="mod-name">GitHub Advanced Security</div>
-            <div class="mod-count">13 activities · 2 tracks</div>
+            <div class="mod-count" id="count-ghas">GitHub Advanced Security</div>
           </a>
           <a href="module.html?m=ghaw" class="hero-mod-card" style="--mod-color:var(--c-ghaw)">
             <img src="assets/img/icon-ghaw.svg" class="mod-icon" alt="" aria-hidden="true" />
             <div class="mod-name">GitHub Agentic Workflows</div>
-            <div class="mod-count">20 activities · 4 tracks</div>
+            <div class="mod-count" id="count-ghaw">GitHub Agentic Workflows</div>
           </a>
           <a href="module.html?m=sre-agent" class="hero-mod-card" style="--mod-color:var(--c-agentic)">
             <img src="assets/img/icon-agentic-devops.svg" class="mod-icon" alt="" aria-hidden="true" />
             <div class="mod-name">SRE Agent</div>
-            <div class="mod-count">5 activities · 1 track</div>
+            <div class="mod-count" id="count-sre-agent">Azure SRE Agent</div>
           </a>
         </div>
       </div>
@@ -156,7 +156,7 @@
           <div>
             <span class="eyebrow">Team outcomes</span>
             <h2 id="outcomesHeading" style="margin-top:14px">Choose the result your team needs.</h2>
-            <p>Each path lists the activities in delivery order.</p>
+            <p>Browse the activities for that result and select the chapters your team needs.</p>
           </div>
           <a class="link" href="builder.html">
             Build a custom set
@@ -211,15 +211,15 @@
         <div class="steps-grid reveal">
           <div class="step-item">
             <div class="step-num">01</div>
-            <div class="step-title">Pick an activity</div>
-            <p class="step-desc">Browse the catalog and filter it to fit your team. Each card shows the time,
-              difficulty, and background you will need.</p>
+            <div class="step-title">Choose activities</div>
+            <p class="step-desc">Choose a result and the chapters you need. Skip a step only when you can show that its
+              result already works.</p>
           </div>
           <div class="step-item">
             <div class="step-num">02</div>
             <div class="step-title">Set up your environment</div>
-            <p class="step-desc">Run the setup script in your organization. It creates the repositories and other
-              resources used by the activity.</p>
+            <p class="step-desc">Use one approved repository or service throughout. Set up a sample only when
+              you do not have one to work with.</p>
           </div>
           <div class="step-item">
             <div class="step-num">03</div>
@@ -229,7 +229,8 @@
           <div class="step-item">
             <div class="step-num">04</div>
             <div class="step-title">Review the result</div>
-            <p class="step-desc">Check that the result meets the activity's goals and record the evidence.</p>
+            <p class="step-desc">Check that the result works in your team's environment. Record sample exercises
+              and planning decisions separately. Mark anything you could not test.</p>
           </div>
         </div>
       </div>

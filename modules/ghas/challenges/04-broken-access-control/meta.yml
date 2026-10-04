@@ -3,16 +3,14 @@ title: Fix broken access control
 module: ghas
 track: developer-flow
 difficulty: intermediate
-duration_minutes: 105
+duration_minutes: 75
 prerequisites:
-  - ghas-01
+  - ghas-00
 prerequisite_capabilities:
-  - Juice Shop instance running (see modules/ghas/setup.md)
-  - GitHub Advanced Security enabled on the org repo provisioned in S00
-  - GitHub Copilot license assigned
-  - Basic familiarity with Node.js/Express route middleware and authentication patterns
-  - Completed S01 (attack surface overview) recommended
-description: "Fix access-control gaps by enforcing server-side ownership and permission checks."
+  - Selected authorization finding in the approved repository
+  - Test environment with allowed and denied user scenarios
+  - Current CodeQL scanning and familiarity with server-side authorization
+description: "Verify one reviewed authorization fix with positive and negative tests, then rescan."
 tags:
   - ghas
   - codeql
@@ -23,13 +21,13 @@ tags:
   - juice-shop
   - owasp
   - remediation
-app_dependency: juice-shop
+app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
-  - Shared org repo with Juice Shop (OWASP Juice Shop v20+), provisioned by organizer setup
-  - CodeQL scanning active with access-control-class alerts on default branch
-tier: core
+  - Optional Juice Shop fallback repository provisioned during setup
+  - CodeQL scanning; business authorization gaps may need manual review
+tier: stretch
 personas:
   - customer-developer
   - appsec-engineer

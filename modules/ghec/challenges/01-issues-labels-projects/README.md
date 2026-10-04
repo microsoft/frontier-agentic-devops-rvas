@@ -1,19 +1,18 @@
 # Ch01: Issues, labels and project boards
 
-**Session outcome:** Your GitHub Projects (v2) board tracks a triaged backlog with consistent labels and sprint milestones. Saved views show priorities and planned work. Closing an issue moves it to Done.
+**Session outcome:** The customer backlog has a working issue form and a small Projects board. One issue is ready for Ch02, and closing an issue updates the board.
 
 ## Prerequisites
-- An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
+- Write access to the Ch00 repository and permission to edit its project. Only the optional organization defaults need an owner.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch01 --org <org>` (least-privilege; for this activity: `repo` + `project` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
 - No GHAS, Codespaces, or enterprise features are required for this activity.
 
 ## What you will deliver
 - Create, triage, and close issues using templates (issue forms), assignees, and task lists.
-- Design a label taxonomy (type / priority / area / status) and apply it consistently.
-- Group work into milestones and track completion percentage.
-- Build a Projects (v2) board with custom fields, saved views (board + table + roadmap), and built-in workflows that auto-move items.
-- Manage the work from both the UI and the `gh` CLI / GraphQL API.
+- Use type labels and record priority and status in one place.
+- Build one Projects board and verify its built-in closed-issue workflow.
+- When several repositories share a backlog, reconcile their labels.
 
 ## Scenario
 You manage the backlog for an internal developer-tools team at a GHEC customer. Requests are scattered across chat threads and spreadsheets. Leadership wants every request recorded as an issue and triaged within a day. Configure a GitHub board that shows work in progress, blockers, and planned deliveries for the sprint.
@@ -45,57 +44,29 @@ Setup creates these resources (all names use the `ghec-ch01-*` prefix, and teard
 ## Tasks
 > `ghec-ch01-issues-labels-projects` is the fallback sample name; substitute your own artifact's name if you brought one.
 
-### Part A: Issues and issue management
-1. Read the backlog. Open the repo's Issues tab and skim every seeded issue. Note the inconsistent labels and missing assignees and milestones.
-2. Add issue forms. In `.github/ISSUE_TEMPLATE/`, add a bug report form and a feature request form using GitHub's issue forms (`.yml`) schema (not plain markdown). Each form must collect a title, a structured body, and at least one dropdown (e.g., area or severity). Open the New issue chooser and confirm both forms render.
-3. File one issue through your new form to prove it works. Use a task list (`- [ ]`) in the body with at least three sub-tasks, and reference another issue with `#<number>` so the timeline cross-links.
-4. Triage assignment. Assign yourself to at least 5 issues. Use `gh issue edit <n> --add-assignee @me` to do it in bulk where that's faster than clicking.
+### Part A: Make one issue ready
 
-### Part B: Label taxonomy
-5. Design a label scheme. Create labels across four dimensions, each with a distinct color family:
-   - `type:` → `type: bug`, `type: feature`, `type: chore`, `type: docs`
-   - `priority:` → `priority: p0`, `priority: p1`, `priority: p2`
-   - `area:` → `area: frontend`, `area: backend`, `area: ci`
-   - `status:` → `status: needs-triage`, `status: blocked`, `status: in-review`
+1. Reuse the repository selected in Ch00. Choose three real backlog items; do not triage every sample issue.
+2. Add one issue form under `.github/ISSUE_TEMPLATE/` with a description and expected result. Merge it through the team's review process, then file an issue to test the form.
+3. Assign the issue and describe a small, testable change for Ch02. For feature feedback, link the original request and name who decides whether to accept it. Use existing `bug` or `type: bug` labels consistently. Add a separate label scheme only if reporting needs it.
 
-   Create them via the UI or the CLI, e.g.:
+### Part B: Track the work once
+
+4. Add the selected issues to one Projects board. Reuse its Status field and add Priority only if the team needs it. Do not duplicate status in labels or iteration dates in milestones.
+5. Save a board grouped by Status. Enable *Item added to project → Todo* and *Item closed → Done*.
+6. Close a completed test issue and verify it moves to Done. Keep the Ch02 issue open and link the board from it.
+
+### Optional: Shared labels across repositories
+
+7. For a multi-repository backlog, export labels from the customer repository and one other approved repository:
    ```bash
-   gh label create "type: bug" --color B60205 --description "Defect in existing behavior"
+   gh label list --repo <org>/<repo> --limit 200 --json name,color,description
    ```
-6. Apply labels to the whole backlog. Every seeded issue must end with at least a `type:` and a `priority:` label:
-   ```bash
-   gh issue edit <n> --add-label "type: bug,priority: p1"
-   ```
-7. Prove consistency. Run `gh issue list --label "priority: p0"` and confirm the highest-priority items surface correctly.
+8. Agree on a small shared set with its maintainer. Rename existing labels where possible. Before deleting an old label, apply its replacement to affected issues and PRs. Check a filtered issue list on both repositories.
+9. With organization-owner approval, configure those labels in **Organization settings → Repository → Repository defaults**. New defaults do not update existing repositories.
+10. Create one approved private test repository after the change. Verify its labels without copying them manually. Ask the owner whether to keep or remove that repository. Record who owns the defaults and the results from both repositories.
 
-### Part C: Milestones
-8. Create two milestones: set `Sprint 1` due two weeks after your delivery start and `Sprint 2` due four weeks after it. Use the UI, or calculate ISO 8601 due dates for the current run and create the milestones with the API:
-   ```bash
-   RUN_DATE=$(date -u +%F)
-   SPRINT_1_DUE=$(date -u -d "$RUN_DATE +14 days" +%FT00:00:00Z)
-   SPRINT_2_DUE=$(date -u -d "$RUN_DATE +28 days" +%FT00:00:00Z)
-
-   gh api repos/<org>/ghec-ch01-issues-labels-projects/milestones \
-     -f title='Sprint 1' -f due_on="$SPRINT_1_DUE"
-   gh api repos/<org>/ghec-ch01-issues-labels-projects/milestones \
-     -f title='Sprint 2' -f due_on="$SPRINT_2_DUE"
-   ```
-9. Assign issues to milestones so each sprint has a realistic, finite scope (4–6 issues each). Open a milestone and confirm the progress bar reflects open/closed counts.
-
-### Part D: Projects (v2) board
-10. Add custom fields to `ghec-ch01-board`:
-    - a single-select `Status` field (`Todo`, `In Progress`, `In Review`, `Done`)
-    - a single-select `Priority` field (`P0`, `P1`, `P2`)
-    - an Iteration field with two iterations matching your milestones
-    - a number field `Estimate`
-11. Add all backlog issues to the board (`gh project item-add <project-number> --owner <org> --url <issue-url>`), then set `Status` and `Priority` for each item.
-12. Create three saved views: a Board view grouped by `Status`, a Table view grouped by `Priority`, and a Roadmap view laid out on the `Iteration` field.
-13. Turn on built-in workflows. In the project's Workflows settings, enable:
-    - *Item added to project* → set `Status = Todo`
-    - *Item closed* → set `Status = Done`
-
-    Then close one issue and confirm the board moves it to Done automatically.
-14. Add an insight chart. In the project's Insights, create a chart that counts open items grouped by `Priority`, and save it.
+Keep the issue and board URLs as [completion evidence](../../../README.md#completion-evidence). Sample configuration alone is practice.
 
 ## Reference links
 - [About issues](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues)

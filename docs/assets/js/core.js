@@ -79,6 +79,9 @@
   FP.catalogOutcomeUrl = function (id) {
     return 'catalog.html?outcome=' + encodeURIComponent(id);
   };
+  FP.journeyChallengeUrl = function (id, outcomeId) {
+    return FP.challengeUrl(id) + (outcomeId ? '&outcome=' + encodeURIComponent(outcomeId) : '');
+  };
   FP.githubSourceUrl = function (repo, sourcePath, ref) {
     const base = 'https://github.com/' +
       String(repo || '').split('/').map(encodeURIComponent).join('/');
@@ -89,6 +92,14 @@
   FP.outcomeName = function (outcomeId, outcomes) {
     const o = (outcomes || []).find((x) => x.id === outcomeId);
     return o ? o.name : outcomeId;
+  };
+
+  FP.resolveActivityId = function (id, data) {
+    return Object.hasOwn(data.retired_challenges || {}, id) ? data.retired_challenges[id] : id;
+  };
+
+  FP.resolveSetIds = function (ids, data) {
+    return [...new Set(ids.map(id => FP.resolveActivityId(id, data)))];
   };
 
   FP.catalogTracks = function (modules) {
@@ -112,7 +123,6 @@
     }));
   };
 
-  // Keep outcome sequences intact; unfiltered results share the session-type chip order.
   FP.groupActivities = function (items, outcomeId, outcomes, modules) {
     if (!items.length) return [];
     if (outcomeId) {
@@ -136,9 +146,16 @@
     return Array.from(groups.values()).filter((group) => group.items.length);
   };
 
+  FP.renderActivityGroups = function (groups, renderCard) {
+    return groups.map(group => `<div class="group-head">
+      <h3>${FP.esc(group.name)}</h3>
+      <span class="group-count">${group.items.length} activit${group.items.length === 1 ? 'y' : 'ies'}</span>
+      ${group.description ? `<p class="group-intro">${FP.esc(group.description)}</p>` : ''}
+      </div><div class="challenge-grid">${group.items.map(renderCard).join('')}</div>`).join('');
+  };
+
   /* ─────────────────────── Activity ordering ─────────────────────
-     Default views use display_order. Outcome filters use the exact journey
-     sequence declared in that outcome's challenge_ids list. */
+     Default views use display_order. Outcome filters use challenge_ids. */
 
   const LAST = Number.MAX_SAFE_INTEGER;
 
@@ -180,7 +197,7 @@
   }
 
   /* Order a cross-module activity list for display.
-     With an outcome filter: that outcome's exact challenge_ids order.
+     With an outcome filter: that outcome's challenge_ids order.
      Without one: each module's lead activities, then its configured track
      order. display_order controls the sequence inside each track. */
   FP.orderActivities = function (activities, outcomeId, outcomes, modules) {

@@ -3,15 +3,15 @@ title: Required reusable workflows
 module: ghec
 track: automation-ai
 difficulty: advanced
-duration_minutes: 150
+duration_minutes: 120
 prerequisites: []
 prerequisite_capabilities:
 - GitHub organization with org-owner or repository admin rights
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-- Repository provisioned via activity setup script
-description: "Require shared CI and security checks through reusable workflows."
+- Approved workflow source and consumer application with working CI
+description: "Require a trusted workflow and test missing, failing, and spoofed checks."
 tags:
 - actions
 - reusable-workflows
@@ -21,10 +21,7 @@ tags:
 app_dependency: none
 emu_compatible: true
 min_environment: org
-provision_creates:
-- repo ghec-ch41-workflow-library (seeded reusable workflow)
-- repo ghec-ch41-consumer-service (seeded caller workflow and sample source)
-- printed repository ruleset and Actions workflow snapshot
+provision_creates: []
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/41-required-reusable-workflows/meta.yml

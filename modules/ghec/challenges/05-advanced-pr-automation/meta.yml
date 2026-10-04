@@ -1,17 +1,17 @@
 id: ghec-ch05
-title: Advanced PR automation and rulesets
+title: Safe auto-merge
 module: ghec
 track: developer-flow
 difficulty: advanced
-duration_minutes: 210
+duration_minutes: 60
 prerequisites: []
 prerequisite_capabilities:
-- GitHub organization with org-owner rights
+- Repository administrator and an independent reviewer
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Automate pull requests while enforcing required reviews and merge rules."
+description: "Test auto-merge while preserving required CI and independent review."
 tags:
 - rulesets
 - pull-requests
@@ -27,7 +27,7 @@ provision_creates:
 - several open PRs in mixed states (clean, failing-CI, draft, missing-owner-review)
 - starter .github/CODEOWNERS + placeholder .github/pull_request_template.md
 - no rulesets yet (a delivery team member creates repository and organization rulesets)
-tier: core
+tier: stretch
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/05-advanced-pr-automation/meta.yml
 license: MIT

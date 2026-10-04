@@ -221,27 +221,14 @@
     }
 
     const groups = FP.groupActivities(items, _activeOutcome, _outcomes, _modules);
-
-    let html = '';
-    groups.forEach(({ name, description, items: gItems }) => {
-      html += `<div class="group-head">
-        <h3>${FP.esc(name)}</h3>
-        <span class="group-count">${gItems.length} activit${gItems.length === 1 ? 'y' : 'ies'}</span>
-        ${description ? `<p class="group-intro">${FP.esc(description)}</p>` : ''}
-      </div>
-      <div class="challenge-grid">`;
-      html += gItems.map((c) => challengeCard(c)).join('');
-      html += '</div>';
-    });
-
-    grid.innerHTML = html;
+    grid.innerHTML = FP.renderActivityGroups(groups, challengeCard);
     FP.initReveal();
   }
 
   function challengeCard(c) {
     const color = FP.moduleColor(c.module);
     return `
-      <a href="${FP.challengeUrl(c.id)}" class="ch-card mod-${FP.esc(c.module)} reveal"
+      <a href="${FP.journeyChallengeUrl(c.id, _activeOutcome)}" class="ch-card mod-${FP.esc(c.module)} reveal"
          style="--mod-color:${color}">
         <div class="ch-card-top">
           <span class="ch-mod-dot"></span>

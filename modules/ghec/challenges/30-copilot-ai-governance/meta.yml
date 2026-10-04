@@ -1,17 +1,17 @@
 id: ghec-ch30
-title: Copilot and AI governance
+title: Copilot policy baseline
 module: ghec
 track: admin-governance
 difficulty: advanced
-duration_minutes: 210
+duration_minutes: 60
 prerequisites: []
 prerequisite_capabilities:
-  - Enterprise owner, AI manager, or an authorized Enterprise AI Controls export
-  - Copilot Business or Copilot Enterprise availability to inspect
-  - Named enterprise AI-controls, identity, security/privacy, third-party-risk, and organization-policy owners
+  - Copilot administrator who can manage policy and access for the pilot
+  - Copilot Business or Copilot Enterprise availability for the selected feature
+  - Named owners for Copilot policy, identity management, and offboarding
   - Customer-approved non-secret evidence location
-  - Optional ghec-ch52 approved identity-model, data-residency, and app-governance decisions and register, when already established for the customer
-description: "Review Copilot policies and control how agents access code and data."
+  - Customer identity-boundary decision
+description: "Configure Copilot access for a pilot team and verify use and revocation."
 tags:
   - copilot
   - ai-governance
@@ -22,7 +22,7 @@ tags:
   - compliance
 app_dependency: none
 emu_compatible: true
-min_environment: enterprise
+min_environment: org
 provision_creates: []
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas

@@ -1,21 +1,18 @@
 id: ghas-admin-06
-title: Security Overview, delegated triage and campaign operations
+title: Run a bounded security campaign
 module: ghas
 track: admin-governance
 difficulty: advanced
-duration_minutes: 135
+duration_minutes: 90
 display_order: 15
 prerequisites:
-  - ghas-admin-02
-  - ghas-admin-04
-  - ghas-admin-05
+  - ghas-admin-01
+  - ghas-admin-03
 prerequisite_capabilities:
-  - Completed secret protection operations from ghas-admin-02
-  - Active CodeQL merge enforcement from ghas-admin-04
-  - Dependency visibility and pull request protection from ghas-admin-05
+  - Live configuration and CodeQL merge-control evidence, or equivalent verified controls
   - Organization owner or security manager campaign access
-  - Developer with write access for the campaign access test
-description: "Use Security Overview and delegated triage to run a campaign and measure fixes."
+  - Developer with write access to own and test a campaign fix
+description: "Publish a code scanning campaign and verify progress from a developer's reviewed fix."
 tags:
   - ghas
   - security-overview
@@ -23,13 +20,13 @@ tags:
   - delegated-dismissal
   - exceptions
   - remediation
-app_dependency: juice-shop
+app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates:
   - Shared ghas-admin-01-06 security operations repository
   - Alerts from multiple tools, remediation branch, and campaign tracking issue
-tier: core
+tier: stretch
 outcomes:
   - ghas-adoption
 personas:

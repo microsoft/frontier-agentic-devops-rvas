@@ -1,64 +1,132 @@
-**Session outcome:** Your scheduled workflow checks the selected documentation against the code and proposes corrections in a pull request. A maintainer can compare its test-run output with the source before accepting it.
+# Reviewed documentation correction
 
-## Background
+**Session outcome:** One PR corrects a customer documentation error in one file.
+The correction cites the code that supports it. Checks pass, and an independent
+reviewer records a decision.
 
-The Daily Documentation Updater runs on a cron schedule. It compares selected documentation with the codebase and opens pull requests for content that appears out of date.
+This is a core pilot. Complete [setup](../00-setup/README.md), then choose an
+issue about a real documentation error with a maintainer.
+For example, a documented option may disagree with its implemented default.
+Do not introduce a stale document just to make the agent produce a PR.
 
-Source: [`githubnext/agentics/workflows/daily-doc-updater.md`](https://github.com/githubnext/agentics/blob/main/workflows/daily-doc-updater.md)
+## Approve the work
 
-## Behavior
+Record the issue URL, one writable documentation file, and the source files
+that establish the correct behavior. Agree on the actual validation command
+and independent reviewer before running the workflow.
 
-- Triggers on a daily `schedule: cron`
-- Scans a configured docs directory (e.g., `docs/`, `README.md`)
-- Identifies content that contradicts or no longer matches the codebase
-- Opens PRs with targeted, reviewable corrections
+Start with `workflow_dispatch`, restricted to authorized maintainers. Set the
+approved issue and write path in reviewed configuration. If the user selects
+the issue at runtime, check it against a maintainer-controlled approval record
+before invoking the model. Stop if the issue is not approved.
 
-> [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): point the workflow at a repo you own where `README.md`, `docs/`, API docs, or runbooks drift from the code.
+## Build the pilot
 
-## Steps
+Use the [documentation starter](../../resources/examples/daily-doc-updater.md)
+and [approval guard](../../resources/examples/pilot-guard.cjs). The starter is
+manual and its Markdown body contains the agent's prompt.
 
-1. Install and verify `gh aw` with the [GHAW setup guide](../../setup.md).
+The guard checks the configured issue, its approval label and the labeler's
+current write permission. It writes `.pilot-context.json` with the issue and
+base SHA. The agent reads the named source at that revision. Do not ask it to
+invent behavior from prose alone.
 
-2. Pull the production workflow:
-   ```bash
-   gh aw add-wizard https://github.com/githubnext/agentics/blob/main/workflows/daily-doc-updater.md
-   ```
+Give the agent read-only GitHub permissions and only the local editing and
+test tools needed for the task. Configure `create-pull-request` with `max: 1`
+and the approved base branch. Use `allowed-files` on `create-pull-request` to enforce the one-file restriction
+in the writer. Keep `protected-files: blocked` and disable fallback issues.
+This is a writer policy, not merely a prompt instruction.
 
-3. Read the [scheduled workflow](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule) cron expression in the frontmatter. Confirm when `schedule: - cron: "0 9 * * *"` runs in UTC.
+The prompt must correct only the documented mismatch and cite its code
+evidence in the PR body. Before generating work, check for an existing PR using
+the approved issue and target file as its key. Run one request at a time for
+that key.
+**If the documentation is already correct, do nothing.**
 
-4. Customise the docs scope and review depth for your repository.
+Compile with `gh aw compile daily-doc-updater`. Inspect the source and lock
+file together, then deploy through the normal review process.
 
-5. Compile:
-   ```bash
-   gh aw compile daily-doc-updater
-   ```
+## Copy and customize
 
-6. Dry-run to see what it would propose:
-   ```bash
-   gh aw run daily-doc-updater --dry-run
-   ```
+From the customer checkout:
 
-7. Commit both workflow and `.lock.yml`. Add a stale doc to trigger your first real PR.
+```bash
+CURRICULUM=/absolute/path/to/frontier-agentic-devops-rvas
+mkdir -p .github/workflows
+cp "$CURRICULUM/modules/ghaw/resources/examples/daily-doc-updater.md" .github/workflows/
+cp "$CURRICULUM/modules/ghaw/resources/examples/pilot-guard.cjs" .github/workflows/
+node --test "$CURRICULUM/modules/ghaw/resources/examples/pilot-guard.test.cjs"
+```
 
-## Adapt it
+Replace issue `42` in `APPROVED_ISSUE`, `PR_PREFIX`, and `title-prefix` with the
+approved issue number. Replace `docs/usage.md` in the allowlist and prompt,
+and replace `src/options.js` with the source that proves the correction.
+The guard rejects any different issue selected at runtime.
 
-- Change the target path in the prompt body: point at `docs/`, `README.md`, or a subdirectory specific to your project
-- Adjust the cron schedule. Use `0 9 * * 1-5` for weekdays or `0 9 * * 1` for Monday morning.
-- Tune the review depth: "only check API endpoint docs" vs "review all docs for accuracy"
-- Add a PR template or label to the `create-pull-request` output so doc-update PRs are easy to filter
+Have a maintainer create `agent-doc-approved` if it does not exist, then apply
+it to the issue. The guard checks the label event; merely putting "approved"
+in the issue body does not pass.
 
----
+Use this customization prompt in Copilot Chat:
 
-<details>
-<summary>Hints</summary>
+```text
+Adapt daily-doc-updater.md for approved issue <number>, document <path>, and
+source <path>. Update the fixed issue, both matching PR prefixes, file allowlist
+and runtime prompt together. Use our actual validation command: <command>.
+Configure only its required runtime and dependency setup.
+Keep the approval guard before inference and the recheck after inference.
+Keep PR publication restricted to the single document. Do not deploy or run it.
+```
 
-To test manually, add `workflow_dispatch: {}` to your `on:` block. Then [run the workflow from the Actions tab](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow).
+The sample uses Node's `node --test`. Replace it in both the tool allowlist and
+prompt if your repository uses another check. If the approved file is a
+protected root document such as `README.md`, use the documented
+[`protected-files.exclude` exception](https://github.github.com/gh-aw/reference/safe-outputs-pull-requests/#protected-files)
+for that file only; keep the exact `allowed-files` entry.
 
-If the PR changes too much, constrain the body: _"Review only `docs/api.md`. Open a single PR per file. Each PR should change no more than 10 lines."_
+```bash
+gh aw compile daily-doc-updater
+```
 
-Review the proposed changes before merging. `safe-outputs: create-pull-request` still requires a human to merge.
+Review the generated jobs: failed approval checks must prevent inference or
+publication, and the writer must enforce the file allowlist. Submit the source,
+guard, and lock file through normal review. After merge:
 
-If the agent proposes the same change each day, merge the correction and add this check to the prompt: _"Do not open a PR if an identical open PR already exists."_
+```bash
+gh workflow run daily-doc-updater.lock.yml -f issue=42
+gh run list --workflow daily-doc-updater.lock.yml --limit 5
+```
 
-</details>
+Replace `42` here too. Open the returned run in Actions and the draft PR it
+creates. Its body should link the issue and the exact source lines, followed
+by the check command and real result. Missing access is a failed pilot, not
+evidence of a completed correction.
+
+## Prove the result
+
+Run manually on the approved issue. Execute the repository's relevant tests or
+documentation checks, including a command that checks the documented behavior
+when possible. Record the exact command and result in the PR. Verify that the
+required CI checks actually run.
+
+Have the independent reviewer compare the correction with the cited code.
+Record acceptance or rejection and complete the
+[shared acceptance check](../../setup.md#pilot-acceptance).
+Rerun while the PR is open, then after it is merged. Neither run should create
+a duplicate PR or a new change.
+
+## Optional path triggers
+
+Only after the manual pilot helps the team, add `push.paths` for source paths
+that can invalidate the chosen document. Watch the approved base branch and
+exclude the generated documentation PR's own changes to avoid a loop.
+Test an in-scope source change and an unrelated path. Only the first should
+start analysis. A scheduled run has no path event filter, so it needs a
+deterministic changed-source check. Neither trigger expands the write allowlist.
+
+## Optional manual cleanup
+
+A maintainer may approve one redundant passage for removal using the same
+one-file PR route. Preserve technical facts and required warnings. Keep useful
+examples. Validate links and required sections after the cut. Keep cleanup
+manual. A word-count target is not a reason to rewrite correct documentation.

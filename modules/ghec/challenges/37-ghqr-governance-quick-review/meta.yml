@@ -1,19 +1,20 @@
 id: ghec-ch37
-title: Governance quick review with ghqr
+title: Review and repair governance with ghqr
 module: ghec
 track: admin-governance
 difficulty: advanced
-duration_minutes: 105
+duration_minutes: 60
 prerequisites: []
 prerequisite_capabilities:
   - GitHub Enterprise Cloud organization with organization-owner or authorized governance-review access
+  - Authorized setting owner who can approve and apply one pilot repair
   - GitHub CLI (gh >= 2.x) installed for evidence handoff and optional API corroboration
   - ghqr CLI or Docker image available
   - jq installed for optional JSON triage
   - Customer-approved non-secret evidence location
   - Optional enterprise owner or authorized enterprise-policy reviewer when the enterprise scan is in scope
-  - Optional ghec-ch52 approved organization topology, delegation matrix, and control register when already established for the customer
-description: "Review organization governance with ghqr and prioritize verified findings."
+  - Approved organization scope
+description: "Use ghqr to find a real governance gap, repair it and verify enforcement."
 tags:
   - ghqr
   - governance
@@ -26,7 +27,7 @@ app_dependency: none
 emu_compatible: true
 min_environment: org
 provision_creates: []
-tier: core
+tier: stretch
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/37-ghqr-governance-quick-review/meta.yml
 license: MIT

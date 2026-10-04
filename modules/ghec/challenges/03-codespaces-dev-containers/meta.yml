@@ -3,7 +3,7 @@ title: Codespaces and dev containers
 module: ghec
 track: developer-flow
 difficulty: intermediate
-duration_minutes: 180
+duration_minutes: 90
 prerequisites: []
 prerequisite_capabilities:
 - GitHub organization with org-owner rights
@@ -25,7 +25,7 @@ provision_creates:
 - repo ghec-ch03-codespaces-dev-containers (seeded Node/Express app + package.json)
 - minimal .devcontainer/devcontainer.json baseline (a delivery team member extends it)
 - README documenting local-run steps
-tier: core
+tier: stretch
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/03-codespaces-dev-containers/meta.yml
 license: MIT

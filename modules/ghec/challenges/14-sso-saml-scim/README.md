@@ -1,5 +1,7 @@
 # Ch14: SSO, SAML and SCIM identity
 
+This optional session needs an authorized non-EMU test organization, an IdP administrator, and a recovery account. An export can support an assessment, but cannot prove that user provisioning and removal work.
+
 **Session outcome:** You have tested SAML sign-in and the SCIM user lifecycle in an approved environment, and checked the external identities in GitHub. You enable enforcement only after approval, with a recovery path ready.
 
 ## Prerequisites
@@ -21,11 +23,11 @@ A GHEC customer manages identity in its IdP and wants corporate SSO and automate
 
 > SAML and SCIM can be configured at enterprise scope, across all orgs, or at a single org as in this activity. In Enterprise Managed Users (EMU), every member is a managed user created only via enterprise-level SCIM, with no personal account. Org-level SAML SSO and SCIM are unavailable inside an EMU organization. Run this activity in a non-EMU org. EMU and enterprise-level SSO require an enterprise owner and are outside the hands-on scope.
 >
-> If `ghec-ch52` (Enterprise Landing Zone & Organization Strategy) records this customer's identity-model decision, cite it to confirm the non-EMU target. Otherwise, determine the model using Part A and record `ghec-ch52 not completed — identity model determined independently`.
+> Confirm the customer's identity model with its owner before configuring the non-EMU target. Reuse an existing decision when it still applies.
 
 ## Scope boundary
 
-This is an **organization-scoped identity** activity. Even Part E's enforcement step proves only the organization's SAML/SCIM lifecycle. It does not establish an enterprise-level SSO/SCIM or EMU decision, replace `ghec-ch52`'s identity-model record, or provide Ch28's enterprise identity-governance evidence. Route enterprise-level SAML/SCIM, CAP, and EMU decisions to `ghec-ch52` or Ch28.
+This is an **organization-scoped identity** activity. Part E verifies the organization's SAML/SCIM lifecycle only. Use Ch28 for enterprise-level identity governance, including CAP and EMU decisions.
 
 > [!IMPORTANT]
 > Use an approved customer target first. If you have a candidate identity runbook, SAML/SCIM rollout plan, or organisation authentication setting, use it everywhere this guide says `ghec-ch14-identity-runbook` and skip Setup. Otherwise use the fallback seeded runbook repo and validation helpers below.
@@ -52,7 +54,7 @@ Setup creates these resources (all names use the `ghec-ch14-*` prefix, and teard
 ## Tasks
 
 ### Part A: Identity models and IdP app
-1. In the runbook, write one paragraph each explaining when personal accounts, a SAML-restricted org, and EMU+SCIM fit. Cite the IAM fundamentals doc in References. If `ghec-ch52` already records this customer's identity-model decision, cite it instead of repeating the analysis. Otherwise, complete the mapping and record that `ghec-ch52` was not available.
+1. Confirm with the identity owner that the target uses personal accounts and supports organization SAML/SCIM. Record the identity model in the existing runbook. Use the IAM reference if the model is unclear; do not configure organization SAML/SCIM in EMU.
 2. In Entra ID (Enterprise applications → New → GitHub.com Organization) or Okta, create the SAML app. Record the entity ID, ACS/Reply URL (`https://github.com/orgs/<org>/saml/consume`), sign-on URL, and issuer in the runbook.
 3. Capture the signing certificate from the IdP; you'll paste its public cert into GitHub.
 
@@ -82,7 +84,7 @@ Setup creates these resources (all names use the `ghec-ch14-*` prefix, and teard
 11. Record the SCIM join/leave evidence (timestamps, API output) in the runbook for security/compliance review.
 
 ### Part E: Enforce (capstone) and roll back safely
-12. Check Require SAML SSO for the org. Confirm that a member without a linked identity is prompted to authenticate via the IdP, and that unauthorized tokens are rejected on org resources.
+12. Check Require SAML SSO on the dedicated test organization only during an approved change window, after testing recovery. Use a consenting non-owner account and an unauthorized token. Without enforcement approval, leave it disabled and record the blocked test.
 13. Document the rollback and perform it in the test org: remove SAML enforcement, revoke the SCIM token, and remove the IdP app. Record why each step is needed.
 
 ## Reference links

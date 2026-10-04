@@ -1,0 +1,100 @@
+name: Monorepo CI
+
+on:
+  pull_request:
+  merge_group:
+
+permissions:
+  contents: read
+
+jobs:
+  select:
+    runs-on: ubuntu-latest
+    outputs:
+      web: ${{ steps.paths.outputs.web }}
+      api: ${{ steps.paths.outputs.api }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Select affected packages
+        id: paths
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.merge_group.base_sha }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          python3 - <<'PY'
+          import os, re, subprocess
+          base, head = os.environ["BASE_SHA"], os.environ["HEAD_SHA"]
+          if not all(re.fullmatch(r"[a-fA-F0-9]{40}", sha) for sha in (base, head)):
+              raise SystemExit("Missing or invalid comparison commits")
+          changed = subprocess.check_output(
+              ["git", "diff", "--name-only", "-z", "--no-renames", base, head]
+          ).split(b"\0")
+          paths = [p for p in changed if p]
+          web = any(p.startswith(b"packages/web/") for p in paths)
+          api = any(p.startswith(b"packages/api/") for p in paths)
+          shared = not paths or any(
+              not p.startswith((b"packages/web/", b"packages/api/")) for p in paths
+          )
+          with open(os.environ["GITHUB_OUTPUT"], "a") as output:
+              output.write(f"web={str(web or shared).lower()}\n")
+              output.write(f"api={str(api or shared).lower()}\n")
+          PY
+
+  web:
+    needs: select
+    if: needs.select.outputs.web == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: '22'
+      - run: npm ci
+      - run: npm test --workspace packages/web
+
+  api:
+    needs: select
+    if: needs.select.outputs.api == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: '22'
+      - run: npm ci
+      - run: npm test --workspace packages/api
+
+  gate:
+    name: Monorepo gate
+    needs: [select, web, api]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require every selected test
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          needs = json.loads(os.environ["NEEDS_JSON"])
+          selection = needs["select"]
+          if selection["result"] != "success":
+              raise SystemExit("Package selection failed or was skipped")
+          for package in ("web", "api"):
+              selected = selection["outputs"].get(package)
+              result = needs[package]["result"]
+              if selected not in ("true", "false"):
+                  raise SystemExit(f"Invalid selection for {package}")
+              if selected == "true" and result != "success":
+                  raise SystemExit(f"Required {package} tests did not pass: {result}")
+              if selected == "false" and result not in ("skipped", "success"):
+                  raise SystemExit(f"Unexpected {package} result: {result}")
+          print("All selected package tests passed")
+          PY

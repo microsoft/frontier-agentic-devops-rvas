@@ -1,103 +1,155 @@
-# Ch49: Release governance
+# Ch49: Publish an approved, tested release
 
-**Session outcome:** You have taken a release candidate through the agreed approval process and published the release or completed a dry run. The release record includes validation results and release notes, with a named rollback owner.
+**Session outcome:** A protected workflow publishes the exact tested artifact after independent approval. A rejected run publishes nothing, and the owner verifies recovery.
 
 ## Prerequisites
 
-- A GitHub Enterprise Cloud organization and a repository where you can administer issues, contents, Actions, and releases.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch49 --org <org>` (least privilege; for this activity: `repo` + `read:org`).
-- Local tooling: `gh >= 2.x`, `git`, `jq`.
-- No setup step changes organization settings, rulesets, environments, or release permissions.
+Use an approved repository with working build and artifact tests, a repository administrator, and an independent environment reviewer. Use `gh`, `git`, and a local SHA-256 tool. Configure only an approved test release. **Ch39 and a cloud deployment are not prerequisites.**
 
-## Customer delivery objectives
+The [complete workflow example](../../resources/release/release.yml) uses a Node.js repository with a committed `package-lock.json`. It requires:
 
-You will:
+- `npm test` for the existing source tests and `npm run build` to produce `dist/`.
+- `npm run test:artifact` to test the files in `dist/` with the application's existing artifact tests; a successful `echo` is not a test.
+- Reviewed release notes in `release-notes.md` at the candidate commit.
 
-- Define release ownership, approval, release-note, tag, rollback, and exception standards.
-- Capture release candidate evidence before a release is published.
-- Use issues, labels, checklists, and a manually triggered evidence workflow to show the governance trail.
-- Inspect higher-impact controls such as rulesets or deployment environments and record an owner-approved rollout decision.
-- Publish a sample release or document why production publication is deferred.
-
-## Scenario
-
-A customer publishes releases from several repositories. Approvals live in chat, release notes vary, and nobody clearly owns rollback. Define the controls, create a candidate record, collect validation evidence, and record the approval or rejection with the release history.
-
-> [!IMPORTANT]
-> Choose the target before setup. Use an authorised customer release repository if you have one, wherever this guide names `ghec-ch49-release-governance`, and skip setup. Otherwise use the fallback seeded repository below. Rulesets, deployment environments, and org-wide release permissions can block teams: inspect and propose them, but change them only with owner approval.
-
-## Sample test repository or environment
-
-```bash
-bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch49 --org <org>
-```
-```powershell
-modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch49 -Org <org>
-```
-
-Setup is idempotent and creates only these namespaced artifacts. Teardown accepts only the `ghec-ch49-*` prefix.
-
-- `ghec-ch49-release-governance` with release governance documentation, changelog, and release readiness issue form.
-- Labels for `release: candidate`, `release: approved`, `release: blocked`, and `release: rollback-ready`.
-- `.github/workflows/release-evidence.yml`, a manual workflow scaffold for recording validation evidence.
-- A sample release candidate issue.
-- Printed commands for inspecting release, ruleset, and environment controls; setup does not mutate those controls.
+For another stack, replace the runtime and the **Build and test** step with the customer's existing commands. Keep the tested output in `dist/`, or change the packaging path to match. Nothing in the publish job should build or execute the application.
 
 ## Tasks
 
-### Part A: Inspect current release controls
+### Part A: Protect the publication route
 
-1. Snapshot repository release and tag evidence:
+1. Identify the candidate, prior known-good artifact, and recovery owner. Reuse the Ch39 recovery result if you already restored that artifact and passed its smoke test.
+2. Configure a test publication environment using the [shared approval setup](../../resources/environment-approval.md), or reuse an existing one that already meets those requirements. Allow only the protected default branch, such as `main`; the manual workflow runs on that branch even though it publishes a tag.
+3. Protect changes to `.github/workflows/release.yml` with CODEOWNERS and required code-owner review. Require review for the build scripts and artifact tests too.
+4. With the administrator, apply tag rules to the release tag pattern (for example `v*`): restrict updates and deletions, and restrict creation to the approved release operator or tag workflow. Do not give ordinary publishers an update/delete bypass. Enable release immutability in **Settings → General → Releases** if available, before the test publication.
+5. Record administrators and other identities with write credentials that can publish outside this workflow. **The environment gates this job only.** It does not prevent another workflow or an authorized API client from creating a release. Do not add App keys or deployment secrets to this workflow.
+
+If required reviewers are unavailable for the repository's plan or visibility, stop and record the gate as blocked. A label or approval in chat does not replace it.
+
+### Part B: Copy and customize the workflow
+
+From the curriculum checkout, copy the example into the existing application checkout. Substitute its path:
+
+```bash
+export TARGET_CHECKOUT="/path/to/approved-repository"
+mkdir -p "$TARGET_CHECKOUT/.github/workflows"
+cp modules/ghec/resources/release/release.yml "$TARGET_CHECKOUT/.github/workflows/release.yml"
+cd "$TARGET_CHECKOUT"
+```
+
+Review an existing `release.yml` before replacing it. Then:
+
+1. Change `environment: release` to the approved publication environment name. Set the runtime and build commands described in Prerequisites. Keep the `test:artifact` step after the build.
+2. Use approved action versions or commit pins required by the organization. The example gives the build only `contents: read`; only `publish` receives `contents: write`.
+3. Add `release-notes.md` with the test release's scope and recovery action. Put it through the normal review process with the workflow. Merge to the protected default branch.
+
+The build checks that the candidate belongs to that branch and matches an existing tag. After testing, it packages `dist/` once, records the source SHA, and uploads the files. The publish job waits for approval, downloads **that artifact ID from the same run**, and verifies the checksum manifest against the build output. It rechecks the tag, creates a draft with the verified assets, then publishes a prerelease without marking it Latest. There is no checkout or rebuild in the publish job.
+
+### Part C: Choose the candidate and tag
+
+Run these commands from the target checkout after merging. Replace the repository name and use an unused test tag:
+
+```bash
+export GH_REPO="YOUR-ORG/YOUR-REPO"
+export BRANCH="$(gh repo view --json defaultBranchRef --jq .defaultBranchRef.name)"
+git fetch origin "$BRANCH" --tags
+export CANDIDATE="$(git rev-parse "origin/$BRANCH")"
+export TAG="v0.1.0-ch49.1"
+gh release list --limit 20
+git show "$CANDIDATE:release-notes.md"
+```
+
+Have the **authorized release operator** create the tag through the existing tag workflow. If manual tag creation is approved, the operator runs:
+
+```bash
+git tag -a "$TAG" "$CANDIDATE" -m "Approved Ch49 test candidate"
+git push origin "refs/tags/$TAG"
+```
+
+Use signed tags if repository policy requires them. Do not force-push, move, or reuse an existing tag. The release workflow deliberately does not create tags.
+
+### Part D: Withhold approval, then reject
+
+1. Dispatch from the allowed default branch:
+
    ```bash
-   gh release list --repo <org>/ghec-ch49-release-governance --limit 20
-   gh api repos/<org>/ghec-ch49-release-governance/tags --jq '.[].name'
+   gh workflow run release.yml --ref "$BRANCH" \
+     -f candidate_sha="$CANDIDATE" -f release_tag="$TAG"
+   gh run list --workflow release.yml --event workflow_dispatch --limit 5
    ```
-2. Inspect higher-impact controls without changing them:
+
+   Set `RUN_ID` to the new run's ID after matching its branch and start time:
+
    ```bash
-   gh api repos/<org>/ghec-ch49-release-governance/rulesets --jq '.[]? | {name, target, enforcement}'
-   gh api repos/<org>/ghec-ch49-release-governance/environments --jq '.environments[]? | {name, protection_rules}'
+   export RUN_ID="NEW-RUN-ID"
+   gh run view "$RUN_ID" --web
    ```
-3. Record who can approve releases, who can publish them, and which controls require explicit owner approval before enforcement.
 
-### Part B: Define release governance
+2. Wait for `build` to pass. In the run, confirm `publish` is waiting for environment review and none of its steps has started. Leave it waiting while you check that no release or draft exists:
 
-4. Complete `docs/release-governance.md` with:
-   - release owner and approver group
-   - tag naming pattern, for example `vMAJOR.MINOR.PATCH`
-   - release notes source and required sections
-   - validation evidence required before approval
-   - rollback owner and rollback evidence
-   - exception route and review cadence
-5. Decide which controls are enforced now and which remain a signed rollout proposal.
-
-### Part C: Create a release candidate record
-
-6. Open a release candidate issue using the provided template.
-7. Attach scope, risk, validation plan, approver, rollback plan, and planned release tag.
-8. Apply `release: candidate` and keep comments or workflow links as the evidence trail.
-
-### Part D: Collect evidence and approve
-
-9. Run the manual evidence workflow or attach equivalent validation output:
    ```bash
-   gh workflow run release-evidence.yml --repo <org>/ghec-ch49-release-governance -f release_tag=v0.1.0 -f evidence_url=<url-or-record-id>
+   gh api "repos/$GH_REPO/releases" --paginate \
+     --jq ".[] | select(.tag_name == \"$TAG\") | {tag_name,draft,html_url}"
    ```
-10. The approver reviews the candidate issue and applies either `release: approved` or `release: blocked`.
-11. If approval is blocked, record the reason, owner, and next decision date.
 
-### Part E: Publish or dry-run the release
+   A successful API call with no matching output means no release exists. Authentication or network errors are not proof.
+3. The independent reviewer opens the run, chooses **Review deployments**, selects the environment, and clicks **Reject** with a short reason. Check the failed run and repeat the release query. Keep this run URL.
 
-12. If authorized, create the release:
-    ```bash
-    gh release create v0.1.0 --repo <org>/ghec-ch49-release-governance --title 'v0.1.0' --notes-file CHANGELOG.md
-    ```
-13. If production release publication is not authorized, create a draft release or record a signed dry-run decision instead.
-14. Link the release, draft, or dry-run evidence back to the candidate issue.
+### Part E: Review and publish the tested files
 
-## Reference links
+Start a **fresh run**, using the same command, candidate, and still-unused tag. Set `RUN_ID` to its new ID. Once the build passes, download its artifact before approving:
 
-- [About releases](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases)
+```bash
+export RUN_ID="FRESH-RUN-ID"
+export ATTEMPT="$(gh run view "$RUN_ID" --json attempt --jq .attempt)"
+export ARTIFACT="release-$RUN_ID-$ATTEMPT"
+mkdir -p "review-$RUN_ID"
+gh run download "$RUN_ID" --name "$ARTIFACT" --dir "review-$RUN_ID"
+(cd "review-$RUN_ID" && sha256sum -c SHA256SUMS)
+cat "review-$RUN_ID/source-sha.txt"
+cat "review-$RUN_ID/release-notes.md"
+```
+
+On macOS, use `shasum -a 256 --check SHA256SUMS` in place of `sha256sum -c SHA256SUMS`.
+
+The reviewer checks the candidate SHA, test logs, and notes. Compare the downloaded archive's checksum with the build job summary. Then choose **Review deployments → environment → Approve and deploy**. This workflow publishes a release; the button's wording does not mean it deploys the application.
+
+After approval:
+
+```bash
+gh run watch "$RUN_ID" --exit-status
+gh release view "$TAG" --json url,isDraft,isPrerelease,targetCommitish
+mkdir -p "published-$RUN_ID"
+gh release download "$TAG" --dir "published-$RUN_ID"
+(cd "published-$RUN_ID" && sha256sum -c SHA256SUMS)
+cmp "review-$RUN_ID/SHA256SUMS" "published-$RUN_ID/SHA256SUMS"
+cmp "review-$RUN_ID/release.tgz" "published-$RUN_ID/release.tgz"
+```
+
+Both `cmp` commands should exit zero. This compares the published bytes with the files reviewed before approval. The Actions artifact's archive digest and the inner `release.tgz` checksum cover different files; do not compare those two digests to each other.
+
+### Part F: Recover without replacing the original
+
+- **Rejected before publication:** no release exists. Fix the reason for rejection and start a fresh run; a new candidate needs a new tag.
+- **Failed after draft creation:** inspect the draft and failed step. The workflow refuses to overwrite an existing draft or release. Keep the failed run, remove only an unpublished test draft after owner approval, and start a fresh gated run for the unchanged candidate. Never delete a published release to make a retry pass.
+- **Published but unsuitable:** open `gh release view "$TAG" --web`. Have the owner edit the release notes to warn readers not to use this version. Keep its tag and assets unchanged.
+
+For the recovery test, merge the reviewed correction and select it with a new tag:
+
+```bash
+git fetch origin "$BRANCH"
+export CANDIDATE="$(git rev-parse "origin/$BRANCH")"
+export TAG="v0.1.0-ch49.2"
+```
+
+Have the authorized operator create this tag using Part C's tag commands. Dispatch a fresh run using Part D's command, then follow Part E to approve and compare the published files. Link the corrected release from the original release notes. Keep both releases and the recovery run.
+
+For a route that also deploys the application, link Ch39's approved restore and smoke-test result. If the artifact or recovery route changed, repeat Ch39's gated restore with the retained known-good artifact. Publishing a corrected release alone does not prove deployment recovery.
+
+Keep the rejected run and approved run, release URL, checksum comparison, and recovery result as [completion evidence](../../../README.md#completion-evidence). Sample publication remains practice; customer completion needs the approved customer target.
+
+## References
+
 - [Managing releases](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository)
-- [Manually running a workflow](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow)
-- [About rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets)
-- [Release webhook event](https://docs.github.com/en/webhooks-and-events/webhooks/webhook-events-and-payloads#release)
+- [Deployment environments](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment)
+- [`gh release create`](https://cli.github.com/manual/gh_release_create)

@@ -1,4 +1,4 @@
-# Ch26: Migrate legacy VCS (SVN, Mercurial, TFVC, Perforce) to GitHub
+# Ch26: Convert one legacy VCS repository
 
 **Session outcome:** You have converted the selected legacy VCS repository to Git and pushed it to GitHub. You have checked the history and author mapping, and recorded large-file issues and cutover limitations.
 
@@ -34,13 +34,11 @@ DEST_REPO=<new-github-repo>
 VISIBILITY=private
 ```
 
-Create the destination repository only after you know which converted Git directory you will push.
-
-```bash
-gh repo create "$GITHUB_ORG/$DEST_REPO" --$VISIBILITY
-```
+Create the destination once, in Part E, after validating the converted history.
 
 ## Tasks
+
+Choose one converter, then complete Part E before any push. Ask the source owner to approve a write freeze for final export and cutover. Keep the original source read-only for recovery.
 
 ### Part A: Subversion: extract authors and convert with `git svn`
 
@@ -84,13 +82,7 @@ git for-each-ref --format='%(refname:short)' refs/remotes/origin/tags | \
   while read ref; do git tag "${ref#origin/tags/}" "refs/remotes/$ref"; done
 ```
 
-5. Push the converted repository to GitHub.
-
-```bash
-gh repo create "$GITHUB_ORG/$DEST_REPO" --private
-git remote add origin "https://github.com/$GITHUB_ORG/$DEST_REPO.git"
-git push --mirror origin
-```
+5. Continue to Part E with the local conversion. Do not push yet.
 
 ### Part B: Mercurial: convert with `hg-fast-export`
 
@@ -119,13 +111,10 @@ git init
 git checkout HEAD
 ```
 
-4. Inspect the converted refs and push to GitHub.
+4. Inspect the converted refs, then continue to Part E before pushing.
 
 ```bash
 git log --oneline --decorate --graph --all | head -50
-gh repo create "$GITHUB_ORG/$DEST_REPO" --private
-git remote add origin "https://github.com/$GITHUB_ORG/$DEST_REPO.git"
-git push --mirror origin
 ```
 
 ### Part C: TFVC: convert to Azure Repos Git first, then push to GitHub
@@ -140,9 +129,6 @@ DEST_REPO=<github-repo>
 
 git clone --mirror "https://dev.azure.com/$ADO_ORG/$ADO_PROJECT/_git/$ADO_GIT_REPO" tfvc-git-mirror
 cd tfvc-git-mirror
-gh repo create "$GITHUB_ORG/$DEST_REPO" --private
-git remote set-url origin "https://github.com/$GITHUB_ORG/$DEST_REPO.git"
-git push --mirror origin
 ```
 
 If you need Azure Repos Git repository migration patterns with metadata, use the Azure DevOps Git migration activity (ch21). This activity covers the legacy TFVC-to-Git prerequisite and the source-and-history Git push path.
@@ -160,13 +146,10 @@ git p4 clone //depot/path@all p4-converted
 cd p4-converted
 ```
 
-2. Review the converted history and push to GitHub.
+2. Review the converted history, then continue to Part E.
 
 ```bash
 git log --oneline --decorate --graph --all | head -50
-gh repo create "$GITHUB_ORG/$DEST_REPO" --private
-git remote add origin "https://github.com/$GITHUB_ORG/$DEST_REPO.git"
-git push --mirror origin
 ```
 
 For very large depots, migrate one depot path at a time and agree on branch mapping before cutover.
@@ -178,7 +161,7 @@ Run these checks in each converted Git repository before the final push.
 1. Confirm author identities map to the intended people.
 
 ```bash
-git log --all --format='%aN <%aE>' | sort -u | less
+git log --all --format='%aN <%aE>' | sort -u
 ```
 
 Fix bad identities in the source-specific author map and reconvert rather than accepting `unknown`, raw usernames, or fake email domains.
@@ -196,32 +179,38 @@ GitHub warns at 50 MiB and blocks files over 100 MiB. Move large binaries to Git
 
 ```bash
 git lfs install
-git lfs migrate import --include='*.zip,*.jar,*.bin,*.psd'
-git lfs push --all origin
+git lfs migrate import --everything --include='*.zip,*.jar,*.bin,*.psd'
 ```
 
-3. Plan around the 2 GiB single-push limit. For very large first imports, push history in batches, then finish with the full ref push.
+3. Compare the converted branches and tags with the source, including the default branch. Record any converter limitations and review its tracking refs before mirroring them. After the owner accepts the result, create the empty destination once and add a separate remote:
+
+```bash
+gh repo create "$GITHUB_ORG/$DEST_REPO" --private
+git remote add github "https://github.com/$GITHUB_ORG/$DEST_REPO.git"
+git push github --all
+git push github --tags
+# Only if the chosen conversion uses LFS:
+git lfs push --all github
+```
+
+For repositories that exceed the 2 GiB single-push limit, plan approved batches before executing those pushes:
 
 ```bash
 BRANCH=main
 git rev-list --reverse "$BRANCH" | awk 'NR % 1000 == 0' | \
-  while read commit; do git push origin "+$commit:refs/heads/$BRANCH"; done
+  while read commit; do git push github "$commit:refs/heads/$BRANCH"; done
 
-git push origin "$BRANCH"
-git push --tags origin
+git push github "$BRANCH"
+git push --tags github
 ```
 
-Repeat branch-by-branch if needed, or reduce the batch size for unusually large commits. If you need every ref exactly mirrored after successful batching, run `git push --mirror origin` only after the large history is already present on GitHub.
+Repeat for other required branches if needed. Compare the approved local branch and tag SHAs with `git ls-remote --heads --tags github`. Make a fresh clone and run the source project's tests. If LFS conversion rewrites history, get approval for the resulting refs.
 
 4. Document metadata gaps. These CLI conversions preserve source and commit history, but not issues, pull requests, reviews, permissions, CI/CD runs, work items, shelves, labels, or other collaboration metadata.
 
 ## Cleanup
 
-Delete only sample test GitHub repositories and local conversion directories when you no longer need the evidence.
-
-```bash
-gh repo delete "$GITHUB_ORG/$DEST_REPO" --yes
-```
+Remove only approved local conversion files after verification. Retain the GitHub destination and original source until the owner accepts cutover and its recovery plan.
 
 Do not delete or rewrite the original legacy source system during controlled validation.
 

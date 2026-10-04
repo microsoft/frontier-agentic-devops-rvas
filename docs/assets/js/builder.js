@@ -268,20 +268,7 @@
     }
 
     const groups = FP.groupActivities(items, _activeOutcome, _outcomes, _modules);
-
-    let html = '';
-    groups.forEach(({ name, description, items: gItems }) => {
-      html += `<div class="group-head">
-        <h3>${FP.esc(name)}</h3>
-        <span class="group-count">${gItems.length} activit${gItems.length === 1 ? 'y' : 'ies'}</span>
-        ${description ? `<p class="group-intro">${FP.esc(description)}</p>` : ''}
-      </div>
-      <div class="challenge-grid">`;
-      html += gItems.map((c) => selectCard(c)).join('');
-      html += '</div>';
-    });
-
-    grid.innerHTML = html;
+    grid.innerHTML = FP.renderActivityGroups(groups, selectCard);
     grid.querySelectorAll('.sel-card').forEach((card) => {
       card.addEventListener('click', () => toggle(card.dataset.id, card));
     });
@@ -335,9 +322,9 @@
     if (deselect) deselect.disabled = n === 0;
   }
 
-  /* Keep a stable module-based order for shared sets. */
+  /* Keep catalog order in shared sets. */
   function orderedIds() {
-    return FP.orderActivities(_all, null, _outcomes, _modules)
+    return FP.orderActivities(_all, _activeOutcome, _outcomes, _modules)
       .filter((c) => _selected.has(c.id))
       .map((c) => c.id);
   }

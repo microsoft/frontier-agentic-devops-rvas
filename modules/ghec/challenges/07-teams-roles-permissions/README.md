@@ -1,9 +1,9 @@
-# Ch07: Teams, roles and base permissions
+# Ch07: Organization and team access
 
-**Session outcome:** Nested teams grant repository access through least-privilege roles. Your access matrix shows each member's effective permissions and confirms that the grants match their responsibilities.
+**Session outcome:** Organization base permissions and team grants give members the access their work needs. Non-owner tests verify allowed actions and access limits.
 
 ## Prerequisites
-- Complete Ch52 (Enterprise Landing Zone & Organization Strategy) first if possible. Use its delegation register for enterprise-level team/role decisions. You can still complete this activity's organization-level model without it.
+- Approval to test the selected teams and repositories, with consenting non-owner members. Reuse existing organization-boundary decisions when available.
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch07 --org <org>` (least-privilege; for this activity: `admin:org` + `repo` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
@@ -46,6 +46,23 @@ Setup creates these resources (all names use the `ghec-ch07-*` prefix, and teard
 ## Tasks
 
 ### Part A: Build the team hierarchy
+Before creating teams, confirm the organization boundary with its owner. Reuse the existing organization unless there is an approved isolation or ownership need. Billing allocation alone does not require another organization; organizations in one enterprise cannot select different data-residency regions.
+
+Snapshot base permissions and membership:
+
+```bash
+export ORG="YOUR-ORG"
+gh api "orgs/$ORG" --jq '{default_repository_permission,members_can_delete_repositories,members_can_fork_private_repositories,two_factor_requirement_enabled}'
+gh api "orgs/$ORG/members?per_page=100" --paginate --jq '.[].login'
+gh api "orgs/$ORG/outside_collaborators?per_page=100" --paginate --jq '.[].login'
+```
+
+With approval, set **Organization settings → Member privileges → Base permissions** to Read or None, according to the customer's access model. Base permission combines with direct and team grants; the highest permission wins. Outside collaborators have repository-level access, not organization membership.
+
+Use a consenting non-owner member with no direct or team grant on a private test repository. Base Read should permit reading but not pushing; Base None should deny reading. Internal repositories remain readable to enterprise members, so they cannot prove the private-repository denial.
+
+**Repository creation belongs to Ch36.** Preserve its App exception and active repository policy; do not disable creation with a blanket setting here.
+
 1. Create a parent team `ghec-ch07-engineering` (reuse the seeded one) and two child teams under it: `ghec-ch07-frontend-squad` and `ghec-ch07-backend-squad`. Create children with the parent set, e.g. `gh api -X POST /orgs/<org>/teams -f name='ghec-ch07-frontend-squad' -F parent_team_id=<parent-id>`.
 2. Confirm nesting via `gh api /orgs/<org>/teams/ghec-ch07-frontend-squad --jq '.parent.name'` (should print the parent).
 3. Understand inheritance: any repository access you grant the parent flows down to both child teams. You'll use this in Part B.
@@ -56,7 +73,7 @@ Setup creates these resources (all names use the `ghec-ch07-*` prefix, and teard
    - `ghec-ch07-frontend-squad` → Write (`push`) on `ghec-ch07-frontend`.
    - `ghec-ch07-backend-squad` → Write (`push`) on `ghec-ch07-backend`.
    - Neither squad gets Write on `ghec-ch07-platform` (that's a protected, shared repo).
-6. Verify effective access: `gh api /orgs/<org>/teams/ghec-ch07-frontend-squad/repos/<org>/ghec-ch07-frontend --jq '.permissions'`. Confirm the squad has push on its own repo but only the inherited pull on others.
+6. Verify effective access: `gh api /orgs/<org>/teams/ghec-ch07-frontend-squad/repos/<org>/ghec-ch07-frontend -H 'Accept: application/vnd.github.v3.repository+json' --jq '.permissions'`. Confirm the squad has push on its own repo but only the inherited pull on others.
 
 ### Part C: Predefined repository roles
 7. Assign Maintain, not Admin. Create a child team `ghec-ch07-maintainers` and grant it the Maintain predefined role on `ghec-ch07-platform` (`-f permission=maintain`). Document *why* Maintain (manage settings/issues without full admin) fits a tech-lead pattern better than Admin.
@@ -64,15 +81,24 @@ Setup creates these resources (all names use the `ghec-ch07-*` prefix, and teard
 9. Map the five predefined roles (Read / Triage / Write / Maintain / Admin) to one sentence each describing the real-world persona that fits.
 
 ### Part D: Custom repository role
-10. Design a custom role the built-ins don't cover. For example, a "contractor" can push and manage issues but cannot manage webhooks, deploy keys, or delete the repo. Create it at the org: Org Settings → Repository roles → Create a role, basing it on Write and *removing* the sensitive permissions. (Or via `gh api -X POST /orgs/<org>/custom-repository-roles`.)
-11. Assign the custom role to a team on one repo (`-f permission=<custom-role-name>`), and verify it appears: `gh api /orgs/<org>/custom-repository-roles --jq '.custom_roles[].name'`.
-12. Prove the boundary: document which actions the custom role allows vs blocks, referencing the base role + the removed permissions.
+10. Start with a built-in role. **Custom repository roles add permissions to a base role; they cannot subtract inherited permissions.** Use built-in Write for a contributor who should push without administrative settings access.
+11. If the built-in role lacks a needed permission, select that permission in **Organization settings → Repository roles**. Create the role and assign it to a test team.
+12. As a non-owner test member, perform one allowed action and attempt one denied action. First check the member's direct grants and inherited access, including organization base permissions. The highest effective permission wins.
 
 ### Part E: Members and access matrix
-13. Add at least one member to each squad (or model it with your own account across teams) and confirm membership: `gh api /orgs/<org>/teams/ghec-ch07-frontend-squad/members --jq '.[].login'`.
-14. Produce an access matrix: for each repo, list which teams have which role, pulled from the API. Save it as `ACCESS.md` in `ghec-ch07-platform`.
+13. Add a consenting non-owner test member to each tested squad. Confirm membership and test read and write access as those members. An owner account cannot prove the member's access limits.
+14. Record each tested repository's team roles and effective member permissions in the existing access record or adoption issue. A separate access document is unnecessary if that record already exists.
 15. Diff against the "before" snapshot from setup to prove the org went from flat to modeled.
-16. Record the enterprise-level team/role delegation decision (enterprise teams, custom organization roles, IdP-driven team sync) in `ACCESS.md`: cite Ch52's delegation register entry, or an authorized enterprise export/inspection; if neither exists, record `enterprise policy not available / not applicable`. Don't infer enterprise-wide delegation from this one organization's team model.
+16. Use an existing enterprise delegation decision or authorized export when available. Do not infer enterprise policy from this organization's settings.
+
+### Organization defaults checklist
+
+Review these settings with the organization owner. Change only approved gaps and keep the before/after API output in the access record:
+
+- Restrict member deletion, transfer, and visibility changes to the intended administrators. Check private/internal forking against the approved contribution route. EMU cannot create public repositories.
+- Prefer read-only default Actions permissions. Check `gh api "orgs/$ORG/actions/permissions/workflow"`; set the approved default under **Organization settings → Actions → General**.
+- Read the 2FA posture without changing it during an access test. Enabling a requirement can remove members; use the customer's identity rollout for that change.
+- Check the default branch for new repositories and reuse the security defaults from the GHAS security-configuration session. A repository setting cannot prove an enterprise policy you cannot inspect.
 
 ## Reference links
 - [About teams](https://docs.github.com/en/organizations/organizing-members-into-teams/about-teams)

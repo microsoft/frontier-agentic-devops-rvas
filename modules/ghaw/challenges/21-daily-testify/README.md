@@ -1,126 +1,123 @@
-**Session outcome:** Daily Testify opens test-improvement issues, and Daily Test Improver proposes a test-only pull request for a human-approved issue. A maintainer reviews the changes before merging or closing the pull request.
+# Approved regression-test pilot
 
-## Required outcome
+**Session outcome:** One maintainer-approved issue becomes a test-only PR. The
+test passes on current code and fails for the known regression. An independent
+reviewer checks the result.
 
-Build a test-quality pipeline with human review for a repository the delivery team owns:
+This is a core alternative to the documentation pilot. Start directly
+after [setup](../00-setup/README.md) in a customer repository with an existing
+test runner. You do not need a discovery agent or a scheduled pipeline.
 
-1. Daily Testify reviews the test suite and opens a small number of specific `test-improvement` issues.
-2. A team member reviews those issues.
-3. Daily Test Improver reads approved issues and opens one focused, test-only pull request.
-4. A maintainer reviews and merges or closes the pull request.
+## Choose an approved issue
 
-Testify can create issues but cannot write code. Test Improver uses a reviewed issue to propose a test-only pull request for a maintainer to review.
+A maintainer records the affected behavior, expected result, test path, and
+actual test command. Identify a known bad revision or an approved, isolated
+mutation that the test must catch. Keep production fixes outside this test-only
+PR.
 
-> [!TIP]
-> [Bring your own repo](../../setup.md#bring-your-own-repo): pick one with established test conventions and named owners for tests and pull-request review. Configure the workflows for its language, framework, test directories, and quality standards.
+Create a dedicated approval label, such as `agent-test-approved`. Before the
+model starts, a trusted job must fetch the selected open issue and its approval
+event. Check that the label is present and a maintainer with an approved role
+applied it. Alternatively, require both the label and an issue author whose
+association is explicitly allowed, such as `OWNER`, `MEMBER`, or `COLLABORATOR`.
+Check current write permission when the team's policy requires it.
+Association alone is not proof of write access.
 
-## Workflows
+Validate these facts through API metadata in a
+[trusted pre-agent step](https://github.github.com/gh-aw/reference/steps-jobs/).
+The model must run only if those checks pass. Do not trust an issue body saying
+"approved" or let a triage bot add the approval label. Recheck approval and the
+issue state immediately before publishing.
 
-| Workflow | Schedule | Safe output | Purpose |
-|---|---|---|---|
-| Daily Testify | 09:00 | `create-issue` | Finds test-quality gaps and creates up to three issues with specific fix suggestions. |
-| Daily Test Improver | 10:00 | `create-pull-request` | Reads reviewed `test-improvement` issues and opens at most one test-only pull request. |
+**Stop if there is no approved issue.** Do not scan for a fallback task.
+Missing approval evidence must stop inference. API errors must fail visibly.
 
-The one-hour offset lets Testify create issues before the Improver evaluates them. The issue label and issue-body format are the contract between the workflows.
+## Implement one test
 
-## Build the pipeline
+Use the [test pilot starter](../../resources/examples/daily-test-improver.md)
+and [approval guard](../../resources/examples/pilot-guard.cjs):
 
-1. Install and verify `gh aw` with the [GHAW setup guide](../../setup.md).
+- Use `workflow_dispatch` with one issue number; keep the schedule disabled.
+- Limit editing to the approved test files. Give the agent read-only GitHub
+  access and only the tools needed to run this repository's tests.
+- Permit one `create-pull-request` output. Link the approved issue and use its
+  ID to check for duplicates. Skip work if an implementation PR already exists.
+- Set `create-pull-request.allowed-files` to the approved test paths.
+  The writer rejects any other changed file. Keep `protected-files: blocked`
+  and `fallback-as-issue: false`.
 
-2. Add the Testify workflow:
-   ```bash
-   gh aw add-wizard https://github.com/github/gh-aw/blob/main/.github/workflows/daily-testify-uber-super-expert.md
-   ```
+Compile with `gh aw compile daily-test-improver`. Inspect the generated
+permissions and approval checks, then deploy through review.
 
-3. Adapt Testify to the repository:
-   - Define the test framework, test directories, quality standards, and relevant anti-patterns.
-   - Require every issue to name the file, function or test, exact gap, and a one-sentence fix suggestion.
-   - Apply the `test-improvement` label and limit the workflow to three issues per run.
-   - Keep `safe-outputs: create-issue`; it must not create pull requests.
+## Copy and run the starter
 
-4. Add the Test Improver workflow:
-   ```bash
-   gh aw add-wizard https://github.com/githubnext/agentics/blob/main/workflows/daily-test-improver.md
-   ```
+From the customer checkout:
 
-5. Adapt Test Improver to the repository:
-   - Read open, reviewed issues labelled `test-improvement` before doing any general gap scan.
-   - Specify the test framework and supported assertion patterns.
-   - Restrict changes to test files; do not modify production source files.
-   - Open one pull request per run, with no more than three new test cases.
-   - Keep `safe-outputs: create-pull-request` and configure the pull-request reviewer.
-
-6. Compile both workflows:
-   ```bash
-   gh aw compile daily-testify-uber-super-expert
-   gh aw compile daily-test-improver
-   ```
-
-7. Run Testify manually. Review one created issue before allowing the Improver to act on it.
-
-8. Dry-run Test Improver:
-   ```bash
-   gh aw run daily-test-improver --dry-run
-   ```
-   Confirm that the proposed test works with the repository's framework and verifies behavior, rather than only raising coverage.
-
-## Expected workflow contracts
-
-### Daily Testify
-
-```markdown
----
-on:
-  schedule:
-    - cron: "0 9 * * *"
-  workflow_dispatch: {}
-
-permissions:
-  issues: write
-  contents: read
-
-safe-outputs:
-  create-issue: {}
-
-engine: copilot
----
+```bash
+CURRICULUM=/absolute/path/to/frontier-agentic-devops-rvas
+mkdir -p .github/workflows
+cp "$CURRICULUM/modules/ghaw/resources/examples/daily-test-improver.md" .github/workflows/
+cp "$CURRICULUM/modules/ghaw/resources/examples/pilot-guard.cjs" .github/workflows/
+node --test "$CURRICULUM/modules/ghaw/resources/examples/pilot-guard.test.cjs"
 ```
 
-The prompt must name the repository's test standards and require issues to use the `test-improvement` label. Each issue must describe a specific gap and how to fix it.
+Replace `42` in `APPROVED_ISSUE` and both PR prefixes with the chosen issue.
+Replace `test/approved-regression.test.js` in both `allowed-files` and the
+Markdown prompt. Keep the allowlist limited to the agreed test files.
+The supplied guard verifies who applied `agent-test-approved`, checks their
+current write access, and checks for an existing PR. A post-agent recheck loads
+the guard from the trusted workflow revision, rather than the agent's edits.
 
-### Daily Test Improver
+Use this prompt to adapt the runtime and assertion:
 
-```markdown
----
-on:
-  schedule:
-    - cron: "0 10 * * *"
-  workflow_dispatch: {}
-
-permissions:
-  contents: write
-  pull-requests: write
-  issues: read
-
-safe-outputs:
-  create-pull-request: {}
-
-tools:
-  github:
-    toolsets: [issues]
-
-engine: copilot
----
+```text
+Customize daily-test-improver.md for issue <number> and test file <path>.
+The expected behavior is <behavior>. The test command is <command>.
+The known bad revision or approved mutation is <revision or change>.
+Update the fixed issue, both PR prefixes, allowed-files, tool permissions,
+and runtime prompt together. Add only the runtime/dependency setup required
+by this repository. Preserve both approval checks and the test-only write policy.
+Compile the workflow. Do not deploy, dispatch, or change production code.
 ```
 
-Its prompt must first select a reviewed `test-improvement` issue, write only the associated tests, and link the pull request to that issue. If no suitable issue exists, it may identify one bounded coverage gap; it must still open no more than one pull request.
+The starter uses `node --test`; replace it if needed. Have the maintainer apply
+the approval label after documenting the behavior and bad-state check.
 
-## Common blockers
+```bash
+gh aw compile daily-test-improver
+```
 
-| Symptom | Fix |
-|---|---|
-| Testify produces vague issues | Require the exact file, function, gap, and proposed test behavior in every issue. |
-| Too many issues or pull requests | Limit Testify to three issues and Test Improver to one pull request per run. |
-| Test Improver changes application code | State that it may modify only the configured test directories. |
-| Generated tests pass trivially | Require a concrete expected value, side effect, error condition, or edge case. |
-| The Improver cannot act on an issue | Improve the Testify issue contract before rerunning the pipeline. |
+Review and merge the source, guard, and lock file. Then dispatch from the
+default branch, using the configured issue number:
+
+```bash
+gh workflow run daily-test-improver.lock.yml -f issue=42
+gh run list --workflow daily-test-improver.lock.yml --limit 5
+```
+
+The result should be one draft PR that changes only the approved test file,
+links the issue, and records the actual test result. Open its diff before
+running the bad-state check below.
+
+## Prove the regression
+
+Run the named test command with the new test on current code. In an isolated
+environment without credentials, apply that same test to the known bad revision
+or approved mutation and run the same command. It must fail at the intended
+assertion, not because dependencies or imports are missing. Restore the good
+state and confirm it passes again.
+
+Attach command outputs and the tested revisions to the PR. Production changes
+used to check that the test fails must not enter the PR. Have an independent
+reviewer confirm the assertion catches the issue, then complete the
+[shared acceptance check](../../setup.md#pilot-acceptance).
+
+Test an unapproved issue and an empty selection. Both must skip the model and
+create nothing. Rerun the approved issue and confirm there is no duplicate PR.
+
+## Optional discovery later
+
+If maintainers need help finding test gaps, add a separate read-only discovery
+workflow that proposes an issue with code evidence. A maintainer must approve it
+before implementation starts. Scheduling the workflows one hour apart does not
+establish approval. Neither workflow may grant it.

@@ -49,7 +49,7 @@ const MODULE_CONFIG = {
     description: 'Use GitHub Advanced Security to detect vulnerabilities and manage fixes across your repositories.',
     color: '#cf222e',
     icon: 'icon-ghas.svg',
-    expected_challenge_count: 13,
+    expected_challenge_count: 9,
     catalog_track_order: ['admin-governance', 'developer-flow'],
     tracks: {
       'admin-governance': { name: 'Admin & Governance', description: 'Configure GHAS policies and permissions, then manage rollout and reporting across the enterprise.' },
@@ -64,7 +64,6 @@ const MODULE_CONFIG = {
     tracks: {
       'hello-agent':              { name: 'Getting Started', description: 'Set up gh-aw and build basic schedule- and event-triggered workflows.' },
       'repo-concierge':           { name: 'Pull Requests & Issues', description: 'Automate review, triage, contributor guidance, and issue commands.' },
-      'continuous-intelligence': { name: 'Context & Orchestration', description: 'Pass results between workflows and connect repository context and MCP tools.' },
       'production-patterns':      { name: 'Repository Operations', description: 'Automate maintenance, quality, security, and planning with reviewed outputs.' },
     },
   },
@@ -88,6 +87,36 @@ const OUT_RESOURCES_DIR = path.join(__dirname, 'resources');
 const OUTCOMES_PATH  = path.join(ROOT, 'outcomes.json');
 const CURRENT_SOURCE_REPO = 'microsoft/frontier-agentic-devops-rvas';
 const CURRENT_SOURCE_REF = process.env.SOURCE_REF || 'main';
+
+// Resolve saved links without keeping duplicate activity folders or guides.
+const ACTIVITY_ALIASES = {
+  'ghec-ch06': 'ghec-ch07',
+  'ghec-ch16': 'ghec-ch20',
+  'ghec-ch17': 'ghec-ch20',
+  'ghec-ch35': 'ghec-ch01',
+  'ghec-ch43': 'ghec-ch42',
+  'ghec-ch47': 'ghec-ch02',
+  'ghec-ch50': 'ghas-admin-05',
+  'ghec-ch52': 'ghec-ch07',
+  'ghas-01': 'ghas-00',
+  'ghas-05': 'ghas-admin-05',
+  'ghas-06': 'ghas-admin-06',
+  'ghas-admin-04': 'ghas-admin-03',
+  'sre-agent-00': 'sre-agent-01',
+  'ghaw-01': 'ghaw-07',
+  'ghaw-03': 'ghaw-19',
+  'ghaw-08': 'ghaw-17',
+  'ghaw-09': 'ghaw-17',
+  'ghaw-10': 'ghaw-07',
+  'ghaw-11': 'ghaw-18',
+  'ghaw-12': 'ghaw-06',
+  'ghaw-14': 'ghaw-18',
+  'ghaw-16': 'ghaw-18',
+  'ghaw-20': 'ghaw-19',
+  'ghaw-23': 'ghas-admin-06',
+  'ghaw-24': 'ghaw-06',
+  'ghaw-25': 'ghec-ch01',
+};
 
 /* ─── Minimal YAML parser ────────────────────────────────────────────────────
  * Handles only the locked meta.yml contract: scalar key-value pairs, block
@@ -261,6 +290,9 @@ function validateLocalSourceAttribution(meta, metaPath) {
 function rewriteResourceLinksForPages(text, moduleId) {
   const moduleResources = `resources/${moduleId}/`;
   return text.replace(
+    /(\]\()(?:\.\.\/){3}README\.md/g,
+    `$1https://github.com/${CURRENT_SOURCE_REPO}/blob/${CURRENT_SOURCE_REF}/modules/README.md`,
+  ).replace(
     /(\]\()(https:\/\/microsoft\.github\.io\/resources\/|(?:\.\.\/)+[Rr]esources\/|\/[Rr]esources\/|(?:\.\/)?[Rr]esources\/)/g,
     `$1${moduleResources}`,
   ).replace(
@@ -282,13 +314,11 @@ function rewriteResourceLinksForPages(text, moduleId) {
 }
 
 function challengeIdFromSlug(moduleId, slug) {
-  if (moduleId === 'ghec' && /^ch\d+/.test(slug)) return `ghec-${slug.split('-')[0]}`;
-  if (moduleId === 'ghas' && /^\d+-admin-/.test(slug)) return `ghas-admin-${slug.split('-')[0]}`;
-  if (moduleId === 'ghas' && /^\d+-/.test(slug)) return `ghas-${slug.split('-')[0]}`;
-  if (moduleId === 'ghas' && /^s\d+/.test(slug)) return `ghas-${slug.split('-')[0]}`;
-  if (moduleId === 'ghaw' && /^\d+-\d+/.test(slug)) return `ghaw-${slug.split('-').slice(0, 2).join('-')}`;
-  if (moduleId === 'sre-agent' && /^\d+/.test(slug)) return `sre-agent-${slug.split('-')[0]}`;
-  return null;
+  if (!Object.hasOwn(MODULE_CONFIG, moduleId) || !/^[a-z0-9-]+$/.test(slug)) return null;
+  const metaPath = path.join(MODULES_DIR, moduleId, 'challenges', slug, 'meta.yml');
+  if (!fs.existsSync(metaPath)) return null;
+  const meta = normaliseMeta(parseMeta(fs.readFileSync(metaPath, 'utf8')), moduleId, slug);
+  return meta.id;
 }
 
 function copyGuideForPages(src, dest, moduleId) {
@@ -346,13 +376,54 @@ function copyModuleResources(moduleId) {
 }
 
 function readOutcomeConfig() {
-  if (!fs.existsSync(OUTCOMES_PATH)) return [];
   const parsed = JSON.parse(fs.readFileSync(OUTCOMES_PATH, 'utf8'));
-  return Array.isArray(parsed.outcomes) ? parsed.outcomes : [];
+  if (parsed.schema_version !== 1 || !Array.isArray(parsed.outcomes) || !parsed.outcomes.length) {
+    throw new Error('outcomes.json must use schema_version 1 and contain outcomes');
+  }
+  return parsed.outcomes;
 }
 
 function uniq(values) {
   return [...new Set((values || []).filter(Boolean))];
+}
+
+function outcomeActivityIds(outcome) {
+  return uniq(outcome.challenge_ids);
+}
+
+function validateOutcomes(outcomes, challenges) {
+  const errors = [];
+  const byId = new Map(challenges.map(c => [c.id, c]));
+  const seenOutcomes = new Set();
+  for (const outcome of outcomes) {
+    const label = `outcome "${outcome.id}"`;
+    if (!outcome.id || !outcome.name || seenOutcomes.has(outcome.id)) {
+      errors.push(`${label}: provide a unique id and a name`);
+    }
+    seenOutcomes.add(outcome.id);
+    if (!Array.isArray(outcome.challenge_ids) || !outcome.challenge_ids.length) {
+      errors.push(`${label}: challenge_ids must contain at least one activity`);
+      continue;
+    }
+    if (new Set(outcome.challenge_ids).size !== outcome.challenge_ids.length) {
+      errors.push(`${label}: duplicate activities`);
+    }
+    for (const id of outcome.challenge_ids) {
+      if (!byId.has(id)) errors.push(`${label}: unknown or retired activity "${id}"`);
+    }
+  }
+  return errors;
+}
+
+function enrichOutcome(outcome, challenges) {
+  const byId = new Map(challenges.map(c => [c.id, c]));
+  const ids = outcomeActivityIds(outcome);
+  return {
+    ...outcome,
+    challenge_ids: ids,
+    challenge_count: ids.length,
+    duration_minutes: ids.reduce((sum, id) => sum + byId.get(id).duration_minutes, 0),
+  };
 }
 
 /* ─── Cycle detection (DFS) ─────────────────────────────────────────────────*/
@@ -388,6 +459,8 @@ function main() {
   let errors   = 0;
   let warnings = 0;
   const allChallenges = [];
+  const retiredChallenges = { ...ACTIVITY_ALIASES };
+  const seenIds = new Set();
   const outcomes = readOutcomeConfig();
 
   fs.rmSync(OUT_RESOURCES_DIR, { recursive: true, force: true });
@@ -417,6 +490,11 @@ function main() {
 
       const raw  = parseMeta(fs.readFileSync(metaPath, 'utf8'));
       const meta = normaliseMeta(raw, moduleId, slug);
+      if (seenIds.has(meta.id)) {
+        console.error(`  ✗ duplicate activity id "${meta.id}"`);
+        errors++;
+      }
+      seenIds.add(meta.id);
       const sourceAttributionError = validateLocalSourceAttribution(meta, metaPath);
       if (sourceAttributionError) {
         console.error(`  ✗ ${sourceAttributionError}`);
@@ -429,6 +507,10 @@ function main() {
         if (!meta[f]) {
           console.warn(`  ! ${meta.id}: missing field "${f}"`);
           warnings++;
+        }
+        if (!Number.isFinite(meta.duration_minutes) || meta.duration_minutes <= 0) {
+          console.error(`  ✗ ${meta.id}: duration_minutes must be a positive number`);
+          errors++;
         }
       }
 
@@ -542,16 +624,21 @@ function main() {
     }
   }
 
-  for (const outcome of outcomes) {
-    if (!outcome.id || !outcome.name) {
-      console.error('  ✗ outcomes.json: every outcome needs id and name');
+  for (const [id, replacement] of Object.entries(retiredChallenges)) {
+    if (allIds.has(id) || !allIds.has(replacement)) {
+      console.error(`  ✗ retired "${id}" must point directly to an active activity, found "${replacement}"`);
       errors++;
     }
-    for (const challengeId of outcome.challenge_ids || []) {
-      if (!allIds.has(challengeId)) {
-        console.error(`  ✗ outcome "${outcome.id}": challenge_ids references unknown id "${challengeId}"`);
-        errors++;
-      }
+  }
+  for (const error of validateOutcomes(outcomes, allChallenges)) {
+    console.error(`  ✗ ${error}`);
+    errors++;
+  }
+  const outcomeActivitySet = new Set(outcomes.flatMap(outcomeActivityIds));
+  for (const id of allIds) {
+    if (!outcomeActivitySet.has(id)) {
+      console.error(`  ✗ active activity "${id}" needs an outcome`);
+      errors++;
     }
   }
 
@@ -570,7 +657,7 @@ function main() {
   /* ── 6. Enrich challenges with outcome journey membership ── */
   const challengeById = new Map(allChallenges.map(c => [c.id, c]));
   for (const outcome of outcomes) {
-    for (const challengeId of outcome.challenge_ids || []) {
+    for (const challengeId of outcomeActivityIds(outcome)) {
       const challenge = challengeById.get(challengeId);
       if (!challenge) continue;
       challenge.outcomes = uniq([...(challenge.outcomes || []), outcome.id]);
@@ -610,17 +697,7 @@ function main() {
     };
   });
 
-  const outputOutcomes = outcomes.map(o => {
-    const challengeIds = (o.challenge_ids || []).filter(id => allIds.has(id));
-    const totalMinutes = challengeIds.reduce((sum, id) => {
-      const c = challengeById.get(id);
-      return sum + (c && c.duration_minutes ? c.duration_minutes : 0);
-    }, 0);
-    return Object.assign({}, o, {
-      challenge_count: challengeIds.length,
-      duration_minutes: totalMinutes,
-    });
-  });
+  const outputOutcomes = outcomes.map(o => enrichOutcome(o, allChallenges));
 
   /* ── 8. Build dependency graph ── */
   const graphNodes = allChallenges.map(c => ({
@@ -654,6 +731,7 @@ function main() {
     modules,
     outcomes: outputOutcomes,
     challenges: outputChallenges,
+    retired_challenges: retiredChallenges,
   };
   fs.writeFileSync(
     path.join(OUT_DATA_DIR, 'platform.json'),
@@ -673,4 +751,6 @@ function main() {
   if (warnings > 0) console.warn(`  ${warnings} warning(s) — review above`);
 }
 
-main();
+if (require.main === module) main();
+
+module.exports = { validateOutcomes, enrichOutcome, outcomeActivityIds, challengeIdFromSlug, ACTIVITY_ALIASES };

@@ -1,5 +1,5 @@
 id: ghaw-00
-title: "Activity 00: Environment setup"
+title: "Activity 00: Customer workflow setup"
 module: ghaw
 track: hello-agent
 difficulty: beginner
@@ -8,7 +8,7 @@ prerequisites: []
 prerequisite_capabilities:
   - GitHub account
   - Basic Git and CLI usage
-description: "Prepare the Agentic Workflows environment and verify setup with a dry run."
+description: "Verify customer repository and engine access before deploying a reviewed workflow."
 tags:
   - setup
   - devcontainer

@@ -1,12 +1,17 @@
 # Activity 04 triage template
 
+Use the existing incident record when it has these fields. Label sample or packet
+work as practice.
+
 ## Incident summary
 
 - Incident ID:
-- Service: Grubify
+- Service: Grubify (replace with your service if needed)
 - Detected at:
 - Current status:
 - Customer impact:
+- Investigation start and end times:
+- Elapsed investigation time:
 
 ## Evidence collected
 
@@ -15,7 +20,7 @@
 | Azure Monitor alert | | |
 | Log Analytics result | | |
 | Application Insights trace/exception | | |
-| Grubify UI or endpoint check | | |
+| Grubify or customer service UI or endpoint check | | |
 | Runbook or knowledge reference | | |
 | Source-code reference | | |
 
@@ -32,6 +37,7 @@
 - Azure SRE Agent available? Yes / No / Fallback transcript
 - Response plan or custom agent used?
 - Evidence cited by the agent:
+- Unsupported or corrected claims:
 - Suggested mitigation:
 - Suggested issue or pull request:
 
@@ -40,6 +46,7 @@
 - Immediate mitigation:
 - Human approval required:
 - Validation check:
+- Recovery result and timestamp, or not tested with reason:
 - Rollback or forward-fix decision:
 
 ## Customer-safe update

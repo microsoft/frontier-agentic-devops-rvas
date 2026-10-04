@@ -3,16 +3,16 @@ title: Self-hosted and larger runners
 module: ghec
 track: automation-ai
 difficulty: advanced
-duration_minutes: 210
+duration_minutes: 120
 prerequisites: []
 prerequisite_capabilities:
 - GitHub organization with org-owner rights
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-- Repository provisioned via activity setup script
-- Optional ghec-ch52 approved organization topology and cost/organization-scope decision, when already established for the customer
-description: "Deploy a self-hosted runner with controlled access and workload isolation."
+- Approved CI repository, with a disposable isolated VM only for self-hosted testing
+- Approved organization and repository scope for runner access
+description: "Choose a runner and verify scoped access and host isolation when self-hosting."
 tags:
 - actions
 - self-hosted-runners
@@ -27,7 +27,7 @@ provision_creates:
 - hosted.yml (ubuntu-latest) + self-hosted.yml (label-targeted, queued until runner exists)
 - RUNNER-SETUP.md registration + hardening walkthrough (Linux/macOS/Windows)
 - HARDENING.md checklist (service account, ephemeral, fork-PR risk, egress)
-tier: core
+tier: stretch
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/18-self-hosted-runners/meta.yml
 license: MIT

@@ -1,11 +1,11 @@
 # GHAS module setup
 
-The GHAS developer activities use
-[OWASP Juice Shop](https://owasp.org/www-project-juice-shop/), an intentionally
-vulnerable Node.js application. The module also includes separate remote fixtures
-for the Admin & Governance track.
+Use the approved customer repository and its test environment for GHAS triage
+and remediation. Skip sample provisioning when that environment is ready.
+[OWASP Juice Shop](https://owasp.org/www-project-juice-shop/) is the intentionally
+vulnerable fallback for safe practice. The module also includes isolated admin fixtures.
 
-Developer activities need two environments:
+The Juice Shop fallback needs two environments:
 
 1. A local Juice Shop runtime for manual exploit testing.
 2. An org-owned Juice Shop repository where GitHub Advanced Security (CodeQL, Dependabot, and secret scanning) produces alerts.
@@ -57,7 +57,7 @@ For a local runtime, open [http://localhost:3000](http://localhost:3000). For Co
 ## Where to test and scan
 
 - Use local Juice Shop on port 3000 for manual exploit testing and application exploration.
-- Use the org-owned developer repository for GHAS alerts in activities 00 through 06.
+- Use the org-owned developer repository for GHAS alerts in activities 00 through 05.
 - Use admin fixture repositories for security configuration, secret protection,
   CodeQL enforcement, dependency protection, and campaign evidence.
 

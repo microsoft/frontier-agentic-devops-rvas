@@ -37,7 +37,7 @@ const state = {
     externalLinks: 0,
     versionClaims: 0,
     cronExpressions: 0,
-    challenges: 0,
+    activities: 0,
   },
   externalUrls: new Set(),
 };
@@ -172,7 +172,7 @@ function collectChallenges() {
     }
   }
   challenges.sort((a, b) => a.meta.id.localeCompare(b.meta.id));
-  state.counts.challenges = challenges.length;
+  state.counts.activities = challenges.length;
   return challenges;
 }
 
@@ -538,7 +538,8 @@ function auditInternalPagesUrl(fileRel, line, href) {
 function collectChallengeIds() {
   try {
     const platform = JSON.parse(readText(PLATFORM_PATH));
-    return new Set((platform.challenges || []).map(c => c.id));
+    return new Set([...(platform.challenges || []).map(c => c.id),
+      ...Object.keys(platform.retired_challenges || {})]);
   } catch {
     return new Set();
   }
@@ -628,7 +629,17 @@ function auditCatalog(challenges) {
   if (!fs.existsSync(PLATFORM_PATH) || !fs.existsSync(GRAPH_PATH)) return;
   const platform = JSON.parse(readText(PLATFORM_PATH));
   const graph = JSON.parse(readText(GRAPH_PATH));
-  const sourceIds = new Set(challenges.map(c => c.meta.id));
+  const active = challenges;
+  const sourceIds = new Set(active.map(c => c.meta.id));
+  const { ACTIVITY_ALIASES: expectedAliases } = require('../docs/build.js');
+  for (const [id, target] of Object.entries(expectedAliases)) {
+    if (platform.retired_challenges?.[id] !== target || sourceIds.has(id) || !sourceIds.has(target)) {
+      addError(rel(PLATFORM_PATH), 0, `retired activity ${id} must resolve to active ${target}`);
+    }
+  }
+  for (const id of Object.keys(platform.retired_challenges || {})) {
+    if (!Object.hasOwn(expectedAliases, id)) addError(rel(PLATFORM_PATH), 0, `stale replacement ${id}`);
+  }
   const catalogIds = new Set((platform.challenges || []).map(c => c.id));
   for (const id of sourceIds) if (!catalogIds.has(id)) addError(rel(PLATFORM_PATH), 0, `missing source challenge ${id}`);
   for (const id of catalogIds) if (!sourceIds.has(id)) addError(rel(PLATFORM_PATH), 0, `contains stale challenge ${id}`);
@@ -638,17 +649,26 @@ function auditCatalog(challenges) {
     if (!fs.existsSync(target)) addError(rel(PLATFORM_PATH), 0, `${c.id} student_path target missing: ${c.student_path}`);
   }
   const expectedEdges = new Set();
-  for (const c of challenges) for (const dep of c.meta.prerequisites || []) expectedEdges.add(`${dep}->${c.meta.id}`);
+  for (const c of active) for (const dep of c.meta.prerequisites || []) expectedEdges.add(`${dep}->${c.meta.id}`);
   const actualEdges = new Set((graph.edges || []).map(e => `${e.from}->${e.to}`));
   for (const edge of expectedEdges) if (!actualEdges.has(edge)) addError(rel(GRAPH_PATH), 0, `missing dependency edge ${edge}`);
   for (const edge of actualEdges) if (!expectedEdges.has(edge)) addError(rel(GRAPH_PATH), 0, `stale dependency edge ${edge}`);
   const moduleCounts = new Map();
-  for (const c of challenges) moduleCounts.set(c.moduleId, (moduleCounts.get(c.moduleId) || 0) + 1);
+  for (const c of active) moduleCounts.set(c.moduleId, (moduleCounts.get(c.moduleId) || 0) + 1);
   for (const mod of platform.modules || []) {
     const expected = moduleCounts.get(mod.id) || 0;
     if (mod.challenge_count !== expected) addError(rel(PLATFORM_PATH), 0, `${mod.id} challenge_count ${mod.challenge_count} != ${expected}`);
   }
   auditStaticChallengeCounts(platform);
+  const { validateOutcomes, enrichOutcome } = require('../docs/build.js');
+  const sourceOutcomes = JSON.parse(readText(path.join(ROOT, 'outcomes.json'))).outcomes;
+  const outcomeErrors = validateOutcomes(sourceOutcomes, platform.challenges || []);
+  for (const error of outcomeErrors) {
+    addError('outcomes.json', 0, error);
+  }
+  if (!outcomeErrors.length && JSON.stringify(platform.outcomes) !== JSON.stringify(sourceOutcomes.map(o => enrichOutcome(o, platform.challenges)))) {
+    addError(rel(PLATFORM_PATH), 0, 'generated outcomes differ from outcomes.json; rebuild');
+  }
 }
 
 function auditStaticChallengeCounts(platform) {
@@ -659,7 +679,7 @@ function auditStaticChallengeCounts(platform) {
   for (const file of [path.join(DOCS_DIR, 'index.html'), path.join(DOCS_DIR, 'catalog.html'), path.join(ROOT, 'README.md'), path.join(ROOT, 'modules', 'README.md')]) {
     if (!fs.existsSync(file)) continue;
     const text = readText(file);
-    const countRe = /\b(\d+)\s+challenges\b/gi;
+    const countRe = /\b(\d+)\s+(?:active\s+)?(?:activities|challenges)\b/gi;
     let match;
     while ((match = countRe.exec(text)) !== null) {
       if (!allowedCounts.has(match[1])) {

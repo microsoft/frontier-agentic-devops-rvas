@@ -1,5 +1,5 @@
 id: ghaw-07
-title: Issue comment commands
+title: Authorized issue summaries
 module: ghaw
 track: repo-concierge
 difficulty: intermediate
@@ -10,8 +10,8 @@ prerequisite_capabilities:
   - GitHub Actions basics
   - YAML syntax
   - gh-aw CLI installed. See ghaw-00.
-  - Completed at least two Hello, Agent activities
-description: "Let users summarize an issue thread with a comment command."
+  - A maintainer-approved command authorization policy
+description: "Authorize summary commands before the model runs and cite decisions in one updated comment."
 tags:
   - slash-commands
   - issue-comments
@@ -20,7 +20,7 @@ tags:
 app_dependency: none
 emu_compatible: true
 min_environment: repo
-tier: core
+tier: stretch
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghaw/challenges/07-slash-and-burn/meta.yml
 license: MIT

@@ -1,20 +1,27 @@
 # Activity 2: Secret Protection operations
 
-**Session outcome:** Secret scanning finds the seeded secrets, and push protection blocks a synthetic secret. A separately reviewed bypass and a published custom pattern produce alerts you can query. The UI and API show the same final resolution states.
+**Session outcome:** Secret scanning detects the test secrets and push protection blocks a synthetic secret. The UI and API show the same alert response. Test delegated bypass or custom patterns only when the customer needs them.
 
 ## Before you start
 
 - Complete `ghas-admin-01`.
 - Use an organization-owned test repository where GitHub Secret Protection is licensed.
-- Assign two people:
-  - The operator provisions the repository, pushes the test commits, and requests the bypass.
-  - The reviewer reviews the delegated request from a different GitHub account.
+- Assign an operator to test detection and push protection, then handle the alerts.
+- For the delegated-bypass branch, assign a reviewer using a different GitHub account.
 - Install `gh`, `git`, and `jq`.
 - Never replace the seeded values with a live credential.
 
-The operator needs repository administration and secret-scanning alert access. The reviewer needs the role or custom-role permission that GitHub requires to review push protection bypass requests. Keep an organization owner or security manager available for alert dismissal and incident escalation.
+The operator needs repository administration and secret-scanning alert access.
+For delegated bypass, the reviewer needs GitHub's required review permission.
+Keep an organization owner or security manager available for incident escalation.
+
+Complete steps 1 through 4 and step 7 to test detection and push protection, then
+verify the alert response. Steps 5 and 6 apply only when the customer needs those
+controls. Record each one's result as passed, not selected, or blocked.
 
 ## Provision the test repository
+
+For an approved customer repository, skip fixture provisioning and apply only the controls and response steps it needs. Do not seed synthetic secrets into production history. Use the isolated fixture for detection or bypass practice; use the customer path below for a real incident.
 
 The fixture imports OWASP Juice Shop at `v20.0.0`, strips upstream Git history, and creates new GHAS lab history. It then adds two synthetic AWS credential pairs on `main`, a safe custom-pattern candidate, `SECRETS-MANIFEST.md`, and the `seed/push-protection-history` branch.
 
@@ -51,7 +58,7 @@ Open **Settings > Advanced Security** for the repository. Enable:
 - Secret scanning.
 - Push protection.
 - Validity checks, if the organization permits provider checks.
-- Delegated bypass for push protection, with the reviewer assigned.
+- Delegated bypass for push protection, with the reviewer assigned, only if step 5 is selected.
 
 Verify the two required controls through the API:
 
@@ -148,13 +155,17 @@ GitHub must reject the push and report the expected secret type and file. Save t
 
 If the push succeeds without a block, this item fails. Confirm that push protection is enabled and that the provider pattern supports push protection, then repeat with a new branch and new synthetic pair.
 
-## 5. Run delegated bypass with another reviewer
+## 5. Test delegated bypass if required
+
+Use this branch when the customer requires reviewed push-protection bypass.
+Otherwise, leave the rejected commit unpushed and return to a clean branch before
+continuing to step 7. Do not bypass protection just to complete the core path.
 
 Open the request URL from the blocked push. The operator submits a bypass request with this reason:
 
 > Synthetic GHAS Admin 02 validation. Approval is limited to this test commit; remove the value after the alert is recorded.
 
-The assigned reviewer checks the repository, commit, secret type, and request comment. The reviewer approves this controlled request from their own GitHub account. If the requester reviews the request, the lab does not pass.
+The assigned reviewer checks the repository, commit, secret type, and request comment. The reviewer approves this controlled request from their own GitHub account. Self-review fails this branch.
 
 Bypass requests expire after **seven days**. An expired request must be submitted again. Record the request date and expiry date in the evidence issue so reviewers know the deadline.
 
@@ -185,7 +196,10 @@ Confirm that the alert shows the operator as requester, the other account as rev
 
 Remove the file in a new commit and push the cleanup. Then resolve the alert as `used_in_tests`. The bypass created an exposure record even though the value was synthetic.
 
-## 6. Publish a custom pattern and create a live alert
+## 6. Publish a custom pattern if required
+
+Use this branch when provider patterns do not cover a customer token format.
+Use the safe fixture below to test publishing without a real token.
 
 Open **Settings > Advanced Security > Custom patterns** and create a repository pattern:
 
@@ -216,7 +230,7 @@ Resolve the custom-pattern alert as `used_in_tests` with a comment that names th
 
 ## 7. Verify the final state in the UI and API
 
-Open **Security > Secret scanning**. Check the default and custom-pattern alert lists. Then run:
+Open **Security > Secret scanning**. Check the provider alerts and any selected custom-pattern alerts. Then run:
 
 ```bash
 gh api "repos/$ORG/$REPO/secret-scanning/alerts?per_page=100" --paginate \
@@ -237,27 +251,50 @@ Update the evidence issue with:
 - The enabled control state.
 - Manifest rows matched to alert numbers.
 - The clean and blocked push commit SHAs.
-- The bypass requester, reviewer, decision, and seven-day expiry date.
-- The published custom-pattern ID and live alert number.
+- For selected bypass tests, the requester, reviewer, decision, and seven-day expiry date.
+- For selected custom-pattern tests, the published pattern ID and live alert number.
 - Each resolution reason and final API state.
 - Any incident handoff, including who rotated or revoked a credential and how they verified the old value was unusable.
 
 Do not close the evidence issue while a real credential action or incident handoff is open.
 
+## Customer path: Respond to an exposed credential
+
+Use the application's existing incident process and the credential owner. Never introduce a real credential to test scanning.
+
+1. Link the alert to the incident. Confirm the affected provider and exposure scope without copying the value. The credential owner revokes or rotates it and verifies that the old value no longer works. Review its use during the exposure.
+2. In the application checkout, locate the hardcoded value and its consumers. Replace it with the approved runtime-secret configuration. For Node.js, that may use `process.env`; keep the existing secret-management library when the application has one. Missing required configuration must fail clearly rather than fall back to a fixture credential.
+3. Document required configuration names without values. Add or update application tests for startup configuration and the affected authentication or integration behavior.
+4. Open a PR linking the alert and incident. Obtain independent review, pass the application's checks, and merge. Confirm the deployed application uses the replacement through the approved deployment process.
+5. Resolve the alert only after the credential-owner action and application verification are complete. Record revocation or rotation evidence and the reviewed PR. Removing source text does not revoke a credential or remove it from history.
+
+If you need Copilot help, use this prompt with the affected code, excluding credential values:
+
+```text
+Replace this hardcoded credential lookup with the application's approved
+runtime secret configuration. Keep its existing library and error handling.
+Add tests for missing configuration and the affected behavior. Never include
+the old or replacement value in code, logs, test fixtures, or documentation.
+Identify any deployment configuration the owner must approve separately.
+```
+
+A never-issued fixture value may be resolved as `used_in_tests`. State that limitation; it cannot prove real credential revocation.
+
 ## Completion check
 
-The lab passes only when GitHub shows all of these results:
+The core path passes only when GitHub shows all of these results:
 
 - Secret scanning and push protection are enabled.
 - Seeded history matches `SECRETS-MANIFEST.md`.
 - Every seeded provider alert has an explicit resolution reason.
 - The clean push succeeded and the synthetic secret push was blocked.
-- A different reviewer approved the delegated bypass.
-- The approved push produced a bypass alert that the API can query.
-- The published custom pattern produced a live alert.
 - The UI and API agree on the final alert state.
 
-Mark any unavailable licensed feature **blocked** in the evidence issue. Do not replace it with a tabletop, policy draft, or screenshot from another repository.
+If you tested delegated bypass, record the separate review and queryable bypass
+alert. For a custom pattern, record the published pattern and live alert.
+Mark required but unavailable features **blocked**. Mark unused branches
+**not selected** and state when the customer would need them. These statuses do not
+prove the feature works. A draft or dry run cannot replace live evidence.
 
 ## References
 

@@ -10,7 +10,9 @@ templates, and the isolated Admin & Governance fixtures.
 | `github/workflows/codeql.yml` | Runs CodeQL on pushes, PRs, a weekly schedule, and manual dispatch. Scans JavaScript and TypeScript. |
 | `github/codeql/codeql-config.yml` | Excludes compiled output (`app/build/`), source maps, test fixtures, and vendored JavaScript to prevent parse errors and duplicate findings. |
 | `github/dependabot.yml` | Checks npm and GitHub Actions dependencies weekly, groups minor and patch updates, and limits open PRs to 10. |
-| `ghas-governance-practice.template.md` | Records GHAS scope and ownership, findings, prevention patterns, response decisions, and operating cadence. |
+| `ghas-governance-practice.template.md` | Optional fields for decisions missing from existing GitHub work. |
+| `start-remediation.md` | Shared finding and ownership checks used inside each remediation case. |
+| `license-exception.yml` | Optional time-bound legal intake for the existing dependency-review gate. |
 | `provisioning/README.md` | Lists the four admin fixtures, their repository boundaries, and provision, status, and teardown commands. |
 | `provisioning/challenges/` | Holds separate Bash and PowerShell provisioners for admin activities 01 through 06. |
 
@@ -47,5 +49,5 @@ Once pushed:
 
 Start with [`provisioning/README.md`](provisioning/README.md). The admin track uses
 four separate fixtures so each teardown affects only its own files and
-repositories. Activities 01 and 06 share one repository. Activities 03 and 04 share the prepared CodeQL
-pull request. Activities 02 and 05 use their own repositories.
+repositories. Activities 01 and 06 share one repository. Activity 03 uses one CodeQL
+repository through coverage and merge enforcement. Activities 02 and 05 use their own repositories.

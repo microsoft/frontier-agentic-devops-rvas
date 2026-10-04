@@ -3,7 +3,7 @@ title: Enterprise agent configuration
 module: ghec
 track: admin-governance
 difficulty: advanced
-duration_minutes: 210
+duration_minutes: 120
 prerequisites: []
 prerequisite_capabilities:
   - Enterprise owner access to AI Controls, or a named enterprise owner who can approve and apply the implementation
@@ -11,7 +11,7 @@ prerequisite_capabilities:
   - Copilot Business or Copilot Enterprise availability for the intended organizations
   - Named enterprise AI-controls, security, platform, and organization-policy owners
   - A customer-owned change record, evidence location, and rollback approver
-description: "Publish governed Copilot custom agents with controlled updates and rollback."
+description: "Scale a tested Copilot agent across organizations with reviewed updates and rollback."
 tags:
   - copilot
   - custom-agents
@@ -26,7 +26,7 @@ emu_compatible: true
 min_environment: enterprise
 provision_creates:
   - ghec-ch34-enterprise-agent-configuration
-tier: core
+tier: stretch
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/34-enterprise-agent-configuration/meta.yml
 license: MIT

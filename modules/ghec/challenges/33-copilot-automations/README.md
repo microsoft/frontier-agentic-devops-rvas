@@ -1,6 +1,6 @@
 # Ch33: Copilot automations
 
-**Session outcome:** Your Copilot cloud-agent automation runs on a bounded trigger with least-privilege tools. An independent human reviewer has assessed its output, and your team has session and audit records for operating or rolling it back.
+**Session outcome:** The automation runs only for a matching event. You record who owns it, and an independent human reviews its draft PR before merge.
 
 > This activity does not require another activity's repository, workflow, agent, or policy change.
 
@@ -26,8 +26,8 @@ An Agentic DevSecOps team wants to automate routine work without letting untrust
 > Use an approved customer target first
 >
 > - If an approved private/internal customer repository is available, use it throughout and retain evidence in the customer-owned location.
-> - If no target is approved, use the idempotent, private fallback repository `ghec-ch33-copilot-automations` only to prepare and validate the decision package. It does not create or enable an automation. Do not treat the fallback as customer adoption.
-> - If licensing, policy, or eligibility is unavailable, leave the automation disabled. Complete Part A's decision-package fallback and record the blocker, evidence, accountable owner, and next decision date.
+> - If no target is approved, record that blocker. The private `ghec-ch33-copilot-automations` fallback is optional practice; it does not create or enable an automation and is not customer adoption.
+> - If licensing, policy, or eligibility is unavailable, leave the automation disabled. Record the blocker and its owner in the existing adoption issue.
 
 Create the safe fallback only when needed:
 
@@ -57,25 +57,23 @@ This session covers **Copilot automations**: a Copilot cloud-agent task defined 
 
 | Capability | What it is | Ch33 treatment |
 |---|---|---|
-| **Copilot automations** | User-private cloud-agent configurations that run a prompt on a schedule or supported repository event. They select a model and tools in the UI, are not stored in Git, and create attributable cloud-agent sessions. | **In scope.** Configure one approved, bounded automation or complete the no-enable decision package. |
+| **Copilot automations** | User-private cloud-agent configurations that run a prompt on a schedule or supported repository event. They select a model and tools in the UI, are not stored in Git, and create attributable cloud-agent sessions. | **In scope.** Configure one approved, bounded automation. Missing eligibility leaves setup blocked. |
 | **GitHub Actions** | Repository-defined YAML workflows that execute prescribed steps in response to workflow triggers. | **Not a substitute for an automation.** Do not create, alter, or use an Actions workflow as Ch33's automation. Actions may require a write-access user to approve workflow runs from cloud-agent output; retain that approval evidence when applicable. |
 | **GitHub Agentic Workflows** | Markdown-defined, compiled GitHub Actions workflows that run coding agents with declared frontmatter and safe outputs. | **Out of scope.** GitHub Agentic Workflows are a public-preview feature and are not enabled, piloted, or substituted for Copilot automations in this session. |
 
 ## Tasks
 
-### Part A: Select the target and establish the decision package
+### Part A: Select the target and task
 
 1. Identify a customer-owned **private or internal** repository and record its URL, visibility, business purpose, data classification, customer repository owner, automation creator, independent reviewer, security owner, Copilot owner, and evidence location.
 2. Inspect and retain dated evidence of the creator's write access, applicable Copilot plan, cloud-agent policy, organization automation policy, and repository eligibility. For Business and Enterprise, record the administrator and policy source that enables cloud agent.
 3. Confirm the repository is not EMU-owned. If it is, stop this activity for that repository and record the limitation; do not use an EMU repository as an automation target.
-4. Choose one small customer task with an explicit success condition, allowed repository area, allowed data classes, maximum frequency, cost owner, and disable condition. Default to label-only or draft-output behavior. Do not begin with a broad remediation, deployment, secret access, or cross-repository task.
-5. If any approval, license, policy, or eligibility gate is unavailable, create the decision package instead of an automation. Record the failed prerequisite, supporting evidence, the owner who can resolve it, a safe temporary process, and the next decision date.
+4. Choose one small maintenance task that produces a draft PR in an approved path. Reuse Ch31's setup and Ch32's review controls. Define the expected test and when to disable the automation. Exclude deployment and secret access, and keep all work in this repository.
+5. If any approval, license, policy, or eligibility gate is unavailable, stop setup. Record the failed prerequisite and the owner who can resolve it in the existing adoption issue. A separate fallback repository is unnecessary.
 
 ### Part B: Design trigger, filters, prompt, and tools
 
-6. Select the trigger deliberately:
-   - **Schedule:** hourly, daily, or weekly only when a fixed cadence is safer than reacting to individual content. State the maximum acceptable run rate and expected Actions-minutes/AI-credit cost owner.
-   - **Event:** choose issue created, pull request opened, or pull request synchronized. Explain why the selected event provides the narrowest safe trigger.
+6. Choose a supported repository event and a narrow filter for the maintenance task. State the maximum acceptable run rate and cost owner. A schedule is optional after event tests pass.
 7. For an event trigger, configure and retain its filter evidence:
    - For an issue-created trigger, use a customer-approved search-query filter.
    - For a pull-request-opened or synchronized trigger, use a customer-approved search-query filter and changed-files filter.
@@ -86,31 +84,28 @@ This session covers **Copilot automations**: a Copilot cloud-agent task defined 
 
 ### Part C: Configure and prove the automation
 
-11. In the target repository, open **Agents** → **Automations** → **Create new**. Enter the approved name, trigger(s), filters, prompt, model choice (if changed), and least-privilege tools. Save only after a second person checks the recorded decision package against the UI.
+11. In the target repository, open **Agents** → **Automations** → **Create new**. Enter the approved name, trigger(s), filters, prompt, model choice (if changed), and least-privilege tools. Have a second person check the scope and tools before saving.
 12. Use **Run now** or a controlled trusted trigger to start the first session. Do not use a public or untrusted issue/PR as test input.
 13. Follow the resulting cloud-agent session. Capture the session URL and log, trigger time and identity, selected tools, model (if displayed), inputs considered, actions taken, cost/usage evidence, and final outcome.
-14. If the run opens a pull request or pushes code, inspect the diff against the written acceptance criteria, confirm the attribution identifies the automation creator, and verify the creator does not approve the attributed PR. Require an independent human reviewer and all normal customer checks before merge. Do not grant an automation, Copilot, or its creator a ruleset bypass to make this exercise pass.
+14. Inspect the resulting draft PR and attribution. The creator must not approve output attributed to them. Require passing CI and independent human review before merging. If no reviewable PR appears, investigate or record the run as incomplete. A label alone does not complete the task.
 15. If the cloud-agent output would trigger a GitHub Actions workflow, a user with write access must approve that workflow run unless the customer has separately approved automatic workflow execution. Retain that approval or the separate approved-policy evidence.
 
 ### Part D: Retain audit evidence and set operating controls
 
 16. Capture audit-log evidence for the configuration/session activity available to the customer administrator, including collector, date/time range, search/export location, and any retention/access limitation. Pair it with the session log; neither replaces the other.
-17. Record a runbook: owner and backup, allowed task class, schedule/event and filter, prompt revision date, tools, repository boundary, review/merge controls, cost owner and budget check, evidence location, alert/escalation route, and review cadence.
+17. Record the creator and backup contact, with instructions for disabling the automation. Automations are private to their creators, even in team-owned repositories. When the creator leaves, disable the original. The approved successor must recreate and test it.
 18. Define stop conditions: unexpected tool use, a prompt-injection attempt, an untrusted-event exception request, excessive cost/run frequency, sensitive-data exposure, failed checks, or out-of-scope changes. The immediate response is to disable the automation, preserve evidence, notify the named owner, and reassess before re-enabling.
 19. Record whether the automation was enabled for the authorized repository, left disabled, unavailable, or not applicable. Do not label a fallback repository or a dry decision package as a production rollout.
 
 ## Decision-package fallback
 
-When a live automation is unavailable, retain this minimum package in the customer evidence location (or in the fallback repository's `docs/AUTOMATION-DECISION-PACKAGE.md`): the customer repository URL/visibility with owner, proposed creator, independent reviewer, and security/Copilot owner; eligibility evidence (Copilot plan, cloud-agent/automations policy, write access, private/internal result, EMU result); the proposed task, trigger, filter, prompt boundary, requested tools, and cost owner; the safety decisions retained (untrusted-event default, prompt-injection controls, review/merge rule, workflow-run approval posture); the blocker with dated evidence; and the decision (leave disabled/unavailable/not applicable, resolver, next decision date, rollback route).
+When live setup is unavailable, keep the target, intended task, and failed
+eligibility or approval check in the existing adoption issue. Name the owner
+who can resolve it. A draft configuration can help that owner decide; a full
+decision package or a new repository is not required. Mark implementation
+**blocked / not tested**.
 
-## Evidence checklist
-
-- Record eligibility: private/internal repository, non-EMU result, plan, cloud-agent and automations policy, write access, and authorized scope.
-- Retain configuration evidence: automation owner, trigger cadence/event, filters and controlled test, prompt revision, selected/rejected tools, and model if changed.
-- Verify safety controls: default untrusted-event behavior, prompt-injection boundary, no secrets in the prompt, and no bypasses.
-- Retain the session-log URL, trigger/run time, actions, usage/cost owner, outcome, and any PR/issue URLs.
-- Record attribution to the creator, independent reviewer, required checks, merge decision, and any required workflow-run approval.
-- Retain audit-log collection evidence and its location. Record review cadence, stop conditions, disable/rollback steps, and the next decision.
+Keep the reviewed draft PR and both event results. The non-matching event must not start a session.
 
 ## Reference links
 

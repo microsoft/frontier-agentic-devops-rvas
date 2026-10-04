@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Creates the live CodeQL fixture for ghas-admin-03 and ghas-admin-04.
+# Creates the live CodeQL coverage and enforcement fixture for ghas-admin-03.
 # The advanced workflow stays on a recovery branch so participants must start
 # with default setup. Teardown removes fixture artifacts, never the repository.
 
@@ -10,7 +10,7 @@ ACTION="${1:-provision}"
 [[ $# -gt 0 ]] && shift
 
 ORG=""
-REPO="ghas-admin-03-04-codeql-live-lab"
+REPO="ghas-admin-03-codeql-live-lab"
 JUICE_SHOP_REF="v20.0.0"
 DRY_RUN="false"
 ASSUME_YES="false"
@@ -29,7 +29,7 @@ Usage:
 
 Options:
   --org <org>       Target organization
-  --repo <repo>     Target repository (default: ghas-admin-03-04-codeql-live-lab)
+  --repo <repo>     Target repository (default: ghas-admin-03-codeql-live-lab)
   --ref <ref>       Juice Shop ref used when creating the repo (default: v20.0.0)
   --dry-run         Print mutations without running them
   --yes             Confirm fixture-artifact teardown
@@ -108,7 +108,7 @@ EOF
 
 render_vulnerability() {
   cat <<'EOF'
-// ghas-admin-04 fixture. Deliberately vulnerable. Do not ship.
+// CodeQL enforcement fixture. Deliberately vulnerable. Do not ship.
 const express = require('express')
 const sqlite3 = require('sqlite3')
 const router = express.Router()
@@ -152,7 +152,7 @@ EOF
 
 render_issue() {
   cat <<EOF
-This fixture supports \`ghas-admin-03\` and \`ghas-admin-04\`.
+This fixture supports CodeQL coverage and merge enforcement in \`ghas-admin-03\`.
 
 Repository state:
 
@@ -161,11 +161,10 @@ Repository state:
 - \`$VULNERABLE_BRANCH\` contains \`$VULNERABLE_PATH\`.
 - The open pull request from \`$VULNERABLE_BRANCH\` is the merge-enforcement test.
 
-Start with CodeQL default setup. Configure JavaScript/TypeScript only for the first
-run, find the missing Python coverage, add Python, and run CodeQL again.
+Start with CodeQL default setup and the actual languages. For optional isolated
+coverage practice, omit Python first, find the gap, and restore its coverage.
 
-Keep the vulnerable pull request unchanged during ghas-admin-03. In ghas-admin-04,
-activate Require code scanning results, prove that the pull request is blocked, then
+Activate Require code scanning results, prove that the pull request is blocked, then
 replace \`$VULNERABLE_PATH\` with the output of:
 
 \`\`\`bash
@@ -331,7 +330,7 @@ ensure_pr() {
 
   gh api -X POST "repos/$FULL_REPO/pulls" \
     -f "base=main" -f "head=$VULNERABLE_BRANCH" -f "title=$PR_TITLE" \
-    -f "body=Prepared vulnerable pull request for ghas-admin-04. Fixture details: #$issue_number" \
+    -f "body=Prepared vulnerable pull request for ghas-admin-03 merge enforcement. Fixture details: #$issue_number" \
     --jq '.number'
 }
 

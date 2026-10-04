@@ -51,13 +51,13 @@ The fallback is intentionally isolated and namespaced `ghec-ch32-*`. It creates 
    - New-push review increases coverage but can repeat comments and consume additional capacity.
    - Draft review can surface feedback early but may create noise before a human is ready to request review.
    - Neither option is required to complete this activity.
-11. Validate on one non-sensitive pilot PR: capture the ruleset export, the PR timeline showing the automatic request, comment triage, human/CODEOWNERS review, and the result. If access or policy prevents the pilot, complete the decision package rather than forcing enablement.
+11. Validate on one non-sensitive pilot PR: capture the ruleset export, the PR timeline showing the automatic request, comment triage, human/CODEOWNERS review, and the result. If access or policy prevents the pilot, record the blocker rather than forcing enablement.
 
 ### Part D: Align setup and review context
 
-12. Inspect `.github/copilot-instructions.md`, `AGENTS.md`, and applicable path-specific `.github/instructions/**/*.instructions.md`. Keep review guidance factual: supported commands, intentional patterns, security checks, and paths requiring human owner review. Copilot uses instructions from the PR's **base branch**.
-13. Inspect the shared `.github/workflows/copilot-setup-steps.yml`. Copilot code review reuses this setup by default. Keep it least-privilege, reproducible, and suitable for both code review and any cloud-agent use that shares it.
-14. Assess an optional dedicated `.github/workflows/copilot-code-review.yml` when code review needs a different environment. If present, it takes precedence over the shared setup file for code review. Record runner, permissions, dependencies, network/firewall controls, cost owner, and rollback.
+12. Use the [first-run setup and instructions](../../resources/copilot-first-run.md) in this same review. Inspect instruction files from the PR's **head branch** and review their changes because they influence Copilot's findings.
+13. Reuse a working `.github/workflows/copilot-setup-steps.yml` when present. Code review uses the shared setup by default. Add basic setup only if this review needs it, then verify the actual review used it. Ch31 is not a prerequisite.
+14. Use optional Ch31 only for a genuine runtime, private-dependency, or runner gap. A dedicated `.github/workflows/copilot-code-review.yml` takes precedence for review; configure it only when the shared environment is insufficient.
 15. **Preview capabilities are optional.** Do not enable MCP tools, agent skills, "Fix with Copilot," or any other public-preview capability to complete this activity. If the customer elects to assess one, record availability, data/tool boundary, approval, and a separate rollback decision.
 
 ### Part E: Evidence, rollback, and handover
@@ -67,7 +67,11 @@ The fallback is intentionally isolated and namespaced `ghec-ch32-*`. It creates 
 
 ## Decision-package fallback
 
-When Copilot code review, policy authority, Actions capacity, or a customer repository is unavailable, deliver a decision package instead of a simulated enablement: the effective policy/plan result and why a live pilot didn't run; the proposed repository cohort, branches, PR types, and automatic-review options considered; the required human reviewers, `CODEOWNERS`, and merge rules (with a statement that Copilot is not an approval); the shared/dedicated setup-file assessment; the risk/rollback plan; and a named approver with review date.
+When a required feature, approval, or repository is unavailable, record the
+failed check and its owner in the existing adoption issue. Keep proposed
+configuration only when it helps that owner decide. Do not simulate enablement
+or require a separate decision package. Mark implementation
+**blocked / not tested**; Copilot findings never replace human approval.
 
 ## Reference links
 

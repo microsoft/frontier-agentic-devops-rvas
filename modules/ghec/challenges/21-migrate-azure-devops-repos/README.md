@@ -18,13 +18,13 @@ Access and tools you need:
 - Install and verify the GitHub Enterprise Importer Azure DevOps extension.
 - Create and store the required `GH_PAT` and `ADO_PAT` environment variables safely.
 - Produce an Azure DevOps repository inventory and choose a realistic pilot repo based on PR count.
-- Generate and run a bulk migration script, then run or queue a single-repo migration directly.
+- Run and validate one approved pilot before generating an optional bulk migration script.
 - Validate what GEI migrated and document what it intentionally does not migrate.
 - Reclaim mannequins so migrated PR activity is attributed to GitHub users.
 - Build a follow-up backlog for Azure Boards and Azure Pipelines work that GEI does not migrate.
 
 > [!IMPORTANT]
-> Pick a pilot repository that belongs to a real team and has at least one pull request. A small repo is fine: migration timing is driven mainly by pull request count, not Git repository size. Migrate only in an approved change window with source writes frozen; without an approved repository, stop at `--queue-only` validation.
+> Pick one approved pilot with pull request history and freeze source writes for the migration window. **`--queue-only` starts a real migration and requires approval.** Without approval, stop after read-only inventory and command review.
 >
 > Set these before you start:
 >
@@ -115,9 +115,9 @@ Use the report to answer:
 - Which repositories have many pull requests and should be scheduled later?
 - Are there TFVC repositories that require conversion before GEI can migrate them?
 
-### Part D: Generate and inspect a migration script
+### Optional, after Part G: Generate a later migration wave
 
-7. Generate a PowerShell script for the migration set. Use `--all` for a full org pilot script, or scope the generated script down before running it.
+7. After the owner accepts the pilot in Parts E through G, generate a script for the next approved set of repositories. `--all` lists candidates across the organization. Remove every unapproved repository before running it.
 
 ```bash
 gh ado2gh generate-script \
@@ -134,7 +134,7 @@ gh ado2gh generate-script \
 grep -n "gh ado2gh migrate-repo" migrate-ado-repos.ps1
 ```
 
-9. Run the script in PowerShell after reviewing it:
+9. Run the script only after the pilot owner accepts the results and approves the next set of repositories. Freeze source writes for that migration:
 
 ```bash
 pwsh ./migrate-ado-repos.ps1
@@ -148,7 +148,7 @@ If `pwsh` is unavailable on Windows, run this from PowerShell instead:
 
 ### Part E: Run a controlled single-repo migration
 
-10. For one selected pilot repo, run the direct command. Start with `--queue-only` if you want to inspect the migration ID and wait explicitly.
+10. Run this step before the optional bulk section. `--queue-only` submits the approved pilot immediately and returns its migration ID. Wait for completion as shown below.
 
 ```bash
 gh ado2gh migrate-repo \
@@ -241,6 +241,8 @@ gh ado2gh reclaim-mannequin \
 ```
 
 Commit authorship is separate from mannequin reclaiming: Git commits are attributed by email address when the email matches a GitHub account.
+
+Before accepting the pilot, compare source and destination branch and tag SHAs. Check sample PR comments and author mappings too. Recreate team access and verify that failing CI or missing approval blocks a non-owner contributor's first PR. Keep source writes frozen until the owner accepts cutover. Preserve the source as read-only recovery evidence.
 
 ## Reference links
 

@@ -10,7 +10,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-- Optional ghec-ch52 approved identity-model decision (personal accounts vs SAML-restricted org vs EMU), when already established for the customer
+- Customer identity-model decision confirming a non-EMU organization
 description: "Test SAML and SCIM integration with a verified rollback before enforcement."
 tags:
 - sso
@@ -24,7 +24,7 @@ min_environment: org
 provision_creates:
 - repo ghec-ch14-identity-runbook (runbook for IdP SAML app settings, SCIM rollout checklist, join/leave test script)
 - org-scoped identity settings reference (Authentication security page URL + SCIM API base). Setup does not enable SSO.
-tier: core
+tier: stretch
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/14-sso-saml-scim/meta.yml
 license: MIT
