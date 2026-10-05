@@ -571,6 +571,24 @@ test('unconfirmed risky controls and EMU never produce enforcement actions', t =
   assert.ok(!ids.includes('enterprise:policy:domains'));
 });
 
+test('identity adapter treats SSO and SCIM as existing prerequisites', t => {
+  const c = config();
+  c.organizations[0].packages = ['workspace', 'identity'];
+  c.organizations[0].identity = {require_two_factor: false, idp_handoff: true};
+  const f = fixture(t, c);
+  const configLibrary = path.join(f.directory, 'snapshot/scripts/github-enterprise-wizard/lib/config.sh');
+  const result = f.shell('source "$1"; wizard_validate_config "$2"', [configLibrary, f.configFile]);
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /unknown keys?: idp_handoff/);
+
+  const adapter = fs.readFileSync(path.join(__dirname, 'packages/capabilities.sh'), 'utf8');
+  assert.doesNotMatch(adapter, /identity";"idp"|Configure SAML\/OIDC/);
+  const identityPackage = JSON.parse(fs.readFileSync(path.join(__dirname, 'catalog.json'), 'utf8'))
+    .packages.find(pkg => pkg.id === 'identity');
+  assert.ok(identityPackage);
+  assert.doesNotMatch(JSON.stringify(identityPackage), /SAML|SCIM|sso-saml-scim/);
+});
+
 test('shared Copilot profiles and agents stay in the case-insensitive private source repository', t => {
   const c = config();
   c.enterprise.policies = JSON.parse(fs.readFileSync(path.join(__dirname, 'example.json'), 'utf8')).enterprise.policies;

@@ -257,7 +257,53 @@ test('build rejects invalid outcome membership instead of silently dropping work
   assert.match(validateOutcomes([outcome, outcome], activities).join('\n'), /unique id/);
 });
 
-test('homepage shows activity counts without route choices or full-catalog time estimates', async () => {
+test('homepage offers learning and wizard routes before the activity outcomes', () => {
+  const html = fs.readFileSync(path.join(root, 'docs/index.html'), 'utf8');
+  const routes = [...html.matchAll(/<a href="([^"]+)" class="start-route[^"]*">([\s\S]*?)<\/a>/g)];
+  assert.equal(routes.length, 2);
+  assert.equal(routes[0][1], '#outcomes');
+  assert.match(routes[0][2], /Learn by doing/);
+  assert.equal(routes[1][1], 'wizard.html');
+  assert.match(routes[1][2], /Set up with the wizard/);
+  assert(html.indexOf('class="start-routes"') < html.indexOf('id="outcomes"'));
+});
+
+test('wizard pages resolve local assets, page links, and section links', () => {
+  for (const name of ['wizard', 'wizard-guide']) {
+    const file = path.join(root, `docs/${name}.html`);
+    const html = fs.readFileSync(file, 'utf8');
+    for (const [, href] of html.matchAll(/\b(?:href|src)="([^"]+)"/g)) {
+      if (/^https?:/.test(href)) continue;
+      const [target, fragment] = href.split('#');
+      const targetPath = target ? path.resolve(path.dirname(file), target) : file;
+      assert(fs.existsSync(targetPath), `${name}: missing ${href}`);
+      if (fragment) {
+        assert(fs.readFileSync(targetPath, 'utf8').includes(`id="${fragment}"`), `${name}: missing section ${href}`);
+      }
+    }
+    assert.match(html, /id="navLinks"/);
+    assert.match(html, /aria-controls="navLinks"/);
+    assert.match(html, /src="assets\/js\/shell.js"/);
+  }
+});
+
+test('core delegates navigation to the shared shell without attaching a second toggle', () => {
+  let refreshed = 0;
+  const context = {
+    document: {
+      addEventListener() {},
+      querySelector() { assert.fail('core must not attach a second navigation handler'); },
+    },
+    RVASShell: { refresh() { refreshed++; } },
+  };
+  context.window = context;
+  vm.createContext(context);
+  vm.runInContext(scripts.core, context);
+  context.FP.initNav();
+  assert.equal(refreshed, 1);
+});
+
+test('homepage outcomes show activity counts without nested route choices or full-catalog time estimates', async () => {
   const result = await render('home');
   for (const outcome of data.outcomes) {
     assert(result.elements.outcomeGrid.innerHTML.includes(result.FP.esc(outcome.name)));

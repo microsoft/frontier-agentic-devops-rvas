@@ -305,8 +305,8 @@ def security_settings($where):
             | check(optional("mode"; enum(["ALWAYS","EXEMPT"])); $where; "invalid reviewer bypass mode"))) else . end) else . end;
 def feature($name; $where):
   if $name == "identity" then
-    options($where; ["require_two_factor","idp_handoff"])
-    | check(optional("require_two_factor"; type == "boolean") and optional("idp_handoff"; type == "boolean"); $where; "invalid identity options")
+    options($where; ["require_two_factor"])
+    | check(optional("require_two_factor"; type == "boolean"); $where; "invalid identity options")
   elif $name == "security" then
     options($where; ["dependency_graph","dependabot_alerts","dependabot_security_updates","secret_scanning","push_protection","code_scanning","codeql","configuration_id","configuration_name","settings","repository_id","purchase","campaigns","triage","dependency_review","security_and_analysis"])
     | check(all(to_entries[] | select(.key | enum(["dependency_graph","dependabot_alerts","dependabot_security_updates","secret_scanning","push_protection","purchase","triage","dependency_review"])); .value | type == "boolean"); $where; "security switches must be boolean")

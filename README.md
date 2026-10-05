@@ -1,6 +1,11 @@
 # Agentic DevSecOps
 
-One GitHub Pages curriculum with five outcomes and four delivery-session modules.
+Choose **learn by doing** through five outcomes and four delivery-session modules,
+or **set up with the wizard** from a reviewed GitHub configuration plan.
+
+The portal's home page presents both routes. The [wizard overview](docs/wizard.html)
+explains its scope; the [run guide](docs/wizard-guide.html) covers commands and the
+six interview sections. The hands-on catalog and session builder remain available.
 
 > **Use your own environment.** Work with your own applications, repositories, and data
 > so your team can keep using the result after the session. Use OWASP Juice Shop, Grubify,

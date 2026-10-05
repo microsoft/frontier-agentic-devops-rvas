@@ -216,10 +216,12 @@ External or UI-only work becomes a named handoff. Some advanced operations need
 customer-supplied settings or workflow content; selecting a package alone does
 not invent those values.
 
-- A root enterprise account must already exist. Organization creation uses
-  GraphQL under that enterprise.
-- IdP changes, cloud-side OIDC trust, and runner compute stay outside this
-  script. GitHub-side settings and handoffs are recorded.
+- A root enterprise account must already exist. `doctor` verifies that the
+  authenticated account can access it before planning. Organization creation
+  uses GraphQL under that enterprise.
+- Any required SSO and SCIM setup must already be complete. The wizard does not
+  inspect, configure, verify, or create handoffs for it.
+- Cloud-side OIDC trust and runner compute stay outside this script.
 - Copilot selected-seat purchases need an enabled subscription and selected-seat
   management. Feature/model policies can require an owner in the UI.
 - `.github-private` is a real shared configuration repository. The wizard can

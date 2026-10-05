@@ -635,7 +635,7 @@ wizard_init_once() (
         }') || return 1
     fi
     if wizard_package_selected "$packages" identity; then
-      wizard_section 'Identity and access' 'SAML, SCIM and IdP changes remain owner handoffs. Membership changes must follow your identity model.'
+      wizard_section 'Identity and access' 'The enterprise must already have any required SSO and SCIM setup. The wizard does not inspect or change it.'
       wizard_prompt_bool 'Require organization 2FA? Review disruption and recovery in the plan.' false \
         'This creates an owner handoff. For EMU, authentication policy belongs in the IdP. Check recovery access before enforcing 2FA.' || return 1
       org=$(printf '%s' "$org" | jq --argjson required "$WIZARD_REPLY" '.identity={require_two_factor:$required}') || return 1

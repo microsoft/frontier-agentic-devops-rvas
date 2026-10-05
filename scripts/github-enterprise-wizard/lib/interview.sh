@@ -59,7 +59,11 @@ wizard_read_text() {
       printf 'Right Arrow is unavailable. Use Enter to continue.\n' >&2
     fi
   fi
-  if IFS= read -e -r WIZARD_REPLY; then status=0; else status=$?; fi
+  if wizard_paged; then
+    if IFS= read -e -r WIZARD_REPLY; then status=0; else status=$?; fi
+  else
+    if IFS= read -r WIZARD_REPLY; then status=0; else status=$?; fi
+  fi
   if wizard_paged; then
     bind -r '\e[C'
     bind -r '\eOC'

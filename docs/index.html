@@ -7,7 +7,7 @@
 
   <title>RVAS - Agentic DevSecOps</title>
   <meta name="description"
-    content="Hands-on paths for adopting GitHub Enterprise Cloud, migrations, Advanced Security, agentic workflows, and cloud DevOps in your own organization." />
+    content="Learn Agentic DevSecOps through hands-on sessions, or configure your GitHub workspace with the enterprise setup wizard." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -15,6 +15,7 @@
     rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link rel="stylesheet" href="assets/css/shell.css" />
+  <link rel="stylesheet" href="assets/css/routes.css" />
   <link rel="icon" href="assets/img/logo-mark-white.png" />
 </head>
 
@@ -25,14 +26,14 @@
       <a class="brand" href="index.html" aria-label="RVAS, Agentic DevSecOps">
         <img src="assets/img/logo-full.png" alt="RVAP" class="rvap-nav-logo" height="32">
       </a>
-      <nav class="nav-links" aria-label="Primary">
+      <nav id="navLinks" class="nav-links" aria-label="Primary">
         <a href="index.html" aria-current="page">Home</a>
         <a href="catalog.html">Catalog</a>
+        <a href="wizard.html">Setup wizard</a>
         <a href="module.html?m=ghec">GHEC</a>
         <a href="module.html?m=ghas">GHAS</a>
         <a href="module.html?m=ghaw">GHAW</a>
         <a href="module.html?m=sre-agent">SRE Agent</a>
-        <a class="cta" href="catalog.html">Browse all activities →</a>
         <a class="gh" href="https://github.com/microsoft/frontier-agentic-devops-rvas" target="_blank" rel="noopener"
           aria-label="View source on GitHub">GitHub ↗</a>
       </nav>
@@ -93,57 +94,23 @@
           <span class="eyebrow">RVAS, Agentic DevSecOps</span>
           <h1 id="heroHeading">Build your<br><span class="accent">Agentic DevSecOps practice</span></h1>
           <p class="lede">
-            Start with what your team needs to run in production. Choose a path for GitHub
-            adoption, migration, Advanced Security, agentic workflows, or cloud operations.
+            Learn through hands-on sessions, or use the setup wizard to configure your
+            GitHub workspace from a reviewed plan. Choose how you want to start.
           </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#outcomes">
-              Choose an outcome
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M5 12h14M13 6l6 6-6 6" />
-              </svg>
-            </a>
-            <a class="btn btn-ghost" href="catalog.html">Explore the catalog</a>
-          </div>
-
-          <div class="stats" aria-label="Delivery session statistics">
-            <div class="stat">
-              <span class="stat-num" id="stat-challenges">—</span>
-              <span class="stat-lbl">Activities</span>
-            </div>
-            <div class="stat">
-              <span class="stat-num" id="stat-modules">—</span>
-              <span class="stat-lbl">Modules</span>
-            </div>
-            <div class="stat">
-              <span class="stat-num" id="stat-tracks">—</span>
-              <span class="stat-lbl">Tracks</span>
-            </div>
-          </div>
         </div>
 
-        <!-- Module preview grid -->
-        <div class="hero-modules" aria-label="Module overview">
-          <a href="module.html?m=ghec" class="hero-mod-card" style="--mod-color:var(--c-ghec)">
-            <img src="assets/img/icon-ghec.svg" class="mod-icon" alt="" aria-hidden="true" />
-            <div class="mod-name">GitHub Enterprise Cloud</div>
-            <div class="mod-count" id="count-ghec">GitHub Enterprise Cloud</div>
+        <div class="start-routes" aria-label="Choose how to start">
+          <a href="#outcomes" class="start-route">
+            <span class="route-label">Hands-on sessions</span>
+            <h2>Learn by doing</h2>
+            <p>Build your team's skills while you configure and test each step in your own environment.</p>
+            <span class="route-go">Choose a learning outcome <span aria-hidden="true">&rarr;</span></span>
           </a>
-          <a href="module.html?m=ghas" class="hero-mod-card" style="--mod-color:var(--c-ghas)">
-            <img src="assets/img/icon-ghas.svg" class="mod-icon" alt="" aria-hidden="true" />
-            <div class="mod-name">GitHub Advanced Security</div>
-            <div class="mod-count" id="count-ghas">GitHub Advanced Security</div>
-          </a>
-          <a href="module.html?m=ghaw" class="hero-mod-card" style="--mod-color:var(--c-ghaw)">
-            <img src="assets/img/icon-ghaw.svg" class="mod-icon" alt="" aria-hidden="true" />
-            <div class="mod-name">GitHub Agentic Workflows</div>
-            <div class="mod-count" id="count-ghaw">GitHub Agentic Workflows</div>
-          </a>
-          <a href="module.html?m=sre-agent" class="hero-mod-card" style="--mod-color:var(--c-agentic)">
-            <img src="assets/img/icon-agentic-devops.svg" class="mod-icon" alt="" aria-hidden="true" />
-            <div class="mod-name">SRE Agent</div>
-            <div class="mod-count" id="count-sre-agent">Azure SRE Agent</div>
+          <a href="wizard.html" class="start-route start-route-wizard">
+            <span class="route-label">Guided setup</span>
+            <h2>Set up with the wizard</h2>
+            <p>Answer questions about your GitHub workspace. Review the plan, then let the script apply supported changes.</p>
+            <span class="route-go">Explore the setup wizard <span aria-hidden="true">&rarr;</span></span>
           </a>
         </div>
       </div>
@@ -154,7 +121,7 @@
       <div class="wrap">
         <div class="shead reveal">
           <div>
-            <span class="eyebrow">Team outcomes</span>
+            <span class="eyebrow">Learn by doing</span>
             <h2 id="outcomesHeading" style="margin-top:14px">Choose the result your team needs.</h2>
             <p>Browse the activities for that result and select the chapters your team needs.</p>
           </div>
@@ -203,8 +170,8 @@
       <div class="wrap">
         <div class="shead reveal">
           <div>
-            <span class="eyebrow">Delivery guide</span>
-            <h2 id="howHeading" style="margin-top:14px">How it works.</h2>
+            <span class="eyebrow">Hands-on sessions</span>
+            <h2 id="howHeading" style="margin-top:14px">How the sessions work.</h2>
             <p>Follow each activity's delivery guide in your team's environment.</p>
           </div>
         </div>
@@ -246,6 +213,7 @@
       <p>Content from four Microsoft delivery session repositories, licensed under MIT.</p>
       <nav class="footer-links" aria-label="Footer">
         <a href="catalog.html">Catalog</a>
+        <a href="wizard.html">Setup wizard</a>
         <a href="module.html?m=ghec">GHEC</a>
         <a href="module.html?m=ghas">GHAS</a>
         <a href="module.html?m=ghaw">GHAW</a>

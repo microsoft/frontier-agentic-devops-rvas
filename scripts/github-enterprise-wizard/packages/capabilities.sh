@@ -73,11 +73,6 @@ wizard_capabilities_actions() {
           manual($o;"identity";"two-factor";[oid($o)];"organization owner";
             "https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-two-factor-authentication-for-your-organization/requiring-two-factor-authentication-in-your-organization";
             "Check recovery access and member readiness, then require two-factor authentication in organization settings. This can remove noncompliant members and collaborators. Verify two_factor_requirement_enabled through GET /orgs/"+$org+".")
-         else empty end),
-        (if $config.enterprise.identity=="emu" or ($o.identity.idp_handoff // false) then
-          manual($o;"identity";"idp";[oid($o)];"enterprise owner and identity-provider administrator";
-            "https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam";
-            "Configure SAML/OIDC and SCIM in the identity provider and enterprise settings. Validate a real user provisioning and recovery path; GitHub membership inventory does not verify IdP configuration.")
          else empty end)
       else empty end
     ),
