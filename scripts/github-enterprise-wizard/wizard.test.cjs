@@ -401,6 +401,33 @@ test('agent sources retry missing files, symlinks and credentials without losing
   assert.deepEqual(f.calls(), []);
 });
 
+test('default enterprise agents require selection and use narrow tool sets', t => {
+  const f = fixture(t);
+  const library = path.join(f.directory, 'snapshot/scripts/github-enterprise-wizard/lib/config.sh');
+  const agents = JSON.parse(f.success(f.shell(
+    'source "$1"; wizard_default_copilot_agents', [library],
+  )).stdout);
+  assert.deepEqual(agents.map(agent => agent.path), [
+    'agents/security-reviewer.md',
+    'agents/ci-investigator.md',
+    'agents/test-author.md',
+    'agents/documentation-maintainer.md',
+  ]);
+  for (const agent of agents) {
+    assert.match(agent.content, /^---\nname: /);
+    assert.match(agent.content, /\ndisable-model-invocation: true\n/);
+    assert.match(agent.content, /\nuser-invocable: true\n/);
+    assert.doesNotMatch(agent.content, /tools: \["\*"\]/);
+  }
+  const byPath = Object.fromEntries(agents.map(agent => [agent.path, agent.content]));
+  assert.match(byPath['agents/security-reviewer.md'], /tools: \[read, search, "github\/\*"\]/);
+  assert.doesNotMatch(byPath['agents/security-reviewer.md'], /^tools: .*edit/m);
+  assert.match(byPath['agents/ci-investigator.md'], /tools: \[read, search, execute, "github\/\*"\]/);
+  assert.match(byPath['agents/test-author.md'], /tools: \[read, search, edit, execute\]/);
+  assert.match(byPath['agents/documentation-maintainer.md'], /tools: \[read, search, edit\]/);
+  assert.deepEqual(f.calls(), []);
+});
+
 test('shared Copilot profiles and agents stay in the case-insensitive private source repository', t => {
   const c = config();
   const org = c.organizations[0];
@@ -420,11 +447,25 @@ test('shared Copilot profiles and agents stay in the case-insensitive private so
   const repositories = saved.organizations[0].repositories;
   assert.equal(repositories.length, 2, 'case variants must not create another private source repository');
   assert.deepEqual(repositories[0].files || [], [], 'member profiles must not be copied into project repositories');
-  assert.deepEqual(repositories[1].files, [{path: 'profile/README.md', content: '# Company\n\nUse the service starter.\n'}]);
-  assert.equal(saved.organizations[0].copilot.instructions, undefined);
-  assert.deepEqual(saved.organizations[0].copilot.agents, [
-    {path: 'agents/reviewer.agent.md', content: '# Reviewer\nSuggest tests.\n'},
+  assert.deepEqual(repositories[1].files, [
+    {
+      path: 'copilot/managed-settings.json',
+      content: '{\n  "model": "auto",\n  "permissions": {\n    "disableBypassPermissionsMode": "disable"\n  },\n  "allowedMcpServers": []\n}\n',
+    },
+    {path: 'profile/README.md', content: '# Company\n\nUse the service starter.\n'},
   ]);
+  assert.equal(saved.organizations[0].copilot.instructions, undefined);
+  assert.deepEqual(saved.organizations[0].copilot.agents.map(agent => agent.path), [
+    'agents/security-reviewer.md',
+    'agents/ci-investigator.md',
+    'agents/test-author.md',
+    'agents/documentation-maintainer.md',
+    'agents/reviewer.agent.md',
+  ]);
+  assert.equal(
+    saved.organizations[0].copilot.agents.find(agent => agent.path === 'agents/reviewer.agent.md').content,
+    '# Reviewer\nSuggest tests.\n',
+  );
   f.saveConfig(saved);
   const plan = f.plan();
   const content = plan.actions.filter(action => action.kind === 'files');
@@ -456,7 +497,7 @@ test('init rejects Copilot purchases without recipients at the purchase question
     const output = path.join(f.directory, 'interview.json');
     const answers = ['github.com', 'alice', 'acme', 'personal', 'workspace,copilot', '', 'acme-org',
       'no', 'yes', 'alice', '', 'no', 'no', '', '', purchase];
-    if (purchase === 'no') answers.push('no', '', 'yes');
+    if (purchase === 'no') answers.push('no', 'no', 'no', '', 'yes');
     const result = f.command(['init', '--output', output], answers.join('\n') + '\n');
     if (purchase === 'yes') {
       assert.notEqual(result.status, 0);
@@ -465,7 +506,25 @@ test('init rejects Copilot purchases without recipients at the purchase question
       assert.equal(fs.existsSync(output), false);
     } else {
       f.success(result);
-      assert.deepEqual(f.json(output).organizations[0].copilot, {users: [], teams: [], purchase: false});
+      assert.deepEqual(f.json(output).organizations[0].copilot, {
+        users: [],
+        teams: [],
+        purchase: false,
+        code_review: true,
+        mcp: {enabled: true, approved_servers_only: true},
+        models: {default_availability: true, kimi: false, fable: false},
+        features: {
+          github_com: true,
+          cli: true,
+          cloud_agent: 'selected',
+          code_review: true,
+          review_effort: 'balanced',
+          copilot_approvals: false,
+          public_code_suggestions: 'block',
+          feedback_collection: false,
+          preview_features: false,
+        },
+      });
     }
     assert.deepEqual(f.calls(), []);
   }

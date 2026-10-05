@@ -501,7 +501,7 @@ wizard_select_packages() {
     if wizard_guided; then
       options="$(jq -c '[.packages[]|{value:.id,label:.name,description:(.capabilities[0:2]|join("; "))}]' "$WIZARD_CONFIG_ROOT/catalog.json")"
       if ! wizard_replaying; then
-        printf '\nSelect the capabilities you need. Start with Workspace and Actions for a usable project.\n' >&2
+        printf '\nSelect the capabilities you need. Workspace, Codespaces, Advanced Security and Code Quality are selected by default.\n' >&2
         printf 'Optional products may need licenses or owner setup. Selecting a package does not purchase it.\n' >&2
       fi
       if wizard_keyboard; then

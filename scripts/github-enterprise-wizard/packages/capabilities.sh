@@ -103,13 +103,32 @@ wizard_capabilities_actions() {
           if ($content|length)>0 then files($o;"copilot";$r;$content) else empty end),
         (if ($o.copilot.agents // []|length)>0 then
           manual($o;"copilot";"agent-source";[oid($o)];"enterprise AI controls owner";
-            "https://docs.github.com/en/copilot/how-tos/use-copilot-agents/custom-agents";
-            "Review organization agents in the private .github-private source repository and select the approved source in enterprise AI controls when required by the client. File deployment alone does not verify source selection or client eligibility.")
+            "https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-agents/prepare-for-custom-agents";
+            "Review the custom agents in the private .github-private repository, test them against representative repositories, and select this organization as the enterprise agent source. File deployment alone does not verify source selection or client eligibility.")
+         else empty end),
+        (if ($o.copilot.mcp.enabled // false) then
+          manual($o;"copilot";"mcp-policy";[oid($o)];"enterprise AI controls owner";
+            "https://docs.github.com/en/copilot/concepts/enterprise/mcp-management";
+            "Enable MCP servers in Copilot. Use the enterprise-managed copilot/managed-settings.json allowlist as the source of truth: its empty allowedMcpServers list permits built-in servers such as GitHub MCP and blocks unapproved third-party servers. Add reviewed servers explicitly.")
+         else empty end),
+        (if ($o.copilot.models.default_availability // false) then
+          manual($o;"copilot";"model-policy";[oid($o)];"enterprise AI controls owner";
+            "https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-availability-of-default-models";
+            ("Enable Default availability for released models and enable supported models, except keep the Kimi family "+
+             (if $o.copilot.models.kimi then "enabled only under the recorded administrator risk approval" else "disabled" end)+
+             " and the Claude Fable family "+
+             (if $o.copilot.models.fable then "enabled only after GitHub access and data-retention approval are confirmed" else "disabled" end)+
+             ". Recheck the model list when GitHub adds or retires models."))
+         else empty end),
+        (if ($o.copilot.features // null) != null then
+          manual($o;"copilot";"feature-policy";[oid($o)];"enterprise AI controls owner";
+            "https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-enterprise-policies";
+            "Enable Copilot on GitHub.com and Copilot CLI. Enable Copilot cloud agent only for the selected pilot repositories. Enable Copilot code review with Balanced effort, but keep Copilot approvals from satisfying merge requirements. Block suggestions matching public code, keep feedback collection and preview features off, and review content exclusions for sensitive paths.")
          else empty end),
         (if ($o.copilot.code_review // false) then
           manual($o;"copilot";"review-policy";[oid($o)];"organization owner";
             "https://docs.github.com/en/copilot/how-tos/use-copilot-agents/request-a-code-review/configure-automatic-review";
-            "Enable the selected Copilot review policy in organization settings after checking entitlement. Copilot comments do not satisfy required human approvals.")
+            "Enable Copilot code review with Balanced effort for the selected repositories. Keep Copilot approvals disabled so AI reviews do not satisfy required human approvals.")
          else empty end)
       else empty end
     ),
@@ -140,6 +159,17 @@ wizard_capabilities_actions() {
           manual($o;"security";"entitlement";[oid($o)];"enterprise billing owner";
             "https://docs.github.com/en/billing/concepts/product-billing/github-advanced-security";
             "Review and enable the selected Code Security or Secret Protection entitlement in billing settings. Feature configuration is separate from purchasing a subscription.")
+         else empty end),
+        (if $o.security.configuration_name then
+          manual($o;"security";"configuration-default";[$org+":security:configuration"];"organization security manager";
+            "https://docs.github.com/en/rest/code-security/configurations#set-a-code-security-configuration-as-a-default-for-an-organization";
+            "After GitHub assigns the configuration ID, set "+$o.security.configuration_name+
+            " as the default for all new repositories. Attach it to existing selected repositories after verifying each repository ID.")
+         else empty end),
+        (if ($o.security.secret_scanning // false) then
+          manual($o;"security";"delegated-bypass";[$org+":security:configuration"];"organization security manager";
+            "https://docs.github.com/en/code-security/secret-scanning/enabling-secret-scanning-features/enabling-delegated-bypass-for-push-protection";
+            "Choose a security team or organization role as the delegated push-protection bypass reviewer, record its numeric ID, and enable delegated bypass in the security configuration.")
          else empty end),
         (if ($o.security.triage // false) then
           report($o;"security";"code-alerts";"/orgs/"+$org+"/code-scanning/alerts?per_page=100";[oid($o)]),

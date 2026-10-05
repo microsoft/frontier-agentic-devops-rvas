@@ -376,6 +376,9 @@ class InterviewTests(unittest.TestCase):
                 ("Additional approved action patterns", b"\r"),
                 ("Default workflow token permission", b"\r"),
                 ("Require full commit-SHA pins", b"\r"),
+                ("CodeQL setup", b"\r"),
+                ("Enable Secret Protection and push protection", b"\r"),
+                ("Enable Code Quality?", b"\r"),
                 ("Add another organization?", b"\r"),
                 ("Configure labels, review gates or shared Copilot content?", b"\r"),
                 ("Configure labels for acme-org/service?", b"\r"),
@@ -396,15 +399,50 @@ class InterviewTests(unittest.TestCase):
             )
             self.assertEqual(result, 0, output)
             config = json.loads(output_file.read_text())
-            self.assertEqual(config["defaults"]["packages"], ["actions", "workspace"])
+            self.assertEqual(config["defaults"]["packages"], ["actions", "quality", "security", "workspace"])
             organization = config["organizations"][0]
             self.assertTrue(organization["adopt"])
+            self.assertEqual(config["defaults"]["settings"]["default_repository_permission"], "read")
+            self.assertTrue(config["defaults"]["settings"]["members_can_create_repositories"])
+            self.assertFalse(config["defaults"]["settings"]["members_can_create_public_repositories"])
+            self.assertFalse(config["defaults"]["settings"]["members_can_delete_repositories"])
+            self.assertFalse(config["defaults"]["settings"]["members_can_change_repo_visibility"])
+            self.assertTrue(config["defaults"]["settings"]["web_commit_signoff_required"])
+            self.assertEqual(len(organization["manual_handoffs"]), 1)
+            self.assertEqual(organization["teams"][0]["privacy"], "closed")
             self.assertEqual(organization["teams"][0]["repositories"], [{"name": "service", "permission": "push"}])
             self.assertEqual(organization["repositories"][0]["stack"], "node")
+            self.assertTrue(organization["repositories"][0]["allow_squash_merge"])
+            self.assertFalse(organization["repositories"][0]["allow_merge_commit"])
+            self.assertTrue(organization["repositories"][0]["delete_branch_on_merge"])
             self.assertEqual(len(organization["repositories"][0]["labels"]), 4)
             self.assertEqual(organization["repositories"][0]["rulesets"][0]["rules"][0]["parameters"]["required_approving_review_count"], 1)
+            self.assertEqual(organization["repositories"][0]["rulesets"][0]["rules"][-1]["type"], "code_scanning")
+            self.assertEqual(organization["repositories"][0]["rulesets"][1]["enforcement"], "evaluate")
+            self.assertEqual(organization["repositories"][0]["rulesets"][1]["rules"][0], {
+                "type": "code_quality", "parameters": {"severity": "errors"},
+            })
             self.assertTrue(organization["actions"]["selected_actions"]["github_owned_allowed"])
             self.assertFalse(organization["actions"]["permissions"]["sha_pinning_required"])
+            self.assertEqual(organization["actions"]["retention_days"], 90)
+            self.assertFalse(organization["actions"]["workflow_permissions"]["can_approve_pull_request_reviews"])
+            self.assertEqual(organization["security"]["codeql"], "default")
+            self.assertTrue(organization["security"]["purchase"])
+            self.assertTrue(organization["security"]["dependency_graph"])
+            self.assertTrue(organization["security"]["dependabot_alerts"])
+            self.assertTrue(organization["security"]["dependabot_security_updates"])
+            self.assertTrue(organization["security"]["dependency_review"])
+            self.assertTrue(organization["security"]["triage"])
+            self.assertTrue(organization["security"]["secret_scanning"])
+            self.assertTrue(organization["security"]["push_protection"])
+            self.assertEqual(organization["security"]["configuration_name"], "enterprise-security-baseline")
+            self.assertEqual(organization["security"]["settings"]["secret_scanning_validity_checks"], "enabled")
+            self.assertEqual(organization["security"]["settings"]["secret_scanning_non_provider_patterns"], "enabled")
+            self.assertEqual(organization["security"]["settings"]["secret_scanning_generic_secrets"], "enabled")
+            self.assertEqual(organization["security"]["settings"]["private_vulnerability_reporting"], "enabled")
+            self.assertEqual(organization["quality"], {
+                "enabled": True, "live_analysis": True, "purchase": True, "enforce": False,
+            })
             self.assertEqual(output_file.stat().st_mode & 0o777, 0o600)
             self.assertIn("Review your configuration", output)
             self.assertIn("doctor --config", output)
@@ -424,13 +462,15 @@ class InterviewTests(unittest.TestCase):
                 ("Organization billing email:", b"not-an-email\r"),
                 ("Invalid value. Enter a billing email", b"ops@example.com\r"),
             ]
-            settings_index = next(i for i, (prompt, _) in enumerate(answers) if prompt == "Add another organization?")
+            settings_index = next(i for i, (prompt, _) in enumerate(answers) if prompt == "CodeQL setup")
             answers[settings_index:settings_index] = [
                 ("Copilot seat user logins", b"\r"), ("Copilot seat team slugs", b"\r"),
+                ("Enable the Kimi model family", b"\r"),
+                ("Enable the Claude Fable model family", b"\r"),
             ]
             answers[-1:-1] = [
                 ("Write repository Copilot instructions", b"\x1b[C"),
-                ("Configure shared Copilot content", b"\x1b[B\x1b[C"),
+                ("Configure shared Copilot content", b"\x1b[C"),
                 ("Write a private member profile?", b"\x1b[C"),
                 ("Local Markdown agent file to copy", b"\r"),
             ]
@@ -445,6 +485,15 @@ class InterviewTests(unittest.TestCase):
             self.assertEqual(organization["billing_email"], "ops@example.com")
             self.assertTrue(all(not repo["adopt"] for repo in organization["repositories"]))
             self.assertEqual(organization["repositories"][-1]["name"], ".github-private")
+            self.assertEqual(
+                [agent["path"] for agent in organization["copilot"]["agents"]],
+                [
+                    "agents/security-reviewer.md",
+                    "agents/ci-investigator.md",
+                    "agents/test-author.md",
+                    "agents/documentation-maintainer.md",
+                ],
+            )
             self.assertNotIn("Explicitly adopt an existing", output)
             self.assert_restored(initial, final)
 
@@ -501,17 +550,21 @@ class InterviewTests(unittest.TestCase):
                 has_recipients = users == "alice" or teams == "developers"
                 answers = self.guided_answers()
                 answers[4] = ("Space: toggle a checkbox.", b"\x1b[B" * 3 + b" \x1b[C")
-                settings_index = next(i for i, (prompt, _) in enumerate(answers) if prompt == "Add another organization?")
+                settings_index = next(i for i, (prompt, _) in enumerate(answers) if prompt == "CodeQL setup")
                 copilot_answers = [
                     ("Copilot seat user logins", users.encode() + b"\r"),
                     ("Copilot seat team slugs", teams.encode() + b"\r"),
                 ]
                 if has_recipients:
                     copilot_answers.append(("Enable Copilot seats for the selected users and teams", b"\x1b[B\x1b[C"))
+                copilot_answers.extend([
+                    ("Enable the Kimi model family", b"\x1b[C"),
+                    ("Enable the Claude Fable model family", b"\x1b[C"),
+                ])
                 answers[settings_index:settings_index] = copilot_answers
                 answers[-1:-1] = [
                     ("Write repository Copilot instructions", b"\x1b[C"),
-                    ("Configure shared Copilot content", b"\x1b[C"),
+                    ("Configure shared Copilot content", b"\x1b[A\x1b[C"),
                 ]
                 result, output, initial, final = terminal_run(
                     f"/bin/bash {shlex.quote(str(ENTRYPOINT))} init --no-discovery --output {shlex.quote(str(output_file))}",
@@ -522,6 +575,13 @@ class InterviewTests(unittest.TestCase):
                 self.assertEqual(copilot["purchase"], has_recipients)
                 self.assertEqual(copilot["users"], ["alice"] if users == "alice" else [])
                 self.assertEqual(copilot["teams"], ["developers"] if teams == "developers" else [])
+                self.assertEqual(copilot["mcp"], {"enabled": True, "approved_servers_only": True})
+                self.assertEqual(copilot["models"], {
+                    "default_availability": True, "kimi": False, "fable": False,
+                })
+                self.assertEqual(copilot["features"]["cloud_agent"], "selected")
+                self.assertEqual(copilot["features"]["review_effort"], "balanced")
+                self.assertFalse(copilot["features"]["copilot_approvals"])
                 if not has_recipients:
                     self.assertNotIn("Enable Copilot seats for the selected users and teams", output)
                     self.assertIn("Seat purchase is skipped", output)
@@ -534,12 +594,12 @@ class InterviewTests(unittest.TestCase):
             with self.subTest(codeql=codeql, protection=protection, quality=quality), tempfile.TemporaryDirectory(prefix="wizard-features-") as directory:
                 output_file = Path(directory) / "config.json"
                 answers = self.guided_answers()
-                answers[4] = ("Space: toggle a checkbox.", b"\x1b[B" * 4 + b" \x1b[B \x1b[C")
                 settings_index = next(i for i, (prompt, _) in enumerate(answers) if prompt == "Add another organization?")
-                answers[settings_index:settings_index] = [
+                feature_start = settings_index - 3
+                answers[feature_start:settings_index] = [
                     ("CodeQL setup", (b"\x1b[H" if codeql == "none" else b"") + b"\x1b[C"),
-                    ("Enable Secret Protection and push protection", (b"\x1b[B" if protection else b"") + b"\x1b[C"),
-                    ("Enable Code Quality?", (b"\x1b[B" if quality else b"") + b"\x1b[C"),
+                    ("Enable Secret Protection and push protection", (b"" if protection else b"\x1b[A") + b"\x1b[C"),
+                    ("Enable Code Quality?", (b"" if quality else b"\x1b[A") + b"\x1b[C"),
                 ]
                 result, output, initial, final = terminal_run(
                     f"/bin/bash {shlex.quote(str(ENTRYPOINT))} init --no-discovery --output {shlex.quote(str(output_file))}",
@@ -550,6 +610,18 @@ class InterviewTests(unittest.TestCase):
                 self.assertEqual(organization["security"]["codeql"], codeql)
                 self.assertEqual(organization["security"]["purchase"], codeql != "none" or protection)
                 self.assertEqual(organization["security"].get("secret_scanning", False), protection)
+                self.assertTrue(organization["security"]["dependency_graph"])
+                self.assertTrue(organization["security"]["dependabot_alerts"])
+                self.assertTrue(organization["security"]["dependabot_security_updates"])
+                self.assertEqual(organization["security"]["dependency_review"], codeql != "none")
+                self.assertEqual(
+                    organization["security"]["settings"]["code_scanning_default_setup"],
+                    "enabled" if codeql == "default" else "disabled" if codeql == "advanced" else "not_set",
+                )
+                self.assertEqual(
+                    organization["security"]["settings"]["secret_scanning_generic_secrets"],
+                    "enabled" if protection else "not_set",
+                )
                 self.assertEqual(organization["quality"], {
                     "enabled": quality, "live_analysis": quality, "purchase": quality, "enforce": False,
                 })
@@ -963,7 +1035,7 @@ class InterviewTests(unittest.TestCase):
             config = json.loads(output_file.read_text())
             self.assertEqual(config["enterprise"]["identity"], "emu")
             self.assertEqual(config["defaults"]["repository_visibility"], "internal")
-            self.assertEqual(config["defaults"]["packages"], ["actions", "workspace"])
+            self.assertEqual(config["defaults"]["packages"], ["actions", "quality", "security", "workspace"])
             frames = [re.sub(r"\x1b\[[0-9;?]*[A-Za-z]", "", frame).replace("\r", "")
                       for frame in output.split("\x1b[2J\x1b[H")[1:]]
             account_frames = [frame for frame in frames if "\nAccount identity\n" in frame]

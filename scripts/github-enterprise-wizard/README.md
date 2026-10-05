@@ -52,23 +52,63 @@ cached for the interview. Failed lookups leave manual input available.
 **The wizard never switches accounts.** Selecting a different login skips
 resource discovery and shows the account-switch command to run yourself.
 
-Workspace and Actions start selected. Optional packages show their purpose, and
-required packages are included automatically. A new project can use the default
-Developers team and `service` repository, with a Node.js starter and working CI.
+Workspace, Actions with Codespaces, Code Security, and Code Quality start
+selected. Their feature prompts also default to enabled. Required packages are
+included automatically. A new project can use the default Developers team and
+`service` repository, with a Node.js starter and working CI.
 You can change those names or choose Python or a customer template.
 Duplicate resources must be corrected before continuing. New organizations skip
 existing-repository adoption. Bundled CI and gh-aw exclude organization-only
 Actions policies because they need GitHub-owned actions. Shared member profiles
 are written only to the private `.github-private` repository.
 
+The shared organization baseline gives members read access by default. Members
+can create private or internal repositories, but not public repositories. They
+cannot fork private repositories, delete repositories, or change visibility.
+Private Pages sites remain available, web commits require signoff, and visible
+teams are used unless the configuration says otherwise. The plan also flags
+organizations with fewer than two recorded owners.
+
 Feature choices use **Enable Yes/No**, with no separate cost confirmations.
 Enabling Copilot seats requires named users or teams. Enabling security features
 or Code Quality also selects any required licensing handoff; Code Quality includes
 its live analysis. Billing details stay in the plan, which needs one approval
 before apply. Blank Copilot recipient lists still allow content setup.
+Copilot defaults enable MCP, released models, GitHub.com, CLI, cloud-agent pilots,
+and Balanced code review. Kimi and Claude Fable stay disabled unless the operator
+confirms their separate model-risk or data-retention requirements. Copilot
+approvals do not count as human approvals. Shared Copilot setup writes
+`copilot/managed-settings.json` with auto model selection, bypass mode disabled,
+and only built-in MCP servers allowed until administrators approve more. It also
+adds four manually selected enterprise agents:
+
+- **Security Reviewer** reports supported security findings without editing files.
+- **CI Investigator** diagnoses failed builds and tests without changing code.
+- **Test Author** writes focused tests but cannot change production files.
+- **Documentation Maintainer** updates docs from verified repository behavior.
+
+The agents use small tool allowlists and cannot run automatically from model
+inference. Administrators can edit or replace them in `.github-private`.
 Existing-resource adoption remains explicit. Managed
 users cannot select public repositories; SHA-pin enforcement defaults off for
-existing organizations until their workflows have been reviewed.
+existing organizations until their workflows have been reviewed. Actions use
+read-only workflow tokens, cannot approve pull requests, and retain artifacts
+and logs for 90 days.
+
+The security baseline creates an enforced organization configuration for
+dependency graph, Dependabot alerts and security updates, CodeQL default setup,
+secret scanning, push protection, validity checks, broader secret patterns,
+AI-detected secrets, and private vulnerability reporting. It also generates
+dependency review for supported starter stacks and security-overview reports.
+GitHub must assign the configuration ID before the wizard can set it as the
+default for new repositories or attach it to existing repositories, so the plan
+records those owner steps. Delegated push-protection bypass also stays pending
+until a reviewer team or role ID is selected.
+
+Default-branch rules block high-severity CodeQL findings after analysis is ready.
+Code Quality starts with an error-level rule in **Evaluate** mode. Review its
+ruleset insights before changing that rule to Active. Coverage thresholds remain
+unset until repositories upload real coverage data.
 
 The interview ends with a configuration summary and the exact `doctor` and
 `plan` commands to run next. If validation fails, section 6 shows the exact error

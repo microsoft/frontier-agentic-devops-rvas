@@ -4,9 +4,22 @@
   "actor": "customer-admin",
   "enterprise": {"slug": "customer-enterprise", "identity": "personal"},
   "defaults": {
-    "packages": ["workspace", "actions"],
+    "packages": ["workspace", "actions", "security", "quality"],
     "repository_visibility": "private",
-    "settings": {"default_repository_permission": "read"}
+    "settings": {
+      "default_repository_permission": "read",
+      "members_can_create_repositories": true,
+      "members_can_create_public_repositories": false,
+      "members_can_create_private_repositories": true,
+      "members_can_create_internal_repositories": true,
+      "members_can_fork_private_repositories": false,
+      "members_can_delete_repositories": false,
+      "members_can_change_repo_visibility": false,
+      "members_can_create_pages": true,
+      "members_can_create_public_pages": false,
+      "members_can_create_private_pages": true,
+      "web_commit_signoff_required": true
+    }
   },
   "organizations": [{
     "login": "customer-engineering",
@@ -42,7 +55,45 @@
     "actions": {
       "permissions": {"allowed_actions": "selected"},
       "selected_actions": {"github_owned_allowed": true, "verified_allowed": false, "patterns_allowed": []},
-      "workflow_permissions": {"default_workflow_permissions": "read"}
+      "workflow_permissions": {
+        "default_workflow_permissions": "read",
+        "can_approve_pull_request_reviews": false
+      },
+      "retention_days": 90
+    },
+    "security": {
+      "codeql": "default",
+      "purchase": true,
+      "dependency_graph": true,
+      "dependabot_alerts": true,
+      "dependabot_security_updates": true,
+      "dependency_review": true,
+      "secret_scanning": true,
+      "push_protection": true,
+      "triage": true,
+      "configuration_name": "enterprise-security-baseline",
+      "settings": {
+        "description": "Enterprise baseline for dependency, code, and secret protection.",
+        "code_security": "enabled",
+        "secret_protection": "enabled",
+        "dependency_graph": "enabled",
+        "dependabot_alerts": "enabled",
+        "dependabot_security_updates": "enabled",
+        "code_scanning_default_setup": "enabled",
+        "secret_scanning": "enabled",
+        "secret_scanning_push_protection": "enabled",
+        "secret_scanning_validity_checks": "enabled",
+        "secret_scanning_non_provider_patterns": "enabled",
+        "secret_scanning_generic_secrets": "enabled",
+        "private_vulnerability_reporting": "enabled",
+        "enforcement": "enforced"
+      }
+    },
+    "quality": {
+      "enabled": true,
+      "live_analysis": true,
+      "purchase": true,
+      "enforce": false
     }
   }]
 }

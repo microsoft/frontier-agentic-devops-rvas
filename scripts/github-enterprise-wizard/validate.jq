@@ -53,7 +53,7 @@ def credential_key:
   (enum(["secret_protection","secret_scanning","secret_scanning_push_protection","secret_scanning_non_provider_patterns","secret_scanning_ai_detection","secret_scanning_validity_checks","secret_scanning_generic_secrets","secret_scanning_delegated_alert_dismissal","secret_scanning_extended_metadata","secret_scanning_delegated_bypass","secret_scanning_delegated_bypass_options"]) | not)
   and test("(^|_)(tokens?|passwords?|secrets?|credentials?|private_key|api_key|authorization)(_|$)|tokens?$|passwords?$|secrets?$|credentials?$|private[_-]?key$|api[_-]?key$|authorization$"; "i");
 def settings($where):
-  keys_only(["default_repository_permission","members_can_create_repositories","members_can_create_public_repositories","members_can_create_private_repositories","members_can_create_internal_repositories","members_can_fork_private_repositories","members_can_create_pages","members_can_create_public_pages","members_can_create_private_pages","web_commit_signoff_required"]; $where)
+  keys_only(["default_repository_permission","members_can_create_repositories","members_can_create_public_repositories","members_can_create_private_repositories","members_can_create_internal_repositories","members_can_fork_private_repositories","members_can_delete_repositories","members_can_change_repo_visibility","members_can_create_pages","members_can_create_public_pages","members_can_create_private_pages","web_commit_signoff_required"]; $where)
   | check(optional("default_repository_permission"; enum(["none","read","write","admin"])); $where; "invalid default_repository_permission")
   | check(all(to_entries[] | select(.key != "default_repository_permission"); .value | type == "boolean"); $where; "settings must be booleans");
 def file($where):
@@ -163,10 +163,26 @@ def rulesets($where):
                 and optional("bypass_mode"; enum(["always","pull_request"])); $where; "DeployKey bypass requires a null actor_id and always mode; other actor IDs must be positive")
             | check((.actor_type | enum(["Integration","RepositoryRole","Team"]) | not) or has("actor_id"); $where; "bypass actor ID is required"))) else . end);
 def copilot($where):
-  options($where; ["users","teams","instructions","agents","code_review","setup_steps","purchase"])
+  options($where; ["users","teams","instructions","agents","code_review","setup_steps","purchase","mcp","models","features"])
   | check(optional("users"; logins) and optional("teams"; strings); $where; "invalid seat recipients")
   | check(optional("purchase"; type == "boolean") and optional("code_review"; type == "boolean"); $where; "purchase/code_review must be boolean")
   | check(.purchase != true or ((.users // [] | length) + (.teams // [] | length) > 0); $where; "Copilot purchase needs explicit users or teams")
+  | if has("mcp") then .mcp |= (
+      keys_only(["enabled","approved_servers_only"]; $where + ".mcp")
+      | check(optional("enabled"; type == "boolean") and optional("approved_servers_only"; type == "boolean"); $where; "invalid MCP policy")) else . end
+  | if has("models") then .models |= (
+      keys_only(["default_availability","kimi","fable"]; $where + ".models")
+      | check(optional("default_availability"; type == "boolean") and optional("kimi"; type == "boolean") and optional("fable"; type == "boolean"); $where; "invalid model policy")) else . end
+  | if has("features") then .features |= (
+      keys_only(["github_com","cli","cloud_agent","code_review","review_effort","copilot_approvals","public_code_suggestions","feedback_collection","preview_features"]; $where + ".features")
+      | check(optional("github_com"; type == "boolean") and optional("cli"; type == "boolean")
+          and optional("cloud_agent"; enum(["all","selected","disabled"]))
+          and optional("code_review"; type == "boolean")
+          and optional("review_effort"; enum(["lite","balanced"]))
+          and optional("copilot_approvals"; type == "boolean")
+          and optional("public_code_suggestions"; enum(["allow","block"]))
+          and optional("feedback_collection"; type == "boolean")
+          and optional("preview_features"; type == "boolean"); $where; "invalid Copilot feature policy")) else . end
   | if has("instructions") then .instructions |= (check(type == "array"; $where; "instructions must be an array") | map(file($where))) else . end
   | if has("agents") then .agents |= (check(type == "array"; $where; "agents must be an array") | map(file($where))) else . end
   | if has("setup_steps") then .setup_steps |= file($where) else . end;
