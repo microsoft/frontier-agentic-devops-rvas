@@ -1,6 +1,18 @@
-def fail($where; $message): error("config " + $where + ": " + $message);
+def diagnostic_value:
+  if type == "string" then
+    if length > 160 or test("github_pat_|gh[pousr]_|AKIA[A-Z0-9]{16}|PRIVATE KEY|(?i:bearer\\s|token\\s*[=:]|password\\s*[=:]|secret\\s*[=:]|authorization\\s*[=:]|api[_-]?key\\s*[=:])|https?://[^/@\\s]+:[^/@\\s]+@")
+    then "\"[REDACTED]\"" else tojson end
+  elif type == "object" or type == "array" then
+    "[" + type + ", " + (length | tostring) + " entries; contents omitted]"
+  else tojson end;
+def fail($where; $message): error("config " + $where + ": " + $message + "; input type=" + type);
 def check($condition; $where; $message):
   if $condition then . else fail($where; $message) end;
+def check_field($key; predicate; $where; $message):
+  if has($key) and (.[$key] | predicate) then .
+  else fail($where + "." + $key; $message + "; actual=" +
+    (if has($key) then (.[$key] | diagnostic_value) else "[missing]" end) +
+    "; actual type=" + (if has($key) then (.[$key] | type) else "missing" end)) end;
 def keys_only($allowed; $where):
   check(type == "object"; $where; "expected an object")
   | check((keys - $allowed | length) == 0; $where; "unknown keys: " + ((keys - $allowed) | join(", ")));
@@ -58,7 +70,7 @@ def settings($where):
   | check(all(to_entries[] | select(.key != "default_repository_permission"); .value | type == "boolean"); $where; "settings must be booleans");
 def file($where):
   keys_only(["path","content"]; $where)
-  | check(.path | path; $where; "invalid file path")
+  | check_field("path"; path; $where; "invalid file path; expected a relative path without traversal, .git, or URL escapes")
   | check(.content | type == "string"; $where; "content must be a string")
   | check(.content | no_literal_credentials; $where; "literal GitHub credentials are forbidden; reference environment secrets instead");
 def workflow($where):
@@ -400,7 +412,7 @@ def features($where):
   | if has("copilot") then .copilot |= copilot($where + ".copilot") else . end;
 def repository($where):
   keys_only(["name","adopt","visibility","stack","template","files","labels","properties","environments","workflows","copilot_users","description","default_branch","has_issues","has_projects","has_wiki","delete_branch_on_merge","allow_squash_merge","allow_merge_commit","allow_rebase_merge","topics","codeowners","required_checks","enforce","rulesets","actions","copilot","security","quality","ghaw","publishing","release","license","innersource","lfs","sre","devcontainer","manual_handoffs","oidc","integrations"]; $where)
-  | check(.name | repo_name; $where; "invalid repository name")
+  | check_field("name"; repo_name; $where; "invalid repository name; expected 1-100 letters, digits, dots, underscores or hyphens, excluding . and names containing ..")
   | check(optional("adopt"; type == "boolean") and optional("visibility"; enum(["private","internal","public"])) and optional("stack"; enum(["node","python","none"])); $where; "invalid repository choice")
   | check(optional("template"; str and test("^[A-Za-z0-9][A-Za-z0-9-]*/[A-Za-z0-9_.-]+$")); $where; "template must be owner/name")
   | check(optional("description"; type == "string") and optional("default_branch"; path) and optional("topics"; strings) and optional("copilot_users"; logins) and optional("required_checks"; strings); $where; "invalid repository metadata")
@@ -418,7 +430,10 @@ def repository($where):
       keys_only(["environment","ref","provider"]; $where)
       | check(optional("environment"; str) and optional("ref"; path) and optional("provider"; str); $where; "invalid OIDC handoff")) else . end
   | check(all(to_entries[] | select(.key | enum(["has_issues","has_projects","has_wiki","delete_branch_on_merge","allow_squash_merge","allow_merge_commit","allow_rebase_merge","enforce"])); .value | type == "boolean"); $where; "repository switches must be boolean")
-  | if has("files") then .files |= (check(type == "array"; $where; "files must be an array") | map(file($where)) | check(unique_by_key("path"); $where; "duplicate file paths")) else . end
+  | if has("files") then .files |= (
+      check(type == "array"; $where + ".files"; "files must be an array")
+      | to_entries | map(.key as $index | .value | file($where + ".files[" + ($index | tostring) + "]"))
+      | check(unique_by_key("path"); $where + ".files"; "duplicate file paths")) else . end
   | if has("labels") then .labels |= (check(type == "array"; $where; "labels must be an array") | map(
       keys_only(["name","color","description"]; $where + ".labels")
       | check(.name | str and length <= 50 and (test("[/?#%\\\\]") | not) and (contains("..") | not); $where; "label name must be a safe URL segment of at most 50 characters")
@@ -426,8 +441,13 @@ def repository($where):
       | check(optional("description"; type == "string"); $where; "invalid label description"))
       | check(unique_by_key("name"); $where; "duplicate labels")) else . end
   | check(optional("properties"; type == "object" and all(.[]; type == "string" or type == "boolean" or (type == "array" and all(.[]; type == "string")))); $where; "invalid property values")
-  | if has("environments") then .environments |= (check(type == "array"; $where; "environments must be an array") | map(environment($where)) | check(unique_by_key("name"); $where; "duplicate environments")) else . end
-  | if has("workflows") then .workflows |= (check(type == "array"; $where; "workflows must be an array") | map(workflow($where))) else . end
+  | if has("environments") then .environments |= (
+      check(type == "array"; $where + ".environments"; "environments must be an array")
+      | to_entries | map(.key as $index | .value | environment($where + ".environments[" + ($index | tostring) + "]"))
+      | check(unique_by_key("name"); $where + ".environments"; "duplicate environments")) else . end
+  | if has("workflows") then .workflows |= (
+      check(type == "array"; $where + ".workflows"; "workflows must be an array")
+      | to_entries | map(.key as $index | .value | workflow($where + ".workflows[" + ($index | tostring) + "]"))) else . end
   | if has("rulesets") then .rulesets |= rulesets($where) else . end
   | features($where)
   | check(optional("actions"; has("runner_groups") | not); $where; "runner_groups belong on organization Actions settings")
@@ -436,11 +456,11 @@ def repository($where):
   | check(optional("publishing"; optional("pages"; type == "object")); $where; "repository Pages needs a configuration object");
 def team($where):
   keys_only(["name","slug","members","repositories","description","privacy","parent_team_id","idp_managed"]; $where)
-  | check(.name | str; $where; "team name is required")
-  | check(.slug | slug; $where; "team slug is required")
+  | check_field("name"; str; $where; "team name is required; expected a non-empty string")
+  | check_field("slug"; slug; $where; "team slug is required; expected 1-100 letters, digits, underscores or hyphens")
   | check((.name | test("^[A-Za-z0-9]+([ -][A-Za-z0-9]+)*$"))
       and .slug == (.name | ascii_downcase | gsub(" ";"-"));
-      $where; "use a team name with letters, numbers, single spaces or hyphens; slug must match its lowercase hyphenated name")
+      $where; "use a team name with letters, numbers, single spaces or hyphens; slug must match its lowercase hyphenated name; name=" + (.name | diagnostic_value) + "; slug=" + (.slug | diagnostic_value))
   | check(optional("description"; type == "string") and optional("privacy"; enum(["closed","secret"])) and optional("idp_managed"; type == "boolean") and optional("parent_team_id"; type == "number" and floor == . and . > 0); $where; "invalid team")
   | if has("members") then .members |= (
       check(type == "array"; $where; "members must be an array")
@@ -449,14 +469,17 @@ def team($where):
           | check(.login | user_login; $where; "invalid member login")
           | check(optional("role"; enum(["member","maintainer"])); $where; "invalid team role") end)
       | check(length == (map((if type == "string" then . else .login end) | ascii_downcase) | unique | length); $where; "duplicate team members")) else . end
-  | if has("repositories") then .repositories |= (check(type == "array"; $where; "team repositories must be an array") | map(
-      keys_only(["name","permission"]; $where)
-      | check(.name | repo_name; $where; "invalid team repository")
-      | check(.permission | enum(["pull","triage","push","maintain","admin"]); $where; "invalid team permission"))
-      | check(unique_by_key("name"); $where; "duplicate team repository")) else . end;
+  | if has("repositories") then .repositories |= (
+      check(type == "array"; $where + ".repositories"; "team repositories must be an array")
+      | to_entries | map(.key as $index | .value
+        | ($where + ".repositories[" + ($index | tostring) + "]") as $grant_where
+        | keys_only(["name","permission"]; $grant_where)
+        | check_field("name"; repo_name; $grant_where; "invalid team repository; expected only the repository name, 1-100 letters, digits, dots, underscores or hyphens, excluding . and names containing ..; edit Repository name within this organization")
+        | check_field("permission"; enum(["pull","triage","push","maintain","admin"]); $grant_where; "invalid team permission; expected pull, triage, push, maintain or admin; edit Team repository permission"))
+      | check(unique_by_key("name"); $where + ".repositories"; "duplicate team repository")) else . end;
 def organization($where):
   keys_only(["login","create","adopt","billing_email","owners","settings","packages","teams","repositories","actions","identity","copilot","security","quality","ghaw","migration","integrations","billing","audit","lifecycle","drift","publishing","release","license","innersource","vendors","lfs","sre","rulesets","manual_handoffs","property_schema"]; $where)
-  | check(.login | login; $where; "invalid organization login")
+  | check_field("login"; login; $where; "invalid organization login; expected 1-39 letters, digits or single hyphens")
   | check(optional("create"; type == "boolean") and optional("adopt"; type == "boolean"); $where; "create/adopt must be boolean")
   | check((.create == true and .adopt == true) | not; $where; "create and adopt are mutually exclusive")
   | check(optional("owners"; logins) and optional("packages"; packages); $where; "invalid owners or packages")
@@ -466,8 +489,14 @@ def organization($where):
   | if has("property_schema") then .property_schema |= property_schema($where + ".property_schema") else . end
   | if has("rulesets") then .rulesets |= rulesets($where) else . end
   | if has("manual_handoffs") then .manual_handoffs |= manual($where) else . end
-  | if has("teams") then .teams |= (check(type == "array"; $where; "teams must be an array") | map(team($where + ".teams")) | check(unique_by_key("slug"); $where; "duplicate teams")) else . end
-  | if has("repositories") then .repositories |= (check(type == "array"; $where; "repositories must be an array") | map(repository($where + ".repositories")) | check(unique_by_key("name"); $where; "duplicate repositories")) else . end
+  | if has("teams") then .teams |= (
+      check(type == "array"; $where + ".teams"; "teams must be an array")
+      | to_entries | map(.key as $index | .value | team($where + ".teams[" + ($index | tostring) + "]"))
+      | check(unique_by_key("slug"); $where + ".teams"; "duplicate teams")) else . end
+  | if has("repositories") then .repositories |= (
+      check(type == "array"; $where + ".repositories"; "repositories must be an array")
+      | to_entries | map(.key as $index | .value | repository($where + ".repositories[" + ($index | tostring) + "]"))
+      | check(unique_by_key("name"); $where + ".repositories"; "duplicate repositories")) else . end
   | . as $org
   | check(all(.repositories[]? | (.properties // {}) | to_entries[];
       . as $entry
@@ -488,9 +517,9 @@ def organization($where):
   | check(optional("security"; has("repository_id") | not); $where; "repository_id belongs on repository security");
 if length != 1 then fail("$"; "expected exactly one JSON document") else .[0] end
 | keys_only(["schema_version","host","actor","enterprise","defaults","organizations"]; "$")
-| check(.schema_version == 1; "$"; "schema_version must be 1")
-| check(.host | type == "string" and length<=71 and (. == "github.com" or test("^[a-z0-9]([a-z0-9-]*[a-z0-9])?\\.ghe\\.com$")); "$"; "host must be github.com or a customer subdomain.ghe.com with at most 63 characters in its subdomain")
-| check(.actor | user_login; "$"; "actor must be the expected GitHub login")
+| check_field("schema_version"; . == 1; "$"; "schema_version must be 1")
+| check_field("host"; type == "string" and length<=71 and (. == "github.com" or test("^[a-z0-9]([a-z0-9-]*[a-z0-9])?\\.ghe\\.com$")); "$"; "host must be github.com or a customer subdomain.ghe.com with at most 63 characters in its subdomain")
+| check_field("actor"; user_login; "$"; "actor must be the expected GitHub login")
 | .enterprise |= (keys_only(["slug","identity","policies"]; "$.enterprise")
     | check(.slug | slug; "$.enterprise"; "enterprise slug is required")
     | check(.identity | enum(["personal","emu"]); "$.enterprise"; "identity must be personal or emu")
@@ -500,7 +529,7 @@ if length != 1 then fail("$"; "expected exactly one JSON document") else .[0] en
     | check(optional("packages"; packages) and optional("repository_visibility"; enum(["private","internal","public"])); "$.defaults"; "invalid defaults")
     | if has("settings") then .settings |= settings("$.defaults.settings") else . end) else . end
 | .organizations |= (check(type == "array" and length > 0; "$.organizations"; "at least one organization is required")
-    | map(organization("$.organizations"))
+    | to_entries | map(.key as $index | .value | organization("$.organizations[" + ($index | tostring) + "]"))
     | check(unique_by_key("login"); "$.organizations"; "duplicate organizations"))
 | check(all(.. | objects | keys[]; credential_key | not); "$"; "credentials must stay outside configuration")
 | . as $root

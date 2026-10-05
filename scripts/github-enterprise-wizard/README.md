@@ -59,8 +59,9 @@ included automatically. A new project can use the default Developers team and
 You can change those names or choose Python or a customer template.
 Duplicate resources must be corrected before continuing. New organizations skip
 existing-repository adoption. Bundled CI and gh-aw exclude organization-only
-Actions policies because they need GitHub-owned actions. Shared member profiles
-are written only to the private `.github-private` repository.
+Actions policies because they need GitHub-owned actions. An optional member-only
+organization profile is written to `.github-private/profile/README.md`. It does
+not change personal profiles or publish content publicly.
 
 The shared organization baseline gives members read access by default. Members
 can create private or internal repositories, but not public repositories. They
@@ -141,6 +142,24 @@ take precedence over item numbers. Redirected input is
 offline and uses text prompts. Set `NO_COLOR`
 to disable color while keeping keyboard controls.
 Keyboard menus need at least 16 rows and 20 columns; use `--plain` in smaller terminals.
+
+### Reporting an error
+
+**Copy the complete `Wizard diagnostic` block when asking for help.** Validation
+errors include indexed paths such as
+`$.organizations[0].teams[1].repositories[0].name`. Identifier and permission
+errors show the rejected value and its type, with the expected format.
+Array indexes start at zero.
+
+The block includes the command and stage, Bash and `jq` versions, and an
+implementation SHA-256 so we can identify the code that ran. API errors include
+the request method and path, HTTP status, and error classification.
+Expected missing-resource lookups keep their short message.
+
+Diagnostics omit full configurations and API response bodies. They redact known
+credential patterns and omit API query values. **Check the block before sharing:**
+resource names and other short identifiers can still appear. Validation errors
+do not authorize changes or save an invalid configuration.
 
 Use the example configuration beside this guide for non-interactive setup.
 JSON is validated before planning; unknown fields are errors. Organizations can

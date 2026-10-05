@@ -220,6 +220,21 @@ class InterviewTests(unittest.TestCase):
             self.assertEqual(result, 1, output)
             self.assert_restored(initial, final)
 
+    def test_backspace_cannot_erase_a_text_question(self):
+        with tempfile.TemporaryDirectory(prefix="wizard-backspace-") as directory:
+            result, output, initial, final = terminal_run(
+                f"/bin/bash {shlex.quote(str(ENTRYPOINT))} init --no-discovery --output {shlex.quote(str(Path(directory) / 'config.json'))}",
+                [
+                    ("GitHub host:", b"\x7f" * 20 + b"\r"),
+                    ("Expected authenticated GitHub login:", b"\x03"),
+                ],
+            )
+            self.assertEqual(result, 130, output)
+            first_question = output[:output.index("Expected authenticated GitHub login:")]
+            self.assertNotIn("\x1b[2K", first_question)
+            self.assertNotIn("\b", first_question)
+            self.assert_restored(initial, final)
+
     def test_optional_saved_text_can_be_cleared(self):
         with tempfile.TemporaryDirectory(prefix="wizard-clear-") as directory:
             journal = Path(directory) / "navigation.json"
@@ -307,13 +322,15 @@ class InterviewTests(unittest.TestCase):
             output_file = Path(directory) / "config.json"
             answers = self.guided_answers()
             approval_index = next(i for i, (prompt, _) in enumerate(answers) if prompt.startswith("Required human approvals"))
-            answers[-2] = ("Prevent force pushes?", b"\x1b[A\r")
+            force_index = next(i for i, (prompt, _) in enumerate(answers) if prompt == "Prevent force pushes?")
+            answers[force_index] = ("Prevent force pushes?", b"\x1b[A\r")
             answers = answers[:-1] + [
                 ("Save this configuration?", b"e"),
                 ("Edit an earlier answer", b"\x1b[1~" + b"\x1b[B" * approval_index + b"\r"),
                 ("Required human approvals (0-6): [1]", b"9\r"),
                 ("Invalid value. Enter an integer from 0 to 6", b"1\r"),
                 ("Prevent force pushes?", b"\x1b[C"),
+                ("Create a member-only organization profile?", b"\x1b[C"),
                 ("Save this configuration?", b"\x1b[C"),
             ]
             result, output, initial, final = terminal_run(
@@ -385,12 +402,13 @@ class InterviewTests(unittest.TestCase):
                 ("Enable Secret Protection and push protection", b"\r"),
                 ("Enable Code Quality?", b"\r"),
                 ("Add another organization?", b"\r"),
-                ("Configure labels, review gates or shared Copilot content?", b"\r"),
+                ("Configure project conventions or shared organization content?", b"\r"),
                 ("Configure labels for acme-org/service?", b"\r"),
                 ("Label names", b"\r"),
                 ("Configure pull-request review gates", b"\r"),
                 ("Required human approvals (0-6): [1]", b"\r"),
                 ("Prevent force pushes?", b"\r"),
+                ("Create a member-only organization profile?", b"\r"),
                 ("Save this configuration?", b"\r"),
         ]
 
@@ -502,11 +520,15 @@ class InterviewTests(unittest.TestCase):
                 ("Enable the Kimi model family", b"\r"),
                 ("Enable the Claude Fable model family", b"\r"),
             ]
-            answers[-1:-1] = [
+            profile_index = next(i for i, (prompt, _) in enumerate(answers)
+                                 if prompt == "Create a member-only organization profile?")
+            answers[profile_index:profile_index + 1] = [
                 ("Write repository Copilot instructions", b"\x1b[C"),
+                ("Create a member-only organization profile?", b"\x1b[B\r"),
+                ("Organization profile heading:", b"Engineering\r"),
+                ("Member-only organization profile summary", b"Use the service starter for new applications.\r"),
                 ("Configure shared Copilot content", b"\x1b[C"),
-                ("Write a private member profile?", b"\x1b[C"),
-                ("Local Markdown agent file to copy", b"\r"),
+                ("Additional agent file (Enter to keep only the included agents)", b"\r"),
             ]
             result, output, initial, final = terminal_run(
                 f"/bin/bash {shlex.quote(str(ENTRYPOINT))} init --no-discovery --output {shlex.quote(str(output_file))}",
@@ -519,6 +541,11 @@ class InterviewTests(unittest.TestCase):
             self.assertEqual(organization["billing_email"], "ops@example.com")
             self.assertTrue(all(not repo["adopt"] for repo in organization["repositories"]))
             self.assertEqual(organization["repositories"][-1]["name"], ".github-private")
+            private_files = organization["repositories"][-1]["files"]
+            self.assertIn({
+                "path": "profile/README.md",
+                "content": "# Engineering\n\nUse the service starter for new applications.\n",
+            }, private_files)
             self.assertEqual(
                 [agent["path"] for agent in organization["copilot"]["agents"]],
                 [
@@ -560,7 +587,9 @@ class InterviewTests(unittest.TestCase):
                 ("Select a workflow for a live CI check", b"\x1b[C"),
                 ("Add a repository?", b"\x1b[C"),
             ]
-            answers[-1:-1] = [
+            profile_index = next(i for i, (prompt, _) in enumerate(answers)
+                                 if prompt == "Create a member-only organization profile?")
+            answers[profile_index:profile_index] = [
                 ("Configure labels for acme-org/worker?", b"\r"),
                 ("Label names", b"\r"),
                 ("Configure pull-request review gates for acme-org/worker?", b"\r"),
@@ -596,8 +625,11 @@ class InterviewTests(unittest.TestCase):
                     ("Enable the Claude Fable model family", b"\x1b[C"),
                 ])
                 answers[settings_index:settings_index] = copilot_answers
-                answers[-1:-1] = [
+                profile_index = next(i for i, (prompt, _) in enumerate(answers)
+                                     if prompt == "Create a member-only organization profile?")
+                answers[profile_index:profile_index + 1] = [
                     ("Write repository Copilot instructions", b"\x1b[C"),
+                    ("Create a member-only organization profile?", b"\x1b[C"),
                     ("Configure shared Copilot content", b"\x1b[A\x1b[C"),
                 ]
                 result, output, initial, final = terminal_run(
@@ -903,6 +935,9 @@ class InterviewTests(unittest.TestCase):
                 answers,
             )
             self.assertEqual(result, 0, output)
+            self.assertIn("Wizard diagnostic: copy this block", output)
+            self.assertIn("$.organizations[0].teams[0]", output)
+            self.assertIn('slug="not-engineers"', output)
             config = json.loads(output_file.read_text())
             self.assertEqual(config["actor"], "alice")
             self.assertEqual(config["organizations"][0]["teams"][0]["slug"], "developers")

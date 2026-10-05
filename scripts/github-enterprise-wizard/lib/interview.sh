@@ -46,7 +46,7 @@ wizard_page() {
 }
 
 wizard_read_text() {
-  local bindings='' binding status enabled_editing=false
+  local prompt="${1:-}" bindings='' binding status enabled_editing=false
   if wizard_paged; then
     if [[ ! -o emacs && ! -o vi ]]; then
       set -o emacs
@@ -60,7 +60,7 @@ wizard_read_text() {
     fi
   fi
   if wizard_paged; then
-    if IFS= read -e -r WIZARD_REPLY; then status=0; else status=$?; fi
+    if IFS= read -e -r -p "$prompt" WIZARD_REPLY; then status=0; else status=$?; fi
   else
     if IFS= read -r WIZARD_REPLY; then status=0; else status=$?; fi
   fi
@@ -107,7 +107,7 @@ wizard_section() {
 }
 
 wizard_prompt() {
-  local default="${2:-}" help="${3:-}"
+  local default="${2:-}" help="${3:-}" input_prompt
   wizard_nav_begin text "$1" || return 1
   [[ "$WIZARD_REPLAY" != true ]] || return 0
   [[ "$WIZARD_HAS_PREVIOUS" != true ]] || default="$WIZARD_PREVIOUS"
@@ -122,12 +122,19 @@ wizard_prompt() {
       printf '\n================\n\n' >&2
     fi
     [[ -z "$help" ]] || printf '%s\n' "$help" >&2
-    wizard_style '1;36'
-    printf '%s' "$1" >&2
-    if wizard_guided && [[ -n "$default" ]]; then printf '[%s] ' "$default" >&2; fi
-    wizard_style 0
+    input_prompt="$1"
+    if wizard_guided && [[ -n "$default" ]]; then input_prompt="${input_prompt}[${default}] "; fi
     if wizard_guided; then
-      if ! wizard_read_text; then
+      if wizard_paged; then
+        if [[ -t 2 && "${TERM:-dumb}" != dumb && "${NO_COLOR+x}" != x && "${WIZARD_PLAIN:-false}" != true ]]; then
+          input_prompt=$'\001\033[1;36m\002'"${input_prompt}"$'\001\033[0m\002'
+        fi
+      else
+        wizard_style '1;36'
+        printf '%s' "$input_prompt" >&2
+        wizard_style 0
+      fi
+      if ! wizard_read_text "$input_prompt"; then
         printf '\nInterview stopped: input ended before completion.\n' >&2; return 1
       fi
       if [[ "$WIZARD_REPLY" == :back ]]; then
@@ -138,8 +145,11 @@ wizard_prompt() {
       fi
       if [[ "$WIZARD_REPLY" == :clear ]]; then WIZARD_REPLY=''
       else [[ -n "$WIZARD_REPLY" ]] || WIZARD_REPLY="$default"; fi
-    elif ! IFS= read -r WIZARD_REPLY; then
+    else
+      printf '%s' "$input_prompt" >&2
+      if IFS= read -r WIZARD_REPLY; then :; else
       printf '\nInterview stopped: input ended before completion.\n' >&2; return 1
+      fi
     fi
     if ! jq -en --arg answer "$WIZARD_REPLY" '
       $answer | (test("[\u0000-\u001f\u007f]") or
@@ -211,8 +221,13 @@ wizard_prompt_ref() {
 wizard_prompt_agent_source() {
   local WIZARD_DEFER_ANSWER=true
   while :; do
-    wizard_prompt 'Local Markdown agent file to copy (blank skips): ' '' \
-      'Enter an unquoted absolute or relative path. Shell variables are not expanded; blank skips.' || return 1
+    wizard_prompt 'Additional agent file (Enter to keep only the included agents): ' '' \
+      'The shared setup already includes Security Reviewer, CI Investigator,
+Test Author, and Documentation Maintainer.
+
+You can also copy one of your own Markdown agent files.
+Enter its path without quotes, relative to your current directory
+or as a full path. $HOME and ~ are not expanded.' || return 1
     if [[ -z "$WIZARD_REPLY" ]]; then wizard_nav_finish '' || return 1; return 0; fi
     if [[ "$WIZARD_REPLY" == *.[mM][dD] || "$WIZARD_REPLY" == *.[mM][aA][rR][kK][dD][oO][wW][nN] ]] &&
       [[ -f "$WIZARD_REPLY" && -r "$WIZARD_REPLY" && ! -L "$WIZARD_REPLY" ]] &&

@@ -1,5 +1,7 @@
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/diagnostics.sh"
+
 wizard_log() { printf '%s\n' "$*" >&2; }
-wizard_die() { wizard_log "Error: $*"; exit 2; }
+wizard_die() { wizard_diagnostic command 2 "Error: $*"; exit 2; }
 
 wizard_require_tools() {
   local tool
@@ -36,15 +38,28 @@ wizard_set_host() {
   esac
 }
 
+wizard_api_report_error() {
+  local method="$1" endpoint="${2%%\?*}" attempts="$3"
+  wizard_diagnostic_text "API $method $endpoint: $API_ERROR (${API_STATUS:-no HTTP response})" >&2
+  if [[ "$API_STATUS" != 404 ]]; then
+    wizard_diagnostic api 2 "Request: $method $endpoint
+Host: ${WIZARD_HOST:-not set}
+HTTP status: ${API_STATUS:-no HTTP response}
+Classification: $API_ERROR
+Attempts: $attempts
+Response bodies and credentials are omitted."
+  fi
+}
+
 # API errors are classified without recording response bodies or credential-bearing stderr.
 wizard_api() {
   local method="$1" path="$2" body="${3:-}" attempt=0 result error status
   API_STATUS='' API_JSON='' API_ERROR='' API_NEXT=''
   case "$path" in
     /*|graphql) ;;
-    *) API_ERROR='invalid_endpoint'; return 2 ;;
+    *) API_ERROR='invalid_endpoint'; wizard_api_report_error "$method" "$path" 0; return 2 ;;
   esac
-  case "$path" in *'..'*|*://*|*$'\n'*|*$'\r'*) API_ERROR='invalid_endpoint'; return 2 ;; esac
+  case "$path" in *'..'*|*://*|*$'\n'*|*$'\r'*) API_ERROR='invalid_endpoint'; wizard_api_report_error "$method" "$path" 0; return 2 ;; esac
   while :; do
     result="$(mktemp "${TMPDIR:-/tmp}/github-wizard-response.XXXXXX")"
     error="$(mktemp "${TMPDIR:-/tmp}/github-wizard-error.XXXXXX")"
@@ -64,9 +79,11 @@ wizard_api() {
     rm -f "$result" "$error"
     if [[ "$status" -eq 0 ]]; then
       [[ -n "$API_JSON" ]] || API_JSON='{}'
-      if ! printf '%s' "$API_JSON" | jq -e . >/dev/null 2>&1; then API_ERROR='invalid_response'; return 2; fi
+      if ! printf '%s' "$API_JSON" | jq -e . >/dev/null 2>&1; then
+        API_ERROR='invalid_response'; wizard_api_report_error "$method" "$path" "$((attempt + 1))"; return 2
+      fi
       if [[ "$path" == graphql ]] && printf '%s' "$API_JSON" | jq -e '.errors | length > 0' >/dev/null; then
-        API_ERROR='graphql_error'; return 2
+        API_ERROR='graphql_error'; wizard_api_report_error "$method" "$path" "$((attempt + 1))"; return 2
       fi
       API_STATUS="${API_STATUS:-200}"; return 0
     fi
@@ -84,7 +101,7 @@ wizard_api() {
     if [[ "$method" == GET && "$API_STATUS" == 5?? && "$attempt" -lt 2 ]]; then
       attempt=$((attempt + 1)); sleep "$attempt"; continue
     fi
-    wizard_log "API $method $path: $API_ERROR (${API_STATUS:-no HTTP response})"
+    wizard_api_report_error "$method" "$path" "$((attempt + 1))"
     return 2
   done
 }

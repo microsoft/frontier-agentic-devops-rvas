@@ -5,13 +5,21 @@ WIZARD_CONFIG_ROOT=$(cd "$WIZARD_CONFIG_LIB_DIR/.." && pwd)
 source "$WIZARD_CONFIG_LIB_DIR/interview.sh"
 source "$WIZARD_CONFIG_LIB_DIR/navigation.sh"
 source "$WIZARD_CONFIG_LIB_DIR/discovery.sh"
+source "$WIZARD_CONFIG_LIB_DIR/diagnostics.sh"
+
+wizard_validate_input() {
+  local error status
+  if error="$(jq -e -s -f "$WIZARD_CONFIG_ROOT/validate.jq" "$@" 2>&1 >/dev/null)"; then return 0; else status=$?; fi
+  wizard_diagnostic validation "$status" "$error"
+  return 1
+}
 
 wizard_validate_config() {
   if [ "$#" -ne 1 ] || [ ! -f "$1" ]; then
-    printf '%s\n' 'Config: supply an existing JSON file.' >&2
+    wizard_diagnostic validation 1 'Config: supply an existing JSON file.'
     return 1
   fi
-  jq -e -s -f "$WIZARD_CONFIG_ROOT/validate.jq" -- "$1" >/dev/null
+  wizard_validate_input -- "$1"
 }
 
 wizard_effective_config() {
@@ -63,6 +71,24 @@ wizard_default_copilot_agents() {
       content:"---\nname: Documentation Maintainer\ndescription: Updates technical documentation to match verified repository behavior\ntools: [read, search, edit]\ndisable-model-invocation: true\nuser-invocable: true\n---\n\nUpdate the requested documentation from the repository source and configuration.\n\nUse short, direct sentences. Preserve product names, commands, paths, version numbers, and warnings exactly. Link to repository files with relative paths when possible.\n\nEdit documentation and documentation examples only. Do not invent commands, API behavior, test results, support claims, or future features. If the source does not establish a fact, mark it for maintainer review instead of guessing.\n\nSummarize the files changed and any statement that still needs verification.\n"
     }
   ]'
+}
+
+wizard_ensure_github_private_repository() {
+  local config="$1" org_index="$2" adopt=false
+  if printf '%s' "$config" | jq -e --argjson i "$org_index" \
+    '.organizations[$i].repositories | any((.name|ascii_downcase) == ".github-private")' >/dev/null; then
+    printf '%s\n' "$config"
+    return 0
+  fi
+  if [[ "$(jq -r --argjson i "$org_index" '.organizations[$i].create' <<<"$config")" != true ]]; then
+    wizard_prompt_bool 'Explicitly adopt an existing .github-private repository? Answer no to create a new one.' || return 1
+    adopt=$WIZARD_REPLY
+  fi
+  printf '%s' "$config" | jq --argjson i "$org_index" --argjson adopt "$adopt" '
+    .organizations[$i].repositories += [{
+      name:".github-private",adopt:$adopt,visibility:"private",stack:"none",
+      files:[],labels:[],properties:{},environments:[],workflows:[],copilot_users:[]
+    }]'
 }
 
 wizard_customize_config() {
@@ -139,19 +165,25 @@ wizard_customize_config() {
       fi
       repo_index=$((repo_index + 1))
     done
+    if wizard_package_selected "$packages" workspace; then
+      wizard_prompt_bool 'Create a member-only organization profile?' false \
+        'Creates .github-private/profile/README.md for the organization Member view. It does not change anyone'\''s personal profile or publish content publicly.' || return 1
+      if [ "$WIZARD_REPLY" = true ]; then
+        config=$(wizard_ensure_github_private_repository "$config" "$org_index") || return 1
+        wizard_prompt_required 'Organization profile heading: ' || return 1; title=$WIZARD_REPLY
+        wizard_prompt_required 'Member-only organization profile summary (one line): ' || return 1; profile=$WIZARD_REPLY
+        config=$(printf '%s' "$config" | jq --argjson i "$org_index" --arg title "$title" --arg profile "$profile" '
+          (.organizations[$i].repositories[] | select((.name|ascii_downcase)==".github-private").files) |=
+            (map(select(.path!="profile/README.md")) + [{
+              path:"profile/README.md",content:("# "+$title+"\n\n"+$profile+"\n")
+            }])') || return 1
+      fi
+    fi
     if wizard_package_selected "$packages" copilot; then
       wizard_prompt_bool "Configure shared Copilot content in $login/.github-private?" true \
-        'Recommended for enterprise-managed settings, approved MCP servers, shared agents and member profiles.' || return 1
+        'Recommended for enterprise-managed settings, approved MCP servers and shared agents.' || return 1
       if [ "$WIZARD_REPLY" = true ]; then
-        if ! printf '%s' "$config" | jq -e --argjson i "$org_index" '.organizations[$i].repositories | any((.name|ascii_downcase) == ".github-private")' >/dev/null; then
-          adopt=false
-          if [[ "$(jq -r --argjson i "$org_index" '.organizations[$i].create' <<<"$config")" != true ]]; then
-            wizard_prompt_bool 'Explicitly adopt an existing .github-private repository? Answer no to create a new one.' || return 1
-            adopt=$WIZARD_REPLY
-          fi
-          config=$(printf '%s' "$config" | jq --argjson i "$org_index" --argjson adopt "$adopt" '
-            .organizations[$i].repositories += [{name:".github-private",adopt:$adopt,visibility:"private",stack:"none",files:[],labels:[],properties:{},environments:[],workflows:[],copilot_users:[]}]') || return 1
-        fi
+        config=$(wizard_ensure_github_private_repository "$config" "$org_index") || return 1
         config=$(printf '%s' "$config" | jq --argjson i "$org_index" '
           (.organizations[$i].repositories[] | select((.name|ascii_downcase)==".github-private").files) |=
             (map(select(.path!="copilot/managed-settings.json")) + [{
@@ -167,14 +199,6 @@ wizard_customize_config() {
           | if .enterprise.policies then
               .enterprise.policies.copilot.source_organization = .organizations[$i].login
             else . end') || return 1
-        wizard_prompt_bool 'Write a private member profile?' || return 1
-        if [ "$WIZARD_REPLY" = true ]; then
-          wizard_prompt_required 'Actual organization title: ' || return 1; title=$WIZARD_REPLY
-          wizard_prompt_required 'Member profile text (one line): ' || return 1; profile=$WIZARD_REPLY
-          config=$(printf '%s' "$config" | jq --argjson i "$org_index" --arg title "$title" --arg profile "$profile" '
-            (.organizations[$i].repositories[] | select((.name|ascii_downcase)==".github-private").files) +=
-              [{path:"profile/README.md",content:("# "+$title+"\n\n"+$profile+"\n")}]') || return 1
-        fi
         while :; do
           wizard_prompt_agent_source || return 1
           [ -n "$WIZARD_REPLY" ] || break
@@ -740,11 +764,11 @@ wizard_init_once() (
   wizard_section '5. Project conventions and review' 'Choose labels and review gates, then inspect the complete configuration before saving.'
   if printf '%s' "$config" | jq -e 'any(.organizations[]; any(.packages[]; . == "workspace" or . == "actions" or . == "copilot"))' >/dev/null; then
     if wizard_guided; then
-      wizard_prompt_bool 'Configure labels, review gates or shared Copilot content?' true \
-        'Recommended for a usable project. Existing repository content goes through PRs; adopted rules stay staged until separately approved.' || return 1
+      wizard_prompt_bool 'Configure project conventions or shared organization content?' true \
+        'Configure labels, review gates, a member-only organization profile, or shared Copilot content. Existing repository content goes through pull requests.' || return 1
       if [ "$WIZARD_REPLY" = true ]; then WIZARD_REPLY=yes; else WIZARD_REPLY=no; fi
     else
-      wizard_prompt_checked 'Configure labels, review gates or shared Copilot content? [yes/no; blank skips]: ' '' \
+      wizard_prompt_checked 'Configure project conventions or shared organization content? [yes/no; blank skips]: ' '' \
         'Answer yes or no, or leave blank to skip customization.' \
         '$answer|ascii_downcase|. as $value|["","yes","y","true","no","n","false"]|index($value)!=null' || return 1
       WIZARD_REPLY="$(jq -nr --arg value "$WIZARD_REPLY" '$value|ascii_downcase')"
@@ -756,7 +780,7 @@ wizard_init_once() (
     esac
   fi
   wizard_section '6. Review and save' 'Check the summary. Save writes configuration only; plan and apply are separate.'
-  if ! validation_error="$(printf '%s' "$config" | jq -e -s -f "$WIZARD_CONFIG_ROOT/validate.jq" 2>&1)"; then
+  if ! validation_error="$(printf '%s' "$config" | wizard_validate_input 2>&1)"; then
     printf 'Cannot save this configuration: %s\n' "$validation_error" >&2
     if wizard_guided; then wizard_review_error "$validation_error"; fi
     return 1

@@ -398,6 +398,21 @@ test('agent sources retry missing files, symlinks and credentials without losing
   ));
   assert.equal(result.stdout, markdown);
   assert.match(result.stderr, /readable Markdown file/);
+  assert.match(result.stderr, /The shared setup already includes Security Reviewer, CI Investigator,/);
+  assert.match(result.stderr, /Test Author, and Documentation Maintainer\./);
+  assert.match(result.stderr, /Additional agent file \(Enter to keep only the included agents\)/);
+  assert.match(result.stderr, /\$HOME and ~ are not expanded\./);
+  assert.deepEqual(f.calls(), []);
+});
+
+test('skipping additional agent files leaves the bundled definitions unchanged', t => {
+  const f = fixture(t);
+  const library = path.join(f.directory, 'snapshot/scripts/github-enterprise-wizard/lib/config.sh');
+  const result = f.success(f.shell(
+    'source "$1"; before=$(wizard_default_copilot_agents); wizard_prompt_agent_source || exit $?; ' +
+    'test -z "$WIZARD_REPLY" && test "$before" = "$(wizard_default_copilot_agents)"', [library], '\n',
+  ));
+  assert.match(result.stderr, /Enter to keep only the included agents/);
   assert.deepEqual(f.calls(), []);
 });
 
@@ -602,7 +617,7 @@ test('shared Copilot profiles and agents stay in the case-insensitive private so
   fs.writeFileSync(agentFile, '# Reviewer\nSuggest tests.\n');
   const result = f.success(f.shell(
     'source "$1"; wizard_customize_config "$(cat "$2")"', [library, f.configFile],
-    ['no', 'no', 'no', 'no', 'yes', 'yes', 'Company', 'Use the service starter.',
+    ['no', 'no', 'no', 'no', 'yes', 'Company', 'Use the service starter.', 'yes',
       agentFile, 'Profile/README.md', 'agents/reviewer.agent.md', ''].join('\n') + '\n',
   ));
   const saved = JSON.parse(result.stdout);
@@ -611,11 +626,11 @@ test('shared Copilot profiles and agents stay in the case-insensitive private so
   assert.equal(repositories.length, 2, 'case variants must not create another private source repository');
   assert.deepEqual(repositories[0].files || [], [], 'member profiles must not be copied into project repositories');
   assert.deepEqual(repositories[1].files, [
+    {path: 'profile/README.md', content: '# Company\n\nUse the service starter.\n'},
     {
       path: 'copilot/managed-settings.json',
       content: '{\n  "model": "auto",\n  "permissions": {\n    "disableBypassPermissionsMode": "disable"\n  },\n  "allowedMcpServers": []\n}\n',
     },
-    {path: 'profile/README.md', content: '# Company\n\nUse the service starter.\n'},
   ]);
   assert.equal(saved.organizations[0].copilot.instructions, undefined);
   assert.deepEqual(saved.organizations[0].copilot.agents.map(agent => agent.path), [
@@ -751,6 +766,162 @@ test('invalid configs reject unknown keys, secrets, hosts and injection before d
     assert.equal(fs.existsSync(f.planFile), false);
     assert.equal(fs.existsSync(path.join(f.directory, 'injected')), false);
   }
+});
+
+test('validation diagnostics identify the exact team repository and expected input', t => {
+  const c = config();
+  c.organizations.push({
+    login: 'another-org', teams: [
+      {name: 'Readers', slug: 'readers', repositories: [{name: 'service', permission: 'pull'}]},
+      {name: 'Developers', slug: 'developers', repositories: [
+        {name: 'service', permission: 'push'}, {name: 'owner/service', permission: 'push'},
+      ]},
+    ],
+  });
+  const f = fixture(t, c);
+  const result = f.command(['doctor', '--config', f.configFile]);
+  assert.equal(result.status, 2);
+  assert.match(result.stderr, /config \$\.organizations\[1\]\.teams\[1\]\.repositories\[1\]\.name: invalid team repository/);
+  assert.match(result.stderr, /actual="owner\/service"; actual type=string/);
+  assert.match(result.stderr, /expected only the repository name/);
+  assert.match(result.stderr, /edit Repository name within this organization/);
+  assert.match(result.stderr, /Wizard diagnostic: copy this block/);
+  assert.match(result.stderr, /Command: doctor\nStage: validation\nExit status: 5/);
+  assert.match(result.stderr, /Implementation SHA-256: [a-f0-9]{64}/);
+  assert.match(result.stderr, /Bash: [^\n]+\njq: jq-/);
+  assert.deepEqual(f.calls(), []);
+});
+
+test('valid indexed configuration still passes validation without diagnostics or API calls', t => {
+  const c = config();
+  c.organizations[0].teams = [
+    {name: 'Readers', slug: 'readers', repositories: [{name: 'service', permission: 'pull'}]},
+    {name: 'Developers', slug: 'developers', repositories: [{name: 'service', permission: 'push'}]},
+  ];
+  c.organizations[0].repositories[0].files = [{path: 'guide.md', content: 'Valid content.'}];
+  c.organizations.push({login: 'another-org', teams: [], repositories: [{name: 'another-service'}]});
+  const f = fixture(t, c);
+  const library = path.join(f.directory, 'snapshot/scripts/github-enterprise-wizard/lib/config.sh');
+  const result = f.success(f.shell('source "$1"; wizard_validate_config "$2"', [library, f.configFile]));
+  assert.equal(result.stdout, '');
+  assert.equal(result.stderr, '');
+  assert.deepEqual(f.calls(), []);
+});
+
+test('team grant diagnostics distinguish missing fields, invalid types and permissions', t => {
+  const grants = [
+    [{permission: 'push'}, '.name', 'actual=[missing]; actual type=missing'],
+    [{name: null, permission: 'push'}, '.name', 'actual=null; actual type=null'],
+    [{name: {secret: 'not-for-output'}, permission: 'push'}, '.name', '[object, 1 entries; contents omitted]'],
+    [{name: 'service', permission: 'write'}, '.permission', 'actual="write"; actual type=string'],
+  ];
+  for (const [grant, field, detail] of grants) {
+    const c = config();
+    c.organizations[0].teams = [{name: 'Developers', slug: 'developers', repositories: [grant]}];
+    const f = fixture(t, c);
+    const result = f.command(['doctor', '--config', f.configFile]);
+    assert.equal(result.status, 2);
+    assert(result.stderr.includes(`$.organizations[0].teams[0].repositories[0]${field}`));
+    assert(result.stderr.includes(detail));
+    assert(!result.stderr.includes('not-for-output'));
+    assert.deepEqual(f.calls(), []);
+  }
+});
+
+test('validation diagnostics redact credential-like values and omit other configuration contents', t => {
+  for (const value of [`ghp_${'a'.repeat(30)}/invalid`, 'password=never-print-this', 'x'.repeat(161)]) {
+    const c = config();
+    c.organizations[0].teams = [{name: 'Developers', slug: 'developers', repositories: [{name: value, permission: 'push'}]}];
+    c.organizations[0].repositories[0].files = [{path: 'private.md', content: 'PRIVATE_CONFIG_CONTENT'}];
+    const f = fixture(t, c);
+    const result = f.command(['doctor', '--config', f.configFile]);
+    assert.equal(result.status, 2);
+    assert.match(result.stderr, /actual="\[REDACTED\]"/);
+    assert(!result.stderr.includes(value));
+    assert(!result.stderr.includes('PRIVATE_CONFIG_CONTENT'));
+    assert.deepEqual(f.calls(), []);
+  }
+});
+
+test('repository file diagnostics include the file index without printing its contents', t => {
+  const c = config();
+  c.organizations[0].repositories[0].files = [
+    {path: 'valid.md', content: 'ok'}, {path: '../invalid.md', content: 'PRIVATE_CONFIG_CONTENT'},
+  ];
+  const f = fixture(t, c);
+  const result = f.command(['doctor', '--config', f.configFile]);
+  assert.equal(result.status, 2);
+  assert.match(result.stderr, /\$\.organizations\[0\]\.repositories\[0\]\.files\[1\]\.path/);
+  assert.match(result.stderr, /actual="\.\.\/invalid.md"/);
+  assert(!result.stderr.includes('PRIVATE_CONFIG_CONTENT'));
+  assert.deepEqual(f.calls(), []);
+});
+
+test('malformed JSON and fatal command errors have redacted diagnostic blocks', t => {
+  const f = fixture(t);
+  fs.writeFileSync(f.configFile, '{"schema_version": 1,\n');
+  const invalid = f.command(['doctor', '--config', f.configFile]);
+  assert.equal(invalid.status, 2);
+  assert.match(invalid.stderr, /Stage: validation/);
+  assert.match(invalid.stderr, /parse error/);
+  const token = `ghp_${'b'.repeat(30)}`;
+  const fatal = f.command(['doctor', `--${token}`]);
+  assert.equal(fatal.status, 2);
+  assert.match(fatal.stderr, /Stage: command/);
+  assert.match(fatal.stderr, /Unknown argument: --\[REDACTED\]/);
+  assert(!fatal.stderr.includes(token));
+  assert.deepEqual(f.calls(), []);
+});
+
+test('API diagnostics include the request and classification without response bodies or query values', t => {
+  const f = fixture(t);
+  const api = path.join(f.directory, 'snapshot/scripts/github-enterprise-wizard/lib/api.sh');
+  const home = path.dirname(path.dirname(api));
+  f.changeState(state => { state.failures['GET /orgs/acme-org?token=private-query'] = 403; });
+  const result = f.shell(
+    'source "$1"; WIZARD_HOME="$2"; WIZARD_HOST=github.com; wizard_api GET "/orgs/acme-org?token=private-query"',
+    [api, home],
+  );
+  assert.equal(result.status, 2);
+  assert.match(result.stderr, /Stage: api/);
+  assert.match(result.stderr, /Request: GET \/orgs\/acme-org\nHost: github.com\nHTTP status: 403\nClassification: forbidden_or_rate_limited\nAttempts: 1/);
+  assert(!result.stderr.includes('private-query'));
+  assert(!result.stderr.includes('Resource not accessible by personal access token'));
+});
+
+test('API diagnostics cover malformed responses and GraphQL errors without exposing the body', t => {
+  const f = fixture(t);
+  const api = path.join(f.directory, 'snapshot/scripts/github-enterprise-wizard/lib/api.sh');
+  const home = path.dirname(path.dirname(api));
+  const cases = [
+    ['/user', 'PRIVATE_API_BODY not-json', 'invalid_response'],
+    ['graphql', '{"errors":[{"message":"PRIVATE_API_BODY"}]}', 'graphql_error'],
+  ];
+  for (const [endpoint, body, classification] of cases) {
+    const result = f.shell(
+      'source "$1"; WIZARD_HOME="$2"; WIZARD_HOST=github.com; response="$4"; ' +
+      'gh() { printf "HTTP/2.0 200 OK\\r\\n\\r\\n%s\\n" "$response"; }; ' +
+      'wizard_api GET "$3"',
+      [api, home, endpoint, body],
+    );
+    assert.equal(result.status, 2);
+    assert.match(result.stderr, /Wizard diagnostic: copy this block/);
+    assert(result.stderr.includes(`Classification: ${classification}`));
+    assert(!result.stderr.includes('PRIVATE_API_BODY'));
+  }
+  assert.deepEqual(f.calls(), []);
+});
+
+test('expected missing-resource API lookups stay concise and redact query values', t => {
+  const f = fixture(t);
+  const api = path.join(f.directory, 'snapshot/scripts/github-enterprise-wizard/lib/api.sh');
+  const result = f.shell(
+    'source "$1"; WIZARD_HOST=github.com; wizard_api GET "/orgs/missing?token=private-query"', [api],
+  );
+  assert.equal(result.status, 2);
+  assert.match(result.stderr, /API GET \/orgs\/missing: not_found_or_inaccessible \(404\)/);
+  assert(!result.stderr.includes('Wizard diagnostic'));
+  assert(!result.stderr.includes('private-query'));
 });
 
 test('organization defaults merge settings and explicit empty packages override defaults', t => {
