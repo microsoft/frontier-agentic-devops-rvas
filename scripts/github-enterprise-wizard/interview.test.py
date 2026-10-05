@@ -350,6 +350,11 @@ class InterviewTests(unittest.TestCase):
                 ("Existing enterprise slug:", b"acme\r"),
                 ("Choice 1/2.", b"\r"),
                 ("Space: toggle a checkbox.", b"\r"),
+                ("Enforce the enterprise PAT baseline?", b"\x1b[B\r"),
+                ("Enforce the Codespaces baseline?", b"\x1b[B\r"),
+                ("Enforce enterprise app approval?", b"\x1b[B\r"),
+                ("Remove users when they leave their last organization?", b"\x1b[B\r"),
+                ("Require enterprise two-factor authentication?", b"\x1b[B\r"),
                 ("Default repository visibility", b"\r"),
                 ("Organization setup", b"\r"),
                 ("Organization login:", b"acme-org\r"),
@@ -400,6 +405,34 @@ class InterviewTests(unittest.TestCase):
             self.assertEqual(result, 0, output)
             config = json.loads(output_file.read_text())
             self.assertEqual(config["defaults"]["packages"], ["actions", "quality", "security", "workspace"])
+            policies = config["enterprise"]["policies"]
+            self.assertEqual(policies["repository"]["default_branch"], "main")
+            self.assertFalse(policies["repository"]["public_repository_creation"])
+            self.assertEqual(policies["pat"], {
+                "classic_access": "blocked",
+                "fine_grained_access": "allowed",
+                "approval_required": True,
+                "maximum_lifetime_days": 90,
+                "enforcement_confirmed": True,
+            })
+            self.assertEqual(policies["actions"]["fork_approval_policy"], "all_external_contributors")
+            self.assertFalse(policies["actions"]["private_fork_workflows"]["send_write_tokens_to_workflows"])
+            self.assertTrue(policies["actions"]["disable_repository_runners"])
+            self.assertEqual(policies["actions"]["cache_retention_days"], 7)
+            self.assertEqual(policies["codespaces"]["machine_types"], [2, 4])
+            self.assertEqual(policies["codespaces"]["port_visibility"], "private")
+            self.assertTrue(policies["codespaces"]["enforcement_confirmed"])
+            self.assertEqual([item["property_name"] for item in policies["custom_properties"]], [
+                "data_classification", "service_tier", "lifecycle", "owner",
+            ])
+            self.assertEqual(policies["rulesets"][0]["enforcement"], "evaluate")
+            self.assertTrue(policies["offboarding"]["remove_unaffiliated_users"])
+            self.assertTrue(policies["offboarding"]["enforcement_confirmed"])
+            self.assertTrue(policies["applications"]["enforcement_confirmed"])
+            self.assertTrue(policies["authentication"]["require_two_factor"])
+            self.assertTrue(policies["authentication"]["enforcement_confirmed"])
+            self.assertNotIn("domains", policies)
+            self.assertNotIn("usage", policies["copilot"])
             organization = config["organizations"][0]
             self.assertTrue(organization["adopt"])
             self.assertEqual(config["defaults"]["settings"]["default_repository_permission"], "read")
@@ -454,7 +487,8 @@ class InterviewTests(unittest.TestCase):
             output_file = Path(directory) / "config.json"
             answers = self.guided_answers()
             answers[4] = ("Space: toggle a checkbox.", b"\x1b[B" * 3 + b" \x1b[C")
-            answers[6] = ("Organization setup", b"\x1b[B\x1b[C")
+            setup_index = next(i for i, (prompt, _) in enumerate(answers) if prompt == "Organization setup")
+            answers[setup_index] = ("Organization setup", b"\x1b[B\x1b[C")
             answers = [(prompt, answer) for prompt, answer in answers
                        if prompt not in ("Allow the plan to propose updates", "Explicitly adopt an existing repository?")]
             owners_index = next(i for i, (prompt, _) in enumerate(answers) if prompt.startswith("Organization owner logins"))
@@ -716,7 +750,13 @@ class InterviewTests(unittest.TestCase):
                 [("GitHub host:", b"customer.ghe.com\r"),
                  ("Expected authenticated GitHub login: [tenant-admin]", b"\r"),
                  ("Existing enterprise slug", b"\r"), ("Account identity", b"\r"),
-                 ("Space: toggle a checkbox", b"\r"), ("Default repository visibility", b"\r"),
+                 ("Space: toggle a checkbox", b"\r"),
+                 ("Enforce the enterprise PAT baseline?", b"\r"),
+                 ("Enforce the Codespaces baseline?", b"\r"),
+                 ("Enforce enterprise app approval?", b"\r"),
+                 ("Remove users when they leave their last organization?", b"\r"),
+                 ("Require enterprise two-factor authentication?", b"\r"),
+                 ("Default repository visibility", b"\r"),
                  ("Organization setup", b"\r"), ("Organization login", b"\r"),
                  ("Allow the plan to propose updates", b"\x1b")],
                 discovery={"accounts": {"customer.ghe.com": [{"login": "tenant-admin", "active": True, "state": "success"}]},
@@ -1014,13 +1054,23 @@ class InterviewTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix="wizard-interview-") as directory:
             output_file = Path(directory) / "config.json"
             answers = self.guided_answers()
-            answers[3:7] = [
+            setup_index = next(i for i, (prompt, _) in enumerate(answers) if prompt == "Organization setup")
+            answers[3:setup_index + 1] = [
                 ("Account identity", b"\x1b[B\x1b[C"),
                 ("Space: toggle a checkbox.", b" \x1b[C"),
+                ("Enforce the enterprise PAT baseline?", b"\r"),
+                ("Enforce the Codespaces baseline?", b"\r"),
+                ("Enforce enterprise app approval?", b"\r"),
                 ("Default repository visibility", b"\x1b[D"),
+                ("Enforce enterprise app approval?", b"\x1b[D"),
+                ("Enforce the Codespaces baseline?", b"\x1b[D"),
+                ("Enforce the enterprise PAT baseline?", b"\x1b[D"),
                 ("Space: toggle a checkbox.", b"\x1b[D"),
                 ("Account identity", b"\x1b[C"),
                 ("Space: toggle a checkbox.", b"\x1b[C"),
+                ("Enforce the enterprise PAT baseline?", b"\x1b[C"),
+                ("Enforce the Codespaces baseline?", b"\x1b[C"),
+                ("Enforce enterprise app approval?", b"\x1b[C"),
                 ("Default repository visibility", b"\x1b[B\x1b[C"),
                 ("Organization setup", b"\x1b[D"),
                 ("Default repository visibility", b"\x1b[C"),

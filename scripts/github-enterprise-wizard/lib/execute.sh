@@ -44,6 +44,7 @@ wizard_org_actions() {
 }
 
 wizard_generate_actions() {
+  wizard_enterprise_actions "$1" || return 2
   wizard_org_actions "$1" || return 2
   wizard_workspace_actions "$1" || return 2
   wizard_actions_actions "$1" || return 2
@@ -57,12 +58,15 @@ wizard_check_actions() {
     (map(.id)|length)==(map(.id)|unique|length) and
     all(.[]; (.id|type)=="string" and (.package|type)=="string" and
       (.org as $o | any($config.organizations[]; .login==$o)) and
-      (.kind|IN("ensure","organization","files","workflow","manual","purchase","report","ghaw","request","analysis","setup_run")) and
+      (.kind|IN("ensure","organization","files","workflow","manual","purchase","report","ghaw","request","analysis","setup_run","copilot_source","enterprise_setting")) and
       ((.depends_on//[])|type)=="array" and
       all((.depends_on//[])[]; . as $id | any($all[]; .id==$id)) and
       (if .kind=="ensure" then (.read_path|type)=="string" and (.desired|type)=="object" and (.desired|length)>0
        elif .kind=="files" or .kind=="ghaw" then (.repo|type)=="string" and (.files|type)=="array" and all(.files[]; (.path|type)=="string" and (.content|type)=="string" and (.path|test("(^/|(^|/)\\.\\.(/|$)|[\\r\\n]|[?#%])")|not))
        elif .kind=="manual" then (.message|type)=="string"
+       elif .kind=="copilot_source" then (.source_organization|type)=="string" and .source_organization==.org and (.create_ruleset|type)=="boolean"
+       elif .kind=="request" then (.apply.method|IN("POST","PUT","PATCH")) and (.apply.path|type)=="string" and (.apply.body|type)=="object"
+       elif .kind=="enterprise_setting" then .setting=="two_factor_authentication_required" and (.value|type)=="boolean"
        else true end))' <<<"$actions" >/dev/null || { wizard_log "Invalid package action graph."; return 2; }
   local action path org write enterprise
   enterprise="$(printf '%s' "$config" | jq -r .enterprise.slug)"
@@ -375,10 +379,71 @@ wizard_dispatch_action() {
     report) wizard_apply_report "$action" ;;
     analysis) wizard_apply_analysis "$action" ;;
     setup_run) wizard_apply_setup_run "$action" ;;
+    copilot_source) wizard_apply_copilot_source "$action" "$verify_only" ;;
+    enterprise_setting) wizard_apply_enterprise_setting "$action" "$verify_only" ;;
     ghaw) wizard_apply_ghaw "$action" "$verify_only" ;;
-    request) ACTION_STATE=unsupported; ACTION_DETAIL="No verified executor for this request; no write attempted." ;;
+    request) wizard_apply_request "$action" "$verify_only" ;;
     *) ACTION_STATE=unsupported; ACTION_DETAIL="Unsupported action kind." ;;
   esac
+}
+
+wizard_apply_request() {
+  local a="$1" verify_only="$2" method path body
+  if [[ "$verify_only" == true ]]; then
+    ACTION_STATE=unverified; ACTION_DETAIL="This API does not expose a read-back operation; re-plan to enforce it again."
+    return 0
+  fi
+  method="$(printf '%s' "$a" | jq -r .apply.method)"
+  path="$(printf '%s' "$a" | jq -r .apply.path)"
+  body="$(printf '%s' "$a" | jq -c .apply.body)"
+  wizard_api "$method" "$path" "$body" || return 2
+  ACTION_STATE=ready
+  ACTION_DETAIL="$(printf '%s' "$a" | jq -r '.success_message // "GitHub accepted the approved request."')"
+}
+
+wizard_apply_enterprise_setting() {
+  local a="$1" verify_only="$2" body
+  if [[ "$verify_only" == true ]]; then
+    ACTION_STATE=unverified; ACTION_DETAIL="Enterprise 2FA has no supported read-back field; re-plan to enforce it again."
+    return 0
+  fi
+  body="$(jq -cn --arg enterprise_id "$WIZARD_ENTERPRISE_ID" \
+    --arg value "$(printf '%s' "$a" | jq -r 'if .value then "ENABLED" else "DISABLED" end')" \
+    '{query:"mutation($input:UpdateEnterpriseTwoFactorAuthenticationRequiredSettingInput!){updateEnterpriseTwoFactorAuthenticationRequiredSetting(input:$input){message enterprise{id}}}",variables:{input:{enterpriseId:$enterprise_id,settingValue:$value}}}')"
+  wizard_api POST graphql "$body" || return 2
+  ACTION_STATE=ready
+  ACTION_DETAIL="GitHub accepted the enterprise two-factor authentication requirement."
+}
+
+wizard_apply_copilot_source() {
+  local a="$1" verify_only="$2" path source organization_id body
+  path="$(printf '%s' "$a" | jq -r .read_path)"
+  source="$(printf '%s' "$a" | jq -r .source_organization)"
+  if wizard_api GET "$path"; then
+    if [[ "$(printf '%s' "$API_JSON" | jq -r '.organization.login // empty')" == "$source" ]]; then
+      ACTION_STATE=ready; ACTION_DETAIL="Enterprise Copilot custom-agent source is configured."
+      ACTION_DATA="$(printf '%s' "$API_JSON" | jq -c '{organization:.organization.login,repository:.repository.full_name}')"
+      return 0
+    fi
+  elif [[ "$API_STATUS" != 404 ]]; then return 2
+  fi
+  if [[ "$verify_only" == true ]]; then
+    ACTION_STATE=pending; ACTION_DETAIL="Enterprise Copilot custom-agent source does not match the approved organization."
+    return 0
+  fi
+  wizard_api GET "/orgs/$source" || return 2
+  organization_id="$(printf '%s' "$API_JSON" | jq -r .id)"
+  [[ "$organization_id" =~ ^[0-9]+$ ]] || { ACTION_STATE=failed; ACTION_DETAIL="Source organization did not return a numeric ID."; return 2; }
+  body="$(printf '%s' "$a" | jq -c --argjson organization_id "$organization_id" \
+    '{organization_id:$organization_id,create_ruleset:.create_ruleset}')"
+  wizard_api PUT "$path" "$body" || return 2
+  wizard_api GET "$path" || return 2
+  if [[ "$(printf '%s' "$API_JSON" | jq -r '.organization.login // empty')" != "$source" ]]; then
+    ACTION_STATE=unverified; ACTION_DETAIL="GitHub did not confirm the approved custom-agent source."
+    return 0
+  fi
+  ACTION_STATE=ready; ACTION_DETAIL="Enterprise Copilot custom-agent source is configured."
+  ACTION_DATA="$(printf '%s' "$API_JSON" | jq -c '{organization:.organization.login,repository:.repository.full_name}')"
 }
 
 wizard_apply_analysis() {

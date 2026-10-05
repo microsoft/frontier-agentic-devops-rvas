@@ -163,7 +163,10 @@ wizard_customize_config() {
             reduce $defaults[] as $agent
               ((.organizations[$i].copilot.agents // []);
                if any(.[]; .path == $agent.path) then . else . + [$agent] end)
-          )') || return 1
+          )
+          | if .enterprise.policies then
+              .enterprise.policies.copilot.source_organization = .organizations[$i].login
+            else . end') || return 1
         wizard_prompt_bool 'Write a private member profile?' || return 1
         if [ "$WIZARD_REPLY" = true ]; then
           wizard_prompt_required 'Actual organization title: ' || return 1; title=$WIZARD_REPLY
@@ -233,6 +236,7 @@ wizard_init_once() (
   local output=$1 directory staging='' staging_owned=false config org teams repositories team repo packages
   local host actor enterprise identity defaults owners login create adopt billing
   local name team_name slug members grants permission stack visibility template users selected option choices feature owner workflow ref default_answer validation_error kimi fable
+  local confirm_pat confirm_codespaces confirm_offboarding confirm_apps confirm_two_factor
   case "$output" in /*|./*|../*) ;; *) output="./$output" ;; esac
   directory=$(dirname "$output")
   if [ ! -d "$directory" ] || [ -e "$output" ] || [ -L "$output" ]; then
@@ -242,8 +246,10 @@ wizard_init_once() (
   umask 077
   WIZARD_ORIGINAL_TTY=''
   WIZARD_PAGED=false WIZARD_REPLAY_MUTED=false
-  if wizard_keyboard; then
+  if wizard_guided; then
     WIZARD_ORIGINAL_TTY="$(stty -g)" || return 1
+  fi
+  if wizard_keyboard; then
     WIZARD_PAGED=true
     exec 3>&2
     if wizard_replaying; then
@@ -273,6 +279,28 @@ wizard_init_once() (
   identity=$WIZARD_REPLY
   wizard_section '2. Capabilities' 'Workspace, Codespaces, Advanced Security and Code Quality are recommended to start. Add other capabilities when you need them.'
   wizard_select_packages '["workspace","actions","security","quality"]' || return 1; defaults=$WIZARD_REPLY
+  wizard_prompt_bool 'Enforce the enterprise PAT baseline?' false \
+    'This blocks classic PAT access, requires approval for fine-grained PATs, and sets a 90-day maximum lifetime. Existing automation that uses classic or long-lived tokens can stop working. The wizard exports token inventories first; GitHub currently requires an owner to apply the policy in enterprise settings.' || return 1
+  confirm_pat=$WIZARD_REPLY
+  confirm_codespaces=false
+  if wizard_package_selected "$defaults" actions; then
+    wizard_prompt_bool 'Enforce the Codespaces baseline?' false \
+      'This enables organization Codespaces access and records limits for 2-core and 4-core machines, private ports, a 30-minute idle timeout, 14-day retention, three codespaces per user, and reviewed base images. These limits can block existing developer workflows and affect billing.' || return 1
+    confirm_codespaces=$WIZARD_REPLY
+  fi
+  wizard_prompt_bool 'Enforce enterprise app approval?' false \
+    'This requires owner approval for OAuth and GitHub App access and prevents repository administrators from installing apps without review. Enabling OAuth restrictions can revoke existing app access and require users to replace SSH or deploy keys.' || return 1
+  confirm_apps=$WIZARD_REPLY
+  confirm_offboarding=false
+  confirm_two_factor=false
+  if [ "$identity" = personal ]; then
+    wizard_prompt_bool 'Remove users when they leave their last organization?' false \
+      'This can remove enterprise roles, enterprise-team membership, and directly assigned Copilot licenses. Enterprise owners and billing managers are exempt. Review the impact report before completing the owner handoff.' || return 1
+    confirm_offboarding=$WIZARD_REPLY
+    wizard_prompt_bool 'Require enterprise two-factor authentication?' false \
+      'GitHub can remove members and outside collaborators who do not enable 2FA before enforcement. Confirm recovery ownership and user readiness first. This setting is not applied to Enterprise Managed Users.' || return 1
+    confirm_two_factor=$WIZARD_REPLY
+  fi
   choices='[{"value":"private","label":"Private (recommended)","description":"Only users and teams with access can see repositories."},{"value":"internal","label":"Internal","description":"Members of the enterprise can discover and read repositories."}]'
   if [ "$identity" != emu ]; then
     choices=$(printf '%s' "$choices" | jq '.+[{value:"public",label:"Public",description:"Visible to everyone. Do not use for confidential code."}]') || return 1
@@ -280,7 +308,61 @@ wizard_init_once() (
   wizard_choose 'Default repository visibility' private 'This is the default for new repositories. Individual repositories can override it.' "$choices" || return 1
   visibility=$WIZARD_REPLY
   config=$(jq -cn --arg host "$host" --arg actor "$actor" --arg slug "$enterprise" --arg identity "$identity" --argjson packages "$defaults" --arg visibility "$visibility" \
-    '{schema_version:1,host:$host,actor:$actor,enterprise:{slug:$slug,identity:$identity},defaults:{
+    --argjson confirm_pat "$confirm_pat" --argjson confirm_codespaces "$confirm_codespaces" \
+    --argjson confirm_offboarding "$confirm_offboarding" --argjson confirm_apps "$confirm_apps" \
+    --argjson confirm_two_factor "$confirm_two_factor" \
+    '{schema_version:1,host:$host,actor:$actor,enterprise:{slug:$slug,identity:$identity,policies:{
+      repository:{
+        default_branch:"main",base_permission:"read",member_repository_creation:"private_internal",
+        public_repository_creation:false,outside_collaborator_invitations:"organization_owners",
+        visibility_changes:"organization_owners",deletion_and_transfer:"organization_owners"
+      },
+      pat:{classic_access:"blocked",fine_grained_access:"allowed",approval_required:true,maximum_lifetime_days:90,enforcement_confirmed:$confirm_pat},
+      audit:{export:true,streaming:true,source_ip_disclosure:true,api_request_events:true},
+      actions:{
+        permissions:{enabled_organizations:"all",allowed_actions:"selected",sha_pinning_required:false},
+        selected_actions:{github_owned_allowed:true,verified_allowed:false,patterns_allowed:[]},
+        workflow_permissions:{default_workflow_permissions:"read",can_approve_pull_request_reviews:false},
+        retention_days:90,fork_approval_policy:"all_external_contributors",
+        private_fork_workflows:{
+          run_workflows_from_fork_pull_requests:true,send_write_tokens_to_workflows:false,
+          send_secrets_and_variables:false,require_approval_for_fork_pr_workflows:true
+        },
+        disable_repository_runners:true,cache_retention_days:7,cache_size_gb:10
+      },
+      codespaces:{
+        access:"selected_organizations",machine_types:[2,4],port_visibility:"private",
+        idle_timeout_minutes:30,retention_days:14,maximum_per_user:3,approved_images_only:true,
+        enforcement_confirmed:$confirm_codespaces
+      },
+      custom_properties:[
+        {property_name:"data_classification",value_type:"single_select",required:false,
+         allowed_values:["public","internal","confidential","restricted"],description:"Data sensitivity handled by the repository"},
+        {property_name:"service_tier",value_type:"single_select",required:false,
+         allowed_values:["standard","critical"],description:"Operational support tier"},
+        {property_name:"lifecycle",value_type:"single_select",required:false,
+         allowed_values:["active","maintenance","retiring","retired"],description:"Repository lifecycle state"},
+        {property_name:"owner",value_type:"string",required:false,description:"Accountable team or service owner"}
+      ],
+      rulesets:[{
+        name:"enterprise-repository-observation",target:"push",enforcement:"evaluate",
+        conditions:{organization_name:{include:["~ALL"],exclude:[]},repository_name:{include:["~ALL"],exclude:[]}},
+        rules:[
+          {type:"file_extension_restriction",parameters:{restricted_file_extensions:["exe","dll","so","dylib"]}},
+          {type:"max_file_size",parameters:{max_file_size:100}}
+        ]
+      }],
+      offboarding:{remove_unaffiliated_users:($identity=="personal"),impact_review_required:true,enforcement_confirmed:$confirm_offboarding},
+      applications:{
+        oauth_app_requests:"approval_required",github_app_requests:"approval_required",
+        repository_admin_installations:false,inventory:true,enforcement_confirmed:$confirm_apps
+      },
+      authentication:{
+        require_two_factor:($identity=="personal"),readiness_review_required:true,
+        enforcement_confirmed:$confirm_two_factor
+      },
+      copilot:{create_protective_ruleset:true}
+    }},defaults:{
       packages:$packages,repository_visibility:$visibility,settings:{
         default_repository_permission:"read",
         members_can_create_repositories:true,

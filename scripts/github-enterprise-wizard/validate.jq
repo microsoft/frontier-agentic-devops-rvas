@@ -50,7 +50,7 @@ def property_condition($where):
           | check(.property_values | strings; $where; "property_values must be strings")
           | check(optional("source"; enum(["custom","system"])); $where; "property source must be custom or system"))) else . end);
 def credential_key:
-  (enum(["secret_protection","secret_scanning","secret_scanning_push_protection","secret_scanning_non_provider_patterns","secret_scanning_ai_detection","secret_scanning_validity_checks","secret_scanning_generic_secrets","secret_scanning_delegated_alert_dismissal","secret_scanning_extended_metadata","secret_scanning_delegated_bypass","secret_scanning_delegated_bypass_options"]) | not)
+  (enum(["secret_protection","secret_scanning","secret_scanning_push_protection","secret_scanning_non_provider_patterns","secret_scanning_ai_detection","secret_scanning_validity_checks","secret_scanning_generic_secrets","secret_scanning_delegated_alert_dismissal","secret_scanning_extended_metadata","secret_scanning_delegated_bypass","secret_scanning_delegated_bypass_options","send_write_tokens_to_workflows","send_secrets_and_variables"]) | not)
   and test("(^|_)(tokens?|passwords?|secrets?|credentials?|private_key|api_key|authorization)(_|$)|tokens?$|passwords?$|secrets?$|credentials?$|private[_-]?key$|api[_-]?key$|authorization$"; "i");
 def settings($where):
   keys_only(["default_repository_permission","members_can_create_repositories","members_can_create_public_repositories","members_can_create_private_repositories","members_can_create_internal_repositories","members_can_fork_private_repositories","members_can_delete_repositories","members_can_change_repo_visibility","members_can_create_pages","members_can_create_public_pages","members_can_create_private_pages","web_commit_signoff_required"]; $where)
@@ -107,6 +107,101 @@ def actions($where):
       | map(keys_only(["id","name","visibility","allows_public_repositories","restricted_to_workflows","selected_workflows"]; $where)
         | check(.name | str; $where; "runner group name is required")
         | check(optional("id"; type == "number" and floor == . and . > 0) and optional("visibility"; enum(["all","selected","private"])) and optional("allows_public_repositories"; type == "boolean") and optional("restricted_to_workflows"; type == "boolean") and optional("selected_workflows"; strings); $where; "invalid runner group"))) else . end;
+def enterprise_actions($where):
+  keys_only(["permissions","selected_actions","workflow_permissions","retention_days","fork_approval_policy","private_fork_workflows","disable_repository_runners","cache_retention_days","cache_size_gb"]; $where)
+  | check(.permissions | type == "object"; $where; "enterprise Actions permissions are required")
+  | .permissions |= (
+      keys_only(["enabled_organizations","allowed_actions","sha_pinning_required"]; $where + ".permissions")
+      | check(.enabled_organizations | enum(["all","none","selected"]); $where; "invalid enabled_organizations")
+      | check(optional("allowed_actions"; enum(["all","local_only","selected"])) and optional("sha_pinning_required"; type == "boolean"); $where; "invalid enterprise Actions permissions"))
+  | if has("selected_actions") then .selected_actions |= (
+      keys_only(["github_owned_allowed","verified_allowed","patterns_allowed"]; $where + ".selected_actions")
+      | check(optional("github_owned_allowed"; type == "boolean") and optional("verified_allowed"; type == "boolean") and optional("patterns_allowed"; strings); $where; "invalid enterprise selected actions")) else . end
+  | if has("workflow_permissions") then .workflow_permissions |= (
+      keys_only(["default_workflow_permissions","can_approve_pull_request_reviews"]; $where + ".workflow_permissions")
+      | check(optional("default_workflow_permissions"; enum(["read","write"])) and optional("can_approve_pull_request_reviews"; type == "boolean"); $where; "invalid enterprise workflow permissions")) else . end
+  | if has("private_fork_workflows") then .private_fork_workflows |= (
+      keys_only(["run_workflows_from_fork_pull_requests","send_write_tokens_to_workflows","send_secrets_and_variables","require_approval_for_fork_pr_workflows"]; $where + ".private_fork_workflows")
+      | check(all(.[]; type == "boolean"); $where; "private fork workflow settings must be boolean")) else . end
+  | check(optional("retention_days"; type == "number" and floor == . and . >= 1 and . <= 400); $where; "invalid enterprise retention_days")
+  | check(optional("fork_approval_policy"; enum(["first_time_contributors","first_time_contributors_new_to_github","all_external_contributors"])); $where; "invalid fork approval policy")
+  | check(optional("disable_repository_runners"; type == "boolean"); $where; "invalid repository runner policy")
+  | check(optional("cache_retention_days"; type == "number" and floor == . and . >= 1 and . <= 90); $where; "invalid cache retention")
+  | check(optional("cache_size_gb"; type == "number" and floor == . and . >= 1 and . <= 100); $where; "invalid cache size");
+def enterprise_rulesets($where):
+  check(type == "array"; $where; "rulesets must be an array")
+  | map(keys_only(["name","target","enforcement","conditions","rules"]; $where)
+      | check(.name | str; $where; "ruleset name is required")
+      | check(.target | enum(["branch","tag","push"]); $where; "invalid enterprise ruleset target")
+      | check(.enforcement | enum(["disabled","evaluate","active"]); $where; "invalid enterprise ruleset enforcement")
+      | .conditions |= (
+          keys_only(["organization_name","repository_name","repository_property","ref_name"]; $where + ".conditions")
+          | check(has("organization_name"); $where; "enterprise rulesets need organization_name targeting")
+          | .organization_name |= (
+              keys_only(["include","exclude"]; $where)
+              | check(.include | strings and length > 0; $where; "organization_name include is required")
+              | check(optional("exclude"; strings); $where; "invalid organization exclusions"))
+          | if has("repository_name") then .repository_name |= (
+              keys_only(["include","exclude","protected"]; $where)
+              | check(.include | strings and length > 0; $where; "repository_name include is required")
+              | check(optional("exclude"; strings) and optional("protected"; type == "boolean"); $where; "invalid repository targeting")) else . end
+          | if has("repository_property") then .repository_property |= property_condition($where) else . end
+          | if has("ref_name") then .ref_name |= (
+              keys_only(["include","exclude"]; $where)
+              | check(.include | strings and length > 0; $where; "ref_name include is required")
+              | check(optional("exclude"; strings); $where; "invalid ref exclusions")) else . end)
+      | .rules |= (
+          check(type == "array" and length > 0; $where; "enterprise ruleset needs rules")
+          | map(keys_only(["type","parameters"]; $where)
+            | check(.type | enum(["creation","update","deletion","required_linear_history","required_signatures","pull_request","required_status_checks","non_fast_forward","file_path_restriction","file_extension_restriction","max_file_size","code_scanning","code_quality"]); $where; "invalid enterprise rule type")
+            | if has("parameters") then .parameters |= (
+                check(type == "object"; $where; "rule parameters must be an object")
+                | check(all(.. | objects | keys[]; credential_key | not); $where; "credentials are forbidden in rule parameters")) else . end)));
+def enterprise_policies($where):
+  keys_only(["repository","pat","audit","actions","codespaces","custom_properties","rulesets","offboarding","applications","authentication","copilot"]; $where)
+  | .repository |= (
+      keys_only(["default_branch","base_permission","member_repository_creation","public_repository_creation","outside_collaborator_invitations","visibility_changes","deletion_and_transfer"]; $where + ".repository")
+      | check(.default_branch | path; $where; "invalid default branch")
+      | check(.base_permission | enum(["none","read","write","admin"]); $where; "invalid base permission")
+      | check(.member_repository_creation | enum(["private_internal","private","disabled"]); $where; "invalid repository creation policy")
+      | check(.public_repository_creation | type == "boolean"; $where; "public repository creation must be boolean")
+      | check(all([.outside_collaborator_invitations,.visibility_changes,.deletion_and_transfer][]; enum(["enterprise_owners","organization_owners"])); $where; "invalid repository administrator policy"))
+  | .pat |= (
+      keys_only(["classic_access","fine_grained_access","approval_required","maximum_lifetime_days","enforcement_confirmed"]; $where + ".pat")
+      | check(.classic_access | enum(["blocked","restricted"]); $where; "invalid classic PAT policy")
+      | check(.fine_grained_access | enum(["allowed","blocked"]); $where; "invalid fine-grained PAT policy")
+      | check(.approval_required | type == "boolean"; $where; "PAT approval must be boolean")
+      | check(.maximum_lifetime_days | type == "number" and floor == . and . >= 1 and . <= 366; $where; "invalid PAT lifetime")
+      | check(.enforcement_confirmed | type == "boolean"; $where; "PAT enforcement confirmation is required"))
+  | .audit |= (
+      keys_only(["export","streaming","source_ip_disclosure","api_request_events"]; $where + ".audit")
+      | check(all(.[]; type == "boolean"); $where; "audit settings must be boolean"))
+  | .actions |= enterprise_actions($where + ".actions")
+  | .codespaces |= (
+      keys_only(["access","machine_types","port_visibility","idle_timeout_minutes","retention_days","maximum_per_user","approved_images_only","enforcement_confirmed"]; $where + ".codespaces")
+      | check(.access | enum(["selected_organizations","all_organizations","disabled"]); $where; "invalid Codespaces access")
+      | check(.machine_types | type == "array" and all(.[]; type == "number" and floor == . and . >= 2 and . <= 32) and length > 0; $where; "invalid Codespaces machine types")
+      | check(.port_visibility | enum(["private","organization","public"]); $where; "invalid Codespaces port visibility")
+      | check(.idle_timeout_minutes | type == "number" and floor == . and . >= 5 and . <= 240; $where; "invalid Codespaces idle timeout")
+      | check(.retention_days | type == "number" and floor == . and . >= 0 and . <= 30; $where; "invalid Codespaces retention")
+      | check(.maximum_per_user | type == "number" and floor == . and . >= 1 and . <= 20; $where; "invalid Codespaces user limit")
+      | check(.approved_images_only | type == "boolean"; $where; "approved_images_only must be boolean")
+      | check(.enforcement_confirmed | type == "boolean"; $where; "Codespaces enforcement confirmation is required"))
+  | .custom_properties |= property_schema($where + ".custom_properties")
+  | .rulesets |= enterprise_rulesets($where + ".rulesets")
+  | .offboarding |= (
+      keys_only(["remove_unaffiliated_users","impact_review_required","enforcement_confirmed"]; $where + ".offboarding")
+      | check(all(.[]; type == "boolean"); $where; "offboarding settings must be boolean"))
+  | .applications |= (
+      keys_only(["oauth_app_requests","github_app_requests","repository_admin_installations","inventory","enforcement_confirmed"]; $where + ".applications")
+      | check(all([.oauth_app_requests,.github_app_requests][]; enum(["approval_required","blocked","allowed"])); $where; "invalid application request policy")
+      | check((.repository_admin_installations | type == "boolean") and (.inventory | type == "boolean") and (.enforcement_confirmed | type == "boolean"); $where; "invalid application policy"))
+  | .authentication |= (
+      keys_only(["require_two_factor","readiness_review_required","enforcement_confirmed"]; $where + ".authentication")
+      | check(all(.[]; type == "boolean"); $where; "authentication settings must be boolean"))
+  | .copilot |= (
+      keys_only(["source_organization","create_protective_ruleset"]; $where + ".copilot")
+      | check(optional("source_organization"; login) and (.create_protective_ruleset | type == "boolean"); $where; "invalid Copilot custom-agent source"));
 def manual($where):
   check(type == "array"; $where; "manual_handoffs must be an array")
   | map(keys_only(["message"]; $where) | check(.message | str; $where; "manual handoff message is required"));
@@ -396,9 +491,10 @@ if length != 1 then fail("$"; "expected exactly one JSON document") else .[0] en
 | check(.schema_version == 1; "$"; "schema_version must be 1")
 | check(.host | type == "string" and length<=71 and (. == "github.com" or test("^[a-z0-9]([a-z0-9-]*[a-z0-9])?\\.ghe\\.com$")); "$"; "host must be github.com or a customer subdomain.ghe.com with at most 63 characters in its subdomain")
 | check(.actor | user_login; "$"; "actor must be the expected GitHub login")
-| .enterprise |= (keys_only(["slug","identity"]; "$.enterprise")
+| .enterprise |= (keys_only(["slug","identity","policies"]; "$.enterprise")
     | check(.slug | slug; "$.enterprise"; "enterprise slug is required")
-    | check(.identity | enum(["personal","emu"]); "$.enterprise"; "identity must be personal or emu"))
+    | check(.identity | enum(["personal","emu"]); "$.enterprise"; "identity must be personal or emu")
+    | if has("policies") then .policies |= enterprise_policies("$.enterprise.policies") else . end)
 | if has("defaults") then .defaults |= (
     keys_only(["packages","repository_visibility","settings"]; "$.defaults")
     | check(optional("packages"; packages) and optional("repository_visibility"; enum(["private","internal","public"])); "$.defaults"; "invalid defaults")
@@ -422,4 +518,11 @@ if length != 1 then fail("$"; "expected exactly one JSON document") else .[0] en
     (.defaults.repository_visibility // "private") != "public"
     and all(.organizations[].repositories[]?;
       (.visibility // $root.defaults.repository_visibility // "private") != "public")); "$"; "EMU repositories cannot be public")
+| check((.enterprise.policies.copilot.source_organization // "") as $source
+    | $source == "" or any(.organizations[]; .login == $source);
+    "$.enterprise.policies.copilot.source_organization"; "Copilot source organization must be configured")
+| check(.enterprise.identity != "emu" or (
+    (.enterprise.policies.offboarding.remove_unaffiliated_users // false) == false
+    and (.enterprise.policies.authentication.require_two_factor // false) == false);
+    "$.enterprise.policies"; "EMU offboarding and authentication enforcement belong to the identity provider")
 | true

@@ -83,8 +83,10 @@ wizard_replaying() {
 wizard_ui_restore() {
   if [[ -n "${WIZARD_ORIGINAL_TTY:-}" ]]; then
     stty "$WIZARD_ORIGINAL_TTY"
-    printf '\033[?25h' >&2
-    wizard_style 0
+    if wizard_keyboard; then
+      printf '\033[?25h' >&2
+      wizard_style 0
+    fi
   fi
 }
 

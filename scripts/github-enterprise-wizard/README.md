@@ -69,6 +69,23 @@ Private Pages sites remain available, web commits require signoff, and visible
 teams are used unless the configuration says otherwise. The plan also flags
 organizations with fewer than two recorded owners.
 
+The configuration also carries an **enterprise policy baseline**. The plan
+applies GitHub Actions permissions, fork safeguards, artifact retention,
+repository-runner restrictions, Codespaces access, enterprise 2FA, custom
+properties, and an Evaluate-mode enterprise ruleset. It exports PAT, audit,
+Codespaces, app, and 2FA-readiness inventories before related changes.
+
+`init` asks for explicit confirmation before it includes risky controls. The
+prompt explains the expected impact. PAT policy, Codespaces constraints,
+personal-account offboarding, and app approval remain attestable owner
+handoffs because GitHub does not expose supported write APIs for those settings.
+Codespaces access and enterprise 2FA use supported APIs after confirmation.
+Enterprise 2FA and offboarding are never applied to EMU.
+
+The baseline does **not** configure domain restrictions, IP allow lists,
+Conditional Access, hosted runner private networking, or Copilot usage-record
+streaming.
+
 Feature choices use **Enable Yes/No**, with no separate cost confirmations.
 Enabling Copilot seats requires named users or teams. Enabling security features
 or Code Quality also selects any required licensing handoff; Code Quality includes
@@ -89,6 +106,10 @@ adds four manually selected enterprise agents:
 
 The agents use small tool allowlists and cannot run automatically from model
 inference. Administrators can edit or replace them in `.github-private`.
+When shared Copilot content is selected, the plan sets that organization as the
+enterprise custom-agent source and asks GitHub to create the protective agent
+ruleset. Apply verifies the selected organization and `.github-private`
+repository.
 Existing-resource adoption remains explicit. Managed
 users cannot select public repositories; SHA-pin enforcement defaults off for
 existing organizations until their workflows have been reviewed. Actions use
@@ -201,8 +222,9 @@ not invent those values.
   script. GitHub-side settings and handoffs are recorded.
 - Copilot selected-seat purchases need an enabled subscription and selected-seat
   management. Feature/model policies can require an owner in the UI.
-- `.github-private` is a real shared configuration repository. Enterprise agent
-  source selection remains a separate owner action.
+- `.github-private` is a real shared configuration repository. The wizard can
+  set its organization as the enterprise custom-agent source after the files
+  are ready.
 - Code Quality is separate from CodeQL and Copilot review. Product entitlement
   and analysis completion are prerequisites for its gates.
 - Installed gh-aw tooling compiles source during planning so generated locks

@@ -428,8 +428,152 @@ test('default enterprise agents require selection and use narrow tool sets', t =
   assert.deepEqual(f.calls(), []);
 });
 
+test('enterprise policy adapter covers P0 and P1 controls without guarded network settings', t => {
+  const c = config();
+  c.enterprise.policies = JSON.parse(fs.readFileSync(path.join(__dirname, 'example.json'), 'utf8')).enterprise.policies;
+  c.enterprise.policies.copilot.source_organization = 'acme-org';
+  c.organizations[0].packages = ['workspace', 'actions', 'copilot'];
+  c.organizations[0].copilot = {
+    users: [], teams: [], purchase: false,
+    agents: [{path: 'agents/security-reviewer.md', content: '# Security Reviewer\n'}],
+  };
+  const f = fixture(t, c);
+  const library = path.join(f.directory, 'snapshot/scripts/github-enterprise-wizard/packages/enterprise.sh');
+  const result = f.success(f.shell(
+    'source "$1"; wizard_enterprise_actions "$(cat "$2")" | jq -s .', [library, f.configFile],
+  ));
+  const actions = JSON.parse(result.stdout);
+  const ids = new Set(actions.map(action => action.id));
+  for (const id of [
+    'enterprise:policy:repository-policy',
+    'enterprise:policy:pat-inventory',
+    'enterprise:policy:pat-policy',
+    'enterprise:policy:audit-readiness',
+    'enterprise:policy:actions-permissions',
+    'enterprise:policy:actions-fork-approval',
+    'enterprise:policy:actions-private-forks',
+    'enterprise:policy:actions-repository-runners',
+    'enterprise:policy:actions-cache',
+    'enterprise:policy:codespaces-access:acme-org',
+    'enterprise:policy:codespaces-policy',
+    'enterprise:policy:ruleset:enterprise-repository-observation',
+    'enterprise:policy:offboarding',
+    'enterprise:policy:application-policy',
+    'enterprise:policy:two-factor-authentication',
+    'enterprise:policy:copilot-agent-source',
+  ]) assert.ok(ids.has(id), id);
+  assert.equal(actions.find(action => action.id === 'enterprise:policy:copilot-agent-source').kind, 'copilot_source');
+  assert.equal(actions.find(action => action.id === 'enterprise:policy:codespaces-access:acme-org').kind, 'request');
+  assert.equal(actions.find(action => action.id === 'enterprise:policy:two-factor-authentication').kind, 'enterprise_setting');
+  assert.ok(actions.filter(action => action.id.startsWith('enterprise:policy:property:')).length >= 4);
+  assert.ok(actions.every(action => action.id !== 'enterprise:policy:domains'));
+  assert.ok(actions.every(action => !JSON.stringify(action).match(/ip allow|conditional access|private network/i)));
+  assert.ok(actions.every(action => !`${action.id} ${action.read_path || ''}`.match(/copilot.*usage|usage-record/i)));
+});
+
+test('Copilot source executor resolves the organization ID and verifies the enterprise source', t => {
+  const f = fixture(t);
+  const library = path.join(f.directory, 'snapshot/scripts/github-enterprise-wizard/lib/execute.sh');
+  const result = f.success(f.shell(`
+    source "$1"
+    calls=0
+    wizard_api() {
+      calls=$((calls+1))
+      case "$1 $2 $calls" in
+        "GET /enterprises/acme/copilot/custom-agents/source 1") API_STATUS=404; return 2 ;;
+        "GET /orgs/acme-org 2") API_STATUS=200; API_JSON='{"id":123,"login":"acme-org"}' ;;
+        "PUT /enterprises/acme/copilot/custom-agents/source 3")
+          [[ "$3" == '{"organization_id":123,"create_ruleset":true}' ]] || return 2
+          API_STATUS=200; API_JSON='{}'
+          ;;
+        "GET /enterprises/acme/copilot/custom-agents/source 4")
+          API_STATUS=200
+          API_JSON='{"organization":{"id":123,"login":"acme-org"},"repository":{"full_name":"acme-org/.github-private"}}'
+          ;;
+        *) return 2 ;;
+      esac
+    }
+    action='{"read_path":"/enterprises/acme/copilot/custom-agents/source","source_organization":"acme-org","create_ruleset":true}'
+    ACTION_DATA='{}'
+    wizard_apply_copilot_source "$action" false
+    jq -cn --arg state "$ACTION_STATE" --arg detail "$ACTION_DETAIL" --argjson data "$ACTION_DATA" \
+      '{state:$state,detail:$detail,data:$data}'
+  `, [library]));
+  const output = JSON.parse(result.stdout);
+  assert.equal(output.state, 'ready');
+  assert.equal(output.data.organization, 'acme-org');
+  assert.equal(output.data.repository, 'acme-org/.github-private');
+});
+
+test('confirmed Codespaces and personal-account 2FA writes use supported APIs', t => {
+  const f = fixture(t);
+  const library = path.join(f.directory, 'snapshot/scripts/github-enterprise-wizard/lib/execute.sh');
+  const result = f.success(f.shell(`
+    source "$1"
+    calls=0
+    wizard_api() {
+      calls=$((calls+1))
+      if [[ "$calls" == 1 ]]; then
+        [[ "$1" == PUT && "$2" == /orgs/acme-org/codespaces/access ]] || return 2
+        [[ "$3" == '{"visibility":"all_members"}' ]] || return 2
+        API_STATUS=204; API_JSON='{}'
+      else
+        [[ "$1" == POST && "$2" == graphql ]] || return 2
+        jq -e --arg id E1 '
+          .variables.input.enterpriseId==$id and
+          .variables.input.settingValue=="ENABLED" and
+          (.query|contains("updateEnterpriseTwoFactorAuthenticationRequiredSetting"))
+        ' <<<"$3" >/dev/null || return 2
+        API_STATUS=200; API_JSON='{"data":{"updateEnterpriseTwoFactorAuthenticationRequiredSetting":{"message":"updated","enterprise":{"id":"E1"}}}}'
+      fi
+    }
+    request='{"apply":{"method":"PUT","path":"/orgs/acme-org/codespaces/access","body":{"visibility":"all_members"}},"success_message":"accepted"}'
+    wizard_apply_request "$request" false
+    first="$ACTION_STATE"
+    WIZARD_ENTERPRISE_ID=E1
+    setting='{"setting":"two_factor_authentication_required","value":true}'
+    wizard_apply_enterprise_setting "$setting" false
+    jq -cn --arg first "$first" --arg second "$ACTION_STATE" --arg detail "$ACTION_DETAIL" \
+      '{first:$first,second:$second,detail:$detail}'
+  `, [library]));
+  const output = JSON.parse(result.stdout);
+  assert.equal(output.first, 'ready');
+  assert.equal(output.second, 'ready');
+  assert.match(output.detail, /two-factor authentication/);
+});
+
+test('unconfirmed risky controls and EMU never produce enforcement actions', t => {
+  const c = config();
+  c.enterprise.identity = 'emu';
+  c.enterprise.policies = JSON.parse(fs.readFileSync(path.join(__dirname, 'example.json'), 'utf8')).enterprise.policies;
+  c.enterprise.policies.pat.enforcement_confirmed = false;
+  c.enterprise.policies.codespaces.enforcement_confirmed = false;
+  c.enterprise.policies.offboarding = {
+    remove_unaffiliated_users: false, impact_review_required: true, enforcement_confirmed: false,
+  };
+  c.enterprise.policies.applications.enforcement_confirmed = false;
+  c.enterprise.policies.authentication = {
+    require_two_factor: false, readiness_review_required: true, enforcement_confirmed: false,
+  };
+  c.organizations[0].packages = ['workspace', 'actions'];
+  const f = fixture(t, c);
+  const library = path.join(f.directory, 'snapshot/scripts/github-enterprise-wizard/packages/enterprise.sh');
+  const actions = JSON.parse(f.success(f.shell(
+    'source "$1"; wizard_enterprise_actions "$(cat "$2")" | jq -s .', [library, f.configFile],
+  )).stdout);
+  const ids = actions.map(action => action.id);
+  assert.ok(!ids.includes('enterprise:policy:pat-policy'));
+  assert.ok(!ids.includes('enterprise:policy:codespaces-policy'));
+  assert.ok(!ids.some(id => id.startsWith('enterprise:policy:codespaces-access:')));
+  assert.ok(!ids.includes('enterprise:policy:offboarding'));
+  assert.ok(!ids.includes('enterprise:policy:application-policy'));
+  assert.ok(!ids.includes('enterprise:policy:two-factor-authentication'));
+  assert.ok(!ids.includes('enterprise:policy:domains'));
+});
+
 test('shared Copilot profiles and agents stay in the case-insensitive private source repository', t => {
   const c = config();
+  c.enterprise.policies = JSON.parse(fs.readFileSync(path.join(__dirname, 'example.json'), 'utf8')).enterprise.policies;
   const org = c.organizations[0];
   org.packages = ['workspace', 'copilot'];
   org.copilot = {users: [], teams: [], purchase: false};
@@ -444,6 +588,7 @@ test('shared Copilot profiles and agents stay in the case-insensitive private so
       agentFile, 'Profile/README.md', 'agents/reviewer.agent.md', ''].join('\n') + '\n',
   ));
   const saved = JSON.parse(result.stdout);
+  assert.equal(saved.enterprise.policies.copilot.source_organization, 'acme-org');
   const repositories = saved.organizations[0].repositories;
   assert.equal(repositories.length, 2, 'case variants must not create another private source repository');
   assert.deepEqual(repositories[0].files || [], [], 'member profiles must not be copied into project repositories');

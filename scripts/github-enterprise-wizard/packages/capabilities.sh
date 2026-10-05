@@ -101,11 +101,6 @@ wizard_capabilities_actions() {
             (if ($r.name|ascii_downcase)==".github-private" then ($o.copilot.agents // []) else [] end)+
             (if $cp.setup_steps then [$cp.setup_steps] else [] end)) as $content |
           if ($content|length)>0 then files($o;"copilot";$r;$content) else empty end),
-        (if ($o.copilot.agents // []|length)>0 then
-          manual($o;"copilot";"agent-source";[oid($o)];"enterprise AI controls owner";
-            "https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-agents/prepare-for-custom-agents";
-            "Review the custom agents in the private .github-private repository, test them against representative repositories, and select this organization as the enterprise agent source. File deployment alone does not verify source selection or client eligibility.")
-         else empty end),
         (if ($o.copilot.mcp.enabled // false) then
           manual($o;"copilot";"mcp-policy";[oid($o)];"enterprise AI controls owner";
             "https://docs.github.com/en/copilot/concepts/enterprise/mcp-management";
