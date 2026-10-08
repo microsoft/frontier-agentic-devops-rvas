@@ -6,6 +6,7 @@ source "$WIZARD_CONFIG_LIB_DIR/interview.sh"
 source "$WIZARD_CONFIG_LIB_DIR/navigation.sh"
 source "$WIZARD_CONFIG_LIB_DIR/discovery.sh"
 source "$WIZARD_CONFIG_LIB_DIR/diagnostics.sh"
+source "$WIZARD_CONFIG_LIB_DIR/governance.sh"
 
 wizard_validate_input() {
   local error status
@@ -26,21 +27,28 @@ wizard_effective_config() {
   [ "$#" -eq 1 ] || { printf '%s\n' 'Config: supply one JSON file.' >&2; return 1; }
   wizard_validate_config "$1" || return 1
   jq '
-    .defaults = ({packages:[],repository_visibility:"private",settings:{}} + (.defaults // {}))
+    .defaults = ({packages:[],repository_visibility:"private",settings:{},repository:{
+      default_branch:"main",has_issues:true,has_projects:false,has_wiki:false,has_discussions:false,
+      allow_squash_merge:true,allow_merge_commit:false,allow_rebase_merge:false,delete_branch_on_merge:true
+    }} * (.defaults // {}))
+    | .enterprise.update_scopes = (.enterprise.update_scopes // {})
     | .defaults as $defaults
     | .organizations |= map(
         .packages = (if has("packages") then .packages else $defaults.packages end)
         | .settings = ($defaults.settings + (.settings // {}))
-        | .create = (.create // false) | .adopt = (.adopt // false)
+        | .create = (.create // false) | .update_scopes = (.update_scopes // {})
         | .owners = (.owners // []) | .teams = (.teams // [])
-        | .repositories = (.repositories // [])
+        | .repositories = (.repositories // []) | .projects = (.projects // [])
+        | .collaborators = ({teams_first:true,direct_collaborators:"restricted",outside_collaborators:"owner_approval"} + (.collaborators // {}))
+        | .repository_defaults = ($defaults.repository * (.repository_defaults // {}))
         | .teams |= map(.members = (.members // []) | .repositories = (.repositories // []))
         | .repositories |= map(
             .visibility = (.visibility // $defaults.repository_visibility)
             | .stack = (.stack // "none") | .adopt = (.adopt // false)
             | .files = (.files // []) | .labels = (.labels // [])
             | .properties = (.properties // {}) | .environments = (.environments // [])
-            | .workflows = (.workflows // []) | .copilot_users = (.copilot_users // [])))
+            | .workflows = (.workflows // []) | .copilot_users = (.copilot_users // [])
+            | . = ($defaults.repository * .)))
   ' -- "$1"
 }
 
@@ -50,6 +58,10 @@ wizard_csv_json() {
 
 wizard_package_selected() {
   printf '%s' "$1" | jq -e --arg id "$2" 'index($id) != null' >/dev/null
+}
+
+wizard_scope_selected() {
+  printf '%s' "$1" | jq -e --arg scope "$2" '.[$scope] == true' >/dev/null
 }
 
 wizard_default_copilot_agents() {
@@ -74,21 +86,58 @@ wizard_default_copilot_agents() {
 }
 
 wizard_ensure_github_private_repository() {
-  local config="$1" org_index="$2" adopt=false
+  local config="$1" org_index="$2" adopt=false host login result state row verification
   if printf '%s' "$config" | jq -e --argjson i "$org_index" \
     '.organizations[$i].repositories | any((.name|ascii_downcase) == ".github-private")' >/dev/null; then
     printf '%s\n' "$config"
     return 0
   fi
-  if [[ "$(jq -r --argjson i "$org_index" '.organizations[$i].create' <<<"$config")" != true ]]; then
-    wizard_prompt_bool 'Explicitly adopt an existing .github-private repository? Answer no to create a new one.' || return 1
-    adopt=$WIZARD_REPLY
+  host="$(jq -r .host <<<"$config")"
+  login="$(jq -r --argjson i "$org_index" '.organizations[$i].login' <<<"$config")"
+  if [[ "$(jq -r --argjson i "$org_index" '.organizations[$i].create' <<<"$config")" == true ]]; then
+    verification="$(jq -cn --arg checked_at "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" \
+      '{status:"missing",source:"intent",checked_at:$checked_at,
+       message:"The organization is planned for creation; .github-private must not already exist."}')"
+  else
+    result="$(wizard_discover_repositories "$host" "$login")" || return 1
+    state="$(jq -r .state <<<"$result")"
+    if [[ "$state" == verified ]]; then
+      row="$(jq -c '[.data[]? | select((.name|ascii_downcase)==".github-private")][0] // null' <<<"$result")" || return 1
+      if [[ "$row" != null ]]; then
+        adopt=true
+        verification="$(jq -cn --arg checked_at "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" --argjson row "$row" '
+          {status:"verified",source:"github",checked_at:$checked_at}
+          + (if $row.id==null then {} else {resource_id:$row.id} end)')"
+        printf 'Existing %s/.github-private found. The wizard will adopt it and propose content through review.\n' "$login" >&2
+      else
+        verification="$(jq -cn --arg checked_at "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" \
+          '{status:"missing",source:"github",checked_at:$checked_at,
+           message:".github-private was not found and is available for creation."}')"
+      fi
+    else
+      wizard_prompt_bool 'Repository discovery was not verified. Adopt an existing .github-private repository?' || return 1
+      adopt=$WIZARD_REPLY
+      verification="$(jq -cn --arg checked_at "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" \
+        '{status:"unverified",source:"manual",checked_at:$checked_at,
+         message:"Doctor must verify .github-private before planning."}')"
+    fi
   fi
-  printf '%s' "$config" | jq --argjson i "$org_index" --argjson adopt "$adopt" '
+  printf '%s' "$config" | jq --argjson i "$org_index" --argjson adopt "$adopt" --argjson verification "$verification" '
     .organizations[$i].repositories += [{
       name:".github-private",adopt:$adopt,visibility:"private",stack:"none",
+      verification:$verification,
       files:[],labels:[],properties:{},environments:[],workflows:[],copilot_users:[]
     }]'
+}
+
+wizard_missing_team_repositories() {
+  jq -cn --argjson teams "$1" --argjson repositories "$2" '
+    [$teams[]?.repositories[]?.name] as $grants |
+    [$grants[] as $name |
+      select(any($repositories[]?;
+        (.name | ascii_downcase) == ($name | ascii_downcase)) | not) |
+      $name] |
+    unique_by(ascii_downcase)'
 }
 
 wizard_customize_config() {
@@ -258,9 +307,12 @@ wizard_init_once() (
     return 1
   fi
   local output=$1 directory staging='' staging_owned=false config org teams repositories team repo packages
-  local host actor enterprise identity defaults owners login create adopt billing
+  local host actor enterprise identity defaults owners login create adopt billing missing scopes
+  local governance_profile profile_values enterprise_scopes
+  local package_summary package_options
+  local enterprise_verification org_verification repo_verification
   local name team_name slug members grants permission stack visibility template users selected option choices feature owner workflow ref default_answer validation_error kimi fable
-  local confirm_pat confirm_codespaces confirm_offboarding confirm_apps confirm_two_factor
+  local confirm_pat confirm_codespaces confirm_offboarding confirm_apps confirm_two_factor confirm_network
   case "$output" in /*|./*|../*) ;; *) output="./$output" ;; esac
   directory=$(dirname "$output")
   if [ ! -d "$directory" ] || [ -e "$output" ] || [ -L "$output" ]; then
@@ -297,10 +349,22 @@ wizard_init_once() (
   wizard_suggest_account "$host" || return 1; actor=$WIZARD_REPLY
   wizard_suggest_value 'Existing enterprise slug' enterprises "$host" '' \
     "Copy the name after /enterprises/ in https://$host/enterprises/YOUR-ENTERPRISE. The enterprise must already exist." || return 1; enterprise=$WIZARD_REPLY
+  enterprise_verification="$(wizard_verification_evidence "$enterprise")" || return 1
   wizard_choose 'Account identity' personal \
     'Managed users (EMU) are company-provisioned through an identity provider. Choose EMU only if your enterprise uses that model.' \
     '[{"value":"personal","label":"Personal accounts","description":"Members use their own GitHub accounts."},{"value":"emu","label":"Enterprise Managed Users (EMU)","description":"Company-managed accounts; IdP controls membership. No public repositories."}]' || return 1
   identity=$WIZARD_REPLY
+  default_answer=balanced
+  [ "$identity" != emu ] || default_answer=emu_vendor
+  wizard_choose 'Governance posture' "$default_answer" \
+    'The posture fills explicit policy values. You will review the effective settings before saving.' \
+    "$(wizard_governance_profile_choices)" || return 1
+  governance_profile=$WIZARD_REPLY
+  if [[ "$identity" == emu && "$governance_profile" != emu_vendor ]]; then
+    WIZARD_PAGE_NOTICE='EMU constraints still apply. The selected posture will be adjusted to block public and user-namespace repositories.'
+    printf '%s\n' "$WIZARD_PAGE_NOTICE" >&2
+  fi
+  profile_values="$(wizard_governance_profile_values "$governance_profile")" || return 1
   wizard_section '2. Capabilities' 'Workspace, Codespaces, Advanced Security and Code Quality are recommended to start. Add other capabilities when you need them.'
   wizard_select_packages '["workspace","actions","security","quality"]' || return 1; defaults=$WIZARD_REPLY
   wizard_prompt_bool 'Enforce the enterprise PAT baseline?' false \
@@ -315,6 +379,9 @@ wizard_init_once() (
   wizard_prompt_bool 'Enforce enterprise app approval?' false \
     'This requires owner approval for OAuth and GitHub App access and prevents repository administrators from installing apps without review. Enabling OAuth restrictions can revoke existing app access and require users to replace SSH or deploy keys.' || return 1
   confirm_apps=$WIZARD_REPLY
+  wizard_prompt_bool 'Enforce the enterprise IP allow-list posture?' false \
+    'This can immediately block users, Apps, Actions, and integrations whose source addresses are not allowed. The plan requires reviewed entries and recovery access before any supported enforcement step.' || return 1
+  confirm_network=$WIZARD_REPLY
   confirm_offboarding=false
   confirm_two_factor=false
   if [ "$identity" = personal ]; then
@@ -329,31 +396,22 @@ wizard_init_once() (
   if [ "$identity" != emu ]; then
     choices=$(printf '%s' "$choices" | jq '.+[{value:"public",label:"Public",description:"Visible to everyone. Do not use for confidential code."}]') || return 1
   fi
-  wizard_choose 'Default repository visibility' private 'This is the default for new repositories. Individual repositories can override it.' "$choices" || return 1
+  default_answer="$(jq -r '.defaults.repository_visibility' <<<"$profile_values")"
+  wizard_choose 'Default repository visibility' "$default_answer" 'This is the default for new repositories. Individual repositories can override it.' "$choices" || return 1
   visibility=$WIZARD_REPLY
-  config=$(jq -cn --arg host "$host" --arg actor "$actor" --arg slug "$enterprise" --arg identity "$identity" --argjson packages "$defaults" --arg visibility "$visibility" \
+  wizard_select_enterprise_update_scopes || return 1
+  enterprise_scopes="$WIZARD_REPLY"
+  config=$(jq -cn --arg host "$host" --arg actor "$actor" --arg slug "$enterprise" --arg identity "$identity" --arg profile "$governance_profile" \
+    --argjson verification "$enterprise_verification" --argjson profile_values "$profile_values" --argjson enterprise_scopes "$enterprise_scopes" \
+    --argjson packages "$defaults" --arg visibility "$visibility" \
     --argjson confirm_pat "$confirm_pat" --argjson confirm_codespaces "$confirm_codespaces" \
     --argjson confirm_offboarding "$confirm_offboarding" --argjson confirm_apps "$confirm_apps" \
-    --argjson confirm_two_factor "$confirm_two_factor" \
-    '{schema_version:1,host:$host,actor:$actor,enterprise:{slug:$slug,identity:$identity,policies:{
-      repository:{
-        default_branch:"main",base_permission:"read",member_repository_creation:"private_internal",
-        public_repository_creation:false,outside_collaborator_invitations:"organization_owners",
-        visibility_changes:"organization_owners",deletion_and_transfer:"organization_owners"
-      },
+    --argjson confirm_two_factor "$confirm_two_factor" --argjson confirm_network "$confirm_network" \
+    '{schema_version:1,host:$host,actor:$actor,enterprise:{
+      slug:$slug,identity:$identity,verification:$verification,governance_profile:$profile,
+      update_scopes:$enterprise_scopes,policies:($profile_values.enterprise * {
       pat:{classic_access:"blocked",fine_grained_access:"allowed",approval_required:true,maximum_lifetime_days:90,enforcement_confirmed:$confirm_pat},
-      audit:{export:true,streaming:true,source_ip_disclosure:true,api_request_events:true},
-      actions:{
-        permissions:{enabled_organizations:"all",allowed_actions:"selected",sha_pinning_required:false},
-        selected_actions:{github_owned_allowed:true,verified_allowed:false,patterns_allowed:[]},
-        workflow_permissions:{default_workflow_permissions:"read",can_approve_pull_request_reviews:false},
-        retention_days:90,fork_approval_policy:"all_external_contributors",
-        private_fork_workflows:{
-          run_workflows_from_fork_pull_requests:true,send_write_tokens_to_workflows:false,
-          send_secrets_and_variables:false,require_approval_for_fork_pr_workflows:true
-        },
-        disable_repository_runners:true,cache_retention_days:7,cache_size_gb:10
-      },
+      network:(($profile_values.enterprise.network // {})+{enforcement_confirmed:$confirm_network}),
       codespaces:{
         access:"selected_organizations",machine_types:[2,4],port_visibility:"private",
         idle_timeout_minutes:30,retention_days:14,maximum_per_user:3,approved_images_only:true,
@@ -386,21 +444,15 @@ wizard_init_once() (
         enforcement_confirmed:$confirm_two_factor
       },
       copilot:{create_protective_ruleset:true}
-    }},defaults:{
-      packages:$packages,repository_visibility:$visibility,settings:{
-        default_repository_permission:"read",
-        members_can_create_repositories:true,
-        members_can_create_public_repositories:false,
-        members_can_create_private_repositories:true,
-        members_can_create_internal_repositories:true,
-        members_can_fork_private_repositories:false,
-        members_can_delete_repositories:false,
-        members_can_change_repo_visibility:false,
-        members_can_create_pages:true,
-        members_can_create_public_pages:false,
-        members_can_create_private_pages:true,
-        web_commit_signoff_required:true
-      }},organizations:[]}') || return 1
+    })},defaults:($profile_values.defaults * {
+      packages:$packages,repository_visibility:$visibility
+    }),organizations:[]}
+    | if $identity=="emu" then
+        .enterprise.policies.repository.user_namespace_repository_creation="blocked"
+        | .enterprise.policies.repository.public_repository_creation=false
+        | .defaults.repository_visibility=(if .defaults.repository_visibility=="public" then "private" else .defaults.repository_visibility end)
+        | .defaults.settings.members_can_create_public_repositories=false
+      else . end') || return 1
   while :; do
     wizard_section '3. Organization and project' "Use an organization under $enterprise, or plan a new one."
     create=false
@@ -420,13 +472,14 @@ wizard_init_once() (
         "$(jq -c '[.organizations[].login]' <<<"$config")" || return 1
     fi
     login=$WIZARD_REPLY
+    if [ "$create" = true ]; then
+      org_verification="$(jq -cn --arg checked_at "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" \
+        '{status:"missing",source:"intent",checked_at:$checked_at,message:"Configured for creation; doctor checks for name collisions."}')" || return 1
+    else
+      org_verification="$(wizard_verification_evidence "$login")" || return 1
+    fi
     if ! wizard_guided; then
       wizard_prompt_bool 'Create this organization under the enterprise?' || return 1; create=$WIZARD_REPLY
-    fi
-    adopt=false
-    if [ "$create" = false ]; then
-      wizard_prompt_bool 'Allow the plan to propose updates to this existing organization?' false \
-        'Yes explicitly adopts selected settings. No leaves organization updates blocked. You still review the exact plan before apply.' || return 1; adopt=$WIZARD_REPLY
     fi
     wizard_prompt_list users 'Organization owner logins (comma-separated): ' "$actor" \
       'List at least one actual GitHub username, without emails or duplicate logins. For EMU, owners must agree with your IdP setup.' true || return 1
@@ -441,9 +494,30 @@ wizard_init_once() (
         '$answer|test("^[^ @]+@[^ @]+\\.[^ @]+$")' || return 1; billing=$WIZARD_REPLY
     fi
     if wizard_guided; then
-      wizard_choose 'Capabilities for this organization' inherit \
-        'Reuse the enterprise choices, or customize the capability checklist for this organization.' \
-        '[{"value":"inherit","label":"Use the selected capabilities","description":"Keep the choices from the earlier checklist."},{"value":"custom","label":"Choose a different set","description":"Open the checklist again for this organization."},{"value":"none","label":"No packages","description":"Only record the organization scope."}]' || return 1
+      package_summary="$(jq -r --argjson selected "$defaults" '
+        [.packages[] | select(.id as $id | $selected | index($id) != null) | .name] |
+        if length == 0 then "No configuration areas are selected." else join(", ") end
+      ' "$WIZARD_CONFIG_ROOT/catalog.json")" || return 1
+      package_options="$(jq -cn --arg summary "$package_summary" '[
+        {
+          value:"inherit",
+          label:"Configure the selected areas for this organization",
+          description:$summary
+        },
+        {
+          value:"custom",
+          label:"Choose this organization'\''s configuration areas",
+          description:"Open the checklist and select different work for this organization."
+        },
+        {
+          value:"none",
+          label:"Inventory this organization only",
+          description:"Verify access and include it in reports, but do not configure organization or repository packages."
+        }
+      ]')" || return 1
+      wizard_choose 'What should the wizard configure here?' inherit \
+        'Configuration areas are groups of planned settings, resources, reports, and owner handoffs. They are not GitHub permissions and selecting them does not purchase licenses.' \
+        "$package_options" || return 1
       case "$WIZARD_REPLY" in
         inherit) WIZARD_REPLY='' ;;
         custom) wizard_select_packages "$defaults" || return 1; WIZARD_REPLY="$(jq -r 'join(",")' <<<"$WIZARD_REPLY")"; [[ -n "$WIZARD_REPLY" ]] || WIZARD_REPLY=none ;;
@@ -461,47 +535,30 @@ wizard_init_once() (
       none) packages='[]' ;;
       *) packages="$(wizard_package_closure "$(wizard_csv_json "$WIZARD_REPLY")")" || return 1 ;;
     esac
-    org=$(jq -cn --arg login "$login" --argjson create "$create" --argjson adopt "$adopt" --argjson owners "$owners" --arg billing "$billing" --argjson packages "$packages" \
-      '{login:$login,create:$create,adopt:$adopt,owners:$owners,packages:$packages,settings:{},teams:[],repositories:[],
+    scopes='{}'
+    if [ "$create" = false ]; then
+      wizard_select_update_scopes "$packages" || return 1
+      scopes="$WIZARD_REPLY"
+    fi
+    org=$(jq -cn --arg login "$login" --argjson create "$create" --argjson verification "$org_verification" --argjson scopes "$scopes" --argjson owners "$owners" --arg billing "$billing" --argjson packages "$packages" \
+      --argjson collaborators "$(jq -c '.organization.collaborators' <<<"$profile_values")" \
+      --argjson repository_defaults "$(jq -c '.defaults.repository' <<<"$profile_values")" \
+      --arg actor "$actor" --arg recorded_at "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" \
+      '{login:$login,create:$create,verification:$verification,update_scopes:$scopes,owners:$owners,packages:$packages,settings:{},teams:[],repositories:[],
+        collaborators:$collaborators,repository_defaults:$repository_defaults,projects:[],
         manual_handoffs:(if ($owners|length)<2 then [{
+          control:"organization.owner_coverage",owner:$actor,
+          source:"https://docs.github.com/en/organizations/managing-peoples-access-to-your-organization-with-roles/maintaining-ownership-continuity-for-your-organization",
+          recorded_at:$recorded_at,accepted:true,
           message:"Verify that the organization has at least two active owners. Add a second owner through GitHub or the identity provider before relying on this workspace."
         }] else [] end)}
        + (if $billing == "" then {} else {billing_email:$billing} end)') || return 1
-    teams='[]'
-    while :; do
-      if wizard_guided && ! wizard_package_selected "$packages" workspace; then break; fi
-      default_answer=false; [ "$teams" != '[]' ] || default_answer=true
-      wizard_prompt_bool 'Add a team?' "$default_answer" 'Teams let you grant access to a group instead of managing each repository collaborator.' || return 1; [ "$WIZARD_REPLY" = true ] || break
-      wizard_prompt_checked 'Team name: ' Developers \
-        'Use a distinct team name with letters, numbers and single spaces or hyphens, up to 100 characters.' \
-        '$answer | length<=100 and test("^[A-Za-z0-9]+([ -][A-Za-z0-9]+)*$") and
-          (. as $name|$context|map(ascii_downcase)|index($name|ascii_downcase|gsub(" ";"-"))==null)' \
-        "$(jq -c '[.[].slug]' <<<"$teams")" || return 1; team_name=$WIZARD_REPLY
-      slug="$(printf '%s' "$team_name" | tr '[:upper:] ' '[:lower:]-')"
-      wizard_prompt_identifier slug 'Team slug: ' "$slug" 'The slug must match the lowercase team name with spaces replaced by hyphens.' \
-        "$(jq -c '[.[].slug]' <<<"$teams")" || return 1; slug=$WIZARD_REPLY
-      wizard_prompt_list users 'Member logins (comma-separated; blank none): ' '' \
-        'Leave blank if your IdP manages membership. Otherwise use distinct GitHub usernames, not emails.' || return 1
-      members=$(wizard_csv_json "$WIZARD_REPLY") || return 1
-      grants='[]'
-      while :; do
-        default_answer=false; [ "$grants" != '[]' ] || default_answer=true
-        wizard_prompt_bool 'Grant this team repository access?' "$default_answer" 'You can name a repository you will create below. Access is verified during apply.' || return 1; [ "$WIZARD_REPLY" = true ] || break
-        wizard_prompt_identifier repo 'Repository name within this organization: ' service 'Use the repository name only, not an owner/name pair. Each repository needs one grant per team.' \
-          "$(jq -c '[.[].name]' <<<"$grants")" || return 1; name=$WIZARD_REPLY
-        wizard_choose 'Team repository permission' push 'Write is usually enough for developers. Reserve Admin for repository administrators.' \
-          '[{"value":"pull","label":"Read","description":"Read and clone code."},{"value":"triage","label":"Triage","description":"Manage issues and pull requests without writing code."},{"value":"push","label":"Write (recommended)","description":"Push branches and contribute code."},{"value":"maintain","label":"Maintain","description":"Manage the repository without sensitive administrative access."},{"value":"admin","label":"Admin","description":"Full repository administration."}]' || return 1; permission=$WIZARD_REPLY
-        grants=$(printf '%s' "$grants" | jq --arg name "$name" --arg permission "$permission" '. + [{name:$name,permission:$permission}]') || return 1
-      done
-      team=$(jq -cn --arg name "$team_name" --arg slug "$slug" --argjson members "$members" --argjson repositories "$grants" \
-        '{name:$name,slug:$slug,privacy:"closed",members:$members,repositories:$repositories}') || return 1
-      teams=$(printf '%s' "$teams" | jq --argjson team "$team" '. + [$team]') || return 1
-    done
     repositories='[]'
     while :; do
       if wizard_guided && ! wizard_package_selected "$packages" workspace; then break; fi
       default_answer=false; [ "$repositories" != '[]' ] || default_answer=true
-      wizard_prompt_bool 'Add a repository?' "$default_answer" 'A starter repository gives the team code, tests and CI it can use immediately.' || return 1; [ "$WIZARD_REPLY" = true ] || break
+      wizard_prompt_bool 'Add a repository?' "$default_answer" 'A starter repository gives the team code, tests and CI it can use immediately.' || return 1
+      if [ "$WIZARD_REPLY" != true ]; then break; fi
       adopt=false
       if wizard_guided && [[ "$create" != true ]]; then
         wizard_prompt_bool 'Explicitly adopt an existing repository?' false 'Yes proposes content through review PRs. No plans a new repository and refuses to overwrite an existing one.' || return 1; adopt=$WIZARD_REPLY
@@ -510,9 +567,12 @@ wizard_init_once() (
         wizard_suggest_value 'Existing repository' repositories "$host" "$login" 'Choose a repository to adopt. Its content will be proposed through PRs.' \
           "$(jq -c '[.[].name]' <<<"$repositories")" || return 1
         name="$WIZARD_REPLY"
+        repo_verification="$(wizard_verification_evidence "$name")" || return 1
       else
         wizard_prompt_identifier repo 'Repository name: ' service 'Use a short project name, for example payments-api. An existing name requires adoption.' \
           "$(jq -c '[.[].name]' <<<"$repositories")" || return 1; name=$WIZARD_REPLY
+        repo_verification="$(jq -cn --arg checked_at "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" \
+          '{status:"unverified",source:"manual",checked_at:$checked_at,message:"Doctor checks this repository name before planning."}')" || return 1
       fi
       if ! wizard_guided; then
         wizard_prompt_bool 'Explicitly adopt an existing repository?' false 'Yes proposes content through review PRs. No plans a new repository and refuses to overwrite an existing one.' || return 1; adopt=$WIZARD_REPLY
@@ -563,10 +623,9 @@ wizard_init_once() (
           'Leave blank or use owner/name, not a URL.' \
           '$answer|.=="" or test("^[A-Za-z0-9][A-Za-z0-9-]*/[A-Za-z0-9_.-]+$")' || return 1; template=$WIZARD_REPLY
       fi
-      repo=$(jq -cn --arg name "$name" --argjson adopt "$adopt" --arg visibility "$visibility" --arg stack "$stack" --arg template "$template" \
-        '{name:$name,adopt:$adopt,stack:$stack,files:[],labels:[],properties:{},environments:[],workflows:[],copilot_users:[],
-          has_issues:true,has_projects:false,has_wiki:false,
-          allow_squash_merge:true,allow_merge_commit:false,allow_rebase_merge:false,delete_branch_on_merge:true}
+      repo=$(jq -cn --arg name "$name" --argjson adopt "$adopt" --argjson verification "$repo_verification" --arg visibility "$visibility" --arg stack "$stack" --arg template "$template" \
+        --argjson repository_defaults "$(jq -c '.repository_defaults' <<<"$org")" \
+        '$repository_defaults * {name:$name,adopt:$adopt,verification:$verification,stack:$stack,files:[],labels:[],properties:{},environments:[],workflows:[],copilot_users:[]}
          + (if $visibility == "" then {} else {visibility:$visibility} end)
          + (if $template == "" then {} else {template:$template} end)') || return 1
       if wizard_package_selected "$packages" actions; then
@@ -584,6 +643,45 @@ wizard_init_once() (
         done
       fi
       repositories=$(printf '%s' "$repositories" | jq --argjson repo "$repo" '. + [$repo]') || return 1
+    done
+    teams='[]'
+    while :; do
+      if wizard_guided && ! wizard_package_selected "$packages" workspace; then break; fi
+      default_answer=false; [ "$teams" != '[]' ] || default_answer=true
+      wizard_prompt_bool 'Add a team?' "$default_answer" 'Teams let you grant access to a group instead of managing each repository collaborator.' || return 1; [ "$WIZARD_REPLY" = true ] || break
+      wizard_prompt_checked 'Team name: ' Developers \
+        'Use a distinct team name with letters, numbers and single spaces or hyphens, up to 100 characters.' \
+        '$answer | length<=100 and test("^[A-Za-z0-9]+([ -][A-Za-z0-9]+)*$") and
+          (. as $name|$context|map(ascii_downcase)|index($name|ascii_downcase|gsub(" ";"-"))==null)' \
+        "$(jq -c '[.[].slug]' <<<"$teams")" || return 1; team_name=$WIZARD_REPLY
+      slug="$(printf '%s' "$team_name" | tr '[:upper:] ' '[:lower:]-')"
+      wizard_prompt_identifier slug 'Team slug: ' "$slug" 'The slug must match the lowercase team name with spaces replaced by hyphens.' \
+        "$(jq -c '[.[].slug]' <<<"$teams")" || return 1; slug=$WIZARD_REPLY
+      wizard_prompt_list users 'Member logins (comma-separated; blank none): ' '' \
+        'Leave blank if your IdP manages membership. Otherwise use distinct GitHub usernames, not emails.' || return 1
+      members=$(wizard_csv_json "$WIZARD_REPLY") || return 1
+      grants='[]'
+      while :; do
+        default_answer=false
+        if [[ "$grants" == '[]' && "$(jq length <<<"$repositories")" -gt 0 ]]; then default_answer=true; fi
+        wizard_prompt_bool 'Grant this team repository access?' "$default_answer" 'Choose from the repositories configured above.' || return 1; [ "$WIZARD_REPLY" = true ] || break
+        choices="$(jq -c --argjson grants "$grants" '
+          [.[]|select(.name as $name|$grants|map(.name|ascii_downcase)|index($name|ascii_downcase)==null)|
+            {value:.name,label:.name,description:"Configured repository."}]' <<<"$repositories")" || return 1
+        if [[ "$(jq length <<<"$choices")" -eq 0 ]]; then
+          printf '%s\n' 'Every configured repository already has a grant for this team.' >&2
+          break
+        fi
+        wizard_choose 'Team repository' "$(jq -r '.[0].value' <<<"$choices")" \
+          'Select a repository configured in this organization.' "$choices" || return 1
+        name=$WIZARD_REPLY
+        wizard_choose 'Team repository permission' push 'Write is usually enough for developers. Reserve Admin for repository administrators.' \
+          '[{"value":"pull","label":"Read","description":"Read and clone code."},{"value":"triage","label":"Triage","description":"Manage issues and pull requests without writing code."},{"value":"push","label":"Write (recommended)","description":"Push branches and contribute code."},{"value":"maintain","label":"Maintain","description":"Manage the repository without sensitive administrative access."},{"value":"admin","label":"Admin","description":"Full repository administration."}]' || return 1; permission=$WIZARD_REPLY
+        grants=$(printf '%s' "$grants" | jq --arg name "$name" --arg permission "$permission" '. + [{name:$name,permission:$permission}]') || return 1
+      done
+      team=$(jq -cn --arg name "$team_name" --arg slug "$slug" --argjson members "$members" --argjson repositories "$grants" \
+        '{name:$name,slug:$slug,privacy:"closed",members:$members,repositories:$repositories}') || return 1
+      teams=$(printf '%s' "$teams" | jq --argjson team "$team" '. + [$team]') || return 1
     done
     org=$(printf '%s' "$org" | jq --argjson teams "$teams" --argjson repositories "$repositories" --argjson packages "$packages" '.teams=$teams | .repositories=$repositories | .packages=$packages') || return 1
     wizard_section '4. Capability settings' 'Choose which features to enable. Review the planned changes before apply.'
@@ -606,11 +704,14 @@ wizard_init_once() (
       wizard_choose 'Default workflow token permission' read 'Use read-only by default. A workflow can request the specific write permissions it needs.' \
         '[{"value":"read","label":"Read (recommended)","description":"Least-privilege default for GITHUB_TOKEN."},{"value":"write","label":"Write","description":"Broad write defaults; use only when required and reviewed."}]' || return 1; selected=$WIZARD_REPLY
       default_answer=false; wizard_guided && default_answer=true
-      org=$(printf '%s' "$org" | jq --arg policy "$option" --arg permission "$selected" --argjson choices "$choices" --argjson github "$default_answer" '
+      org=$(printf '%s' "$org" | jq --arg policy "$option" --arg permission "$selected" --argjson choices "$choices" --argjson github "$default_answer" \
+        --argjson action_defaults "$(jq -c '.enterprise.actions' <<<"$profile_values")" '
         .actions={
           permissions:{allowed_actions:$policy},
           workflow_permissions:{default_workflow_permissions:$permission,can_approve_pull_request_reviews:false},
-          retention_days:90
+          run_data_retention_days:$action_defaults.run_data_retention_days,
+          cache_retention_days:$action_defaults.cache_retention_days,
+          cache_size_gb:$action_defaults.cache_size_gb
         }
         | if $policy == "selected" then
             .actions.selected_actions={github_owned_allowed:$github,verified_allowed:false,patterns_allowed:$choices}

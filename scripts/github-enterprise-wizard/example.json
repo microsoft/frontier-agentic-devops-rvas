@@ -5,15 +5,34 @@
   "enterprise": {
     "slug": "customer-enterprise",
     "identity": "personal",
+    "governance_profile": "balanced",
+    "update_scopes": {
+      "repository_management": true,
+      "identity": true,
+      "network": false,
+      "actions": true,
+      "audit": false,
+      "applications": false,
+      "pat": false,
+      "codespaces": true,
+      "custom_properties": true,
+      "rulesets": true,
+      "offboarding": false,
+      "copilot": true
+    },
     "policies": {
       "repository": {
         "default_branch": "main",
         "base_permission": "read",
         "member_repository_creation": "private_internal",
         "public_repository_creation": false,
+        "user_namespace_repository_creation": "allowed",
         "outside_collaborator_invitations": "organization_owners",
+        "direct_collaborators": "restricted",
         "visibility_changes": "organization_owners",
-        "deletion_and_transfer": "organization_owners"
+        "deletion": "organization_owners",
+        "transfer": "organization_owners",
+        "private_forking": "disabled"
       },
       "pat": {
         "classic_access": "blocked",
@@ -27,6 +46,11 @@
         "streaming": true,
         "source_ip_disclosure": true,
         "api_request_events": true
+      },
+      "network": {
+        "ip_allow_list": "review",
+        "idp_ip_allow_list": "manual",
+        "enforcement_confirmed": false
       },
       "actions": {
         "permissions": {
@@ -43,7 +67,7 @@
           "default_workflow_permissions": "read",
           "can_approve_pull_request_reviews": false
         },
-        "retention_days": 90,
+        "run_data_retention_days": 90,
         "fork_approval_policy": "all_external_contributors",
         "private_fork_workflows": {
           "run_workflows_from_fork_pull_requests": true,
@@ -146,14 +170,51 @@
       "members_can_create_public_pages": false,
       "members_can_create_private_pages": true,
       "web_commit_signoff_required": true
+    },
+    "repository": {
+      "default_branch": "main",
+      "has_issues": true,
+      "has_projects": false,
+      "has_wiki": false,
+      "has_discussions": false,
+      "allow_squash_merge": true,
+      "allow_merge_commit": false,
+      "allow_rebase_merge": false,
+      "delete_branch_on_merge": true
     }
   },
   "organizations": [{
     "login": "customer-engineering",
     "create": false,
-    "adopt": true,
+    "update_scopes": {
+      "organization_settings": true,
+      "owners": true,
+      "teams": true,
+      "repository_access": true,
+      "actions": true,
+      "copilot": true,
+      "security": true,
+      "quality": true
+    },
     "owners": ["customer-admin"],
     "settings": {"members_can_create_public_repositories": false},
+    "collaborators": {
+      "teams_first": true,
+      "direct_collaborators": "restricted",
+      "outside_collaborators": "owner_approval"
+    },
+    "repository_defaults": {
+      "default_branch": "main",
+      "has_issues": true,
+      "has_projects": false,
+      "has_wiki": false,
+      "has_discussions": false,
+      "allow_squash_merge": true,
+      "allow_merge_commit": false,
+      "allow_rebase_merge": false,
+      "delete_branch_on_merge": true
+    },
+    "projects": [],
     "property_schema": [{
       "property_name": "service_tier",
       "value_type": "single_select",
@@ -172,6 +233,15 @@
       "adopt": false,
       "stack": "node",
       "visibility": "private",
+      "default_branch": "main",
+      "has_issues": true,
+      "has_projects": false,
+      "has_wiki": false,
+      "has_discussions": false,
+      "allow_squash_merge": true,
+      "allow_merge_commit": false,
+      "allow_rebase_merge": false,
+      "delete_branch_on_merge": true,
       "files": [{"path": "CODEOWNERS", "content": "* @customer-engineering/platform\n"}],
       "labels": [{"name": "maintenance", "color": "0366d6", "description": "Routine maintenance"}],
       "properties": {"service_tier": "standard"},
@@ -186,7 +256,9 @@
         "default_workflow_permissions": "read",
         "can_approve_pull_request_reviews": false
       },
-      "retention_days": 90
+      "run_data_retention_days": 90,
+      "cache_retention_days": 7,
+      "cache_size_gb": 10
     },
     "security": {
       "codeql": "default",

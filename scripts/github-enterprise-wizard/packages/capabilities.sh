@@ -24,10 +24,12 @@ wizard_capabilities_actions() {
       {owner:($o[$p].owner // $owner),source:$source,message:$message};
     def ensure($o;$p;$resource;$path;$body;$desired;$adopt;$dependencies;$method):
       action($o;$p;$resource;"ensure";$dependencies)+
-      {read_path:$path,update:{method:$method,path:$path,body:$body},desired:$desired,adopt:$adopt};
+      {read_path:$path,update:{method:$method,path:$path,body:$body},desired:$desired,
+       adopt:($adopt and ($o.update_scopes[$p] // false)),required_scope:$p};
     def files($o;$p;$r;$content):
       action($o;$p;"files:"+$r.name;"files";deps($o;$r))+
-      {repo:repo($o;$r),files:$content,adopt:($r.adopt // false)};
+      {repo:repo($o;$r),files:$content,
+       adopt:(($r.adopt // false) and ($o.update_scopes[$p] // false)),required_scope:$p};
     def pinned_workflows:
       map(.content |= (
         gsub("actions/checkout@v4";"actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1") |
@@ -129,12 +131,12 @@ wizard_capabilities_actions() {
           (config_settings($o.security)+($o.security.settings // {})) as $settings |
           if ($settings|length)>0 then
             ensure($o;"security";"configuration";"/orgs/"+$org+"/code-security/configurations/"+($o.security.configuration_id|tostring);
-              $settings;$settings;($o.adopt // false);[oid($o)];"PATCH")
+              $settings;$settings;($o.update_scopes.security // false);[oid($o)];"PATCH")
           else empty end
          elif $o.security.configuration_name then
           ((config_settings($o.security))+($o.security.settings // {})+{name:$o.security.configuration_name}) as $settings |
           ensure($o;"security";"configuration";"/orgs/"+$org+"/code-security/configurations";
-            $settings;$settings;($o.adopt // false);[oid($o)];"PATCH")+
+            $settings;$settings;($o.update_scopes.security // false);[oid($o)];"PATCH")+
             {lookup:{match:{name:$o.security.configuration_name},
               detail_path:("/orgs/"+$org+"/code-security/configurations/{id}")},
              create:{method:"POST",path:("/orgs/"+$org+"/code-security/configurations"),body:$settings},
@@ -230,7 +232,7 @@ wizard_capabilities_actions() {
             ensure($o;"security";"default-disabled:"+$r.name;$path+"/code-scanning/default-setup";
               {state:"not-configured"};{state:"not-configured"};($r.adopt // false);[rid($o;$r)];"PATCH"),
             (files($o;"security-codeql";$r;[{path:".github/workflows/codeql.yml",content:
-              "name: CodeQL\non:\n  workflow_dispatch:\n  push:\n  pull_request:\npermissions:\n  contents: read\n  security-events: write\njobs:\n  analyze:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: github/codeql-action/init@v3\n        with:\n          languages: "+(if ($r.code_scanning.languages // []|length)>0 then ($r.code_scanning.languages|join(",")|tojson) elif $r.stack=="python" then "python" else "javascript-typescript" end)+"\n      - uses: github/codeql-action/autobuild@v3\n      - uses: github/codeql-action/analyze@v3\n"}]) |
+              ("name: CodeQL\non:\n  workflow_dispatch:\n  push:\n  pull_request:\npermissions:\n  contents: read\n  security-events: write\njobs:\n  analyze:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: github/codeql-action/init@v3\n        with:\n          languages: "+(if ($r.code_scanning.languages // []|length)>0 then ($r.code_scanning.languages|join(",")|tojson) elif $r.stack=="python" then "python" else "javascript-typescript" end)+"\n      - uses: github/codeql-action/autobuild@v3\n      - uses: github/codeql-action/analyze@v3\n")}]) |
               .package="security" | .id=$org+":security:codeql-files:"+$r.name |
               .depends_on+=[$org+":security:default-disabled:"+$r.name] | .files|=pinned_workflows)
            else empty end),
@@ -248,7 +250,7 @@ wizard_capabilities_actions() {
            else empty end),
           (if ($s.dependabot_security_updates // false) and ($r.stack=="node" or $r.stack=="python") then
             files($o;"security";$r;[{path:".github/dependabot.yml",content:
-              "version: 2\nupdates:\n  - package-ecosystem: "+(if $r.stack=="python" then "pip" else "npm" end)+"\n    directory: /\n    schedule:\n      interval: weekly\n"}])
+              ("version: 2\nupdates:\n  - package-ecosystem: "+(if $r.stack=="python" then "pip" else "npm" end)+"\n    directory: /\n    schedule:\n      interval: weekly\n")}])
            else empty end),
           (if ($s.dependency_review // false) then
             files($o;"security-dependency-review";$r;[{path:".github/workflows/dependency-review.yml",content:
@@ -299,7 +301,7 @@ wizard_capabilities_actions() {
           action($o;"ghaw";$r.name+":"+$pilot.name;"ghaw";deps($o;$r))+
           {repo:repo($o;$r),files:[{path:(".github/workflows/"+$pilot.name+".md"),content:ghaw_source($pilot)}],
            workflow:($pilot.name+".lock.yml"),ref:($r.default_branch // "main"),inputs:{},
-           adopt:($r.adopt // false),engine:($pilot.engine // "copilot"),
+           adopt:(($r.adopt // false) and ($o.update_scopes.ghaw // false)),required_scope:"ghaw",
            auth_mode:($pilot.auth_mode // "release-dependent"),run:($pilot.run // true),
            source:"https://github.github.com/gh-aw/reference/auth/",
            cost:{known:false,warning:"Inference and GitHub Actions runs can incur charges. Review the installed compiler release, generated permissions, and selected engine authentication before approval."}}),
@@ -326,7 +328,7 @@ wizard_capabilities_actions() {
           ensure($o;"integrations";"hook:"+($hook.id|tostring);"/orgs/"+$org+"/hooks/"+($hook.id|tostring);
             {active:($hook.active // true),events:($hook.events // ["push"]),config:{url:$hook.url,content_type:"json"}};
             {active:($hook.active // true),events:($hook.events // ["push"]),config:{url:$hook.url}};
-            ($o.adopt // false);[oid($o)];"PATCH")),
+            ($o.update_scopes.integrations // false);[oid($o)];"PATCH")),
         (($o.integrations.apps // [])[] as $app |
           manual($o;"integrations";"app:"+$app;[oid($o)];"organization owner and existing App owner";
             "https://docs.github.com/en/apps/using-github-apps/installing-your-own-github-app";
@@ -390,13 +392,13 @@ wizard_capabilities_actions() {
               .package=$p | .id=$org+":lfs:attributes:"+$r.name
            elif $p=="license" and ($options.deny_licenses // []|length)>0 then
             files($o;$p+"-policy";$r;[{path:".github/workflows/license-policy.yml",content:
-              "name: Dependency license policy\non: [pull_request]\npermissions:\n  contents: read\njobs:\n  policy:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/dependency-review-action@v4\n        with:\n          deny-licenses: "+($options.deny_licenses|join(",")|tojson)+"\n"}]) |
+              ("name: Dependency license policy\non: [pull_request]\npermissions:\n  contents: read\njobs:\n  policy:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/dependency-review-action@v4\n        with:\n          deny-licenses: "+($options.deny_licenses|join(",")|tojson)+"\n")}]) |
               .package=$p | .id=$org+":license:policy:"+$r.name | .files|=pinned_workflows
            elif $p=="innersource" and ($content|length)==0 and ($o.teams // []|length)>0 then
-            files($o;$p;$r;[{path:"CONTRIBUTING.md",content:
+            files($o;$p;$r;[{path:"CONTRIBUTING.md",content:(
               "# Contributing\n\nOpen an issue before changing behavior. Include the problem and the expected result.\n\n"+
               "**Review owners:** "+($o.teams|map("@"+$org+"/"+.slug)|join(", "))+". Ask the team that owns the affected path for review; follow CODEOWNERS when present.\n\n"+
-              "Keep pull requests focused. Describe the change and list the tests you ran. Wait for required checks and human approval before merging.\n"}])
+              "Keep pull requests focused. Describe the change and list the tests you ran. Wait for required checks and human approval before merging.\n")}])
            elif ($p=="innersource" or $p=="license" or $p=="lfs") and ($content|length)==0 then
             manual($o;$p;"content:"+$r.name;[rid($o;$r)];"repository maintainer";
               (if $p=="lfs" then "https://docs.github.com/en/repositories/working-with-files/managing-large-files/configuring-git-large-file-storage"
@@ -448,8 +450,8 @@ wizard_capabilities_actions() {
           (if $r.publishing.container then
             ($r.publishing.container) as $container |
             (if $config.host=="github.com" then "ghcr.io" else "containers."+$config.host end) as $registry |
-            files($o;"publishing-container";$r;[{path:".github/workflows/publish-container.yml",content:
-              "name: Publish customer container\non:\n  workflow_dispatch:\npermissions:\n  contents: read\n  packages: write\njobs:\n  publish:\n    runs-on: ubuntu-latest\n    env:\n      REGISTRY: "+($registry|tojson)+"\n      IMAGE: "+($registry+"/"+(repo($o;$r)|ascii_downcase)|tojson)+"\n      BUILD_CONTEXT: "+($container.context // "."|tojson)+"\n      DOCKERFILE: "+($container.dockerfile // "Dockerfile"|tojson)+"\n    steps:\n      - uses: actions/checkout@v4\n      - name: Build and publish\n        env:\n          REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}\n        run: |\n          printf \u0027%s\u0027 \"$REGISTRY_TOKEN\" | docker login \"$REGISTRY\" --username \"$GITHUB_ACTOR\" --password-stdin\n          docker build --file \"$DOCKERFILE\" --tag \"$IMAGE:$GITHUB_SHA\" -- \"$BUILD_CONTEXT\"\n          docker push \"$IMAGE:$GITHUB_SHA\"\n"}]) |
+            files($o;"publishing-container";$r;[{path:".github/workflows/publish-container.yml",content:(
+              "name: Publish customer container\non:\n  workflow_dispatch:\npermissions:\n  contents: read\n  packages: write\njobs:\n  publish:\n    runs-on: ubuntu-latest\n    env:\n      REGISTRY: "+($registry|tojson)+"\n      IMAGE: "+($registry+"/"+(repo($o;$r)|ascii_downcase)|tojson)+"\n      BUILD_CONTEXT: "+($container.context // "."|tojson)+"\n      DOCKERFILE: "+($container.dockerfile // "Dockerfile"|tojson)+"\n    steps:\n      - uses: actions/checkout@v4\n      - name: Build and publish\n        env:\n          REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}\n        run: |\n          printf \u0027%s\u0027 \"$REGISTRY_TOKEN\" | docker login \"$REGISTRY\" --username \"$GITHUB_ACTOR\" --password-stdin\n          docker build --file \"$DOCKERFILE\" --tag \"$IMAGE:$GITHUB_SHA\" -- \"$BUILD_CONTEXT\"\n          docker push \"$IMAGE:$GITHUB_SHA\"\n")}]) |
               .package="publishing" | .id=$org+":publishing:container:"+$r.name | .files|=pinned_workflows
            else empty end),
           (if ($r.publishing.container.run // false) then

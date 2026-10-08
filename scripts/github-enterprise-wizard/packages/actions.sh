@@ -6,32 +6,53 @@ wizard_actions_actions() {
   jq -cn --argjson config "$config" '
     def ensure($id;$org;$deps;$path;$desired;$adopt;$create;$update):
       {id:$id,package:"actions",org:$org,kind:"ensure",depends_on:$deps,
-       read_path:$path,desired:$desired,adopt:$adopt}
+       read_path:$path,desired:$desired,adopt:$adopt,required_scope:"actions"}
       + (if $create==null then {} else {create:$create} end)
       + (if $update==null then {} else {update:$update} end);
     def manual($id;$org;$deps;$message):
       {id:$id,package:"actions",org:$org,kind:"manual",depends_on:$deps,
        message:$message,owner:"org-owner"};
     def policy($org;$base;$id;$deps;$settings;$adopt):
+      ($base |
+        if startswith("/orgs/") then sub("^/orgs/";"/organizations/")
+        else . end) as $cache_base |
       (if (($settings.permissions // {})|length)>0 then
         ensure($id+":permissions";$org;$deps;$base+"/permissions";$settings.permissions;$adopt;null;
-          {method:"PUT",path:$base+"/permissions",body:$settings.permissions})
+          {method:"PUT",path:($base+"/permissions"),body:$settings.permissions})
       else empty end),
       (if (($settings.workflow_permissions // {})|length)>0 then
         ensure($id+":workflow-permissions";$org;$deps;$base+"/permissions/workflow";
           $settings.workflow_permissions;$adopt;null;
-          {method:"PUT",path:$base+"/permissions/workflow",body:$settings.workflow_permissions})
+          {method:"PUT",path:($base+"/permissions/workflow"),body:$settings.workflow_permissions})
       else empty end),
       (if (($settings.selected_actions // {})|length)>0 then
         ensure($id+":selected-actions";$org;
           ($deps+if (($settings.permissions // {})|length)>0 then [$id+":permissions"] else [] end);
           $base+"/permissions/selected-actions";$settings.selected_actions;$adopt;null;
-          {method:"PUT",path:$base+"/permissions/selected-actions",body:$settings.selected_actions})
+          {method:"PUT",path:($base+"/permissions/selected-actions"),body:$settings.selected_actions})
       else empty end),
-      (if $settings.retention_days then
+      (if $settings.run_data_retention_days then
         ensure($id+":retention";$org;$deps;
-          $base+"/permissions/artifact-and-log-retention";{days:$settings.retention_days};$adopt;null;
-          {method:"PUT",path:$base+"/permissions/artifact-and-log-retention",body:{days:$settings.retention_days}})
+          $base+"/permissions/artifact-and-log-retention";{days:$settings.run_data_retention_days};$adopt;null;
+          {method:"PUT",path:($base+"/permissions/artifact-and-log-retention"),body:{days:$settings.run_data_retention_days}})
+      else empty end),
+      (if $settings.cache_retention_days then
+        ensure($id+":cache-retention";$org;$deps;
+          $cache_base+"/cache/retention-limit";
+          {max_cache_retention_days:$settings.cache_retention_days};$adopt;
+          {method:"PUT",path:($cache_base+"/cache/retention-limit"),
+           body:{max_cache_retention_days:$settings.cache_retention_days}};
+          {method:"PUT",path:($cache_base+"/cache/retention-limit"),
+           body:{max_cache_retention_days:$settings.cache_retention_days}})
+      else empty end),
+      (if $settings.cache_size_gb then
+        ensure($id+":cache-storage";$org;$deps;
+          $cache_base+"/cache/storage-limit";
+          {max_cache_size_gb:$settings.cache_size_gb};$adopt;
+          {method:"PUT",path:($cache_base+"/cache/storage-limit"),
+           body:{max_cache_size_gb:$settings.cache_size_gb}};
+          {method:"PUT",path:($cache_base+"/cache/storage-limit"),
+           body:{max_cache_size_gb:$settings.cache_size_gb}})
       else empty end);
     def workflows($r):
       ($r.workflows // []) as $selected |
@@ -132,10 +153,10 @@ wizard_actions_actions() {
           else [] end));
         ($base+"/rulesets"+if $ruleset.id then "/"+($ruleset.id|tostring) else "?includes_parents=false" end);
         $body;$adopt;
-        (if $ruleset.id then null else {method:"POST",path:$base+"/rulesets",body:$body} end);
-        {method:"PUT",path:$base+"/rulesets/"+(if $ruleset.id then ($ruleset.id|tostring) else "{id}" end),body:$body})
+        (if $ruleset.id then null else {method:"POST",path:($base+"/rulesets"),body:$body} end);
+        {method:"PUT",path:($base+"/rulesets/"+(if $ruleset.id then ($ruleset.id|tostring) else "{id}" end)),body:$body})
         + if $ruleset.id then {} else
-          {lookup:{items_path:[],match:{name:$ruleset.name},detail_path:$base+"/rulesets/{id}"},paginate:true}
+          {lookup:{items_path:[],match:{name:$ruleset.name},detail_path:($base+"/rulesets/{id}")},paginate:true}
           end),
       (if $adopt and $ruleset.enforcement=="active" and ($ruleset.enforcement_approved // false|not) then
         manual($prefix+":enforce-ruleset:"+$key;$org;[$prefix+":ruleset:"+$key];
@@ -145,15 +166,15 @@ wizard_actions_actions() {
     $o.login as $org |
     ($org+":workspace:organization") as $oid |
     ($org+":actions:organization") as $aid |
-    policy($org;"/orgs/"+$org+"/actions";$aid;[$oid];($o.actions // {});($o.adopt // false)),
+    policy($org;"/orgs/"+$org+"/actions";$aid;[$oid];($o.actions // {});($o.update_scopes.actions // false)),
     (($o.actions.runner_groups // [])[] as $group |
       ($group|del(.id)) as $body |
       ($group.id // $group.name|tostring) as $key |
       ("/orgs/"+$org+"/actions/runner-groups") as $base |
       (ensure($aid+":runner-group:"+$key;$org;[$oid];
-        ($base+if $group.id then "/"+($group.id|tostring) else "" end);$body;($o.adopt // false);
+        ($base+if $group.id then "/"+($group.id|tostring) else "" end);$body;($o.update_scopes.actions // false);
         (if $group.id then null else {method:"POST",path:$base,body:$body} end);
-        {method:"PATCH",path:$base+"/"+(if $group.id then ($group.id|tostring) else "{id}" end),body:$body})
+        {method:"PATCH",path:($base+"/"+(if $group.id then ($group.id|tostring) else "{id}" end)),body:$body})
         + if $group.id then {} else {lookup:{items_path:["runner_groups"],match:{name:$group.name}},paginate:true} end),
       manual($aid+":runner-infrastructure:"+$key;$org;[$aid+":runner-group:"+$key];
         "Provision and register customer-managed runners for group "+$group.name+"; verify an approved workflow on those runners.")),
@@ -162,7 +183,7 @@ wizard_actions_actions() {
       ($org+":workspace:repo:"+$r.name) as $rid |
       ($org+":workspace:files:"+$r.name) as $fid |
       ($org+":actions:repo:"+$r.name) as $pid |
-      ($r.adopt // false) as $adopt |
+      (($r.adopt // false) and ($o.update_scopes.actions // false)) as $adopt |
       policy($org;"/repos/"+$repo+"/actions";$pid;[$rid];($r.actions // {});$adopt),
       (($r.environments // [])[] as $env |
         ($env|del(.name,.deployment_branch_policies,.can_admins_bypass)) as $body |
@@ -178,11 +199,11 @@ wizard_actions_actions() {
         (($env.deployment_branch_policies // [])[] as $branch |
           (ensure($pid+":environment-branch:"+$env.name+":"+$branch.type+":"+$branch.name;
             $org;[$pid+":environment:"+$env.name];$path+"/deployment-branch-policies";$branch;$adopt;
-            {method:"POST",path:$path+"/deployment-branch-policies",body:$branch};
-            {method:"PUT",path:$path+"/deployment-branch-policies/{id}",body:$branch})
+            {method:"POST",path:($path+"/deployment-branch-policies"),body:$branch};
+            {method:"PUT",path:($path+"/deployment-branch-policies/{id}"),body:$branch})
             + {lookup:{items_path:["branch_policies"],match:{name:$branch.name,type:$branch.type}},paginate:true}))),
       (workflows($r)|to_entries[] | .key as $index | .value as $w |
-        {id:$pid+":workflow:"+($index|tostring),package:"actions",org:$org,kind:"workflow",
+        {id:($pid+":workflow:"+($index|tostring)),package:"actions",org:$org,kind:"workflow",
          repo:$repo,workflow:($w.workflow // $w.name),ref:($w.ref // "main"),inputs:($w.inputs // {}),
          depends_on:([$rid]+if files_exist($r) then [$fid] else [] end
            + if ($adopt|not) and (files_exist($r) or $r.template!=null) then [$rid+":default-branch"] else [] end
@@ -205,6 +226,6 @@ wizard_actions_actions() {
     gates($org;"/orgs/"+$org;$aid;
       ([$oid]+[($o.repositories // [])[] as $r | workflows($r)|keys[] |
         $org+":actions:repo:"+$r.name+":workflow:"+(.|tostring)]);
-      $o.rulesets;($o.adopt // false);"main";$o;($o.repositories // []))
+      $o.rulesets;($o.update_scopes.actions // false);"main";$o;($o.repositories // []))
   '
 }

@@ -76,8 +76,18 @@ if (endpoint === 'graphql') {
 if (method === 'GET' && Object.hasOwn(state.resources, endpoint)) reply(200, state.resources[endpoint]);
 const bare = endpoint && endpoint.split('?')[0];
 if (method === 'GET' && Object.hasOwn(state.resources, bare)) reply(200, state.resources[bare]);
-if (method === 'GET' && /^\\/orgs\\/[^/]+\\/(members|outside_collaborators|repos|hooks|audit-log|packages|code-security\\/configurations)$/.test(bare)) reply(200, []);
+if (method === 'GET' && /^\\/orgs\\/[^/]+\\/repos$/.test(bare)) {
+  const org = bare.split('/')[2];
+  const repositories = Object.entries(state.resources)
+    .filter(([resource]) => resource.startsWith('/repos/' + org + '/') && resource.split('/').length === 4)
+    .map(([, repository]) => repository);
+  reply(200, repositories);
+}
+if (method === 'GET' && /^\\/orgs\\/[^/]+\\/(members|teams|outside_collaborators|repos|hooks|audit-log|packages|code-security\\/configurations)$/.test(bare)) reply(200, []);
 if (method === 'GET' && /^\\/orgs\\/[^/]+\\/installations$/.test(bare)) reply(200, {total_count: 0, installations: []});
+if (method === 'GET' && /^\\/orgs\\/[^/]+\\/actions\\/runner-groups$/.test(bare)) reply(200, {total_count: 0, runner_groups: []});
+if (method === 'GET' && /^\\/repos\\/[^/]+\\/[^/]+\\/actions\\/workflows$/.test(bare)) reply(200, {total_count: 0, workflows: []});
+if (method === 'GET' && /^\\/repos\\/[^/]+\\/[^/]+\\/code-quality\\/setup$/.test(bare)) reply(200, {state: 'not_configured'});
 if (method === 'GET' && /^\\/organizations\\/[^/]+\\/settings\\/billing\\/usage$/.test(bare)) reply(200, {usageItems: []});
 if (method === 'GET' && /\\/copilot\\/billing$/.test(bare)) reply(200, {seat_management_setting: 'assign_selected', public_code_suggestions: 'block'});
 if (method === 'GET' && /\\/copilot\\/billing\\/seats$/.test(bare)) reply(200, {seats: state.seats});
@@ -177,10 +187,24 @@ reply(422, {message: 'Unexpected offline endpoint: ' + key});
 function config() {
   return {
     schema_version: 1, host: 'github.com', actor: 'alice',
-    enterprise: {slug: 'acme', identity: 'personal'},
+    enterprise: {
+      slug: 'acme', identity: 'personal', governance_profile: 'balanced',
+      update_scopes: {
+        repository_management: true, identity: true, network: true, actions: true,
+        audit: true, applications: true, pat: true, codespaces: true,
+        custom_properties: true, rulesets: true, offboarding: true, copilot: true,
+      },
+    },
     defaults: {packages: ['workspace'], repository_visibility: 'private', settings: {}},
     organizations: [{
-      login: 'acme-org', create: false, adopt: true, owners: ['alice'], teams: [],
+      login: 'acme-org', create: false, owners: ['alice'], teams: [],
+      update_scopes: {
+        organization_settings: true, owners: true, teams: true, repository_access: true,
+        actions: true, identity: true, copilot: true, security: true, quality: true,
+        ghaw: true, migration: true, integrations: true, billing: true, audit: true,
+        lifecycle: true, drift: true, publishing: true, release: true, license: true,
+        innersource: true, vendors: true, lfs: true, sre: true,
+      },
       repositories: [{name: 'service', adopt: true, stack: 'none'}],
     }],
   };
@@ -195,7 +219,7 @@ function fixture(t, configuration = config()) {
   fs.mkdirSync(snapshotHome, {recursive: true});
   const snapshotEntrypoint = path.join(snapshotScripts, 'github-enterprise-wizard.sh');
   fs.copyFileSync(entrypoint, snapshotEntrypoint);
-  for (const name of ['lib', 'packages', 'templates', 'catalog.json', 'validate.jq']) {
+  for (const name of ['lib', 'packages', 'templates', 'catalog.json', 'governance.json', 'validate.jq']) {
     fs.cpSync(path.join(__dirname, name), path.join(snapshotHome, name), {recursive: true});
   }
   const bin = path.join(directory, 'bin');
@@ -217,7 +241,12 @@ function fixture(t, configuration = config()) {
     resources: {
       '/orgs/acme-org': {login: 'acme-org', default_repository_permission: 'read'},
       '/orgs/acme-org/memberships/alice': {role: 'admin', state: 'active'},
-      '/repos/acme-org/service': {name: 'service', visibility: 'private', default_branch: 'main'},
+      '/repos/acme-org/service': {
+        name: 'service', visibility: 'private', default_branch: 'main',
+        has_issues: true, has_projects: false, has_wiki: false, has_discussions: false,
+        allow_squash_merge: true, allow_merge_commit: false, allow_rebase_merge: false,
+        delete_branch_on_merge: true,
+      },
     },
   });
   const env = {
@@ -286,6 +315,22 @@ test('help and catalog run offline and list every package', t => {
   assert.deepEqual(f.calls(), []);
 });
 
+test('governance catalog covers high-value controls with explicit support boundaries', t => {
+  const f = fixture(t);
+  const governance = JSON.parse(f.success(f.command(['catalog', '--governance'])).stdout);
+  const ids = governance.controls.map(control => control.id);
+  assert.equal(new Set(ids).size, ids.length);
+  for (const id of [
+    'repository.creation', 'repository.collaborators', 'repository.projects_v2',
+    'actions.workflow_token', 'actions.cache_retention', 'enforcement.rulesets',
+    'identity.provider', 'network.ip_allow_list', 'audit.streaming',
+    'applications.oauth_policy', 'security.code_security',
+  ]) assert.ok(ids.includes(id), `missing governance control ${id}`);
+  assert.equal(governance.controls.find(control => control.id === 'repository.projects_v2').support, 'manual');
+  assert.equal(governance.controls.find(control => control.id === 'actions.cache_retention').support, 'automated');
+  assert.deepEqual(f.calls(), []);
+});
+
 test('unknown commands and missing option values fail before API calls', t => {
   const f = fixture(t);
   for (const args of [['delete'], ['plan', '--config'], ['init', '--output', '--plain'],
@@ -298,8 +343,9 @@ test('unknown commands and missing option values fail before API calls', t => {
 test('init saves a private config without API calls or approval', t => {
   const f = fixture(t);
   const output = path.join(f.directory, 'interview.json');
-  const input = ['github.com', 'alice', 'acme', 'personal', 'workspace', '', 'acme-org',
-    'no', 'yes', 'alice', '', 'no', 'no', 'no', '', 'yes'].join('\n') + '\n';
+  const input = ['github.com', 'alice', 'acme', 'personal', 'balanced', 'workspace',
+    'no', 'no', 'no', 'no', 'no', 'private', 'all', 'acme-org', 'no', 'alice', '', 'all',
+    'no', 'no', 'no', 'no', 'yes'].join('\n') + '\n';
   f.success(f.command(['init', '--output', output], input));
   const saved = f.json(output);
   assert.equal(saved.actor, 'alice');
@@ -468,7 +514,8 @@ test('enterprise policy adapter covers P0 and P1 controls without guarded networ
     'enterprise:policy:actions-fork-approval',
     'enterprise:policy:actions-private-forks',
     'enterprise:policy:actions-repository-runners',
-    'enterprise:policy:actions-cache',
+    'enterprise:policy:actions-cache-retention',
+    'enterprise:policy:actions-cache-storage',
     'enterprise:policy:codespaces-access:acme-org',
     'enterprise:policy:codespaces-policy',
     'enterprise:policy:ruleset:enterprise-repository-observation',
@@ -484,6 +531,35 @@ test('enterprise policy adapter covers P0 and P1 controls without guarded networ
   assert.ok(actions.every(action => action.id !== 'enterprise:policy:domains'));
   assert.ok(actions.every(action => !JSON.stringify(action).match(/ip allow|conditional access|private network/i)));
   assert.ok(actions.every(action => !`${action.id} ${action.read_path || ''}`.match(/copilot.*usage|usage-record/i)));
+});
+
+test('enterprise writes become handoffs when their update scope is not authorized', t => {
+  const c = config();
+  c.enterprise.policies = JSON.parse(fs.readFileSync(path.join(__dirname, 'example.json'), 'utf8')).enterprise.policies;
+  c.enterprise.policies.copilot.source_organization = 'acme-org';
+  c.enterprise.update_scopes.actions = false;
+  c.enterprise.update_scopes.codespaces = false;
+  c.enterprise.update_scopes.copilot = false;
+  c.organizations[0].packages = ['workspace', 'actions', 'copilot'];
+  c.organizations[0].copilot = {
+    users: [], teams: [], purchase: false,
+    agents: [{path: 'agents/security-reviewer.md', content: '# Security Reviewer\n'}],
+  };
+  const f = fixture(t, c);
+  const library = path.join(f.directory, 'snapshot/scripts/github-enterprise-wizard/packages/enterprise.sh');
+  const result = f.success(f.shell(
+    'source "$1"; wizard_enterprise_actions "$(cat "$2")" | jq -s .', [library, f.configFile],
+  ));
+  const actions = JSON.parse(result.stdout);
+  for (const id of [
+    'enterprise:policy:actions-permissions',
+    'enterprise:policy:actions-cache-retention',
+    'enterprise:policy:codespaces-access:acme-org',
+    'enterprise:policy:copilot-agent-source',
+  ]) {
+    const action = actions.find(candidate => candidate.id === id);
+    assert.equal(action.kind, 'manual', id);
+  }
 });
 
 test('Copilot source executor resolves the organization ID and verifies the enterprise source', t => {
@@ -645,6 +721,11 @@ test('shared Copilot profiles and agents stay in the case-insensitive private so
     '# Reviewer\nSuggest tests.\n',
   );
   f.saveConfig(saved);
+  f.changeState(state => {
+    state.resources['/repos/acme-org/.GITHUB-PRIVATE'] = {
+      name: '.GITHUB-PRIVATE', visibility: 'private', default_branch: 'main',
+    };
+  });
   const plan = f.plan();
   const content = plan.actions.filter(action => action.kind === 'files');
   assert.ok(content.some(action => action.repo === 'acme-org/.GITHUB-PRIVATE' &&
@@ -657,9 +738,10 @@ test('shared Copilot profiles and agents stay in the case-insensitive private so
 test('piped init retries invalid scope values and normalizes feature answers', t => {
   const f = fixture(t);
   const output = path.join(f.directory, 'interview.json');
-  const input = [' GITHUB.COM ', ' alice ', 'enterprise_slug', ' PERSONAL ', 'unknown', ' WORKSPACE ', ' PRIVATE ',
-    'acme-org', ' FALSE ', ' YES ', 'alice@example.com', ' alice ', 'unknown', '', ' NO ', ' FALSE ',
-    ' NO ', '', ' TRUE '].join('\n') + '\n';
+  const input = [' GITHUB.COM ', ' alice ', 'enterprise_slug', ' PERSONAL ', 'unknown', 'balanced',
+    ' WORKSPACE ', ' NO ', ' FALSE ', ' NO ', ' FALSE ', ' NO ', ' PRIVATE ', 'all',
+    'acme-org', ' FALSE ',
+    'alice@example.com', ' alice ', '', 'all', ' NO ', ' FALSE ', ' NO ', ' NO ', ' TRUE '].join('\n') + '\n';
   f.success(f.command(['init', '--output', output], input));
   const saved = f.json(output);
   assert.equal(saved.host, 'github.com');
@@ -669,12 +751,36 @@ test('piped init retries invalid scope values and normalizes feature answers', t
   assert.deepEqual(f.calls(), []);
 });
 
+test('existing .github-private repositories are adopted from verified discovery', t => {
+  const f = fixture(t);
+  const library = path.join(f.directory, 'snapshot/scripts/github-enterprise-wizard/lib/config.sh');
+  const result = f.success(f.shell(`
+    source "$1"
+    wizard_discover_repositories() {
+      jq -cn '{
+        state:"verified",
+        data:[{id:321,name:".github-private"}],
+        detail:"Repository inventory verified."
+      }'
+    }
+    config='{"host":"github.com","organizations":[{"login":"acme-org","create":false,"repositories":[]}]}'
+    wizard_ensure_github_private_repository "$config" 0
+  `, [library]));
+  const repository = JSON.parse(result.stdout).organizations[0].repositories[0];
+  assert.equal(repository.name, '.github-private');
+  assert.equal(repository.adopt, true);
+  assert.equal(repository.verification.status, 'verified');
+  assert.equal(repository.verification.resource_id, 321);
+  assert.match(result.stderr, /will adopt it and propose content through review/i);
+});
+
 test('init rejects Copilot purchases without recipients at the purchase question', t => {
   for (const purchase of ['yes', 'no']) {
     const f = fixture(t);
     const output = path.join(f.directory, 'interview.json');
-    const answers = ['github.com', 'alice', 'acme', 'personal', 'workspace,copilot', '', 'acme-org',
-      'no', 'yes', 'alice', '', 'no', 'no', '', '', purchase];
+    const answers = ['github.com', 'alice', 'acme', 'personal', 'balanced', 'workspace,copilot',
+      'no', 'no', 'no', 'no', 'no', 'private', 'all', 'acme-org', 'no', 'alice', '', 'all',
+      'no', 'no', '', '', purchase];
     if (purchase === 'no') answers.push('no', 'no', 'no', '', 'yes');
     const result = f.command(['init', '--output', output], answers.join('\n') + '\n');
     if (purchase === 'yes') {
@@ -726,6 +832,43 @@ test('doctor and plan only read, with host-scoped GraphQL queries', t => {
     assert.ok(call.args.includes('--include'));
     if (call.body) assert.equal(call.args[call.args.indexOf('--input') + 1], '-');
   }
+});
+
+test('readiness streams large checks without exceeding the process argument limit', t => {
+  const f = fixture(t);
+  const library = path.join(f.directory, 'snapshot/scripts/github-enterprise-wizard/lib/readiness.sh');
+  f.success(f.shell(`
+    source "$1"
+    check=$(awk 'BEGIN {
+      printf "{\\"state\\":\\"verified\\",\\"detail\\":\\""
+      for (i=0; i<300000; i++) printf "x"
+      printf "\\"}"
+    }')
+    wizard_readiness_add '[]' "$check" | jq -e '
+      length==1 and .[0].state=="verified" and (.[0].detail | length)==300000
+    ' >/dev/null
+  `, [library]));
+});
+
+test('optional runner inventory and planned Code Quality setup do not block doctor', t => {
+  const c = config();
+  c.organizations[0].packages = ['workspace', 'actions', 'quality'];
+  c.organizations[0].actions = {runner_groups: []};
+  const f = fixture(t, c);
+  f.changeState(state => {
+    state.failures['GET /orgs/acme-org/actions/runner-groups?per_page=100'] = 403;
+    state.failures['GET /repos/acme-org/service/code-quality/setup'] = 404;
+  });
+  const result = f.success(f.command(['doctor', '--config', f.configFile, '--json']));
+  const report = JSON.parse(result.stdout);
+  const runner = report.checks.find(check => check.id === 'actions:runner-groups:acme-org');
+  const quality = report.checks.find(check => check.id === 'quality:setup:acme-org/service');
+  assert.equal(report.ready, true);
+  assert.equal(runner.required, false);
+  assert.equal(runner.state, 'insufficient_permission');
+  assert.equal(quality.required, true);
+  assert.equal(quality.state, 'ready');
+  assert.match(quality.discovery.detail, /approved plan can create/i);
 });
 
 test('actor mismatch stops discovery and mutations', t => {
@@ -789,6 +932,33 @@ test('validation diagnostics identify the exact team repository and expected inp
   assert.match(result.stderr, /Command: doctor\nStage: validation\nExit status: 5/);
   assert.match(result.stderr, /Implementation SHA-256: [a-f0-9]{64}/);
   assert.match(result.stderr, /Bash: [^\n]+\njq: jq-/);
+  assert.deepEqual(f.calls(), []);
+});
+
+test('team grants must reference configured organization repositories', t => {
+  const c = config();
+  c.organizations[0].teams = [{
+    name: 'Developers', slug: 'developers',
+    repositories: [{name: 'missing-service', permission: 'push'}],
+  }];
+  const f = fixture(t, c);
+  const result = f.command(['doctor', '--config', f.configFile]);
+  assert.equal(result.status, 2);
+  assert.match(result.stderr, /config \$\.organizations\[0\]\.teams\[0\]\.repositories\[0\]\.name/);
+  assert.match(result.stderr, /team repository must reference a configured organization repository/);
+  assert.deepEqual(f.calls(), []);
+});
+
+test('Actions cache limits cannot exceed inherited governance ceilings', t => {
+  const c = config();
+  c.enterprise.policies = JSON.parse(fs.readFileSync(path.join(__dirname, 'example.json'), 'utf8')).enterprise.policies;
+  c.enterprise.policies.actions.cache_retention_days = 7;
+  c.enterprise.policies.actions.cache_size_gb = 10;
+  c.organizations[0].actions = {cache_retention_days: 8, cache_size_gb: 10};
+  const f = fixture(t, c);
+  const result = f.command(['doctor', '--config', f.configFile, '--json']);
+  assert.equal(result.status, 2);
+  assert.match(result.stderr, /cache limits cannot exceed the enterprise ceiling/);
   assert.deepEqual(f.calls(), []);
 });
 
@@ -894,15 +1064,16 @@ test('API diagnostics cover malformed responses and GraphQL errors without expos
   const api = path.join(f.directory, 'snapshot/scripts/github-enterprise-wizard/lib/api.sh');
   const home = path.dirname(path.dirname(api));
   const cases = [
-    ['/user', 'PRIVATE_API_BODY not-json', 'invalid_response'],
-    ['graphql', '{"errors":[{"message":"PRIVATE_API_BODY"}]}', 'graphql_error'],
+    ['/user', 'PRIVATE_API_BODY not-json', 'invalid_response', 0],
+    ['graphql', '{"errors":[{"message":"PRIVATE_API_BODY"}]}', 'graphql_error', 0],
+    ['graphql', '{"errors":[{"type":"INSUFFICIENT_SCOPES","message":"PRIVATE_API_BODY"}]}', 'insufficient_scopes', 1],
   ];
-  for (const [endpoint, body, classification] of cases) {
+  for (const [endpoint, body, classification, ghStatus] of cases) {
     const result = f.shell(
       'source "$1"; WIZARD_HOME="$2"; WIZARD_HOST=github.com; response="$4"; ' +
-      'gh() { printf "HTTP/2.0 200 OK\\r\\n\\r\\n%s\\n" "$response"; }; ' +
+      'gh() { printf "HTTP/2.0 200 OK\\r\\n\\r\\n%s\\n" "$response"; return "$5"; }; ' +
       'wizard_api GET "$3"',
-      [api, home, endpoint, body],
+      [api, home, endpoint, body, String(ghStatus)],
     );
     assert.equal(result.status, 2);
     assert.match(result.stderr, /Wizard diagnostic: copy this block/);
@@ -928,7 +1099,7 @@ test('organization defaults merge settings and explicit empty packages override 
   const c = config();
   c.defaults.settings = {default_repository_permission: 'read', members_can_create_public_repositories: false};
   c.organizations[0].settings = {default_repository_permission: 'none'};
-  c.organizations.push({login: 'empty-org', create: false, adopt: true, owners: ['alice'], packages: []});
+  c.organizations.push({login: 'empty-org', create: false, owners: ['alice'], update_scopes: {}, packages: []});
   const f = fixture(t, c);
   f.changeState(state => {
     state.orgs.push('empty-org');
@@ -989,18 +1160,21 @@ test('existing settings require adoption and adopted updates preserve unrelated 
       state.resources['/repos/acme-org/service'].description = 'Old description';
       state.resources['/repos/acme-org/service'].has_wiki = true;
     });
+    if (!adopt) {
+      const planFile = path.join(f.directory, 'blocked-plan.json');
+      const result = f.command(['plan', '--config', f.configFile, '--output', planFile]);
+      assert.equal(result.status, 3, result.stderr);
+      assert.equal(fs.existsSync(planFile), false);
+      assert.deepEqual(mutations(f.calls()), []);
+      continue;
+    }
     const plan = f.plan();
     const action = repositoryAction(plan);
-    assert.equal(action.operation, adopt ? 'update' : 'blocked');
+    assert.equal(action.operation, 'update');
     const result = f.apply(plan.digest);
-    if (adopt) {
-      f.success(result);
-      assert.equal(f.state().resources['/repos/acme-org/service'].description, 'Approved description');
-      assert.equal(f.state().resources['/repos/acme-org/service'].has_wiki, true);
-    } else {
-      f.success(result, 3);
-      assert.ok(!mutations(f.calls()).some(call => call.endpoint === '/repos/acme-org/service'));
-    }
+    f.success(result);
+    assert.equal(f.state().resources['/repos/acme-org/service'].description, 'Approved description');
+    assert.equal(f.state().resources['/repos/acme-org/service'].has_wiki, false);
   }
 });
 
@@ -1053,8 +1227,9 @@ test('teams, members and labels use approved creation payloads and read-back', t
 
 test('a failed dependency leaves descendants pending and independent actions continue', t => {
   const c = config();
+  c.organizations[0].repositories[0].adopt = false;
   c.organizations[0].repositories[0].labels = [{name: 'ready', color: '0366d6'}];
-  c.organizations.push({login: 'other-org', adopt: true, owners: ['alice']});
+  c.organizations.push({login: 'other-org', owners: ['alice'], update_scopes: {}});
   const f = fixture(t, c);
   f.changeState(state => {
     delete state.resources['/repos/acme-org/service'];
@@ -1112,6 +1287,7 @@ test('new repositories receive approved initial content without a PR', t => {
 test('EMU membership remains a manual IdP handoff', t => {
   const c = config();
   c.enterprise.identity = 'emu';
+  c.enterprise.governance_profile = 'emu_vendor';
   c.organizations[0].teams = [{name: 'Platform', slug: 'platform', members: ['alice']}];
   const f = fixture(t, c);
   const plan = f.plan();
@@ -1218,7 +1394,11 @@ test('environment projections preserve unselected reviewers and branch policies 
 
 test('manual handoff attestation records evidence without claiming API verification', t => {
   const c = config();
-  c.organizations[0].manual_handoffs = [{message: 'Verify the existing customer identity provider.'}];
+  c.organizations[0].manual_handoffs = [{
+    control: 'identity.provider', owner: 'alice', source: 'https://docs.github.com/',
+    recorded_at: '2026-10-08T00:00:00Z', accepted: true,
+    message: 'Verify the existing customer identity provider.',
+  }];
   const f = fixture(t, c);
   const plan = f.plan();
   const manual = plan.actions.find(action => action.kind === 'manual');
@@ -1240,7 +1420,11 @@ test('manual handoff attestation records evidence without claiming API verificat
 
 test('attestation rejects credentials, query strings, wrong approvals and automated actions', t => {
   const c = config();
-  c.organizations[0].manual_handoffs = [{message: 'Verify customer approval.'}];
+  c.organizations[0].manual_handoffs = [{
+    control: 'customer.approval', owner: 'alice', source: 'https://docs.github.com/',
+    recorded_at: '2026-10-08T00:00:00Z', accepted: true,
+    message: 'Verify customer approval.',
+  }];
   const f = fixture(t, c);
   const plan = f.plan();
   const manual = plan.actions.find(action => action.kind === 'manual');
@@ -1367,6 +1551,7 @@ test('every selected catalog package produces an action or explicit handoff', t 
   const f = fixture(t, c);
   f.changeState(state => {
     state.resources['/orgs/acme-org/actions/permissions'] = {allowed_actions: 'local_only'};
+    state.compiler = {version: 'gh-aw 0.24.0', lock: 'name: compiled\\non: workflow_dispatch\\n'};
   });
   const plan = f.plan();
   for (const pkg of catalog.packages) {
@@ -1409,7 +1594,7 @@ test('report pagination follows cursor Link headers even when a page has fewer t
   const recorded = f.ledger()[report.id];
   assert.equal(recorded.status, 'ready');
   assert.deepEqual(f.json(path.join(f.runDirectory, recorded.data.file)), [{id: 'first-event'}, {id: 'second-event'}]);
-  assert.deepEqual(f.calls().filter(call => call.endpoint.includes('/audit-log')).map(call => call.endpoint), [first, next]);
+  assert.deepEqual(f.calls().filter(call => call.endpoint.includes('/orgs/acme-org/audit-log')).map(call => call.endpoint), [first, next]);
   assert.deepEqual(mutations(f.calls()), []);
 });
 
@@ -1429,7 +1614,7 @@ test('pagination rejects foreign and lookalike hosts before issuing the next req
     const result = f.success(f.apply(plan.digest), 2);
     assert.match(result.stderr, /pagination.*host|host.*pagination/i);
     assert.equal(f.ledger()[report.id].status, 'failed');
-    assert.deepEqual(f.calls().filter(call => call.endpoint.includes('/audit-log')).map(call => call.endpoint), [first]);
+    assert.deepEqual(f.calls().filter(call => call.endpoint.includes('/orgs/acme-org/audit-log')).map(call => call.endpoint), [first]);
     assert.ok(f.calls().every(call => call.host === 'github.com'));
     assert.deepEqual(mutations(f.calls()), []);
   }
@@ -1454,7 +1639,7 @@ test('a repository appearing after planning stays pending without overwrite or c
 
 test('enterprise organization creation waits for invited owners and resumes without creating again', t => {
   const c = config();
-  Object.assign(c.organizations[0], {create: true, adopt: false, billing_email: 'billing@example.invalid', repositories: []});
+  Object.assign(c.organizations[0], {create: true, update_scopes: {}, billing_email: 'billing@example.invalid', repositories: []});
   const f = fixture(t, c);
   f.changeState(state => {
     state.orgs = [];
@@ -1571,20 +1756,20 @@ test('empty action-policy arrays are cleared and concurrent list additions inval
   }
 });
 
-test('a missing gh-aw compiler produces an explicit pending handoff and no live dispatch', t => {
+test('a missing gh-aw compiler blocks readiness and planning', t => {
   const c = config();
   c.defaults.packages.push('actions', 'ghaw');
   c.organizations[0].ghaw = {pilots: ['issue-triage'], engine: 'copilot', run: true};
   const f = fixture(t, c);
-  const plan = f.plan();
-  const handoff = plan.actions.find(action => action.package === 'ghaw' && action.kind === 'manual');
-  assert.ok(handoff);
-  assert.match(handoff.message, /compiler|gh-aw/i);
-  assert.ok(!plan.actions.some(action => action.package === 'ghaw' && action.kind === 'workflow'));
-  assert.ok(f.calls().some(call => call.args[0] === 'aw' && call.args.includes('--version')));
-  assert.deepEqual(mutations(f.calls()), []);
-  f.success(f.apply(plan.digest), 3);
-  assert.equal(f.ledger()[handoff.id].status, 'pending');
+  const doctor = f.command(['doctor', '--config', f.configFile, '--json']);
+  assert.equal(doctor.status, 3, doctor.stderr);
+  const report = JSON.parse(doctor.stdout);
+  assert.equal(report.ready, false);
+  assert.ok(report.checks.some(check => check.package === 'ghaw' && check.state === 'manual'));
+  const planFile = path.join(f.directory, 'blocked-plan.json');
+  const planned = f.command(['plan', '--config', f.configFile, '--output', planFile]);
+  assert.equal(planned.status, 3, planned.stderr);
+  assert.equal(fs.existsSync(planFile), false);
   assert.deepEqual(mutations(f.calls()), []);
 });
 

@@ -9,13 +9,28 @@ wizard_enterprise_actions() {
     ($config.organizations[0]) as $anchor |
     ($config.enterprise.slug) as $enterprise |
     ($config.enterprise.policies // null) as $p |
+    def scope($resource):
+      if ($resource|startswith("actions-")) then "actions"
+      elif ($resource|startswith("property:")) then "custom_properties"
+      elif ($resource|startswith("ruleset:")) then "rulesets"
+      else "repository_management" end;
     def base($resource;$kind;$deps):
       {id:("enterprise:policy:"+$resource),package:"enterprise",org:$anchor.login,kind:$kind,depends_on:$deps};
     def ensure($resource;$path;$body;$desired;$deps;$method):
-      base($resource;"ensure";$deps)+{
-        read_path:$path,desired:$desired,adopt:true,
-        update:{method:$method,path:$path,body:$body}
-      };
+      scope($resource) as $scope |
+      if ($config.enterprise.update_scopes[$scope] // false) then
+        base($resource;"ensure";$deps)+{
+          read_path:$path,desired:$desired,adopt:true,required_scope:$scope,
+          update:{method:$method,path:$path,body:$body}
+        }
+      else
+        base($resource;"manual";$deps)+{
+          owner:"enterprise owner",
+          source:"https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies",
+          message:("The "+$scope+" update scope is not authorized for "+$resource+
+            ". Authorize that scope and generate a new plan.")
+        }
+      end;
     def manual($resource;$owner;$source;$message;$deps):
       base($resource;"manual";$deps)+{owner:$owner,source:$source,message:$message};
     def report($resource;$path;$paginate;$deps):
@@ -46,8 +61,11 @@ wizard_enterprise_actions() {
           $p.actions.selected_actions;$p.actions.selected_actions;["enterprise:policy:actions-permissions"];"PUT"),
         ensure("actions-workflow";"/enterprises/"+$enterprise+"/actions/permissions/workflow";
           $p.actions.workflow_permissions;$p.actions.workflow_permissions;["enterprise:policy:actions-permissions"];"PUT"),
-        ensure("actions-retention";"/enterprises/"+$enterprise+"/actions/permissions/artifact-and-log-retention";
-          {days:$p.actions.retention_days};{days:$p.actions.retention_days};["enterprise:policy:actions-permissions"];"PUT"),
+        manual("actions-retention";"enterprise Actions owner";
+          "https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/enforcing-policies-for-github-actions-in-your-enterprise";
+          ("Set the enterprise run-data retention ceiling to "+($p.actions.run_data_retention_days|tostring)+
+           " days. GitHub does not document a supported enterprise REST write for this setting.");
+          ["enterprise:policy:actions-permissions"]),
         ensure("actions-fork-approval";"/enterprises/"+$enterprise+"/actions/permissions/fork-pr-contributor-approval";
           {approval_policy:$p.actions.fork_approval_policy};{approval_policy:$p.actions.fork_approval_policy};
           ["enterprise:policy:actions-permissions"];"PUT"),
@@ -58,12 +76,18 @@ wizard_enterprise_actions() {
           {disable_self_hosted_runners_for_all_orgs:$p.actions.disable_repository_runners};
           {disable_self_hosted_runners_for_all_orgs:$p.actions.disable_repository_runners};
           ["enterprise:policy:actions-permissions"];"PUT"),
-        manual("actions-cache";"enterprise Actions owner";
-          "https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/enforcing-policies-for-github-actions-in-your-enterprise";
-          ("Set Actions cache retention to "+($p.actions.cache_retention_days|tostring)+
-           " days and the repository cache limit to "+($p.actions.cache_size_gb|tostring)+
-           " GB. Review high-usage repositories before lowering existing limits.");
-          ["enterprise:policy:actions-permissions"])
+        ensure("actions-cache-retention";"/enterprises/"+$enterprise+"/actions/cache/retention-limit";
+          {max_cache_retention_days:$p.actions.cache_retention_days};
+          {max_cache_retention_days:$p.actions.cache_retention_days};
+          ["enterprise:policy:actions-permissions"];"PUT")+
+          {create:{method:"PUT",path:("/enterprises/"+$enterprise+"/actions/cache/retention-limit"),
+            body:{max_cache_retention_days:$p.actions.cache_retention_days}}},
+        ensure("actions-cache-storage";"/enterprises/"+$enterprise+"/actions/cache/storage-limit";
+          {max_cache_size_gb:$p.actions.cache_size_gb};
+          {max_cache_size_gb:$p.actions.cache_size_gb};
+          ["enterprise:policy:actions-permissions"];"PUT")+
+          {create:{method:"PUT",path:("/enterprises/"+$enterprise+"/actions/cache/storage-limit"),
+            body:{max_cache_size_gb:$p.actions.cache_size_gb}}}
        else empty end),
       ($p.custom_properties[] as $property |
         ($property.property_name) as $name |
@@ -94,9 +118,17 @@ wizard_enterprise_actions() {
       (if $p.codespaces.enforcement_confirmed then
         ($config.organizations[] as $o |
           if (($o.packages // $config.defaults.packages // [])|index("actions")) != null then
-            base("codespaces-access:"+$o.login;"request";["enterprise:policy:codespaces:"+$o.login])+
-              {apply:{method:"PUT",path:("/orgs/"+$o.login+"/codespaces/access"),body:{visibility:"all_members"}},
-               success_message:"GitHub accepted Codespaces access for all organization members."}
+            if ($config.enterprise.update_scopes.codespaces // false) then
+              base("codespaces-access:"+$o.login;"request";["enterprise:policy:codespaces:"+$o.login])+
+                {required_scope:"codespaces",
+                 apply:{method:"PUT",path:("/orgs/"+$o.login+"/codespaces/access"),body:{visibility:"all_members"}},
+                 success_message:"GitHub accepted Codespaces access for all organization members."}
+            else
+              manual("codespaces-access:"+$o.login;"enterprise developer-platform owner";
+                "https://docs.github.com/en/codespaces/managing-codespaces-for-your-organization";
+                "Codespaces access was selected, but the enterprise Codespaces update scope is not authorized. Authorize that scope and generate a new plan.";
+                ["enterprise:policy:codespaces:"+$o.login])
+            end
           else empty end),
         manual("codespaces-policy";"enterprise developer-platform owner";
           "https://docs.github.com/en/codespaces/managing-codespaces-for-your-organization";
@@ -130,20 +162,35 @@ wizard_enterprise_actions() {
           report("two-factor-readiness:"+$o.login;
             "/orgs/"+$o.login+"/members?filter=2fa_disabled&role=all&per_page=100";true;
             [$o.login+":workspace:organization"])),
-        base("two-factor-authentication";"enterprise_setting";
-          [$config.organizations[] | "enterprise:policy:two-factor-readiness:"+.login])+
-          {setting:"two_factor_authentication_required",value:true}
+        (if ($config.enterprise.update_scopes.identity // false) then
+          base("two-factor-authentication";"enterprise_setting";
+            [$config.organizations[] | "enterprise:policy:two-factor-readiness:"+.login])+
+            {setting:"two_factor_authentication_required",value:true,required_scope:"identity",adopt:true}
+         else
+          manual("two-factor-authentication";"enterprise identity owner";
+            "https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/requiring-two-factor-authentication-for-users-in-your-enterprise";
+            "Enterprise two-factor authentication was selected, but the identity update scope is not authorized. Authorize that scope and generate a new plan.";
+            [$config.organizations[] | "enterprise:policy:two-factor-readiness:"+.login])
+         end)
        else empty end),
       (if ($p.copilot.source_organization // "") != "" then
         ($p.copilot.source_organization) as $source |
         ($config.organizations[] | select(.login==$source)) as $source_org |
         ([$source_org.repositories[]? | select((.name|ascii_downcase)==".github-private") | .name][0] // "") as $source_repo |
-        base("copilot-agent-source";"copilot_source";
-          ([$source+":workspace:organization"]+
-           (if ($source_org.copilot.agents // []|length)>0 and $source_repo!=""
-            then [$source+":copilot:files:"+$source_repo] else [] end)))+
-          {read_path:("/enterprises/"+$enterprise+"/copilot/custom-agents/source"),
-           source_organization:$source,create_ruleset:$p.copilot.create_protective_ruleset}
+        if ($config.enterprise.update_scopes.copilot // false) then
+          base("copilot-agent-source";"copilot_source";
+            ([$source+":workspace:organization"]+
+             (if ($source_org.copilot.agents // []|length)>0 and $source_repo!=""
+              then [$source+":copilot:files:"+$source_repo] else [] end)))+
+            {read_path:("/enterprises/"+$enterprise+"/copilot/custom-agents/source"),
+             source_organization:$source,create_ruleset:$p.copilot.create_protective_ruleset,
+             required_scope:"copilot"}
+        else
+          manual("copilot-agent-source";"enterprise Copilot owner";
+            "https://docs.github.com/en/enterprise-cloud@latest/copilot/managing-copilot/managing-copilot-for-your-enterprise";
+            "The custom-agent source was selected, but the enterprise Copilot update scope is not authorized. Authorize that scope and generate a new plan.";
+            [$source+":workspace:organization"])
+        end
        else empty end)
     end
   '

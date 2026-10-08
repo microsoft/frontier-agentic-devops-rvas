@@ -24,7 +24,8 @@ wizard_code_hash() {
   local file
   {
     cat "$WIZARD_HOME/../github-enterprise-wizard.sh"
-    for file in "$WIZARD_HOME"/lib/*.sh "$WIZARD_HOME"/lib/*.jq "$WIZARD_HOME"/packages/*.sh "$WIZARD_HOME"/catalog.json "$WIZARD_HOME"/validate.jq; do
+    for file in "$WIZARD_HOME"/lib/*.sh "$WIZARD_HOME"/lib/*.jq "$WIZARD_HOME"/packages/*.sh \
+      "$WIZARD_HOME"/catalog.json "$WIZARD_HOME"/governance.json "$WIZARD_HOME"/validate.jq; do
       [[ -f "$file" ]] && cat "$file"
     done
   } | wizard_hash
@@ -77,15 +78,20 @@ wizard_api() {
     API_JSON="$(awk 'body {print} /^[[:space:]]*$/ {body=1}' "$result")"
     API_NEXT="$(awk 'tolower($0) ~ /^link:/ {print}' "$result" | tr ',' '\n' | sed -n 's/.*<\([^>]*\)>; rel="next".*/\1/p' | head -1)"
     rm -f "$result" "$error"
-    if [[ "$status" -eq 0 ]]; then
+    if [[ "$status" -eq 0 || "$API_STATUS" == 200 ]]; then
       [[ -n "$API_JSON" ]] || API_JSON='{}'
       if ! printf '%s' "$API_JSON" | jq -e . >/dev/null 2>&1; then
         API_ERROR='invalid_response'; wizard_api_report_error "$method" "$path" "$((attempt + 1))"; return 2
       fi
       if [[ "$path" == graphql ]] && printf '%s' "$API_JSON" | jq -e '.errors | length > 0' >/dev/null; then
-        API_ERROR='graphql_error'; wizard_api_report_error "$method" "$path" "$((attempt + 1))"; return 2
+        if printf '%s' "$API_JSON" | jq -e 'any(.errors[]; .type == "INSUFFICIENT_SCOPES")' >/dev/null; then
+          API_ERROR='insufficient_scopes'
+        else
+          API_ERROR='graphql_error'
+        fi
+        wizard_api_report_error "$method" "$path" "$((attempt + 1))"; return 2
       fi
-      API_STATUS="${API_STATUS:-200}"; return 0
+      if [[ "$status" -eq 0 ]]; then API_STATUS="${API_STATUS:-200}"; return 0; fi
     fi
     case "$API_STATUS" in
       401) API_ERROR='unauthenticated' ;;

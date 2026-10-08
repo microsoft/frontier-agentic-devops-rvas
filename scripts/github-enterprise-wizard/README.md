@@ -11,10 +11,12 @@ infrastructure. The website's session builder remains a curriculum selector.
 
 Authenticate to the intended host using customer-managed credentials. The saved
 configuration names the expected GitHub login; the wizard refuses a different
-identity. Tokens stay in `gh` authentication or the runtime environment.
+identity. Tokens stay in `gh` authentication or the runtime environment. The
+token needs the `read:enterprise` scope for `doctor` and `plan`.
 
 ```bash
 gh auth login --hostname github.com
+gh auth refresh --hostname github.com --scopes read:enterprise
 bash scripts/github-enterprise-wizard.sh init --output "$HOME/github-setup.json"
 bash scripts/github-enterprise-wizard.sh doctor --config "$HOME/github-setup.json"
 bash scripts/github-enterprise-wizard.sh plan \
@@ -47,8 +49,10 @@ literal GitHub credentials. Cross-field errors still appear at final review.
 
 `init` uses bounded, read-only lookups to suggest the active username, other
 saved accounts, and accessible enterprises. It also lists organizations in the
-selected enterprise and repositories when you choose adoption. Results are
-cached for the interview. Failed lookups leave manual input available.
+selected enterprise and repositories when you choose adoption. Successful
+lookups are cached for the interview. Failed lookups are not cached.
+Manual values remain available, but the configuration records them as
+**unverified** and `plan` will not trust the interview result.
 **The wizard never switches accounts.** Selecting a different login skips
 resource discovery and shows the account-switch command to run yourself.
 
@@ -57,8 +61,10 @@ selected. Their feature prompts also default to enabled. Required packages are
 included automatically. A new project can use the default Developers team and
 `service` repository, with a Node.js starter and working CI.
 You can change those names or choose Python or a customer template.
-Duplicate resources must be corrected before continuing. New organizations skip
-existing-repository adoption. Bundled CI and gh-aw exclude organization-only
+Repositories are configured before teams. Team grants select from that repository
+list, so a grant cannot point to an undeclared repository. Duplicate resources
+must be corrected before continuing. New organizations skip existing-repository
+adoption. Bundled CI and gh-aw exclude organization-only
 Actions policies because they need GitHub-owned actions. An optional member-only
 organization profile is written to `.github-private/profile/README.md`. It does
 not change personal profiles or publish content publicly.
@@ -70,22 +76,31 @@ Private Pages sites remain available, web commits require signoff, and visible
 teams are used unless the configuration says otherwise. The plan also flags
 organizations with fewer than two recorded owners.
 
-The configuration also carries an **enterprise policy baseline**. The plan
-applies GitHub Actions permissions, fork safeguards, artifact retention,
-repository-runner restrictions, Codespaces access, enterprise 2FA, custom
-properties, and an Evaluate-mode enterprise ruleset. It exports PAT, audit,
-Codespaces, app, and 2FA-readiness inventories before related changes.
+The configuration also carries an **explicit governance posture**. Choose
+`balanced`, `regulated`, `inner_source`, or `emu_vendor`. The wizard expands the
+posture into saved settings, so the plan never depends on hidden profile
+defaults. `catalog --governance` lists the covered controls, their scope, the
+effective-policy rule, and whether the wizard automates or hands off the work.
 
-`init` asks for explicit confirmation before it includes risky controls. The
-prompt explains the expected impact. PAT policy, Codespaces constraints,
-personal-account offboarding, and app approval remain attestable owner
-handoffs because GitHub does not expose supported write APIs for those settings.
-Codespaces access and enterprise 2FA use supported APIs after confirmation.
-Enterprise 2FA and offboarding are never applied to EMU.
+The plan applies supported Actions policy, fork safeguards, repository-runner
+restrictions, Codespaces access, enterprise 2FA, custom properties, repository
+defaults, and rulesets. It treats Actions run-data retention and cache limits as
+separate controls. Organization and repository run-data retention use their
+supported REST APIs. Cache retention and storage limits use the enterprise,
+organization, and repository cache APIs.
 
-The baseline does **not** configure domain restrictions, IP allow lists,
-Conditional Access, hosted runner private networking, or Copilot usage-record
-streaming.
+`init` asks for explicit confirmation before it includes risky controls. PAT
+policy, personal-account offboarding, app approval, identity-provider setup,
+audit receiver setup, and IP allow-list enforcement remain named handoffs where
+the wizard lacks a complete safe write path. Codespaces access and enterprise
+2FA use supported APIs after confirmation. Enterprise 2FA and offboarding are
+never applied to EMU.
+
+The wizard inventories IP allow-list state, audit streams, direct collaborators,
+outside collaborators, rulesets, Projects v2, and Actions cache limits within
+the configured enterprise, organizations, and repositories. It does **not**
+store network entries, stream credentials, identity-provider secrets, or other
+receiver credentials.
 
 Feature choices use **Enable Yes/No**, with no separate cost confirmations.
 Enabling Copilot seats requires named users or teams. Enabling security features
@@ -143,6 +158,36 @@ offline and uses text prompts. Set `NO_COLOR`
 to disable color while keeping keyboard controls.
 Keyboard menus need at least 16 rows and 20 columns; use `--plain` in smaller terminals.
 
+For an existing organization, the interview asks which update areas to authorize.
+The saved `update_scopes` object separates organization settings, owners, teams,
+repository access, and selected packages. Leaving a scope disabled still allows
+readiness checks, but updates in that area stay blocked.
+
+## Readiness
+
+`doctor` now checks the selected account, enterprise membership, organizations,
+repositories, teams, owners, and prerequisites for the selected packages. It
+prints one readiness line per check:
+
+- `READY`: the API check passed;
+- `MISSING`: a required resource was not found;
+- `PERMISSION`: the account cannot read the resource;
+- `MANUAL`: an external or local prerequisite needs a person;
+- `UNVERIFIED`: the result could not be proved;
+- `BLOCKED`: the host or API is unavailable.
+
+Use JSON output in automation:
+
+```bash
+bash scripts/github-enterprise-wizard.sh doctor \
+  --config "$HOME/github-setup.json" --json
+```
+
+Exit `0` means the configuration is ready. Exit `2` means the configuration or
+check failed. Exit `3` means the configuration is valid but not ready to plan.
+`plan` runs the same checks and exits `3` without creating a plan file when a
+required prerequisite is unresolved.
+
 ### Reporting an error
 
 **Copy the complete `Wizard diagnostic` block when asking for help.** Validation
@@ -177,9 +222,10 @@ the enterprise's identity model or legal compliance.
 ## Review and apply
 
 Read the complete plan, including its file contents and purchase recipients.
-The summary printed by `plan` shows operation IDs and decisions. Existing
-resources require explicit adoption before updates; matching settings do not
-authorize unrelated changes.
+The summary printed by `plan` shows operation IDs, decisions, and required update
+scopes. Existing organizations use scoped authorization. Existing repositories
+still require explicit adoption because content and repository settings have
+their own review boundary.
 
 ```bash
 bash scripts/github-enterprise-wizard.sh apply \
@@ -210,10 +256,11 @@ use private permissions. No tokens or raw API error bodies are recorded.
 
 ## Existing resources
 
-Choose adoption explicitly. Updates change the selected settings, preserving
-unrelated ones. Existing repository content is proposed through pull requests;
-it becomes ready after merge and content verification. New repositories receive
-their approved initial content directly.
+Choose organization update scopes and repository adoption explicitly. Updates
+change selected settings and preserve unrelated ones. Existing repository
+content is proposed through pull requests; it becomes ready after merge and
+content verification. New repositories receive approved initial content
+directly.
 
 Repository templates do not copy access, rulesets, or protected environments.
 The workspace adapters apply those separately. Node.js and Python
@@ -231,15 +278,17 @@ Code Security, and Code Quality. It also includes gh-aw and the curriculum's
 migration/integration and operating capabilities.
 
 The adapters apply supported GitHub settings and export selected reports.
-External or UI-only work becomes a named handoff. Some advanced operations need
-customer-supplied settings or workflow content; selecting a package alone does
-not invent those values.
+External, preview, or UI-only work becomes a structured handoff with a control
+ID, owner, source, date, acceptance state, and message. An unaccepted handoff
+blocks readiness. Some operations need customer-supplied settings or workflow
+content; selecting a package alone does not invent those values.
 
 - A root enterprise account must already exist. `doctor` verifies that the
   authenticated account can access it before planning. Organization creation
   uses GraphQL under that enterprise.
-- Any required SSO and SCIM setup must already be complete. The wizard does not
-  inspect, configure, verify, or create handoffs for it.
+- SSO and SCIM provider setup stays outside the wizard. The configuration records
+  the responsible owner and accepted handoff instead of pretending the provider
+  was verified.
 - Cloud-side OIDC trust and runner compute stay outside this script.
 - Copilot selected-seat purchases need an enabled subscription and selected-seat
   management. Feature/model policies can require an owner in the UI.
@@ -249,9 +298,9 @@ not invent those values.
 - Code Quality is separate from CodeQL and Copilot review. Product entitlement
   and analysis completion are prerequisites for its gates.
 - Installed gh-aw tooling compiles source during planning so generated locks
-  are included in approval. Missing tooling or compiler prerequisites stay
-  pending. Documentation and test pilots produce reports rather than write
-  files. No extension is installed automatically.
+  are included in approval. Missing tooling or compiler prerequisites block
+  readiness and planning. Documentation and test pilots produce reports rather
+  than write files. No extension is installed automatically.
 - Migration tools and source-system permissions need customer setup. An
   inventory export does not claim that a migration completed.
 

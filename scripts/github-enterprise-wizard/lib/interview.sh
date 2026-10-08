@@ -296,6 +296,7 @@ wizard_ui_key() {
     q) WIZARD_KEY=cancel ;;
     b|B) WIZARD_KEY=back ;;
     e|E) WIZARD_KEY=edit ;;
+    $'\003') WIZARD_KEY=interrupt ;;
     $'\033')
       if ! IFS= read -r -s -n 1 -t 1 next; then WIZARD_KEY=cancel; return 0; fi
       case "$next" in
@@ -443,6 +444,7 @@ wizard_ui_select() {
         if [[ "${checked[$cursor]}" == true ]]; then checked[$cursor]=false; else checked[$cursor]=true; fi
       fi ;;
       cancel) wizard_ui_restore; printf '\nInterview cancelled. No configuration was saved.\n' >&2; return 1 ;;
+      interrupt) wizard_ui_restore; kill -INT "$$"; return 130 ;;
       forward) if [[ "$editor" == true ]]; then
           wizard_ui_restore; WIZARD_REPLY=__return__; return 0
         fi
@@ -566,6 +568,89 @@ wizard_package_closure() {
   printf '%s\n' "$selected"
 }
 
+wizard_select_update_scopes() {
+  local packages="$1" mode options values selected raw
+  options='[
+    {"value":"organization_settings","label":"Organization settings","description":"Member defaults and organization-wide repository settings."},
+    {"value":"owners","label":"Owners","description":"Organization owner assignments or identity-provider handoffs."},
+    {"value":"teams","label":"Teams and membership","description":"Team settings and member assignments."},
+    {"value":"repository_access","label":"Team repository access","description":"Repository permissions granted to teams."}
+  ]'
+  options="$(jq -c --argjson packages "$packages" '
+    . + [$packages[] | select(.!="workspace") | {
+      value:., label:({
+        actions:"Actions",identity:"Identity",copilot:"Copilot",security:"Code Security",
+        quality:"Code Quality",ghaw:"Agentic workflows",migration:"Migration",
+        integrations:"Integrations",billing:"Billing",audit:"Audit",lifecycle:"Repository lifecycle",
+        drift:"Configuration drift",publishing:"Publishing",release:"Release evidence",
+        license:"License policy",innersource:"InnerSource",vendors:"Vendor access",
+        lfs:"LFS and monorepos",sre:"Azure SRE Agent"
+      }[.] // .), description:"Allow updates managed by this capability."
+    }] | unique_by(.value)' <<<"$options")" || return 1
+  values="$(jq -c '[.[].value]' <<<"$options")" || return 1
+  wizard_choose 'Existing organization update authorization' none \
+    'Choose exactly which existing settings the approved plan may update. Creation of missing resources remains separately visible in the plan.' \
+    '[{"value":"none","label":"Do not update existing resources","description":"Read and report drift, but block updates."},{"value":"all","label":"Authorize all selected areas","description":"Allow updates for every area selected in this organization."},{"value":"custom","label":"Choose update areas","description":"Select individual authorization scopes."}]' || return 1
+  mode="$WIZARD_REPLY"
+  case "$mode" in
+    none) selected='[]' ;;
+    all) selected="$values" ;;
+    custom)
+      if wizard_keyboard; then
+        wizard_ui_select 'Authorized update areas' '[]' "$options" multi \
+          'These scopes authorize updates only after the exact plan digest is approved.' || return 1
+        selected="$WIZARD_REPLY"
+      else
+        jq -r '.[]|"  \(.value): \(.label)"' <<<"$options" >&2
+        wizard_prompt 'Authorized update areas, comma-separated (none selects none): ' none || return 1
+        raw="$(jq -nr --arg value "$WIZARD_REPLY" '$value|gsub("^\\s+|\\s+$";"")|ascii_downcase')" || return 1
+        if [[ "$raw" == none ]]; then selected='[]'; else selected="$(wizard_csv_json "$raw")" || return 1; fi
+        jq -en --argjson selected "$selected" --argjson allowed "$values" \
+          '($selected-$allowed|length)==0' >/dev/null || {
+            WIZARD_PAGE_NOTICE='Choose only update areas shown in the list.'
+            printf '%s\n' "$WIZARD_PAGE_NOTICE" >&2
+            return 1
+          }
+
+      fi ;;
+  esac
+  WIZARD_REPLY="$(jq -cn --argjson selected "$selected" --argjson allowed "$values" '
+    reduce $allowed[] as $scope ({}; .[$scope]=($selected|index($scope)!=null))')"
+}
+
+wizard_select_enterprise_update_scopes() {
+  local options values selected raw mode
+  options="$(wizard_governance_enterprise_scopes)" || return 1
+  values="$(jq -c '[.[].value]' <<<"$options")" || return 1
+  wizard_choose 'Enterprise update authorization' none \
+    'Choose which enterprise policy areas the approved plan may update. Reports and manual handoffs do not need write authorization.' \
+    '[{"value":"none","label":"Do not update enterprise policies","description":"Read and report policy, but block enterprise writes."},{"value":"all","label":"Authorize all governance areas","description":"Allow supported writes in every listed enterprise area."},{"value":"custom","label":"Choose governance areas","description":"Select individual enterprise authorization scopes."}]' || return 1
+  mode="$WIZARD_REPLY"
+  case "$mode" in
+    none) selected='[]' ;;
+    all) selected="$values" ;;
+    custom)
+      if wizard_keyboard; then
+        wizard_ui_select 'Authorized enterprise areas' '[]' "$options" multi \
+          'Authorization applies only after the exact generated plan is approved.' || return 1
+        selected="$WIZARD_REPLY"
+      else
+        jq -r '.[]|"  \(.value): \(.label)"' <<<"$options" >&2
+        wizard_prompt 'Authorized enterprise areas, comma-separated (none selects none): ' none || return 1
+        raw="$(jq -nr --arg value "$WIZARD_REPLY" '$value|gsub("^\\s+|\\s+$";"")|ascii_downcase')" || return 1
+        if [[ "$raw" == none ]]; then selected='[]'; else selected="$(wizard_csv_json "$raw")" || return 1; fi
+        jq -en --argjson selected "$selected" --argjson allowed "$values" \
+          '($selected-$allowed|length)==0' >/dev/null || {
+            WIZARD_PAGE_NOTICE='Choose only enterprise areas shown in the list.'
+            printf '%s\n' "$WIZARD_PAGE_NOTICE" >&2
+            return 1
+          }
+      fi ;;
+  esac
+  WIZARD_REPLY="$(jq -cn --argjson selected "$selected" --argjson allowed "$values" '
+    reduce $allowed[] as $scope ({}; .[$scope]=($selected|index($scope)!=null))')"
+}
+
 wizard_select_pilots() {
   local WIZARD_DEFER_ANSWER=true options selected raw
   options='[{"value":"issue-triage","label":"Issue triage","description":"Suggest issue labels within declared output limits."},{"value":"ci-diagnosis","label":"CI diagnosis","description":"Report why a workflow failed."},{"value":"documentation","label":"Documentation suggestions","description":"Report suggested documentation changes; no file writes."},{"value":"regression-tests","label":"Regression-test suggestions","description":"Report proposed tests; no file writes."},{"value":"review-assistance","label":"Review assistance","description":"Provide review feedback; never approve or merge."},{"value":"summaries","label":"Repository summaries","description":"Summarize authorized repository activity."}]'
@@ -598,10 +683,13 @@ wizard_print_config_summary() {
   printf '%s' "$1" | jq -r '
     .defaults.repository_visibility as $visibility |
     "Host: \(.host) | Enterprise: \(.enterprise.slug) | Account: \(.enterprise.identity)",
+    "Governance posture: \(.enterprise.governance_profile)",
+    "Enterprise updates: \(if ([.enterprise.update_scopes|to_entries[]?|select(.value)|.key]|length)==0 then "none" else [.enterprise.update_scopes|to_entries[]?|select(.value)|.key]|join(", ") end)",
     (.organizations[] |
-      "\nOrganization: \(.login) (\(if .create then "create" elif .adopt then "adopt" else "existing; updates not approved" end))",
+      "\nOrganization: \(.login) (\(if .create then "create" elif ([.update_scopes[]?]|any) then "existing; scoped updates authorized" else "existing; updates not authorized" end))",
       "  Owners: \(.owners|join(", "))",
       "  Capabilities: \(.packages|join(", "))",
+      "  Authorized updates: \(if ([.update_scopes|to_entries[]?|select(.value)|.key]|length)==0 then "none" else [.update_scopes|to_entries[]?|select(.value)|.key]|join(", ") end)",
       "  Teams: \(if (.teams|length)==0 then "none" else [.teams[].name]|join(", ") end)",
       (.repositories[] | "  Repository: \(.name) (\(if .adopt then "adopt; content through PRs" else "create" end)), \(.visibility//$visibility), starter \(.stack)"),
       "  Purchases selected: \(if .copilot.purchase or .security.purchase or .quality.purchase then "yes; review costs in the plan" else "none" end)")

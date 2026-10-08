@@ -366,27 +366,21 @@ class InterviewTests(unittest.TestCase):
                 ("Expected authenticated GitHub login:", b"alice\r"),
                 ("Existing enterprise slug:", b"acme\r"),
                 ("Choice 1/2.", b"\r"),
+                ("Governance posture", b"\r"),
                 ("Space: toggle a checkbox.", b"\r"),
                 ("Enforce the enterprise PAT baseline?", b"\x1b[B\r"),
                 ("Enforce the Codespaces baseline?", b"\x1b[B\r"),
                 ("Enforce enterprise app approval?", b"\x1b[B\r"),
+                ("Enforce the enterprise IP allow-list posture?", b"\x1b[B\r"),
                 ("Remove users when they leave their last organization?", b"\x1b[B\r"),
                 ("Require enterprise two-factor authentication?", b"\x1b[B\r"),
                 ("Default repository visibility", b"\r"),
+                ("Enterprise update authorization", b"\x1b[B\r"),
                 ("Organization setup", b"\r"),
                 ("Organization login:", b"acme-org\r"),
-                ("Allow the plan to propose updates", b"\x1b[B\r"),
                 ("Organization owner logins (comma-separated): [alice]", b"\r"),
-                ("Capabilities for this organization", b"\r"),
-                ("Add a team?", b"\r"),
-                ("Team name: [Developers]", b"\r"),
-                ("Team slug: [developers]", b"\r"),
-                ("Member logins (comma-separated; blank none):", b"\r"),
-                ("Grant this team repository access?", b"\r"),
-                ("Repository name within this organization: [service]", b"\r"),
-                ("Team repository permission", b"\r"),
-                ("Grant this team repository access?", b"\r"),
-                ("Add a team?", b"\r"),
+                ("What should the wizard configure here?", b"\r"),
+                ("Existing organization update authorization", b"\x1b[B\r"),
                 ("Add a repository?", b"\r"),
                 ("Explicitly adopt an existing repository?", b"\r"),
                 ("Repository name: [service]", b"\r"),
@@ -394,6 +388,15 @@ class InterviewTests(unittest.TestCase):
                 ("Project starter", b"\r"),
                 ("Select a workflow for a live CI check", b"\r"),
                 ("Add a repository?", b"\r"),
+                ("Add a team?", b"\r"),
+                ("Team name: [Developers]", b"\r"),
+                ("Team slug: [developers]", b"\r"),
+                ("Member logins (comma-separated; blank none):", b"\r"),
+                ("Grant this team repository access?", b"\r"),
+                ("Team repository", b"\r"),
+                ("Team repository permission", b"\r"),
+                ("Grant this team repository access?", b"\r"),
+                ("Add a team?", b"\r"),
                 ("Allowed GitHub Actions", b"\r"),
                 ("Additional approved action patterns", b"\r"),
                 ("Default workflow token permission", b"\r"),
@@ -424,6 +427,8 @@ class InterviewTests(unittest.TestCase):
             config = json.loads(output_file.read_text())
             self.assertEqual(config["defaults"]["packages"], ["actions", "quality", "security", "workspace"])
             policies = config["enterprise"]["policies"]
+            self.assertEqual(config["enterprise"]["governance_profile"], "balanced")
+            self.assertTrue(all(config["enterprise"]["update_scopes"].values()))
             self.assertEqual(policies["repository"]["default_branch"], "main")
             self.assertFalse(policies["repository"]["public_repository_creation"])
             self.assertEqual(policies["pat"], {
@@ -452,7 +457,7 @@ class InterviewTests(unittest.TestCase):
             self.assertNotIn("domains", policies)
             self.assertNotIn("usage", policies["copilot"])
             organization = config["organizations"][0]
-            self.assertTrue(organization["adopt"])
+            self.assertTrue(all(organization["update_scopes"].values()))
             self.assertEqual(config["defaults"]["settings"]["default_repository_permission"], "read")
             self.assertTrue(config["defaults"]["settings"]["members_can_create_repositories"])
             self.assertFalse(config["defaults"]["settings"]["members_can_create_public_repositories"])
@@ -475,7 +480,7 @@ class InterviewTests(unittest.TestCase):
             })
             self.assertTrue(organization["actions"]["selected_actions"]["github_owned_allowed"])
             self.assertFalse(organization["actions"]["permissions"]["sha_pinning_required"])
-            self.assertEqual(organization["actions"]["retention_days"], 90)
+            self.assertEqual(organization["actions"]["run_data_retention_days"], 90)
             self.assertFalse(organization["actions"]["workflow_permissions"]["can_approve_pull_request_reviews"])
             self.assertEqual(organization["security"]["codeql"], "default")
             self.assertTrue(organization["security"]["purchase"])
@@ -500,15 +505,31 @@ class InterviewTests(unittest.TestCase):
             self.assertIn("plan --config", output)
             self.assert_restored(initial, final)
 
+    def test_team_grant_uses_the_configured_repository_list(self):
+        with tempfile.TemporaryDirectory(prefix="wizard-interview-") as directory:
+            output_file = Path(directory) / "config.json"
+            result, output, initial, final = terminal_run(
+                f"/bin/bash {shlex.quote(str(ENTRYPOINT))} init --no-discovery --output {shlex.quote(str(output_file))}",
+                self.guided_answers(),
+            )
+            self.assertEqual(result, 0, output)
+            organization = json.loads(output_file.read_text())["organizations"][0]
+            configured = {repo["name"] for repo in organization["repositories"]}
+            self.assertEqual(organization["teams"][0]["repositories"], [{"name": "service", "permission": "push"}])
+            self.assertTrue(all(grant["name"] in configured
+                                for team in organization["teams"] for grant in team["repositories"]))
+            self.assertLess(output.index("Add a repository?"), output.index("Add a team?"))
+            self.assert_restored(initial, final)
+
     def test_new_organization_retries_billing_email_and_never_offers_adoption(self):
         with tempfile.TemporaryDirectory(prefix="wizard-create-") as directory:
             output_file = Path(directory) / "config.json"
             answers = self.guided_answers()
-            answers[4] = ("Space: toggle a checkbox.", b"\x1b[B" * 3 + b" \x1b[C")
+            answers[5] = ("Space: toggle a checkbox.", b"\x1b[B" * 3 + b" \x1b[C")
             setup_index = next(i for i, (prompt, _) in enumerate(answers) if prompt == "Organization setup")
             answers[setup_index] = ("Organization setup", b"\x1b[B\x1b[C")
             answers = [(prompt, answer) for prompt, answer in answers
-                       if prompt not in ("Allow the plan to propose updates", "Explicitly adopt an existing repository?")]
+                       if prompt not in ("Existing organization update authorization", "Explicitly adopt an existing repository?")]
             owners_index = next(i for i, (prompt, _) in enumerate(answers) if prompt.startswith("Organization owner logins"))
             answers[owners_index + 1:owners_index + 1] = [
                 ("Organization billing email:", b"not-an-email\r"),
@@ -537,7 +558,7 @@ class InterviewTests(unittest.TestCase):
             self.assertEqual(result, 0, output)
             organization = json.loads(output_file.read_text())["organizations"][0]
             self.assertTrue(organization["create"])
-            self.assertFalse(organization["adopt"])
+            self.assertEqual(organization["update_scopes"], {})
             self.assertEqual(organization["billing_email"], "ops@example.com")
             self.assertTrue(all(not repo["adopt"] for repo in organization["repositories"]))
             self.assertEqual(organization["repositories"][-1]["name"], ".github-private")
@@ -612,7 +633,7 @@ class InterviewTests(unittest.TestCase):
                 output_file = Path(directory) / "config.json"
                 has_recipients = users == "alice" or teams == "developers"
                 answers = self.guided_answers()
-                answers[4] = ("Space: toggle a checkbox.", b"\x1b[B" * 3 + b" \x1b[C")
+                answers[5] = ("Space: toggle a checkbox.", b"\x1b[B" * 3 + b" \x1b[C")
                 settings_index = next(i for i, (prompt, _) in enumerate(answers) if prompt == "CodeQL setup")
                 copilot_answers = [
                     ("Copilot seat user logins", users.encode() + b"\r"),
@@ -732,10 +753,12 @@ class InterviewTests(unittest.TestCase):
             )
             self.assertEqual(result, 1, output)
             self.assertFalse(output_file.exists())
-            self.assertEqual(len(calls), 2)
+            self.assertGreaterEqual(len(calls), 2)
             self.assertEqual(calls[0]["args"][:2], ["auth", "status"])
             self.assertNotIn("--show-token", calls[0]["args"])
             self.assertTrue(calls[1]["body"]["query"].startswith("query("))
+            self.assertNotIn("--paginate", calls[1]["args"])
+            self.assertIn("--input", calls[1]["args"])
             self.assert_restored(initial, final)
 
     def test_inactive_account_selection_never_switches_or_discovers_under_the_wrong_identity(self):
@@ -782,15 +805,20 @@ class InterviewTests(unittest.TestCase):
                 [("GitHub host:", b"customer.ghe.com\r"),
                  ("Expected authenticated GitHub login: [tenant-admin]", b"\r"),
                  ("Existing enterprise slug", b"\r"), ("Account identity", b"\r"),
+                 ("Governance posture", b"\r"),
                  ("Space: toggle a checkbox", b"\r"),
                  ("Enforce the enterprise PAT baseline?", b"\r"),
                  ("Enforce the Codespaces baseline?", b"\r"),
                  ("Enforce enterprise app approval?", b"\r"),
+                 ("Enforce the enterprise IP allow-list posture?", b"\r"),
                  ("Remove users when they leave their last organization?", b"\r"),
                  ("Require enterprise two-factor authentication?", b"\r"),
                  ("Default repository visibility", b"\r"),
+                 ("Enterprise update authorization", b"\r"),
                  ("Organization setup", b"\r"), ("Organization login", b"\r"),
-                 ("Allow the plan to propose updates", b"\x1b")],
+                 ("Organization owner logins", b"\r"),
+                 ("What should the wizard configure here?", b"\r"),
+                 ("Existing organization update authorization", b"\x1b")],
                 discovery={"accounts": {"customer.ghe.com": [{"login": "tenant-admin", "active": True, "state": "success"}]},
                            "enterprises": {"customer.ghe.com": ["scope-acme"]},
                            "organizations": {"customer.ghe.com/scope-acme": ["engineering"]}},
@@ -818,7 +846,7 @@ class InterviewTests(unittest.TestCase):
             self.assertNotIn("Looking up", output)
             self.assert_restored(initial, final)
 
-    def test_failed_lookup_is_cached_and_keeps_diagnostics_private(self):
+    def test_failed_lookup_is_retried_and_keeps_diagnostics_private(self):
         calls = []
         with tempfile.TemporaryDirectory(prefix="wizard-interview-") as directory:
             output_file = Path(directory) / "config.json"
@@ -832,9 +860,9 @@ class InterviewTests(unittest.TestCase):
                 discovery={"account_failure": True}, calls_sink=calls,
             )
             self.assertEqual(result, 1, output)
-            self.assertIn("unavailable. Check gh authentication", output)
+            self.assertIn("unavailable. Enter the value manually; doctor will check access.", output)
             self.assertNotIn("DO_NOT_DISPLAY", output)
-            self.assertEqual(len(calls), 1)
+            self.assertGreaterEqual(len(calls), 2)
             self.assertFalse(output_file.exists())
             self.assert_restored(initial, final)
 
@@ -893,7 +921,7 @@ class InterviewTests(unittest.TestCase):
             self.assertEqual(repository["stack"], "none")
             repository_calls = [call["args"] for call in calls if "--method" in call["args"] and "GET" in call["args"]]
             self.assertEqual(len(repository_calls), 1)
-            self.assertIn("/orgs/acme-org/repos?per_page=100", repository_calls[0])
+            self.assertIn("/orgs/acme-org/repos?type=all&sort=full_name", repository_calls[0])
             self.assertEqual(repository_calls[0][repository_calls[0].index("--hostname") + 1], "github.com")
             self.assert_restored(initial, final)
 
@@ -1092,23 +1120,32 @@ class InterviewTests(unittest.TestCase):
             setup_index = next(i for i, (prompt, _) in enumerate(answers) if prompt == "Organization setup")
             answers[3:setup_index + 1] = [
                 ("Account identity", b"\x1b[B\x1b[C"),
+                ("Governance posture", b"\x1b[C"),
                 ("Space: toggle a checkbox.", b" \x1b[C"),
                 ("Enforce the enterprise PAT baseline?", b"\r"),
                 ("Enforce the Codespaces baseline?", b"\r"),
                 ("Enforce enterprise app approval?", b"\r"),
+                ("Enforce the enterprise IP allow-list posture?", b"\r"),
                 ("Default repository visibility", b"\x1b[D"),
+                ("Enforce the enterprise IP allow-list posture?", b"\x1b[D"),
                 ("Enforce enterprise app approval?", b"\x1b[D"),
                 ("Enforce the Codespaces baseline?", b"\x1b[D"),
                 ("Enforce the enterprise PAT baseline?", b"\x1b[D"),
                 ("Space: toggle a checkbox.", b"\x1b[D"),
+                ("Governance posture", b"\x1b[D"),
                 ("Account identity", b"\x1b[C"),
+                ("Governance posture", b"\x1b[C"),
                 ("Space: toggle a checkbox.", b"\x1b[C"),
                 ("Enforce the enterprise PAT baseline?", b"\x1b[C"),
                 ("Enforce the Codespaces baseline?", b"\x1b[C"),
                 ("Enforce enterprise app approval?", b"\x1b[C"),
+                ("Enforce the enterprise IP allow-list posture?", b"\x1b[C"),
                 ("Default repository visibility", b"\x1b[B\x1b[C"),
+                ("Enterprise update authorization", b"\x1b[C"),
                 ("Organization setup", b"\x1b[D"),
+                ("Enterprise update authorization", b"\x1b[D"),
                 ("Default repository visibility", b"\x1b[C"),
+                ("Enterprise update authorization", b"\x1b[C"),
                 ("Organization setup", b"\x1b[C"),
             ]
             answers[-1] = ("Save this configuration?", b"\x1b[C")

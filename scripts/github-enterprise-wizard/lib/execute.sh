@@ -7,31 +7,42 @@ wizard_write_json() {
 }
 
 wizard_doctor() {
-  local file="$1" config
+  local file="$1" format="${2:-text}" config report
   wizard_validate_config "$file" || return 2
   config="$(wizard_effective_config "$file")" || return 2
   wizard_set_host "$(printf '%s' "$config" | jq -r .host)"
   wizard_auth "$(printf '%s' "$config" | jq -r .actor)" || return 2
   wizard_enterprise "$(printf '%s' "$config" | jq -r .enterprise.slug)" || return 2
-  wizard_log "Authenticated on $WIZARD_HOST; enterprise access verified."
-  if [[ "$(printf '%s' "$config" | jq -r .enterprise.identity)" == emu ]]; then
-    wizard_log "EMU selected: IdP membership and public-content restrictions apply."
+  report="$(WIZARD_READINESS_PRIMED=true wizard_readiness_evaluate "$config")" || return 2
+  case "$format" in
+    json) wizard_readiness_format_json "$report" ;;
+    text) wizard_readiness_format_text "$report" ;;
+    quiet) ;;
+    *) return 2 ;;
+  esac
+  if wizard_readiness_is_ready "$report"; then
+    [[ "$format" == quiet ]] || wizard_log "Authenticated on $WIZARD_HOST; enterprise access and package prerequisites verified."
+    if [[ "$(printf '%s' "$config" | jq -r .enterprise.identity)" == emu ]]; then
+      [[ "$format" == quiet ]] || wizard_log "EMU selected: IdP membership and public-content restrictions apply."
+    fi
+    # A declared type is not proof of tenancy; operations are still checked against the host.
+    [[ "$format" == quiet ]] || wizard_log "Confirm the declared identity type in enterprise settings before approving the plan."
+    return 0
   fi
-  # A declared type is not proof of tenancy; operations are still checked against the host.
-  wizard_log "Confirm the declared identity type in enterprise settings before approving the plan."
+  [[ "$format" == quiet ]] || wizard_log "Configuration is valid but not ready to plan."
+  return 3
 }
 
 wizard_org_actions() {
-  local config="$1" org login exists create adopt body desired
+  local config="$1" org login exists create body desired
   while IFS= read -r org; do
     login="$(printf '%s' "$org" | jq -r .login)"
     exists=false
     if printf '%s' "$WIZARD_ENTERPRISE_ORGS" | jq -e --arg login "$login" 'index($login)!=null' >/dev/null; then exists=true; fi
     create="$(printf '%s' "$org" | jq -r '.create // false')"
-    adopt="$(printf '%s' "$org" | jq -r '.adopt // false')"
     if [[ "$exists" == true ]]; then
-      jq -cn --arg org "$login" --argjson adopt "$adopt" \
-        '{id:($org+":workspace:organization"),org:$org,package:"workspace",kind:"ensure",read_path:("/orgs/"+$org),desired:{login:$org},adopt:$adopt,depends_on:[]}'
+      jq -cn --arg org "$login" \
+        '{id:($org+":workspace:organization"),org:$org,package:"workspace",kind:"ensure",read_path:("/orgs/"+$org),desired:{login:$org},adopt:false,required_scope:"organization_settings",depends_on:[]}'
     elif [[ "$create" == true ]]; then
       body="$(printf '%s' "$org" | jq -c --arg eid "$WIZARD_ENTERPRISE_ID" '{query:"mutation($input:CreateEnterpriseOrganizationInput!){createEnterpriseOrganization(input:$input){organization{login} enterprise{id}}}",variables:{input:{enterpriseId:$eid,login:.login,profileName:(.profile_name//.login),billingEmail:.billing_email,adminLogins:.owners}}}')"
       jq -cn --arg org "$login" --argjson body "$body" \
@@ -62,11 +73,20 @@ wizard_check_actions() {
       ((.depends_on//[])|type)=="array" and
       all((.depends_on//[])[]; . as $id | any($all[]; .id==$id)) and
       (if .kind=="ensure" then (.read_path|type)=="string" and (.desired|type)=="object" and (.desired|length)>0
+          and (if .update then (.required_scope|type)=="string" and (.required_scope|IN("repository_management","network","applications","pat","codespaces","custom_properties","rulesets","offboarding","organization_settings","owners","teams","repository_access","repository","actions","identity","copilot","security","quality","ghaw","migration","integrations","billing","audit","lifecycle","drift","publishing","release","license","innersource","vendors","lfs","sre")) else true end)
+          and (if .package=="enterprise" then
+            (.required_scope|type)=="string" and ($config.enterprise.update_scopes[.required_scope] // false)
+            else true end)
        elif .kind=="files" or .kind=="ghaw" then (.repo|type)=="string" and (.files|type)=="array" and all(.files[]; (.path|type)=="string" and (.content|type)=="string" and (.path|test("(^/|(^|/)\\.\\.(/|$)|[\\r\\n]|[?#%])")|not))
        elif .kind=="manual" then (.message|type)=="string"
        elif .kind=="copilot_source" then (.source_organization|type)=="string" and .source_organization==.org and (.create_ruleset|type)=="boolean"
+          and .required_scope=="copilot" and ($config.enterprise.update_scopes.copilot // false)
        elif .kind=="request" then (.apply.method|IN("POST","PUT","PATCH")) and (.apply.path|type)=="string" and (.apply.body|type)=="object"
+          and (if .package=="enterprise" then
+            (.required_scope|type)=="string" and ($config.enterprise.update_scopes[.required_scope] // false)
+            else true end)
        elif .kind=="enterprise_setting" then .setting=="two_factor_authentication_required" and (.value|type)=="boolean"
+          and .required_scope=="identity" and .adopt==true and ($config.enterprise.update_scopes.identity // false)
        else true end))' <<<"$actions" >/dev/null || { wizard_log "Invalid package action graph."; return 2; }
   local action path org write enterprise
   enterprise="$(printf '%s' "$config" | jq -r .enterprise.slug)"
@@ -174,7 +194,9 @@ wizard_action_owned() {
 wizard_plan() {
   local file="$1" output="$2" config actions plan_data action operation before prepared='[]' digest
   [[ ! -e "$output" && ! -L "$output" ]] || wizard_die "Plan output already exists."
-  wizard_doctor "$file" || return 2
+  wizard_doctor "$file" quiet
+  local doctor_status=$?
+  [[ "$doctor_status" -eq 0 ]] || return "$doctor_status"
   config="$(wizard_effective_config "$file")"
   actions="$(wizard_generate_actions "$config" | jq -s .)" || return 2
   wizard_check_actions "$actions" "$config" || return 2

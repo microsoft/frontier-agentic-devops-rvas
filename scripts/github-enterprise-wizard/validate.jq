@@ -27,6 +27,18 @@ def enum($values): . as $v | $values | index($v) != null;
 def optional($key; predicate): if has($key) then .[$key] | predicate else true end;
 def packages:
   strings and all(.[]; enum(["workspace","actions","identity","copilot","security","quality","ghaw","migration","integrations","billing","audit","lifecycle","drift","publishing","release","license","innersource","vendors","lfs","sre"]));
+def verification($where):
+  keys_only(["status","source","checked_at","resource_id","message"]; $where)
+  | check(.status | enum(["verified","missing","insufficient_permission","unavailable","unverified","manual_prerequisite"]); $where; "invalid verification status")
+  | check(optional("source"; str) and optional("checked_at"; str)
+      and optional("resource_id"; type == "string" or type == "number")
+      and optional("message"; type == "string"); $where; "invalid verification evidence");
+def update_scopes($where):
+  keys_only(["organization_settings","owners","teams","repository_access","actions","identity","copilot","security","quality","ghaw","migration","integrations","billing","audit","lifecycle","drift","publishing","release","license","innersource","vendors","lfs","sre"]; $where)
+  | check(all(.[]; type == "boolean"); $where; "update scopes must be booleans");
+def enterprise_update_scopes($where):
+  keys_only(["repository_management","identity","network","actions","audit","applications","pat","codespaces","custom_properties","rulesets","offboarding","copilot"]; $where)
+  | check(all(.[]; type == "boolean"); $where; "enterprise update scopes must be booleans");
 def path:
   str and (startswith("/") | not) and (test("(^|/)(\\.\\.|\\.git)(/|$)|\\\\") | not)
   and (test("^[A-Za-z]:|[?#%]") | not) and (contains("..") | not);
@@ -103,8 +115,10 @@ def options($where; $allowed):
   | check(optional("owner"; user_login) and optional("source"; str); $where; "invalid owner or source")
   | check(all(.. | objects | keys[]; credential_key | not); $where; "credentials must stay outside configuration");
 def actions($where):
-  options($where; ["permissions","workflow_permissions","selected_actions","retention_days","runner_groups"])
-  | check(optional("retention_days"; type == "number" and floor == . and . >= 1 and . <= 400); $where; "invalid retention_days")
+  options($where; ["permissions","workflow_permissions","selected_actions","run_data_retention_days","cache_retention_days","cache_size_gb","runner_groups"])
+  | check(optional("run_data_retention_days"; type == "number" and floor == . and . >= 1 and . <= 400); $where; "invalid run_data_retention_days")
+  | check(optional("cache_retention_days"; type == "number" and floor == . and . >= 1 and . <= 365); $where; "invalid cache_retention_days")
+  | check(optional("cache_size_gb"; type == "number" and floor == . and . >= 1 and . <= 10000); $where; "invalid cache_size_gb")
   | if has("permissions") then .permissions |= (
       keys_only(["enabled_repositories","enabled","allowed_actions","sha_pinning_required"]; $where + ".permissions")
       | check(optional("enabled_repositories"; enum(["all","none","selected"])) and optional("enabled"; type == "boolean") and optional("allowed_actions"; enum(["all","local_only","selected"])) and optional("sha_pinning_required"; type == "boolean"); $where; "invalid Actions permissions")) else . end
@@ -120,7 +134,7 @@ def actions($where):
         | check(.name | str; $where; "runner group name is required")
         | check(optional("id"; type == "number" and floor == . and . > 0) and optional("visibility"; enum(["all","selected","private"])) and optional("allows_public_repositories"; type == "boolean") and optional("restricted_to_workflows"; type == "boolean") and optional("selected_workflows"; strings); $where; "invalid runner group"))) else . end;
 def enterprise_actions($where):
-  keys_only(["permissions","selected_actions","workflow_permissions","retention_days","fork_approval_policy","private_fork_workflows","disable_repository_runners","cache_retention_days","cache_size_gb"]; $where)
+  keys_only(["permissions","selected_actions","workflow_permissions","run_data_retention_days","fork_approval_policy","private_fork_workflows","disable_repository_runners","cache_retention_days","cache_size_gb"]; $where)
   | check(.permissions | type == "object"; $where; "enterprise Actions permissions are required")
   | .permissions |= (
       keys_only(["enabled_organizations","allowed_actions","sha_pinning_required"]; $where + ".permissions")
@@ -135,11 +149,11 @@ def enterprise_actions($where):
   | if has("private_fork_workflows") then .private_fork_workflows |= (
       keys_only(["run_workflows_from_fork_pull_requests","send_write_tokens_to_workflows","send_secrets_and_variables","require_approval_for_fork_pr_workflows"]; $where + ".private_fork_workflows")
       | check(all(.[]; type == "boolean"); $where; "private fork workflow settings must be boolean")) else . end
-  | check(optional("retention_days"; type == "number" and floor == . and . >= 1 and . <= 400); $where; "invalid enterprise retention_days")
+  | check(optional("run_data_retention_days"; type == "number" and floor == . and . >= 1 and . <= 400); $where; "invalid enterprise run_data_retention_days")
   | check(optional("fork_approval_policy"; enum(["first_time_contributors","first_time_contributors_new_to_github","all_external_contributors"])); $where; "invalid fork approval policy")
   | check(optional("disable_repository_runners"; type == "boolean"); $where; "invalid repository runner policy")
-  | check(optional("cache_retention_days"; type == "number" and floor == . and . >= 1 and . <= 90); $where; "invalid cache retention")
-  | check(optional("cache_size_gb"; type == "number" and floor == . and . >= 1 and . <= 100); $where; "invalid cache size");
+  | check(optional("cache_retention_days"; type == "number" and floor == . and . >= 1 and . <= 365); $where; "invalid cache retention")
+  | check(optional("cache_size_gb"; type == "number" and floor == . and . >= 1 and . <= 10000); $where; "invalid cache size");
 def enterprise_rulesets($where):
   check(type == "array"; $where; "rulesets must be an array")
   | map(keys_only(["name","target","enforcement","conditions","rules"]; $where)
@@ -170,14 +184,17 @@ def enterprise_rulesets($where):
                 check(type == "object"; $where; "rule parameters must be an object")
                 | check(all(.. | objects | keys[]; credential_key | not); $where; "credentials are forbidden in rule parameters")) else . end)));
 def enterprise_policies($where):
-  keys_only(["repository","pat","audit","actions","codespaces","custom_properties","rulesets","offboarding","applications","authentication","copilot"]; $where)
+  keys_only(["repository","pat","network","audit","actions","codespaces","custom_properties","rulesets","offboarding","applications","authentication","copilot"]; $where)
   | .repository |= (
-      keys_only(["default_branch","base_permission","member_repository_creation","public_repository_creation","outside_collaborator_invitations","visibility_changes","deletion_and_transfer"]; $where + ".repository")
+      keys_only(["default_branch","base_permission","member_repository_creation","public_repository_creation","user_namespace_repository_creation","outside_collaborator_invitations","direct_collaborators","visibility_changes","deletion","transfer","private_forking"]; $where + ".repository")
       | check(.default_branch | path; $where; "invalid default branch")
       | check(.base_permission | enum(["none","read","write","admin"]); $where; "invalid base permission")
       | check(.member_repository_creation | enum(["private_internal","private","disabled"]); $where; "invalid repository creation policy")
       | check(.public_repository_creation | type == "boolean"; $where; "public repository creation must be boolean")
-      | check(all([.outside_collaborator_invitations,.visibility_changes,.deletion_and_transfer][]; enum(["enterprise_owners","organization_owners"])); $where; "invalid repository administrator policy"))
+      | check(.user_namespace_repository_creation | enum(["allowed","blocked"]); $where; "invalid user namespace repository policy")
+      | check(.direct_collaborators | enum(["allowed","restricted","blocked"]); $where; "invalid direct collaborator policy")
+      | check(.private_forking | enum(["allowed","disabled"]); $where; "invalid private forking policy")
+      | check(all([.outside_collaborator_invitations,.visibility_changes,.deletion,.transfer][]; enum(["enterprise_owners","organization_owners"])); $where; "invalid repository administrator policy"))
   | .pat |= (
       keys_only(["classic_access","fine_grained_access","approval_required","maximum_lifetime_days","enforcement_confirmed"]; $where + ".pat")
       | check(.classic_access | enum(["blocked","restricted"]); $where; "invalid classic PAT policy")
@@ -185,6 +202,11 @@ def enterprise_policies($where):
       | check(.approval_required | type == "boolean"; $where; "PAT approval must be boolean")
       | check(.maximum_lifetime_days | type == "number" and floor == . and . >= 1 and . <= 366; $where; "invalid PAT lifetime")
       | check(.enforcement_confirmed | type == "boolean"; $where; "PAT enforcement confirmation is required"))
+  | .network |= (
+      keys_only(["ip_allow_list","idp_ip_allow_list","enforcement_confirmed"]; $where + ".network")
+      | check(.ip_allow_list | enum(["disabled","review","required"]); $where; "invalid IP allow list policy")
+      | check(.idp_ip_allow_list | enum(["manual","disabled"]); $where; "invalid identity-provider IP allow list policy")
+      | check(optional("enforcement_confirmed"; type == "boolean"); $where; "invalid network enforcement confirmation"))
   | .audit |= (
       keys_only(["export","streaming","source_ip_disclosure","api_request_events"]; $where + ".audit")
       | check(all(.[]; type == "boolean"); $where; "audit settings must be boolean"))
@@ -216,7 +238,30 @@ def enterprise_policies($where):
       | check(optional("source_organization"; login) and (.create_protective_ruleset | type == "boolean"); $where; "invalid Copilot custom-agent source"));
 def manual($where):
   check(type == "array"; $where; "manual_handoffs must be an array")
-  | map(keys_only(["message"]; $where) | check(.message | str; $where; "manual handoff message is required"));
+  | map(keys_only(["control","owner","source","recorded_at","accepted","message"]; $where)
+      | check(.control | str; $where; "manual handoff control is required")
+      | check(.owner | user_login; $where; "manual handoff owner is required")
+      | check(.source | str; $where; "manual handoff source is required")
+      | check(.recorded_at | str; $where; "manual handoff recorded_at is required")
+      | check(.accepted | type == "boolean"; $where; "manual handoff acceptance is required")
+      | check(.message | str; $where; "manual handoff message is required"));
+def collaborator_policy($where):
+  keys_only(["teams_first","direct_collaborators","outside_collaborators"]; $where)
+  | check(.teams_first | type == "boolean"; $where; "teams_first must be boolean")
+  | check(.direct_collaborators | enum(["allowed","restricted","blocked"]); $where; "invalid direct collaborator policy")
+  | check(.outside_collaborators | enum(["allowed","owner_approval","blocked","idp_managed"]); $where; "invalid outside collaborator policy");
+def repository_defaults($where):
+  keys_only(["default_branch","has_issues","has_projects","has_wiki","has_discussions","allow_squash_merge","allow_merge_commit","allow_rebase_merge","delete_branch_on_merge"]; $where)
+  | check(.default_branch | path; $where; "invalid default branch")
+  | check(all(to_entries[] | select(.key!="default_branch"); .value | type=="boolean"); $where; "repository defaults must be booleans");
+def project($where):
+  keys_only(["number","title","owner","adopt","template","verification"]; $where)
+  | check(.title | str; $where; "project title is required")
+  | check(.owner | user_login; $where; "project owner is required")
+  | check(.adopt | type=="boolean"; $where; "project adopt must be boolean")
+  | check(optional("number"; type=="number" and floor==. and .>0) and optional("template"; str); $where; "invalid project")
+  | check((.adopt and has("number")) or ((.adopt|not) and (has("number")|not)); $where; "adopted projects need a number; new projects must omit it")
+  | if has("verification") then .verification |= verification($where + ".verification") else . end;
 def rulesets($where):
   check(type == "array"; $where; "rulesets must be an array")
   | map(keys_only(["id","name","target","enforcement","enforcement_approved","conditions","rules","bypass_actors"]; $where)
@@ -411,9 +456,10 @@ def features($where):
   | if has("actions") then .actions |= actions($where + ".actions") else . end
   | if has("copilot") then .copilot |= copilot($where + ".copilot") else . end;
 def repository($where):
-  keys_only(["name","adopt","visibility","stack","template","files","labels","properties","environments","workflows","copilot_users","description","default_branch","has_issues","has_projects","has_wiki","delete_branch_on_merge","allow_squash_merge","allow_merge_commit","allow_rebase_merge","topics","codeowners","required_checks","enforce","rulesets","actions","copilot","security","quality","ghaw","publishing","release","license","innersource","lfs","sre","devcontainer","manual_handoffs","oidc","integrations"]; $where)
+  keys_only(["name","adopt","verification","visibility","stack","template","files","labels","properties","environments","workflows","copilot_users","description","default_branch","has_issues","has_projects","has_wiki","has_discussions","delete_branch_on_merge","allow_squash_merge","allow_merge_commit","allow_rebase_merge","topics","codeowners","required_checks","enforce","rulesets","actions","copilot","security","quality","ghaw","publishing","release","license","innersource","lfs","sre","devcontainer","manual_handoffs","oidc","integrations"]; $where)
   | check_field("name"; repo_name; $where; "invalid repository name; expected 1-100 letters, digits, dots, underscores or hyphens, excluding . and names containing ..")
   | check(optional("adopt"; type == "boolean") and optional("visibility"; enum(["private","internal","public"])) and optional("stack"; enum(["node","python","none"])); $where; "invalid repository choice")
+  | if has("verification") then .verification |= verification($where + ".verification") else . end
   | check(optional("template"; str and test("^[A-Za-z0-9][A-Za-z0-9-]*/[A-Za-z0-9_.-]+$")); $where; "template must be owner/name")
   | check(optional("description"; type == "string") and optional("default_branch"; path) and optional("topics"; strings) and optional("copilot_users"; logins) and optional("required_checks"; strings); $where; "invalid repository metadata")
   | if has("codeowners") then .codeowners |= (
@@ -429,7 +475,7 @@ def repository($where):
   | if has("oidc") then .oidc |= (
       keys_only(["environment","ref","provider"]; $where)
       | check(optional("environment"; str) and optional("ref"; path) and optional("provider"; str); $where; "invalid OIDC handoff")) else . end
-  | check(all(to_entries[] | select(.key | enum(["has_issues","has_projects","has_wiki","delete_branch_on_merge","allow_squash_merge","allow_merge_commit","allow_rebase_merge","enforce"])); .value | type == "boolean"); $where; "repository switches must be boolean")
+  | check(all(to_entries[] | select(.key | enum(["has_issues","has_projects","has_wiki","has_discussions","delete_branch_on_merge","allow_squash_merge","allow_merge_commit","allow_rebase_merge","enforce"])); .value | type == "boolean"); $where; "repository switches must be boolean")
   | if has("files") then .files |= (
       check(type == "array"; $where + ".files"; "files must be an array")
       | to_entries | map(.key as $index | .value | file($where + ".files[" + ($index | tostring) + "]"))
@@ -478,14 +524,21 @@ def team($where):
         | check_field("permission"; enum(["pull","triage","push","maintain","admin"]); $grant_where; "invalid team permission; expected pull, triage, push, maintain or admin; edit Team repository permission"))
       | check(unique_by_key("name"); $where + ".repositories"; "duplicate team repository")) else . end;
 def organization($where):
-  keys_only(["login","create","adopt","billing_email","owners","settings","packages","teams","repositories","actions","identity","copilot","security","quality","ghaw","migration","integrations","billing","audit","lifecycle","drift","publishing","release","license","innersource","vendors","lfs","sre","rulesets","manual_handoffs","property_schema"]; $where)
+  keys_only(["login","create","verification","update_scopes","billing_email","owners","settings","packages","teams","repositories","actions","identity","copilot","security","quality","ghaw","migration","integrations","billing","audit","lifecycle","drift","publishing","release","license","innersource","vendors","lfs","sre","rulesets","manual_handoffs","property_schema","collaborators","repository_defaults","projects"]; $where)
   | check_field("login"; login; $where; "invalid organization login; expected 1-39 letters, digits or single hyphens")
-  | check(optional("create"; type == "boolean") and optional("adopt"; type == "boolean"); $where; "create/adopt must be boolean")
-  | check((.create == true and .adopt == true) | not; $where; "create and adopt are mutually exclusive")
+  | check(optional("create"; type == "boolean"); $where; "create must be boolean")
+  | if has("verification") then .verification |= verification($where + ".verification") else . end
+  | if has("update_scopes") then .update_scopes |= update_scopes($where + ".update_scopes") else . end
   | check(optional("owners"; logins) and optional("packages"; packages); $where; "invalid owners or packages")
   | check(optional("billing_email"; str and test("^[^ @]+@[^ @]+\\.[^ @]+$")); $where; "invalid billing_email")
   | check(.create != true or ((.owners // [] | length) > 0 and has("billing_email")); $where; "organization creation needs owners and billing_email")
   | if has("settings") then .settings |= settings($where + ".settings") else . end
+  | if has("collaborators") then .collaborators |= collaborator_policy($where + ".collaborators") else . end
+  | if has("repository_defaults") then .repository_defaults |= repository_defaults($where + ".repository_defaults") else . end
+  | if has("projects") then .projects |= (
+      check(type=="array"; $where + ".projects"; "projects must be an array")
+      | to_entries | map(.key as $index | .value | project($where + ".projects[" + ($index|tostring) + "]"))
+      | check(length==(map(.title|ascii_downcase)|unique|length); $where + ".projects"; "duplicate project titles")) else . end
   | if has("property_schema") then .property_schema |= property_schema($where + ".property_schema") else . end
   | if has("rulesets") then .rulesets |= rulesets($where) else . end
   | if has("manual_handoffs") then .manual_handoffs |= manual($where) else . end
@@ -498,6 +551,17 @@ def organization($where):
       | to_entries | map(.key as $index | .value | repository($where + ".repositories[" + ($index | tostring) + "]"))
       | check(unique_by_key("name"); $where + ".repositories"; "duplicate repositories")) else . end
   | . as $org
+  | if has("teams") then .teams |= (
+      to_entries | map(.key as $team_index | .value
+        | if has("repositories") then .repositories |= (
+            to_entries | map(.key as $repository_index | .value
+              | check(.name as $name | any($org.repositories[]?;
+                  (.name | ascii_downcase) == ($name | ascii_downcase));
+                  $where + ".teams[" + ($team_index | tostring) + "].repositories[" +
+                    ($repository_index | tostring) + "].name";
+                  "team repository must reference a configured organization repository")))
+          else . end))
+    else . end
   | check(all(.repositories[]? | (.properties // {}) | to_entries[];
       . as $entry
       | all($org.property_schema[]? | select(.property_name == $entry.key);
@@ -520,14 +584,18 @@ if length != 1 then fail("$"; "expected exactly one JSON document") else .[0] en
 | check_field("schema_version"; . == 1; "$"; "schema_version must be 1")
 | check_field("host"; type == "string" and length<=71 and (. == "github.com" or test("^[a-z0-9]([a-z0-9-]*[a-z0-9])?\\.ghe\\.com$")); "$"; "host must be github.com or a customer subdomain.ghe.com with at most 63 characters in its subdomain")
 | check_field("actor"; user_login; "$"; "actor must be the expected GitHub login")
-| .enterprise |= (keys_only(["slug","identity","policies"]; "$.enterprise")
+| .enterprise |= (keys_only(["slug","identity","verification","governance_profile","update_scopes","policies"]; "$.enterprise")
     | check(.slug | slug; "$.enterprise"; "enterprise slug is required")
     | check(.identity | enum(["personal","emu"]); "$.enterprise"; "identity must be personal or emu")
+    | check(.governance_profile | enum(["balanced","regulated","inner_source","emu_vendor"]); "$.enterprise"; "invalid governance profile")
+    | if has("verification") then .verification |= verification("$.enterprise.verification") else . end
+    | if has("update_scopes") then .update_scopes |= enterprise_update_scopes("$.enterprise.update_scopes") else . end
     | if has("policies") then .policies |= enterprise_policies("$.enterprise.policies") else . end)
 | if has("defaults") then .defaults |= (
-    keys_only(["packages","repository_visibility","settings"]; "$.defaults")
+    keys_only(["packages","repository_visibility","settings","repository"]; "$.defaults")
     | check(optional("packages"; packages) and optional("repository_visibility"; enum(["private","internal","public"])); "$.defaults"; "invalid defaults")
-    | if has("settings") then .settings |= settings("$.defaults.settings") else . end) else . end
+    | if has("settings") then .settings |= settings("$.defaults.settings") else . end
+    | if has("repository") then .repository |= repository_defaults("$.defaults.repository") else . end) else . end
 | .organizations |= (check(type == "array" and length > 0; "$.organizations"; "at least one organization is required")
     | to_entries | map(.key as $index | .value | organization("$.organizations[" + ($index | tostring) + "]"))
     | check(unique_by_key("login"); "$.organizations"; "duplicate organizations"))
@@ -545,6 +613,8 @@ if length != 1 then fail("$"; "expected exactly one JSON document") else .[0] en
     "$"; "property schemas require workspace; Node/Python starters require workspace and actions; workflows and rulesets require actions")
 | check(.enterprise.identity != "emu" or (
     (.defaults.repository_visibility // "private") != "public"
+    and ((.enterprise.policies.repository.user_namespace_repository_creation //
+      (if .enterprise.governance_profile == "emu_vendor" then "blocked" else "allowed" end)) == "blocked")
     and all(.organizations[].repositories[]?;
       (.visibility // $root.defaults.repository_visibility // "private") != "public")); "$"; "EMU repositories cannot be public")
 | check((.enterprise.policies.copilot.source_organization // "") as $source
@@ -554,4 +624,19 @@ if length != 1 then fail("$"; "expected exactly one JSON document") else .[0] en
     (.enterprise.policies.offboarding.remove_unaffiliated_users // false) == false
     and (.enterprise.policies.authentication.require_two_factor // false) == false);
     "$.enterprise.policies"; "EMU offboarding and authentication enforcement belong to the identity provider")
+| check(all(.organizations[];
+    (.actions.cache_retention_days // 0) <=
+      ($root.enterprise.policies.actions.cache_retention_days // 365)
+    and (.actions.cache_size_gb // 0) <=
+      ($root.enterprise.policies.actions.cache_size_gb // 10000));
+    "$.organizations"; "organization Actions cache limits cannot exceed the enterprise ceiling")
+| check(all(.organizations[];
+    . as $org | all(.repositories[]?;
+      (.actions.cache_retention_days // 0) <=
+        ($org.actions.cache_retention_days //
+          $root.enterprise.policies.actions.cache_retention_days // 365)
+      and (.actions.cache_size_gb // 0) <=
+        ($org.actions.cache_size_gb //
+          $root.enterprise.policies.actions.cache_size_gb // 10000)));
+    "$.organizations[].repositories"; "repository Actions cache limits cannot exceed the organization or enterprise ceiling")
 | true
