@@ -357,7 +357,7 @@ wizard_ui_select() {
   done < <(printf '%s' "$options" | jq -c '.[]')
   total=$index
   [[ "$total" -gt 0 ]] || { printf 'No choices are available.\n' >&2; return 1; }
-  if ! stty -echo -icanon min 1 time 0; then
+  if ! stty -echo -icanon -isig min 1 time 0; then
     printf 'Cannot enable keyboard selection. Re-run init with --plain.\n' >&2; return 1
   fi
   printf '\n' >&2; wizard_style '1;36'; printf '%s\n' "$title" >&2; wizard_style 0
@@ -444,7 +444,7 @@ wizard_ui_select() {
         if [[ "${checked[$cursor]}" == true ]]; then checked[$cursor]=false; else checked[$cursor]=true; fi
       fi ;;
       cancel) wizard_ui_restore; printf '\nInterview cancelled. No configuration was saved.\n' >&2; return 1 ;;
-      interrupt) wizard_ui_restore; kill -INT "$$"; return 130 ;;
+      interrupt) wizard_ui_restore; printf '\nInterview interrupted.\n' >&2; exit 130 ;;
       forward) if [[ "$editor" == true ]]; then
           wizard_ui_restore; WIZARD_REPLY=__return__; return 0
         fi
