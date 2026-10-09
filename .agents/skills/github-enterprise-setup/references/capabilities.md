@@ -33,6 +33,24 @@ Assess:
 Treat IdP, SAML, SCIM, recovery codes, and secret-bearing identity setup as manual
 work unless a supported API gives a complete and safe path.
 
+Settle the **identity model first**. It decides what the rest of the plan can do.
+Read [authentication options](https://docs.github.com/en/enterprise-cloud@latest/admin/concepts/identity-and-access-management/identity-and-access-management-fundamentals)
+and confirm:
+
+- **Account model:** Enterprise Managed Users (EMU) or personal accounts. Migration
+  between them is out of scope.
+- **Enterprise SSO:** whether SAML or OIDC is configured and **enforced** at the
+  enterprise or per organization. Never enable enforcement without the user
+  confirming that the IdP and a recovery path work. Enforcement can lock out members.
+- **Provisioning:** whether SCIM provisions users and who owns that IdP application.
+  With EMU, users, usernames, and org membership come from the IdP, not from `gh`.
+- **Group sync:** whether IdP groups map to **enterprise teams** or organization
+  teams. Where sync is on, do not edit membership by hand. Change the IdP group.
+- **Break-glass access:** at least two enterprise owners, and the EMU setup user
+  or recovery codes held by named people. Check where they are stored. Don't read them.
+
+For each item, record who in the customer's organization owns the manual step.
+
 ### Enterprise governance
 
 Assess:
@@ -68,6 +86,24 @@ Assess:
 
 For a new organization, confirm its owner, purpose, identity boundary, expected
 repository visibility, and lifecycle owner before creation.
+
+**Creating the organization.** Only an **enterprise owner** can create one inside
+the enterprise. Use the GraphQL `createEnterpriseOrganization` mutation. It needs
+the enterprise ID, a unique `login`, a profile name, a billing email, and at least
+one initial admin login. The token needs the `admin:enterprise` scope. Check the
+[mutation reference](https://docs.github.com/en/graphql/reference/mutations#createenterpriseorganization)
+for current inputs before writing the command into `plan.json`.
+
+Before the write:
+
+- confirm the login is free (`gh api orgs/<login>` returning `404` does not
+  prove it's available, since names can be reserved or belong to a user);
+- name two initial admins, so ownership continuity holds from day one;
+- on EMU, admins must be managed users from the enterprise.
+
+If the actor isn't an enterprise owner or the scope is missing, make creation a
+manual handoff to an owner. Verify by listing the enterprise's organizations
+afterwards, then read back the admins and billing email.
 
 Before recommending owners or team membership management, read
 [organization best practices](https://docs.github.com/en/enterprise-cloud%40latest/organizations/collaborating-with-groups-in-organizations/best-practices-for-organizations).
