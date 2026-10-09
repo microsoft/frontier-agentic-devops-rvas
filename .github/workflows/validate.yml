@@ -29,3 +29,26 @@ jobs:
           PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/release/test_release.py -v
           PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/ci/test_workflows.py -v
           PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/intake/test_provision.py -v
+
+  wizard:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Setup Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+      - name: Check wizard on system Bash
+        run: |
+          /bin/bash --version
+          /bin/bash -n scripts/github-enterprise-wizard.sh
+          for script in scripts/github-enterprise-wizard/lib/*.sh scripts/github-enterprise-wizard/packages/*.sh; do
+            /bin/bash -n "$script"
+          done
+          npm run test:wizard

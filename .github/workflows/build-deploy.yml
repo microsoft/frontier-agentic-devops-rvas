@@ -36,6 +36,7 @@ jobs:
           PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/release/test_release.py -v
           PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/ci/test_workflows.py -v
           PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/intake/test_provision.py -v
+          npm run test:wizard
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0

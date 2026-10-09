@@ -1,0 +1,33 @@
+{
+  "assessed_at": "2026-10-09T17:32:28.646+02:00",
+  "host": "github.com",
+  "requested_enterprise": "fabrikam",
+  "requested_organization": "fabrikam-engineering",
+  "active_account": "admin_olivoemu",
+  "token_scopes": [
+    "gist",
+    "read:enterprise",
+    "read:org",
+    "repo",
+    "workflow"
+  ],
+  "result": "blocked",
+  "reason": "The requested enterprise and organization are not visible to any configured GitHub account. GitHub returned NOT_FOUND for the organization through REST and GraphQL.",
+  "visible_enterprise_for_active_account": "marcoolivo-msft-emu",
+  "visible_organizations_for_active_account": [
+    "cx-admin-org",
+    "cx-custom-actions",
+    "cx-devtest",
+    "cx-innersource",
+    "cx-prod",
+    "cx-sandbox",
+    "emu-first-org"
+  ],
+  "configured_accounts_checked": [
+    "admin_olivoemu",
+    "marcoolivo_microsoft",
+    "olivomarco"
+  ],
+  "mutations_executed": false,
+  "credentials_recorded": false
+}

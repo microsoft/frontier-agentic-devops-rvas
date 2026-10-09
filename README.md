@@ -1,6 +1,11 @@
 # Agentic DevSecOps
 
-One GitHub Pages curriculum with five outcomes and four delivery-session modules.
+Choose **learn by doing** through five outcomes and four delivery-session modules,
+or **set up with the wizard** from a reviewed GitHub configuration plan.
+
+The portal's home page presents both routes. The [wizard overview](docs/wizard.html)
+explains its scope; the [run guide](docs/wizard-guide.html) covers commands and the
+six interview sections. The hands-on catalog and session builder remain available.
 
 > **Use your own environment.** Work with your own applications, repositories, and data
 > so your team can keep using the result after the session. Use OWASP Juice Shop, Grubify,
@@ -76,6 +81,19 @@ The build writes to `docs/assets/data/`. The Pages site has all its files under 
 ```
 
 The build exits with code 0 on success. For a non-zero exit code, check stderr for validation errors.
+
+## Customer setup wizard
+
+The [enterprise setup wizard](scripts/github-enterprise-wizard/README.md) configures
+customer organizations and repositories from an approved plan. It uses Bash 3.2+,
+`gh`, and `jq`; it does not run the curriculum's lab provisioners.
+
+```bash
+npm run wizard -- init --output "$HOME/github-setup.json"
+```
+
+**Review the saved plan before applying it.** Selected seat purchases and live
+workflow runs can incur costs. Owner-only or external setup remains a tracked handoff.
 
 ## External labs and submodules
 

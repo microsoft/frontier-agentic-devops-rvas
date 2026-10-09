@@ -1,0 +1,69 @@
+.start-routes {
+  display: grid;
+  gap: 18px;
+}
+
+.start-route {
+  display: grid;
+  gap: 14px;
+  padding: 28px;
+  border: 1px solid var(--c-line);
+  border-left: 5px solid var(--c-accent);
+  border-radius: var(--r);
+  background: var(--c-800);
+  color: var(--c-fg);
+  box-shadow: var(--shadow-card);
+}
+
+.start-route-wizard { border-left-color: #504092; }
+.hero .start-route h2 { color: var(--c-heading); font-size: 1.7rem; }
+.start-route p { margin: 0; color: var(--c-dim); }
+.route-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--c-dim);
+}
+.route-go { font-weight: 600; color: var(--c-heading); }
+.route-go span { display: inline-block; transition: transform 160ms ease; }
+.start-route:hover .route-go span { transform: translateX(4px); }
+.start-route:focus-visible { outline: 3px solid var(--c-hero-accent); outline-offset: 4px; }
+
+#outcomes, .wizard-content section { scroll-margin-top: 80px; }
+.wizard-content { max-width: 900px; padding-top: 48px; padding-bottom: 64px; }
+.wizard-content section + section { margin-top: 48px; }
+.wizard-content h2 { margin-bottom: 20px; }
+.wizard-content h3 { margin: 28px 0 12px; }
+.wizard-content p, .wizard-content li { max-width: 75ch; }
+.wizard-content a:not(.btn) { color: var(--c-accent-dim); text-decoration: underline; text-underline-offset: 3px; }
+.wizard-content pre {
+  overflow-x: auto;
+  padding: 20px;
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-sm);
+  background: var(--c-800);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+.wizard-content code { font-family: var(--font-mono); overflow-wrap: anywhere; }
+.wizard-content pre code { overflow-wrap: normal; }
+.wizard-note {
+  margin: 24px 0;
+  padding: 16px 20px;
+  border-left: 4px solid var(--c-accent);
+  background: var(--c-600);
+}
+.wizard-questions { margin: 0; padding-left: 24px; }
+.wizard-questions li + li { margin-top: 24px; }
+.wizard-questions strong { color: var(--c-heading); }
+.wizard-questions p { margin: 6px 0; }
+.wizard-subnav { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-bottom: 36px; }
+
+@media (max-width: 600px) {
+  .start-route { padding: 22px; }
+  .wizard-content pre { padding: 14px; font-size: 0.8rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .route-go span { transition: none; }
+  .start-route:hover .route-go span { transform: none; }
+}

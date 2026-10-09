@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Setup wizard. Agentic DevSecOps</title>
+  <meta name="description" content="Configure a GitHub Enterprise Cloud workspace from a reviewed plan. See what the setup wizard automates and what needs manual work." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/shell.css" />
+  <link rel="stylesheet" href="assets/css/routes.css" />
+  <link rel="icon" href="assets/img/logo-mark-white.png" />
+</head>
+<body>
+  <header class="nav" role="banner">
+    <div class="nav-inner">
+      <a class="brand" href="index.html" aria-label="RVAS, Agentic DevSecOps">
+        <img src="assets/img/logo-full.png" alt="RVAP" class="rvap-nav-logo" height="32" />
+      </a>
+      <nav id="navLinks" class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="catalog.html">Hands-on sessions</a>
+        <a href="wizard.html" aria-current="page">Setup wizard</a>
+        <a href="wizard-guide.html">Run guide</a>
+        <a class="gh" href="https://github.com/microsoft/frontier-agentic-devops-rvas" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="wizardHeading">
+      <div class="wrap">
+        <span class="eyebrow">Guided setup</span>
+        <h1 id="wizardHeading">Set up your<br /><span class="accent">GitHub workspace.</span></h1>
+        <p class="lede">Answer questions in your terminal. The wizard turns your choices into a plan you review before it changes GitHub.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="wizard-guide.html">Run the wizard &rarr;</a>
+          <a class="btn btn-ghost" href="wizard-guide.html#questions">Preview the questions</a>
+        </div>
+      </div>
+    </section>
+    <div class="wrap wizard-content">
+      <nav class="wizard-subnav" aria-label="On this page">
+        <a href="#scope">What it does</a>
+        <a href="#boundaries">What stays manual</a>
+        <a href="#review">Review and approval</a>
+      </nav>
+      <section id="scope" aria-labelledby="scopeHeading">
+        <h2 id="scopeHeading">What the wizard does</h2>
+        <p>Use it when you want to configure a workspace without working through each setup activity by hand. It supports GitHub Enterprise Cloud on <code>github.com</code> and your enterprise's <code>ghe.com</code> domain.</p>
+        <ul>
+          <li><strong>Workspace:</strong> create organizations under an existing enterprise, or explicitly adopt existing ones. Set up teams and repositories with Node.js, Python, or your own templates.</li>
+          <li><strong>Delivery controls:</strong> configure supported Actions policies and review rules. Add CI and Codespaces configuration where selected.</li>
+          <li><strong>Copilot and security:</strong> prepare shared instructions and agents, assign selected Copilot seats when prerequisites are met, and configure supported Code Security and Code Quality settings.</li>
+          <li><strong>Other capabilities:</strong> select inventory reports or supported operations for migration, integrations, and repository governance. The plan names work that needs an owner or an external system.</li>
+        </ul>
+        <p>Workspace, Actions with Codespaces, Code Security, and Code Quality start selected. You can change the selection. Required packages are included automatically.</p>
+        <p>For a new project, the defaults include a Developers team and a <code>service</code> repository with a Node.js starter and CI. <strong>Existing-resource adoption is explicit.</strong> Repository content changes go through pull requests; new repositories receive their approved initial content directly.</p>
+      </section>
+      <section id="boundaries" aria-labelledby="boundariesHeading">
+        <h2 id="boundariesHeading">What stays manual</h2>
+        <p><strong>The enterprise account must already exist.</strong> Any required SSO and SCIM setup must already be complete; the wizard does not inspect it or create handoffs for it. The script also leaves cloud-side OIDC trust and runner compute to your team.</p>
+        <p>The wizard does not deploy Azure infrastructure or provision the curriculum's sample applications.</p>
+        <p>Some licensing and policy settings need an owner in GitHub settings. Those steps remain tracked handoffs. Selecting migration or SRE capabilities does not complete a migration or deploy Azure SRE Agent.</p>
+        <p>And you can still use the <a href="index.html#outcomes">hands-on sessions</a> to understand a control, complete manual work, or test the result with your team. The <a href="builder.html">session builder</a> selects learning activities; it does not configure GitHub.</p>
+      </section>
+      <section id="review" aria-labelledby="reviewHeading">
+        <h2 id="reviewHeading">Review before anything changes</h2>
+        <p>The interview saves a configuration file. <code>doctor</code> checks prerequisites, and <code>plan</code> produces the proposed operations and file contents. <strong>GitHub changes start only when you approve and apply the saved plan.</strong></p>
+        <div class="wizard-note"><strong>Approval includes selected purchases and live workflow runs.</strong> They can incur costs. Read the billing warnings and recipients in the plan; apply has no separate cost confirmation.</div>
+        <p>A run records each action so you can resume it and verify the result. Pending handoffs and unverified actions remain visible. Keep configuration files and run reports outside source control.</p>
+        <a class="btn btn-primary" href="wizard-guide.html">Read the run guide &rarr;</a>
+      </section>
+    </div>
+  </main>
+  <footer class="footer" role="contentinfo">
+    <div class="wrap footer-inner">
+      <a class="brand" href="index.html" aria-label="RVAS, Agentic DevSecOps"><img src="assets/img/logo-full.png" alt="RVAP" class="rvap-nav-logo" height="32" /></a>
+      <p>Agentic DevSecOps.</p>
+      <nav class="footer-links" aria-label="Footer"><a href="index.html">Choose a route</a><a href="catalog.html">Hands-on sessions</a><a href="wizard-guide.html">Run guide</a></nav>
+    </div>
+  </footer>
+  <script src="assets/js/shell.js"></script>
+</body>
+</html>

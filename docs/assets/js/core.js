@@ -299,6 +299,10 @@
 
   /* ─────────────────────────── Nav ──────────────────────────────── */
   FP.initNav = function () {
+    if (window.RVASShell) {
+      window.RVASShell.refresh();
+      return;
+    }
     const toggle = document.querySelector('.nav-toggle');
     const links  = document.querySelector('.nav-links');
     if (toggle && links) {

@@ -1,0 +1,239 @@
+{
+  "schema_version": 1,
+  "catalog_version": 2,
+  "profiles": {
+    "balanced": {
+      "label": "Balanced enterprise",
+      "description": "Broad self-service with owner-controlled exposure and curated automation.",
+      "values": {
+        "enterprise": {
+          "repository": {
+            "default_branch": "main",
+            "base_permission": "read",
+            "member_repository_creation": "private_internal",
+            "public_repository_creation": false,
+            "user_namespace_repository_creation": "allowed",
+            "outside_collaborator_invitations": "organization_owners",
+            "direct_collaborators": "restricted",
+            "visibility_changes": "organization_owners",
+            "deletion": "organization_owners",
+            "transfer": "organization_owners",
+            "private_forking": "disabled"
+          },
+          "actions": {
+            "permissions": {
+              "enabled_organizations": "all",
+              "allowed_actions": "selected",
+              "sha_pinning_required": false
+            },
+            "selected_actions": {
+              "github_owned_allowed": true,
+              "verified_allowed": false,
+              "patterns_allowed": []
+            },
+            "workflow_permissions": {
+              "default_workflow_permissions": "read",
+              "can_approve_pull_request_reviews": false
+            },
+            "run_data_retention_days": 90,
+            "fork_approval_policy": "all_external_contributors",
+            "private_fork_workflows": {
+              "run_workflows_from_fork_pull_requests": true,
+              "send_write_tokens_to_workflows": false,
+              "send_secrets_and_variables": false,
+              "require_approval_for_fork_pr_workflows": true
+            },
+            "disable_repository_runners": true,
+            "cache_retention_days": 7,
+            "cache_size_gb": 10
+          },
+          "network": {
+            "ip_allow_list": "review",
+            "idp_ip_allow_list": "manual"
+          },
+          "audit": {
+            "export": true,
+            "streaming": true,
+            "source_ip_disclosure": true,
+            "api_request_events": true
+          },
+          "applications": {
+            "oauth_app_requests": "approval_required",
+            "github_app_requests": "approval_required",
+            "repository_admin_installations": false,
+            "inventory": true
+          }
+        },
+        "defaults": {
+          "repository_visibility": "private",
+          "settings": {
+            "default_repository_permission": "read",
+            "members_can_create_repositories": true,
+            "members_can_create_public_repositories": false,
+            "members_can_create_private_repositories": true,
+            "members_can_create_internal_repositories": true,
+            "members_can_fork_private_repositories": false,
+            "members_can_delete_repositories": false,
+            "members_can_change_repo_visibility": false,
+            "members_can_create_pages": true,
+            "members_can_create_public_pages": false,
+            "members_can_create_private_pages": true,
+            "web_commit_signoff_required": true
+          },
+          "repository": {
+            "default_branch": "main",
+            "has_issues": true,
+            "has_projects": false,
+            "has_wiki": false,
+            "has_discussions": false,
+            "allow_squash_merge": true,
+            "allow_merge_commit": false,
+            "allow_rebase_merge": false,
+            "delete_branch_on_merge": true
+          }
+        },
+        "organization": {
+          "collaborators": {
+            "teams_first": true,
+            "direct_collaborators": "restricted",
+            "outside_collaborators": "owner_approval"
+          }
+        }
+      }
+    },
+    "regulated": {
+      "label": "Regulated or centralized",
+      "description": "Central provisioning, narrow access, and explicit approval for sensitive changes.",
+      "inherits": "balanced",
+      "values": {
+        "enterprise": {
+          "repository": {
+            "base_permission": "none",
+            "member_repository_creation": "disabled",
+            "user_namespace_repository_creation": "blocked",
+            "direct_collaborators": "blocked"
+          },
+          "actions": {
+            "permissions": {
+              "sha_pinning_required": true
+            },
+            "run_data_retention_days": 365,
+            "cache_retention_days": 14
+          },
+          "network": {
+            "ip_allow_list": "required"
+          }
+        },
+        "defaults": {
+          "settings": {
+            "default_repository_permission": "none",
+            "members_can_create_repositories": false
+          }
+        },
+        "organization": {
+          "collaborators": {
+            "direct_collaborators": "blocked",
+            "outside_collaborators": "blocked"
+          }
+        }
+      }
+    },
+    "inner_source": {
+      "label": "Inner-source collaboration",
+      "description": "Internal discoverability with lightweight contribution guardrails.",
+      "inherits": "balanced",
+      "values": {
+        "enterprise": {
+          "repository": {
+            "private_forking": "allowed"
+          }
+        },
+        "defaults": {
+          "repository_visibility": "internal",
+          "settings": {
+            "members_can_fork_private_repositories": true
+          },
+          "repository": {
+            "has_discussions": true,
+            "allow_rebase_merge": true
+          }
+        },
+        "organization": {
+          "collaborators": {
+            "direct_collaborators": "allowed",
+            "outside_collaborators": "owner_approval"
+          }
+        }
+      }
+    },
+    "emu_vendor": {
+      "label": "EMU with vendors",
+      "description": "Managed identities, private-by-default work, and segmented vendor access.",
+      "inherits": "regulated",
+      "values": {
+        "enterprise": {
+          "repository": {
+            "base_permission": "read",
+            "member_repository_creation": "private",
+            "user_namespace_repository_creation": "blocked"
+          },
+          "network": {
+            "ip_allow_list": "review"
+          }
+        },
+        "defaults": {
+          "repository_visibility": "private",
+          "settings": {
+            "default_repository_permission": "read",
+            "members_can_create_repositories": true,
+            "members_can_create_private_repositories": true,
+            "members_can_create_internal_repositories": false
+          }
+        },
+        "organization": {
+          "collaborators": {
+            "direct_collaborators": "restricted",
+            "outside_collaborators": "idp_managed"
+          }
+        }
+      }
+    }
+  },
+  "controls": [
+    {"id":"repository.creation","scope":"enterprise","support":"manual","update_scope":"repository_management","effective_rule":"locked_override"},
+    {"id":"repository.user_namespace_creation","scope":"enterprise","support":"manual","update_scope":"repository_management","effective_rule":"locked_override"},
+    {"id":"repository.visibility_changes","scope":"organization","support":"automated","update_scope":"organization_settings","effective_rule":"locked_override"},
+    {"id":"repository.base_permission","scope":"organization","support":"automated","update_scope":"organization_settings","effective_rule":"most_restrictive"},
+    {"id":"repository.collaborators","scope":"organization","support":"mixed","update_scope":"repository_access","effective_rule":"most_restrictive"},
+    {"id":"repository.deletion","scope":"organization","support":"automated","update_scope":"organization_settings","effective_rule":"locked_override"},
+    {"id":"repository.transfer","scope":"enterprise","support":"manual","update_scope":"repository_management","effective_rule":"locked_override"},
+    {"id":"repository.private_forking","scope":"organization","support":"automated","update_scope":"organization_settings","effective_rule":"locked_override"},
+    {"id":"repository.default_branch","scope":"repository","support":"automated","update_scope":"repository","effective_rule":"lower_scope"},
+    {"id":"repository.features","scope":"repository","support":"automated","update_scope":"repository","effective_rule":"lower_scope"},
+    {"id":"repository.merge_methods","scope":"repository","support":"automated","update_scope":"repository","effective_rule":"lower_scope"},
+    {"id":"repository.projects_v2","scope":"organization","support":"manual","update_scope":"organization_settings","effective_rule":"stacked"},
+    {"id":"actions.permissions","scope":"enterprise","support":"automated","update_scope":"actions","effective_rule":"locked_override"},
+    {"id":"actions.allowlist","scope":"enterprise","support":"automated","update_scope":"actions","effective_rule":"most_restrictive"},
+    {"id":"actions.sha_pinning","scope":"organization","support":"automated","update_scope":"actions","effective_rule":"most_restrictive"},
+    {"id":"actions.workflow_token","scope":"organization","support":"automated","update_scope":"actions","effective_rule":"most_restrictive"},
+    {"id":"actions.fork_workflows","scope":"organization","support":"automated","update_scope":"actions","effective_rule":"most_restrictive"},
+    {"id":"actions.runner_access","scope":"organization","support":"automated","update_scope":"actions","effective_rule":"most_restrictive"},
+    {"id":"actions.run_data_retention","scope":"organization","support":"automated","update_scope":"actions","effective_rule":"inherited_ceiling"},
+    {"id":"actions.cache_retention","scope":"enterprise","support":"automated","update_scope":"actions","effective_rule":"inherited_ceiling"},
+    {"id":"actions.cache_storage","scope":"enterprise","support":"automated","update_scope":"actions","effective_rule":"inherited_ceiling"},
+    {"id":"enforcement.rulesets","scope":"repository","support":"automated","update_scope":"rulesets","effective_rule":"stacked"},
+    {"id":"enforcement.branch_protection","scope":"repository","support":"inventory","update_scope":"repository","effective_rule":"stacked"},
+    {"id":"enforcement.environments","scope":"repository","support":"automated","update_scope":"repository","effective_rule":"stacked"},
+    {"id":"repository.custom_properties","scope":"enterprise","support":"automated","update_scope":"custom_properties","effective_rule":"stacked"},
+    {"id":"identity.provider","scope":"enterprise","support":"manual","update_scope":"identity","effective_rule":"external_prerequisite"},
+    {"id":"identity.scim","scope":"enterprise","support":"manual","update_scope":"identity","effective_rule":"external_prerequisite"},
+    {"id":"identity.two_factor","scope":"enterprise","support":"confirmed_disruptive","update_scope":"identity","effective_rule":"locked_override"},
+    {"id":"network.ip_allow_list","scope":"enterprise","support":"verified_manual","update_scope":"network","effective_rule":"locked_override"},
+    {"id":"audit.export","scope":"organization","support":"automated","update_scope":"audit","effective_rule":"independent"},
+    {"id":"audit.streaming","scope":"enterprise","support":"manual","update_scope":"audit","effective_rule":"external_prerequisite"},
+    {"id":"applications.oauth_policy","scope":"enterprise","support":"manual","update_scope":"applications","effective_rule":"locked_override"},
+    {"id":"applications.github_app_policy","scope":"enterprise","support":"mixed","update_scope":"applications","effective_rule":"locked_override"},
+    {"id":"security.code_security","scope":"organization","support":"automated","update_scope":"security","effective_rule":"stacked"},
+    {"id":"repository.policies","scope":"enterprise","support":"preview_manual","update_scope":"repository_management","effective_rule":"stacked"}
+  ]
+}

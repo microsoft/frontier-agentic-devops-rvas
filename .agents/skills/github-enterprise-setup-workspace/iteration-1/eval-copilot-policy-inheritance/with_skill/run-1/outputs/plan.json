@@ -1,0 +1,476 @@
+{
+  "schema_version": 1,
+  "assessment_path": "assessment.json",
+  "created_at": "2026-10-09T15:33:18Z",
+  "status": "blocked_on_authentication_and_connectivity",
+  "batches": [
+    {
+      "id": "restore-read-access",
+      "purpose": "Establish authenticated, read-only access to the named GitHub Enterprise Cloud host",
+      "risk": "manual_prerequisite",
+      "targets": [
+        "northwind.ghe.com"
+      ],
+      "dependencies": [],
+      "approval": {
+        "status": "pending",
+        "approved_at": null,
+        "approved_by": null
+      },
+      "operations": [
+        {
+          "id": "authenticate-github-cli",
+          "capability": "identity_and_authority",
+          "target": "northwind.ghe.com",
+          "reason": "Read discovery requires an authenticated identity on the target host",
+          "current_state": "No active GitHub CLI account; API connection failed",
+          "desired_state": "Approved active identity with read access to the target enterprise",
+          "effective_source": "host",
+          "risk": "manual_prerequisite",
+          "dependencies": [],
+          "precondition_reads": [
+            "gh auth status --active --hostname northwind.ghe.com --json hosts"
+          ],
+          "write_command": null,
+          "verification": [
+            "Read /user and retain only login, id, and type",
+            "Verify enterprise slug northwind through GraphQL"
+          ],
+          "rollback_or_recovery": "Switch back to the prior GitHub CLI account if authentication changes the active identity",
+          "cost_or_license_effect": "None",
+          "manual_handoff": {
+            "owner": "GitHub operator and network owner",
+            "action": "Approve authentication and make api.northwind.ghe.com reachable",
+            "suggested_command": "gh auth login --hostname northwind.ghe.com"
+          },
+          "status": "blocked"
+        }
+      ]
+    },
+    {
+      "id": "discover-effective-copilot-state",
+      "purpose": "Read policy inheritance, subscription, teams, and billing before planning changes",
+      "risk": "read_only",
+      "targets": [
+        "northwind",
+        "engineering"
+      ],
+      "dependencies": [
+        "restore-read-access"
+      ],
+      "approval": {
+        "status": "not_required_for_narrow_reads",
+        "approved_at": null,
+        "approved_by": null
+      },
+      "operations": [
+        {
+          "id": "read-enterprise-org-and-policies",
+          "capability": "enterprise_policy_inheritance",
+          "target": "northwind/engineering",
+          "reason": "Inherited enterprise AI policies may override organization settings",
+          "current_state": "unverified",
+          "desired_state": "Timestamped effective values and sources for every selected Copilot control",
+          "effective_source": "unknown",
+          "risk": "read_only",
+          "dependencies": [
+            "authenticate-github-cli"
+          ],
+          "precondition_reads": [
+            "GET /user",
+            "GraphQL viewer.enterprises",
+            "GraphQL enterprise.organizations"
+          ],
+          "write_command": null,
+          "verification": [
+            "Every selected policy has enterprise value, organization value, effective value, and source",
+            "Actor permissions are classified without inference"
+          ],
+          "rollback_or_recovery": "Not applicable",
+          "cost_or_license_effect": "None",
+          "manual_handoff": {
+            "owner": "Enterprise owner or AI manager",
+            "action": "Supply manual evidence for AI controls that have no supported read API"
+          },
+          "status": "blocked"
+        },
+        {
+          "id": "read-copilot-billing-and-teams",
+          "capability": "copilot_subscription",
+          "target": "engineering",
+          "reason": "Seat mode, team recipients, duplicate assignments, and billing must be known before purchase",
+          "current_state": "unverified",
+          "desired_state": "Verified plan type, seat mode, seat counts, team slugs, and billing owner",
+          "effective_source": "unknown",
+          "risk": "read_only",
+          "dependencies": [
+            "authenticate-github-cli"
+          ],
+          "precondition_reads": [
+            "GET /orgs/engineering/copilot/billing",
+            "GET /orgs/engineering/teams"
+          ],
+          "write_command": null,
+          "verification": [
+            "Plan type and seat-management setting are recorded",
+            "Team list and membership source are recorded",
+            "Seat roster collection requires separate broad-inventory approval"
+          ],
+          "rollback_or_recovery": "Not applicable",
+          "cost_or_license_effect": "Read-only; future seat delta remains unknown",
+          "manual_handoff": null,
+          "status": "blocked"
+        }
+      ]
+    },
+    {
+      "id": "assign-team-seats",
+      "purpose": "Purchase Copilot seats through approved engineering teams",
+      "risk": "high_impact",
+      "targets": [
+        "engineering teams to be named"
+      ],
+      "dependencies": [
+        "discover-effective-copilot-state"
+      ],
+      "approval": {
+        "status": "pending",
+        "approved_at": null,
+        "approved_by": null
+      },
+      "operations": [
+        {
+          "id": "add-engineering-teams-to-copilot",
+          "capability": "copilot_seats",
+          "target": "engineering",
+          "reason": "Team assignment keeps entitlement aligned with managed membership",
+          "current_state": "unverified",
+          "desired_state": {
+            "seat_management": "selected",
+            "selected_teams": []
+          },
+          "effective_source": "organization constrained by enterprise",
+          "risk": "high_impact",
+          "dependencies": [
+            "read-copilot-billing-and-teams",
+            "read-enterprise-org-and-policies"
+          ],
+          "precondition_reads": [
+            "Refresh actor and organization ID",
+            "Refresh /orgs/engineering/copilot/billing",
+            "Refresh exact team slugs and membership counts",
+            "Calculate unique seat delta and duplicate assignments"
+          ],
+          "write_command": null,
+          "verification": [
+            "Read organization Copilot billing",
+            "List only approved assignments",
+            "Confirm expected users derive access from the approved teams"
+          ],
+          "rollback_or_recovery": "A separate approved removal batch sets affected seats to pending cancellation",
+          "cost_or_license_effect": "Recurring paid seats; exact delta, price, and proration unknown",
+          "manual_handoff": {
+            "owner": "Billing owner",
+            "action": "Approve named teams, estimated seat delta, contract price, proration, and cost center"
+          },
+          "status": "blocked"
+        }
+      ]
+    },
+    {
+      "id": "enable-cli-and-code-review",
+      "purpose": "Enable Copilot CLI and code review for the engineering pilot",
+      "risk": "high_impact",
+      "targets": [
+        "northwind",
+        "engineering"
+      ],
+      "dependencies": [
+        "discover-effective-copilot-state"
+      ],
+      "approval": {
+        "status": "pending",
+        "approved_at": null,
+        "approved_by": null
+      },
+      "operations": [
+        {
+          "id": "set-cli-policy",
+          "capability": "copilot_cli",
+          "target": "engineering",
+          "reason": "Allow assigned pilot users to use Copilot CLI",
+          "current_state": "unverified",
+          "desired_state": "enabled for engineering",
+          "effective_source": "unknown",
+          "risk": "high_impact",
+          "dependencies": [
+            "read-enterprise-org-and-policies"
+          ],
+          "precondition_reads": [
+            "Refresh effective CLI policy and source",
+            "Confirm cloud-agent policy if /delegate is required"
+          ],
+          "write_command": null,
+          "verification": [
+            "A consenting licensed pilot user can start Copilot CLI",
+            "Enterprise audit log records the policy change"
+          ],
+          "rollback_or_recovery": "Restore the previous effective policy after documenting affected users",
+          "cost_or_license_effect": "Seat required; optional agentic features may consume AI credits",
+          "manual_handoff": {
+            "owner": "Enterprise owner or AI manager",
+            "action": "Configure the policy in Enterprise AI controls unless a supported endpoint is confirmed"
+          },
+          "status": "planned"
+        },
+        {
+          "id": "set-code-review-policy",
+          "capability": "copilot_code_review",
+          "target": "engineering",
+          "reason": "Enable manual review before considering automatic review",
+          "current_state": "unverified",
+          "desired_state": {
+            "code_review": "enabled",
+            "copilot_approvals": "disabled",
+            "automatic_review": "pilot_later"
+          },
+          "effective_source": "unknown",
+          "risk": "high_impact",
+          "dependencies": [
+            "read-enterprise-org-and-policies"
+          ],
+          "precondition_reads": [
+            "Refresh code-review policy and source",
+            "Read AI-credit billing source and budgets",
+            "Inspect target repository rulesets before automatic review"
+          ],
+          "write_command": null,
+          "verification": [
+            "One pilot pull request receives a Copilot review",
+            "Copilot approval does not satisfy a required-review rule",
+            "AI-credit charges appear under the approved billing source"
+          ],
+          "rollback_or_recovery": "Disable automatic review rules before disabling review access",
+          "cost_or_license_effect": "AI-credit charges may apply; billing source and budget are unknown",
+          "manual_handoff": {
+            "owner": "Enterprise owner, repository owner, and billing owner",
+            "action": "Set AI controls, billing source, budget, and any automatic-review ruleset"
+          },
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "configure-managed-instructions-and-mcp",
+      "purpose": "Apply reviewed client settings, instructions, and MCP restrictions",
+      "risk": "high_impact",
+      "targets": [
+        "engineering/.github-private",
+        "engineering"
+      ],
+      "dependencies": [
+        "discover-effective-copilot-state"
+      ],
+      "approval": {
+        "status": "pending",
+        "approved_at": null,
+        "approved_by": null
+      },
+      "operations": [
+        {
+          "id": "publish-managed-settings",
+          "capability": "enterprise_managed_settings",
+          "target": "engineering/.github-private/copilot/managed-settings.json",
+          "reason": "Control Copilot client behavior through a reviewable, server-managed file",
+          "current_state": "unverified",
+          "desired_state": "Reviewed managed settings with protected ownership and documented precedence",
+          "effective_source": "server-managed settings with possible MDM precedence",
+          "risk": "high_impact",
+          "dependencies": [
+            "read-enterprise-org-and-policies"
+          ],
+          "precondition_reads": [
+            "Verify .github-private repository and default branch",
+            "Inspect existing managed-settings.json",
+            "Inspect repository rulesets and CODEOWNERS"
+          ],
+          "write_command": null,
+          "verification": [
+            "Open a pull request instead of writing to the default branch",
+            "A supported pilot client loads the settings",
+            "MDM, server, file, and user precedence are documented"
+          ],
+          "rollback_or_recovery": "Revert the pull request through normal repository controls",
+          "cost_or_license_effect": "No direct seat purchase; settings apply to enterprise-licensed users",
+          "manual_handoff": {
+            "owner": "Endpoint-management owner",
+            "action": "Deploy MDM or file-based settings where server-managed policy is insufficient"
+          },
+          "status": "planned"
+        },
+        {
+          "id": "set-organization-instructions",
+          "capability": "custom_instructions",
+          "target": "engineering",
+          "reason": "Provide short organization-wide guidance for supported GitHub.com Copilot surfaces",
+          "current_state": "unverified",
+          "desired_state": "Approved organization instructions without conflicts with repository instructions",
+          "effective_source": "organization",
+          "risk": "high_impact",
+          "dependencies": [
+            "read-enterprise-org-and-policies"
+          ],
+          "precondition_reads": [
+            "Read current organization instructions through the supported settings surface",
+            "Confirm current feature status and client support matrix"
+          ],
+          "write_command": null,
+          "verification": [
+            "Test GitHub.com Copilot Chat, code review, and cloud agent where enabled",
+            "Confirm repository instructions take precedence where expected"
+          ],
+          "rollback_or_recovery": "Restore the prior instruction text from approved change evidence",
+          "cost_or_license_effect": "No known direct charge; plan eligibility must be confirmed",
+          "manual_handoff": {
+            "owner": "Engineering organization owner",
+            "action": "Configure Organization Settings > Copilot > Custom instructions"
+          },
+          "status": "planned"
+        },
+        {
+          "id": "restrict-mcp-servers",
+          "capability": "mcp_controls",
+          "target": "northwind and engineering",
+          "reason": "Allow approved MCP servers and deny unreviewed tools",
+          "current_state": "unverified",
+          "desired_state": "MCP enabled with a managed-settings allowlist",
+          "effective_source": "enterprise preferred",
+          "risk": "high_impact",
+          "dependencies": [
+            "publish-managed-settings",
+            "read-enterprise-org-and-policies"
+          ],
+          "precondition_reads": [
+            "Refresh MCP servers in Copilot policy and source",
+            "Inspect existing managed MCP entries",
+            "Inventory credentials by owner without collecting secret values"
+          ],
+          "write_command": null,
+          "verification": [
+            "An approved MCP server runs in Copilot CLI",
+            "An unapproved server is denied",
+            "Users cannot bypass the managed setting"
+          ],
+          "rollback_or_recovery": "Restore the prior allowlist and policy through the reviewed change path",
+          "cost_or_license_effect": "External MCP hosting and service charges are unknown",
+          "manual_handoff": {
+            "owner": "Enterprise AI manager and MCP service owner",
+            "action": "Set the effective policy and operate any external MCP service"
+          },
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "publish-enterprise-custom-agents",
+      "purpose": "Make reviewed custom agents available across the enterprise",
+      "risk": "high_impact",
+      "targets": [
+        "engineering/.github-private",
+        "northwind"
+      ],
+      "dependencies": [
+        "configure-managed-instructions-and-mcp"
+      ],
+      "approval": {
+        "status": "pending",
+        "approved_at": null,
+        "approved_by": null
+      },
+      "operations": [
+        {
+          "id": "set-custom-agent-source",
+          "capability": "enterprise_custom_agents",
+          "target": "northwind",
+          "reason": "Use engineering as the reviewed source for enterprise agent profiles and CLI client settings",
+          "current_state": "unverified",
+          "desired_state": {
+            "source_organization": "engineering",
+            "agent_path": "/agents/*.md",
+            "protect_agent_files": true
+          },
+          "effective_source": "enterprise",
+          "risk": "high_impact",
+          "dependencies": [
+            "publish-managed-settings",
+            "restrict-mcp-servers"
+          ],
+          "precondition_reads": [
+            "Refresh enterprise custom-agent source",
+            "Verify engineering numeric organization ID",
+            "Verify .github-private and reviewed agent files",
+            "Recheck preview endpoint, API version, permissions, and token type"
+          ],
+          "write_command": null,
+          "verification": [
+            "GET the enterprise custom-agent source",
+            "List expected enterprise agents",
+            "Invoke one approved agent in a pilot CLI session",
+            "Confirm protected paths require review"
+          ],
+          "rollback_or_recovery": "Restore the previous source organization or disable the agents through an approved high-impact batch",
+          "cost_or_license_effect": "Feature usage may consume plan entitlements or AI credits; exact effect is unknown",
+          "manual_handoff": {
+            "owner": "Enterprise owner, agent owner, and security reviewer",
+            "action": "Approve source organization, agent profiles, tools, and release process"
+          },
+          "status": "planned"
+        }
+      ]
+    }
+  ],
+  "preview_register": [
+    {
+      "item": "Copilot user-management REST endpoints for billing, seat listing, and team or user assignment",
+      "status": "public_preview",
+      "api_version": "2026-03-10"
+    },
+    {
+      "item": "Enterprise custom agents and source configuration",
+      "status": "public_preview",
+      "api_version": "2026-03-10"
+    },
+    {
+      "item": "Copilot approvals",
+      "status": "public_preview",
+      "api_version": null
+    },
+    {
+      "item": "MCP custom registry and registry-only restriction",
+      "status": "public_preview",
+      "api_version": null
+    },
+    {
+      "item": "Organization custom instructions",
+      "status": "unverified_release_label_on_target_host",
+      "api_version": null
+    }
+  ],
+  "billing_unknowns": [
+    "Plan type and contracted unit price",
+    "Current seat count and inactive seats",
+    "Unique seat delta for each selected team",
+    "Duplicate assignments across organizations and enterprise teams",
+    "Proration and personal-plan replacement effects",
+    "Code-review AI-credit billing source",
+    "Budgets, cost centers, and spending limits",
+    "External MCP service cost",
+    "AI-credit effect of agentic features"
+  ],
+  "next_interview_question": {
+    "decision": "Restore authenticated read access",
+    "recommended_answer": "Approve authentication only after confirming northwind.ghe.com is the correct dedicated enterprise host and the operator is on the required network.",
+    "tradeoff": "Without authentication and connectivity, inherited policy, recipients, and cost remain unknown. Authentication changes local CLI state, so it needs explicit approval.",
+    "question": "May I run `gh auth login --hostname northwind.ghe.com`, then perform narrow read-only discovery of the active actor, enterprise `northwind`, organization `engineering`, effective Copilot policies, team names, and the Copilot billing summary?"
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "expectations": [
+    {
+      "text": "The response treats northwind.ghe.com as the GitHub host and verifies or diagnoses authentication for that host without exposing a token.",
+      "passed": true,
+      "evidence": "The response names `northwind.ghe.com` as the host and reports that GitHub CLI has no authenticated account for it. `assessment.json` records `gh auth status --active --hostname northwind.ghe.com --json hosts`, the failed connection to `api.northwind.ghe.com`, and the redaction statement: \"No token, credential, authorization header, member profile, or seat roster was collected or saved.\""
+    },
+    {
+      "text": "The response records or requests the observed value, effective value, source level, and actor authority for inherited Copilot controls.",
+      "passed": true,
+      "evidence": "`assessment.json` represents observations with `observed_value`, `effective_value`, `source_level`, and `changeable_by_actor`. The enterprise AI policy observation leaves those fields unknown rather than guessing. `plan.md` then requires each selected control to have enterprise and organization values, an effective value, an effective source, a timestamp, and a permission classification before any override is planned."
+    },
+    {
+      "text": "The response explicitly identifies Copilot endpoints or capabilities that may be in preview and requires checking current official GitHub documentation before use.",
+      "passed": true,
+      "evidence": "`plan.md` and `plan.json` identify the Copilot billing and seat-management REST endpoints, enterprise custom agents, Copilot approvals, and the MCP custom registry as public preview. The custom-agent batch requires rechecking the endpoint, API version, permissions, token type, and response schema before a write. The response also says the plan was checked against current GitHub documentation on October 9, 2026."
+    },
+    {
+      "text": "The response separates Copilot seat assignment and billing impact from feature-policy configuration.",
+      "passed": true,
+      "evidence": "`plan.md` separates team recipient definition and paid seat assignment into Batches 2 and 3, with recurring-cost and billing approval gates. CLI and code-review policy configuration is a separate Batch 4, while instructions, MCP controls, and custom agents have their own batches. `plan.json` mirrors that separation and records cost effects per operation."
+    },
+    {
+      "text": "The response covers Copilot CLI, code review, managed instructions, MCP controls, and enterprise custom agents in the proposed plan or capability checklist.",
+      "passed": true,
+      "evidence": "The capability checklist and proposed batches cover `copilot_cli`, `copilot_code_review`, `custom_instructions`, `enterprise_managed_settings`, `mcp_controls`, and `enterprise_custom_agents`. `plan.md` includes dedicated rollout sections for CLI and code review, instructions and managed settings, MCP controls, and enterprise custom agents."
+    },
+    {
+      "text": "The response identifies unsupported or UI-only settings as manual handoffs and does not run writes.",
+      "passed": true,
+      "evidence": "The response states: \"Plan mode is active. No GitHub settings were changed.\" `plan.md` routes feature policies to Enterprise AI controls unless a supported write endpoint is confirmed, identifies organization custom instructions as a web setting, and lists eight manual handoff owners. Every operation in `plan.json` has `write_command: null`; paid or high-impact operations remain blocked or planned behind approval."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "tool_calls": {
+      "GitHub CLI": 2
+    },
+    "total_tool_calls": 2,
+    "total_steps": 2,
+    "errors_encountered": 2,
+    "output_chars": 43899,
+    "transcript_chars": 2368
+  },
+  "timing": {
+    "executor_duration_seconds": 127.0,
+    "grader_duration_seconds": null,
+    "total_duration_seconds": 127.0
+  },
+  "claims": [
+    {
+      "claim": "GitHub CLI had no authenticated account for northwind.ghe.com.",
+      "type": "process",
+      "verified": true,
+      "evidence": "`assessment.json` records the authentication check and its result: \"No authenticated accounts were returned.\""
+    },
+    {
+      "claim": "The API connection to api.northwind.ghe.com failed.",
+      "type": "process",
+      "verified": true,
+      "evidence": "`assessment.json` records a GET attempt against `/user` with the result: \"The GitHub CLI could not connect to api.northwind.ghe.com.\""
+    },
+    {
+      "claim": "No GitHub settings were changed.",
+      "type": "process",
+      "verified": true,
+      "evidence": "The transcript says Plan mode was active and no settings were changed. All operations in `plan.json` have `write_command: null`, and write-capable operations are blocked or awaiting approval."
+    },
+    {
+      "claim": "The listed preview classifications and API version reflect current official GitHub documentation as of October 9, 2026.",
+      "type": "factual",
+      "verified": false,
+      "evidence": "The output states that current documentation was checked, but the available files contain no source URLs, citations, or captured documentation that would let the grader independently verify the classifications or API version."
+    },
+    {
+      "claim": "GitHub bills a unique user once within an enterprise when multiple organizations or enterprise teams assign that user.",
+      "type": "factual",
+      "verified": false,
+      "evidence": "This billing statement appears in `plan.md`, but no contract data, API result, or source citation is included. The plan appropriately says to confirm the current contract and API result before using it in an estimate."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [
+      "Authentication, API connectivity, actor authority, enterprise and organization visibility, inherited policies, team membership, subscription, seats, and billing remain unverified.",
+      "The release label for organization custom instructions on the target host remains unverified."
+    ],
+    "needs_review": [
+      "Confirm the dedicated host and required network access before authentication.",
+      "Confirm preview status, API version, permissions, token type, and billing terms against current official documentation before use."
+    ],
+    "workarounds": [
+      "The run produced a blocked Plan-mode rollout with manual handoffs instead of making changes while authentication and connectivity were unavailable."
+    ]
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "The response explicitly identifies Copilot endpoints or capabilities that may be in preview and requires checking current official GitHub documentation before use.",
+        "reason": "The assertion can pass when the response merely claims it checked current documentation. Require official source citations or captured links with retrieval dates for each preview classification and API version."
+      },
+      {
+        "reason": "No assertion checks whether the proposed endpoint paths, API version, permission requirements, or billing statements are accurate. Add a source-backed correctness check for these high-risk details."
+      }
+    ],
+    "overall": "The assertions cover the requested planning behavior well. They do not independently test the accuracy of changing GitHub preview, API, and billing facts."
+  }
+}

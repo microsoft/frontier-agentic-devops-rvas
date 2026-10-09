@@ -1,0 +1,11 @@
+{
+  "name": "workspace-starter",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {"node": ">=24"},
+  "scripts": {
+    "build": "node scripts/build.js",
+    "test": "node --test"
+  }
+}

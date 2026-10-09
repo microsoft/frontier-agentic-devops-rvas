@@ -1,0 +1,112 @@
+{
+  "expectations": [
+    {
+      "text": "The response treats northwind.ghe.com as the GitHub host and verifies or diagnoses authentication for that host without exposing a token.",
+      "passed": false,
+      "evidence": "The response consistently targets `northwind.ghe.com`, including `gh api --hostname northwind.ghe.com`, and exposes no token. It does not verify or diagnose the current authentication state. It only says developers must authenticate and labels endpoint configuration as a manual onboarding step."
+    },
+    {
+      "text": "The response records or requests the observed value, effective value, source level, and actor authority for inherited Copilot controls.",
+      "passed": false,
+      "evidence": "The response asks an enterprise owner or AI manager to record effective enterprise and organization settings and note controls locked by the enterprise. It does not request a per-control record with all four required fields: observed value, effective value, source level, and actor authority."
+    },
+    {
+      "text": "The response explicitly identifies Copilot endpoints or capabilities that may be in preview and requires checking current official GitHub documentation before use.",
+      "passed": false,
+      "evidence": "The response identifies several preview items, including Copilot user-management REST APIs, enterprise custom agents, MCP registry-only restriction, and Copilot approvals. It lists GitHub documentation consulted, but it does not explicitly require checking current official GitHub documentation again before using preview endpoints or capabilities."
+    },
+    {
+      "text": "The response separates Copilot seat assignment and billing impact from feature-policy configuration.",
+      "passed": true,
+      "evidence": "Seat and cost work appears in separate sections titled `Phase 1 — Billing guardrails` and `Phase 2 — Enable engineering and assign seats`. Feature controls appear later under `Phase 3 — Policy configuration`, with separate sections for CLI, managed settings, managed instructions, and MCP."
+    },
+    {
+      "text": "The response covers Copilot CLI, code review, managed instructions, MCP controls, and enterprise custom agents in the proposed plan or capability checklist.",
+      "passed": true,
+      "evidence": "The plan has dedicated sections for `Copilot CLI`, `Managed instructions`, `MCP controls`, `Phase 4 — Copilot code review`, and `Phase 5 — Enterprise custom agents`."
+    },
+    {
+      "text": "The response identifies unsupported or UI-only settings as manual handoffs and does not run writes.",
+      "passed": true,
+      "evidence": "The response labels UI work as `Manual` or `Manual settings`, including plan enablement, access, policy controls, governance source selection, and rulesets. It states `Plan only`, says no changes or mutation commands were run, and presents the only mutation as an unexecuted plan example."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 3,
+    "total": 6,
+    "pass_rate": 0.5
+  },
+  "execution_metrics": {
+    "tool_calls": {},
+    "total_tool_calls": 0,
+    "total_steps": 0,
+    "errors_encountered": 0,
+    "output_chars": 17938,
+    "transcript_chars": 17938
+  },
+  "timing": {
+    "executor_duration_seconds": 100.0,
+    "grader_duration_seconds": 0.0,
+    "total_duration_seconds": 100.0
+  },
+  "claims": [
+    {
+      "claim": "Direct assignment to enterprise teams supports Copilot Business only.",
+      "type": "factual",
+      "verified": false,
+      "evidence": "The response states this twice, but the supplied files contain no source text or captured documentation that verifies it."
+    },
+    {
+      "claim": "The default policy for new features becomes active on October 22, 2026.",
+      "type": "factual",
+      "verified": false,
+      "evidence": "The response gives this date, but the supplied files contain no supporting source or citation that can be checked."
+    },
+    {
+      "claim": "Copilot Business costs $19 per user per month with 1,900 included AI credits, and Copilot Enterprise costs $39 with 3,900 credits.",
+      "type": "factual",
+      "verified": false,
+      "evidence": "The response presents these as published prices and allowances. No source material was saved with the run, so the values cannot be verified from the available files."
+    },
+    {
+      "claim": "All Copilot user-management REST endpoints are in public preview.",
+      "type": "factual",
+      "verified": false,
+      "evidence": "The response labels the endpoints as public preview, but the output directory contains only `response.md`; there is no captured API documentation to verify the status."
+    },
+    {
+      "claim": "No changes or GitHub mutation commands were run.",
+      "type": "process",
+      "verified": false,
+      "evidence": "The response says `Plan only`, but there is no separate execution transcript or metrics file with tool-call records. The process claim cannot be independently confirmed."
+    },
+    {
+      "claim": "The proposed rollout covers every requested Copilot capability.",
+      "type": "quality",
+      "verified": true,
+      "evidence": "The response includes distinct guidance for Copilot CLI, code review, managed instructions, MCP controls, and enterprise custom agents."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "The response treats northwind.ghe.com as the GitHub host and verifies or diagnoses authentication for that host without exposing a token.",
+        "reason": "This combines three outcomes. Split host targeting, authentication diagnosis, and secret handling so a response that gets two of the three does not receive one coarse verdict."
+      },
+      {
+        "assertion": "The response explicitly identifies Copilot endpoints or capabilities that may be in preview and requires checking current official GitHub documentation before use.",
+        "reason": "Require a dated official source or a direct instruction to re-check the named GitHub documentation before execution. A generic documentation list does not prove that preview status was checked."
+      },
+      {
+        "reason": "The response makes many time-sensitive claims about prices, AI-credit allowances, API versions, preview status, and an October 22, 2026 policy change. Add an assertion that these claims cite or capture current official GitHub sources."
+      }
+    ],
+    "overall": "The assertions cover the requested rollout structure well, but they do not test the accuracy of the response's many time-sensitive product and billing claims. The inheritance assertion is useful and correctly exposes the missing four-field control record."
+  }
+}
