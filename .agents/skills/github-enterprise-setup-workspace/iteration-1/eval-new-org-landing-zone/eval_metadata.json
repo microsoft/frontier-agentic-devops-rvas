@@ -1,0 +1,13 @@
+{
+  "eval_id": 1,
+  "eval_name": "new-org-landing-zone",
+  "prompt": "Use Plan mode for our existing GitHub Enterprise Cloud account `contoso` on github.com. We want a new organization called `contoso-payments` for about 45 engineers. It needs platform, backend, and frontend teams; a private service repository created from our golden template; read-only Actions tokens; CodeQL and secret scanning; and Copilot for the backend and frontend teams. Assess the live account first. Do not make changes yet.",
+  "assertions": [
+    "The response does not run or recommend running a mutating GitHub command before a reviewed plan and explicit approval.",
+    "The response verifies or attempts to verify the active GitHub host, actor, enterprise access, and target organization state before planning.",
+    "The response proposes a capability checklist covering organization, teams, repository template, Actions, security, and Copilot before starting detailed configuration questions.",
+    "The response asks no more than one next interview question and includes a recommended answer with a concrete reason.",
+    "The response treats Copilot seat assignment as a separate billing-sensitive change with named recipients or teams.",
+    "The response distinguishes observed settings from effective policy source or inherited enterprise constraints."
+  ]
+}

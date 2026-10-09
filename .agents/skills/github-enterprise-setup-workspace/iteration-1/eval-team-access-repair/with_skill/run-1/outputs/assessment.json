@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "mode": "apply",
+  "host": "github.com",
+  "enterprise": {
+    "id": null,
+    "slug": "fabrikam"
+  },
+  "actor": {
+    "id": 218045726,
+    "login": "admin_olivoemu"
+  },
+  "started_at": "2026-10-09T15:33:32Z",
+  "updated_at": "2026-10-09T15:33:32Z",
+  "outcome": "Repair team and repository access in fabrikam-engineering",
+  "capabilities": [
+    "identity_and_authority",
+    "organizations",
+    "teams_and_repository_access"
+  ],
+  "observations": [
+    {
+      "control": "authentication.active_identity",
+      "target": "github.com",
+      "observed_value": {
+        "login": "admin_olivoemu",
+        "scopes": [
+          "gist",
+          "read:enterprise",
+          "read:org",
+          "repo",
+          "workflow"
+        ]
+      },
+      "effective_value": "authenticated",
+      "source_level": "host",
+      "changeable_by_actor": null,
+      "state": "verified",
+      "observed_at": "2026-10-09T15:33:32Z",
+      "evidence": {
+        "method": "gh auth status and GET",
+        "path": "/user",
+        "fields": [
+          "login",
+          "id",
+          "type",
+          "active",
+          "scopes"
+        ]
+      }
+    },
+    {
+      "control": "enterprise.visibility",
+      "target": "fabrikam",
+      "observed_value": "GraphQL NOT_FOUND",
+      "effective_value": null,
+      "source_level": "enterprise",
+      "changeable_by_actor": null,
+      "state": "insufficient_permission",
+      "observed_at": "2026-10-09T15:33:32Z",
+      "evidence": {
+        "method": "GraphQL",
+        "path": "enterprise(slug: fabrikam)",
+        "fields": [
+          "error.type",
+          "error.message"
+        ]
+      }
+    },
+    {
+      "control": "organization.visibility",
+      "target": "fabrikam-engineering",
+      "observed_value": "HTTP 404; GitHub CLI reported admin:org scope required",
+      "effective_value": null,
+      "source_level": "organization",
+      "changeable_by_actor": null,
+      "state": "insufficient_permission",
+      "observed_at": "2026-10-09T15:33:32Z",
+      "evidence": {
+        "method": "GET",
+        "path": "/orgs/fabrikam-engineering",
+        "fields": [
+          "status",
+          "message",
+          "required_scope"
+        ]
+      }
+    }
+  ],
+  "unknowns": [
+    "Whether the active actor can view or administer enterprise fabrikam",
+    "Organization base repository permission and inherited enterprise constraints",
+    "Repository inventory and visibility",
+    "Team hierarchy, membership, and inherited grants",
+    "Direct collaborators and outside collaborators",
+    "Per-person effective repository permissions",
+    "Exact corrective grants, removals, affected users, and recovery commands"
+  ],
+  "redactions": [
+    "Authentication token and token source were not saved",
+    "Raw API responses were not saved"
+  ]
+}

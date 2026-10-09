@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "mode": "plan",
+  "host": "github.com",
+  "enterprise": {
+    "id": null,
+    "slug": "contoso"
+  },
+  "actor": {
+    "id": 218045726,
+    "login": "admin_olivoemu"
+  },
+  "started_at": "2026-10-09T15:32:28Z",
+  "updated_at": "2026-10-09T15:34:00Z",
+  "outcome": "Create a new organization landing zone",
+  "capabilities": [
+    "organization",
+    "teams",
+    "repositories",
+    "actions",
+    "code_security",
+    "copilot"
+  ],
+  "observations": [
+    {
+      "control": "authentication.active_identity",
+      "target": "github.com",
+      "observed_value": "admin_olivoemu",
+      "effective_value": "admin_olivoemu",
+      "source_level": "host",
+      "changeable_by_actor": true,
+      "state": "verified",
+      "observed_at": "2026-10-09T15:32:28Z",
+      "evidence": {
+        "method": "LOCAL_AND_GET",
+        "paths": [
+          "gh auth status --active --hostname github.com",
+          "/user"
+        ],
+        "fields": [
+          "host",
+          "login",
+          "id",
+          "type",
+          "scope_names"
+        ]
+      }
+    },
+    {
+      "control": "enterprise.visibility",
+      "target": "contoso",
+      "observed_value": null,
+      "effective_value": null,
+      "source_level": "enterprise",
+      "changeable_by_actor": false,
+      "state": "insufficient_permission",
+      "observed_at": "2026-10-09T15:33:30Z",
+      "evidence": {
+        "method": "GRAPHQL",
+        "path": "enterprise(slug: \"contoso\")",
+        "result": "NOT_FOUND",
+        "visible_enterprise_slugs": [
+          "marcoolivo-msft-emu"
+        ]
+      }
+    },
+    {
+      "control": "organization.existence",
+      "target": "contoso-payments",
+      "observed_value": null,
+      "effective_value": null,
+      "source_level": "unknown",
+      "changeable_by_actor": false,
+      "state": "unverified",
+      "observed_at": "2026-10-09T15:33:00Z",
+      "evidence": {
+        "method": "GET",
+        "path": "/orgs/contoso-payments",
+        "result": "HTTP 404",
+        "required_scope_reported_by_api": "admin:org",
+        "classification": "The organization may be absent or hidden from the active identity."
+      }
+    }
+  ],
+  "unknowns": [
+    "Whether admin_olivoemu is the intended contoso enterprise-owner identity",
+    "Whether contoso-payments already exists",
+    "Enterprise policy constraints for organization creation, Actions, security, and Copilot",
+    "Golden template owner and repository name",
+    "Copilot subscription, seat-management mode, current assignments, and billing owner"
+  ],
+  "redactions": [
+    "Authentication token values were neither requested nor saved.",
+    "Raw API responses were not saved."
+  ]
+}

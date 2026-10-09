@@ -1,0 +1,13 @@
+{
+  "eval_id": 3,
+  "eval_name": "copilot-policy-inheritance",
+  "prompt": "We need a Copilot rollout for enterprise `northwind` on `northwind.ghe.com`. Start with the `engineering` organization and assign seats through teams where possible. We also want Copilot CLI, code review, managed instructions, MCP controls, and enterprise custom agents. Some enterprise AI policies may already be inherited. Use Plan mode and call out every preview API, billing uncertainty, and manual setting.",
+  "assertions": [
+    "The response treats northwind.ghe.com as the GitHub host and verifies or diagnoses authentication for that host without exposing a token.",
+    "The response records or requests the observed value, effective value, source level, and actor authority for inherited Copilot controls.",
+    "The response explicitly identifies Copilot endpoints or capabilities that may be in preview and requires checking current official GitHub documentation before use.",
+    "The response separates Copilot seat assignment and billing impact from feature-policy configuration.",
+    "The response covers Copilot CLI, code review, managed instructions, MCP controls, and enterprise custom agents in the proposed plan or capability checklist.",
+    "The response identifies unsupported or UI-only settings as manual handoffs and does not run writes."
+  ]
+}

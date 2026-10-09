@@ -1,0 +1,24 @@
+{
+  "skill_name": "github-enterprise-setup",
+  "model": "gpt-5.6-sol-fast",
+  "runs_per_query": 3,
+  "queries": 20,
+  "original": {
+    "passed": 16,
+    "failed": 4,
+    "description": "Assess, plan, configure, and verify an existing GitHub Enterprise Cloud account and its organizations, teams, repositories, templates, Actions, security, and Copilot setup through GitHub CLI. Use this skill whenever a user wants to set up, audit, align, harden, expand, or repair GitHub Enterprise Cloud, even when they ask only about creating an organization, designing team access, building repository standards, rolling out Copilot, or applying an enterprise baseline."
+  },
+  "final": {
+    "passed": 20,
+    "failed": 0,
+    "description": "Use this skill to assess, plan, apply, or resume administrative setup for an existing GitHub Enterprise Cloud account on github.com or ghe.com. Trigger for coordinated enterprise or organization work such as organization landing zones, identity and team access, repository factories and rulesets, Actions platform policy, security rollout, Copilot seats and controls, audit, billing, or governance. Use it when the user wants live-state discovery through GitHub CLI and a reviewed multi-resource setup or alignment plan. Do not use it for standalone GitHub CLI authentication troubleshooting, personal repositories, single-repository content or configuration edits, workflow debugging, migration-only work after the target is configured, GitHub Enterprise Server administration, conceptual explanations, or application code that calls GitHub APIs."
+  },
+  "fixed_false_triggers": [
+    "Personal-account repository creation",
+    "GitHub Enterprise Server upgrades",
+    "Repository migration after target setup",
+    "Single-repository Copilot instructions",
+    "Standalone GitHub CLI authentication troubleshooting"
+  ],
+  "method": "Copilot CLI non-interactive trigger probes with only the skill tool available"
+}

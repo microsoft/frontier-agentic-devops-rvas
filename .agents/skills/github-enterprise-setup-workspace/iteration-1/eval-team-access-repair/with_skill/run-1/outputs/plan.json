@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "assessment_path": "assessment.json",
+  "created_at": "2026-10-09T15:33:32Z",
+  "status": "blocked",
+  "blockers": [
+    {
+      "id": "target-access",
+      "reason": "The active identity cannot inspect the named enterprise or organization with its current authorization.",
+      "required_action": "Obtain explicit approval before refreshing the active GitHub CLI authorization with admin:org, then repeat read-only discovery.",
+      "command": "gh auth refresh --hostname github.com --scopes admin:org"
+    }
+  ],
+  "batches": [],
+  "planned_batch_order_after_discovery": [
+    {
+      "id": "corrective-team-grants",
+      "risk": "routine",
+      "purpose": "Add or correct platform and squad team grants before any removal."
+    },
+    {
+      "id": "effective-access-verification",
+      "risk": "routine",
+      "purpose": "Recalculate and verify each affected person's effective access."
+    },
+    {
+      "id": "direct-access-removals",
+      "risk": "high_impact",
+      "purpose": "Remove only approved redundant or excessive direct grants using an exact target list and recovery command per grant."
+    },
+    {
+      "id": "post-change-acceptance",
+      "risk": "routine",
+      "purpose": "Verify platform maintain access, squad write boundaries, and denied cross-squad writes with consenting non-owner accounts."
+    }
+  ]
+}

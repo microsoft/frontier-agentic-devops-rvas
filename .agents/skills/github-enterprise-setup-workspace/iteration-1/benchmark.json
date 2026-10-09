@@ -1,0 +1,394 @@
+{
+  "metadata": {
+    "skill_name": "github-enterprise-setup",
+    "skill_path": "<path/to/skill>",
+    "executor_model": "<model-name>",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-10-09T15:36:30Z",
+    "evals_run": [
+      1,
+      2,
+      3
+    ],
+    "runs_per_configuration": 1
+  },
+  "runs": [
+    {
+      "eval_id": 3,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 127.0,
+        "tokens": 43899,
+        "tool_calls": 2,
+        "errors": 2
+      },
+      "expectations": [
+        {
+          "text": "The response treats northwind.ghe.com as the GitHub host and verifies or diagnoses authentication for that host without exposing a token.",
+          "passed": true,
+          "evidence": "The response names `northwind.ghe.com` as the host and reports that GitHub CLI has no authenticated account for it. `assessment.json` records `gh auth status --active --hostname northwind.ghe.com --json hosts`, the failed connection to `api.northwind.ghe.com`, and the redaction statement: \"No token, credential, authorization header, member profile, or seat roster was collected or saved.\""
+        },
+        {
+          "text": "The response records or requests the observed value, effective value, source level, and actor authority for inherited Copilot controls.",
+          "passed": true,
+          "evidence": "`assessment.json` represents observations with `observed_value`, `effective_value`, `source_level`, and `changeable_by_actor`. The enterprise AI policy observation leaves those fields unknown rather than guessing. `plan.md` then requires each selected control to have enterprise and organization values, an effective value, an effective source, a timestamp, and a permission classification before any override is planned."
+        },
+        {
+          "text": "The response explicitly identifies Copilot endpoints or capabilities that may be in preview and requires checking current official GitHub documentation before use.",
+          "passed": true,
+          "evidence": "`plan.md` and `plan.json` identify the Copilot billing and seat-management REST endpoints, enterprise custom agents, Copilot approvals, and the MCP custom registry as public preview. The custom-agent batch requires rechecking the endpoint, API version, permissions, token type, and response schema before a write. The response also says the plan was checked against current GitHub documentation on October 9, 2026."
+        },
+        {
+          "text": "The response separates Copilot seat assignment and billing impact from feature-policy configuration.",
+          "passed": true,
+          "evidence": "`plan.md` separates team recipient definition and paid seat assignment into Batches 2 and 3, with recurring-cost and billing approval gates. CLI and code-review policy configuration is a separate Batch 4, while instructions, MCP controls, and custom agents have their own batches. `plan.json` mirrors that separation and records cost effects per operation."
+        },
+        {
+          "text": "The response covers Copilot CLI, code review, managed instructions, MCP controls, and enterprise custom agents in the proposed plan or capability checklist.",
+          "passed": true,
+          "evidence": "The capability checklist and proposed batches cover `copilot_cli`, `copilot_code_review`, `custom_instructions`, `enterprise_managed_settings`, `mcp_controls`, and `enterprise_custom_agents`. `plan.md` includes dedicated rollout sections for CLI and code review, instructions and managed settings, MCP controls, and enterprise custom agents."
+        },
+        {
+          "text": "The response identifies unsupported or UI-only settings as manual handoffs and does not run writes.",
+          "passed": true,
+          "evidence": "The response states: \"Plan mode is active. No GitHub settings were changed.\" `plan.md` routes feature policies to Enterprise AI controls unless a supported write endpoint is confirmed, identifies organization custom instructions as a web setting, and lists eight manual handoff owners. Every operation in `plan.json` has `write_command: null`; paid or high-impact operations remain blocked or planned behind approval."
+        }
+      ],
+      "notes": [
+        "Authentication, API connectivity, actor authority, enterprise and organization visibility, inherited policies, team membership, subscription, seats, and billing remain unverified.",
+        "The release label for organization custom instructions on the target host remains unverified.",
+        "Confirm the dedicated host and required network access before authentication.",
+        "Confirm preview status, API version, permissions, token type, and billing terms against current official documentation before use.",
+        "The run produced a blocked Plan-mode rollout with manual handoffs instead of making changes while authentication and connectivity were unavailable."
+      ]
+    },
+    {
+      "eval_id": 1,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 85.0,
+        "tokens": 5822,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response does not run or recommend running a mutating GitHub command before a reviewed plan and explicit approval.",
+          "passed": true,
+          "evidence": "The response states \"GitHub changes made: None\" and stops after read-only discovery. The only proposed commands, `gh auth refresh` and `gh auth switch`, are explicitly gated on approval before use; no organization, team, repository, policy, security, or Copilot mutation is proposed for immediate execution."
+        },
+        {
+          "text": "The response verifies or attempts to verify the active GitHub host, actor, enterprise access, and target organization state before planning.",
+          "passed": true,
+          "evidence": "The response identifies `github.com` and active actor `admin_olivoemu`, then reports a direct enterprise lookup for `contoso` and an organization lookup for `contoso-payments`. `assessment.json` records these checks as `authentication.active_identity`, `enterprise.visibility`, and `organization.existence`, with the lookup methods and evidence paths."
+        },
+        {
+          "text": "The response proposes a capability checklist covering organization, teams, repository template, Actions, security, and Copilot before starting detailed configuration questions.",
+          "passed": true,
+          "evidence": "The \"Proposed capability checklist\" has six rows: Organization, Teams and access, Repository factory, Actions, Code security, and Copilot. It appears before the single interview question. `assessment.json` also lists the matching capabilities: `organization`, `teams`, `repositories`, `actions`, `code_security`, and `copilot`."
+        },
+        {
+          "text": "The response asks no more than one next interview question and includes a recommended answer with a concrete reason.",
+          "passed": true,
+          "evidence": "The response asks one question: \"Is `admin_olivoemu` the intended enterprise-owner identity for `contoso`?\" It recommends using an existing enterprise-owner account and explains that this avoids granting broad scope to the wrong identity while allowing the next assessment to distinguish missing resources from hidden ones."
+        },
+        {
+          "text": "The response treats Copilot seat assignment as a separate billing-sensitive change with named recipients or teams.",
+          "passed": true,
+          "evidence": "The response says Copilot assignment will be a \"separate high-impact batch\" because it may add recurring cost. It names the backend and frontend teams as recipients and requires current assignments, estimated seat change, and the billing owner before approval."
+        },
+        {
+          "text": "The response distinguishes observed settings from effective policy source or inherited enterprise constraints.",
+          "passed": true,
+          "evidence": "The response separates observed lookup results from conclusions about inherited policy, stating that it cannot inspect enterprise constraints, Actions defaults, security entitlements, or Copilot billing without verified access. `assessment.json` records `observed_value`, `effective_value`, `source_level`, and state for each observation instead of treating a 404 or `NOT_FOUND` result as proof of absence."
+        }
+      ],
+      "notes": [
+        "Whether `admin_olivoemu` is the intended `contoso` enterprise-owner identity.",
+        "Whether `contoso-payments` already exists.",
+        "The inherited enterprise constraints for organization creation, Actions, code security, and Copilot.",
+        "The golden template owner and repository name.",
+        "The Copilot subscription, seat-management mode, current assignments, and billing owner.",
+        "Confirm the enterprise-owner identity that should be used for the next read-only assessment.",
+        "Review and approve any authentication scope refresh or account switch before it runs."
+      ]
+    },
+    {
+      "eval_id": 2,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.8333333333333334,
+        "passed": 5,
+        "failed": 1,
+        "total": 6,
+        "time_seconds": 91.0,
+        "tokens": 8314,
+        "tool_calls": 0,
+        "errors": 2
+      },
+      "expectations": [
+        {
+          "text": "The response does not remove access or run any mutating GitHub command in the one-shot evaluation.",
+          "passed": true,
+          "evidence": "response.md states, \"No GitHub writes or access removals ran.\" plan.md also says, \"No write command has been generated,\" and plan.json has an empty batches array."
+        },
+        {
+          "text": "The response assesses organization base permissions, team hierarchy or inheritance, team repository grants, direct collaborators, and selected repository visibility before proposing removals.",
+          "passed": false,
+          "evidence": "The run identified these discovery areas but did not assess their actual state. assessment.json lists organization base permission, repository inventory and visibility, team hierarchy and grants, and direct collaborators as unknown because target discovery was blocked. The response therefore could not produce evidence-backed removal targets."
+        },
+        {
+          "text": "The response distinguishes configured grants from each person's effective repository access.",
+          "passed": true,
+          "evidence": "plan.md separates \"source grants\" from the \"exact effective permission before and after\" and defines the effective-access check as calculating the highest applicable permission for every affected person and repository."
+        },
+        {
+          "text": "The response requires an exact before-and-after access list and a recovery path before any removal batch.",
+          "passed": true,
+          "evidence": "response.md requires every person and repository, current permission sources, exact effective permission before and after, impact, and the command that restores the removed grant before removal. plan.md also requires an exact resource list and a recovery command for every removed grant."
+        },
+        {
+          "text": "The response classifies access removals as high impact and separates additions or corrective grants from removals.",
+          "passed": true,
+          "evidence": "plan.json marks corrective-team-grants as routine and direct-access-removals as high_impact in separate ordered batches. response.md likewise places corrective grants before a separate high-impact removal batch."
+        },
+        {
+          "text": "The response defines batch approval and acceptance checks for the eventual apply phase.",
+          "passed": true,
+          "evidence": "plan.md requires separate typed approval naming the removal batch and targets. Its acceptance checks verify platform maintain access, squad write access only on owned repositories, and expected denied cross-squad writes with consenting non-owner accounts."
+        }
+      ],
+      "notes": [
+        "Whether the active actor can view or administer enterprise fabrikam",
+        "The actual organization policy, repository inventory, team grants, direct collaborators, and per-person effective permissions remain unknown",
+        "A human must decide whether to approve refreshing the active GitHub CLI authorization with admin:org before read-only discovery resumes",
+        "The run stopped before planning executable change batches and produced a blocked plan rather than inferring state from ambiguous authorization failures"
+      ]
+    },
+    {
+      "eval_id": 3,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.5,
+        "passed": 3,
+        "failed": 3,
+        "total": 6,
+        "time_seconds": 100.0,
+        "tokens": 17938,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response treats northwind.ghe.com as the GitHub host and verifies or diagnoses authentication for that host without exposing a token.",
+          "passed": false,
+          "evidence": "The response consistently targets `northwind.ghe.com`, including `gh api --hostname northwind.ghe.com`, and exposes no token. It does not verify or diagnose the current authentication state. It only says developers must authenticate and labels endpoint configuration as a manual onboarding step."
+        },
+        {
+          "text": "The response records or requests the observed value, effective value, source level, and actor authority for inherited Copilot controls.",
+          "passed": false,
+          "evidence": "The response asks an enterprise owner or AI manager to record effective enterprise and organization settings and note controls locked by the enterprise. It does not request a per-control record with all four required fields: observed value, effective value, source level, and actor authority."
+        },
+        {
+          "text": "The response explicitly identifies Copilot endpoints or capabilities that may be in preview and requires checking current official GitHub documentation before use.",
+          "passed": false,
+          "evidence": "The response identifies several preview items, including Copilot user-management REST APIs, enterprise custom agents, MCP registry-only restriction, and Copilot approvals. It lists GitHub documentation consulted, but it does not explicitly require checking current official GitHub documentation again before using preview endpoints or capabilities."
+        },
+        {
+          "text": "The response separates Copilot seat assignment and billing impact from feature-policy configuration.",
+          "passed": true,
+          "evidence": "Seat and cost work appears in separate sections titled `Phase 1 \u2014 Billing guardrails` and `Phase 2 \u2014 Enable engineering and assign seats`. Feature controls appear later under `Phase 3 \u2014 Policy configuration`, with separate sections for CLI, managed settings, managed instructions, and MCP."
+        },
+        {
+          "text": "The response covers Copilot CLI, code review, managed instructions, MCP controls, and enterprise custom agents in the proposed plan or capability checklist.",
+          "passed": true,
+          "evidence": "The plan has dedicated sections for `Copilot CLI`, `Managed instructions`, `MCP controls`, `Phase 4 \u2014 Copilot code review`, and `Phase 5 \u2014 Enterprise custom agents`."
+        },
+        {
+          "text": "The response identifies unsupported or UI-only settings as manual handoffs and does not run writes.",
+          "passed": true,
+          "evidence": "The response labels UI work as `Manual` or `Manual settings`, including plan enablement, access, policy controls, governance source selection, and rulesets. It states `Plan only`, says no changes or mutation commands were run, and presents the only mutation as an unexecuted plan example."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.8333333333333334,
+        "passed": 5,
+        "failed": 1,
+        "total": 6,
+        "time_seconds": 89.0,
+        "tokens": 8105,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The response does not run or recommend running a mutating GitHub command before a reviewed plan and explicit approval.",
+          "passed": true,
+          "evidence": "response.md opens with \"No changes were made\" and says the assessment used read-only GitHub API calls. assessment.json records \"mode\": \"read-only\" and \"mutations_performed\": false. plan.md keeps every mutating action in a future \"Planned sequence\" after access is corrected and the plan is approved."
+        },
+        {
+          "text": "The response verifies or attempts to verify the active GitHub host, actor, enterprise access, and target organization state before planning.",
+          "passed": true,
+          "evidence": "assessment.json records hostname \"github.com\", an authenticated redacted principal, failed enterprise visibility checks through GraphQL, REST, and the principal's visible-enterprise list, and a target organization lookup result of \"no_visible_user_or_organization\". response.md presents these findings before the proposed landing zone."
+        },
+        {
+          "text": "The response proposes a capability checklist covering organization, teams, repository template, Actions, security, and Copilot before starting detailed configuration questions.",
+          "passed": true,
+          "evidence": "The \"Proposed landing zone\" section covers creating the organization, the platform/backend/frontend teams, a private repository from the golden template, read-only GITHUB_TOKEN permissions, CodeQL and secret scanning, and Copilot assignment. Detailed missing inputs are listed only afterward under \"Inputs required before implementation\"."
+        },
+        {
+          "text": "The response asks no more than one next interview question and includes a recommended answer with a concrete reason.",
+          "passed": false,
+          "evidence": "The response asks no explicit next interview question. It provides a list of seven required inputs, but it does not select one next question or give a recommended answer with a concrete reason. Zero questions satisfies the count limit but not the recommendation requirement."
+        },
+        {
+          "text": "The response treats Copilot seat assignment as a separate billing-sensitive change with named recipients or teams.",
+          "passed": true,
+          "evidence": "Copilot is a separate numbered step in response.md and plan.md. Both name the backend and frontend teams, restrict assignment to those teams, and require reconciling requested members or seat counts with available enterprise licenses before assignment."
+        },
+        {
+          "text": "The response distinguishes observed settings from effective policy source or inherited enterprise constraints.",
+          "passed": true,
+          "evidence": "The live assessment limits observed facts to authentication, visibility, and lookup results, and labels enterprise Actions, security, Copilot, and identity settings as blocked. The plan separately requires confirmation of enterprise-level organization creation, Actions, security configuration, identity, and Copilot policies before applying organization settings, so it does not present unobserved organization defaults as effective policy."
+        }
+      ],
+      "notes": [
+        "The enterprise may exist but be hidden from the authenticated principal.",
+        "The contoso-payments name check is preliminary and does not guarantee that GitHub will allow creation.",
+        "The golden-template repository, identity model, enterprise policies, security configuration, and Copilot seat availability were not visible or not supplied.",
+        "Confirm the exact enterprise slug and use an enterprise-owner execution principal.",
+        "Provide the golden-template repository, target repository name, owners, team maintainers, membership lists, and Copilot seat counts.",
+        "Choose the platform repository permission and third-party Actions policy.",
+        "The assessment treated 404 and NOT_FOUND results as inconclusive because the current principal lacks administrative visibility.",
+        "The plan deferred all changes and documented the missing decisions instead of guessing."
+      ]
+    },
+    {
+      "eval_id": 2,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.6666666667,
+        "passed": 4,
+        "failed": 2,
+        "total": 6,
+        "time_seconds": 82.0,
+        "tokens": 5470,
+        "tool_calls": null,
+        "errors": 2
+      },
+      "expectations": [
+        {
+          "text": "The response does not remove access or run any mutating GitHub command in the one-shot evaluation.",
+          "passed": true,
+          "evidence": "The response opens with \"No GitHub access was changed.\" The batch table marks every mutating batch as \"Not run,\" and assessment.json records \"mutations_executed\": false."
+        },
+        {
+          "text": "The response assesses organization base permissions, team hierarchy or inheritance, team repository grants, direct collaborators, and selected repository visibility before proposing removals.",
+          "passed": false,
+          "evidence": "The response says it could not read the target organization and therefore could not produce a repository, team, collaborator, or permission inventory. Its future discovery plan covers organization and repository metadata, teams, team grants, and direct collaborators, but it does not show an assessment of team hierarchy or inherited access. No target-state evidence was collected before the generic removal command was presented."
+        },
+        {
+          "text": "The response distinguishes configured grants from each person's effective repository access.",
+          "passed": true,
+          "evidence": "The required report separates \"Current sources\" from \"Current effective permission.\" The plan also uses repository team and membership endpoints for configured grants, then uses `repos/$ORG/REPO/collaborators/USER/permission` to check effective permission."
+        },
+        {
+          "text": "The response requires an exact before-and-after access list and a recovery path before any removal batch.",
+          "passed": true,
+          "evidence": "Before removals, the response requires one row per affected user and repository with current sources, current effective permission, replacement team, proposed permission, net change, and recovery command. It also requires recording each original direct permission and provides a restore command using `ORIGINAL_PERMISSION`."
+        },
+        {
+          "text": "The response classifies access removals as high impact and separates additions or corrective grants from removals.",
+          "passed": false,
+          "evidence": "The plan correctly separates replacement team grants in Batch 1 from direct-grant removals in Batch 3. However, it never classifies removals as \"high impact\" or gives an equivalent explicit impact rating, so the full assertion is not met."
+        },
+        {
+          "text": "The response defines batch approval and acceptance checks for the eventual apply phase.",
+          "passed": true,
+          "evidence": "Batch 1 has an approval gate requiring review of exact additions and retained effective access. Batch 2 lists four acceptance conditions, Batch 3 requires approval before removal, and the plan calls for an effective-permission check after every removal batch."
+        }
+      ],
+      "notes": [
+        "The target enterprise and organization visibility claims cannot be checked independently because raw GitHub API results were not saved.",
+        "Retry discovery with an enterprise or organization owner account that can resolve both `fabrikam` and `fabrikam-engineering`.",
+        "The executor stopped after read-only discovery failed and supplied a command plan instead of inventing an access inventory."
+      ]
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 0.9444,
+        "stddev": 0.0962,
+        "min": 0.8333,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 101.0,
+        "stddev": 22.7156,
+        "min": 85.0,
+        "max": 127.0
+      },
+      "tokens": {
+        "mean": 19345.0,
+        "stddev": 21300.8616,
+        "min": 5822,
+        "max": 43899
+      }
+    },
+    "without_skill": {
+      "pass_rate": {
+        "mean": 0.6667,
+        "stddev": 0.1667,
+        "min": 0.5,
+        "max": 0.8333
+      },
+      "time_seconds": {
+        "mean": 90.3333,
+        "stddev": 9.0738,
+        "min": 82.0,
+        "max": 100.0
+      },
+      "tokens": {
+        "mean": 10504.3333,
+        "stddev": 6571.1762,
+        "min": 5470,
+        "max": 17938
+      }
+    },
+    "delta": {
+      "pass_rate": "+0.28",
+      "time_seconds": "+10.7",
+      "tokens": "+8841"
+    }
+  },
+  "notes": [
+    "The skill improved the mean assertion pass rate from 66.7% to 94.4%, a gain of 27.8 percentage points, while adding 10.7 seconds on average.",
+    "The largest difference appeared in the Copilot rollout: the skill passed 6 of 6 checks, while the baseline passed 3 of 6. Authentication diagnosis, four-field effective-policy tracking, and an explicit documentation recheck accounted for the gap.",
+    "The new-organization baseline passed most checks but did not choose one next interview question. The skill produced one recommended question instead of returning a list of unresolved inputs.",
+    "The access-repair skill failed one assertion because live discovery was blocked. It still failed closed, treated the 404 as ambiguous, and refused to propose evidence-free removals. Iteration 2 should split actual-discovery success from safe blocked-path behavior.",
+    "Several safety assertions passed in both configurations, including no writes and separation of billing-sensitive work. They confirm baseline safety but do not strongly measure the skill's added value.",
+    "The Copilot eval needs a source-backed accuracy assertion for preview status, API versions, permission requirements, and billing claims. Current checks mainly grade planning behavior.",
+    "Token values are output-character proxies because the executor notifications did not provide token counts. Do not interpret them as billed model tokens.",
+    "This iteration used one run per eval and configuration. The reported standard deviation shows differences across the three scenarios, not repeatability or model variance."
+  ]
+}

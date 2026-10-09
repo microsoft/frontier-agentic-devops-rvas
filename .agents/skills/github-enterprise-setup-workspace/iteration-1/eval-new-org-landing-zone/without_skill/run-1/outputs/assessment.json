@@ -1,0 +1,40 @@
+{
+  "assessment_time": "2026-10-09T17:32:28.824+02:00",
+  "hostname": "github.com",
+  "requested_enterprise": "contoso",
+  "mode": "read-only",
+  "mutations_performed": false,
+  "authentication": {
+    "status": "authenticated",
+    "principal": "[REDACTED]",
+    "enterprise_admin_scope_available": false,
+    "organization_admin_scope_available": false
+  },
+  "enterprise_access": {
+    "status": "not_visible",
+    "evidence": [
+      "GraphQL enterprise lookup returned NOT_FOUND.",
+      "REST enterprise organization lookup returned HTTP 404.",
+      "The authenticated principal's visible-enterprise list did not include contoso."
+    ],
+    "interpretation": "The session cannot distinguish a missing enterprise from an enterprise hidden by authorization."
+  },
+  "target_organization": {
+    "login": "contoso-payments",
+    "status": "no_visible_user_or_organization",
+    "qualification": "This is not a reservation or availability guarantee."
+  },
+  "account_name_collision": {
+    "login": "contoso",
+    "visible_type": "Organization",
+    "note": "A public organization named contoso is visible. This does not prove that it owns or represents the requested enterprise account."
+  },
+  "settings_assessed": {
+    "enterprise_organizations": "blocked_by_access",
+    "enterprise_actions_policy": "blocked_by_access_and_missing_admin_scope",
+    "enterprise_code_security_configuration": "blocked_by_access",
+    "copilot_entitlements_and_seats": "blocked_by_access",
+    "golden_template": "not_identified",
+    "identity_model": "not_confirmed"
+  }
+}

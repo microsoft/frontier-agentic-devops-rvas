@@ -1,0 +1,852 @@
+{
+  "skill_name": "github-enterprise-setup",
+  "model": "gpt-5.6-sol-fast",
+  "runs_per_query": 3,
+  "summary": {
+    "passed": 20,
+    "failed": 0,
+    "total": 20
+  },
+  "results": [
+    {
+      "query": "We just bought GitHub Enterprise Cloud and I need help setting up the existing `acme-global` enterprise. Start by checking my active gh account, then help me decide how many organizations we need, who should own them, and which enterprise policies should be set centrally. I want a reviewed plan before anything changes.",
+      "should_trigger": true,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "details": [
+        {
+          "index": 0,
+          "run": 1,
+          "query": "We just bought GitHub Enterprise Cloud and I need help setting up the existing `acme-global` enterprise. Start by checking my active gh account, then help me decide how many organizations we need, who should own them, and which enterprise policies should be set centrally. I want a reviewed plan before anything changes.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 26.999,
+          "stderr": ""
+        },
+        {
+          "index": 0,
+          "run": 2,
+          "query": "We just bought GitHub Enterprise Cloud and I need help setting up the existing `acme-global` enterprise. Start by checking my active gh account, then help me decide how many organizations we need, who should own them, and which enterprise policies should be set centrally. I want a reviewed plan before anything changes.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 29.638,
+          "stderr": ""
+        },
+        {
+          "index": 0,
+          "run": 3,
+          "query": "We just bought GitHub Enterprise Cloud and I need help setting up the existing `acme-global` enterprise. Start by checking my active gh account, then help me decide how many organizations we need, who should own them, and which enterprise policies should be set centrally. I want a reviewed plan before anything changes.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 29.823,
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "query": "Create a landing-zone plan for a new organization called `payments-platform` inside our existing `contoso` enterprise. We need IdP-backed teams, two private template repositories, read-only Actions tokens, security defaults, and Copilot seats for selected teams. Use gh and inspect the current enterprise first.",
+      "should_trigger": true,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "details": [
+        {
+          "index": 1,
+          "run": 1,
+          "query": "Create a landing-zone plan for a new organization called `payments-platform` inside our existing `contoso` enterprise. We need IdP-backed teams, two private template repositories, read-only Actions tokens, security defaults, and Copilot seats for selected teams. Use gh and inspect the current enterprise first.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 27.905,
+          "stderr": ""
+        },
+        {
+          "index": 1,
+          "run": 2,
+          "query": "Create a landing-zone plan for a new organization called `payments-platform` inside our existing `contoso` enterprise. We need IdP-backed teams, two private template repositories, read-only Actions tokens, security defaults, and Copilot seats for selected teams. Use gh and inspect the current enterprise first.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 24.654,
+          "stderr": ""
+        },
+        {
+          "index": 1,
+          "run": 3,
+          "query": "Create a landing-zone plan for a new organization called `payments-platform` inside our existing `contoso` enterprise. We need IdP-backed teams, two private template repositories, read-only Actions tokens, security defaults, and Copilot seats for selected teams. Use gh and inspect the current enterprise first.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 25.299,
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "query": "Our `fabrikam-engineering` org has years of direct collaborator grants and nobody knows the effective access anymore. Assess base permissions, team inheritance, outside collaborators, and repository grants, then interview me about a safer team model before proposing changes.",
+      "should_trigger": true,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "details": [
+        {
+          "index": 2,
+          "run": 1,
+          "query": "Our `fabrikam-engineering` org has years of direct collaborator grants and nobody knows the effective access anymore. Assess base permissions, team inheritance, outside collaborators, and repository grants, then interview me about a safer team model before proposing changes.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 26.409,
+          "stderr": ""
+        },
+        {
+          "index": 2,
+          "run": 2,
+          "query": "Our `fabrikam-engineering` org has years of direct collaborator grants and nobody knows the effective access anymore. Assess base permissions, team inheritance, outside collaborators, and repository grants, then interview me about a safer team model before proposing changes.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 31.367,
+          "stderr": ""
+        },
+        {
+          "index": 2,
+          "run": 3,
+          "query": "Our `fabrikam-engineering` org has years of direct collaborator grants and nobody knows the effective access anymore. Assess base permissions, team inheritance, outside collaborators, and repository grants, then interview me about a safer team model before proposing changes.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 23.098,
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "query": "Plan a Copilot Enterprise rollout on `northwind.ghe.com`. I need team-based seat assignment, CLI, code review, MCP restrictions, managed instructions, custom agents, budgets, and a clear list of inherited enterprise settings versus org-level choices.",
+      "should_trigger": true,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "details": [
+        {
+          "index": 3,
+          "run": 1,
+          "query": "Plan a Copilot Enterprise rollout on `northwind.ghe.com`. I need team-based seat assignment, CLI, code review, MCP restrictions, managed instructions, custom agents, budgets, and a clear list of inherited enterprise settings versus org-level choices.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 45.073,
+          "stderr": ""
+        },
+        {
+          "index": 3,
+          "run": 2,
+          "query": "Plan a Copilot Enterprise rollout on `northwind.ghe.com`. I need team-based seat assignment, CLI, code review, MCP restrictions, managed instructions, custom agents, budgets, and a clear list of inherited enterprise settings versus org-level choices.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 52.836,
+          "stderr": ""
+        },
+        {
+          "index": 3,
+          "run": 3,
+          "query": "Plan a Copilot Enterprise rollout on `northwind.ghe.com`. I need team-based seat assignment, CLI, code review, MCP restrictions, managed instructions, custom agents, budgets, and a clear list of inherited enterprise settings versus org-level choices.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 67.688,
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "query": "Audit our GitHub Enterprise Cloud baseline. Check organization creation, repository visibility, Actions policy, PAT governance, audit streaming, Code Security coverage, and Copilot controls. Save a redacted assessment and ask me one decision at a time where the desired state is unclear.",
+      "should_trigger": true,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "details": [
+        {
+          "index": 4,
+          "run": 1,
+          "query": "Audit our GitHub Enterprise Cloud baseline. Check organization creation, repository visibility, Actions policy, PAT governance, audit streaming, Code Security coverage, and Copilot controls. Save a redacted assessment and ask me one decision at a time where the desired state is unclear.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 25.639,
+          "stderr": ""
+        },
+        {
+          "index": 4,
+          "run": 2,
+          "query": "Audit our GitHub Enterprise Cloud baseline. Check organization creation, repository visibility, Actions policy, PAT governance, audit streaming, Code Security coverage, and Copilot controls. Save a redacted assessment and ask me one decision at a time where the desired state is unclear.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 26.444,
+          "stderr": ""
+        },
+        {
+          "index": 4,
+          "run": 3,
+          "query": "Audit our GitHub Enterprise Cloud baseline. Check organization creation, repository visibility, Actions policy, PAT governance, audit streaming, Code Security coverage, and Copilot controls. Save a redacted assessment and ask me one decision at a time where the desired state is unclear.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 28.967,
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "query": "Help us build a repository factory across our enterprise. We want approved templates, custom properties, organization and repository rulesets, CODEOWNERS, standard workflows, and separate handling for existing production repos. Inspect what already exists before creating a plan.",
+      "should_trigger": true,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "details": [
+        {
+          "index": 5,
+          "run": 1,
+          "query": "Help us build a repository factory across our enterprise. We want approved templates, custom properties, organization and repository rulesets, CODEOWNERS, standard workflows, and separate handling for existing production repos. Inspect what already exists before creating a plan.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 24.094,
+          "stderr": ""
+        },
+        {
+          "index": 5,
+          "run": 2,
+          "query": "Help us build a repository factory across our enterprise. We want approved templates, custom properties, organization and repository rulesets, CODEOWNERS, standard workflows, and separate handling for existing production repos. Inspect what already exists before creating a plan.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 19.007,
+          "stderr": ""
+        },
+        {
+          "index": 5,
+          "run": 3,
+          "query": "Help us build a repository factory across our enterprise. We want approved templates, custom properties, organization and repository rulesets, CODEOWNERS, standard workflows, and separate handling for existing production repos. Inspect what already exists before creating a plan.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 22.74,
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "query": "Set up the Actions platform for our existing GitHub enterprise: enterprise allowlists, default workflow permissions, runner groups, reusable workflows, environments, and OIDC handoffs. We use github.com and I am already logged in with gh. Assess first and apply only approved batches.",
+      "should_trigger": true,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "details": [
+        {
+          "index": 6,
+          "run": 1,
+          "query": "Set up the Actions platform for our existing GitHub enterprise: enterprise allowlists, default workflow permissions, runner groups, reusable workflows, environments, and OIDC handoffs. We use github.com and I am already logged in with gh. Assess first and apply only approved batches.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 21.848,
+          "stderr": ""
+        },
+        {
+          "index": 6,
+          "run": 2,
+          "query": "Set up the Actions platform for our existing GitHub enterprise: enterprise allowlists, default workflow permissions, runner groups, reusable workflows, environments, and OIDC handoffs. We use github.com and I am already logged in with gh. Assess first and apply only approved batches.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 23.006,
+          "stderr": ""
+        },
+        {
+          "index": 6,
+          "run": 3,
+          "query": "Set up the Actions platform for our existing GitHub enterprise: enterprise allowlists, default workflow permissions, runner groups, reusable workflows, environments, and OIDC handoffs. We use github.com and I am already logged in with gh. Assess first and apply only approved batches.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 21.8,
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "query": "We need to enable Code Security and Secret Protection for three organizations in waves. Find current entitlements and security configurations, identify inherited policy, propose pilot repositories, and keep any paid or disruptive change behind its own approval.",
+      "should_trigger": true,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "details": [
+        {
+          "index": 7,
+          "run": 1,
+          "query": "We need to enable Code Security and Secret Protection for three organizations in waves. Find current entitlements and security configurations, identify inherited policy, propose pilot repositories, and keep any paid or disruptive change behind its own approval.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 20.7,
+          "stderr": ""
+        },
+        {
+          "index": 7,
+          "run": 2,
+          "query": "We need to enable Code Security and Secret Protection for three organizations in waves. Find current entitlements and security configurations, identify inherited policy, propose pilot repositories, and keep any paid or disruptive change behind its own approval.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 21.866,
+          "stderr": ""
+        },
+        {
+          "index": 7,
+          "run": 3,
+          "query": "We need to enable Code Security and Secret Protection for three organizations in waves. Find current entitlements and security configurations, identify inherited policy, propose pilot repositories, and keep any paid or disruptive change behind its own approval.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 29.993,
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "query": "Resume the GitHub enterprise setup from `$HOME/.github-enterprise-setup/woodgrove/2026-10-08T090000Z`. Revalidate my active gh identity and every stale precondition, then show the next pending batch before running anything.",
+      "should_trigger": true,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "details": [
+        {
+          "index": 8,
+          "run": 1,
+          "query": "Resume the GitHub enterprise setup from `$HOME/.github-enterprise-setup/woodgrove/2026-10-08T090000Z`. Revalidate my active gh identity and every stale precondition, then show the next pending batch before running anything.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 30.205,
+          "stderr": ""
+        },
+        {
+          "index": 8,
+          "run": 2,
+          "query": "Resume the GitHub enterprise setup from `$HOME/.github-enterprise-setup/woodgrove/2026-10-08T090000Z`. Revalidate my active gh identity and every stale precondition, then show the next pending batch before running anything.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 30.553,
+          "stderr": ""
+        },
+        {
+          "index": 8,
+          "run": 3,
+          "query": "Resume the GitHub enterprise setup from `$HOME/.github-enterprise-setup/woodgrove/2026-10-08T090000Z`. Revalidate my active gh identity and every stale precondition, then show the next pending batch before running anything.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 31.561,
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "query": "We have an existing Enterprise Cloud account but no operating model yet. Engineering wants self-service repos, security wants tighter Actions and token controls, and finance wants Copilot costs assigned by team. Guide us through the design using our live GitHub state.",
+      "should_trigger": true,
+      "triggers": 3,
+      "runs": 3,
+      "pass": true,
+      "details": [
+        {
+          "index": 9,
+          "run": 1,
+          "query": "We have an existing Enterprise Cloud account but no operating model yet. Engineering wants self-service repos, security wants tighter Actions and token controls, and finance wants Copilot costs assigned by team. Guide us through the design using our live GitHub state.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 34.325,
+          "stderr": ""
+        },
+        {
+          "index": 9,
+          "run": 2,
+          "query": "We have an existing Enterprise Cloud account but no operating model yet. Engineering wants self-service repos, security wants tighter Actions and token controls, and finance wants Copilot costs assigned by team. Guide us through the design using our live GitHub state.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 32.824,
+          "stderr": ""
+        },
+        {
+          "index": 9,
+          "run": 3,
+          "query": "We have an existing Enterprise Cloud account but no operating model yet. Engineering wants self-service repos, security wants tighter Actions and token controls, and finance wants Copilot costs assigned by team. Guide us through the design using our live GitHub state.",
+          "should_trigger": true,
+          "triggered": true,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 23.749,
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "query": "My `gh auth login` keeps opening the browser and then says the device code expired. Help me troubleshoot GitHub CLI authentication on this laptop.",
+      "should_trigger": false,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "details": [
+        {
+          "index": 10,
+          "run": 1,
+          "query": "My `gh auth login` keeps opening the browser and then says the device code expired. Help me troubleshoot GitHub CLI authentication on this laptop.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 25.924,
+          "stderr": ""
+        },
+        {
+          "index": 10,
+          "run": 2,
+          "query": "My `gh auth login` keeps opening the browser and then says the device code expired. Help me troubleshoot GitHub CLI authentication on this laptop.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 28.947,
+          "stderr": ""
+        },
+        {
+          "index": 10,
+          "run": 3,
+          "query": "My `gh auth login` keeps opening the browser and then says the device code expired. Help me troubleshoot GitHub CLI authentication on this laptop.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 25.76,
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "query": "Create a private repository named `weekend-project` under my personal GitHub account, add a Node .gitignore, and push the files in this folder.",
+      "should_trigger": false,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "details": [
+        {
+          "index": 11,
+          "run": 1,
+          "query": "Create a private repository named `weekend-project` under my personal GitHub account, add a Node .gitignore, and push the files in this folder.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 21.108,
+          "stderr": ""
+        },
+        {
+          "index": 11,
+          "run": 2,
+          "query": "Create a private repository named `weekend-project` under my personal GitHub account, add a Node .gitignore, and push the files in this folder.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 22.726,
+          "stderr": ""
+        },
+        {
+          "index": 11,
+          "run": 3,
+          "query": "Create a private repository named `weekend-project` under my personal GitHub account, add a Node .gitignore, and push the files in this folder.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 31.155,
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "query": "This GitHub Actions workflow fails with `Unable to resolve action actions/cache@v4`. Inspect `.github/workflows/build.yml`, fix the YAML, and run the repository tests.",
+      "should_trigger": false,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "details": [
+        {
+          "index": 12,
+          "run": 1,
+          "query": "This GitHub Actions workflow fails with `Unable to resolve action actions/cache@v4`. Inspect `.github/workflows/build.yml`, fix the YAML, and run the repository tests.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 26.622,
+          "stderr": ""
+        },
+        {
+          "index": 12,
+          "run": 2,
+          "query": "This GitHub Actions workflow fails with `Unable to resolve action actions/cache@v4`. Inspect `.github/workflows/build.yml`, fix the YAML, and run the repository tests.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 28.975,
+          "stderr": ""
+        },
+        {
+          "index": 12,
+          "run": 3,
+          "query": "This GitHub Actions workflow fails with `Unable to resolve action actions/cache@v4`. Inspect `.github/workflows/build.yml`, fix the YAML, and run the repository tests.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 28.75,
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "query": "Can you explain the conceptual difference between a GitHub organization and an enterprise account? I only need a short answer and do not want you to inspect or change anything.",
+      "should_trigger": false,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "details": [
+        {
+          "index": 13,
+          "run": 1,
+          "query": "Can you explain the conceptual difference between a GitHub organization and an enterprise account? I only need a short answer and do not want you to inspect or change anything.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 25.887,
+          "stderr": ""
+        },
+        {
+          "index": 13,
+          "run": 2,
+          "query": "Can you explain the conceptual difference between a GitHub organization and an enterprise account? I only need a short answer and do not want you to inspect or change anything.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 24.111,
+          "stderr": ""
+        },
+        {
+          "index": 13,
+          "run": 3,
+          "query": "Can you explain the conceptual difference between a GitHub organization and an enterprise account? I only need a short answer and do not want you to inspect or change anything.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 26.063,
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "query": "We run GitHub Enterprise Server 3.14 on VMware. Build an upgrade plan to the next GHES release, including appliance backups, maintenance mode, and replica failover.",
+      "should_trigger": false,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "details": [
+        {
+          "index": 14,
+          "run": 1,
+          "query": "We run GitHub Enterprise Server 3.14 on VMware. Build an upgrade plan to the next GHES release, including appliance backups, maintenance mode, and replica failover.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 61.69,
+          "stderr": ""
+        },
+        {
+          "index": 14,
+          "run": 2,
+          "query": "We run GitHub Enterprise Server 3.14 on VMware. Build an upgrade plan to the next GHES release, including appliance backups, maintenance mode, and replica failover.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 67.384,
+          "stderr": ""
+        },
+        {
+          "index": 14,
+          "run": 3,
+          "query": "We run GitHub Enterprise Server 3.14 on VMware. Build an upgrade plan to the next GHES release, including appliance backups, maintenance mode, and replica failover.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 62.013,
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "query": "Write a TypeScript service that uses Octokit to list teams for an organization. Add pagination, unit tests, and retry handling. This is application code, not an administrator session.",
+      "should_trigger": false,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "details": [
+        {
+          "index": 15,
+          "run": 1,
+          "query": "Write a TypeScript service that uses Octokit to list teams for an organization. Add pagination, unit tests, and retry handling. This is application code, not an administrator session.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 39.846,
+          "stderr": ""
+        },
+        {
+          "index": 15,
+          "run": 2,
+          "query": "Write a TypeScript service that uses Octokit to list teams for an organization. Add pagination, unit tests, and retry handling. This is application code, not an administrator session.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 49.662,
+          "stderr": ""
+        },
+        {
+          "index": 15,
+          "run": 3,
+          "query": "Write a TypeScript service that uses Octokit to list teams for an organization. Add pagination, unit tests, and retry handling. This is application code, not an administrator session.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 26.384,
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "query": "Move the `inventory-api` repository from GitLab to GitHub and preserve branches and tags. The target organization, teams, policies, and repository settings are already approved and configured.",
+      "should_trigger": false,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "details": [
+        {
+          "index": 16,
+          "run": 1,
+          "query": "Move the `inventory-api` repository from GitLab to GitHub and preserve branches and tags. The target organization, teams, policies, and repository settings are already approved and configured.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 24.054,
+          "stderr": ""
+        },
+        {
+          "index": 16,
+          "run": 2,
+          "query": "Move the `inventory-api` repository from GitLab to GitHub and preserve branches and tags. The target organization, teams, policies, and repository settings are already approved and configured.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 22.181,
+          "stderr": ""
+        },
+        {
+          "index": 16,
+          "run": 3,
+          "query": "Move the `inventory-api` repository from GitLab to GitHub and preserve branches and tags. The target organization, teams, policies, and repository settings are already approved and configured.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 30.036,
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "query": "Add repository-level Copilot instructions for this codebase. Read the architecture and create `.github/copilot-instructions.md`; do not inspect enterprise or organization settings.",
+      "should_trigger": false,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "details": [
+        {
+          "index": 17,
+          "run": 1,
+          "query": "Add repository-level Copilot instructions for this codebase. Read the architecture and create `.github/copilot-instructions.md`; do not inspect enterprise or organization settings.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 29.867,
+          "stderr": ""
+        },
+        {
+          "index": 17,
+          "run": 2,
+          "query": "Add repository-level Copilot instructions for this codebase. Read the architecture and create `.github/copilot-instructions.md`; do not inspect enterprise or organization settings.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 27.617,
+          "stderr": ""
+        },
+        {
+          "index": 17,
+          "run": 3,
+          "query": "Add repository-level Copilot instructions for this codebase. Read the architecture and create `.github/copilot-instructions.md`; do not inspect enterprise or organization settings.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 28.845,
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "query": "Review this pull request for security bugs and leave comments on the changed lines. Do not change GitHub organization settings or repository permissions.",
+      "should_trigger": false,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "details": [
+        {
+          "index": 18,
+          "run": 1,
+          "query": "Review this pull request for security bugs and leave comments on the changed lines. Do not change GitHub organization settings or repository permissions.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 19.169,
+          "stderr": ""
+        },
+        {
+          "index": 18,
+          "run": 2,
+          "query": "Review this pull request for security bugs and leave comments on the changed lines. Do not change GitHub organization settings or repository permissions.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 20.777,
+          "stderr": ""
+        },
+        {
+          "index": 18,
+          "run": 3,
+          "query": "Review this pull request for security bugs and leave comments on the changed lines. Do not change GitHub organization settings or repository permissions.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 21.044,
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "query": "Draft a customer-facing comparison of GitHub Enterprise Cloud, GitHub Enterprise Server, and GitLab Ultimate. Use current public pricing and product documentation.",
+      "should_trigger": false,
+      "triggers": 0,
+      "runs": 3,
+      "pass": true,
+      "details": [
+        {
+          "index": 19,
+          "run": 1,
+          "query": "Draft a customer-facing comparison of GitHub Enterprise Cloud, GitHub Enterprise Server, and GitLab Ultimate. Use current public pricing and product documentation.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 54.248,
+          "stderr": ""
+        },
+        {
+          "index": 19,
+          "run": 2,
+          "query": "Draft a customer-facing comparison of GitHub Enterprise Cloud, GitHub Enterprise Server, and GitLab Ultimate. Use current public pricing and product documentation.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 51.865,
+          "stderr": ""
+        },
+        {
+          "index": 19,
+          "run": 3,
+          "query": "Draft a customer-facing comparison of GitHub Enterprise Cloud, GitHub Enterprise Server, and GitLab Ultimate. Use current public pricing and product documentation.",
+          "should_trigger": false,
+          "triggered": false,
+          "timed_out": false,
+          "exit_code": 0,
+          "duration_seconds": 47.816,
+          "stderr": ""
+        }
+      ]
+    }
+  ]
+}

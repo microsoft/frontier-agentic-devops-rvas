@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "mode": "plan",
+  "host": "northwind.ghe.com",
+  "enterprise": {
+    "id": null,
+    "slug": "northwind"
+  },
+  "actor": {
+    "id": null,
+    "login": null
+  },
+  "started_at": "2026-10-09T15:32:28Z",
+  "updated_at": "2026-10-09T15:33:18Z",
+  "outcome": "Roll out GitHub Copilot to the engineering organization with team-based seats, Copilot CLI, code review, managed instructions, MCP controls, and enterprise custom agents",
+  "capabilities": [
+    "identity_and_authority",
+    "enterprise_policy_inheritance",
+    "organization",
+    "teams",
+    "copilot_subscription",
+    "copilot_seats",
+    "copilot_cli",
+    "copilot_code_review",
+    "custom_instructions",
+    "enterprise_managed_settings",
+    "mcp_controls",
+    "enterprise_custom_agents",
+    "billing",
+    "verification"
+  ],
+  "observations": [
+    {
+      "control": "authentication.active_identity",
+      "target": "northwind.ghe.com",
+      "observed_value": "No active GitHub CLI account",
+      "effective_value": null,
+      "source_level": "host",
+      "changeable_by_actor": null,
+      "state": "insufficient_permission",
+      "observed_at": "2026-10-09T15:33:18Z",
+      "evidence": {
+        "method": "LOCAL",
+        "command": "gh auth status --active --hostname northwind.ghe.com --json hosts",
+        "fields": [
+          "hosts"
+        ],
+        "result": "No authenticated accounts were returned"
+      }
+    },
+    {
+      "control": "host.api_connectivity",
+      "target": "api.northwind.ghe.com",
+      "observed_value": "Connection failed",
+      "effective_value": null,
+      "source_level": "host",
+      "changeable_by_actor": null,
+      "state": "unavailable",
+      "observed_at": "2026-10-09T15:33:18Z",
+      "evidence": {
+        "method": "GET",
+        "path": "/user",
+        "fields": [],
+        "result": "The GitHub CLI could not connect to api.northwind.ghe.com"
+      }
+    },
+    {
+      "control": "enterprise.membership",
+      "target": "northwind",
+      "observed_value": null,
+      "effective_value": null,
+      "source_level": "enterprise",
+      "changeable_by_actor": null,
+      "state": "unverified",
+      "observed_at": "2026-10-09T15:33:18Z",
+      "evidence": {
+        "method": "NOT_RUN",
+        "path": "GraphQL viewer.enterprises",
+        "fields": [
+          "id",
+          "slug",
+          "name"
+        ],
+        "reason": "Authentication and API connectivity are unavailable"
+      }
+    },
+    {
+      "control": "organization.enterprise_membership",
+      "target": "engineering",
+      "observed_value": null,
+      "effective_value": null,
+      "source_level": "enterprise",
+      "changeable_by_actor": null,
+      "state": "unverified",
+      "observed_at": "2026-10-09T15:33:18Z",
+      "evidence": {
+        "method": "NOT_RUN",
+        "path": "GraphQL enterprise.organizations",
+        "fields": [
+          "id",
+          "login",
+          "name"
+        ],
+        "reason": "Enterprise identity could not be verified"
+      }
+    },
+    {
+      "control": "copilot.subscription_and_seat_mode",
+      "target": "engineering",
+      "observed_value": null,
+      "effective_value": null,
+      "source_level": "unknown",
+      "changeable_by_actor": null,
+      "state": "unverified",
+      "observed_at": "2026-10-09T15:33:18Z",
+      "evidence": {
+        "method": "NOT_RUN",
+        "path": "/orgs/engineering/copilot/billing",
+        "fields": [
+          "plan_type",
+          "seat_management_setting",
+          "seat_breakdown"
+        ],
+        "reason": "Authentication and API connectivity are unavailable"
+      }
+    },
+    {
+      "control": "copilot.enterprise_ai_policies",
+      "target": "northwind",
+      "observed_value": null,
+      "effective_value": null,
+      "source_level": "unknown",
+      "changeable_by_actor": null,
+      "state": "unverified",
+      "observed_at": "2026-10-09T15:33:18Z",
+      "evidence": {
+        "method": "NOT_RUN",
+        "path": "Enterprise AI controls",
+        "fields": [
+          "policy_value",
+          "effective_source"
+        ],
+        "reason": "The target could not be inspected. Inherited policies must remain unknown."
+      }
+    }
+  ],
+  "unknowns": [
+    "Whether northwind.ghe.com resolves and is reachable from the operator's network",
+    "Active GitHub identity and enterprise role",
+    "Whether the northwind enterprise and engineering organization exist and are visible",
+    "Whether the enterprise uses personal accounts or Enterprise Managed Users",
+    "Copilot plan type, seat-management mode, current assignments, inactive seats, and billing owner",
+    "Engineering team names, membership sources, and whether enterprise teams or organization teams should grant seats",
+    "Effective source of each AI policy and whether organizations may override it",
+    "Whether 'managed instructions' means organization custom instructions, repository instruction files, enterprise managed settings, or a combination",
+    "Current AI-credit budgets, cost centers, spending limits, and code-review billing source",
+    "Whether engineering already has a .github-private repository suitable for managed settings and enterprise custom agents"
+  ],
+  "redactions": [
+    "No token, credential, authorization header, member profile, or seat roster was collected or saved"
+  ]
+}
