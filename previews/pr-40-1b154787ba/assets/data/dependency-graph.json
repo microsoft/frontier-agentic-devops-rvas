@@ -1,0 +1,505 @@
+{
+  "nodes": [
+    {
+      "id": "ghec-ch00",
+      "title": "Environment setup",
+      "module": "ghec",
+      "track": "developer-flow",
+      "tier": "setup"
+    },
+    {
+      "id": "ghec-ch01",
+      "title": "Issues, labels and project boards",
+      "module": "ghec",
+      "track": "developer-flow",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch02",
+      "title": "Branches, pull requests and code review",
+      "module": "ghec",
+      "track": "developer-flow",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch03",
+      "title": "Codespaces and dev containers",
+      "module": "ghec",
+      "track": "developer-flow",
+      "tier": "stretch"
+    },
+    {
+      "id": "ghec-ch04",
+      "title": "GitHub Actions CI fundamentals",
+      "module": "ghec",
+      "track": "developer-flow",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch05",
+      "title": "Safe auto-merge",
+      "module": "ghec",
+      "track": "developer-flow",
+      "tier": "stretch"
+    },
+    {
+      "id": "ghec-ch07",
+      "title": "Organization and team access",
+      "module": "ghec",
+      "track": "admin-governance",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch08",
+      "title": "Repository rulesets and custom properties",
+      "module": "ghec",
+      "track": "admin-governance",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch09",
+      "title": "Organization audit investigation and export",
+      "module": "ghec",
+      "track": "admin-governance",
+      "tier": "stretch"
+    },
+    {
+      "id": "ghec-ch10",
+      "title": "Scoped usage budgets and alerts",
+      "module": "ghec",
+      "track": "admin-governance",
+      "tier": "stretch"
+    },
+    {
+      "id": "ghec-ch14",
+      "title": "SSO, SAML and SCIM identity",
+      "module": "ghec",
+      "track": "security",
+      "tier": "stretch"
+    },
+    {
+      "id": "ghec-ch18",
+      "title": "Self-hosted and larger runners",
+      "module": "ghec",
+      "track": "automation-ai",
+      "tier": "stretch"
+    },
+    {
+      "id": "ghec-ch19",
+      "title": "Copilot cloud agent",
+      "module": "ghec",
+      "track": "automation-ai",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch20",
+      "title": "Close an automation integration gap",
+      "module": "ghec",
+      "track": "automation-ai",
+      "tier": "stretch"
+    },
+    {
+      "id": "ghec-ch21",
+      "title": "Migrate Azure DevOps Repos with GitHub Enterprise Importer",
+      "module": "ghec",
+      "track": "migration",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch22",
+      "title": "Connect Azure Boards to GitHub",
+      "module": "ghec",
+      "track": "migration",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch23",
+      "title": "Convert Azure Pipelines to GitHub Actions",
+      "module": "ghec",
+      "track": "migration",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch24",
+      "title": "Migrate one Bitbucket repository",
+      "module": "ghec",
+      "track": "migration",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch25",
+      "title": "Migrate from GitLab to GitHub",
+      "module": "ghec",
+      "track": "migration",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch26",
+      "title": "Convert one legacy VCS repository",
+      "module": "ghec",
+      "track": "migration",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch27",
+      "title": "GitHub Code Quality: Code Health and coverage",
+      "module": "ghec",
+      "track": "security",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch28",
+      "title": "Enterprise identity and network governance",
+      "module": "ghec",
+      "track": "admin-governance",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch29",
+      "title": "Programmatic access governance",
+      "module": "ghec",
+      "track": "admin-governance",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch30",
+      "title": "Copilot policy baseline",
+      "module": "ghec",
+      "track": "admin-governance",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch31",
+      "title": "Advanced Copilot environment configuration",
+      "module": "ghec",
+      "track": "automation-ai",
+      "tier": "stretch"
+    },
+    {
+      "id": "ghec-ch32",
+      "title": "Copilot code review",
+      "module": "ghec",
+      "track": "automation-ai",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch33",
+      "title": "Copilot automations",
+      "module": "ghec",
+      "track": "automation-ai",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch34",
+      "title": "Enterprise agent configuration",
+      "module": "ghec",
+      "track": "admin-governance",
+      "tier": "stretch"
+    },
+    {
+      "id": "ghec-ch36",
+      "title": "Controlled repository intake",
+      "module": "ghec",
+      "track": "admin-governance",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch37",
+      "title": "Review and repair governance with ghqr",
+      "module": "ghec",
+      "track": "admin-governance",
+      "tier": "stretch"
+    },
+    {
+      "id": "ghec-ch38",
+      "title": "Golden-path repository bootstrap",
+      "module": "ghec",
+      "track": "admin-governance",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch39",
+      "title": "Actions secrets and environments",
+      "module": "ghec",
+      "track": "automation-ai",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch40",
+      "title": "Actions OIDC with Azure",
+      "module": "ghec",
+      "track": "automation-ai",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch41",
+      "title": "Required reusable workflows",
+      "module": "ghec",
+      "track": "automation-ai",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch42",
+      "title": "Repository inventory and lifecycle",
+      "module": "ghec",
+      "track": "admin-governance",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch44",
+      "title": "Monitor an approved repository ruleset",
+      "module": "ghec",
+      "track": "admin-governance",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch45",
+      "title": "Packages and container registry governance",
+      "module": "ghec",
+      "track": "automation-ai",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch46",
+      "title": "Pages publishing governance",
+      "module": "ghec",
+      "track": "developer-flow",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch48",
+      "title": "Vendor access lifecycle",
+      "module": "ghec",
+      "track": "admin-governance",
+      "tier": "stretch"
+    },
+    {
+      "id": "ghec-ch49",
+      "title": "Publish an approved, tested release",
+      "module": "ghec",
+      "track": "developer-flow",
+      "tier": "core"
+    },
+    {
+      "id": "ghec-ch51",
+      "title": "Validate LFS or monorepo controls",
+      "module": "ghec",
+      "track": "developer-flow",
+      "tier": "core"
+    },
+    {
+      "id": "ghas-00",
+      "title": "Prepare the remediation repository",
+      "module": "ghas",
+      "track": "developer-flow",
+      "tier": "setup"
+    },
+    {
+      "id": "ghas-02",
+      "title": "Fix injection vulnerabilities",
+      "module": "ghas",
+      "track": "developer-flow",
+      "tier": "stretch"
+    },
+    {
+      "id": "ghas-03",
+      "title": "Fix XSS and unsafe output",
+      "module": "ghas",
+      "track": "developer-flow",
+      "tier": "stretch"
+    },
+    {
+      "id": "ghas-04",
+      "title": "Fix broken access control",
+      "module": "ghas",
+      "track": "developer-flow",
+      "tier": "stretch"
+    },
+    {
+      "id": "ghas-admin-01",
+      "title": "Security configuration pilot and rollout",
+      "module": "ghas",
+      "track": "admin-governance",
+      "tier": "core"
+    },
+    {
+      "id": "ghas-admin-02",
+      "title": "Secret Protection operations",
+      "module": "ghas",
+      "track": "admin-governance",
+      "tier": "core"
+    },
+    {
+      "id": "ghas-admin-03",
+      "title": "Configure CodeQL and enforce reviewed fixes",
+      "module": "ghas",
+      "track": "admin-governance",
+      "tier": "core"
+    },
+    {
+      "id": "ghas-admin-05",
+      "title": "Dependency visibility and pull request protection",
+      "module": "ghas",
+      "track": "admin-governance",
+      "tier": "core"
+    },
+    {
+      "id": "ghas-admin-06",
+      "title": "Run a bounded security campaign",
+      "module": "ghas",
+      "track": "admin-governance",
+      "tier": "stretch"
+    },
+    {
+      "id": "ghaw-00",
+      "title": "Activity 00: Customer workflow setup",
+      "module": "ghaw",
+      "track": "hello-agent",
+      "tier": "setup"
+    },
+    {
+      "id": "ghaw-06",
+      "title": "Repository-specific review assistant",
+      "module": "ghaw",
+      "track": "repo-concierge",
+      "tier": "stretch"
+    },
+    {
+      "id": "ghaw-07",
+      "title": "Authorized issue summaries",
+      "module": "ghaw",
+      "track": "repo-concierge",
+      "tier": "stretch"
+    },
+    {
+      "id": "ghaw-17",
+      "title": "Issue triage for the customer's taxonomy",
+      "module": "ghaw",
+      "track": "production-patterns",
+      "tier": "core"
+    },
+    {
+      "id": "ghaw-18",
+      "title": "CI doctor",
+      "module": "ghaw",
+      "track": "production-patterns",
+      "tier": "core"
+    },
+    {
+      "id": "ghaw-19",
+      "title": "Reviewed documentation correction",
+      "module": "ghaw",
+      "track": "production-patterns",
+      "tier": "core"
+    },
+    {
+      "id": "ghaw-21",
+      "title": "Approved regression-test pilot",
+      "module": "ghaw",
+      "track": "production-patterns",
+      "tier": "core"
+    },
+    {
+      "id": "sre-agent-01",
+      "title": "Connect a service to Azure SRE Agent",
+      "module": "sre-agent",
+      "track": "azure-sre-agent",
+      "tier": "core"
+    },
+    {
+      "id": "sre-agent-03",
+      "title": "Connect and test response context",
+      "module": "sre-agent",
+      "track": "azure-sre-agent",
+      "tier": "core"
+    },
+    {
+      "id": "sre-agent-04",
+      "title": "Investigate an incident with evidence",
+      "module": "sre-agent",
+      "track": "azure-sre-agent",
+      "tier": "core"
+    },
+    {
+      "id": "sre-agent-05",
+      "title": "Hand the incident to engineering",
+      "module": "sre-agent",
+      "track": "azure-sre-agent",
+      "tier": "core"
+    }
+  ],
+  "edges": [
+    {
+      "from": "ghec-ch38",
+      "to": "ghec-ch36"
+    },
+    {
+      "from": "ghas-00",
+      "to": "ghas-02"
+    },
+    {
+      "from": "ghas-00",
+      "to": "ghas-03"
+    },
+    {
+      "from": "ghas-00",
+      "to": "ghas-04"
+    },
+    {
+      "from": "ghas-admin-01",
+      "to": "ghas-admin-02"
+    },
+    {
+      "from": "ghas-admin-01",
+      "to": "ghas-admin-03"
+    },
+    {
+      "from": "ghas-admin-01",
+      "to": "ghas-admin-05"
+    },
+    {
+      "from": "ghas-admin-01",
+      "to": "ghas-admin-06"
+    },
+    {
+      "from": "ghas-admin-03",
+      "to": "ghas-admin-06"
+    },
+    {
+      "from": "ghaw-00",
+      "to": "ghaw-06"
+    },
+    {
+      "from": "ghaw-00",
+      "to": "ghaw-07"
+    },
+    {
+      "from": "ghaw-00",
+      "to": "ghaw-17"
+    },
+    {
+      "from": "ghaw-00",
+      "to": "ghaw-18"
+    },
+    {
+      "from": "ghaw-00",
+      "to": "ghaw-19"
+    },
+    {
+      "from": "ghaw-00",
+      "to": "ghaw-21"
+    },
+    {
+      "from": "sre-agent-01",
+      "to": "sre-agent-03"
+    },
+    {
+      "from": "sre-agent-03",
+      "to": "sre-agent-04"
+    },
+    {
+      "from": "sre-agent-04",
+      "to": "sre-agent-05"
+    }
+  ]
+}

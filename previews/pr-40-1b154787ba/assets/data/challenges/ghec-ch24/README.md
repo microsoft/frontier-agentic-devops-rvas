@@ -1,0 +1,277 @@
+# Ch24: Migrate one Bitbucket repository
+
+**Session outcome:** You have migrated an approved Bitbucket repository to GitHub and verified its Git history. Server/Data Center migration also preserves supported pull request metadata. Cloud migration preserves source and history only, and you have recorded the excluded content.
+
+## Prerequisites
+
+This activity has no activity dependencies.
+
+Access and tooling you need:
+- GitHub organization where you are an org owner.
+- Classic GitHub PAT available as `GH_PAT`.
+- GitHub CLI `gh >= 2.4.0`.
+- PowerShell, because `gh bbs2gh generate-script` emits `.ps1` scripts.
+- For Path A: Bitbucket Server/Data Center 5.14+, a Bitbucket account with admin or super-admin rights, SSH/SFTP access for Linux servers or SMB access for Windows servers, and one staging store: AWS S3, Azure Blob, or GitHub-owned blob storage.
+- For Path B: a bitbucket.org repository and the `git` CLI.
+
+## Scenario
+
+Your migration team supports Bitbucket Server/Data Center and Bitbucket Cloud. The production repositories on Server/Data Center need pull request history in GitHub. Bitbucket Cloud has no first-party metadata migration path. Preserve its Git source and history, and document what will be lost.
+
+> [!IMPORTANT]
+> Use an approved Bitbucket Server/Data Center or Bitbucket Cloud repository as the source and target throughout this guide. Run the migration only in an agreed change window with source writes frozen. Without an approved repository, record the access constraint and next action instead of migrating an unapproved example.
+
+## Choose the migration path
+
+Run one route for one approved repository. For Server/Data Center, choose one staging store before running any command. Prefer the GitHub-owned storage command below when supported. Use the AWS or manual-archive route only as an alternative. Bulk migration is optional after the owner accepts the pilot.
+
+- Use Path A for Bitbucket Server/Data Center via `gh bbs2gh`. It preserves Git source, history, and pull request metadata.
+- Use Path B for Bitbucket Cloud via Git CLI. It preserves source and history only. GitHub Enterprise Importer and `gh bbs2gh` do not support Bitbucket Cloud; first-party tools cannot automatically migrate its pull requests, comments, issues, or pipelines.
+
+## Path A: Bitbucket Server/Data Center via `gh bbs2gh`
+
+### 1. Install the extension and authenticate
+
+```bash
+gh extension install github/gh-bbs2gh
+gh extension list | grep bbs2gh
+export GH_PAT="ghp_your_classic_token"
+export BBS_USERNAME="bitbucket-admin"
+export BBS_PASSWORD="bitbucket-admin-password"
+```
+
+For Windows Bitbucket Server/Data Center using SMB, also set:
+
+```powershell
+$env:SMB_PASSWORD = "smb-share-password"
+```
+
+Your GitHub PAT must be a classic PAT. Fine-grained PATs are not supported for GEI migrations.
+
+### 2. Confirm Server/Data Center prerequisites
+
+Before running a migration, verify these operational requirements:
+
+- Bitbucket Server/Data Center is version 5.14 or later.
+- The Bitbucket account has admin or super-admin permissions.
+- Linux Bitbucket instances expose the migration archive through SFTP.
+- Windows Bitbucket instances expose the migration archive through an SMB share.
+- The SSH private key used for SFTP has no passphrase and uses a supported cipher such as `aes256-ctr` or `aes256-cbc`.
+- A clustered Bitbucket instance has a stable archive download host; pass it with `--archive-download-host`.
+- Blob staging is ready because Bitbucket is usually behind a firewall and GitHub Enterprise Importer must retrieve the archive from an internet-reachable store.
+
+For AWS S3, the IAM principal used by `bbs2gh` needs object and multipart permissions on the bucket, including:
+
+- `s3:PutObject`
+- `s3:GetObject`
+- `s3:ListBucket`
+- `s3:DeleteObject`
+- `s3:AbortMultipartUpload`
+- `s3:ListMultipartUploadParts`
+- `s3:ListBucketMultipartUploads`
+
+Set AWS credentials in the environment:
+
+```bash
+export AWS_REGION="eu-west-1"
+export AWS_ACCESS_KEY_ID="AKIAIOSFODNN7EXAMPLE"
+export AWS_SECRET_ACCESS_KEY="aws-secret-access-key"
+```
+
+For Azure Blob Storage, use an access-key connection string, not a SAS connection string:
+
+```bash
+export AZURE_STORAGE_CONNECTION_STRING="DefaultEndpointsProtocol=https;AccountName=migrationstore;AccountKey=base64-account-key;EndpointSuffix=core.windows.net"
+```
+
+If you do not want to manage cloud storage, use GitHub-owned blob storage with `--use-github-storage`. It requires `gh bbs2gh` v1.9.0 or later and GitHub deletes the uploaded archive after migration or after seven days.
+
+### 3. Review the `bbs2gh` migration flow
+
+`gh bbs2gh` coordinates a multi-hop migration because GitHub cannot directly reach most Bitbucket Server/Data Center instances:
+
+1. `bbs2gh` calls the Bitbucket Server/Data Center export API over HTTPS.
+2. Bitbucket writes a migration `.tar` archive under `$BITBUCKET_SHARED_HOME/data/migration/export`.
+3. `bbs2gh` downloads that archive from the Bitbucket server through SFTP on Linux or SMB on Windows.
+4. `bbs2gh` uploads the archive to AWS S3, Azure Blob Storage, or GitHub-owned blob storage.
+5. GitHub Enterprise Importer reads the staged archive and imports it into GitHub Enterprise Cloud.
+6. The destination repository is created as private. If you do not pass a target name, the default is `projectKey-repositoryName`, such as `ENG-payments-api`.
+
+### 4. Run a single-repository migration with AWS S3
+
+Set variables once so the command is repeatable and auditable:
+
+```bash
+BBS_URL="https://bitbucket.example.com"
+BBS_PROJECT="ENG"
+BBS_REPO="payments-api"
+GITHUB_ORG="contoso-migration-lab"
+GITHUB_REPO="payments-api"
+SSH_USER="atlbitbucket"
+SSH_PRIVATE_KEY="$HOME/.ssh/bbs_migration_id_rsa"
+AWS_BUCKET="contoso-gei-bbs-archives"
+ARCHIVE_HOST="bitbucket-node-01.example.com"
+```
+
+Run the migration:
+
+```bash
+gh bbs2gh migrate-repo \
+  --bbs-server-url "$BBS_URL" \
+  --bbs-project "$BBS_PROJECT" \
+  --bbs-repo "$BBS_REPO" \
+  --github-org "$GITHUB_ORG" \
+  --github-repo "$GITHUB_REPO" \
+  --ssh-user "$SSH_USER" \
+  --ssh-private-key "$SSH_PRIVATE_KEY" \
+  --aws-bucket-name "$AWS_BUCKET" \
+  --archive-download-host "$ARCHIVE_HOST"
+```
+
+Use `--archive-download-host` for clustered Bitbucket deployments where the Bitbucket base URL is a load balancer but the archive must be downloaded from a specific node.
+
+### 5. Alternative: GitHub-owned storage instead of AWS
+
+Use this instead of step 4, not after it. This avoids managing AWS or Azure staging storage:
+
+```bash
+gh bbs2gh migrate-repo \
+  --bbs-server-url "$BBS_URL" \
+  --bbs-project "$BBS_PROJECT" \
+  --bbs-repo "$BBS_REPO" \
+  --github-org "$GITHUB_ORG" \
+  --github-repo "$GITHUB_REPO" \
+  --ssh-user "$SSH_USER" \
+  --ssh-private-key "$SSH_PRIVATE_KEY" \
+  --archive-download-host "$ARCHIVE_HOST" \
+  --use-github-storage
+```
+
+### 6. Generate a bulk migration script
+
+Use bulk scripts for migration waves after you validate one representative repository:
+
+```bash
+gh bbs2gh generate-script \
+  --bbs-server-url "$BBS_URL" \
+  --github-org "$GITHUB_ORG" \
+  --output migrate-bitbucket-wave.ps1 \
+  --download-migration-logs
+```
+
+Open the generated PowerShell script, review every repository mapping, then run it from a workstation that has the same environment variables and network access as the single-repository test.
+
+### 7. Alternative: Manual archive transfer
+
+Skip this unless the selected server cannot expose SFTP or SMB reliably. Do not rerun a completed migration through another route.
+
+First, trigger archive generation from `bbs2gh` without providing archive download arguments:
+
+```bash
+gh bbs2gh migrate-repo \
+  --bbs-server-url "$BBS_URL" \
+  --bbs-project "$BBS_PROJECT" \
+  --bbs-repo "$BBS_REPO" \
+  --github-org "$GITHUB_ORG" \
+  --github-repo "$GITHUB_REPO"
+```
+
+On the Bitbucket server, locate the generated archive in:
+
+```text
+$BITBUCKET_SHARED_HOME/data/migration/export
+```
+
+Copy the `.tar` archive to your migration workstation by your approved internal transfer method, then import from the local archive:
+
+```bash
+ARCHIVE_PATH="$HOME/migration-archives/ENG-payments-api.tar"
+
+gh bbs2gh migrate-repo \
+  --bbs-server-url "$BBS_URL" \
+  --bbs-project "$BBS_PROJECT" \
+  --bbs-repo "$BBS_REPO" \
+  --github-org "$GITHUB_ORG" \
+  --github-repo "$GITHUB_REPO" \
+  --archive-path "$ARCHIVE_PATH" \
+  --use-github-storage
+```
+
+### 8. Validate what migrated
+
+In GitHub, confirm the repository is private and inspect:
+
+- Git branches and tags.
+- Commit history.
+- Pull requests.
+- Pull request comments.
+- Pull request reviews.
+- File and line-level review comments.
+- Required reviewers.
+- Pull request attachments.
+
+Document what did not migrate from Bitbucket Server/Data Center:
+
+- Personal repositories owned by users.
+- Branch permissions.
+- Commit comments.
+- Repository settings.
+- Repository permissions.
+- CI pipelines.
+
+## Path B: Bitbucket Cloud fallback with Git CLI
+
+### 1. Record the limitation before migrating
+
+Bitbucket Cloud repositories on `bitbucket.org` are not supported by GitHub Enterprise Importer or `gh bbs2gh`. No first-party path migrates Bitbucket Cloud pull requests, comments, issues, or pipeline history. The fallback is a Git mirror migration that preserves source code and Git history only. For GHE.com targets, Git CLI is also the only available source-history path.
+
+### 2. Mirror-clone and mirror-push
+
+Create an empty private destination first with `gh repo create <org>/<repo> --private`. Confirm it contains no customer work because mirror pushes can overwrite or delete destination refs. Save source branch and tag SHAs before pushing.
+
+```bash
+BITBUCKET_WORKSPACE="contoso-workspace"
+BITBUCKET_REPO="web-portal"
+GITHUB_ORG="contoso-migration-lab"
+GITHUB_REPO="web-portal"
+
+git clone --mirror "https://bitbucket.org/$BITBUCKET_WORKSPACE/$BITBUCKET_REPO.git"
+cd "$BITBUCKET_REPO.git"
+git push --mirror "https://github.com/$GITHUB_ORG/$GITHUB_REPO.git"
+```
+
+### 3. Validate the Cloud migration
+
+```bash
+git ls-remote --heads "https://github.com/$GITHUB_ORG/$GITHUB_REPO.git"
+git ls-remote --tags "https://github.com/$GITHUB_ORG/$GITHUB_REPO.git"
+```
+
+Then document what was not migrated:
+
+- Pull requests and review comments.
+- Issues.
+- Bitbucket Pipelines configuration and run history.
+- Repository settings, permissions, and branch restrictions.
+- User identities for collaboration events.
+
+## Accept the selected pilot
+
+Compare `git ls-remote --heads --tags` output from source and destination by ref name and SHA. Matching counts are not enough. Record any excluded provider refs. For Server/Data Center, check a known PR and its comments against the source. Recreate team permissions and CI and review requirements that the tool does not migrate.
+
+Open a first PR as a non-owner contributor. Verify that failing CI and missing human approval block merging. Fix the failure and obtain approval before merging. Keep the source read-only until the owner accepts cutover, and record any metadata that did not migrate.
+
+## Cleanup
+
+Preserve the approved evidence before removing the local clone or archive created for this pilot. Do not delete the source or destination repository.
+
+Delete or lifecycle-expire temporary S3/Azure staging objects if you did not use GitHub-owned storage. Retain destination repositories unless the accountable customer owner approves their removal.
+
+## References
+
+- [About GitHub Enterprise Importer](https://docs.github.com/en/migrations/using-github-enterprise-importer/understanding-github-enterprise-importer/about-github-enterprise-importer)
+- [About migrations from Bitbucket Server to GitHub Enterprise Cloud](https://docs.github.com/en/migrations/using-github-enterprise-importer/migrating-from-bitbucket-server-to-github-enterprise-cloud/about-migrations-from-bitbucket-server-to-github-enterprise-cloud)
+- [Overview of a migration from Bitbucket Server to GitHub Enterprise Cloud](https://docs.github.com/en/migrations/using-github-enterprise-importer/migrating-from-bitbucket-server-to-github-enterprise-cloud/overview-of-a-migration-from-bitbucket-server-to-github-enterprise-cloud)
+- [Managing access for a Bitbucket Server migration](https://docs.github.com/en/migrations/using-github-enterprise-importer/migrating-from-bitbucket-server-to-github-enterprise-cloud/managing-access-for-a-migration-from-bitbucket-server-to-github-enterprise-cloud)
+- [Migrating repositories from Bitbucket Server to GitHub Enterprise Cloud](https://docs.github.com/en/migrations/using-github-enterprise-importer/migrating-from-bitbucket-server-to-github-enterprise-cloud/migrating-repositories-from-bitbucket-server-to-github-enterprise-cloud)
+- [`gh-bbs2gh` extension](https://github.com/github/gh-bbs2gh)
