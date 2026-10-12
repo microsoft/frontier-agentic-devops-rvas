@@ -13,10 +13,31 @@
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ── Mobile nav ─────────────────────────────────────────────────── */
+  function markCurrentNav(links) {
+    var current = new URL(window.location.href);
+    var page = current.pathname.split("/").pop() || "index.html";
+    var active = null, section = null;
+    links.querySelectorAll("a[href]").forEach(function (link) {
+      link.removeAttribute("aria-current");
+      var destination = new URL(link.getAttribute("href"), current);
+      var matches = destination.origin === current.origin &&
+        (destination.pathname.split("/").pop() || "index.html") === page;
+      destination.searchParams.forEach(function (value, key) {
+        if (current.searchParams.get(key) !== value) matches = false;
+      });
+      if (matches && !active) active = link;
+      if ((link.getAttribute("data-nav-pages") || "").split(" ").indexOf(page) !== -1) section = link;
+    });
+    var selected = active || section;
+    if (selected) selected.setAttribute("aria-current", active ? "page" : "location");
+  }
+
   function initNav() {
     var toggle = document.querySelector(".nav-toggle");
     var links = document.querySelector(".nav-links");
-    if (!toggle || !links || toggle.dataset.shellBound) return;
+    if (!toggle || !links) return;
+    markCurrentNav(links);
+    if (toggle.dataset.shellBound) return;
     toggle.dataset.shellBound = "1";
     function close() {
       links.classList.remove("open");
@@ -33,6 +54,14 @@
       if (!links.classList.contains("open")) return;
       if (!links.contains(e.target) && !toggle.contains(e.target)) close();
     });
+    if (window.matchMedia) {
+      var desktop = window.matchMedia("(min-width: 1100px)");
+      var closeOnDesktop = function (e) {
+        if (e.matches) close();
+      };
+      if (desktop.addEventListener) desktop.addEventListener("change", closeOnDesktop);
+      else desktop.addListener(closeOnDesktop);
+    }
   }
 
   /* ── Scroll reveal ──────────────────────────────────────────────── */
