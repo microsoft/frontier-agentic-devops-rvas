@@ -6,7 +6,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const test = require('node:test');
 const vm = require('node:vm');
-const { validateOutcomes, enrichOutcome, challengeIdFromSlug } = require('../docs/build.js');
+const { validateOutcomes, enrichOutcome, challengeIdFromSlug, renderSiteHeader } = require('../docs/build.js');
 
 const root = path.resolve(__dirname, '..');
 const data = JSON.parse(fs.readFileSync(path.join(root, 'docs/assets/data/platform.json'), 'utf8'));
@@ -268,6 +268,140 @@ test('homepage offers learning and skill-based setup before the activity outcome
   assert(html.indexOf('class="start-routes"') < html.indexOf('id="outcomes"'));
 });
 
+test('every site page uses the shared header, with only the current link changing', () => {
+  const template = fs.readFileSync(path.join(root, 'docs/_partials/header.html'), 'utf8').trimEnd();
+  for (const page of fs.readdirSync(path.join(root, 'docs')).filter(name => name.endsWith('.html'))) {
+    const html = fs.readFileSync(path.join(root, 'docs', page), 'utf8');
+    const header = html.match(/  <header class="nav" role="banner">[\s\S]*?  <\/header>/);
+    if (!header) {
+      assert.match(html, /http-equiv="refresh"/, `${page}: missing shared header`);
+      continue;
+    }
+    assert.equal(header[0], renderSiteHeader(template, page), `${page}: header differs from shared template`);
+    assert.match(html, /src="assets\/js\/shell.js"/, `${page}: missing navigation controller`);
+  }
+});
+
+test('shared header marks exact pages and parent sections without duplicate current links', () => {
+  const template = fs.readFileSync(path.join(root, 'docs/_partials/header.html'), 'utf8').trimEnd();
+  for (const [page, href, current] of [
+    ['index.html', 'index.html', 'page'],
+    ['catalog.html', 'catalog.html', 'page'],
+    ['builder.html', 'builder.html', 'page'],
+    ['github-setup.html', 'github-setup.html', 'page'],
+    ['github-setup-guide.html', 'github-setup.html', 'location'],
+    ['challenge.html', 'catalog.html', 'location'],
+    ['set.html', 'builder.html', 'location'],
+  ]) {
+    const html = renderSiteHeader(template, page);
+    const active = [...html.matchAll(/<a\b([^>]*aria-current="([^"]+)"[^>]*)>/g)];
+    assert.equal(active.length, 1, page);
+    assert(active[0][1].includes(`href="${href}"`), page);
+    assert.equal(active[0][2], current, page);
+  }
+  assert.throws(() => renderSiteHeader('<header></header>', 'index.html'), /missing primary navigation/);
+});
+
+function renderNavigation(href, legacyMedia = false) {
+  const template = fs.readFileSync(path.join(root, 'docs/_partials/header.html'), 'utf8');
+  const markup = template.match(/<nav\b[^>]*class="nav-links"[^>]*>([\s\S]*?)<\/nav>/)[1];
+  const anchors = [...markup.matchAll(/<a\b([^>]*)>/g)].map((match) => {
+    const attributes = Object.fromEntries([...match[1].matchAll(/([\w-]+)="([^"]*)"/g)].map((attr) => [attr[1], attr[2]]));
+    return {
+      attributes,
+      getAttribute(name) { return attributes[name] ?? null; },
+      setAttribute(name, value) { attributes[name] = value; },
+      removeAttribute(name) { delete attributes[name]; },
+    };
+  });
+  const handlers = {};
+  const toggleHandlers = {};
+  let open = false;
+  const links = {
+    querySelectorAll: () => anchors,
+    contains(target) { return target === links || anchors.includes(target); },
+    classList: {
+      contains: () => open,
+      remove() { open = false; },
+      toggle() { open = !open; return open; },
+    },
+  };
+  const toggle = {
+    dataset: {},
+    attributes: { 'aria-expanded': 'false' },
+    contains(target) { return target === toggle; },
+    setAttribute(name, value) { this.attributes[name] = value; },
+    addEventListener(event, callback) { (toggleHandlers[event] ||= []).push(callback); },
+  };
+  let resize;
+  const context = {
+    URL,
+    location: { href },
+    matchMedia: () => legacyMedia
+      ? { matches: false, addListener(callback) { resize = callback; } }
+      : { matches: false, addEventListener(_event, callback) { resize = callback; } },
+    document: {
+      readyState: 'complete',
+      querySelector(selector) { return selector === '.nav-toggle' ? toggle : selector === '.nav-links' ? links : null; },
+      querySelectorAll: () => [],
+      addEventListener(event, callback) { (handlers[event] ||= []).push(callback); },
+    },
+  };
+  context.window = context;
+  vm.createContext(context);
+  vm.runInContext(fs.readFileSync(path.join(root, 'docs/assets/js/shell.js'), 'utf8'), context);
+  return { anchors, links, toggle, toggleHandlers, handlers, context, resize };
+}
+
+test('shared navigation selects module queries and parent sections under preview paths', () => {
+  for (const [page, href, current] of [
+    ['', 'index.html', 'page'],
+    ['catalog.html?outcome=github-adoption', 'catalog.html', 'page'],
+    ['module.html?m=ghec', 'module.html?m=ghec', 'page'],
+    ['module.html?m=ghas&track=admin-governance', 'module.html?m=ghas', 'page'],
+    ['module.html?m=ghaw', 'module.html?m=ghaw', 'page'],
+    ['module.html?m=sre-agent', 'module.html?m=sre-agent', 'page'],
+    ['module.html?m=unknown', 'catalog.html', 'location'],
+    ['github-setup-guide.html', 'github-setup.html', 'location'],
+    ['challenge.html?id=ghec-ch00', 'catalog.html', 'location'],
+    ['set.html?ids=ghec-ch00', 'builder.html', 'location'],
+  ]) {
+    const nav = renderNavigation(`https://example.test/previews/branch/${page}`);
+    const active = nav.anchors.filter(anchor => anchor.attributes['aria-current']);
+    assert.equal(active.length, 1, page);
+    assert.equal(active[0].attributes.href, href, page);
+    assert.equal(active[0].attributes['aria-current'], current, page);
+  }
+});
+
+test('shared mobile navigation stays idempotent and closes on Escape, outside click and desktop resize', () => {
+  const nav = renderNavigation('https://example.test/index.html');
+  nav.context.RVASShell.refresh();
+  assert.equal(nav.toggleHandlers.click.length, 1);
+  assert.equal(nav.handlers.keydown.length, 1);
+  assert.equal(nav.handlers.click.length, 1);
+  const click = nav.toggleHandlers.click[0];
+  click();
+  assert.equal(nav.toggle.attributes['aria-expanded'], 'true');
+  nav.handlers.keydown[0]({ key: 'Escape' });
+  assert.equal(nav.links.classList.contains('open'), false);
+  assert.equal(nav.toggle.attributes['aria-expanded'], 'false');
+  click();
+  nav.handlers.click[0]({ target: nav.anchors[0] });
+  assert.equal(nav.links.classList.contains('open'), true);
+  nav.handlers.click[0]({ target: {} });
+  assert.equal(nav.links.classList.contains('open'), false);
+  click();
+  nav.resize({ matches: true });
+  assert.equal(nav.links.classList.contains('open'), false);
+  assert.equal(nav.toggle.attributes['aria-expanded'], 'false');
+  const legacy = renderNavigation('https://example.test/index.html', true);
+  legacy.toggleHandlers.click[0]();
+  legacy.resize({ matches: true });
+  assert.equal(legacy.links.classList.contains('open'), false);
+  assert.equal(legacy.toggle.attributes['aria-expanded'], 'false');
+});
+
 test('setup pages resolve local assets, page links, and section links', () => {
   for (const name of ['github-setup', 'github-setup-guide']) {
     const file = path.join(root, `docs/${name}.html`);
@@ -275,7 +409,7 @@ test('setup pages resolve local assets, page links, and section links', () => {
     for (const [, href] of html.matchAll(/\b(?:href|src)="([^"]+)"/g)) {
       if (/^https?:/.test(href)) continue;
       const [target, fragment] = href.split('#');
-      const targetPath = target ? path.resolve(path.dirname(file), target) : file;
+      const targetPath = target ? path.resolve(path.dirname(file), target.split('?')[0]) : file;
       assert(fs.existsSync(targetPath), `${name}: missing ${href}`);
       if (fragment) {
         assert(fs.readFileSync(targetPath, 'utf8').includes(`id="${fragment}"`), `${name}: missing section ${href}`);

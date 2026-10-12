@@ -61,6 +61,9 @@ docs/assets/data/
 The build script generates the site data from activity metadata and outcome journeys.
 Do not copy metadata by hand.
 
+**Edit the top bar in `docs/_partials/header.html`.** The build copies this shared
+header into every site page. Keep page-specific navigation in the page content.
+
 ## Build locally
 
 You need Node.js ≥ 18. No npm install is required.
