@@ -3,6 +3,29 @@
 Use progressive, read-only discovery. Run the smallest query that can answer the
 current question.
 
+## Requested scope
+
+The user's setup or assessment request authorizes the read-only discovery needed
+for that outcome within its named targets. Run identity checks, organization
+listings, policy reads, and required repository, team, member, or seat inventories
+without an extra skill-level approval question. This includes enterprise-wide
+metadata inventory when the requested scope is enterprise-wide.
+
+State the scope before starting; for large inventories, include estimated request
+volume when known. Pagination, summaries, and rate-limit pacing bound the work.
+An informational update is not a request for permission.
+
+List organization names to resolve a target without treating that list as a
+request to inspect every organization's contents. Respect narrower organization,
+repository, and capability boundaries. Ask one scope question only when the
+outcome leaves a material target or data category undecided. Leave unrelated
+inventories and exports out.
+
+Save counts and control state by default. Collect alert bodies, audit exports,
+member profiles, or repository contents only when the requested outcome needs
+them; if that data scope is unresolved, clarify it before collection. Apply the
+redaction rules even when detailed collection is requested.
+
 ## Request conventions and endpoint gate
 
 Before the first API call, read the
@@ -59,6 +82,7 @@ before checking identity. `GH_TOKEN` and `GITHUB_TOKEN` take precedence over sto
 credentials for Cloud hosts. Check only whether they are set, never their values.
 A stored-account switch may leave the request actor unchanged. Require approval
 before changing credential sources, then recheck identity with the `user` request.
+Cite the CLI environment reference when explaining a credential-source mismatch.
 
 Start with the confirmed REST headers:
 
@@ -202,9 +226,8 @@ gh api --hostname "$HOST" --method GET "${REST_HEADERS[@]}" --paginate "/orgs/$O
 gh api --hostname "$HOST" --method GET "${REST_HEADERS[@]}" --paginate "/orgs/$ORG/dependabot/alerts?per_page=100"
 ```
 
-Alert inventories can be large and sensitive. Ask before broad collection, save
-counts and control state by default, and avoid alert details unless the outcome
-requires triage.
+For alert inventories, follow Requested scope above. Use counts and control state
+for an assessment; fetch alert details only when the outcome requires triage.
 
 ## Copilot probes
 
@@ -252,18 +275,3 @@ authentication failures, permission failures, or unavailable results as facts.
 
 Before planning a write, refresh the target resource. Before executing it, refresh
 the actor, stable target ID, effective source, and every stated precondition.
-
-## Broad-inventory approval
-
-Ask before:
-
-- scanning all organizations;
-- listing all repositories or members across the enterprise;
-- exporting audit events;
-- listing all security alerts;
-- listing all Copilot seats or usage records;
-- inspecting all installed applications;
-- fetching repository file content at scale.
-
-Show the target count, data categories, estimated API requests, saved fields, and
-retention path.

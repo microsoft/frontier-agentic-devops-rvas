@@ -117,7 +117,7 @@ Use this order:
 
 ## Outcome
 ## Target and authority
-## Confirmed capability checklist
+## Scoped capability checklist
 ## Current effective state
 ## Decisions
 ## Proposed batches

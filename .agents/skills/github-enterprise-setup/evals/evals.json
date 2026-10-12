@@ -143,14 +143,14 @@
     },
     {
       "id": 11,
-      "prompt": "Offline setup tabletop; do not contact GitHub or inspect credentials. Help me align enterprise `contoso` on github.com, scoped to `contoso-engineering`, with read-only Actions workflow-token defaults. Supplied evidence verifies the intended actor, enterprise and organization, organization-owner authority, and effective default_workflow_permissions=write with no enterprise override. The supplied guidance review recommends read-only defaults, and the requested baseline is read-only. No capability checklist or configuration decisions have been confirmed. Start the guided workflow using this evidence. I have not named a mode.",
-      "expected_output": "The skill selects and states Plan from setup intent without a mode-selection question, uses the supplied target and evidence, reports the Actions gap, and asks for confirmation of the scoped capability checklist before detailed decisions. It performs no writes.",
+      "prompt": "Offline setup tabletop; do not contact GitHub or inspect credentials. Help me align enterprise `contoso` on github.com, scoped to `contoso-engineering`, with read-only Actions workflow-token defaults. Supplied evidence at 2026-10-12T09:00:00Z verifies the intended actor, enterprise and organization, organization-owner authority, and effective default_workflow_permissions=write with no enterprise override. The supplied guidance review recommends read-only defaults, and the requested baseline is read-only. Relevant workflow dependencies have been checked. The only unresolved customer decision is how to handle workflows that require explicit job-level write exceptions. The Actions-only scope is fully specified by the request; no separate capability-checklist confirmation has occurred. Start the guided workflow using this evidence. I have not named a mode.",
+      "expected_output": "The skill selects and states Plan from setup intent, uses the supplied target and evidence, and moves directly to the unresolved workflow-exception decision. It does not ask for mode, inventory or capability-checklist approval and performs no writes.",
       "files": [],
       "expectations": [
         "The response selects Plan without asking which mode to use.",
         "The response reuses the supplied host, enterprise, organization and outcome instead of asking for them.",
-        "The next question confirms the scoped Actions capability checklist rather than restarts the setup interview.",
-        "The response does not treat setup intent as approval for authentication changes, broader inventories, or GitHub writes."
+        "The next question addresses workflow exception handling with a recommendation rather than asks for inventory or capability-checklist approval.",
+        "The response respects the named organization and Actions scope and does not treat setup intent as approval for authentication changes or GitHub writes."
       ]
     },
     {
@@ -221,6 +221,30 @@
         "The response asks one intent question before selecting a definitive mode or starting discovery.",
         "The question distinguishes report-only Assess from guided Plan and includes a recommended starting choice with a reason.",
         "The response reuses the supplied target, does not invent confirmed decisions or a saved run, and performs no writes."
+      ]
+    },
+    {
+      "id": 18,
+      "prompt": "Offline discovery-step tabletop; do not contact GitHub, inspect credentials, or execute commands. Use Assess mode for enterprise `contoso` on github.com. Scope: all 40 organizations in this enterprise, organization metadata and effective Actions workflow-token defaults only. Supplied evidence verifies the active request actor, requested identity, enterprise-owner authority and enterprise target. Inventory has not yet run, and organization names and policy values are not supplied. Supported read endpoints and documentation have already been checked in this tabletop. Describe the next discovery step and any question you would ask me.",
+      "expected_output": "The skill states the enterprise-wide scope and proceeds to the required organization and policy reads without a skill-level approval question. It keeps saved data filtered, plans pagination and pacing, and does not invent completed inventory evidence.",
+      "files": [],
+      "expectations": [
+        "The response proceeds with the requested organization inventory and policy reads instead of asking for read-only inventory approval.",
+        "The response states the enterprise-wide metadata and Actions scope and treats request-volume information as an update rather than a permission request.",
+        "The response uses filtered and paginated read requests, does not expand to unrelated member profiles, repository contents or exports, and does not claim unperformed reads are verified.",
+        "The response does not request active-identity reconfirmation or execute writes, authentication changes, or live calls in the tabletop."
+      ]
+    },
+    {
+      "id": 19,
+      "prompt": "Offline discovery-step tabletop; do not contact GitHub, inspect credentials, or execute commands. Use Assess mode for enterprise `contoso` on github.com, limited to organization `contoso-engineering`. The outcome is a security and Copilot-license posture report using aggregate alert counts, security-control state and seat totals. Supplied evidence verifies the requested target and the active actor's read authority; supported read endpoints and their documentation have already been checked. The required alert and seat inventories may span many pages, but no results have been supplied yet. The request excludes alert bodies, audit exports, member profiles, source files and all other organizations. Describe the next discovery step and any question you would ask me.",
+      "expected_output": "The skill proceeds with the requested summary reads without approval questions for broad alert or seat inventories. It filters and aggregates paginated results, honors all exclusions, and distinguishes future reads from completed evidence.",
+      "files": [],
+      "expectations": [
+        "The response proceeds with the requested aggregate alert, control-state and seat reads without inventory approval or checklist confirmation.",
+        "The response preserves the one-organization boundary and excludes alert bodies, audit exports, member profiles, source content and other organizations.",
+        "The response filters, paginates and aggregates the data and does not invent inventory totals or verified results.",
+        "The response does not execute writes, authentication changes or live calls in the tabletop."
       ]
     }
   ]

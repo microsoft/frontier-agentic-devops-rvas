@@ -30,7 +30,8 @@ If the request names a mode, use it. Otherwise choose from intent:
   requests a different mode.
 
 Ask one clarifying question only when intent is ambiguous. A mode choice does
-not approve authentication changes, broad inventories, or GitHub writes.
+not approve authentication changes or GitHub writes. Read-only discovery follows
+the requested-scope rules in `references/discovery.md`.
 
 ### Carry context between steps
 
@@ -105,8 +106,9 @@ starter list.
 
 ### 2. Check authentication
 
-Inspect the active host and account without exposing the token. Confirm that the
-active identity is the one the user intends to use.
+Inspect the active host and request actor without exposing the token. State the
+actor and use the current identity for read-only discovery. If it differs from
+an identity the user explicitly requested, resolve the mismatch before discovery.
 
 If access or scopes are missing:
 
@@ -133,8 +135,9 @@ Use progressive discovery:
    outcome.
 3. Expand to repositories, teams, members, seats, policies, or audit data only
    when the outcome needs them.
-4. Before an enterprise-wide inventory, show the scope and estimated request
-   volume, then ask for approval.
+4. Run required read-only inventories within the requested scope without an
+   extra approval question. For large inventories, state the scope and estimated
+   request volume, then proceed with filtered, paginated reads.
 
 Record each observation with:
 
@@ -193,7 +196,7 @@ Plan turns selected recommendations into reviewed changes; continue only when
 the user requests it. Detailed interviews and executable write plans belong to
 Plan or Apply mode.
 
-## Build and confirm the capability checklist
+## Build the capability checklist
 
 Map the desired outcome and discovered gaps to a proposed checklist. Show:
 
@@ -204,9 +207,11 @@ Map the desired outcome and discovered gaps to a proposed checklist. Show:
 - likely write scope;
 - known billing or disruption risks.
 
-Ask the user to confirm or edit the checklist before the detailed interview.
+Use the areas directly required by the stated outcome and proceed to unresolved
+decisions. Ask a scope question only when a material target or capability choice
+remains unresolved. Leave optional additions out until the user requests them.
 
-Do not treat checklist selection as write approval.
+The checklist explains the work; it is not an approval gate or write approval.
 
 ## Run the interview
 
@@ -235,7 +240,7 @@ Resolve decisions in dependency order:
 8. Copilot access and AI controls;
 9. billing, rollout, and verification.
 
-Skip branches that the confirmed capability checklist does not need.
+Skip branches that the scoped capability checklist does not need.
 
 Proceed to planning when every required decision is confirmed or recorded as a
 blocker.
