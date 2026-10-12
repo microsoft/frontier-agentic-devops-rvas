@@ -12,19 +12,35 @@ depend on the repository's GitHub Enterprise Wizard.
 
 ## Operating modes
 
-Confirm the mode before broad discovery:
+State the selected mode, target, and scope before discovery:
 
 - **Assess:** inspect current state and report gaps with prioritized recommendations.
 - **Plan:** assess, interview, and save a plan without changing GitHub.
 - **Apply:** assess, plan, approve batches, execute, and verify.
 - **Resume:** load saved artifacts, recheck identity and live state, then continue.
 
-If the request names a mode, use it. Otherwise recommend the least invasive mode
-that can meet the request.
+If the request names a mode, use it. Otherwise choose from intent:
 
-For Resume, load the run directory and follow `references/artifacts.md` before
-starting new discovery. Reuse the saved target and scope instead of restarting
-the setup interview.
+- **Assess** for a report-only review of current state and recommendations.
+- **Plan** for help setting up or aligning an enterprise or organization.
+- **Apply** for clear intent to execute a reviewed plan, such as "looks good,
+  proceed." This requests the batch-approval process; plan acceptance alone
+  leaves execution unapproved.
+- **Resume** for continuing saved work. Restore the saved goal unless the user
+  requests a different mode.
+
+Ask one clarifying question only when intent is ambiguous. A mode choice does
+not approve authentication changes, broad inventories, or GitHub writes.
+
+### Carry context between steps
+
+Reuse the known host, enterprise, scope, outcome, confirmed decisions, and run
+directory when moving between modes. Refresh stale evidence and reopen only
+decisions whose basis changed. A mode change continues the same run rather than
+restarting the setup interview.
+
+For Resume, use the known run directory or ask for it when unknown; do not guess
+the latest run. Follow `references/artifacts.md` before new discovery.
 
 ## Read the relevant references
 
@@ -71,7 +87,8 @@ endpoint details in the official documentation rather than copying a catalog her
 If the user already named the host, enterprise, organizations, and outcome, use
 those values as candidates. Verify them before planning.
 
-Otherwise ask for the host and enterprise slug. Then offer these starter outcomes:
+Ask only for missing target values, one question at a time. Once the target is
+known, use the stated outcome or offer these starter outcomes if it is missing:
 
 - Establish an enterprise governance baseline
 - Create a new organization landing zone
@@ -103,9 +120,9 @@ login alone.
 
 ### 3. Create the working directory
 
-Create the run directory at the user's requested path or the default path in
-`references/artifacts.md`. Apply its permission and redaction rules.
-For Resume mode, use the existing run directory.
+Reuse the current run directory when continuing known work. For a new run,
+create it at the user's requested path or the default in `references/artifacts.md`.
+Apply the reference's permission and redaction rules.
 
 ## Assess current state
 
@@ -148,6 +165,8 @@ missing only when the API and current authority make that conclusion safe.
 ### Report findings and recommendations
 
 Compare verified effective state with the scoped outcome and cited guidance.
+Cite the baseline or guidance for each compliance judgment, including controls
+with no gap.
 For every confirmed gap, give a suggested action and rank it `high`, `medium`, or
 `low` by impact and dependency order. Explain the priority briefly. State any
 authority, billing, or disruption constraint that affects the action.
@@ -169,8 +188,10 @@ Report unknowns separately and give the artifact path.
 **Assessment gate:** every control needed by the scoped outcome has timestamped
 evidence or a classified unknown with its cause and next check, and every
 confirmed gap has a sourced, prioritized recommendation in the saved assessment
-and user-facing report. In Assess mode, stop after this report; detailed
-interviews and executable write plans belong to Plan or Apply mode.
+and user-facing report. In Assess mode, stop after this report. Explain that
+Plan turns selected recommendations into reviewed changes; continue only when
+the user requests it. Detailed interviews and executable write plans belong to
+Plan or Apply mode.
 
 ## Build and confirm the capability checklist
 
@@ -189,7 +210,10 @@ Do not treat checklist selection as write approval.
 
 ## Run the interview
 
-Generate questions from unresolved decisions. Do not replay a fixed questionnaire.
+Generate questions from unresolved decisions. Use answers already supplied by
+the user or established through discovery. A recommendation becomes a confirmed
+decision only when the user accepts it. Reopen a confirmed decision only when
+its basis changes.
 
 For each question:
 
@@ -264,7 +288,10 @@ Show the complete plan before asking for write approval.
 acceptance checks, or a manual handoff with an owner and evidence request.
 Dependencies and cost effects are explicit. Unresolved decisions or missing
 documentation keep the affected batch blocked. In Plan mode, save the artifacts
-and stop without requesting execution approval.
+and stop without requesting execution approval. Explain that execution requires
+Apply and separate batch approval. On a later request to proceed, reuse this
+plan and follow the Apply approval process; praise or plan acceptance alone
+authorizes no execution.
 
 ## Apply approved batches
 

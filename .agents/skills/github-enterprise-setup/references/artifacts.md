@@ -23,6 +23,22 @@ evidence/
 
 Set the directory to `0700` and files to `0600`.
 
+### Reuse the run
+
+Within the same conversation, keep the known directory when changing modes.
+Reuse the target and scope recorded in `assessment.json` and any confirmed
+decisions in `plan.md` or the conversation. Refresh stale evidence before
+depending on it; retain the observation timestamp until a new read replaces it.
+
+Record the current Assess, Plan, or Apply goal in `assessment.json.mode` when
+the user changes goals. Resume restores that goal unless the user requests a
+different one. A mode change does not carry write approval forward; use the
+approval checks in the Resume section and `safety-and-approval.md`.
+
+In a new conversation, use a known or supplied directory and follow the Resume
+checks below. If its location is unknown, ask for it before inspecting saved
+work. Directory age is not evidence that a run is the intended one.
+
 ## Redaction
 
 Never save:
@@ -300,7 +316,9 @@ Before resuming:
    using `safety-and-approval.md` before any replay;
 6. mark stale observations and revalidate commands against endpoint documentation
    and the approved scope;
-7. show the next batch and ask for approval again if its target or effect changed.
+7. identify the next batch and state its remaining target, permission,
+   effective-policy-source, and precondition checks; ask for approval again if
+   its target or effect changed.
 
 Saved approval does not survive a changed target, recipient set, cost, policy
 source, desired state, or actor. Older artifacts missing documentation checks or

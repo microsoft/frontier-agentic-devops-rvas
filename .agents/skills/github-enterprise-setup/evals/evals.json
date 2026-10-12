@@ -140,6 +140,88 @@
         "The response maps filtered inventory data into the documented assessment shape rather than replacing assessment.json with raw pages.",
         "The response performs no GitHub API calls."
       ]
+    },
+    {
+      "id": 11,
+      "prompt": "Offline setup tabletop; do not contact GitHub or inspect credentials. Help me align enterprise `contoso` on github.com, scoped to `contoso-engineering`, with read-only Actions workflow-token defaults. Supplied evidence verifies the intended actor, enterprise and organization, organization-owner authority, and effective default_workflow_permissions=write with no enterprise override. The supplied guidance review recommends read-only defaults, and the requested baseline is read-only. No capability checklist or configuration decisions have been confirmed. Start the guided workflow using this evidence. I have not named a mode.",
+      "expected_output": "The skill selects and states Plan from setup intent without a mode-selection question, uses the supplied target and evidence, reports the Actions gap, and asks for confirmation of the scoped capability checklist before detailed decisions. It performs no writes.",
+      "files": [],
+      "expectations": [
+        "The response selects Plan without asking which mode to use.",
+        "The response reuses the supplied host, enterprise, organization and outcome instead of asking for them.",
+        "The next question confirms the scoped Actions capability checklist rather than restarts the setup interview.",
+        "The response does not treat setup intent as approval for authentication changes, broader inventories, or GitHub writes."
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "Offline report-only tabletop; do not contact GitHub or inspect credentials. Review enterprise `contoso` on github.com, scoped to `contoso-engineering`. Only return findings and recommendations about Actions workflow-token defaults; I do not want a configuration interview or write plan. Supplied evidence at 2026-10-12T08:00:00Z verifies the intended actor and target, owner authority, and default_workflow_permissions=write with no enterprise override. The supplied official guidance review recommends read-only defaults, with reference https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication#modifying-the-permissions-for-the-github_token. The assessment baseline is read-only. Save the assessment under the supplied output directory. I have not named a mode.",
+      "expected_output": "The skill selects Assess from report-only intent, reports and saves the prioritized recommendation, and stops. It explains the Plan next step without starting an interview or requesting execution approval.",
+      "files": [],
+      "expectations": [
+        "The response selects Assess without asking which mode to use.",
+        "The response and assessment.json contain the confirmed Actions gap and a sourced, prioritized recommendation.",
+        "The response explains that Plan can turn selected recommendations into reviewed changes but does not start that process.",
+        "The response does not create an executable plan, ask a configuration or batch-approval question, or perform writes."
+      ]
+    },
+    {
+      "id": 13,
+      "prompt": "Offline same-conversation transition tabletop; do not contact GitHub, inspect credentials, or read the fictional paths below. Earlier in this conversation we completed Assess for enterprise `contoso` on github.com and organization `contoso-engineering`, with run directory `/offline/runs/contoso/known-run`. The current outcome is read-only Actions defaults. We then confirmed the Actions-only capability checklist and the desired read-only default; workflow exception handling remains unresolved. Other target values and decisions are already confirmed. The old workflow-default observation is stale. A supplied new separate read at 2026-10-12T08:20:00Z verifies the same actor, target, owner authority and enterprise constraints, and still shows an effective write default. Continue planning from this run and ask the next unresolved decision, with a recommendation. Use supplied context and fresh evidence rather than restarting.",
+      "expected_output": "The skill continues in Plan with the known run and confirmed decisions, replaces the stale evidence with the supplied fresh read, and asks one workflow-exception question without requesting the target, directory, mode or checklist again.",
+      "files": [],
+      "expectations": [
+        "The response selects Plan and reuses /offline/runs/contoso/known-run without asking for or creating a new run.",
+        "The response preserves the confirmed target, Actions-only checklist and read-only decision.",
+        "The response uses the supplied refreshed observation rather than presenting stale evidence as current.",
+        "The response asks only the unresolved workflow-exception decision, includes a recommendation and tradeoff, and performs no writes."
+      ]
+    },
+    {
+      "id": 14,
+      "prompt": "Offline Plan-to-Apply tabletop; do not contact GitHub, inspect credentials, or execute any command. We have just reviewed a saved Plan in `/offline/runs/fabrikam/reviewed-run` for enterprise `fabrikam` on github.com and organization `fabrikam-engineering`. Its first routine batch `team-access` grants platform maintain access to fabrikam-engineering/shared. Current configured and effective team access is pull; desired access is maintain. There are no billing changes. The rollback is restoration of the pull grant through separately approved access removal. The validated command is `gh api --hostname github.com --method PUT /orgs/fabrikam-engineering/teams/platform/repos/fabrikam-engineering/shared -H 'Accept: application/vnd.github+json' -H 'X-GitHub-Api-Version: 2026-03-10' -f permission=maintain`. Supplied artifact and endpoint checks confirm complete documentation, permissions, supported method and API version, matching stable target IDs, unchanged actor and policy source, and fresh preconditions. Verification requires a separate team-grant read and a consenting non-owner's effective role_name=maintain. No batch has been approved. My reply after reviewing the plan is: 'Looks good, proceed.' Show the next user-facing step.",
+      "expected_output": "The skill infers Apply from execution intent, reuses the reviewed run, presents the first exact batch and requests its approval. It does not treat the reply as approval for the command and performs no write.",
+      "files": [],
+      "expectations": [
+        "The response enters Apply without requiring the user to name Apply explicitly or repeat the setup interview.",
+        "The response presents the named team-access batch, exact target, current and desired access, cost, recovery and acceptance checks.",
+        "The response asks for separate batch approval and does not record the batch or operation as approved or executed.",
+        "The response uses the known run and supplied fresh checks, performs no writes, and does not equate plan acceptance with write approval."
+      ]
+    },
+    {
+      "id": 15,
+      "prompt": "Offline plan-review tabletop; do not contact GitHub, inspect credentials, or execute commands. We have just reviewed a completed Plan for enterprise `fabrikam` on github.com, organization `fabrikam-engineering`, in known directory `/offline/runs/fabrikam/reviewed-run`. The first routine batch would grant the platform team maintain access to a named shared repository. The plan has all required documentation and acceptance checks. No batch is approved. My entire reply is: 'Looks good.' Treat this as a response to the existing plan and show the next user-facing step.",
+      "expected_output": "The skill keeps the reviewed plan unexecuted, retains Plan and the known context, and explains that an execution request would enter Apply with separate batch approval. It does not infer execution intent from praise alone.",
+      "files": [],
+      "expectations": [
+        "The response stays at the Plan stopping point rather than entering Apply from praise alone.",
+        "The response retains the known run without asking for target, directory, mode or completed decisions again.",
+        "The response explains the execution boundary without requesting batch approval or declaring any operation approved.",
+        "The response performs no writes and does not treat the positive review as execution intent."
+      ]
+    },
+    {
+      "id": 16,
+      "prompt": "Offline resume-selection tabletop; do not contact GitHub, inspect credentials, scan directories, or invent saved artifacts. In this new conversation I want to continue my saved enterprise setup for `contoso` on github.com. The run directory and saved goal are not available in the conversation. I have multiple previous runs. Continue the saved work.",
+      "expected_output": "The skill selects Resume and asks one question for the run directory. It does not guess the latest run, start a new assessment, or ask a fresh setup questionnaire.",
+      "files": [],
+      "expectations": [
+        "The response selects Resume and asks only for the unknown run directory.",
+        "The response does not select a run by age or invent its target, saved goal or approvals.",
+        "The response does not restart setup, inspect unrelated paths, or perform writes."
+      ]
+    },
+    {
+      "id": 17,
+      "prompt": "Offline ambiguous-intent tabletop; do not contact GitHub, inspect credentials, or run discovery. The target is already known: enterprise `contoso` on github.com and organization `contoso-engineering`. Can you take a look at our setup? I have not said whether I want only a report or help planning changes. There is no saved run.",
+      "expected_output": "The skill asks one question to distinguish a report-only Assess request from guided Plan, recommends a suitable starting mode with a reason, and reuses the known target instead of starting discovery or asking for it again.",
+      "files": [],
+      "expectations": [
+        "The response asks one intent question before selecting a definitive mode or starting discovery.",
+        "The question distinguishes report-only Assess from guided Plan and includes a recommended starting choice with a reason.",
+        "The response reuses the supplied target, does not invent confirmed decisions or a saved run, and performs no writes."
+      ]
     }
   ]
 }
