@@ -12,7 +12,8 @@
     "verify:repos:external": "node scripts/verify-external-repos.js --external",
     "setup:juice-shop": "bash scripts/provision-app.sh juice-shop",
     "setup:sre-agent-lab": "bash scripts/provision-app.sh grubify-starter-lab",
-    "setup:sre-agent": "bash modules/sre-agent/resources/scripts/doctor.sh"
+    "setup:sre-agent": "bash modules/sre-agent/resources/scripts/doctor.sh",
+    "test:setup-plugin": "node --test scripts/test-github-enterprise-setup-plugin.js"
   },
   "engines": {
     "node": ">=18"

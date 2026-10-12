@@ -1,0 +1,12 @@
+{
+  "name": "frontier-agentic-devops",
+  "owner": {
+    "name": "Microsoft"
+  },
+  "plugins": [
+    {
+      "name": "github-enterprise-setup",
+      "source": "./plugins/github-enterprise-setup"
+    }
+  ]
+}

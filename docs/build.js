@@ -88,6 +88,37 @@ const OUTCOMES_PATH  = path.join(ROOT, 'outcomes.json');
 const CURRENT_SOURCE_REPO = 'microsoft/frontier-agentic-devops-rvas';
 const CURRENT_SOURCE_REF = process.env.SOURCE_REF || 'main';
 
+function renderSiteHeader(template, page) {
+  const navPattern = /(<nav\b[^>]*class="nav-links"[^>]*>)([\s\S]*?)(<\/nav>)/;
+  if (!navPattern.test(template)) throw new Error('Shared header is missing primary navigation');
+  return template.replace(navPattern, (_, open, links, close) => {
+    const rendered = links.replace(/<a\b([^>]*)>/g, (tag, attributes) => {
+      const href = attributes.match(/\bhref="([^"]+)"/)?.[1];
+      const pages = (attributes.match(/\bdata-nav-pages="([^"]+)"/)?.[1] || '').split(' ');
+      if (href !== page && !pages.includes(page)) return tag;
+      return tag.replace(/>$/, ` aria-current="${href === page ? 'page' : 'location'}">`);
+    });
+    if ([...rendered.matchAll(/\baria-current=/g)].length > 1) {
+      throw new Error(`Shared header has multiple current links for ${page}`);
+    }
+    return open + rendered + close;
+  });
+}
+
+function syncSiteHeaders() {
+  const template = fs.readFileSync(path.join(__dirname, '_partials/header.html'), 'utf8').trimEnd();
+  const headerPattern = /  <header class="nav" role="banner">[\s\S]*?  <\/header>/g;
+  for (const page of fs.readdirSync(__dirname).filter(name => name.endsWith('.html'))) {
+    const file = path.join(__dirname, page);
+    const html = fs.readFileSync(file, 'utf8');
+    const headers = [...html.matchAll(headerPattern)];
+    if (!headers.length && /<meta\b[^>]*http-equiv="refresh"/.test(html)) continue;
+    if (headers.length !== 1) throw new Error(`${page}: expected one site header`);
+    const updated = html.replace(headerPattern, () => renderSiteHeader(template, page));
+    if (updated !== html) fs.writeFileSync(file, updated);
+  }
+}
+
 // Resolve saved links without keeping duplicate activity folders or guides.
 const ACTIVITY_ALIASES = {
   'ghec-ch06': 'ghec-ch07',
@@ -724,6 +755,7 @@ function main() {
   });
 
   /* ── 10. Write outputs ── */
+  syncSiteHeaders();
   fs.mkdirSync(OUT_DATA_DIR, { recursive: true });
 
   const platform = {
@@ -753,4 +785,4 @@ function main() {
 
 if (require.main === module) main();
 
-module.exports = { validateOutcomes, enrichOutcome, outcomeActivityIds, challengeIdFromSlug, ACTIVITY_ALIASES };
+module.exports = { validateOutcomes, enrichOutcome, outcomeActivityIds, challengeIdFromSlug, ACTIVITY_ALIASES, renderSiteHeader };

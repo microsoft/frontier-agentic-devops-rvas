@@ -1,6 +1,11 @@
 # Agentic DevSecOps
 
-One GitHub Pages curriculum with five outcomes and four delivery-session modules.
+Choose **learn by doing** through five outcomes and four delivery-session modules,
+or **set up GitHub** with the GitHub Enterprise setup skill.
+
+The portal's home page presents both routes. The [setup overview](docs/github-setup.html)
+explains the skill's scope; the [setup guide](docs/github-setup-guide.html) covers
+installation and the guided workflow. The hands-on catalog and session builder remain available.
 
 > **Use your own environment.** Work with your own applications, repositories, and data
 > so your team can keep using the result after the session. Use OWASP Juice Shop, Grubify,
@@ -56,6 +61,9 @@ docs/assets/data/
 The build script generates the site data from activity metadata and outcome journeys.
 Do not copy metadata by hand.
 
+**Edit the top bar in `docs/_partials/header.html`.** The build copies this shared
+header into every site page. Keep page-specific navigation in the page content.
+
 ## Build locally
 
 You need Node.js ≥ 18. No npm install is required.
@@ -76,6 +84,28 @@ The build writes to `docs/assets/data/`. The Pages site has all its files under 
 ```
 
 The build exits with code 0 on success. For a non-zero exit code, check stderr for validation errors.
+
+## Set up GitHub
+
+Install the [GitHub Enterprise setup plugin](plugins/github-enterprise-setup/README.md)
+in GitHub Copilot CLI. You need `gh`, `jq`, and authenticated access to an existing
+GitHub Enterprise Cloud account. After the plugin and marketplace are published:
+
+```bash
+copilot plugin marketplace add microsoft/frontier-agentic-devops-rvas
+copilot plugin install github-enterprise-setup@frontier-agentic-devops
+copilot
+```
+
+Tell Copilot to use `github-enterprise-setup`, name your enterprise and host,
+and describe the outcome. The skill starts **Plan**. It checks current state
+and recommends changes. Review the saved plan before requesting Apply.
+Each write batch needs approval; high-impact work has a separate confirmation.
+
+The plugin replaces the Bash wizard. Legacy wizard run files remain reference
+material; start a new skill plan rather than resuming them. The skill does not
+run the curriculum's lab provisioners. **Live end-to-end setup validation is still
+pending.** See the plugin guide for local installation and the release checks.
 
 ## External labs and submodules
 
@@ -99,6 +129,7 @@ Run the content audits with:
 ```bash
 npm run audit          # check content facts without network calls
 npm run audit:content  # rebuild, then audit generated catalog/link consistency
+npm run test:setup-plugin  # check marketplace, package, and bundled references
 ```
 
 The ruleset monitor and workflow starters use Python 3. Run their tests with:
@@ -123,7 +154,21 @@ Use `modules/_TEMPLATE/challenge/` as your starting point for new activities.
 
 ## Deploy
 
-GitHub Actions (`.github/workflows/build-deploy.yml`) runs `node docs/build.js` on every push to `main` and deploys `docs/` to GitHub Pages automatically.
+GitHub Actions (`.github/workflows/build-deploy.yml`) builds and deploys the site on
+pushes to `main`. Other branches and same-repository pull requests get a
+**preview under `previews/`**, while the site root keeps the latest `main` content.
+The workflow posts the preview link in its run summary and updates one comment on
+each pull request. Fork pull requests run validation only.
+
+The workflow creates `gh-pages` on the first preview build and stores previews
+there so later deployments preserve them.
+
+**Repository settings:** keep Settings > Pages > Source set to **GitHub Actions**.
+In Settings > Environments > `github-pages`, allow preview branches and PR refs
+under **Deployment branches and tags**; a `main`-only rule blocks previews. Keep
+`main`, add the branch names or patterns you want to preview, and add
+`refs/pull/*/merge` for PR deployments. Repository rules must also permit the
+workflow's `GITHUB_TOKEN` to create and update `gh-pages`.
 
 ## License
 

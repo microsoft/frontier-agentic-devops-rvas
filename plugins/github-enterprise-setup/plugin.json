@@ -1,0 +1,12 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "github-enterprise-setup",
+  "version": "0.1.0",
+  "description": "Plan GitHub Enterprise Cloud setup from live evidence and verify approved changes.",
+  "author": {
+    "name": "Microsoft"
+  },
+  "repository": "https://github.com/microsoft/frontier-agentic-devops-rvas",
+  "license": "MIT",
+  "keywords": ["github", "enterprise", "governance"]
+}
