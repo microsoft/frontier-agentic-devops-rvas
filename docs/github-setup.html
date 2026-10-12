@@ -57,7 +57,7 @@
     </section>
     <div class="wrap setup-content">
       <nav class="setup-subnav" aria-label="On this page">
-        <a href="#scope">Scope</a><a href="#boundaries">Prerequisites and limits</a><a href="#review">Review and approval</a>
+        <a href="#scope">Scope</a><a href="#capabilities">Capabilities</a><a href="#examples">Example prompts</a><a href="#boundaries">Prerequisites and limits</a><a href="#review">Review and approval</a>
       </nav>
       <section id="scope" aria-labelledby="scopeHeading">
         <h2 id="scopeHeading">Set up or align an enterprise</h2>
@@ -71,6 +71,80 @@
         </ul>
         <p><strong>One prompt starts the guided workflow.</strong> Plan includes read-only discovery and prioritized recommendations. The agent asks only for unresolved decisions, one at a time.</p>
         <p>Required read-only inventories within your requested scope do not need another skill-level approval. Copilot's tool permissions and your organization's policies still apply.</p>
+      </section>
+      <section id="capabilities" aria-labelledby="capabilitiesHeading">
+        <div class="setup-section-heading">
+          <div>
+            <span class="eyebrow">How the skill works</span>
+            <h2 id="capabilitiesHeading">A control-room view of enterprise setup</h2>
+          </div>
+          <p>The work stays tied to one outcome. Discovery gathers evidence, planning turns it into reviewable changes, and Apply waits for approval.</p>
+        </div>
+        <div class="setup-capability-grid">
+          <article class="setup-capability setup-capability-governance">
+            <span class="setup-capability-code">GOV</span>
+            <h3>Governance and identity</h3>
+            <p>Enterprise policies, organization boundaries, ownership, audit access, and identity handoffs.</p>
+            <ul>
+              <li>Enterprise or organization baseline</li>
+              <li>EMU, SAML, SCIM, and IdP boundaries</li>
+            </ul>
+          </article>
+          <article class="setup-capability setup-capability-access">
+            <span class="setup-capability-code">ACC</span>
+            <h3>Teams and repository access</h3>
+            <p>Team structure, inherited permissions, outside collaborators, and repository roles.</p>
+            <ul>
+              <li>Team-first access design</li>
+              <li>Effective access checks</li>
+            </ul>
+          </article>
+          <article class="setup-capability setup-capability-platform">
+            <span class="setup-capability-code">PLT</span>
+            <h3>Repository and Actions platform</h3>
+            <p>Repository factories, rulesets, workflow policy, runners, environments, and cloud trust handoffs.</p>
+            <ul>
+              <li>Standards and protected defaults</li>
+              <li>Actions policy and runner model</li>
+            </ul>
+          </article>
+          <article class="setup-capability setup-capability-security">
+            <span class="setup-capability-code">SEC</span>
+            <h3>Security and Copilot rollout</h3>
+            <p>Code security coverage, rollout waves, Copilot seats and controls, licensing, and verification evidence.</p>
+            <ul>
+              <li>CodeQL and secret protection</li>
+              <li>Scoped Copilot rollout</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+      <section id="examples" aria-labelledby="examplesHeading">
+        <div class="setup-section-heading">
+          <div>
+            <span class="eyebrow">Start with an outcome</span>
+            <h2 id="examplesHeading">Prompts you can send as-is</h2>
+          </div>
+          <p>Replace the values in angle brackets. Each prompt keeps the first pass read-only and saves a plan before it asks to change GitHub.</p>
+        </div>
+        <div class="setup-prompt-grid">
+          <article class="setup-prompt-card">
+            <h3>Establish a governance baseline</h3>
+            <pre><code>Use the github-enterprise-setup skill in Plan mode for enterprise &lt;enterprise&gt; on &lt;host&gt;. Assess governance, identity, Actions, security, and Copilot. Save a reviewed plan without changing GitHub.</code></pre>
+          </article>
+          <article class="setup-prompt-card">
+            <h3>Align one organization</h3>
+            <pre><code>Use the github-enterprise-setup skill to align organization &lt;org&gt; in enterprise &lt;enterprise&gt;. Review teams, repository access, rulesets, and Actions policy. Ask one unresolved decision at a time, then save the plan.</code></pre>
+          </article>
+          <article class="setup-prompt-card">
+            <h3>Roll out GitHub Copilot</h3>
+            <pre><code>Use the github-enterprise-setup skill to plan a GitHub Copilot rollout for &lt;enterprise or org&gt;. Check seat management, policy inheritance, agent controls, estimated seat changes, and rollout evidence. Do not make changes.</code></pre>
+          </article>
+          <article class="setup-prompt-card">
+            <h3>Plan a security rollout</h3>
+            <pre><code>Use the github-enterprise-setup skill to plan code security for organizations &lt;orgs&gt;. Assess entitlements, CodeQL coverage, secret scanning, push protection, exceptions, and rollout waves. Save a plan without changing GitHub.</code></pre>
+          </article>
+        </div>
       </section>
       <section id="boundaries" aria-labelledby="boundariesHeading">
         <h2 id="boundariesHeading">Before you start</h2>
