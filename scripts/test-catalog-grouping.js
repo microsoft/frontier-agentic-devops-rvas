@@ -257,19 +257,19 @@ test('build rejects invalid outcome membership instead of silently dropping work
   assert.match(validateOutcomes([outcome, outcome], activities).join('\n'), /unique id/);
 });
 
-test('homepage offers learning and wizard routes before the activity outcomes', () => {
+test('homepage offers learning and skill-based setup before the activity outcomes', () => {
   const html = fs.readFileSync(path.join(root, 'docs/index.html'), 'utf8');
   const routes = [...html.matchAll(/<a href="([^"]+)" class="start-route[^"]*">([\s\S]*?)<\/a>/g)];
   assert.equal(routes.length, 2);
   assert.equal(routes[0][1], '#outcomes');
   assert.match(routes[0][2], /Learn by doing/);
-  assert.equal(routes[1][1], 'wizard.html');
-  assert.match(routes[1][2], /Set up with the wizard/);
+  assert.equal(routes[1][1], 'github-setup.html');
+  assert.match(routes[1][2], /Set up GitHub/);
   assert(html.indexOf('class="start-routes"') < html.indexOf('id="outcomes"'));
 });
 
-test('wizard pages resolve local assets, page links, and section links', () => {
-  for (const name of ['wizard', 'wizard-guide']) {
+test('setup pages resolve local assets, page links, and section links', () => {
+  for (const name of ['github-setup', 'github-setup-guide']) {
     const file = path.join(root, `docs/${name}.html`);
     const html = fs.readFileSync(file, 'utf8');
     for (const [, href] of html.matchAll(/\b(?:href|src)="([^"]+)"/g)) {
@@ -284,6 +284,31 @@ test('wizard pages resolve local assets, page links, and section links', () => {
     assert.match(html, /id="navLinks"/);
     assert.match(html, /aria-controls="navLinks"/);
     assert.match(html, /src="assets\/js\/shell.js"/);
+  }
+});
+
+test('legacy wizard URLs redirect to setup pages and preserve section links', () => {
+  const redirects = [
+    ['wizard', 'github-setup', ['scope', 'boundaries', 'review']],
+    ['wizard-guide', 'github-setup-guide', ['start', 'questions', 'apply', 'verify']],
+  ];
+  for (const [oldName, newName, fragments] of redirects) {
+    const html = fs.readFileSync(path.join(root, `docs/${oldName}.html`), 'utf8');
+    const target = fs.readFileSync(path.join(root, `docs/${newName}.html`), 'utf8');
+    assert(html.includes(`http-equiv="refresh" content="0; url=${newName}.html"`));
+    assert(html.includes(`rel="canonical" href="${newName}.html"`));
+    assert(html.includes(`<a href="${newName}.html">`));
+    const script = html.match(/<script>([\s\S]*?)<\/script>/);
+    assert(script, `${oldName}: missing redirect script`);
+    for (const fragment of ['', ...fragments]) {
+      let destination;
+      const hash = fragment ? `#${fragment}` : '';
+      vm.runInNewContext(script[1], {
+        window: { location: { hash, replace(value) { destination = value; } } },
+      });
+      assert.equal(destination, `${newName}.html${hash}`);
+      if (fragment) assert(target.includes(`id="${fragment}"`), `${oldName}: missing section ${fragment}`);
+    }
   }
 });
 

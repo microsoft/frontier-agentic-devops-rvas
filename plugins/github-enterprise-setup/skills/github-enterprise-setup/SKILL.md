@@ -7,8 +7,7 @@ compatibility: Requires GitHub CLI, jq, and an authenticated GitHub Enterprise C
 # GitHub Enterprise setup
 
 Guide the user from a live assessment to a verified GitHub Enterprise Cloud setup.
-Use `gh`, `gh api`, and `gh api graphql` directly. Do not call, source, copy, or
-depend on the repository's GitHub Enterprise Wizard.
+Use `gh`, `gh api`, and `gh api graphql` directly.
 
 ## Operating modes
 

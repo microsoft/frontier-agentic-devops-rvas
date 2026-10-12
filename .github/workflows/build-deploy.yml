@@ -37,7 +37,7 @@ jobs:
           PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/release/test_release.py -v
           PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/ci/test_workflows.py -v
           PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/intake/test_provision.py -v
-          npm run test:wizard
+          npm run test:setup-plugin
 
       - name: Restore branch previews
         run: |
@@ -131,7 +131,7 @@ jobs:
           PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/release/test_release.py -v
           PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/ci/test_workflows.py -v
           PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/intake/test_provision.py -v
-          npm run test:wizard
+          npm run test:setup-plugin
 
       - name: Set preview path
         id: preview_path

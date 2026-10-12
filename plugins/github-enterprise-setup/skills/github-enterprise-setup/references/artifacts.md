@@ -305,6 +305,11 @@ trees, or alert bodies unless the approved outcome needs them.
 
 ## Resume
 
+Resume uses this skill's artifact format. If the supplied directory contains
+legacy Bash wizard artifacts, preserve them as reference material and start a
+new Plan with fresh discovery. Their saved approvals do not authorize skill
+changes; do not convert or replay their commands.
+
 Before resuming:
 
 1. validate artifact versions, required fields, unique operation IDs, and

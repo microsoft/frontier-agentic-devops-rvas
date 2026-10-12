@@ -1,11 +1,11 @@
 # Agentic DevSecOps
 
 Choose **learn by doing** through five outcomes and four delivery-session modules,
-or **set up with the wizard** from a reviewed GitHub configuration plan.
+or **set up GitHub** with the GitHub Enterprise setup skill.
 
-The portal's home page presents both routes. The [wizard overview](docs/wizard.html)
-explains its scope; the [run guide](docs/wizard-guide.html) covers commands and the
-six interview sections. The hands-on catalog and session builder remain available.
+The portal's home page presents both routes. The [setup overview](docs/github-setup.html)
+explains the skill's scope; the [setup guide](docs/github-setup-guide.html) covers
+installation and the guided workflow. The hands-on catalog and session builder remain available.
 
 > **Use your own environment.** Work with your own applications, repositories, and data
 > so your team can keep using the result after the session. Use OWASP Juice Shop, Grubify,
@@ -82,18 +82,27 @@ The build writes to `docs/assets/data/`. The Pages site has all its files under 
 
 The build exits with code 0 on success. For a non-zero exit code, check stderr for validation errors.
 
-## Customer setup wizard
+## Set up GitHub
 
-The [enterprise setup wizard](scripts/github-enterprise-wizard/README.md) configures
-customer organizations and repositories from an approved plan. It uses Bash 3.2+,
-`gh`, and `jq`; it does not run the curriculum's lab provisioners.
+Install the [GitHub Enterprise setup plugin](plugins/github-enterprise-setup/README.md)
+in GitHub Copilot CLI. You need `gh`, `jq`, and authenticated access to an existing
+GitHub Enterprise Cloud account. After the plugin and marketplace are published:
 
 ```bash
-npm run wizard -- init --output "$HOME/github-setup.json"
+copilot plugin marketplace add microsoft/frontier-agentic-devops-rvas
+copilot plugin install github-enterprise-setup@frontier-agentic-devops
+copilot
 ```
 
-**Review the saved plan before applying it.** Selected seat purchases and live
-workflow runs can incur costs. Owner-only or external setup remains a tracked handoff.
+Tell Copilot to use `github-enterprise-setup`, name your enterprise and host,
+and describe the outcome. The skill starts **Plan**. It checks current state
+and recommends changes. Review the saved plan before requesting Apply.
+Each write batch needs approval; high-impact work has a separate confirmation.
+
+The plugin replaces the Bash wizard. Legacy wizard run files remain reference
+material; start a new skill plan rather than resuming them. The skill does not
+run the curriculum's lab provisioners. **Live end-to-end setup validation is still
+pending.** See the plugin guide for local installation and the release checks.
 
 ## External labs and submodules
 
@@ -117,6 +126,7 @@ Run the content audits with:
 ```bash
 npm run audit          # check content facts without network calls
 npm run audit:content  # rebuild, then audit generated catalog/link consistency
+npm run test:setup-plugin  # check marketplace, package, and bundled references
 ```
 
 The ruleset monitor and workflow starters use Python 3. Run their tests with:

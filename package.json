@@ -13,8 +13,7 @@
     "setup:juice-shop": "bash scripts/provision-app.sh juice-shop",
     "setup:sre-agent-lab": "bash scripts/provision-app.sh grubify-starter-lab",
     "setup:sre-agent": "bash modules/sre-agent/resources/scripts/doctor.sh",
-    "wizard": "bash scripts/github-enterprise-wizard.sh",
-    "test:wizard": "node --test scripts/github-enterprise-wizard/wizard.test.cjs && PYTHONDONTWRITEBYTECODE=1 python3 scripts/github-enterprise-wizard/interview.test.py"
+    "test:setup-plugin": "node --test scripts/test-github-enterprise-setup-plugin.js"
   },
   "engines": {
     "node": ">=18"
