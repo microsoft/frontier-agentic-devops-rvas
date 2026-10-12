@@ -72,6 +72,7 @@ Use this shape:
       }
     }
   ],
+  "recommendations": [],
   "unknowns": [],
   "redactions": []
 }
@@ -79,6 +80,17 @@ Use this shape:
 
 Do not claim an observation is current after its target changes. Refresh it and
 replace the timestamp.
+
+Populate `recommendations` for confirmed gaps using the assessment rules in
+`SKILL.md`. Each entry contains `control`, `target`, `gap`, `suggested_action`,
+`priority`, `priority_reason`, `reason_source` (`type` and `reference`), and
+`constraints`. Link it to the observation by control and target; keep proposed
+actions separate from observed values. Use an empty array when no gaps are
+confirmed. Record each unknown's cause and next check in `unknowns`.
+
+These fields are additive to schema version 1. Older assessments without
+`recommendations` remain readable; generate them from rechecked evidence before
+reporting the assessment complete.
 
 ## plan.md
 

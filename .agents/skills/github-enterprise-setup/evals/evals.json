@@ -47,15 +47,20 @@
     },
     {
       "id": 4,
-      "prompt": "Use Assess mode only for enterprise `contoso` on github.com and organization `contoso-engineering`. Check ownership continuity and the Actions workflow-token defaults. Save the scoped assessment and report gaps or unknowns. Do not interview me about a future rollout, create a write plan, or inspect all our other organizations.",
-      "expected_output": "The skill stays in Assess mode, gathers only scoped read evidence, records each relevant control or classified unknown, and finishes with gaps rather than continuing into the configuration interview.",
+      "prompt": "Offline Assess tabletop only for enterprise `contoso` on github.com and organization `contoso-engineering`; do not contact GitHub or inspect real credentials. Check ownership continuity and Actions workflow-token defaults. Supplied read evidence at 2026-10-12T08:00:00Z verifies the intended actor and target, two active organization owners, and organization default_workflow_permissions=write with no enforced enterprise override. Supplied official guidance review says restricted read-only workflow-token defaults are recommended; its reference is https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication#modifying-the-permissions-for-the-github_token. The agreed assessment baseline is read-only defaults. Owner recovery readiness could not be verified because the relevant read was denied; record insufficient_permission and ask the responsible owner to provide recovery-readiness evidence as the next check. Save assessment.json under the supplied output directory and report findings with prioritized recommendations. Do not interview me about a future rollout, create a write plan, or inspect other organizations.",
+      "expected_output": "The skill uses only the supplied evidence, records the verified workflow-token gap with a sourced, prioritized recommendation in assessment.json and the response, keeps the denied recovery-readiness check separate as an unknown, and stops before the configuration interview or write plan.",
       "files": [],
       "expectations": [
         "The response limits discovery to identity, target authority, ownership continuity, workflow-token defaults, and relevant inherited constraints.",
         "Every selected control has timestamped evidence or a classified unknown with its cause and next check.",
         "The response uses official organization guidance when judging ownership continuity and treats its recommendation as guidance rather than approval to add owners.",
+        "The response and assessment.json both include a prioritized recommendation to change the verified write workflow-token default to read-only, with a priority reason and source reference.",
+        "Each assessment.json recommendation links to a confirmed-gap observation by control and target and includes gap, suggested_action, priority (high, medium, or low), priority_reason, reason_source, and constraints; unknown next checks stay in unknowns.",
+        "The recommendation identifies relevant disruption or authority constraints and remains a proposal rather than a confirmed configuration decision.",
+        "The response separates the recovery-readiness unknown from confirmed gaps, gives its cause and next check, and does not infer a recovery configuration fix.",
+        "The response does not invent an owner-count gap from the supplied evidence of two active owners.",
         "The response does not run GitHub writes, produce an executable write plan, or start the detailed configuration interview.",
-        "Any REST request shown pins an explicit supported API version and read method."
+        "The response performs no network calls or real credential inspection in the offline tabletop."
       ]
     },
     {

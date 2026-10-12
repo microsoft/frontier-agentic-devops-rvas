@@ -31,3 +31,6 @@ __pycache__
 
 # Graphify: ignore generated output
 graphify-out/
+
+# Generated skill evaluation results and packages
+/.agents/skills/github-enterprise-setup-workspace/

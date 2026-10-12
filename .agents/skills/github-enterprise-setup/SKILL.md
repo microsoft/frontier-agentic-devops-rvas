@@ -14,7 +14,7 @@ depend on the repository's GitHub Enterprise Wizard.
 
 Confirm the mode before broad discovery:
 
-- **Assess:** inspect current state and report gaps.
+- **Assess:** inspect current state and report gaps with prioritized recommendations.
 - **Plan:** assess, interview, and save a plan without changing GitHub.
 - **Apply:** assess, plan, approve batches, execute, and verify.
 - **Resume:** load saved artifacts, recheck identity and live state, then continue.
@@ -145,12 +145,32 @@ Use these states:
 Keep unknown state unknown. A `404` may mean missing or hidden; classify it as
 missing only when the API and current authority make that conclusion safe.
 
-Save the redacted result to `assessment.json`.
+### Report findings and recommendations
+
+Compare verified effective state with the scoped outcome and cited guidance.
+For every confirmed gap, give a suggested action and rank it `high`, `medium`, or
+`low` by impact and dependency order. Explain the priority briefly. State any
+authority, billing, or disruption constraint that affects the action.
+
+Keep unknowns separate from confirmed gaps. Give each unknown's cause and next
+check; defer configuration advice that depends on that missing evidence.
+When no gaps are found, say so and state the assessment's coverage limits.
+
+In every mode, label each recommendation as `github_recommended`,
+`customer_required`, or `operator_recommended`. Cite the official guidance,
+confirmed customer requirement, or local rationale respectively. Recommendations
+remain proposals until the user confirms the configuration decisions.
+
+Save the redacted evidence and recommendations to `assessment.json` using
+`references/artifacts.md`. Show a compact, priority-ordered findings table with
+the control and target, effective state, gap, suggested action, and source.
+Report unknowns separately and give the artifact path.
 
 **Assessment gate:** every control needed by the scoped outcome has timestamped
-evidence or a classified unknown with its cause and next check. In Assess mode,
-report gaps and stop here; detailed interviews and write plans belong to Plan or
-Apply mode.
+evidence or a classified unknown with its cause and next check, and every
+confirmed gap has a sourced, prioritized recommendation in the saved assessment
+and user-facing report. In Assess mode, stop after this report; detailed
+interviews and executable write plans belong to Plan or Apply mode.
 
 ## Build and confirm the capability checklist
 
@@ -193,9 +213,6 @@ Resolve decisions in dependency order:
 
 Skip branches that the confirmed capability checklist does not need.
 
-Label each recommendation as `github_recommended`, `customer_required`, or
-`operator_recommended`. Cite the official guidance, customer decision, or local
-rationale respectively. Keep recommendations separate from confirmed decisions.
 Proceed to planning when every required decision is confirmed or recorded as a
 blocker.
 
