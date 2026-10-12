@@ -2,13 +2,13 @@ name: Build & Deploy
 
 on:
   push:
-    branches: [main]
+    branches: ['**']
+  pull_request:
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: pages
@@ -16,6 +16,7 @@ concurrency:
 
 jobs:
   build:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -38,6 +39,19 @@ jobs:
           PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/intake/test_provision.py -v
           npm run test:wizard
 
+      - name: Restore branch previews
+        run: |
+          preview_ref="$(git ls-remote --heads origin refs/heads/gh-pages)"
+          if [ -n "${preview_ref}" ]; then
+            git fetch --no-tags origin gh-pages
+            if [ -n "$(git ls-tree FETCH_HEAD previews)" ]; then
+              git archive FETCH_HEAD previews | tar -x -C docs
+            fi
+          fi
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
@@ -45,7 +59,11 @@ jobs:
 
   deploy:
     needs: build
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -53,3 +71,151 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+
+  build-preview:
+    if: >-
+      (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) ||
+      (github.event_name != 'pull_request' && startsWith(github.ref, 'refs/heads/') && github.ref != 'refs/heads/main')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      preview_path: ${{ steps.preview_path.outputs.value }}
+    steps:
+      - name: Checkout production source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          path: production
+
+      - name: Checkout branch source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          path: preview
+
+      - name: Checkout preview state
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          path: preview-state
+
+      - name: Load or initialize preview state
+        working-directory: preview-state
+        run: |
+          preview_ref="$(git ls-remote --heads origin refs/heads/gh-pages)"
+          if [ -n "${preview_ref}" ]; then
+            git fetch --no-tags origin gh-pages
+            git checkout -B gh-pages FETCH_HEAD
+          else
+            git checkout --orphan gh-pages
+            git rm -rf -- .
+          fi
+
+      - name: Setup Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+
+      - name: Build production site
+        run: node docs/build.js
+        working-directory: production
+
+      - name: Build branch preview
+        run: node docs/build.js
+        working-directory: preview
+
+      - name: Check preview catalog and lesson starters
+        working-directory: preview
+        run: |
+          node --test scripts/test-catalog-grouping.js modules/ghaw/resources/examples/*.test.cjs modules/ghec/resources/integration/handler.test.cjs
+          PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s modules/ghec/resources/drift -p 'test_*.py'
+          PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/release/test_release.py -v
+          PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/ci/test_workflows.py -v
+          PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/intake/test_provision.py -v
+          npm run test:wizard
+
+      - name: Set preview path
+        id: preview_path
+        env:
+          PREVIEW_NAME: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || github.ref_name }}
+        run: |
+          slug="$(printf '%s' "${PREVIEW_NAME}" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-+|-+$//g')"
+          suffix="$(printf '%s' "${PREVIEW_NAME}" | sha256sum | cut -c1-10)"
+          echo "value=previews/${slug:-branch}-${suffix}" >> "${GITHUB_OUTPUT}"
+
+      - name: Update preview state
+        env:
+          PREVIEW_PATH: ${{ steps.preview_path.outputs.value }}
+        run: |
+          rm -rf "preview-state/${PREVIEW_PATH}"
+          mkdir -p "preview-state/${PREVIEW_PATH}"
+          cp -a preview/docs/. "preview-state/${PREVIEW_PATH}/"
+
+          git -C preview-state config user.name "github-actions[bot]"
+          git -C preview-state config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C preview-state add -- "${PREVIEW_PATH}"
+          if ! git -C preview-state diff --cached --quiet; then
+            git -C preview-state commit -m "Update preview for ${PREVIEW_PATH}"
+            git -C preview-state push origin HEAD:gh-pages
+          fi
+
+      - name: Assemble production site and previews
+        run: |
+          mkdir site
+          cp -a production/docs/. site/
+          mkdir -p site/previews
+          cp -a preview-state/previews/. site/previews/
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: site/
+
+  deploy-preview:
+    needs: build-preview
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+      pull-requests: write
+    environment:
+      name: github-pages
+      url: "${{ steps.deployment.outputs.page_url }}${{ needs.build-preview.outputs.preview_path }}/"
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+
+      - name: Add preview URL to workflow summary
+        env:
+          PREVIEW_PATH: ${{ needs.build-preview.outputs.preview_path }}
+          SITE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          echo "Preview: ${SITE_URL}${PREVIEW_PATH}/" >> "${GITHUB_STEP_SUMMARY}"
+
+      - name: Comment preview URL
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PREVIEW_PATH: ${{ needs.build-preview.outputs.preview_path }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          SITE_URL: ${{ steps.deployment.outputs.page_url }}
+          PREVIEW_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          MARKER="<!-- pages-preview-url -->"
+          PREVIEW_URL="${SITE_URL}${PREVIEW_PATH}/"
+          BODY="${MARKER}
+          Preview: ${PREVIEW_URL}
+
+          Updated for commit ${PREVIEW_SHA}."
+          COMMENT_ID="$(gh api --paginate "repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/comments" --jq ".[] | select(.user.login == \"github-actions[bot]\" and (.body | contains(\"${MARKER}\"))) | .id" | tail -n 1)"
+
+          if [ -n "${COMMENT_ID}" ]; then
+            gh api --method PATCH "repos/${GITHUB_REPOSITORY}/issues/comments/${COMMENT_ID}" -f body="${BODY}"
+          else
+            gh api --method POST "repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/comments" -f body="${BODY}"
+          fi

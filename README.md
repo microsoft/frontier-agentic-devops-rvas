@@ -141,7 +141,21 @@ Use `modules/_TEMPLATE/challenge/` as your starting point for new activities.
 
 ## Deploy
 
-GitHub Actions (`.github/workflows/build-deploy.yml`) runs `node docs/build.js` on every push to `main` and deploys `docs/` to GitHub Pages automatically.
+GitHub Actions (`.github/workflows/build-deploy.yml`) builds and deploys the site on
+pushes to `main`. Other branches and same-repository pull requests get a
+**preview under `previews/`**, while the site root keeps the latest `main` content.
+The workflow posts the preview link in its run summary and updates one comment on
+each pull request. Fork pull requests run validation only.
+
+The workflow creates `gh-pages` on the first preview build and stores previews
+there so later deployments preserve them.
+
+**Repository settings:** keep Settings > Pages > Source set to **GitHub Actions**.
+In Settings > Environments > `github-pages`, allow preview branches and PR refs
+under **Deployment branches and tags**; a `main`-only rule blocks previews. Keep
+`main`, add the branch names or patterns you want to preview, and add
+`refs/pull/*/merge` for PR deployments. Repository rules must also permit the
+workflow's `GITHUB_TOKEN` to create and update `gh-pages`.
 
 ## License
 
