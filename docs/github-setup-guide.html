@@ -47,19 +47,23 @@
       <section id="start" aria-labelledby="startHeading">
         <h2 id="startHeading">Install once</h2>
         <p>Use GitHub Copilot CLI, signed in to your Copilot account. Install GitHub CLI (<code>gh</code>) and <code>jq</code>, then authenticate <code>gh</code> to the intended GitHub host. The enterprise must already exist.</p>
-        <p>After this package is published, register this repository's marketplace and install the skill plugin. You do not need to clone the curriculum or register an MCP server.</p>
-        <pre><code>copilot plugin marketplace add microsoft/frontier-agentic-devops-rvas
+        <p>After this package is published, install the plugin from your terminal. You do not need to clone the curriculum or register an MCP server.</p>
+        <pre><code class="language-text">copilot plugin marketplace add microsoft/frontier-agentic-devops-rvas
 copilot plugin install github-enterprise-setup@frontier-agentic-devops
 copilot skill list</code></pre>
         <p>Check that <code>github-enterprise-setup</code> appears under the plugin source. Open a new Copilot session from the directory where you want to work:</p>
-        <pre><code>copilot</code></pre>
-        <p>For updates, run <code>copilot plugin marketplace update frontier-agentic-devops</code>, then <code>copilot plugin update github-enterprise-setup</code>. To remove it, run <code>copilot plugin uninstall github-enterprise-setup</code>.</p>
+        <pre><code class="language-text">copilot</code></pre>
+        <p>To update the plugin, run these commands in your terminal:</p>
+        <pre><code class="language-text">copilot plugin marketplace update frontier-agentic-devops
+copilot plugin update github-enterprise-setup</code></pre>
+        <p>To remove the plugin:</p>
+        <pre><code class="language-text">copilot plugin uninstall github-enterprise-setup</code></pre>
         <div class="setup-note"><strong>Preview.</strong> Packaging and offline workflow checks are tested. Complete a controlled live setup journey before production use.</div>
       </section>
       <section id="questions" aria-labelledby="questionsHeading">
         <h2 id="questionsHeading">Describe the setup you need</h2>
         <p>Replace the placeholders below and send this prompt in Copilot. Use <code>github.com</code> or your enterprise's full <code>ghe.com</code> hostname.</p>
-        <pre><code>Use the github-enterprise-setup skill to set up enterprise &lt;enterprise-slug&gt;
+        <pre><code class="language-text">Use the github-enterprise-setup skill to set up enterprise &lt;enterprise-slug&gt;
 on &lt;host&gt;, covering organizations &lt;org-slugs&gt;.
 My goal is &lt;outcome&gt;. Assess current state and recommend changes.
 Ask only for unresolved decisions. Save a plan without changing GitHub.</code></pre>
@@ -72,18 +76,18 @@ Ask only for unresolved decisions. Save a plan without changing GitHub.</code></
         <h2 id="applyHeading">Review before requesting Apply</h2>
         <p>Read <code>plan.md</code>. Check the target, proposed changes, verification checks, and any cost or license effects. Resolve blocked prerequisites and owner handoffs before expecting those operations to run.</p>
         <p>When the plan matches your decisions, tell the agent:</p>
-        <pre><code>Proceed with the reviewed plan. Present the first write batch for approval.</code></pre>
+        <pre><code class="language-text">Proceed with the reviewed plan. Present the first write batch for approval.</code></pre>
         <p><strong>This requests Apply; it does not approve a write.</strong> Review and approve each batch. High-impact changes need a separate typed confirmation. The agent asks before switching accounts or changing authentication scopes.</p>
         <p>The agent rereads write preconditions, performs the approved operations, and verifies their results. An accepted API request alone is not a verified result. Failed or uncertain writes remain visible.</p>
       </section>
       <section id="verify" aria-labelledby="verifyHeading">
         <h2 id="verifyHeading">Continue saved work</h2>
         <p>In the same conversation, ask the agent to continue. It reuses the known target and run directory. In a new conversation, supply the full path:</p>
-        <pre><code>Use the github-enterprise-setup skill to resume the run at &lt;absolute-run-path&gt;.
+        <pre><code class="language-text">Use the github-enterprise-setup skill to resume the run at &lt;absolute-run-path&gt;.
 Recheck identity and live state before continuing.</code></pre>
         <p>Resume checks the saved artifacts and reconciles uncertain writes before continuing. Changed targets or effects need new approval. Keep unverified work separate from completed operations.</p>
         <h3>Get recommendations without a change plan</h3>
-        <pre><code>Use the github-enterprise-setup skill in Assess mode for enterprise
+        <pre><code class="language-text">Use the github-enterprise-setup skill in Assess mode for enterprise
 &lt;enterprise-slug&gt; on &lt;host&gt;, covering &lt;scope&gt;. Report gaps and prioritized
 recommendations. Do not create a change plan or change GitHub.</code></pre>
         <p>Assess stops after the report. Ask to continue into Plan when you want to turn selected recommendations into proposed changes.</p>

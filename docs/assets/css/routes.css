@@ -4,27 +4,51 @@
 }
 
 .start-route {
+  --route-accent: #0F4F9A;
+  --route-border: #A5C9F5;
+  --route-surface: #E5F2FF;
   display: grid;
   gap: 14px;
   padding: 28px;
-  border: 1px solid var(--c-line);
-  border-left: 5px solid var(--c-accent);
+  border: 1px solid var(--route-border);
+  border-left: 5px solid var(--route-accent);
   border-radius: var(--r);
-  background: var(--c-800);
+  background: var(--route-surface);
   color: var(--c-fg);
   box-shadow: var(--shadow-card);
+  transition: border-color 160ms ease, box-shadow 160ms ease;
 }
 
-.start-route-setup { border-left-color: #504092; }
+.start-route-setup {
+  --route-accent: #504092;
+  --route-border: #C7B6EB;
+  --route-surface: #EEE7FC;
+  border-left: 1px solid var(--route-border);
+  border-top: 4px solid var(--route-accent);
+}
 .hero .start-route h2 { color: var(--c-heading); font-size: 1.7rem; }
 .start-route p { margin: 0; color: var(--c-dim); }
 .route-label {
+  width: fit-content;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(15, 79, 154, 0.08);
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: var(--c-dim);
+  font-weight: 600;
+  color: var(--route-accent);
 }
-.route-go { font-weight: 600; color: var(--c-heading); }
+.start-route-setup .route-label {
+  border: 1px solid var(--route-border);
+  border-radius: var(--r-sm);
+  background: transparent;
+}
+.route-go { font-weight: 600; color: var(--route-accent); }
 .route-go span { display: inline-block; transition: transform 160ms ease; }
+.start-route:hover {
+  border-color: var(--route-accent);
+  box-shadow: 0 6px 20px rgba(3, 34, 84, 0.16);
+}
 .start-route:hover .route-go span { transform: translateX(4px); }
 .start-route:focus-visible { outline: 3px solid var(--c-hero-accent); outline-offset: 4px; }
 
@@ -60,6 +84,6 @@
   .setup-content pre { padding: 14px; font-size: 0.8rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .route-go span { transition: none; }
+  .start-route, .route-go span { transition: none; }
   .start-route:hover .route-go span { transform: none; }
 }

@@ -287,6 +287,22 @@ test('setup pages resolve local assets, page links, and section links', () => {
   }
 });
 
+test('setup guide uses plain-text blocks for commands and Copilot prompts', () => {
+  const html = fs.readFileSync(path.join(root, 'docs/github-setup-guide.html'), 'utf8');
+  const blocks = [...html.matchAll(/<pre><code class="language-text">([\s\S]*?)<\/code><\/pre>/g)];
+  assert(blocks.length > 0);
+  assert.equal(blocks.length, [...html.matchAll(/<pre>/g)].length);
+  const prose = html.replace(/<pre>[\s\S]*?<\/pre>/g, '');
+  assert.doesNotMatch(prose, /<code>copilot(?:\s[^<]*)?<\/code>/);
+  for (const command of [
+    'copilot plugin marketplace update frontier-agentic-devops',
+    'copilot plugin update github-enterprise-setup',
+    'copilot plugin uninstall github-enterprise-setup',
+  ]) {
+    assert(blocks.some((block) => block[1].split('\n').includes(command)), `Missing command block: ${command}`);
+  }
+});
+
 test('legacy wizard URLs redirect to setup pages and preserve section links', () => {
   const redirects = [
     ['wizard', 'github-setup', ['scope', 'boundaries', 'review']],
