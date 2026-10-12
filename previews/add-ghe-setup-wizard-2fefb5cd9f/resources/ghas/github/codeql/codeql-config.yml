@@ -1,0 +1,30 @@
+# CodeQL configuration
+# Used by .github/workflows/codeql.yml.
+# app/build/ contains JavaScript compiled from TypeScript. Scanning it causes
+# parser errors and duplicates findings from source files across 234 generated
+# JavaScript files and their source maps.
+
+paths-ignore:
+  # Compiled output. Scan the source files in app/ instead.
+  - app/build
+
+  # Source maps are not code.
+  - '**/*.js.map'
+
+  # Test fixtures and static test data.
+  - app/build/test
+
+  # Node modules. CodeQL excludes them by default; this entry makes that choice explicit.
+  - '**/node_modules'
+
+  # Generated frontend output.
+  - app/frontend/dist
+
+  # Angular test/spec files contain no security-relevant code. Many also cause
+  # TypeScript parser errors because of decorator and import type syntax.
+  - '**/*.spec.ts'
+  - app/frontend/src/test.ts
+  - app/frontend/src/karma.conf.js
+
+  # Vendored JavaScript libraries, including three.js and dat.gui.
+  - app/frontend/src/assets/private

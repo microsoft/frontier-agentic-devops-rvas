@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wizard run guide. Agentic DevSecOps</title>
+  <meta name="description" content="Run the GitHub enterprise setup wizard, preview its six question sections, and review, apply, and verify your saved plan." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/shell.css" />
+  <link rel="stylesheet" href="assets/css/routes.css" />
+  <link rel="icon" href="assets/img/logo-mark-white.png" />
+</head>
+<body>
+  <header class="nav" role="banner">
+    <div class="nav-inner">
+      <a class="brand" href="index.html" aria-label="RVAS, Agentic DevSecOps"><img src="assets/img/logo-full.png" alt="RVAP" class="rvap-nav-logo" height="32" /></a>
+      <nav id="navLinks" class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="catalog.html">Hands-on sessions</a>
+        <a href="wizard.html">Setup wizard</a>
+        <a href="wizard-guide.html" aria-current="page">Run guide</a>
+        <a class="gh" href="https://github.com/microsoft/frontier-agentic-devops-rvas" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="guideHeading">
+      <div class="wrap">
+        <span class="eyebrow">Wizard run guide</span>
+        <h1 id="guideHeading">From answers<br /><span class="accent">to an approved setup.</span></h1>
+        <p class="lede">Run the script locally from this repository. The interview takes roughly 5-10 minutes for one starter project. Applying the plan takes longer.</p>
+        <div class="hero-actions"><a class="btn btn-primary" href="#start">Start the interview &rarr;</a><a class="btn btn-ghost" href="#questions">Preview the questions</a></div>
+      </div>
+    </section>
+    <div class="wrap wizard-content">
+      <nav class="wizard-subnav" aria-label="On this page">
+        <a href="#start">Before you start</a><a href="#questions">Interview questions</a><a href="#apply">Review and apply</a><a href="#verify">Resume and verify</a>
+      </nav>
+      <section id="start" aria-labelledby="startHeading">
+        <h2 id="startHeading">Before you start</h2>
+        <p>You need macOS or Linux with Bash 3.2+, Git, GitHub CLI (<code>gh</code>), <code>jq</code>, and a SHA-256 utility. Use an existing enterprise and an account with permission for the changes you select. Some operations need an enterprise or organization owner.</p>
+        <p><strong>Complete any required SSO and SCIM setup first.</strong> The wizard does not inspect or configure it.</p>
+        <p>Clone the repository, then authenticate to the intended host with your organization's credentials. Replace <code>github.com</code> with your enterprise's <code>ghe.com</code> host when needed.</p>
+        <pre><code>git clone https://github.com/microsoft/frontier-agentic-devops-rvas.git
+cd frontier-agentic-devops-rvas
+gh auth login --hostname github.com
+bash scripts/github-enterprise-wizard.sh init \
+  --output "$HOME/github-setup.json"</code></pre>
+        <p><strong>The wizard never switches accounts.</strong> It checks the expected login before operating. Keep tokens in <code>gh</code> authentication or the runtime environment, never in configuration files.</p>
+        <p>The interview uses read-only GitHub lookups to suggest accounts and accessible resources. Saving your answers does not change GitHub settings.</p>
+      </section>
+      <section id="questions" aria-labelledby="questionsHeading">
+        <h2 id="questionsHeading">The questions you will answer</h2>
+        <p>The interview has six sections. Prompts depend on the packages you select and whether you create or adopt resources.</p>
+        <ol class="wizard-questions">
+          <li><strong>Enterprise and account</strong><p>Which GitHub host and login will you use? Which enterprise owns the workspace? Does it use personal accounts or Enterprise Managed Users?</p></li>
+          <li><strong>Capabilities</strong><p>Which packages do you need? What should the default repository visibility be? Do you explicitly approve high-impact enterprise controls such as two-factor authentication or Codespaces constraints?</p></li>
+          <li><strong>Organization and project</strong><p>Create an organization or adopt one? Who are its owners? Define teams and repository access, then choose new or adopted repositories and their starter stack. New organizations also need a billing email.</p></li>
+          <li><strong>Capability settings</strong><p>Choose Actions permissions and approved actions. Selected packages add questions about Copilot recipients and features, CodeQL, Secret Protection, or Code Quality. Agentic workflows ask for an inference engine and whether to run live pilots. Other capabilities ask for owners and scope.</p></li>
+          <li><strong>Project conventions and review</strong><p>Choose repository labels and human review requirements. You can add Copilot instructions with actual build and test commands, or shared content in the private <code>.github-private</code> repository.</p></li>
+          <li><strong>Review and save</strong><p>Check the complete configuration summary. Fix invalid answers before saving. Saving writes your JSON configuration; it does not approve the plan.</p></li>
+        </ol>
+        <h3>Keyboard controls</h3>
+        <p>Use Up/Down in menus and Space to toggle checkboxes. <strong>Enter or Right advances; B or Left goes back in menus.</strong> E opens the answer editor. Text fields accept <code>:back</code>, <code>:edit</code>, and <code>:clear</code> for an optional saved field.</p>
+        <p>Changing an earlier answer resets later choices that depend on it. Esc cancels from a menu; Ctrl+C stops anywhere. Cancelling before Save leaves the output file untouched.</p>
+        <p>Use <code>init --plain --output "$HOME/github-setup.json"</code> for scrollable text prompts, or add <code>--no-discovery</code> for an offline interview. Set <code>NO_COLOR=1</code> to disable colors. Keyboard menus need at least 16 rows and 20 columns.</p>
+      </section>
+      <section id="apply" aria-labelledby="applyHeading">
+        <h2 id="applyHeading">Check, review, and apply</h2>
+        <pre><code>bash scripts/github-enterprise-wizard.sh doctor \
+  --config "$HOME/github-setup.json"
+bash scripts/github-enterprise-wizard.sh plan \
+  --config "$HOME/github-setup.json" --output "$HOME/github-plan.json"
+less "$HOME/github-plan.json"
+bash scripts/github-enterprise-wizard.sh apply \
+  --plan "$HOME/github-plan.json" --run "$HOME/github-setup-run"</code></pre>
+        <p>Read the complete plan, including proposed file contents and purchase recipients. Interactive apply asks for its exact digest. In CI, pass that digest through <code>--approve</code>. Regenerate the plan after changing the configuration or updating the wizard.</p>
+        <div class="wizard-note"><strong>Approving the plan approves its selected purchases and live runs.</strong> They can incur costs. Licensing or external prerequisites without supported APIs remain manual handoffs.</div>
+        <p>Keep the configuration, plan, and run directory outside source control. The run stores the approved plan and a ledger; it can contain private configuration and reports.</p>
+      </section>
+      <section id="verify" aria-labelledby="verifyHeading">
+        <h2 id="verifyHeading">Resume and verify</h2>
+        <pre><code>bash scripts/github-enterprise-wizard.sh status --run "$HOME/github-setup-run"
+DIGEST="$(jq -r .digest "$HOME/github-plan.json")"
+bash scripts/github-enterprise-wizard.sh resume \
+  --run "$HOME/github-setup-run" --approve "$DIGEST"
+bash scripts/github-enterprise-wizard.sh verify --run "$HOME/github-setup-run"</code></pre>
+        <p><code>status</code> shows action results. <code>resume</code> continues the approved run after you resolve blockers. <code>verify</code> reads settings and checks already-dispatched workflows; it does not purchase seats or start new runs.</p>
+        <p><strong>Ready</strong> means the action's read-back or live check passed. Pending, unsupported, failed, or unverified actions still need work. An attested handoff records external evidence rather than API verification. Exit code <code>3</code> means the run is incomplete.</p>
+        <p>For manual handoff evidence and the full command reference, read the <a href="https://github.com/microsoft/frontier-agentic-devops-rvas/blob/main/scripts/github-enterprise-wizard/README.md">wizard's technical guide</a>. Use the <a href="catalog.html">hands-on sessions</a> when your team needs to learn or test the remaining work.</p>
+      </section>
+    </div>
+  </main>
+  <footer class="footer" role="contentinfo">
+    <div class="wrap footer-inner">
+      <a class="brand" href="index.html" aria-label="RVAS, Agentic DevSecOps"><img src="assets/img/logo-full.png" alt="RVAP" class="rvap-nav-logo" height="32" /></a>
+      <p>Agentic DevSecOps.</p>
+      <nav class="footer-links" aria-label="Footer"><a href="index.html">Choose a route</a><a href="wizard.html">Setup wizard</a><a href="catalog.html">Hands-on sessions</a></nav>
+    </div>
+  </footer>
+  <script src="assets/js/shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+name: License exception
+description: Request a time-bound legal decision for a dependency license.
+title: "License exception: "
+body:
+  - type: input
+    id: package
+    attributes:
+      label: Package and exact version
+    validations:
+      required: true
+  - type: input
+    id: license
+    attributes:
+      label: Detected SPDX license
+    validations:
+      required: true
+  - type: textarea
+    id: usage
+    attributes:
+      label: Usage and distribution context
+    validations:
+      required: true
+  - type: input
+    id: owner
+    attributes:
+      label: Business owner and legal approver
+    validations:
+      required: true
+  - type: input
+    id: expiry
+    attributes:
+      label: Exception expiry date
+    validations:
+      required: true
+  - type: textarea
+    id: remediation
+    attributes:
+      label: Remediation or replacement plan
+    validations:
+      required: true

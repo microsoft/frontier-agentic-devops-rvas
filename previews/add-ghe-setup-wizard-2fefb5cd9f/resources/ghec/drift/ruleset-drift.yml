@@ -1,0 +1,42 @@
+name: Ruleset drift
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 6 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ruleset-drift
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Compare approved ruleset
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_HOST: ${{ github.server_url }}
+        run: |
+          export GH_HOST="${GH_HOST#https://}"
+          python3 .github/scripts/check.py "$GITHUB_REPOSITORY" \
+            --baseline .github/ruleset-baseline.json > ruleset-drift.json
+      - name: Show check result
+        if: always()
+        run: |
+          if [[ ! -s ruleset-drift.json ]]; then
+            echo "::error::Ruleset check did not produce a report"
+            exit 1
+          fi
+          {
+            printf '## Ruleset drift\n\n```json\n'
+            cat ruleset-drift.json
+            printf '\n```\n'
+          } >> "$GITHUB_STEP_SUMMARY"
