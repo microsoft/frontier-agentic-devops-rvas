@@ -651,7 +651,7 @@ test('saved combined-session links resolve directly and do not duplicate activit
 });
 
 test('CodeQL fixture renders one current enforcement workflow and a safe replacement', () => {
-  const fixture = path.join(root, 'modules/ghas/resources/provisioning/challenges/ghas-admin-codeql-live-20260915');
+  const fixture = path.join(root, 'modules/ghas/resources/provisioning/challenges/03-admin-codeql-deployment-data-flow-autofix');
   const shell = fs.readFileSync(path.join(fixture, 'provision.sh'), 'utf8');
   const powershell = fs.readFileSync(path.join(fixture, 'provision.ps1'), 'utf8');
   assert(shell.includes('ghas-admin-03-codeql-live-lab'));

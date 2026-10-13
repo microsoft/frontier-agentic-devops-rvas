@@ -20,12 +20,12 @@ Skip this step if you brought an approved repository with a known CodeQL finding
 
 ```bash
 export CURRICULUM="$PWD"
-bash modules/ghas/resources/provisioning/challenges/ghas-admin-codeql-live-20260915/provision.sh \
+bash modules/ghas/resources/provisioning/challenges/03-admin-codeql-deployment-data-flow-autofix/provision.sh \
   provision --org <org>
 ```
 
 ```powershell
-pwsh -File modules/ghas/resources/provisioning/challenges/ghas-admin-codeql-live-20260915/provision.ps1 `
+pwsh -File modules/ghas/resources/provisioning/challenges/03-admin-codeql-deployment-data-flow-autofix/provision.ps1 `
   -Action provision -Org <org>
 ```
 
@@ -130,7 +130,7 @@ scanned-files report. Compare the new analysis timestamp and coverage with the f
 For a customer repository, repair gaps in its languages or source roots.
 Do not add Python just for this exercise. Common fixes include a missed language,
 an excluded path, private-registry access, or an incomplete build. If coverage
-already matches, save the evidence and continue.
+already matches, record that in the fixture's tracking issue and continue.
 
 **A green run with missing application code does not pass.**
 
@@ -230,7 +230,7 @@ For the isolated fixture, generate its supplied safe replacement from the curric
 
 ```bash
 export TARGET_CHECKOUT="/path/to/existing-fixture-checkout"
-bash "$CURRICULUM/modules/ghas/resources/provisioning/challenges/ghas-admin-codeql-live-20260915/provision.sh" \
+bash "$CURRICULUM/modules/ghas/resources/provisioning/challenges/03-admin-codeql-deployment-data-flow-autofix/provision.sh" \
   render-fix > "$TARGET_CHECKOUT/routes/ghasCodeqlLookup.js"
 cd "$TARGET_CHECKOUT"
 ```
@@ -266,6 +266,8 @@ If Autofix offers no suggestion, complete the manual fix and record that Autofix
 
 ## References
 
+- Optional context: [Codename MDASH overview](https://learn.microsoft.com/en-us/security-exposure-management/ai-code-security-overview), a separate Microsoft Defender capability that complements CodeQL. See the full note in [`resources/README.md`](../../resources/README.md).
+- Optional context: [Microsoft Defender for Cloud's runtime-risk correlation](https://learn.microsoft.com/en-us/azure/defender-for-cloud/github-advanced-security-overview) can help prioritize existing CodeQL alerts, but it doesn't change what CodeQL scans or how the merge rule enforces results. See the full note in [`resources/README.md`](../../resources/README.md).
 - [Configure code scanning default setup](https://docs.github.com/en/code-security/how-tos/find-and-fix-code-vulnerabilities/configure-code-scanning/configure-code-scanning)
 - [Evaluate default setup](https://docs.github.com/en/enterprise-cloud@latest/code-security/tutorials/customize-code-scanning/evaluate-default-setup)
 - [About the Tool Status page](https://docs.github.com/en/code-security/concepts/code-scanning/tool-status-page)

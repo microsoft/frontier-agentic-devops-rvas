@@ -158,7 +158,7 @@ EOF
       commit -q -m "Seed build credential history for GHAS Admin 02"
 
     mkdir -p fixtures
-    printf '%s\n' 'RVAS_DEMO_ADMIN02HISTORYSEED01' > fixtures/internal-token.txt
+    printf '%s\n' 'GHAS_LAB_DEMO_ADMIN02HISTORYSEED01' > fixtures/internal-token.txt
     git add fixtures/internal-token.txt
     git -c user.name="ghas-admin-02-fixture" \
       -c user.email="ghas-admin-02-fixture@users.noreply.github.com" \
@@ -173,7 +173,7 @@ All values are synthetic and were never issued. Reconcile each row with GitHub.
 | --- | --- | --- | --- | --- |
 | 1 | `config/aws-legacy.ini` | AWS credential pair | `main` history | `used_in_tests` |
 | 2 | `config/aws-build.ini` | AWS credential pair | `main` history | `used_in_tests` |
-| 3 | `fixtures/internal-token.txt` | `RVAS Admin 02 demo token` after publication | `main` | `used_in_tests` |
+| 3 | `fixtures/internal-token.txt` | `GHAS lab demo token` after publication | `main` | `used_in_tests` |
 | 4 | `config/aws-branch.ini` | AWS credential pair | `seed/push-protection-history` | `used_in_tests` |
 
 Do not copy detected values into issues, chat, or incident records.

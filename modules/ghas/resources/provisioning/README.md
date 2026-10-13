@@ -1,4 +1,4 @@
-# GHAS admin fixtures
+# GHAS admin test repositories
 
 The Admin & Governance track uses four separate provisioners. Each script owns a
 small repository or a fixed set of fixture files and branches. Run only the
@@ -14,13 +14,13 @@ Use `--dry-run` or `-DryRun` to inspect planned changes. Use `status` after
 provisioning to check the files, branches, issues, and pull requests that the lab
 expects.
 
-## Fixture map
+## Repository map
 
 | Activities | Default repository | Provisioner |
 | --- | --- | --- |
 | `ghas-admin-01`, `ghas-admin-06` | `ghas-admin-01-06-security-operations` | `challenges/admin-01-06-security-configuration-campaigns-fixture/` |
 | `ghas-admin-02` | `ghas-admin-02-secret-operations` | `challenges/02-admin-secret-protection-operations-rebuild-secret-operations/` |
-| `ghas-admin-03` | `ghas-admin-03-codeql-live-lab` | `challenges/ghas-admin-codeql-live-20260915/` |
+| `ghas-admin-03` | `ghas-admin-03-codeql-live-lab` | `challenges/03-admin-codeql-deployment-data-flow-autofix/` |
 | `ghas-admin-05` | `ghas-admin-05-dependency-visibility-fixture` | `challenges/ghas-admin-05-dependency-visibility-fixture/` |
 
 The repository names and branch names do not overlap. The 01/06 fixture is shared
@@ -35,7 +35,7 @@ Run these commands from the curriculum repository root:
 ```bash
 bash modules/ghas/resources/provisioning/challenges/admin-01-06-security-configuration-campaigns-fixture/provision.sh provision --org <org>
 bash modules/ghas/resources/provisioning/challenges/02-admin-secret-protection-operations-rebuild-secret-operations/provision.sh provision --org <org>
-bash modules/ghas/resources/provisioning/challenges/ghas-admin-codeql-live-20260915/provision.sh provision --org <org>
+bash modules/ghas/resources/provisioning/challenges/03-admin-codeql-deployment-data-flow-autofix/provision.sh provision --org <org>
 bash modules/ghas/resources/provisioning/challenges/ghas-admin-05-dependency-visibility-fixture/provision.sh provision --org <org>
 ```
 
@@ -49,7 +49,7 @@ requires `--yes`.
 ```powershell
 pwsh -File modules/ghas/resources/provisioning/challenges/admin-01-06-security-configuration-campaigns-fixture/provision.ps1 provision -Org <org>
 pwsh -File modules/ghas/resources/provisioning/challenges/02-admin-secret-protection-operations-rebuild-secret-operations/provision.ps1 provision -Org <org>
-pwsh -File modules/ghas/resources/provisioning/challenges/ghas-admin-codeql-live-20260915/provision.ps1 -Action provision -Org <org>
+pwsh -File modules/ghas/resources/provisioning/challenges/03-admin-codeql-deployment-data-flow-autofix/provision.ps1 -Action provision -Org <org>
 pwsh -File modules/ghas/resources/provisioning/challenges/ghas-admin-05-dependency-visibility-fixture/provision.ps1 provision -Org <org>
 ```
 

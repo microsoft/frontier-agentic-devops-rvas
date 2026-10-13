@@ -331,7 +331,7 @@ Create a ruleset for `main`, or update the existing merge ruleset:
 1. Add **Require status checks to pass**.
 2. Select `Dependency review`.
 3. Require the branch to be current before merge.
-4. Keep bypass limited to named break-glass actors.
+4. Keep bypass limited to named emergency-access accounts.
 5. Start in Evaluate mode if the repository already carries production traffic. Move to Active before the fail/pass test.
 
 ### 9. Prove the risky revision fails

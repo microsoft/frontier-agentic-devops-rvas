@@ -26,11 +26,11 @@ modules/ghas/resources/provisioning/challenges/admin-01-06-security-configuratio
   provision -Org <org>
 ```
 
-The fixture creates `ghas-admin-01-06-security-operations`. It also seeds an advanced CodeQL workflow, Dependabot configuration, a non-live secret, two repair branches, and tracking issues used by this session and `ghas-admin-06`.
+The fixture creates `ghas-admin-01-06-security-operations`. It also seeds an advanced CodeQL workflow, Dependabot configuration, a fake secret value that was never a real credential, two repair branches, and tracking issues used by this session and `ghas-admin-06`.
 
 ## Exercise
 
-### 1. Record the pilot boundary
+### 1. Define the pilot scope
 
 Record these decisions in the `ghas-admin-01: configuration attachment repair` issue or the customer's approved change system:
 
@@ -47,7 +47,7 @@ Record these decisions in the `ghas-admin-01: configuration attachment repair` i
 
 Do not widen the target during the lab.
 
-### 2. Capture the live baseline
+### 2. Capture the current baseline
 
 List the current configurations and save the pilot repository ID:
 
@@ -84,7 +84,7 @@ The configuration must exist in the organization. A payload draft does not compl
 
 In the configuration's **Repositories** view, attach only `ghas-admin-01-06-security-operations`. Confirm the target before applying the change.
 
-Poll the live repository list:
+Poll the current repository list:
 
 ```bash
 while :; do
@@ -131,13 +131,13 @@ If those checks pass, change the configuration to enforced and poll again.
 
 You are done only when you have:
 
-- A live `ghas-admin-01-pilot` configuration ID.
-- A live attachment and its final state history.
+- A confirmed `ghas-admin-01-pilot` configuration ID.
+- A confirmed attachment and its final state history.
 - Evidence that you repaired a failure or completed the detachment and reattachment test.
 - An enforced configuration or a verified rollback.
 - A named approver and rollback owner.
 
-Verify the live configuration and repository state; a successful HTTP response alone does not prove rollout.
+Verify the confirmed configuration and repository state; a successful HTTP response alone does not prove rollout.
 
 ## Common failures
 

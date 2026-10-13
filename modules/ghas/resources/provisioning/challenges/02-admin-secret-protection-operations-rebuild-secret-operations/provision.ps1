@@ -148,7 +148,7 @@ aws_secret_access_key = $awsSecretTwo
     Invoke-GitCommit -Message 'Seed build credential history for GHAS Admin 02'
 
     New-Item -ItemType Directory -Path 'fixtures' -Force | Out-Null
-    'RVAS_DEMO_ADMIN02HISTORYSEED01' |
+    'GHAS_LAB_DEMO_ADMIN02HISTORYSEED01' |
       Set-Content -Path 'fixtures/internal-token.txt' -Encoding utf8
     git add fixtures/internal-token.txt
     Invoke-GitCommit -Message 'Seed custom pattern candidate for GHAS Admin 02'
@@ -162,7 +162,7 @@ All values are synthetic and were never issued. Reconcile each row with GitHub.
 | --- | --- | --- | --- | --- |
 | 1 | `config/aws-legacy.ini` | AWS credential pair | `main` history | `used_in_tests` |
 | 2 | `config/aws-build.ini` | AWS credential pair | `main` history | `used_in_tests` |
-| 3 | `fixtures/internal-token.txt` | `RVAS Admin 02 demo token` after publication | `main` | `used_in_tests` |
+| 3 | `fixtures/internal-token.txt` | `GHAS lab demo token` after publication | `main` | `used_in_tests` |
 | 4 | `config/aws-branch.ini` | AWS credential pair | `seed/push-protection-history` | `used_in_tests` |
 
 Do not copy detected values into issues, chat, or incident records.

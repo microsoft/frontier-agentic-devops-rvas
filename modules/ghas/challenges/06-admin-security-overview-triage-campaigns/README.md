@@ -34,7 +34,7 @@ modules/ghas/resources/provisioning/challenges/admin-01-06-security-configuratio
   provision -Org <org>
 ```
 
-The fixture imports OWASP Juice Shop at the pinned `v20.0.0` tag. It seeds CodeQL, Dependabot, and a non-live secret so the repository can produce a mixed alert queue. Wait for the CodeQL workflow and GitHub security features to finish their first analysis.
+The fixture imports OWASP Juice Shop at the pinned `v20.0.0` tag. It seeds CodeQL, Dependabot, and a fake secret value that was never a real credential so the repository can produce a mixed alert queue. Wait for the CodeQL workflow and GitHub security features to finish their first analysis.
 
 ## Exercise
 
@@ -79,10 +79,11 @@ Check for gaps, such as:
 - A stale or failed CodeQL analysis.
 
 Repair any gap in GitHub and verify the new state. If coverage already meets the
-approved scope, save that evidence. Do not disable a control to create work.
+approved scope, record that in the campaign issue or approved work item. Do not
+disable a control to create work.
 An `unaffected` row still needs investigation when the feature is off.
 
-### 3. Set the campaign boundary
+### 3. Define the campaign alert set
 
 Choose a finite set of code scanning alerts from the default branch. Record:
 
@@ -173,7 +174,7 @@ Do not include Dependabot or secret-scanning counts in these calculations.
 
 Open the campaign as the developer once more and confirm that its count and completion state match the alert changes.
 
-### 9. Decide the next rollout wave
+### 9. Decide whether to expand the rollout
 
 Approve the next repository set only when:
 
@@ -208,6 +209,8 @@ You are done only when you have:
 
 ## References
 
+- Optional context: [Codename MDASH overview](https://learn.microsoft.com/en-us/security-exposure-management/ai-code-security-overview), a separate Microsoft Defender findings view for customers who ask about triage outside GitHub Security Overview. See the full note in [`resources/README.md`](../../resources/README.md).
+- Optional context: [Microsoft Defender for Cloud's production-context filters](https://docs.github.com/en/code-security/tutorials/secure-your-organization/prioritize-alerts-in-production-code) (`has:deployment`, runtime-risk) can help shape which alerts a campaign targets, but a human still creates and publishes the campaign. See the full note in [`resources/README.md`](../../resources/README.md).
 - [About Security Overview](https://docs.github.com/en/enterprise-cloud@latest/code-security/concepts/security-at-scale/security-overview)
 - [Security Overview permissions](https://docs.github.com/en/enterprise-cloud@latest/code-security/reference/permissions/security-overview)
 - [About security campaigns](https://docs.github.com/en/code-security/concepts/security-at-scale/about-security-campaigns)

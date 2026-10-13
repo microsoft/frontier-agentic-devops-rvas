@@ -100,7 +100,7 @@ gh api "repos/$ORG/$REPO/secret-scanning/alerts/<alert-number>/locations" \
   --jq '.[] | {type, details}'
 ```
 
-Match the alert type, path, branch or commit, and count to the manifest. The `RVAS_DEMO_...` row should not have an alert yet because its custom pattern is not published.
+Match the alert type, path, branch or commit, and count to the manifest. The `GHAS_LAB_DEMO_...` row should not have an alert yet because its custom pattern is not published.
 
 Review exposure before closing an alert, whatever its validity result. `active` needs immediate revocation or rotation. `inactive` still needs an exposure review. `unknown` means the provider did not confirm status; it does not mean the credential is safe.
 
@@ -205,9 +205,9 @@ Open **Settings > Advanced Security > Custom patterns** and create a repository 
 
 | Field | Value |
 | --- | --- |
-| Name | `RVAS Admin 02 demo token` |
-| Secret format | `RVAS_DEMO_[A-Z0-9]{20}` |
-| Test string | `RVAS_DEMO_ADMIN02HISTORYSEED01` |
+| Name | `GHAS lab demo token` |
+| Secret format | `GHAS_LAB_DEMO_[A-Z0-9]{20}` |
+| Test string | `GHAS_LAB_DEMO_ADMIN02HISTORYSEED01` |
 
 Run the dry run and confirm that it finds `fixtures/internal-token.txt`. Fix unexpected matches before continuing.
 
@@ -220,7 +220,7 @@ gh api "repos/$ORG/$REPO/secret-scanning/custom-patterns" \
   --jq '.[] | {id, name, state, push_protection_enabled}'
 
 gh api "repos/$ORG/$REPO/secret-scanning/alerts?per_page=100" --paginate \
-  --jq '.[] | select(.secret_type_display_name == "RVAS Admin 02 demo token") |
+  --jq '.[] | select(.secret_type_display_name == "GHAS lab demo token") |
     {number, state, secret_type, path: .first_location_detected.path}'
 ```
 
