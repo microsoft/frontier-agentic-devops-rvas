@@ -1,0 +1,51 @@
+id: ghas-admin-07
+title: Connect GitHub security findings to production risk
+module: ghas
+track: admin-governance
+difficulty: advanced
+duration_minutes: 120
+display_order: 16
+prerequisites:
+  - ghas-admin-03
+  - ghas-admin-06
+prerequisite_capabilities:
+  - A commercial Azure subscription with Contributor and Security Admin participation
+  - Defender Cloud Security Posture Management (CSPM) enabled, or permission to enable it
+  - GitHub organization owner on the pilot organization
+  - GitHub Code Security enabled on a repository with existing code scanning and Dependabot alerts
+  - An Azure Container Registry and an AKS cluster, or permission to create them
+  - A container image the participant can build and push from the pilot repository
+description: "Trace a repository's alerts to its running AKS workload and scope a campaign by runtime risk."
+tags:
+  - ghas
+  - defender-for-cloud
+  - code-to-runtime
+  - runtime-risk
+  - aks
+  - cloud-security-explorer
+  - security-campaigns
+app_dependency: none
+emu_compatible: true
+min_environment: org
+tier: stretch
+outcomes:
+  - ghas-adoption
+personas:
+  - security-lead
+  - platform-engineer
+  - developer
+business_value:
+  - shift-left-security
+adoption_stage: scale
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghas/challenges/07-admin-defender-cloud-code-security/meta.yml
+license: MIT
+references:
+  - https://learn.microsoft.com/en-us/azure/defender-for-cloud/github-advanced-security-overview
+  - https://learn.microsoft.com/en-us/azure/defender-for-cloud/github-advanced-security-deploy
+  - https://learn.microsoft.com/en-us/azure/defender-for-cloud/quickstart-onboard-github
+  - https://learn.microsoft.com/en-us/azure/defender-for-cloud/agentless-code-scanning
+  - https://docs.github.com/en/code-security/tutorials/secure-your-organization/prioritize-alerts-in-production-code
+  - https://docs.github.com/en/code-security/concepts/security-at-scale/about-security-campaigns
+  - https://docs.github.com/en/code-security/how-tos/manage-security-alerts/remediate-alerts-at-scale/creating-managing-security-campaigns
+  - https://learn.microsoft.com/en-us/azure/defender-for-cloud/github-advanced-security-deploy-sandbox

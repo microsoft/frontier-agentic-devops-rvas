@@ -18,7 +18,7 @@ modules/
 │           ├── meta.yml
 │           └── README.md
 │
-├── ghas/                ← GitHub Advanced Security (9 active activities)
+├── ghas/                ← GitHub Advanced Security (11 active activities)
 │   ├── setup.md         ← how to run Juice Shop
 │   └── challenges/
 │

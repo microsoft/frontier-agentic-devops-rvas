@@ -49,7 +49,7 @@ const MODULE_CONFIG = {
     description: 'Use GitHub Advanced Security to detect vulnerabilities and manage fixes across your repositories.',
     color: '#cf222e',
     icon: 'icon-ghas.svg',
-    expected_challenge_count: 9,
+    expected_challenge_count: 11,
     catalog_track_order: ['admin-governance', 'developer-flow'],
     tracks: {
       'admin-governance': { name: 'Admin & Governance', description: 'Configure GHAS policies and permissions, then manage rollout and reporting across the enterprise.' },

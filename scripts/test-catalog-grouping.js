@@ -538,10 +538,10 @@ test('guide links resolve active metadata IDs without placeholder folders', () =
   assert.equal(challengeIdFromSlug('ghec', '../resources'), null);
 });
 
-test('catalog contains 61 active sessions and no alias has a generated guide', () => {
-  assert.equal(data.challenges.length, 61);
+test('catalog contains 63 active sessions and no alias has a generated guide', () => {
+  assert.equal(data.challenges.length, 63);
   assert.deepEqual(Object.fromEntries(data.modules.map(m => [m.id, m.challenge_count])),
-    { ghec: 41, ghas: 9, ghaw: 7, 'sre-agent': 4 });
+    { ghec: 41, ghas: 11, ghaw: 7, 'sre-agent': 4 });
   for (const id of Object.keys(data.retired_challenges)) {
     assert(!fs.existsSync(path.join(root, 'docs/assets/data/challenges', id)));
   }

@@ -1,0 +1,51 @@
+id: ghas-admin-08
+title: Onboard and operate Codename MDASH
+module: ghas
+track: admin-governance
+difficulty: advanced
+duration_minutes: 120
+display_order: 17
+prerequisites:
+  - ghas-admin-03
+prerequisite_capabilities:
+  - Codename MDASH preview enrollment for the tenant
+  - Microsoft Entra Global Administrator or Security Administrator authorized to accept preview terms
+  - An Azure subscription and resource group for a dedicated Microsoft Foundry resource
+  - Permission to deploy Azure OpenAI models in Microsoft Foundry
+  - Defender unified RBAC admin access to assign agentic code security roles
+  - GitHub organization owner on the pilot organization
+  - A supported Codename MDASH region for the Foundry resource
+description: "Onboard Codename MDASH, scan a pilot repository, and triage findings against CodeQL."
+tags:
+  - ghas
+  - mdash
+  - agentic-code-scanning
+  - preview
+  - defender-rbac
+  - microsoft-foundry
+  - defender-cli
+app_dependency: none
+emu_compatible: true
+min_environment: org
+tier: stretch
+outcomes:
+  - ghas-adoption
+personas:
+  - security-lead
+  - platform-engineer
+  - developer
+business_value:
+  - shift-left-security
+adoption_stage: assess
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghas/challenges/08-admin-mdash-agentic-code-scanning/meta.yml
+license: MIT
+references:
+  - https://learn.microsoft.com/en-us/security-exposure-management/ai-code-security-overview
+  - https://learn.microsoft.com/en-us/security-exposure-management/ai-code-security-onboarding
+  - https://learn.microsoft.com/en-us/security-exposure-management/mdash-foundry-integration
+  - https://learn.microsoft.com/en-us/security-exposure-management/create-github-connector
+  - https://learn.microsoft.com/en-us/security-exposure-management/trigger-on-demand-scan
+  - https://learn.microsoft.com/en-us/security-exposure-management/defender-cli
+  - https://learn.microsoft.com/en-us/security-exposure-management/defender-cli-authentication
+  - https://learn.microsoft.com/en-us/security-exposure-management/run-ai-code-security-scans

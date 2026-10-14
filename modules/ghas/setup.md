@@ -22,10 +22,14 @@ Participants clone the org repo and work on personal or team branches. Do not fo
 
 ## Admin test repositories
 
-Admin activities use four isolated provisioners. They create distinct repositories
-for secret protection, CodeQL, and dependency work. Activities 01 and 06 share a
-security-operations repository so activity 06 can measure the rollout started in
-activity 01.
+Admin activities 01 through 06 use four isolated provisioners. They create distinct
+repositories for secret protection, CodeQL, and dependency work. Activities 01 and
+06 share a security-operations repository so activity 06 can measure the rollout
+started in activity 01.
+
+Activities 07 and 08 don't ship a provisioner. They need real external Azure and
+GitHub infrastructure (Activity 07) or reuse Activity 03's pilot repository
+(Activity 08) — see each activity's README for its own prerequisites.
 
 See [`resources/provisioning/README.md`](resources/provisioning/README.md) for the
 default repository names and the Bash and PowerShell commands. Run `status` after
@@ -38,7 +42,7 @@ This module numbers its two tracks separately, and they don't line up with each
 other:
 
 - **Developer Flow** activities use `S00`-`S04`.
-- **Admin & Governance** activities use `1`-`6`.
+- **Admin & Governance** activities use `1`-`8`.
 
 Run either track on its own. An admin activity's prerequisite is another admin
 activity (for example, `ghas-admin-03` needs `ghas-admin-01`), not a developer-flow

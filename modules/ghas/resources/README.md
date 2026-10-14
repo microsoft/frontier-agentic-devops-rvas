@@ -49,49 +49,33 @@ Once pushed:
 
 ## Facilitator background: Codename MDASH ("multi-model agentic scanning harness")
 
-CodeQL is the baseline for this module. It provides GitHub-native code scanning
-and remains the control used by every activity. Activity 3, step 1 has learners
-compare CodeQL coverage against MDASH; this section gives facilitators the
-deeper background behind that exercise.
+CodeQL is the baseline for this module. Activity 3, step 1 has learners compare
+CodeQL coverage against MDASH, a separate preview capability inside Microsoft
+Defender that uses coordinated AI agents to inspect source code. `ghas-admin-08`
+is the full onboarding and operation activity: preview enrollment, Microsoft
+Foundry setup, Defender unified RBAC, the GitHub connector, and triage. Send
+facilitators there for anything beyond the coverage comparison.
 
-Codename MDASH (short for "multi-model agentic scanning harness") is a
-separate Microsoft Defender capability currently in preview. It uses
-coordinated AI agents to inspect source code and reports its findings through
-Microsoft Security Exposure Management. Microsoft documents a GitHub connector
-for onboarding repositories and running on-demand scans.
-
-MDASH complements CodeQL; it doesn't replace it. Current Microsoft
-documentation doesn't state that MDASH findings appear as native GitHub
-code-scanning alerts or that MDASH consumes CodeQL alerts. Keep the two result
-sets separate unless Microsoft documents that integration.
+MDASH complements CodeQL; it doesn't replace it, and current Microsoft
+documentation doesn't state that MDASH consumes CodeQL alerts or publishes as
+native GitHub code-scanning alerts.
 
 - [Codename MDASH overview](https://learn.microsoft.com/en-us/security-exposure-management/ai-code-security-overview)
-- [Create a GitHub connector](https://learn.microsoft.com/en-us/security-exposure-management/create-github-connector)
+- [`ghas-admin-08` README](../challenges/08-admin-mdash-agentic-code-scanning/README.md)
 
 ## Facilitator background: Microsoft Defender for Cloud (production-risk correlation)
 
-Activity 6's step 3b teaches this correlation as part of scoping a campaign's
-alert set. What follows is the deeper background a facilitator may need.
+Activity 6's step 3b teaches a synthetic version of this correlation as its
+no-access fallback. `ghas-admin-07` is the full live activity: Defender CSPM,
+the Azure-portal GitHub connector, an AKS workload, and a real campaign scoped
+with `has:deployment` and runtime-risk filters. Send facilitators there for
+setup detail; this section only covers what's unique to facilitating it.
 
-Microsoft Defender for Cloud can correlate the code scanning and Dependabot
-alerts this module already produces with deployment and runtime-risk context,
-such as internet exposure or sensitive-data handling. It reads GitHub's
-existing alerts; it doesn't replace CodeQL and doesn't run its own code
-analysis. Current Microsoft documentation doesn't describe secret-scanning
-enrichment, so treat that alert type as outside this integration.
-
-Defender for Cloud doesn't create or publish a campaign for you. A human still
-creates and publishes the campaign in GitHub; Defender for Cloud only supplies
-the `has:deployment` and runtime-risk filters that can shape which alerts the
-campaign targets.
-
-Artifact attestations are optional context here. Skip them unless a learner
-asks a question that needs that detail.
-
-Setup needs Defender Cloud Security Posture Management (CSPM) enabled on the
-subscription, Azure Security Admin permissions, and a GitHub organization
-owner to create the connector. This stays reference-only for the module: the
-official sandbox isn't ready for a live workshop walkthrough.
+Defender for Cloud reads GitHub's existing code scanning and Dependabot
+alerts; it doesn't run its own code analysis and doesn't create or publish a
+campaign. Current Microsoft documentation doesn't describe secret-scanning
+enrichment, so treat that alert type as outside this integration. Artifact
+attestations are optional context — skip them unless a learner asks.
 
 > **Facilitator note:** Microsoft's overview and deploy pages describe the
 > GitHub connector and this GHAS integration as generally available, but
@@ -100,8 +84,7 @@ official sandbox isn't ready for a live workshop walkthrough.
 > gap to co-facilitators only; keep it out of learner-facing activity text.
 
 - [GitHub Advanced Security integration with Microsoft Defender for Cloud](https://learn.microsoft.com/en-us/azure/defender-for-cloud/github-advanced-security-overview)
-- [Deploy the GitHub Advanced Security integration](https://learn.microsoft.com/en-us/azure/defender-for-cloud/github-advanced-security-deploy)
-- [Prioritizing Dependabot and code scanning alerts using production context](https://docs.github.com/en/code-security/tutorials/secure-your-organization/prioritize-alerts-in-production-code)
+- [`ghas-admin-07` README](../challenges/07-admin-defender-cloud-code-security/README.md)
 
 ## Admin test repositories
 

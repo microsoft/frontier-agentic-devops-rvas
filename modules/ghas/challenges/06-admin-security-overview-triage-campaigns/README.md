@@ -107,7 +107,7 @@ gh api orgs/<org>/campaigns --paginate \
 
 Defender for Cloud can correlate the code scanning and Dependabot alerts GitHub already produces with deployment and runtime context, such as internet exposure or sensitive-data handling. It doesn't replace scanning, and it doesn't create or publish the campaign. A human still does both in GitHub.
 
-**Live path:** use this only if the organization already has Defender CSPM and the GitHub connector configured. In the GitHub organization security UI, filter the alert set with `has:deployment` and the documented `runtime-risk:` filters, then compare the result against your step 3 filters.
+**Live path:** complete `ghas-admin-07` first, then return here with real `has:deployment` and `runtime-risk:` evidence from that activity's pilot repository. In the GitHub organization security UI, filter the alert set with those filters and compare the result against your step 3 filters. Don't re-create the connector here — `ghas-admin-07` owns that setup.
 
 **No-access path:** without that connector, work through this synthetic scenario instead. None of these services are real; reason about the alert set the way you would with live data.
 
