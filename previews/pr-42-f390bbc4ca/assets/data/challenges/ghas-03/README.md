@@ -1,0 +1,46 @@
+# Activity S03: Fix XSS and unsafe output
+
+**Session outcome:** You have merged a reviewed fix that handles output safely. Rendering tests and a default-branch rescan verify the change.
+
+Start with the [remediation checklist](resources/ghas/start-remediation.md), then use this case for an XSS finding. The injection and authorization cases are alternatives.
+
+## Description
+
+Cross-site scripting (XSS) happens when an application includes user-controlled data in an HTML response without the right encoding. The browser treats the attacker's script as application markup and runs it. An attacker can hijack sessions, steal credentials, or redirect users.
+
+Juice Shop has XSS vulnerabilities in its frontend and backend. Reflected XSS
+returns input in the immediate response; stored XSS saves input and later renders
+it to other users. CodeQL has flagged paths where user data reaches HTML output
+without safe handling. Fix those paths and record the verified fix and
+prevention pattern.
+
+Encode output before rendering it, or use framework APIs that do so safely. First identify the output context, such as an HTML body, attribute, JavaScript string, or URL. Each context needs a different encoding strategy.
+
+## Objectives
+
+- Filter Security → Code scanning alerts for XSS-related alerts
+- Select one alert and trace user input to its output context
+- Apply output encoding for the context or use safe framework APIs. Test the affected rendering behavior.
+- Identify whether each vulnerability is reflected or stored, and explain the difference in your PR description
+- Open a pull request with the alert link and rendering tests for ordinary and unsafe input
+- Obtain human review before merging through the normal controls. Verify that the default-branch rescan marks the alert as fixed
+- Explain the safe output pattern in the PR. You can check comparable paths, but a second fix is optional
+
+> [!TIP]
+> Working with a real application? Select its own reflected or stored XSS and output-encoding alerts.
+
+## Copilot tips
+
+- Highlight the vulnerable code and ask: *"This renders user input into HTML without encoding. What's the correct Angular/Node.js safe output API to use here?"*
+- Ask: *"What's the difference between reflected and stored XSS, and which does this code path represent?"*
+- Ask: *"What encoding is needed for data going into an HTML attribute versus HTML body versus a JavaScript string?"*
+- Review any fix from Copilot Autofix or other Copilot assistance against the required output context. Submit it through the normal PR and GHAS checks.
+
+In the approved test environment, try `<script>alert(1)</script>` in the affected field. Fix the code, then verify safe rendering for that output context.
+
+## Learning resources
+
+- [OWASP: Cross-Site Scripting (XSS)](https://owasp.org/www-community/attacks/xss/)
+- [OWASP XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
+- [Responsible use of AI features for security and code quality](https://docs.github.com/en/code-security/responsible-use/security-and-quality-ai-features)
+- [Angular Security: Preventing XSS](https://angular.io/guide/security#preventing-cross-site-scripting-xss)

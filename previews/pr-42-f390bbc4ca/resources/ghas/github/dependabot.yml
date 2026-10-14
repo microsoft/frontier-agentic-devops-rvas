@@ -1,0 +1,53 @@
+# Dependabot configuration
+# Dependabot checks dependencies for known vulnerabilities and opens update PRs.
+# Find update PRs in Pull Requests, vulnerabilities in Security > Dependabot
+# alerts, and the full inventory in Insights > Dependency graph.
+# Juice Shop intentionally has vulnerable dependencies. Review the recommendations;
+# you do not need to merge every PR.
+
+version: 2
+
+updates:
+  # npm dependencies for the main application. Juice Shop has many outdated or
+  # vulnerable dependencies by design, so expect many PRs and alerts.
+  - package-ecosystem: "npm"
+    directory: "/app"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/New_York"
+    # Limit open PRs to keep the queue manageable.
+    open-pull-requests-limit: 10
+    # Use labels to filter Dependabot PRs.
+    labels:
+      - "dependencies"
+      - "security"
+    # Group minor and patch updates to reduce PR noise.
+    groups:
+      # Group minor and patch production dependency updates.
+      production-dependencies:
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
+      # Group development dependency updates.
+      dev-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+          - "major"
+
+  # GitHub Actions dependencies
+  # Keep CI/CD actions current; a compromised action could leak secrets.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/New_York"
+    labels:
+      - "dependencies"
+      - "github-actions"
