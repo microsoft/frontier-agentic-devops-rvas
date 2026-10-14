@@ -64,6 +64,19 @@ For the fixture, expect JavaScript/TypeScript under the application roots and Py
 Record which languages CodeQL does not support and how the team analyzes them.
 A successful CodeQL run does not prove coverage for those languages.
 
+#### Compare CodeQL coverage against Codename MDASH
+
+Codename MDASH is Microsoft's multi-model agentic scanning harness, a separate preview capability inside Microsoft Defender. It complements CodeQL. You are not running it in this session, and it is not automatic coverage for any source type CodeQL does not support here.
+
+Walk through your language inventory above and fill in one row per source type:
+
+| Source type | CodeQL support | Current security control | MDASH documented support | Decision and reason |
+| --- | --- | --- | --- | --- |
+| | | | | |
+| | | | | |
+
+Copy the completed table into the fixture's tracking issue (or your customer repository's equivalent tracking issue).
+
 ### 2. Check the setup
 
 For an existing customer repository, inspect its current setup and successful
@@ -257,6 +270,7 @@ If Autofix offers no suggestion, complete the manual fix and record that Autofix
 - The setup fits the repository. New configurations use default setup unless the build requires advanced setup.
 - Tool Status matches the actual languages and expected source roots.
 - You have repaired and verified any coverage gaps. The Python exercise is optional fixture practice.
+- The CodeQL-versus-MDASH coverage table is complete, with a decision and reason for each source type.
 - The build mode was chosen from a real build requirement and executed.
 - One alert was traced from source to sink.
 - You have merged one fix after review and tests, then verified it with a rescan. Record whether you used Autofix or why it was unavailable.
@@ -266,8 +280,7 @@ If Autofix offers no suggestion, complete the manual fix and record that Autofix
 
 ## References
 
-- Optional context: [Codename MDASH overview](https://learn.microsoft.com/en-us/security-exposure-management/ai-code-security-overview), a separate Microsoft Defender capability that complements CodeQL. See the full note in [`resources/README.md`](../../resources/README.md).
-- Optional context: [Microsoft Defender for Cloud's runtime-risk correlation](https://learn.microsoft.com/en-us/azure/defender-for-cloud/github-advanced-security-overview) can help prioritize existing CodeQL alerts, but it doesn't change what CodeQL scans or how the merge rule enforces results. See the full note in [`resources/README.md`](../../resources/README.md).
+- [Codename MDASH overview](https://learn.microsoft.com/en-us/security-exposure-management/ai-code-security-overview). See the full note in [`resources/README.md`](../../resources/README.md).
 - [Configure code scanning default setup](https://docs.github.com/en/code-security/how-tos/find-and-fix-code-vulnerabilities/configure-code-scanning/configure-code-scanning)
 - [Evaluate default setup](https://docs.github.com/en/enterprise-cloud@latest/code-security/tutorials/customize-code-scanning/evaluate-default-setup)
 - [About the Tool Status page](https://docs.github.com/en/code-security/concepts/code-scanning/tool-status-page)

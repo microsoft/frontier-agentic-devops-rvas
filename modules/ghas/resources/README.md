@@ -47,10 +47,12 @@ Once pushed:
 > Juice Shop intentionally includes vulnerable dependencies.
 > A high alert count is expected and does not require immediate resolution.
 
-## Optional: Microsoft Defender agentic scanning (Codename MDASH, "multi-model agentic scanning harness")
+## Facilitator background: Codename MDASH ("multi-model agentic scanning harness")
 
 CodeQL is the baseline for this module. It provides GitHub-native code scanning
-and remains the control used by every activity.
+and remains the control used by every activity. Activity 3, step 1 has learners
+compare CodeQL coverage against MDASH; this section gives facilitators the
+deeper background behind that exercise.
 
 Codename MDASH (short for "multi-model agentic scanning harness") is a
 separate Microsoft Defender capability currently in preview. It uses
@@ -66,7 +68,10 @@ sets separate unless Microsoft documents that integration.
 - [Codename MDASH overview](https://learn.microsoft.com/en-us/security-exposure-management/ai-code-security-overview)
 - [Create a GitHub connector](https://learn.microsoft.com/en-us/security-exposure-management/create-github-connector)
 
-## Optional: Microsoft Defender for Cloud (production-risk correlation)
+## Facilitator background: Microsoft Defender for Cloud (production-risk correlation)
+
+Activity 6's step 3b teaches this correlation as part of scoping a campaign's
+alert set. What follows is the deeper background a facilitator may need.
 
 Microsoft Defender for Cloud can correlate the code scanning and Dependabot
 alerts this module already produces with deployment and runtime-risk context,

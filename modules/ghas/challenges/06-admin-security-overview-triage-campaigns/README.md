@@ -103,6 +103,24 @@ gh api orgs/<org>/campaigns --paginate \
   --jq '.[] | {number, name, state, ends_at}'
 ```
 
+### 3b. Apply production context
+
+Defender for Cloud can correlate the code scanning and Dependabot alerts GitHub already produces with deployment and runtime context, such as internet exposure or sensitive-data handling. It doesn't replace scanning, and it doesn't create or publish the campaign. A human still does both in GitHub.
+
+**Live path:** use this only if the organization already has Defender CSPM and the GitHub connector configured. In the GitHub organization security UI, filter the alert set with `has:deployment` and the documented `runtime-risk:` filters, then compare the result against your step 3 filters.
+
+**No-access path:** without that connector, work through this synthetic scenario instead. None of these services are real; reason about the alert set the way you would with live data.
+
+| Alert | Severity | Deployed | Internet-facing | Sensitive data | Campaign priority | Reason |
+| --- | --- | --- | --- | --- | --- | --- |
+| `checkout-api` SQL injection | Critical | Yes | Yes | Yes | Include first | Deployed, internet-facing, touches payment data |
+| `internal-reports-svc` path traversal | High | Yes | No | No | Include, lower priority | Deployed but internal-only, no sensitive data |
+| `legacy-batch-job` XXE | High | No | No | No | Defer | Not deployed, so no runtime exposure yet |
+| `auth-gateway` JWT validation bypass | Critical | Yes | Yes | Yes | Include first | Deployed, internet-facing, guards authentication |
+| `staging-only-cache` deserialization | Medium | Yes (staging) | No | No | Exclude from this campaign | Staging traffic only, not production |
+
+Either way, record the revised campaign alert set and one short reason for the change in the existing campaign issue or approved work item.
+
 ### 4. Publish the campaign
 
 Create the campaign from **Security and quality > Campaigns**. Use the filters from step 3, assign the manager, set the due date, and add practical remediation guidance.
@@ -191,6 +209,7 @@ Stop rollout for any unexplained attachment failure, stale scan, access failure,
 You are done only when you have:
 
 - Evidence from Coverage that you have checked the repository and repaired any gaps.
+- A runtime-risk scoping decision for the campaign alert set, recorded from the live path or the inline scenario.
 - A published campaign URL and number.
 - A developer's merged code fix with passing tests and human review.
 - A default-branch rescan that verifies the fix, with progress shown in the campaign.
@@ -209,8 +228,7 @@ You are done only when you have:
 
 ## References
 
-- Optional context: [Codename MDASH overview](https://learn.microsoft.com/en-us/security-exposure-management/ai-code-security-overview), a separate Microsoft Defender findings view for customers who ask about triage outside GitHub Security Overview. See the full note in [`resources/README.md`](../../resources/README.md).
-- Optional context: [Microsoft Defender for Cloud's production-context filters](https://docs.github.com/en/code-security/tutorials/secure-your-organization/prioritize-alerts-in-production-code) (`has:deployment`, runtime-risk) can help shape which alerts a campaign targets, but a human still creates and publishes the campaign. See the full note in [`resources/README.md`](../../resources/README.md).
+- [Microsoft Defender for Cloud's production-context filters](https://docs.github.com/en/code-security/tutorials/secure-your-organization/prioritize-alerts-in-production-code) (`has:deployment`, runtime-risk). See the full note in [`resources/README.md`](../../resources/README.md).
 - [About Security Overview](https://docs.github.com/en/enterprise-cloud@latest/code-security/concepts/security-at-scale/security-overview)
 - [Security Overview permissions](https://docs.github.com/en/enterprise-cloud@latest/code-security/reference/permissions/security-overview)
 - [About security campaigns](https://docs.github.com/en/code-security/concepts/security-at-scale/about-security-campaigns)
