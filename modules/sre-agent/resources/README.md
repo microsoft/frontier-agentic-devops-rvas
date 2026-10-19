@@ -23,10 +23,10 @@ for practice when live work is unavailable. Practice does not prove customer ado
 ## Prepare for delivery
 
 - Use an approved monitored customer service, or prepare Grubify for practice.
-- Azure SRE Agent portal access or screenshots for Full setup cards.
+- Confirm Azure SRE Agent portal access, or prepare screenshots of the Full setup cards.
 - Save a passing endpoint check for Grubify or the selected customer service.
 - Collect incident evidence from that service. Use `scripts/break-app.sh` only for approved sample practice.
-- Azure Monitor alert, Log Analytics query, Application Insights exception/trace, and SRE Agent transcript.
+- Collect the Azure Monitor alert, Log Analytics query, Application Insights exception/trace, and SRE Agent transcript.
 - For the customer handoff, link GitHub source evidence to a real incident issue.
 - Use a simulated issue or pull request only for practice when live work is unavailable.
 

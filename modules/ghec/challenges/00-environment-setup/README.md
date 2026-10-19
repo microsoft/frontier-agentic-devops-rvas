@@ -10,8 +10,8 @@ You are ready when you have:
 
 - A working development environment (GitHub Codespaces or local dev container)
 - An authenticated `gh` CLI session pointing at your GitHub account
-- Confirmed access approved for the customer delivery organisation
-- Access verified to the agreed delivery or customer repository
+- Approved and verified access to the customer delivery organisation
+- Verified access to the agreed delivery or customer repository
 
 ---
 

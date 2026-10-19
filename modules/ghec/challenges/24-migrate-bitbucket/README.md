@@ -4,7 +4,7 @@
 
 ## Prerequisites
 
-This activity has no activity dependencies.
+This activity has no prerequisite activities.
 
 Access and tooling you need:
 - GitHub organization where you are an org owner.
@@ -265,7 +265,7 @@ Open a first PR as a non-owner contributor. Verify that failing CI and missing h
 
 Preserve the approved evidence before removing the local clone or archive created for this pilot. Do not delete the source or destination repository.
 
-Delete or lifecycle-expire temporary S3/Azure staging objects if you did not use GitHub-owned storage. Retain destination repositories unless the accountable customer owner approves their removal.
+Delete temporary S3/Azure staging objects or let a lifecycle policy expire them if you did not use GitHub-owned storage. Retain destination repositories unless the accountable customer owner approves their removal.
 
 ## References
 

@@ -88,7 +88,7 @@ Use a consenting non-owner member with no direct or team grant on a private test
 ### Part E: Members and access matrix
 13. Add a consenting non-owner test member to each tested squad. Confirm membership and test read and write access as those members. An owner account cannot prove the member's access limits.
 14. Record each tested repository's team roles and effective member permissions in the existing access record or adoption issue. A separate access document is unnecessary if that record already exists.
-15. Diff against the "before" snapshot from setup to prove the org went from flat to modeled.
+15. Compare the result with the "before" snapshot from setup to show how the team hierarchy and repository grants changed.
 16. Use an existing enterprise delegation decision or authorized export when available. Do not infer enterprise policy from this organization's settings.
 
 ### Organization defaults checklist

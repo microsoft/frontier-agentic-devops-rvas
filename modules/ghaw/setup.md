@@ -6,7 +6,7 @@
 [an approved regression test](challenges/21-daily-testify/README.md),
 [CI diagnosis](challenges/18-ci-doctor/README.md), or
 [issue triage](challenges/17-issue-triage-agent/README.md).
-Choose one pilot. None requires the advanced activities.
+None requires the advanced activities.
 
 ## Bring your own repo
 

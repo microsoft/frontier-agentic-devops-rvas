@@ -38,8 +38,7 @@ test repositories unless the cohort will use every admin activity.
 
 ### Two independent numbering tracks
 
-This module numbers its two tracks separately, and they don't line up with each
-other:
+This module numbers its two tracks separately:
 
 - **Developer Flow** activities use `S00`-`S04`.
 - **Admin & Governance** activities use `1`-`8`.

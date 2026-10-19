@@ -29,12 +29,11 @@ The CodeQL fixture keeps one pull request through coverage, merge enforcement,
 and its reviewed fix.
 
 Activities `ghas-admin-07` and `ghas-admin-08` have no provisioner here. Activity 07
-needs participant-managed Azure and GitHub infrastructure — a subscription with
-Defender CSPM, an ACR, an AKS cluster, and a deployed container image — that this
-repository cannot stand up or tear down for you. Activity 08 reuses the
-`ghas-admin-03` pilot repository and doesn't need a repository of its own. Neither
-activity gets a fake provisioner just to match this table; a script here wouldn't
-replace the real external setup either activity requires.
+needs participant-managed Azure and GitHub infrastructure: a subscription with
+Defender CSPM, an ACR, an AKS cluster, and a deployed container image. This
+repository does not create or remove that infrastructure. Activity 08 reuses the
+`ghas-admin-03` pilot repository and doesn't need a repository of its own.
+Both activities require external setup that these provisioners do not perform.
 
 ## Bash
 

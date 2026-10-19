@@ -106,7 +106,7 @@ The enterprise agent source and organization custom instructions are different c
 
 ### Part G: Change approval, propagation, and rollback
 
-24. For every source change, use a pull request with the required Code Owner and change-record approval. Baseline the current source commit and configuration-summary evidence before merging.
+24. For every source change, use a pull request with the required Code Owner and change-record approval. Record the current source commit and configuration summary before merging.
 25. Validate propagation after the approved merge using the designated supported client and non-sensitive test repository. Record expected versus actual agent availability/behavior, source SHA, test time, tester, organization, and evidence link. Investigate unexpected results before expanding scope.
 26. Roll back by opening and approving a revert pull request to the last known-good source commit; do not directly overwrite protected files. Re-check the AI Controls configuration summary and repeat the supported-client validation. Record the revert SHA, propagation result, incident/change reference, owner, and next review date.
 

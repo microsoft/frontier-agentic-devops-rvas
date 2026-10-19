@@ -77,7 +77,7 @@ Before assigning it, review the [first-run setup and instructions](../../resourc
 14. Confirm the fix landed. On `main`, confirm the test suite is green and the issue auto-closed via the PR link.
 
 ### Part F: Record the operating boundary
-15. Capture the operating boundary. In `docs/AGENT-NOTES.md`, record what the agent did well, where human review was essential, and which issue types are approved for delegation.
+15. In `docs/AGENT-NOTES.md`, record what the agent did well, where human review was essential, and which issue types are approved for delegation.
 
 ## Reference links
 - [About Copilot cloud agent](https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent)

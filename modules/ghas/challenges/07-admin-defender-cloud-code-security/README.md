@@ -2,7 +2,7 @@
 
 **Session outcome:** A code scanning or Dependabot alert in a GitHub repository is traced to the running container workload it ships in. Defender for Cloud supplies that mapping; GitHub shows `has:deployment` and `runtime-risk:` context on the alert, and a campaign filtered on that context is live in the organization.
 
-This activity needs real Azure and GitHub infrastructure that you provision outside this repository. Expect to start the setup, wait for Microsoft's services to propagate, and come back one or two days later to finish. The 120 minutes of active work in this activity's duration does not include that wait.
+This activity needs real Azure and GitHub infrastructure that you provision outside this repository. Start setup, allow time for Microsoft's services to propagate the changes, and return one or two days later to finish. The 120 minutes of active work excludes that wait.
 
 ## What this integration is, and is not
 
@@ -56,7 +56,7 @@ Reference: [Connect your GitHub organizations](https://learn.microsoft.com/en-us
 
 ### Keep the two Defender capabilities separate
 
-Defender for Cloud's agentless scanning discovers your repository, registry, and cluster so it can build the code-to-runtime map. That discovery step is not a code scanner — it finds artifacts, it doesn't look for vulnerabilities in your source. If the deployment guide asks you to confirm an agentless-scanning toggle, that's why: the toggle controls discovery, not the runtime-risk correlation this activity teaches. Keep that distinction straight when you brief anyone on what got turned on.
+Defender for Cloud's agentless scanning discovers your repository, registry, and cluster to build the code-to-runtime map. It finds artifacts; it does not look for vulnerabilities in your source. The agentless-scanning toggle in the deployment guide controls this discovery, not runtime-risk correlation. Explain that distinction when reporting what you enabled.
 
 ## Pause-and-return checkpoints
 

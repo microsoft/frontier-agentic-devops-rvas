@@ -48,7 +48,7 @@
       <div class="wrap">
         <span class="eyebrow">GitHub setup guide</span>
         <h1 id="guideHeading">GitHub setup starts<br /><span class="accent">with your goal.</span></h1>
-        <p class="lede">Start in Copilot CLI with one prompt. The agent checks current state and asks for the decisions it cannot answer through GitHub.</p>
+        <p class="lede">Start in Copilot CLI with one prompt. The agent checks your current setup and asks for decisions it cannot resolve by inspecting GitHub.</p>
         <div class="hero-actions"><a class="btn btn-primary" href="#start">Install the plugin &rarr;</a><a class="btn btn-ghost" href="#questions">Start your plan</a></div>
       </div>
     </section>
@@ -70,7 +70,7 @@ copilot skill list</code></pre>
 copilot plugin update github-enterprise-setup</code></pre>
         <p>To remove the plugin:</p>
         <pre><code class="language-text">copilot plugin uninstall github-enterprise-setup</code></pre>
-        <div class="setup-note"><strong>Preview.</strong> Packaging and offline workflow checks are tested. Complete a controlled live setup journey before production use.</div>
+        <div class="setup-note"><strong>Preview.</strong> Packaging and offline workflow checks are tested. Complete a controlled live setup before production use.</div>
       </section>
       <section id="questions" aria-labelledby="questionsHeading">
         <h2 id="questionsHeading">Describe the setup you need</h2>
@@ -80,13 +80,13 @@ on &lt;host&gt;, covering organizations &lt;org-slugs&gt;.
 My goal is &lt;outcome&gt;. Assess current state and recommend changes.
 Ask only for unresolved decisions. Save a plan without changing GitHub.</code></pre>
         <p>For the outcome, describe the result you need, such as aligning organization governance or setting up team and repository access.</p>
-        <p><strong>The skill starts Plan.</strong> It checks the target and active identity, then gathers the read-only evidence your outcome needs. Scoped inventories run without another skill-level approval question. Copilot's tool permissions still apply.</p>
-        <p>The agent recommends changes and asks one unresolved decision at a time. Questions depend on your target and goal. Values already supplied or proved through discovery carry forward.</p>
+        <p><strong>The skill starts in Plan mode.</strong> It checks the target and active identity, then gathers evidence without changing GitHub. Inventories within your requested scope do not need another skill-level approval. Copilot's tool permissions still apply.</p>
+        <p>The agent recommends changes and asks one unresolved decision at a time. Questions depend on your target and goal. It reuses values you supplied or that it verified through GitHub.</p>
         <p>Plan saves <code>assessment.json</code>, <code>plan.md</code>, and <code>plan.json</code> in a private run directory. The default is <code>$HOME/.github-enterprise-setup/&lt;enterprise&gt;/&lt;UTC timestamp&gt;/</code>. Keep this directory outside source control.</p>
       </section>
       <section id="apply" aria-labelledby="applyHeading">
         <h2 id="applyHeading">Review before requesting Apply</h2>
-        <p>Read <code>plan.md</code>. Check the target, proposed changes, verification checks, and any cost or license effects. Resolve blocked prerequisites and owner handoffs before expecting those operations to run.</p>
+        <p>Read <code>plan.md</code>. Check the target, proposed changes, verification checks, and any cost or license effects. Resolve missing prerequisites and work assigned to other owners before expecting the affected operations to run.</p>
         <p>When the plan matches your decisions, tell the agent:</p>
         <pre><code class="language-text">Proceed with the reviewed plan. Present the first write batch for approval.</code></pre>
         <p><strong>This requests Apply; it does not approve a write.</strong> Review and approve each batch. High-impact changes need a separate typed confirmation. The agent asks before switching accounts or changing authentication scopes.</p>

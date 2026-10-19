@@ -21,7 +21,7 @@ Use the customer's approved organization scope. Check current App permissions an
 
 First establish the **effective source level** for every setting: organization-managed, enterprise-enforced/inherited, or unavailable to the current inspector. An organization owner may inspect organization settings; do not infer enterprise policy from a missing organization control.
 
-OAuth App restrictions and GitHub App review are different controls. OAuth restrictions are organization-only; enabling OAuth restrictions **for the first time immediately disrupts existing OAuth Apps** until they are approved. Installed GitHub Apps instead require an authority, permission/repository-scope review, and recurring review cadence.
+OAuth App restrictions and GitHub App review are different controls. OAuth restrictions are organization-only; enabling OAuth restrictions **for the first time immediately disrupts existing OAuth Apps** until they are approved. For installed GitHub Apps, identify who authorized installation, review permissions and repository scope, and set a recurring review date.
 
 > This activity supports EMU because it inventories access without creating identities. Treat identity lifecycle as enterprise/SCIM managed. If enterprise policy allows an administrator exemption for an EMU or another user, record its approver, affected automation, scope, expiry, and compatibility with SCIM joiner/leaver controls. An exemption does not replace least privilege or SCIM deprovisioning.
 
@@ -65,7 +65,7 @@ OAuth App restrictions and GitHub App review are different controls. OAuth restr
 
     Finally, revoke the test token from the member's token settings and repeat the same read. It must fail. Clear the test token from the shell with `unset GH_TOKEN`.
 
-    Do **not** make OAuth-restrictions first enablement, classic-PAT restriction, or broad token-lifetime enforcement a required test. Those changes require their own approved impact analysis, exception handling, and rollback/change plan.
+    Do **not** require tests that enable OAuth restrictions for the first time, restrict classic PATs, or enforce token lifetimes broadly. Those changes require their own approved impact analysis, exception handling, and change plan with rollback.
 
 ### Part D: Verify evidence and hand over
 
