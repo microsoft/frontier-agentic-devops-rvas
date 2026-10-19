@@ -19,23 +19,17 @@
       "skillPath": "skills/grilling/SKILL.md",
       "computedHash": "ef685a6fa0bbe73b05bbd8dc1ec97258191587f07c6aa7dbc9006675ceb8f90f"
     },
-    "humanize-writing": {
-      "source": "lguz/humanize-writing-skill",
+    "humanize-content": {
+      "source": "olivomarco/ai-dev-skills",
       "sourceType": "github",
-      "skillPath": "skills/humanize-writing/SKILL.md",
-      "computedHash": "bd0c9bf9dbb1c1117a831edfc7a566d9b09cace1aff42fcf6e2068d272c44593"
+      "skillPath": "skills/humanize-content/SKILL.md",
+      "computedHash": "89e120df378cb08bc01d465b3f68dacba255fc6a76d0963a3745544a4b6c5c1a"
     },
     "skill-creator": {
       "source": "anthropics/skills",
       "sourceType": "github",
       "skillPath": "skills/skill-creator/SKILL.md",
       "computedHash": "5ea13a6d9f0d4bb694405d79acd00cadec0d21bb138c4dd10fcf3c500cb835c2"
-    },
-    "unslop": {
-      "source": "cursor/plugins",
-      "sourceType": "github",
-      "skillPath": "pstack/skills/unslop/SKILL.md",
-      "computedHash": "6018ca8c329ba87c6b4298207f58d6b773fe23e44ff52a00a9a4d160c19bedc0"
     },
     "writing-for-agents": {
       "source": "mattpocock/skills",
