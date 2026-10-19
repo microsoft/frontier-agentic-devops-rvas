@@ -126,7 +126,7 @@ Use this order:
 ## Billing and licenses
 ## Manual handoffs
 ## Verification
-## Resume command
+## Continue later
 ```
 
 Keep commands in the batch where they will run. Explain why a command is needed
@@ -143,6 +143,12 @@ Use this shape:
   "assessment_path": "assessment.json",
   "created_at": "2026-10-09T15:20:00Z",
   "status": "awaiting_approval",
+  "approval": {
+    "status": "pending",
+    "approved_at": null,
+    "approved_by": null,
+    "scope_digest": null
+  },
   "batches": [
     {
       "id": "team-access",
@@ -150,11 +156,6 @@ Use this shape:
       "risk": "routine",
       "targets": ["example/platform", "example/shared"],
       "dependencies": [],
-      "approval": {
-        "status": "pending",
-        "approved_at": null,
-        "approved_by": null
-      },
       "operations": [
         {
           "id": "grant-platform-maintain",
@@ -163,7 +164,7 @@ Use this shape:
           "reason": "Platform maintains the shared infrastructure repository",
           "reason_source": {
             "type": "customer_required",
-            "reference": "Confirmed interview decision: platform maintains shared infrastructure"
+            "reference": "Requested requirement: platform maintains shared infrastructure"
           },
           "current_state": {"permission": "pull"},
           "desired_state": {"permission": "maintain"},
@@ -247,14 +248,15 @@ Use this shape:
   "started_at": "2026-10-09T15:30:00Z",
   "updated_at": "2026-10-09T15:40:00Z",
   "status": "in_progress",
+  "approval": {
+    "status": "approved",
+    "approved_at": "2026-10-09T15:31:00Z",
+    "approved_by": "operator",
+    "scope_digest": "sha256:example"
+  },
   "batches": [
     {
       "id": "team-access",
-      "approval": {
-        "status": "approved",
-        "approved_at": "2026-10-09T15:31:00Z",
-        "approved_by": "operator"
-      },
       "operations": [
         {
           "id": "grant-platform-maintain",

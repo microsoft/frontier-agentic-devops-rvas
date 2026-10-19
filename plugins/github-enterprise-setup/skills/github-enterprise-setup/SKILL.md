@@ -11,26 +11,30 @@ Use `gh`, `gh api`, and `gh api graphql` directly.
 
 ## Operating modes
 
-State the selected mode, target, and scope before discovery:
+Choose the mode internally from the user's intent. State the target and scope;
+mention the mode only when it helps explain why the work will stop before writes.
 
 - **Assess:** inspect current state and report gaps with prioritized recommendations.
-- **Plan:** assess, interview, and save a plan without changing GitHub.
+- **Plan:** assess, resolve decisions, and save a plan when the user wants
+  review-only planning.
 - **Apply:** assess, plan, get one execution approval, execute, and verify.
 - **Resume:** load saved artifacts, recheck identity and live state, then continue.
 
 If the request names a mode, use it. Otherwise choose from intent:
 
 - **Assess** for a report-only review of current state and recommendations.
-- **Plan** for help setting up or aligning an enterprise or organization.
-- **Apply** for clear intent to execute a reviewed plan, such as "looks good,
-  proceed." If the complete plan is visible and unchanged, this explicit
-  execution request can serve as the single execution approval. Praise or plan
-  acceptance without execution intent leaves execution unapproved.
+- **Plan** when the user explicitly asks for a plan, proposal, or review before
+  deciding whether to make changes.
+- **Apply** when the user asks to set up, configure, align, repair, roll out, or
+  otherwise make changes. The mode includes planning and still pauses once for
+  approval before the first write. For a reviewed plan, an instruction such as
+  "looks good, proceed" is that approval when the plan is visible and unchanged.
+  Praise without execution intent leaves execution unapproved.
 - **Resume** for continuing saved work. Restore the saved goal unless the user
   requests a different mode.
 
-Ask one clarifying question only when intent is ambiguous. A mode choice does
-not approve authentication changes or GitHub writes. Read-only discovery follows
+Ask one clarifying question only when the user may want either a report or actual
+changes. Do not ask the user to select or name a mode. Read-only discovery follows
 the requested-scope rules in `references/discovery.md`.
 
 ### Carry context between steps
@@ -182,7 +186,8 @@ When no gaps are found, say so and state the assessment's coverage limits.
 In every mode, label each recommendation as `github_recommended`,
 `customer_required`, or `operator_recommended`. Cite the official guidance,
 confirmed customer requirement, or local rationale respectively. Recommendations
-remain proposals until the user confirms the configuration decisions.
+become plan decisions when the user supplies them, accepts the compact checkpoint,
+or asks the skill to use its recommended defaults.
 
 Save the redacted evidence and recommendations to `assessment.json` using
 `references/artifacts.md`. Show a compact, priority-ordered findings table with
@@ -192,10 +197,10 @@ Report unknowns separately and give the artifact path.
 **Assessment gate:** every control needed by the scoped outcome has timestamped
 evidence or a classified unknown with its cause and next check, and every
 confirmed gap has a sourced, prioritized recommendation in the saved assessment
-and user-facing report. In Assess mode, stop after this report. Explain that
-Plan turns selected recommendations into reviewed changes; continue only when
-the user requests it. Detailed interviews and executable write plans belong to
-Plan or Apply mode.
+and user-facing report. For a report-only request, stop after this report. Say
+that the user can ask to turn selected recommendations into reviewed changes;
+do not require a mode name. Continue only when the user requests planning or
+changes.
 
 ## Build the capability checklist
 
@@ -219,7 +224,7 @@ The checklist explains the work; it is not an approval gate or write approval.
 Generate a compact checkpoint from unresolved material decisions. Use answers
 already supplied by the user or established through discovery. When the user
 asks for a recommended setup, adopt the recommended values and list them for
-review instead of requesting confirmation for each one. Reopen a decision only
+review in the plan instead of requesting confirmation. Reopen a decision only
 when its basis changes.
 
 For the checkpoint:
@@ -228,7 +233,9 @@ For the checkpoint:
 2. Show the relevant live state and effective policy source.
 3. Mark the recommended answer for each unresolved choice.
 4. Explain only the material tradeoffs or dependencies.
-5. Ask the user to accept the recommendations or provide changes in one reply.
+5. Ask one question only for choices that lack a safe default. Otherwise carry
+   the recommended values into the plan, where the user can change them before
+   the single execution approval.
 
 Resolve decisions in dependency order:
 
@@ -244,9 +251,8 @@ Resolve decisions in dependency order:
 
 Skip branches that the scoped capability checklist does not need.
 
-Proceed to planning when every required decision is supplied, accepted as part
-of the checkpoint, covered by the user's request for recommended defaults, or
-recorded as a blocker.
+Proceed to planning when every required decision is supplied, safely defaulted
+under the user's request for recommendations, or recorded as a blocker.
 
 ### Recommendation profiles
 
@@ -290,37 +296,39 @@ Group operations into small batches with one purpose. Good boundaries include
 organization creation, team structure, repository creation, access grants,
 Actions policy, security defaults, and Copilot seat assignment.
 
-Show the complete plan before asking for write approval.
-
 **Plan gate:** every operation has a validated command, fresh preconditions, and
 acceptance checks, or a manual handoff with an owner and evidence request.
 Dependencies and cost effects are explicit. Unresolved decisions or missing
-documentation keep the affected batch blocked. In Plan mode, save the artifacts
-and stop without requesting execution approval. Explain that execution requires
-Apply and one explicit approval of the complete executable scope. On a later
-request to proceed, reuse this plan. If the plan is visible and unchanged, a
-direct instruction to execute it is the approval; praise or plan acceptance
-alone authorizes no execution.
+documentation keep the affected batch blocked.
+
+If the user requested review-only planning, save the artifacts and stop. Say that
+they can execute the plan later with a direct instruction such as "execute this
+plan"; do not require an Apply or Resume command in the same conversation.
+
+If the request includes execution intent, continue directly to the single
+approval summary below. Do not stop merely because planning is complete.
 
 ## Apply the approved plan
 
 Follow `references/safety-and-approval.md`.
 
-Before the first write:
+For execution intent, present the complete executable plan once as the approval
+summary:
 
-1. Recheck host, actor, target IDs, permissions, and preconditions for every
-   executable batch.
-2. Show one approval summary containing the exact operations, risk tiers,
+1. Show the exact operations, risk tiers,
    affected resources, costs, disruption, rollback, and acceptance checks.
-3. Ask once for explicit execution approval of the listed scope. For
+2. Ask once for explicit execution approval of the listed scope. For
    high-impact work, the same approval must name or unambiguously identify the
    plan and targets; do not ask for a second confirmation.
 
 After approval:
 
-1. Run one operation at a time and stop on the first unexpected result.
-2. Record the approval, command metadata, and redacted results in `run.json`.
-3. Run each batch's acceptance checks before moving to the next batch.
+1. Recheck the host, actor, stable target IDs, permissions, policy sources, and
+   preconditions immediately before their writes.
+2. Run one operation at a time and stop on the first unexpected result.
+3. Record the approval once, then record command metadata and redacted results
+   in `run.json`.
+4. Run each batch's acceptance checks before moving to the next batch.
 
 The approval covers only the displayed plan. Ask again only when a target,
 recipient set, desired state, policy source, cost, disruption, or operation
@@ -331,8 +339,9 @@ update only when the observed value differs from the approved desired value.
 
 Do not delete organizations, repositories, teams, users, enterprise teams,
 rulesets, applications, runners, or Copilot assignments as part of ordinary
-alignment. Treat removal as a separate high-impact request with an explicit
-resource list and recovery plan.
+alignment unless the requested outcome requires it. Put removals in a distinct
+high-impact batch with an explicit resource list and recovery plan; include that
+batch in the same execution approval.
 
 ## Verify and finish
 
@@ -353,9 +362,9 @@ Never use an owner account to prove a member-level restriction.
 explicit block. Only report full success when every acceptance check passes.
 An uncertain write keeps its dependent operations blocked until reconciled.
 
-For Resume, follow the artifact rechecks, restore the saved Assess, Plan, or Apply
-goal, and use that mode's completion gate. Ask which goal to restore if the
-artifacts do not establish it.
+For Resume, follow the artifact rechecks and continue the saved goal. Ask what
+outcome to continue only when the artifacts and current request do not establish
+it; do not ask the user to choose a mode.
 
 Finish with:
 
@@ -366,6 +375,6 @@ Finish with:
 - evidence locations;
 - rollback or recovery notes;
 - a bounded drift-check command set;
-- the exact Resume instruction for unfinished work.
+- the run directory for unfinished work.
 
 Keep the conversational response short. The durable artifacts contain the detail.

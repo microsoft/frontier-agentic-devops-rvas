@@ -93,10 +93,10 @@ when it directly answers the approval request and the displayed scope is
 unambiguous. Show blocked batches for review, but exclude them from the approved
 execution scope until their blockers are resolved.
 
-Record the same approval timestamp and actor on every covered batch. The approval
-remains valid while the actor, targets, recipient sets, desired states, policy
-sources, costs, disruption, and commands remain unchanged. Ask again only for a
-materially revised scope.
+Record the approval once at the run level with the approved plan identity and
+scope. The approval remains valid while the actor, targets, recipient sets,
+desired states, policy sources, costs, disruption, and commands remain unchanged.
+Ask again only for a materially revised scope.
 
 ## Execution rules
 
@@ -209,8 +209,9 @@ CODEOWNERS.
 Verify through a separate read when possible. For access controls, verify the
 effective permission rather than the configured grant alone.
 
-Use a consenting non-owner account for allowed and denied access tests. Do not
-switch to that account without approval, and do not ask for its token.
+Use an already-authorized, consenting non-owner account for allowed and denied
+access tests. Include any required account switch in the displayed execution
+scope; otherwise record `manual_evidence_required`. Never ask for its token.
 
 If only manual verification can prove the result, record
 `manual_evidence_required` with an owner and exact evidence request.

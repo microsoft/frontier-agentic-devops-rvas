@@ -35,13 +35,14 @@ work unless a supported API gives a complete and safe path.
 
 Settle the **identity model first**. It decides what the rest of the plan can do.
 Read [authentication options](https://docs.github.com/en/enterprise-cloud@latest/admin/concepts/identity-and-access-management/identity-and-access-management-fundamentals)
-and confirm:
+and establish:
 
 - **Account model:** Enterprise Managed Users (EMU) or personal accounts. Migration
   between them is out of scope.
 - **Enterprise SSO:** whether SAML or OIDC is configured and **enforced** at the
-  enterprise or per organization. Never enable enforcement without the user
-  confirming that the IdP and a recovery path work. Enforcement can lock out members.
+  enterprise or per organization. Enable enforcement only with evidence that the
+  IdP and recovery path work; otherwise record a manual prerequisite. Enforcement
+  can lock out members.
 - **Provisioning:** whether SCIM provisions users and who owns that IdP application.
   With EMU, users, usernames, and org membership come from the IdP, not from `gh`.
 - **Group sync:** whether IdP groups map to **enterprise teams** or organization
@@ -84,8 +85,9 @@ Assess:
 - default branch and repository defaults;
 - inherited enterprise constraints.
 
-For a new organization, confirm its owner, purpose, identity boundary, expected
-repository visibility, and lifecycle owner before creation.
+For a new organization, establish its owner, purpose, identity boundary, expected
+repository visibility, and lifecycle owner before creation. Use supplied values
+or safe recommended defaults; ask only when a material choice remains.
 
 **Creating the organization.** Only an **enterprise owner** can create one inside
 the enterprise. Use the GraphQL `createEnterpriseOrganization` mutation. It needs
@@ -96,7 +98,7 @@ for current inputs before writing the command into `plan.json`.
 
 Before the write:
 
-- confirm the login is free (`gh api orgs/<login>` returning `404` does not
+- verify the login is free (`gh api orgs/<login>` returning `404` does not
   prove it's available, since names can be reserved or belong to a user);
 - name two initial admins, so ownership continuity holds from day one;
 - on EMU, admins must be managed users from the enterprise.
@@ -108,7 +110,8 @@ afterwards, then read back the admins and billing email.
 Before recommending owners or team membership management, read
 [organization best practices](https://docs.github.com/en/enterprise-cloud%40latest/organizations/collaborating-with-groups-in-organizations/best-practices-for-organizations).
 Check ownership continuity, including GitHub's recommendation for at least two
-organization owners. Explain any customer-approved exception.
+organization owners. Document any exception in the plan and its single execution
+approval.
 
 ### Teams and repository access
 
@@ -131,8 +134,8 @@ enterprise policy may still block the action.
 
 Choose supported team operations from the
 [Teams REST reference](https://docs.github.com/en/rest/teams).
-Confirm whether each selected team is enterprise-managed or organization-managed
-before selecting its endpoint.
+Detect whether each selected team is enterprise-managed or organization-managed
+before selecting its endpoint. Ask only when discovery cannot establish it.
 
 ### Repositories and templates
 
@@ -225,9 +228,9 @@ Assess:
 - cloud-agent repository access and runners;
 - metrics access and rollout evidence.
 
-Copilot seat assignment can create recurring cost. Keep it in a separate batch
-with named recipients, current assignments, estimated seat delta, and billing
-owner approval.
+Copilot seat assignment can create recurring cost. Keep it in a distinct batch
+with named recipients, current assignments, estimated seat delta, and the billing
+owner identified. Include it in the single execution approval.
 
 For seats or usage data, select the endpoint from the
 [Copilot REST reference](https://docs.github.com/en/rest/copilot).
@@ -258,7 +261,8 @@ value with live state.
 - Narrow Actions allowlist and stronger pinning requirements.
 - Team or IdP-group access only.
 - Security controls rolled out in measured waves with named exceptions.
-- High-impact policy changes require change-owner approval and rollback evidence.
+- High-impact policy changes identify the change owner and rollback evidence in
+  the single execution approval.
 
 ### InnerSource
 
