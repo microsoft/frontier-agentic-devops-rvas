@@ -18,7 +18,8 @@ mention the mode only when it helps explain why the work will stop before writes
 - **Plan:** assess, resolve decisions, and save a plan when the user wants
   review-only planning.
 - **Apply:** assess, plan, get one execution approval, execute, and verify.
-- **Resume:** load saved artifacts, recheck identity and live state, then continue.
+- **Resume:** load saved artifacts, recheck identity and live state, then continue
+  to the next incomplete action.
 
 If the request names a mode, use it. Otherwise choose from intent:
 
@@ -30,8 +31,9 @@ If the request names a mode, use it. Otherwise choose from intent:
   approval before the first write. For a reviewed plan, an instruction such as
   "looks good, proceed" is that approval when the plan is visible and unchanged.
   Praise without execution intent leaves execution unapproved.
-- **Resume** for continuing saved work. Restore the saved goal unless the user
-  requests a different mode.
+- **Resume** for continuing saved work. Advance to the next incomplete action.
+  When a complete executable plan lacks approval, present its approval summary
+  immediately unless the current request explicitly asks for review only.
 
 Ask one clarifying question only when the user may want either a report or actual
 changes. Do not ask the user to select or name a mode. Read-only discovery follows
@@ -301,9 +303,10 @@ acceptance checks, or a manual handoff with an owner and evidence request.
 Dependencies and cost effects are explicit. Unresolved decisions or missing
 documentation keep the affected batch blocked.
 
-If the user requested review-only planning, save the artifacts and stop. Say that
-they can execute the plan later with a direct instruction such as "execute this
-plan"; do not require an Apply or Resume command in the same conversation.
+If the current request explicitly asks for review-only planning, save the
+artifacts and stop without requesting execution approval. A later request to
+resume or continue advances the complete plan directly to its approval summary;
+do not ask the user to issue an intermediate execution or mode command.
 
 If the request includes execution intent, continue directly to the single
 approval summary below. Do not stop merely because planning is complete.
@@ -362,9 +365,10 @@ Never use an owner account to prove a member-level restriction.
 explicit block. Only report full success when every acceptance check passes.
 An uncertain write keeps its dependent operations blocked until reconciled.
 
-For Resume, follow the artifact rechecks and continue the saved goal. Ask what
-outcome to continue only when the artifacts and current request do not establish
-it; do not ask the user to choose a mode.
+For Resume, follow the artifact rechecks and advance to the next incomplete
+action. A complete executable plan with no approval advances directly to the
+single approval summary. Ask what outcome to continue only when the artifacts
+and current request do not establish it.
 
 Finish with:
 

@@ -31,10 +31,11 @@ decisions in `plan.md` or the conversation. Refresh stale evidence before
 depending on it; retain the observation timestamp until a new read replaces it.
 
 Record the current Assess, Plan, or Apply goal in `assessment.json.mode` when
-the user changes goals. Resume restores that goal unless the user requests a
-different one. Apply uses one approval for the complete displayed execution
-scope; use the validity checks in the Resume section and
-`safety-and-approval.md`.
+the user changes goals. Resume uses that goal as context but advances to the next
+incomplete action. A complete executable plan with no approval advances directly
+to its approval summary unless the current request explicitly asks for review
+only. Apply uses one approval for the complete displayed execution scope; use
+the validity checks in the Resume section and `safety-and-approval.md`.
 
 In a new conversation, use a known or supplied directory and follow the Resume
 checks below. If its location is unknown, ask for it before inspecting saved
@@ -310,8 +311,8 @@ trees, or alert bodies unless the approved outcome needs them.
 
 Resume uses this skill's artifact format. If the supplied directory contains
 legacy Bash wizard artifacts, preserve them as reference material and start a
-new Plan with fresh discovery. Their saved approvals do not authorize skill
-changes; do not convert or replay their commands.
+new assessment and plan with fresh discovery. Their saved approvals do not
+authorize skill changes; do not convert or replay their commands.
 
 Before resuming:
 
@@ -324,10 +325,9 @@ Before resuming:
    using `safety-and-approval.md` before any replay;
 6. mark stale observations and revalidate commands against endpoint documentation
    and the approved scope;
-7. identify the next batch and state its remaining target, permission,
-   effective-policy-source, and precondition checks; reuse the recorded execution
-   approval when its full scope remains unchanged, otherwise request one revised
-   approval for the remaining plan.
+7. advance to the next incomplete action: reuse a valid recorded approval, or
+   present the complete remaining executable plan as the single approval summary.
+   Do not require an intermediate command to enter execution.
 
 Saved approval does not survive a changed target, recipient set, cost, policy
 source, desired state, or actor. Older artifacts missing documentation checks or

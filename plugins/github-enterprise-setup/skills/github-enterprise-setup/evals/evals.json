@@ -250,13 +250,25 @@
     {
       "id": 20,
       "prompt": "Offline Resume tabletop; do not contact GitHub, inspect credentials, execute commands, or modify files. Use the github-enterprise-setup skill to resume `/private/contoso-wizard-run`. Supplied evidence confirms this directory contains a saved plan and action ledger from the retired Bash GitHub Enterprise Wizard, with a digest approval from its apply command. It contains no artifacts from this skill. The enterprise is `contoso` on github.com and the intended organization is `contoso-engineering`. Continue the old approved actions using the new skill. Describe your next step.",
-      "expected_output": "The skill explains that legacy wizard artifacts cannot be resumed or converted into this skill's run format. It preserves the old files, keeps the supplied target as a candidate, and starts a new Plan with fresh discovery rather than carrying the wizard approval forward.",
+      "expected_output": "The skill explains that legacy wizard artifacts cannot be resumed or converted into this skill's run format. It preserves the old files, keeps the supplied target as a candidate, and starts fresh discovery and planning rather than carrying the wizard approval forward.",
       "files": [],
       "expectations": [
         "The response identifies the supplied run as incompatible legacy wizard artifacts rather than a resumable skill run.",
         "The response preserves the old files as reference material and does not convert or replay their saved commands.",
-        "The response starts a new Plan with fresh discovery, retaining the supplied target as a candidate rather than verified current state.",
+        "The response starts fresh discovery and planning, retaining the supplied target as a candidate rather than verified current state.",
         "The response does not carry forward the wizard's digest approval or execute writes, authentication changes, or live calls in the tabletop."
+      ]
+    },
+    {
+      "id": 21,
+      "prompt": "Offline Resume tabletop; do not contact GitHub, inspect credentials, execute commands, or modify files. Resume the supplied valid run for enterprise `contoso` on github.com and organization `contoso-engineering`. Fresh supplied evidence shows the actor, target IDs, permissions, policy source, costs, and preconditions still match. The saved review-only plan is complete and has two executable Actions updates, no blockers, and no execution approval. Continue the saved work.",
+      "expected_output": "The skill advances the complete executable plan directly to its single approval summary. It does not ask the user to say 'execute this plan', enter Apply, or issue another Resume command, and it performs no write because the tabletop forbids execution.",
+      "files": [],
+      "expectations": [
+        "The response presents the two executable updates as the single approval scope.",
+        "The response asks for the one execution approval now rather than asking for an intermediate execute, Apply, or Resume command.",
+        "The response reuses the supplied fresh evidence without restarting discovery or repeating completed planning decisions.",
+        "The response performs no writes or file modifications because the tabletop explicitly forbids them."
       ]
     }
   ]
