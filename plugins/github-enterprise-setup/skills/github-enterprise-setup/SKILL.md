@@ -15,7 +15,7 @@ State the selected mode, target, and scope before discovery:
 
 - **Assess:** inspect current state and report gaps with prioritized recommendations.
 - **Plan:** assess, interview, and save a plan without changing GitHub.
-- **Apply:** assess, plan, approve batches, execute, and verify.
+- **Apply:** assess, plan, get one execution approval, execute, and verify.
 - **Resume:** load saved artifacts, recheck identity and live state, then continue.
 
 If the request names a mode, use it. Otherwise choose from intent:
@@ -23,8 +23,9 @@ If the request names a mode, use it. Otherwise choose from intent:
 - **Assess** for a report-only review of current state and recommendations.
 - **Plan** for help setting up or aligning an enterprise or organization.
 - **Apply** for clear intent to execute a reviewed plan, such as "looks good,
-  proceed." This requests the batch-approval process; plan acceptance alone
-  leaves execution unapproved.
+  proceed." If the complete plan is visible and unchanged, this explicit
+  execution request can serve as the single execution approval. Praise or plan
+  acceptance without execution intent leaves execution unapproved.
 - **Resume** for continuing saved work. Restore the saved goal unless the user
   requests a different mode.
 
@@ -66,8 +67,9 @@ endpoint details in the official documentation rather than copying a catalog her
    exports.
 4. Do not switch accounts, start authentication, refresh scopes, or run a write
    command without the user's approval.
-5. Ask one interview question at a time. Give a recommended answer and explain
-   the tradeoff briefly.
+5. Minimize interaction. Use supplied requirements as decisions, apply safe
+   recommended defaults where the user invited recommendations, and collect any
+   remaining material choices in one compact decision checkpoint.
 6. Answer questions through discovery when the API can prove the answer. Do not
    ask the user to recall observable state.
 7. Track the effective source of every relevant policy or permission. A lower
@@ -87,8 +89,8 @@ endpoint details in the official documentation rather than copying a catalog her
 If the user already named the host, enterprise, organizations, and outcome, use
 those values as candidates. Verify them before planning.
 
-Ask only for missing target values, one question at a time. Once the target is
-known, use the stated outcome or offer these starter outcomes if it is missing:
+Ask once for all missing target values. Once the target is known, use the stated
+outcome or offer these starter outcomes if it is missing:
 
 - Establish an enterprise governance baseline
 - Create a new organization landing zone
@@ -214,18 +216,19 @@ The checklist explains the work; it is not an approval gate or write approval.
 
 ## Run the interview
 
-Generate questions from unresolved decisions. Use answers already supplied by
-the user or established through discovery. A recommendation becomes a confirmed
-decision only when the user accepts it. Reopen a confirmed decision only when
-its basis changes.
+Generate a compact checkpoint from unresolved material decisions. Use answers
+already supplied by the user or established through discovery. When the user
+asks for a recommended setup, adopt the recommended values and list them for
+review instead of requesting confirmation for each one. Reopen a decision only
+when its basis changes.
 
-For each question:
+For the checkpoint:
 
-1. State the decision in plain language.
+1. Group related decisions in dependency order.
 2. Show the relevant live state and effective policy source.
-3. Give the recommended answer.
-4. Explain the main tradeoff or dependency.
-5. Ask one question and wait.
+3. Mark the recommended answer for each unresolved choice.
+4. Explain only the material tradeoffs or dependencies.
+5. Ask the user to accept the recommendations or provide changes in one reply.
 
 Resolve decisions in dependency order:
 
@@ -241,8 +244,9 @@ Resolve decisions in dependency order:
 
 Skip branches that the scoped capability checklist does not need.
 
-Proceed to planning when every required decision is confirmed or recorded as a
-blocker.
+Proceed to planning when every required decision is supplied, accepted as part
+of the checkpoint, covered by the user's request for recommended defaults, or
+recorded as a blocker.
 
 ### Recommendation profiles
 
@@ -293,24 +297,34 @@ acceptance checks, or a manual handoff with an owner and evidence request.
 Dependencies and cost effects are explicit. Unresolved decisions or missing
 documentation keep the affected batch blocked. In Plan mode, save the artifacts
 and stop without requesting execution approval. Explain that execution requires
-Apply and separate batch approval. On a later request to proceed, reuse this
-plan and follow the Apply approval process; praise or plan acceptance alone
-authorizes no execution.
+Apply and one explicit approval of the complete executable scope. On a later
+request to proceed, reuse this plan. If the plan is visible and unchanged, a
+direct instruction to execute it is the approval; praise or plan acceptance
+alone authorizes no execution.
 
-## Apply approved batches
+## Apply the approved plan
 
 Follow `references/safety-and-approval.md`.
 
-For each batch:
+Before the first write:
 
-1. Recheck host, actor, target IDs, permissions, and preconditions.
-2. Show the exact operations, risk tier, affected resources, cost, and rollback.
-3. Ask for batch approval.
-4. For high-impact work, require the separate confirmation defined in the safety
-   reference.
-5. Run one operation at a time and stop on the first unexpected result.
-6. Record command metadata and redacted results in `run.json`.
-7. Run the acceptance checks before moving to the next batch.
+1. Recheck host, actor, target IDs, permissions, and preconditions for every
+   executable batch.
+2. Show one approval summary containing the exact operations, risk tiers,
+   affected resources, costs, disruption, rollback, and acceptance checks.
+3. Ask once for explicit execution approval of the listed scope. For
+   high-impact work, the same approval must name or unambiguously identify the
+   plan and targets; do not ask for a second confirmation.
+
+After approval:
+
+1. Run one operation at a time and stop on the first unexpected result.
+2. Record the approval, command metadata, and redacted results in `run.json`.
+3. Run each batch's acceptance checks before moving to the next batch.
+
+The approval covers only the displayed plan. Ask again only when a target,
+recipient set, desired state, policy source, cost, disruption, or operation
+changes materially after approval.
 
 Prefer idempotent creates and updates. Read first, create only when missing, and
 update only when the observed value differs from the approved desired value.

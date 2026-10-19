@@ -12,7 +12,7 @@ Examples:
 - grant an approved team access to a named repository;
 - open a branch or pull request with standard content.
 
-Routine work still needs batch approval.
+Routine work must be included in the single execution approval.
 
 ### High impact
 
@@ -41,8 +41,9 @@ Before approval, show:
 - rollback or recovery;
 - acceptance checks.
 
-Require a separate typed confirmation that names the batch and target. A generic
-"yes" is not enough.
+Include high-impact work in the same execution approval as the rest of the plan.
+The approval must name or unambiguously identify the plan and targets and show
+that the user intends execution. Do not add a second confirmation.
 
 ### Manual or unsupported
 
@@ -60,30 +61,42 @@ Create a handoff with an owner, required inputs, official settings location,
 verification, and evidence field. Do not turn a manual control into an improvised
 API or browser automation.
 
-## Batch approval
+## Execution approval
 
-Build batches around one purpose and one accountable owner. Do not combine a low
-risk repository create with a high-impact enterprise policy change.
+Build batches around one purpose and one accountable owner. Keep routine and
+high-impact operations in distinct batches so their effects remain clear, but
+present all eligible batches in one approval request.
 
-Use this approval summary:
+Use one approval summary:
 
 ```text
-Batch:
-Purpose:
-Targets:
-Risk:
-Current effective state:
-Proposed changes:
-Cost or license effect:
-Disruption:
-Preconditions:
-Rollback or recovery:
-Acceptance checks:
-Commands:
+Plan:
+Target:
+Batches:
+  - Batch:
+    Purpose:
+    Targets:
+    Risk:
+    Current effective state:
+    Proposed changes:
+    Cost or license effect:
+    Disruption:
+    Preconditions:
+    Rollback or recovery:
+    Acceptance checks:
+    Commands:
 ```
 
-Ask for approval only when every field is known. Show blocked batches for review,
-but keep them ineligible for execution until their blockers are resolved.
+Ask once when every field is known. A direct instruction to execute the displayed,
+unchanged plan is sufficient. A generic response such as "yes" is sufficient only
+when it directly answers the approval request and the displayed scope is
+unambiguous. Show blocked batches for review, but exclude them from the approved
+execution scope until their blockers are resolved.
+
+Record the same approval timestamp and actor on every covered batch. The approval
+remains valid while the actor, targets, recipient sets, desired states, policy
+sources, costs, disruption, and commands remain unchanged. Ask again only for a
+materially revised scope.
 
 ## Execution rules
 
@@ -172,7 +185,7 @@ enabling a paid product:
 - calculate the expected seat delta when the API exposes enough data;
 - identify the billing owner;
 - state when price or proration is unknown;
-- require high-impact approval.
+- include the paid change in the single execution approval.
 
 Never represent an unknown charge as zero.
 

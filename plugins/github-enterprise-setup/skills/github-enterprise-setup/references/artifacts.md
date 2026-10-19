@@ -32,8 +32,9 @@ depending on it; retain the observation timestamp until a new read replaces it.
 
 Record the current Assess, Plan, or Apply goal in `assessment.json.mode` when
 the user changes goals. Resume restores that goal unless the user requests a
-different one. A mode change does not carry write approval forward; use the
-approval checks in the Resume section and `safety-and-approval.md`.
+different one. Apply uses one approval for the complete displayed execution
+scope; use the validity checks in the Resume section and
+`safety-and-approval.md`.
 
 In a new conversation, use a known or supplied directory and follow the Resume
 checks below. If its location is unknown, ask for it before inspecting saved
@@ -203,7 +204,7 @@ Use this shape:
               "purpose": "Check a consenting non-owner member's effective access"
             }
           ],
-          "rollback_or_recovery": "Restore the recorded pull grant in a separately approved high-impact removal batch",
+          "rollback_or_recovery": "Restore the recorded pull grant through a reviewed recovery operation; request new approval only if that recovery was not part of the displayed execution scope",
           "cost_or_license_effect": "No seat or subscription change",
           "manual_handoff": null,
           "status": "planned"
@@ -322,8 +323,9 @@ Before resuming:
 6. mark stale observations and revalidate commands against endpoint documentation
    and the approved scope;
 7. identify the next batch and state its remaining target, permission,
-   effective-policy-source, and precondition checks; ask for approval again if
-   its target or effect changed.
+   effective-policy-source, and precondition checks; reuse the recorded execution
+   approval when its full scope remains unchanged, otherwise request one revised
+   approval for the remaining plan.
 
 Saved approval does not survive a changed target, recipient set, cost, policy
 source, desired state, or actor. Older artifacts missing documentation checks or
