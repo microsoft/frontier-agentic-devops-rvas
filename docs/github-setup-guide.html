@@ -82,7 +82,6 @@ Ask only for unresolved decisions. Save a plan without changing GitHub.</code></
         <p>For the outcome, describe the result you need, such as aligning organization governance or setting up team and repository access.</p>
         <p><strong>The skill starts in Plan mode.</strong> It checks the target and active identity, then gathers evidence without changing GitHub. Inventories within your requested scope do not need another skill-level approval. Copilot's tool permissions still apply.</p>
         <p>The agent recommends changes and asks one unresolved decision at a time. Questions depend on your target and goal. It reuses values you supplied or that it verified through GitHub.</p>
-        <p>Plan saves <code>assessment.json</code>, <code>plan.md</code>, and <code>plan.json</code> in a private run directory. The default is <code>$HOME/.github-enterprise-setup/&lt;enterprise&gt;/&lt;UTC timestamp&gt;/</code>. Keep this directory outside source control.</p>
       </section>
       <section id="apply" aria-labelledby="applyHeading">
         <h2 id="applyHeading">Review before requesting Apply</h2>
@@ -90,7 +89,6 @@ Ask only for unresolved decisions. Save a plan without changing GitHub.</code></
         <p>When the plan matches your decisions, tell the agent:</p>
         <pre><code class="language-text">Proceed with the reviewed plan. Present the first write batch for approval.</code></pre>
         <p><strong>This requests Apply; it does not approve a write.</strong> Review and approve each batch. High-impact changes need a separate typed confirmation. The agent asks before switching accounts or changing authentication scopes.</p>
-        <p>The agent rereads write preconditions, performs the approved operations, and verifies their results. An accepted API request alone is not a verified result. Failed or uncertain writes remain visible.</p>
       </section>
       <section id="verify" aria-labelledby="verifyHeading">
         <h2 id="verifyHeading">Continue saved work</h2>
@@ -103,7 +101,6 @@ Recheck identity and live state before continuing.</code></pre>
 &lt;enterprise-slug&gt; on &lt;host&gt;, covering &lt;scope&gt;. Report gaps and prioritized
 recommendations. Do not create a change plan or change GitHub.</code></pre>
         <p>Assess stops after the report. Ask to continue into Plan when you want to turn selected recommendations into proposed changes.</p>
-        <div class="setup-note"><strong>Old wizard runs cannot be resumed by this skill.</strong> Preserve those files as reference material and start a new Plan with fresh discovery. Their saved approvals do not authorize new skill changes.</div>
         <p>Use the <a href="catalog.html">hands-on sessions</a> for controls your team needs to learn or test.</p>
       </section>
     </div>

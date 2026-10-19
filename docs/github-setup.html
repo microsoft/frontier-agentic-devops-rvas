@@ -57,7 +57,7 @@
     </section>
     <div class="wrap setup-content">
       <nav class="setup-subnav" aria-label="On this page">
-        <a href="#scope">Scope</a><a href="#capabilities">Capabilities</a><a href="#examples">Example prompts</a><a href="#boundaries">Prerequisites and limits</a><a href="#review">Review and approval</a>
+        <a href="#scope">Scope</a><a href="#capabilities">Capabilities</a><a href="#examples">Example prompts</a><a href="#boundaries">Prerequisites and limits</a>
       </nav>
       <section id="scope" aria-labelledby="scopeHeading">
         <h2 id="scopeHeading">Set up or align an enterprise</h2>
@@ -78,7 +78,6 @@
             <span class="eyebrow">How the skill works</span>
             <h2 id="capabilitiesHeading">What the skill covers</h2>
           </div>
-          <p>The work stays tied to one outcome. Discovery gathers evidence, planning turns it into reviewable changes, and Apply waits for approval.</p>
         </div>
         <div class="setup-capability-grid">
           <article class="setup-capability setup-capability-governance">
@@ -125,7 +124,6 @@
             <span class="eyebrow">Start with an outcome</span>
             <h2 id="examplesHeading">Prompts to adapt for your enterprise</h2>
           </div>
-          <p>Replace the values in angle brackets. Each prompt keeps the first pass read-only and saves a plan before it asks to change GitHub.</p>
         </div>
         <div class="setup-prompt-grid">
           <article class="setup-prompt-card">
@@ -151,14 +149,6 @@
         <p>You need GitHub Copilot CLI installed and signed in, GitHub CLI (<code>gh</code>), and <code>jq</code>. Authenticate <code>gh</code> to the intended host with an account that can inspect the selected resources. Changes may require an enterprise or organization owner.</p>
         <p><strong>The enterprise account must already exist.</strong> The skill checks prerequisites for your outcome. It identifies work that unsupported APIs cannot handle, or that needs an owner in your identity provider or another external system.</p>
         <p>The skill does not administer GitHub Enterprise Server, deploy Azure infrastructure, or run the curriculum's lab provisioners. Use the <a href="index.html#outcomes">hands-on sessions</a> to learn a control or test the result with your team.</p>
-        <div class="setup-note"><strong>Preview.</strong> Packaging and offline workflow checks are tested. Complete a controlled live setup before production use.</div>
-      </section>
-      <section id="review" aria-labelledby="reviewHeading">
-        <h2 id="reviewHeading">A reviewed plan comes before writes</h2>
-        <p>Plan saves the current assessment and proposed changes without changing GitHub. Read the plan, then request Apply when you want to execute it.</p>
-        <p><strong>Each write batch needs approval.</strong> High-impact changes have a separate typed confirmation. The agent also asks before changing authentication. A general "proceed" starts the approval process; it does not approve a batch.</p>
-        <p>The skill verifies each completed operation and records what remains blocked or unverified. Resume rechecks identity and live state before continuing the known run.</p>
-        <p>Keep the private run directory outside source control. Legacy Bash wizard runs use a different format; keep them for reference and start a new skill plan.</p>
         <a class="btn btn-primary" href="github-setup-guide.html">Read the setup guide &rarr;</a>
       </section>
     </div>
