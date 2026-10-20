@@ -1,0 +1,132 @@
+name: Approved release
+
+on:
+  workflow_dispatch:
+    inputs:
+      candidate_sha:
+        description: Full reviewed commit SHA on the protected default branch
+        required: true
+        type: string
+      release_tag:
+        description: Existing unused tag, for example v0.1.0-ch49.1
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ inputs.release_tag }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    outputs:
+      artifact_id: ${{ steps.upload.outputs.artifact-id }}
+      manifest_sha256: ${{ steps.package.outputs.manifest_sha256 }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Check candidate and tag
+        env:
+          CANDIDATE: ${{ inputs.candidate_sha }}
+          TAG: ${{ inputs.release_tag }}
+        run: |
+          set -euo pipefail
+          [[ "$CANDIDATE" =~ ^[0-9a-f]{40}$ ]]
+          [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.-]+)?$ ]]
+          git merge-base --is-ancestor "$CANDIDATE" HEAD
+          test "$(git rev-parse "refs/tags/$TAG^{commit}")" = "$CANDIDATE"
+          git checkout --detach "$CANDIDATE"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build and test
+        run: |
+          set -euo pipefail
+          npm ci
+          npm test
+          npm run build
+          npm run test:artifact
+          test -n "$(find dist -type f -print -quit)"
+      - name: Package the tested output
+        id: package
+        env:
+          CANDIDATE: ${{ inputs.candidate_sha }}
+        run: |
+          set -euo pipefail
+          mkdir release-assets
+          tar -czf release-assets/release.tgz -C dist .
+          printf '%s\n' "$CANDIDATE" > release-assets/source-sha.txt
+          cp release-notes.md release-assets/release-notes.md
+          cd release-assets
+          sha256sum release.tgz source-sha.txt release-notes.md > SHA256SUMS
+          printf 'manifest_sha256=%s\n' "$(sha256sum SHA256SUMS | cut -d ' ' -f1)" >> "$GITHUB_OUTPUT"
+          {
+            printf 'Tested source: `%s`\n\n' "$CANDIDATE"
+            printf '```text\n'
+            cat SHA256SUMS
+            printf '```\n'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        id: upload
+        with:
+          name: release-${{ github.run_id }}-${{ github.run_attempt }}
+          path: release-assets/
+          if-no-files-found: error
+          retention-days: 14
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ needs.build.outputs.artifact_id }}
+          path: release-assets
+          merge-multiple: true
+      - name: Verify the reviewed files
+        working-directory: release-assets
+        env:
+          MANIFEST_SHA256: ${{ needs.build.outputs.manifest_sha256 }}
+          CANDIDATE: ${{ inputs.candidate_sha }}
+        run: |
+          set -euo pipefail
+          printf '%s  SHA256SUMS\n' "$MANIFEST_SHA256" | sha256sum -c -
+          sha256sum -c SHA256SUMS
+          test "$(cat source-sha.txt)" = "$CANDIDATE"
+      - name: Verify tag and publish without rebuilding
+        working-directory: release-assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          CANDIDATE: ${{ inputs.candidate_sha }}
+          TAG: ${{ inputs.release_tag }}
+        run: |
+          set -euo pipefail
+          object="$(gh api "repos/$GH_REPO/git/ref/tags/$TAG")"
+          type="$(jq -r '.object.type' <<< "$object")"
+          sha="$(jq -r '.object.sha' <<< "$object")"
+          for depth in 1 2 3 4 5; do
+            if [[ "$type" != tag ]]; then break; fi
+            object="$(gh api "repos/$GH_REPO/git/tags/$sha")"
+            type="$(jq -r '.object.type' <<< "$object")"
+            sha="$(jq -r '.object.sha' <<< "$object")"
+          done
+          test "$type" = commit
+          test "$sha" = "$CANDIDATE"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "A release or draft already uses this tag; inspect it before retrying."
+            exit 1
+          fi
+          gh release create "$TAG" release.tgz SHA256SUMS source-sha.txt release-notes.md \
+            --verify-tag --draft --title "$TAG" --notes-file release-notes.md
+          gh release edit "$TAG" --draft=false --prerelease --latest=false
+          gh release view "$TAG" --json url --jq .url >> "$GITHUB_STEP_SUMMARY"
