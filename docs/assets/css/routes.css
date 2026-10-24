@@ -20,25 +20,6 @@
   font-weight: 600;
 }
 
-.start-help {
-  max-width: 75ch;
-  margin-top: 20px;
-  color: var(--c-dim);
-}
-.start-help summary {
-  width: fit-content;
-  min-height: 44px;
-  padding: 9px 0;
-  color: var(--c-heading);
-  font-weight: 600;
-  cursor: pointer;
-}
-.start-help summary:focus-visible {
-  outline: 2px solid var(--c-heading);
-  outline-offset: 4px;
-}
-.start-help ol { margin: 12px 0 0; padding-left: 24px; }
-.start-help li + li { margin-top: 8px; }
 .catalog-next {
   margin-top: 24px;
   padding-top: 18px;
