@@ -67,10 +67,10 @@
           <li><strong>Organization and access:</strong> plan landing zones, identity requirements, and team access.</li>
           <li><strong>Repositories and delivery:</strong> plan repository factories, rulesets, and Actions policies.</li>
           <li><strong>Security and Copilot:</strong> assess rollout needs, settings, and licensing effects.</li>
-          <li><strong>Governance:</strong> trace effective policy to its source and track work that needs another owner.</li>
+          <li><strong>Governance:</strong> trace effective policy to its source and track work another owner needs to do.</li>
         </ul>
         <p><strong>One prompt starts the guided workflow.</strong> In Plan mode, the agent inspects GitHub without making changes and prioritizes its recommendations. It asks only for unresolved decisions, one at a time.</p>
-        <p>Required read-only inventories within your requested scope do not need another skill-level approval. Copilot's tool permissions and your organization's policies still apply.</p>
+        <p>The skill can run required read-only inventories within your requested scope without asking for another approval. Copilot's tool permissions and your organization's policies still apply.</p>
       </section>
       <section id="capabilities" aria-labelledby="capabilitiesHeading">
         <div class="setup-section-heading">
@@ -147,7 +147,7 @@
       <section id="boundaries" aria-labelledby="boundariesHeading">
         <h2 id="boundariesHeading">Before you start</h2>
         <p>You need GitHub Copilot CLI installed and signed in, GitHub CLI (<code>gh</code>), and <code>jq</code>. Authenticate <code>gh</code> to the intended host with an account that can inspect the selected resources. Changes may require an enterprise or organization owner.</p>
-        <p><strong>The enterprise account must already exist.</strong> The skill checks prerequisites for your outcome. It identifies work that unsupported APIs cannot handle, or that needs an owner in your identity provider or another external system.</p>
+        <p><strong>The enterprise account must already exist.</strong> The skill checks prerequisites for your outcome. It flags work that the available APIs cannot perform or that an owner in your identity provider or another external system must do.</p>
         <p>The skill does not administer GitHub Enterprise Server, deploy Azure infrastructure, or run the curriculum's lab provisioners. Use the <a href="index.html#outcomes">hands-on sessions</a> to learn a control or test the result with your team.</p>
         <span id="review" aria-hidden="true"></span>
         <a class="btn btn-primary" href="github-setup-guide.html">Read the setup guide &rarr;</a>

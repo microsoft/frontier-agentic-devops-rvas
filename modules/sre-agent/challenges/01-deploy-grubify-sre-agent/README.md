@@ -16,7 +16,7 @@ Start with Azure; GitHub is optional. The SRE Agent must be able to read Azure r
 - Deploy the Grubify starter lab, or connect the selected customer service.
 - Locate the Azure SRE Agent in the SRE Agent portal.
 - Identify the deployed Azure resources and observability stores.
-- Capture the baseline healthy app URLs and resource names.
+- Record the baseline app URLs and resource names while the service is healthy.
 - Explain what the agent can investigate before source code is connected.
 
 > [!TIP]

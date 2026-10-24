@@ -78,7 +78,7 @@ Use a consenting non-owner member with no direct or team grant on a private test
 ### Part C: Predefined repository roles
 7. Assign Maintain, not Admin. Create a child team `ghec-ch07-maintainers` and grant it the Maintain predefined role on `ghec-ch07-platform` (`-f permission=maintain`). Document *why* Maintain (manage settings/issues without full admin) fits a tech-lead pattern better than Admin.
 8. Demonstrate Triage. Grant a team or member the Triage role somewhere and explain what Triage can do (manage issues/PRs) and cannot (push code). Use the role list reference to back your explanation.
-9. Map the five predefined roles (Read / Triage / Write / Maintain / Admin) to one sentence each describing the real-world persona that fits.
+9. For each of the five predefined roles (Read / Triage / Write / Maintain / Admin), write one sentence describing who would use it.
 
 ### Part D: Custom repository role
 10. Start with a built-in role. **Custom repository roles add permissions to a base role; they cannot subtract inherited permissions.** Use built-in Write for a contributor who should push without administrative settings access.

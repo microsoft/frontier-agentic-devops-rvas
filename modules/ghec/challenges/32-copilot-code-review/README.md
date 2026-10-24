@@ -51,7 +51,7 @@ The fallback is intentionally isolated and namespaced `ghec-ch32-*`. It creates 
    - New-push review increases coverage but can repeat comments and consume additional capacity.
    - Draft review can surface feedback early but may create noise before a human is ready to request review.
    - Neither option is required to complete this activity.
-11. Validate on one non-sensitive pilot PR: capture the ruleset export, the PR timeline showing the automatic request, comment triage, human/CODEOWNERS review, and the result. If access or policy prevents the pilot, record the blocker rather than forcing enablement.
+11. Validate on one non-sensitive pilot PR: capture the ruleset export, the PR timeline showing the automatic request, comment triage, human/CODEOWNERS review, and the result. If access or policy prevents the pilot, record the blocker rather than enabling review anyway.
 
 ### Part D: Align setup and review context
 
@@ -62,7 +62,7 @@ The fallback is intentionally isolated and namespaced `ghec-ch32-*`. It creates 
 
 ### Part E: Evidence, rollback, and handover
 
-16. Define rollback before expanding: disable or change the automatic-review rule in the relevant ruleset; restore the prior ruleset configuration; retain human-review and `CODEOWNERS` gates; and remove the dedicated review environment only if it is separately approved for removal. Capture before/after exports and the rollback executor.
+16. Define rollback before expanding: disable or change the automatic-review rule in the relevant ruleset; restore the prior ruleset configuration; retain human-review and `CODEOWNERS` gates; and remove the dedicated review environment only if it is separately approved for removal. Capture before/after exports and record who will perform the rollback.
 17. Hand over the operating record to the repository owner. Set a review date for comment usefulness, false-positive rate, review latency, Actions/runner cost, coverage, and any exception.
 
 ## Decision-package fallback

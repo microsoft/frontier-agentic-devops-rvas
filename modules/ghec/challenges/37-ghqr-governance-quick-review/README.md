@@ -109,7 +109,7 @@ Use these guardrails throughout:
 ### Part E: Triage and corroborate findings
 
 14. Review findings that need action and identify the owner and configuration level for each. Check them against settings or API evidence. Mark unavailable evidence as unverified.
-15. Corroborate at least one finding with a GitHub evidence surface. Examples:
+15. Corroborate at least one finding with GitHub settings or API output. Examples:
 
    ```bash
    gh api /orgs/<org> --jq '{default_repository_permission, members_can_create_repositories, members_can_create_public_repositories, members_can_fork_private_repositories}'

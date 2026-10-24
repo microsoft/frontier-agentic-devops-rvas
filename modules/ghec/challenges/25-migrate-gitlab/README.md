@@ -85,7 +85,7 @@ The Git CLI path does not migrate GitLab metadata or platform services. Record t
 - Packages, container registry data, job artifacts, and release artifacts.
 - Git LFS objects, unless you migrate LFS separately.
 
-If the customer requires Merge Request, issue, or other metadata fidelity, engage GitHub Expert Services for the GitLab-to-GHEC path. For GitLab into GitHub Enterprise Server, the expert-led path is `gl-exporter` → `ghe-migrator`.
+If the customer needs to preserve Merge Requests, issues, or other metadata faithfully, engage GitHub Expert Services for the GitLab-to-GHEC path. For GitLab into GitHub Enterprise Server, the expert-led path is `gl-exporter` → `ghe-migrator`.
 
 ### Part D: Plan around large repository limits
 

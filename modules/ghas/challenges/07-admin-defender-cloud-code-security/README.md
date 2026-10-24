@@ -48,7 +48,7 @@ With the Azure owner and the GitHub owner together:
 
 1. In the [Azure portal](https://portal.azure.com/), go to **Microsoft Defender for Cloud > Environment settings > Add environment > GitHub**.
 2. Name the connector, then select the subscription, resource group, and region.
-3. Authorize the connector against your pilot GitHub organization and scope it to the pilot repository (or a small pilot set). Do not onboard the organization's full repository portfolio for this activity.
+3. Authorize the connector against your pilot GitHub organization and scope it to the pilot repository (or a small pilot set). Do not onboard all of the organization's repositories for this activity.
 4. Confirm **Advanced security status** shows **On** for the pilot repository.
 5. Turn on agentless scanning for the connector so Defender can discover the repository, registry, and cluster without agents.
 
@@ -70,7 +70,7 @@ Record the wall-clock time you complete each step. "It's probably done" is not e
 
 ## Validate the mapping
 
-Once the 24-hour window has passed, open **Microsoft Defender for Cloud > Cloud Security Explorer** (or the current equivalent validation surface if Microsoft has renamed it) and run a query for GitHub repositories that push to container images. Then:
+Once the 24-hour window has passed, open **Microsoft Defender for Cloud > Cloud Security Explorer** (or its current equivalent if Microsoft has renamed it) and run a query for GitHub repositories that push to container images. Then:
 
 1. In Azure Container Registry, confirm Defender scanned the pushed image.
 2. Extend the query to include vulnerabilities on that image.

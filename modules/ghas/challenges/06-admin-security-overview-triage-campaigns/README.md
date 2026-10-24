@@ -105,7 +105,7 @@ gh api orgs/<org>/campaigns --paginate \
 
 ### 3b. Apply production context
 
-Defender for Cloud can correlate the code scanning and Dependabot alerts GitHub already produces with deployment and runtime context, such as internet exposure or sensitive-data handling. It doesn't replace scanning, and it doesn't create or publish the campaign. A human still does both in GitHub.
+Defender for Cloud can correlate the code scanning and Dependabot alerts GitHub already produces with deployment and runtime context, such as internet exposure or sensitive-data handling. It doesn't replace scanning, and it doesn't create or publish the campaign. A human still creates and publishes the campaign in GitHub.
 
 **Live path:** complete `ghas-admin-07` first, then return here with real `has:deployment` and `runtime-risk:` evidence from that activity's pilot repository. In the GitHub organization security UI, filter the alert set with those filters and compare the result against your step 3 filters. Don't re-create the connector here — `ghas-admin-07` owns that setup.
 

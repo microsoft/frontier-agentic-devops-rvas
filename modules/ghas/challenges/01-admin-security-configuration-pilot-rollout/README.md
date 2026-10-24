@@ -137,7 +137,7 @@ You are done only when you have:
 - An enforced configuration or a verified rollback.
 - A named approver and rollback owner.
 
-Verify the confirmed configuration and repository state; a successful HTTP response alone does not prove rollout.
+Verify the configuration and repository state; a successful HTTP response alone does not prove the rollout succeeded.
 
 ## Common failures
 

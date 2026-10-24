@@ -64,7 +64,7 @@ const MODULE_CONFIG = {
     tracks: {
       'hello-agent':              { name: 'Getting Started', description: 'Set up gh-aw and build basic schedule- and event-triggered workflows.' },
       'repo-concierge':           { name: 'Pull Requests & Issues', description: 'Automate review, triage, contributor guidance, and issue commands.' },
-      'production-patterns':      { name: 'Repository Operations', description: 'Automate maintenance, quality, security, and planning with reviewed outputs.' },
+      'production-patterns':      { name: 'Repository Operations', description: 'Automate maintenance, quality, security, and planning, and review the results.' },
     },
   },
   'sre-agent': {

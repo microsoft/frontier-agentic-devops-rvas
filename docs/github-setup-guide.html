@@ -81,11 +81,11 @@ My goal is &lt;outcome&gt;. Assess current state and recommend changes.
 Ask only for unresolved decisions. Save a plan without changing GitHub.</code></pre>
         <p>For the outcome, describe the result you need, such as aligning organization governance or setting up team and repository access.</p>
         <p><strong>The skill starts in Plan mode.</strong> It checks the target and active identity, then gathers evidence without changing GitHub. Inventories within your requested scope do not need another skill-level approval. Copilot's tool permissions still apply.</p>
-        <p>The agent recommends changes and asks one unresolved decision at a time. Questions depend on your target and goal. It reuses values you supplied or that it verified through GitHub.</p>
+        <p>The agent recommends changes and asks you to resolve one decision at a time. Its questions depend on your target and goal. It reuses values you supplied or that it verified through GitHub.</p>
       </section>
       <section id="apply" aria-labelledby="applyHeading">
         <h2 id="applyHeading">Review before requesting Apply</h2>
-        <p>Read <code>plan.md</code>. Check the target, proposed changes, verification checks, and any cost or license effects. Resolve missing prerequisites and work assigned to other owners before expecting the affected operations to run.</p>
+        <p>Read <code>plan.md</code>. Check the target, proposed changes, verification checks, and any cost or license effects. The affected operations cannot run until prerequisites and required work assigned to other owners are complete.</p>
         <p>When the plan matches your decisions, tell the agent:</p>
         <pre><code class="language-text">Proceed with the reviewed plan. Present the first write batch for approval.</code></pre>
         <p><strong>This requests Apply; it does not approve a write.</strong> Review and approve each batch. High-impact changes need a separate typed confirmation. The agent asks before switching accounts or changing authentication scopes.</p>
@@ -95,7 +95,7 @@ Ask only for unresolved decisions. Save a plan without changing GitHub.</code></
         <p>In the same conversation, ask the agent to continue. It reuses the known target and run directory. In a new conversation, supply the full path:</p>
         <pre><code class="language-text">Use the github-enterprise-setup skill to resume the run at &lt;absolute-run-path&gt;.
 Recheck identity and live state before continuing.</code></pre>
-        <p>Resume checks the saved artifacts and reconciles uncertain writes before continuing. Changed targets or effects need new approval. Keep unverified work separate from completed operations.</p>
+        <p>On resume, the skill checks the saved files and verifies any writes whose outcome is uncertain before continuing. Changes to the target or effects need new approval. Keep unverified work separate from completed operations.</p>
         <h3>Get recommendations without a change plan</h3>
         <pre><code class="language-text">Use the github-enterprise-setup skill in Assess mode for enterprise
 &lt;enterprise-slug&gt; on &lt;host&gt;, covering &lt;scope&gt;. Report gaps and prioritized

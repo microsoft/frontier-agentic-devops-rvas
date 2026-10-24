@@ -13,7 +13,7 @@
 - Prove auto-merge waits while either gate is unsatisfied.
 
 ## Scenario
-A team wants reviewed changes to merge once CI passes. Enable auto-merge without widening bypass or adding housekeeping workflows.
+A team wants reviewed changes to merge once CI passes. Enable auto-merge without expanding bypass permissions or adding housekeeping workflows.
 
 > [!IMPORTANT]
 > Use an approved customer target first. If you have a candidate repository, use it everywhere this guide says `ghec-ch05-advanced-pr-automation` and skip Setup. Otherwise use the fallback seeded repo below for testing, then move the validated configuration to an approved customer target.

@@ -35,8 +35,8 @@ source cannot be read, stop rather than publish a seemingly complete summary.
 
 **Only name a decision or owner when someone explicitly recorded it.**
 Distinguish proposals from accepted decisions. If an action has no assigned
-owner, say so. Do not recommend closing the issue from silence or infer an
-agreement that the thread does not contain.
+owner, say so. Do not recommend closing the issue because no one responded.
+Do not infer agreement that the thread does not contain.
 
 The supplied writer fixes the target to the event's issue. It creates one
 marked comment, then updates it. The comment stores the request ID and source

@@ -45,8 +45,8 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 ### Part A: Capture current policy
 
 1. Snapshot organization Pages settings from Organization settings → Pages, or with the organization API when available.
-2. Record the allowed publisher population, visibility options, default stance, and exception owner.
-3. Decide whether the production policy changes now or is captured as a rollout proposal.
+2. Record who may publish, visibility options, the default policy, and the exception owner.
+3. Decide whether to change the production policy now or record a rollout proposal.
 
 ### Part B: Approve the publishing model
 

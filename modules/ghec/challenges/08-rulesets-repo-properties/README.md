@@ -69,7 +69,7 @@ Setup creates these resources (all names use the `ghec-ch08-*` prefix, and teard
 
 ### Part D: Layer a repository ruleset
 11. On `ghec-ch08-prod-payments` only, add a stricter repository ruleset. For example, require 2 approvals and review from Code Owners.
-12. Observe layering: the repo now answers to both the org ruleset (property-targeted) and its own repo ruleset. The most restrictive combination applies (2 approvals from the repo rule beats the org's 1).
+12. Observe layering: both the org ruleset (property-targeted) and the repository ruleset now apply to the repo. The most restrictive combination applies (2 approvals from the repo rule beats the org's 1).
 13. Verify property-based targeting on `ghec-ch08-prod-identity`, which has a different name but the same `compliance = high` value. Attempt a direct push to its `main` and confirm rejection.
 
 ### Part E: Verify and demonstrate

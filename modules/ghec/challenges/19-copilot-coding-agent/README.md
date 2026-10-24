@@ -42,7 +42,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch19 --org <org>
 
 > `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19 --org <org>` runs first and warns if the org looks EMU-managed or if the Copilot cloud agent policy can't be confirmed. Do not proceed on EMU repos.
 
-What setup creates (all artifacts namespaced `ghec-ch19-*`, idempotent, prefix-guarded teardown):
+Setup is idempotent. All artifact names use the `ghec-ch19-*` prefix, and teardown is prefix-guarded. Setup creates:
 - A small seeded repo `ghec-ch19-copilot-coding-agent` with one bug and a failing test. It does not use Juice Shop, so agent runs remain short and easy to assess.
 - A CI workflow that runs the test suite (so the agent's fix can be verified green).
 - A seeded issue describing the bug, reproduction steps, and acceptance criteria, ready to assign to Copilot.

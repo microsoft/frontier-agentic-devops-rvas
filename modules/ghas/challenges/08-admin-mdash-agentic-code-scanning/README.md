@@ -49,7 +49,7 @@ Work through this table with your security lead. It stands on its own — no Def
 | Pilot repository identified | | Reuse the `ghas-admin-03` repository or name another with CodeQL coverage |
 | Connector conflict checked | | Confirm whether `ghas-admin-07`'s connector exists on this organization |
 
-Completing this table, with every row answered and a named owner for enrollment follow-up, satisfies this activity's assessment-only completion check. Revisit the live path once enrollment clears.
+Answer every row and name an owner for enrollment follow-up to complete the assessment-only path. Revisit the live path once enrollment clears.
 
 ## Step 1: Accept preview terms
 

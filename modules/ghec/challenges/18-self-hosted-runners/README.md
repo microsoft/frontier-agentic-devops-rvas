@@ -40,7 +40,7 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch18 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch18 --org <org>
 ```
 
-What setup creates (all artifacts namespaced `ghec-ch18-*`, idempotent, prefix-guarded teardown):
+Setup is idempotent. All artifact names use the `ghec-ch18-*` prefix, and teardown is prefix-guarded. Setup creates:
 - A seeded repo `ghec-ch18-self-hosted-runners` with a small build and two workflows: `hosted.yml` runs on `ubuntu-latest`; `self-hosted.yml` targets your runner by label and queues until the runner exists.
 - A `RUNNER-SETUP.md` with the exact registration + hardening walkthrough for Linux/macOS/Windows.
 - A `HARDENING.md` checklist (service account, ephemeral runners, fork-PR risk, network egress).
@@ -82,7 +82,7 @@ configuration and run result in the existing CI change record.
 9. Least-privilege account. Run the runner under a dedicated non-admin service account, not your personal/root user. Document the account and its limited permissions.
 10. Register with `--ephemeral` and verify the runner deregisters after one job. **Ephemeral registration does not erase the host.** Destroy and recreate its VM before the next job, then check that the prior workspace is absent. Just-in-time registration is a separate mechanism. Neither registration method alone cleans the host.
 11. Keep untrusted fork code off this runner. Check repository visibility and workflow triggers alongside runner-group access and fork approval policy. No single self-hosted-only fork setting covers them all. Cancel the Part C job that has no eligible runner and remove the runner and VM after validation.
-12. Constrain egress (document). List the network egress the runner actually needs and note how you'd restrict the rest (firewall/proxy) in a real deployment.
+12. Document egress restrictions. List the network egress the runner actually needs and note how you'd restrict the rest (firewall/proxy) in a real deployment.
 
 ### Part E: Scaling and runner types
 13. Record why the tested runner meets the job's requirements and who maintains it. Link the run result; a separate runner comparison document is unnecessary.

@@ -132,7 +132,7 @@
     {
       "id": "ghas-adoption",
       "name": "Strengthen application security",
-      "tagline": "Apply security checks across repositories and assign ownership for fixing findings.",
+      "tagline": "Apply security checks across repositories and decide who fixes the findings.",
       "description": "Configure a security pilot or complete a developer remediation case. Use the same alert and repository through review and rescan.",
       "personas": [
         "security-lead",

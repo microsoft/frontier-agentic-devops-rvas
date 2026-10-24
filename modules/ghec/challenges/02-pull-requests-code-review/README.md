@@ -69,7 +69,7 @@ Setup creates these resources (all names use the `ghec-ch02-*` prefix, and teard
 
 ### Optional: Merge conflict
 10. Trigger the conflict. The second seeded branch edits the same lines as a change you'll make on `main` (via another PR). Merge your `main` change first, then attempt to merge the seeded branch. GitHub reports a conflict.
-11. Resolve it locally: `git fetch`, `git rebase origin/main` (or merge), fix the conflict markers, push, and watch the PR go mergeable.
+11. Resolve it locally: `git fetch`, `git rebase origin/main` (or merge), fix the conflict markers, push, and confirm the PR is mergeable.
 
 ### Finish the change
 12. Use the team's approved merge method, for example squash. Do not enable extra merge modes for this exercise.

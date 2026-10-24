@@ -40,7 +40,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch09 --org <org>
 
 Setup creates these resources (all names use the `ghec-ch09-*` prefix, and teardown is prefix-guarded):
 - A seeded repo `ghec-ch09-audit-target` with a populated `main` for auditable test actions.
-- A starter team `ghec-ch09-auditors` so team-membership and permission-change events have somewhere to land.
+- A starter team `ghec-ch09-auditors` for team-membership and permission-change test events.
 - A printed "recent activity" sample (the last few org audit events pulled from the API) so you can see the shape of an event immediately.
 - A printed Next steps block telling you where to start.
 
@@ -66,7 +66,7 @@ Setup creates these resources (all names use the `ghec-ch09-*` prefix, and teard
 10. Combine filters to answer a specific question, e.g., "every ruleset change on the target today": `repo:<org>/ghec-ch09-audit-target action:repository_ruleset created:>=<RUN_DATE>`, replacing `<RUN_DATE>` with the value you set above.
 
 ### Part D: Audit log via the REST API
-11. Phrase-query the API with the same filters: `gh api -X GET /orgs/<org>/audit-log -f phrase='action:team.add_repository' --jq '.[] | {actor, created_at, repo}'`.
+11. Query the API using the same phrase filters: `gh api -X GET /orgs/<org>/audit-log -f phrase='action:team.add_repository' --jq '.[] | {actor, created_at, repo}'`.
 12. Time-bound a query: `gh api -X GET /orgs/<org>/audit-log -f phrase="created:>=$RUN_DATE" --jq 'length'` to count the current run's events.
 13. Handle pagination: add `--paginate` and confirm you can pull more than one page when the slice is large.
 14. Find each supported Part B audit event through the API and record its query. Check the documented event list before treating an absent event as an export failure.

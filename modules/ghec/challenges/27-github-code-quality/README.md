@@ -24,7 +24,7 @@ A customer team runs tests and reviews code but cannot see coverage, reliability
 ### Part A: Confirm product readiness and ownership
 
 1. Confirm the selected repository uses a language supported by Code Quality and that GitHub Actions is enabled. Record the repository, default branch, repository owner, engineering owner, and approval boundary.
-2. Confirm product availability in the customer tenant. If the organization belongs to an enterprise, ask the enterprise owner to allow Code Quality before attempting repository enablement.
+2. Confirm product availability in the customer tenant. If the organization belongs to an enterprise, ask the enterprise owner to allow Code Quality before trying to enable it for the repository.
 3. Identify the existing test command and the coverage tool for the repository. It must produce Cobertura XML; choose a converter when the current tool only creates another format.
 4. Record whether the team has Copilot licenses and AI features enabled. This affects optional Copilot review findings, not the rules-based Code Quality baseline.
 

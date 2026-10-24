@@ -1,8 +1,8 @@
 # Issue triage for the customer's taxonomy
 
 **Session outcome:** The workflow applies only approved labels to real issues.
-A maintainer validates its choices, including an ambiguous issue where it
-abstains.
+A maintainer validates its choices, including its decision not to label an
+ambiguous issue.
 
 Start after [setup](../00-setup/README.md).
 **Use issue forms first** when the reporter can select a known category.
