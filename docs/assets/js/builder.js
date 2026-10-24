@@ -121,7 +121,8 @@
     if (!container) return;
     container.innerHTML = _outcomes.map((o) =>
       `<button class="chip chip-outcome" data-outcome="${FP.esc(o.id)}"
-         aria-pressed="false" type="button">
+         aria-pressed="false" type="button"
+         style="--outcome-color:${FP.outcomeColor(o.id)}">
          ${FP.esc(o.name)}
        </button>`
     ).join('');

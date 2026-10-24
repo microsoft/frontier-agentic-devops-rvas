@@ -93,6 +93,16 @@ async function render(page, query = '', platform = data) {
   };
 }
 
+test('catalog and builder use the same per-outcome filter colors', async () => {
+  const catalog = await render('catalog');
+  const builder = await render('builder');
+  assert.equal(builder.elements.outcomeChips.innerHTML, catalog.elements.outcomeChips.innerHTML);
+  const colors = [...builder.elements.outcomeChips.innerHTML.matchAll(/--outcome-color:([^"]+)/g)]
+    .map(match => match[1]);
+  assert.equal(colors.length, data.outcomes.length);
+  assert(new Set(colors).size > 1);
+});
+
 test('catalog suggests the first outcome chapter without applying search or level filters to it', async () => {
   for (const outcome of data.outcomes) {
     const result = await render('catalog', `?outcome=${outcome.id}&difficulty=advanced&q=no-match`);

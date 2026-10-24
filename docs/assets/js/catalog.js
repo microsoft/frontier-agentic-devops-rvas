@@ -91,7 +91,7 @@
     container.innerHTML = _outcomes.map((o) =>
       `<button class="chip chip-outcome" data-outcome="${FP.esc(o.id)}"
          aria-pressed="false" type="button"
-         style="--outcome-color:${FP.moduleColor(outcomeModule(o.id))}">
+         style="--outcome-color:${FP.outcomeColor(o.id)}">
          ${FP.esc(o.name)}
        </button>`
     ).join('');
@@ -127,17 +127,6 @@
         render();
       });
     });
-  }
-
-  function outcomeModule(outcomeId) {
-    const moduleByOutcome = {
-      'github-adoption': 'ghec',
-      'platform-migration': 'ghec',
-      'ghas-adoption': 'ghas',
-      'agentic-workflows': 'ghaw',
-      'agentic-devops-cloud': 'sre-agent',
-    };
-    return moduleByOutcome[outcomeId];
   }
 
   function buildDiffChips() {

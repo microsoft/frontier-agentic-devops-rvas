@@ -27,6 +27,17 @@
     return map[moduleId] || 'var(--c-gold)';
   };
 
+  FP.outcomeColor = function (outcomeId) {
+    const moduleByOutcome = {
+      'github-adoption': 'ghec',
+      'platform-migration': 'ghec',
+      'ghas-adoption': 'ghas',
+      'agentic-workflows': 'ghaw',
+      'agentic-devops-cloud': 'sre-agent',
+    };
+    return FP.moduleColor(moduleByOutcome[outcomeId]);
+  };
+
   FP.moduleName = function (moduleId, modules) {
     const m = (modules || []).find((x) => x.id === moduleId);
     return m ? m.name : moduleId;
