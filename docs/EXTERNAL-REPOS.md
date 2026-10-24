@@ -6,7 +6,7 @@ repositories. Fetch external apps and labs only for activities that need them.
 ## Dependency rules
 
 - Module content lives under `modules/*/resources/` and `modules/*/challenges/`.
-- Juice Shop and the Azure SRE Agent starter lab are submodules pinned to exact commits. Fetch them when needed.
+- Juice Shop is a submodule pinned to an exact commit. Fetch it when needed.
 - Document and validate each commit SHA and tag.
 - Keep only active course dependencies in `external-repos.json`.
 
@@ -20,14 +20,6 @@ repositories. Fetch external apps and labs only for activities that need them.
 - **Import mode (org repo):** The GHAS setup script (`setup.sh provision`) imports the repo into an org-owned GitHub repository named `ghec-ghas-00-juice-shop`. GHAS alerts run on *that* org repo.
 - **Local runtime.** GHAS activities use a local Juice Shop instance for manual exploit testing. **GHAS scans the org repository, not this local instance.** See [Local app provisioning (submodules)](#local-app-provisioning-submodules).
 - **Why Juice Shop is large but not vendored:** At ~61 MB it would bloat the curriculum repo and slow container creation for participants who never need it. It is registered as a git submodule and fetched on demand.
-
-### Azure SRE Agent starter lab
-
-- **Source:** https://github.com/microsoft/sre-agent
-- **Pinned ref:** commit `673f88765b27d4a74ebc660875bf605a382b6d28`
-- **Used by:** SRE Agent activities 00, 01, 03, 04, and 05
-- **Local runtime:** The full upstream repo is registered as `external/sre-agent`; the lab commands use `external/sre-agent/labs/starter-lab`.
-- **Why it is a submodule:** The official Microsoft lab stays tied to a specific upstream commit without vendoring the full repository into this curriculum repo.
 
 ## Import modes
 
@@ -44,11 +36,9 @@ Fetch large external apps or labs when an activity needs them:
 
 ```bash
 npm run setup:juice-shop
-npm run setup:sre-agent-lab
 ```
 
-The commands fetch each submodule at its pinned SHA. Juice Shop setup also creates the
-`app` symlink. The SRE Agent lab helper prints the `labs/starter-lab` path.
+The command fetches Juice Shop at its pinned SHA and creates the `app` symlink.
 
 ### GHAS repository imports
 
@@ -118,7 +108,6 @@ Participants fetch them when needed, so container creation does not wait for unu
 ```
 external/
   juice-shop/          ← git submodule, pinned to f356a09... (v20.0.0)
-  sre-agent/           ← git submodule, pinned to 673f887... (starter lab source)
 app -> external/juice-shop   ← committed symlink, stable path for challenge instructions
 ```
 
@@ -148,28 +137,6 @@ The script (`scripts/provision-app.sh`):
 > **GHAS scans the shared org repository.** The local submodule runs the app for manual testing.
 > CodeQL, Dependabot, and secret scanning alerts belong to the repository your organizer provisions.
 
-### Fetch the SRE Agent starter lab
-
-SRE Agent participants run this once before the live Azure lab commands:
-```bash
-npm run setup:sre-agent-lab
-```
-
-The npm script uses the same manifest-driven provisioner as Juice Shop:
-1. Runs `bash scripts/provision-app.sh grubify-starter-lab`
-2. Fetches `external/sre-agent` as a pinned lazy submodule
-3. Verifies the checked-out HEAD SHA equals the manifest `source.sha`
-4. Verifies the manifest `provisioning.content_path` exists
-
-Then enter the lab:
-```bash
-npm run setup:sre-agent-lab
-cd external/sre-agent/labs/starter-lab
-```
-
-For automation, `modules/sre-agent/resources/scripts/ensure-starter-lab.sh` calls the same
-provisioner and prints the absolute lab directory.
-
 ### Fresh clones and existing clones
 
 For a fresh clone, participants can choose either lazy or eager submodule fetching:
@@ -179,7 +146,6 @@ For a fresh clone, participants can choose either lazy or eager submodule fetchi
 git clone https://github.com/microsoft/frontier-agentic-devops-rvas.git
 cd frontier-agentic-devops-rvas
 npm run setup:juice-shop        # when GHAS local runtime is needed
-npm run setup:sre-agent-lab     # when SRE Agent starter lab is needed
 
 # Eager: fetch all registered submodules during clone.
 git clone --recurse-submodules https://github.com/microsoft/frontier-agentic-devops-rvas.git
@@ -225,12 +191,6 @@ git submodule update --init --recursive --depth 1
 GHAW source material lives under `modules/ghaw/`, with provenance commit
 `9f0957ed3be978b2143c7048f5396183ad189d6e`. The activities need no deployed app.
 
-### SRE Agent
-
-The Azure SRE Agent starter lab is a pinned submodule at `external/sre-agent`.
-Use its `labs/starter-lab` directory. Delivery team members provision Azure resources
-in their own subscription.
-
 ### GHEC
 
 GHEC provisioning scripts live under `modules/ghec/resources/provisioning/`.
@@ -251,11 +211,6 @@ Some activities need no external app, such as authentication, team roles, and or
   - Customer delivery team members clone or work on branches
   - Alerts, security features, and all GHAS configuration are **org/repo-scoped**
   - "GHAS" refers to the alerts and features on this shared repo, not the local Juice Shop runtime
-
-### SRE Agent local sample app
-
-The app at `modules/sre-agent/resources/sample-app/` runs locally or in Codespaces.
-Use it for incident simulation and agent response testing. It needs no external deployment.
 
 ## Maintenance and support
 

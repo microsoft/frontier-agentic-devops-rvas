@@ -58,9 +58,9 @@ result. Without the required approval or feature, record the blocker.
 
 | Field | Contract |
 |---|---|
-| `id` | Globally unique activity ID. Use `<module>-<local-id>` (`ghec-ch01`, `ghas-02`, `ghaw-21`, `sre-agent-04`). IDs are stable and may have intentional gaps. |
+| `id` | Globally unique activity ID. Use `<module>-<local-id>` (`ghec-ch01`, `ghas-02`, `ghaw-21`). IDs are stable and may have intentional gaps. |
 | `title` | Short catalog title. |
-| `module` | One of `ghec`, `ghas`, `ghaw`, `sre-agent`. |
+| `module` | One of `ghec`, `ghas`, `ghaw`. |
 | `track` | Track slug for the module; must match `docs/build.js` module config. |
 | `difficulty` | `beginner`, `intermediate`, or `advanced`. |
 | `duration_minutes` | Estimated time for a delivery team member in minutes. |
@@ -84,7 +84,7 @@ Optional fields:
 | `tier` | `setup`, `core`, `stretch`, or `bonus`. Defaults to `core` in the build. |
 | `references` | Source-backed docs and product links used by customer delivery team members. |
 | `outcomes` | Optional outcome tags. Add the activity to the outcome's `challenge_ids` in `outcomes.json` so users can find it under that result. |
-| `personas` | Personas such as `platform-engineer`, `security-lead`, `developer`, `sre`, or `migration-lead`. |
+| `personas` | Personas such as `platform-engineer`, `security-lead`, `developer`, or `migration-lead`. |
 | `business_value` | Value tags such as `reduce-migration-risk`, `shift-left-security`, or `automate-repetitive-work`. |
 | `adoption_stage` | `assess`, `pilot`, `scale`, or `operate`. |
 

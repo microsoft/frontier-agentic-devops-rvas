@@ -1,7 +1,6 @@
 # Dev container for the Frontier GitHub Platform delivery session
 
-This dev container installs the tools for all four modules. Use it for GHEC, GHAS,
-GHAW, and SRE Agent activities.
+This dev container installs the tools for GHEC, GHAS, and GHAW activities.
 
 ## What's included
 
@@ -10,17 +9,16 @@ GHAW, and SRE Agent activities.
 | `git` | `base:ubuntu` base image | all modules |
 | `jq` | `postCreate.sh` (apt) | all modules |
 | `gh` CLI | `github-cli` feature | all modules |
-| `gh-aw` (GitHub Agentic Workflows) | `postCreate.sh` | GHAW, SRE |
-| Node 22 + `npm` | `node` feature | SRE sample app, Juice Shop |
+| `gh-aw` (GitHub Agentic Workflows) | `postCreate.sh` | GHAW |
+| Node 22 + `npm` | `node` feature | Juice Shop |
 | Python 3.12 | `python` feature | GHEC/GHAW helpers |
-| Azure CLI (`az`) | `azure-cli` feature | SRE Agent |
-| Bicep | `postCreate.sh` (`az bicep install`) | SRE Agent |
+| Azure CLI (`az`) | `azure-cli` feature | GHEC Azure OIDC |
 | Docker (docker-in-docker) | `docker-in-docker` feature | GHAS (Juice Shop) |
 
 The container uses the official `mcr.microsoft.com/devcontainers/base:ubuntu-22.04`
 image. Pinned Dev Container Features install the tools.
 
-VS Code extensions: Copilot + Copilot Chat, GitHub Actions, CodeQL, Bicep, YAML, Markdown.
+VS Code extensions: Copilot + Copilot Chat, GitHub Actions, CodeQL, YAML, Markdown.
 
 ## Sample apps
 
@@ -33,17 +31,16 @@ npm run setup:juice-shop
 ```
 This fetches Juice Shop at the pinned commit, verifies the SHA, and links it to `app/`.
 Follow the [GHAS setup guide](../modules/ghas/setup.md) to install its dependencies and run it.
-The local SRE sample app is included in the repository and needs no separate fetch.
 
 ## Getting started
 
 1. Open this repo in **Codespaces** (`Code → Codespaces → Create codespace`) or locally via
    **Dev Containers: Reopen in Container**.
-2. Wait for the build. `postCreate.sh` installs `gh-aw` + Bicep and runs the doctor.
+2. Wait for the build. `postCreate.sh` installs `gh-aw` and `jq`, then runs the doctor.
 3. Authenticate:
    ```bash
    gh auth login          # all modules
-   az login               # SRE Agent module only
+   az login               # Azure activities only
    ```
 
 ## Verify the environment
@@ -54,7 +51,7 @@ Run the doctor any time:
 bash scripts/doctor.sh
 ```
 
-It checks `git`, `gh`, `gh aw`, `jq`, `node`, `npm`, `python3`, `az`, `bicep`, and `docker`,
+It checks `git`, `gh`, `gh aw`, `jq`, `node`, `npm`, `python3`, `az`, and `docker`,
 prints a status table, and exits non-zero if a required tool is missing.
 
 ## Build and verify locally

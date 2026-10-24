@@ -21,8 +21,6 @@
       ghec: 'var(--c-ghec)',
       ghas: 'var(--c-ghas)',
       ghaw: 'var(--c-ghaw)',
-      'sre-agent': 'var(--c-agentic)',
-      'agentic-devops': 'var(--c-agentic)',
     };
     return map[moduleId] || 'var(--c-gold)';
   };
@@ -33,7 +31,6 @@
       'platform-migration': 'ghec',
       'ghas-adoption': 'ghas',
       'agentic-workflows': 'ghaw',
-      'agentic-devops-cloud': 'sre-agent',
     };
     return FP.moduleColor(moduleByOutcome[outcomeId]);
   };

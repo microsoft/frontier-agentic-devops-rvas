@@ -1,6 +1,6 @@
 # Agentic DevSecOps
 
-Choose **learn by doing** through five outcomes and four delivery-session modules,
+Choose **learn by doing** through four outcomes and three delivery-session modules,
 or **set up GitHub** with the GitHub Enterprise setup skill.
 
 The portal's home page presents both routes. The [setup overview](docs/github-setup.html)
@@ -8,7 +8,7 @@ explains the skill's scope; the [setup guide](docs/github-setup-guide.html) cove
 installation and the guided workflow. The hands-on catalog and session builder remain available.
 
 > **Use your own environment.** Work with your own applications, repositories, and data
-> so your team can keep using the result after the session. Use OWASP Juice Shop, Grubify,
+> so your team can keep using the result after the session. Use OWASP Juice Shop
 > or seed repositories when you do not have a suitable application.
 > Where an activity says "bring your own," start with your team's work.
 
@@ -30,7 +30,6 @@ Without an outcome selected, the catalog groups all active activities by session
 | `platform-migration` | Migrate development platforms. |
 | `ghas-adoption` | Strengthen application security. |
 | `agentic-workflows` | Automate development tasks with AI. |
-| `agentic-devops-cloud` | Improve incident response. |
 
 ## Modules
 
@@ -39,7 +38,6 @@ Without an outcome selected, the catalog groups all active activities by session
 | `ghec` | GitHub Enterprise Cloud | 41 | Developer Flow, Admin & Governance, Security, Automation & AI, Migration |
 | `ghas` | GitHub Advanced Security | 9 | Admin & Governance, Developer Flow |
 | `ghaw` | GitHub Agentic Workflows | 7 | Getting Started, Pull Requests & Issues, Repository Operations |
-| `sre-agent` | SRE Agent | 4 | Azure SRE Agent |
 
 ## Architecture
 
@@ -78,7 +76,7 @@ The build writes to `docs/assets/data/`. The Pages site has all its files under 
 ### Verified output
 
 ```
-✓ built platform.json  (modules: 4, challenges: N)
+✓ built platform.json  (modules: 3, outcomes: 4, challenges: N)
 ✓ built dependency-graph.json  (nodes: N, edges: N)
 ✓ copied delivery guides → docs/assets/data/challenges/
 ```
@@ -113,7 +111,6 @@ Large local lab dependencies are pinned as lazy git submodules. A normal `git cl
 
 ```bash
 npm run setup:juice-shop
-npm run setup:sre-agent-lab
 ```
 
 To prefetch everything during clone, use `git clone --recurse-submodules <repo>`. For an existing clone after pulling updates, run `git submodule update --init --recursive --depth 1`. See [`docs/EXTERNAL-REPOS.md`](docs/EXTERNAL-REPOS.md) for the full refresh and pin-bump workflow.

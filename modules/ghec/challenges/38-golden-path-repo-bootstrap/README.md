@@ -12,7 +12,7 @@ Use an existing, approved starter repository and an organization owner who can c
 
 ### Part A: Prepare the starter
 
-1. Choose the customer starter application. Remove customer data and credentials before sharing it with other teams. Grubify is suitable if it is the customer's approved starting point.
+1. Choose the customer starter application. Remove customer data and credentials before sharing it with other teams.
 2. Follow its README from a clean checkout. Run the actual tests and build. Fix missing setup instructions or dependencies.
 3. Keep those commands in its CI workflow. Include `pull_request` and, if used, `merge_group` triggers. Remove hardcoded repository names.
 4. Add a PR template and `.github/CODEOWNERS` naming the team that will maintain the baseline. Explain how a consuming team replaces that ownership entry. Do not copy secrets or environment credentials into the template.

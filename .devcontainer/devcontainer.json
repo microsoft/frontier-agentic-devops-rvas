@@ -6,14 +6,13 @@
   // each version is explicitly pinned. Jammy (22.04 LTS) for broad package support.
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
 
-  // Dev Container Features provide the full union of tooling needed across all four
-  // modules (GHEC, GHAS, GHAW, SRE Agent).
+  // Dev Container Features provide tooling for GHEC, GHAS, and GHAW.
   "features": {
     // gh CLI — used by every module. Pinned feature so participants get a known-good build.
     "ghcr.io/devcontainers/features/github-cli:1": {
       "version": "latest"
     },
-    // Node 22 (+ npm) — required by the SRE Agent sample app and OWASP Juice Shop.
+    // Node 22 (+ npm) — required by OWASP Juice Shop.
     "ghcr.io/devcontainers/features/node:1": {
       "version": "22"
     },
@@ -21,8 +20,7 @@
     "ghcr.io/devcontainers/features/python:1": {
       "version": "3.12"
     },
-    // Azure CLI — SRE Agent module (`az login`, resource management). Bicep is installed
-    // on top of this in postCreate.sh (`az bicep install`).
+    // Azure CLI — used by GHEC Azure OIDC activities.
     "ghcr.io/devcontainers/features/azure-cli:1": {
       "version": "latest"
     },
@@ -35,10 +33,10 @@
   // base:ubuntu ships a non-root `vscode` user by default.
   "remoteUser": "vscode",
 
-  // Installs gh-aw, Bicep, and runs the environment doctor. Runs once after create.
+  // Installs gh-aw and runs the environment doctor. Runs once after create.
   "postCreateCommand": "bash .devcontainer/postCreate.sh",
 
-  // Module sample apps (Juice Shop, Contoso Claims sample-app) listen on 3000.
+  // Juice Shop listens on 3000.
   "forwardPorts": [3000],
   "portsAttributes": {
     "3000": {
@@ -58,7 +56,6 @@
         "GitHub.copilot-chat",
         "GitHub.vscode-github-actions",
         "GitHub.vscode-codeql",
-        "ms-azuretools.vscode-bicep",
         "redhat.vscode-yaml",
         "yzhang.markdown-all-in-one"
       ],

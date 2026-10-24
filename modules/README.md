@@ -22,12 +22,8 @@ modules/
 │   ├── setup.md         ← how to run Juice Shop
 │   └── challenges/
 │
-├── ghaw/                ← GitHub Agentic Workflows (7 active activities)
-│   ├── setup.md         ← dev container and `gh aw` setup
-│   └── challenges/
-│
-└── sre-agent/           ← Azure SRE Agent (4 activities)
-    ├── resources/       ← vendored assets and fallback runbooks
+└── ghaw/                ← GitHub Agentic Workflows (7 active activities)
+    ├── setup.md         ← dev container and `gh aw` setup
     └── challenges/
 ```
 

@@ -15,7 +15,7 @@ body:
     attributes:
       label: Owning team
       description: Choose your own team. Administrators maintain this list.
-      options: [grubify]
+      options: [delivery]
     validations:
       required: true
   - type: textarea

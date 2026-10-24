@@ -31,8 +31,6 @@
   --c-ghas-glow: rgba(220, 38, 38, 0.10);
   --c-ghaw: #7c3aed;
   --c-ghaw-glow: rgba(124, 58, 237, 0.10);
-  --c-agentic: #ea580c;
-  --c-agentic-glow: rgba(234, 88, 12, 0.10);
 
   /* Difficulty */
   --c-beginner: #16a34a;
@@ -492,7 +490,7 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
   position: absolute;
   inset: 0 0 auto 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--c-ghec), var(--c-ghas), var(--c-ghaw), var(--c-agentic));
+  background: linear-gradient(90deg, var(--c-ghec), var(--c-ghas), var(--c-ghaw));
 }
 .outcome-card:hover {
   transform: translateY(-3px);
@@ -784,8 +782,6 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
 .chip.active[data-module="ghec"]        { background: var(--c-ghec); }
 .chip.active[data-module="ghas"]        { background: var(--c-ghas); }
 .chip.active[data-module="ghaw"]        { background: var(--c-ghaw); }
-.chip.active[data-module="agentic-devops"] { background: var(--c-agentic); }
-.chip.active[data-module="sre-agent"] { background: var(--c-agentic); }
 .chip-outcome {
   --outcome-color: var(--c-gold);
   max-width: 260px;
@@ -1514,7 +1510,6 @@ h4 { font-size: 1rem; font-weight: 600; letter-spacing: 0; }
 .mod-ghec        { --mod-color: var(--c-ghec); }
 .mod-ghas        { --mod-color: var(--c-ghas); }
 .mod-ghaw        { --mod-color: var(--c-ghaw); }
-.mod-agentic-devops { --mod-color: var(--c-agentic); }
 
 /* Challenge detail page hero */
 .ch-detail-hero {

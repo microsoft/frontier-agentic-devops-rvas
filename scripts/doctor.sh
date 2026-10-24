@@ -56,13 +56,12 @@ check "python"  required python3 --version
 echo
 echo -e "${BOLD}Cloud / containers${RESET}"
 check     "az"     required az version --query "\"azure-cli\"" -o tsv
-check_sub "bicep"  required az bicep version
 check     "docker" required docker --version
 
 echo
 if [ "$missing" -eq 0 ]; then
   echo -e "${GREEN}${BOLD}All required tools present.${RESET}"
-  echo -e "Reminder: run ${BOLD}gh auth login${RESET} (and ${BOLD}az login${RESET} for the SRE module) before challenge work."
+  echo -e "Reminder: run ${BOLD}gh auth login${RESET} (and ${BOLD}az login${RESET} for Azure activities) before challenge work."
   exit 0
 else
   echo -e "${RED}${BOLD}${missing} required tool(s) missing.${RESET} See above."

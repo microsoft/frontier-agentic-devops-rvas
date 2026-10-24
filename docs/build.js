@@ -67,15 +67,6 @@ const MODULE_CONFIG = {
       'production-patterns':      { name: 'Repository Operations', description: 'Automate maintenance, quality, security, and planning, and review the results.' },
     },
   },
-  'sre-agent': {
-    name: 'SRE Agent',
-    description: 'Investigate incidents with Azure SRE Agent. Connect telemetry to source code and review proposed fixes.',
-    color: '#1a7f37',
-    icon: 'icon-agentic-devops.svg',
-    tracks: {
-      'azure-sre-agent': { name: 'Azure SRE Agent', description: 'Set up the agent, connect a service, investigate an alert, and review a fix.' },
-    },
-  },
 };
 
 /* ─── Paths ──────────────────────────────────────────────────────────────── */
@@ -133,7 +124,6 @@ const ACTIVITY_ALIASES = {
   'ghas-05': 'ghas-admin-05',
   'ghas-06': 'ghas-admin-06',
   'ghas-admin-04': 'ghas-admin-03',
-  'sre-agent-00': 'sre-agent-01',
   'ghaw-01': 'ghaw-07',
   'ghaw-03': 'ghaw-19',
   'ghaw-08': 'ghaw-17',

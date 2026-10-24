@@ -14,12 +14,12 @@ TREE = "b" * 40
 CONFIG = {
     "organization": "example", "intake_repository": "example/intake",
     "template_repository": "example/starter", "template_commit": SHA,
-    "approved_teams": ["grubify"], "approver_team": "platform-admins",
+    "approved_teams": ["delivery"], "approver_team": "platform-admins",
     "required_checks": ["application-ci"],
 }
 ISSUE = {
     "id": 101, "number": 1, "state": "open", "title": "Repository request: orders",
-    "body": "### Service name\n\norders\n\n### Owning team\n\ngrubify\n\n### Purpose\n\nRun customer orders.",
+    "body": "### Service name\n\norders\n\n### Owning team\n\ndelivery\n\n### Purpose\n\nRun customer orders.",
     "updated_at": "2026-01-01T10:00:00Z", "user": {"id": 10, "login": "requester"},
 }
 EVENT = {"repository": {"full_name": "example/intake"}, "issue": ISSUE}
@@ -49,7 +49,7 @@ class FakeApi:
                  "user": {"id": 20, "login": "approver"}},
             ],
             "/orgs/example/memberships/requester": {"state": "active", "user": {"id": 10}},
-            "/orgs/example/teams/grubify/memberships/requester": {"state": "active"},
+            "/orgs/example/teams/delivery/memberships/requester": {"state": "active"},
             "/orgs/example/memberships/approver": {"state": "active", "user": {"id": 20}},
             "/orgs/example/teams/platform-admins/memberships/approver": {"state": "active"},
             "/repos/example/intake/collaborators/approver/permission":
@@ -60,13 +60,13 @@ class FakeApi:
             },
             "/repos/example/starter/commits/main": {"sha": SHA, "commit": {"tree": {"sha": TREE}}},
             "/repos/example/starter/rules/branches/main": copy.deepcopy(RULES),
-            "/repos/example/grubify-orders":
+            "/repos/example/delivery-orders":
                 {"id": 500, "visibility": "internal", "default_branch": "main"},
-            "/repos/example/grubify-orders/commits/main": {"commit": {"tree": {"sha": TREE}}},
-            "/repos/example/grubify-orders/rules/branches/main": copy.deepcopy(RULES),
-            "/orgs/example/teams/grubify/repos/example/grubify-orders": {"id": 500, "role_name": "write"},
+            "/repos/example/delivery-orders/commits/main": {"commit": {"tree": {"sha": TREE}}},
+            "/repos/example/delivery-orders/rules/branches/main": copy.deepcopy(RULES),
+            "/orgs/example/teams/delivery/repos/example/delivery-orders": {"id": 500, "role_name": "write"},
             "/graphql": {"data": {"cloneTemplateRepository": {"repository": {
-                "id": "new-node-id", "databaseId": 500, "name": "grubify-orders",
+                "id": "new-node-id", "databaseId": 500, "name": "delivery-orders",
                 "owner": {"login": "example"}, "visibility": "INTERNAL",
             }}}},
         }
@@ -74,7 +74,7 @@ class FakeApi:
     def get(self, path, accept=None):
         self.reads.append(path)
         self.accept_headers[path] = accept
-        if path == "/repos/example/grubify-orders" and not self.existing:
+        if path == "/repos/example/delivery-orders" and not self.existing:
             raise provision.ApiError("GET", path, 404)
         if path == "/repos/example/starter/commits/main":
             self.source_reads += 1
@@ -123,11 +123,11 @@ class ProvisionTests(unittest.TestCase):
         create, grant, comment, close = self.api.writes
         self.assertEqual(create[:2], ("POST", "/graphql"))
         self.assertEqual(create[2]["variables"]["input"], {
-            "ownerId": "organization-id", "repositoryId": "template-id", "name": "grubify-orders",
+            "ownerId": "organization-id", "repositoryId": "template-id", "name": "delivery-orders",
             "visibility": "INTERNAL", "includeAllBranches": False,
             "description": "Provisioned through example/intake#1",
         })
-        self.assertEqual(grant, ("PUT", "/orgs/example/teams/grubify/repos/example/grubify-orders",
+        self.assertEqual(grant, ("PUT", "/orgs/example/teams/delivery/repos/example/delivery-orders",
                                  {"permission": "push"}))
         self.assertEqual(self.api.accept_headers[grant[1]], "application/vnd.github.v3.repository+json")
         self.assertIn("repository ID `500`", comment[2]["body"])
@@ -151,7 +151,7 @@ class ProvisionTests(unittest.TestCase):
     def test_inactive_requester_and_foreign_team_and_unauthorized_approver(self):
         paths = (
             "/orgs/example/memberships/requester",
-            "/orgs/example/teams/grubify/memberships/requester",
+            "/orgs/example/teams/delivery/memberships/requester",
             "/orgs/example/memberships/approver",
             "/orgs/example/teams/platform-admins/memberships/approver",
         )
@@ -165,7 +165,7 @@ class ProvisionTests(unittest.TestCase):
         self.reject_before_creation()
 
     def test_membership_lookup_failure_is_not_a_default_allow(self):
-        self.api.responses["/orgs/example/teams/grubify/memberships/requester"] = provision.ApiError("GET", "membership", 404)
+        self.api.responses["/orgs/example/teams/delivery/memberships/requester"] = provision.ApiError("GET", "membership", 404)
         self.reject_before_creation()
 
     def test_identity_change(self):
@@ -231,18 +231,18 @@ class ProvisionTests(unittest.TestCase):
         for field, value in (("id", 999), ("visibility", "public")):
             with self.subTest(field=field):
                 self.api = FakeApi()
-                self.api.responses["/repos/example/grubify-orders"][field] = value
+                self.api.responses["/repos/example/delivery-orders"][field] = value
                 with self.assertRaises(provision.IntakeError):
                     self.run_provision()
                 self.assertEqual(len(self.api.writes), 1)
         self.api = FakeApi()
-        self.api.responses["/repos/example/grubify-orders/commits/main"]["commit"]["tree"]["sha"] = "c" * 40
+        self.api.responses["/repos/example/delivery-orders/commits/main"]["commit"]["tree"]["sha"] = "c" * 40
         with self.assertRaises(provision.IntakeError):
             self.run_provision()
         self.assertEqual(len(self.api.writes), 1)
 
     def test_baseline_required_on_template_before_creation_and_destination_before_grant(self):
-        for repo, expected_writes in (("starter", 0), ("grubify-orders", 1)):
+        for repo, expected_writes in (("starter", 0), ("delivery-orders", 1)):
             for rules in ([], [RULES[0]], [RULES[1]],
                           [{**RULES[0], "parameters": {"required_approving_review_count": 0}}, RULES[1]]):
                 with self.subTest(repo=repo, rules=rules):
@@ -253,7 +253,7 @@ class ProvisionTests(unittest.TestCase):
                     self.assertEqual(len(self.api.writes), expected_writes)
 
     def test_grant_failure_keeps_request_open_and_does_not_report_fulfillment(self):
-        self.api.fail_write = "/orgs/example/teams/grubify/repos/example/grubify-orders"
+        self.api.fail_write = "/orgs/example/teams/delivery/repos/example/delivery-orders"
         with self.assertRaises(provision.IntakeError):
             self.run_provision()
         self.assertEqual(len(self.api.writes), 2)
@@ -264,7 +264,7 @@ class ProvisionTests(unittest.TestCase):
         for field, value in (("id", 999), ("role_name", "admin")):
             with self.subTest(field=field):
                 self.api = FakeApi()
-                self.api.responses["/orgs/example/teams/grubify/repos/example/grubify-orders"][field] = value
+                self.api.responses["/orgs/example/teams/delivery/repos/example/delivery-orders"][field] = value
                 with self.assertRaises(provision.IntakeError):
                     self.run_provision()
                 self.assertEqual(len(self.api.writes), 2)
@@ -275,7 +275,7 @@ class ProvisionTests(unittest.TestCase):
         def revoke(method, path, data):
             result = original_call(method, path, data)
             if path == "/graphql":
-                self.api.responses["/orgs/example/teams/grubify/memberships/requester"]["state"] = "pending"
+                self.api.responses["/orgs/example/teams/delivery/memberships/requester"]["state"] = "pending"
             return result
 
         self.api.call = revoke
@@ -289,7 +289,7 @@ class ProvisionTests(unittest.TestCase):
 
         def eventually_ready(path, accept=None):
             nonlocal count
-            if path == "/repos/example/grubify-orders/commits/main":
+            if path == "/repos/example/delivery-orders/commits/main":
                 count += 1
                 if count < 3:
                     raise provision.ApiError("GET", path, 409)
@@ -305,7 +305,7 @@ class ProvisionTests(unittest.TestCase):
         for status, expected_sleeps in ((409, 4), (403, 0)):
             with self.subTest(status=status):
                 self.api = FakeApi()
-                path = "/repos/example/grubify-orders/commits/main"
+                path = "/repos/example/delivery-orders/commits/main"
                 self.api.responses[path] = provision.ApiError("GET", path, status)
                 with patch("provision.time.sleep") as sleep, self.assertRaises(provision.ApiError):
                     self.run_provision()
@@ -317,7 +317,7 @@ class InputTests(unittest.TestCase):
     def test_windows_line_endings(self):
         event = copy.deepcopy(EVENT)
         event["issue"]["body"] = ISSUE["body"].replace("\n", "\r\n")
-        self.assertEqual(provision.request_values(event, CONFIG)["name"], "grubify-orders")
+        self.assertEqual(provision.request_values(event, CONFIG)["name"], "delivery-orders")
 
     def test_invalid_names_teams_and_duplicate_fields(self):
         for service in ("Orders", "orders; echo bad", "../orders", "orders--api", "1orders", "a" * 51):
@@ -326,7 +326,7 @@ class InputTests(unittest.TestCase):
                 event["issue"]["body"] = ISSUE["body"].replace("\norders\n", "\n" + service + "\n")
                 with self.assertRaises(provision.IntakeError):
                     provision.request_values(event, CONFIG)
-        for body in (ISSUE["body"].replace("\ngrubify\n", "\nunknown\n"),
+        for body in (ISSUE["body"].replace("\ndelivery\n", "\nunknown\n"),
                      ISSUE["body"] + "\n### Owning team\n\nother",
                      "Forged instructions\n" + ISSUE["body"]):
             event = copy.deepcopy(EVENT)
@@ -376,7 +376,7 @@ class InputTests(unittest.TestCase):
     def test_team_verification_requests_the_repository_response_not_empty_204(self):
         with patch("provision.urlopen", return_value=io.BytesIO(b'{"id":500,"role_name":"write"}')) as send:
             response = provision.Api("test-token").get(
-                "/orgs/example/teams/grubify/repos/example/grubify-orders",
+                "/orgs/example/teams/delivery/repos/example/delivery-orders",
                 accept="application/vnd.github.v3.repository+json")
         self.assertEqual(response["role_name"], "write")
         self.assertEqual(send.call_args[0][0].get_header("Accept"), "application/vnd.github.v3.repository+json")

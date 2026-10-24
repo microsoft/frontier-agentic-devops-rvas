@@ -257,7 +257,7 @@ test('all outcomes and prerequisites validate, with exact forwarding mappings', 
     'ghec-ch16': 'ghec-ch20', 'ghec-ch52': 'ghec-ch07',
     'ghec-ch35': 'ghec-ch01', 'ghec-ch43': 'ghec-ch42', 'ghas-06': 'ghas-admin-06',
     'ghas-01': 'ghas-00', 'ghas-05': 'ghas-admin-05',
-    'ghas-admin-04': 'ghas-admin-03', 'sre-agent-00': 'sre-agent-01',
+    'ghas-admin-04': 'ghas-admin-03',
     'ghaw-01': 'ghaw-07', 'ghaw-11': 'ghaw-18', 'ghaw-14': 'ghaw-18',
     'ghaw-23': 'ghas-admin-06', 'ghaw-25': 'ghec-ch01',
     'ghaw-03': 'ghaw-19', 'ghaw-08': 'ghaw-17', 'ghaw-09': 'ghaw-17',
@@ -395,7 +395,6 @@ test('shared navigation selects module queries and parent sections under preview
     ['module.html?m=ghec', 'module.html?m=ghec', 'page'],
     ['module.html?m=ghas&track=admin-governance', 'module.html?m=ghas', 'page'],
     ['module.html?m=ghaw', 'module.html?m=ghaw', 'page'],
-    ['module.html?m=sre-agent', 'module.html?m=sre-agent', 'page'],
     ['module.html?m=unknown', 'catalog.html', 'location'],
     ['github-setup-guide.html', 'github-setup.html', 'location'],
     ['challenge.html?id=ghec-ch00', 'catalog.html', 'location'],
@@ -573,10 +572,15 @@ test('guide links resolve active metadata IDs without placeholder folders', () =
   assert.equal(challengeIdFromSlug('ghec', '../resources'), null);
 });
 
-test('catalog contains 63 active sessions and no alias has a generated guide', () => {
-  assert.equal(data.challenges.length, 63);
+test('catalog contains 59 active sessions and no alias has a generated guide', () => {
+  assert.equal(data.challenges.length, 59);
   assert.deepEqual(Object.fromEntries(data.modules.map(m => [m.id, m.challenge_count])),
-    { ghec: 41, ghas: 11, ghaw: 7, 'sre-agent': 4 });
+    { ghec: 41, ghas: 11, ghaw: 7 });
+  assert.deepEqual(data.outcomes.map(o => o.id),
+    ['github-adoption', 'platform-migration', 'ghas-adoption', 'agentic-workflows']);
+  assert.deepEqual(fs.readdirSync(path.join(root, 'docs/resources')).sort(), ['ghas', 'ghaw', 'ghec']);
+  assert.deepEqual(fs.readdirSync(path.join(root, 'docs/assets/data/challenges')).sort(),
+    data.challenges.map(c => c.id).sort());
   for (const id of Object.keys(data.retired_challenges)) {
     assert(!fs.existsSync(path.join(root, 'docs/assets/data/challenges', id)));
   }
@@ -658,9 +662,6 @@ test('reorganized sessions keep complete capabilities without repeated setup', (
   assert.match(guide('ghec-ch49'), /cloud deployment are not prerequisites/);
   assert.match(guide('ghec-ch39'), /environment-approval\.md/);
   assert.match(guide('ghec-ch49'), /environment-approval\.md/);
-  assert.deepEqual(byId.get('sre-agent-01').prerequisites, []);
-  assert.match(guide('sre-agent-01'), /Approve the service and check access/);
-  assert.match(guide('sre-agent-01'), /Grubify/);
   for (const id of ['ghas-02', 'ghas-03', 'ghas-04']) {
     assert.deepEqual(byId.get(id).prerequisites, ['ghas-00']);
     assert.match(guide(id), /start-remediation\.md/);
@@ -668,8 +669,8 @@ test('reorganized sessions keep complete capabilities without repeated setup', (
 });
 
 test('saved combined-session links resolve directly and do not duplicate activities', async () => {
-  const result = await render('set', '?ids=ghec-ch17,ghec-ch20,ghas-admin-04,ghas-admin-03,ghec-ch50,ghas-admin-05,sre-agent-00,sre-agent-01');
-  assert.deepEqual(result.ids, ['ghec-ch20', 'ghas-admin-03', 'ghas-admin-05', 'sre-agent-01']);
+  const result = await render('set', '?ids=ghec-ch17,ghec-ch20,ghas-admin-04,ghas-admin-03,ghec-ch50,ghas-admin-05');
+  assert.deepEqual(result.ids, ['ghec-ch20', 'ghas-admin-03', 'ghas-admin-05']);
   for (const slug of ['06-enterprise-org-101', '17-webhooks-github-apps',
     '47-innersource-program-operations', '50-license-compliance-workflow']) {
     assert(!fs.existsSync(path.join(root, 'modules/ghec/challenges', slug)));
@@ -678,7 +679,6 @@ test('saved combined-session links resolve directly and do not duplicate activit
     '05-secrets-and-dependencies']) {
     assert(!fs.existsSync(path.join(root, 'modules/ghas/challenges', slug)));
   }
-  assert(!fs.existsSync(path.join(root, 'modules/sre-agent/challenges/00-setup')));
   for (const [module, file] of [['ghec', 'copilot-first-run.md'], ['ghec', 'environment-approval.md'],
     ['ghas', 'start-remediation.md'], ['ghas', 'license-exception.yml']]) {
     assert(fs.existsSync(path.join(root, 'docs/resources', module, file)));

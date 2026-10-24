@@ -220,44 +220,6 @@
         "ghec-ch33",
         "ghec-ch34"
       ]
-    },
-    {
-      "id": "agentic-devops-cloud",
-      "name": "Improve incident response",
-      "tagline": "Use telemetry and code context to investigate incidents and plan recovery.",
-      "description": "Investigate and recover one monitored service. Use Grubify if you need a lab. Create a GitHub issue for the engineering follow-up.",
-      "personas": [
-        "sre",
-        "platform-engineer",
-        "solution-architect"
-      ],
-      "adoption_stage": [
-        "pilot",
-        "operate"
-      ],
-      "business_value": [
-        "improve-operational-resilience",
-        "accelerate-cloud-delivery",
-        "reduce-incident-mttx"
-      ],
-      "source_platforms": [
-        "github",
-        "azure"
-      ],
-      "success_metrics": [
-        "Azure SRE Agent can access the customer's monitored application, Azure resources, logs, traces, and runbooks.",
-        "A controlled incident produces an alert, investigation evidence, likely cause, and recovery action in the customer's Azure environment.",
-        "A GitHub issue or pull request links the operational symptoms to source-code context, logs, and the agreed engineering follow-up."
-      ],
-      "challenge_ids": [
-        "sre-agent-01",
-        "sre-agent-03",
-        "sre-agent-04",
-        "sre-agent-05",
-        "ghec-ch19",
-        "ghec-ch30",
-        "ghec-ch31"
-      ]
     }
   ]
 }

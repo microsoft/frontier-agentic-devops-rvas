@@ -73,7 +73,7 @@ Protect the default branch and require platform-owner review for `.github/workfl
 
 ### Part D: Fulfill a request
 
-1. A member of an approved team submits the form, for example team `grubify` and service `orders`. It requests `grubify-orders`.
+1. A member of an approved team submits the form, for example team `delivery` and service `orders`. It requests `delivery-orders`.
 2. Open the request's run under the intake repository's **Actions → Repository intake** tab. Its **review** job shows the request body hash, resulting name, and pinned template commit before App credentials are available.
 3. An independent maintainer checks the request and approves the **repository-provisioning** environment. They must still belong to `approver_team` and have the built-in Maintain or Admin role on the intake repository. Reject the deployment if the request should not proceed.
 4. The job rechecks the live issue, requester membership, and GitHub's approval history. It verifies the template still points to the reviewed commit, creates an Internal repository using `cloneTemplateRepository`, and verifies the copied Git tree.

@@ -1,8 +1,8 @@
 # === Required ===
 id: REPLACE-module-localid       # Globally unique. Convention: <module>-<local-id>
-                                 # Examples: ghec-ch01, ghas-00, ghaw-00, sre-agent-01
+                                 # Examples: ghec-ch01, ghas-00, ghaw-00
 title: "REPLACE: Short activity title"
-module: REPLACE                  # One of: ghec | ghas | ghaw | sre-agent
+module: REPLACE                  # One of: ghec | ghas | ghaw
 track: REPLACE-track-slug        # See CONTRIBUTING.md for the module → track table
 difficulty: beginner             # beginner | intermediate | advanced
 duration_minutes: 60             # Estimated completion time for a delivery team member, in minutes
@@ -22,7 +22,7 @@ tags:
   - REPLACE-tag-2
 
 # === Operational ===
-app_dependency: none             # none | juice-shop | grubify-starter-lab | seed-repo
+app_dependency: none             # none | juice-shop | seed-repo
 emu_compatible: true             # Can this run in an EMU-controlled organization?
 min_environment: org             # org | repo | codespace | enterprise
 provision_creates:               # Resources created by the setup script.

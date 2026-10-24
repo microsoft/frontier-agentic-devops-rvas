@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # postCreate.sh — runs once after the dev container is created.
-# Installs the tools that aren't covered by Dev Container Features (gh-aw, Bicep),
+# Installs the tools that aren't covered by Dev Container Features (gh-aw, jq),
 # then runs the environment doctor so a fresh container self-reports its status.
 set -uo pipefail
 
@@ -13,7 +13,7 @@ echo "╚═══════════════════════�
 echo -e "${RESET}"
 
 # ── 1. Install jq (not included in the slim base image) ───────────────────────
-echo -e "${BOLD}[1/4] Installing jq...${RESET}"
+echo -e "${BOLD}[1/3] Installing jq...${RESET}"
 if command -v jq >/dev/null 2>&1; then
   echo -e "      ${GREEN}✓ jq already installed — skipping${RESET}"
 else
@@ -24,7 +24,7 @@ else
 fi
 
 # ── 2. Install the gh-aw CLI extension (GitHub Agentic Workflows) ──────────────
-echo -e "${BOLD}[2/4] Installing gh-aw (GitHub Agentic Workflows)...${RESET}"
+echo -e "${BOLD}[2/3] Installing gh-aw (GitHub Agentic Workflows)...${RESET}"
 if gh aw --version >/dev/null 2>&1; then
   echo -e "      ${GREEN}✓ gh aw already installed — skipping${RESET}"
 else
@@ -33,27 +33,17 @@ else
     || echo -e "      ${YELLOW}! gh aw install failed — run the curl command again after 'gh auth login'${RESET}"
 fi
 
-# ── 3. Install Bicep on top of the Azure CLI (SRE Agent module) ────────────────
-echo -e "${BOLD}[3/4] Installing Bicep...${RESET}"
-if az bicep version >/dev/null 2>&1; then
-  echo -e "      ${GREEN}✓ Bicep already installed — skipping${RESET}"
-else
-  az bicep install >/dev/null 2>&1 \
-    && echo -e "      ${GREEN}✓ Bicep installed${RESET}" \
-    || echo -e "      ${YELLOW}! Bicep install failed — run 'az bicep install' manually${RESET}"
-fi
-
-# ── 4. Verify the environment ─────────────────────────────────────────────────
-echo -e "${BOLD}[4/4] Verifying tools...${RESET}"
+# ── 3. Verify the environment ─────────────────────────────────────────────────
+echo -e "${BOLD}[3/3] Verifying tools...${RESET}"
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 bash "${REPO_ROOT}/scripts/doctor.sh" || true
 
 echo
 echo -e "${BOLD}Next steps:${RESET}"
 echo -e "  • Authenticate GitHub:  ${CYAN}gh auth login${RESET}"
-echo -e "  • (SRE module) Azure:   ${CYAN}az login${RESET}"
+echo -e "  • For Azure activities: ${CYAN}az login${RESET}"
 echo -e "  • Open the catalog:     ${CYAN}docs/index.html${RESET} (or your published Pages site)"
 echo
-echo -e "${YELLOW}Note: module sample apps (Contoso Claims) are cloned on demand from their source repos —${RESET}"
+echo -e "${YELLOW}Note: Juice Shop is fetched on demand from its source repository —${RESET}"
 echo -e "${YELLOW}      this container ships the toolchain, not the apps.${RESET}"
 echo -e "${YELLOW}Tip:  GHAS participants → run ${BOLD}npm run setup:juice-shop${RESET}${YELLOW} to fetch + link Juice Shop locally.${RESET}"

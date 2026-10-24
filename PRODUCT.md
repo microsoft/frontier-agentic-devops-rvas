@@ -41,7 +41,7 @@ environment so the work remains useful after delivery.
 - Preserve both entry routes, the activity catalog, outcome paths, session
   builder, and shared sets. Keep chapter order and prerequisites intact.
 - The curriculum covers GitHub Enterprise Cloud, GitHub Advanced Security,
-  GitHub Agentic Workflows, and SRE Agent.
+  and GitHub Agentic Workflows.
 - Serve the static site from `docs/` through GitHub Pages. Preserve the existing
   Node.js build, which requires no npm install.
 - Activity metadata lives in `meta.yml`; the build generates site data.
