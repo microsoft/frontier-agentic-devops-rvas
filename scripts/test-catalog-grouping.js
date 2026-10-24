@@ -38,10 +38,12 @@ async function render(page, query = '', platform = data) {
     'outcomeGrid', 'setIntro', 'setHeading', 'challengeTitle', 'challengeId',
     'challengeMeta', 'activityPager', 'generateBtn', 'deselectBtn', 'setName',
     'linkRow', 'setLink', 'openBtn', 'setCount',
+    'catalogNext', 'builderLink',
   ].map((id) => [
     id, {
-      innerHTML: '', textContent: '', hidden: false, value: '', listeners: {},
-      querySelectorAll: () => [], setAttribute() {},
+      innerHTML: '', textContent: '', hidden: false, value: '', listeners: {}, attributes: {},
+      querySelectorAll: () => [],
+      setAttribute(name, value) { this.attributes[name] = value; },
       addEventListener(event, callback) { this.listeners[event] = callback; },
     },
   ]));
@@ -90,6 +92,29 @@ async function render(page, query = '', platform = data) {
     FP: context.FP,
   };
 }
+
+test('catalog suggests the first outcome chapter without applying search or level filters to it', async () => {
+  for (const outcome of data.outcomes) {
+    const result = await render('catalog', `?outcome=${outcome.id}&difficulty=advanced&q=no-match`);
+    const first = data.challenges.find(c => c.id === outcome.challenge_ids[0]);
+    assert.equal(result.elements.catalogNext.hidden, false);
+    assert(result.elements.catalogNext.innerHTML.includes(result.FP.esc(first.title)));
+    assert(result.elements.catalogNext.innerHTML.includes(result.FP.esc(
+      result.FP.journeyChallengeUrl(first.id, outcome.id))));
+    assert.equal(result.elements.builderLink.attributes.href, `builder.html?outcome=${outcome.id}`);
+    assert.equal(result.ids.length, 0);
+  }
+});
+
+test('catalog keeps the full catalog available without a selected or valid outcome', async () => {
+  for (const query of ['', '?outcome=unknown']) {
+    const result = await render('catalog', query);
+    assert.equal(result.elements.catalogNext.hidden, true);
+    assert.equal(result.elements.catalogNext.innerHTML, '');
+    assert.equal(result.elements.builderLink.attributes.href, 'builder.html');
+    assert.equal(result.ids.length, data.challenges.length);
+  }
+});
 
 for (const page of ['catalog', 'builder']) {
   test(`${page}: unfiltered results group by session type without losing or duplicating activities`, async () => {

@@ -51,14 +51,33 @@
         <p class="lede">Tell Copilot what your enterprise needs. The skill checks GitHub, recommends changes, and saves a plan for you to review.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="github-setup-guide.html#start">Install and start &rarr;</a>
-          <a class="btn btn-ghost" href="#scope">Check the scope</a>
+          <a class="btn btn-ghost" href="github-setup-guide.html#questions">Already installed? Start a plan</a>
         </div>
       </div>
     </section>
     <div class="wrap setup-content">
       <nav class="setup-subnav" aria-label="On this page">
-        <a href="#scope">Scope</a><a href="#capabilities">Capabilities</a><a href="#examples">Example prompts</a><a href="#boundaries">Prerequisites and limits</a>
+        <a href="#first-plan">Start here</a><a href="#scope">Scope</a><a href="#capabilities">Capabilities</a><a href="#examples">Example prompts</a><a href="#boundaries">Prerequisites and limits</a>
       </nav>
+      <section id="first-plan" aria-labelledby="firstPlanHeading">
+        <h2 id="firstPlanHeading">Get to your first plan</h2>
+        <p>You need an existing GitHub Enterprise Cloud account, Copilot CLI, <code>gh</code>, and <code>jq</code>. The skill helps you plan changes; it does not create the enterprise account.</p>
+        <ol class="setup-start-steps">
+          <li>
+            <a href="github-setup-guide.html#start">Install the plugin</a>
+            <p>Add the setup skill to Copilot CLI. If it is already installed, go straight to your goal.</p>
+          </li>
+          <li>
+            <a href="github-setup-guide.html#questions">Describe your goal</a>
+            <p>Name your enterprise, host, and organizations. Plan mode checks GitHub without making changes.</p>
+          </li>
+          <li>
+            <a href="github-setup-guide.html#apply">Review the saved plan</a>
+            <p>Check the proposed changes and cost or license effects. Request Apply only when ready, then approve each write batch.</p>
+          </li>
+        </ol>
+        <p class="setup-preview"><strong>Preview:</strong> live end-to-end setup validation is still pending. Complete a controlled live setup before production use.</p>
+      </section>
       <section id="scope" aria-labelledby="scopeHeading">
         <h2 id="scopeHeading">Set up or align an enterprise</h2>
         <p>Use the skill for coordinated changes across an existing GitHub Enterprise Cloud account on <code>github.com</code> or your enterprise's <code>ghe.com</code> host.</p>

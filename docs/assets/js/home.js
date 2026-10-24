@@ -48,6 +48,7 @@
           <h3>${FP.esc(o.name)}</h3>
           <p>${FP.esc(o.tagline || o.description || '')}</p>
           ${metrics ? `<ul class="outcome-metrics">${metrics}</ul>` : ''}
+          <span class="outcome-next">View activities <span aria-hidden="true">&rarr;</span></span>
         </a>`;
     }).join('');
     FP.initReveal();

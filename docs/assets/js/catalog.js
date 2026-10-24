@@ -209,12 +209,13 @@
     const countEl = document.getElementById('count');
     if (!grid) return;
 
+    renderNextStep();
     const items = FP.orderActivities(filtered(), _activeOutcome, _outcomes, _modules);
 
     if (countEl) countEl.textContent = items.length + ' activit' + (items.length === 1 ? 'y' : 'ies');
 
     if (!items.length) {
-      grid.innerHTML = '<div class="no-results">No activities match those filters. <button class="btn btn-ghost btn-sm" id="inlineClrBtn" type="button">Clear filters</button></div>';
+      grid.innerHTML = '<div class="no-results">No activities match those filters. Try a different search or clear the filters. <button class="btn btn-ghost btn-sm" id="inlineClrBtn" type="button">Clear filters</button></div>';
       const b = document.getElementById('inlineClrBtn');
       if (b) b.addEventListener('click', () => document.getElementById('clearBtn')?.click());
       return;
@@ -223,6 +224,28 @@
     const groups = FP.groupActivities(items, _activeOutcome, _outcomes, _modules);
     grid.innerHTML = FP.renderActivityGroups(groups, challengeCard);
     FP.initReveal();
+  }
+
+  function renderNextStep() {
+    const outcome = _outcomes.find((item) => item.id === _activeOutcome);
+    const builder = document.getElementById('builderLink');
+    if (builder) builder.setAttribute('href', 'builder.html' +
+      (outcome ? '?outcome=' + encodeURIComponent(outcome.id) : ''));
+
+    const next = document.getElementById('catalogNext');
+    if (!next) return;
+    const first = outcome && _all.find((item) => item.id === outcome.challenge_ids[0]);
+    if (!first) {
+      next.hidden = true;
+      next.innerHTML = '';
+      return;
+    }
+
+    const html = `<p><strong>Need a starting point?</strong>
+      <a href="${FP.esc(FP.journeyChallengeUrl(first.id, outcome.id))}">Open the first chapter: ${FP.esc(first.title)}</a>.
+      Check its prerequisites, or choose a different chapter below.</p>`;
+    if (next.innerHTML !== html) next.innerHTML = html;
+    next.hidden = false;
   }
 
   function challengeCard(c) {

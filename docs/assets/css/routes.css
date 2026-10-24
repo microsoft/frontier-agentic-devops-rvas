@@ -3,6 +3,52 @@
   gap: 18px;
 }
 
+.hero-shortcut {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  max-width: 48ch;
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.hero-shortcut:hover { color: var(--c-hero-accent); }
+.hero-shortcut:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+.outcome-next {
+  color: var(--c-heading);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.start-help {
+  max-width: 75ch;
+  margin-top: 20px;
+  color: var(--c-dim);
+}
+.start-help summary {
+  width: fit-content;
+  min-height: 44px;
+  padding: 9px 0;
+  color: var(--c-heading);
+  font-weight: 600;
+  cursor: pointer;
+}
+.start-help summary:focus-visible {
+  outline: 2px solid var(--c-heading);
+  outline-offset: 4px;
+}
+.start-help ol { margin: 12px 0 0; padding-left: 24px; }
+.start-help li + li { margin-top: 8px; }
+.catalog-next {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--c-line-soft);
+}
+.catalog-next p { margin: 0; max-width: 75ch; }
+.catalog-next a { color: var(--c-heading); text-decoration: underline; text-underline-offset: 3px; }
+.filter-search-group { margin-left: auto; flex-wrap: nowrap; }
+.catalog-filters .filter-label { font-size: 0.75rem; color: var(--c-dim); }
+
 .start-route {
   --route-accent: #0F4F9A;
   --route-border: #A5C9F5;
@@ -78,6 +124,20 @@
   background: var(--c-600);
 }
 .setup-subnav { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-bottom: 36px; }
+
+.setup-start-steps { padding-left: 24px; margin: 24px 0; }
+.setup-start-steps li { padding-left: 8px; }
+.setup-start-steps li + li { margin-top: 24px; }
+.setup-start-steps li::marker { color: var(--c-heading); font-weight: 700; }
+.setup-content .setup-start-steps a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--c-heading);
+  font-weight: 600;
+}
+.setup-start-steps p { margin: 6px 0 0; color: var(--c-dim); }
+.setup-preview { padding-top: 20px; border-top: 1px solid var(--c-line-soft); color: var(--c-dim); }
 
 .setup-section-heading {
   display: grid;
@@ -169,6 +229,11 @@
 }
 
 @media (max-width: 600px) {
+  .home-hero { padding: 40px 0; }
+  .home-hero .hero-grid { gap: 28px; }
+  .catalog-filters { position: static; }
+  .catalog-filters .filter-search-group { margin-left: 0; flex-wrap: wrap; width: 100%; }
+  .catalog-filters .search-box { min-width: 0; max-width: none; flex-basis: 100%; }
   .start-route { padding: 22px; }
   .setup-content pre { padding: 14px; font-size: 0.8rem; }
 }
