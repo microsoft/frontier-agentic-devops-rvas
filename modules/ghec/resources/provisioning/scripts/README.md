@@ -95,8 +95,8 @@ ghec_teardown     # delete ONLY ghec-<chid>-* (call guard_prefix first)
 ghec_status       # report what currently exists
 ```
 
-`setup.sh` exports for you: `ORG CHID SLUG APP JUICE_SHOP_REF DRY_RUN ASSUME_YES NAMESPACE REPO META`,
-and the lib helpers are in scope: `log_*`, `run_mutation`, `gh_*`, `guard_prefix`, `meta_*`,
+`setup.sh` exports these variables: `ORG CHID SLUG APP JUICE_SHOP_REF DRY_RUN ASSUME_YES NAMESPACE REPO META`,
+and makes these lib helpers available: `log_*`, `run_mutation`, `gh_*`, `guard_prefix`, `meta_*`,
 `juice_shop_import`. The PowerShell twin (`provision.ps1`) defines `Invoke-GhecProvision` /
 `Invoke-GhecTeardown` / `Invoke-GhecStatus` and uses the `$Global:Ghec*` globals.
 

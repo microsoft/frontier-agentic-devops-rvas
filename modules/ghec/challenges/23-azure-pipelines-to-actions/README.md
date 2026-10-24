@@ -46,7 +46,7 @@ Configure credentials for the Azure DevOps source and GitHub target.
 gh actions-importer configure
 ```
 
-When prompted, select Azure DevOps, enter the GitHub token, accept `https://github.com` unless you use another GitHub instance, enter the Azure DevOps PAT, accept `https://dev.azure.com`, then enter the Azure DevOps organization and project.
+When prompted, select Azure DevOps and enter the GitHub token. Accept `https://github.com` unless you use another GitHub instance. Enter the Azure DevOps PAT, accept `https://dev.azure.com`, then enter the Azure DevOps organization and project.
 
 ## Tasks
 

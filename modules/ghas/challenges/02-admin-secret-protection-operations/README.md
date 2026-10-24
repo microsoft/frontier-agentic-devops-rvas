@@ -102,7 +102,7 @@ gh api "repos/$ORG/$REPO/secret-scanning/alerts/<alert-number>/locations" \
 
 Match the alert type, path, branch or commit, and count to the manifest. The `GHAS_LAB_DEMO_...` row should not have an alert yet because its custom pattern is not published.
 
-Review exposure before closing an alert, whatever its validity result. `active` needs immediate revocation or rotation. `inactive` still needs an exposure review. `unknown` means the provider did not confirm status; it does not mean the credential is safe.
+Review exposure before closing an alert, whatever its validity result. If the result is `active`, revoke or rotate the credential immediately. An `inactive` result still needs an exposure review. `unknown` means the provider did not confirm status; it does not mean the credential is safe.
 
 ## 3. Resolve the seeded provider alerts
 

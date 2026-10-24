@@ -23,8 +23,8 @@ expects.
 | `ghas-admin-03` | `ghas-admin-03-codeql-live-lab` | `challenges/03-admin-codeql-deployment-data-flow-autofix/` |
 | `ghas-admin-05` | `ghas-admin-05-dependency-visibility-fixture` | `challenges/ghas-admin-05-dependency-visibility-fixture/` |
 
-The repository names and branch names do not overlap. The 01/06 fixture is shared
-on purpose because the final activity measures the rollout started in activity 01.
+The repository names and branch names do not overlap. Activities 01 and 06 share
+a fixture because the final activity measures the rollout started in activity 01.
 The CodeQL fixture keeps one pull request through coverage, merge enforcement,
 and its reviewed fix.
 

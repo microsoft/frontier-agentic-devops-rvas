@@ -47,7 +47,7 @@ Set the target once:
 export TARGET="<org>/ghas-admin-05-dependency-visibility-fixture"
 ```
 
-For customer work, set `TARGET` to its approved repository and use its package
+For customer work, set `TARGET` to the approved repository and use its package
 paths and test commands. Keep seeded risky dependencies in the isolated fixture.
 Never merge the vulnerable revision.
 
@@ -233,7 +233,7 @@ gh pr list --repo "$TARGET" --author app/dependabot \
   --state open --json number,title,url,headRefName
 ```
 
-Choose a small update for a fixture dependency. Inspect the advisory link, changed lock file, compatibility notes, and checks. Merge only after the repository tests pass:
+Choose a small update for a fixture dependency. Inspect the advisory link, changed lock file, compatibility notes, and checks. Merge only after the repository tests pass.
 
 For a customer application, trace the dependency's production use and run the relevant application tests, including compatibility checks for the changed API. If no Dependabot PR is available, prepare the smallest update to the advisory's patched version with the existing package manager. Keep manifest and lock-file changes together and obtain independent review.
 
@@ -395,7 +395,7 @@ with:
 
 The list is illustrative, not legal advice. Use the approved customer policy.
 
-In the isolated fixture, create a fresh branch. Set `LICENSE_TEST_PACKAGE` and `LICENSE_TEST_VERSION` to a legal-owner-approved test package whose known license is outside the policy and which has no vulnerability above the configured threshold:
+In the isolated fixture, create a fresh branch. Set `LICENSE_TEST_PACKAGE` and `LICENSE_TEST_VERSION` to a test package approved by the legal owner. Its known license must be outside the policy, and it must have no vulnerability above the configured threshold:
 
 ```bash
 git switch -c test/license-policy

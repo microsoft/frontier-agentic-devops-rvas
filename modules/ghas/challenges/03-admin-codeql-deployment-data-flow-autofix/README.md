@@ -68,7 +68,7 @@ A successful CodeQL run does not prove coverage for those languages.
 
 Codename MDASH is Microsoft's multi-model agentic scanning harness, a separate preview capability inside Microsoft Defender. It complements CodeQL. You are not running it in this session. Do not assume it covers source types CodeQL does not support here. `ghas-admin-08` teaches how to onboard and operate it; use this table to decide whether to pursue preview enrollment for your language gaps.
 
-Walk through your language inventory above and fill in one row per source type:
+Use your language inventory above to fill in one row per source type:
 
 | Source type | CodeQL support | Current security control | MDASH documented support | Decision and reason |
 | --- | --- | --- | --- | --- |
@@ -179,7 +179,7 @@ git push
 gh run watch --repo "$GHAS_REPO"
 ```
 
-For a manual compiled-language build, start clean and run the same commands production uses. CodeQL must observe the compiler. Record the selected mode and the Tool Status evidence from the completed run.
+If you build a compiled language manually, start clean and run the same commands production uses. CodeQL must observe the compiler. Record the selected mode and the Tool Status evidence from the completed run.
 
 ### 6. Prepare one finding and verify scan triggers
 

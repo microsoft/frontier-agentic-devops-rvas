@@ -33,8 +33,8 @@ invent behavior from prose alone.
 
 Give the agent read-only GitHub permissions and only the local editing and
 test tools needed for the task. Configure `create-pull-request` with `max: 1`
-and the approved base branch. Use `allowed-files` on `create-pull-request` to enforce the one-file restriction
-in the writer. Keep `protected-files: blocked` and disable fallback issues.
+and the approved base branch. Use `allowed-files` on `create-pull-request` so the
+writer can change only the approved file. Keep `protected-files: blocked` and disable fallback issues.
 This is a writer policy, not merely a prompt instruction.
 
 The prompt must correct only the documented mismatch and cite its code

@@ -17,7 +17,7 @@ Use this session only after a repository pilot works and the approved agent need
 
 ## Scope and guardrails
 
-The enterprise agent source and organization custom instructions are different configuration surfaces. Do not represent organization instructions as enterprise policy, and do not assume an enterprise custom agent changes instruction precedence. Do not broaden agent tools, add secrets, enable MCP servers, or change unrelated Copilot policy as part of this activity.
+The enterprise agent source and organization custom instructions are separate settings. Do not represent organization instructions as enterprise policy, and do not assume an enterprise custom agent changes instruction precedence. Do not broaden agent tools, add secrets, enable MCP servers, or change unrelated Copilot policy during this activity.
 
 **Out of scope:** managed settings and plugin standards. Treat them as optional preview work requiring separate availability assessment, approval, change control, and rollback. Do not configure, validate, or report them as complete in this activity.
 

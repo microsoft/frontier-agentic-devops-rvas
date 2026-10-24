@@ -8,7 +8,7 @@ Live path: 120 minutes. Assessment-only path: 60 minutes. Neither figure include
 
 ## Before you start
 
-Confirm every item below. Missing preview enrollment is not a blocker for the whole activity — it routes you to Step 0 and the assessment path.
+Confirm every item below. If you lack preview enrollment, you can still complete the activity through Step 0 and the assessment path.
 
 - Complete `ghas-admin-03`.
 - Codename MDASH preview enrollment for your tenant (checked in Step 0).
@@ -35,7 +35,7 @@ Check whether your tenant has Codename MDASH preview access: open the Defender p
 
 ### Blocked / assessment-only path
 
-Work through this table with your security lead. It stands on its own — no Defender portal access required.
+Work through this table with your security lead. You do not need Defender portal access.
 
 | Readiness item | Status | Evidence or next step |
 | --- | --- | --- |
@@ -89,14 +89,14 @@ Authorize the GitHub App against your pilot organization, review the onboarding 
 
 ### The connector conflict
 
-Microsoft's own documentation is explicit here: **the GitHub App can't be installed on an organization that's already connected through the Azure portal's GitHub connector** (the one `ghas-admin-07` creates). Attempting it produces an error, not a partial connection.
+Microsoft's documentation states that **the GitHub App can't be installed on an organization that's already connected through the Azure portal's GitHub connector** (the one `ghas-admin-07` creates). Attempting it produces an error, not a partial connection.
 
 If your pilot organization already has that connector:
 
 - Use a **different** pilot organization for this activity, or
 - Disconnect the Azure-portal connector first, following your `ghas-admin-07` rollback plan, and accept that doing so removes that connector's Defender for DevOps capabilities until you reconnect it.
 
-Do not attempt to run both connectors against the same organization at once — the platform does not support it, and this is not a rate limit or quota issue you can work around.
+Do not run both connectors against the same organization at once. The platform does not support it; this is not a rate limit or quota issue you can work around.
 
 ## Step 5: Discover the repository, then scan it
 
@@ -134,7 +134,7 @@ defender status ai-scan <JOB_ID>
 defender status wait <JOB_ID> -o results.sarif
 ```
 
-Use `--severity high` on `submit` to restrict results to high and critical findings only. Review the downloaded SARIF, and check the Defender portal for an HTML view of the same results if your CLI version offers one; verify the exact flag in your installed CLI's `--help` output rather than assuming it matches another version. Keep the CLI's output file separate from any portal-triggered scan results so you don't conflate the two runs when reporting.
+Use `--severity high` on `submit` to restrict results to high and critical findings only. Review the downloaded SARIF. Check the Defender portal for an HTML view of the same results if your CLI version offers one. Verify the exact flag in your installed CLI's `--help` output rather than assuming it matches another version. Keep the CLI's output file separate from any portal-triggered scan results so you don't conflate the two runs when reporting.
 
 ## Optional: GitHub Copilot CLI remediation
 

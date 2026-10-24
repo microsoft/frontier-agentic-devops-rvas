@@ -9,7 +9,7 @@
 
 1. Select an approved customer repository **before** using a sample. Record its repository owner, human-review owners, `CODEOWNERS` coverage, data classification, expected PR volume, and approving customer owner.
 2. Inspect the effective enterprise and organization Copilot policy. Record whether Copilot code review is enabled, who can request it, plan/licensing or AI-credit conditions, and any repository exclusions.
-3. Confirm that Actions/runner, network, and cost owners accept the environment used for agentic review capabilities. A failed or unavailable Actions capability must be recorded; it is not a reason to weaken human review gates.
+3. Confirm that Actions/runner, network, and cost owners accept the environment used for agentic review capabilities. Record any failed or unavailable Actions capability; it is not a reason to weaken human review gates.
 4. If the customer repository or Copilot code review is unavailable, do **not** enable a workaround. Use the decision-package fallback below: record the unavailable condition, evidence, risk owner, proposed scope, rollback, and review date.
 
 ## Safe fallback repository

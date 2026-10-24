@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - Repository administrator access, or a customer owner who can merge workflow and instruction changes to the default branch
   - Copilot Business or Copilot Enterprise availability and the applicable cloud-agent or code-review policy view
   - A concrete runtime, private dependency, or approved runner requirement from Ch19 or Ch32
-description: "Resolve a real Copilot runtime or private-access requirement within approved boundaries."
+description: "Meet a real Copilot runtime or private-access requirement within approved boundaries."
 tags:
   - copilot
   - cloud-agent

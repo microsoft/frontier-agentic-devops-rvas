@@ -7,7 +7,7 @@
 - Repository admin rights in GitHub.
 - An approved Azure identity with a scoped Reader role, plus its owner's approval for a federated credential. This exercise creates no cloud resources.
 - `gh >= 2.x`, `git`, `jq`; Azure CLI is recommended for participant validation.
-- No Azure credentials are accepted by setup scripts.
+- Setup scripts do not accept Azure credentials.
 
 ## Scenario
 

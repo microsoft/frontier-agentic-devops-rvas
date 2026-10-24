@@ -27,9 +27,9 @@ repositories for secret protection, CodeQL, and dependency work. Activities 01 a
 06 share a security-operations repository so activity 06 can measure the rollout
 started in activity 01.
 
-Activities 07 and 08 don't ship a provisioner. They need real external Azure and
-GitHub infrastructure (Activity 07) or reuse Activity 03's pilot repository
-(Activity 08) — see each activity's README for its own prerequisites.
+Activities 07 and 08 don't ship a provisioner. Activity 07 needs real external
+Azure and GitHub infrastructure. Activity 08 reuses Activity 03's pilot repository.
+See each activity's README for its prerequisites.
 
 See [`resources/provisioning/README.md`](resources/provisioning/README.md) for the
 default repository names and the Bash and PowerShell commands. Run `status` after

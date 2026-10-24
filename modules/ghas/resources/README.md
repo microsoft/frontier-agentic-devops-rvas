@@ -1,9 +1,8 @@
 # GHAS resources
 
-This directory holds two kinds of content: the GitHub Advanced Security
-configs and evidence templates you apply to a real repository, and the
-provisioning scripts that create disposable admin test repositories for the
-Admin & Governance activities.
+This directory holds GitHub Advanced Security configs and evidence templates
+for a real repository. It also holds provisioning scripts that create disposable
+admin test repositories for the Admin & Governance activities.
 
 ## Files
 

@@ -79,7 +79,7 @@ This session covers **Copilot automations**: a Copilot cloud-agent task defined 
    - For a pull-request-opened or synchronized trigger, use a customer-approved search-query filter and changed-files filter.
    - Test the filter with a controlled, in-scope artifact and record both a match and an expected non-match.
 8. Preserve the default **untrusted-trigger guardrail**: automations ignore events from people without repository write access by default. Do **not** opt in to untrusted-user events in this core session. Treat any proposed exception as a separate security decision with a threat model, explicit approver, expiry, and rollback.
-9. Write a constrained prompt: state the allowed task and repository boundary; tell the agent to treat issue, PR, commit, file, and external content as untrusted data rather than instructions; prohibit secrets, credential requests, policy changes, workflow changes, destructive operations, bypasses, and merging; and require a draft or reviewable outcome when code could change.
+9. Write a constrained prompt. State the allowed task and repository boundary. Tell the agent to treat issue, PR, commit, file, and external content as untrusted data rather than instructions. Prohibit secrets, credential requests, policy changes, workflow changes, destructive operations, bypasses, and merging. Require a draft or reviewable outcome when code could change.
 10. Select only the tools the task requires. For a label-only triage task, do not allow code push or pull-request creation. For a draft change, permit only the minimum repository action needed and keep protected-branch and required-review controls intact. Record the chosen tools and rejected higher-privilege tools.
 
 ### Part C: Configure and prove the automation

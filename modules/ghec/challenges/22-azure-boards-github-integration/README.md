@@ -77,7 +77,7 @@ git push -u origin boards-link-validation
 3. Open the Azure Boards work item. In the Development section, confirm a GitHub commit link appears. If it does not appear after a short delay, continue to troubleshooting before opening the PR.
 
 ### Part D: Link and merge a pull request
-1. Create a pull request whose description contains the `AB#` mention. Microsoft Learn specifies that `AB#<id>` in a PR description creates the work-item link; a PR title alone does not create the Azure Boards work-item link.
+1. Create a pull request whose description contains the `AB#` mention. Microsoft Learn specifies that `AB#<id>` in a PR description creates the Azure Boards work-item link; a PR title alone does not.
 
 ```bash
 gh pr create \

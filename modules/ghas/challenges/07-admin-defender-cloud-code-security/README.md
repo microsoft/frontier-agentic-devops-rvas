@@ -6,7 +6,7 @@ This activity needs real Azure and GitHub infrastructure that you provision outs
 
 ## What this integration is, and is not
 
-Defender for Cloud reads the code scanning and Dependabot alerts GitHub already produces and correlates them with where that code actually runs: container registries, AKS clusters, and the internet exposure or sensitive-data handling around them. It does not scan your code — CodeQL and Dependabot still do that — and it does not create or publish anything in GitHub for you. A human reads the runtime context and decides what to prioritize, then creates the campaign and any GitHub issue by hand.
+Defender for Cloud reads the code scanning and Dependabot alerts GitHub already produces. It correlates them with where the code runs: container registries, AKS clusters, and the internet exposure or sensitive-data handling around them. It does not scan your code — CodeQL and Dependabot still do that — and it does not create or publish anything in GitHub for you. A human reads the runtime context and decides what to prioritize, then creates the campaign and any GitHub issue by hand.
 
 ## Before you start
 
@@ -66,7 +66,7 @@ Mapping is not instant. Plan your session around these windows, and capture a ti
 2. **Full code-to-runtime mapping.** Microsoft's guidance allows up to 24 hours for the registry and cluster scans to complete and for the repository, image, and workload to link together. **Stop this session here and schedule a return.**
 3. **Criticality propagation.** After you mark a resource critical (next section), allow up to 12 hours for that signal to reach GitHub's `runtime-risk:` filters.
 
-Record the wall-clock time you complete each step. "It's probably done" is not evidence; a timestamp next to a passing validation query is.
+Record the wall-clock time you complete each step. "It's probably done" is not evidence; record a timestamp alongside a passing validation query.
 
 ## Validate the mapping
 
@@ -77,7 +77,7 @@ Once the 24-hour window has passed, open **Microsoft Defender for Cloud > Cloud 
 3. Confirm the image is running on the AKS cluster and that Defender scanned the cluster.
 4. Search the Defender inventory for your container by name.
 
-If the query returns nothing, check that the image was actually pushed and deployed, and that the connector has the permissions in [User roles and permissions](https://learn.microsoft.com/en-us/azure/defender-for-cloud/permissions). A blank query is a signal to check configuration, not proof that the feature doesn't work.
+If the query returns nothing, check that the image was pushed and deployed, and that the connector has the permissions in [User roles and permissions](https://learn.microsoft.com/en-us/azure/defender-for-cloud/permissions). Check the configuration before concluding that the feature doesn't work.
 
 ## Mark resource criticality and confirm the GitHub-side signal
 
@@ -114,7 +114,7 @@ In Defender for Cloud, open a security recommendation tied to your pilot workloa
 
 ## Offboarding
 
-When you're done with the pilot, the rollback owner should disconnect the GitHub connector from **Environment settings** in the Azure portal and remove the ACR/AKS resources if they were created only for this activity. Disconnecting the connector stops new correlation; it does not retroactively erase alerts or campaign history already recorded in GitHub, and Microsoft does not document an exact retention period for Defender-side scan artifacts after disconnect. Confirm cleanup with the Azure owner before closing the tracking issue.
+When you're done with the pilot, the rollback owner should disconnect the GitHub connector from **Environment settings** in the Azure portal and remove the ACR/AKS resources if they were created only for this activity. Disconnecting the connector stops new correlation. It does not erase alerts or campaign history already recorded in GitHub. Microsoft does not document an exact retention period for Defender-side scan artifacts after disconnect. Confirm cleanup with the Azure owner before closing the tracking issue.
 
 ## Completion check
 

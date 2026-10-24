@@ -8,7 +8,7 @@
 - `ghqr` installed locally, available through Docker, or approved for installation during the session.
 - A `GITHUB_TOKEN` with the least privileges needed for the selected scan. Typical GitHub.com scopes are `read:org`, `repo`, `read:audit_log`, `read:user`, and only when in scope, `read:enterprise` and `copilot`.
 - A customer-approved non-secret evidence location for JSON, Markdown, or XLSX output. Do not commit tokens or sensitive raw extracts.
-- Optional: enterprise owner approval for `ghqr scan -e <enterprise>`. Enterprise-only findings must not be inferred from an organization-only scan.
+- Optional: enterprise owner approval for `ghqr scan -e <enterprise>`. Do not infer enterprise-only findings from an organization-only scan.
 
 ## Customer delivery objectives
 

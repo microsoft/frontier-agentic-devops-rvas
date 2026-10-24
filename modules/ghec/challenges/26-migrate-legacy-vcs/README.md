@@ -131,7 +131,7 @@ git clone --mirror "https://dev.azure.com/$ADO_ORG/$ADO_PROJECT/_git/$ADO_GIT_RE
 cd tfvc-git-mirror
 ```
 
-If you need Azure Repos Git repository migration patterns with metadata, use the Azure DevOps Git migration activity (ch21). This activity covers the legacy TFVC-to-Git prerequisite and the source-and-history Git push path.
+To migrate an Azure Repos Git repository with metadata, use the Azure DevOps Git migration activity (ch21). This activity covers converting TFVC to Git first, then pushing source and history with Git.
 
 ### Part D: Perforce: convert with `git-p4`
 

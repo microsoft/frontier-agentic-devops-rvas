@@ -166,8 +166,8 @@ Juice Shop runs on port 3000. In Codespaces, GitHub forwards the port
 automatically. Open the Ports tab and select the forwarded URL. Locally, open
 `http://localhost:3000` in your browser.
 
-Confirm you see the Juice Shop storefront before moving on. This local instance is
-for manual exploit testing only: CodeQL, Dependabot, and secret scanning alerts run
+Confirm you see the Juice Shop storefront before moving on. Use this local instance
+only for manual exploit testing. CodeQL, Dependabot, and secret scanning alerts run
 on the org repository. See [`modules/ghas/setup.md`](../../setup.md) for how the two
 environments work together.
 

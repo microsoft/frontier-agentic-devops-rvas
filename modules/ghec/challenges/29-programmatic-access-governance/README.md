@@ -39,7 +39,7 @@ OAuth App restrictions and GitHub App review are different controls. OAuth restr
    ```
 
    Add the Settings evidence needed to identify repository selection and permissions; this endpoint alone is not a complete authority or scope record.
-4. Inspect **Settings → Personal access tokens**: fine-grained token policy, classic-token policy, active tokens, and pending fine-grained token requests. Record approval requirement, maximum lifetime, restriction status, active-token owners/purpose, request decision, and the effective source level. Use audit-log or API insights where available and permitted to corroborate owner, approval, installation, or policy events; attach the query/export and date rather than claiming unavailable data.
+4. Inspect **Settings → Personal access tokens**: fine-grained token policy, classic-token policy, active tokens, and pending fine-grained token requests. Record approval requirement, maximum lifetime, restriction status, active-token owners/purpose, request decision, and the effective source level. Where available and permitted, use audit-log or API insights to corroborate owner, approval, installation, or policy events. Attach the query/export and date. Do not claim data you cannot access.
 
 ### Part B: Build the programmatic-access inventory
 
