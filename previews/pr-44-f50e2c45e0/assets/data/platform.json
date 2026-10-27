@@ -1,0 +1,4032 @@
+{
+  "generated_at": "2026-10-27T08:26:06.284Z",
+  "modules": [
+    {
+      "id": "ghec",
+      "name": "GitHub Enterprise Cloud",
+      "description": "Configure GitHub Enterprise Cloud policies and development workflows in your organization.",
+      "color": "#0969da",
+      "icon": "icon-ghec.svg",
+      "challenge_count": 41,
+      "catalog_lead_ids": [
+        "ghec-ch00"
+      ],
+      "catalog_track_order": [
+        "admin-governance",
+        "developer-flow",
+        "security",
+        "automation-ai",
+        "migration"
+      ],
+      "tracks": [
+        {
+          "id": "developer-flow",
+          "name": "Developer Flow",
+          "description": "Help developers plan work, review code, and use Codespaces across the organization.",
+          "challenge_count": 9
+        },
+        {
+          "id": "admin-governance",
+          "name": "Admin & Governance",
+          "description": "Set up organization policies, identity, audit logs, and compliance controls.",
+          "challenge_count": 14
+        },
+        {
+          "id": "security",
+          "name": "Security",
+          "description": "Protect code with scanning, Dependabot, and supply-chain controls.",
+          "challenge_count": 2
+        },
+        {
+          "id": "automation-ai",
+          "name": "Automation & AI",
+          "description": "Build automation with Actions, GitHub APIs, webhooks, apps, and AI-assisted workflows.",
+          "challenge_count": 10
+        },
+        {
+          "id": "migration",
+          "name": "Migration",
+          "description": "Move repositories and their history into GitHub Enterprise Cloud from another platform.",
+          "challenge_count": 6
+        }
+      ]
+    },
+    {
+      "id": "ghas",
+      "name": "GitHub Advanced Security",
+      "description": "Use GitHub Advanced Security to detect vulnerabilities and manage fixes across your repositories.",
+      "color": "#cf222e",
+      "icon": "icon-ghas.svg",
+      "challenge_count": 11,
+      "catalog_lead_ids": [],
+      "catalog_track_order": [
+        "admin-governance",
+        "developer-flow"
+      ],
+      "tracks": [
+        {
+          "id": "admin-governance",
+          "name": "Admin & Governance",
+          "description": "Configure GHAS policies and permissions, then manage rollout and reporting across the enterprise.",
+          "challenge_count": 7
+        },
+        {
+          "id": "developer-flow",
+          "name": "Developer Flow",
+          "description": "Find vulnerabilities with GitHub Advanced Security and fix them through pull requests.",
+          "challenge_count": 4
+        }
+      ]
+    },
+    {
+      "id": "ghaw",
+      "name": "GitHub Agentic Workflows",
+      "description": "Build AI agent workflows on GitHub Actions and learn how to run them safely.",
+      "color": "#8250df",
+      "icon": "icon-ghaw.svg",
+      "challenge_count": 7,
+      "catalog_lead_ids": [],
+      "catalog_track_order": [
+        "hello-agent",
+        "repo-concierge",
+        "production-patterns"
+      ],
+      "tracks": [
+        {
+          "id": "hello-agent",
+          "name": "Getting Started",
+          "description": "Set up gh-aw and build basic schedule- and event-triggered workflows.",
+          "challenge_count": 1
+        },
+        {
+          "id": "repo-concierge",
+          "name": "Pull Requests & Issues",
+          "description": "Automate review, triage, contributor guidance, and issue commands.",
+          "challenge_count": 2
+        },
+        {
+          "id": "production-patterns",
+          "name": "Repository Operations",
+          "description": "Automate maintenance, quality, security, and planning, and review the results.",
+          "challenge_count": 4
+        }
+      ]
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "github-adoption",
+      "name": "Standardize software delivery",
+      "tagline": "Give teams a shared development platform with consistent access and delivery controls.",
+      "description": "Plan and release a reviewed change in one customer repository. Check existing controls before adding new ones.",
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "adoption_stage": [
+        "assess",
+        "pilot",
+        "scale",
+        "operate"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance"
+      ],
+      "source_platforms": [
+        "greenfield",
+        "github"
+      ],
+      "success_metrics": [
+        "The customer's GitHub organization has a production repository with teams, permissions, rulesets, required checks, and audit visibility.",
+        "The team's next production pull request runs required checks and merges through the configured ruleset.",
+        "Customer developers use GitHub to plan work, write and review code, and automate delivery."
+      ],
+      "challenge_ids": [
+        "ghec-ch00",
+        "ghec-ch01",
+        "ghec-ch02",
+        "ghec-ch03",
+        "ghec-ch04",
+        "ghec-ch07",
+        "ghec-ch08",
+        "ghec-ch37",
+        "ghec-ch38",
+        "ghec-ch36",
+        "ghec-ch39",
+        "ghec-ch40",
+        "ghec-ch41",
+        "ghec-ch42",
+        "ghec-ch44",
+        "ghec-ch45",
+        "ghec-ch46",
+        "ghec-ch48",
+        "ghec-ch49",
+        "ghas-admin-01",
+        "ghas-admin-05",
+        "ghec-ch51",
+        "ghec-ch09",
+        "ghec-ch10",
+        "ghec-ch14",
+        "ghec-ch19",
+        "ghec-ch20",
+        "ghec-ch28",
+        "ghec-ch29",
+        "ghec-ch27",
+        "ghec-ch30",
+        "ghec-ch32",
+        "ghec-ch31",
+        "ghec-ch33",
+        "ghec-ch34",
+        "ghec-ch05",
+        "ghec-ch18"
+      ],
+      "challenge_count": 37,
+      "duration_minutes": 3420
+    },
+    {
+      "id": "platform-migration",
+      "name": "Migrate development platforms",
+      "tagline": "Move repositories and delivery controls to GitHub, then verify teams can keep working.",
+      "description": "Choose one source platform. Migrate a pilot, rebuild missing controls and verify the team's first post-cutover pull request.",
+      "personas": [
+        "platform-engineer",
+        "platform-governance",
+        "solution-architect",
+        "customer-developer"
+      ],
+      "adoption_stage": [
+        "assess",
+        "pilot",
+        "scale"
+      ],
+      "business_value": [
+        "reduce-migration-risk",
+        "accelerate-cutover",
+        "standardize-delivery"
+      ],
+      "source_platforms": [
+        "azure-devops",
+        "bitbucket",
+        "gitlab",
+        "other"
+      ],
+      "success_metrics": [
+        "A migrated repository in the customer's GitHub organization contains the expected history, default branch, teams, permissions, and rulesets.",
+        "The first production pull request after migration runs GitHub-native checks, security scans, and review requirements before merge.",
+        "The customer's platform team verifies each legacy control's GitHub equivalent or documents its cutover decision."
+      ],
+      "challenge_ids": [
+        "ghec-ch00",
+        "ghec-ch21",
+        "ghec-ch22",
+        "ghec-ch23",
+        "ghec-ch24",
+        "ghec-ch25",
+        "ghec-ch26",
+        "ghec-ch04",
+        "ghec-ch05",
+        "ghec-ch07",
+        "ghec-ch08",
+        "ghec-ch18",
+        "ghec-ch02",
+        "ghas-admin-01",
+        "ghas-admin-02",
+        "ghas-admin-03",
+        "ghas-admin-05",
+        "ghec-ch51",
+        "ghec-ch39",
+        "ghec-ch40",
+        "ghec-ch41",
+        "ghec-ch29"
+      ],
+      "challenge_count": 22,
+      "duration_minutes": 2280
+    },
+    {
+      "id": "ghas-adoption",
+      "name": "Strengthen application security",
+      "tagline": "Apply security checks across repositories and decide who fixes the findings.",
+      "description": "Configure a security pilot or complete a developer remediation case. Use the same alert and repository through review and rescan.",
+      "personas": [
+        "security-lead",
+        "appsec-engineer",
+        "customer-developer",
+        "platform-governance"
+      ],
+      "adoption_stage": [
+        "pilot",
+        "scale",
+        "operate"
+      ],
+      "business_value": [
+        "reduce-security-risk",
+        "shift-left-security",
+        "improve-remediation-flow"
+      ],
+      "source_platforms": [
+        "github",
+        "azure-devops",
+        "bitbucket",
+        "gitlab"
+      ],
+      "success_metrics": [
+        "Approved security configurations apply the intended secret, code, and dependency controls to the customer's repository portfolio.",
+        "Controlled tests prove that push protection, CodeQL merge protection, and dependency review stop risky changes before merge.",
+        "Security Overview, service targets, and a bounded campaign show who owns remediation and which repositories enter the next rollout wave."
+      ],
+      "challenge_ids": [
+        "ghas-admin-01",
+        "ghas-admin-02",
+        "ghas-admin-03",
+        "ghas-admin-05",
+        "ghas-admin-06",
+        "ghas-admin-07",
+        "ghas-admin-08",
+        "ghas-00",
+        "ghas-02",
+        "ghas-03",
+        "ghas-04"
+      ],
+      "challenge_count": 11,
+      "duration_minutes": 980
+    },
+    {
+      "id": "agentic-workflows",
+      "name": "Automate development tasks with AI",
+      "tagline": "Use AI agents for routine repository work, with clear permissions and human review.",
+      "description": "Automate one recurring task in the customer's repository. Use ordinary Actions when fixed rules can handle it.",
+      "personas": [
+        "customer-developer",
+        "platform-engineer",
+        "solution-architect",
+        "platform-governance"
+      ],
+      "adoption_stage": [
+        "pilot",
+        "scale",
+        "operate"
+      ],
+      "business_value": [
+        "automate-repetitive-work",
+        "improve-developer-productivity",
+        "standardize-agent-safety"
+      ],
+      "source_platforms": [
+        "github"
+      ],
+      "success_metrics": [
+        "An agent workflow runs from a real issue, pull request, or CI failure in the customer's GitHub organization.",
+        "Each agent uses documented triggers, least-privilege permissions, allowed tools, logs, and human review points.",
+        "Agent-generated changes land only through pull requests with required checks and reviewer approval."
+      ],
+      "challenge_ids": [
+        "ghaw-00",
+        "ghaw-19",
+        "ghaw-06",
+        "ghaw-07",
+        "ghaw-17",
+        "ghaw-18",
+        "ghaw-21",
+        "ghec-ch30",
+        "ghec-ch19",
+        "ghec-ch29",
+        "ghec-ch32",
+        "ghec-ch31",
+        "ghec-ch33",
+        "ghec-ch34"
+      ],
+      "challenge_count": 14,
+      "duration_minutes": 1185
+    }
+  ],
+  "challenges": [
+    {
+      "id": "ghec-ch00",
+      "title": "Environment setup",
+      "module": "ghec",
+      "track": "developer-flow",
+      "difficulty": "beginner",
+      "duration_minutes": 30,
+      "display_order": 0,
+      "description": "Prepare your development environment and verify GitHub organization access.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub account",
+        "Basic Git and CLI usage",
+        "Approved customer repository with contributor access",
+        "GitHub CLI (gh >= 2.x) installed or available via Codespaces"
+      ],
+      "tags": [
+        "setup",
+        "devcontainer",
+        "ghec"
+      ],
+      "outcomes": [
+        "github-adoption",
+        "platform-migration"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance",
+        "reduce-migration-risk",
+        "accelerate-cutover",
+        "standardize-delivery"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "setup",
+      "references": [
+        "https://docs.github.com/en/codespaces/quickstart",
+        "https://cli.github.com/manual/",
+        "https://docs.github.com/en/enterprise-cloud@latest/admin/overview/about-github-enterprise-cloud",
+        "https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/00-environment-setup/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/00-environment-setup/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch00/README.md"
+    },
+    {
+      "id": "ghec-ch01",
+      "title": "Issues, labels and project boards",
+      "module": "ghec",
+      "track": "developer-flow",
+      "difficulty": "beginner",
+      "duration_minutes": 60,
+      "display_order": 1,
+      "description": "Organize team work with issue labels and a GitHub Projects board.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "Customer repository write access and Projects edit permission",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed",
+        "Reuse the Ch00 repository or an approved sample"
+      ],
+      "tags": [
+        "issues",
+        "labels",
+        "projects-v2",
+        "milestones",
+        "triage",
+        "planning"
+      ],
+      "outcomes": [
+        "github-adoption"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues",
+        "https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository",
+        "https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels",
+        "https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/about-milestones",
+        "https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects",
+        "https://docs.github.com/en/issues/planning-and-tracking-with-projects/automating-your-project/using-the-api-to-manage-projects"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/01-issues-labels-projects/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/01-issues-labels-projects/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch01/README.md"
+    },
+    {
+      "id": "ghec-ch02",
+      "title": "Branches, pull requests and code review",
+      "module": "ghec",
+      "track": "developer-flow",
+      "difficulty": "beginner",
+      "duration_minutes": 75,
+      "display_order": 2,
+      "description": "Set up branch and review rules for merging pull requests.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "Customer repository write access and an administrator for review rules",
+        "Independent human reviewer with write access",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed",
+        "Reuse the Ch01 issue and Ch00 repository"
+      ],
+      "tags": [
+        "pull-requests",
+        "code-review",
+        "codeowners",
+        "branch-protection",
+        "merge-conflicts",
+        "innersource"
+      ],
+      "outcomes": [
+        "github-adoption",
+        "platform-migration"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance",
+        "reduce-migration-risk",
+        "accelerate-cutover",
+        "standardize-delivery"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests",
+        "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners",
+        "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches",
+        "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/about-merge-methods-on-github",
+        "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews",
+        "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-using-the-command-line"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/02-pull-requests-code-review/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/02-pull-requests-code-review/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch02/README.md"
+    },
+    {
+      "id": "ghec-ch03",
+      "title": "Codespaces and dev containers",
+      "module": "ghec",
+      "track": "developer-flow",
+      "difficulty": "intermediate",
+      "duration_minutes": 90,
+      "display_order": 3,
+      "description": "Create a repeatable development environment with Codespaces and dev containers.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub organization with org-owner rights",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed",
+        "Repository provisioned via activity setup script"
+      ],
+      "tags": [
+        "codespaces",
+        "devcontainers",
+        "cloud-development",
+        "port-forwarding",
+        "prebuilds"
+      ],
+      "outcomes": [
+        "github-adoption"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "stretch",
+      "references": [
+        "https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers",
+        "https://docs.github.com/en/codespaces/overview",
+        "https://docs.github.com/en/codespaces/developing-in-a-codespace/forwarding-ports-in-your-codespace",
+        "https://docs.github.com/en/codespaces/prebuilding-your-codespaces/configuring-prebuilds",
+        "https://docs.github.com/en/codespaces/prebuilding-your-codespaces/about-github-codespaces-prebuilds",
+        "https://docs.github.com/en/codespaces/managing-codespaces-for-your-organization/managing-repository-access-for-your-organizations-codespaces",
+        "https://docs.github.com/en/codespaces/customizing-your-codespace/personalizing-github-codespaces-for-your-account",
+        "https://containers.dev/implementors/json_reference/"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/03-codespaces-dev-containers/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/03-codespaces-dev-containers/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch03/README.md"
+    },
+    {
+      "id": "ghec-ch04",
+      "title": "GitHub Actions CI fundamentals",
+      "module": "ghec",
+      "track": "developer-flow",
+      "difficulty": "intermediate",
+      "duration_minutes": 75,
+      "display_order": 4,
+      "description": "Build a GitHub Actions CI pipeline with checks that gate merges.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "Customer repository write access and an administrator for required checks",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed",
+        "Reuse the Ch02 repository and independent reviewer"
+      ],
+      "tags": [
+        "github-actions",
+        "ci",
+        "build-matrix",
+        "caching",
+        "artifacts",
+        "environments"
+      ],
+      "outcomes": [
+        "github-adoption",
+        "platform-migration"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance",
+        "reduce-migration-risk",
+        "accelerate-cutover",
+        "standardize-delivery"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions",
+        "https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax",
+        "https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs",
+        "https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows",
+        "https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts",
+        "https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/04-actions-ci-fundamentals/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/04-actions-ci-fundamentals/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch04/README.md"
+    },
+    {
+      "id": "ghec-ch05",
+      "title": "Safe auto-merge",
+      "module": "ghec",
+      "track": "developer-flow",
+      "difficulty": "advanced",
+      "duration_minutes": 60,
+      "display_order": 5,
+      "description": "Test auto-merge while preserving required CI and independent review.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "Repository administrator and an independent reviewer",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed",
+        "Repository provisioned via activity setup script"
+      ],
+      "tags": [
+        "rulesets",
+        "pull-requests",
+        "automation",
+        "codeowners",
+        "auto-merge",
+        "merge-queue"
+      ],
+      "outcomes": [
+        "github-adoption",
+        "platform-migration"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance",
+        "reduce-migration-risk",
+        "accelerate-cutover",
+        "standardize-delivery"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "stretch",
+      "references": [
+        "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets",
+        "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository",
+        "https://docs.github.com/en/organizations/managing-organization-settings/creating-rulesets-for-repositories-in-your-organization",
+        "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/automatically-merging-a-pull-request",
+        "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners",
+        "https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/creating-a-pull-request-template-for-your-repository",
+        "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue",
+        "https://github.com/actions/labeler",
+        "https://github.com/actions/stale",
+        "https://cli.github.com/manual/gh_pr_merge",
+        "https://cli.github.com/manual/gh_ruleset"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/05-advanced-pr-automation/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/05-advanced-pr-automation/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch05/README.md"
+    },
+    {
+      "id": "ghec-ch07",
+      "title": "Organization and team access",
+      "module": "ghec",
+      "track": "admin-governance",
+      "difficulty": "intermediate",
+      "duration_minutes": 90,
+      "display_order": 7,
+      "description": "Give teams the repository access they need with least-privilege roles.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub organization with org-owner rights",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed",
+        "Approved repositories and consenting non-owner test members"
+      ],
+      "tags": [
+        "teams",
+        "permissions",
+        "repository-roles",
+        "custom-roles",
+        "access-control",
+        "organization-settings"
+      ],
+      "outcomes": [
+        "github-adoption",
+        "platform-migration"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance",
+        "reduce-migration-risk",
+        "accelerate-cutover",
+        "standardize-delivery"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/organizations/organizing-members-into-teams/about-teams",
+        "https://docs.github.com/en/organizations/organizing-members-into-teams/creating-a-team",
+        "https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-repository-roles/repository-roles-for-an-organization",
+        "https://docs.github.com/en/organizations/managing-peoples-access-to-your-organization-with-roles/managing-custom-repository-roles-for-an-organization",
+        "https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-repository-roles/setting-base-permissions-for-an-organization",
+        "https://docs.github.com/en/rest/teams/teams"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/07-teams-roles-permissions/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/07-teams-roles-permissions/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch07/README.md"
+    },
+    {
+      "id": "ghec-ch08",
+      "title": "Repository rulesets and custom properties",
+      "module": "ghec",
+      "track": "admin-governance",
+      "difficulty": "intermediate",
+      "duration_minutes": 90,
+      "display_order": 8,
+      "description": "Apply rulesets across repositories using custom properties.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub organization with org-owner rights",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed",
+        "Approved repositories and a contributor without bypass permission"
+      ],
+      "tags": [
+        "rulesets",
+        "custom-properties",
+        "repository-governance",
+        "policy",
+        "compliance"
+      ],
+      "outcomes": [
+        "github-adoption",
+        "platform-migration"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance",
+        "reduce-migration-risk",
+        "accelerate-cutover",
+        "standardize-delivery"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/organizations/managing-organization-settings/managing-custom-properties-for-repositories-in-your-organization",
+        "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets",
+        "https://docs.github.com/en/organizations/managing-organization-settings/creating-rulesets-for-repositories-in-your-organization",
+        "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/managing-rulesets-for-a-repository",
+        "https://docs.github.com/en/rest/orgs/custom-properties",
+        "https://docs.github.com/en/rest/repos/rules"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/08-rulesets-repo-properties/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/08-rulesets-repo-properties/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch08/README.md"
+    },
+    {
+      "id": "ghec-ch09",
+      "title": "Organization audit investigation and export",
+      "module": "ghec",
+      "track": "admin-governance",
+      "difficulty": "advanced",
+      "duration_minutes": 60,
+      "display_order": 9,
+      "description": "Investigate organization activity and build a repeatable audit-log export.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub organization with org-owner rights",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed"
+      ],
+      "tags": [
+        "audit-log",
+        "api",
+        "streaming",
+        "investigation",
+        "governance"
+      ],
+      "outcomes": [
+        "github-adoption"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "stretch",
+      "references": [
+        "https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization",
+        "https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/audit-log-events-for-your-organization",
+        "https://docs.github.com/en/enterprise-cloud@latest/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization#using-the-audit-log-api",
+        "https://docs.github.com/en/enterprise-cloud@latest/rest/orgs/orgs#get-the-audit-log-for-an-organization",
+        "https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/09-audit-log-streaming/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/09-audit-log-streaming/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch09/README.md"
+    },
+    {
+      "id": "ghec-ch10",
+      "title": "Scoped usage budgets and alerts",
+      "module": "ghec",
+      "track": "admin-governance",
+      "difficulty": "advanced",
+      "duration_minutes": 60,
+      "display_order": 10,
+      "description": "Configure a scoped usage budget and verify its alert and stop settings.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "Authorized billing manager or organization owner for the selected budget",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed"
+      ],
+      "tags": [
+        "billing",
+        "usage",
+        "cost-centers",
+        "budgets",
+        "reporting"
+      ],
+      "outcomes": [
+        "github-adoption"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "stretch",
+      "references": [
+        "https://docs.github.com/en/billing/get-started/introduction-to-billing",
+        "https://docs.github.com/en/billing/managing-billing-for-your-products/viewing-your-product-usage",
+        "https://docs.github.com/en/billing/concepts/budgets-and-alerts",
+        "https://docs.github.com/en/billing/managing-billing-for-your-products/about-billing-for-github-actions",
+        "https://docs.github.com/en/rest/billing/usage",
+        "https://docs.github.com/en/billing/concepts/cost-centers"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/10-billing-cost-centers/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/10-billing-cost-centers/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch10/README.md"
+    },
+    {
+      "id": "ghec-ch14",
+      "title": "SSO, SAML and SCIM identity",
+      "module": "ghec",
+      "track": "security",
+      "difficulty": "advanced",
+      "duration_minutes": 150,
+      "display_order": 14,
+      "description": "Test SAML and SCIM integration with a verified rollback before enforcement.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub organization with org-owner rights",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed",
+        "Customer identity-model decision confirming a non-EMU organization"
+      ],
+      "tags": [
+        "sso",
+        "saml",
+        "scim",
+        "identity",
+        "iam"
+      ],
+      "outcomes": [
+        "github-adoption"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": false,
+      "min_environment": "org",
+      "tier": "stretch",
+      "references": [
+        "https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/understanding-iam-for-enterprises/about-identity-and-access-management",
+        "https://docs.github.com/en/organizations/managing-saml-single-sign-on-for-your-organization/about-identity-and-access-management-with-saml-single-sign-on",
+        "https://docs.github.com/en/organizations/managing-saml-single-sign-on-for-your-organization/connecting-your-identity-provider-to-your-organization",
+        "https://docs.github.com/en/organizations/managing-saml-single-sign-on-for-your-organization/about-scim-for-organizations",
+        "https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/understanding-iam-for-enterprises/about-enterprise-managed-users",
+        "https://docs.github.com/en/rest/scim/scim"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/14-sso-saml-scim/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/14-sso-saml-scim/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch14/README.md"
+    },
+    {
+      "id": "ghec-ch18",
+      "title": "Self-hosted and larger runners",
+      "module": "ghec",
+      "track": "automation-ai",
+      "difficulty": "advanced",
+      "duration_minutes": 120,
+      "display_order": 18,
+      "description": "Choose a runner and verify scoped access and host isolation when self-hosting.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub organization with org-owner rights",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed",
+        "Approved CI repository, with a disposable isolated VM only for self-hosted testing",
+        "Approved organization and repository scope for runner access"
+      ],
+      "tags": [
+        "actions",
+        "self-hosted-runners",
+        "runner-groups",
+        "hardening",
+        "larger-runners"
+      ],
+      "outcomes": [
+        "github-adoption",
+        "platform-migration"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance",
+        "reduce-migration-risk",
+        "accelerate-cutover",
+        "standardize-delivery"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "stretch",
+      "references": [
+        "https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners",
+        "https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/adding-self-hosted-runners",
+        "https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/managing-access-to-self-hosted-runners-using-groups",
+        "https://docs.github.com/en/actions/reference/security/secure-use",
+        "https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/autoscaling-with-self-hosted-runners",
+        "https://docs.github.com/en/actions/using-github-hosted-runners/using-larger-runners/about-larger-runners"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/18-self-hosted-runners/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/18-self-hosted-runners/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch18/README.md"
+    },
+    {
+      "id": "ghec-ch19",
+      "title": "Copilot cloud agent",
+      "module": "ghec",
+      "track": "automation-ai",
+      "difficulty": "advanced",
+      "duration_minutes": 90,
+      "display_order": 19,
+      "description": "Pilot Copilot cloud agent on a scoped issue while preserving human review.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub organization with org-owner rights",
+        "GitHub Copilot license (Business or Enterprise) assigned",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed",
+        "Approved customer issue, required CI, and independent human reviewer"
+      ],
+      "tags": [
+        "copilot",
+        "cloud-agent",
+        "ai-assisted-development",
+        "pull-requests",
+        "automation"
+      ],
+      "outcomes": [
+        "github-adoption",
+        "agentic-workflows"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance",
+        "automate-repetitive-work",
+        "improve-developer-productivity",
+        "standardize-agent-safety"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": false,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent",
+        "https://docs.github.com/en/copilot/concepts/enterprise/cloud-agent-access",
+        "https://docs.github.com/en/copilot/using-github-copilot/coding-agent/using-copilot-to-work-on-an-issue",
+        "https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent",
+        "https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-policies"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/19-copilot-coding-agent/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/19-copilot-coding-agent/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch19/README.md"
+    },
+    {
+      "id": "ghec-ch20",
+      "title": "Close an automation integration gap",
+      "module": "ghec",
+      "track": "automation-ai",
+      "difficulty": "advanced",
+      "duration_minutes": 120,
+      "display_order": 20,
+      "description": "Close one integration gap after testing native GitHub options.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "Approved source and destination access for one integration",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed",
+        "Existing customer repository and working CI",
+        "Node.js 22+ and approved HTTPS hosting only for the optional App path"
+      ],
+      "tags": [
+        "github-apps",
+        "webhooks",
+        "rest-api",
+        "graphql",
+        "actions",
+        "integration"
+      ],
+      "outcomes": [
+        "github-adoption"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "stretch",
+      "references": [
+        "https://docs.github.com/en/rest/quickstart",
+        "https://docs.github.com/en/graphql/guides/forming-calls-with-graphql",
+        "https://docs.github.com/en/issues/planning-and-tracking-with-projects/automating-your-project/using-the-api-to-manage-projects",
+        "https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/authenticating-as-a-github-app-installation",
+        "https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries",
+        "https://docs.github.com/en/webhooks/using-webhooks/redelivering-webhooks",
+        "https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/20-automation-capstone/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/20-automation-capstone/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch20/README.md"
+    },
+    {
+      "id": "ghec-ch21",
+      "title": "Migrate Azure DevOps Repos with GitHub Enterprise Importer",
+      "module": "ghec",
+      "track": "migration",
+      "difficulty": "intermediate",
+      "duration_minutes": 150,
+      "display_order": 21,
+      "description": "Migrate and verify Azure DevOps repositories with GitHub Enterprise Importer.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub organization with org-owner rights",
+        "Azure DevOps Services Cloud organization with at least one Git repo containing pull request history",
+        "GitHub CLI (gh >= 2.4.0) installed",
+        "git installed",
+        "PowerShell only for an optional later bulk migration",
+        "Classic GitHub personal access token available for migration",
+        "Azure DevOps personal access token available for migration",
+        "Ability to authorize a GitHub PAT for SAML SSO when the destination organization enforces SAML"
+      ],
+      "tags": [
+        "azure-devops",
+        "github-enterprise-importer",
+        "migration",
+        "ado2gh",
+        "mannequins",
+        "pull-requests"
+      ],
+      "outcomes": [
+        "platform-migration"
+      ],
+      "personas": [
+        "migration-lead",
+        "platform-engineer",
+        "platform-governance",
+        "solution-architect",
+        "customer-developer"
+      ],
+      "business_value": [
+        "reduce-migration-risk",
+        "accelerate-cutover",
+        "standardize-delivery"
+      ],
+      "adoption_stage": "pilot",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/migrations/using-github-enterprise-importer/understanding-github-enterprise-importer/about-github-enterprise-importer",
+        "https://docs.github.com/en/migrations/ado/understand-migrations-from-azure-devops-to-github",
+        "https://docs.github.com/en/migrations/ado/manage-access",
+        "https://docs.github.com/en/migrations/ado/prepare-for-your-migration-from-azure-devops-to-github",
+        "https://docs.github.com/en/migrations/ado/migrate-your-repositories-from-azure-devops-to-github",
+        "https://docs.github.com/en/migrations/ado/follow-up-tasks"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/21-migrate-azure-devops-repos/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/21-migrate-azure-devops-repos/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch21/README.md"
+    },
+    {
+      "id": "ghec-ch22",
+      "title": "Connect Azure Boards to GitHub",
+      "module": "ghec",
+      "track": "migration",
+      "difficulty": "intermediate",
+      "duration_minutes": 60,
+      "display_order": 22,
+      "description": "Link GitHub changes to work items when the team retains Azure Boards.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub organization with org-owner/admin rights on the target repository",
+        "Azure DevOps Services organization with an Azure Boards project",
+        "Ability to install or request installation of a GitHub Marketplace organization app"
+      ],
+      "tags": [
+        "azure-boards",
+        "github-apps",
+        "migration",
+        "traceability",
+        "work-items",
+        "pull-requests"
+      ],
+      "outcomes": [
+        "platform-migration"
+      ],
+      "personas": [
+        "migration-lead",
+        "engineering-lead",
+        "platform-engineer",
+        "platform-governance",
+        "solution-architect",
+        "customer-developer"
+      ],
+      "business_value": [
+        "reduce-migration-risk",
+        "standardize-delivery",
+        "accelerate-cutover"
+      ],
+      "adoption_stage": "pilot",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://learn.microsoft.com/en-us/azure/devops/boards/github/?view=azure-devops",
+        "https://learn.microsoft.com/en-us/azure/devops/boards/github/install-github-app?view=azure-devops",
+        "https://learn.microsoft.com/en-us/azure/devops/boards/github/connect-to-github?view=azure-devops",
+        "https://learn.microsoft.com/en-us/azure/devops/boards/github/link-to-from-github?view=azure-devops"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/22-azure-boards-github-integration/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/22-azure-boards-github-integration/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch22/README.md"
+    },
+    {
+      "id": "ghec-ch23",
+      "title": "Convert Azure Pipelines to GitHub Actions",
+      "module": "ghec",
+      "track": "migration",
+      "difficulty": "intermediate",
+      "duration_minutes": 150,
+      "display_order": 23,
+      "description": "Convert Azure Pipelines to GitHub Actions and validate the new workflow.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub organization and repository access, ideally the repository migrated from Azure DevOps in ch21",
+        "Azure DevOps organization with at least one Azure Pipeline to convert",
+        "Docker installed and running, because GitHub Actions Importer runs as a container",
+        "GitHub CLI installed with the GitHub Actions Importer extension available",
+        "Azure DevOps personal access token with read access to pipelines, code, releases, service connections, task groups, variable groups, and agent pools"
+      ],
+      "tags": [
+        "github-actions",
+        "actions-importer",
+        "azure-devops",
+        "azure-pipelines",
+        "migration",
+        "ci-cd"
+      ],
+      "outcomes": [
+        "platform-migration"
+      ],
+      "personas": [
+        "platform-engineer",
+        "migration-lead",
+        "platform-governance",
+        "solution-architect",
+        "customer-developer"
+      ],
+      "business_value": [
+        "accelerate-cutover",
+        "automate-repetitive-work",
+        "reduce-migration-risk",
+        "standardize-delivery"
+      ],
+      "adoption_stage": "pilot",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "repo",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/actions/tutorials/migrate-to-github-actions/automated-migrations/use-github-actions-importer",
+        "https://docs.github.com/en/actions/tutorials/migrate-to-github-actions/automated-migrations/azure-devops-migration"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/23-azure-pipelines-to-actions/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/23-azure-pipelines-to-actions/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch23/README.md"
+    },
+    {
+      "id": "ghec-ch24",
+      "title": "Migrate one Bitbucket repository",
+      "module": "ghec",
+      "track": "migration",
+      "difficulty": "advanced",
+      "duration_minutes": 150,
+      "display_order": 24,
+      "description": "Move Bitbucket repositories to GitHub, preserving supported history and metadata.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub org with org-owner rights",
+        "Classic GitHub PAT",
+        "'Server/Data Center path: Bitbucket Server/Data Center 5.14+ instance with admin access, SSH/SFTP or SMB access, and blob storage using AWS S3, Azure Blob, or GitHub-owned storage'",
+        "'Cloud path: bitbucket.org repository and git CLI'",
+        "GitHub CLI >= 2.4.0",
+        "PowerShell only for optional later bulk migration"
+      ],
+      "tags": [
+        "bitbucket",
+        "github-enterprise-importer",
+        "migration",
+        "bbs2gh",
+        "git-mirror",
+        "pull-requests"
+      ],
+      "outcomes": [
+        "platform-migration"
+      ],
+      "personas": [
+        "migration-lead",
+        "platform-engineer",
+        "platform-governance",
+        "solution-architect",
+        "customer-developer"
+      ],
+      "business_value": [
+        "reduce-migration-risk",
+        "accelerate-cutover",
+        "standardize-delivery"
+      ],
+      "adoption_stage": "pilot",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/migrations/using-github-enterprise-importer/understanding-github-enterprise-importer/about-github-enterprise-importer",
+        "https://docs.github.com/en/migrations/using-github-enterprise-importer/migrating-from-bitbucket-server-to-github-enterprise-cloud/about-migrations-from-bitbucket-server-to-github-enterprise-cloud",
+        "https://docs.github.com/en/migrations/using-github-enterprise-importer/migrating-from-bitbucket-server-to-github-enterprise-cloud/overview-of-a-migration-from-bitbucket-server-to-github-enterprise-cloud",
+        "https://docs.github.com/en/migrations/using-github-enterprise-importer/migrating-from-bitbucket-server-to-github-enterprise-cloud/managing-access-for-a-migration-from-bitbucket-server-to-github-enterprise-cloud",
+        "https://docs.github.com/en/migrations/using-github-enterprise-importer/migrating-from-bitbucket-server-to-github-enterprise-cloud/migrating-repositories-from-bitbucket-server-to-github-enterprise-cloud",
+        "https://github.com/github/gh-bbs2gh"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/24-migrate-bitbucket/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/24-migrate-bitbucket/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch24/README.md"
+    },
+    {
+      "id": "ghec-ch25",
+      "title": "Migrate from GitLab to GitHub",
+      "module": "ghec",
+      "track": "migration",
+      "difficulty": "intermediate",
+      "duration_minutes": 120,
+      "display_order": 25,
+      "description": "Move GitLab source history to GitHub and convert its CI workflows.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub organization and repository create rights",
+        "GitLab repository on gitlab.com or self-managed GitLab with branches, tags, history, and a .gitlab-ci.yml file",
+        "git CLI installed",
+        "Docker installed and running, because GitHub Actions Importer runs as a container",
+        "GitHub CLI installed",
+        "GitLab personal access token with read access to the source repository and CI configuration"
+      ],
+      "tags": [
+        "gitlab",
+        "migration",
+        "git-history",
+        "github-actions",
+        "actions-importer",
+        "cutover"
+      ],
+      "outcomes": [
+        "platform-migration"
+      ],
+      "personas": [
+        "migration-lead",
+        "platform-engineer",
+        "platform-governance",
+        "solution-architect",
+        "customer-developer"
+      ],
+      "business_value": [
+        "reduce-migration-risk",
+        "accelerate-cutover",
+        "standardize-delivery"
+      ],
+      "adoption_stage": "pilot",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "repo",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/migrations/overview/migration-paths-to-github",
+        "https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/importing-an-external-git-repository-using-the-command-line",
+        "https://docs.github.com/en/actions/tutorials/migrate-to-github-actions/automated-migrations/use-github-actions-importer"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/25-migrate-gitlab/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/25-migrate-gitlab/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch25/README.md"
+    },
+    {
+      "id": "ghec-ch26",
+      "title": "Convert one legacy VCS repository",
+      "module": "ghec",
+      "track": "migration",
+      "difficulty": "advanced",
+      "duration_minutes": 150,
+      "display_order": 26,
+      "description": "Convert legacy version-control history to Git and verify it before cutover.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub organization with repository create rights",
+        "git CLI installed",
+        "'For SVN: git svn and access to a Subversion repository'",
+        "'For Mercurial: hg and hg-fast-export with Python available'",
+        "'For TFVC: an Azure DevOps organization with Azure Repos access'",
+        "'For Perforce: git-p4 and access to a Perforce depot'",
+        "GitHub CLI installed and authenticated"
+      ],
+      "tags": [
+        "migration",
+        "legacy-vcs",
+        "subversion",
+        "mercurial",
+        "tfvc",
+        "perforce",
+        "github-cli",
+        "git-lfs"
+      ],
+      "outcomes": [
+        "platform-migration"
+      ],
+      "personas": [
+        "migration-lead",
+        "platform-engineer",
+        "platform-governance",
+        "solution-architect",
+        "customer-developer"
+      ],
+      "business_value": [
+        "reduce-migration-risk",
+        "accelerate-cutover",
+        "standardize-delivery"
+      ],
+      "adoption_stage": "assess",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "repo",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/about-source-code-imports-using-the-command-line",
+        "https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/importing-an-external-git-repository-using-the-command-line",
+        "https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/importing-a-subversion-repository",
+        "https://docs.github.com/en/migrations/importing-source-code/using-github-importer/about-github-importer",
+        "https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github",
+        "https://docs.github.com/en/get-started/using-git/troubleshooting-the-2-gb-push-limit"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/26-migrate-legacy-vcs/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/26-migrate-legacy-vcs/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch26/README.md"
+    },
+    {
+      "id": "ghec-ch27",
+      "title": "GitHub Code Quality: Code Health and coverage",
+      "module": "ghec",
+      "track": "security",
+      "difficulty": "intermediate",
+      "duration_minutes": 135,
+      "display_order": 27,
+      "description": "Set up GitHub Code Quality and use coverage data to review code health.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub Team or GitHub Enterprise Cloud organization where GitHub Code Quality is available",
+        "Enterprise approval for GitHub Code Quality when the organization belongs to an enterprise",
+        "Organization owner or repository administrator authorization for the selected customer repository",
+        "GitHub Actions enabled for the repository",
+        "A repository with a supported Code Quality language and a test suite that can produce Cobertura XML coverage",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed"
+      ],
+      "tags": [
+        "github-code-quality",
+        "code-health",
+        "maintainability",
+        "reliability",
+        "code-coverage",
+        "pull-requests",
+        "codeql"
+      ],
+      "outcomes": [
+        "github-adoption"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/code-security/concepts/about-code-quality",
+        "https://docs.github.com/en/code-security/how-tos/maintain-quality-code/enable-code-quality",
+        "https://docs.github.com/en/code-security/how-tos/maintain-quality-code/set-up-code-coverage",
+        "https://docs.github.com/en/code-security/how-tos/maintain-quality-code/interpret-results",
+        "https://docs.github.com/en/code-security/tutorials/improve-code-quality/catch-issues-before-merge",
+        "https://docs.github.com/en/code-security/reference/code-quality/metrics-and-ratings"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/27-github-code-quality/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/27-github-code-quality/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch27/README.md"
+    },
+    {
+      "id": "ghec-ch28",
+      "title": "Enterprise identity and network governance",
+      "module": "ghec",
+      "track": "admin-governance",
+      "difficulty": "advanced",
+      "duration_minutes": 120,
+      "display_order": 28,
+      "description": "Configure one approved enterprise access control and test allowed and denied actions.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "Enterprise owner who can approve and configure the selected access pilot",
+        "Named customer IdP owner",
+        "Named enterprise governance owner and break-glass owner",
+        "Customer organization and identity-boundary decisions"
+      ],
+      "tags": [
+        "enterprise-governance",
+        "enterprise-managed-users",
+        "oidc",
+        "conditional-access",
+        "ip-allow-list",
+        "ssh-certificate-authority",
+        "enterprise-roles"
+      ],
+      "outcomes": [
+        "github-adoption"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "enterprise",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/enterprise-cloud@latest/admin/concepts/identity-and-access-management/enterprise-managed-users",
+        "https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/configuring-authentication-for-enterprise-managed-users/configuring-oidc-for-enterprise-managed-users",
+        "https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/configuring-authentication-for-enterprise-managed-users/about-support-for-your-idps-conditional-access-policy",
+        "https://docs.github.com/en/enterprise-cloud@latest/admin/configuring-settings/hardening-security-for-your-enterprise/restricting-network-traffic-to-your-enterprise-with-an-ip-allow-list",
+        "https://docs.github.com/en/enterprise-cloud@latest/authentication/connecting-to-github-with-ssh/about-ssh-certificate-authorities",
+        "https://docs.github.com/en/enterprise-cloud@latest/admin/concepts/enterprise-fundamentals/roles-in-an-enterprise"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/28-enterprise-identity-network-governance/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/28-enterprise-identity-network-governance/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch28/README.md"
+    },
+    {
+      "id": "ghec-ch29",
+      "title": "Programmatic access governance",
+      "module": "ghec",
+      "track": "admin-governance",
+      "difficulty": "advanced",
+      "duration_minutes": 105,
+      "display_order": 29,
+      "description": "Configure token approval and verify repository scope and revocation with a non-owner request.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "Organization owner who can approve the non-production fine-grained PAT pilot",
+        "GitHub CLI (gh >= 2.x) and jq installed for optional read-only API evidence",
+        "Enterprise owner or authorized enterprise PAT-policy export when enterprise PAT policy is in scope",
+        "Approved private test repository and a consenting non-owner test member",
+        "Approved organization scope and token-policy owner"
+      ],
+      "tags": [
+        "governance",
+        "programmatic-access",
+        "oauth-apps",
+        "github-apps",
+        "fine-grained-pats",
+        "classic-pats"
+      ],
+      "outcomes": [
+        "github-adoption",
+        "platform-migration",
+        "agentic-workflows"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance",
+        "reduce-migration-risk",
+        "accelerate-cutover",
+        "standardize-delivery",
+        "automate-repetitive-work",
+        "improve-developer-productivity",
+        "standardize-agent-safety"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-oauth-access-to-your-organizations-data/about-oauth-app-access-restrictions",
+        "https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-programmatic-access-to-your-organization/reviewing-github-apps-installed-in-your-organization",
+        "https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-programmatic-access-to-your-organization/limiting-oauth-app-and-github-app-access-requests-and-installations",
+        "https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-programmatic-access-to-your-organization/setting-a-personal-access-token-policy-for-your-organization",
+        "https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/enforcing-policies-for-personal-access-tokens-in-your-enterprise",
+        "https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-programmatic-access-to-your-organization/managing-requests-for-personal-access-tokens-in-your-organization",
+        "https://docs.github.com/en/enterprise-cloud@latest/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/29-programmatic-access-governance/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/29-programmatic-access-governance/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch29/README.md"
+    },
+    {
+      "id": "ghec-ch30",
+      "title": "Copilot policy baseline",
+      "module": "ghec",
+      "track": "admin-governance",
+      "difficulty": "advanced",
+      "duration_minutes": 60,
+      "display_order": 30,
+      "description": "Configure Copilot access for a pilot team and verify use and revocation.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "Copilot administrator who can manage policy and access for the pilot",
+        "Copilot Business or Copilot Enterprise availability for the selected feature",
+        "Named owners for Copilot policy, identity management, and offboarding",
+        "Customer-approved non-secret evidence location",
+        "Customer identity-boundary decision"
+      ],
+      "tags": [
+        "copilot",
+        "ai-governance",
+        "enterprise-policy",
+        "access-governance",
+        "mcp",
+        "agent-governance",
+        "compliance"
+      ],
+      "outcomes": [
+        "github-adoption",
+        "agentic-workflows"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance",
+        "automate-repetitive-work",
+        "improve-developer-productivity",
+        "standardize-agent-safety"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/administer-copilot/manage-for-organization/manage-policies",
+        "https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/administer-copilot/manage-for-organization/manage-access",
+        "https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-enterprise-policies",
+        "https://docs.github.com/en/enterprise-cloud@latest/copilot/concepts/agents/agent-apps",
+        "https://docs.github.com/en/enterprise-cloud@latest/copilot/concepts/agents/cloud-agent/mcp-and-cloud-agent",
+        "https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-agents/monitor-agentic-activity"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/30-copilot-ai-governance/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/30-copilot-ai-governance/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch30/README.md"
+    },
+    {
+      "id": "ghec-ch31",
+      "title": "Advanced Copilot environment configuration",
+      "module": "ghec",
+      "track": "automation-ai",
+      "difficulty": "advanced",
+      "duration_minutes": 90,
+      "display_order": 31,
+      "description": "Meet a real Copilot runtime or private-access requirement within approved boundaries.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "Authorized customer repository and accountable repository owner",
+        "Repository administrator access, or a customer owner who can merge workflow and instruction changes to the default branch",
+        "Copilot Business or Copilot Enterprise availability and the applicable cloud-agent or code-review policy view",
+        "A concrete runtime, private dependency, or approved runner requirement from Ch19 or Ch32"
+      ],
+      "tags": [
+        "copilot",
+        "cloud-agent",
+        "code-review",
+        "custom-instructions",
+        "github-actions",
+        "automation"
+      ],
+      "outcomes": [
+        "github-adoption",
+        "agentic-workflows"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance",
+        "automate-repetitive-work",
+        "improve-developer-productivity",
+        "standardize-agent-safety"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "stretch",
+      "references": [
+        "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/customize-the-agent-environment",
+        "https://docs.github.com/en/copilot/concepts/prompting/response-customization?tool=webui",
+        "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions",
+        "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-organization-instructions",
+        "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/configure-secrets-and-variables",
+        "https://docs.github.com/en/copilot/how-tos/copilot-on-github/set-up-copilot/configure-runners"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/31-copilot-environment-instructions/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/31-copilot-environment-instructions/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch31/README.md"
+    },
+    {
+      "id": "ghec-ch32",
+      "title": "Copilot code review",
+      "module": "ghec",
+      "track": "automation-ai",
+      "difficulty": "intermediate",
+      "duration_minutes": 90,
+      "display_order": 32,
+      "description": "Introduce Copilot code review while preserving human approval gates.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub organization with an organization owner and a named repository owner",
+        "GitHub Copilot code review enabled by the effective enterprise or organization policy",
+        "GitHub CLI (gh >= 2.x), git, and jq for the optional fallback setup",
+        "An approved customer repository, or permission to create the isolated fallback repository"
+      ],
+      "tags": [
+        "copilot",
+        "code-review",
+        "pull-requests",
+        "rulesets",
+        "codeowners",
+        "governance"
+      ],
+      "outcomes": [
+        "github-adoption",
+        "agentic-workflows"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance",
+        "automate-repetitive-work",
+        "improve-developer-productivity",
+        "standardize-agent-safety"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/copilot/concepts/agents/code-review",
+        "https://docs.github.com/en/copilot/how-tos/use-copilot-agents/request-a-code-review/use-code-review",
+        "https://docs.github.com/en/copilot/how-tos/copilot-on-github/set-up-copilot/configure-automatic-review",
+        "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/customize-the-agent-environment",
+        "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions",
+        "https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-organization-settings/managing-rulesets-for-repositories-in-your-organization"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/32-copilot-code-review/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/32-copilot-code-review/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch32/README.md"
+    },
+    {
+      "id": "ghec-ch33",
+      "title": "Copilot automations",
+      "module": "ghec",
+      "track": "automation-ai",
+      "difficulty": "advanced",
+      "duration_minutes": 120,
+      "display_order": 33,
+      "description": "Test when an automation runs and independently review its draft pull request.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "A customer-approved private or internal repository with a named repository owner",
+        "Write access for the automation creator and an independent reviewer able to approve pull requests",
+        "A GitHub Copilot plan that includes Copilot cloud agent, with cloud agent and automations allowed for the repository",
+        "A non-EMU repository eligible for Copilot cloud agent",
+        "Named Copilot, security, repository, and audit-evidence owners"
+      ],
+      "tags": [
+        "copilot",
+        "cloud-agent",
+        "automations",
+        "scheduled-automation",
+        "event-driven",
+        "prompt-injection",
+        "auditability"
+      ],
+      "outcomes": [
+        "github-adoption",
+        "agentic-workflows"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance",
+        "automate-repetitive-work",
+        "improve-developer-productivity",
+        "standardize-agent-safety"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": false,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-automations",
+        "https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/create-automations",
+        "https://docs.github.com/en/copilot/concepts/enterprise/cloud-agent-access",
+        "https://docs.github.com/en/copilot/concepts/agents/cloud-agent/risks-and-mitigations",
+        "https://docs.github.com/en/copilot/how-tos/copilot-on-github/use-copilot-agents/manage-and-track-agents",
+        "https://docs.github.com/en/copilot/how-tos/copilot-on-github/set-up-copilot/configure-automatic-review",
+        "https://docs.github.com/en/copilot/concepts/agents/about-github-agentic-workflows"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/33-copilot-automations/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/33-copilot-automations/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch33/README.md"
+    },
+    {
+      "id": "ghec-ch34",
+      "title": "Enterprise agent configuration",
+      "module": "ghec",
+      "track": "admin-governance",
+      "difficulty": "advanced",
+      "duration_minutes": 120,
+      "display_order": 34,
+      "description": "Scale a tested Copilot agent across organizations with reviewed updates and rollback.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "Enterprise owner access to AI Controls, or a named enterprise owner who can approve and apply the implementation",
+        "A customer organization in the enterprise to own the designated .github-private configuration source",
+        "Copilot Business or Copilot Enterprise availability for the intended organizations",
+        "Named enterprise AI-controls, security, platform, and organization-policy owners",
+        "A customer-owned change record, evidence location, and rollback approver"
+      ],
+      "tags": [
+        "copilot",
+        "custom-agents",
+        "ai-controls",
+        "enterprise-governance",
+        "codeowners",
+        "rulesets",
+        "custom-instructions",
+        "change-management"
+      ],
+      "outcomes": [
+        "github-adoption",
+        "agentic-workflows"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance",
+        "automate-repetitive-work",
+        "improve-developer-productivity",
+        "standardize-agent-safety"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "enterprise",
+      "tier": "stretch",
+      "references": [
+        "https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-agents/create-github-private-repo",
+        "https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/administer-copilot/manage-for-enterprise/manage-agents/prepare-for-custom-agents",
+        "https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/create-custom-agents",
+        "https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-organization-instructions",
+        "https://docs.github.com/en/enterprise-cloud@latest/copilot/concepts/prompting/response-customization",
+        "https://docs.github.com/en/enterprise-cloud@latest/copilot/reference/custom-agents-configuration"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/34-enterprise-agent-configuration/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/34-enterprise-agent-configuration/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch34/README.md"
+    },
+    {
+      "id": "ghec-ch36",
+      "title": "Controlled repository intake",
+      "module": "ghec",
+      "track": "admin-governance",
+      "difficulty": "advanced",
+      "duration_minutes": 120,
+      "display_order": 36,
+      "description": "Create Internal repositories through approved requests, with team access and enforced naming.",
+      "prerequisites": [
+        "ghec-ch38"
+      ],
+      "prerequisite_capabilities": [
+        "GitHub Enterprise Cloud organization with Internal repositories and repository policies",
+        "Organization owner who can install a GitHub App and configure policies",
+        "Approved intake repository with Issues and Actions enabled",
+        "Approved teams and an intake maintainer team"
+      ],
+      "tags": [
+        "issue-forms",
+        "github-apps",
+        "repository-creation",
+        "governance",
+        "developer-experience"
+      ],
+      "outcomes": [
+        "github-adoption"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-organization-settings/governing-how-people-use-repositories-in-your-organization",
+        "https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-organization-settings/restricting-repository-creation-in-your-organization",
+        "https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/registering-a-github-app",
+        "https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment",
+        "https://docs.github.com/en/rest/actions/workflow-runs#get-the-review-history-for-a-workflow-run",
+        "https://docs.github.com/en/rest/teams/teams#add-or-update-team-repository-permissions"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/36-controlled-repo-intake/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/36-controlled-repo-intake/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch36/README.md"
+    },
+    {
+      "id": "ghec-ch37",
+      "title": "Review and repair governance with ghqr",
+      "module": "ghec",
+      "track": "admin-governance",
+      "difficulty": "advanced",
+      "duration_minutes": 60,
+      "display_order": 37,
+      "description": "Use ghqr to find a real governance gap, repair it and verify enforcement.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub Enterprise Cloud organization with organization-owner or authorized governance-review access",
+        "Authorized setting owner who can approve and apply one pilot repair",
+        "GitHub CLI (gh >= 2.x) installed for evidence handoff and optional API corroboration",
+        "ghqr CLI or Docker image available",
+        "jq installed for optional JSON triage",
+        "Customer-approved non-secret evidence location",
+        "Optional enterprise owner or authorized enterprise-policy reviewer when the enterprise scan is in scope",
+        "Approved organization scope"
+      ],
+      "tags": [
+        "ghqr",
+        "governance",
+        "posture-review",
+        "settings-review",
+        "evidence",
+        "compliance",
+        "landing-zone"
+      ],
+      "outcomes": [
+        "github-adoption"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "stretch",
+      "references": [
+        "https://github.com/microsoft/ghqr",
+        "https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise",
+        "https://docs.github.com/en/rest/orgs/orgs",
+        "https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization",
+        "https://docs.github.com/en/enterprise-cloud@latest/admin/data-residency/about-github-enterprise-cloud-with-data-residency"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/37-ghqr-governance-quick-review/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/37-ghqr-governance-quick-review/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch37/README.md"
+    },
+    {
+      "id": "ghec-ch38",
+      "title": "Golden-path repository bootstrap",
+      "module": "ghec",
+      "track": "admin-governance",
+      "difficulty": "advanced",
+      "duration_minutes": 90,
+      "display_order": 38,
+      "description": "Prepare a tested repository template and protect its baseline with organization rules.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub organization with org-owner rights",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed",
+        "Approved starter application with working CI"
+      ],
+      "tags": [
+        "repository-templates",
+        "bootstrap",
+        "governance",
+        "developer-experience",
+        "repository-settings"
+      ],
+      "outcomes": [
+        "github-adoption"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository",
+        "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners",
+        "https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-organization-settings/creating-rulesets-for-repositories-in-your-organization"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/38-golden-path-repo-bootstrap/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/38-golden-path-repo-bootstrap/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch38/README.md"
+    },
+    {
+      "id": "ghec-ch39",
+      "title": "Actions secrets and environments",
+      "module": "ghec",
+      "track": "automation-ai",
+      "difficulty": "intermediate",
+      "duration_minutes": 120,
+      "display_order": 39,
+      "description": "Test allowed and denied deployments, then restore the known-good artifact.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub organization with org-owner or repository admin rights",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed",
+        "Ch04 repository with a tested artifact, approved deployment target, and independent environment reviewer"
+      ],
+      "tags": [
+        "actions",
+        "secrets",
+        "environments",
+        "deployment-protection",
+        "governance"
+      ],
+      "outcomes": [
+        "github-adoption",
+        "platform-migration"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance",
+        "reduce-migration-risk",
+        "accelerate-cutover",
+        "standardize-delivery"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions",
+        "https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment",
+        "https://docs.github.com/en/rest/actions/secrets",
+        "https://docs.github.com/en/rest/deployments/environments"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/39-actions-secrets-environments/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/39-actions-secrets-environments/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch39/README.md"
+    },
+    {
+      "id": "ghec-ch40",
+      "title": "Actions OIDC with Azure",
+      "module": "ghec",
+      "track": "automation-ai",
+      "difficulty": "advanced",
+      "duration_minutes": 90,
+      "display_order": 40,
+      "description": "Test OIDC authentication and denial against an existing read-only Azure target.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub organization with repository admin rights",
+        "Existing scoped Azure identity and an owner authorized to approve its federated credential",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed",
+        "Repository provisioned via activity setup script"
+      ],
+      "tags": [
+        "actions",
+        "oidc",
+        "azure",
+        "identity",
+        "cloud-governance"
+      ],
+      "outcomes": [
+        "github-adoption",
+        "platform-migration"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance",
+        "reduce-migration-risk",
+        "accelerate-cutover",
+        "standardize-delivery"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-azure",
+        "https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect",
+        "https://docs.github.com/en/actions/tutorials/authenticate-with-github_token",
+        "https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure-openid-connect"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/40-actions-oidc-azure/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/40-actions-oidc-azure/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch40/README.md"
+    },
+    {
+      "id": "ghec-ch41",
+      "title": "Required reusable workflows",
+      "module": "ghec",
+      "track": "automation-ai",
+      "difficulty": "advanced",
+      "duration_minutes": 120,
+      "display_order": 41,
+      "description": "Require a trusted workflow and test missing, failing, and spoofed checks.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub organization with org-owner or repository admin rights",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed",
+        "Approved workflow source and consumer application with working CI"
+      ],
+      "tags": [
+        "actions",
+        "reusable-workflows",
+        "required-workflows",
+        "rulesets",
+        "governance"
+      ],
+      "outcomes": [
+        "github-adoption",
+        "platform-migration"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance",
+        "reduce-migration-risk",
+        "accelerate-cutover",
+        "standardize-delivery"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows",
+        "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets",
+        "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets",
+        "https://docs.github.com/en/actions/reference/security/secure-use"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/41-required-reusable-workflows/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/41-required-reusable-workflows/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch41/README.md"
+    },
+    {
+      "id": "ghec-ch42",
+      "title": "Repository inventory and lifecycle",
+      "module": "ghec",
+      "track": "admin-governance",
+      "difficulty": "advanced",
+      "duration_minutes": 90,
+      "display_order": 42,
+      "description": "Confirm repository owners and safely test archiving and restoring a repository.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "Approved repositories and an administrator for the archive test",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed",
+        "Accountable owners and approval for archive and restore"
+      ],
+      "tags": [
+        "repository-lifecycle",
+        "governance",
+        "archive",
+        "retention",
+        "ownership"
+      ],
+      "outcomes": [
+        "github-adoption"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/repositories/archiving-a-github-repository/archiving-repositories",
+        "https://docs.github.com/en/repositories/creating-and-managing-repositories/transferring-a-repository",
+        "https://docs.github.com/en/repositories/creating-and-managing-repositories/deleting-a-repository",
+        "https://docs.github.com/en/rest/repos/repos",
+        "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/42-repository-lifecycle-governance/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/42-repository-lifecycle-governance/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch42/README.md"
+    },
+    {
+      "id": "ghec-ch44",
+      "title": "Monitor an approved repository ruleset",
+      "module": "ghec",
+      "track": "admin-governance",
+      "difficulty": "intermediate",
+      "duration_minutes": 60,
+      "display_order": 44,
+      "description": "Install a daily ruleset drift check with a reviewed baseline and a repair owner.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "Approved private repository with an active branch ruleset and a named control owner",
+        "Permission to merge a reviewed Actions workflow",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "Python 3 installed",
+        "Approved review or CI requirements to monitor"
+      ],
+      "tags": [
+        "policy-drift",
+        "governance",
+        "rulesets",
+        "actions",
+        "automation"
+      ],
+      "outcomes": [
+        "github-adoption"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "repo",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/rest/repos/rules#get-a-repository-ruleset",
+        "https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/44-policy-drift-detection/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/44-policy-drift-detection/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch44/README.md"
+    },
+    {
+      "id": "ghec-ch45",
+      "title": "Packages and container registry governance",
+      "module": "ghec",
+      "track": "automation-ai",
+      "difficulty": "intermediate",
+      "duration_minutes": 90,
+      "display_order": 45,
+      "description": "Publish to GHCR with scoped permissions and test who can pull the image by digest.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub organization with package admin and repository admin rights",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed",
+        "Container tooling such as Docker or Podman for the participant validation step",
+        "Approved source Containerfile and a separate consumer repository"
+      ],
+      "tags": [
+        "packages",
+        "ghcr",
+        "container-registry",
+        "governance",
+        "supply-chain"
+      ],
+      "outcomes": [
+        "github-adoption"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry",
+        "https://docs.github.com/en/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility",
+        "https://docs.github.com/en/packages/learn-github-packages/deleting-and-restoring-a-package",
+        "https://docs.github.com/en/actions/publishing-packages/publishing-docker-images"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/45-packages-container-registry-governance/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/45-packages-container-registry-governance/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch45/README.md"
+    },
+    {
+      "id": "ghec-ch46",
+      "title": "Pages publishing governance",
+      "module": "ghec",
+      "track": "developer-flow",
+      "difficulty": "intermediate",
+      "duration_minutes": 90,
+      "display_order": 46,
+      "description": "Publish Pages content, verify who can read it, and roll back through review.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub organization with org-owner rights",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed",
+        "Repository provisioned via activity setup script"
+      ],
+      "tags": [
+        "pages",
+        "publishing",
+        "organization-settings",
+        "governance",
+        "audit-evidence"
+      ],
+      "outcomes": [
+        "github-adoption"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/organizations/managing-organization-settings/managing-the-publication-of-github-pages-sites-for-your-organization",
+        "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site",
+        "https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site",
+        "https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages",
+        "https://docs.github.com/en/rest/pages/pages"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/46-pages-publishing-governance/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/46-pages-publishing-governance/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch46/README.md"
+    },
+    {
+      "id": "ghec-ch48",
+      "title": "Vendor access lifecycle",
+      "module": "ghec",
+      "track": "admin-governance",
+      "difficulty": "advanced",
+      "duration_minutes": 75,
+      "display_order": 48,
+      "description": "Control vendor access from approval through periodic review and offboarding.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "Non-EMU organization with authorized access administrator and consenting test collaborator",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed",
+        "Repository provisioned via activity setup script"
+      ],
+      "tags": [
+        "outside-collaborators",
+        "vendors",
+        "access-review",
+        "governance",
+        "audit-log"
+      ],
+      "outcomes": [
+        "github-adoption"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": false,
+      "min_environment": "org",
+      "tier": "stretch",
+      "references": [
+        "https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-outside-collaborators",
+        "https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-outside-collaborators/adding-outside-collaborators-to-repositories-in-your-organization",
+        "https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-user-access-to-your-organizations-repositories/managing-outside-collaborators/removing-an-outside-collaborator-from-an-organization-repository",
+        "https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-organization-settings/setting-permissions-for-adding-outside-collaborators",
+        "https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization",
+        "https://docs.github.com/en/rest/orgs/outside-collaborators"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/48-vendor-access-lifecycle/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/48-vendor-access-lifecycle/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch48/README.md"
+    },
+    {
+      "id": "ghec-ch49",
+      "title": "Publish an approved, tested release",
+      "module": "ghec",
+      "track": "developer-flow",
+      "difficulty": "advanced",
+      "duration_minutes": 120,
+      "display_order": 49,
+      "description": "Publish the tested artifact after approval and verify refusal and recovery.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub organization with org-owner or repository administrator rights",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed",
+        "Approved repository with build and artifact tests, publication environment, and independent reviewer"
+      ],
+      "tags": [
+        "releases",
+        "governance",
+        "approvals",
+        "tested-artifacts",
+        "audit-evidence"
+      ],
+      "outcomes": [
+        "github-adoption"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases",
+        "https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository",
+        "https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow",
+        "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets",
+        "https://docs.github.com/en/webhooks-and-events/webhooks/webhook-events-and-payloads#release"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/49-release-governance/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/49-release-governance/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch49/README.md"
+    },
+    {
+      "id": "ghec-ch51",
+      "title": "Validate LFS or monorepo controls",
+      "module": "ghec",
+      "track": "developer-flow",
+      "difficulty": "advanced",
+      "duration_minutes": 90,
+      "display_order": 51,
+      "description": "Test an LFS push and fresh clone, or monorepo ownership and targeted CI.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub organization with repository administrator rights",
+        "GitHub CLI (gh >= 2.x) installed",
+        "git installed",
+        "jq installed",
+        "Approved LFS repository or monorepo with working package tests"
+      ],
+      "tags": [
+        "git-lfs",
+        "monorepo",
+        "codeowners",
+        "repository-governance",
+        "storage"
+      ],
+      "outcomes": [
+        "github-adoption",
+        "platform-migration"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "platform-engineer"
+      ],
+      "business_value": [
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance",
+        "reduce-migration-risk",
+        "accelerate-cutover",
+        "standardize-delivery"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage",
+        "https://docs.github.com/en/repositories/working-with-files/managing-large-files/configuring-git-large-file-storage",
+        "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners",
+        "https://docs.github.com/en/repositories/working-with-files/managing-files/about-large-files-on-github",
+        "https://docs.github.com/en/repositories/creating-and-managing-repositories/repository-limits"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghec/challenges/51-lfs-monorepo-governance/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghec/challenges/51-lfs-monorepo-governance/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghec-ch51/README.md"
+    },
+    {
+      "id": "ghas-00",
+      "title": "Prepare the remediation repository",
+      "module": "ghas",
+      "track": "developer-flow",
+      "difficulty": "beginner",
+      "duration_minutes": 20,
+      "display_order": 0,
+      "description": "Check repository access and tests. Provision a sample only when needed.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub account",
+        "Basic Git and CLI usage",
+        "Approved customer repository, or an organization for an isolated practice repository",
+        "GitHub Advanced Security available for the repository visibility you choose",
+        "GitHub Copilot license only when using Copilot assistance"
+      ],
+      "tags": [
+        "setup",
+        "devcontainer",
+        "ghas",
+        "juice-shop",
+        "remediation"
+      ],
+      "outcomes": [
+        "ghas-adoption"
+      ],
+      "personas": [
+        "customer-developer",
+        "appsec-engineer",
+        "security-lead",
+        "platform-governance"
+      ],
+      "business_value": [
+        "reduce-security-risk",
+        "shift-left-security",
+        "improve-remediation-flow"
+      ],
+      "adoption_stage": "pilot",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "setup",
+      "references": [
+        "https://docs.github.com/en/codespaces/quickstart",
+        "https://cli.github.com/manual/",
+        "https://github.com/juice-shop/juice-shop#readme",
+        "https://docs.github.com/en/code-security/getting-started/github-security-features"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghas/challenges/00-environment-setup/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghas/challenges/00-environment-setup/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghas-00/README.md"
+    },
+    {
+      "id": "ghas-02",
+      "title": "Fix injection vulnerabilities",
+      "module": "ghas",
+      "track": "developer-flow",
+      "difficulty": "intermediate",
+      "duration_minutes": 60,
+      "display_order": 2,
+      "description": "Complete one reviewed injection fix with behavior tests and a default-branch rescan.",
+      "prerequisites": [
+        "ghas-00"
+      ],
+      "prerequisite_capabilities": [
+        "Selected injection finding in the approved repository",
+        "Test environment and current CodeQL scanning",
+        "Familiarity with the application's query or execution APIs"
+      ],
+      "tags": [
+        "ghas",
+        "codeql",
+        "injection",
+        "sql-injection",
+        "parameterized-queries",
+        "juice-shop",
+        "autofix",
+        "copilot",
+        "remediation"
+      ],
+      "outcomes": [
+        "ghas-adoption"
+      ],
+      "personas": [
+        "customer-developer",
+        "appsec-engineer",
+        "security-lead",
+        "platform-governance"
+      ],
+      "business_value": [
+        "reduce-security-risk",
+        "shift-left-security",
+        "improve-remediation-flow"
+      ],
+      "adoption_stage": "pilot",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "stretch",
+      "references": [
+        "https://owasp.org/www-community/attacks/SQL_Injection",
+        "https://docs.github.com/en/code-security/responsible-use/security-and-quality-ai-features",
+        "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html",
+        "https://docs.github.com/en/code-security/code-scanning/managing-code-scanning-alerts/managing-code-scanning-alerts-for-your-repository"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghas/challenges/02-fix-injection/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghas/challenges/02-fix-injection/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghas-02/README.md"
+    },
+    {
+      "id": "ghas-03",
+      "title": "Fix XSS and unsafe output",
+      "module": "ghas",
+      "track": "developer-flow",
+      "difficulty": "intermediate",
+      "duration_minutes": 60,
+      "display_order": 3,
+      "description": "Complete one reviewed XSS fix with rendering tests and a default-branch rescan.",
+      "prerequisites": [
+        "ghas-00"
+      ],
+      "prerequisite_capabilities": [
+        "Selected XSS finding in the approved repository",
+        "Test environment and current CodeQL scanning",
+        "Familiarity with the application's output contexts and framework"
+      ],
+      "tags": [
+        "ghas",
+        "codeql",
+        "xss",
+        "cross-site-scripting",
+        "output-encoding",
+        "juice-shop",
+        "autofix",
+        "angular",
+        "remediation"
+      ],
+      "outcomes": [
+        "ghas-adoption"
+      ],
+      "personas": [
+        "customer-developer",
+        "appsec-engineer",
+        "security-lead",
+        "platform-governance"
+      ],
+      "business_value": [
+        "reduce-security-risk",
+        "shift-left-security",
+        "improve-remediation-flow"
+      ],
+      "adoption_stage": "pilot",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "stretch",
+      "references": [
+        "https://owasp.org/www-community/attacks/xss/",
+        "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html",
+        "https://docs.github.com/en/code-security/responsible-use/security-and-quality-ai-features",
+        "https://angular.io/guide/security#preventing-cross-site-scripting-xss"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghas/challenges/03-fix-xss/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghas/challenges/03-fix-xss/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghas-03/README.md"
+    },
+    {
+      "id": "ghas-04",
+      "title": "Fix broken access control",
+      "module": "ghas",
+      "track": "developer-flow",
+      "difficulty": "intermediate",
+      "duration_minutes": 75,
+      "display_order": 4,
+      "description": "Verify one reviewed authorization fix with positive and negative tests, then rescan.",
+      "prerequisites": [
+        "ghas-00"
+      ],
+      "prerequisite_capabilities": [
+        "Selected authorization finding in the approved repository",
+        "Test environment with allowed and denied user scenarios",
+        "Current CodeQL scanning and familiarity with server-side authorization"
+      ],
+      "tags": [
+        "ghas",
+        "codeql",
+        "access-control",
+        "idor",
+        "authorization",
+        "middleware",
+        "juice-shop",
+        "owasp",
+        "remediation"
+      ],
+      "outcomes": [
+        "ghas-adoption"
+      ],
+      "personas": [
+        "customer-developer",
+        "appsec-engineer",
+        "security-lead",
+        "platform-governance"
+      ],
+      "business_value": [
+        "reduce-security-risk",
+        "shift-left-security",
+        "improve-remediation-flow"
+      ],
+      "adoption_stage": "pilot",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "stretch",
+      "references": [
+        "https://owasp.org/Top10/A01_2021-Broken_Access_Control/",
+        "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html",
+        "https://cheatsheetseries.owasp.org/cheatsheets/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet.html",
+        "https://docs.github.com/en/code-security/code-scanning/managing-code-scanning-alerts/managing-code-scanning-alerts-for-your-repository"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghas/challenges/04-broken-access-control/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghas/challenges/04-broken-access-control/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghas-04/README.md"
+    },
+    {
+      "id": "ghas-admin-01",
+      "title": "Security configuration pilot and rollout",
+      "module": "ghas",
+      "track": "admin-governance",
+      "difficulty": "intermediate",
+      "duration_minutes": 105,
+      "display_order": 10,
+      "description": "Pilot an organization security configuration and test enforcement or rollback.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "Organization owner or security manager access",
+        "GitHub Code Security or GitHub Secret Protection entitlement for the pilot repository",
+        "GitHub CLI and Git installed"
+      ],
+      "tags": [
+        "ghas",
+        "security-configurations",
+        "pilot",
+        "rollout",
+        "enforcement",
+        "rollback"
+      ],
+      "outcomes": [
+        "ghas-adoption",
+        "github-adoption",
+        "platform-migration"
+      ],
+      "personas": [
+        "security-lead",
+        "platform-engineer",
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "appsec-engineer"
+      ],
+      "business_value": [
+        "shift-left-security",
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance",
+        "reduce-migration-risk",
+        "accelerate-cutover",
+        "standardize-delivery",
+        "reduce-security-risk",
+        "improve-remediation-flow"
+      ],
+      "adoption_stage": "pilot",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/enterprise-cloud@latest/code-security/how-tos/secure-at-scale/configure-organization-security/establish-complete-coverage/create-custom-configuration",
+        "https://docs.github.com/en/code-security/how-tos/secure-at-scale/configure-organization-security/establish-complete-coverage/apply-custom-configuration",
+        "https://docs.github.com/en/enterprise-cloud@latest/code-security/reference/security-at-scale/configuration-statuses",
+        "https://docs.github.com/en/code-security/reference/security-at-scale/troubleshoot-security-configurations/configuration-issue-diagnosis",
+        "https://docs.github.com/en/rest/code-security/configurations"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghas/challenges/01-admin-security-configuration-pilot-rollout/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghas/challenges/01-admin-security-configuration-pilot-rollout/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghas-admin-01/README.md"
+    },
+    {
+      "id": "ghas-admin-02",
+      "title": "Secret Protection operations",
+      "module": "ghas",
+      "track": "admin-governance",
+      "difficulty": "intermediate",
+      "duration_minutes": 90,
+      "display_order": 11,
+      "description": "Test secret detection and push protection, then verify the alert response.",
+      "prerequisites": [
+        "ghas-admin-01"
+      ],
+      "prerequisite_capabilities": [
+        "Organization-owned test repository with GitHub Secret Protection",
+        "Repository administration and secret-scanning alert access",
+        "Separate reviewer only for the selected delegated-bypass extension",
+        "GitHub CLI, Git, and jq installed"
+      ],
+      "tags": [
+        "ghas",
+        "secret-protection",
+        "secret-scanning",
+        "push-protection",
+        "delegated-bypass",
+        "delegated-dismissal",
+        "custom-patterns",
+        "incident-response"
+      ],
+      "outcomes": [
+        "ghas-adoption",
+        "platform-migration"
+      ],
+      "personas": [
+        "security-lead",
+        "platform-engineer",
+        "developer",
+        "platform-governance",
+        "solution-architect",
+        "customer-developer",
+        "appsec-engineer"
+      ],
+      "business_value": [
+        "shift-left-security",
+        "reduce-migration-risk",
+        "accelerate-cutover",
+        "standardize-delivery",
+        "reduce-security-risk",
+        "improve-remediation-flow"
+      ],
+      "adoption_stage": "operate",
+      "app_dependency": "juice-shop",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/code-security/concepts/secret-security/secret-scanning",
+        "https://docs.github.com/en/code-security/how-tos/secure-your-secrets/prevent-future-leaks/enable-push-protection",
+        "https://docs.github.com/en/code-security/reference/secret-security/supported-secret-scanning-patterns",
+        "https://docs.github.com/en/code-security/secret-scanning/managing-alerts-from-secret-scanning",
+        "https://docs.github.com/en/code-security/concepts/secret-security/delegated-bypass",
+        "https://docs.github.com/en/code-security/how-tos/secure-your-secrets/manage-bypass-requests/review-bypass-requests",
+        "https://docs.github.com/en/code-security/how-tos/secure-your-secrets/customize-leak-detection/define-custom-patterns",
+        "https://docs.github.com/en/code-security/concepts/security-at-scale/delegated-alert-dismissal",
+        "https://docs.github.com/en/rest/secret-scanning/secret-scanning",
+        "https://docs.github.com/en/rest/secret-scanning/custom-patterns"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghas/challenges/02-admin-secret-protection-operations/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghas/challenges/02-admin-secret-protection-operations/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghas-admin-02/README.md"
+    },
+    {
+      "id": "ghas-admin-03",
+      "title": "Configure CodeQL and enforce reviewed fixes",
+      "module": "ghas",
+      "track": "admin-governance",
+      "difficulty": "advanced",
+      "duration_minutes": 150,
+      "display_order": 12,
+      "description": "Configure CodeQL coverage and block vulnerable PRs until their reviewed fixes pass.",
+      "prerequisites": [
+        "ghas-admin-01"
+      ],
+      "prerequisite_capabilities": [
+        "Repository admin access for an organization-owned test repository",
+        "GitHub Code Security enabled for private or internal repository tests",
+        "GitHub CLI, Git, and jq installed",
+        "Repository owner or build engineer available for coverage review"
+      ],
+      "tags": [
+        "ghas",
+        "codeql",
+        "code-scanning",
+        "default-setup",
+        "tool-status",
+        "data-flow",
+        "copilot-autofix",
+        "merge-protection",
+        "rulesets"
+      ],
+      "outcomes": [
+        "ghas-adoption",
+        "platform-migration"
+      ],
+      "personas": [
+        "security-lead",
+        "platform-engineer",
+        "developer",
+        "platform-governance",
+        "solution-architect",
+        "customer-developer",
+        "appsec-engineer"
+      ],
+      "business_value": [
+        "shift-left-security",
+        "reduce-migration-risk",
+        "accelerate-cutover",
+        "standardize-delivery",
+        "reduce-security-risk",
+        "improve-remediation-flow"
+      ],
+      "adoption_stage": "pilot",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/code-security/how-tos/find-and-fix-code-vulnerabilities/configure-code-scanning/configure-code-scanning",
+        "https://docs.github.com/en/enterprise-cloud@latest/code-security/tutorials/customize-code-scanning/evaluate-default-setup",
+        "https://docs.github.com/en/code-security/concepts/code-scanning/tool-status-page",
+        "https://docs.github.com/en/code-security/how-tos/find-and-fix-code-vulnerabilities/manage-your-configuration/codeql-for-compiled-languages",
+        "https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/configuring-advanced-setup-for-code-scanning",
+        "https://docs.github.com/en/code-security/how-tos/manage-security-alerts/manage-code-scanning-alerts/resolve-alerts",
+        "https://docs.github.com/en/rest/code-scanning/code-scanning",
+        "https://docs.github.com/en/code-security/concepts/code-scanning/merge-protection"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghas/challenges/03-admin-codeql-deployment-data-flow-autofix/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghas/challenges/03-admin-codeql-deployment-data-flow-autofix/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghas-admin-03/README.md"
+    },
+    {
+      "id": "ghas-admin-05",
+      "title": "Dependency visibility and pull request protection",
+      "module": "ghas",
+      "track": "admin-governance",
+      "difficulty": "advanced",
+      "duration_minutes": 90,
+      "display_order": 14,
+      "description": "Merge a tested dependency fix and prove required dependency review blocks risky changes.",
+      "prerequisites": [
+        "ghas-admin-01"
+      ],
+      "prerequisite_capabilities": [
+        "Repository admin, Actions, and security-alert access",
+        "Public repository or GitHub Code Security for a private or internal repository",
+        "GitHub CLI, Git, jq, Node.js, and npm installed",
+        "Permission to open and merge controlled dependency pull requests"
+      ],
+      "tags": [
+        "ghas",
+        "dependabot",
+        "dependency-review",
+        "dependency-graph",
+        "dependency-submission",
+        "sbom",
+        "supply-chain",
+        "pull-requests",
+        "rulesets",
+        "license-policy"
+      ],
+      "outcomes": [
+        "ghas-adoption",
+        "github-adoption",
+        "platform-migration"
+      ],
+      "personas": [
+        "security-lead",
+        "platform-engineer",
+        "developer",
+        "customer-developer",
+        "platform-governance",
+        "solution-architect",
+        "appsec-engineer"
+      ],
+      "business_value": [
+        "shift-left-security",
+        "streamline-platform-adoption",
+        "standardize-developer-flow",
+        "improve-governance",
+        "reduce-migration-risk",
+        "accelerate-cutover",
+        "standardize-delivery",
+        "reduce-security-risk",
+        "improve-remediation-flow"
+      ],
+      "adoption_stage": "pilot",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "core",
+      "references": [
+        "https://docs.github.com/en/code-security/concepts/supply-chain-security/dependency-graph-data",
+        "https://docs.github.com/en/code-security/how-tos/secure-your-supply-chain/secure-your-dependencies/use-dependency-submission-api",
+        "https://docs.github.com/en/rest/dependency-graph/dependency-submission",
+        "https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/exporting-a-software-bill-of-materials-for-your-repository",
+        "https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts",
+        "https://docs.github.com/en/code-security/concepts/supply-chain-security/dependabot-security-updates",
+        "https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuring-dependabot-version-updates",
+        "https://docs.github.com/en/code-security/dependabot/working-with-dependabot/configuring-access-to-private-registries-for-dependabot",
+        "https://docs.github.com/en/code-security/concepts/supply-chain-security/dependency-review",
+        "https://github.com/actions/dependency-review-action"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghas/challenges/05-admin-dependency-visibility-pr-protection/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghas/challenges/05-admin-dependency-visibility-pr-protection/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghas-admin-05/README.md"
+    },
+    {
+      "id": "ghas-admin-06",
+      "title": "Run a bounded security campaign",
+      "module": "ghas",
+      "track": "admin-governance",
+      "difficulty": "advanced",
+      "duration_minutes": 90,
+      "display_order": 15,
+      "description": "Publish a code scanning campaign and verify progress from a developer's reviewed fix.",
+      "prerequisites": [
+        "ghas-admin-01",
+        "ghas-admin-03"
+      ],
+      "prerequisite_capabilities": [
+        "Live configuration and CodeQL merge-control evidence, or equivalent verified controls",
+        "Organization owner or security manager campaign access",
+        "Developer with write access to own and test a campaign fix"
+      ],
+      "tags": [
+        "ghas",
+        "security-overview",
+        "security-campaigns",
+        "delegated-dismissal",
+        "exceptions",
+        "remediation"
+      ],
+      "outcomes": [
+        "ghas-adoption"
+      ],
+      "personas": [
+        "security-lead",
+        "platform-engineer",
+        "developer",
+        "appsec-engineer",
+        "customer-developer",
+        "platform-governance"
+      ],
+      "business_value": [
+        "shift-left-security",
+        "reduce-security-risk",
+        "improve-remediation-flow"
+      ],
+      "adoption_stage": "scale",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "stretch",
+      "references": [
+        "https://docs.github.com/en/enterprise-cloud@latest/code-security/concepts/security-at-scale/security-overview",
+        "https://docs.github.com/en/enterprise-cloud@latest/code-security/reference/permissions/security-overview",
+        "https://docs.github.com/en/code-security/concepts/security-at-scale/about-security-campaigns",
+        "https://docs.github.com/en/code-security/how-tos/manage-security-alerts/remediate-alerts-at-scale/creating-managing-security-campaigns",
+        "https://docs.github.com/en/code-security/tutorials/manage-security-alerts/best-practices-for-participating-in-a-security-campaign",
+        "https://docs.github.com/en/code-security/concepts/security-at-scale/delegated-alert-dismissal",
+        "https://docs.github.com/en/rest/campaigns/campaigns"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghas/challenges/06-admin-security-overview-triage-campaigns/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghas/challenges/06-admin-security-overview-triage-campaigns/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghas-admin-06/README.md"
+    },
+    {
+      "id": "ghas-admin-07",
+      "title": "Connect GitHub security findings to production risk",
+      "module": "ghas",
+      "track": "admin-governance",
+      "difficulty": "advanced",
+      "duration_minutes": 120,
+      "display_order": 16,
+      "description": "Trace a repository's alerts to its running AKS workload and scope a campaign by runtime risk.",
+      "prerequisites": [
+        "ghas-admin-03",
+        "ghas-admin-06"
+      ],
+      "prerequisite_capabilities": [
+        "A commercial Azure subscription with Contributor and Security Admin participation",
+        "Defender Cloud Security Posture Management (CSPM) enabled, or permission to enable it",
+        "GitHub organization owner on the pilot organization",
+        "GitHub Code Security enabled on a repository with existing code scanning and Dependabot alerts",
+        "An Azure Container Registry and an AKS cluster, or permission to create them",
+        "A container image the participant can build and push from the pilot repository"
+      ],
+      "tags": [
+        "ghas",
+        "defender-for-cloud",
+        "code-to-runtime",
+        "runtime-risk",
+        "aks",
+        "cloud-security-explorer",
+        "security-campaigns"
+      ],
+      "outcomes": [
+        "ghas-adoption"
+      ],
+      "personas": [
+        "security-lead",
+        "platform-engineer",
+        "developer",
+        "appsec-engineer",
+        "customer-developer",
+        "platform-governance"
+      ],
+      "business_value": [
+        "shift-left-security",
+        "reduce-security-risk",
+        "improve-remediation-flow"
+      ],
+      "adoption_stage": "scale",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "stretch",
+      "references": [
+        "https://learn.microsoft.com/en-us/azure/defender-for-cloud/github-advanced-security-overview",
+        "https://learn.microsoft.com/en-us/azure/defender-for-cloud/github-advanced-security-deploy",
+        "https://learn.microsoft.com/en-us/azure/defender-for-cloud/quickstart-onboard-github",
+        "https://learn.microsoft.com/en-us/azure/defender-for-cloud/agentless-code-scanning",
+        "https://docs.github.com/en/code-security/tutorials/secure-your-organization/prioritize-alerts-in-production-code",
+        "https://docs.github.com/en/code-security/concepts/security-at-scale/about-security-campaigns",
+        "https://docs.github.com/en/code-security/how-tos/manage-security-alerts/remediate-alerts-at-scale/creating-managing-security-campaigns",
+        "https://learn.microsoft.com/en-us/azure/defender-for-cloud/github-advanced-security-deploy-sandbox"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghas/challenges/07-admin-defender-cloud-code-security/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghas/challenges/07-admin-defender-cloud-code-security/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghas-admin-07/README.md"
+    },
+    {
+      "id": "ghas-admin-08",
+      "title": "Onboard and operate Codename MDASH",
+      "module": "ghas",
+      "track": "admin-governance",
+      "difficulty": "advanced",
+      "duration_minutes": 120,
+      "display_order": 17,
+      "description": "Onboard Codename MDASH, scan a pilot repository, and triage findings against CodeQL.",
+      "prerequisites": [
+        "ghas-admin-03"
+      ],
+      "prerequisite_capabilities": [
+        "Codename MDASH preview enrollment for the tenant",
+        "Microsoft Entra Global Administrator or Security Administrator authorized to accept preview terms",
+        "An Azure subscription and resource group for a dedicated Microsoft Foundry resource",
+        "Permission to deploy Azure OpenAI models in Microsoft Foundry",
+        "Defender unified RBAC admin access to assign agentic code security roles",
+        "GitHub organization owner on the pilot organization",
+        "A supported Codename MDASH region for the Foundry resource"
+      ],
+      "tags": [
+        "ghas",
+        "mdash",
+        "agentic-code-scanning",
+        "preview",
+        "defender-rbac",
+        "microsoft-foundry",
+        "defender-cli"
+      ],
+      "outcomes": [
+        "ghas-adoption"
+      ],
+      "personas": [
+        "security-lead",
+        "platform-engineer",
+        "developer",
+        "appsec-engineer",
+        "customer-developer",
+        "platform-governance"
+      ],
+      "business_value": [
+        "shift-left-security",
+        "reduce-security-risk",
+        "improve-remediation-flow"
+      ],
+      "adoption_stage": "assess",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "org",
+      "tier": "stretch",
+      "references": [
+        "https://learn.microsoft.com/en-us/security-exposure-management/ai-code-security-overview",
+        "https://learn.microsoft.com/en-us/security-exposure-management/ai-code-security-onboarding",
+        "https://learn.microsoft.com/en-us/security-exposure-management/mdash-foundry-integration",
+        "https://learn.microsoft.com/en-us/security-exposure-management/create-github-connector",
+        "https://learn.microsoft.com/en-us/security-exposure-management/trigger-on-demand-scan",
+        "https://learn.microsoft.com/en-us/security-exposure-management/defender-cli",
+        "https://learn.microsoft.com/en-us/security-exposure-management/defender-cli-authentication",
+        "https://learn.microsoft.com/en-us/security-exposure-management/run-ai-code-security-scans"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghas/challenges/08-admin-mdash-agentic-code-scanning/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghas/challenges/08-admin-mdash-agentic-code-scanning/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghas-admin-08/README.md"
+    },
+    {
+      "id": "ghaw-00",
+      "title": "Activity 00: Customer workflow setup",
+      "module": "ghaw",
+      "track": "hello-agent",
+      "difficulty": "beginner",
+      "duration_minutes": 30,
+      "display_order": 0,
+      "description": "Verify customer repository and engine access before deploying a reviewed workflow.",
+      "prerequisites": [],
+      "prerequisite_capabilities": [
+        "GitHub account",
+        "Basic Git and CLI usage"
+      ],
+      "tags": [
+        "setup",
+        "devcontainer",
+        "gh-aw"
+      ],
+      "outcomes": [
+        "agentic-workflows"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-engineer",
+        "solution-architect",
+        "platform-governance"
+      ],
+      "business_value": [
+        "automate-repetitive-work",
+        "improve-developer-productivity",
+        "standardize-agent-safety"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "repo",
+      "tier": "setup",
+      "references": [
+        "https://github.com/github/gh-aw",
+        "https://docs.github.com/en/codespaces/quickstart",
+        "https://cli.github.com/manual/"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghaw/challenges/00-setup/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghaw/challenges/00-setup/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghaw-00/README.md"
+    },
+    {
+      "id": "ghaw-06",
+      "title": "Repository-specific review assistant",
+      "module": "ghaw",
+      "track": "repo-concierge",
+      "difficulty": "intermediate",
+      "duration_minutes": 75,
+      "display_order": 6,
+      "description": "Review a repository-specific gap with cited evidence and one updated comment.",
+      "prerequisites": [
+        "ghaw-00"
+      ],
+      "prerequisite_capabilities": [
+        "GitHub Actions basics",
+        "YAML syntax",
+        "gh-aw CLI installed. See ghaw-00.",
+        "A review gap not covered by Copilot or native checks"
+      ],
+      "tags": [
+        "pull-requests",
+        "code-review",
+        "ai-analysis",
+        "comments"
+      ],
+      "outcomes": [
+        "agentic-workflows"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-engineer",
+        "solution-architect",
+        "platform-governance"
+      ],
+      "business_value": [
+        "automate-repetitive-work",
+        "improve-developer-productivity",
+        "standardize-agent-safety"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "repo",
+      "tier": "stretch",
+      "references": [
+        "https://github.github.com/gh-aw/reference/permissions/",
+        "https://github.github.com/gh-aw/reference/safe-outputs/",
+        "https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#github-context",
+        "https://github.com/githubnext/agentics/blob/main/workflows/pr-fix.md"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghaw/challenges/06-review-buddy/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghaw/challenges/06-review-buddy/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghaw-06/README.md"
+    },
+    {
+      "id": "ghaw-07",
+      "title": "Authorized issue summaries",
+      "module": "ghaw",
+      "track": "repo-concierge",
+      "difficulty": "intermediate",
+      "duration_minutes": 75,
+      "display_order": 7,
+      "description": "Authorize summary commands before the model runs and cite decisions in one updated comment.",
+      "prerequisites": [
+        "ghaw-00"
+      ],
+      "prerequisite_capabilities": [
+        "GitHub Actions basics",
+        "YAML syntax",
+        "gh-aw CLI installed. See ghaw-00.",
+        "A maintainer-approved command authorization policy"
+      ],
+      "tags": [
+        "slash-commands",
+        "issue-comments",
+        "ai-summarization",
+        "chatops"
+      ],
+      "outcomes": [
+        "agentic-workflows"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-engineer",
+        "solution-architect",
+        "platform-governance"
+      ],
+      "business_value": [
+        "automate-repetitive-work",
+        "improve-developer-productivity",
+        "standardize-agent-safety"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "repo",
+      "tier": "stretch",
+      "references": [
+        "https://github.github.com/gh-aw/reference/permissions/",
+        "https://github.github.com/gh-aw/reference/safe-outputs/",
+        "https://github.github.com/gh-aw/blog/2026-01-13-meet-the-workflows-interactive-chatops/",
+        "https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#github-context",
+        "https://github.com/githubnext/agentics/blob/main/workflows/q.md"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghaw/challenges/07-slash-and-burn/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghaw/challenges/07-slash-and-burn/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghaw-07/README.md"
+    },
+    {
+      "id": "ghaw-17",
+      "title": "Issue triage for the customer's taxonomy",
+      "module": "ghaw",
+      "track": "production-patterns",
+      "difficulty": "intermediate",
+      "duration_minutes": 60,
+      "display_order": 17,
+      "description": "Apply only approved labels when evidence is clear, then check choices with a maintainer.",
+      "prerequisites": [
+        "ghaw-00"
+      ],
+      "prerequisite_capabilities": [
+        "GitHub Actions basics",
+        "YAML syntax",
+        "gh-aw CLI installed. See ghaw-00."
+      ],
+      "tags": [
+        "issues",
+        "triage",
+        "labels",
+        "production"
+      ],
+      "outcomes": [
+        "agentic-workflows"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-engineer",
+        "solution-architect",
+        "platform-governance"
+      ],
+      "business_value": [
+        "automate-repetitive-work",
+        "improve-developer-productivity",
+        "standardize-agent-safety"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "repo",
+      "tier": "core",
+      "references": [
+        "https://github.com/github/gh-aw",
+        "https://github.com/github/gh-aw/blob/main/.github/workflows/issue-triage-agent.md",
+        "https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax",
+        "https://docs.github.com/en/actions/tutorials/authenticate-with-github_token",
+        "https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghaw/challenges/17-issue-triage-agent/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghaw/challenges/17-issue-triage-agent/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghaw-17/README.md"
+    },
+    {
+      "id": "ghaw-18",
+      "title": "CI doctor",
+      "module": "ghaw",
+      "track": "production-patterns",
+      "difficulty": "intermediate",
+      "duration_minutes": 90,
+      "display_order": 18,
+      "description": "Diagnose approved CI failures from logs without duplicate issues or running failed code.",
+      "prerequisites": [
+        "ghaw-00"
+      ],
+      "prerequisite_capabilities": [
+        "GitHub Actions basics",
+        "YAML syntax",
+        "gh-aw CLI installed. See ghaw-00."
+      ],
+      "tags": [
+        "ci",
+        "workflow-run",
+        "logs",
+        "diagnostics",
+        "production"
+      ],
+      "outcomes": [
+        "agentic-workflows"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-engineer",
+        "solution-architect",
+        "platform-governance"
+      ],
+      "business_value": [
+        "automate-repetitive-work",
+        "improve-developer-productivity",
+        "standardize-agent-safety"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "repo",
+      "tier": "core",
+      "references": [
+        "https://github.com/github/gh-aw",
+        "https://github.com/githubnext/agentics/blob/main/workflows/ci-doctor.md",
+        "https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#workflow_run",
+        "https://docs.github.com/en/actions/how-tos/monitor-workflows/use-workflow-run-logs",
+        "https://docs.github.com/en/actions/tutorials/authenticate-with-github_token"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghaw/challenges/18-ci-doctor/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghaw/challenges/18-ci-doctor/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghaw-18/README.md"
+    },
+    {
+      "id": "ghaw-19",
+      "title": "Reviewed documentation correction",
+      "module": "ghaw",
+      "track": "production-patterns",
+      "difficulty": "intermediate",
+      "duration_minutes": 90,
+      "display_order": 19,
+      "description": "Correct a documentation error in a reviewed PR with code references and passing checks.",
+      "prerequisites": [
+        "ghaw-00"
+      ],
+      "prerequisite_capabilities": [
+        "GitHub Actions basics",
+        "YAML syntax",
+        "gh-aw CLI installed. See ghaw-00.",
+        "An approved documentation error and independent PR reviewer"
+      ],
+      "tags": [
+        "documentation",
+        "manual-pilot",
+        "create-pull-request",
+        "drift-detection",
+        "production"
+      ],
+      "outcomes": [
+        "agentic-workflows"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-engineer",
+        "solution-architect",
+        "platform-governance"
+      ],
+      "business_value": [
+        "automate-repetitive-work",
+        "improve-developer-productivity",
+        "standardize-agent-safety"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "repo",
+      "tier": "core",
+      "references": [
+        "https://github.com/github/gh-aw",
+        "https://github.com/githubnext/agentics/blob/main/workflows/daily-doc-updater.md",
+        "https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule",
+        "https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow",
+        "https://docs.github.com/en/actions/reference/security/secure-use"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghaw/challenges/19-daily-doc-updater/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghaw/challenges/19-daily-doc-updater/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghaw-19/README.md"
+    },
+    {
+      "id": "ghaw-21",
+      "title": "Approved regression-test pilot",
+      "module": "ghaw",
+      "track": "production-patterns",
+      "difficulty": "intermediate",
+      "duration_minutes": 90,
+      "display_order": 21,
+      "description": "Write a regression test for an approved issue and submit a test-only PR for independent review.",
+      "prerequisites": [
+        "ghaw-00"
+      ],
+      "prerequisite_capabilities": [
+        "GitHub Actions basics",
+        "YAML syntax",
+        "gh-aw CLI installed. See ghaw-00.",
+        "An approved issue, test runner, and independent PR reviewer"
+      ],
+      "tags": [
+        "testing",
+        "approval-gate",
+        "create-pull-request",
+        "manual-pilot",
+        "test-quality",
+        "production"
+      ],
+      "outcomes": [
+        "agentic-workflows"
+      ],
+      "personas": [
+        "customer-developer",
+        "platform-engineer",
+        "solution-architect",
+        "platform-governance"
+      ],
+      "business_value": [
+        "automate-repetitive-work",
+        "improve-developer-productivity",
+        "standardize-agent-safety"
+      ],
+      "adoption_stage": "",
+      "app_dependency": "none",
+      "emu_compatible": true,
+      "min_environment": "repo",
+      "tier": "core",
+      "references": [
+        "https://github.com/github/gh-aw",
+        "https://github.com/github/gh-aw/blob/main/.github/workflows/daily-testify-uber-super-expert.md",
+        "https://github.com/githubnext/agentics/blob/main/workflows/daily-test-improver.md",
+        "https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule",
+        "https://docs.github.com/en/actions/tutorials/authenticate-with-github_token"
+      ],
+      "source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "source_path": "modules/ghaw/challenges/21-daily-testify/meta.yml",
+      "source_ref": "main",
+      "student_source_repo": "microsoft/frontier-agentic-devops-rvas",
+      "student_source_path": "modules/ghaw/challenges/21-daily-testify/README.md",
+      "license": "MIT",
+      "student_path": "assets/data/challenges/ghaw-21/README.md"
+    }
+  ],
+  "retired_challenges": {
+    "ghec-ch06": "ghec-ch07",
+    "ghec-ch16": "ghec-ch20",
+    "ghec-ch17": "ghec-ch20",
+    "ghec-ch35": "ghec-ch01",
+    "ghec-ch43": "ghec-ch42",
+    "ghec-ch47": "ghec-ch02",
+    "ghec-ch50": "ghas-admin-05",
+    "ghec-ch52": "ghec-ch07",
+    "ghas-01": "ghas-00",
+    "ghas-05": "ghas-admin-05",
+    "ghas-06": "ghas-admin-06",
+    "ghas-admin-04": "ghas-admin-03",
+    "ghaw-01": "ghaw-07",
+    "ghaw-03": "ghaw-19",
+    "ghaw-08": "ghaw-17",
+    "ghaw-09": "ghaw-17",
+    "ghaw-10": "ghaw-07",
+    "ghaw-11": "ghaw-18",
+    "ghaw-12": "ghaw-06",
+    "ghaw-14": "ghaw-18",
+    "ghaw-16": "ghaw-18",
+    "ghaw-20": "ghaw-19",
+    "ghaw-23": "ghas-admin-06",
+    "ghaw-24": "ghaw-06",
+    "ghaw-25": "ghec-ch01"
+  }
+}

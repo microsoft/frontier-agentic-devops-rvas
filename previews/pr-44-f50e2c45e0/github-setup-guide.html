@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GitHub setup guide. Agentic DevSecOps</title>
+  <meta name="description" content="Install the GitHub Enterprise setup plugin, start with one prompt, review your plan, and resume saved work." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/shell.css" />
+  <link rel="stylesheet" href="assets/css/routes.css" />
+  <link rel="icon" href="assets/img/logo-mark-white.png" />
+</head>
+<body>
+  <header class="nav" role="banner">
+    <!-- Edit this shared template; docs/build.js updates the page headers. -->
+    <div class="nav-inner">
+      <a class="brand" href="index.html" aria-label="RVAS, Agentic DevSecOps">
+        <img src="assets/img/logo-full.png" alt="RVAP" class="rvap-nav-logo" height="32">
+      </a>
+      <nav id="navLinks" class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="catalog.html" data-nav-pages="challenge.html module.html">Catalog</a>
+        <a href="builder.html" data-nav-pages="set.html">Build a set</a>
+        <a href="github-setup.html" data-nav-pages="github-setup-guide.html" aria-current="location">Set up GitHub with a skill</a>
+        <a href="module.html?m=ghec">GHEC</a>
+        <a href="module.html?m=ghas">GHAS</a>
+        <a href="module.html?m=ghaw">GHAW</a>
+        <a class="gh" href="https://github.com/microsoft/frontier-agentic-devops-rvas" target="_blank" rel="noopener"
+          aria-label="View source on GitHub">GitHub ↗</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false"
+          aria-controls="navLinks">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" aria-hidden="true">
+            <path d="M3 6h18M3 12h18M3 18h18" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="guideHeading">
+      <div class="wrap">
+        <span class="eyebrow">GitHub setup guide</span>
+        <h1 id="guideHeading">GitHub setup starts<br /><span class="accent">with your goal.</span></h1>
+        <p class="lede">Start in Copilot CLI with one prompt. The agent checks your current setup and asks for decisions it cannot resolve by inspecting GitHub.</p>
+        <div class="hero-actions"><a class="btn btn-primary" href="#start">Install the plugin &rarr;</a><a class="btn btn-ghost" href="#questions">Start your plan</a></div>
+      </div>
+    </section>
+    <div class="wrap setup-content">
+      <nav class="setup-subnav" aria-label="On this page">
+        <a href="#start">Install</a><a href="#questions">Plan</a><a href="#apply">Approve changes</a><a href="#verify">Resume or assess</a>
+      </nav>
+      <section id="start" aria-labelledby="startHeading">
+        <h2 id="startHeading">Install once</h2>
+        <p>Use GitHub Copilot CLI, signed in to your Copilot account. Install GitHub CLI (<code>gh</code>) and <code>jq</code>, then authenticate <code>gh</code> to the intended GitHub host. The enterprise must already exist.</p>
+        <p>After this package is published, install the plugin from your terminal. You do not need to clone the curriculum or register an MCP server.</p>
+        <pre><code class="language-text">copilot plugin marketplace add microsoft/frontier-agentic-devops-rvas
+copilot plugin install github-enterprise-setup@frontier-agentic-devops
+copilot skill list</code></pre>
+        <p>Check that <code>github-enterprise-setup</code> appears under the plugin source. Open a new Copilot session from the directory where you want to work:</p>
+        <pre><code class="language-text">copilot</code></pre>
+        <p>To update the plugin, run these commands in your terminal:</p>
+        <pre><code class="language-text">copilot plugin marketplace update frontier-agentic-devops
+copilot plugin update github-enterprise-setup</code></pre>
+        <p>To remove the plugin:</p>
+        <pre><code class="language-text">copilot plugin uninstall github-enterprise-setup</code></pre>
+        <div class="setup-note"><strong>Preview.</strong> Packaging and offline workflow checks are tested. Complete a controlled live setup before production use.</div>
+      </section>
+      <section id="questions" aria-labelledby="questionsHeading">
+        <h2 id="questionsHeading">Describe the setup you need</h2>
+        <p>Replace the placeholders below and send this prompt in Copilot. Use <code>github.com</code> or your enterprise's full <code>ghe.com</code> hostname.</p>
+        <pre><code class="language-text">Use the github-enterprise-setup skill to set up enterprise &lt;enterprise-slug&gt;
+on &lt;host&gt;, covering organizations &lt;org-slugs&gt;.
+My goal is &lt;outcome&gt;. Assess current state and recommend changes.
+Ask only for unresolved decisions. Save a plan without changing GitHub.</code></pre>
+        <p>For the outcome, describe the result you need, such as aligning organization governance or setting up team and repository access.</p>
+        <p><strong>The skill starts in Plan mode.</strong> It checks the target and active identity, then gathers evidence without changing GitHub. Inventories within your requested scope do not need another skill-level approval. Copilot's tool permissions still apply.</p>
+        <p>The agent recommends changes and asks you to resolve one decision at a time. Its questions depend on your target and goal. It reuses values you supplied or that it verified through GitHub.</p>
+      </section>
+      <section id="apply" aria-labelledby="applyHeading">
+        <h2 id="applyHeading">Review before requesting Apply</h2>
+        <p>Read <code>plan.md</code>. Check the target, proposed changes, verification checks, and any cost or license effects. Those operations must wait until you meet the prerequisites and other owners finish their required work.</p>
+        <p>When the plan matches your decisions, tell the agent:</p>
+        <pre><code class="language-text">Proceed with the reviewed plan. Present the first write batch for approval.</code></pre>
+        <p><strong>This requests Apply; it does not approve a write.</strong> Review and approve each batch. High-impact changes need a separate typed confirmation. The agent asks before switching accounts or changing authentication scopes.</p>
+      </section>
+      <section id="verify" aria-labelledby="verifyHeading">
+        <h2 id="verifyHeading">Continue saved work</h2>
+        <p>In the same conversation, ask the agent to continue. It reuses the known target and run directory. In a new conversation, supply the full path:</p>
+        <pre><code class="language-text">Use the github-enterprise-setup skill to resume the run at &lt;absolute-run-path&gt;.
+Recheck identity and live state before continuing.</code></pre>
+        <p>On resume, the skill checks the saved files and verifies any writes whose outcome is uncertain before continuing. Changes to the target or effects need new approval. Keep unverified work separate from completed operations.</p>
+        <h3>Get recommendations without a change plan</h3>
+        <pre><code class="language-text">Use the github-enterprise-setup skill in Assess mode for enterprise
+&lt;enterprise-slug&gt; on &lt;host&gt;, covering &lt;scope&gt;. Report gaps and prioritized
+recommendations. Do not create a change plan or change GitHub.</code></pre>
+        <p>Assess stops after the report. Ask to continue into Plan when you want to turn selected recommendations into proposed changes.</p>
+        <p>Use the <a href="catalog.html">hands-on sessions</a> for controls your team needs to learn or test.</p>
+      </section>
+    </div>
+  </main>
+  <footer class="footer" role="contentinfo">
+    <div class="wrap footer-inner">
+      <a class="brand" href="index.html" aria-label="RVAS, Agentic DevSecOps"><img src="assets/img/logo-full.png" alt="RVAP" class="rvap-nav-logo" height="32" /></a>
+      <p>Agentic DevSecOps.</p>
+      <nav class="footer-links" aria-label="Footer"><a href="index.html">Choose a route</a><a href="github-setup.html">Set up GitHub</a><a href="catalog.html">Hands-on sessions</a></nav>
+    </div>
+  </footer>
+  <script src="assets/js/shell.js"></script>
+</body>
+</html>

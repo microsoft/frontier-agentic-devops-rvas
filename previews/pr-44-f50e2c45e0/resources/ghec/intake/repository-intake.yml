@@ -1,0 +1,52 @@
+name: Repository intake
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  contents: read
+
+jobs:
+  review:
+    if: github.event.issue.state == 'open' && startsWith(github.event.issue.title, 'Repository request:')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Show exact request for review
+        run: python3 -S automation/provision.py --preview
+
+  provision:
+    needs: review
+    runs-on: ubuntu-latest
+    environment: repository-provisioning
+    concurrency:
+      group: repository-intake-${{ github.event.issue.number }}
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      actions: read
+      issues: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Mint installation token
+        id: app
+        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2
+        with:
+          app-id: ${{ secrets.PROVISIONER_APP_ID }}
+          private-key: ${{ secrets.PROVISIONER_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          permission-administration: write
+          permission-contents: read
+          permission-members: read
+      - name: Validate approval and provision
+        env:
+          APP_TOKEN: ${{ steps.app.outputs.token }}
+          INTAKE_TOKEN: ${{ github.token }}
+        run: python3 -S automation/provision.py

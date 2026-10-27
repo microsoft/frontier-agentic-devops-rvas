@@ -1,0 +1,52 @@
+name: Verify private image access
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_digest:
+        description: Exact ghcr.io/owner/image@sha256 digest from the publisher
+        required: true
+        type: string
+
+permissions:
+  packages: read
+
+jobs:
+  consume:
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_DIGEST: ${{ inputs.image_digest }}
+      DOCKER_CONFIG: ${{ runner.temp }}/ghcr-consumer
+    steps:
+      - name: Check reference and reject unauthenticated pull
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! "$IMAGE_DIGEST" =~ ^ghcr\.io/[a-z0-9._-]+/[a-z0-9._/-]+@sha256:[a-f0-9]{64}$ ]]; then
+            echo "::error::Supply a GHCR image reference pinned by digest"
+            exit 1
+          fi
+          mkdir -p "$DOCKER_CONFIG"
+          log="$RUNNER_TEMP/unauthenticated-pull.log"
+          if docker pull "$IMAGE_DIGEST" > "$log" 2>&1; then
+            echo "::error::The image is accessible without authentication; expected private access"
+            exit 1
+          fi
+          if ! grep -Eiq 'unauthorized|denied|authentication required' "$log"; then
+            cat "$log"
+            echo "::error::Pull failed without proving access denial"
+            exit 1
+          fi
+      - name: Authenticate read-only consumer
+        env:
+          GHCR_TOKEN: ${{ github.token }}
+        run: printf '%s' "$GHCR_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+      - name: Pull and verify the approved digest
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker pull "$IMAGE_DIGEST"
+          docker image inspect "$IMAGE_DIGEST" --format '{{json .RepoDigests}}' |
+            python3 -c 'import json, os, sys; refs = json.load(sys.stdin); expected = os.environ["IMAGE_DIGEST"]; sys.exit(0 if expected in refs else "Pulled digest does not match the approved image")'
+          printf 'Unauthenticated pull denied. Authorized pull verified: `%s`\n' "$IMAGE_DIGEST" >> "$GITHUB_STEP_SUMMARY"

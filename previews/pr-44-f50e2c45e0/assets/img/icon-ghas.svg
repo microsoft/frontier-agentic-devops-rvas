@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!-- GHAS: Shield with scan lines suggesting security analysis -->
+  <circle cx="24" cy="24" r="22" fill="#f87171" fill-opacity="0.12" stroke="#f87171" stroke-width="1.5" stroke-opacity="0.4"/>
+  <!-- Shield -->
+  <path d="M24 8L10 13v9c0 8.3 6 15.9 14 18 8-2.1 14-9.7 14-18V13L24 8z" stroke="#f87171" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Scan lines inside shield -->
+  <line x1="17" y1="20" x2="31" y2="20" stroke="#f87171" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.6"/>
+  <line x1="17" y1="24" x2="31" y2="24" stroke="#f87171" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.6"/>
+  <line x1="17" y1="28" x2="27" y2="28" stroke="#f87171" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.6"/>
+  <!-- Alert dot -->
+  <circle cx="30" cy="28" r="2.5" fill="#f87171"/>
+</svg>
