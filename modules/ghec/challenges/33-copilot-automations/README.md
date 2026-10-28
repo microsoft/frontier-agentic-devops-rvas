@@ -74,7 +74,7 @@ This session covers **Copilot automations**: a Copilot cloud-agent task defined 
 ### Part B: Design trigger, filters, prompt, and tools
 
 6. Choose a supported repository event and a narrow filter for the maintenance task. State the maximum acceptable run rate and cost owner. A schedule is optional after event tests pass.
-7. For an event trigger, configure and retain its filter evidence:
+7. For an event trigger, configure the filters and keep the test results:
    - For an issue-created trigger, use a customer-approved search-query filter.
    - For a pull-request-opened or synchronized trigger, use a customer-approved search-query filter and changed-files filter.
    - Test the filter with a controlled, in-scope artifact and record both a match and an expected non-match.
@@ -95,7 +95,7 @@ This session covers **Copilot automations**: a Copilot cloud-agent task defined 
 16. Capture audit-log evidence for the configuration/session activity available to the customer administrator, including collector, date/time range, search/export location, and any retention/access limitation. Pair it with the session log; neither replaces the other.
 17. Record the creator and backup contact, with instructions for disabling the automation. Automations are private to their creators, even in team-owned repositories. When the creator leaves, disable the original. The approved successor must recreate and test it.
 18. Define stop conditions: unexpected tool use, a prompt-injection attempt, an untrusted-event exception request, excessive cost/run frequency, sensitive-data exposure, failed checks, or out-of-scope changes. The immediate response is to disable the automation, preserve evidence, notify the named owner, and reassess before re-enabling.
-19. Record whether the automation was enabled for the authorized repository, left disabled, unavailable, or not applicable. Do not label a fallback repository or a dry decision package as a production rollout.
+19. Record whether the automation was enabled for the authorized repository, left disabled, unavailable, or not applicable. A fallback repository or proposed configuration does not count as a production rollout.
 
 ## Decision-package fallback
 

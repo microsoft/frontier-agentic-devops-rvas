@@ -84,7 +84,7 @@ Ask only for unresolved decisions. Save a plan without changing GitHub.</code></
       </section>
       <section id="apply" aria-labelledby="applyHeading">
         <h2 id="applyHeading">Review before requesting Apply</h2>
-        <p>Read <code>plan.md</code>. Check the target, proposed changes, verification checks, and any cost or license effects. Those operations must wait until you meet the prerequisites and other owners finish their required work.</p>
+        <p>Read <code>plan.md</code>. Check the target, proposed changes, verification checks, and any cost or license effects. Before applying changes, meet the prerequisites and wait for other owners to finish any required work.</p>
         <p>When the plan matches your decisions, tell the agent:</p>
         <pre><code class="language-text">Proceed with the reviewed plan. Present the first write batch for approval.</code></pre>
         <p><strong>This requests Apply; it does not approve a write.</strong> Review and approve each batch. High-impact changes need a separate typed confirmation. The agent asks before switching accounts or changing authentication scopes.</p>
@@ -94,7 +94,7 @@ Ask only for unresolved decisions. Save a plan without changing GitHub.</code></
         <p>In the same conversation, ask the agent to continue. It reuses the known target and run directory. In a new conversation, supply the full path:</p>
         <pre><code class="language-text">Use the github-enterprise-setup skill to resume the run at &lt;absolute-run-path&gt;.
 Recheck identity and live state before continuing.</code></pre>
-        <p>On resume, the skill checks the saved files and verifies any writes whose outcome is uncertain before continuing. Changes to the target or effects need new approval. Keep unverified work separate from completed operations.</p>
+        <p>On resume, the skill checks the saved files and verifies any writes whose outcome is uncertain. If the target or planned effects change, it needs new approval. Keep unverified work separate from completed operations.</p>
         <h3>Get recommendations without a change plan</h3>
         <pre><code class="language-text">Use the github-enterprise-setup skill in Assess mode for enterprise
 &lt;enterprise-slug&gt; on &lt;host&gt;, covering &lt;scope&gt;. Report gaps and prioritized

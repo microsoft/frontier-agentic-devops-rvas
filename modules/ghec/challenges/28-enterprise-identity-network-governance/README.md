@@ -23,7 +23,7 @@ Reuse the customer's organization and identity-boundary decisions. Verify curren
 
 1. Select the customer enterprise and record the policy export's source and date. Name the IdP owner and contacts for governance and recovery. Reuse existing decisions.
 2. Inspect the identity model, enterprise authentication protocol, effective enterprise settings, organization-level additions, and existing exceptions. Capture immutable exports, setting screenshots, or API output rather than an assertion alone.
-3. Confirm inheritance explicitly: identify each setting's effective enterprise or organization level and whether an organization can add a stricter/additive entry. Do not infer enterprise coverage from a single organization.
+3. For each setting, identify whether the enterprise or organization controls it and whether an organization can add stricter rules or extra entries. Do not infer enterprise coverage from a single organization.
 
 ### Part B: Decide the identity and network enforcement path
 
@@ -44,7 +44,7 @@ Reuse the customer's organization and identity-boundary decisions. Verify curren
 
 ### Part E: Verify and hand over
 
-12. Reconcile the identity, network, SSH CA, and enterprise-role findings with the source exports. Confirm each effective level, accountable owner, exception, review/rotation date, and rollback or break-glass path.
+12. Check the identity, network, SSH CA, and enterprise-role findings against the source exports. Confirm each setting's effective level, owner, exceptions, review or rotation date, and rollback or break-glass path.
 13. Have the enterprise owner approve the selected control, affected users, and rollback. Keep the baseline and approval in the existing change record.
 
 ### Part F: Put the selected control to work

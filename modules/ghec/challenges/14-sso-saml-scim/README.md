@@ -16,7 +16,7 @@ This optional session needs an authorized non-EMU test organization, an IdP admi
 - Configure SAML SSO for an organization against a real IdP (Entra ID / Okta), validate it in test mode, then enforce it.
 - Authorize a PAT/SSH key for SSO so API and git access keep working under SAML.
 - Enable SCIM provisioning so creating/deactivating a user in the IdP creates/suspends the GitHub org membership automatically.
-- Audit external identities (who is linked to which IdP identity) via the SCIM/SAML API.
+- Check which GitHub accounts are linked to which IdP identities via the SCIM/SAML API.
 
 ## Scenario
 A GHEC customer manages identity in its IdP and wants corporate SSO and automated GitHub membership provisioning and removal. Connect a test IdP at organization scope, test the SCIM join/leave lifecycle, and audit identity links. Review the enterprise-account and EMU variants without configuring them.
@@ -56,7 +56,7 @@ Setup creates these resources (all names use the `ghec-ch14-*` prefix, and teard
 ### Part A: Identity models and IdP app
 1. Confirm with the identity owner that the target uses personal accounts and supports organization SAML/SCIM. Record the identity model in the existing runbook. Use the IAM reference if the model is unclear; do not configure organization SAML/SCIM in EMU.
 2. In Entra ID (Enterprise applications → New → GitHub.com Organization) or Okta, create the SAML app. Record the entity ID, ACS/Reply URL (`https://github.com/orgs/<org>/saml/consume`), sign-on URL, and issuer in the runbook.
-3. Capture the signing certificate from the IdP; you'll paste its public cert into GitHub.
+3. Copy the IdP's public signing certificate for the GitHub configuration.
 
 ### Part B: Configure SAML in test mode
 4. Go to Org Settings → Authentication security and enter the Sign-on URL, Issuer, and the IdP public certificate.

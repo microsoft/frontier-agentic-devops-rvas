@@ -21,7 +21,7 @@ controls. Record each one's result as passed, not selected, or blocked.
 
 ## Provision the test repository
 
-For an approved customer repository, skip fixture provisioning and apply only the controls and response steps it needs. Do not seed synthetic secrets into production history. Use the isolated fixture for detection or bypass practice; use the customer path below for a real incident.
+For an approved customer repository, skip fixture provisioning and apply only the controls and response steps it needs. Do not seed synthetic secrets into production history. Practice detection or bypass in the isolated fixture. For a real incident, use the customer path below.
 
 The fixture imports OWASP Juice Shop at `v20.0.0`, strips upstream Git history, and creates new GHAS lab history. It then adds two synthetic AWS credential pairs on `main`, a safe custom-pattern candidate, `SECRETS-MANIFEST.md`, and the `seed/push-protection-history` branch.
 
@@ -293,8 +293,8 @@ The core path passes only when GitHub shows all of these results:
 If you tested delegated bypass, record the separate review and queryable bypass
 alert. For a custom pattern, record the published pattern and live alert.
 Mark required but unavailable features **blocked**. Mark unused branches
-**not selected** and state when the customer would need them. These statuses do not
-prove the feature works. A draft or dry run cannot replace live evidence.
+**not selected** and state when the customer would need them. Neither status,
+a draft, nor a dry run proves the feature works.
 
 ## References
 

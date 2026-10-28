@@ -44,7 +44,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch19 --org <org>
 
 Setup is idempotent. All artifact names use the `ghec-ch19-*` prefix, and teardown is prefix-guarded. Setup creates:
 - A small seeded repo `ghec-ch19-copilot-coding-agent` with one bug and a failing test. It does not use Juice Shop, so agent runs remain short and easy to assess.
-- A CI workflow that runs the test suite (so the agent's fix can be verified green).
+- A CI workflow that runs the test suite to verify the agent's fix.
 - A seeded issue describing the bug, reproduction steps, and acceptance criteria, ready to assign to Copilot.
 - Setup guidance for the required CI and human-review gates below.
 
@@ -55,7 +55,7 @@ Setup is idempotent. All artifact names use the `ghec-ch19-*` prefix, and teardo
 2. Confirm non-EMU. Ensure the repo is not in an EMU-managed enterprise. If `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19` flagged EMU, stop. This activity cannot run there.
 3. Open the seeded issue and read its repro + acceptance criteria so you can judge the agent's output later.
 
-Before assigning it, review the [first-run setup and instructions](../../resources/copilot-first-run.md). Reuse working configuration; add only the build commands and task boundaries this repository needs. Require the actual CI check and independent human review before delegation. Ch31 is optional for an actual private-dependency or runner gap.
+Before assigning it, review the [first-run setup and instructions](../../resources/copilot-first-run.md). Reuse working configuration; add only the build commands and task boundaries this repository needs. Require the actual CI check and independent human review before delegation. Use Ch31 only if private dependencies or runners need setup.
 
 ### Part B: Delegate to the agent
 4. Assign the issue to Copilot. On the seeded issue, add Copilot as the assignee (Assignees → Copilot). This triggers an agent session.
@@ -63,7 +63,7 @@ Before assigning it, review the [first-run setup and instructions](../../resourc
 6. Follow the session. Read the agent's progress/session log on the PR (its plan, the files it's touching, the commands it runs in the ephemeral environment).
 
 ### Part C: Review the draft PR
-7. Read the diff critically. Does the change actually fix the pinned bug? Does it touch anything it shouldn't? Check CI on the PR.
+7. Check that the diff fixes the reported bug and stays within scope. Check CI on the PR.
 8. Run/confirm the tests. Confirm the previously failing test is now green in the PR's CI run.
 9. Leave a review. Comment on a specific line with a concrete request (e.g., "handle the empty-input case too" or "add a test for X").
 

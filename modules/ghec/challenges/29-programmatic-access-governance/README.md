@@ -19,7 +19,7 @@ automation. Do not create or reconfigure an App.
 
 Use the customer's approved organization scope. Check current App permissions and approval settings here.
 
-First establish the **effective source level** for every setting: organization-managed, enterprise-enforced/inherited, or unavailable to the current inspector. An organization owner may inspect organization settings; do not infer enterprise policy from a missing organization control.
+For every setting, identify **who controls it**: the organization or the enterprise. Mark settings you cannot inspect as unavailable. Do not infer enterprise policy from a missing organization control.
 
 OAuth App restrictions and GitHub App review are different controls. OAuth restrictions are organization-only; enabling OAuth restrictions **for the first time immediately disrupts existing OAuth Apps** until they are approved. For installed GitHub Apps, identify who authorized installation, review permissions and repository scope, and set a recurring review date.
 
@@ -31,7 +31,7 @@ OAuth App restrictions and GitHub App review are different controls. OAuth restr
 
 1. Record the organization, customer owner, approval boundary, whether it is EMU, and the available role: organization owner, enterprise owner, or authorized enterprise-policy export.
 2. If the selected automation also uses an App, inspect its access under **Settings → Third-party access**. Identify the owner, repository selection, and permissions. Otherwise skip App inventory.
-3. For that App review, capture a read-only installed-App snapshot where API access is available:
+3. If API access is available, capture the installed-App snapshot:
 
    ```bash
    gh api /orgs/<org>/installations --paginate \

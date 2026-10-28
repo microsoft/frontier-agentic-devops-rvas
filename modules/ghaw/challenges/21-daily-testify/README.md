@@ -107,8 +107,8 @@ or approved mutation and run the same command. It must fail at the intended
 assertion, not because dependencies or imports are missing. Restore the good
 state and confirm it passes again.
 
-Attach command outputs and the tested revisions to the PR. Production changes
-used to check that the test fails must not enter the PR. Have an independent
+Attach command outputs and the tested revisions to the PR. Keep any code changes
+used to trigger the regression out of the PR. Have an independent
 reviewer confirm the assertion catches the issue, then complete the
 [shared acceptance check](../../setup.md#pilot-acceptance).
 

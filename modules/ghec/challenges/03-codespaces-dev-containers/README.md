@@ -18,7 +18,7 @@ Use this optional session when the Ch00 repository needs a shared development im
 - Reuse approved machine-type and retention policy. Add a prebuild only when startup time warrants it.
 
 ## Scenario
-New engineers at a GHEC customer spend a day configuring local tools before they can run the app. Configure a committed dev container and a prebuild to shorten setup. Set an org policy to control costs, then test the environment on a seeded Node service.
+New engineers at a GHEC customer spend a day configuring local tools before they can run the app. Commit a dev container, check the org's cost policy, and test the environment. Add a prebuild only if startup is too slow.
 
 > [!IMPORTANT]
 > Use an approved customer target first. If you have a candidate repository, use it everywhere this guide says `ghec-ch03-codespaces-dev-containers` and skip Setup. Otherwise use the fallback seeded repo below for testing, then move the validated configuration to an approved customer target.
@@ -40,7 +40,6 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch03 --org <org>
 Setup creates these resources (all names use the `ghec-ch03-*` prefix, and teardown is prefix-guarded):
 - A seeded repo `ghec-ch03-codespaces-dev-containers` with a small Node/Express app, a `package.json`, and a deliberately minimal `.devcontainer/devcontainer.json` so you can extend it.
 - A `README` describing how to run the app locally.
-- A printed Next steps block telling you where to start.
 
 ## Tasks
 > `ghec-ch03-codespaces-dev-containers` is the fallback sample name; substitute your own artifact's name if you brought one.

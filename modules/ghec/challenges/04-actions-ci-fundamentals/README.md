@@ -12,7 +12,7 @@
 - Write a workflow from scratch: `on` triggers, `jobs`, `steps`, and `runs-on`.
 - Run the repository's existing tests on one supported runtime.
 - Produce and download a test report.
-- Gate a `main` merge on a required status check so red CI blocks merges.
+- Require a passing status check before merging to `main`.
 - Leave deployment environments to Ch39.
 
 ## Scenario
@@ -39,7 +39,6 @@ Setup creates these resources (all names use the `ghec-ch04-*` prefix, and teard
 - A seeded repo `ghec-ch04-actions-ci-fundamentals` with a small Node app that has a passing test suite and at least one intentionally failing test behind a flag (so you can demonstrate red→green gating).
 - A `package.json` with `test`, `build`, and `lint` scripts.
 - A minimal starter workflow (`.github/workflows/ci.yml`) that only echoes. You will replace it with a CI pipeline.
-- A printed Next steps block telling you where to start.
 
 ## Tasks
 > `ghec-ch04-actions-ci-fundamentals` is the fallback sample name; substitute your own artifact's name if you brought one.

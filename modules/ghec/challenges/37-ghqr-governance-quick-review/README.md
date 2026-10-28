@@ -23,9 +23,8 @@ You will:
 
 `ghqr` checks many GitHub surfaces, including security settings, access control, branch protection, Copilot policy, audit logs, Actions policy, dependencies, repository metadata, and community-health files. Use it to speed up assessment. It does not replace customer risk decisions.
 
-Use these guardrails throughout:
+During the review:
 
-- Run read-only scans unless a separate customer change approval exists.
 - Store only non-secret report artifacts in the evidence location.
 - Record token scopes and reviewer role, but never store token values.
 - Do not change settings without separate customer approval.
@@ -109,7 +108,7 @@ Use these guardrails throughout:
 ### Part E: Triage and corroborate findings
 
 14. Review findings that need action and identify the owner and configuration level for each. Check them against settings or API evidence. Mark unavailable evidence as unverified.
-15. Corroborate at least one finding with GitHub settings or API output. Examples:
+15. Verify at least one finding against GitHub settings or API output. Examples:
 
    ```bash
    gh api /orgs/<org> --jq '{default_repository_permission, members_can_create_repositories, members_can_create_public_repositories, members_can_fork_private_repositories}'

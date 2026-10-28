@@ -12,7 +12,7 @@
 ## What you will deliver
 - Create a team hierarchy (parent + child teams) and understand how nested teams inherit access from their parent.
 - Grant teams access to repositories at the correct predefined repository role (Read / Triage / Write / Maintain / Admin).
-- Reason about how base (org) permission combines with team grants (the more permissive wins).
+- Check how base (org) permissions combine with team grants: the higher permission wins.
 - Create and assign a custom repository role with a precise permission set that no predefined role matches.
 - Add members to teams (and via teams to repos) and verify effective permissions from the API.
 - Map an org chart to a least-privilege access model and document it.
@@ -40,8 +40,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch07 --org <org>
 Setup creates these resources (all names use the `ghec-ch07-*` prefix, and teardown is prefix-guarded):
 - Three seeded repos: `ghec-ch07-frontend`, `ghec-ch07-backend`, and `ghec-ch07-platform`. Each has a short `README` and a `src/` tree.
 - A starter team `ghec-ch07-engineering` with one member (you), no child teams, and no repository access yet.
-- A printed access snapshot (current teams + repo grants from the API) so you can prove "before" → "after."
-- A printed Next steps block telling you where to start.
+- An API snapshot of current teams and repository grants for comparison after the changes.
 
 ## Tasks
 
@@ -76,7 +75,7 @@ Use a consenting non-owner member with no direct or team grant on a private test
 6. Verify effective access: `gh api /orgs/<org>/teams/ghec-ch07-frontend-squad/repos/<org>/ghec-ch07-frontend -H 'Accept: application/vnd.github.v3.repository+json' --jq '.permissions'`. Confirm the squad has push on its own repo but only the inherited pull on others.
 
 ### Part C: Predefined repository roles
-7. Assign Maintain, not Admin. Create a child team `ghec-ch07-maintainers` and grant it the Maintain predefined role on `ghec-ch07-platform` (`-f permission=maintain`). Document *why* Maintain (manage settings/issues without full admin) fits a tech-lead pattern better than Admin.
+7. Assign Maintain, not Admin. Create a child team `ghec-ch07-maintainers` and grant it the Maintain predefined role on `ghec-ch07-platform` (`-f permission=maintain`). Explain why managing settings and issues without full admin access fits the tech lead's work.
 8. Demonstrate Triage. Grant a team or member the Triage role somewhere and explain what Triage can do (manage issues/PRs) and cannot (push code). Use the role list reference to back your explanation.
 9. For each of the five predefined roles (Read / Triage / Write / Maintain / Admin), write one sentence describing who would use it.
 

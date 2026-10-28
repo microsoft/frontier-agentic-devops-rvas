@@ -11,7 +11,7 @@ Choose this session only when Azure Boards remains the work-item system. Teams m
 - A migrated GitHub repository that represents code formerly tracked in Azure DevOps.
 - Local tooling for the validation path: `git` and `gh` authenticated to the target GitHub org.
 
-Recommended: complete the Azure DevOps-to-GitHub repository migration first. This activity assumes the repository is in GitHub and Azure Boards remains the system of record for work items.
+Complete the Azure DevOps-to-GitHub repository migration first if needed. Keep Azure Boards as the work-item system.
 
 ## What you'll do
 - Explain why GitHub Enterprise Importer (GEI) does not migrate Azure Boards work items: it migrates Git repos, PRs, and existing work-item links on PRs, but not the Boards backlog itself.
@@ -99,12 +99,9 @@ gh pr merge --repo "$ORG/$REPO" --squash --delete-branch
 5. Return to the work item and refresh. A phrase such as `Fixes AB#<id>` transitions the work item to the first state in the Resolved workflow category, or if none exists, the first state in the Completed category. State transitions apply when the PR is merged into the default branch.
 
 ### Part E: Validate the integration
-Confirm each side of the link:
-- GitHub App installation page shows Azure Boards installed for the selected repository.
-- Azure DevOps Project settings > GitHub connections shows the connected repo.
-- Azure Boards work item Development section shows the GitHub commit and PR.
-- GitHub PR Development section shows the Azure Boards work item.
-- The work item state before and after PR merge, or why the process template uses a different target state.
+Keep the installation, connection, commit-link, and PR-link results from Parts A-D.
+Record the work-item state before and after the merge, or explain why the process
+template uses a different target state.
 
 ## Troubleshooting
 

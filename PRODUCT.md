@@ -14,8 +14,8 @@ setup guide.
 
 ## Product Purpose
 
-Help teams **understand where to start**, choose the right sessions or setup path,
-adopt the GitHub platform, and start with Agentic DevSecOps.
+Help teams **choose where to start** with GitHub and Agentic DevSecOps through
+hands-on sessions or guided setup.
 
 Success means users can choose a relevant path and apply the work to their own
 repositories or services.

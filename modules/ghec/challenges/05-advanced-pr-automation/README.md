@@ -10,7 +10,7 @@
 
 ## What you will deliver
 - Reuse the review and CI gates from Ch02 and Ch04.
-- Prove auto-merge waits while either gate is unsatisfied.
+- Verify that auto-merge waits for both gates.
 
 ## Scenario
 A team wants reviewed changes to merge once CI passes. Enable auto-merge without expanding bypass permissions or adding housekeeping workflows.
@@ -37,7 +37,6 @@ Setup creates these resources (all names use the `ghec-ch05-*` prefix, and teard
 - Several open PRs in different states (clean, failing-CI, draft, missing-owner-review) so every rule has something to act on.
 - A starter `.github/CODEOWNERS` and a placeholder `.github/pull_request_template.md`.
 - No rulesets yet. You create them.
-- A printed Next steps block telling you where to start.
 
 ## Tasks
 > `ghec-ch05-advanced-pr-automation` is the fallback sample name; substitute your own artifact's name if you brought one.
@@ -66,7 +65,7 @@ Setup creates these resources (all names use the `ghec-ch05-*` prefix, and teard
 10. Use a queue only when concurrent merges cause stale CI. Check plan availability and get owner approval before requiring it.
 11. Add the `merge_group` trigger to the required CI workflow and configure the merge-queue rule on the test branch.
 12. Queue two reviewed PRs and capture the merge-group SHA and CI run. Deliberately fail a test and verify the failing candidate does not merge. Fix it and retry.
-13. If the queue cannot run, record it as blocked or omit this extension. Auto-merge alone does not prove a merge queue.
+13. If the queue cannot run, record it as blocked or omit this extension. Testing auto-merge alone does not verify the queue.
 
 Keep the URLs that show auto-merge waiting for approval and for CI, plus the successful merge. Ch08 covers organization rulesets. This session does not cover path labeling or stale-item automation.
 

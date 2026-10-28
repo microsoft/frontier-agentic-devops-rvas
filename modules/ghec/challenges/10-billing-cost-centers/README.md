@@ -1,6 +1,6 @@
 # Ch10: Scoped usage budgets and alerts
 
-This optional session configures one approved product budget. It does not configure enterprise cost centers.
+This optional session does not configure enterprise cost centers.
 
 **Session outcome:** You configure the approved budget and verify its alert and stop settings. You compare the usage export with the UI and record any reporting delay.
 
@@ -14,7 +14,7 @@ This optional session configures one approved product budget. It does not config
 - Open the org's billing and licensing views and compare included with metered usage for Actions, Packages, and Storage.
 - Inspect existing usage, or run the approved short test workload and record any reporting delay.
 - Set budgets and confirm their alert thresholds.
-- Pull billing/usage data from the REST API and reconcile it against the UI.
+- Compare billing and usage data from the REST API with the UI.
 - Build a cost report that attributes usage to repositories.
 - Keep enterprise cost-center allocation outside this budget exercise.
 
@@ -41,8 +41,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch10 --org <org>
 Setup creates these resources (all names use the `ghec-ch10-*` prefix, and teardown is prefix-guarded):
 - A seeded repo `ghec-ch10-usage-generator` containing a tiny, fast GitHub Actions workflow (`workflow_dispatch`-triggered, a few seconds of runtime) so you can generate a *small* amount of metered Actions usage on demand.
 - A seeded repo `ghec-ch10-cost-report` to hold your reconciliation script and the final report.
-- A printed current usage snapshot (Actions minutes / storage from the API) so you have a "before" reading.
-- A printed Next steps block telling you where to start.
+- A current usage snapshot of Actions minutes and storage from the API for comparison.
 
 ## Tasks
 

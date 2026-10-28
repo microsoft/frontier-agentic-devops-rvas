@@ -88,7 +88,7 @@ If you do not want to manage cloud storage, use GitHub-owned blob storage with `
 
 ### 3. Review the `bbs2gh` migration flow
 
-`gh bbs2gh` coordinates a multi-hop migration because GitHub cannot directly reach most Bitbucket Server/Data Center instances:
+`gh bbs2gh` transfers the migration archive in stages because GitHub cannot directly reach most Bitbucket Server/Data Center instances:
 
 1. `bbs2gh` calls the Bitbucket Server/Data Center export API over HTTPS.
 2. Bitbucket writes a migration `.tar` archive under `$BITBUCKET_SHARED_HOME/data/migration/export`.
@@ -99,7 +99,7 @@ If you do not want to manage cloud storage, use GitHub-owned blob storage with `
 
 ### 4. Run a single-repository migration with AWS S3
 
-Set variables once so the command is repeatable and auditable:
+Set the source, destination, and staging variables:
 
 ```bash
 BBS_URL="https://bitbucket.example.com"

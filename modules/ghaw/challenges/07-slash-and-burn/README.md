@@ -20,10 +20,9 @@ Create `.github/workflows/slash-commands.md` for
 - Use the comment ID as the request key. Skip already handled requests and
   process one request at a time per issue.
 
-The supplied helper performs these checks in a trusted pre-agent step.
-It requires current write, maintain, or admin permission. Rejected requests
-write a noop before inference. A prompt instruction is not an authorization
-check.
+The supplied helper performs these checks before the model runs.
+It requires current write, maintain, or admin permission and records rejected
+requests as no-ops. A prompt instruction is not an authorization check.
 
 ## Summarize evidence
 

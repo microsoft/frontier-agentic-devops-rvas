@@ -166,10 +166,9 @@ Juice Shop runs on port 3000. In Codespaces, GitHub forwards the port
 automatically. Open the Ports tab and select the forwarded URL. Locally, open
 `http://localhost:3000` in your browser.
 
-Confirm you see the Juice Shop storefront before moving on. Use this local instance
-only for manual exploit testing. CodeQL, Dependabot, and secret scanning alerts run
-on the org repository. See [`modules/ghas/setup.md`](../../setup.md) for how the two
-environments work together.
+Confirm you see the Juice Shop storefront before moving on. Use this instance
+only for manual exploit testing; GHAS alerts belong to the org repository.
+See [`modules/ghas/setup.md`](../../setup.md) for how the two environments work together.
 
 ---
 
@@ -200,4 +199,4 @@ your selected case. For the fallback, also confirm the Juice Shop homepage loads
 
 ## Choose the next fix
 
-Use the [remediation checklist](../../resources/start-remediation.md) inside the case that matches your finding. You can start with injection, XSS, or authorization. Credential response and tested dependency updates use their corresponding security-control sessions. There is no separate triage exercise to complete first.
+Use the [remediation checklist](../../resources/start-remediation.md) in the case that matches your finding: injection, XSS, or authorization. For exposed credentials or dependency updates, use the corresponding security-control session. No separate triage exercise is required.

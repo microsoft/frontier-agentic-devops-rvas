@@ -19,7 +19,7 @@ repositories. Fetch external apps and labs only for activities that need them.
 - **Used by:** GHAS setup, developer activities, and the four admin fixture provisioners
 - **Import mode (org repo):** The GHAS setup script (`setup.sh provision`) imports the repo into an org-owned GitHub repository named `ghec-ghas-00-juice-shop`. GHAS alerts run on *that* org repo.
 - **Local runtime.** GHAS activities use a local Juice Shop instance for manual exploit testing. **GHAS scans the org repository, not this local instance.** See [Local app provisioning (submodules)](#local-app-provisioning-submodules).
-- **Why Juice Shop is large but not vendored:** At ~61 MB it would bloat the curriculum repo and slow container creation for participants who never need it. It is registered as a git submodule and fetched on demand.
+- **Why a submodule:** Juice Shop is ~61 MB. Fetching it only when needed keeps clones and container creation faster for participants who do not use it.
 
 ## Import modes
 
@@ -139,7 +139,7 @@ The script (`scripts/provision-app.sh`):
 
 ### Fresh clones and existing clones
 
-For a fresh clone, participants can choose either lazy or eager submodule fetching:
+For a fresh clone, fetch apps when needed or fetch all submodules at once:
 
 ```bash
 # Lazy: fastest initial clone; fetch each lab/app only when needed.
@@ -160,7 +160,7 @@ git submodule update --init --recursive --depth 1
 
 ### Drift prevention
 
-`npm run verify:repos` asserts that, for every `provisioning.method == "submodule"` entry:
+For every `provisioning.method == "submodule"` entry, `npm run verify:repos` checks that:
 - `.gitmodules` contains a URL for the declared `submodule_path`
 - The `.gitmodules` URL matches `external-repos.json`
 - The gitlink SHA in the index matches `source.sha`
@@ -200,17 +200,10 @@ Some activities need no external app, such as authentication, team roles, and or
 
 ### GHAS environments
 
-- **Local Juice Shop** (Docker or devcontainer)
-  - Used for **manual exploit testing** in activities
-  - Started with `cd app && npm start` or `docker run bkimminich/juice-shop`
-  - Runs on port 3000
-  - Does not have GHAS alerts
-
-- **Shared org repository** (GitHub repo in the organization)
-  - CodeQL, Dependabot, secret scanning run **here**
-  - Customer delivery team members clone or work on branches
-  - Alerts, security features, and all GHAS configuration are **org/repo-scoped**
-  - "GHAS" refers to the alerts and features on this shared repo, not the local Juice Shop runtime
+| Environment | Use |
+|---|---|
+| **Local Juice Shop** | Manual exploit testing, without GHAS alerts. Run it in Docker or a devcontainer with `cd app && npm start` or `docker run bkimminich/juice-shop`. It uses port 3000. |
+| **Shared org repository** | Participants clone it or work on branches. CodeQL, Dependabot, secret scanning, and all GHAS configuration and alerts belong to this repository or its organization, not the local app. |
 
 ## Maintenance and support
 

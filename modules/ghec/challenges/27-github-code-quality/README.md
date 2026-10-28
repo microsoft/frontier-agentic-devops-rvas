@@ -79,7 +79,7 @@ permissions:
 19. At the organization level, use Code Quality's native repository access targeting to select a small authorized pilot cohort. Do not substitute a generic repository ruleset for product enablement.
 20. Record the pilot cohort, repository owners, expected baseline date, success measures, and rollback criteria.
 
-Keep the product analysis and reviewed PR as [completion evidence](../../../README.md#completion-evidence). If Code Quality is unavailable, record the next step in an accepted assessment. This does not mean Code Quality is enabled.
+Keep the product analysis and reviewed PR as [completion evidence](../../../README.md#completion-evidence). If Code Quality is unavailable, record the next step in an accepted assessment, not as product enablement.
 
 ## Reference links
 

@@ -1,6 +1,6 @@
 # Activity 8: Onboard and operate Codename MDASH
 
-**Session outcome:** Codename MDASH is onboarded against a pilot GitHub repository, has run at least one scan, and its findings are triaged and compared against CodeQL. If preview access isn't available, the Blocked/Assessment-only path produces the same completion evidence from an inline readiness review instead of a live scan.
+**Session outcome:** You onboard Codename MDASH to a pilot GitHub repository, run a scan, and triage its findings alongside CodeQL results. Without preview access, complete the assessment-only readiness review instead; it does not verify a live scan.
 
 Codename MDASH is Microsoft's multi-model agentic scanning harness: a preview capability inside Microsoft Defender's Security Exposure Management. It is separate from CodeQL and from the rest of GitHub Advanced Security. It complements CodeQL; it does not replace it, and it does not consume or ingest CodeQL alerts.
 
@@ -31,7 +31,7 @@ Check whether your tenant has Codename MDASH preview access: open the Defender p
 
 **If you see it:** continue to Step 1.
 
-**If you don't see it, or your Entra admin can't confirm enrollment:** stop the live path and complete the assessment-only path below. This is a valid, complete way to finish this activity.
+**If you don't see it, or your Entra admin can't confirm enrollment:** stop the live path and complete the assessment-only path below.
 
 ### Blocked / assessment-only path
 
@@ -120,7 +120,7 @@ Pick at least one finding (or one coverage area, such as a language CodeQL doesn
 | --- | --- | --- | --- |
 | | | | |
 
-Do not describe MDASH as reading or consuming CodeQL's alert feed — current Microsoft documentation doesn't support that claim. The two results sets stay separate; you're comparing them side by side, not merging them.
+Keep the results separate. Compare them side by side; MDASH does not read CodeQL's alert feed.
 
 ## Optional: the Defender CLI path
 
@@ -134,7 +134,7 @@ defender status ai-scan <JOB_ID>
 defender status wait <JOB_ID> -o results.sarif
 ```
 
-Use `--severity high` on `submit` to restrict results to high and critical findings only. Review the downloaded SARIF. Check the Defender portal for an HTML view of the same results if your CLI version offers one. Verify the exact flag in your installed CLI's `--help` output rather than assuming it matches another version. Keep the CLI's output file separate from any portal-triggered scan results so you don't conflate the two runs when reporting.
+Use `--severity high` on `submit` to restrict results to high and critical findings. Verify the flag in your installed CLI's `--help` output. Review the downloaded SARIF and the portal's HTML view if your CLI version offers one. Keep CLI output separate from portal-triggered scan results when reporting.
 
 ## Optional: GitHub Copilot CLI remediation
 

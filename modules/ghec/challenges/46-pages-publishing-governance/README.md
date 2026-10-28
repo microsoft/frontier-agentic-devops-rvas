@@ -20,7 +20,7 @@ You will:
 
 ## Scenario
 
-A customer wants to use GitHub Pages for engineering documentation. Organization owners need clear controls before sites appear under the organization namespace. Capture the current policy, agree on the publishing model, configure one approved repository, and keep evidence that operators can publish and roll back the site safely.
+A customer wants to publish engineering documentation through GitHub Pages. Agree who may publish and who may read it, then test publication and rollback in one approved repository.
 
 > [!IMPORTANT]
 > Use an approved customer target first. If you have a real documentation repository, use it and skip setup. If not, use the fallback `ghec-ch46-pages-site` repository created by setup. Do not change organization Pages settings without explicit approval.

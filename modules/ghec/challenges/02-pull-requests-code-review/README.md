@@ -17,7 +17,7 @@
 - Use draft PRs, linked issues (`Closes #n`), and PR templates.
 
 ## Scenario
-A GHEC customer's team pushes unreviewed changes straight to `main`, sometimes breaking other work. Configure a workflow that requires a PR for every change and review by the code owners. Test it on a seeded service repo.
+A GHEC customer's team pushes unreviewed changes straight to `main`, sometimes breaking other work. Require a PR and code-owner review for every change.
 
 > [!IMPORTANT]
 > Use an approved customer target first. If you have a candidate repository, use it everywhere this guide says `ghec-ch02-pull-requests-code-review` and skip Setup. Otherwise use the fallback seeded repo below for testing, then move the validated configuration to an approved customer target.
@@ -41,7 +41,6 @@ Setup creates these resources (all names use the `ghec-ch02-*` prefix, and teard
 - Two pre-existing feature branches with open pull requests that need review (one clean, one that will conflict).
 - A `.github/pull_request_template.md` placeholder you will improve.
 - A `main` branch with no protection yet (you add it) and a starter directory layout that maps cleanly to `CODEOWNERS` paths.
-- A printed Next steps block telling you where to start.
 
 ## Tasks
 > `ghec-ch02-pull-requests-code-review` is the fallback sample name; substitute your own artifact's name if you brought one.
@@ -57,7 +56,7 @@ Setup creates these resources (all names use the `ghec-ch02-*` prefix, and teard
 6. Keep approval pending until you have tested the required-review gate below. The author cannot approve their own PR.
 
 ### Part C: CODEOWNERS and branch protection
-7. Author a `CODEOWNERS` file (`.github/CODEOWNERS`) mapping paths to owners, e.g.:
+7. Create a `CODEOWNERS` file (`.github/CODEOWNERS`) mapping paths to owners, e.g.:
    ```
    *            @<org>/maintainers
    /src/        @<org>/backend-team

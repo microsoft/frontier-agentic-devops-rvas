@@ -13,7 +13,7 @@
 - Define custom repository properties (single-select and true/false) at the organization.
 - Set property values on individual repositories and set defaults for new repos.
 - Create an organization ruleset whose target is a property condition (e.g., apply to every repo where `compliance = high`), not a name pattern.
-- Combine org rulesets with repository rulesets and understand how they layer (strictest wins).
+- Combine org and repository rulesets, then verify that the strictest rules apply.
 - Use bypass actors deliberately and document why.
 - Verify property values and ruleset enforcement entirely from the REST API.
 
@@ -41,7 +41,6 @@ Setup creates these resources (all names use the `ghec-ch08-*` prefix, and teard
 - Four seeded repos: `ghec-ch08-prod-payments`, `ghec-ch08-prod-identity`, `ghec-ch08-internal-tools`, and `ghec-ch08-sandbox`. Each has a populated `main` and a CI workflow that emits a `build` status check for required-check rules.
 - No custom properties or rulesets yet. You create them.
 - A printed inventory of the four repos (from the API) so you can tag and target them.
-- A printed Next steps block telling you where to start.
 
 ## Tasks
 
@@ -75,7 +74,7 @@ Setup creates these resources (all names use the `ghec-ch08-*` prefix, and teard
 ### Part E: Verify and demonstrate
 14. As a non-owner contributor without bypass permission, open a PR on `ghec-ch08-prod-payments`. Verify that missing reviews or failing CI block merging. Satisfy those requirements and merge. Test `ghec-ch08-sandbox` as the same contributor and confirm the high-compliance rule does not apply. Check other inherited rules before interpreting the result.
 15. Document the model: write `GOVERNANCE.md` in `ghec-ch08-internal-tools` describing the property schema, which repos carry which values, the org ruleset's property target, and the repo-level overlay.
-16. Inspect authorized enterprise ruleset evidence if available. Record rules you cannot inspect as unavailable. An organization-boundary decision does not prove ruleset enforcement.
+16. Inspect enterprise ruleset evidence if you have authorized access. Record rules you cannot inspect as unavailable. Choosing an organization boundary does not verify ruleset enforcement.
 
 ## Reference links
 - [About custom properties](https://docs.github.com/en/organizations/managing-organization-settings/managing-custom-properties-for-repositories-in-your-organization)

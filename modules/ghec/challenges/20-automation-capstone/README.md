@@ -172,7 +172,7 @@ Skip this part when the native feature solved the handoff.
 3. Test host restart and secret rotation with synthetic deliveries. Confirm invalid signatures return `401`, valid deliveries succeed after rotation, and monitoring identifies failed target updates without exposing payloads or credentials.
 4. Assign the operator who checks failed deliveries and redelivers after repair. Test suspension and restoration of the App installation in the approved test scope.
 
-Keep the working delivery and target update with the hosting owner and stop procedure. A local receiver alone is not an operational customer integration.
+Record the successful delivery, target update, hosting owner, and stop procedure together. A local receiver alone is not an operational customer integration.
 
 ## References
 
