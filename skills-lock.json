@@ -1,23 +1,11 @@
 {
   "version": 1,
   "skills": {
-    "grill-me": {
-      "source": "olivomarco/ai-dev-skills",
-      "sourceType": "github",
-      "skillPath": "skills/grill-me/SKILL.md",
-      "computedHash": "f321507f77702a54af1db66549ec1685fc625390d06c57d7949cdcda8eb1b5c7"
-    },
-    "grilling": {
-      "source": "olivomarco/ai-dev-skills",
-      "sourceType": "github",
-      "skillPath": "skills/grilling/SKILL.md",
-      "computedHash": "ef685a6fa0bbe73b05bbd8dc1ec97258191587f07c6aa7dbc9006675ceb8f90f"
-    },
     "humanize-content": {
       "source": "olivomarco/ai-dev-skills",
       "sourceType": "github",
       "skillPath": "skills/humanize-content/SKILL.md",
-      "computedHash": "89e120df378cb08bc01d465b3f68dacba255fc6a76d0963a3745544a4b6c5c1a"
+      "computedHash": "2167506ebfb3af5cd2eb43fe675e224dd0b2143d875a0dfbdb9351feeb7d6a3d"
     },
     "skill-creator": {
       "source": "anthropics/skills",
