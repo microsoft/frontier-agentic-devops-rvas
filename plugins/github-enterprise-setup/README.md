@@ -31,7 +31,7 @@ copilot
 Replace the placeholders and send this prompt:
 
 ```text
-Use the github-enterprise-setup skill to set up enterprise <enterprise-slug>
+/github-enterprise-setup set up enterprise <enterprise-slug>
 on <host>, covering organizations <org-slugs>.
 My goal is <outcome>. Assess current state and recommend changes.
 Ask only for unresolved decisions. Save a plan without changing GitHub.
@@ -54,7 +54,7 @@ policies still apply.
 For a report only, ask:
 
 ```text
-Use the github-enterprise-setup skill in Assess mode for enterprise
+/github-enterprise-setup in Assess mode for enterprise
 <enterprise-slug> on <host>, covering <scope>. Report gaps and prioritized
 recommendations. Do not create a change plan or change GitHub.
 ```
@@ -62,7 +62,7 @@ recommendations. Do not create a change plan or change GitHub.
 To continue saved work in a new conversation:
 
 ```text
-Use the github-enterprise-setup skill to resume the run at <absolute-run-path>.
+/github-enterprise-setup resume the run at <absolute-run-path>.
 Recheck identity and live state before continuing.
 ```
 
