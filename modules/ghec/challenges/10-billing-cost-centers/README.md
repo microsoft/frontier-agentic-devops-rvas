@@ -1,6 +1,6 @@
 # Ch10: Scoped usage budgets and alerts
 
-This optional session configures one approved product budget. It does not configure enterprise cost centers.
+This optional session does not configure enterprise cost centers.
 
 **Session outcome:** You configure the approved budget and verify its alert and stop settings. You compare the usage export with the UI and record any reporting delay.
 
@@ -27,7 +27,7 @@ A GHEC customer's Actions bill exceeded expectations, and finance needs to ident
 > Record the selected target, billing owner, and next action.
 
 ## Sample test repository or environment
-Skip if you brought your own usage/cost artifact.
+Skip if you have an approved usage source and reporting repository.
 
 ```bash
 # Bash
@@ -49,7 +49,7 @@ Setup creates these resources (all names use the `ghec-ch10-*` prefix, and teard
 ### Part A: Read the billing baseline
 1. Open the org billing views (Org Settings → Billing & licensing → Usage). Locate Actions minutes, Packages/Storage, and any Codespaces lines. Note included allowances vs metered overage.
 2. Pull usage from the API. Read the current usage snapshot from the enhanced billing platform's usage endpoint, e.g. `gh api /organizations/<org>/settings/billing/usage --jq '[.usageItems[] | select(.product=="Actions")]'` (note: this endpoint is under `/organizations/<org>/...`, and returns per-SKU `usageItems` with `quantity`, `unitType`, `pricePerUnit`, and `netAmount`). Record the Actions and Storage totals as your "before."
-3. Read the licensing view (seats consumed) and note where seat cost vs metered service cost differ.
+3. Read the licensing view (seats consumed) and distinguish seat costs from metered service costs.
 
 ### Part B: Generate controlled usage
 4. Run the usage generator twice: `gh workflow run usage.yml --repo <org>/ghec-ch10-usage-generator` (or via the Actions tab → Run workflow). Each run is only seconds of compute.

@@ -52,8 +52,7 @@ CodeQL is the baseline for this module. Activity 3, step 1 has learners compare
 CodeQL coverage against MDASH, a separate preview capability inside Microsoft
 Defender that uses coordinated AI agents to inspect source code. `ghas-admin-08`
 is the full onboarding and operation activity: preview enrollment, Microsoft
-Foundry setup, Defender unified RBAC, the GitHub connector, and triage. Send
-facilitators there for anything beyond the coverage comparison.
+Foundry setup, Defender unified RBAC, the GitHub connector, and triage.
 
 MDASH complements CodeQL; it doesn't replace it, and current Microsoft
 documentation doesn't state that MDASH consumes CodeQL alerts or publishes as
@@ -67,8 +66,7 @@ native GitHub code-scanning alerts.
 Activity 6's step 3b teaches a synthetic version of this correlation as its
 no-access fallback. `ghas-admin-07` is the full live activity: Defender CSPM,
 the Azure-portal GitHub connector, an AKS workload, and a real campaign scoped
-with `has:deployment` and runtime-risk filters. Send facilitators there for
-setup detail; this section only covers what's unique to facilitating it.
+with `has:deployment` and runtime-risk filters. Use that guide for setup.
 
 Defender for Cloud reads GitHub's existing code scanning and Dependabot
 alerts; it doesn't run its own code analysis and doesn't create or publish a

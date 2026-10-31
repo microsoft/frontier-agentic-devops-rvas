@@ -4,7 +4,7 @@
 The correction cites the code that supports it. Checks pass, and an independent
 reviewer records a decision.
 
-This is a core pilot. Complete [setup](../00-setup/README.md), then choose an
+For this core pilot, complete [setup](../00-setup/README.md), then choose an
 issue about a real documentation error with a maintainer.
 For example, a documented option may disagree with its implemented default.
 Do not introduce a stale document just to make the agent produce a PR.

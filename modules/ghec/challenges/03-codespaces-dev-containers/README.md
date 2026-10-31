@@ -8,7 +8,7 @@ Use this optional session when the Ch00 repository needs a shared development im
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch03 --org <org>` (least-privilege; for this activity: `repo` + `codespace` + `admin:org` for org policy).
 - Local tooling: `gh >= 2.x` (with the Codespaces extension available), `git`, `jq`.
-- Cost note: Codespaces is a metered product. This activity consumes Codespaces minutes/storage on the participant account. Use the smallest machine type (2-core) and stop codespaces when idle. `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns about cost-bearing activities.
+- **Cost:** This activity uses metered Codespaces minutes and storage on the participant account. Use the smallest machine type (2-core) and stop Codespaces when idle. `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns about costs.
 
 ## What you will deliver
 - Author a `devcontainer.json` that pins a base image, installs features, and runs setup commands.
@@ -43,7 +43,7 @@ Setup creates these resources (all names use the `ghec-ch03-*` prefix, and teard
 - A printed Next steps block telling you where to start.
 
 ## Tasks
-> `ghec-ch03-codespaces-dev-containers` is the fallback sample name; substitute your own artifact's name if you brought one.
+> `ghec-ch03-codespaces-dev-containers` is the fallback sample name; use your own repository's name if you brought one.
 
 ### Part A: Author the dev container
 1. Inspect and extend `.devcontainer/devcontainer.json`. The fallback sample includes a minimal baseline with a pinned Node image, dependency install, and port 3000 forwarding. Keep the pinned base image suitable for the app (e.g., `mcr.microsoft.com/devcontainers/javascript-node:22`) and improve it.

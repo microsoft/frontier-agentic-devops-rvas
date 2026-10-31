@@ -23,14 +23,14 @@ Reuse the customer's organization and identity-boundary decisions. Verify curren
 
 1. Select the customer enterprise and record the policy export's source and date. Name the IdP owner and contacts for governance and recovery. Reuse existing decisions.
 2. Inspect the identity model, enterprise authentication protocol, effective enterprise settings, organization-level additions, and existing exceptions. Capture immutable exports, setting screenshots, or API output rather than an assertion alone.
-3. Confirm inheritance explicitly: identify each setting's effective enterprise or organization level and whether an organization can add a stricter/additive entry. Do not infer enterprise coverage from a single organization.
+3. Check inheritance: identify each setting's effective enterprise or organization level and whether an organization can add a stricter rule or another entry. Do not infer enterprise coverage from a single organization.
 
 ### Part B: Decide the identity and network enforcement path
 
 4. Inspect whether the enterprise uses EMU, OIDC, and Microsoft Entra ID. IdP Conditional Access Policy (CAP) is eligible **only** for EMU with OIDC and Microsoft Entra ID.
 5. Record the CAP decision and IdP policy evidence. CAP and the GitHub enterprise IP allow list are mutually exclusive enforcement paths: do not propose or enable both for the same enterprise. If CAP is ineligible or not selected, assess the IP allow-list path instead.
 6. Inspect the effective enterprise allow list, organization additions, service and automation exceptions, and the break-glass access path. Include web, API, Git, PAT, OAuth, SSH, and app impact in the risk decision.
-7. If the customer authorizes a bounded test, add and then remove **one test-organization IP entry only**, while leaving IP-allow-list enforcement disabled. Capture before/after evidence and the rollback result. Do not test against a production organization or enable enforcement.
+7. If the customer authorizes a limited test, add and then remove **one test-organization IP entry only**, while leaving IP-allow-list enforcement disabled. Capture before/after evidence and the rollback result. Do not test against a production organization or enable enforcement.
 
 ### Part C: Assess SSH certificate authority use
 

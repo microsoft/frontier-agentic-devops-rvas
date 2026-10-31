@@ -1,11 +1,11 @@
 # Agentic DevSecOps
 
-Choose **learn by doing** through four outcomes and three delivery-session modules,
+**Learn by doing** through four outcomes and three delivery-session modules,
 or **set up GitHub** with the GitHub Enterprise setup skill.
 
 The portal's home page presents both routes. The [setup overview](docs/github-setup.html)
 explains the skill's scope; the [setup guide](docs/github-setup-guide.html) covers
-installation and the guided workflow. The hands-on catalog and session builder remain available.
+installation and the guided workflow. Use the catalog and session builder to choose activities.
 
 > **Use your own environment.** Work with your own applications, repositories, and data
 > so your team can keep using the result after the session. Use OWASP Juice Shop
@@ -107,7 +107,7 @@ pending.** See the plugin guide for local installation and the release checks.
 
 ## External labs and submodules
 
-Large local lab dependencies are pinned as lazy git submodules. A normal `git clone` is enough for the curriculum site; fetch each lab only when needed:
+Large local lab dependencies are pinned git submodules. A normal `git clone` is enough for the curriculum site; fetch each lab only when needed:
 
 ```bash
 npm run setup:juice-shop

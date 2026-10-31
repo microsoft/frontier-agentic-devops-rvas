@@ -10,15 +10,6 @@
 - A customer-approved non-secret evidence location for JSON, Markdown, or XLSX output. Do not commit tokens or sensitive raw extracts.
 - Optional: enterprise owner approval for `ghqr scan -e <enterprise>`. Do not infer enterprise-only findings from an organization-only scan.
 
-## Customer delivery objectives
-
-You will:
-
-- Select `ghqr`, capture its version, and run the authorized organization scan.
-- Run the optional enterprise scan only with customer authorization and the required token access.
-- Preserve non-secret output and triage findings by severity, source level, and owner.
-- Repair one verified gap with its owner's approval and check the result.
-
 ## Scope and guardrails
 
 `ghqr` checks many GitHub surfaces, including security settings, access control, branch protection, Copilot policy, audit logs, Actions policy, dependencies, repository metadata, and community-health files. Use it to speed up assessment. It does not replace customer risk decisions.
@@ -106,10 +97,10 @@ Use these guardrails throughout:
 12. Preserve the enterprise report separately from the organization report. Record token scope, evidence location, and enterprise owner approval.
 13. If enterprise review is not authorized, record that the enterprise policy source is unavailable to the reviewer. Do not infer enterprise inheritance from organization-only results.
 
-### Part E: Triage and corroborate findings
+### Part E: Triage and verify findings
 
 14. Review findings that need action and identify the owner and configuration level for each. Check them against settings or API evidence. Mark unavailable evidence as unverified.
-15. Corroborate at least one finding with GitHub settings or API output. Examples:
+15. Verify at least one finding against GitHub settings or API output. Examples:
 
    ```bash
    gh api /orgs/<org> --jq '{default_repository_permission, members_can_create_repositories, members_can_create_public_repositories, members_can_fork_private_repositories}'

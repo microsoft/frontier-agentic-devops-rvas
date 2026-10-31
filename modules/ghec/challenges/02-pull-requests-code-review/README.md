@@ -44,7 +44,7 @@ Setup creates these resources (all names use the `ghec-ch02-*` prefix, and teard
 - A printed Next steps block telling you where to start.
 
 ## Tasks
-> `ghec-ch02-pull-requests-code-review` is the fallback sample name; substitute your own artifact's name if you brought one.
+> `ghec-ch02-pull-requests-code-review` is the fallback sample name; use your own repository's name if you brought one.
 
 ### Part A: Branch and open a PR
 1. Reuse the Ch00 repository and Ch01 issue. Create `feature/issue-fix`. In the team's IDE, use approved Copilot Chat or completions to explain the relevant code and propose a small change. Read the diff and run the existing tests yourself. If Copilot is unavailable, make the same change manually and record that the assisted step was blocked.
@@ -57,7 +57,7 @@ Setup creates these resources (all names use the `ghec-ch02-*` prefix, and teard
 6. Keep approval pending until you have tested the required-review gate below. The author cannot approve their own PR.
 
 ### Part C: CODEOWNERS and branch protection
-7. Author a `CODEOWNERS` file (`.github/CODEOWNERS`) mapping paths to owners, e.g.:
+7. Create a `CODEOWNERS` file (`.github/CODEOWNERS`) mapping paths to owners, e.g.:
    ```
    *            @<org>/maintainers
    /src/        @<org>/backend-team

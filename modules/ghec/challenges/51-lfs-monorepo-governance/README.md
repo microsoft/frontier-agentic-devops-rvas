@@ -18,7 +18,7 @@ Choose **one** path for an approved repository. Reuse Ch02 and Ch04 controls. Yo
 
 1. Pick two existing package paths with different owning teams. Put the default CODEOWNERS wildcard first and the specific package paths after it.
 2. Require Code Owner review on the default branch. Ensure the teams have write access and use a non-owner contributor for testing.
-3. Install and adapt the workflow below. Require its stable **Monorepo gate** check on the default branch. The aggregate always runs and rejects selection failures or missing selected tests. Do not add workflow-level path filters.
+3. Install and adapt the workflow below. Require its stable **Monorepo gate** check on the default branch. This aggregate check always runs and rejects selection failures or missing selected tests. Do not add workflow-level path filters.
 4. Open one PR in each package. Confirm GitHub requests the intended team and runs only the necessary tests for the package and its dependencies. Then change shared code and verify CI tests both packages.
 5. Deliberately fail one selected test and prove the aggregate check blocks merge. Repair it and obtain the correct owner's approval.
 

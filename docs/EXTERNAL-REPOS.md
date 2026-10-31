@@ -19,7 +19,7 @@ repositories. Fetch external apps and labs only for activities that need them.
 - **Used by:** GHAS setup, developer activities, and the four admin fixture provisioners
 - **Import mode (org repo):** The GHAS setup script (`setup.sh provision`) imports the repo into an org-owned GitHub repository named `ghec-ghas-00-juice-shop`. GHAS alerts run on *that* org repo.
 - **Local runtime.** GHAS activities use a local Juice Shop instance for manual exploit testing. **GHAS scans the org repository, not this local instance.** See [Local app provisioning (submodules)](#local-app-provisioning-submodules).
-- **Why Juice Shop is large but not vendored:** At ~61 MB it would bloat the curriculum repo and slow container creation for participants who never need it. It is registered as a git submodule and fetched on demand.
+- **Why a submodule:** Juice Shop adds ~61 MB. Fetching it on demand avoids slowing container creation for participants who do not need it.
 
 ## Import modes
 
@@ -139,7 +139,7 @@ The script (`scripts/provision-app.sh`):
 
 ### Fresh clones and existing clones
 
-For a fresh clone, participants can choose either lazy or eager submodule fetching:
+For a fresh clone, fetch labs when needed or fetch all submodules at once:
 
 ```bash
 # Lazy: fastest initial clone; fetch each lab/app only when needed.
@@ -175,8 +175,8 @@ git submodule update --init --recursive --depth 1
 3. Create the committed symlink(s) if activity instructions expect a stable path.
 4. Add a `provisioning` block in `external-repos.json` (same schema as `juice-shop`).
 5. Add an npm script `setup:<name>` in `package.json` pointing to `provision-app.sh <key>`.
-6. Run `npm run verify:repos` to confirm drift check passes.
-7. Document in this file and in the relevant activity's `README.md`.
+6. Run `npm run verify:repos` to check for drift.
+7. Document the app in this file and the relevant activity's `README.md`.
 
 ## Dependencies by module
 
@@ -198,19 +198,11 @@ Some activities need no external app, such as authentication, team roles, and or
 
 ## Local and shared resources
 
-### GHAS environments
+**Local Juice Shop** runs on port 3000 for manual exploit testing. Start it with
+`cd app && npm start` or `docker run bkimminich/juice-shop`. It has no GHAS alerts.
 
-- **Local Juice Shop** (Docker or devcontainer)
-  - Used for **manual exploit testing** in activities
-  - Started with `cd app && npm start` or `docker run bkimminich/juice-shop`
-  - Runs on port 3000
-  - Does not have GHAS alerts
-
-- **Shared org repository** (GitHub repo in the organization)
-  - CodeQL, Dependabot, secret scanning run **here**
-  - Customer delivery team members clone or work on branches
-  - Alerts, security features, and all GHAS configuration are **org/repo-scoped**
-  - "GHAS" refers to the alerts and features on this shared repo, not the local Juice Shop runtime
+**The shared org repository** holds CodeQL, Dependabot, and secret scanning alerts
+and configuration. Delivery team members clone it or work on branches there.
 
 ## Maintenance and support
 
@@ -226,10 +218,9 @@ Some activities need no external app, such as authentication, team roles, and or
 ### For delivery team members
 
 - Follow setup instructions in each activity's `README.md`.
-- All module content is in-tree; you do not need to clone or fork the retired upstream repos.
 - If setup fails to pull Juice Shop, check your GitHub token scopes and network access.
 - Report setup failures via your delivery session organizer.
-- Keep other delivery team members informed if external services (GitHub, Docker Hub) have outages.
+- Tell other delivery team members about outages in external services such as GitHub or Docker Hub.
 
 ## See also
 

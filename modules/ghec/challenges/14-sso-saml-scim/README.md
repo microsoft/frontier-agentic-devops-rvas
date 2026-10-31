@@ -56,7 +56,7 @@ Setup creates these resources (all names use the `ghec-ch14-*` prefix, and teard
 ### Part A: Identity models and IdP app
 1. Confirm with the identity owner that the target uses personal accounts and supports organization SAML/SCIM. Record the identity model in the existing runbook. Use the IAM reference if the model is unclear; do not configure organization SAML/SCIM in EMU.
 2. In Entra ID (Enterprise applications → New → GitHub.com Organization) or Okta, create the SAML app. Record the entity ID, ACS/Reply URL (`https://github.com/orgs/<org>/saml/consume`), sign-on URL, and issuer in the runbook.
-3. Capture the signing certificate from the IdP; you'll paste its public cert into GitHub.
+3. Get the signing certificate from the IdP; you'll paste its public certificate into GitHub.
 
 ### Part B: Configure SAML in test mode
 4. Go to Org Settings → Authentication security and enter the Sign-on URL, Issuer, and the IdP public certificate.

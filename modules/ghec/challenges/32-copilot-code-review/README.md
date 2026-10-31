@@ -26,8 +26,6 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch32 --org <org>
 
 The fallback is intentionally isolated and namespaced `ghec-ch32-*`. It creates `ghec-ch32-copilot-code-review`, a small review-candidate PR, repository-wide Copilot instructions, and a decision-package template. It creates **no** Copilot policy, ruleset, `CODEOWNERS` rule, or automatic review setting. Re-running is idempotent; teardown must remain prefix-guarded.
 
-> **Integration note:** the shared setup dispatcher resolves the provisioners in this activity directory. Use the customer target first; the fallback remains only a safe place to prepare evidence and a decision package.
-
 ## Tasks
 
 ### Part A: Establish the review boundary and evidence baseline
@@ -38,7 +36,7 @@ The fallback is intentionally isolated and namespaced `ghec-ch32-*`. It creates 
 
 ### Part B: Request and assess a manual Copilot review
 
-4. Open or select a bounded pull request. In the PR **Reviewers** sidebar, select **Copilot** and click **Request**. Alternatively, use the REST review-request endpoint to request `copilot-pull-request-reviewer[bot]`.
+4. Open or select a small pull request. In the PR **Reviewers** sidebar, select **Copilot** and click **Request**. Alternatively, use the REST review-request endpoint to request `copilot-pull-request-reviewer[bot]`.
 5. Read every Copilot comment against the change, tests, threat model, and repository conventions. A designated human reviewer must classify each comment as accepted, rejected with rationale, deferred, or duplicate/noise.
 6. Resolve comments or discuss any that remain open, then obtain the normal human and `CODEOWNERS` reviews. Preserve the PR timeline, reviewer decisions, and final merge result as evidence. Do not count Copilot's comment review as an approval.
 7. Re-request a review only when a human reviewer judges it useful. Record that manual re-review is deliberate; automatic re-review of new pushes is a separate ruleset option.

@@ -8,10 +8,6 @@
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
 - Review the concepts in Ch02 (PRs/CODEOWNERS) and Ch04 (Actions/required checks) first. This activity is independent; its setup creates everything it needs.
 
-## What you will deliver
-- Reuse the review and CI gates from Ch02 and Ch04.
-- Prove auto-merge waits while either gate is unsatisfied.
-
 ## Scenario
 A team wants reviewed changes to merge once CI passes. Enable auto-merge without expanding bypass permissions or adding housekeeping workflows.
 
@@ -40,7 +36,7 @@ Setup creates these resources (all names use the `ghec-ch05-*` prefix, and teard
 - A printed Next steps block telling you where to start.
 
 ## Tasks
-> `ghec-ch05-advanced-pr-automation` is the fallback sample name; substitute your own artifact's name if you brought one.
+> `ghec-ch05-advanced-pr-automation` is the fallback sample name; use your own repository's name if you brought one.
 
 ### Part A: Reuse the existing review and CI gates
 1. Inspect the existing default-branch ruleset. Create one only if the sample has none. Confirm:
@@ -58,7 +54,7 @@ Setup creates these resources (all names use the `ghec-ch05-*` prefix, and teard
 
 ### Part C: Auto-merge
 7. Enable auto-merge for the repo (Settings → General → Pull Requests → Allow auto-merge). Learn more: [automatically merging a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/automatically-merging-a-pull-request).
-8. Turn on auto-merge for a clean PR (`gh pr merge <n> --auto --squash`). With CI still running and approval pending, watch the PR show "will be merged automatically when requirements are met." Approve + let CI go green, then confirm it merges itself.
+8. Turn on auto-merge for a clean PR (`gh pr merge <n> --auto --squash`). With CI still running and approval pending, watch the PR show "will be merged automatically when requirements are met." Have the independent reviewer approve it and wait for CI to pass, then confirm it merges automatically.
 9. Contrast with a failing PR: enable auto-merge on the failing-CI PR and confirm it does not merge until the check passes.
 
 ### Optional: Merge queue for a busy branch

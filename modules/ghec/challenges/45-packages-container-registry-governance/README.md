@@ -42,7 +42,7 @@ The publisher builds `Containerfile` from the checkout root. Use the application
 8. Connect package access to the intended repository or team.
 9. Keep the test package **private**. In its settings, add the consumer repository under **Manage Actions access** with read access. Dispatch `consume.yml` from that repository's default branch, supplying the exact published digest. It first proves an unauthenticated client receives an access denial, then authenticates with its own read-only `GITHUB_TOKEN`, pulls the same image, and checks the returned digest. Both steps must pass; a network error is not access-denial evidence.
 
-After this test, apply another approved visibility only if the customer needs it. Anonymous pulls of a public package are expected to succeed; the private-access test should then fail. Do not widen package access merely to make the consumer green.
+After this test, apply another approved visibility only if the customer needs it. Anonymous pulls of a public package are expected to succeed; the private-access test should then fail. Do not widen package access merely to make the consumer check pass.
 
 ### Part D: Retention and cleanup
 

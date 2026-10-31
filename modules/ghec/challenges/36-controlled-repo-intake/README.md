@@ -97,7 +97,7 @@ Use a fresh service name for each successful test:
 | Existing repository with the requested name, or replayed successful run | No new repository and no access changes to the existing one |
 | Normal member attempts direct creation | GitHub rejects it |
 
-**A failed run is not fulfillment.** The starter deliberately refuses to adopt existing repositories. If creation succeeds but a later check or team grant fails, leave the request open. The run records the created repository's numeric ID as soon as GitHub returns it.
+**A failed run leaves the request incomplete.** The starter refuses to adopt existing repositories. If creation succeeds but a later check or team grant fails, leave the request open. The run records the created repository's numeric ID as soon as GitHub returns it.
 
 An organization owner inspects that ID, the template tree, and the failed step before repairing the same repository. If a creation response is lost, creation may have succeeded: inspect the requested name and run time before retrying. Do not delete a repository or reuse an existing name merely to make a run pass. After repair, verify the first PR and close the request with the result.
 

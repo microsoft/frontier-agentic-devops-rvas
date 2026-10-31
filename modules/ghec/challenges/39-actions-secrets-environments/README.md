@@ -42,14 +42,14 @@ gh auth status
 ### Part B: Design environment protection
 
 4. Choose the approved non-production deployment environment and apply the [shared approval setup](../../resources/environment-approval.md). Restrict it to the intended ref and independent reviewers. Reuse a verified environment rather than configuring another one to repeat the same setup.
-5. Keep production environment settings as an explicit participant action; do not delegate broad production changes to setup automation.
+5. Participants must configure production environment settings themselves; do not delegate broad production changes to setup automation.
 6. Record what secrets move to each environment and which jobs are allowed to reference them.
 
 ### Part C: Configure environments and secrets
 
 7. Configure protected environments in the repository UI or API.
 8. Add only a credential the approved deployment needs using `gh secret set --env <environment>` or the UI. Prefer OIDC through Ch40 when available. Never add a production secret to a sample repository.
-9. Remove or de-scope old repository secrets after workflow migration and approval.
+9. Remove old repository secrets or restrict their scope after workflow migration and approval.
 
 ### Part D: Update and validate workflows
 

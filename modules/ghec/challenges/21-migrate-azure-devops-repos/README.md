@@ -1,6 +1,6 @@
 # Ch21: Migrate Azure DevOps Repos with GitHub Enterprise Importer
 
-**Session outcome:** You have migrated an approved Azure DevOps Services repository to GitHub Enterprise Cloud with `gh ado2gh` and checked the imported content. You have recorded migration gaps and resolved remaining mannequin identities or assigned them for follow-up.
+**Session outcome:** You have migrated an approved Azure DevOps Services repository to GitHub Enterprise Cloud with `gh ado2gh` and checked the imported content. You have recorded migration gaps and resolved mannequin identities or assigned them for follow-up.
 
 ## Prerequisites
 
@@ -93,7 +93,7 @@ If your GitHub org uses SAML SSO, open the PAT settings page and authorize the c
 gh ado2gh inventory-report --ado-org "$ADO_ORG"
 ```
 
-6. Review the generated `repos.csv`. Prioritize a pilot repo with real PR metadata but low risk.
+6. Review the generated `repos.csv`. Choose a low-risk pilot repository with real PR metadata.
 
 ```bash
 python - <<'PY'

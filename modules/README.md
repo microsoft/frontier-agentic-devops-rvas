@@ -75,4 +75,4 @@ no action before enabling a schedule. Use ordinary Actions for tasks with fixed 
 
 ## Module attributions
 
-See [`docs/EXTERNAL-REPOS.md`](../docs/EXTERNAL-REPOS.md) for how the project manages and pins Juice Shop, source delivery session repositories, sample apps, and other external dependencies.
+See [`docs/EXTERNAL-REPOS.md`](../docs/EXTERNAL-REPOS.md) for external dependencies and pinned source references.

@@ -12,7 +12,7 @@
 ## What you will deliver
 - Create a team hierarchy (parent + child teams) and understand how nested teams inherit access from their parent.
 - Grant teams access to repositories at the correct predefined repository role (Read / Triage / Write / Maintain / Admin).
-- Reason about how base (org) permission combines with team grants (the more permissive wins).
+- Check how organization base permissions combine with team grants (the highest permission wins).
 - Create and assign a custom repository role with a precise permission set that no predefined role matches.
 - Add members to teams (and via teams to repos) and verify effective permissions from the API.
 - Map an org chart to a least-privilege access model and document it.
@@ -65,7 +65,7 @@ Use a consenting non-owner member with no direct or team grant on a private test
 
 1. Create a parent team `ghec-ch07-engineering` (reuse the seeded one) and two child teams under it: `ghec-ch07-frontend-squad` and `ghec-ch07-backend-squad`. Create children with the parent set, e.g. `gh api -X POST /orgs/<org>/teams -f name='ghec-ch07-frontend-squad' -F parent_team_id=<parent-id>`.
 2. Confirm nesting via `gh api /orgs/<org>/teams/ghec-ch07-frontend-squad --jq '.parent.name'` (should print the parent).
-3. Understand inheritance: any repository access you grant the parent flows down to both child teams. You'll use this in Part B.
+3. Check inheritance in Part B: both child teams inherit repository access granted to the parent.
 
 ### Part B: Grant repository access via teams
 4. Grant the parent team `Read` on all three repos (so the whole department can see everything): `gh api -X PUT /orgs/<org>/teams/ghec-ch07-engineering/repos/<org>/ghec-ch07-frontend -f permission=pull` (repeat for backend/platform).

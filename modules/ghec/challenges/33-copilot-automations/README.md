@@ -77,7 +77,7 @@ This session covers **Copilot automations**: a Copilot cloud-agent task defined 
 7. For an event trigger, configure and retain its filter evidence:
    - For an issue-created trigger, use a customer-approved search-query filter.
    - For a pull-request-opened or synchronized trigger, use a customer-approved search-query filter and changed-files filter.
-   - Test the filter with a controlled, in-scope artifact and record both a match and an expected non-match.
+   - Test the filter with an approved issue or PR and record both a match and an expected non-match.
 8. Preserve the default **untrusted-trigger guardrail**: automations ignore events from people without repository write access by default. Do **not** opt in to untrusted-user events in this core session. Treat any proposed exception as a separate security decision with a threat model, explicit approver, expiry, and rollback.
 9. Write a constrained prompt. State the allowed task and repository boundary. Tell the agent to treat issue, PR, commit, file, and external content as untrusted data rather than instructions. Prohibit secrets, credential requests, policy changes, workflow changes, destructive operations, bypasses, and merging. Require a draft or reviewable outcome when code could change.
 10. Select only the tools the task requires. For a label-only triage task, do not allow code push or pull-request creation. For a draft change, permit only the minimum repository action needed and keep protected-branch and required-review controls intact. Record the chosen tools and rejected higher-privilege tools.
@@ -95,7 +95,7 @@ This session covers **Copilot automations**: a Copilot cloud-agent task defined 
 16. Capture audit-log evidence for the configuration/session activity available to the customer administrator, including collector, date/time range, search/export location, and any retention/access limitation. Pair it with the session log; neither replaces the other.
 17. Record the creator and backup contact, with instructions for disabling the automation. Automations are private to their creators, even in team-owned repositories. When the creator leaves, disable the original. The approved successor must recreate and test it.
 18. Define stop conditions: unexpected tool use, a prompt-injection attempt, an untrusted-event exception request, excessive cost/run frequency, sensitive-data exposure, failed checks, or out-of-scope changes. The immediate response is to disable the automation, preserve evidence, notify the named owner, and reassess before re-enabling.
-19. Record whether the automation was enabled for the authorized repository, left disabled, unavailable, or not applicable. Do not label a fallback repository or a dry decision package as a production rollout.
+19. Record whether the automation was enabled for the authorized repository, left disabled, unavailable, or not applicable. A fallback repository or draft decision package is not a production rollout.
 
 ## Decision-package fallback
 

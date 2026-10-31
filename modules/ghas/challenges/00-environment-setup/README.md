@@ -4,8 +4,6 @@
 
 ## Objectives
 
-Complete these steps:
-
 - Reuse the customer repository selected for this engagement. Use OWASP Juice Shop when you need a separate practice repository
 - Check repository ownership and security settings. Record only missing decisions or access blockers
 - Confirm least privilege and human review for all changes, including agent-authored changes
@@ -200,4 +198,4 @@ your selected case. For the fallback, also confirm the Juice Shop homepage loads
 
 ## Choose the next fix
 
-Use the [remediation checklist](../../resources/start-remediation.md) inside the case that matches your finding. You can start with injection, XSS, or authorization. Credential response and tested dependency updates use their corresponding security-control sessions. There is no separate triage exercise to complete first.
+Use the [remediation checklist](../../resources/start-remediation.md) in the case that matches your finding: injection, XSS, or authorization. Credential response and tested dependency updates use their security-control sessions. No separate triage exercise is required.

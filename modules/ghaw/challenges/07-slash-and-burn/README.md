@@ -21,9 +21,8 @@ Create `.github/workflows/slash-commands.md` for
   process one request at a time per issue.
 
 The supplied helper performs these checks in a trusted pre-agent step.
-It requires current write, maintain, or admin permission. Rejected requests
-write a noop before inference. A prompt instruction is not an authorization
-check.
+It requires current write, maintain, or admin permission. It records rejected
+requests as a noop before inference. A prompt instruction is not an authorization check.
 
 ## Summarize evidence
 
@@ -31,7 +30,7 @@ Fetch the issue and paginate its comments with read-only access.
 Record the latest included comment ID. Ask the model for a short summary
 with direct comment links beside decisions and unresolved actions.
 State which discussion the summary covers and when it was collected. If a
-source cannot be read, stop rather than publish a seemingly complete summary.
+source cannot be read, stop rather than publish a summary that hides the gap.
 
 **Only name a decision or owner when someone explicitly recorded it.**
 Distinguish proposals from accepted decisions. If an action has no assigned

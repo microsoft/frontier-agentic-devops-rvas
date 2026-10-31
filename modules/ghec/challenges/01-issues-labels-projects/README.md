@@ -42,7 +42,7 @@ Setup creates these resources (all names use the `ghec-ch01-*` prefix, and teard
 - A printed Next steps block telling you where to start.
 
 ## Tasks
-> `ghec-ch01-issues-labels-projects` is the fallback sample name; substitute your own artifact's name if you brought one.
+> `ghec-ch01-issues-labels-projects` is the fallback sample name; use your own repository's name if you brought one.
 
 ### Part A: Make one issue ready
 

@@ -9,7 +9,7 @@ This optional outside-collaborator exercise applies to organizations using perso
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch48 --org <org>`.
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
-- A real vendor/access review candidate, or the seeded fallback register.
+- An actual vendor access review, or the seeded fallback register.
 
 ## Customer delivery objectives
 
@@ -23,7 +23,7 @@ You will:
 
 ## Scenario
 
-A customer uses outside collaborators for vendor work. Repository admins grant access, reviews are rare, and business approvals are hard to trace. Create a lifecycle that makes each vendor grant scoped, time-bound, reviewable, and removable.
+A customer uses outside collaborators for vendor work. Repository admins grant access, reviews are rare, and business approvals are hard to trace. Define each grant's scope, end date, reviewer, and removal process.
 
 > [!IMPORTANT]
 > Use a real approved access review if available. If not, use `ghec-ch48-vendor-access-register` to practice the workflow. Do not invite, remove, or change vendor access unless the customer explicitly approves the participant step.

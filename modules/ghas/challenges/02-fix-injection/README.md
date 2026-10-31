@@ -13,7 +13,7 @@ an input policy, but it cannot reliably prevent injection. Stop it at the execut
 sink: use parameter binding or ORM-safe APIs for database operations, and keep data
 separate from interpretation at command or template sinks.
 
-CodeQL flags SQL and NoSQL injection vulnerabilities in Juice Shop's backend routes. Open those alerts, inspect the code, explain how an attacker can exploit it, and fix it. Record the verified fix and a prevention pattern your team can reuse.
+CodeQL flags SQL and NoSQL injection vulnerabilities in Juice Shop's backend routes. Select one alert, inspect the code, explain how an attacker can exploit it, and fix it. Record the verified fix and a prevention pattern your team can reuse.
 
 ## Objectives
 

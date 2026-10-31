@@ -13,7 +13,7 @@
 - Define custom repository properties (single-select and true/false) at the organization.
 - Set property values on individual repositories and set defaults for new repos.
 - Create an organization ruleset whose target is a property condition (e.g., apply to every repo where `compliance = high`), not a name pattern.
-- Combine org rulesets with repository rulesets and understand how they layer (strictest wins).
+- Combine organization and repository rulesets; the most restrictive rules apply.
 - Use bypass actors deliberately and document why.
 - Verify property values and ruleset enforcement entirely from the REST API.
 
@@ -58,7 +58,7 @@ Setup creates these resources (all names use the `ghec-ch08-*` prefix, and teard
      -f 'repository_names[]=ghec-ch08-prod-identity' \
      -f 'properties[][property_name]=compliance' -f 'properties[][value]=high'
    ```
-5. Tag the others lower: `ghec-ch08-internal-tools` → `compliance = medium`; `ghec-ch08-sandbox` → `compliance = low`, `prod = false`.
+5. Set lower compliance values on the other repositories: `ghec-ch08-internal-tools` → `compliance = medium`; `ghec-ch08-sandbox` → `compliance = low`, `prod = false`.
 6. Verify values: `gh api /orgs/<org>/properties/values --jq '.[] | {repository_name, properties}'`.
 7. Set a default for new repos (e.g., new repos default to `compliance = low`) so future repos inherit a baseline.
 

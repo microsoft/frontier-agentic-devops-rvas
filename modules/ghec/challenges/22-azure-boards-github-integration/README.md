@@ -11,7 +11,7 @@ Choose this session only when Azure Boards remains the work-item system. Teams m
 - A migrated GitHub repository that represents code formerly tracked in Azure DevOps.
 - Local tooling for the validation path: `git` and `gh` authenticated to the target GitHub org.
 
-Recommended: complete the Azure DevOps-to-GitHub repository migration first. This activity assumes the repository is in GitHub and Azure Boards remains the system of record for work items.
+If possible, complete the Azure DevOps-to-GitHub repository migration first. This activity assumes the code is in GitHub and Azure Boards still holds the work items.
 
 ## What you'll do
 - Explain why GitHub Enterprise Importer (GEI) does not migrate Azure Boards work items: it migrates Git repos, PRs, and existing work-item links on PRs, but not the Boards backlog itself.

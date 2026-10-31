@@ -81,7 +81,7 @@ gh api "repos/${TARGET}/dependency-graph/sbom" \
   --jq '.sbom.packages[] | select(.name == "cowsay") | {name, versionInfo}'
 ```
 
-An empty result proves the static graph missed a build dependency.
+If the query succeeds but returns nothing, the static graph missed this build dependency.
 
 ### 2. Submit a build dependency if the graph misses it
 
@@ -357,7 +357,7 @@ gh pr view <number> --repo "$TARGET" \
   --json mergeStateStatus,statusCheckRollup
 ```
 
-`Dependency review` must fail because the pull request introduces `lodash@4.17.4`. Try the normal merge path. The ruleset must block it. A red workflow without a blocked merge does not pass.
+`Dependency review` must fail because the pull request introduces `lodash@4.17.4`. Try the normal merge path. The ruleset must block it. A failing workflow alone does not prove that merging is blocked.
 
 If the check passes, inspect the workflow trigger, severity, scope, dependency snapshot, and ruleset target. Fix the control and push a new risky revision. Do not lower the test severity or use `warn-only`.
 

@@ -11,7 +11,7 @@ A user may read another user's data, modify records they do not own, access admi
 functions, or raise their own privileges. It ranks first in the OWASP web
 application vulnerability list.
 
-Juice Shop has several access-control flaws. Some are insecure direct object references (IDOR), where the app trusts a user-supplied ID without checking ownership. Other routes omit required authorization middleware. CodeQL flags some cases. Find the rest by reading each route and deciding who may call it. Record the verified fix and a prevention pattern for future changes.
+Juice Shop has several access-control flaws. Some are insecure direct object references (IDOR), where the app trusts a user-supplied ID without checking ownership. Other routes omit required authorization middleware. CodeQL flags some cases. For the selected endpoint, inspect the code and decide who may call it. Record the verified fix and a prevention pattern for future changes.
 
 For every operation on user-owned or role-restricted data, verify the requesting user's identity and permissions *in the route handler*. Do not rely on the frontend to hide links.
 

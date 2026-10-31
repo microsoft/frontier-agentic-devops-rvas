@@ -11,7 +11,7 @@
 - Install `gh`, `git`, and `jq`.
 - Never replace the seeded values with a live credential.
 
-The operator needs repository administration and secret-scanning alert access.
+The operator needs repository admin permissions and secret-scanning alert access.
 For delegated bypass, the reviewer needs GitHub's required review permission.
 Keep an organization owner or security manager available for incident escalation.
 
@@ -118,7 +118,7 @@ gh api -X PATCH \
 
 Query each alert again and record its `state`, `resolution`, `resolution_comment`, and `resolved_by.login`.
 
-If any value may be real, stop treating it as fixture data. Assign the credential owner, open or link the incident handoff, revoke or rotate the credential, verify that the old value no longer works, and only then resolve the alert. The handoff must name the responder and next action without copying the secret.
+If any value may be real, stop treating it as fixture data. Identify the credential owner and open or link the incident. Revoke or rotate the credential and verify that the old value no longer works before resolving the alert. The handoff must name the responder and next action without copying the secret.
 
 ## 4. Prove clean and blocked pushes
 

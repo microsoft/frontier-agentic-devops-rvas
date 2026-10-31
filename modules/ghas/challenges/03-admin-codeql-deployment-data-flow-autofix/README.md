@@ -145,7 +145,7 @@ Do not add Python just for this exercise. Common fixes include a missed language
 an excluded path, private-registry access, or an incomplete build. If coverage
 already matches, record that in the fixture's tracking issue and continue.
 
-**A green run with missing application code does not pass.**
+**A successful run that omits application code does not prove coverage.**
 
 ### 5. Choose and run the build mode
 
@@ -233,7 +233,7 @@ gh api "repos/$GHAS_REPO/code-scanning/alerts?state=open&pr=$PR_NUMBER" \
   --jq '.[] | {number,rule: .rule.id,severity: .rule.security_severity_level}'
 ```
 
-Push a fresh revision if the rule or analysis configuration changed. As a contributor without bypass, attempt the normal merge path. Confirm GitHub names code scanning as the blocker. Draft state, missing review, or an unrelated red check does not prove this rule works.
+Push a fresh revision if the rule or analysis configuration changed. As a contributor without bypass, attempt the normal merge path. Confirm GitHub names code scanning as the blocker. Draft state, missing review, or an unrelated failing check does not prove this rule works.
 
 ### 8. Correct and merge the same PR
 

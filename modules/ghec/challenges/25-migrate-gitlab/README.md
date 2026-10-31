@@ -76,7 +76,7 @@ This pilot mirrors Git history into GitHub, converts the CI definition, and reco
 
 ### Part C: Document what did not migrate
 
-The Git CLI path does not migrate GitLab metadata or platform services. Record these as explicit follow-up items in your cutover notes:
+The Git CLI path does not migrate GitLab metadata or platform services. Record these follow-up items in your cutover notes:
 
 - Merge Requests, MR comments, reviews, approvals, and discussions.
 - Issues, labels, and milestones.

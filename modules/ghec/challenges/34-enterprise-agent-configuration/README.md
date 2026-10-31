@@ -17,7 +17,7 @@ Use this session only after a repository pilot works and the approved agent need
 
 ## Scope and guardrails
 
-The enterprise agent source and organization custom instructions are separate settings. Do not represent organization instructions as enterprise policy, and do not assume an enterprise custom agent changes instruction precedence. Do not broaden agent tools, add secrets, enable MCP servers, or change unrelated Copilot policy during this activity.
+The enterprise agent source and organization custom instructions are separate settings. Do not treat organization instructions as enterprise policy or assume an enterprise custom agent changes instruction precedence. Do not broaden agent tools, add secrets, enable MCP servers, or change unrelated Copilot policy during this activity.
 
 **Out of scope:** managed settings and plugin standards. Treat them as optional preview work requiring separate availability assessment, approval, change control, and rollback. Do not configure, validate, or report them as complete in this activity.
 
@@ -85,7 +85,7 @@ The enterprise agent source and organization custom instructions are separate se
    ```
 
 17. Record the instruction text, organization, owner, save time, supported environments, and validation result. Organization custom instructions are currently supported for Copilot Chat, code review, and cloud agent on GitHub.com; record unsupported-client limitations rather than assuming universal propagation.
-18. Record this explicit **custom-instruction precedence** for GitHub.com:
+18. Record this **custom-instruction precedence** for GitHub.com:
 
    1. Personal instructions
    2. Path-specific repository instructions (`.github/instructions/**/*.instructions.md`)

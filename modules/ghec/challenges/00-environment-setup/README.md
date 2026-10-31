@@ -94,7 +94,7 @@ gh org list
 gh repo view <org>/<repo>
 ```
 
-> All four commands must succeed. Record any failure as an access blocker for the customer owner or delivery lead.
+> Record any failure as an access blocker for the customer owner or delivery lead.
 
 ## Provisioning preflight (optional)
 

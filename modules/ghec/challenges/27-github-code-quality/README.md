@@ -13,7 +13,7 @@
 > [!IMPORTANT]
 > Use an approved customer target
 >
-> GitHub Code Quality should be evaluated against a repository the customer plans to operate. Do not treat CodeQL security scanning, a generic lint job, or an agent review workflow as a substitute: this activity configures the GitHub Code Quality product.
+> Test GitHub Code Quality on a repository the customer plans to use. CodeQL security scanning, a generic lint job, and an agent review workflow do not substitute for the GitHub Code Quality product.
 
 ## Scenario
 
@@ -70,7 +70,7 @@ permissions:
     - review and commit an Autofix only when the patch is correct for the customer codebase; or
     - dismiss it with a specific rationale when the finding is intentional or does not apply.
 15. Review optional Copilot findings separately. They do not carry the Code Quality Error/Warning/Note severity and do not independently satisfy a Code Quality merge gate. Do not merge any generated patch without normal pull-request review.
-16. Return to Standard findings and record the before/after effect on the backlog and scores. Interpret scores in the repository's context; generated code and small supported-language footprints can skew them.
+16. Return to Standard findings and record the before/after effect on the backlog and scores. Interpret scores in the repository's context; generated code and a small amount of supported-language code can skew them.
 
 ### Part E: Make the merge and rollout decision
 

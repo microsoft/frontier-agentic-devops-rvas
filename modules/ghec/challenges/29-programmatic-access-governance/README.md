@@ -19,7 +19,7 @@ automation. Do not create or reconfigure an App.
 
 Use the customer's approved organization scope. Check current App permissions and approval settings here.
 
-First establish the **effective source level** for every setting: organization-managed, enterprise-enforced/inherited, or unavailable to the current inspector. An organization owner may inspect organization settings; do not infer enterprise policy from a missing organization control.
+Identify the **effective source level** for every setting: organization-managed, enterprise-enforced/inherited, or unavailable to the current inspector. An organization owner may inspect organization settings; a missing organization control does not establish enterprise policy.
 
 OAuth App restrictions and GitHub App review are different controls. OAuth restrictions are organization-only; enabling OAuth restrictions **for the first time immediately disrupts existing OAuth Apps** until they are approved. For installed GitHub Apps, identify who authorized installation, review permissions and repository scope, and set a recurring review date.
 
@@ -39,7 +39,7 @@ OAuth App restrictions and GitHub App review are different controls. OAuth restr
    ```
 
    Add the Settings evidence needed to identify repository selection and permissions; this endpoint alone is not a complete authority or scope record.
-4. Inspect **Settings → Personal access tokens**: fine-grained token policy, classic-token policy, active tokens, and pending fine-grained token requests. Record approval requirement, maximum lifetime, restriction status, active-token owners/purpose, request decision, and the effective source level. Where available and permitted, use audit-log or API insights to corroborate owner, approval, installation, or policy events. Attach the query/export and date. Do not claim data you cannot access.
+4. Inspect **Settings → Personal access tokens**: fine-grained token policy, classic-token policy, active tokens, and pending fine-grained token requests. Record the approval requirement, maximum lifetime, restriction status, active-token owners and purposes, request decision, and effective source level. When access permits, use audit logs or API data to confirm owner, approval, installation, or policy events. Attach the query/export and date. Do not claim data you cannot access.
 
 ### Part B: Build the programmatic-access inventory
 

@@ -125,7 +125,7 @@ Compare the result with the conditions from step 1.
 
 If those checks pass, change the configuration to enforced and poll again.
 
-**Roll back** when a stop condition fires. Detach the configuration, verify the final removal state, and restore the prior repository settings. Assign unresolved work to an owner with a retest condition.
+**Roll back** when a stop condition occurs. Detach the configuration, verify the final removal state, and restore the prior repository settings. Assign unresolved work to an owner and state when to retest.
 
 ## Completion check
 

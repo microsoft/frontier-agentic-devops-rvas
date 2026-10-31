@@ -8,13 +8,6 @@
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
 - Cost note: Actions on GitHub-hosted runners consumes Actions minutes (free tier on public repos; metered on private). `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns. Keep matrices small.
 
-## What you will deliver
-- Write a workflow from scratch: `on` triggers, `jobs`, `steps`, and `runs-on`.
-- Run the repository's existing tests on one supported runtime.
-- Produce and download a test report.
-- Gate a `main` merge on a required status check so red CI blocks merges.
-- Leave deployment environments to Ch39.
-
 ## Scenario
 A team discovers failures after merging. Run its existing tests on each PR, save a report, and require the check before merge. Start with one supported runtime.
 
@@ -42,7 +35,7 @@ Setup creates these resources (all names use the `ghec-ch04-*` prefix, and teard
 - A printed Next steps block telling you where to start.
 
 ## Tasks
-> `ghec-ch04-actions-ci-fundamentals` is the fallback sample name; substitute your own artifact's name if you brought one.
+> `ghec-ch04-actions-ci-fundamentals` is the fallback sample name; use your own repository's name if you brought one.
 
 ### Part A: A CI workflow
 1. Reuse the Ch02 repository. Write `.github/workflows/ci.yml` with `pull_request` and default-branch `push` triggers. Add a `build-test` job on `ubuntu-latest`. Set `permissions: contents: read` and use an approved version of `actions/checkout`.

@@ -1,8 +1,7 @@
 # Contributing
 
-Most contributions require a Contributor License Agreement (CLA). The agreement confirms
-that you have the right to grant us permission to use your contribution and that you
-grant that permission. For details, visit
+Most contributions require a Contributor License Agreement (CLA). It confirms
+that you can and do grant us permission to use your contribution. For details, visit
 https://cla.microsoft.com.
 
 When you submit a pull request, the CLA bot checks whether you need an agreement and

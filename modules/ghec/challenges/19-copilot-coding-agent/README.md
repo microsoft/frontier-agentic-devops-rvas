@@ -9,7 +9,7 @@
 - Copilot cloud agent is unavailable on EMU repos. If your enterprise uses Enterprise Managed Users (GHEMU), run this activity on a non-EMU org. It is N/A for pure GHEMU customers. `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19` warns about EMU.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19 --org <org>` (least-privilege; for this activity: `repo` + `read:org`). The cloud agent itself runs under Copilot's identity, not your token.
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
-- Note on limits: agent sessions are capped (~59 min) and run in an ephemeral Actions environment, consuming Actions minutes + Copilot premium requests.
+- **Limits:** Agent sessions are capped (~59 min) and run in an ephemeral Actions environment, consuming Actions minutes and Copilot premium requests.
 
 ## What you'll do
 - Confirm the Copilot cloud agent is enabled and the repo is eligible (non-EMU).
@@ -53,7 +53,7 @@ Setup is idempotent. All artifact names use the `ghec-ch19-*` prefix, and teardo
 ### Part A: Confirm eligibility
 1. Verify the policy. Confirm the org has the Copilot cloud agent enabled (Org Settings → Copilot → Policies) and that your user has a Copilot license.
 2. Confirm non-EMU. Ensure the repo is not in an EMU-managed enterprise. If `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19` flagged EMU, stop. This activity cannot run there.
-3. Open the seeded issue and read its repro + acceptance criteria so you can judge the agent's output later.
+3. Open the selected issue and read its reproduction steps and acceptance criteria so you can judge the agent's output later.
 
 Before assigning it, review the [first-run setup and instructions](../../resources/copilot-first-run.md). Reuse working configuration; add only the build commands and task boundaries this repository needs. Require the actual CI check and independent human review before delegation. Ch31 is optional for an actual private-dependency or runner gap.
 
@@ -63,7 +63,7 @@ Before assigning it, review the [first-run setup and instructions](../../resourc
 6. Follow the session. Read the agent's progress/session log on the PR (its plan, the files it's touching, the commands it runs in the ephemeral environment).
 
 ### Part C: Review the draft PR
-7. Read the diff critically. Does the change actually fix the pinned bug? Does it touch anything it shouldn't? Check CI on the PR.
+7. Read the diff critically. Does the change fix the selected bug? Does it touch anything it shouldn't? Check CI on the PR.
 8. Run/confirm the tests. Confirm the previously failing test is now green in the PR's CI run.
 9. Leave a review. Comment on a specific line with a concrete request (e.g., "handle the empty-input case too" or "add a test for X").
 

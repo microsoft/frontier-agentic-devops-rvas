@@ -109,7 +109,7 @@ Defender for Cloud can correlate the code scanning and Dependabot alerts GitHub 
 
 **Live path:** complete `ghas-admin-07` first, then return here with real `has:deployment` and `runtime-risk:` evidence from that activity's pilot repository. In the GitHub organization security UI, apply those filters to the alert set and compare the result against your step 3 filters. Don't re-create the connector here — `ghas-admin-07` owns that setup.
 
-**No-access path:** without that connector, work through this synthetic scenario instead. None of these services are real; reason about the alert set the way you would with live data.
+**No-access path:** without that connector, use this synthetic scenario to choose the campaign alerts. These services are not real.
 
 | Alert | Severity | Deployed | Internet-facing | Sensitive data | Campaign priority | Reason |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -119,7 +119,7 @@ Defender for Cloud can correlate the code scanning and Dependabot alerts GitHub 
 | `auth-gateway` JWT validation bypass | Critical | Yes | Yes | Yes | Include first | Deployed, internet-facing, guards authentication |
 | `staging-only-cache` deserialization | Medium | Yes (staging) | No | No | Exclude from this campaign | Staging traffic only, not production |
 
-Either way, record the revised campaign alert set and one short reason for the change in the existing campaign issue or approved work item.
+Record the revised campaign alert set and one short reason for the change in the existing campaign issue or approved work item. Label synthetic results as practice; they do not verify the connector.
 
 ### 4. Publish the campaign
 

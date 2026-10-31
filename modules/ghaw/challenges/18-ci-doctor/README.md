@@ -23,7 +23,7 @@ Before the model starts, require `github.event.workflow_run.conclusion ==
 configuration; reject unapproved branch or fork runs. Keep the workflow on the
 default branch as required for `workflow_run`.
 
-## Collect before the agent
+## Collect evidence before the agent runs
 
 Use a trusted collector in
 [`pre-agent-steps:`](https://github.github.com/gh-aw/reference/steps-jobs/).
@@ -51,7 +51,7 @@ and treat every log line as untrusted data.
 ## Diagnose once
 
 Link the run and failed job in the issue. Quote the relevant log evidence and
-separate a likely cause from facts. Require a concrete investigation step,
+distinguish a likely cause from observed facts. Require a concrete investigation step,
 and allow "cause unknown."
 
 Key the record by repository, workflow ID, and original run ID. A rerun changes

@@ -4,7 +4,7 @@
 
 This activity needs real Azure and GitHub infrastructure that you provision outside this repository. Start setup, allow time for Microsoft's services to propagate the changes, and return one or two days later to finish. The 120 minutes of active work excludes that wait.
 
-## What this integration is, and is not
+## What the integration does
 
 Defender for Cloud reads the code scanning and Dependabot alerts GitHub already produces. It correlates them with where the code runs: container registries, AKS clusters, and the internet exposure or sensitive-data handling around them. It does not scan your code — CodeQL and Dependabot still do that — and it does not create or publish anything in GitHub for you. A human reads the runtime context and decides what to prioritize, then creates the campaign and any GitHub issue by hand.
 
@@ -38,7 +38,7 @@ Do this part outside this repository, with the Azure owner.
 
 1. **Enable Defender CSPM** on the subscription, if it isn't already. See [GitHub Advanced Security integration overview](https://learn.microsoft.com/en-us/azure/defender-for-cloud/github-advanced-security-overview) for the full prerequisite table.
 2. **Create or select an ACR and an AKS cluster** in the same subscription. Use your organization's standard provisioning path (Azure portal, Bicep, or Terraform); this activity does not prescribe one.
-3. **Build, push, and deploy a container image from the pilot GitHub repository.** Use a real Dockerfile from that repository, push the image to ACR, and run it on AKS. If you don't have a production candidate, Microsoft publishes a [sandbox project](https://learn.microsoft.com/en-us/azure/defender-for-cloud/github-advanced-security-deploy-sandbox) with a prebuilt vulnerable image and deployment manifests. Treat the sandbox as an external, Microsoft-maintained option: it is not a fixture this curriculum ships or tests, and its availability can change without notice. Prefer your own repository and workload when you have one.
+3. **Build, push, and deploy a container image from the pilot GitHub repository.** Use a real Dockerfile from that repository, push the image to ACR, and run it on AKS. If you don't have a suitable workload, Microsoft publishes a [sandbox project](https://learn.microsoft.com/en-us/azure/defender-for-cloud/github-advanced-security-deploy-sandbox) with a prebuilt vulnerable image and deployment manifests. Microsoft maintains it outside this curriculum; we do not ship or test it, and its availability can change. Prefer your own repository and workload.
 
 **Pause here.** Confirm the image is running on AKS and the pilot repository has at least one open code scanning or Dependabot alert before you continue.
 
@@ -66,7 +66,7 @@ Mapping is not instant. Plan your session around these windows, and capture a ti
 2. **Full code-to-runtime mapping.** Microsoft's guidance allows up to 24 hours for the registry and cluster scans to complete and for the repository, image, and workload to link together. **Stop this session here and schedule a return.**
 3. **Criticality propagation.** After you mark a resource critical (next section), allow up to 12 hours for that signal to reach GitHub's `runtime-risk:` filters.
 
-Record the wall-clock time you complete each step. "It's probably done" is not evidence; record a timestamp alongside a passing validation query.
+Record each step's completion time alongside a passing validation query.
 
 ## Validate the mapping
 
