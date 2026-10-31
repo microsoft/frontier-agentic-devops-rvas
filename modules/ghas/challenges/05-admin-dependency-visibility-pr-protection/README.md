@@ -279,7 +279,7 @@ updates:
 
 Open **Insights > Dependency graph > Dependabot**, run **Check for updates**, and inspect the resulting pull request.
 
-Security-update pull requests fix a known advisory and usually move to the minimum patched version. Scheduled version updates keep packages current even when no alert exists. The `routine-version-updates` group applies only to version updates, so its name appears in those pull-request titles and branches. Confirm the difference in the pull-request body and the Dependabot update log.
+Security-update pull requests fix a known advisory, usually with the minimum patched version. Scheduled version updates keep packages current even without an alert. The `routine-version-updates` group names only version-update titles and branches. Check the PR body and Dependabot log to distinguish the two.
 
 ### 7. Test private-registry access if required
 

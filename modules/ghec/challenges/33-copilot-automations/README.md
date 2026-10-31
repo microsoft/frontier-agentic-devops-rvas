@@ -74,7 +74,7 @@ This session covers **Copilot automations**: a Copilot cloud-agent task defined 
 ### Part B: Design trigger, filters, prompt, and tools
 
 6. Choose a supported repository event and a narrow filter for the maintenance task. State the maximum acceptable run rate and cost owner. A schedule is optional after event tests pass.
-7. For an event trigger, configure and retain its filter evidence:
+7. For an event trigger, configure the filters and keep the test results:
    - For an issue-created trigger, use a customer-approved search-query filter.
    - For a pull-request-opened or synchronized trigger, use a customer-approved search-query filter and changed-files filter.
    - Test the filter with an approved issue or PR and record both a match and an expected non-match.

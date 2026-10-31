@@ -14,9 +14,8 @@
 
 `ghqr` checks many GitHub surfaces, including security settings, access control, branch protection, Copilot policy, audit logs, Actions policy, dependencies, repository metadata, and community-health files. Use it to speed up assessment. It does not replace customer risk decisions.
 
-Use these guardrails throughout:
+During the review:
 
-- Run read-only scans unless a separate customer change approval exists.
 - Store only non-secret report artifacts in the evidence location.
 - Record token scopes and reviewer role, but never store token values.
 - Do not change settings without separate customer approval.

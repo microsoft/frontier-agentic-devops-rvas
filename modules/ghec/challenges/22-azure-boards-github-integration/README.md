@@ -99,12 +99,9 @@ gh pr merge --repo "$ORG/$REPO" --squash --delete-branch
 5. Return to the work item and refresh. A phrase such as `Fixes AB#<id>` transitions the work item to the first state in the Resolved workflow category, or if none exists, the first state in the Completed category. State transitions apply when the PR is merged into the default branch.
 
 ### Part E: Validate the integration
-Confirm each side of the link:
-- GitHub App installation page shows Azure Boards installed for the selected repository.
-- Azure DevOps Project settings > GitHub connections shows the connected repo.
-- Azure Boards work item Development section shows the GitHub commit and PR.
-- GitHub PR Development section shows the Azure Boards work item.
-- The work item state before and after PR merge, or why the process template uses a different target state.
+Keep the installation, connection, commit-link, and PR-link results from Parts A-D.
+Record the work-item state before and after the merge, or explain why the process
+template uses a different target state.
 
 ## Troubleshooting
 

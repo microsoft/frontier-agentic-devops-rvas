@@ -19,7 +19,7 @@ repositories. Fetch external apps and labs only for activities that need them.
 - **Used by:** GHAS setup, developer activities, and the four admin fixture provisioners
 - **Import mode (org repo):** The GHAS setup script (`setup.sh provision`) imports the repo into an org-owned GitHub repository named `ghec-ghas-00-juice-shop`. GHAS alerts run on *that* org repo.
 - **Local runtime.** GHAS activities use a local Juice Shop instance for manual exploit testing. **GHAS scans the org repository, not this local instance.** See [Local app provisioning (submodules)](#local-app-provisioning-submodules).
-- **Why a submodule:** Juice Shop adds ~61 MB. Fetching it on demand avoids slowing container creation for participants who do not need it.
+- **Why a submodule:** Juice Shop is ~61 MB. Fetching it only when needed keeps clones and container creation faster for participants who do not use it.
 
 ## Import modes
 
@@ -160,7 +160,7 @@ git submodule update --init --recursive --depth 1
 
 ### Drift prevention
 
-`npm run verify:repos` asserts that, for every `provisioning.method == "submodule"` entry:
+For every `provisioning.method == "submodule"` entry, `npm run verify:repos` checks that:
 - `.gitmodules` contains a URL for the declared `submodule_path`
 - The `.gitmodules` URL matches `external-repos.json`
 - The gitlink SHA in the index matches `source.sha`

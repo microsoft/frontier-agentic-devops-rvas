@@ -23,7 +23,7 @@ You will:
 
 ## Scenario
 
-A customer uses outside collaborators for vendor work. Repository admins grant access, reviews are rare, and business approvals are hard to trace. Define each grant's scope, end date, reviewer, and removal process.
+A customer uses outside collaborators for vendor work. Repository admins grant access, reviews are rare, and business approvals are hard to trace. Record each grant's scope, approver, expiry, review date, reviewer, and removal process.
 
 > [!IMPORTANT]
 > Use a real approved access review if available. If not, use `ghec-ch48-vendor-access-register` to practice the workflow. Do not invite, remove, or change vendor access unless the customer explicitly approves the participant step.

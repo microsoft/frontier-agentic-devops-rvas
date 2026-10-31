@@ -18,7 +18,7 @@
 You manage the backlog for an internal developer-tools team at a GHEC customer. Requests are scattered across chat threads and spreadsheets. Leadership wants every request recorded as an issue and triaged within a day. Configure a GitHub board that shows work in progress, blockers, and planned deliveries for the sprint.
 
 > [!IMPORTANT]
-> Use an approved customer target first. If you have a candidate backlog and board, use it everywhere this guide says `ghec-ch01-issues-labels-projects` or `ghec-ch01-board` and skip Setup. Otherwise use the fallback seeded repo below for testing, then move the validated configuration to an approved customer target.
+> Use the approved customer backlog and board in place of `ghec-ch01-issues-labels-projects` and `ghec-ch01-board`, and skip sample setup. If neither is available, test in the seeded repo below, then apply the validated configuration to an approved customer target.
 >
 > Record the selected target, adoption owner, and next action.
 
@@ -39,7 +39,6 @@ Setup creates these resources (all names use the `ghec-ch01-*` prefix, and teard
 - ~26 seeded backlog issues (bugs, features, chores) with inconsistent or missing labels, no milestone, and no assignee.
 - An incomplete label set: `bug`, `Bug`, `enhancement`, `urgent`, `wontfix`, `question`, `backend`, `frontend`. Note the duplicate `bug`/`Bug` casing.
 - An empty Projects (v2) board `ghec-ch01-board` linked to the repo, with no custom fields yet.
-- A printed Next steps block telling you where to start.
 
 ## Tasks
 > `ghec-ch01-issues-labels-projects` is the fallback sample name; use your own repository's name if you brought one.

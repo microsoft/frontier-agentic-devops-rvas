@@ -1,9 +1,9 @@
 {
   "entries": {
-    "github/gh-aw-actions/setup@v0.90.1": {
+    "github/gh-aw-actions/setup@v0.91.11": {
       "repo": "github/gh-aw-actions/setup",
-      "version": "v0.90.1",
-      "sha": "7c1d4b7ab319216ef4a931cc3dcb0d7245144ff1"
+      "version": "v0.91.11",
+      "sha": "c0d661a2925687358c937720c5c7d3c338299f55"
     }
   },
   "containers": {

@@ -31,7 +31,7 @@ OAuth App restrictions and GitHub App review are different controls. OAuth restr
 
 1. Record the organization, customer owner, approval boundary, whether it is EMU, and the available role: organization owner, enterprise owner, or authorized enterprise-policy export.
 2. If the selected automation also uses an App, inspect its access under **Settings → Third-party access**. Identify the owner, repository selection, and permissions. Otherwise skip App inventory.
-3. For that App review, capture a read-only installed-App snapshot where API access is available:
+3. If API access is available, capture the installed-App snapshot:
 
    ```bash
    gh api /orgs/<org>/installations --paginate \

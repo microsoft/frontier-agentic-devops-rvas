@@ -39,7 +39,7 @@ The fallback is intentionally isolated and namespaced `ghec-ch32-*`. It creates 
 4. Open or select a small pull request. In the PR **Reviewers** sidebar, select **Copilot** and click **Request**. Alternatively, use the REST review-request endpoint to request `copilot-pull-request-reviewer[bot]`.
 5. Read every Copilot comment against the change, tests, threat model, and repository conventions. A designated human reviewer must classify each comment as accepted, rejected with rationale, deferred, or duplicate/noise.
 6. Resolve comments or discuss any that remain open, then obtain the normal human and `CODEOWNERS` reviews. Preserve the PR timeline, reviewer decisions, and final merge result as evidence. Do not count Copilot's comment review as an approval.
-7. Re-request a review only when a human reviewer judges it useful. Record that manual re-review is deliberate; automatic re-review of new pushes is a separate ruleset option.
+7. Re-request a review only when a human reviewer judges it useful. Automatic re-review of new pushes is a separate ruleset option.
 
 ### Part C: Decide automatic review at repository or organization scope
 

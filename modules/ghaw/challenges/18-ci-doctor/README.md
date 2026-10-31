@@ -107,9 +107,9 @@ The diagnostic runs only if the selected CI attempt fails. It should create
 one issue headed "CI diagnosis: run ...". Another failed attempt updates that
 issue; replaying the same attempt does nothing.
 
-Verify the selected failure produces a useful diagnosis. Rerun it and confirm there is no
-duplicate issue. Test a successful or unapproved run and confirm the model
-does not run.
+Verify that the diagnosis helps the maintainer investigate the selected failure.
+Rerun it and confirm there is no duplicate issue. Test a successful or unapproved
+run and confirm the model does not run.
 Name the maintainer who will check collector, engine, and writer failures in
 Actions. Before widening the trigger, review run frequency and the existing
 Actions and AI-provider spending controls with that owner. Keep the run links;

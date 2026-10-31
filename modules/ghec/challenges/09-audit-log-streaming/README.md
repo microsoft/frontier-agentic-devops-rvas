@@ -41,8 +41,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch09 --org <org>
 Setup creates these resources (all names use the `ghec-ch09-*` prefix, and teardown is prefix-guarded):
 - A seeded repo `ghec-ch09-audit-target` with a populated `main` for auditable test actions.
 - A starter team `ghec-ch09-auditors` for team-membership and permission-change test events.
-- A printed "recent activity" sample (the last few org audit events pulled from the API) so you can see the shape of an event immediately.
-- A printed Next steps block telling you where to start.
+- A sample of recent org audit events from the API.
 
 ## Tasks
 

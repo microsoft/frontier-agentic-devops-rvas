@@ -6,7 +6,7 @@ This activity needs real Azure and GitHub infrastructure that you provision outs
 
 ## What the integration does
 
-Defender for Cloud reads the code scanning and Dependabot alerts GitHub already produces. It correlates them with where the code runs: container registries, AKS clusters, and the internet exposure or sensitive-data handling around them. It does not scan your code — CodeQL and Dependabot still do that — and it does not create or publish anything in GitHub for you. A human reads the runtime context and decides what to prioritize, then creates the campaign and any GitHub issue by hand.
+Defender for Cloud correlates GitHub's existing code scanning and Dependabot alerts with container registries, AKS workloads, internet exposure, and sensitive-data handling. CodeQL and Dependabot still produce the findings. A human uses the runtime context to set priorities and create campaigns or GitHub issues; the integration does not publish them automatically.
 
 ## Before you start
 

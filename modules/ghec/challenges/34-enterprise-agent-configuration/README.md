@@ -19,7 +19,7 @@ Use this session only after a repository pilot works and the approved agent need
 
 The enterprise agent source and organization custom instructions are separate settings. Do not treat organization instructions as enterprise policy or assume an enterprise custom agent changes instruction precedence. Do not broaden agent tools, add secrets, enable MCP servers, or change unrelated Copilot policy during this activity.
 
-**Out of scope:** managed settings and plugin standards. Treat them as optional preview work requiring separate availability assessment, approval, change control, and rollback. Do not configure, validate, or report them as complete in this activity.
+**Out of scope:** managed settings and plugin standards. Any preview work on them needs a separate availability check, approval, change control, and rollback plan.
 
 ## Tasks
 
@@ -47,7 +47,7 @@ The enterprise agent source and organization custom instructions are separate se
 
 9. As the enterprise owner, go to **Enterprise settings → AI Controls → Agents**. In **Configuration source**, select the organization that contains the approved `.github-private` repository.
 10. Save the change and capture the resulting **Configuration summary**. Record the source organization, repository, date, actor, source commit, and the organizations expected to receive the enterprise configuration.
-11. If the summary does not show the expected source, stop. Correct the enterprise setting or source repository only through the approved change, then capture new evidence. A repository that exists but is not selected in AI Controls is not an active enterprise configuration source.
+11. If the summary does not show the expected source, stop. Correct the enterprise setting or source repository only through the approved change, then capture new evidence. The source is active only when selected in AI Controls.
 
 ### Part D: Implement the enterprise custom agent
 

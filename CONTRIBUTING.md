@@ -19,9 +19,8 @@ Activity content lives under `modules/<moduleId>/challenges/<slug>/`. The build 
 generated Pages data. Do not hand-edit generated files under `docs/assets/data/`; run
 `npm run build` instead.
 
-Outcome journeys live in [`outcomes.json`](outcomes.json). Use that file to group existing
-activities into adoption, migration, security, agentic workflow, and cloud DevOps paths
-without duplicating activity content.
+Outcome journeys live in [`outcomes.json`](outcomes.json). Group existing activities
+there without duplicating their content.
 
 Every activity directory must contain:
 
@@ -50,8 +49,8 @@ Reuse working controls. Do not require extra tools, sample tasks, or comparison
 exercises just to cover a topic. Keep evidence in the existing PR or work item.
 **Prefer native GitHub features.** A reporting or storage helper belongs beside
 the task that needs it; building the helper alone does not justify a session.
-An assessment or fixture can prepare for setup; it must not stand in for a live
-result. Without the required approval or feature, record the blocker.
+Use an assessment or fixture to prepare for setup, not to claim a live result.
+Without the required approval or feature, record the blocker.
 
 ### `meta.yml` required fields
 

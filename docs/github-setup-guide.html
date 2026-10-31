@@ -74,7 +74,7 @@ copilot plugin update github-enterprise-setup</code></pre>
       <section id="questions" aria-labelledby="questionsHeading">
         <h2 id="questionsHeading">Describe the setup you need</h2>
         <p>Replace the placeholders below and send this prompt in Copilot. Use <code>github.com</code> or your enterprise's full <code>ghe.com</code> hostname.</p>
-        <pre><code class="language-text">Use the github-enterprise-setup skill to set up enterprise &lt;enterprise-slug&gt;
+        <pre><code class="language-text">/github-enterprise-setup set up enterprise &lt;enterprise-slug&gt;
 on &lt;host&gt;, covering organizations &lt;org-slugs&gt;.
 My goal is &lt;outcome&gt;. Assess current state and recommend changes.
 Ask only for unresolved decisions. Save a plan without changing GitHub.</code></pre>
@@ -92,12 +92,11 @@ Ask only for unresolved decisions. Save a plan without changing GitHub.</code></
       <section id="verify" aria-labelledby="verifyHeading">
         <h2 id="verifyHeading">Continue saved work</h2>
         <p>In the same conversation, ask the agent to continue. It reuses the known target and run directory. In a new conversation, supply the full path:</p>
-        <pre><code class="language-text">Use the github-enterprise-setup skill to resume the run at &lt;absolute-run-path&gt;.
+        <pre><code class="language-text">/github-enterprise-setup resume the run at &lt;absolute-run-path&gt;.
 Recheck identity and live state before continuing.</code></pre>
-        <p>On resume, the skill checks the saved files and verifies any writes whose outcome is uncertain before continuing. Changes to the target or effects need new approval. Keep unverified work separate from completed operations.</p>
+        <p>On resume, the skill checks the saved files and verifies any writes whose outcome is uncertain. If the target or planned effects change, it needs new approval. Keep unverified work separate from completed operations.</p>
         <h3>Get recommendations without a change plan</h3>
-        <pre><code class="language-text">Use the github-enterprise-setup skill in Assess mode for enterprise
-&lt;enterprise-slug&gt; on &lt;host&gt;, covering &lt;scope&gt;. Report gaps and prioritized
+        <pre><code class="language-text">/github-enterprise-setup assess enterprise &lt;enterprise-slug&gt; on &lt;host&gt;, covering &lt;scope&gt;. Report gaps and prioritized
 recommendations. Do not create a change plan or change GitHub.</code></pre>
         <p>Assess stops after the report. Ask to continue into Plan when you want to turn selected recommendations into proposed changes.</p>
         <p>Use the <a href="catalog.html">hands-on sessions</a> for controls your team needs to learn or test.</p>

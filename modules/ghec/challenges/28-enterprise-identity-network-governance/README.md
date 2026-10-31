@@ -44,7 +44,7 @@ Reuse the customer's organization and identity-boundary decisions. Verify curren
 
 ### Part E: Verify and hand over
 
-12. Reconcile the identity, network, SSH CA, and enterprise-role findings with the source exports. Confirm each effective level, accountable owner, exception, review/rotation date, and rollback or break-glass path.
+12. Check the identity, network, SSH CA, and enterprise-role findings against the source exports. Confirm each setting's effective level, owner, exceptions, review or rotation date, and rollback or break-glass path.
 13. Have the enterprise owner approve the selected control, affected users, and rollback. Keep the baseline and approval in the existing change record.
 
 ### Part F: Put the selected control to work

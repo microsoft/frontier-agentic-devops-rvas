@@ -66,7 +66,7 @@ A successful CodeQL run does not prove coverage for those languages.
 
 #### Compare CodeQL coverage against Codename MDASH
 
-Codename MDASH is Microsoft's multi-model agentic scanning harness, a separate preview capability inside Microsoft Defender. It complements CodeQL. You are not running it in this session. Do not assume it covers source types CodeQL does not support here. `ghas-admin-08` teaches how to onboard and operate it; use this table to decide whether to pursue preview enrollment for your language gaps.
+Codename MDASH is Microsoft's multi-model agentic scanning harness, a separate preview capability inside Microsoft Defender that complements CodeQL. You will not run it here. Use the table to check its documented support for your language gaps and decide whether to seek preview enrollment. `ghas-admin-08` covers onboarding and operation.
 
 Use your language inventory above to fill in one row per source type:
 
@@ -75,7 +75,7 @@ Use your language inventory above to fill in one row per source type:
 | | | | | |
 | | | | | |
 
-Copy the completed table into the fixture's tracking issue (or your customer repository's equivalent tracking issue).
+Keep the completed table in the fixture's or customer repository's tracking issue.
 
 ### 2. Check the setup
 
