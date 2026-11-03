@@ -18,7 +18,7 @@ Do not record credentials, customer data, or full alert payloads.
 
 Use the customer's approved risk system. Link the alert and record why the team
 needs an exception and who approved it. Include the compensating control, expiry,
-and return path. Do not create an exception just to complete a lab.
+and how the team will restore the control. Do not create an exception just to complete a lab.
 
 ## Review expectations
 

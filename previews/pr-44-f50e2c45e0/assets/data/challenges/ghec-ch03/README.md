@@ -8,7 +8,7 @@ Use this optional session when the Ch00 repository needs a shared development im
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch03 --org <org>` (least-privilege; for this activity: `repo` + `codespace` + `admin:org` for org policy).
 - Local tooling: `gh >= 2.x` (with the Codespaces extension available), `git`, `jq`.
-- Cost note: Codespaces is a metered product. This activity consumes Codespaces minutes/storage on the participant account. Use the smallest machine type (2-core) and stop codespaces when idle. `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns about cost-bearing activities.
+- **Cost:** This activity uses metered Codespaces minutes and storage on the participant account. Use the smallest machine type (2-core) and stop Codespaces when idle. `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns about costs.
 
 ## What you will deliver
 - Author a `devcontainer.json` that pins a base image, installs features, and runs setup commands.
@@ -18,7 +18,7 @@ Use this optional session when the Ch00 repository needs a shared development im
 - Reuse approved machine-type and retention policy. Add a prebuild only when startup time warrants it.
 
 ## Scenario
-New engineers at a GHEC customer spend a day configuring local tools before they can run the app. Configure a committed dev container and a prebuild to shorten setup. Set an org policy to control costs, then test the environment on a seeded Node service.
+New engineers at a GHEC customer spend a day configuring local tools before they can run the app. Commit a dev container, check the org's cost policy, and test the environment. Add a prebuild only if startup is too slow.
 
 > [!IMPORTANT]
 > Use an approved customer target first. If you have a candidate repository, use it everywhere this guide says `ghec-ch03-codespaces-dev-containers` and skip Setup. Otherwise use the fallback seeded repo below for testing, then move the validated configuration to an approved customer target.
@@ -40,10 +40,9 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch03 --org <org>
 Setup creates these resources (all names use the `ghec-ch03-*` prefix, and teardown is prefix-guarded):
 - A seeded repo `ghec-ch03-codespaces-dev-containers` with a small Node/Express app, a `package.json`, and a deliberately minimal `.devcontainer/devcontainer.json` so you can extend it.
 - A `README` describing how to run the app locally.
-- A printed Next steps block telling you where to start.
 
 ## Tasks
-> `ghec-ch03-codespaces-dev-containers` is the fallback sample name; substitute your own artifact's name if you brought one.
+> `ghec-ch03-codespaces-dev-containers` is the fallback sample name; use your own repository's name if you brought one.
 
 ### Part A: Author the dev container
 1. Inspect and extend `.devcontainer/devcontainer.json`. The fallback sample includes a minimal baseline with a pinned Node image, dependency install, and port 3000 forwarding. Keep the pinned base image suitable for the app (e.g., `mcr.microsoft.com/devcontainers/javascript-node:22`) and improve it.

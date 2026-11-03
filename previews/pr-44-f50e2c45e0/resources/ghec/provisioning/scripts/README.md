@@ -38,7 +38,7 @@ If `doctor` or `provision` reports missing scopes for Projects v2 operations, re
 gh auth refresh -h github.com -s project,read:project
 ```
 
-## Command surface
+## Commands
 
 ```
 # Bash
@@ -72,7 +72,7 @@ gh auth refresh -h github.com -s project,read:project
 - Every created resource is prefixed `ghec-<chid>-*` (for example, `ghec-ch01-issues-labels-projects` or `ghec-ghas-00-juice-shop`).
 - `teardown` calls `guard_prefix` before every deletion. It refuses any name that does not start with `ghec-<chid>-`, which protects pre-existing customer repositories and projects.
 - `--dry-run` routes every mutation through a planner that prints `[plan] would run: …` and changes nothing. Use it first against a customer org.
-- `provision` only creates missing state and is idempotent. `teardown` is the only destructive path. It checks the prefix and asks for confirmation.
+- `provision` creates only missing resources. `teardown` is the only destructive command.
 - Scripts cannot reliably revert some platform/admin changes (audit settings, org policies). Those activities document manual cleanup in their `README.md`.
 
 ## Juice Shop import (GHAS activities)

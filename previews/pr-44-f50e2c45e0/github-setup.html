@@ -59,7 +59,7 @@
         <a href="#first-plan">Start here</a><a href="#scope">Scope</a><a href="#capabilities">Capabilities</a><a href="#examples">Example prompts</a><a href="#boundaries">Prerequisites and limits</a>
       </nav>
       <section id="first-plan" aria-labelledby="firstPlanHeading">
-        <h2 id="firstPlanHeading">Get to your first plan</h2>
+        <h2 id="firstPlanHeading">Start your first plan</h2>
         <p>You need an existing GitHub Enterprise Cloud account, Copilot CLI, <code>gh</code>, and <code>jq</code>. The skill helps you plan changes; it does not create the enterprise account.</p>
         <ol class="setup-start-steps">
           <li>
@@ -128,7 +128,7 @@
           <article class="setup-capability setup-capability-security">
             <span class="setup-capability-code">SEC</span>
             <h3>Security and Copilot rollout</h3>
-            <p>Code security coverage, rollout waves, Copilot seats and controls, licensing, and verification evidence.</p>
+            <p>Code security coverage, rollout waves, Copilot seats and controls, licensing, and checks to verify the rollout.</p>
             <ul>
               <li>CodeQL and secret protection</li>
               <li>Scoped Copilot rollout</li>
@@ -146,19 +146,19 @@
         <div class="setup-prompt-grid">
           <article class="setup-prompt-card">
             <h3>Establish a governance baseline</h3>
-            <pre><code>Use the github-enterprise-setup skill in Plan mode for enterprise &lt;enterprise&gt; on &lt;host&gt;. Assess governance, identity, Actions, security, and Copilot. Save a reviewed plan without changing GitHub.</code></pre>
+            <pre><code>/github-enterprise-setup for enterprise &lt;enterprise&gt; on &lt;host&gt;. Assess governance, identity, Actions, security, and Copilot. Save a reviewed plan without changing GitHub.</code></pre>
           </article>
           <article class="setup-prompt-card">
             <h3>Align one organization</h3>
-            <pre><code>Use the github-enterprise-setup skill to align organization &lt;org&gt; in enterprise &lt;enterprise&gt;. Review teams, repository access, rulesets, and Actions policy. Ask one unresolved decision at a time, then save the plan.</code></pre>
+            <pre><code>/github-enterprise-setup align organization &lt;org&gt; in enterprise &lt;enterprise&gt;. Review teams, repository access, rulesets, and Actions policy. Ask one unresolved decision at a time, then save the plan.</code></pre>
           </article>
           <article class="setup-prompt-card">
             <h3>Roll out GitHub Copilot</h3>
-            <pre><code>Use the github-enterprise-setup skill to plan a GitHub Copilot rollout for &lt;enterprise or org&gt;. Check seat management, policy inheritance, agent controls, estimated seat changes, and rollout evidence. Do not make changes.</code></pre>
+            <pre><code>/github-enterprise-setup plan GitHub Copilot rollout for &lt;enterprise or org&gt;. Check seat management, policy inheritance, agent controls, estimated seat changes, and rollout evidence. Do not make changes.</code></pre>
           </article>
           <article class="setup-prompt-card">
             <h3>Plan a security rollout</h3>
-            <pre><code>Use the github-enterprise-setup skill to plan code security for organizations &lt;orgs&gt;. Assess entitlements, CodeQL coverage, secret scanning, push protection, exceptions, and rollout waves. Save a plan without changing GitHub.</code></pre>
+            <pre><code>/github-enterprise-setup plan code security for organizations &lt;orgs&gt;. Assess entitlements, CodeQL coverage, secret scanning, push protection, exceptions, and rollout waves. Save a plan without changing GitHub.</code></pre>
           </article>
         </div>
       </section>

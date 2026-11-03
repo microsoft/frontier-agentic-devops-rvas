@@ -1,6 +1,6 @@
 # Ch09: Organization audit investigation and export
 
-This optional session exports organization audit events for a selected period. It does not configure enterprise streaming.
+This optional session does not configure enterprise streaming.
 
 **Session outcome:** You export organization audit events for a selected period as valid JSON and find the known test events.
 
@@ -11,7 +11,7 @@ This optional session exports organization audit events for a selected period. I
 - You do not need GHAS or Codespaces.
 
 ## What you will deliver
-- Read the organization audit log and understand its event model (actor, action, timestamp, repo).
+- Read organization audit events: actor, action, timestamp, and repository.
 - Use the audit-log search syntax (`action:`, `actor:`, `created:`, `repo:`) to answer real investigative questions.
 - Query the audit log via the REST API (`gh api /orgs/<org>/audit-log`) with phrase filters and pagination.
 - Generate and find documented permission and ruleset events.
@@ -41,8 +41,7 @@ modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch09 --org <org>
 Setup creates these resources (all names use the `ghec-ch09-*` prefix, and teardown is prefix-guarded):
 - A seeded repo `ghec-ch09-audit-target` with a populated `main` for auditable test actions.
 - A starter team `ghec-ch09-auditors` for team-membership and permission-change test events.
-- A printed "recent activity" sample (the last few org audit events pulled from the API) so you can see the shape of an event immediately.
-- A printed Next steps block telling you where to start.
+- A sample of recent org audit events from the API.
 
 ## Tasks
 
@@ -56,7 +55,7 @@ Setup creates these resources (all names use the `ghec-ch09-*` prefix, and teard
    - Add the team to the repo: `gh api -X PUT /orgs/<org>/teams/ghec-ch09-auditors/repos/<org>/ghec-ch09-audit-target -f permission=push`.
    - Change repo visibility once and back, or toggle a setting.
    - Create (and delete) a simple repository ruleset on the target.
-5. Record what you did (action + rough timestamp) so you can later confirm each one surfaced in the log.
+5. Record the action and approximate timestamp so you can find it in the log.
 
 ### Part C: Use search filters
 6. Filter by the action you chose. For a team grant, use `action:team.add_repository`. Confirm the known event appears.

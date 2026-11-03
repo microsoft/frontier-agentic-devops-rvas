@@ -60,7 +60,7 @@ Fill in the requirement and test first. Review the patch with the accountable ow
 1. Merge the reviewed setup change to the default branch. Run the normal Actions check where it can validate the setup; it may not have the same credentials as the agent.
 2. Repeat the bounded Ch19 task or Ch32 review that exposed the gap. Confirm its log shows the selected setup, intended runner, and successful dependency or service access.
 3. Run the application's acceptance test and inspect the produced diff or review. Keep human approval and required CI unchanged.
-4. Verify a denied access case where the platform allows a safe test. Confirm the scoped credential or runner cannot reach an unrelated resource.
+4. If the platform allows a safe test, confirm that the scoped credential or runner cannot reach an unrelated resource.
 5. Record the setup commit and actual session/review link in the existing adoption issue. Name the setup owner and rollback, such as reverting the configuration or removing the approved Agents scope.
 
 For organization instructions, set only a short shared rule in **Organization settings → Copilot → Custom instructions**, then verify it in the selected real run. Avoid repeating repository-specific instructions. A single observed result cannot guarantee future AI behavior.

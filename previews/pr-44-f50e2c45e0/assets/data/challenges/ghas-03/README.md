@@ -11,7 +11,7 @@ Cross-site scripting (XSS) happens when an application includes user-controlled 
 Juice Shop has XSS vulnerabilities in its frontend and backend. Reflected XSS
 returns input in the immediate response; stored XSS saves input and later renders
 it to other users. CodeQL has flagged paths where user data reaches HTML output
-without safe handling. Fix those paths and record the verified fix and
+without safe handling. Select one path to fix and record the verified change and
 prevention pattern.
 
 Encode output before rendering it, or use framework APIs that do so safely. First identify the output context, such as an HTML body, attribute, JavaScript string, or URL. Each context needs a different encoding strategy.

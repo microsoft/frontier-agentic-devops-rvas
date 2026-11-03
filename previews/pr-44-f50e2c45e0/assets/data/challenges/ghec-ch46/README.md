@@ -9,18 +9,9 @@
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
 - A repository that is approved to publish a Pages site, or the seeded sample repository.
 
-## Customer delivery objectives
-
-You will:
-
-- Inspect the current organization Pages publication policy.
-- Decide who may publish Pages sites and which visibilities are allowed.
-- Configure repository-level Pages publishing through a branch source or GitHub Actions.
-- Verify site publication, visibility, rollback, and owner evidence.
-
 ## Scenario
 
-A customer wants to use GitHub Pages for engineering documentation. Organization owners need clear controls before sites appear under the organization namespace. Capture the current policy, agree on the publishing model, configure one approved repository, and keep evidence that operators can publish and roll back the site safely.
+A customer wants to use GitHub Pages for engineering documentation. Agree who may publish and who may read the site. Configure one approved repository and test publication and rollback.
 
 > [!IMPORTANT]
 > Use an approved customer target first. If you have a real documentation repository, use it and skip setup. If not, use the fallback `ghec-ch46-pages-site` repository created by setup. Do not change organization Pages settings without explicit approval.

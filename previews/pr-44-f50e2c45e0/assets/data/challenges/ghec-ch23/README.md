@@ -16,7 +16,7 @@ Access and tooling:
 
 ## Scenario
 
-GitHub Enterprise Importer and `ado2gh` move repository source, history, and supported metadata, but not Azure Pipelines. Use GitHub Actions Importer to inventory the CI/CD footprint, estimate Actions usage, convert one pipeline, open a pull request, and validate the migrated workflow.
+GitHub Enterprise Importer and `ado2gh` move repository source, history, and supported metadata, but not Azure Pipelines. Use GitHub Actions Importer to list the pipelines, estimate Actions usage, and convert and validate one pipeline through a pull request.
 
 > [!IMPORTANT]
 > Use an approved Azure DevOps project and pipeline as the source and target throughout this guide. Without a suitable source and target, record the access constraint and next action instead of migrating an unapproved example.

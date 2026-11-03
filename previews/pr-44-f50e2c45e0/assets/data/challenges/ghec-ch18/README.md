@@ -18,7 +18,7 @@ Use this optional session when a CI job needs a different runner. Choose self-ho
 - Target the runner from a workflow with `runs-on` labels (custom + default).
 - Harden the runner: least-privilege service account, ephemeral/just-in-time runners, and the public-repo fork risk.
 - Compare self-hosted vs GitHub-hosted vs larger runners and know when each fits.
-- Understand how org runner groups relate to enterprise runner groups (awareness).
+- Review how organization and enterprise runner groups relate without configuring them.
 
 ## Scenario
 A GHEC customer needs CI on hardware GitHub doesn't host, such as a GPU box, a license-locked toolchain, or a network-isolated build host. Register a self-hosted runner in an org runner group, limit it to the repositories that need it, route jobs with labels, and harden it against untrusted pull requests. Then compare its operational cost with GitHub-hosted and larger runners.
@@ -44,13 +44,12 @@ Setup is idempotent. All artifact names use the `ghec-ch18-*` prefix, and teardo
 - A seeded repo `ghec-ch18-self-hosted-runners` with a small build and two workflows: `hosted.yml` runs on `ubuntu-latest`; `self-hosted.yml` targets your runner by label and queues until the runner exists.
 - A `RUNNER-SETUP.md` with the exact registration + hardening walkthrough for Linux/macOS/Windows.
 - A `HARDENING.md` checklist (service account, ephemeral runners, fork-PR risk, network egress).
-- A printed Next steps block telling you where to start.
 
 ## Choose and test the runner type
 
 Run the existing customer job on a standard GitHub-hosted runner first when its
 access requirements permit it. If it meets the job's requirements, keep that
-configuration and stop; self-hosting adds nothing.
+configuration and stop.
 
 For an approved larger runner, create or select it under **Organization settings
 → Actions → Runners**, restrict its runner group to the intended repository,
@@ -70,7 +69,7 @@ configuration and run result in the existing CI change record.
 
 ### Part B: Register the runner
 3. Get a registration token. `gh api -X POST orgs/<org>/actions/runners/registration-token --jq '.token'`.
-4. Download & configure the runner on your host following `RUNNER-SETUP.md`: run `./config.sh --url https://github.com/<org> --token <reg-token> --runnergroup ghec-ch18-group --labels ghec-ch18,self-hosted --name ghec-ch18-runner` (use `config.cmd` on Windows).
+4. Download and configure the runner on your host following `RUNNER-SETUP.md`: run `./config.sh --url https://github.com/<org> --token <reg-token> --runnergroup ghec-ch18-group --labels ghec-ch18,self-hosted --name ghec-ch18-runner` (use `config.cmd` on Windows).
 5. Bring it online. Start it with `./run.sh` (interactive) or install it as a service. Confirm Idle status: `gh api orgs/<org>/actions/runners --jq '.runners[] | {name, status, labels: [.labels[].name]}'`.
 
 ### Part C: Target the runner

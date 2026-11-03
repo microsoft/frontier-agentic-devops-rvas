@@ -4,7 +4,7 @@
 The correction cites the code that supports it. Checks pass, and an independent
 reviewer records a decision.
 
-This is a core pilot. Complete [setup](challenge.html?id=ghaw-00), then choose an
+For this core pilot, complete [setup](challenge.html?id=ghaw-00), then choose an
 issue about a real documentation error with a maintainer.
 For example, a documented option may disagree with its implemented default.
 Do not introduce a stale document just to make the agent produce a PR.

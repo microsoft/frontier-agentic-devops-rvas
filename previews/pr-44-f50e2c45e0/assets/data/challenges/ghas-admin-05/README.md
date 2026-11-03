@@ -81,7 +81,7 @@ gh api "repos/${TARGET}/dependency-graph/sbom" \
   --jq '.sbom.packages[] | select(.name == "cowsay") | {name, versionInfo}'
 ```
 
-An empty result proves the static graph missed a build dependency.
+If the query succeeds but returns nothing, the static graph missed this build dependency.
 
 ### 2. Submit a build dependency if the graph misses it
 
@@ -279,7 +279,7 @@ updates:
 
 Open **Insights > Dependency graph > Dependabot**, run **Check for updates**, and inspect the resulting pull request.
 
-Security-update pull requests fix a known advisory and usually move to the minimum patched version. Scheduled version updates keep packages current even when no alert exists. The `routine-version-updates` group applies only to version updates, so its name appears in those pull-request titles and branches. Confirm the difference in the pull-request body and the Dependabot update log.
+Security-update pull requests fix a known advisory, usually with the minimum patched version. Scheduled version updates keep packages current even without an alert. The `routine-version-updates` group names only version-update titles and branches. Check the PR body and Dependabot log to distinguish the two.
 
 ### 7. Test private-registry access if required
 
@@ -357,7 +357,7 @@ gh pr view <number> --repo "$TARGET" \
   --json mergeStateStatus,statusCheckRollup
 ```
 
-`Dependency review` must fail because the pull request introduces `lodash@4.17.4`. Try the normal merge path. The ruleset must block it. A red workflow without a blocked merge does not pass.
+`Dependency review` must fail because the pull request introduces `lodash@4.17.4`. Try the normal merge path. The ruleset must block it. A failing workflow alone does not prove that merging is blocked.
 
 If the check passes, inspect the workflow trigger, severity, scope, dependency snapshot, and ruleset target. Fix the control and push a new risky revision. Do not lower the test severity or use `warn-only`.
 
