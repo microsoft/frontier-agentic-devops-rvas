@@ -654,12 +654,12 @@ test('reorganized sessions keep complete capabilities without repeated setup', (
   assert.match(guide('ghas-admin-05'), /license policy to the same check/);
   assert.match(guide('ghas-admin-02'), /Respond to an exposed credential/);
   assert.match(guide('ghec-ch02'), /Contribute across teams/);
-  assert.match(guide('ghec-ch07'), /Repository creation belongs to Ch36/);
+  assert.match(guide('ghec-ch07'), /Ch36 covers repository creation/);
   assert.equal(byId.get('ghec-ch31').tier, 'stretch');
   assert.match(guide('ghec-ch19'), /copilot-first-run\.md/);
   assert.match(guide('ghec-ch32'), /copilot-first-run\.md/);
   assert(!byId.get('ghec-ch49').prerequisite_capabilities.some(c => /Ch39/.test(c)));
-  assert.match(guide('ghec-ch49'), /cloud deployment are not prerequisites/);
+  assert.match(guide('ghec-ch49'), /Ch39 and a cloud deployment aren't prerequisites/);
   assert.match(guide('ghec-ch39'), /environment-approval\.md/);
   assert.match(guide('ghec-ch49'), /environment-approval\.md/);
   for (const id of ['ghas-02', 'ghas-03', 'ghas-04']) {
