@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Approved repositories and a contributor without bypass permission
-description: "Apply rulesets across repositories using custom properties."
+description: "Target organization rulesets at repositories with custom properties."
 tags:
 - rulesets
 - custom-properties

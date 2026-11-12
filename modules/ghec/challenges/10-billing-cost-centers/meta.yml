@@ -10,7 +10,7 @@ prerequisite_capabilities:
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-description: "Configure a scoped usage budget and verify its alert and stop settings."
+description: "Set a scoped usage budget and check its alert and stop settings."
 tags:
 - billing
 - usage

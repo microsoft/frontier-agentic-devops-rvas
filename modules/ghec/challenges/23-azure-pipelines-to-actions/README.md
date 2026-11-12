@@ -1,29 +1,29 @@
 # Ch23: Convert Azure Pipelines to GitHub Actions
 
-**Session outcome:** The converted pipeline runs in GitHub and produces the expected tests and artifacts. You verify that GitHub preserves the source pipeline's CI and deployment-approval requirements.
+**Session outcome:** The converted pipeline runs in GitHub and produces the expected tests and artifacts. You confirmed it keeps the source pipeline's CI and deployment-approval requirements.
 
 ## Prerequisites
 
-This guide is independent. Complete the Azure DevOps repository migration guide (ch21) first if possible. Ch04 covers related Actions CI fundamentals.
+This guide stands alone, but do the repository migration (ch21) first if you can. Ch04 covers Actions CI basics.
 
 Access and tooling:
-- A GitHub organization and target repository, ideally the repository migrated from Azure DevOps in ch21.
+- A GitHub organization and target repository, ideally the one you migrated in ch21.
 - An Azure DevOps organization, project, and at least one Azure Pipeline.
-- Docker installed and running. GitHub Actions Importer is distributed as a Docker container and driven through a GitHub CLI extension.
+- Docker installed and running. GitHub Actions Importer ships as a Docker container and runs through a GitHub CLI extension.
 - GitHub CLI installed and authenticated.
-- A GitHub personal access token (classic) with `workflow` scope for Importer PR creation.
+- A GitHub personal access token (classic) with `workflow` scope, so Importer can create PRs.
 - An Azure DevOps PAT with read scopes for Agent Pools, Build, Code, Release, Service Connections, Task Groups, and Variable Groups.
 
 ## Scenario
 
-GitHub Enterprise Importer and `ado2gh` move repository source, history, and supported metadata, but not Azure Pipelines. Use GitHub Actions Importer to list the pipelines, estimate Actions usage, and convert and validate one pipeline through a pull request.
+GitHub Enterprise Importer and `ado2gh` move repository source, history, and supported metadata, but not Azure Pipelines. Use GitHub Actions Importer to audit your pipelines, estimate Actions usage, and convert one pipeline through a pull request.
 
 > [!IMPORTANT]
-> Use an approved Azure DevOps project and pipeline as the source and target throughout this guide. Without a suitable source and target, record the access constraint and next action instead of migrating an unapproved example.
+> Use an approved Azure DevOps project and pipeline as the source, and an approved repository as the target. If you don't have them, note what blocks you and the next step. Don't migrate an unapproved example.
 
 ## Setup
 
-Set variables for the source Azure DevOps project and target GitHub repository.
+Set variables for the source project and target repository.
 
 ```bash
 ADO_ORG=<azure-devops-org>
@@ -33,14 +33,14 @@ TARGET_REPO=https://github.com/<github-org>/<github-repo>
 OUTPUT_DIR=actions-importer-output
 ```
 
-Install and update the GitHub Actions Importer extension.
+Install and update the extension.
 
 ```bash
 gh extension install github/gh-actions-importer
 gh actions-importer update
 ```
 
-Configure credentials for the Azure DevOps source and GitHub target.
+Configure credentials.
 
 ```bash
 gh actions-importer configure
@@ -66,13 +66,13 @@ Open `actions-importer-output/audit/audit_summary.md`. Capture:
 
 ### Optional: Forecast GitHub Actions usage
 
-Estimate future GitHub Actions usage from Azure DevOps pipeline history.
+Estimate Actions usage from your Azure DevOps pipeline history.
 
 ```bash
 gh actions-importer forecast azure-devops --output-dir "$OUTPUT_DIR/forecast"
 ```
 
-Review `actions-importer-output/forecast/forecast_report.md`. Note expected job count, execution time, queue time, concurrency, and any runner queues that affect cost or capacity planning.
+Review `actions-importer-output/forecast/forecast_report.md`. Note the expected job count, execution time, queue time, concurrency, and any runner queues that affect cost or capacity.
 
 ### Part C: Dry-run one pipeline conversion
 
@@ -84,7 +84,7 @@ gh actions-importer dry-run azure-devops pipeline \
   --output-dir "$OUTPUT_DIR/dry-run"
 ```
 
-If you are converting an Azure DevOps release pipeline instead, use `release`.
+For an Azure DevOps release pipeline, use `release`.
 
 ```bash
 gh actions-importer dry-run azure-devops release \
@@ -92,11 +92,11 @@ gh actions-importer dry-run azure-devops release \
   --output-dir "$OUTPUT_DIR/dry-run"
 ```
 
-Review the generated workflow YAML under the dry-run output directory. GitHub documents an approximately 80% auto-conversion target, not a perfect conversion guarantee. Expect manual cleanup for unsupported tasks, unknown tasks, service connections, secrets, variables, environments, approvals, self-hosted agents, or resource triggers.
+Review the generated workflow YAML under the dry-run output directory. GitHub aims to auto-convert about 80%, with no guarantee of a perfect result. Expect manual cleanup for unsupported or unknown tasks, service connections, secrets, variables, environments, approvals, self-hosted agents, and resource triggers.
 
 ### Part D: Migrate by pull request
 
-Convert the same pipeline and have Importer open a pull request against the target GitHub repository.
+Convert the same pipeline and let Importer open a pull request on the target repository.
 
 ```bash
 gh actions-importer migrate azure-devops pipeline \
@@ -114,7 +114,7 @@ gh actions-importer migrate azure-devops release \
   --output-dir "$OUTPUT_DIR/migrate"
 ```
 
-Open the pull request URL printed by the command. Inspect the PR description, especially the Manual steps section, then inspect `.github/workflows/*.yml` in the Files changed tab.
+Open the pull request URL printed by the command. Read the PR description, especially the Manual steps section, then read `.github/workflows/*.yml` in the Files changed tab.
 
 ### Part E: Review and fix the generated workflow
 
@@ -122,13 +122,13 @@ In the pull request branch:
 1. Read every generated `.github/workflows/*.yml` file.
 2. Replace unsupported or unknown steps with equivalent GitHub Actions, shell commands, reusable workflows, or documented manual steps.
 3. Recreate required GitHub repository or organization secrets and variables. Do not commit secret values.
-4. Map Azure DevOps service connections to GitHub-native credentials, preferably OIDC where possible.
-5. Decide whether Azure DevOps self-hosted agents become GitHub-hosted runners, larger runners, or GitHub self-hosted runners.
-6. Document at least one conversion gap and how you fixed it.
+4. Replace Azure DevOps service connections with GitHub-native credentials. Prefer OIDC.
+5. Decide whether self-hosted agents become GitHub-hosted runners, larger runners, or self-hosted runners.
+6. Write down at least one conversion gap and how you fixed it.
 
 ### Part F: Validate in GitHub Actions
 
-Run the reviewed conversion on its PR branch before cutover. If manual dispatch needs a default-branch workflow, use the existing review process to merge only the safe trigger and setup first.
+Run the reviewed conversion on its PR branch before cutover. If manual dispatch needs the workflow on the default branch, merge only the trigger and setup first, through your normal review.
 
 ```bash
 gh workflow list --repo <github-org>/<github-repo>
@@ -136,16 +136,16 @@ gh workflow run <workflow-file-name.yml> --repo <github-org>/<github-repo> --ref
 gh run watch --repo <github-org>/<github-repo>
 ```
 
-If the workflow is triggered only by `push` or `pull_request`, push a small documentation-only branch or update the PR branch instead of using `workflow_dispatch`.
+If the workflow is triggered only by `push` or `pull_request`, push a small docs-only branch or update the PR branch instead of using `workflow_dispatch`.
 
-1. Compare test counts and artifact contents for the same commit in the source pipeline and GitHub run. Download an artifact to inspect it. Also check how each pipeline handles failures.
-2. Deliberately fail a test on the PR and require the corresponding Actions check. Verify that a contributor without bypass permission cannot merge it. Fix the test and rerun.
-3. Map any source deployment approval to a protected GitHub environment. Withhold or reject approval and verify the deployment job does not run. Then approve a safe test deployment. If the source has no deployment gate, record that fact.
-4. Obtain independent review and accept cutover only after the passing run and any required approval test. Assign an owner to each unsupported behavior.
+1. Compare test counts and artifact contents for the same commit in the source pipeline and GitHub run. Download an artifact to inspect it. Compare how each pipeline handles failures too.
+2. Fail a test on purpose in the PR and require the matching Actions check. Verify that a contributor without bypass permission can't merge. Then fix the test and rerun.
+3. Map any source deployment approval to a protected GitHub environment. Withhold or reject approval and verify the deployment job doesn't run. Then approve a test deployment. If the source has no deployment gate, note that.
+4. Get an independent review. Cut over only after the run passes and any approval test is done. Give each unsupported behavior an owner.
 
 ## Cleanup
 
-Keep the pull request and reports if they are evidence for the migration plan. If you used a sample test repository, delete the local `actions-importer-output/` directory after capturing required evidence. Remove any test-only secrets, variables, or workflows created in GitHub.
+Keep the pull request and reports if the migration plan needs them as evidence. If you used a sample repository, delete the local `actions-importer-output/` directory once you've saved what you need. Remove any test secrets, variables, or workflows you created in GitHub.
 
 ## Reference links
 

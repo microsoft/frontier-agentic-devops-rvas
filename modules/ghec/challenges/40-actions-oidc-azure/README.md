@@ -7,14 +7,14 @@
 - Repository admin rights in GitHub.
 - An approved Azure identity with a scoped Reader role, plus its owner's approval for a federated credential. This exercise creates no cloud resources.
 - `gh >= 2.x`, `git`, `jq`; Azure CLI is recommended for participant validation.
-- Setup scripts do not accept Azure credentials.
+- Setup scripts don't accept Azure credentials.
 
 ## Scenario
 
-A deployment workflow stores an Azure client secret in GitHub. Test the replacement authentication with a read-only operation against an existing resource before changing deployment credentials.
+A deployment workflow stores an Azure client secret in GitHub. Before you change deployment credentials, test the replacement with a read-only operation against an existing resource.
 
 > [!IMPORTANT]
-> Use an existing approved test identity and resource. Without them, keep the reviewed trust design as an assessment and record the blocked token-exchange tests.
+> Use an existing approved test identity and resource. Without them, keep the reviewed trust design as an assessment and record the token-exchange tests as blocked.
 
 ## Sample test repository or environment
 
@@ -37,7 +37,7 @@ Setup creates `ghec-ch40-oidc-azure`, a `ghec-ch40-prod` environment when possib
 
 ### Part B: Configure Azure explicitly
 
-4. Select the existing identity and read-only test resource. Stop if none is approved; do not create a subscription, resource group, or service for this session.
+4. Select the existing identity and read-only test resource. Stop if none is approved. Don't create a subscription, resource group, or service for this session.
 5. Have the identity owner add the approved federated credential. For an app registration on GitHub.com, its JSON is:
    ```json
    {
@@ -48,13 +48,13 @@ Setup creates `ghec-ch40-oidc-azure`, a `ghec-ch40-prod` environment when possib
    }
    ```
    Replace `ORG/REPO` exactly. Use the customer's documented issuer for other GitHub hosts.
-6. Confirm the identity's existing Reader role is scoped to the selected resource group. A federated credential establishes authentication; Azure RBAC controls resource access.
+6. Confirm the identity's existing Reader role is scoped to the selected resource group. The federated credential handles authentication; Azure RBAC controls resource access.
 
 ### Part C: Configure GitHub workflow
 
 7. Set non-secret configuration variables such as `AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, and `AZURE_SUBSCRIPTION_ID` at the repository or environment level.
 8. Grant `id-token: write` only to the job that needs Azure authentication.
-9. Use `azure/login` with OIDC; do not configure a client secret.
+9. Use `azure/login` with OIDC. Don't configure a client secret.
 
 Use this small workflow after replacing variables and approving the action version:
 
@@ -83,13 +83,13 @@ jobs:
         run: az group show --name "$RESOURCE_GROUP" --query id --output tsv
 ```
 
-Protect `ghec-ch40-prod` with the Ch39 reviewer and branch restrictions. The environment subject does not include the branch. GitHub's environment rule enforces the branch restriction. This read-only check tests authentication and RBAC, not deployment.
+Protect `ghec-ch40-prod` with the Ch39 reviewer and branch restrictions. The environment subject doesn't include the branch, so GitHub's environment rule enforces the branch restriction. This read-only check tests authentication and RBAC, not deployment.
 
 ### Part D: Validate and harden
 
-10. Run from a denied branch and confirm the environment gate prevents login. Run from the allowed branch and obtain independent approval. Verify the resource-group ID.
-11. On an approved test branch, use a separate test environment with no matching Azure federated credential. Supply the same non-secret IDs and run the workflow. Capture the token-exchange denial. Do not broaden Azure trust to make it pass.
-12. Restore the approved workflow and remove the test environment. Remove old client secrets only after any real deployment using them has migrated and its owner approves. No Azure resource is created or deleted by this workflow.
+10. Run from a denied branch and confirm the environment gate blocks login. Run from the allowed branch and get independent approval. Verify the resource-group ID.
+11. On an approved test branch, use a separate test environment with no matching Azure federated credential. Supply the same non-secret IDs and run the workflow. Capture the token-exchange denial. Don't broaden Azure trust to make it pass.
+12. Restore the approved workflow and remove the test environment. Remove old client secrets only after any real deployment using them has migrated and its owner approves. This workflow creates and deletes no Azure resources.
 
 ## Reference links
 

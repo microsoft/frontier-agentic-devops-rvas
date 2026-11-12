@@ -1,26 +1,26 @@
 # Ch01: Issues, labels and project boards
 
-**Session outcome:** The customer backlog has a working issue form and a small Projects board. One issue is ready for Ch02, and closing an issue updates the board.
+**Session outcome:** The customer backlog has an issue form and a small Projects board. One issue is ready for Ch02, and closing an issue updates the board.
 
 ## Prerequisites
 - Write access to the Ch00 repository and permission to edit its project. Only the optional organization defaults need an owner.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch01 --org <org>` (least-privilege; for this activity: `repo` + `project` + `read:org`).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch01 --org <org>` (least privilege; here: `repo` + `project` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
-- No GHAS, Codespaces, or enterprise features are required for this activity.
+- No GHAS, Codespaces, or enterprise features needed.
 
 ## What you will deliver
 - Create, triage, and close issues using templates (issue forms), assignees, and task lists.
 - Use type labels and record priority and status in one place.
-- Build one Projects board and verify its built-in closed-issue workflow.
+- Build one Projects board and check that closing an issue moves it to Done.
 - When several repositories share a backlog, reconcile their labels.
 
 ## Scenario
-You manage the backlog for an internal developer-tools team at a GHEC customer. Requests are scattered across chat threads and spreadsheets. Leadership wants every request recorded as an issue and triaged within a day. Configure a GitHub board that shows work in progress, blockers, and planned deliveries for the sprint.
+You manage the backlog for an internal developer-tools team at a GHEC customer. Requests are scattered across chat threads and spreadsheets. Leadership wants every request filed as an issue and triaged within a day. Set up a board that shows work in progress, blockers, and planned deliveries for the sprint.
 
 > [!IMPORTANT]
-> Use the approved customer backlog and board in place of `ghec-ch01-issues-labels-projects` and `ghec-ch01-board`, and skip sample setup. If neither is available, test in the seeded repo below, then apply the validated configuration to an approved customer target.
+> Use the customer's backlog and board instead of `ghec-ch01-issues-labels-projects` and `ghec-ch01-board`, and skip sample setup. If you have neither, test in the seeded repo below, then apply the configuration to a customer target.
 >
-> Record the selected target, adoption owner, and next action.
+> Record the target, who adopts it, and the next action.
 
 ## Sample test repository or environment
 Skip if you brought your own repo or project board.
@@ -46,7 +46,7 @@ Setup creates these resources (all names use the `ghec-ch01-*` prefix, and teard
 ### Part A: Make one issue ready
 
 1. Reuse the repository selected in Ch00. Choose three real backlog items; do not triage every sample issue.
-2. Add one issue form under `.github/ISSUE_TEMPLATE/` with a description and expected result. Merge it through the team's review process, then file an issue to test the form.
+2. Add one issue form under `.github/ISSUE_TEMPLATE/` with a description and expected result. Merge it through the team's review process, then file a test issue with the form.
 3. Assign the issue and describe a small, testable change for Ch02. For feature feedback, link the original request and name who decides whether to accept it. Use existing `bug` or `type: bug` labels consistently. Add a separate label scheme only if reporting needs it.
 
 ### Part B: Track the work once
@@ -61,11 +61,11 @@ Setup creates these resources (all names use the `ghec-ch01-*` prefix, and teard
    ```bash
    gh label list --repo <org>/<repo> --limit 200 --json name,color,description
    ```
-8. Agree on a small shared set with its maintainer. Rename existing labels where possible. Before deleting an old label, apply its replacement to affected issues and PRs. Check a filtered issue list on both repositories.
+8. Agree on a small shared set with its maintainer. Rename existing labels where possible. Before deleting an old label, apply its replacement to affected issues and PRs. Check a filtered issue list in both repositories.
 9. With organization-owner approval, configure those labels in **Organization settings → Repository → Repository defaults**. New defaults do not update existing repositories.
-10. Create one approved private test repository after the change. Verify its labels without copying them manually. Ask the owner whether to keep or remove that repository. Record who owns the defaults and the results from both repositories.
+10. Create one approved private test repository after the change. Check that it has the labels without copying them manually. Ask the owner whether to keep that repository. Record who owns the defaults and the results from both repositories.
 
-Keep the issue and board URLs as [completion evidence](../../../README.md#completion-evidence). Sample configuration alone is practice.
+Keep the issue and board URLs as [completion evidence](../../../README.md#completion-evidence). Sample configuration alone counts as practice only.
 
 ## Reference links
 - [About issues](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues)

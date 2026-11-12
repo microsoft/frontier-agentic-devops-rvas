@@ -47,7 +47,7 @@
       <div class="wrap">
         <span class="eyebrow">GitHub Enterprise setup skill</span>
         <h1 id="setupHeading">Plan before<br /><span class="accent">you change GitHub.</span></h1>
-        <p class="lede">Tell Copilot what your enterprise needs. The skill checks GitHub, recommends changes, and saves a plan for you to review.</p>
+        <p class="lede">Tell Copilot what your enterprise needs. The skill inspects GitHub, recommends changes, and saves a plan for you to review.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="github-setup-guide.html#start">Install and start &rarr;</a>
           <a class="btn btn-ghost" href="github-setup-guide.html#questions">Already installed? Start a plan</a>
@@ -64,7 +64,7 @@
         <ol class="setup-start-steps">
           <li>
             <a href="github-setup-guide.html#start">Install the plugin</a>
-            <p>Add the setup skill to Copilot CLI. If it is already installed, go straight to your goal.</p>
+            <p>Add the skill to Copilot CLI. Already installed? Skip to your goal.</p>
           </li>
           <li>
             <a href="github-setup-guide.html#questions">Describe your goal</a>
@@ -72,23 +72,23 @@
           </li>
           <li>
             <a href="github-setup-guide.html#apply">Review the saved plan</a>
-            <p>Check the proposed changes and cost or license effects. Request Apply only when ready, then approve each write batch.</p>
+            <p>Check the proposed changes and any cost or license impact. Request Apply when you're ready, then approve each write batch.</p>
           </li>
         </ol>
         <p class="setup-preview"><strong>Preview:</strong> live end-to-end setup validation is still pending. Complete a controlled live setup before production use.</p>
       </section>
       <section id="scope" aria-labelledby="scopeHeading">
         <h2 id="scopeHeading">Set up or align an enterprise</h2>
-        <p>Use the skill for coordinated changes across an existing GitHub Enterprise Cloud account on <code>github.com</code> or your enterprise's <code>ghe.com</code> host.</p>
-        <p>Describe the outcome in your own words. For example, align organization governance, set up teams and repository access, or roll out Copilot. The skill narrows the work to that outcome.</p>
+        <p>Use the skill for changes that span an existing GitHub Enterprise Cloud account on <code>github.com</code> or your enterprise's <code>ghe.com</code> host.</p>
+        <p>Describe the outcome in your own words, for example: align organization governance, set up teams and repository access, or roll out Copilot.</p>
         <ul>
           <li><strong>Organization and access:</strong> plan landing zones, identity requirements, and team access.</li>
           <li><strong>Repositories and delivery:</strong> plan repository factories, rulesets, and Actions policies.</li>
           <li><strong>Security and Copilot:</strong> assess rollout needs, settings, and licensing effects.</li>
           <li><strong>Governance:</strong> trace effective policy to its source and track work another owner needs to do.</li>
         </ul>
-        <p><strong>One prompt starts the guided workflow.</strong> In Plan mode, the agent inspects GitHub without making changes and prioritizes its recommendations. It asks only for unresolved decisions, one at a time.</p>
-        <p>The skill can run required read-only inventories within your requested scope without asking for another approval. Copilot's tool permissions and your organization's policies still apply.</p>
+        <p><strong>One prompt starts it.</strong> In Plan mode, the agent inspects GitHub without changing anything and ranks its recommendations. It asks only about decisions it can't resolve itself, one at a time.</p>
+        <p>Read-only inventories within your scope don't need another approval from the skill. Copilot's tool permissions and your organization's policies still apply.</p>
       </section>
       <section id="capabilities" aria-labelledby="capabilitiesHeading">
         <div class="setup-section-heading">
@@ -101,7 +101,7 @@
           <article class="setup-capability setup-capability-governance">
             <span class="setup-capability-code">GOV</span>
             <h3>Governance and identity</h3>
-            <p>Enterprise policies, organization boundaries, ownership, audit access, and identity handoffs.</p>
+            <p>Enterprise policies, organization boundaries, ownership, audit access, and identity work owned by others.</p>
             <ul>
               <li>Enterprise or organization baseline</li>
               <li>EMU, SAML, SCIM, and IdP boundaries</li>
@@ -119,7 +119,7 @@
           <article class="setup-capability setup-capability-platform">
             <span class="setup-capability-code">PLT</span>
             <h3>Repository and Actions platform</h3>
-            <p>Repository factories, rulesets, workflow policy, runners, environments, and cloud trust handoffs.</p>
+            <p>Repository factories, rulesets, workflow policy, runners, environments, and cloud trust setup owned by others.</p>
             <ul>
               <li>Standards and protected defaults</li>
               <li>Actions policy and runner model</li>
@@ -128,7 +128,7 @@
           <article class="setup-capability setup-capability-security">
             <span class="setup-capability-code">SEC</span>
             <h3>Security and Copilot rollout</h3>
-            <p>Code security coverage, rollout waves, Copilot seats and controls, licensing, and checks to verify the rollout.</p>
+            <p>Code security coverage, rollout waves, Copilot seats and controls, and licensing.</p>
             <ul>
               <li>CodeQL and secret protection</li>
               <li>Scoped Copilot rollout</li>
@@ -165,8 +165,8 @@
       <section id="boundaries" aria-labelledby="boundariesHeading">
         <h2 id="boundariesHeading">Before you start</h2>
         <p>You need GitHub Copilot CLI installed and signed in, GitHub CLI (<code>gh</code>), and <code>jq</code>. Authenticate <code>gh</code> to the intended host with an account that can inspect the selected resources. Changes may require an enterprise or organization owner.</p>
-        <p><strong>The enterprise account must already exist.</strong> The skill checks prerequisites for your outcome. It flags work that the available APIs cannot perform or that an owner in your identity provider or another external system must do.</p>
-        <p>The skill does not administer GitHub Enterprise Server, deploy Azure infrastructure, or run the curriculum's lab provisioners. Use the <a href="index.html#outcomes">hands-on sessions</a> to learn a control or test the result with your team.</p>
+        <p><strong>The enterprise account must already exist.</strong> The skill checks prerequisites for your outcome. It flags work the APIs can't do, or that someone in your identity provider or another system has to do.</p>
+        <p>The skill does not administer GitHub Enterprise Server, deploy Azure infrastructure, or run the curriculum's lab provisioners. To learn a control or test it with your team, use the <a href="index.html#outcomes">hands-on sessions</a>.</p>
         <span id="review" aria-hidden="true"></span>
         <a class="btn btn-primary" href="github-setup-guide.html">Read the setup guide &rarr;</a>
       </section>

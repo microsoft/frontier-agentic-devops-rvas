@@ -7,42 +7,42 @@
 - GitHub organization package admin and repository admin rights.
 - `gh >= 2.x`, `git`, `jq`.
 - An approved source repository with a working `Containerfile`, and a separate consumer repository.
-- Do not pass package tokens or container registry credentials to setup scripts.
+- Don't pass package tokens or container registry credentials to setup scripts.
 
 ## Scenario
 
-A customer publishes containers to GHCR, but visibility, ownership, and retention vary. Define a package standard and publish a sample image under an approved namespace. Connect package access to the intended repository or team, then record retention or cleanup evidence.
+A customer publishes containers to GHCR, but visibility, ownership, and retention vary. Define a package standard and publish a sample image under an approved namespace. Tie package access to the intended repository or team, then record retention or cleanup evidence.
 
 > [!IMPORTANT]
-> Use an approved customer package if one exists. If not, use the sample `ghec-ch45-*` namespace and avoid changing production package visibility or deleting production packages.
+> Use an approved customer package if one exists. If not, use the sample `ghec-ch45-*` namespace. Don't change production package visibility or delete production packages.
 
 ## Install the workflows
 
-Copy the [publisher](../../resources/packages/publish.yml) to the source repository's `.github/workflows/publish.yml` and the [consumer](../../resources/packages/consume.yml) to the other repository's `.github/workflows/consume.yml`. Review existing files before replacing them. Merge both through independent review to their protected default branches.
+Copy the [publisher](../../resources/packages/publish.yml) to the source repository's `.github/workflows/publish.yml` and the [consumer](../../resources/packages/consume.yml) to the other repository's `.github/workflows/consume.yml`. Check for existing files before overwriting them. Merge both to their protected default branches through independent review.
 
-The publisher builds `Containerfile` from the checkout root. Use the application's tested container definition and approved base image; adjust that path if needed. Protect this file and the publisher with CODEOWNERS. Dispatching these workflows on another branch skips their jobs and does not prove publication or access.
+The publisher builds `Containerfile` from the checkout root. Use the application's tested container definition and approved base image, and adjust that path if needed. Protect this file and the publisher with CODEOWNERS. Dispatching these workflows on another branch skips their jobs, so it proves neither publication nor access.
 
 ## Tasks
 
 ### Part A: Define the package standard
 
 1. Record the approved naming pattern, owner, source repository, visibility, access model, retention period, and deletion/restore approver.
-2. Require a source-repository link and image digest. **This session tests distribution and access, not provenance.** OCI labels and a digest are not attestations. If provenance is required, get separate approval to generate an attestation and verify it cryptographically.
+2. Require a source-repository link and image digest. **This session tests distribution and access, not provenance.** OCI labels and a digest aren't attestations. If you need provenance, get separate approval to generate an attestation and verify it cryptographically.
 3. Decide whether packages inherit repository permissions or use package-specific grants.
 
 ### Part B: Publish a sample container
 
 4. Dispatch `publish.yml` from the source repository's default branch through **Actions → Publish private test image → Run workflow**.
-5. Inspect its actual build and push. It uses `GITHUB_TOKEN`, gives `packages: write` only to the publish job, and authenticates through `--password-stdin`. The image name is the lower-case source repository name, with a unique run/attempt tag and a source-repository label.
-6. Copy the complete `ghcr.io/owner/image@sha256:...` reference from the successful run summary. Open the package settings and confirm its source link and visibility. A new GHCR package is private by default; an existing package may retain its earlier visibility.
+5. Inspect the actual build and push. It uses `GITHUB_TOKEN`, gives `packages: write` only to the publish job, and authenticates through `--password-stdin`. The image name is the lower-case source repository name, with a unique run/attempt tag and a source-repository label.
+6. Copy the complete `ghcr.io/owner/image@sha256:...` reference from the successful run summary. Open the package settings and confirm its source link and visibility. A new GHCR package is private by default; an existing package may keep its earlier visibility.
 
 ### Part C: Govern access and visibility
 
 7. Confirm the package is private for this test. Agree its intended final visibility with the package owner.
-8. Connect package access to the intended repository or team.
-9. Keep the test package **private**. In its settings, add the consumer repository under **Manage Actions access** with read access. Dispatch `consume.yml` from that repository's default branch, supplying the exact published digest. It first proves an unauthenticated client receives an access denial, then authenticates with its own read-only `GITHUB_TOKEN`, pulls the same image, and checks the returned digest. Both steps must pass; a network error is not access-denial evidence.
+8. Tie package access to the intended repository or team.
+9. Keep the test package **private**. In its settings, add the consumer repository under **Manage Actions access** with read access. Dispatch `consume.yml` from that repository's default branch, supplying the exact published digest. The workflow first proves an unauthenticated client gets an access denial. It then authenticates with its own read-only `GITHUB_TOKEN`, pulls the same image, and checks the returned digest. Both steps must pass. A network error isn't proof of access denial.
 
-After this test, apply another approved visibility only if the customer needs it. Anonymous pulls of a public package are expected to succeed; the private-access test should then fail. Do not widen package access merely to make the consumer check pass.
+After this test, apply a different approved visibility only if the customer needs it. Anonymous pulls of a public package should succeed, so the private-access test should then fail. Don't widen package access just to make the consumer check pass.
 
 ### Part D: Retention and cleanup
 

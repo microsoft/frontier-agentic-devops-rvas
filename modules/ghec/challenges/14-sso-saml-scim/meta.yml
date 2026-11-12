@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Customer identity-model decision confirming a non-EMU organization
-description: "Test SAML and SCIM integration with a verified rollback before enforcement."
+description: "Test SAML and SCIM with a proven rollback before you enforce."
 tags:
 - sso
 - saml

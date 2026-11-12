@@ -1,13 +1,13 @@
 # Activity 5: Dependency visibility and pull request protection
 
-**Session outcome:** A tested dependency fix closes its alert. Required dependency review blocks a risky pull request and accepts its corrected revision under the same controls.
+**Session outcome:** A tested dependency fix closes its alert. Required dependency review blocks a risky pull request, then accepts the fixed revision under the same controls.
 
 Start with the coverage check in step 1 and the tested fix in steps 4 and 5.
-Then prove the merge control in steps 8 through 10. The other steps depend on
-customer needs. Use dependency submission only when the graph misses packages
-resolved during the build.
+Then prove the merge control in steps 8 through 10. Do the other steps only if
+the customer needs them. Use dependency submission only if the graph misses
+packages resolved during the build.
 
-For credential exposure, use [Secret Protection response](../02-admin-secret-protection-operations/README.md#customer-path-respond-to-an-exposed-credential) before continuing with dependency work.
+For an exposed credential, follow [Secret Protection response](../02-admin-secret-protection-operations/README.md#customer-path-respond-to-an-exposed-credential) before any dependency work.
 
 ## Before you start
 
@@ -21,7 +21,7 @@ The fallback fixture imports OWASP Juice Shop at `v20.0.0`, then adds a small np
 
 ## Provision the fallback
 
-Skip this section when you have an approved pilot repository.
+Skip this section if you have an approved pilot repository.
 
 ```bash
 bash modules/ghas/resources/provisioning/challenges/ghas-admin-05-dependency-visibility-fixture/provision.sh \
@@ -48,8 +48,8 @@ export TARGET="<org>/ghas-admin-05-dependency-visibility-fixture"
 ```
 
 For customer work, set `TARGET` to the approved repository and use its package
-paths and test commands. Keep seeded risky dependencies in the isolated fixture.
-Never merge the vulnerable revision.
+paths and test commands. Keep seeded risky dependencies in the isolated fixture,
+and never merge the vulnerable revision.
 
 ## Exercise
 
@@ -64,8 +64,8 @@ cd "$(basename "$TARGET")"
 
 Open **Insights > Dependency graph > Dependencies**. Confirm that GitHub finds the
 application's manifests and lock files. Compare the packages with its normal build.
-For the fallback's core path, use the declared `dependency-lab/package-lock.json`
-packages. Its extra build-only dependency is an optional coverage exercise.
+For the fallback's core path, use the packages declared in `dependency-lab/package-lock.json`.
+The extra build-only dependency is an optional coverage exercise.
 
 For the build-coverage extension, run the fixture build:
 
@@ -74,7 +74,7 @@ bash dependency-lab/build.sh
 cat dependency-lab/build-resolved-components.json
 ```
 
-The build resolves `cowsay@1.6.0`, but that package is not in `dependency-lab/package.json`. Check the graph or current SBOM:
+The build resolves `cowsay@1.6.0`, but `dependency-lab/package.json` doesn't list it. Check the graph or current SBOM:
 
 ```bash
 gh api "repos/${TARGET}/dependency-graph/sbom" \
@@ -85,9 +85,9 @@ If the query succeeds but returns nothing, the static graph missed this build de
 
 ### 2. Submit a build dependency if the graph misses it
 
-Run this step when the customer's build resolves packages the graph cannot see,
-or when practising that case with the fixture. Skip it if the graph already covers
-the packages in scope. Mark missing build coverage **blocked** until you fix it.
+Do this step if the customer's build resolves packages the graph can't see, or
+to practice that case with the fixture. Skip it if the graph already covers the
+packages in scope. Mark missing build coverage **blocked** until you fix it.
 
 Add `.github/workflows/dependency-submission.yml` on `main`:
 
@@ -161,7 +161,7 @@ jobs:
             --input snapshot.json
 ```
 
-Run the workflow. Then repeat the SBOM query and confirm it returns `cowsay@1.6.0`. The graph now matches the fixture build.
+Run the workflow, then repeat the SBOM query. It should now return `cowsay@1.6.0`, matching the fixture build.
 
 ### 3. Export and inspect the SBOM if needed
 
@@ -181,7 +181,7 @@ jq '{
 }' sbom.json
 ```
 
-Keep the export as point-in-time evidence. The live dependency graph remains the source used by Dependabot and dependency review.
+Keep the export as a point-in-time record. Dependabot and dependency review still use the live dependency graph.
 
 ### 4. Enable Dependabot and inspect a real advisory
 
@@ -222,7 +222,7 @@ Open one High or Critical alert with a patched version. Read the advisory and re
 - The first patched version.
 - The dependency path and whether it runs in production.
 
-Do not dismiss a fixable fixture alert.
+Don't dismiss a fixable fixture alert.
 
 ### 5. Merge a security-update pull request
 
@@ -233,9 +233,9 @@ gh pr list --repo "$TARGET" --author app/dependabot \
   --state open --json number,title,url,headRefName
 ```
 
-Choose a small update for a fixture dependency. Inspect the advisory link, changed lock file, compatibility notes, and checks. Merge only after the repository tests pass.
+Pick a small update for a fixture dependency. Check the advisory link, the changed lock file, the compatibility notes, and the checks. Merge only after the repository tests pass.
 
-For a customer application, trace the dependency's production use and run the relevant application tests, including compatibility checks for the changed API. If no Dependabot PR is available, prepare the smallest update to the advisory's patched version with the existing package manager. Keep manifest and lock-file changes together and obtain independent review.
+For a customer application, trace how production uses the dependency and run the relevant tests, including compatibility checks for the changed API. If there's no Dependabot PR, make the smallest update to the advisory's patched version with the existing package manager. Keep manifest and lock-file changes together and get independent review.
 
 ```bash
 gh pr checks <number> --repo "$TARGET"
@@ -279,19 +279,19 @@ updates:
 
 Open **Insights > Dependency graph > Dependabot**, run **Check for updates**, and inspect the resulting pull request.
 
-Security-update pull requests fix a known advisory, usually with the minimum patched version. Scheduled version updates keep packages current even without an alert. The `routine-version-updates` group names only version-update titles and branches. Check the PR body and Dependabot log to distinguish the two.
+Security-update pull requests fix a known advisory, usually with the minimum patched version. Scheduled version updates keep packages current even without an alert. The `routine-version-updates` group name appears only in version-update titles and branches, so check the PR body and Dependabot log to tell the two apart.
 
 ### 7. Test private-registry access if required
 
 The fallback fixture uses only the public npm registry, so private-registry access needs a separate test.
 
-Run this test only when the selected repository needs an approved private package:
+Run this test only if the repository needs an approved private package:
 
 1. Store a read-only credential as a Dependabot secret, or use the approved OIDC path when the registry supports it.
-2. Add the registry under `registries` in `.github/dependabot.yml`. Reference the secret; never put its value in the file.
+2. Add the registry under `registries` in `.github/dependabot.yml`. Reference the secret. **Never put its value in the file.**
 3. Attach the registry to the relevant update entry.
 4. Run **Check for updates** and inspect the update job.
-5. Pass only when Dependabot resolves the private package and opens or evaluates an update without an authentication error.
+5. The test passes when Dependabot resolves the private package and opens or evaluates an update with no authentication error.
 
 Record the registry, credential owner, scope, and rotation date. If you use the fallback, mark this test **not tested: fixture has no private registry**.
 
@@ -347,7 +347,7 @@ gh pr create --repo "$TARGET" \
 ```
 
 Update the PR with the latest `main` before testing the required check. An outdated
-branch is a different merge blocker.
+branch is a separate merge blocker.
 
 Wait for the check:
 
@@ -357,9 +357,9 @@ gh pr view <number> --repo "$TARGET" \
   --json mergeStateStatus,statusCheckRollup
 ```
 
-`Dependency review` must fail because the pull request introduces `lodash@4.17.4`. Try the normal merge path. The ruleset must block it. A failing workflow alone does not prove that merging is blocked.
+`Dependency review` must fail because the pull request introduces `lodash@4.17.4`. Try the normal merge path. The ruleset must block it. **A failing workflow alone doesn't prove merging is blocked.**
 
-If the check passes, inspect the workflow trigger, severity, scope, dependency snapshot, and ruleset target. Fix the control and push a new risky revision. Do not lower the test severity or use `warn-only`.
+If the check passes, inspect the workflow trigger, severity, scope, dependency snapshot, and ruleset target. Fix the control and push a new risky revision. Don't lower the test severity or use `warn-only`.
 
 ### 10. Correct the same pull request
 
@@ -376,11 +376,11 @@ git commit -m "Update risky dependency to patched version"
 git push
 ```
 
-Wait for the same required check. It must pass, and the pull request must become mergeable through the normal review path.
+Wait for the same required check. It must pass, and the pull request must become mergeable through normal review.
 
 ### Optional: Add the approved license policy to the same check
 
-Use this path only when the customer needs a license gate. Ask the legal owner to approve explicit SPDX identifiers and the distribution scope. Inspect the dependency graph or exported SBOM for missing license information; unknown licenses need a decision, not an assumption.
+Use this path only if the customer needs a license gate. Have the legal owner approve explicit SPDX identifiers and the distribution scope. Check the dependency graph or exported SBOM for missing license information. Unknown licenses need a decision, not an assumption.
 
 Extend step 8's existing `dependency-review-action` configuration with either `allow-licenses` or `deny-licenses`, never both. Keep the vulnerability threshold, runtime scope, and **Dependency review** job name unchanged. For example:
 
@@ -393,7 +393,7 @@ with:
   show-patched-versions: true
 ```
 
-The list is illustrative, not legal advice. Use the approved customer policy.
+The list is an example, not legal advice. Use the approved customer policy.
 
 In the isolated fixture, create a fresh branch. Set `LICENSE_TEST_PACKAGE` and `LICENSE_TEST_VERSION` to a test package approved by the legal owner. Its known license must be outside the policy, and it must have no vulnerability above the configured threshold:
 
@@ -408,17 +408,17 @@ git push -u origin HEAD
 gh pr create --repo "$TARGET" --base main --fill
 ```
 
-Use the customer's manifest paths when testing an approved customer repository. Do not execute the test package. Confirm **Dependency review** reports the disallowed license and prevents a contributor without bypass from merging.
+Use the customer's manifest paths when testing an approved customer repository. Never execute the test package. Confirm **Dependency review** reports the disallowed license and stops a contributor without bypass from merging.
 
-Remove or replace that dependency on the same PR. Wait for the same check to pass and obtain independent review. If the license cannot be identified or the feature is unavailable, record the blocker.
+Remove or replace that dependency on the same PR, wait for the same check to pass, and get independent review. If the license can't be identified or the feature is unavailable, record the blocker.
 
-For a time-bound exception, use the existing legal intake route or copy the [license exception form](../../resources/license-exception.yml) into `.github/ISSUE_TEMPLATE/` through a reviewed PR. Record the package version, usage, legal decision, and expiry.
+For a time-bound exception, use the existing legal intake route, or copy the [license exception form](../../resources/license-exception.yml) into `.github/ISSUE_TEMPLATE/` through a reviewed PR. Record the package version, usage, legal decision, and expiry.
 
-A label or approved issue does not change the check. Add a license-only exception with `allow-dependencies-licenses` and the approved package's PURL through review. Verify its scope with the same PR, keep vulnerability checks active, and remove it when it expires.
+A label or approved issue doesn't change the check. Add a license-only exception through review with `allow-dependencies-licenses` and the approved package's PURL. Verify its scope on the same PR, keep vulnerability checks on, and remove the exception when it expires.
 
 ## Exceptions
 
-Use an exception only when no compatible patched version exists. Name the owner, affected package and advisory, compensating control, review date, and expiry. Remove the exception when the patch becomes usable.
+Use an exception only if no compatible patched version exists. Name the owner, the package and advisory, the compensating control, the review date, and the expiry. Remove the exception once a usable patch exists.
 
 ## Completion check
 
@@ -426,15 +426,15 @@ Use an exception only when no compatible patched version exists. Name the owner,
 - A real advisory review records the GHSA or CVE, affected range, and patched version.
 - A security-update pull request has passed tests and human review. After merge, its linked alert reports fixed.
 - The required `Dependency review` check blocks the risky revision.
-- The corrected revision passes under the same workflow and ruleset.
+- The fixed revision passes under the same workflow and ruleset.
 
-For each extra step you selected, record its result. Check for the submitted
-package in the graph or SBOM. If you configured version updates, distinguish
-their PR from a security update. If the repository uses private packages, confirm
-that Dependabot resolves them. **Not selected** and **blocked** do not count as
+For each extra step you did, record its result. Look for the submitted
+package in the graph or SBOM. If you configured version updates, tell their PR
+apart from a security update. If the repository uses private packages, confirm
+Dependabot resolves them. **Not selected** and **blocked** don't count as
 verified coverage or controls.
 
-If you selected license policy, keep the legal approval and blocked-then-corrected PR. Keep one dependency-review workflow; do not create a separate license-only check.
+If you did the license policy, keep the legal approval and the blocked-then-fixed PR. Keep one dependency-review workflow. Don't create a separate license-only check.
 
 ## References
 

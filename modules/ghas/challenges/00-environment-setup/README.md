@@ -1,21 +1,21 @@
 # Activity S00: Prepare the remediation repository
 
-**Session outcome:** You can test changes in the approved repository and read its security alerts. Access or licensing gaps have owners.
+**Session outcome:** You can test changes in the approved repository and read its security alerts. Every access or licensing gap has an owner.
 
 ## Objectives
 
-- Reuse the customer repository selected for this engagement. Use OWASP Juice Shop when you need a separate practice repository
-- Check repository ownership and security settings. Record only missing decisions or access blockers
-- Confirm least privilege and human review for all changes, including agent-authored changes
-- When using the fallback, push a Juice Shop repository into an org the team controls and add the required participants
-- Enable GHAS features on the target repository, or record missing capabilities for follow-up
-- Prepare a working GitHub Codespaces or local development environment with an authenticated `gh` CLI session
-- Run the selected application's tests; start Juice Shop on port 3000 only for the fallback
+- Use the customer repository for this engagement. Use OWASP Juice Shop only if you need a separate practice repository
+- Check repository ownership and security settings. Record only missing decisions and access blockers
+- Confirm least privilege and human review for every change, including agent-authored ones
+- For the fallback, push a Juice Shop repository into an org the team controls and add the participants
+- Enable GHAS features on the target repository, or record what's missing
+- Set up a working GitHub Codespaces or local environment with an authenticated `gh` CLI session
+- Run the application's tests. Start Juice Shop on port 3000 only for the fallback
 - Create and push a personal or team working branch to the org repository
 
 > [!NOTE]
 > Continue here for alert triage and hands-on remediation. If
-> you own organization rollout, licensing, or policy controls, start with
+> you own organization rollout, licensing, or policy, start with
 > [Security configuration pilot and rollout](../01-admin-security-configuration-pilot-rollout/README.md).
 
 ---
@@ -29,20 +29,20 @@
 - GitHub Copilot license only when using Copilot assistance
 
 For an existing repository, skip provisioning and Juice Shop startup. Use its
-approved development environment and test commands for triage and remediation.
+approved development environment and test commands.
 
 For the fallback, an organizer imports Juice Shop into an org they control and
-grants participant access. Do not introduce vulnerable fixtures into a customer repository.
+grants participants access. **Never add vulnerable fixtures to a customer repository.**
 
 ---
 
 ## Check existing ownership and controls
 
 Use the team's existing GitHub work and ownership records. The
-[optional gap template](../../resources/ghas-governance-practice.template.md) covers
-missing decisions without creating a second tracker.
+[optional gap template](../../resources/ghas-governance-practice.template.md) captures
+missing decisions without starting a second tracker.
 If the customer repository is blocked, label Juice Shop results **practice** and
-record who will resolve the blocker and when to retest.
+record who will clear the blocker and when to retest.
 
 ---
 
@@ -91,7 +91,7 @@ After provisioning, manually add any participants who need access:
 
 ## Option A: GitHub Codespaces
 
-This option requires no local installation.
+No local install needed.
 
 1. Open the selected org repository on github.com.
 2. Click Code → Codespaces → Create codespace on main.
@@ -119,14 +119,14 @@ and organizer-hosted runtimes.
 
 ## Authenticate the GitHub CLI
 
-Your container does not have your GitHub credentials. Run:
+Your container doesn't have your GitHub credentials. Run:
 
 ```bash
 gh auth login
 ```
 
-Choose HTTPS, follow the device-code prompt in your browser, and grant the requested
-permissions.
+Choose HTTPS, follow the device-code prompt in your browser, and grant the
+requested permissions.
 
 Verify:
 
@@ -165,8 +165,8 @@ automatically. Open the Ports tab and select the forwarded URL. Locally, open
 `http://localhost:3000` in your browser.
 
 Confirm you see the Juice Shop storefront before moving on. Use this instance
-only for manual exploit testing; GHAS alerts belong to the org repository.
-See [`modules/ghas/setup.md`](../../setup.md) for how the two environments work together.
+only for manual exploit testing. GHAS alerts live in the org repository.
+See [`modules/ghas/setup.md`](../../setup.md) for how the two environments fit together.
 
 ---
 
@@ -189,12 +189,12 @@ git status
 git log --oneline -1
 ```
 
-Run the repository's tests and confirm access to the security alerts needed for
-your selected case. For the fallback, also confirm the Juice Shop homepage loads.
+Run the repository's tests and confirm you can read the security alerts for your
+case. For the fallback, also confirm the Juice Shop homepage loads.
 
-> Link the evidence for each control and assign unresolved blockers to an owner.
-> A working local app does not prove GitHub scanning is enabled.
+> Link the evidence for each control and give every open blocker an owner.
+> **A working local app doesn't prove GitHub scanning is on.**
 
 ## Choose the next fix
 
-Use the [remediation checklist](../../resources/start-remediation.md) in the case that matches your finding: injection, XSS, or authorization. For exposed credentials or dependency updates, use the corresponding security-control session. No separate triage exercise is required.
+Use the [remediation checklist](../../resources/start-remediation.md) for the case that matches your finding: injection, XSS, or authorization. For exposed credentials or dependency updates, use the matching security-control session. No separate triage exercise needed.

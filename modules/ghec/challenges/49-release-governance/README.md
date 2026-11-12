@@ -4,27 +4,27 @@
 
 ## Prerequisites
 
-Use an approved repository with working build and artifact tests, a repository administrator, and an independent environment reviewer. Use `gh`, `git`, and a local SHA-256 tool. Configure only an approved test release. **Ch39 and a cloud deployment are not prerequisites.**
+You need an approved repository with working build and artifact tests, a repository administrator, and an independent environment reviewer. You also need `gh`, `git`, and a local SHA-256 tool. Configure only an approved test release. **Ch39 and a cloud deployment aren't prerequisites.**
 
 The [complete workflow example](../../resources/release/release.yml) uses a Node.js repository with a committed `package-lock.json`. It requires:
 
 - `npm test` for the existing source tests and `npm run build` to produce `dist/`.
-- `npm run test:artifact` to test the files in `dist/` with the application's existing artifact tests; a successful `echo` is not a test.
+- `npm run test:artifact` to test the files in `dist/` with the application's existing artifact tests. A successful `echo` isn't a test.
 - Reviewed release notes in `release-notes.md` at the candidate commit.
 
-For another stack, replace the runtime and the **Build and test** step with the customer's existing commands. Keep the tested output in `dist/`, or change the packaging path to match. Nothing in the publish job should build or execute the application.
+For another stack, swap in the runtime and the **Build and test** step from the customer's existing commands. Keep the tested output in `dist/`, or change the packaging path to match. The publish job must never build or run the application.
 
 ## Tasks
 
 ### Part A: Protect the publication route
 
-1. Identify the candidate, prior known-good artifact, and recovery owner. Reuse the Ch39 recovery result if you already restored that artifact and passed its smoke test.
-2. Configure a test publication environment using the [shared approval setup](../../resources/environment-approval.md), or reuse an existing one that already meets those requirements. Allow only the protected default branch, such as `main`; the manual workflow runs on that branch even though it publishes a tag.
+1. Identify the candidate, the prior known-good artifact, and the recovery owner. Reuse the Ch39 recovery result if you already restored that artifact and passed its smoke test.
+2. Configure a test publication environment using the [shared approval setup](../../resources/environment-approval.md), or reuse an existing one that already meets those requirements. Allow only the protected default branch, such as `main`. The manual workflow runs on that branch even though it publishes a tag.
 3. Protect changes to `.github/workflows/release.yml` with CODEOWNERS and required code-owner review. Require review for the build scripts and artifact tests too.
-4. With the administrator, apply tag rules to the release tag pattern (for example `v*`): restrict updates and deletions, and restrict creation to the approved release operator or tag workflow. Do not give ordinary publishers an update/delete bypass. Enable release immutability in **Settings → General → Releases** if available, before the test publication.
-5. Record administrators and other identities with write credentials that can publish outside this workflow. **The environment gates this job only.** It does not prevent another workflow or an authorized API client from creating a release. Do not add App keys or deployment secrets to this workflow.
+4. With the administrator, apply tag rules to the release tag pattern (for example `v*`). Restrict updates and deletions, and restrict creation to the approved release operator or tag workflow. Don't give ordinary publishers an update or delete bypass. If available, enable release immutability in **Settings → General → Releases** before the test publication.
+5. Record administrators and other identities with write credentials that can publish outside this workflow. **The environment gates this job only.** It doesn't stop another workflow or an authorized API client from creating a release. Don't add App keys or deployment secrets to this workflow.
 
-If required reviewers are unavailable for the repository's plan or visibility, stop and record the gate as blocked. A label or approval in chat does not replace it.
+If required reviewers aren't available for the repository's plan or visibility, stop and record the gate as blocked. A label or an approval in chat doesn't replace it.
 
 ### Part B: Copy and customize the workflow
 
@@ -37,13 +37,13 @@ cp modules/ghec/resources/release/release.yml "$TARGET_CHECKOUT/.github/workflow
 cd "$TARGET_CHECKOUT"
 ```
 
-Review an existing `release.yml` before replacing it. Then:
+Check an existing `release.yml` before overwriting it. Then:
 
 1. Change `environment: release` to the approved publication environment name. Set the runtime and build commands described in Prerequisites. Keep the `test:artifact` step after the build.
-2. Use approved action versions or commit pins required by the organization. The example gives the build only `contents: read`; only `publish` receives `contents: write`.
-3. Add `release-notes.md` with the test release's scope and recovery action. Put it through the normal review process with the workflow. Merge to the protected default branch.
+2. Use the action versions or commit pins your organization requires. The example gives the build only `contents: read`. Only `publish` gets `contents: write`.
+3. Add `release-notes.md` with the test release's scope and recovery action. Review it together with the workflow, then merge to the protected default branch.
 
-The build checks that the candidate belongs to that branch and matches an existing tag. After testing, it packages `dist/` once, records the source SHA, and uploads the files. The publish job waits for approval, downloads **that artifact ID from the same run**, and verifies the checksum manifest against the build output. It rechecks the tag, creates a draft with the verified assets, then publishes a prerelease without marking it Latest. There is no checkout or rebuild in the publish job.
+The build checks that the candidate belongs to that branch and matches an existing tag. After testing, it packages `dist/` once, records the source SHA, and uploads the files. The publish job waits for approval, downloads **that artifact ID from the same run**, and verifies the checksum manifest against the build output. It rechecks the tag, creates a draft with the verified assets, then publishes a prerelease without marking it Latest. The publish job doesn't check out or rebuild anything.
 
 ### Part C: Choose the candidate and tag
 
@@ -66,7 +66,7 @@ git tag -a "$TAG" "$CANDIDATE" -m "Approved Ch49 test candidate"
 git push origin "refs/tags/$TAG"
 ```
 
-Use signed tags if repository policy requires them. Do not force-push, move, or reuse an existing tag. The release workflow deliberately does not create tags.
+Use signed tags if repository policy requires them. Don't force-push, move, or reuse an existing tag. The release workflow deliberately doesn't create tags.
 
 ### Part D: Withhold approval, then reject
 
@@ -92,7 +92,7 @@ Use signed tags if repository policy requires them. Do not force-push, move, or 
      --jq ".[] | select(.tag_name == \"$TAG\") | {tag_name,draft,html_url}"
    ```
 
-   A successful API call with no matching output means no release exists. Authentication or network errors are not proof.
+   A successful API call with no matching output means no release exists. Authentication or network errors prove nothing.
 3. The independent reviewer opens the run, chooses **Review deployments**, selects the environment, and clicks **Reject** with a short reason. Check the failed run and repeat the release query. Keep this run URL.
 
 ### Part E: Review and publish the tested files
@@ -112,7 +112,7 @@ cat "review-$RUN_ID/release-notes.md"
 
 On macOS, use `shasum -a 256 --check SHA256SUMS` in place of `sha256sum -c SHA256SUMS`.
 
-The reviewer checks the candidate SHA, test logs, and notes. Compare the downloaded archive's checksum with the build job summary. Then choose **Review deployments → environment → Approve and deploy**. This workflow publishes a release; the button's wording does not mean it deploys the application.
+The reviewer checks the candidate SHA, test logs, and notes, and compares the downloaded archive's checksum with the build job summary. Then they choose **Review deployments → environment → Approve and deploy**. This workflow publishes a release. Despite the button's wording, it doesn't deploy the application.
 
 After approval:
 
@@ -126,13 +126,13 @@ cmp "review-$RUN_ID/SHA256SUMS" "published-$RUN_ID/SHA256SUMS"
 cmp "review-$RUN_ID/release.tgz" "published-$RUN_ID/release.tgz"
 ```
 
-Both `cmp` commands should exit zero. This compares the published bytes with the files reviewed before approval. The Actions artifact's archive digest and the inner `release.tgz` checksum cover different files; do not compare those two digests to each other.
+Both `cmp` commands should exit zero. They compare the published bytes with the files reviewed before approval. The Actions artifact's archive digest and the inner `release.tgz` checksum cover different files, so don't compare those two digests to each other.
 
 ### Part F: Recover without replacing the original
 
-- **Rejected before publication:** no release exists. Fix the reason for rejection and start a fresh run; a new candidate needs a new tag.
-- **Failed after draft creation:** inspect the draft and failed step. The workflow refuses to overwrite an existing draft or release. Keep the failed run, remove only an unpublished test draft after owner approval, and start a fresh gated run for the unchanged candidate. Never delete a published release to make a retry pass.
-- **Published but unsuitable:** open `gh release view "$TAG" --web`. Have the owner edit the release notes to warn readers not to use this version. Keep its tag and assets unchanged.
+- **Rejected before publication:** no release exists. Fix the reason for rejection and start a fresh run. A new candidate needs a new tag.
+- **Failed after draft creation:** inspect the draft and the failed step. The workflow refuses to overwrite an existing draft or release. Keep the failed run, remove only an unpublished test draft after owner approval, and start a fresh gated run for the unchanged candidate. Never delete a published release to make a retry pass.
+- **Published but unsuitable:** open `gh release view "$TAG" --web`. Have the owner edit the release notes to warn readers off this version. Leave its tag and assets unchanged.
 
 For the recovery test, merge the reviewed correction and select it with a new tag:
 
@@ -144,9 +144,9 @@ export TAG="v0.1.0-ch49.2"
 
 Have the authorized operator create this tag using Part C's tag commands. Dispatch a fresh run using Part D's command, then follow Part E to approve and compare the published files. Link the corrected release from the original release notes. Keep both releases and the recovery run.
 
-For a route that also deploys the application, link Ch39's approved restore and smoke-test result. If the artifact or recovery route changed, repeat Ch39's gated restore with the retained known-good artifact. Publishing a corrected release alone does not prove deployment recovery.
+For a route that also deploys the application, link Ch39's approved restore and smoke-test result. If the artifact or recovery route changed, repeat Ch39's gated restore with the retained known-good artifact. A corrected release alone doesn't prove deployment recovery.
 
-Keep the rejected run and approved run, release URL, checksum comparison, and recovery result as [completion evidence](../../../README.md#completion-evidence). Sample publication remains practice; customer completion needs the approved customer target.
+Keep the rejected run and approved run, release URL, checksum comparison, and recovery result as [completion evidence](../../../README.md#completion-evidence). Sample publication is practice. Customer completion needs the approved customer target.
 
 ## References
 

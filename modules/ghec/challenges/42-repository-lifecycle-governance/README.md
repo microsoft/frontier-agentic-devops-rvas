@@ -4,9 +4,9 @@
 
 ## Prerequisites
 
-Choose a small set of approved customer repositories. Include the test repository's administrator and accountable owner. Read access is enough for the initial inventory.
+Pick a small set of approved customer repositories. Include the test repository's administrator and accountable owner. Read access is enough for the initial inventory.
 
-If no customer repositories are approved, `setup.sh provision ch42 --org <org>` creates private samples. It does not archive or delete repositories. Sample results are practice.
+If no customer repositories are approved, `setup.sh provision ch42 --org <org>` creates private samples. It never archives or deletes repositories. Sample results are practice.
 
 ## Tasks
 
@@ -16,10 +16,10 @@ If no customer repositories are approved, `setup.sh provision ch42 --org <org>` 
      --jq 'add | map({full_name,description,visibility,archived,pushed_at})' > inventory.json
    ```
    Record access limits. The token may not have access to the full enterprise inventory.
-2. For each selected repository, inspect team grants and CODEOWNERS. Ask the proposed owning team to confirm responsibility in the review issue. A topic, recent committer, or CODEOWNERS entry alone does not establish a business owner.
+2. For each selected repository, check team grants and CODEOWNERS. Ask the proposed owning team to confirm in the review issue that they own it. A topic, recent committer, or CODEOWNERS entry alone doesn't establish a business owner.
 3. Resolve at least one missing owner with that team's explicit acceptance. If nobody accepts, ask the organization owner to decide. Leave the repository unchanged.
-4. Decide whether to keep the repository, improve its metadata, deprecate it, or propose archival. Check dependent services and retention obligations before proposing archival. Fix one approved description or ownership record and verify it.
-5. For one approved test repository, save its URL, default-branch SHA, visibility, and current access. Confirm no active deployment, package consumer, or Pages dependency will break. Get approval for both archive and restoration.
+4. Decide whether to keep the repository, improve its metadata, deprecate it, or propose archival. Before proposing archival, check dependent services and retention obligations. Fix one approved description or ownership record and verify it.
+5. For one approved test repository, save its URL, default-branch SHA, visibility, and current access. Confirm no active deployment, package consumer, or Pages dependency will break. Get approval for both the archive and the restore.
 6. Archive the repository and inspect its status:
    ```bash
    gh repo archive <org>/<approved-test-repo> --yes
@@ -31,9 +31,9 @@ If no customer repositories are approved, `setup.sh provision ch42 --org <org>` 
    gh api --method PATCH repos/<org>/<approved-test-repo> -F archived=false
    ```
    Verify the original SHA and permissions remain, and repeat the contributor branch push. Clean up the test branch.
-8. Have the owner choose the final state and next review date. Keep the inventory and results from archiving and restoring as [completion evidence](../../../README.md#completion-evidence).
+8. Have the owner pick the final state and the next review date. Keep the inventory and the archive and restore results as [completion evidence](../../../README.md#completion-evidence).
 
-No transfer or deletion is required. If archival is not approved, keep an accepted lifecycle assessment and record the blocked archive and restore test.
+You don't need to transfer or delete anything. If archival isn't approved, keep an accepted lifecycle assessment and record the archive and restore test as blocked.
 
 ## References
 

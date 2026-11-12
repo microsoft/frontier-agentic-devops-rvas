@@ -47,7 +47,7 @@
       <div class="wrap">
         <span class="eyebrow">GitHub setup guide</span>
         <h1 id="guideHeading">GitHub setup starts<br /><span class="accent">with your goal.</span></h1>
-        <p class="lede">Start in Copilot CLI with one prompt. The agent checks your current setup and asks for decisions it cannot resolve by inspecting GitHub.</p>
+        <p class="lede">Start in Copilot CLI with one prompt. The agent inspects your current setup and asks only about decisions it can't resolve itself.</p>
         <div class="hero-actions"><a class="btn btn-primary" href="#start">Install the plugin &rarr;</a><a class="btn btn-ghost" href="#questions">Start your plan</a></div>
       </div>
     </section>
@@ -58,7 +58,7 @@
       <section id="start" aria-labelledby="startHeading">
         <h2 id="startHeading">Install once</h2>
         <p>Use GitHub Copilot CLI, signed in to your Copilot account. Install GitHub CLI (<code>gh</code>) and <code>jq</code>, then authenticate <code>gh</code> to the intended GitHub host. The enterprise must already exist.</p>
-        <p>After this package is published, install the plugin from your terminal. You do not need to clone the curriculum or register an MCP server.</p>
+        <p>Once the package is published, install the plugin from your terminal. You don't need to clone this repo or register an MCP server.</p>
         <pre><code class="language-text">copilot plugin marketplace add microsoft/frontier-agentic-devops-rvas
 copilot plugin install github-enterprise-setup@frontier-agentic-devops
 copilot skill list</code></pre>
@@ -69,7 +69,7 @@ copilot skill list</code></pre>
 copilot plugin update github-enterprise-setup</code></pre>
         <p>To remove the plugin:</p>
         <pre><code class="language-text">copilot plugin uninstall github-enterprise-setup</code></pre>
-        <div class="setup-note"><strong>Preview.</strong> Packaging and offline workflow checks are tested. Complete a controlled live setup before production use.</div>
+        <div class="setup-note"><strong>Preview.</strong> Packaging and offline workflow checks are tested. Run a controlled live setup before using it in production.</div>
       </section>
       <section id="questions" aria-labelledby="questionsHeading">
         <h2 id="questionsHeading">Describe the setup you need</h2>
@@ -78,28 +78,28 @@ copilot plugin update github-enterprise-setup</code></pre>
 on &lt;host&gt;, covering organizations &lt;org-slugs&gt;.
 My goal is &lt;outcome&gt;. Assess current state and recommend changes.
 Ask only for unresolved decisions. Save a plan without changing GitHub.</code></pre>
-        <p>For the outcome, describe the result you need, such as aligning organization governance or setting up team and repository access.</p>
-        <p><strong>The skill starts in Plan mode.</strong> It checks the target and active identity, then gathers evidence without changing GitHub. Inventories within your requested scope do not need another skill-level approval. Copilot's tool permissions still apply.</p>
-        <p>The agent recommends changes and asks you to resolve one decision at a time. Its questions depend on your target and goal. It reuses values you supplied or that it verified through GitHub.</p>
+        <p>For the outcome, say what you need, for example aligning organization governance or setting up team and repository access.</p>
+        <p><strong>The skill starts in Plan mode.</strong> It checks the target and your active identity, then collects evidence without changing GitHub. Inventories within your scope don't need another approval from the skill. Copilot's tool permissions still apply.</p>
+        <p>The agent recommends changes and asks you to decide one thing at a time. It reuses values you gave it or verified in GitHub.</p>
       </section>
       <section id="apply" aria-labelledby="applyHeading">
         <h2 id="applyHeading">Review before requesting Apply</h2>
-        <p>Read <code>plan.md</code>. Check the target, proposed changes, how to verify them, and any cost or license effects. Do not apply changes until you meet the prerequisites and other owners finish their required work.</p>
+        <p>Read <code>plan.md</code>. Check the target, the proposed changes, how to verify them, and any cost or license impact. Don't apply until the prerequisites are met and other owners have finished their part.</p>
         <p>When the plan matches your decisions, tell the agent:</p>
         <pre><code class="language-text">Proceed with the reviewed plan. Present the first write batch for approval.</code></pre>
-        <p><strong>This requests Apply; it does not approve a write.</strong> Review and approve each batch. High-impact changes need a separate typed confirmation. The agent asks before switching accounts or changing authentication scopes.</p>
+        <p><strong>This requests Apply. It doesn't approve any write.</strong> You review and approve each batch. High-impact changes need a separate typed confirmation. The agent asks before switching accounts or changing authentication scopes.</p>
       </section>
       <section id="verify" aria-labelledby="verifyHeading">
         <h2 id="verifyHeading">Continue saved work</h2>
         <p>In the same conversation, ask the agent to continue. It reuses the known target and run directory. In a new conversation, supply the full path:</p>
         <pre><code class="language-text">/github-enterprise-setup resume the run at &lt;absolute-run-path&gt;.
 Recheck identity and live state before continuing.</code></pre>
-        <p>On resume, the skill checks the saved files and verifies any writes whose outcome is uncertain. If the target or planned effects change, it needs new approval. Keep unverified work separate from completed operations.</p>
+        <p>On resume, the skill checks the saved files and verifies any write whose outcome is uncertain. If the target or planned effects change, it asks for approval again.</p>
         <h3>Get recommendations without a change plan</h3>
         <pre><code class="language-text">/github-enterprise-setup assess enterprise &lt;enterprise-slug&gt; on &lt;host&gt;, covering &lt;scope&gt;. Report gaps and prioritized
 recommendations. Do not create a change plan or change GitHub.</code></pre>
-        <p>Assess stops after the report. Ask to continue into Plan when you want to turn selected recommendations into proposed changes.</p>
-        <p>Use the <a href="catalog.html">hands-on sessions</a> for controls your team needs to learn or test.</p>
+        <p>Assess stops after the report. To turn recommendations into proposed changes, ask it to continue into Plan.</p>
+        <p>To learn or test a control with your team, use the <a href="catalog.html">hands-on sessions</a>.</p>
       </section>
     </div>
   </main>

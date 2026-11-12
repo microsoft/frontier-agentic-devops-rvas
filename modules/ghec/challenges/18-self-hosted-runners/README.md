@@ -1,32 +1,32 @@
 # Ch18: Self-hosted and larger runners
 
-Use this optional session when a CI job needs a different runner. Choose self-hosting only for a real network, hardware, or isolation requirement.
+Use this optional session when a CI job needs a different runner. Self-host only for a real network, hardware, or isolation need.
 
-**Session outcome:** The customer's CI job runs on the approved runner type and meets its runtime and access needs. A self-hosted choice also passes the runner-group and host-isolation checks.
+**Session outcome:** The customer's CI job runs on the approved runner type and meets its runtime and access needs. If you self-host, it also passes the runner-group and host-isolation checks.
 
 ## Prerequisites
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch18 --org <org>` (least-privilege; for this activity: `repo` + `admin:org` for runner-group + runner management).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch18 --org <org>` (least privilege; here: `repo` + `admin:org` for runner-group and runner management).
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
-- Only for self-hosting: an approved disposable VM. Do not attach a personal workstation or shared production host.
-- This activity configures org-level runners and runner groups. Review enterprise runner groups without configuring them. No enterprise owner is required.
+- Only for self-hosting: an approved disposable VM. Never attach a personal workstation or shared production host.
+- You configure org-level runners and runner groups. Read about enterprise runner groups but don't configure them. You don't need an enterprise owner.
 - Use the customer's approved organization and repository scope for Part F.
 
 ## What you'll do
 - Register a self-hosted runner at the org level and bring it online.
-- Organize runners with a runner group and control which repos may use it.
+- Group runners in a runner group and control which repos can use it.
 - Target the runner from a workflow with `runs-on` labels (custom + default).
-- Harden the runner: least-privilege service account, ephemeral/just-in-time runners, and the public-repo fork risk.
-- Compare self-hosted vs GitHub-hosted vs larger runners and know when each fits.
-- Review how organization and enterprise runner groups relate without configuring them.
+- Harden the runner: least-privilege service account, ephemeral and just-in-time runners, and the public-repo fork risk.
+- Compare self-hosted, GitHub-hosted, and larger runners and know when each fits.
+- Understand how organization and enterprise runner groups relate, without configuring them.
 
 ## Scenario
-A GHEC customer needs CI on hardware GitHub doesn't host, such as a GPU box, a license-locked toolchain, or a network-isolated build host. Register a self-hosted runner in an org runner group, limit it to the repositories that need it, route jobs with labels, and harden it against untrusted pull requests. Then compare its operational cost with GitHub-hosted and larger runners.
+A GHEC customer needs CI on hardware GitHub doesn't host, such as a GPU box, a license-locked toolchain, or a network-isolated build host. Register a self-hosted runner in an org runner group, limit it to the repositories that need it, route jobs with labels, and harden it against untrusted pull requests. Then compare its running cost with GitHub-hosted and larger runners.
 
 > [!IMPORTANT]
-> Default to an authorised customer CI job or repository that needs a self-hosted runner for network, hardware, compliance, or cost reasons.
+> Start with a customer CI job or repository that needs a self-hosted runner for network, hardware, compliance, or cost reasons.
 >
-> If you have an approved target, use it wherever this guide says `ghec-ch18-self-hosted-runners` and skip Setup below. Otherwise, use the seeded sample for validation only, then hand the validated runner design to the approved owner.
+> If you have one, use it wherever this guide says `ghec-ch18-self-hosted-runners` and skip Setup below. Otherwise, use the seeded sample for testing only, then hand the runner design to the owner.
 
 ## Sample test repository or environment
 Skip if you brought your own runner target.
@@ -47,52 +47,45 @@ Setup is idempotent. All artifact names use the `ghec-ch18-*` prefix, and teardo
 
 ## Choose and test the runner type
 
-Run the existing customer job on a standard GitHub-hosted runner first when its
-access requirements permit it. If it meets the job's requirements, keep that
-configuration and stop.
+Run the customer's existing job on a standard GitHub-hosted runner first, if its access requirements allow it. If that meets the job's needs, keep it and stop.
 
-For an approved larger runner, create or select it under **Organization settings
-→ Actions → Runners**, restrict its runner group to the intended repository,
-and set the job's `runs-on` to the configured runner name. Run the same job and
-check its result, duration, and cost with the owner. The
-[larger-runner guide](https://docs.github.com/en/actions/using-github-hosted-runners/using-larger-runners/about-larger-runners)
+For an approved larger runner, create or select it under **Organization settings → Actions → Runners**, restrict its runner group to the intended repository, and set the job's `runs-on` to the runner's name. Run the same job and check the result, duration, and cost with the owner. The [larger-runner guide](https://docs.github.com/en/actions/using-github-hosted-runners/using-larger-runners/about-larger-runners)
 lists availability and supported configurations.
 
-Continue below only when self-hosting is the approved choice. Keep the working
-configuration and run result in the existing CI change record.
+Continue only if self-hosting is the approved choice. Keep the working configuration and run result in the existing CI change record.
 
 ## Configure the self-hosted pilot
 
 ### Part A: Create an org runner group
-1. Create a runner group scoped to your org: Org Settings → Actions → Runner groups → New, name it `ghec-ch18-group`. (Or by API: `gh api orgs/<org>/actions/runner-groups -f name='ghec-ch18-group' -f visibility='selected'`.)
-2. Scope it to one repo. Restrict the group to selected repositories and add only `ghec-ch18-self-hosted-runners`. Confirm no other repo can use it.
+1. Create an org-level runner group: Org Settings → Actions → Runner groups → New, name it `ghec-ch18-group`. (Or by API: `gh api orgs/<org>/actions/runner-groups -f name='ghec-ch18-group' -f visibility='selected'`.)
+2. Limit it to one repo. Restrict the group to selected repositories and add only `ghec-ch18-self-hosted-runners`. Confirm no other repo can use it.
 
 ### Part B: Register the runner
 3. Get a registration token. `gh api -X POST orgs/<org>/actions/runners/registration-token --jq '.token'`.
 4. Download and configure the runner on your host following `RUNNER-SETUP.md`: run `./config.sh --url https://github.com/<org> --token <reg-token> --runnergroup ghec-ch18-group --labels ghec-ch18,self-hosted --name ghec-ch18-runner` (use `config.cmd` on Windows).
-5. Bring it online. Start it with `./run.sh` (interactive) or install it as a service. Confirm Idle status: `gh api orgs/<org>/actions/runners --jq '.runners[] | {name, status, labels: [.labels[].name]}'`.
+5. Bring it online: start it with `./run.sh` (interactive) or install it as a service. Confirm Idle status: `gh api orgs/<org>/actions/runners --jq '.runners[] | {name, status, labels: [.labels[].name]}'`.
 
 ### Part C: Target the runner
 6. Trigger `self-hosted.yml`. It uses `runs-on: [self-hosted, ghec-ch18]`. Push or `workflow_dispatch` and confirm the job lands on your runner (check the run's runner name).
 7. Trigger `hosted.yml` and confirm it runs on a GitHub-hosted runner. Compare its start latency and environment with your self-hosted runner.
-8. Label routing. Add a second label (e.g., `gpu`) to your runner config, update the workflow's `runs-on`, and prove a mis-labeled job stays queued (no eligible runner).
+8. Test label routing. Add a second label (e.g., `gpu`) to your runner config, update the workflow's `runs-on`, and show that a mislabeled job stays queued because no runner qualifies.
 
 ### Part D: Harden the runner
-9. Least-privilege account. Run the runner under a dedicated non-admin service account, not your personal/root user. Document the account and its limited permissions.
-10. Register with `--ephemeral` and verify the runner deregisters after one job. **Ephemeral registration does not erase the host.** Destroy and recreate its VM before the next job, then check that the prior workspace is absent. Just-in-time registration is a separate mechanism. Neither registration method alone cleans the host.
-11. Keep untrusted fork code off this runner. Check repository visibility and workflow triggers alongside runner-group access and fork approval policy. No single self-hosted-only fork setting covers them all. Cancel the Part C job that has no eligible runner and remove the runner and VM after validation.
-12. Document egress restrictions. List the network egress the runner actually needs and note how you'd restrict the rest (firewall/proxy) in a real deployment.
+9. Use a least-privilege account. Run the runner under a dedicated non-admin service account, not your personal or root user. Document the account and its limited permissions.
+10. Register with `--ephemeral` and check that the runner deregisters after one job. **Ephemeral registration doesn't wipe the host.** Destroy and recreate its VM before the next job, then check that the previous workspace is gone. Just-in-time registration is a separate mechanism. Neither method cleans the host on its own.
+11. Keep untrusted fork code off this runner. Check repository visibility, workflow triggers, runner-group access, and fork approval policy together. No single setting covers all of them. Cancel the Part C job that has no eligible runner, and remove the runner and VM when you finish.
+12. Document egress restrictions. List the network egress the runner needs and note how you'd block the rest (firewall or proxy) in a real deployment.
 
 ### Part E: Scaling and runner types
-13. Record why the tested runner meets the job's requirements and who maintains it. Link the run result; a separate runner comparison document is unnecessary.
-14. Discuss autoscaling only when the observed queue requires it. Do not add a controller or an architecture exercise to a single-runner pilot.
+13. Record why the tested runner meets the job's requirements and who maintains it. Link the run result. You don't need a separate runner comparison document.
+14. Discuss autoscaling only if the queue you see calls for it. Don't add a controller or architecture exercise to a single-runner pilot.
 
 ### Part F: Review enterprise runner groups
-15. Use an organization runner group for the selected organization. Consider an enterprise runner group only when the same approved runners must serve several organizations; it requires enterprise-owner access. Record the chosen scope in `docs/RUNNER-CHOICES.md`. No enterprise changes are required.
+15. Use an organization runner group for your organization. Consider an enterprise runner group only if the same approved runners must serve several organizations; that needs enterprise-owner access. Record the scope you chose in `docs/RUNNER-CHOICES.md`. You don't need to change anything at enterprise level.
 
-### Part G: Inspect the effective runner policy
+### Part G: Check the effective runner policy
 
-16. Verify the runner-group repository scope, labels, routing, host privilege, ephemeral lifecycle, egress, and fork pull-request boundary. If enterprise runner policy is authorized and visible, confirm it's compatible with your runner group and host-hardening model. Do not change it without enterprise-owner approval. If not visible, record `enterprise runner policy not available / not applicable`.
+16. Check the runner-group repository scope, labels, routing, host privilege, ephemeral lifecycle, egress, and fork pull request boundary. If you can see the enterprise runner policy, confirm it fits your runner group and host hardening. Don't change it without enterprise-owner approval. If you can't see it, record `enterprise runner policy not available / not applicable`.
 
 ## Reference links
 - [About self-hosted runners](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners)

@@ -1,31 +1,31 @@
 # Ch22: Connect Azure Boards to GitHub
 
-Choose this session only when Azure Boards remains the work-item system. Teams moving planning to GitHub Issues can skip it.
+Do this session only if Azure Boards stays your work-item system. If you're moving planning to GitHub Issues, skip it.
 
-**Session outcome:** Your Azure Boards project connects to the approved GitHub repository. A test commit and merged pull request using `AB#` references appear on the linked work item.
+**Session outcome:** Your Azure Boards project is connected to the approved GitHub repository. A test commit and a merged pull request that use `AB#` references show up on the linked work item.
 
 ## Prerequisites
-- GitHub organization with org-owner rights, or repository admin rights plus a path to request GitHub App installation approval.
+- GitHub organization with org-owner rights, or repository admin rights and a way to request GitHub App installation approval.
 - An Azure DevOps Services organization with an Azure Boards project and at least one work item you can edit.
 - Project Collection Administrator rights in Azure DevOps, or a project administrator who can create the GitHub connection.
-- A migrated GitHub repository that represents code formerly tracked in Azure DevOps.
+- A migrated GitHub repository for code that used to live in Azure DevOps.
 - Local tooling for the validation path: `git` and `gh` authenticated to the target GitHub org.
 
-If possible, complete the Azure DevOps-to-GitHub repository migration first. This activity assumes the code is in GitHub and Azure Boards still holds the work items.
+Migrate the repository first if you can. This session assumes the code is in GitHub and Azure Boards still holds the work items.
 
 ## What you'll do
-- Explain why GitHub Enterprise Importer (GEI) does not migrate Azure Boards work items: it migrates Git repos, PRs, and existing work-item links on PRs, but not the Boards backlog itself.
-- Install and configure the Azure Boards GitHub Marketplace app for selected migrated repositories.
-- Connect one Azure Boards project to the GitHub repository from Project settings > GitHub connections.
-- Link GitHub commits and pull requests to work items using `AB#<id>`.
-- Demonstrate that a merged PR can transition a linked work item when the PR description or commit message uses a supported phrase such as `Fixes AB#<id>`.
-- Validate the link from both sides: Azure Boards work item Development section and GitHub PR Development section.
+- Learn why GitHub Enterprise Importer (GEI) doesn't migrate Azure Boards work items: it migrates Git repos, PRs, and existing work-item links on PRs, but not the Boards backlog.
+- Install the Azure Boards GitHub Marketplace app for your migrated repo.
+- Connect one Azure Boards project to the repo from Project settings > GitHub connections.
+- Link GitHub commits and pull requests to work items with `AB#<id>`.
+- Merge a PR that uses a supported phrase such as `Fixes AB#<id>` and watch the work item change state.
+- Check the link from both sides: the work item's Development section and the GitHub PR's Development section.
 
 ## Post-migration links
-GEI preserves existing work-item links on Azure DevOps pull requests, but it does not move Azure Boards work items, queries, or backlog state. Teams that continue planning in Azure Boards need the Azure Boards GitHub App to link new GitHub commits and pull requests after cutover.
+GEI keeps existing work-item links on Azure DevOps pull requests. It doesn't move work items, queries, or backlog state. If you keep planning in Azure Boards, you need the Azure Boards GitHub App to link new commits and pull requests after cutover.
 
 > [!IMPORTANT]
-> Use one migrated repository and a safe test work item from its owning team. Verify the commit link and merge a reviewed PR. Then check the work-item state.
+> Use one migrated repository and a test work item from its owning team. Check the commit link, merge a reviewed PR, then check the work-item state.
 >
 > Variables used in the commands below:
 >
@@ -41,9 +41,9 @@ GEI preserves existing work-item links on Azure DevOps pull requests, but it doe
 1. Open the Azure Boards app in GitHub Marketplace: <https://github.com/marketplace/azure-boards>.
 2. Under Plans and pricing, choose the Free plan and select Install.
 3. In Install & Authorize Azure Boards, choose your GitHub organization.
-4. Select Only select repositories and choose the migrated repo you will validate, or choose All repositories only if your migration governance allows broad app access.
+4. Select Only select repositories and choose the migrated repo you will validate, or choose All repositories only if your governance allows broad app access.
 5. Select Install & Authorize.
-6. If your org uses Enterprise Managed Users or restricts GitHub App installation, capture the approval request URL/screenshot and ask an org owner to approve the Azure Boards app for the selected repository.
+6. If your org uses Enterprise Managed Users or restricts GitHub App installation, save the approval request URL or a screenshot and ask an org owner to approve the Azure Boards app for the repo.
 
 ### Part B: Connect the Azure Boards project
 1. In Azure DevOps, open `https://dev.azure.com/<ado-org>/<project>`.
@@ -54,7 +54,7 @@ GEI preserves existing work-item links on Azure DevOps pull requests, but it doe
 6. On the GitHub approval page, select Approve, Install, & Authorize if prompted.
 7. Confirm the connection list shows the GitHub organization and repository under Project settings > GitHub connections.
 
-> Avoid connecting the same GitHub repository to more than one Azure DevOps organization or project. Microsoft Learn warns this can cause unexpected `AB#` mention linking.
+> Don't connect one GitHub repository to more than one Azure DevOps organization or project. Microsoft Learn warns that `AB#` mentions can then link to the wrong place.
 
 ### Part C: Link a commit to a work item
 1. Clone the migrated repository and create a branch.
@@ -65,7 +65,7 @@ cd "$REPO"
 git switch -c boards-link-validation
 ```
 
-2. Make a harmless documentation change that can be merged or reverted later.
+2. Make a harmless docs change you can merge or revert.
 
 ```bash
 printf '\nAzure Boards traceability validation for AB#%s\n' "$WORK_ITEM_ID" >> traceability-proof.md
@@ -74,10 +74,10 @@ git commit -m "Link GitHub commit to AB#$WORK_ITEM_ID"
 git push -u origin boards-link-validation
 ```
 
-3. Open the Azure Boards work item. In the Development section, confirm a GitHub commit link appears. If it does not appear after a short delay, continue to troubleshooting before opening the PR.
+3. Open the Azure Boards work item. In the Development section, confirm a GitHub commit link appears. If it doesn't appear after a short wait, see Troubleshooting before opening the PR.
 
 ### Part D: Link and merge a pull request
-1. Create a pull request whose description contains the `AB#` mention. Microsoft Learn specifies that `AB#<id>` in a PR description creates the Azure Boards work-item link; a PR title alone does not.
+1. Create a pull request whose description contains the `AB#` mention. `AB#<id>` in the PR description creates the link. The title alone doesn't.
 
 ```bash
 gh pr create \
@@ -96,29 +96,28 @@ gh pr create \
 gh pr merge --repo "$ORG/$REPO" --squash --delete-branch
 ```
 
-5. Return to the work item and refresh. A phrase such as `Fixes AB#<id>` transitions the work item to the first state in the Resolved workflow category, or if none exists, the first state in the Completed category. State transitions apply when the PR is merged into the default branch.
+5. Return to the work item and refresh. A phrase such as `Fixes AB#<id>` moves the work item to the first state in the Resolved workflow category, or the first state in the Completed category if there is no Resolved one. This happens when the PR merges into the default branch.
 
 ### Part E: Validate the integration
-Keep the installation, connection, commit-link, and PR-link results from Parts A-D.
-Record the work-item state before and after the merge, or explain why the process
-template uses a different target state.
+Keep the results from Parts A-D: installation, connection, commit link, and PR link.
+Record the work-item state before and after the merge. If the process template uses a different target state, note why.
 
 ## Troubleshooting
 
 ### App installed but Azure Boards cannot see the repo
-Check GitHub Organization settings > GitHub Apps or personal Settings > Applications > Installed GitHub Apps > Azure Boards > Configure. Ensure repository access includes the migrated repo. If third-party application access or EMU app-install policy blocks the app, request approval from an org owner.
+Check GitHub Organization settings > GitHub Apps or personal Settings > Applications > Installed GitHub Apps > Azure Boards > Configure. Make sure repository access includes the migrated repo. If third-party app access or an EMU app-install policy blocks the app, ask an org owner for approval.
 
 ### `AB#` does not create a link
-Use `AB#123`, not `AB-123`, `ADO#123`, or a URL-only reference. Put the `AB#` mention in the commit message or PR description. For GitHub PRs, the PR title alone is not enough to create the Azure Boards work-item link.
+Use `AB#123`, not `AB-123`, `ADO#123`, or a URL-only reference. Put the `AB#` mention in the commit message or PR description. A PR title alone doesn't create the link.
 
 ### Links go to the wrong Azure DevOps org or project
-A GitHub repository should be connected to only one Azure DevOps organization/project. Remove stale connections from Project settings > GitHub connections, then reconnect the repo to the intended Boards project.
+Connect a GitHub repository to only one Azure DevOps organization and project. Remove stale connections from Project settings > GitHub connections, then reconnect the repo to the intended Boards project.
 
 ### PR merge did not transition the work item
-Confirm the PR merged into the default branch and used a supported phrase such as `Fixes AB#123`, `Fixed AB#123`, or a valid state name such as `Closed AB#123`. If the process template has no matching state/category, Azure Boards can link without changing state.
+Confirm the PR merged into the default branch and used a supported phrase such as `Fixes AB#123`, `Fixed AB#123`, or a valid state name such as `Closed AB#123`. If the process template has no matching state or category, Azure Boards links the item without changing its state.
 
 ### Permissions error during installation
-The Azure Boards app requires a GitHub organization owner/admin for installation and repository access changes. In EMU environments, enterprise policy can require app approval. Capture the GitHub approval request and route it through your org-owner process.
+Installing the app or changing its repository access takes a GitHub organization owner or admin. In EMU environments, enterprise policy can also require app approval. Send the GitHub approval request to an org owner.
 
 ## Cleanup
 Keep the connection if this is a production migration bridge. If you used a disposable test repository, remove the connection from Azure DevOps Project settings > GitHub connections > More options > Remove repositories or remove the app repository access from GitHub Installed GitHub Apps > Azure Boards > Configure.

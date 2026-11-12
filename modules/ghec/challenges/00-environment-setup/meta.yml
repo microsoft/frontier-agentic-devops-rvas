@@ -10,7 +10,7 @@ prerequisite_capabilities:
   - Basic Git and CLI usage
   - Approved customer repository with contributor access
   - GitHub CLI (gh >= 2.x) installed or available via Codespaces
-description: "Prepare your development environment and verify GitHub organization access."
+description: "Set up your dev environment and check your GitHub organization access."
 tags:
   - setup
   - devcontainer

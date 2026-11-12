@@ -1,36 +1,36 @@
 # Issue triage for the customer's taxonomy
 
 **Session outcome:** The workflow applies only approved labels to real issues.
-A maintainer validates its choices, including its decision not to label an
+A maintainer checks its choices, including when it declines to label an
 ambiguous issue.
 
 Start after [setup](../00-setup/README.md).
 **Use issue forms first** when the reporter can select a known category.
-Use the model only when those fields and simple rules cannot classify the issue.
+Use the model only when those fields and simple rules can't classify the issue.
 
 ## Build and validate
 
 1. Read the repository's existing issue forms and list its labels:
    `gh label list --limit 100`. Increase the limit if needed. Have a maintainer
-   define the small subset this workflow may add and what each label means.
+   pick the small set of labels this workflow may add and define each one.
 2. Copy the [complete triage starter](../../resources/examples/issue-triage-agent.md)
    into the customer checkout as `.github/workflows/issue-triage-agent.md`.
-   Its Markdown body is the reporting agent's prompt. It runs on issue
-   `opened` and `reopened` events.
+   Its Markdown body is the agent's prompt. It runs on issue `opened` and
+   `reopened` events.
 3. Keep the agent's token read-only. Configure `safe-outputs: add-labels` with
    an explicit `allowed` list of the customer's exact labels. Exclude approval
    and escalation labels that maintainers control. Triage must not approve
    work for a code-writing workflow.
-4. Ask the model to add a label only when the issue supplies enough evidence.
-   Preserve existing labels and abstain on ambiguity. There is no required
-   number of labels and no mandatory explanatory comment.
+4. Tell the model to add a label only when the issue gives enough evidence.
+   Keep existing labels and abstain when unsure. No minimum number of labels,
+   no mandatory comment.
 5. Compile with `gh aw compile issue-triage-agent`. Inspect the lock file's
-   writer permissions and label allowlist, then deploy through review.
+   writer permissions and label allowlist, then merge through review.
 6. Test a clear issue, an ambiguous one, and an issue with existing labels.
-   Rerun an event. A maintainer compares results with the taxonomy; unchanged
-   labels should produce no extra output.
+   Rerun an event. A maintainer compares the results with the taxonomy. Labels
+   that didn't change should produce no extra output.
 
-Record corrections before enabling this for all new issues. Complete the
+Record the maintainer's corrections before you enable this for all new issues. Complete the
 [shared acceptance check](../../setup.md#pilot-acceptance).
 
 ## Customize and run the starter
@@ -46,8 +46,8 @@ gh label list --limit 100
 ```
 
 The sample uses `bug`, `documentation`, and `question`. Use existing labels or
-have a maintainer create the agreed missing ones. Replace both the
-`safe-outputs.add-labels.allowed` list and their definitions in the prompt.
+have a maintainer create the missing ones. Replace both the
+`safe-outputs.add-labels.allowed` list and the definitions in the prompt.
 For help adapting them, paste this into Copilot Chat in agent mode:
 
 ```text
@@ -66,7 +66,7 @@ gh aw compile issue-triage-agent
 git diff -- .github/workflows/
 ```
 
-Open new files in the editor too; untracked files do not appear in `git diff`.
+Open new files in the editor too. `git diff` doesn't show untracked files.
 Merge the reviewed files to the default branch. Use an approved test repository
 for these examples, or coordinate equivalent real issues with the maintainer:
 
@@ -87,20 +87,20 @@ These are optional native Actions recipes, separate from AI triage.
 Use [`actions/stale`](https://github.com/actions/stale) for a
 maintainer-approved inactivity policy. Configure `days-before-issue-stale`,
 `days-before-issue-close`, and `exempt-issue-labels`; disable PR handling if
-the policy covers issues only. Warn once, then calculate the grace period by
-elapsed time, not number of workflow runs. Verify activity removes the stale
-state and exemption labels prevent closure. Test recent activity, an exempt
-issue, and the grace-period boundary with fixture timestamps before enabling
-closure. A custom minimum issue age needs a separate deterministic check.
+the policy covers issues only. Warn once, then measure the grace period in elapsed time, not workflow runs.
+Check that new activity clears the stale state and that exemption labels
+prevent closure. Before enabling closure, test recent activity, an exempt issue,
+and the grace-period boundary with fixture timestamps. A custom minimum issue
+age needs its own deterministic check.
 
 For contributor guidance, start with
 [community-health files](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file)
 and [issue forms](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository).
 If maintainers still want a welcome comment, use a fixed template and a
-deterministic first-contribution check. `author_association: NONE` alone does
-not establish that this is someone's first contribution. Query prior activity
-and exclude bots. Check for an existing welcome on the PR before posting.
-Link real guidance without promising review times. No model is needed.
+deterministic first-contribution check. `author_association: NONE` alone doesn't
+mean it's someone's first contribution, so query prior activity and exclude
+bots. Check for an existing welcome on the PR before posting. Link real
+guidance and don't promise review times. No model needed.
 
 Pin any action to a reviewed commit SHA and scope its token to the required
 issue or PR writes.

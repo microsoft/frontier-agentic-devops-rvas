@@ -1,20 +1,20 @@
 # Activity 1: Security configuration pilot and rollout
 
-**Session outcome:** Your organization security configuration is attached to a pilot repository, and you have checked its final state. You have tested recovery from a failure or detachment, then obtained approval to enforce the configuration or verified its rollback.
+**Session outcome:** An organization security configuration is attached to a pilot repository, and you've checked its final state. You've tested recovery from a failure or detachment, then either got approval to enforce the configuration or verified the rollback.
 
 ## Before you start
 
 - Use a test organization or an approved production pilot.
-- Confirm that the organization has the required GitHub Code Security and GitHub Secret Protection entitlement for the selected repository.
+- Confirm the organization has the GitHub Code Security and GitHub Secret Protection entitlements the repository needs.
 - Work as an organization owner or security manager who can manage security configurations.
 - Name the rollout owner and rollback owner.
-- Set the pilot's success and stop conditions before changing the repository.
+- Set the pilot's success and stop conditions before you change the repository.
 
-Use one representative repository and one configuration. Run one controlled repair.
+Use one representative repository and one configuration, and run one controlled repair.
 
 ## Set up the fixture
 
-If you do not have an approved pilot repository, create the shared fixture:
+If you have no approved pilot repository, create the shared fixture:
 
 ```bash
 bash modules/ghas/resources/provisioning/challenges/admin-01-06-security-configuration-campaigns-fixture/provision.sh \
@@ -26,7 +26,7 @@ modules/ghas/resources/provisioning/challenges/admin-01-06-security-configuratio
   provision -Org <org>
 ```
 
-The fixture creates `ghas-admin-01-06-security-operations`. It also seeds an advanced CodeQL workflow, Dependabot configuration, a fake secret value that was never a real credential, two repair branches, and tracking issues used by this session and `ghas-admin-06`.
+The fixture creates `ghas-admin-01-06-security-operations`. It also seeds an advanced CodeQL workflow, a Dependabot configuration, a fake secret that was never a real credential, two repair branches, and tracking issues used by this session and `ghas-admin-06`.
 
 ## Exercise
 
@@ -45,7 +45,7 @@ Record these decisions in the `ghas-admin-01: configuration attachment repair` i
 | Success condition | Final attached state and expected features |
 | Stop condition | Any unexplained failure, unexpected replacement, scan loss, or owner objection |
 
-Do not widen the target during the lab.
+Don't widen the target during the lab.
 
 ### 2. Capture the current baseline
 
@@ -65,7 +65,7 @@ Open the organization's **Security and quality** view and filter Coverage to the
 
 Open **Organization settings > Code security > Configurations**. Create `ghas-admin-01-pilot` with enforcement off.
 
-Enable only the controls approved for the pilot. The fixture already has CodeQL advanced setup, so do not enable default setup unless you intend to test and repair that conflict. Review every setting before saving.
+Enable only the controls approved for the pilot. The fixture already has CodeQL advanced setup, so don't enable default setup unless you want to test and repair that conflict. Review every setting before saving.
 
 Capture the new configuration ID:
 
@@ -78,7 +78,7 @@ test -n "$CONFIG_ID"
 printf '%s\n' "$CONFIG_ID"
 ```
 
-The configuration must exist in the organization. A payload draft does not complete this step.
+The configuration must exist in the organization. A payload draft doesn't count.
 
 ### 4. Attach the selected repository
 
@@ -95,11 +95,11 @@ while :; do
 done
 ```
 
-Stop the loop after GitHub reports a final state. Save the status history. Do not treat `attaching` or `updating` as completion.
+Stop the loop once GitHub reports a final state, and save the status history. `attaching` and `updating` are not final.
 
 ### 5. Repair a failure or detachment
 
-If the attachment fails, use GitHub's failure reason to fix the setting or repository condition. Reapply the configuration and poll again.
+If the attachment fails, use GitHub's failure reason to fix the setting or repository condition, then reapply the configuration and poll again.
 
 If the first attachment succeeds, run this controlled detachment test:
 
@@ -129,7 +129,7 @@ If those checks pass, change the configuration to enforced and poll again.
 
 ## Completion check
 
-You are done only when you have:
+You're done when you have:
 
 - A confirmed `ghas-admin-01-pilot` configuration ID.
 - A confirmed attachment and its final state history.
@@ -137,7 +137,7 @@ You are done only when you have:
 - An enforced configuration or a verified rollback.
 - A named approver and rollback owner.
 
-Verify the configuration and repository state; a successful HTTP response alone does not prove the rollout succeeded.
+**Check the configuration and repository state.** A successful HTTP response doesn't prove the rollout worked.
 
 ## Common failures
 

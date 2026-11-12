@@ -12,7 +12,7 @@ prerequisite_capabilities:
 - jq installed
 - Existing customer repository and working CI
 - Node.js 22+ and approved HTTPS hosting only for the optional App path
-description: "Close one integration gap after testing native GitHub options."
+description: "Try native GitHub options first, then close one integration gap."
 tags:
 - github-apps
 - webhooks

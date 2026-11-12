@@ -3,26 +3,23 @@
 **Learn by doing** through four outcomes and three modules,
 or **set up GitHub** with the GitHub Enterprise setup skill.
 
-The [setup overview](docs/github-setup.html) explains the skill's scope; the
-[setup guide](docs/github-setup-guide.html) covers installation and the guided workflow.
-Use the catalog and session builder for hands-on activities.
+The [setup overview](docs/github-setup.html) explains what the skill covers. The
+[setup guide](docs/github-setup-guide.html) walks through installation and use.
+For hands-on activities, use the catalog and session builder.
 
 > **Use your own environment.** Work with your own applications, repositories, and data
-> so your team can keep using the result after the session. Use OWASP Juice Shop
-> or seed repositories when you do not have a suitable application.
-> Where an activity says "bring your own," start with your team's work.
+> so your team keeps the result after the session. If you don't have a suitable
+> application, use OWASP Juice Shop or the seed repositories.
 
 ## Outcomes
 
-**Choose an outcome to see its activities.** Use the session-type filters to narrow
-the list, or build a custom set for your team. Migration chapters cover different
-source platforms; select the one you use.
+**Pick an outcome to see its activities.** Filter by session type, or build a custom set
+for your team. Migration activities cover different source platforms; pick yours.
 
-Keep one customer repository or service throughout the selected activities. Reuse
-approved controls and check prerequisites before starting. The session builder
-preserves chapter order in shared sets.
+Use one customer repository or service across the selected activities, and check
+prerequisites first. Shared sets keep the builder's activity order.
 
-Without an outcome selected, the catalog groups all active activities by session type.
+With no outcome selected, the catalog groups all active activities by session type.
 
 | Outcome ID | Purpose |
 |---|---|
@@ -56,11 +53,9 @@ docs/assets/data/
   challenges/<id>/README.md  ← copied customer delivery team guide (served by Pages)
 ```
 
-The build script generates the site data from activity metadata and outcome journeys.
-Do not copy metadata by hand.
+The build generates the site data from activity metadata and outcomes. Don't copy metadata by hand.
 
-**Edit the top bar in `docs/_partials/header.html`.** The build copies this shared
-header into every site page. Keep page-specific navigation in the page content.
+**Edit the top bar in `docs/_partials/header.html`.** The build copies it into every page. Keep page-specific navigation in the page itself.
 
 ## Build locally
 
@@ -81,7 +76,7 @@ The build writes to `docs/assets/data/`. The Pages site has all its files under 
 ✓ copied delivery guides → docs/assets/data/challenges/
 ```
 
-The build exits with code 0 on success. For a non-zero exit code, check stderr for validation errors.
+The build exits with 0 on success. On a non-zero exit, check stderr for validation errors.
 
 ## Set up GitHub
 
@@ -96,14 +91,13 @@ copilot
 ```
 
 Tell Copilot to use `github-enterprise-setup`, name your enterprise and host,
-and describe the outcome. The skill starts **Plan**. It checks current state
+and describe the outcome. The skill starts in **Plan**: it checks the current state
 and recommends changes. Review the saved plan before requesting Apply.
-Each write batch needs approval; high-impact work has a separate confirmation.
+You approve each write batch; high-impact changes need a separate confirmation.
 
-The plugin replaces the Bash wizard. Legacy wizard run files remain reference
-material; start a new skill plan rather than resuming them. The skill does not
-run the curriculum's lab provisioners. **Live end-to-end setup validation is still
-pending.** See the plugin guide for local installation and the release checks.
+The plugin replaces the Bash wizard. Don't resume old wizard runs; start a new skill plan.
+The skill doesn't run the lab provisioners. **Live end-to-end validation is still
+pending.** The plugin guide covers local installation and release checks.
 
 ## External labs and submodules
 
@@ -139,7 +133,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/release/test_release
 PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/intake/test_provision.py
 ```
 
-`npm run audit:external` can probe external URLs, but reports them as warnings only to avoid flaky CI gates.
+`npm run audit:external` probes external URLs but only warns, so flaky links don't fail CI.
 
 CI runs the same build on every PR and fails the check on validation errors.
 

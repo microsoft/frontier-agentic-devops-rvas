@@ -43,15 +43,14 @@ Activity IDs are stable identifiers and need not be consecutive.
 ## Completion evidence
 
 **Leave the team with something it can use.** Each session should configure a
-needed capability or complete useful work through GitHub. Teach the mechanism
-while the participant uses it, and verify the result before expanding it.
+capability the team needs or finish real work in GitHub. Teach the mechanism while
+participants use it, and verify the result before moving on.
 
-Use one customer repository or service throughout the selected activities. Create a practice
-environment only when you need one. Check existing settings before changing them or
-adding tools.
+Use one customer repository or service throughout. Create a practice environment only
+if you need one. Check existing settings before changing them or adding tools.
 
-Record the result in the team's existing issue or change record. Link to the relevant
-pull request or alert instead of copying its state into another register.
+Record the result in the team's existing issue or change record. Link to the pull
+request or alert instead of copying its state elsewhere.
 
 | Result | What counts |
 |---|---|
@@ -63,8 +62,7 @@ pull request or alert instead of copying its state into another register.
 For code changes, use one real work item and a reviewed pull request with required
 checks. Verify release or recovery when the selected activities include it.
 
-Run agent pilots manually first. Review the output and test a case that should produce
-no action before enabling a schedule. Use ordinary Actions for tasks with fixed rules.
+Run agent pilots manually first. Review the output, and test a case that should do nothing before you enable a schedule. Use ordinary Actions for tasks with fixed rules.
 
 ## Add an activity
 

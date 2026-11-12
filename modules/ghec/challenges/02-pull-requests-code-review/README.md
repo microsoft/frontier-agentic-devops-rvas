@@ -1,28 +1,28 @@
 # Ch02: Branches, pull requests and code review
 
-**Session outcome:** You merge a small IDE change after independent review. CODEOWNERS requests the correct reviewer, and the review rule blocks an unapproved merge.
+**Session outcome:** You merge a small change after independent review. CODEOWNERS requests the right reviewer, and the review rule blocks a merge without approval.
 
 ## Prerequisites
 - Write access to the Ch00 customer repository and an administrator to configure its review rule.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch02 --org <org>` (least-privilege; for this activity: `repo` + `read:org`).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch02 --org <org>` (least privilege; here: `repo` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
-- An independent human reviewer with repository access. Without one, stop after testing that the review rule blocks a merge.
+- An independent human reviewer with repository access. Without one, stop after you confirm the review rule blocks a merge.
 
 ## What you will deliver
 - Use a branch-per-change workflow and open pull requests from the CLI and UI.
-- Run a code review: line comments, review threads, suggested changes, approve / request-changes.
+- Review code: line comments, threads, suggested changes, approve or request changes.
 - Define ownership with a `CODEOWNERS` file and require owner review through branch protection.
-- Optionally practice a merge conflict after completing the reviewed change.
-- Use the team's one approved merge method.
+- Merge with the team's one approved merge method.
+- Optionally practice a merge conflict after the reviewed change.
 - Use draft PRs, linked issues (`Closes #n`), and PR templates.
 
 ## Scenario
-A GHEC customer's team pushes unreviewed changes straight to `main`, sometimes breaking other work. Require a PR and code-owner review for every change.
+A GHEC customer's team pushes unreviewed changes straight to `main`, sometimes breaking other work. Require a PR and code owner review for every change.
 
 > [!IMPORTANT]
-> Use an approved customer target first. If you have a candidate repository, use it everywhere this guide says `ghec-ch02-pull-requests-code-review` and skip Setup. Otherwise use the fallback seeded repo below for testing, then move the validated configuration to an approved customer target.
+> Use a customer repository if you have one: use it wherever this guide says `ghec-ch02-pull-requests-code-review` and skip Setup. Otherwise test in the seeded repo below, then apply the configuration to a customer repository.
 >
-> Record the selected target, adoption owner, and next action.
+> Record the target, who adopts it, and the next action.
 
 ## Sample test repository or environment
 Skip if you brought your own repo.
@@ -46,14 +46,14 @@ Setup creates these resources (all names use the `ghec-ch02-*` prefix, and teard
 > `ghec-ch02-pull-requests-code-review` is the fallback sample name; use your own repository's name if you brought one.
 
 ### Part A: Branch and open a PR
-1. Reuse the Ch00 repository and Ch01 issue. Create `feature/issue-fix`. In the team's IDE, use approved Copilot Chat or completions to explain the relevant code and propose a small change. Read the diff and run the existing tests yourself. If Copilot is unavailable, make the same change manually and record that the assisted step was blocked.
+1. Reuse the Ch00 repository and Ch01 issue. Create `feature/issue-fix`. In the team's IDE, use approved Copilot Chat or completions to explain the relevant code and propose a small change. Read the diff and run the existing tests yourself. If Copilot is unavailable, make the change by hand and record that the Copilot step was blocked.
 2. Open a draft: `gh pr create --draft --base main --head feature/issue-fix --fill`. Link the Ch01 issue with `Closes #<n>` and include the test result.
 3. Mark it ready with `gh pr ready` and request the independent reviewer.
 
 ### Part B: Code review mechanics
 4. Have the reviewer inspect the change and leave one useful comment or suggestion.
 5. Address it and push the fix. The reviewer checks the new diff and test result.
-6. Keep approval pending until you have tested the required-review gate below. The author cannot approve their own PR.
+6. Hold the approval until you've tested the required-review rule below. Authors can't approve their own PRs.
 
 ### Part C: CODEOWNERS and branch protection
 7. Create a `CODEOWNERS` file (`.github/CODEOWNERS`) mapping paths to owners, e.g.:
@@ -62,28 +62,28 @@ Setup creates these resources (all names use the `ghec-ch02-*` prefix, and teard
    /src/        @<org>/backend-team
    /docs/       @<org>/docs-team
    ```
-   Use existing teams with write access. **The last matching line wins**, so put the wildcard first. Merge CODEOWNERS to the base branch before testing review routing.
+   Use existing teams with write access. **The last matching line wins**, so put the wildcard first. Merge CODEOWNERS to the base branch before testing review requests.
 8. Protect `main`. Add a branch protection rule (or a repo ruleset) requiring: a pull request before merging, at least 1 approving review, and review from Code Owners. Disallow direct pushes to `main`.
-9. Use a contributor without bypass permission to confirm that GitHub requests the expected owner and blocks merging without approval. The independent owner approves only after the tests pass.
+9. With a contributor who has no bypass permission, confirm that GitHub requests the right owner and blocks the merge without approval. The owner approves only after tests pass.
 
 ### Optional: Merge conflict
-10. Trigger the conflict. The second seeded branch edits the same lines as a change you'll make on `main` (via another PR). Merge your `main` change first, then attempt to merge the seeded branch. GitHub reports a conflict.
+10. Trigger the conflict. The second seeded branch edits the same lines as a change you'll make on `main` through another PR. Merge your `main` change first, then try to merge the seeded branch. GitHub reports a conflict.
 11. Resolve it locally: `git fetch`, `git rebase origin/main` (or merge), fix the conflict markers, push, and confirm the PR is mergeable.
 
 ### Finish the change
-12. Use the team's approved merge method, for example squash. Do not enable extra merge modes for this exercise.
-13. Merge after independent approval. Verify the linked issue closes and the Ch01 board updates. Keep the PR and test URLs as [completion evidence](../../../README.md#completion-evidence). An unmerged draft is practice.
+12. Use the team's merge method, for example squash. Don't enable other merge methods.
+13. Merge after independent approval. Check that the linked issue closes and the Ch01 board updates. Keep the PR and test URLs as [completion evidence](../../../README.md#completion-evidence). An unmerged draft counts as practice only.
 
 ### Optional: Contribute across teams
 
-Use this path instead of a separate contribution exercise when the customer needs InnerSource adoption. Select a contributor outside the repository's owning team and a maintainer who will review their work.
+Use this path when the customer wants InnerSource adoption. Pick a contributor outside the repository's owning team and a maintainer to review their work.
 
-1. Choose a small real issue. Check README and CONTRIBUTING explain the build, tests, and review route; fix only gaps that block this contribution.
-2. Confirm the contributor can read the repository and propose a branch or approved fork. Grant only approved access. Keep the owner-review and CI rules unchanged.
+1. Choose a small real issue. Check that README and CONTRIBUTING explain the build, tests, and review route. Fix only the gaps that block this contribution.
+2. Confirm the contributor can read the repository and propose a branch or approved fork. Grant only approved access, and leave the owner-review and CI rules as they are.
 3. Complete the reviewed PR steps above with that contributor. CODEOWNERS should request the owning team; the contributor must not merge without independent owner approval.
-4. After merge, verify the default-branch change and close the issue. Ask which instruction or access step slowed the contributor down and fix that gap.
+4. After the merge, check the change on the default branch and close the issue. Ask what slowed the contributor down and fix it.
 
-Keep the issue and reviewed PR, and identify the cross-team contributor. If none is available, record the blocker instead of claiming a cross-team contribution.
+Keep the issue and reviewed PR, and name the cross-team contributor. If you have none, record the blocker. Don't claim a cross-team contribution.
 
 ## Reference links
 - [About pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)

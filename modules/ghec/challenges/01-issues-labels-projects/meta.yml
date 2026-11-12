@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Reuse the Ch00 repository or an approved sample
-description: "Organize team work with issue labels and a GitHub Projects board."
+description: "Track team work with issue forms, labels, and a GitHub Projects board."
 tags:
 - issues
 - labels

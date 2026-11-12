@@ -4,38 +4,38 @@
 
 ## Prerequisites
 
-- A GitHub Enterprise Cloud organization and authorization from the customer governance owner to run a read-only posture review.
+- A GitHub Enterprise Cloud organization, and approval from the customer's governance owner to run a read-only posture review.
 - `ghqr` installed locally, available through Docker, or approved for installation during the session.
-- A `GITHUB_TOKEN` with the least privileges needed for the selected scan. Typical GitHub.com scopes are `read:org`, `repo`, `read:audit_log`, `read:user`, and only when in scope, `read:enterprise` and `copilot`.
-- A customer-approved non-secret evidence location for JSON, Markdown, or XLSX output. Do not commit tokens or sensitive raw extracts.
-- Optional: enterprise owner approval for `ghqr scan -e <enterprise>`. Do not infer enterprise-only findings from an organization-only scan.
+- A `GITHUB_TOKEN` with the fewest privileges the scan needs. Typical GitHub.com scopes are `read:org`, `repo`, `read:audit_log`, `read:user`, and, only when in scope, `read:enterprise` and `copilot`.
+- A customer-approved place for non-secret JSON, Markdown, or XLSX output. Don't commit tokens or sensitive raw extracts.
+- Optional: enterprise owner approval for `ghqr scan -e <enterprise>`. Don't infer enterprise-only findings from an organization-only scan.
 
 ## Scope and guardrails
 
-`ghqr` checks many GitHub surfaces, including security settings, access control, branch protection, Copilot policy, audit logs, Actions policy, dependencies, repository metadata, and community-health files. Use it to speed up assessment. It does not replace customer risk decisions.
+`ghqr` checks many GitHub surfaces: security settings, access control, branch protection, Copilot policy, audit logs, Actions policy, dependencies, repository metadata, and community-health files. It speeds up assessment. It doesn't replace the customer's risk decisions.
 
 During the review:
 
 - Store only non-secret report artifacts in the evidence location.
-- Record token scopes and reviewer role, but never store token values.
-- Do not change settings without separate customer approval.
+- Record token scopes and reviewer role, never token values.
+- Don't change settings without separate customer approval.
 - For GitHub Enterprise Cloud with data residency, set `GH_HOST=<customer>.ghe.com` or pass `--hostname <customer>.ghe.com`.
-- Synthetic `ghqr mock` output is useful for demos, but it is not customer evidence.
+- Synthetic `ghqr mock` output works for demos, but it isn't customer evidence.
 
 ## Tasks
 
 ### Part A: Define scope and evidence rules
 
 1. Record the approved organization, authorized reviewer, scan date, and evidence location. Confirm GitHub.com or GHE.com and the identity model.
-2. Define the allowed scan scope:
+2. Define the scan scope:
    - **Required:** organization scan.
-   - **Optional:** enterprise scan only when the customer explicitly authorizes it and provides an enterprise-capable token.
-3. Record the token boundary: intended scopes and expiration/rotation owner, but never the token value.
-4. Confirm where report artifacts will be stored and who may access them. Some reports can expose repository names, policy posture, users, or security gaps.
+   - **Optional:** enterprise scan, only if the customer explicitly authorizes it and provides an enterprise-capable token.
+3. Record the token's intended scopes and who owns expiry and rotation. Never record the value.
+4. Confirm where reports will be stored and who can read them. Reports can expose repository names, policy posture, users, or security gaps.
 
 ### Part B: Install or select ghqr
 
-5. Install `ghqr` through the customer-approved method, or select an existing binary/container.
+5. Install `ghqr` the way the customer approves, or pick an existing binary or container.
 
    ```bash
    bash -c "$(curl -fsSL https://raw.githubusercontent.com/microsoft/ghqr/main/scripts/install.sh)"
@@ -47,7 +47,7 @@ During the review:
    docker pull ghcr.io/microsoft/ghqr:latest
    ```
 
-6. Capture tool evidence:
+6. Capture the tool version and help output:
 
    ```bash
    ghqr -h
@@ -59,7 +59,7 @@ During the review:
    export GITHUB_TOKEN=<token-value>
    ```
 
-   Do not paste this value into shell history screenshots or report notes.
+   Don't paste this value into shell history screenshots or report notes.
 
 ### Part C: Run the organization quick review
 
@@ -82,8 +82,8 @@ During the review:
    ghqr scan -o <org>
    ```
 
-9. Preserve the generated JSON plus Markdown or XLSX report in the customer-approved evidence location. Record the filename, timestamp, target, reviewer, and `ghqr` version.
-10. If the scan returns degraded or unavailable checks, record why: missing token scope, unavailable license/feature, enterprise-only setting, rate limiting, or authorization boundary.
+9. Save the JSON report and the Markdown or XLSX report in the evidence location. Record the filename, timestamp, target, reviewer, and `ghqr` version.
+10. If the scan returns degraded or unavailable checks, record why: missing token scope, unavailable license or feature, enterprise-only setting, rate limiting, or authorization boundary.
 
 ### Part D: Optional enterprise scan
 
@@ -93,12 +93,12 @@ During the review:
    ghqr scan -e <enterprise>
    ```
 
-12. Preserve the enterprise report separately from the organization report. Record token scope, evidence location, and enterprise owner approval.
-13. If enterprise review is not authorized, record that the enterprise policy source is unavailable to the reviewer. Do not infer enterprise inheritance from organization-only results.
+12. Save the enterprise report separately from the organization report. Record token scope, evidence location, and enterprise owner approval.
+13. If enterprise review isn't authorized, record that the reviewer can't see enterprise policy. Don't infer enterprise inheritance from organization-only results.
 
 ### Part E: Triage and verify findings
 
-14. Review findings that need action and identify the owner and configuration level for each. Check them against settings or API evidence. Mark unavailable evidence as unverified.
+14. For each finding that needs action, name the owner and the configuration level. Check it against settings or API output. Mark anything you can't check as unverified.
 15. Verify at least one finding against GitHub settings or API output. Examples:
 
    ```bash
@@ -113,16 +113,16 @@ During the review:
    gh api /orgs/<org>/rulesets --jq '.[] | {name, enforcement, target}'
    ```
 
-16. Build a short remediation backlog from the material findings. Record the owner, risk, dependency, next decision date, and evidence link.
+16. Turn the material findings into a short remediation backlog. Record the owner, risk, dependency, next decision date, and evidence link.
 
 ### Part F: Repair and verify one gap
 
-17. Choose one material finding the owner authorizes you to fix. Save the current setting and agree on rollback. Use the matching configuration chapter rather than inventing a workaround: [Ch07](../07-teams-roles-permissions/README.md) for team access, [Ch08](../08-rulesets-repo-properties/README.md) for rulesets, or [Ch04](../04-actions-ci-fundamentals/README.md) for required CI.
-18. Apply the approved repair to the selected pilot. Test the behavior directly: for a review rule, an unapproved PR must stay blocked; for access, the intended user succeeds and an out-of-scope user is denied.
-19. Rerun the same `ghqr scan -o <org>` command, using the same host and scope. Compare the selected finding with the before report. If the scanner still reports it, inspect the effective setting and the check's limitations instead of marking it fixed.
-20. Keep the repaired setting and test result in the existing adoption issue. Agree when the owner will run the same check for the next repository cohort. An automatic schedule is optional.
+17. Pick one material finding the owner authorizes you to fix. Save the current setting and agree on a rollback. Use the matching chapter instead of inventing a workaround: [Ch07](../07-teams-roles-permissions/README.md) for team access, [Ch08](../08-rulesets-repo-properties/README.md) for rulesets, or [Ch04](../04-actions-ci-fundamentals/README.md) for required CI.
+18. Apply the repair to the pilot and test it directly. For a review rule, an unapproved PR must stay blocked. For access, the intended user succeeds and an out-of-scope user is denied.
+19. Rerun the same `ghqr scan -o <org>` command with the same host and scope. Compare the finding with the before report. If the scanner still reports it, check the effective setting and the check's limits. Don't mark it fixed.
+20. Keep the repaired setting and test result in the existing adoption issue. Agree when the owner will rerun the check for the next repository cohort. A scheduled run is optional.
 
-If no material gap exists, test one existing control and record that it already meets the requirement. Do not create a defect to get a finding. If repair approval or direct validation is unavailable, retain the assessment and mark implementation **blocked / not tested**. Mock output is sample practice.
+If no material gap exists, test one existing control and record that it already meets the requirement. Don't create a defect to get a finding. If you can't get repair approval or validate directly, keep the assessment and mark the fix **blocked / not tested**. Mock output is sample practice.
 
 ## Reference links
 

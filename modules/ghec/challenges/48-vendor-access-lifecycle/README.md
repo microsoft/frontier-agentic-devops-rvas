@@ -1,32 +1,32 @@
 # Ch48: Vendor access lifecycle
 
-This optional outside-collaborator exercise applies to organizations using personal accounts. EMU customers need an approved managed guest or IdP process, which this guide does not implement. Record this exercise as not applicable or blocked rather than inviting a personal account.
+This optional outside-collaborator exercise applies to organizations using personal accounts. EMU customers need an approved managed guest or IdP process, which this guide doesn't cover. For EMU, record the exercise as not applicable or blocked. Don't invite a personal account.
 
-**Session outcome:** An approved outside collaborator can read the selected private repository, then loses access after removal. The sponsor has the grant and revocation evidence.
+**Session outcome:** An approved outside collaborator can read the selected private repository, then loses access after removal. The sponsor holds the grant and revocation evidence.
 
 ## Prerequisites
 
-- An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
+- Owner rights on a GitHub Enterprise Cloud organization.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch48 --org <org>`.
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
-- An actual vendor access review, or the seeded fallback register.
+- A real vendor access review, or the seeded fallback register.
 
 ## Customer delivery objectives
 
 You will:
 
 - Inventory outside collaborators and pending invitations.
-- Create an access register with owner, scope, permission, start/end date, and review cadence.
-- Approve least-privilege vendor access through an auditable issue or register row.
-- Validate removal/offboarding and audit log evidence.
-- Record exceptions and next review date.
+- Build an access register with owner, scope, permission, start and end date, and review cadence.
+- Approve least-privilege vendor access through an issue or register row that leaves a trail.
+- Test removal and offboarding, and check the audit log.
+- Record exceptions and the next review date.
 
 ## Scenario
 
 A customer uses outside collaborators for vendor work. Repository admins grant access, reviews are rare, and business approvals are hard to trace. Record each grant's scope, approver, expiry, review date, reviewer, and removal process.
 
 > [!IMPORTANT]
-> Use a real approved access review if available. If not, use `ghec-ch48-vendor-access-register` to practice the workflow. Do not invite, remove, or change vendor access unless the customer explicitly approves the participant step.
+> Use a real approved access review if you have one. If not, practice with `ghec-ch48-vendor-access-register`. Don't invite, remove, or change vendor access unless the customer explicitly approves the participant step.
 
 ## Sample test repository or environment
 
@@ -60,23 +60,23 @@ What setup creates:
 
 4. Define required fields: vendor, sponsor, repositories, permission, start date, end date, data classification, and review owner.
 5. Decide who can approve new vendor access and who performs quarterly review.
-6. If authorized, review org settings for who can invite outside collaborators. Otherwise record a rollout proposal.
+6. If you're authorized, review the org settings for who can invite outside collaborators. Otherwise record a rollout proposal.
 
 ### Part C: Approve and grant access
 
 7. Create or review an access request issue.
-8. Validate least privilege and end date before any grant.
+8. Check least privilege and the end date before any grant.
 9. If explicitly approved, add the outside collaborator through the repository UI or API. Example only:
    ```bash
    gh api -X PUT repos/<org>/<repo>/collaborators/<username> -f permission=pull
    ```
-10. Record the invitation URL/status without storing personal or secret information beyond the approved register fields.
+10. Record the invitation URL and status. Store no personal or secret information beyond the approved register fields.
 
 ### Part D: Review and offboard
 
 11. For each active vendor, confirm the business owner still approves access.
-12. With approval, remove the test collaborator after they have accepted access. Use their identity to verify read access before removal and a denied fetch afterwards. Check all grants, including team and organization base permissions, before interpreting the result.
-13. Capture the removal event and denied-access result. Removing access cannot recall existing local clones. Follow the customer's data-handling agreement. A register end date alone does not revoke access.
+12. With approval, remove the test collaborator after they accept access. Use their identity to verify read access before removal and a denied fetch afterwards. Check all grants, including team and organization base permissions, before you interpret the result.
+13. Capture the removal event and the denied-access result. Removing access can't recall existing local clones, so follow the customer's data-handling agreement. A register end date alone doesn't revoke access.
 
 ## Reference links
 

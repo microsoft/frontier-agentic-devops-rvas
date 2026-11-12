@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Approved repositories and consenting non-owner test members
-description: "Give teams the repository access they need with least-privilege roles."
+description: "Give teams least-privilege repository access with team grants and roles."
 tags:
 - teams
 - permissions

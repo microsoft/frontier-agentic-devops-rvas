@@ -1,6 +1,6 @@
 # Ch21: Migrate Azure DevOps Repos with GitHub Enterprise Importer
 
-**Session outcome:** You have migrated an approved Azure DevOps Services repository to GitHub Enterprise Cloud with `gh ado2gh` and checked the imported content. You have recorded migration gaps and resolved mannequin identities or assigned them for follow-up.
+**Session outcome:** You migrated an approved Azure DevOps Services repository to GitHub Enterprise Cloud with `gh ado2gh` and checked the result. You recorded what didn't migrate and reclaimed mannequins, or assigned them for follow-up.
 
 ## Prerequisites
 
@@ -15,16 +15,16 @@ Access and tools you need:
 - If your GitHub org enforces SAML SSO, authorize the GitHub PAT for SSO before running migrations.
 
 ## What you'll do
-- Install and verify the GitHub Enterprise Importer Azure DevOps extension.
-- Create and store the required `GH_PAT` and `ADO_PAT` environment variables safely.
-- Produce an Azure DevOps repository inventory and choose a realistic pilot repo based on PR count.
-- Run and validate one approved pilot before generating an optional bulk migration script.
-- Validate what GEI migrated and document what it intentionally does not migrate.
-- Reclaim mannequins so migrated PR activity is attributed to GitHub users.
-- Build a follow-up backlog for Azure Boards and Azure Pipelines work that GEI does not migrate.
+- Install the GitHub Enterprise Importer Azure DevOps extension.
+- Set the `GH_PAT` and `ADO_PAT` environment variables without leaking them.
+- Inventory your Azure DevOps repos and pick a pilot with real PR history.
+- Migrate and check one approved pilot. Generate a bulk script only afterward.
+- Check what GEI migrated and list what it doesn't.
+- Reclaim mannequins so migrated PR activity maps to GitHub users.
+- Log follow-up work for Azure Boards and Azure Pipelines, which GEI doesn't migrate.
 
 > [!IMPORTANT]
-> Pick one approved pilot with pull request history and freeze source writes for the migration window. **`--queue-only` starts a real migration and requires approval.** Without approval, stop after read-only inventory and command review.
+> Pick one approved pilot with pull request history and freeze source writes during the migration. **`--queue-only` starts a real migration, so get approval first.** Without approval, stop after the read-only inventory and command review.
 >
 > Set these before you start:
 >
@@ -36,7 +36,7 @@ Access and tools you need:
 > export TARGET_REPO="ado-pilot-migrated"
 > ```
 >
-> Recommended sequence: after this repo migration, continue with ch22 for Azure Boards follow-up and ch23 for Azure Pipelines / GitHub Actions migration. GEI migrates PR work item links, but not Azure Boards work items or Azure Pipelines definitions.
+> Next: ch22 covers Azure Boards and ch23 covers Azure Pipelines to GitHub Actions. GEI migrates PR work item links, but not Azure Boards work items or Azure Pipelines definitions.
 
 ## Tasks
 
@@ -59,7 +59,7 @@ gh ado2gh --help
 
 ### Part B: Prepare credentials
 
-3. Create the two PATs outside the terminal, then set them as environment variables for the current shell. Do not commit or paste token values into files.
+3. Create the two PATs outside the terminal, then set them as environment variables in the current shell. Never commit token values or paste them into files.
 
 ```bash
 read -s -p "GitHub classic PAT: " GH_PAT; echo
@@ -83,7 +83,7 @@ printf 'GH_PAT set: '; test -n "$GH_PAT" && echo yes || echo no
 printf 'ADO_PAT set: '; test -n "$ADO_PAT" && echo yes || echo no
 ```
 
-If your GitHub org uses SAML SSO, open the PAT settings page and authorize the classic PAT for that organization. A migration error such as `Resource is protected by organization SAML enforcement` means this step was missed.
+If your GitHub org uses SAML SSO, authorize the classic PAT for it on the PAT settings page. The error `Resource is protected by organization SAML enforcement` means you skipped this.
 
 ### Part C: Inventory Azure DevOps repositories
 
@@ -93,7 +93,7 @@ If your GitHub org uses SAML SSO, open the PAT settings page and authorize the c
 gh ado2gh inventory-report --ado-org "$ADO_ORG"
 ```
 
-6. Review the generated `repos.csv`. Choose a low-risk pilot repository with real PR metadata.
+6. Review the generated `repos.csv`. Pick a low-risk pilot repo with real PRs.
 
 ```bash
 python - <<'PY'
@@ -111,13 +111,13 @@ PY
 ```
 
 Use the report to answer:
-- Which repositories are Git and therefore supported?
-- Which repositories have many pull requests and should be scheduled later?
-- Are there TFVC repositories that require conversion before GEI can migrate them?
+- Which repos are Git, and so supported?
+- Which repos have many pull requests and should wait for a later wave?
+- Which TFVC repos need converting before GEI can migrate them?
 
 ### Optional, after Part G: Generate a later migration wave
 
-7. After the owner accepts the pilot in Parts E through G, generate a script for the next approved set of repositories. `--all` lists candidates across the organization. Remove every unapproved repository before running it.
+7. Once the owner accepts the pilot (Parts E through G), generate a script for the next approved repos. `--all` lists every repo in the organization, so remove the unapproved ones before you run it.
 
 ```bash
 gh ado2gh generate-script \
@@ -128,13 +128,13 @@ gh ado2gh generate-script \
   --download-migration-logs
 ```
 
-8. Inspect the script before running it. Confirm target repo names, visibility choices, and any `--skip-releases` or `--queue-only` decisions.
+8. Read the script before running it. Check target repo names, visibility, and any `--skip-releases` or `--queue-only` flags.
 
 ```bash
 grep -n "gh ado2gh migrate-repo" migrate-ado-repos.ps1
 ```
 
-9. Run the script only after the pilot owner accepts the results and approves the next set of repositories. Freeze source writes for that migration:
+9. Run the script only after the pilot owner accepts the results and approves the next repos. Freeze source writes first:
 
 ```bash
 pwsh ./migrate-ado-repos.ps1
@@ -148,7 +148,7 @@ If `pwsh` is unavailable on Windows, run this from PowerShell instead:
 
 ### Part E: Run a controlled single-repo migration
 
-10. Run this step before the optional bulk section. `--queue-only` submits the approved pilot immediately and returns its migration ID. Wait for completion as shown below.
+10. Do this before the optional bulk section. `--queue-only` submits the approved pilot immediately and prints its migration ID.
 
 ```bash
 gh ado2gh migrate-repo \
@@ -162,7 +162,7 @@ gh ado2gh migrate-repo \
   --target-repo-visibility private
 ```
 
-11. If queued, wait for the migration using the migration ID printed by the previous command:
+11. Wait for the migration with the ID from the previous command:
 
 ```bash
 # Paste the RM_... migration ID printed by the queue command.
@@ -170,7 +170,7 @@ read -r -p "Migration ID: " MIGRATION_ID
 gh ado2gh wait-for-migration --migration-id "$MIGRATION_ID"
 ```
 
-12. Download logs before they expire. Migration logs are available for 24 hours only.
+12. Download the logs within 24 hours, before they expire.
 
 ```bash
 gh ado2gh download-logs \
@@ -179,17 +179,17 @@ gh ado2gh download-logs \
   --migration-log-file "$TARGET_REPO-migration.log"
 ```
 
-> Azure DevOps migrations do not require you to provide blob storage; GEI stages the migration internally.
+> Azure DevOps migrations don't need your own blob storage. GEI stages the data itself.
 
 ### Part F: Validate migrated and non-migrated content
 
-13. Confirm the repository exists and note its visibility. Repositories arrive private by default unless you intentionally set visibility.
+13. Confirm the repo exists and check its visibility. Repos arrive private unless you set otherwise.
 
 ```bash
 gh repo view "$GITHUB_ORG/$TARGET_REPO" --json name,visibility,url --jq '{name, visibility, url}'
 ```
 
-14. Validate migrated content:
+14. Check the migrated content:
 
 ```bash
 gh pr list --repo "$GITHUB_ORG/$TARGET_REPO" --state all --limit 10
@@ -223,7 +223,7 @@ gh ado2gh generate-mannequin-csv \
   --output mannequins.csv
 ```
 
-16. Edit `mannequins.csv` so each mannequin maps to an existing GitHub organization member. Reclaiming requires an org owner; the migrator role alone is not enough. In EMU organizations, use `--skip-invitation`.
+16. Edit `mannequins.csv` so each mannequin maps to an existing GitHub organization member. Reclaiming needs an org owner; the migrator role isn't enough. In EMU organizations, use `--skip-invitation`.
 
 ```bash
 gh ado2gh reclaim-mannequin \
@@ -240,9 +240,14 @@ gh ado2gh reclaim-mannequin \
   --skip-invitation
 ```
 
-Commit authorship is separate from mannequin reclaiming: Git commits are attributed by email address when the email matches a GitHub account.
+Commit authorship is separate from mannequins: GitHub attributes a commit by email address when it matches a GitHub account.
 
-Before accepting the pilot, compare source and destination branch and tag SHAs. Check sample PR comments and author mappings too. Recreate team access and verify that failing CI or missing approval blocks a non-owner contributor's first PR. Keep source writes frozen until the owner accepts cutover. Preserve the source as read-only recovery evidence.
+Before accepting the pilot:
+- Compare branch and tag SHAs between source and destination.
+- Check sample PR comments and author mappings.
+- Recreate team access. Verify that failing CI or a missing approval blocks a non-owner's first PR.
+
+Keep source writes frozen until the owner accepts cutover, and keep the source read-only as your fallback.
 
 ## Reference links
 

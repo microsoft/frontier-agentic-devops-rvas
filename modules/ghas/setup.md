@@ -1,9 +1,9 @@
 # GHAS module setup
 
-Use the approved customer repository and its test environment for GHAS triage
-and remediation. Skip sample provisioning when that environment is ready.
+**Use the customer's approved repository and test environment** for GHAS triage
+and remediation. If it's ready, skip sample provisioning.
 [OWASP Juice Shop](https://owasp.org/www-project-juice-shop/) is the intentionally
-vulnerable fallback for safe practice. The module also includes isolated admin fixtures.
+vulnerable fallback for safe practice. The module also ships isolated admin fixtures.
 
 The Juice Shop fallback needs two environments:
 
@@ -22,10 +22,10 @@ Participants clone the org repo and work on personal or team branches. Do not fo
 
 ## Admin test repositories
 
-Admin activities 01 through 06 use four isolated provisioners. They create distinct
+Admin activities 01 through 06 use four isolated provisioners. They create separate
 repositories for secret protection, CodeQL, and dependency work. Activities 01 and
-06 share a security-operations repository so activity 06 can measure the rollout
-started in activity 01.
+06 share a security-operations repository, so activity 06 can measure the rollout
+you started in activity 01.
 
 Activities 07 and 08 don't ship a provisioner. Activity 07 needs real external
 Azure and GitHub infrastructure. Activity 08 reuses Activity 03's pilot repository.
@@ -33,8 +33,8 @@ See each activity's README for its prerequisites.
 
 See [`resources/provisioning/README.md`](resources/provisioning/README.md) for the
 default repository names and the Bash and PowerShell commands. Run `status` after
-each provision command before starting the activity. Do not provision all four
-test repositories unless the cohort will use every admin activity.
+each provision command before you start the activity. Provision all four
+repositories only if the cohort will do every admin activity.
 
 ### Two independent numbering tracks
 
@@ -50,7 +50,7 @@ activity with a similar number.
 ## Local Juice Shop runtime
 
 S00 runs Juice Shop from a Codespace or a local clone of the org repository. If
-that is not practical, use one of these alternatives:
+that doesn't work for you, use one of these:
 
 ### Local Docker
 
@@ -62,12 +62,12 @@ docker run -p 3000:3000 bkimminich/juice-shop
 
 ### Organizer-hosted
 
-An organizer can run Juice Shop on a cloud VM and share the URL. Use this
-option when participants lack local Docker or need a ready-to-use environment.
+An organizer runs Juice Shop on a cloud VM and shares the URL. Use this when
+participants lack local Docker or need a ready-made environment.
 
 ## Verification
 
-For a local runtime, open [http://localhost:3000](http://localhost:3000). For Codespaces or an organizer-hosted instance, open the forwarded or hosted URL. Setup is complete when the Juice Shop UI loads.
+For a local runtime, open [http://localhost:3000](http://localhost:3000). For Codespaces or an organizer-hosted instance, open the forwarded or hosted URL. **Setup is done when the Juice Shop UI loads.**
 
 ## Where to test and scan
 

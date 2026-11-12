@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Create a repeatable development environment with Codespaces and dev containers."
+description: "Build a repeatable dev environment with Codespaces and dev containers."
 tags:
 - codespaces
 - devcontainers

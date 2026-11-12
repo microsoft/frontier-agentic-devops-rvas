@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - Organization owner who can install a GitHub App and configure policies
 - Approved intake repository with Issues and Actions enabled
 - Approved teams and an intake maintainer team
-description: "Create Internal repositories through approved requests, with team access and enforced naming."
+description: "Create Internal repositories from approved requests, with team access and enforced names."
 tags:
 - issue-forms
 - github-apps

@@ -12,7 +12,7 @@ prerequisite_capabilities:
 - jq installed
 - Approved CI repository, with a disposable isolated VM only for self-hosted testing
 - Approved organization and repository scope for runner access
-description: "Choose a runner and verify scoped access and host isolation when self-hosting."
+description: "Pick a runner type and, if self-hosting, check scoped access and host isolation."
 tags:
 - actions
 - self-hosted-runners

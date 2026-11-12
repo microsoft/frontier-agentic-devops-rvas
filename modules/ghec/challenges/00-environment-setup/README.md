@@ -1,17 +1,17 @@
 # Ch00: Environment setup
 
-**Session outcome:** You can clone the approved customer repository and run its baseline checks with an authenticated GitHub CLI.
+**Session outcome:** You can clone the customer repository and run its baseline checks with an authenticated GitHub CLI.
 
-Use **the same repository through Ch01, Ch02, and Ch04**. Record its URL and owner once. Classify the results using [completion evidence](../../../README.md#completion-evidence). If setup fails, record the blocker.
+Use **the same repository through Ch01, Ch02, and Ch04**. Record its URL and owner once. Classify your results with [completion evidence](../../../README.md#completion-evidence). If setup fails, record the blocker.
 
 ## Objectives
 
-You are ready when you have:
+You are done when you have:
 
 - A working development environment (GitHub Codespaces or local dev container)
 - An authenticated `gh` CLI session pointing at your GitHub account
-- Approved and verified access to the customer delivery organisation
-- Verified access to the agreed delivery or customer repository
+- Access to the customer delivery organisation
+- Access to the agreed repository
 
 ---
 
@@ -19,7 +19,7 @@ You are ready when you have:
 
 - GitHub account
 - Basic Git and CLI usage
-- Access approved by the customer owner for the agreed delivery or customer organisation
+- Access to the customer organisation, approved by the customer owner
 
 > Branch workflow (not fork): This module uses a shared org repository. Do not fork. Clone directly and work on a personal branch:
 > ```bash
@@ -30,12 +30,12 @@ You are ready when you have:
 
 ## Option A: GitHub Codespaces
 
-1. Open the agreed delivery or customer repository in your browser (the delivery lead or customer owner supplies the URL, e.g. `https://github.com/<org>/<repo>`).
+1. Open the agreed repository in your browser. The delivery lead or customer owner gives you the URL, e.g. `https://github.com/<org>/<repo>`.
 2. Click Code → Codespaces → Create codespace on main.
-3. Wait for the dev container to build. The terminal opens when it is ready.
-4. Continue to Authenticate the GitHub CLI below.
+3. Wait for the dev container to build. The terminal opens when it's ready.
+4. Then authenticate the GitHub CLI below.
 
-> Check that the selected image includes `gh` and `git`; images and build times vary.
+> Check that the image includes `gh` and `git`.
 
 ---
 
@@ -48,7 +48,7 @@ You are ready when you have:
    cd <repo>
    ```
 3. Open VS Code in the cloned folder (`code .`) and choose Dev Containers: Reopen in Container from the Command Palette (`Ctrl+Shift+P`).
-4. Wait for the container to build, then continue below.
+4. Wait for the container to build.
 
 > Windows note: PowerShell users can also run `modules/ghec/resources/provisioning/scripts/setup.ps1 doctor --org <org>` to verify tooling instead of the Bash equivalent.
 
@@ -62,7 +62,7 @@ Your container does not have your GitHub credentials pre-loaded. Run:
 gh auth login
 ```
 
-Choose the customer's GitHub host, then HTTPS, and follow the device-code prompt. Use the approved credential and only the permissions this repository needs. Authorize SSO when required.
+Choose the customer's GitHub host, then HTTPS, and follow the device-code prompt. Use the approved credential, with only the permissions this repository needs. Authorize SSO when required.
 
 > Projects v2 automation may also need `project` and `read:project`. Add these scopes only if your task needs them: `gh auth refresh -h github.com -s project,read:project`.
 
@@ -78,7 +78,7 @@ Expected output includes your username and `Logged in to github.com`.
 
 ## Verify your setup
 
-Run each command. Do not continue until all four succeed:
+Run each command. All four must succeed before you continue:
 
 ```bash
 # 1. CLI version — must be >= 2.x
@@ -94,11 +94,11 @@ gh org list
 gh repo view <org>/<repo>
 ```
 
-> Record any failure as an access blocker for the customer owner or delivery lead.
+> Record any failure as an access blocker and tell the customer owner or delivery lead.
 
 ## Provisioning preflight (optional)
 
-Run a preflight check for the next guide from the repo root. Scripts live at `modules/ghec/resources/provisioning/`.
+Run a preflight check for the next guide from the repo root. The scripts live in `modules/ghec/resources/provisioning/`.
 
 ```bash
 # Bash
@@ -108,4 +108,4 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh doctor ch01 --org <org
 modules/ghec/resources/provisioning/scripts/setup.ps1 doctor ch01 --org <org>
 ```
 
-The `doctor` command checks sample tooling, not customer authorization. Clone the approved customer repository and run its documented test command. Keep the result for Ch02. Repository access is sufficient for contributors.
+`doctor` checks sample tooling, not customer authorization. Clone the customer repository and run its documented test command. Keep the result for Ch02. Contributors only need repository access.

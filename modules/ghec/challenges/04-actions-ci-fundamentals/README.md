@@ -1,20 +1,20 @@
 # Ch04: GitHub Actions CI fundamentals
 
-**Session outcome:** The customer repository runs CI on pull requests. You verify that a failing test blocks merge, then fix it and obtain independent review.
+**Session outcome:** The customer repository runs CI on pull requests. You check that a failing test blocks the merge, then fix it and get an independent review.
 
 ## Prerequisites
 - Write access to the Ch02 repository and an administrator to require its CI check.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch04 --org <org>` (least-privilege; for this activity: `repo` + `workflow`).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch04 --org <org>` (least privilege; here: `repo` + `workflow`).
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
 - Cost note: Actions on GitHub-hosted runners consumes Actions minutes (free tier on public repos; metered on private). `modules/ghec/resources/provisioning/scripts/setup.sh doctor` warns. Keep matrices small.
 
 ## Scenario
-A team discovers failures after merging. Run its existing tests on each PR, save a report, and require the check before merge. Start with one supported runtime.
+A team finds failures only after merging. Run its existing tests on each PR, save a report, and require the check before merge. Start with one supported runtime.
 
 > [!IMPORTANT]
-> Use an approved customer target first. If you have a candidate repository, use it everywhere this guide says `ghec-ch04-actions-ci-fundamentals` and skip Setup. Otherwise use the fallback seeded repo below for testing, then move the validated configuration to an approved customer target.
+> Use a customer repository if you have one: use it wherever this guide says `ghec-ch04-actions-ci-fundamentals` and skip Setup. Otherwise test in the seeded repo below, then apply the configuration to a customer repository.
 >
-> Record the selected target, adoption owner, and next action.
+> Record the target, who adopts it, and the next action.
 
 ## Sample test repository or environment
 Skip if you brought your own repo.
@@ -38,22 +38,18 @@ Setup creates these resources (all names use the `ghec-ch04-*` prefix, and teard
 
 ### Part A: A CI workflow
 1. Reuse the Ch02 repository. Write `.github/workflows/ci.yml` with `pull_request` and default-branch `push` triggers. Add a `build-test` job on `ubuntu-latest`. Set `permissions: contents: read` and use an approved version of `actions/checkout`.
-2. Set up the repository's supported runtime. For the Node sample, use `actions/setup-node@v6`, install with `npm ci`, then run `npm run lint`, `npm test`, and `npm run build`. Use the existing customer commands when different.
-3. Confirm it runs. Push a branch, open a PR, and watch the run in the Actions tab (`gh run watch`).
+2. Set up the repository's runtime. For the Node sample, use `actions/setup-node@v6`, install with `npm ci`, then run `npm run lint`, `npm test`, and `npm run build`. Use the existing customer commands when different.
+3. Confirm it runs: push a branch, open a PR, and watch the run in the Actions tab (`gh run watch`).
 
 ### Part B: Report and require the result
 4. Produce a report with the existing test runner and upload it using `actions/upload-artifact@v7`. Download it with `gh run download` and check it describes this run.
 5. After the check has run, require its exact name in the default-branch ruleset. Keep Ch02's independent approval requirement and give contributors no bypass permission.
-6. Break one test on a branch and open a PR. Verify that a contributor without bypass permission cannot merge it. Fix the test and obtain human approval before merging. Save both run URLs and the PR.
+6. Break one test on a branch and open a PR. Check that a contributor without bypass permission can't merge it. Fix the test and get human approval before merging. Save both run URLs and the PR.
 7. Add caching or a second supported runtime only if the application needs it. Ch39 covers deployment gates.
 
-### Verify the effective Actions policy
+### Check the effective Actions policy
 
-8. Inspect the effective allowed-Actions policy, default `GITHUB_TOKEN`
-    permissions, fork pull-request boundary, and artifact/log retention. Confirm
-    the workflow remains compatible with those settings. If an enterprise policy
-    is not visible to the org owner, note the limitation without blocking the CI
-    activity.
+8. Check the allowed-Actions policy, default `GITHUB_TOKEN` permissions, fork pull request rules, and artifact/log retention. Confirm the workflow works within them. If an enterprise policy isn't visible to the org owner, note that and carry on.
 
 ## Reference links
 - [Understanding GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions)

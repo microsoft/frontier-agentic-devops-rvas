@@ -3,8 +3,8 @@
 **Session outcome:** An authorized `/summarize` request updates one issue summary
 with links to its sources. Unapproved commands never reach the model.
 
-This is optional after [setup](../00-setup/README.md). Choose a real issue whose
-discussion is long enough that a summary would help a maintainer.
+This is optional after [setup](../00-setup/README.md). Pick a real issue with a
+discussion long enough that a maintainer would want a summary.
 
 ## Check access before the model runs
 
@@ -20,27 +20,27 @@ Create `.github/workflows/slash-commands.md` for
 - Use the comment ID as the request key. Skip already handled requests and
   process one request at a time per issue.
 
-The supplied helper performs these checks in a trusted pre-agent step.
-It requires current write, maintain, or admin permission. It records rejected
-requests as a noop before inference. A prompt instruction is not an authorization check.
+The supplied helper runs these checks in a trusted pre-agent step. It requires
+current write, maintain, or admin permission and records rejected requests as a
+noop before inference. **A prompt instruction is not an authorization check.**
 
 ## Summarize evidence
 
-Fetch the issue and paginate its comments with read-only access.
-Record the latest included comment ID. Ask the model for a short summary
-with direct comment links beside decisions and unresolved actions.
-State which discussion the summary covers and when it was collected. If a
-source cannot be read, stop rather than publish a summary that hides the gap.
+Fetch the issue and paginate its comments with read-only access. Record the
+latest comment ID included. Ask the model for a short summary with direct
+comment links beside decisions and open actions. State what discussion the
+summary covers and when it was collected. If a source can't be read, stop
+instead of publishing a summary that hides the gap.
 
 **Only name a decision or owner when someone explicitly recorded it.**
-Distinguish proposals from accepted decisions. If an action has no assigned
-owner, say so. Do not recommend closing the issue because no one responded.
-Do not infer agreement that the thread does not contain.
+Separate proposals from accepted decisions. If an action has no owner, say so.
+Don't recommend closing the issue because no one responded, and don't infer
+agreement the thread doesn't contain.
 
-The supplied writer always targets the event's issue. It creates one
-marked comment, then updates it. The comment stores the request ID and source
-hash in the same write as the summary. The writer rechecks permissions and
-source state; failed writes cannot record a completed request.
+The supplied writer always targets the event's issue. It creates one marked
+comment, then updates it. The request ID and source hash go into the comment in
+the same write as the summary. The writer rechecks permissions and source state,
+so a failed write can't record a completed request.
 
 ## Copy, customize, and invoke
 
@@ -81,13 +81,13 @@ gh issue comment 42 --body "/summarize"
 gh run list --workflow slash-commands.lock.yml --limit 5
 ```
 
-The comment should separate accepted decisions from proposals and link to the
-comments that establish them. Add a relevant discussion update and post another
-`/summarize`. The workflow should edit the first summary, not create a second.
+The comment should separate accepted decisions from proposals and link the
+comments that establish them. Add a relevant comment and post `/summarize`
+again. The workflow should edit the first summary, not create a second.
 
 ## Verify
 
-Test an authorized exact command, a command embedded in prose, an unauthorized
+Test an authorized exact command, a command inside prose, an unauthorized
 author, and a rerun of the same event. Only the first should call the engine.
 Check every decision and owner against its cited comment. A second authorized
 request after new discussion should update the existing summary.

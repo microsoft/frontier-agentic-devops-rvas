@@ -4,19 +4,19 @@
 
 ## Prerequisites
 
-- An organization and repository where you have repository admin rights.
-- Approved GitHub CLI authentication for the selected repository.
-- Local tooling: `gh >= 2.x`, `git`, `jq`.
+- A repository where you have admin rights.
+- Approved GitHub CLI authentication for that repository.
+- `gh >= 2.x`, `git`, `jq`.
 - Never pass secret values to setup scripts or store them in lesson evidence.
 
 ## Scenario
 
-A deployment workflow uses repository-level secrets. Any job that can reference those names can try to use production credentials. Inventory the secrets without exposing values. Test protected environments on a non-production target before moving production credentials.
+A deployment workflow uses repository-level secrets, so any job that can reference those names can try to use production credentials. Inventory the secrets without exposing values. Test protected environments on a non-production target before you move production credentials.
 
-Reuse the Ch04 repository and tested artifact. Choose an existing non-production deployment target and its smoke test. Do not create another application or a production credential for this exercise. Ch49 separately handles release publication.
+Reuse the Ch04 repository and tested artifact. Pick an existing non-production deployment target and its smoke test. Don't create another application or a production credential. Ch49 covers release publication.
 
 > [!IMPORTANT]
-> Use the approved non-production deployment target. If none is available, stop and ask the deployment owner for one. An empty repository or a workflow that prints a message cannot prove deployment or recovery. Leave production controls unchanged.
+> Use the approved non-production deployment target. If none exists, stop and ask the deployment owner for one. An empty repository or a workflow that prints a message can't prove deployment or recovery. Leave production controls unchanged.
 
 Set the selected repository before starting:
 
@@ -41,15 +41,15 @@ gh auth status
 
 ### Part B: Design environment protection
 
-4. Choose the approved non-production deployment environment and apply the [shared approval setup](../../resources/environment-approval.md). Restrict it to the intended ref and independent reviewers. Reuse a verified environment rather than configuring another one to repeat the same setup.
-5. An explicitly authorized participant must configure production environment settings; do not delegate broad production changes to setup automation.
-6. Record what secrets move to each environment and which jobs are allowed to reference them.
+4. Pick the approved non-production deployment environment and apply the [shared approval setup](../../resources/environment-approval.md). Restrict it to the intended ref and independent reviewers. Reuse a verified environment instead of configuring another one.
+5. An explicitly authorized participant must configure production environment settings. Don't delegate broad production changes to setup automation.
+6. Record which secrets move to each environment and which jobs can reference them.
 
 ### Part C: Configure environments and secrets
 
 7. Configure protected environments in the repository UI or API.
-8. Add only a credential the approved deployment needs using `gh secret set --env <environment>` or the UI. Prefer OIDC through Ch40 when available. Never add a production secret to a sample repository.
-9. Remove old repository secrets or restrict their scope after workflow migration and approval.
+8. Add only the credential the approved deployment needs, using `gh secret set --env <environment>` or the UI. Prefer OIDC through Ch40 when available. Never add a production secret to a sample repository.
+9. After the workflow migrates and the change is approved, remove old repository secrets or narrow their scope.
 
 ### Part D: Update and validate workflows
 
@@ -69,12 +69,12 @@ gh auth status
     Show the diff and identify missing commands or permissions before editing.
     ```
 
-    Replace `APPROVED_ENVIRONMENT` first. Review the diff with the deployment owner and run the refusal, approval, and recovery checks below. A generated workflow is not completion evidence.
-11. Run from a disallowed branch and confirm the deployment job cannot start. Run from the allowed branch and withhold approval. Verify that no deployment or step using a secret runs. Reject this run and keep its result.
-12. Start a fresh allowed run. Have the independent reviewer approve it, then verify the deployed revision and smoke test. Capture the run and environment deployment record.
-13. Redeploy the retained known-good artifact through the same approval gate and repeat the smoke test. Keep these recovery results for Ch49; do not repeat the deployment exercise there.
+    Replace `APPROVED_ENVIRONMENT` first. Review the diff with the deployment owner, then run the refusal, approval, and recovery checks below. A generated workflow isn't completion evidence.
+11. Run from a disallowed branch and confirm the deployment job can't start. Run from the allowed branch and withhold approval. Verify that no deployment or step using a secret runs. Reject this run and keep the result.
+12. Start a fresh allowed run. Have the independent reviewer approve it, then verify the deployed revision and smoke test. Capture the run and the environment deployment record.
+13. Redeploy the retained known-good artifact through the same approval gate and repeat the smoke test. Keep these recovery results for Ch49. Don't repeat the exercise there.
 
-If the plan does not support required reviewers for this repository visibility, record the capability as blocked. A label or written approval does not replace the environment gate. See [completion evidence](../../../README.md#completion-evidence).
+If the plan doesn't support required reviewers for this repository's visibility, record the capability as blocked. A label or written approval doesn't replace the environment gate. See [completion evidence](../../../README.md#completion-evidence).
 
 ## Reference links
 

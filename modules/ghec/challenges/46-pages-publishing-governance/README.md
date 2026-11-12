@@ -1,10 +1,10 @@
 # Ch46: Pages publishing governance
 
-**Session outcome:** Your approved repository publishes a GitHub Pages site under the agreed visibility policy. You have tested publication and rollback and recorded the publishing owner and any exceptions.
+**Session outcome:** Your approved repository publishes a GitHub Pages site under the agreed visibility policy. You test publication and rollback, and record the publishing owner and any exceptions.
 
 ## Prerequisites
 
-- An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
+- Owner rights on a GitHub Enterprise Cloud organization.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch46 --org <org>`.
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
 - A repository that is approved to publish a Pages site, or the seeded sample repository.
@@ -14,7 +14,7 @@
 A customer wants to use GitHub Pages for engineering documentation. Agree who may publish and who may read the site. Configure one approved repository and test publication and rollback.
 
 > [!IMPORTANT]
-> Use an approved customer target first. If you have a real documentation repository, use it and skip setup. If not, use the fallback `ghec-ch46-pages-site` repository created by setup. Do not change organization Pages settings without explicit approval.
+> Use an approved customer target first. If you have a real documentation repository, use it and skip setup. If not, use the fallback `ghec-ch46-pages-site` repository that setup creates. Don't change organization Pages settings without explicit approval.
 
 ## Sample test repository or environment
 
@@ -43,7 +43,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
 
 4. Choose the publishing source: branch folder (`docs/`) or GitHub Actions.
 5. Record site owner, content owner, review cadence, rollback owner, and incident contact.
-6. Confirm repository and Pages visibility separately. A private repository does not by itself make its Pages site private. Use only non-sensitive content until you verify who can read the site.
+6. Confirm repository and Pages visibility separately. A private repository doesn't make its Pages site private. Publish only non-sensitive content until you verify who can read the site.
 
 ### Part C: Configure repository Pages
 
@@ -54,7 +54,7 @@ Setup is idempotent and creates only these namespaced artifacts. Teardown accept
      -f 'source[path]=/docs'
    ```
 8. If Pages already exists, update the source instead of creating a duplicate configuration.
-9. Do not change org-wide Pages publication settings unless the approved policy decision says to do so.
+9. Don't change org-wide Pages publication settings unless the approved policy decision says to.
 
 ### Part D: Verify publication and rollback
 

@@ -1,10 +1,10 @@
 # Ch24: Migrate one Bitbucket repository
 
-**Session outcome:** You have migrated an approved Bitbucket repository to GitHub and verified its Git history. Server/Data Center migration also preserves supported pull request metadata. Cloud migration preserves source and history only, and you have recorded the excluded content.
+**Session outcome:** You migrated an approved Bitbucket repository to GitHub and verified its Git history. A Server/Data Center migration also keeps supported pull request metadata. A Cloud migration keeps source and history only, and you recorded what was left out.
 
 ## Prerequisites
 
-This activity has no prerequisite activities.
+This session has no prerequisites from other sessions.
 
 Access and tooling you need:
 - GitHub organization where you are an org owner.
@@ -16,17 +16,17 @@ Access and tooling you need:
 
 ## Scenario
 
-Your migration team supports Bitbucket Server/Data Center and Bitbucket Cloud. The production repositories on Server/Data Center need pull request history in GitHub. Bitbucket Cloud has no first-party metadata migration path. Preserve its Git source and history, and document what will be lost.
+Your team supports both Bitbucket Server/Data Center and Bitbucket Cloud. The Server/Data Center repositories need their pull request history in GitHub. Bitbucket Cloud has no first-party path for metadata, so you keep its Git source and history and document what's lost.
 
 > [!IMPORTANT]
-> Use an approved Bitbucket Server/Data Center or Bitbucket Cloud repository as the source and target throughout this guide. Run the migration only in an agreed change window with source writes frozen. Without an approved repository, record the access constraint and next action instead of migrating an unapproved example.
+> Use an approved Bitbucket Server/Data Center or Bitbucket Cloud repository as the source, and an approved GitHub target. Migrate only in an agreed change window with source writes frozen. If you don't have an approved repository, note what blocks you and the next step. Don't migrate an unapproved example.
 
 ## Choose the migration path
 
-Run one route for one approved repository. For Server/Data Center, choose one staging store before running any command. Prefer the GitHub-owned storage command below when supported. Use the AWS or manual-archive route only as an alternative. Bulk migration is optional after the owner accepts the pilot.
+Run one route for one approved repository. For Server/Data Center, pick one staging store before you run anything. Prefer GitHub-owned storage when supported, and use the AWS or manual-archive route only as an alternative. Bulk migration is optional, after the owner accepts the pilot.
 
 - Use Path A for Bitbucket Server/Data Center via `gh bbs2gh`. It preserves Git source, history, and pull request metadata.
-- Use Path B for Bitbucket Cloud via Git CLI. It preserves source and history only. GitHub Enterprise Importer and `gh bbs2gh` do not support Bitbucket Cloud; first-party tools cannot automatically migrate its pull requests, comments, issues, or pipelines.
+- Use Path B for Bitbucket Cloud via Git CLI. It preserves source and history only. GitHub Enterprise Importer and `gh bbs2gh` don't support Bitbucket Cloud, so first-party tools can't migrate its pull requests, comments, issues, or pipelines.
 
 ## Path A: Bitbucket Server/Data Center via `gh bbs2gh`
 
@@ -46,21 +46,21 @@ For Windows Bitbucket Server/Data Center using SMB, also set:
 $env:SMB_PASSWORD = "smb-share-password"
 ```
 
-Your GitHub PAT must be a classic PAT. Fine-grained PATs are not supported for GEI migrations.
+Use a classic PAT. GEI doesn't support fine-grained PATs.
 
 ### 2. Confirm Server/Data Center prerequisites
 
-Before running a migration, verify these operational requirements:
+Before you migrate, check that:
 
 - Bitbucket Server/Data Center is version 5.14 or later.
 - The Bitbucket account has admin or super-admin permissions.
-- Linux Bitbucket instances expose the migration archive through SFTP.
-- Windows Bitbucket instances expose the migration archive through an SMB share.
-- The SSH private key used for SFTP has no passphrase and uses a supported cipher such as `aes256-ctr` or `aes256-cbc`.
-- A clustered Bitbucket instance has a stable archive download host; pass it with `--archive-download-host`.
-- Blob staging is ready because Bitbucket is usually behind a firewall and GitHub Enterprise Importer must retrieve the archive from an internet-reachable store.
+- Linux instances expose the migration archive through SFTP.
+- Windows instances expose it through an SMB share.
+- The SFTP SSH private key has no passphrase and uses a supported cipher such as `aes256-ctr` or `aes256-cbc`.
+- A clustered instance has a stable archive download host. Pass it with `--archive-download-host`.
+- Blob staging is ready. Bitbucket usually sits behind a firewall, and GitHub Enterprise Importer must fetch the archive from an internet-reachable store.
 
-For AWS S3, the IAM principal used by `bbs2gh` needs object and multipart permissions on the bucket, including:
+For AWS S3, the IAM principal that `bbs2gh` uses needs these object and multipart permissions on the bucket:
 
 - `s3:PutObject`
 - `s3:GetObject`
@@ -84,11 +84,11 @@ For Azure Blob Storage, use an access-key connection string, not a SAS connectio
 export AZURE_STORAGE_CONNECTION_STRING="DefaultEndpointsProtocol=https;AccountName=migrationstore;AccountKey=base64-account-key;EndpointSuffix=core.windows.net"
 ```
 
-If you do not want to manage cloud storage, use GitHub-owned blob storage with `--use-github-storage`. It requires `gh bbs2gh` v1.9.0 or later and GitHub deletes the uploaded archive after migration or after seven days.
+To skip managing cloud storage, use GitHub-owned blob storage with `--use-github-storage`. It needs `gh bbs2gh` v1.9.0 or later. GitHub deletes the uploaded archive after the migration or after seven days.
 
 ### 3. Review the `bbs2gh` migration flow
 
-`gh bbs2gh` migrates in stages because GitHub cannot directly reach most Bitbucket Server/Data Center instances:
+`gh bbs2gh` works in stages because GitHub can't reach most Bitbucket Server/Data Center instances directly:
 
 1. `bbs2gh` calls the Bitbucket Server/Data Center export API over HTTPS.
 2. Bitbucket writes a migration `.tar` archive under `$BITBUCKET_SHARED_HOME/data/migration/export`.
@@ -128,11 +128,11 @@ gh bbs2gh migrate-repo \
   --archive-download-host "$ARCHIVE_HOST"
 ```
 
-Use `--archive-download-host` for clustered Bitbucket deployments where the Bitbucket base URL is a load balancer but the archive must be downloaded from a specific node.
+Use `--archive-download-host` for clustered deployments where the base URL is a load balancer but the archive must come from a specific node.
 
 ### 5. Alternative: GitHub-owned storage instead of AWS
 
-Use this instead of step 4, not after it. This avoids managing AWS or Azure staging storage:
+Use this instead of step 4, not after it. You don't manage AWS or Azure staging storage:
 
 ```bash
 gh bbs2gh migrate-repo \
@@ -149,7 +149,7 @@ gh bbs2gh migrate-repo \
 
 ### 6. Generate a bulk migration script
 
-Use bulk scripts for migration waves after you validate one representative repository:
+Use a bulk script for migration waves, after you've validated one representative repository:
 
 ```bash
 gh bbs2gh generate-script \
@@ -159,13 +159,13 @@ gh bbs2gh generate-script \
   --download-migration-logs
 ```
 
-Open the generated PowerShell script, review every repository mapping, then run it from a workstation that has the same environment variables and network access as the single-repository test.
+Review every repository mapping in the generated PowerShell script. Then run it from a workstation with the same environment variables and network access as the single-repository test.
 
 ### 7. Alternative: Manual archive transfer
 
-Skip this unless the selected server cannot expose SFTP or SMB reliably. Do not rerun a completed migration through another route.
+Skip this unless the server can't reliably expose SFTP or SMB. Don't rerun a completed migration through another route.
 
-First, trigger archive generation from `bbs2gh` without providing archive download arguments:
+First, trigger archive generation without any archive download arguments:
 
 ```bash
 gh bbs2gh migrate-repo \
@@ -182,7 +182,7 @@ On the Bitbucket server, locate the generated archive in:
 $BITBUCKET_SHARED_HOME/data/migration/export
 ```
 
-Copy the `.tar` archive to your migration workstation by your approved internal transfer method, then import from the local archive:
+Copy the `.tar` archive to your migration workstation by an approved internal transfer method, then import from the local archive:
 
 ```bash
 ARCHIVE_PATH="$HOME/migration-archives/ENG-payments-api.tar"
@@ -199,7 +199,7 @@ gh bbs2gh migrate-repo \
 
 ### 8. Validate what migrated
 
-In GitHub, confirm the repository is private and inspect:
+In GitHub, confirm the repository is private and check:
 
 - Git branches and tags.
 - Commit history.
@@ -210,7 +210,7 @@ In GitHub, confirm the repository is private and inspect:
 - Required reviewers.
 - Pull request attachments.
 
-Document what did not migrate from Bitbucket Server/Data Center:
+Document what didn't migrate from Bitbucket Server/Data Center:
 
 - Personal repositories owned by users.
 - Branch permissions.
@@ -223,11 +223,11 @@ Document what did not migrate from Bitbucket Server/Data Center:
 
 ### 1. Record the limitation before migrating
 
-Bitbucket Cloud repositories on `bitbucket.org` are not supported by GitHub Enterprise Importer or `gh bbs2gh`. No first-party path migrates Bitbucket Cloud pull requests, comments, issues, or pipeline history. The fallback is a Git mirror migration that preserves source code and Git history only. For GHE.com targets, Git CLI is also the only available source-history path.
+GitHub Enterprise Importer and `gh bbs2gh` don't support Bitbucket Cloud repositories on `bitbucket.org`. No first-party path migrates their pull requests, comments, issues, or pipeline history. The fallback is a Git mirror migration, which keeps source code and Git history only. For GHE.com targets, Git CLI is also the only way to move source history.
 
 ### 2. Mirror-clone and mirror-push
 
-Create an empty private destination first with `gh repo create <org>/<repo> --private`. Confirm it contains no customer work because mirror pushes can overwrite or delete destination refs. Save source branch and tag SHAs before pushing.
+Create an empty private destination first with `gh repo create <org>/<repo> --private`. Confirm it holds no customer work, because a mirror push can overwrite or delete destination refs. Save the source branch and tag SHAs before pushing.
 
 ```bash
 BITBUCKET_WORKSPACE="contoso-workspace"
@@ -247,7 +247,7 @@ git ls-remote --heads "https://github.com/$GITHUB_ORG/$GITHUB_REPO.git"
 git ls-remote --tags "https://github.com/$GITHUB_ORG/$GITHUB_REPO.git"
 ```
 
-Then document what was not migrated:
+Then document what didn't migrate:
 
 - Pull requests and review comments.
 - Issues.
@@ -257,15 +257,15 @@ Then document what was not migrated:
 
 ## Accept the selected pilot
 
-Compare `git ls-remote --heads --tags` output from source and destination by ref name and SHA. Matching counts are not enough. Record any excluded provider refs. For Server/Data Center, check a known PR and its comments against the source. Recreate team permissions and CI and review requirements that the tool does not migrate.
+Compare `git ls-remote --heads --tags` output from source and destination by ref name and SHA. Matching counts aren't enough. Record any excluded provider refs. For Server/Data Center, check a known PR and its comments against the source. Recreate the team permissions and the CI and review requirements the tool doesn't migrate.
 
-Open a first PR as a non-owner contributor. Verify that failing CI and missing human approval block merging. Fix the failure and obtain approval before merging. Keep the source read-only until the owner accepts cutover, and record any metadata that did not migrate.
+Open a first PR as a non-owner contributor. Verify that failing CI and a missing human approval block the merge. Then fix the failure and get approval before merging. Keep the source read-only until the owner accepts cutover, and record any metadata that didn't migrate.
 
 ## Cleanup
 
-Preserve the approved evidence before removing the local clone or archive created for this pilot. Do not delete the source or destination repository.
+Save the approved evidence before you remove the local clone or archive from this pilot. Don't delete the source or destination repository.
 
-Delete temporary S3/Azure staging objects or let a lifecycle policy expire them if you did not use GitHub-owned storage. Retain destination repositories unless the accountable customer owner approves their removal.
+If you didn't use GitHub-owned storage, delete the temporary S3 or Azure staging objects, or let a lifecycle policy expire them. Keep destination repositories unless the customer owner approves removing them.
 
 ## References
 

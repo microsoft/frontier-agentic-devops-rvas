@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Reuse the Ch02 repository and independent reviewer
-description: "Build a GitHub Actions CI pipeline with checks that gate merges."
+description: "Build a GitHub Actions CI workflow and require its check before merge."
 tags:
 - github-actions
 - ci

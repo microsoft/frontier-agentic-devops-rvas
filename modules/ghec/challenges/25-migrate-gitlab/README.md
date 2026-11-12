@@ -1,12 +1,12 @@
 # Ch25: Migrate from GitLab to GitHub
 
-**Session outcome:** You have copied a GitLab repository's source and Git history to GitHub and checked them against the original. You have converted its CI pipeline to GitHub Actions and recorded conversion gaps and excluded GitLab metadata.
+**Session outcome:** You copied a GitLab repository's source and Git history to GitHub and checked them against the original. You converted its CI pipeline to GitHub Actions and recorded the conversion gaps and the GitLab metadata that didn't come across.
 
 ## Migration limits
 
-GitLab is not a self-serve source for GitHub Enterprise Importer. A full GitLab migration that preserves metadata such as Merge Requests and issues through GEI is a GitHub Expert Services engagement.
+GitLab isn't a self-serve source for GitHub Enterprise Importer. Migrating GitLab metadata such as Merge Requests and issues through GEI is a GitHub Expert Services engagement.
 
-Use Git CLI to migrate source and Git history, then convert GitLab CI separately with GitHub Actions Importer. This pilot does not migrate platform metadata.
+Here you use Git CLI to migrate source and Git history, then convert GitLab CI separately with GitHub Actions Importer. This pilot doesn't migrate platform metadata.
 
 ## Prerequisites
 
@@ -14,14 +14,14 @@ Use Git CLI to migrate source and Git history, then convert GitLab CI separately
 - A GitLab repository on gitlab.com or self-managed GitLab with branches, tags, history, and `.gitlab-ci.yml`.
 - `git`, Docker, and GitHub CLI (`gh`) installed.
 - A GitLab personal access token with read access to the source repository and CI configuration.
-- A GitHub account that has the GitLab commit email addresses added and verified under GitHub email settings, so commit authorship can resolve correctly.
+- A GitHub account with the GitLab commit email addresses added and verified in GitHub email settings, so commit authorship resolves.
 
 ## Scenario
 
-This pilot mirrors Git history into GitHub, converts the CI definition, and records what the self-serve path does not preserve. The follow-up plan must cover metadata, LFS, packages, and cutover risk.
+This pilot mirrors Git history into GitHub, converts the CI definition, and records what the self-serve path loses. Your follow-up plan must cover metadata, LFS, packages, and cutover risk.
 
 > [!IMPORTANT]
-> Use an approved GitLab repository as the source and target throughout this guide. Mirror and cut over only with an approved owner and a source freeze; otherwise keep the work a pilot. Without an approved repository, record the access constraint and next action instead of migrating an unapproved example.
+> Use an approved GitLab repository as the source, and an approved GitHub target. Mirror and cut over only with an approved owner and a source freeze. Otherwise, stay a pilot. If you don't have an approved repository, note what blocks you and the next step. Don't migrate an unapproved example.
 
 ## Tasks
 
@@ -41,7 +41,7 @@ This pilot mirrors Git history into GitHub, converts the CI definition, and reco
    export GITLAB_REPO_URL="https://gitlab.example.com/group/repo.git"
    ```
 
-3. Create an empty GitHub repository. Do not initialize it with a README, license, or `.gitignore`; the mirror push should bring the GitLab refs across.
+3. Create an empty GitHub repository. Don't add a README, license, or `.gitignore`. The mirror push brings the GitLab refs across.
 
    ```bash
    gh repo create "$GITHUB_ORG/$GITHUB_REPO" --private --description "Pilot migration from GitLab" --confirm
@@ -55,7 +55,7 @@ This pilot mirrors Git history into GitHub, converts the CI definition, and reco
    git clone --bare "$GITLAB_REPO_URL"
    ```
 
-2. Before pushing, use the Ch26 checks to inspect the converted refs and blob sizes. Check author emails too. Confirm the destination is empty and approved because a mirror push can overwrite or delete its refs. Freeze source writes for final cutover, then push.
+2. Before pushing, use the Ch26 checks on the refs and blob sizes, and check author emails. Confirm the destination is empty and approved, because a mirror push can overwrite or delete its refs. Freeze source writes for the final cutover, then push.
 
    ```bash
    cd repo.git
@@ -64,7 +64,7 @@ This pilot mirrors Git history into GitHub, converts the CI definition, and reco
    rm -rf repo.git
    ```
 
-`--mirror` pushes all refs in the bare clone, including branches, tags, and other refs. It preserves Git commit history. Commit authorship is linked to GitHub accounts by commit email, so add the GitLab commit email to the matching GitHub account before or immediately after migration.
+`--mirror` pushes every ref in the bare clone, including branches and tags, and keeps commit history. GitHub links commit authorship to accounts by commit email, so add the GitLab commit email to the matching GitHub account before or right after migration.
 
 3. Validate the migrated refs.
 
@@ -76,16 +76,16 @@ This pilot mirrors Git history into GitHub, converts the CI definition, and reco
 
 ### Part C: Document what did not migrate
 
-The Git CLI path does not migrate GitLab metadata or platform services. Record these follow-up items in your cutover notes:
+The Git CLI path doesn't migrate GitLab metadata or platform services. Add these to your cutover notes as follow-ups:
 
 - Merge Requests, MR comments, reviews, approvals, and discussions.
 - Issues, labels, and milestones.
 - GitLab CI/CD pipeline run history.
-- Wikis, because GitLab wikis are separate repositories.
+- Wikis (they're separate repositories in GitLab).
 - Packages, container registry data, job artifacts, and release artifacts.
 - Git LFS objects, unless you migrate LFS separately.
 
-If the customer needs to preserve Merge Requests, issues, or other metadata faithfully, engage GitHub Expert Services for the GitLab-to-GHEC path. For GitLab into GitHub Enterprise Server, the expert-led path is `gl-exporter` → `ghe-migrator`.
+If the customer must keep Merge Requests, issues, or other metadata intact, engage GitHub Expert Services for the GitLab-to-GHEC path. For GitLab into GitHub Enterprise Server, the expert-led path is `gl-exporter` → `ghe-migrator`.
 
 ### Part D: Plan around large repository limits
 
@@ -105,27 +105,27 @@ cd ..
 rm -rf repo.git
 ```
 
-Reduce `1000` if any batch still exceeds 2 GiB. If a single commit is larger than 2 GiB, split that commit or restart history intentionally; GitHub cannot accept it in one push.
+Lower `1000` if a batch still exceeds 2 GiB. If a single commit is larger than 2 GiB, split it or deliberately restart history. GitHub can't accept it in one push.
 
 ### Part E: Convert GitLab CI to GitHub Actions
 
-Repository migration tools do not carry CI/CD pipelines. Use GitHub Actions Importer to convert `.gitlab-ci.yml` into GitHub Actions workflow YAML. The importer targets about 80% automatic conversion, so always review the generated workflow before production use.
+Repository migration tools don't carry CI/CD pipelines. Use GitHub Actions Importer to convert `.gitlab-ci.yml` into workflow YAML. It aims to convert about 80% automatically, so review the generated workflow before production use.
 
-1. Clone the migrated GitHub repository as a working tree.
+1. Clone the migrated GitHub repository.
 
    ```bash
    gh repo clone "$GITHUB_ORG/$GITHUB_REPO"
    cd "$GITHUB_REPO"
    ```
 
-2. Install and update the importer extension.
+2. Install and update the extension.
 
    ```bash
    gh extension install github/gh-actions-importer
    gh actions-importer update
    ```
 
-3. Configure credentials for GitHub and GitLab. Use the interactive prompts to provide your GitHub token, GitLab token, and GitLab instance URL.
+3. Configure credentials for GitHub and GitLab. The prompts ask for your GitHub token, GitLab token, and GitLab instance URL.
 
    ```bash
    gh actions-importer configure
@@ -140,10 +140,10 @@ Repository migration tools do not carry CI/CD pipelines. Use GitHub Actions Impo
    gh actions-importer migrate gitlab --output-dir migration-work/actions-migrate --target-url "https://github.com/$GITHUB_ORG/$GITHUB_REPO" --source-file-path .gitlab-ci.yml
    ```
 
-5. Review the generated pull request or local YAML under `.github/workflows/`. Fix unsupported steps and configure the secrets and runners before running it.
-6. Run the actual workflow in GitHub. Download its artifact and compare the tests and result with the GitLab pipeline for the same commit.
-7. Require the CI check and an independent review. In the first post-migration PR, deliberately fail a test and verify that GitHub blocks merging. Fix it and obtain approval before merging. Use Ch39 to recreate and test any source deployment approval.
-8. Compare source and destination branch and tag SHAs. Ask the owner to accept cutover, or retain the source read-only until the gaps are resolved. A converted YAML file alone does not complete the migration.
+5. Review the generated pull request or local YAML under `.github/workflows/`. Fix unsupported steps, and set up secrets and runners before running it.
+6. Run the workflow in GitHub. Download its artifact and compare the tests and result with the GitLab pipeline for the same commit.
+7. Require the CI check and an independent review. In the first post-migration PR, fail a test on purpose and verify that GitHub blocks the merge. Then fix it and get approval before merging. Use Ch39 to recreate and test any source deployment approval.
+8. Compare source and destination branch and tag SHAs. Ask the owner to accept cutover, or keep the source read-only until the gaps are closed. A converted YAML file alone doesn't finish the migration.
 
 ## Reference links
 

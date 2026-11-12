@@ -12,7 +12,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Approved customer issue, required CI, and independent human reviewer
-description: "Pilot Copilot cloud agent on a scoped issue while preserving human review."
+description: "Pilot Copilot cloud agent on one scoped issue, with human review before merge."
 tags:
 - copilot
 - cloud-agent

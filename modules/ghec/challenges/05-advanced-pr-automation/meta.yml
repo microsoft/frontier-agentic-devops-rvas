@@ -11,7 +11,7 @@ prerequisite_capabilities:
 - git installed
 - jq installed
 - Repository provisioned via activity setup script
-description: "Test auto-merge while preserving required CI and independent review."
+description: "Enable auto-merge that still waits for required CI and independent review."
 tags:
 - rulesets
 - pull-requests

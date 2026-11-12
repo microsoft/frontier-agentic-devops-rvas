@@ -1,18 +1,18 @@
 # CI Doctor
 
 **Session outcome:** A failed customer CI run produces one diagnostic issue with
-links to the evidence. The issue separates the observed failure from the model's
-hypothesis.
+links to the evidence. The issue keeps the observed failure apart from the
+model's hypothesis.
 
-Start after [setup](../00-setup/README.md). Select a real failure with a
-maintainer, or reproduce a known failure in an approved test branch. Avoid
-breaking the default branch for the exercise.
+Start after [setup](../00-setup/README.md). Pick a real failure with a
+maintainer, or reproduce a known one on an approved test branch. Don't break
+the default branch for the exercise.
 
 ## Check the run
 
-Inspect the selected workflow's failed jobs in **Actions** first. If its logs
-already give the maintainer a clear next step, keep that native workflow.
-Use the agent for failures that still need a diagnosis.
+Look at the workflow's failed jobs in **Actions** first. If the logs already
+tell the maintainer what to do next, keep that native workflow. Use the agent
+for failures that still need a diagnosis.
 
 Use the [CI Doctor starter](../../resources/examples/ci-doctor.md).
 Configure `workflow_run` with the exact approved
@@ -20,8 +20,8 @@ workflow names, `types: [completed]`, and approved branches.
 
 Before the model starts, require `github.event.workflow_run.conclusion ==
 'failure'`. Check the source repository and workflow ID against trusted
-configuration; reject unapproved branch or fork runs. Keep the workflow on the
-default branch as required for `workflow_run`.
+configuration, and reject unapproved branch or fork runs. `workflow_run`
+requires the workflow to live on the default branch.
 
 ## Collect evidence before the agent runs
 
@@ -50,13 +50,13 @@ and treat every log line as untrusted data.
 
 ## Diagnose once
 
-Link the run and failed job in the issue. Quote the relevant log evidence and
-distinguish a likely cause from observed facts. Require a concrete investigation step,
-and allow "cause unknown."
+Link the run and failed job in the issue. Quote the relevant log lines and
+separate the likely cause from observed facts. Require one concrete next
+investigation step, and allow "cause unknown."
 
 Key the record by repository, workflow ID, and original run ID. A rerun changes
-the attempt number but updates the same record. Process one attempt at a time
-for that key and skip any attempt already processed. Use read-only tools and
+the attempt number but updates the same record. Handle one attempt at a time
+per key and skip any attempt already processed. Use read-only tools and
 safe outputs limited to the diagnostic issue. Do not grant fix or merge
 permissions.
 
@@ -81,8 +81,8 @@ workflow's name, approved branch, and numeric ID. Keep the branch in
 
 The helper supplies the run URL and a capped failed-job log excerpt. Its
 redactor handles common token and password formats, not every application
-secret. Have the owner approve the log source and extend the redactor for the
-service's sensitive fields before sending logs to an AI engine.
+secret. Before sending logs to an AI engine, have the owner approve the log source and
+extend the redactor for the service's sensitive fields.
 
 The starter's prompt is ready to use. For repository context, ask Copilot:
 
@@ -104,14 +104,16 @@ gh run list --workflow ci-doctor.lock.yml --limit 5
 ```
 
 The diagnostic runs only if the selected CI attempt fails. It should create
-one issue headed "CI diagnosis: run ...". Another failed attempt updates that
+one issue titled "CI diagnosis: run ...". Another failed attempt updates that
 issue; replaying the same attempt does nothing.
 
-Verify that the diagnosis helps the maintainer investigate the selected failure.
-Rerun it and confirm there is no duplicate issue. Test a successful or unapproved
-run and confirm the model does not run.
-Name the maintainer who will check collector, engine, and writer failures in
-Actions. Before widening the trigger, review run frequency and the existing
-Actions and AI-provider spending controls with that owner. Keep the run links;
-you do not need a separate metrics store or health-report workflow.
+Check that the diagnosis actually helps the maintainer investigate the failure.
+Rerun it and confirm there's no duplicate issue. Test a successful run and an
+unapproved run, and confirm the model doesn't start.
+
+Name the maintainer who will watch for collector, engine, and writer failures
+in Actions. Before widening the trigger, review run frequency and your Actions
+and AI-provider spending controls with that owner. Keep the run links. You
+don't need a metrics store or a health-report workflow.
+
 Finish the [shared acceptance check](../../setup.md#pilot-acceptance).

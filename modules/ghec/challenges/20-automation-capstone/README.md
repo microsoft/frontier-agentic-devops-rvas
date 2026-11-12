@@ -1,12 +1,12 @@
 # Ch20: Close an automation integration gap
 
-**Session outcome:** An approved integration handles one customer event and updates its target once. Replay and failure tests show how it recovers.
+**Session outcome:** An integration handles one customer event and updates its target once. Replay and failure tests show how it recovers.
 
 ## Prerequisites
 
-Use this optional session for a repeated customer handoff. Reuse the customer repository and working CI. Try Part A first; only build an integration for a remaining gap. The App path includes registration and signed-delivery tests. You do not need a self-hosted runner.
+Use this optional session for a repeated customer handoff. Reuse the customer repository and working CI. Try Part A first and build an integration only for a gap that remains. The App path includes registration and signed-delivery tests. You don't need a self-hosted runner.
 
-Get approval to test the selected source and destination, and name their owners. Use `gh`, `git`, and Node.js 22+ for the App example. An inbound webhook needs an approved HTTPS receiver that forwards the raw request body unchanged.
+Get approval to test the source and destination, and name their owners. Use `gh`, `git`, and Node.js 22+ for the App example. An inbound webhook needs an approved HTTPS receiver that forwards the raw request body unchanged.
 
 ## Tasks
 
@@ -36,12 +36,12 @@ Get approval to test the selected source and destination, and name their owners.
                })
    ```
 
-   Merge it through the repository's review process. Open a test issue, check the Actions run, then re-run the job. The issue should have one `triage` label. It does not need a comment or an App.
-3. **Stop here if the native feature solves the customer's problem.** Ask the owner to verify the result and agree how to disable the workflow. Use the App path only for a remaining integration gap or approved practice.
+   Merge it through the repository's review process. Open a test issue, check the Actions run, then re-run the job. The issue should have one `triage` label. You don't need a comment or an App.
+3. **Stop here if the native feature solves the customer's problem.** Ask the owner to check the result and agree how to disable the workflow. Use the App path only for a remaining gap or approved practice.
 
 ### Part B: Start the optional App example
 
-The example receives `issues.opened` over HTTP and adds one label with an installation token. This small update lets you test authentication and replay before adapting the handler to the customer event. Labeling alone does not justify a customer App.
+The example receives `issues.opened` over HTTP and adds one label with an installation token. This small update lets you test authentication and replay before you adapt the handler to the customer event. Labeling alone doesn't justify a customer App.
 
 From your local curriculum checkout, set the target and copy the working example:
 
@@ -161,18 +161,18 @@ Explain any missing provider capability; do not claim exactly-once delivery.
 
 Review the code and run its tests before a real customer event. For an external provider, use its signature specification; GitHub's HMAC header is not a universal webhook format.
 
-Ask the owner to verify one real target update and a replay. Agree who retries failures and how to disable the integration (disable the App webhook or suspend its installation). Keep the event and target links as [completion evidence](../../../README.md#completion-evidence). **Sample runs remain practice.** Scheduling and wider rollout need separate decisions.
+Ask the owner to check one real target update and a replay. Agree who retries failures and how to disable the integration (disable the App webhook or suspend its installation). Keep the event and target links as [completion evidence](../../../README.md#completion-evidence). **Sample runs count as practice only.** Scheduling and wider rollout need separate decisions.
 
 ### Part F: Operate the App path
 
-Skip this part when the native feature solved the handoff.
+Skip this part if the native feature solved the handoff.
 
 1. Confirm the installation covers only the approved repositories and permissions. Use the App's webhook; a separate repository webhook does not supply the installation context this receiver checks.
 2. Have the integration owner deploy the receiver through the approved hosting process. Its loopback listener needs HTTPS ingress, and it has no durable retry queue.
 3. Test host restart and secret rotation with synthetic deliveries. Confirm invalid signatures return `401`, valid deliveries succeed after rotation, and monitoring identifies failed target updates without exposing payloads or credentials.
 4. Assign the operator who checks failed deliveries and redelivers after repair. Test suspension and restoration of the App installation in the approved test scope.
 
-Record the successful delivery, target update, hosting owner, and stop procedure together. A local receiver alone is not an operational customer integration.
+Record the successful delivery, target update, hosting owner, and stop procedure together. A local receiver alone isn't a customer integration you can operate.
 
 ## References
 

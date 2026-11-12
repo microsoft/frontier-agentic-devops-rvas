@@ -1,35 +1,35 @@
 # Ch19: Copilot cloud agent
 
-**Session outcome:** Copilot cloud agent has addressed an approved issue in a pull request that passes the repository's checks and human review before merging. Your team has recorded which actions need further approval.
+**Session outcome:** Copilot cloud agent fixes an approved issue in a pull request that passes the repository's checks and a human review before merging. Your team has recorded which actions need further approval.
 
 ## Prerequisites
-> **Check eligibility before starting.**
+> **Check eligibility before you start.**
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- Copilot cloud agent must be enabled. Copilot Business/Enterprise disables it by default. An admin must enable the org's Copilot cloud agent policy, and the user assigning issues must have a Copilot license.
-- Copilot cloud agent is unavailable on EMU repos. If your enterprise uses Enterprise Managed Users (GHEMU), run this activity on a non-EMU org. It is N/A for pure GHEMU customers. `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19` warns about EMU.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19 --org <org>` (least-privilege; for this activity: `repo` + `read:org`). The cloud agent itself runs under Copilot's identity, not your token.
+- Copilot cloud agent must be enabled. Copilot Business and Enterprise turn it off by default, so an admin must enable the org's Copilot cloud agent policy. The user assigning issues needs a Copilot license.
+- Copilot cloud agent is unavailable on EMU repos. If your enterprise uses Enterprise Managed Users (GHEMU), use a non-EMU org. This activity doesn't apply to pure GHEMU customers. `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19` warns about EMU.
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19 --org <org>` (least privilege; here: `repo` + `read:org`). The cloud agent itself runs under Copilot's identity, not your token.
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
-- **Limits:** Agent sessions are capped (~59 min) and run in an ephemeral Actions environment, consuming Actions minutes and Copilot premium requests.
+- **Limits:** Agent sessions are capped at about 59 minutes. They run in an ephemeral Actions environment and use Actions minutes and Copilot premium requests.
 
 ## What you'll do
 - Confirm the Copilot cloud agent is enabled and the repo is eligible (non-EMU).
-- Assign an issue to Copilot and trigger an autonomous agent session.
-- Read the agent's draft pull request and follow its session log as it works.
-- Steer the agent with PR review comments and additional issue context, then iterate.
-- Review and merge the agent's PR through the same required checks and reviews as a human contributor's.
+- Assign an issue to Copilot to start an agent session.
+- Read the agent's draft pull request and follow its session log.
+- Steer the agent with PR review comments and more issue context, then iterate.
+- Review and merge the agent's PR through the same checks and reviews as a human contributor's.
 
 ## Scenario
-A customer wants to delegate a small bug and review the fix. Use the approved customer issue. For incident follow-up, use the incident-linked issue and the same service repository. Include the observed symptom and acceptance test. Choose either Copilot cloud agent or GitHub Agentic Workflows for the handoff.
+A customer wants to hand off a small bug and review the fix. Use the customer's issue. For incident follow-up, use the incident-linked issue and the same service repository. Include the symptom and an acceptance test. Use either Copilot cloud agent or GitHub Agentic Workflows for the handoff.
 
 > [!IMPORTANT]
-> Default to an authorised customer repository issue that the Copilot cloud agent can safely attempt with review gates.
+> Start with a customer repository issue that the Copilot cloud agent can safely attempt behind review gates.
 >
-> If you have an approved target, use it wherever this guide says `ghec-ch19-copilot-coding-agent` and skip Setup below. Otherwise, use the seeded sample for validation only, then hand the validated operating model to the customer owner.
+> If you have one, use it wherever this guide says `ghec-ch19-copilot-coding-agent` and skip Setup below. Otherwise, use the seeded sample for testing only, then hand the operating model to the customer owner.
 >
-> Human review and merge approval stay with a person, never the agent.
+> A person does the review and approves the merge, never the agent.
 
 ## Sample test repository or environment
-Skip if you brought your own repo/issue.
+Skip if you brought your own repo and issue.
 
 ```bash
 # Bash
@@ -40,41 +40,41 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch19 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch19 --org <org>
 ```
 
-> `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19 --org <org>` runs first and warns if the org looks EMU-managed or if the Copilot cloud agent policy can't be confirmed. Do not proceed on EMU repos.
+> `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19 --org <org>` runs first and warns if the org looks EMU-managed or if it can't confirm the Copilot cloud agent policy. Don't continue on EMU repos.
 
 Setup is idempotent. All artifact names use the `ghec-ch19-*` prefix, and teardown is prefix-guarded. Setup creates:
-- A small seeded repo `ghec-ch19-copilot-coding-agent` with one bug and a failing test. It does not use Juice Shop, so agent runs remain short and easy to assess.
-- A CI workflow that runs the test suite to verify the agent's fix.
+- A small seeded repo `ghec-ch19-copilot-coding-agent` with one bug and a failing test. It doesn't use Juice Shop, so agent runs stay short and easy to assess.
+- A CI workflow that runs the test suite against the agent's fix.
 - A seeded issue describing the bug, reproduction steps, and acceptance criteria, ready to assign to Copilot.
-- Setup guidance for the required CI and human-review gates below.
+- Setup guidance for the CI and human-review gates below.
 
 ## Tasks
 
 ### Part A: Confirm eligibility
-1. Verify the policy. Confirm the org has the Copilot cloud agent enabled (Org Settings → Copilot → Policies) and that your user has a Copilot license.
-2. Confirm non-EMU. Ensure the repo is not in an EMU-managed enterprise. If `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19` flagged EMU, stop. This activity cannot run there.
-3. Open the selected issue and read its reproduction steps and acceptance criteria so you can judge the agent's output later.
+1. Check the policy. Confirm the org has the Copilot cloud agent enabled (Org Settings → Copilot → Policies) and that your user has a Copilot license.
+2. Confirm non-EMU. Make sure the repo isn't in an EMU-managed enterprise. If `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch19` flagged EMU, stop. This activity can't run there.
+3. Open the issue and read its reproduction steps and acceptance criteria so you can judge the agent's output later.
 
-Before assigning it, review the [first-run setup and instructions](../../resources/copilot-first-run.md). Reuse working configuration; add only the build commands and task boundaries this repository needs. Require the actual CI check and independent human review before delegation. Use Ch31 only if private dependencies or runners need setup.
+Before assigning it, review the [first-run setup and instructions](../../resources/copilot-first-run.md). Reuse working configuration and add only the build commands and task boundaries this repository needs. Require the CI check and independent human review before delegating. Use Ch31 only if private dependencies or runners need setup.
 
 ### Part B: Delegate to the agent
-4. Assign the issue to Copilot. On the seeded issue, add Copilot as the assignee (Assignees → Copilot). This triggers an agent session.
-5. Watch it start. Within a minute or two the agent opens a draft pull request referencing the issue. Open it.
-6. Follow the session. Read the agent's progress/session log on the PR (its plan, the files it's touching, the commands it runs in the ephemeral environment).
+4. Assign the issue to Copilot. On the seeded issue, add Copilot as the assignee (Assignees → Copilot). This starts an agent session.
+5. Watch it start. Within a minute or two the agent opens a draft pull request that references the issue. Open it.
+6. Follow the session. Read the agent's session log on the PR: its plan, the files it touches, and the commands it runs in the ephemeral environment.
 
 ### Part C: Review the draft PR
 7. Check that the diff fixes the selected bug and stays within scope. Check CI on the PR.
-8. Run/confirm the tests. Confirm the previously failing test is now green in the PR's CI run.
+8. Check the tests. Confirm the previously failing test passes in the PR's CI run.
 9. Leave a review. Comment on a specific line with a concrete request (e.g., "handle the empty-input case too" or "add a test for X").
 
 ### Part D: Steer and iterate
-10. Request changes via the agent. Use a PR review comment or `@`-mention to ask Copilot to revise. Confirm it pushes new commits to the same PR in response.
-11. Add missing context. If the first attempt missed an edge case, update the issue/PR with the detail and let the agent iterate. Note how prompt quality changes the result.
+10. Request changes. Use a PR review comment or `@`-mention to ask Copilot to revise. Confirm it pushes new commits to the same PR in response.
+11. Add missing context. If the first attempt missed an edge case, add the detail to the issue or PR and let the agent iterate. Note how the quality of your prompt changes the result.
 
 ### Part E: Gate, approve and merge
-12. Before delegation, require the actual CI check and independent human approval on `main`. Keep Code Owner review where used. Verify that failing CI and missing approval block merging. Give Copilot no bypass permission for these gates. If a branch-creation rule prevents its work, obtain a separate exception for that rule and the agent's working-branch pattern only. Preserve all default-branch gates.
-13. Review the final diff and passing test run, then mark the PR ready. Obtain independent approval before merging. Record any approval needed to run Actions on the agent's output.
-14. Confirm the fix landed. On `main`, confirm the test suite is green and the issue auto-closed via the PR link.
+12. Before delegating, require the CI check and independent human approval on `main`. Keep Code Owner review where you use it. Check that failing CI and missing approval block the merge. Give Copilot no bypass permission for these gates. If a branch-creation rule blocks its work, get a separate exception for that rule and the agent's working-branch pattern only. Keep every default-branch gate.
+13. Review the final diff and the passing test run, then mark the PR ready. Get independent approval before merging. Record any approval needed to run Actions on the agent's output.
+14. Confirm the fix landed. On `main`, check that the test suite passes and the PR link closed the issue.
 
 ### Part F: Record the operating boundary
 15. In `docs/AGENT-NOTES.md`, record what the agent did well, where human review was essential, and which issue types are approved for delegation.

@@ -1,29 +1,29 @@
 # Ch08: Repository rulesets and custom properties
 
-**Session outcome:** Custom properties target an organization ruleset at the intended repositories. You have tested its enforcement and confirmed that a repository ruleset adds protection without weakening the organization rule.
+**Session outcome:** Custom properties point an organization ruleset at the right repositories. You've tested its enforcement and confirmed that a repository ruleset adds protection without weakening the organization rule.
 
 ## Prerequisites
 - Approved repositories and a contributor without bypass permission.
 - An organization you own (or org-owner rights) on GitHub Enterprise Cloud.
-- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch08 --org <org>` (least-privilege; for this activity: `admin:org` + `repo` + `read:org`).
+- A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch08 --org <org>` (least privilege; here: `admin:org` + `repo` + `read:org`).
 - Local tooling: `gh >= 2.x`, `git`, `jq` (run `modules/ghec/resources/provisioning/scripts/setup.sh doctor` to verify).
-- This activity is independent of Ch05 (which also touches rulesets). The focus here is org-wide governance via custom properties, not the PR pipeline.
+- This activity doesn't depend on Ch05, which also touches rulesets. Here you govern the whole org through custom properties, not the PR pipeline.
 
 ## What you will deliver
 - Define custom repository properties (single-select and true/false) at the organization.
-- Set property values on individual repositories and set defaults for new repos.
+- Set property values on repositories and set defaults for new ones.
 - Create an organization ruleset whose target is a property condition (e.g., apply to every repo where `compliance = high`), not a name pattern.
-- Combine organization and repository rulesets; the most restrictive rules apply.
-- Use bypass actors deliberately and document why.
-- Verify property values and ruleset enforcement entirely from the REST API.
+- Combine organization and repository rulesets. The most restrictive rules apply.
+- Add bypass actors only on purpose, and document why.
+- Check property values and ruleset enforcement through the REST API.
 
 ## Scenario
-A GHEC customer has 80 repositories. The compliance team requires PRs, signed commits, and a passing check for every production repo, including new ones. Add a `compliance` custom property and target an org ruleset by that property. Verify that repos tagged `compliance = high` inherit the rules regardless of their names.
+A GHEC customer has 80 repositories. The compliance team requires PRs, signed commits, and a passing check for every production repo, including new ones. Add a `compliance` custom property and target an org ruleset by that property. Check that repos tagged `compliance = high` get the rules whatever their names.
 
 > [!IMPORTANT]
-> Use an approved customer target first. If you have a candidate production or compliance-sensitive repository set, use it wherever this guide names `ghec-ch08-prod-payments` or the sibling `ghec-ch08-*` repos, and skip Setup. Otherwise use the fallback seeded prod, internal, and sandbox repos below, then move the validated policy to an approved customer organisation.
+> Use customer production or compliance-sensitive repositories if you have them: use them wherever this guide names `ghec-ch08-prod-payments` or the other `ghec-ch08-*` repos, and skip Setup. Otherwise test with the seeded prod, internal, and sandbox repos below, then apply the policy to the customer organisation.
 >
-> Record the selected target, governance owner, risk decision, and next action.
+> Record the target, the governance owner, the risk decision, and the next action.
 
 ## Sample test repository or environment
 Skip if you brought your own repo set.
@@ -64,17 +64,17 @@ Setup creates these resources (all names use the `ghec-ch08-*` prefix, and teard
 ### Part C: Property-targeted organization ruleset
 8. Create an org ruleset (Org Settings → Repository → Rulesets → New branch ruleset) named `ghec-ch08-prod-guardrail`. Set the target using a property condition: *include all repositories where `compliance` is `high`* (NOT a name pattern). Target the `main` branch.
 9. Add rules: require a pull request (≥1 approval), require the `build` status check, block force pushes, and require signed commits.
-10. Set enforcement to Active. Verify: `gh api /orgs/<org>/rulesets --jq '.[] | {name, enforcement, target}'` and then inspect the conditions: `gh api /orgs/<org>/rulesets/<id> --jq '.conditions'` (you should see a `repository_property` condition, not `repository_name`).
+10. Set enforcement to Active. Check: `gh api /orgs/<org>/rulesets --jq '.[] | {name, enforcement, target}'` then look at the conditions: `gh api /orgs/<org>/rulesets/<id> --jq '.conditions'` (you should see a `repository_property` condition, not `repository_name`).
 
 ### Part D: Layer a repository ruleset
 11. On `ghec-ch08-prod-payments` only, add a stricter repository ruleset. For example, require 2 approvals and review from Code Owners.
-12. Observe layering: both the org ruleset (property-targeted) and the repository ruleset now apply to the repo. The most restrictive combination applies (2 approvals from the repo rule beats the org's 1).
-13. Verify property-based targeting on `ghec-ch08-prod-identity`, which has a different name but the same `compliance = high` value. Attempt a direct push to its `main` and confirm rejection.
+12. See the layering: the org ruleset (property-targeted) and the repository ruleset both apply to the repo, and the most restrictive combination wins. Two approvals from the repo rule beat the org's one.
+13. Check property-based targeting on `ghec-ch08-prod-identity`, which has a different name but the same `compliance = high` value. Push directly to its `main` and confirm GitHub rejects it.
 
 ### Part E: Verify and demonstrate
-14. As a non-owner contributor without bypass permission, open a PR on `ghec-ch08-prod-payments`. Verify that missing reviews or failing CI block merging. Satisfy those requirements and merge. Test `ghec-ch08-sandbox` as the same contributor and confirm the high-compliance rule does not apply. Check other inherited rules before interpreting the result.
-15. Document the model: write `GOVERNANCE.md` in `ghec-ch08-internal-tools` describing the property schema, which repos carry which values, the org ruleset's property target, and the repo-level overlay.
-16. Inspect enterprise ruleset evidence if you have authorized access. Record rules you cannot inspect as unavailable. Choosing an organization boundary does not verify ruleset enforcement.
+14. As a non-owner contributor without bypass permission, open a PR on `ghec-ch08-prod-payments`. Check that missing reviews or failing CI block the merge. Meet those requirements and merge. Then try `ghec-ch08-sandbox` as the same contributor and confirm the high-compliance rule doesn't apply. Check other inherited rules before you read the result.
+15. Document the model in `GOVERNANCE.md` in `ghec-ch08-internal-tools` covering the property schema, which repos carry which values, the org ruleset's property target, and the repo-level overlay.
+16. If you have authorized access, check enterprise ruleset evidence. Record rules you can't inspect as unavailable. Choosing an organization boundary doesn't test ruleset enforcement.
 
 ## Reference links
 - [About custom properties](https://docs.github.com/en/organizations/managing-organization-settings/managing-custom-properties-for-repositories-in-your-organization)
