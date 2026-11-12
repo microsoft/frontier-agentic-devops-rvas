@@ -39,7 +39,7 @@ The default repository name is `ghas-admin-05-dependency-visibility-fixture`. Th
 - `dependency-lab/package.json` and `package-lock.json` with vulnerable direct dependencies.
 - `dependency-lab/build.sh`, which resolves `cowsay@1.6.0` during the build without declaring it in the npm manifest.
 - `dependency-lab/build-resolved-components.json`, the build inventory used for dependency submission.
-- `feature/risky-dependency`, which adds `lodash@4.17.4` as a new runtime dependency.
+- `feature/risky-dependency`, which adds `lodash@4.17.4` as a new runtime dependency in `risky-dependency/package.json` and its lockfile.
 
 Set the target once:
 
