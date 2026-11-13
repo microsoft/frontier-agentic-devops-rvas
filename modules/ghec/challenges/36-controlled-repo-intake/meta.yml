@@ -3,7 +3,7 @@ title: Controlled repository intake
 module: ghec
 track: admin-governance
 difficulty: advanced
-duration_minutes: 120
+duration_minutes: 105
 prerequisites:
 - ghec-ch38
 prerequisite_capabilities:

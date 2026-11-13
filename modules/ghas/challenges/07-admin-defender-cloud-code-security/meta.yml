@@ -3,19 +3,17 @@ title: Connect GitHub security findings to production risk
 module: ghas
 track: admin-governance
 difficulty: advanced
-duration_minutes: 120
+duration_minutes: 105
 display_order: 16
 prerequisites:
   - ghas-admin-03
   - ghas-admin-06
 prerequisite_capabilities:
-  - A commercial Azure subscription with Contributor and Security Admin participation
-  - Defender Cloud Security Posture Management (CSPM) enabled, or permission to enable it
+  - A commercial Azure subscription with Contributor and Security Admin participation, and Defender CSPM enabled or enableable
   - GitHub organization owner on the pilot organization
   - GitHub Code Security enabled on a repository with existing code scanning and Dependabot alerts
   - An Azure Container Registry and an AKS cluster, or permission to create them
-  - A container image the participant can build and push from the pilot repository
-description: "Trace a repository's alerts to its running AKS workload and scope a campaign by runtime risk."
+description: "Trace a repository's code scanning alerts to its running AKS workload with Defender for Cloud."
 tags:
   - ghas
   - defender-for-cloud

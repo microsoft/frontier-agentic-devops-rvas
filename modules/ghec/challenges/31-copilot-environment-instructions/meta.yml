@@ -3,13 +3,12 @@ title: Advanced Copilot environment configuration
 module: ghec
 track: automation-ai
 difficulty: advanced
-duration_minutes: 90
+duration_minutes: 45
 prerequisites: []
 prerequisite_capabilities:
-  - Authorized customer repository and accountable repository owner
-  - Repository administrator access, or a customer owner who can merge workflow and instruction changes to the default branch
-  - Copilot Business or Copilot Enterprise availability and the applicable cloud-agent or code-review policy view
-  - A concrete runtime, private dependency, or approved runner requirement from Ch32
+  - The Ch32 repository, with someone who can merge to the default branch
+  - Copilot Business or Enterprise with code review enabled
+  - A concrete runtime, private-dependency, or runner gap from the Ch32 review log
 description: "Meet a real Copilot runtime or private-access requirement within approved boundaries."
 tags:
   - copilot

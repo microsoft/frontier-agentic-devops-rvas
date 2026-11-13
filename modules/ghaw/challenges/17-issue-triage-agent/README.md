@@ -80,27 +80,6 @@ Open the issue's Actions run and compare its label request with the issue text.
 In the run menu, choose **Re-run all jobs**. Confirm the same label is not added
 again and no comment appears. Close practice issues after the check.
 
-## Deterministic maintenance references
-
-These are optional native Actions recipes, separate from AI triage.
-
-Use [`actions/stale`](https://github.com/actions/stale) for a
-maintainer-approved inactivity policy. Configure `days-before-issue-stale`,
-`days-before-issue-close`, and `exempt-issue-labels`; disable PR handling if
-the policy covers issues only. Warn once, then measure the grace period in elapsed time, not workflow runs.
-Check that new activity clears the stale state and that exemption labels
-prevent closure. Before enabling closure, test recent activity, an exempt issue,
-and the grace-period boundary with fixture timestamps. A custom minimum issue
-age needs its own deterministic check.
-
-For contributor guidance, start with
-[community-health files](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file)
-and [issue forms](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository).
-If maintainers still want a welcome comment, use a fixed template and a
-deterministic first-contribution check. `author_association: NONE` alone doesn't
-mean it's someone's first contribution, so query prior activity and exclude
-bots. Check for an existing welcome on the PR before posting. Link real
-guidance and don't promise review times. No model needed.
-
-Pin any action to a reviewed commit SHA and scope its token to the required
-issue or PR writes.
+Optional: for stale-issue policy or contributor welcome messages, use native
+[`actions/stale`](https://github.com/actions/stale) and
+[community-health files](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file). They need no model.

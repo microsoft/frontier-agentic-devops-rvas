@@ -57,15 +57,9 @@ node --test "$CURRICULUM/modules/ghaw/resources/examples/report-pilot.test.cjs"
 ```
 
 Read the [complete workflow](../../resources/examples/slash-commands.md).
-Its Markdown body contains a usable summary prompt. To customize it, use:
-
-```text
-Adapt the Markdown prompt in slash-commands.md for our team's issue summaries.
-Keep sections for the issue, accepted decisions, and unresolved actions.
-Require comment links for decisions and named owners. Do not infer agreement.
-Keep the exact-command gate and current-write-permission check outside the
-model. Preserve one marked comment and the source recheck before publication.
-```
+Its Markdown body contains a usable summary prompt. Adjust its headings to
+your team's issue summaries if needed, but keep the exact-command gate and
+write-permission check outside the model.
 
 Compile, review the generated jobs, and merge the files to the default branch:
 
@@ -87,7 +81,12 @@ again. The workflow should edit the first summary, not create a second.
 
 ## Verify
 
-Test an authorized exact command, a command inside prose, an unauthorized
-author, and a rerun of the same event. Only the first should call the engine.
-Check every decision and owner against its cited comment. A second authorized
-request after new discussion should update the existing summary.
+Post these three comments. Only the first should call the engine:
+
+| Comment | Expected |
+| --- | --- |
+| `/summarize` from an authorized author | Summary created, or updated if one exists |
+| `Please /summarize this` from the same author | Skipped before the model |
+| `/summarize` from an unauthorized author | Skipped before the model |
+
+Check every decision and owner against its cited comment. Rerun the same event and confirm no duplicate comment appears.

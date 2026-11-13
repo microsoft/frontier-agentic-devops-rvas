@@ -3,7 +3,7 @@ title: Run a bounded security campaign
 module: ghas
 track: admin-governance
 difficulty: advanced
-duration_minutes: 90
+duration_minutes: 75
 display_order: 15
 prerequisites:
   - ghas-admin-01

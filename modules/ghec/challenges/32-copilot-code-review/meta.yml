@@ -3,14 +3,13 @@ title: Copilot code review
 module: ghec
 track: automation-ai
 difficulty: intermediate
-duration_minutes: 90
+duration_minutes: 60
 prerequisites: []
 prerequisite_capabilities:
-  - GitHub organization with an organization owner and a named repository owner
-  - GitHub Copilot code review enabled by the effective enterprise or organization policy
-  - GitHub CLI (gh >= 2.x), git, and jq for the optional fallback setup
-  - An approved customer repository, or permission to create the isolated fallback repository
-description: "Introduce Copilot code review while preserving human approval gates."
+  - Organization owner and named repository owner who can edit rulesets
+  - GitHub Copilot code review enabled by enterprise or organization policy
+  - A customer repository with a small real PR (or gh, git, and jq to create the sample)
+description: "Review a real pull request with Copilot and pilot automatic review."
 tags:
   - copilot
   - code-review
@@ -23,7 +22,7 @@ emu_compatible: true
 min_environment: org
 provision_creates:
   - isolated repo ghec-ch32-copilot-code-review with a small review candidate pull request
-  - repository-wide Copilot review instructions and a non-secret decision-package template
+  - repository-wide Copilot review instructions
   - no Copilot policy, ruleset, CODEOWNERS rule, or automatic review configuration
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas

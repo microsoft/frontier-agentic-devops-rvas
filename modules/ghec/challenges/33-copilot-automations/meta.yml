@@ -3,14 +3,13 @@ title: Copilot automations
 module: ghec
 track: automation-ai
 difficulty: advanced
-duration_minutes: 120
+duration_minutes: 75
 prerequisites: []
 prerequisite_capabilities:
   - A customer-approved private or internal repository with a named repository owner
   - Write access for the automation creator and an independent reviewer able to approve pull requests
   - A GitHub Copilot plan that includes Copilot cloud agent, with cloud agent and automations allowed for the repository
   - A non-EMU repository eligible for Copilot cloud agent
-  - Named Copilot, security, repository, and audit-evidence owners
 description: "Test when an automation runs and independently review its draft pull request."
 tags:
   - copilot
@@ -23,8 +22,7 @@ tags:
 app_dependency: none
 emu_compatible: false
 min_environment: org
-provision_creates:
-  - private fallback repo ghec-ch33-copilot-automations with an automation decision-package template and no enabled automation
+provision_creates: []
 tier: core
 source_repo: microsoft/frontier-agentic-devops-rvas
 source_path: modules/ghec/challenges/33-copilot-automations/meta.yml

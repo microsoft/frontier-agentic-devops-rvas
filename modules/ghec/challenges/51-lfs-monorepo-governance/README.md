@@ -1,28 +1,31 @@
 # Ch51: Validate LFS or monorepo controls
 
-**Session outcome:** The path you pick, LFS storage or monorepo ownership, works on a real push and pull request. Record which path you tested.
+**Session outcome:** The path you pick, LFS storage or monorepo ownership, works on a real push and pull request.
 
 ## Prerequisites
 
-Pick **one** path for an approved repository. Reuse Ch02 and Ch04 controls. You need Git and repository write access. Path A also needs Git LFS and an approved storage budget. Neither path rewrites history.
+**Pick one path: A or B. Don't do both.** Use an approved repository. You need Git and repository write access. Path A also needs Git LFS and an approved storage budget. Neither path rewrites history.
 
 ## Path A: LFS push and fresh clone
 
-1. Pick a small non-sensitive fixture and agree its LFS pattern with the storage owner. A few kilobytes are enough. Don't upload large files just to demonstrate LFS.
-2. On a branch, run `git lfs install`, then `git lfs track '*.fixture'`. Add `.gitattributes` and the fixture, commit, and push. Inspect `git show HEAD:path/to/sample.fixture` to confirm Git stores the LFS pointer.
+**Acceptance test:** a fresh clone gets the original bytes, and the object is in LFS storage.
+
+1. Pick a small non-sensitive fixture (a few kilobytes) and agree its LFS pattern with the storage owner.
+2. On a branch, run `git lfs install`, then `git lfs track '*.fixture'`. Add `.gitattributes` and the fixture, commit, and push. Run `git show HEAD:path/to/sample.fixture` to confirm Git stores the LFS pointer.
 3. Merge through normal review. In a **new directory**, clone the repository and run `git lfs pull`. Confirm the working file holds the original bytes, not the pointer. Compare SHA-256 checksums with the source.
-4. Run `git lfs fsck` and record the object ID from `git lfs ls-files -l`. Keep the push and fresh-clone results. `.gitattributes` alone doesn't prove the object reached storage.
-5. Record who owns storage and the approved pattern. Converting existing history is separate work because it rewrites commits.
+4. Run `git lfs fsck` and `git lfs ls-files -l`. `.gitattributes` alone doesn't prove the object reached storage.
+
+Converting existing history is separate work because it rewrites commits.
 
 ## Path B: Monorepo ownership and targeted checks
+
+**Acceptance test:** a package-only PR requests its owner and runs only its tests, and a failing test blocks the merge.
 
 1. Pick two existing package paths with different owning teams. Put the default CODEOWNERS wildcard first and the specific package paths after it.
 2. Require Code Owner review on the default branch. Make sure the teams have write access, and test with a non-owner contributor.
 3. Install and adapt the workflow below. Require its stable **Monorepo gate** check on the default branch. This aggregate check always runs and rejects selection failures or missing selected tests. Don't add workflow-level path filters.
 4. Open one PR in each package. Confirm GitHub requests the intended team and runs only the tests that package and its dependencies need. Then change shared code and verify CI tests both packages.
 5. Deliberately fail one selected test and prove the aggregate check blocks the merge. Fix it and get the correct owner's approval.
-
-Keep the selected path's test results as [completion evidence](../../../README.md#completion-evidence).
 
 ### Install targeted CI
 

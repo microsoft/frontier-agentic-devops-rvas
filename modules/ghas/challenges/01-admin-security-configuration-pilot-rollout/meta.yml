@@ -3,7 +3,7 @@ title: Security configuration pilot and rollout
 module: ghas
 track: admin-governance
 difficulty: intermediate
-duration_minutes: 105
+duration_minutes: 90
 display_order: 10
 prerequisites: []
 prerequisite_capabilities:

@@ -1,39 +1,37 @@
 # Ch42: Repository inventory and lifecycle
 
-**Session outcome:** You confirm repository owners and get approval for cleanup decisions. You also archive and restore an approved test repository.
+**Session outcome:** You list a small set of real repositories, fix one metadata or ownership gap, and archive and restore one approved test repository.
 
 ## Prerequisites
 
-Pick a small set of approved customer repositories. Include the test repository's administrator and accountable owner. Read access is enough for the initial inventory.
+- A small set of approved customer repositories. Read access is enough for the inventory.
+- One test repository you may archive, and its administrator with approval for the archive and restore.
 
-If no customer repositories are approved, `setup.sh provision ch42 --org <org>` creates private samples. It never archives or deletes repositories. Sample results are practice.
+If no customer repositories are approved, `setup.sh provision ch42 --org <org>` creates private samples. It never archives or deletes repositories.
 
 ## Tasks
 
-1. Export the visible repository inventory with pagination. Review only the agreed repositories:
+1. List the agreed repositories:
    ```bash
    gh api --paginate --slurp 'orgs/<org>/repos?per_page=100&type=all' \
      --jq 'add | map({full_name,description,visibility,archived,pushed_at})' > inventory.json
    ```
-   Record access limits. The token may not have access to the full enterprise inventory.
-2. For each selected repository, check team grants and CODEOWNERS. Ask the proposed owning team to confirm in the review issue that they own it. A topic, recent committer, or CODEOWNERS entry alone doesn't establish a business owner.
-3. Resolve at least one missing owner with that team's explicit acceptance. If nobody accepts, ask the organization owner to decide. Leave the repository unchanged.
-4. Decide whether to keep the repository, improve its metadata, deprecate it, or propose archival. Before proposing archival, check dependent services and retention obligations. Fix one approved description or ownership record and verify it.
-5. For one approved test repository, save its URL, default-branch SHA, visibility, and current access. Confirm no active deployment, package consumer, or Pages dependency will break. Get approval for both the archive and the restore.
-6. Archive the repository and inspect its status:
+   The token may not see the full enterprise inventory.
+2. Pick one repository with a missing description or owner. Check its team grants and CODEOWNERS, ask the proposed team to confirm ownership in the review issue, then fix the description or ownership record and verify it. A topic or recent committer alone doesn't establish an owner.
+3. For the test repository, note its default-branch SHA, visibility, and access. Confirm no deployment, package consumer, or Pages site depends on it.
+4. Archive it and check the status:
    ```bash
    gh repo archive <org>/<approved-test-repo> --yes
    gh repo view <org>/<approved-test-repo> --json isArchived
    ```
-   Attempt a harmless branch push as a normal contributor and confirm writes are blocked.
-7. Restore using repository **Settings → General → Unarchive this repository**, or:
+   Try a harmless branch push as a normal contributor. It must fail.
+5. Restore it with **Settings → General → Unarchive this repository**, or:
    ```bash
    gh api --method PATCH repos/<org>/<approved-test-repo> -F archived=false
    ```
-   Verify the original SHA and permissions remain, and repeat the contributor branch push. Clean up the test branch.
-8. Have the owner pick the final state and the next review date. Keep the inventory and the archive and restore results as [completion evidence](../../../README.md#completion-evidence).
+   Confirm the SHA and permissions are unchanged, push the test branch again, then delete it.
 
-You don't need to transfer or delete anything. If archival isn't approved, keep an accepted lifecycle assessment and record the archive and restore test as blocked.
+**Blocked:** if archiving isn't approved, note the blocker in the review issue and stop. The session isn't complete. Don't transfer or delete anything.
 
 ## References
 

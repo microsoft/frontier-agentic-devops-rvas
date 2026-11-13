@@ -1,21 +1,18 @@
 # Activity 8: Onboard and operate Codename MDASH
 
-**Session outcome:** Codename MDASH has scanned a pilot GitHub repository, and you've triaged its findings and compared them with CodeQL. Without preview access, complete the readiness assessment and record who will close the gaps. **An assessment doesn't prove a live scan.**
+**Session outcome:** Codename MDASH has finished a scan of a pilot GitHub repository, and you've triaged at least one finding against CodeQL.
 
-Codename MDASH is Microsoft's multi-model agentic scanning harness: a preview capability inside Microsoft Defender's Security Exposure Management. It is separate from CodeQL and from the rest of GitHub Advanced Security. It complements CodeQL. It doesn't replace it or ingest CodeQL alerts.
+Codename MDASH is Microsoft's multi-model agentic scanning harness: a preview capability inside Microsoft Defender's Security Exposure Management. It complements CodeQL. It doesn't replace it or ingest CodeQL alerts.
 
-Live path: 120 minutes. Assessment-only path: 60 minutes. Neither figure includes the preview-enrollment wait, which this activity can't predict.
+The 120 minutes don't include the preview-enrollment wait or the up-to-one-hour repository discovery wait.
 
 ## Before you start
-
-Confirm every item below. Without preview enrollment, you can still do Step 0 and the assessment path.
 
 - Complete `ghas-admin-03`.
 - Codename MDASH preview enrollment for your tenant (checked in Step 0).
 - A Microsoft Entra **Global Administrator** or **Security Administrator**, authorized to accept the MDASH preview terms.
-- An Azure subscription and resource group for a dedicated Microsoft Foundry resource.
-- Permission to deploy Azure OpenAI models in that Foundry resource.
-- Defender unified RBAC admin access, to assign the agentic code security roles in Step 2.
+- An Azure subscription and resource group for a dedicated Microsoft Foundry resource, with permission to deploy Azure OpenAI models.
+- Defender unified RBAC admin access, to assign the agentic code security roles in Step 3.
 - GitHub organization owner on the pilot organization.
 - A [supported MDASH region](https://learn.microsoft.com/en-us/security-exposure-management/ai-code-security-overview#cloud-and-region-support) for the Foundry resource (US, EU, UK, Australia, India, Switzerland, or UAE; UAE supports CLI scans only).
 - Access to the [Microsoft Defender portal](https://security.microsoft.com) with permission to open Exposure Management and Initiatives.
@@ -31,25 +28,7 @@ To check for Codename MDASH preview access, open the Defender portal, go to **Ex
 
 **If you see it:** continue to Step 1.
 
-**If you don't see it, or your Entra admin can't confirm enrollment:** stop the live path and complete the assessment-only path below.
-
-### Blocked / assessment-only path
-
-Work through this table with your security lead. You don't need Defender portal access.
-
-| Readiness item | Status | Evidence or next step |
-| --- | --- | --- |
-| Preview enrollment request submitted | | Name the date and the Microsoft contact or enrollment form used |
-| Entra Global Administrator or Security Administrator identified | | Name the person who would accept preview terms |
-| Azure subscription and resource group available for a dedicated Foundry resource | | Name the subscription |
-| Model deployment permission confirmed | | Name who can deploy `gpt-5.4`, `gpt-5.3-codex`, `gpt-5.4-mini` |
-| Defender unified RBAC admin identified | | Name who would assign the AI Scan Security roles |
-| GitHub organization owner identified | | Name the person and organization |
-| Supported region selected | | Record the chosen region |
-| Pilot repository identified | | Reuse the `ghas-admin-03` repository or name another with CodeQL coverage |
-| Connector conflict checked | | Confirm whether `ghas-admin-07`'s connector exists on this organization |
-
-To finish the assessment-only path, answer every row and name an owner for enrollment follow-up. Return to the live path once enrollment clears.
+**If you don't see it, or your Entra admin can't confirm enrollment:** **Blocked.** Stop, note the blocker in the adoption issue, and resume once enrollment clears. The session isn't complete without a finished scan.
 
 ## Step 1: Accept preview terms
 
@@ -112,15 +91,9 @@ Once the pilot repository appears:
 
 ## Step 6: Triage findings and compare with CodeQL
 
-Open the finished scan's results in the Defender portal. For each finding, record its severity and confidence score.
+Open the finished scan's results in the Defender portal. Review each finding's severity and confidence score.
 
-Pick at least one finding (or one coverage area, such as a language CodeQL doesn't support) and compare it against your `ghas-admin-03` CodeQL results for the same repository:
-
-| Item | CodeQL | MDASH | Notes |
-| --- | --- | --- | --- |
-| | | | |
-
-Keep the CodeQL and MDASH results separate and compare them side by side.
+Triage at least one finding as valid, false positive, or needs follow-up. Then check whether your `ghas-admin-03` CodeQL results for the same repository cover it, and note the answer in the adoption issue. Keep the two result sets separate.
 
 ## Optional: the Defender CLI path
 
@@ -134,52 +107,32 @@ defender status ai-scan <JOB_ID>
 defender status wait <JOB_ID> -o results.sarif
 ```
 
-Use `--severity high` on `submit` to limit results to high and critical findings. Check the flag in your installed CLI's `--help` output. Review the downloaded SARIF, and check the Defender portal for an HTML view of the same results if your CLI version offers one. Keep CLI and portal scan results separate so each report names its run.
+Use `--severity high` on `submit` to limit results to high and critical findings. Check the flag in your installed CLI's `--help` output. Review the downloaded SARIF. Keep CLI and portal results separate.
 
 ## Optional: GitHub Copilot CLI remediation
 
-For one triaged finding, use the GitHub Copilot CLI to draft a fix in a local branch. Read the diff, run the affected tests, and open the pull request yourself through normal review. Current Microsoft and GitHub documentation doesn't describe automatic pull request creation from an MDASH finding, so a human drafts, tests, and submits every fix.
-
-## Data handling and ownership
-
-Record before you finish:
-
-- **Token and cost owner:** who monitors Foundry token consumption and TPM usage for the dedicated MDASH resource.
-- **Scanned-repository approval:** who approved this specific repository for MDASH scanning.
-- **Region:** the region you selected for the Foundry resource and its effect on data residency.
-- **Retention caveat:** Microsoft's current documentation doesn't state a retention period for MDASH scan history after a repository or connector is removed. Don't promise a retention window you can't verify.
+For one triaged finding, use the GitHub Copilot CLI to draft a fix in a local branch. Read the diff, run the affected tests, and open the pull request yourself. Automatic pull request creation from an MDASH finding isn't documented.
 
 ## Offboarding
 
-When you're done with the pilot:
+1. Remove the pilot repository from the MDASH GitHub connector, or deactivate the connector, in the Defender portal's connector settings.
+2. If you created the Foundry resource only for this pilot, delete it with its model deployments to stop token and compute cost.
 
-1. Remove the pilot repository from the MDASH GitHub connector, or deactivate the connector entirely, from the Defender portal's connector settings.
-2. If the Foundry resource was created only for this pilot, stop or delete it along with its model deployments to avoid ongoing token and compute cost.
-3. Record that historical scan results may persist in the Defender portal after disconnect. Don't claim removal is instant or complete; Microsoft doesn't document a timeline.
+Historical scan results may persist in the Defender portal after disconnect. Microsoft doesn't document a retention period or removal timeline.
 
 ## Completion check
 
-**Live path:**
-- Preview terms were accepted by an authorized Entra admin.
-- The dedicated Foundry resource is connected, validated, and scoped to MDASH only.
-- Defender unified RBAC permissions are assigned at the minimum level your pilot team needs.
-- The GitHub connector is active with Read-only scope (or Read+Write, with a stated reason), and the connector-conflict check is recorded.
-- At least one on-demand scan completed against the pilot repository.
-- Findings are triaged by severity and confidence, with a side-by-side comparison against at least one CodeQL result or coverage area.
-- Token/cost owner, repository approval, region, and retention caveat are recorded.
-- Offboarding steps are recorded, whether or not you exercised them.
+- An authorized Entra admin accepted the preview terms.
+- The dedicated Foundry resource is validated and used only by MDASH.
+- Defender unified RBAC permissions are the minimum your pilot team needs.
+- The GitHub connector is active with Read scope (or Read+Write for a stated reason), and no Azure-portal connector exists on the same organization.
+- An on-demand scan finished against the pilot repository.
+- At least one finding is triaged and compared with CodeQL.
 
-**Assessment-only path:**
-- Every row in the Step 0 readiness table has a status and a named owner or next step.
-- The connector-conflict check against `ghas-admin-07` is recorded even without live access.
-
-## Explicit limits
+## Limits
 
 - Codename MDASH is a **preview** capability. Availability, UI, and commands can change.
-- It complements static analysis. It doesn't replace CodeQL, which stays your baseline scanner.
-- It doesn't read CodeQL's alert feed.
-- It doesn't publish findings as native GitHub code-scanning alerts.
-- Automatic pull request creation from a finding isn't documented. Any fix PR in this activity is human-drafted and human-reviewed.
+- It doesn't replace CodeQL, doesn't read CodeQL alerts, and doesn't publish native GitHub code-scanning alerts.
 
 ## References
 

@@ -3,14 +3,12 @@ title: Programmatic access governance
 module: ghec
 track: admin-governance
 difficulty: advanced
-duration_minutes: 105
+duration_minutes: 60
 prerequisites: []
 prerequisite_capabilities:
-  - Organization owner who can approve the non-production fine-grained PAT pilot
-  - GitHub CLI (gh >= 2.x) and jq installed for optional read-only API evidence
-  - Enterprise owner or authorized enterprise PAT-policy export when enterprise PAT policy is in scope
-  - Approved private test repository and a consenting non-owner test member
-  - Approved organization scope and token-policy owner
+  - Organization owner who can approve and change the non-production PAT policy
+  - GitHub CLI (gh >= 2.x) installed
+  - Private test repository and a consenting non-owner test member
 description: "Configure token approval and verify repository scope and revocation with a non-owner request."
 tags:
   - governance

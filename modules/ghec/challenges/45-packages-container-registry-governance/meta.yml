@@ -3,7 +3,7 @@ title: Packages and container registry governance
 module: ghec
 track: automation-ai
 difficulty: intermediate
-duration_minutes: 90
+duration_minutes: 75
 prerequisites: []
 prerequisite_capabilities:
 - GitHub organization with package admin and repository admin rights

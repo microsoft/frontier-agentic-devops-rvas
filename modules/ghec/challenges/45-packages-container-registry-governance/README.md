@@ -11,7 +11,7 @@
 
 ## Scenario
 
-A customer publishes containers to GHCR, but visibility, ownership, and retention vary. Define a package standard and publish a sample image under an approved namespace. Tie package access to the intended repository or team, then record retention or cleanup evidence.
+A customer publishes containers to GHCR, but visibility, ownership, and retention vary. Publish a sample image under an approved namespace, then test who can pull it by digest.
 
 > [!IMPORTANT]
 > Use an approved customer package if one exists. If not, use the sample `ghec-ch45-*` namespace. Don't change production package visibility or delete production packages.
@@ -24,31 +24,30 @@ The publisher builds `Containerfile` from the checkout root. Use the application
 
 ## Tasks
 
-### Part A: Define the package standard
+### Part A: Publish a sample container
 
-1. Record the approved naming pattern, owner, source repository, visibility, access model, retention period, and deletion/restore approver.
-2. Require a source-repository link and image digest. **This session tests distribution and access, not provenance.** OCI labels and a digest aren't attestations. If you need provenance, get separate approval to generate an attestation and verify it cryptographically.
-3. Decide whether packages inherit repository permissions or use package-specific grants.
+1. Dispatch `publish.yml` from the source repository's default branch through **Actions → Publish private test image → Run workflow**.
+2. The workflow uses `GITHUB_TOKEN`, gives `packages: write` only to the publish job, and authenticates through `--password-stdin`. The image name is the lower-case source repository name, with a unique run/attempt tag and a source-repository label.
+3. Copy the complete `ghcr.io/owner/image@sha256:...` reference from the successful run summary. Open the package settings and confirm its source link and visibility. A new GHCR package is private by default; an existing package may keep its earlier visibility.
 
-### Part B: Publish a sample container
+This session tests distribution and access, not provenance. OCI labels and a digest aren't attestations.
 
-4. Dispatch `publish.yml` from the source repository's default branch through **Actions → Publish private test image → Run workflow**.
-5. Inspect the actual build and push. It uses `GITHUB_TOKEN`, gives `packages: write` only to the publish job, and authenticates through `--password-stdin`. The image name is the lower-case source repository name, with a unique run/attempt tag and a source-repository label.
-6. Copy the complete `ghcr.io/owner/image@sha256:...` reference from the successful run summary. Open the package settings and confirm its source link and visibility. A new GHCR package is private by default; an existing package may keep its earlier visibility.
+### Part B: Test authorized and unauthorized pulls
 
-### Part C: Govern access and visibility
-
-7. Confirm the package is private for this test. Agree its intended final visibility with the package owner.
-8. Tie package access to the intended repository or team.
-9. Keep the test package **private**. In its settings, add the consumer repository under **Manage Actions access** with read access. Dispatch `consume.yml` from that repository's default branch, supplying the exact published digest. The workflow first proves an unauthenticated client gets an access denial. It then authenticates with its own read-only `GITHUB_TOKEN`, pulls the same image, and checks the returned digest. Both steps must pass. A network error isn't proof of access denial.
+1. Keep the test package **private**. In its settings, add the consumer repository under **Manage Actions access** with read access.
+2. Dispatch `consume.yml` from that repository's default branch, supplying the exact published digest. The workflow first proves an unauthenticated client gets an access denial. It then authenticates with its own read-only `GITHUB_TOKEN`, pulls the same image, and checks the returned digest. Both steps must pass. A network error isn't proof of access denial.
 
 After this test, apply a different approved visibility only if the customer needs it. Anonymous pulls of a public package should succeed, so the private-access test should then fail. Don't widen package access just to make the consumer check pass.
 
-### Part D: Retention and cleanup
+### Part C: Package standard
 
-10. Identify stale tags or unapproved packages in the sample namespace.
-11. Delete only approved sample packages or record why they must remain.
-12. Document restore path, retention owner, and next review date.
+Keep this short list with the adoption issue:
+
+- naming pattern: owner, source repository, and visibility;
+- access model: inherit repository permissions or use package-specific grants;
+- retention: who approves deletion and restore.
+
+Delete only approved sample packages.
 
 ## Reference links
 

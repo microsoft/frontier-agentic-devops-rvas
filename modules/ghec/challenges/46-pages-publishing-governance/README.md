@@ -1,22 +1,18 @@
 # Ch46: Pages publishing governance
 
-**Session outcome:** Your approved repository publishes a GitHub Pages site under the agreed visibility policy. You test publication and rollback, and record the publishing owner and any exceptions.
+**Session outcome:** Your approved repository publishes a GitHub Pages site that the right readers can open and others can't. You publish a change and roll it back through review.
 
 ## Prerequisites
 
 - Owner rights on a GitHub Enterprise Cloud organization.
 - A token with the scopes listed by `modules/ghec/resources/provisioning/scripts/setup.sh doctor ch46 --org <org>`.
 - Local tooling: `gh >= 2.x`, `git`, `jq`.
-- A repository that is approved to publish a Pages site, or the seeded sample repository.
-
-## Scenario
-
-A customer wants to use GitHub Pages for engineering documentation. Agree who may publish and who may read the site. Configure one approved repository and test publication and rollback.
+- A repository approved to publish Pages, or the seeded sample repository.
 
 > [!IMPORTANT]
-> Use an approved customer target first. If you have a real documentation repository, use it and skip setup. If not, use the fallback `ghec-ch46-pages-site` repository that setup creates. Don't change organization Pages settings without explicit approval.
+> Use an approved customer repository if you have one. Otherwise use `ghec-ch46-pages-site`. Don't change organization-wide Pages settings without explicit approval.
 
-## Sample test repository or environment
+## Sample test repository
 
 ```bash
 bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch46 --org <org>
@@ -25,45 +21,30 @@ bash modules/ghec/resources/provisioning/scripts/setup.sh provision ch46 --org <
 modules/ghec/resources/provisioning/scripts/setup.ps1 provision ch46 --org <org>
 ```
 
-Setup is idempotent and creates only these namespaced artifacts. Teardown accepts only the `ghec-ch46-*` prefix.
-
-- `ghec-ch46-pages-site` with starter static content under `docs/`.
-- A governance issue listing the policy decision to complete.
-- A printed organization Pages policy snapshot when the API returns those fields.
+Setup is idempotent. It creates `ghec-ch46-pages-site` with starter content under `docs/` and a governance issue. Teardown accepts only the `ghec-ch46-*` prefix.
 
 ## Tasks
 
-### Part A: Capture current policy
-
-1. Snapshot organization Pages settings from Organization settings → Pages, or with the organization API when available.
-2. Record who may publish, visibility options, the default policy, and the exception owner.
-3. Decide whether to change the production policy now or record a rollout proposal.
-
-### Part B: Approve the publishing model
-
-4. Choose the publishing source: branch folder (`docs/`) or GitHub Actions.
-5. Record site owner, content owner, review cadence, rollback owner, and incident contact.
-6. Confirm repository and Pages visibility separately. A private repository doesn't make its Pages site private. Publish only non-sensitive content until you verify who can read the site.
-
-### Part C: Configure repository Pages
-
-7. In the approved repository, configure Pages in Settings → Pages, or use the REST API for repository-level Pages setup:
+1. Check the current policy in Organization settings → Pages: who may publish and which visibility options exist. Note the owner of any exception in the governance issue.
+2. Publish from the `docs/` folder on `main` (or use GitHub Actions if the customer prefers). In Settings → Pages, or with the API:
    ```bash
    gh api -X POST repos/<org>/ghec-ch46-pages-site/pages \
      -f 'source[branch]=main' \
      -f 'source[path]=/docs'
    ```
-8. If Pages already exists, update the source instead of creating a duplicate configuration.
-9. Don't change org-wide Pages publication settings unless the approved policy decision says to.
+   If Pages already exists, update the source instead.
+3. Check the result:
+   ```bash
+   gh api repos/<org>/ghec-ch46-pages-site/pages
+   ```
+4. **Test access.** Repository visibility and Pages visibility are separate: a private repository doesn't make its site private. Publish only non-sensitive content until you've checked this.
+   - Open the site as an intended reader and in a signed-out browser.
+   - For a private site, confirm a denied account can't read it.
+   - For an approved public site, confirm signed-out access works.
+5. Push a harmless marker change through a PR and confirm it appears on the site.
+6. Revert that commit through a reviewed PR, wait for the deployment, and confirm the earlier content is back for the same audience.
 
-### Part D: Verify publication and rollback
-
-10. Capture repository Pages settings:
-    ```bash
-    gh api repos/<org>/ghec-ch46-pages-site/pages
-    ```
-11. Visit the site from an intended reader account and a signed-out browser. For a private site, verify that a denied account cannot read the content either. For an approved public site, confirm signed-out access works. If private publication is unavailable, leave customer content unpublished and record the blocker.
-12. Publish a harmless marker change through normal review and confirm it appears. Revert that commit through a reviewed PR, wait for the Pages deployment, and verify the prior content is restored for the same audience. Keep both deployment URLs and the access results.
+**Blocked:** if private publication or your approval is missing, leave customer content unpublished, note the blocker in the governance issue, and stop. The session isn't complete.
 
 ## Reference links
 

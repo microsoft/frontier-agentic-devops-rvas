@@ -35,7 +35,7 @@ With the organization owner:
 
 The App bypass covers the creation policy only. Organization owners keep their admin authority; this session doesn't change that.
 
-If the App isn't in the policy's allow list, or the policy feature is unavailable, **stop**. Don't enable unrestricted member creation or use an owner's PAT.
+If the App isn't in the policy's allow list, or the policy feature is unavailable, **stop**. Note the blocker in the adoption issue; the session isn't complete. Don't enable unrestricted member creation or use an owner's PAT.
 
 ### Part C: Install the form and workflow
 
@@ -82,26 +82,25 @@ Protect the default branch and require platform-owner review for `.github/workfl
 
 Submitting the form starts a workflow that waits. **Approval is what allows creation.** If someone edits the request while it waits, the old run fails and a new review starts.
 
-### Part E: Prove the boundaries
+### Part E: Test the boundaries
 
-Use a fresh service name for each successful test:
+Use a fresh service name for each successful test. The success path plus these two denials are required:
 
 | Test | Expected result |
 |---|---|
 | Approved own-team request | Internal repository with the expected name, template files, and team Write |
-| Missing approval or rejected deployment | No repository |
-| Approver outside the maintainer team, without Maintain/Admin, or approving their own request | No repository |
-| Request for another team, unknown team, or malformed service name | No repository |
-| Request edited while waiting | Old approval fails; a new run needs approval |
-| Template changed without updating the approved commit | No repository |
-| Existing repository with the requested name, or replayed successful run | No new repository and no access changes to the existing one |
+| Request for another team or malformed service name | No repository |
 | Normal member attempts direct creation | GitHub rejects it |
 
-**A failed run leaves the request open.** The starter never adopts existing repositories. If creation succeeds but a later check or team grant fails, leave the request open. The run records the new repository's numeric ID as soon as GitHub returns it.
+**A failed run leaves the request open.** The starter never adopts existing repositories. If creation succeeds but a later check or team grant fails, the run records the new repository's numeric ID as soon as GitHub returns it. An organization owner checks that ID, the template tree, and the failed step, then repairs the same repository. If a creation response is lost, check the requested name and run time before retrying. Don't delete a repository or reuse an existing name just to make a run pass.
 
-An organization owner checks that ID, the template tree, and the failed step, then repairs the same repository. If a creation response is lost, the repository may still exist: check the requested name and run time before retrying. Don't delete a repository or reuse an existing name just to make a run pass. After the repair, verify the first PR and close the request with the result.
+**Optional:** also test these cases, each of which must create no repository:
 
-Keep the successful request and a rejected request as [completion evidence](../../../README.md#completion-evidence). Include the direct-creation denial and first-PR link. Name who handles failed runs.
+- Missing approval or rejected deployment.
+- Approver outside the maintainer team, without Maintain/Admin, or approving their own request.
+- Request edited while waiting (the old approval fails and a new run needs approval).
+- Template changed without updating the approved commit.
+- Existing repository with the requested name, or a replayed successful run (no access changes to the existing one).
 
 ## References
 

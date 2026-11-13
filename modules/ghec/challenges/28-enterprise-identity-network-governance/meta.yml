@@ -3,13 +3,11 @@ title: Enterprise identity and network governance
 module: ghec
 track: admin-governance
 difficulty: advanced
-duration_minutes: 120
+duration_minutes: 60
 prerequisites: []
 prerequisite_capabilities:
-  - Enterprise owner who can approve and configure the selected access pilot
-  - Named customer IdP owner
-  - Named enterprise governance owner and break-glass owner
-  - Customer organization and identity-boundary decisions
+  - Enterprise owner who can change and approve the selected access control
+  - Customer IdP owner, if the identity option is chosen
 description: "Configure one approved enterprise access control and test allowed and denied actions."
 tags:
   - enterprise-governance

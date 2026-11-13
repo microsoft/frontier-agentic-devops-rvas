@@ -3,14 +3,13 @@ title: Repository inventory and lifecycle
 module: ghec
 track: admin-governance
 difficulty: advanced
-duration_minutes: 90
+duration_minutes: 60
 prerequisites: []
 prerequisite_capabilities:
-- Approved repositories and an administrator for the archive test
+- Approved repositories and an administrator with approval to archive and restore a test repository
 - GitHub CLI (gh >= 2.x) installed
 - git installed
 - jq installed
-- Accountable owners and approval for archive and restore
 description: "Confirm repository owners and safely test archiving and restoring a repository."
 tags:
 - repository-lifecycle

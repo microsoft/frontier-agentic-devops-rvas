@@ -3,7 +3,7 @@ title: Safe auto-merge
 module: ghec
 track: developer-flow
 difficulty: advanced
-duration_minutes: 60
+duration_minutes: 45
 prerequisites: []
 prerequisite_capabilities:
 - Repository administrator and an independent reviewer

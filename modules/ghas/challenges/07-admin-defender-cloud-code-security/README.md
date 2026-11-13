@@ -1,36 +1,27 @@
 # Activity 7: Connect GitHub security findings to production risk
 
-**Session outcome:** You trace a code scanning or Dependabot alert to the running container workload it ships in. Defender for Cloud supplies the mapping, GitHub shows `has:deployment` and `runtime-risk:` context on the alert, and a campaign filtered on that context is live in the organization.
+**Session outcome:** You trace a code scanning or Dependabot alert to the running AKS container workload it ships in. Defender for Cloud supplies the mapping, and GitHub shows `has:deployment` and `runtime-risk:` context on the alert.
 
-This activity needs real Azure and GitHub infrastructure that you provision outside this repository. Start the setup, give Microsoft's services time to propagate, and come back one or two days later to finish. The 120 minutes of active work excludes the wait.
+This activity needs real Azure and GitHub infrastructure that you provision outside this repository. Start the setup, then return after the mapping finishes. The 105 minutes of active work excludes the multi-day waits.
 
 ## What the integration does
 
-Defender for Cloud correlates GitHub's existing code scanning and Dependabot alerts with container registries, AKS workloads, internet exposure, and sensitive-data handling. CodeQL and Dependabot still produce the findings. A human uses the runtime context to set priorities and create campaigns or GitHub issues. The integration doesn't publish them.
+Defender for Cloud correlates GitHub's existing code scanning and Dependabot alerts with container registries, AKS workloads, internet exposure, and sensitive-data handling. CodeQL and Dependabot still produce the findings. It doesn't enrich secret-scanning alerts. To turn runtime risk into a campaign, use `ghas-admin-06`.
 
 ## Before you start
 
-Confirm every item below before you provision anything. A missing item blocks the activity.
+A missing item blocks the activity. If you can't get one, stop, note the blocker in the adoption issue, and don't mark the session complete.
 
-- Complete `ghas-admin-03` and `ghas-admin-06`, or show equivalent live CodeQL enforcement and a published campaign.
+- Complete `ghas-admin-03` and `ghas-admin-06`, or show equivalent live CodeQL enforcement.
 - A **commercial** Azure subscription. The integration isn't available in Azure Government, Azure operated by 21Vianet, or other sovereign clouds.
 - Defender Cloud Security Posture Management (CSPM) enabled on that subscription, or permission to enable it.
-- Azure Contributor (to create the connector and cloud resources) and Security Admin (to view Defender for Cloud findings) on the subscription.
-- GitHub organization owner on the pilot organization, for connector creation and campaigns.
+- Azure Contributor (to create the connector and cloud resources) and Security Admin (to view Defender for Cloud findings).
+- GitHub organization owner on the pilot organization.
 - GitHub Code Security enabled on the pilot repository, with existing code scanning and Dependabot alerts.
 - An Azure Container Registry (ACR) and an AKS cluster, or permission to create them.
 - A container image you can build and push from the pilot repository.
 
-Name four owners before you provision anything:
-
-| Role | Responsibility |
-| --- | --- |
-| Azure owner | Creates and owns the connector, ACR, and AKS cluster |
-| GitHub owner | Creates the campaign and reviews connector scope |
-| Security owner | Confirms runtime-risk evidence and approves campaign priorities |
-| Rollback owner | Disconnects the connector and removes cloud resources if the pilot stops |
-
-This integration ties runtime risk to code. It doesn't enrich secret-scanning alerts; Microsoft's current documentation doesn't describe that alert type for this feature. Artifact attestations are optional context, so skip them unless a question needs them. CodeQL stays your baseline scanner.
+If anyone but you owns Azure or the connector, name them now. They also own disconnecting it if the pilot stops.
 
 ## Provision the external infrastructure
 
@@ -58,15 +49,13 @@ Reference: [Connect your GitHub organizations](https://learn.microsoft.com/en-us
 
 Defender for Cloud's agentless scanning discovers your repository, registry, and cluster to build the code-to-runtime map. It finds artifacts. It doesn't look for vulnerabilities in your source. The agentless-scanning toggle in the deployment guide controls this discovery, not runtime-risk correlation. Say so when you report what you enabled.
 
-## Pause-and-return checkpoints
+## Wait for the mapping
 
-Mapping takes time. Plan around these windows, and capture a timestamp as evidence at each one. Don't poll in a loop.
+Don't poll in a loop. Plan around these windows. None counts toward the session duration.
 
-1. **Repository discovery.** After you activate the connector, GitHub repository discovery can take up to an hour. Confirm the pilot repository appears in the connector's onboarded list before you move on.
-2. **Full code-to-runtime mapping.** Microsoft's guidance allows up to 24 hours for the registry and cluster scans to complete and for the repository, image, and workload to link together. **Stop this session here and schedule a return.**
-3. **Criticality propagation.** After you mark a resource critical (next section), allow up to 12 hours for that signal to reach GitHub's `runtime-risk:` filters.
-
-Record each step's completion time with a passing validation query.
+1. **Repository discovery.** After you activate the connector, discovery can take up to an hour. Confirm the pilot repository appears in the connector's onboarded list.
+2. **Full code-to-runtime mapping.** Microsoft's guidance allows up to 24 hours for the registry and cluster scans to finish and link the repository, image, and workload. **Stop here and schedule a return.**
+3. **Criticality propagation.** After you mark a resource critical (below), allow up to 12 hours for the signal to reach GitHub's `runtime-risk:` filters.
 
 ## Validate the mapping
 
@@ -86,45 +75,26 @@ If the query returns nothing, check that the image was pushed and deployed, and 
 3. **Wait up to 12 hours**, then open the pilot repository's code scanning or Dependabot alerts in GitHub and filter with:
    - `has:deployment` — confirms GitHub knows the alert's code shipped in a deployed artifact.
    - `runtime-risk:` — confirms the specific risk factor (internet exposure, sensitive data, critical resource, or lateral movement) that Defender for Cloud supplied.
-4. Record a screenshot or `gh api` output showing at least one alert with both filters matching, and the timestamp you captured it.
+4. Confirm at least one alert matches both filters.
 
 If no alert shows `runtime-risk:` context after the wait, check that the image deployed to AKS actually corresponds to a commit with open alerts — a clean rebuild between the vulnerable commit and your deployed image won't match.
-
-## Publish the campaign
-
-A human creates and publishes the campaign in GitHub. Defender for Cloud doesn't do it for you.
-
-1. In the pilot organization, go to **Security > Campaigns > Create campaign > From code scanning filters**.
-2. Apply the **Runtime Risks** filter alongside your normal severity and repository filters.
-3. Assign a campaign manager, set a due date, and add remediation guidance, following the same pattern as `ghas-admin-06`.
-4. Publish the campaign and copy its URL and number into your tracking issue.
-
-Reference: [Creating and managing security campaigns](https://docs.github.com/en/code-security/how-tos/manage-security-alerts/remediate-alerts-at-scale/creating-managing-security-campaigns).
-
-## Create one GitHub issue from a Defender recommendation
-
-In Defender for Cloud, open a security recommendation tied to your pilot workload and select its **View on GitHub** link, then generate a GitHub issue assignment from the recommendation. Assign the issue to the repository owner you named earlier and confirm the issue carries runtime context, not just the bare CVE. Track its status in both Defender for Cloud and GitHub. Microsoft's current documentation shows both sides reflecting the same status in real time.
 
 ## Troubleshooting and stop conditions
 
 - **No repositories appear after an hour:** check the GitHub App installation and organization authorization; re-run the connector wizard if needed.
 - **Cloud Security Explorer returns nothing after 24 hours:** confirm the image was actually pushed to the connected ACR and the pod is running on the connected AKS cluster, not a different registry or cluster.
 - **No `runtime-risk:` filter after 12 hours:** confirm the workload was marked critical, and that the deployed image traces back to a commit with open alerts.
-- **Stop the pilot** if the connector can't authorize against the organization, if Azure role assignments can't be obtained, or if the 24-hour mapping window passes with no Cloud Security Explorer results after two retries. Hand the stop decision and the resource cleanup to the rollback owner.
+- **Stop the pilot** if the connector can't authorize against the organization, if Azure role assignments can't be obtained, or if the 24-hour mapping window passes with no Cloud Security Explorer results after two retries. Note the blocker in the adoption issue. The session isn't complete.
 
 ## Offboarding
 
-When you're done with the pilot, the rollback owner should disconnect the GitHub connector from **Environment settings** in the Azure portal and remove the ACR/AKS resources if they were created only for this activity. Disconnecting the connector stops new correlation. It doesn't erase alerts or campaign history already in GitHub. Microsoft doesn't document a retention period for Defender-side scan artifacts after disconnect. Confirm cleanup with the Azure owner before closing the tracking issue.
+If the pilot stops, disconnect the GitHub connector from **Environment settings** in the Azure portal and remove the ACR/AKS resources if you created them only for this activity. Disconnecting stops new correlation. It doesn't erase alerts already in GitHub. Microsoft doesn't document a retention period for Defender-side scan artifacts after disconnect.
 
 ## Completion check
 
-- Four owners are named: Azure, GitHub, security, and rollback.
-- The connector is active and scoped to the pilot repository or a small pilot set, not the whole organization.
-- Cloud Security Explorer (or its current equivalent) shows the repository, image, and AKS workload linked, with a timestamp.
-- At least one alert in the pilot repository shows `has:deployment` and a `runtime-risk:` value, with a timestamp taken after the 12-hour propagation window.
-- A published campaign exists, scoped with the Runtime Risks filter, with its URL and number recorded.
-- One GitHub issue was created from a Defender recommendation (if your tenant's current flow supports that action), with an assigned owner and status visible in both systems.
-- The rollback plan and its owner are recorded, whether or not you exercised it.
+- The connector is active and scoped to the pilot repository, not the whole organization.
+- Cloud Security Explorer shows the repository, image, and AKS workload linked.
+- At least one alert in the pilot repository shows `has:deployment` and a `runtime-risk:` value.
 
 ## References
 

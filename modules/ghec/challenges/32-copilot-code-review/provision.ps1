@@ -15,8 +15,8 @@ function _Ch32-SeedMain {
 This isolated repository is a safe review target. It does not enable Copilot,
 configure a ruleset, or change human merge controls.
 
-Use the open pull request to request a manual Copilot review, then record the
-human triage and the automatic-review decision in docs/decision-package.md.
+Use the open pull request to request a manual Copilot review, then triage the
+comments as a human reviewer.
 "@
 
   Set-GhecFile -Org $o -Repo $r -Path 'src/normalize.js' -Message "seed review target (ghec-$ch)" -Content @"
@@ -50,19 +50,6 @@ risks. Treat human review and CODEOWNERS as the approval authority. Do not
 recommend adding secrets or weakening branch protections.
 "@
 
-  Set-GhecFile -Org $o -Repo $r -Path 'docs/decision-package.md' -Message "seed decision package (ghec-$ch)" -Content @"
-# Copilot code review decision package
-
-- Effective policy and availability evidence:
-- Customer repository scope and owner:
-- Manual review PR and human comment triage:
-- Ruleset scope; new-push and draft-review decisions:
-- Shared setup versus optional copilot-code-review.yml decision:
-- Human review and CODEOWNERS controls retained:
-- Preview options excluded or separately approved:
-- Rollback executor, restore steps, and verification:
-- Next decision, owner, and review date:
-"@
 }
 
 function _Ch32-SeedReviewCandidate {
@@ -95,7 +82,7 @@ function Invoke-GhecProvision {
   }
   _Ch32-SeedMain
   _Ch32-SeedReviewCandidate
-  Write-GhecInfo "Next steps: request a manual Copilot review on $($Global:GhecReviewBranch), retain human review, and record the automatic-review decision."
+  Write-GhecInfo "Next steps: request a manual Copilot review on $($Global:GhecReviewBranch), and retain human review."
 }
 
 function Invoke-GhecTeardown {

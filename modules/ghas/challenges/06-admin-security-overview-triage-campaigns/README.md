@@ -1,23 +1,14 @@
 # Activity 6: Run a bounded security campaign
 
-**Session outcome:** A developer completes a reviewed code fix in a published campaign. A rescan confirms the fix and the campaign shows the progress.
+**Session outcome:** A developer completes a reviewed code fix in a published campaign. A rescan confirms the fix and the campaign shows progress.
 
 ## Before you start
 
 - Complete `ghas-admin-01` and `ghas-admin-03`, or show equivalent live configuration and CodeQL merge checks.
 - Work as an organization owner or security manager who can view Security Overview and create campaigns.
 - Find a developer with write access to the repository who will own a campaign fix.
-- If you test delegated dismissal, confirm it's configured for the alert type.
-- If an exception needs approval, use the customer's existing issue or risk system.
 
-GitHub stores alert and campaign state. The approved risk system stores the exception approval, expiry, and return path.
-
-Agree on response targets with the security owner. Set due dates in the existing
-restricted work system, from the customer's severity policy and the alert's
-creation time. Assign a remediation owner and an escalation contact. Check one
-real alert against its target and follow up if it's overdue. Handle Dependabot
-and secret alerts separately, because **campaigns track code scanning only**.
-Keep sensitive alert details out of public issues and AI prompts.
+**Campaigns track code scanning only.** Handle Dependabot and secret alerts separately. Keep sensitive alert details out of public issues and AI prompts.
 
 ## Set up the alerts
 
@@ -61,7 +52,7 @@ gh api orgs/<org>/code-scanning/alerts --paginate \
   --jq '.[] | select(.state=="open") | {number, repo: .repository.name, rule: .rule.id, severity: .rule.security_severity_level}'
 ```
 
-Record the query time and each alert type's count. With `--paginate`, `length`
+Note the query time and each alert type's count. With `--paginate`, `length`
 prints a count per page, so sum the pages for each endpoint. These repository-wide
 counts differ from the campaign's, which include **code scanning alerts only**.
 If you expect alerts but find none, check the feature state and scan results.
@@ -77,21 +68,11 @@ Check for gaps, such as:
 - Dependabot alerts or security updates disabled.
 - A stale or failed CodeQL analysis.
 
-Fix any gap in GitHub and verify the new state. If coverage already meets the
-approved scope, record that in the campaign issue or approved work item. Don't
-disable a control to create work.
-An `unaffected` row still needs investigation if the feature is off.
+Fix any gap in GitHub and verify the new state. Don't disable a control to create work.
 
 ### 3. Define the campaign alert set
 
-Pick a finite set of code scanning alerts from the default branch. Record:
-
-- The filters and starting count.
-- Included repositories.
-- Campaign manager and engineering sponsor.
-- Due date and remediation guidance.
-- Completion rule.
-- Exception and escalation path.
+Pick a finite set of code scanning alerts from the default branch. Note the filters, starting count, included repositories, campaign manager, due date, and remediation guidance.
 
 Keep the campaign at or below 1,000 alerts. If the filtered set is larger, narrow it or split it into separate campaigns. Check the published campaigns first so you don't overlap with one.
 
@@ -102,32 +83,13 @@ gh api orgs/<org>/campaigns --paginate \
   --jq '.[] | {number, name, state, ends_at}'
 ```
 
-### 3b. Apply production context
-
-Defender for Cloud can correlate the code scanning and Dependabot alerts GitHub already produces with deployment and runtime context, such as internet exposure or sensitive-data handling. It doesn't replace scanning and doesn't create or publish the campaign. A human still does that in GitHub.
-
-**Live path:** complete `ghas-admin-07` first, then return here with real `has:deployment` and `runtime-risk:` evidence from that activity's pilot repository. In the GitHub organization security UI, apply those filters to the alert set and compare the result against your step 3 filters. Don't re-create the connector here; `ghas-admin-07` owns that setup.
-
-**No-access path:** without that connector, use this synthetic scenario to choose the campaign alerts. These services aren't real.
-
-| Alert | Severity | Deployed | Internet-facing | Sensitive data | Campaign priority | Reason |
-| --- | --- | --- | --- | --- | --- | --- |
-| `checkout-api` SQL injection | Critical | Yes | Yes | Yes | Include first | Deployed, internet-facing, touches payment data |
-| `internal-reports-svc` path traversal | High | Yes | No | No | Include, lower priority | Deployed but internal-only, no sensitive data |
-| `legacy-batch-job` XXE | High | No | No | No | Defer | Not deployed, so no runtime exposure yet |
-| `auth-gateway` JWT validation bypass | Critical | Yes | Yes | Yes | Include first | Deployed, internet-facing, guards authentication |
-| `staging-only-cache` deserialization | Medium | Yes (staging) | No | No | Exclude from this campaign | Staging traffic only, not production |
-
-Record the revised campaign alert set and one short reason for the change in the existing campaign issue or approved work item. Label synthetic results as practice. They don't verify the connector.
+To narrow the set by production risk (`has:deployment`, `runtime-risk:`), complete `ghas-admin-07` first. Optional.
 
 ### 4. Publish the campaign
 
 Create the campaign from **Security and quality > Campaigns**. Use the filters from step 3, assign the manager, set the due date, and add practical remediation guidance.
 
-Copy the campaign URL and number into the existing campaign issue or approved
-work item. The fixture's pre-created issue can hold this evidence.
-
-Publish the campaign in GitHub. **A campaign plan alone doesn't complete this step.**
+Publish the campaign in GitHub and copy its URL and number into the fixture's campaign issue. **A campaign plan alone doesn't complete this step.**
 
 ### 5. Start the developer's contribution
 
@@ -136,33 +98,11 @@ Ask the developer with write access to:
 1. Open the published campaign.
 2. Open the campaign-generated repository issue, when GitHub creates one.
 3. Trace an assigned alert and confirm the fix scope with its owner.
-4. Open a fix PR with a regression test, then obtain review in step 7.
-5. Record any access failure without sharing sensitive alert data.
+4. Open a fix PR with a regression test, then obtain review in step 6.
 
 If the developer can't reach the work, fix the permission or assignment. Looking at the administrator view again isn't an access test.
 
-### 6. Review an exception if needed
-
-Use an exception only if the team has a defensible reason to defer a fix.
-Otherwise skip this step. Add these fields to the approved exception record:
-
-| Field | Required value |
-| --- | --- |
-| Alert and repository | Direct links |
-| Business owner | Named approver |
-| Technical reason | Evidence from the alert or runtime |
-| Compensating control | Named control and latest test |
-| Expiry | A date within the customer's approved policy |
-| Return path | Fix, reapproval, or reopen |
-
-Have the developer request dismissal. A delegated reviewer must approve or reject it against the record. The remediation owner can't approve their own accepted risk.
-
-If approved, verify the alert state and campaign count. Schedule the expiry review in the system that owns the exception. GitHub's dismissed state doesn't enforce the expiry date.
-
-To test delegated dismissal, use a reviewer and a safe sample alert.
-Label it **practice**. Never create a real risk exception to test the workflow.
-
-### 7. Complete a campaign fix
+### 6. Complete a campaign fix
 
 Have the developer complete one assigned code scanning fix.
 In the fixture, use `ghas-admin-06-campaign-remediation`. Run a regression test
@@ -175,54 +115,38 @@ Dependency updates and secret response can run alongside the campaign if needed.
 Report their alert changes separately. Mark a never-issued synthetic secret
 `used_in_tests`. It doesn't count as a revoked real credential.
 
-### 8. Measure burn-down
+### 7. Measure burn-down
 
-Capture the campaign's starting and ending open-alert counts. Calculate:
+Note the campaign's starting and ending open-alert counts. Calculate:
 
 ```text
 burn-down = starting open alerts - ending open alerts
 completion rate = burn-down / starting open alerts
 ```
 
-Keep the filters and included repositories the same for this comparison. Record
-elapsed time and separate code fixes from dismissals. Note any new alerts or scope
-changes that affect the counts. The difference alone doesn't prove fixes.
-Leave Dependabot and secret-scanning counts out of these calculations.
+Keep the filters and included repositories the same for this comparison. Separate code fixes from dismissals. Leave Dependabot and secret-scanning counts out.
 
 Open the campaign as the developer again and confirm its count and completion state match the alert changes.
 
-### 9. Decide whether to expand the rollout
+### Optional: exceptions and delegated dismissal
 
-Approve the next repository set only if:
-
-- The selected repository has the intended security configuration.
-- Scans are current.
-- The developer can reach assigned campaign work.
-- Each exception has an owner and an expiry review scheduled.
-- The measured burn-down matches the underlying alert states.
-
-Stop the rollout on any unexplained attachment failure, stale scan, access failure, campaign limit breach, or overdue exception. Name the rollback owner and the condition for resuming.
+If a team has a defensible reason to defer a fix, have the developer request dismissal and a delegated reviewer approve or reject it. The remediation owner can't approve their own risk. GitHub's dismissed state doesn't enforce an expiry date, so track expiry where the exception is approved. Test with a **practice** alert only. Never create a real exception to test the workflow. See [Delegated alert dismissal](https://docs.github.com/en/code-security/concepts/security-at-scale/delegated-alert-dismissal).
 
 ## Completion check
 
-You're done when you have:
+You're done when:
 
-- Evidence from Coverage that you checked the repository and fixed any gaps.
-- A runtime-risk scoping decision for the campaign alert set, from the live path or the inline scenario.
-- A published campaign URL and number.
-- A developer's merged code fix with passing tests and human review.
-- A default-branch rescan that confirms the fix, with progress in the campaign.
-- Starting and ending code scanning counts that separate fixes from dismissals.
-- A delegated decision and scheduled expiry review for any exception.
-- A rollout or stop decision with a named owner.
+- Coverage for the repository is checked and gaps are fixed.
+- A campaign is published, with its URL and number in the campaign issue.
+- A developer's code fix is merged with passing tests and human review.
+- A default-branch rescan confirms the fix and the campaign shows progress.
+- Starting and ending code scanning counts separate fixes from dismissals.
 
 ## Common failures
 
 - Publishing a campaign that exceeds the alert or active-campaign limit.
 - Treating the administrator view as proof that developers have access.
 - Counting dismissed alerts as fixed code.
-- Recording an exception only in an alert comment.
-- Expanding rollout while coverage, scans, or campaign access still fail.
 - Counting dependency or secret-alert changes as campaign progress.
 
 ## References

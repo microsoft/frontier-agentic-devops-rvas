@@ -3,7 +3,7 @@ title: Branches, pull requests and code review
 module: ghec
 track: developer-flow
 difficulty: beginner
-duration_minutes: 75
+duration_minutes: 60
 prerequisites: []
 prerequisite_capabilities:
 - Customer repository write access and an administrator for review rules

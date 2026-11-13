@@ -1,10 +1,10 @@
 # Ch49: Publish an approved, tested release
 
-**Session outcome:** A protected workflow publishes the exact tested artifact after independent approval. A rejected run publishes nothing, and the owner verifies recovery.
+**Session outcome:** A protected workflow publishes the exact tested artifact after independent approval. A rejected run publishes nothing, and the published files match the reviewed ones by checksum.
 
 ## Prerequisites
 
-You need an approved repository with working build and artifact tests, a repository administrator, and an independent environment reviewer. You also need `gh`, `git`, and a local SHA-256 tool. Configure only an approved test release. **Ch39 and a cloud deployment aren't prerequisites.**
+You need a repository with working build and artifact tests, a repository administrator, and an independent environment reviewer. You also need `gh`, `git`, and a local SHA-256 tool. Use an approved test release. **Ch39 and a cloud deployment aren't prerequisites.**
 
 The [complete workflow example](../../resources/release/release.yml) uses a Node.js repository with a committed `package-lock.json`. It requires:
 
@@ -14,17 +14,17 @@ The [complete workflow example](../../resources/release/release.yml) uses a Node
 
 For another stack, swap in the runtime and the **Build and test** step from the customer's existing commands. Keep the tested output in `dist/`, or change the packaging path to match. The publish job must never build or run the application.
 
+**Blocked:** if required reviewers aren't available for the repository's plan or visibility, stop and note the blocker in the adoption issue. A label or an approval in chat doesn't replace the gate, and the session isn't complete.
+
 ## Tasks
 
 ### Part A: Protect the publication route
 
-1. Identify the candidate, the prior known-good artifact, and the recovery owner. Reuse the Ch39 recovery result if you already restored that artifact and passed its smoke test.
-2. Configure a test publication environment using the [shared approval setup](../../resources/environment-approval.md), or reuse an existing one that already meets those requirements. Allow only the protected default branch, such as `main`. The manual workflow runs on that branch even though it publishes a tag.
-3. Protect changes to `.github/workflows/release.yml` with CODEOWNERS and required code-owner review. Require review for the build scripts and artifact tests too.
-4. With the administrator, apply tag rules to the release tag pattern (for example `v*`). Restrict updates and deletions, and restrict creation to the approved release operator or tag workflow. Don't give ordinary publishers an update or delete bypass. If available, enable release immutability in **Settings → General → Releases** before the test publication.
-5. Record administrators and other identities with write credentials that can publish outside this workflow. **The environment gates this job only.** It doesn't stop another workflow or an authorized API client from creating a release. Don't add App keys or deployment secrets to this workflow.
+1. Configure a test publication environment using the [shared approval setup](../../resources/environment-approval.md), or reuse one that already meets those requirements. Allow only the protected default branch, such as `main`. The manual workflow runs on that branch even though it publishes a tag.
+2. Protect changes to `.github/workflows/release.yml` with CODEOWNERS and required code-owner review. Require review for the build scripts and artifact tests too.
+3. With the administrator, apply tag rules to the release tag pattern (for example `v*`). Restrict updates and deletions, and restrict creation to the release operator or tag workflow. If available, enable release immutability in **Settings → General → Releases** before the test publication.
 
-If required reviewers aren't available for the repository's plan or visibility, stop and record the gate as blocked. A label or an approval in chat doesn't replace it.
+**The environment gates this job only.** It doesn't stop another workflow or an authorized API client from creating a release. Don't add App keys or deployment secrets to this workflow.
 
 ### Part B: Copy and customize the workflow
 
@@ -39,11 +39,11 @@ cd "$TARGET_CHECKOUT"
 
 Check an existing `release.yml` before overwriting it. Then:
 
-1. Change `environment: release` to the approved publication environment name. Set the runtime and build commands described in Prerequisites. Keep the `test:artifact` step after the build.
+1. Change `environment: release` to your publication environment name. Set the runtime and build commands described in Prerequisites. Keep the `test:artifact` step after the build.
 2. Use the action versions or commit pins your organization requires. The example gives the build only `contents: read`. Only `publish` gets `contents: write`.
-3. Add `release-notes.md` with the test release's scope and recovery action. Review it together with the workflow, then merge to the protected default branch.
+3. Add `release-notes.md` with the test release's scope. Review it together with the workflow, then merge to the protected default branch.
 
-The build checks that the candidate belongs to that branch and matches an existing tag. After testing, it packages `dist/` once, records the source SHA, and uploads the files. The publish job waits for approval, downloads **that artifact ID from the same run**, and verifies the checksum manifest against the build output. It rechecks the tag, creates a draft with the verified assets, then publishes a prerelease without marking it Latest. The publish job doesn't check out or rebuild anything.
+The build checks that the candidate belongs to that branch and matches an existing tag. After testing, it packages `dist/` once, records the source SHA, and uploads the files. The publish job waits for approval, downloads **that artifact ID from the same run**, and verifies the checksum manifest. It rechecks the tag, creates a draft with the verified assets, then publishes a prerelease without marking it Latest. The publish job doesn't check out or rebuild anything.
 
 ### Part C: Choose the candidate and tag
 
@@ -93,7 +93,7 @@ Use signed tags if repository policy requires them. Don't force-push, move, or r
    ```
 
    A successful API call with no matching output means no release exists. Authentication or network errors prove nothing.
-3. The independent reviewer opens the run, chooses **Review deployments**, selects the environment, and clicks **Reject** with a short reason. Check the failed run and repeat the release query. Keep this run URL.
+3. The independent reviewer opens the run, chooses **Review deployments**, selects the environment, and clicks **Reject** with a short reason. Check the failed run and repeat the release query. Nothing should exist.
 
 ### Part E: Review and publish the tested files
 
@@ -112,7 +112,7 @@ cat "review-$RUN_ID/release-notes.md"
 
 On macOS, use `shasum -a 256 --check SHA256SUMS` in place of `sha256sum -c SHA256SUMS`.
 
-The reviewer checks the candidate SHA, test logs, and notes, and compares the downloaded archive's checksum with the build job summary. Then they choose **Review deployments → environment → Approve and deploy**. This workflow publishes a release. Despite the button's wording, it doesn't deploy the application.
+The reviewer checks the candidate SHA, test logs, and notes. Then they choose **Review deployments → environment → Approve and deploy**. This workflow publishes a release. Despite the button's wording, it doesn't deploy the application.
 
 After approval:
 
@@ -128,25 +128,15 @@ cmp "review-$RUN_ID/release.tgz" "published-$RUN_ID/release.tgz"
 
 Both `cmp` commands should exit zero. They compare the published bytes with the files reviewed before approval. The Actions artifact's archive digest and the inner `release.tgz` checksum cover different files, so don't compare those two digests to each other.
 
-### Part F: Recover without replacing the original
+### Optional: Recover with a second release
 
-- **Rejected before publication:** no release exists. Fix the reason for rejection and start a fresh run. A new candidate needs a new tag.
-- **Failed after draft creation:** inspect the draft and the failed step. The workflow refuses to overwrite an existing draft or release. Keep the failed run, remove only an unpublished test draft after owner approval, and start a fresh gated run for the unchanged candidate. Never delete a published release to make a retry pass.
-- **Published but unsuitable:** open `gh release view "$TAG" --web`. Have the owner edit the release notes to warn readers off this version. Leave its tag and assets unchanged.
+- **Rejected before publication:** no release exists. Fix the reason and start a fresh run. A new candidate needs a new tag.
+- **Failed after draft creation:** the workflow refuses to overwrite an existing draft or release. Remove only an unpublished test draft, then start a fresh gated run. Never delete a published release to make a retry pass.
+- **Published but unsuitable:** edit the release notes to warn readers off this version. Leave its tag and assets unchanged.
 
-For the recovery test, merge the reviewed correction and select it with a new tag:
+To test a correction, merge it, pick a new tag such as `v0.1.0-ch49.2`, and repeat Parts C to E. Link the corrected release from the original release notes.
 
-```bash
-git fetch origin "$BRANCH"
-export CANDIDATE="$(git rev-parse "origin/$BRANCH")"
-export TAG="v0.1.0-ch49.2"
-```
-
-Have the authorized operator create this tag using Part C's tag commands. Dispatch a fresh run using Part D's command, then follow Part E to approve and compare the published files. Link the corrected release from the original release notes. Keep both releases and the recovery run.
-
-For a route that also deploys the application, link Ch39's approved restore and smoke-test result. If the artifact or recovery route changed, repeat Ch39's gated restore with the retained known-good artifact. A corrected release alone doesn't prove deployment recovery.
-
-Keep the rejected run and approved run, release URL, checksum comparison, and recovery result as [completion evidence](../../../README.md#completion-evidence). Sample publication is practice. Customer completion needs the approved customer target.
+If the route also deploys the application, a corrected release alone doesn't prove deployment recovery. Repeat Ch39's gated restore with the retained known-good artifact.
 
 ## References
 

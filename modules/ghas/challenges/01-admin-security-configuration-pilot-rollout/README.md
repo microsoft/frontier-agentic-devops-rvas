@@ -1,16 +1,15 @@
 # Activity 1: Security configuration pilot and rollout
 
-**Session outcome:** An organization security configuration is attached to a pilot repository, and you've checked its final state. You've tested recovery from a failure or detachment, then either got approval to enforce the configuration or verified the rollback.
+**Session outcome:** An organization security configuration is attached to a pilot repository, and you've verified its final state and one recovery path (repair or rollback).
 
 ## Before you start
 
 - Use a test organization or an approved production pilot.
 - Confirm the organization has the GitHub Code Security and GitHub Secret Protection entitlements the repository needs.
 - Work as an organization owner or security manager who can manage security configurations.
-- Name the rollout owner and rollback owner.
-- Set the pilot's success and stop conditions before you change the repository.
+- Agree who approves enforcement and who rolls back, and what counts as a stop condition (unexplained failure, unexpected replacement, scan loss).
 
-Use one representative repository and one configuration, and run one controlled repair.
+Use one representative repository and one configuration. Don't widen the target.
 
 ## Set up the fixture
 
@@ -30,22 +29,13 @@ The fixture creates `ghas-admin-01-06-security-operations`. It also seeds an adv
 
 ## Exercise
 
-### 1. Define the pilot scope
+### 1. Confirm the pilot scope
 
-Record these decisions in the `ghas-admin-01: configuration attachment repair` issue or the customer's approved change system:
+Note these in the `ghas-admin-01: configuration attachment repair` issue:
 
-| Field | Required value |
-| --- | --- |
-| Pilot repository | Exact GitHub URL |
-| Products | GitHub Code Security, GitHub Secret Protection, or both |
-| Configuration owner | Named person or team |
-| Rollback owner | Named person |
-| Targeting | Selected repository |
-| Exception, if needed | Owner, reason, expiry, and return path |
-| Success condition | Final attached state and expected features |
-| Stop condition | Any unexplained failure, unexpected replacement, scan loss, or owner objection |
-
-Don't widen the target during the lab.
+- The exact pilot repository URL.
+- Products in scope: Code Security, Secret Protection, or both.
+- The expected final state: attached, with the expected features on.
 
 ### 2. Capture the current baseline
 
@@ -59,7 +49,7 @@ REPO_ID="$(gh api repos/<org>/ghas-admin-01-06-security-operations --jq '.id')"
 printf '%s\n' "$REPO_ID"
 ```
 
-Open the organization's **Security and quality** view and filter Coverage to the pilot repository. Record its current configuration, feature state, and latest CodeQL analysis.
+Open the organization's **Security and quality** view and filter Coverage to the pilot repository. Note its current configuration, feature state, and latest CodeQL analysis.
 
 ### 3. Create the configuration in GitHub
 
@@ -95,47 +85,32 @@ while :; do
 done
 ```
 
-Stop the loop once GitHub reports a final state, and save the status history. `attaching` and `updating` are not final.
+Stop the loop once GitHub reports a final state. `attaching` and `updating` are not final.
 
-### 5. Repair a failure or detachment
+### 5. Recover from a failure or detachment
 
 If the attachment fails, use GitHub's failure reason to fix the setting or repository condition, then reapply the configuration and poll again.
 
 If the first attachment succeeds, run this controlled detachment test:
 
 1. Detach the pilot configuration from the repository.
-2. Poll until GitHub shows that the attachment is gone or reports its final removal state.
-3. Record the event in the fixture issue.
-4. Reattach the same configuration.
-5. Poll until the repository reaches the expected final state.
-
-Record the exact state and error text GitHub returned.
+2. Poll until GitHub shows that the attachment is gone.
+3. Reattach the same configuration.
+4. Poll until the repository reaches the expected final state.
 
 ### 6. Enforce or roll back
 
-Compare the result with the conditions from step 1.
+**Enforce** only when the intended repository is attached, every required feature is on, CodeQL still produces analysis, no unexplained failure remains, and the approver agrees. Then change the configuration to enforced and poll again.
 
-**Enforce** only when:
-
-- The intended repository is attached.
-- Every required feature is on.
-- CodeQL still produces analysis.
-- No unexplained failure remains.
-- The repository and rollback owners approve.
-
-If those checks pass, change the configuration to enforced and poll again.
-
-**Roll back** when a stop condition occurs. Detach the configuration, verify the final removal state, and restore the prior repository settings. Assign unresolved work to an owner and state when to retest.
+**Roll back** if a stop condition occurs. Detach the configuration, verify the final removal state, and restore the prior repository settings.
 
 ## Completion check
 
-You're done when you have:
+You're done when:
 
-- A confirmed `ghas-admin-01-pilot` configuration ID.
-- A confirmed attachment and its final state history.
-- Evidence that you repaired a failure or completed the detachment and reattachment test.
-- An enforced configuration or a verified rollback.
-- A named approver and rollback owner.
+- `ghas-admin-01-pilot` exists and is attached to the pilot repository, or you detached it as part of a verified rollback.
+- You repaired a failure or completed the detach and reattach test.
+- The configuration is enforced, or you verified the rollback.
 
 **Check the configuration and repository state.** A successful HTTP response doesn't prove the rollout worked.
 

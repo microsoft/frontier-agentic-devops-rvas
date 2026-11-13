@@ -3,14 +3,11 @@ title: "GitHub Code Quality: Code Health and coverage"
 module: ghec
 track: security
 difficulty: intermediate
-duration_minutes: 135
+duration_minutes: 90
 prerequisites: []
 prerequisite_capabilities:
-  - GitHub Team or GitHub Enterprise Cloud organization where GitHub Code Quality is available
-  - Enterprise approval for GitHub Code Quality when the organization belongs to an enterprise
-  - Organization owner or repository administrator authorization for the selected customer repository
-  - GitHub Actions enabled for the repository
-  - A repository with a supported Code Quality language and a test suite that can produce Cobertura XML coverage
+  - GitHub Code Quality enabled for the organization (enterprise owner approval if needed)
+  - Repository administrator rights on a repository with Actions, a supported language, and Cobertura XML coverage
   - GitHub CLI (gh >= 2.x) installed
   - git installed
   - jq installed

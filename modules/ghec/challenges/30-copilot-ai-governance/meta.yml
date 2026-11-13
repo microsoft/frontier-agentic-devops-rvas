@@ -8,9 +8,6 @@ prerequisites: []
 prerequisite_capabilities:
   - Copilot administrator who can manage policy and access for the pilot
   - Copilot Business or Copilot Enterprise availability for the selected feature
-  - Named owners for Copilot policy, identity management, and offboarding
-  - Customer-approved non-secret evidence location
-  - Customer identity-boundary decision
 description: "Configure Copilot access for a pilot team and verify use and revocation."
 tags:
   - copilot

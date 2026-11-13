@@ -15,8 +15,8 @@ _ch32_seed_main() {
 This isolated repository is a safe review target. It does not enable Copilot,
 configure a ruleset, or change human merge controls.
 
-Use the open pull request to request a manual Copilot review, then record the
-human triage and the automatic-review decision in docs/decision-package.md."
+Use the open pull request to request a manual Copilot review, then triage the
+comments as a human reviewer."
 
   gh_put_file "$ORG" "$REPO" "src/normalize.js" "seed review target (ghec-${CHID})" \
 "export function normalizeIdentifier(value) {
@@ -48,19 +48,6 @@ test('normalizes a display identifier', () => {
 risks. Treat human review and CODEOWNERS as the approval authority. Do not
 recommend adding secrets or weakening branch protections."
 
-  gh_put_file "$ORG" "$REPO" "docs/decision-package.md" "seed decision package (ghec-${CHID})" \
-"# Copilot code review decision package
-
-- Effective policy and availability evidence:
-- Customer repository scope and owner:
-- Manual review PR and human comment triage:
-- Ruleset scope; new-push and draft-review decisions:
-- Shared setup versus optional copilot-code-review.yml decision:
-- Human review and CODEOWNERS controls retained:
-- Preview options excluded or separately approved:
-- Rollback executor, restore steps, and verification:
-- Next decision, owner, and review date:
-"
 }
 
 _ch32_seed_review_candidate() {
@@ -92,7 +79,7 @@ ghec_provision() {
   fi
   _ch32_seed_main
   _ch32_seed_review_candidate
-  log_info "Next steps: request a manual Copilot review on $REVIEW_BRANCH, retain human review, and record the automatic-review decision."
+  log_info "Next steps: request a manual Copilot review on $REVIEW_BRANCH, and retain human review."
 }
 
 ghec_teardown() {

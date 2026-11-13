@@ -638,7 +638,7 @@ test('reorganized sessions keep complete capabilities without repeated setup', (
   assert.match(guide('ghas-admin-03'), /Correct and merge the same PR/);
   assert.match(guide('ghas-admin-05'), /license policy to the same check/);
   assert.match(guide('ghas-admin-02'), /Respond to an exposed credential/);
-  assert.match(guide('ghec-ch02'), /Contribute across teams/);
+  assert.match(guide('ghec-ch02'), /\*\*InnerSource\.\*\*/);
   assert.match(guide('ghec-ch07'), /Ch36 covers repository creation/);
   assert.equal(byId.get('ghec-ch31').tier, 'stretch');
   assert.match(guide('ghec-ch32'), /copilot-first-run\.md/);
