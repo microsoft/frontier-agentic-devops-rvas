@@ -26,7 +26,7 @@ Choose one feature the team needs, such as Copilot Chat or code review. Don't en
 - Check existing MCP configuration and permitted tools. Record the host and data boundary. Don't run server tools or expose a new credential.
 - Check eligibility for agentic activity streaming and any existing destination. A missing or preview feature stays unverified. Configuring a stream needs a separate approved change.
 
-Reuse evidence from Ch29 and Ch31. Use Ch19 for a cloud agent pilot and Ch34 for cross-organization configuration.
+Reuse evidence from Ch29 and Ch31. Use Ch33 for a cloud agent pilot and Ch34 for cross-organization configuration.
 
 ## Completion
 

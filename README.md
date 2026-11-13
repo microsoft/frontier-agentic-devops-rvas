@@ -32,9 +32,9 @@ With no outcome selected, the catalog groups all active activities by session ty
 
 | Module ID | Name | Activities | Tracks |
 |---|---|---|---|
-| `ghec` | GitHub Enterprise Cloud | 41 | Developer Flow, Admin & Governance, Security, Automation & AI, Migration |
+| `ghec` | GitHub Enterprise Cloud | 36 | Developer Flow, Admin & Governance, Security, Automation & AI, Migration |
 | `ghas` | GitHub Advanced Security | 9 | Admin & Governance, Developer Flow |
-| `ghaw` | GitHub Agentic Workflows | 7 | Getting Started, Pull Requests & Issues, Repository Operations |
+| `ghaw` | GitHub Agentic Workflows | 6 | Getting Started, Pull Requests & Issues, Repository Operations |
 
 ## Architecture
 

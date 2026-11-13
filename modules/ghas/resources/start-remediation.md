@@ -5,13 +5,11 @@ Use this checklist at the start of the selected fix. Keep the same repository an
 1. Confirm repository access, working tests, and scanning through [Prepare the remediation repository](../challenges/00-environment-setup/README.md), or use the setup you already verified.
 2. Open the relevant Security alert. Check its description against the affected code and the application's actual behavior. For a dependency, read the advisory and production dependency path.
 3. Record priority and the fix owner on the alert's existing issue or PR. Create an issue only when the work needs one. Real credential exposure takes priority: involve the credential owner immediately.
-4. Choose the case that matches the finding:
+4. Choose the activity that matches the finding:
 
 | Finding | Continue with |
 |---|---|
-| Query, command, or template injection | [Injection fix](../challenges/02-fix-injection/README.md) |
-| Unsafe HTML or script output | [XSS fix](../challenges/03-fix-xss/README.md) |
-| Missing ownership or role checks | [Authorization fix](../challenges/04-broken-access-control/README.md) |
+| Injection, XSS, or missing ownership or role checks | [Fix a CodeQL finding](../challenges/02-fix-codeql-finding/README.md) |
 | Exposed credential | [Credential response](../challenges/02-admin-secret-protection-operations/README.md#customer-path-respond-to-an-exposed-credential) |
 | Vulnerable dependency | [Tested dependency update](../challenges/05-admin-dependency-visibility-pr-protection/README.md#5-merge-a-security-update-pull-request) |
 

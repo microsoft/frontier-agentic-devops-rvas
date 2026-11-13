@@ -4,7 +4,7 @@
 
 ## When to use this session
 
-Do the basic setup in Ch19 or Ch32 first. Use this optional session only if that first run exposes a concrete requirement:
+Do the basic setup in Ch32 first. Use this optional session only if that first run exposes a concrete requirement:
 
 | Requirement | Configure |
 |---|---|
@@ -17,7 +17,7 @@ If the standard hosted environment already works, skip this session. A small pub
 
 ## Prerequisites
 
-Use the approved repository and the Ch19 agent task or Ch32 review that already works. Involve its Copilot owner and the administrator who controls the dependency, runner, or network boundary. Before you change configuration, confirm the feature is available and the cost is approved.
+Use the approved repository and the Ch32 review that already works. Involve its Copilot owner and the administrator who controls the dependency, runner, or network boundary. Before you change configuration, confirm the feature is available and the cost is approved.
 
 ## Tasks
 
@@ -58,7 +58,7 @@ Fill in the requirement and test first, then review the patch with the accountab
 ### Part C: Verify it in the existing task or review
 
 1. Merge the reviewed setup change to the default branch. Run the normal Actions check if it can validate the setup. It may not have the agent's credentials.
-2. Repeat the Ch19 task or Ch32 review that exposed the gap. Confirm its log shows the setup you chose, the intended runner, and successful dependency or service access.
+2. Repeat the Ch32 review that exposed the gap. Confirm its log shows the setup you chose, the intended runner, and successful dependency or service access.
 3. Run the acceptance test and inspect the diff or review it produced. Leave human approval and required CI as they are.
 4. If you can test it safely, confirm the scoped credential or runner can't reach an unrelated resource.
 5. Record the setup commit and the session or review link in the adoption issue. Name the setup owner and the rollback, such as reverting the configuration or removing the approved Agents scope.

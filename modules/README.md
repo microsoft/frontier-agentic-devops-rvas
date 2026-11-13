@@ -11,18 +11,18 @@ modules/
 │       ├── meta.yml     ← field template with comments
 │       └── README.md    ← delivery team guide template
 │
-├── ghec/                ← GitHub Enterprise Cloud (41 active activities)
+├── ghec/                ← GitHub Enterprise Cloud (36 active activities)
 │   ├── resources/       ← provisioning scripts and governance templates
 │   └── challenges/
 │       └── <slug>/      ← one directory per activity
 │           ├── meta.yml
 │           └── README.md
 │
-├── ghas/                ← GitHub Advanced Security (11 active activities)
+├── ghas/                ← GitHub Advanced Security (9 active activities)
 │   ├── setup.md         ← how to run Juice Shop
 │   └── challenges/
 │
-└── ghaw/                ← GitHub Agentic Workflows (7 active activities)
+└── ghaw/                ← GitHub Agentic Workflows (6 active activities)
     ├── setup.md         ← dev container and `gh aw` setup
     └── challenges/
 ```
@@ -32,7 +32,7 @@ modules/
 Use a short, descriptive kebab-case slug for each activity directory. Examples:
 
 - `01-issues-labels-projects`
-- `02-fix-injection`
+- `02-fix-codeql-finding`
 - `17-issue-triage-agent`
 - `00-setup`
 

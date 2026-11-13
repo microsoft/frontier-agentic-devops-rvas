@@ -1,43 +1,46 @@
-# Activity S02: Fix injection vulnerabilities
+# Activity S02: Fix a CodeQL finding
 
-**Session outcome:** You've merged a reviewed fix that uses a safe API at the execution sink. Behavior tests and a default-branch rescan confirm it.
+**Session outcome:** You've merged a reviewed fix for one code finding. Tests prove the fix, and a default-branch rescan confirms it.
 
-Start with the [remediation checklist](../../resources/start-remediation.md), then use this case for an injection finding. The XSS and authorization cases are alternatives.
+Start with the [remediation checklist](../../resources/start-remediation.md). Then pick **one** case below that matches your finding. You don't need the others.
 
-## Description
+## Pick your case
 
-Injection happens when an application treats user-controlled data as part of a
-database query, command, or template expression. Attackers can change the logic to
-steal data, bypass authentication, or destroy records. Input validation can enforce
-an input policy, but it can't reliably prevent injection. **Stop it at the execution
-sink:** use parameter binding or ORM-safe APIs for database operations, and keep data
-separate from code at command and template sinks.
+| Finding | Fix at | Prove it with |
+|---|---|---|
+| **Injection** (SQL, NoSQL, command, template) | The execution sink: parameter binding, ORM-safe APIs, or sink-specific safe APIs | Tests for normal input and the unsafe input path |
+| **XSS** (reflected or stored) | The output context: HTML body, attribute, JavaScript string, or URL. Each needs different encoding. | Rendering tests for ordinary and unsafe input. Try `<script>alert(1)</script>` in the affected field. |
+| **Broken access control** (IDOR, missing middleware, wrong roles) | The route handler: verify identity, ownership, and role on the server. **Don't rely on the frontend to hide links.** | Positive tests for allowed users and negative tests for other owners and restricted roles |
 
-CodeQL flags SQL and NoSQL injection vulnerabilities in Juice Shop's backend routes. Pick one alert, read the code, work out how an attacker would exploit it, and fix it. Record the verified fix and a prevention pattern your team can reuse.
+**Input validation can't reliably prevent these.** Fix the sink, the output, or the permission check.
 
 ## Objectives
 
-- Filter Security → Code scanning alerts to show injection-related alerts (search for `sql` or `injection`)
-- Pick one alert and read its vulnerable code path with Copilot's help
-- Replace unsafe query construction with parameterized queries or ORM-safe alternatives. For command or template injection, use the sink-specific safe API or design rather than input sanitization alone. Test the affected behavior.
-- Open a pull request with the alert link and tests for normal input and the unsafe input path
+- Filter Security → Code scanning alerts for your case (search `sql`, `xss`, or `authorization`)
+- Pick one alert. Trace user input to the sink or output, or find the route that lacks a check
+- Apply the fix from the table and test the affected behavior
+- Open a pull request with the alert link and the tests above
 - Get human review through the normal controls, then merge. Check that the default-branch rescan marks the alert fixed
-- Explain the safe query pattern in the PR. Checking similar paths is fine, but a second fix is optional
+- Explain the safe pattern in the PR. Checking similar paths is fine, but a second fix is optional
+
+For access control, add this to the PR: **a clean scan doesn't prove business authorization rules work.** CodeQL covers only some cases, so the positive and negative tests must pass even when it has no matching rule.
 
 > [!TIP]
-> Working with a real application? Pick its own SQL, NoSQL, command, or template injection alerts.
+> Working with a real application? Pick its own alert for your case.
 
 ## Copilot tips
 
-- Highlight the vulnerable query and ask: *"This query is vulnerable to SQL injection. Rewrite it using parameterized queries compatible with the Sequelize ORM already in use here."*
-- Ask: *"What's the difference between input sanitization and parameterization, and why is parameterization the right fix here?"*
-- Check any fix from Copilot Autofix or other Copilot help against the approved safe pattern, and submit it through the normal PR and GHAS checks.
+- Highlight the vulnerable code and ask for a fix that uses the libraries already in the project. Example: *"Rewrite this query with parameterized queries compatible with the Sequelize ORM already in use here."*
+- For XSS, ask: *"Which output context is this, and what encoding does it need?"*
+- For access control, ask: *"Which of these endpoints lack authorization middleware, and how do I verify the requester owns this resource?"*
+- Check any fix from Copilot Autofix or other Copilot help against the approved safe pattern. Submit it through the normal PR and GHAS checks.
 
-If the team needs it, add repository instructions for this safe query pattern.
+If the team needs it, add repository instructions for the safe pattern.
 
 ## Learning resources
 
-- [OWASP: SQL Injection](https://owasp.org/www-community/attacks/SQL_Injection)
-- [Responsible use of AI features for security and code quality](https://docs.github.com/en/code-security/responsible-use/security-and-quality-ai-features)
 - [OWASP SQL Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)
+- [OWASP XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
+- [OWASP Authorization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html)
+- [Responsible use of AI features for security and code quality](https://docs.github.com/en/code-security/responsible-use/security-and-quality-ai-features)
 - [Managing code scanning alerts](https://docs.github.com/en/code-security/code-scanning/managing-code-scanning-alerts/managing-code-scanning-alerts-for-your-repository)

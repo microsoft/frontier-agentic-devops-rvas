@@ -233,8 +233,8 @@ cmd_doctor() {
 
   print_min_scopes
 
-  if [[ "$CHID" == "ch19" || "$EMU_COMPAT" == "false" ]]; then
-    log_warn "EMU: Copilot cloud agent is NOT available on EMU repos — ch19 needs a non-EMU org."
+  if [[ "$EMU_COMPAT" == "false" ]]; then
+    log_warn "EMU: Copilot cloud agent is NOT available on EMU repos — this activity needs a non-EMU org."
   fi
   case "$APP" in
     juice-shop) log_warn "metered: scanning workflows consume Actions minutes (free tier on public repos)." ;;

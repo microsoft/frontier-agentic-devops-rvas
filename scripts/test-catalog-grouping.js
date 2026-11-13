@@ -252,17 +252,20 @@ test('outcomes contain unique activity lists and accurate catalog totals', () =>
 test('all outcomes and prerequisites validate, with exact forwarding mappings', () => {
   assert.deepEqual(validateOutcomes(data.outcomes, data.challenges), []);
   assert.deepEqual(data.retired_challenges, {
-    'ghec-ch06': 'ghec-ch07', 'ghec-ch17': 'ghec-ch20',
+    'ghec-ch06': 'ghec-ch07', 'ghec-ch17': 'ghec-ch33',
     'ghec-ch47': 'ghec-ch02', 'ghec-ch50': 'ghas-admin-05',
-    'ghec-ch16': 'ghec-ch20', 'ghec-ch52': 'ghec-ch07',
-    'ghec-ch35': 'ghec-ch01', 'ghec-ch43': 'ghec-ch42', 'ghas-06': 'ghas-admin-06',
+    'ghec-ch16': 'ghec-ch33', 'ghec-ch52': 'ghec-ch07',
+    'ghec-ch35': 'ghec-ch01', 'ghec-ch43': 'ghec-ch42',
+    'ghec-ch19': 'ghec-ch33', 'ghec-ch20': 'ghec-ch33', 'ghec-ch37': 'ghec-ch42',
+    'ghec-ch44': 'ghec-ch08', 'ghec-ch48': 'ghec-ch29', 'ghas-03': 'ghas-02', 'ghas-04': 'ghas-02',
+    'ghaw-06': 'ghec-ch32', 'ghas-06': 'ghas-admin-06',
     'ghas-01': 'ghas-00', 'ghas-05': 'ghas-admin-05',
     'ghas-admin-04': 'ghas-admin-03',
     'ghaw-01': 'ghaw-07', 'ghaw-11': 'ghaw-18', 'ghaw-14': 'ghaw-18',
     'ghaw-23': 'ghas-admin-06', 'ghaw-25': 'ghec-ch01',
     'ghaw-03': 'ghaw-19', 'ghaw-08': 'ghaw-17', 'ghaw-09': 'ghaw-17',
-    'ghaw-10': 'ghaw-07', 'ghaw-12': 'ghaw-06', 'ghaw-16': 'ghaw-18',
-    'ghaw-20': 'ghaw-19', 'ghaw-24': 'ghaw-06',
+    'ghaw-10': 'ghaw-07', 'ghaw-12': 'ghec-ch32', 'ghaw-16': 'ghaw-18',
+    'ghaw-20': 'ghaw-19', 'ghaw-24': 'ghec-ch32',
   });
   const ids = new Set(data.challenges.map(c => c.id));
   for (const [id, replacement] of Object.entries(data.retired_challenges)) {
@@ -572,10 +575,10 @@ test('guide links resolve active metadata IDs without placeholder folders', () =
   assert.equal(challengeIdFromSlug('ghec', '../resources'), null);
 });
 
-test('catalog contains 59 active sessions and no alias has a generated guide', () => {
-  assert.equal(data.challenges.length, 59);
+test('catalog contains 51 active sessions and no alias has a generated guide', () => {
+  assert.equal(data.challenges.length, 51);
   assert.deepEqual(Object.fromEntries(data.modules.map(m => [m.id, m.challenge_count])),
-    { ghec: 41, ghas: 11, ghaw: 7 });
+    { ghec: 36, ghas: 9, ghaw: 6 });
   assert.deepEqual(data.outcomes.map(o => o.id),
     ['github-adoption', 'platform-migration', 'ghas-adoption', 'agentic-workflows']);
   assert.deepEqual(fs.readdirSync(path.join(root, 'docs/resources')).sort(), ['ghas', 'ghaw', 'ghec']);
@@ -597,36 +600,8 @@ test('active guides do not refer participants to removed sessions', () => {
   }
 });
 
-test('integration provisioner seeds canonical files without extra scaffolding', () => {
-  const resources = path.join(root, 'modules/ghec/resources');
-  const directory = path.join(resources, 'provisioning/challenges/20-automation-capstone');
-  const output = execFileSync('bash', ['-c', `
-    set -euo pipefail
-    CH_DIR="$1"
-    ORG=example
-    REPO=integration-test
-    die() { printf '%s\\n' "$1" >&2; exit 1; }
-    gh_put_file() {
-      node -e 'console.log(JSON.stringify({path: process.argv[1], content: process.argv[2]}))' "$3" "$5"
-    }
-    source "$CH_DIR/provision.sh"
-    _ch20_seed_repo
-  `, 'test-provision', directory], { encoding: 'utf8' });
-  const files = Object.fromEntries(output.trim().split('\n').map(line => {
-    const file = JSON.parse(line);
-    return [file.path, file.content];
-  }));
-  assert.deepEqual(Object.keys(files).sort(), ['README.md', 'package.json', 'src/handler.cjs', 'src/handler.test.cjs']);
-  for (const name of ['handler.cjs', 'handler.test.cjs']) {
-    assert.equal(files[`src/${name}`],
-      fs.readFileSync(path.join(resources, 'integration', name), 'utf8').replace(/\n+$/, ''));
-  }
-  assert.deepEqual(JSON.parse(files['package.json']).scripts,
-    { start: 'node src/handler.cjs', test: 'node --test src/handler.test.cjs' });
-});
-
 test('customer-target activities do not offer unrelated provisioning samples', () => {
-  const numbers = ['31', '36', '38', '39', '41', '44', '45', '49', '51'];
+  const numbers = ['31', '36', '38', '39', '41', '45', '49', '51'];
   for (const number of numbers) {
     const activity = data.challenges.find(c => c.id === `ghec-ch${number}`);
     assert(activity, `missing activity ${number}`);
@@ -648,29 +623,24 @@ test('customer-target activities do not offer unrelated provisioning samples', (
 test('reorganized sessions keep complete capabilities without repeated setup', () => {
   const byId = new Map(data.challenges.map(c => [c.id, c]));
   const guide = id => fs.readFileSync(path.join(root, byId.get(id).student_source_path), 'utf8');
-  assert.match(guide('ghec-ch20'), /Try a native feature first/);
-  assert.match(guide('ghec-ch20'), /Operate the App path/);
   assert.match(guide('ghas-admin-03'), /Correct and merge the same PR/);
   assert.match(guide('ghas-admin-05'), /license policy to the same check/);
   assert.match(guide('ghas-admin-02'), /Respond to an exposed credential/);
   assert.match(guide('ghec-ch02'), /Contribute across teams/);
   assert.match(guide('ghec-ch07'), /Ch36 covers repository creation/);
   assert.equal(byId.get('ghec-ch31').tier, 'stretch');
-  assert.match(guide('ghec-ch19'), /copilot-first-run\.md/);
   assert.match(guide('ghec-ch32'), /copilot-first-run\.md/);
   assert(!byId.get('ghec-ch49').prerequisite_capabilities.some(c => /Ch39/.test(c)));
   assert.match(guide('ghec-ch49'), /Ch39 and a cloud deployment aren't prerequisites/);
   assert.match(guide('ghec-ch39'), /environment-approval\.md/);
   assert.match(guide('ghec-ch49'), /environment-approval\.md/);
-  for (const id of ['ghas-02', 'ghas-03', 'ghas-04']) {
-    assert.deepEqual(byId.get(id).prerequisites, ['ghas-00']);
-    assert.match(guide(id), /start-remediation\.md/);
-  }
+  assert.deepEqual(byId.get('ghas-02').prerequisites, ['ghas-00']);
+  assert.match(guide('ghas-02'), /start-remediation\.md/);
 });
 
 test('saved combined-session links resolve directly and do not duplicate activities', async () => {
-  const result = await render('set', '?ids=ghec-ch17,ghec-ch20,ghas-admin-04,ghas-admin-03,ghec-ch50,ghas-admin-05');
-  assert.deepEqual(result.ids, ['ghec-ch20', 'ghas-admin-03', 'ghas-admin-05']);
+  const result = await render('set', '?ids=ghec-ch17,ghec-ch33,ghas-admin-04,ghas-admin-03,ghec-ch50,ghas-admin-05');
+  assert.deepEqual(result.ids, ['ghec-ch33', 'ghas-admin-03', 'ghas-admin-05']);
   for (const slug of ['06-enterprise-org-101', '17-webhooks-github-apps',
     '47-innersource-program-operations', '50-license-compliance-workflow']) {
     assert(!fs.existsSync(path.join(root, 'modules/ghec/challenges', slug)));

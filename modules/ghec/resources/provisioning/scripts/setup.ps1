@@ -190,8 +190,8 @@ function Invoke-Doctor {
 
   Show-MinScopes
 
-  if ($Chid -eq 'ch19' -or $EmuCompat -eq 'false') {
-    Write-GhecWarn 'EMU: Copilot cloud agent is NOT available on EMU repos — ch19 needs a non-EMU org.'
+  if ($EmuCompat -eq 'false') {
+    Write-GhecWarn 'EMU: Copilot cloud agent is NOT available on EMU repos — this activity needs a non-EMU org.'
   }
   if ($App -eq 'juice-shop') { Write-GhecWarn 'metered: scanning workflows consume Actions minutes (free on public repos).' }
   if ($Chid -match '^ch(03|04|05|18)$') { Write-GhecWarn 'metered: may consume Actions/Codespaces minutes.' }

@@ -13,12 +13,11 @@ whether the automation helps the team.
 | [Issue triage](issue-triage-agent.md) | Approved label names and their definitions. |
 | [Documentation correction](daily-doc-updater.md) | Approved issue, document and source paths, and validation command. |
 | [Regression test](daily-test-improver.md) | Approved issue, test file, and test command. |
-| [Review assistant](review-buddy.md) | The base-branch [review rule](review-rule.md). |
 | [Issue summaries](slash-commands.md) | The summary's audience and wording. |
 | [CI diagnosis](ci-doctor.md) | Exact workflow name, numeric ID, branch, and log redaction. |
 
 The documentation and test pilots also need [pilot-guard.cjs](pilot-guard.cjs).
-The review, issue-summary, and CI starters import [report-reader.md](report-reader.md) and
+The issue-summary and CI starters import [report-reader.md](report-reader.md) and
 [report-writer.md](report-writer.md), and need [report-pilot.cjs](report-pilot.cjs).
 Copy these files together, as each lesson shows. The helper scripts run outside
 the model and select approved inputs and write targets. The model receives no
