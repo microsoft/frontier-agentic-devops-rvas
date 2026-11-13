@@ -473,7 +473,7 @@
     );
   }
 
-  function activateSection(index, updateHistory, scrollToGuide, focusSection) {
+  function activateSection(index, updateHistory, scrollToGuide, focusNavigation) {
     if (!_sections[index]) return;
     _activeSection = index;
 
@@ -501,14 +501,27 @@
       window.history.pushState(null, '', '#' + _sections[index].slug);
     }
     if (scrollToGuide) {
-      scrollToSection(_sections[index].element, focusSection);
+      scrollToSection(_sections[index].element, focusNavigation);
     }
   }
 
-  function scrollToSection(section, focusSection) {
+  function scrollToSection(section, focusNavigation) {
     window.requestAnimationFrame(() => {
-      if (focusSection) section.focus({ preventScroll: true });
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const nav = document.getElementById('guideSectionNav');
+      const tab = document.getElementById(section.getAttribute('aria-labelledby'));
+      if (focusNavigation) (tab || section).focus({ preventScroll: true });
+
+      // Measure below the sticky toolbar, whose own position changes while scrolling.
+      const content = nav?.nextElementSibling;
+      if (content && !nav.hidden) {
+        const headerHeight = document.querySelector('.nav')?.offsetHeight || 0;
+        window.scrollTo({
+          top: window.scrollY + content.getBoundingClientRect().top - nav.offsetHeight - headerHeight,
+          behavior: 'smooth',
+        });
+      } else {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
   }
 
