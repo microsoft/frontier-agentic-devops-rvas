@@ -187,12 +187,24 @@ for (const page of ['catalog', 'builder']) {
     assert(result.ids.includes('ghec-ch24'));
   });
 
+  test(`${page}: Getting Started groups setup activities across all modules`, async () => {
+    const result = await render(page, '?track=hello-agent');
+    assert.deepEqual([...result.ids].sort(), ['ghas-00', 'ghaw-00', 'ghec-ch00']);
+    assert.deepEqual(result.headings, ['Getting Started']);
+    assert.equal((result.chips.match(/>Getting Started<\/button>/g) || []).length, 1);
+    for (const id of result.ids) {
+      const activity = data.challenges.find(c => c.id === id);
+      assert.equal(activity.tier, 'setup');
+    }
+  });
+
   test(`${page}: session-type and level filters include GHAS developer sessions`, async () => {
-    const result = await render(page, '?track=developer-flow&difficulty=beginner');
-    const expected = data.challenges.filter((c) => c.track === 'developer-flow' && c.difficulty === 'beginner');
+    const result = await render(page, '?track=developer-flow&difficulty=intermediate');
+    const expected = data.challenges.filter((c) => c.track === 'developer-flow' && c.difficulty === 'intermediate');
     assert.deepEqual([...result.ids].sort(), expected.map((c) => c.id).sort());
     assert.deepEqual(result.headings, ['Developer Flow']);
-    assert(result.ids.includes('ghas-00'));
+    assert(result.ids.includes('ghas-02'));
+    assert(!result.ids.includes('ghas-00'));
     assert(!result.ids.includes('ghas-01'));
   });
 

@@ -1,7 +1,7 @@
 id: ghec-ch00
 title: Environment setup
 module: ghec
-track: developer-flow
+track: hello-agent
 difficulty: beginner
 duration_minutes: 30
 prerequisites: []

@@ -35,8 +35,9 @@ const MODULE_CONFIG = {
     color: '#0969da',
     icon: 'icon-ghec.svg',
     catalog_lead_ids: ['ghec-ch00'],
-    catalog_track_order: ['admin-governance', 'developer-flow', 'security', 'automation-ai', 'migration'],
+    catalog_track_order: ['hello-agent', 'admin-governance', 'developer-flow', 'security', 'automation-ai', 'migration'],
     tracks: {
+      'hello-agent':      { name: 'Getting Started', description: 'Check repository access and prepare the tools for your first activity.' },
       'developer-flow':   { name: 'Developer Flow',       description: 'Help developers plan work, review code, and use Codespaces across the organization.' },
       'admin-governance': { name: 'Admin & Governance',   description: 'Set up organization policies, identity, audit logs, and compliance controls.' },
       'security':         { name: 'Security',             description: 'Protect code with scanning, Dependabot, and supply-chain controls.' },
@@ -50,8 +51,9 @@ const MODULE_CONFIG = {
     color: '#cf222e',
     icon: 'icon-ghas.svg',
     expected_challenge_count: 9,
-    catalog_track_order: ['admin-governance', 'developer-flow'],
+    catalog_track_order: ['hello-agent', 'admin-governance', 'developer-flow'],
     tracks: {
+      'hello-agent':      { name: 'Getting Started', description: 'Check repository access and prepare the tools for your first activity.' },
       'admin-governance': { name: 'Admin & Governance', description: 'Configure GHAS policies and permissions, then manage rollout and reporting across the enterprise.' },
       'developer-flow':   { name: 'Developer Flow', description: 'Find vulnerabilities with GitHub Advanced Security and fix them through pull requests.' },
     },
@@ -62,7 +64,7 @@ const MODULE_CONFIG = {
     color: '#8250df',
     icon: 'icon-ghaw.svg',
     tracks: {
-      'hello-agent':              { name: 'Getting Started', description: 'Set up gh-aw and build basic schedule- and event-triggered workflows.' },
+      'hello-agent':              { name: 'Getting Started', description: 'Check repository access and prepare the tools for your first activity.' },
       'repo-concierge':           { name: 'Pull Requests & Issues', description: 'Automate review, triage, contributor guidance, and issue commands.' },
       'production-patterns':      { name: 'Repository Operations', description: 'Automate maintenance, quality, security, and planning, and review the results.' },
     },
