@@ -1,6 +1,6 @@
 # Ch56: Agent trust controls
 
-**Session outcome:** The organization has written, checked limits for agents: network access, tools, repository scope, spend, and an audit trail. You test each limit by trying to cross it.
+**Session outcome:** Agents in a pilot repository can only reach approved hosts and tools, their activity shows in the audit log, and spend has an alert. You test each limit by trying to cross it.
 
 Agents act on untrusted text, like issue bodies and web pages. **Assume some of that text is hostile, and limit what the agent can reach.**
 
@@ -30,9 +30,9 @@ Agents act on untrusted text, like issue bodies and web pages. **Assume some of 
 
 ### Part E: See and cap what agents do
 
-11. In the audit log, find agent activity: pushes, pull request creation, and settings changes. Save the filter you used. Stream the log if ch09 isn't done.
-12. In Copilot usage reporting, find the agent's premium request use. Set a **budget with an alert** on the cost center that owns the pilot (ch10).
-13. Write one page for the owner: who can change each limit, how to disable agents fast, and who reviews the audit and spend numbers, how often.
+11. In the audit log, find the agent's pushes, pull request creation, and settings changes. See ch09 for export.
+12. In Copilot usage reporting, find the agent's premium request use. Set a **budget with an alert** for the pilot (see ch10).
+13. Turn agents off for the pilot repository, confirm a new assignment fails, then turn them back on.
 
 ## Hints
 

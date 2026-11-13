@@ -3,13 +3,12 @@ title: Agent trust controls
 module: ghec
 track: agentic-sdlc
 difficulty: advanced
-duration_minutes: 120
+duration_minutes: 90
 prerequisites:
   - ghec-ch30
   - ghec-ch34
 prerequisite_capabilities:
   - Organization owner or Copilot policy admin access
-  - A named security owner who approves agent network and tool access
   - Access to the audit log and Copilot usage reporting
 description: "Limit what agents can reach, record what they did, and cap what they cost."
 tags:

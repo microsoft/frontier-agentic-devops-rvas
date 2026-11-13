@@ -3,14 +3,13 @@ title: Risk-tiered merge
 module: ghec
 track: agentic-sdlc
 difficulty: advanced
-duration_minutes: 150
+duration_minutes: 120
 prerequisites:
   - ghec-ch02
   - ghec-ch08
 prerequisite_capabilities:
   - Admin access to one customer repository with Actions enabled
   - A required CI check already running on pull requests
-  - A named repository owner who approves which changes may merge without human review
 description: "Merge low-risk pull requests automatically and route the rest to the right reviewers."
 tags:
   - auto-merge

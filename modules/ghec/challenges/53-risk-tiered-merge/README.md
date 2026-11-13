@@ -19,7 +19,7 @@ A workflow classifies each pull request by **what it touches and how much**, not
 
 ### Part A: Decide the tiers
 
-1. With the repository owner, list the paths that must never merge without a human. Start with `.github/workflows/**`, `.github/CODEOWNERS`, infrastructure, authentication, and database migrations.
+1. List the paths that must never merge without a human. Start with `.github/workflows/**`, `.github/CODEOWNERS`, infrastructure, authentication, and database migrations. The repository owner confirms the list.
 2. List the paths where a wrong change is cheap to revert, usually docs and tests.
 3. Copy the starter into the repository:
 
@@ -54,12 +54,9 @@ A workflow classifies each pull request by **what it touches and how much**, not
 12. **Should do nothing:** approve your own pull request. The gate must not count it.
 13. **Dependabot:** if Dependabot has an open patch update to a manifest, confirm it lands as `low`. Confirm a minor update lands as `medium`.
 
-### Part D: Keep the escape hatch
-
-14. Record who can remove the `risk-gate` requirement, and how fast. After any incident traced to an auto-merged change, narrow `low` first, then investigate.
-
 ## Hints
 
+- **After an incident** traced to an auto-merged change, narrow `low` first, then investigate.
 - **Why `pull_request_target`?** Dependabot and fork pull requests get a read-only token on `pull_request`. The gate only reads file names and reviews through the API and never checks out the pull request's code. Keep it that way.
 - The gate counts the **latest** review per person. A later "Request changes" cancels an earlier approval.
 - Auto-merge needs the ruleset's required checks to exist. With no required checks, GitHub merges at once.
