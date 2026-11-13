@@ -211,6 +211,50 @@
         "ghec-ch33",
         "ghec-ch34"
       ]
+    },
+    {
+      "id": "agentic-sdlc",
+      "name": "Run delivery with agents",
+      "tagline": "Let agents do routine work, merge low-risk changes automatically, and keep humans on the rest.",
+      "description": "Build a bright software factory in one customer repository: agent-ready work, verification gates, risk-tiered merge, trust controls, and measurement.",
+      "personas": [
+        "platform-engineer",
+        "customer-developer",
+        "platform-governance",
+        "solution-architect"
+      ],
+      "adoption_stage": [
+        "pilot",
+        "scale",
+        "operate"
+      ],
+      "business_value": [
+        "automate-repetitive-work",
+        "improve-developer-productivity",
+        "standardize-agent-safety"
+      ],
+      "source_platforms": [
+        "github"
+      ],
+      "success_metrics": [
+        "Low-risk pull requests in the customer's repository merge automatically after required checks pass.",
+        "Medium- and high-risk pull requests wait for the reviewers their tier requires.",
+        "The owner reviews agent pull request, revert, and cost numbers, and decides whether to widen or narrow auto-merge."
+      ],
+      "challenge_ids": [
+        "ghec-ch54",
+        "ghec-ch31",
+        "ghec-ch33",
+        "ghec-ch27",
+        "ghec-ch32",
+        "ghec-ch55",
+        "ghec-ch53",
+        "ghec-ch56",
+        "ghec-ch57",
+        "ghec-ch58",
+        "ghec-ch30",
+        "ghec-ch34"
+      ]
     }
   ]
 }

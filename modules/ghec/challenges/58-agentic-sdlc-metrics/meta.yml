@@ -1,0 +1,32 @@
+id: ghec-ch58
+title: Agentic SDLC metrics
+module: ghec
+track: agentic-sdlc
+difficulty: intermediate
+duration_minutes: 90
+prerequisites:
+  - ghec-ch53
+prerequisite_capabilities:
+  - Read access to pull request history for one repository
+  - GitHub CLI authenticated
+  - A named owner who decides whether to widen or narrow auto-merge
+description: "Measure agent pull requests and decide whether to widen or narrow auto-merge."
+tags:
+  - metrics
+  - dora
+  - auto-merge
+  - copilot-usage
+  - gh-cli
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+provision_creates: []
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/58-agentic-sdlc-metrics/meta.yml
+license: MIT
+references:
+  - https://cli.github.com/manual/gh_pr_list
+  - https://docs.github.com/en/copilot/concepts/copilot-usage-metrics/copilot-metrics
+  - https://docs.github.com/en/rest/copilot/copilot-metrics
+  - https://dora.dev/guides/dora-metrics/

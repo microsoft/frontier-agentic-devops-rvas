@@ -1,0 +1,33 @@
+id: ghec-ch57
+title: Maintenance agents
+module: ghec
+track: agentic-sdlc
+difficulty: intermediate
+duration_minutes: 120
+prerequisites:
+  - ghec-ch53
+  - ghaw-00
+prerequisite_capabilities:
+  - Admin access to one customer repository
+  - gh-aw CLI installed. See ghaw-00.
+  - Risk-tiered merge from ghec-ch53, so maintenance pull requests have a route to merge
+description: "Keep dependencies and flaky tests under control with agents that open reviewable pull requests."
+tags:
+  - dependabot
+  - maintenance
+  - agentic-workflows
+  - flaky-tests
+  - upgrades
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+provision_creates: []
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/57-maintenance-agents/meta.yml
+license: MIT
+references:
+  - https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference
+  - https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/customizing-dependency-updates
+  - https://github.com/github/gh-aw
+  - https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-automations

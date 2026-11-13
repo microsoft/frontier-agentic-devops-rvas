@@ -1,0 +1,36 @@
+id: ghec-ch56
+title: Agent trust controls
+module: ghec
+track: agentic-sdlc
+difficulty: advanced
+duration_minutes: 120
+prerequisites:
+  - ghec-ch30
+  - ghec-ch34
+prerequisite_capabilities:
+  - Organization owner or Copilot policy admin access
+  - A named security owner who approves agent network and tool access
+  - Access to the audit log and Copilot usage reporting
+description: "Limit what agents can reach, record what they did, and cap what they cost."
+tags:
+  - agent-firewall
+  - mcp
+  - least-privilege
+  - audit-log
+  - prompt-injection
+  - budgets
+app_dependency: none
+emu_compatible: false
+min_environment: org
+provision_creates: []
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/56-agent-trust-controls/meta.yml
+license: MIT
+references:
+  - https://docs.github.com/en/copilot/concepts/agents/cloud-agent/risks-and-mitigations
+  - https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/customize-the-agent-firewall
+  - https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/extend-cloud-agent-with-mcp
+  - https://docs.github.com/en/copilot/concepts/agents/cloud-agent/access-management
+  - https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization
+  - https://docs.github.com/en/billing/concepts/budgets-and-alerts

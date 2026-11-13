@@ -11,7 +11,7 @@ modules/
 │       ├── meta.yml     ← field template with comments
 │       └── README.md    ← delivery team guide template
 │
-├── ghec/                ← GitHub Enterprise Cloud (36 active activities)
+├── ghec/                ← GitHub Enterprise Cloud (42 active activities)
 │   ├── resources/       ← provisioning scripts and governance templates
 │   └── challenges/
 │       └── <slug>/      ← one directory per activity

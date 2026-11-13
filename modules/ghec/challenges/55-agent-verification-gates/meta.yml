@@ -1,0 +1,35 @@
+id: ghec-ch55
+title: Agent verification gates
+module: ghec
+track: agentic-sdlc
+difficulty: advanced
+duration_minutes: 120
+prerequisites:
+  - ghec-ch27
+  - ghec-ch32
+prerequisite_capabilities:
+  - Admin access to one customer repository with CodeQL and a test suite
+  - A pull request written by Copilot cloud agent, or a human pull request to use instead
+  - A named reviewer who can judge the test results
+description: "Check agent pull requests with tests, code scanning, code quality, and review before merge."
+tags:
+  - verification
+  - codeql
+  - code-quality
+  - copilot-code-review
+  - required-checks
+  - tests
+app_dependency: none
+emu_compatible: false
+min_environment: repo
+provision_creates: []
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/55-agent-verification-gates/meta.yml
+license: MIT
+references:
+  - https://docs.github.com/en/copilot/concepts/agents/cloud-agent/risks-and-mitigations
+  - https://docs.github.com/en/code-security/code-scanning/managing-your-code-scanning-configuration/set-code-scanning-merge-protection
+  - https://docs.github.com/en/code-security/code-scanning/managing-code-scanning-alerts/about-autofix-for-codeql-code-scanning
+  - https://docs.github.com/en/copilot/concepts/agents/code-review
+  - https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets

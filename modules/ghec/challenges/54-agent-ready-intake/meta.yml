@@ -1,0 +1,33 @@
+id: ghec-ch54
+title: Agent-ready intake
+module: ghec
+track: agentic-sdlc
+difficulty: intermediate
+duration_minutes: 90
+prerequisites:
+  - ghec-ch01
+prerequisite_capabilities:
+  - Write access to one customer repository
+  - Copilot cloud agent enabled for that repository
+  - Three real backlog items the team could hand to an agent
+description: "Write issues an agent can finish, and decide which work to hand over."
+tags:
+  - issue-forms
+  - cloud-agent
+  - copilot-instructions
+  - custom-agents
+  - task-sizing
+app_dependency: none
+emu_compatible: false
+min_environment: repo
+provision_creates: []
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/54-agent-ready-intake/meta.yml
+license: MIT
+references:
+  - https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/create-a-pr
+  - https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent
+  - https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/best-practices
+  - https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms
+  - https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions

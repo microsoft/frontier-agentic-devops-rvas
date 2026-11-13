@@ -27,12 +27,13 @@ With no outcome selected, the catalog groups all active activities by session ty
 | `platform-migration` | Migrate development platforms. |
 | `ghas-adoption` | Strengthen application security. |
 | `agentic-workflows` | Automate development tasks with AI. |
+| `agentic-sdlc` | Run delivery with agents. |
 
 ## Modules
 
 | Module ID | Name | Activities | Tracks |
 |---|---|---|---|
-| `ghec` | GitHub Enterprise Cloud | 36 | Getting Started, Developer Flow, Admin & Governance, Security, Automation & AI, Migration |
+| `ghec` | GitHub Enterprise Cloud | 42 | Getting Started, Developer Flow, Admin & Governance, Security, Automation & AI, Agentic SDLC, Migration |
 | `ghas` | GitHub Advanced Security | 9 | Getting Started, Admin & Governance, Developer Flow |
 | `ghaw` | GitHub Agentic Workflows | 6 | Getting Started, Pull Requests & Issues, Repository Operations |
 

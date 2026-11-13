@@ -1,0 +1,7 @@
+{
+  "high": ["**/auth/**", "**/migrations/**", "infra/**", "terraform/**", ".github/workflows/**", ".github/CODEOWNERS", "**/Dockerfile"],
+  "low": ["docs/**", "**/*.md", "**/*.test.*", "tests/**", "package-lock.json", "package.json"],
+  "dependencyManifests": ["package.json", "package-lock.json", "requirements*.txt", "go.mod", "go.sum", "pom.xml"],
+  "maxLowChangedLines": 150,
+  "requiredApprovals": { "low": 0, "medium": 1, "high": 1 }
+}

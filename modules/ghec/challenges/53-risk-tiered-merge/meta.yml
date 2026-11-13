@@ -1,0 +1,35 @@
+id: ghec-ch53
+title: Risk-tiered merge
+module: ghec
+track: agentic-sdlc
+difficulty: advanced
+duration_minutes: 150
+prerequisites:
+  - ghec-ch02
+  - ghec-ch08
+prerequisite_capabilities:
+  - Admin access to one customer repository with Actions enabled
+  - A required CI check already running on pull requests
+  - A named repository owner who approves which changes may merge without human review
+description: "Merge low-risk pull requests automatically and route the rest to the right reviewers."
+tags:
+  - auto-merge
+  - merge-queue
+  - rulesets
+  - risk
+  - codeowners
+  - dependabot
+app_dependency: none
+emu_compatible: true
+min_environment: repo
+provision_creates: []
+tier: core
+source_repo: microsoft/frontier-agentic-devops-rvas
+source_path: modules/ghec/challenges/53-risk-tiered-merge/meta.yml
+license: MIT
+references:
+  - https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/automatically-merging-a-pull-request
+  - https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue
+  - https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets
+  - https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+  - https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#pull_request_target
