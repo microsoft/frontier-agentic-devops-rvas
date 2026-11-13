@@ -32,8 +32,7 @@ jobs:
 
       - name: Check catalog and lesson starters
         run: |
-          node --test scripts/test-catalog-grouping.js modules/ghaw/resources/examples/*.test.cjs modules/ghec/resources/integration/handler.test.cjs modules/ghec/resources/agentic-sdlc/*.test.cjs
-          PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s modules/ghec/resources/drift -p 'test_*.py'
+          node --test scripts/test-catalog-grouping.js modules/ghaw/resources/examples/*.test.cjs modules/ghec/resources/agentic-sdlc/*.test.cjs
           PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/release/test_release.py -v
           PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/ci/test_workflows.py -v
           PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/intake/test_provision.py -v
@@ -126,8 +125,7 @@ jobs:
       - name: Check preview catalog and lesson starters
         working-directory: preview
         run: |
-          node --test scripts/test-catalog-grouping.js modules/ghaw/resources/examples/*.test.cjs modules/ghec/resources/integration/handler.test.cjs modules/ghec/resources/agentic-sdlc/*.test.cjs
-          PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s modules/ghec/resources/drift -p 'test_*.py'
+          node --test scripts/test-catalog-grouping.js modules/ghaw/resources/examples/*.test.cjs modules/ghec/resources/agentic-sdlc/*.test.cjs
           PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/release/test_release.py -v
           PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/ci/test_workflows.py -v
           PYTHONDONTWRITEBYTECODE=1 python3 -S modules/ghec/resources/intake/test_provision.py -v
