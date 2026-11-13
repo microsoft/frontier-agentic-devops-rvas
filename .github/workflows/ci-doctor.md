@@ -19,6 +19,10 @@ permissions: read-all
 
 network: defaults
 
+engine:
+  id: copilot
+  copilot-sdk: true
+
 safe-outputs:
   create-issue:
     title-prefix: "[ci-doctor] "

@@ -22,6 +22,11 @@ jobs:
       - name: Run build & content audit
         run: npm run audit:content
 
+      - name: Check agentic workflow compatibility
+        run: |
+          node --test scripts/test-agentic-workflow-locks.js
+          node scripts/check-agentic-workflow-locks.js
+
       - name: Check catalog and lesson starters
         run: |
           node --test scripts/test-catalog-grouping.js modules/ghaw/resources/examples/*.test.cjs modules/ghec/resources/integration/handler.test.cjs

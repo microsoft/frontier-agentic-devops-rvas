@@ -2,6 +2,9 @@ version: 2
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
+    ignore:
+      # Regenerate with gh aw compile to keep the runtime and compiler aligned.
+      - dependency-name: "github/gh-aw-actions/setup"
     groups:
       github-actions:
         patterns: ["*"]

@@ -7,6 +7,9 @@ permissions:
   contents: read
   issues: read
 network: defaults
+engine:
+  id: copilot
+  copilot-sdk: true
 timeout-minutes: 10
 tools:
   github:
